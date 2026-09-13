@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236593, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237326, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236593 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+OEIS A237326 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$30$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=256$
+$32$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=320$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,50 +31,49 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A236593 is ``Number of (n+1) X (1+1) 0..3 arrays colored with the maximum plus the lower median minus the upper median of every 2 X 2 subblock.''. It has offset $1$ and begins
+OEIS A237326 is ``Number of (n+1)X(2+1) 0..2 arrays with the maximum plus the upper median plus the lower median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-256, 2680, 28462, 299860, 3170170, 33464862, 353620413, 3734464032,\ \dots
+320, 1660, 8588, 45996, 242644, 1279474, 6740992, 36117846,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 228*a(n-3) +4444*a(n-4) +26860*a(n-5) +199516*a(n-6) +996364*a(n-7) +3705320*a(n-8) +13499808*a(n-9) +25601888*a(n-10) +14952840*a(n-11) -130642448*a(n-12) -962412704*a(n-13) -2466578880*a(n-14) -4035028800*a(n-15) -1747881600*a(n-16) +22863611776*a(n-17) +64446978816*a(n-18) +95058119168*a(n-19) +30350067968*a(n-20) -286392538112*a(n-21) -480382513152*a(n-22) -374780002304*a(n-23) -81963192320*a(n-24) +870991036416*a(n-25) +896862126080*a(n-26) +197175607296*a(n-27) +243228475392*a(n-28) -140043091968*a(n-29) -70948749312*a(n-30).
+Empirical: a(n) = 886*a(n-4) -81785*a(n-8) +2512316*a(n-12) -31242554*a(n-16) +155011102*a(n-20) -288082700*a(n-24) +141692576*a(n-28) +6787392*a(n-32) for n>34
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 11 2023 11:02:43, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:05:07, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid. Colour each of them by $\sigma=b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
-asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
-vertically, must receive different colours.
+The $2\times2$ subblocks of an $(n+1)\times3$ array form an
+$n\times2$ grid, and each carries the value $\sigma=-a+b+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
 
-That reading is fixed by the entries themselves rather than guessed. Take the upper median
-over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
-$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
-arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
-qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
-would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
-would give $0$ at $3\times3$, so neither is what is meant.
+At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $320$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-A subblock's colour is decided by two consecutive rows of the array, and
-the vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
-must be properly coloured along itself and must differ from the previous subblock row in every
-position. An $(n+1)$-row array is a walk of $n-1$ steps, so
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=256$ pairs whose own subblock row is properly coloured.
+over the $S=320$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{30}-\sum_i c_it^{30-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +81,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+30}-\sum_ic_iM^{j+30-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,15 +90,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;228\,a(n-3) + 4444\,a(n-4) + 26860\,a(n-5) + 199516\,a(n-6) + 996364\,a(n-7) + 3705320\,a(n-8) + 13499808\,a(n-9) + 25601888\,a(n-10) + 14952840\,a(n-11) - 130642448\,a(n-12) - 962412704\,a(n-13) - 2466578880\,a(n-14) - 4035028800\,a(n-15) - 1747881600\,a(n-16) + 22863611776\,a(n-17) + 64446978816\,a(n-18) + 95058119168\,a(n-19) + 30350067968\,a(n-20) - 286392538112\,a(n-21) - 480382513152\,a(n-22) - 374780002304\,a(n-23) - 81963192320\,a(n-24) + 870991036416\,a(n-25) + 896862126080\,a(n-26) + 197175607296\,a(n-27) + 243228475392\,a(n-28) - 140043091968\,a(n-29) - 70948749312\,a(n-30)
+a(n)\;=\;886\,a(n-4) - 81785\,a(n-8) + 2512316\,a(n-12) - 31242554\,a(n-16) + 155011102\,a(n-20) - 288082700\,a(n-24) + 141692576\,a(n-28) + 6787392\,a(n-32)
 \]
-for every $n>30$.
+for every $n>34$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -119,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236593.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237326.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

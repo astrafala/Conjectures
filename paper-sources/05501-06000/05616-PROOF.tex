@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283688, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A282859, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283688 counts $n\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A282859 counts $n\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
-order $40$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=580$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=275$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283688 is ``Number of nX5 0..1 arrays with no 1 equal to more than two of its horizontal, diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A282859 is ``Number of nX5 0..1 arrays with no 1 equal to more than one of its horizontal, vertical and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-32, 548, 8687, 149840, 2530461, 42865601, 726353972, 12304063774,\ \dots
+24, 251, 2562, 28537, 305430, 3303160, 35681883, 385325426,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) +29*a(n-2) +280*a(n-3) +866*a(n-4) +7560*a(n-5) -15216*a(n-6) -103844*a(n-7) -382425*a(n-8) +41082*a(n-9) +1766018*a(n-10) +5274831*a(n-11) +4250191*a(n-12) +1787098*a(n-13) -6022845*a(n-14) -10585488*a(n-15) -37960570*a(n-16) -50768733*a(n-17) -22088020*a(n-18) +45185414*a(n-19) +74517081*a(n-20) +51074574*a(n-21) +25245387*a(n-22) -4384455*a(n-23) -8853491*a(n-24) -2074893*a(n-25) +3542336*a(n-26) +1834829*a(n-27) -396742*a(n-28) -450606*a(n-29) -1052924*a(n-30) -261819*a(n-31) +18221*a(n-32) +82756*a(n-33) +1707*a(n-34) +6452*a(n-35) +6158*a(n-36) +1084*a(n-37) +688*a(n-38) -1304*a(n-39) +192*a(n-40)
+Empirical: a(n) = a(n-1) +61*a(n-2) +358*a(n-3) +1113*a(n-4) +2413*a(n-5) +3379*a(n-6) +1124*a(n-7) -8938*a(n-8) -16081*a(n-9) -6340*a(n-10) +6638*a(n-11) +30086*a(n-12) +282342*a(n-13) -1039675*a(n-14) +1528537*a(n-15) -1806567*a(n-16) +2635369*a(n-17) -2835808*a(n-18) +2024657*a(n-19) -1772432*a(n-20) +1448395*a(n-21) -608689*a(n-22) +411486*a(n-23) -471618*a(n-24) +271632*a(n-25) -126978*a(n-26) +72574*a(n-27) -60803*a(n-28) +33770*a(n-29) +15733*a(n-30) -22027*a(n-31) +9196*a(n-32) -4582*a(n-33) +2225*a(n-34) -616*a(n-35) -99*a(n-36) +251*a(n-37) -83*a(n-38) +23*a(n-39) -32*a(n-40) +5*a(n-41) +a(n-43)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 14 2017 16:13:54, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Feb 23 2017 08:07:24, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -49,10 +49,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every 1 has at most 1 neighbouring 1s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
 over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
@@ -81,7 +81,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{40}-\sum_i c_it^{40-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
 recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
@@ -89,7 +89,7 @@ large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+40}-\sum_ic_iM^{j+40-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
 characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
@@ -98,24 +98,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) + 29\,a(n-2) + 280\,a(n-3) + 866\,a(n-4) + 7560\,a(n-5) - 15216\,a(n-6) - 103844\,a(n-7) - 382425\,a(n-8) + 41082\,a(n-9) + 1766018\,a(n-10) + 5274831\,a(n-11) + 4250191\,a(n-12) + 1787098\,a(n-13) - 6022845\,a(n-14) - 10585488\,a(n-15) - 37960570\,a(n-16) - 50768733\,a(n-17) - 22088020\,a(n-18) + 45185414\,a(n-19) + 74517081\,a(n-20) + 51074574\,a(n-21) + 25245387\,a(n-22) - 4384455\,a(n-23) - 8853491\,a(n-24) - 2074893\,a(n-25) + 3542336\,a(n-26) + 1834829\,a(n-27) - 396742\,a(n-28) - 450606\,a(n-29) - 1052924\,a(n-30) - 261819\,a(n-31) + 18221\,a(n-32) + 82756\,a(n-33) + 1707\,a(n-34) + 6452\,a(n-35) + 6158\,a(n-36) + 1084\,a(n-37) + 688\,a(n-38) - 1304\,a(n-39) + 192\,a(n-40)
+a(n)\;=\;a(n-1) + 61\,a(n-2) + 358\,a(n-3) + 1113\,a(n-4) + 2413\,a(n-5) + 3379\,a(n-6) + 1124\,a(n-7) - 8938\,a(n-8) - 16081\,a(n-9) - 6340\,a(n-10) + 6638\,a(n-11) + 30086\,a(n-12) + 282342\,a(n-13) - 1039675\,a(n-14) + 1528537\,a(n-15) - 1806567\,a(n-16) + 2635369\,a(n-17) - 2835808\,a(n-18) + 2024657\,a(n-19) - 1772432\,a(n-20) + 1448395\,a(n-21) - 608689\,a(n-22) + 411486\,a(n-23) - 471618\,a(n-24) + 271632\,a(n-25) - 126978\,a(n-26) + 72574\,a(n-27) - 60803\,a(n-28) + 33770\,a(n-29) + 15733\,a(n-30) - 22027\,a(n-31) + 9196\,a(n-32) - 4582\,a(n-33) + 2225\,a(n-34) - 616\,a(n-35) - 99\,a(n-36) + 251\,a(n-37) - 83\,a(n-38) + 23\,a(n-39) - 32\,a(n-40) + 5\,a(n-41) + a(n-43)
 \]
-for every $n>40$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $40$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=40+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=43+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>40$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>43$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283688.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282859.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -225,6 +225,40 @@ transients eventually periodic in n, which makes the count quasi-linear without 
 repeating itself. That is the same obstacle as the 82 `ca2d` names with no growth certificate,
 and one mechanism would settle both.
 
+## J. `latpoly` with a CONSTANT in the condition (13 September 2026)
+
+**The bound that was missing is computable.** A condition that is not homogeneous in `(x, n)`
+was refused outright: the region is a shifted polyhedron and the count is a quasi-polynomial
+only past some n_0. But the arrangement's shape in x-space changes exactly where L+1 of the
+hyperplanes are concurrent, and solving each (L+1)-subset as a square system in `(x, n)` gives
+the largest such n. Past it the combinatorial type is constant, the vertices are affine in n
+with the same determinants, and the parametric-polytope theorem gives the quasi-polynomial;
+the terms below raise the numerator's degree by n_0 and no more. The annihilator is
+`z^(n_0+1) A(z)`, which for a homogeneous condition is the `z A(z)` already in use.
+
+**The pool, measured on the whole clone.** 6,676 names of the fixed-length growing-alphabet
+shape sit outside the roster; 6,124 are read by no engine; **245 of those are open and carry a
+parsable conjectured recurrence**. Of the 245:
+
+* **113 have a head `latpoly` already parses** and were refused only by the vocabulary. Three
+  families are now read (22 names, 16 proved and installed). What is left there, by size:
+  - 43 `no repeated value differing from the previous repeated value by ...` and its variants.
+    A repeated value is a term equal to the one before it; for FIXED length over 0..n the
+    condition is linear in the values once the pattern of repeats is fixed, so it is a finite
+    union of cones and the same machinery applies — but the DP needs a state carrying the
+    previous repeated value, which `latpoly`'s window DP does not have. `repval` has exactly
+    that state and reads the MIRROR shape (`length-n 0..K`, growing length and fixed alphabet).
+    Marrying the two is the single largest piece left in this vein.
+  - ~15 `the sum of <statistic of adjacent pairs or triples> multiplied by some arrangement of
+    +-1 equal to zero`. The sign-arrangement accumulator already exists; what is missing is the
+    statistic (max, min, median of a window) as an accumulator input.
+  - 7 `no adjacent pair x,x+1 repeated` / `followed at any distance by x+1,x`.
+  - 6 `nondecreasing average value`, 3 `the sum ahead of each element ...` — prefix sums.
+* **132 have a name shape nothing reads.** By size: 31 `N-bead necklaces labeled with ...`
+  (the necklace engine's shape, different wording), 9 `4X4X4 / 3X3X3 triangular 0..n arrays`,
+  8 `3 X 3 0..n arrays`, 7 `strictly increasing arrangements`, 6 `second differences of
+  arrays`, 5 `arrays of median of ...`, and a tail of two-dimensional fixed shapes.
+
 ## I. The block template, and the two-dimensional certificate it does NOT give (13 Sep 2026)
 
 **Done and installed.** `ecashape` finds, for a one-dimensional automaton,

@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183899, proved from an exact model}
+\title{The empirical recurrence for OEIS A221544, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183899 carries an empirical recurrence of order $5$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+OEIS A221544 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=13$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,51 +31,59 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A183899 is ``Number of nondecreasing arrangements of n+3 numbers in 0..4 with each number being the sum mod 5 of three others.''. It has offset $1$ and begins
+OEIS A221544 is ``Number of 0..n arrays of length 6 with each element differing from at least one neighbor by something other than 1, starting with 0.''. It has offset $1$ and begins
 \[
-1, 5, 66, 174, 329, 539, 815, 1169,\ \dots
+5, 54, 364, 1386, 4018, 9665, 20386, 39007,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/24)*n\^{}4 + (11/12)*n\^{}3 + (179/24)*n\^{}2 + (199/12)*n - 81 for n>3. a(n) = 5*a(n-1) - 10*a(n-2) + 10*a(n-3) - 5*a(n-4) + a(n-5) for n>8.
+Empirical: a(n) = 1*n\^{}5 + 2*n\^{}4 - 6*n\^{}3 + 21*n\^{}2 - 31*n + 23 for n>4. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 05 2018 10:27:10, revision 8)
+As of the ``Last modified'' line on the live entry (Aug 08 2018 09:07:50, revision 9)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial}
+\section{The count is a quasi-polynomial}
 
-A NONDECREASING arrangement is determined by its multiset of values, so an admissible
-arrangement is exactly an admissible multiset. The condition names how many other entries a
-value must be built from, and a condition of that shape cannot distinguish a value occurring
-$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
-whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
-once by enumeration over the capped profiles.
-
-Given an admissible capped profile with $F$ the total multiplicity of the values capped below
-the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
-profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
-over the list with $\ell$ the entry's own length.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
 \section{The bound}
 
-Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
-size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
-$S=5$.
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=13$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
 
-Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
-below is not zero. A profile with no value at the cap contributes the indicator
-$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
-$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
-$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
-$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
-is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
-threshold up, and the run of zeros it uses lies entirely above the transient.
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=13$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -89,23 +97,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
-for every $n>8$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=8+1$ onwards, and the run exceeds $S+5$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=10+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $39$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -118,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183899.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221544.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

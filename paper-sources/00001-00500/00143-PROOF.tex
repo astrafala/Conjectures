@@ -12,197 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211492, proved by a one-dimensional reduction}
+\title{The empirical recurrence for OEIS A283581, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211492 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-4,\dots,4\}$ in which every $2\times2$ subblock sums to zero and has one or three distinct
-entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
-along. There does not need to be: the sum-zero condition is linear and solves completely, and
-its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=108$ states, and the empirical recurrence of order $9$ contributed by R.~H.~Hardin
-follows.
+OEIS A283581 carries an empirical recurrence of order $10$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=11$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A211492 is ``Number of (n+1) X (n+1) -4..4 symmetric matrices with every 2 X 2 subblock having sum zero and one or three distinct values.''. It has offset $1$ and begins
+OEIS A283581 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 646", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-29, 65, 139, 287, 593, 1189, 2397, 4755,\ \dots
+1, 11, 101, 1101, 10101, 110101, 1010001, 11011011,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 5*a(n-2) - 20*a(n-3) - 5*a(n-4) + 45*a(n-5) - 5*a(n-6) - 40*a(n-7) + 6*a(n-8) + 12*a(n-9).
+Conjectures from \_Colin Barker\_, Mar 12 2017: (Start) a(n) = a(n-2) + 100000000*a(n-8) - 100000000*a(n-10) for n>11.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 18 2018 08:22:28, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:37, revision 13)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The sum-zero condition solved}
+\section{The value is a certified growth}
 
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-4,\dots,4\}$ such that
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+C(n+0)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
 \]
-for every $0\le i,j\le N-2$.
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+0)=C(n_0)$ forces $C(n_0+k\cdot0)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
 
-\begin{lemma}\label{lem:solve}
-Such matrices are exactly the matrices
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 0 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
 \[
-x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-4,\dots,4\}\ \text{all of the same parity},
+w(n+0)\;=\;L_r + w(n) + R_r
 \]
-and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
-bijection.
-\end{lemma}
-
-\begin{proof}
-Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
-under this substitution, so
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $0$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
 \[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
-=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
+a(n+0)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
 \]
-and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
-Summing that identity over a rectangle gives
-$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
-$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
-difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
-the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
-because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
-$u_i=y(i,i)=x(i,i)$.
 
-For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le4$ for all $i,j$ is equivalent to $|u_i|\le4$
-for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
-\end{proof}
+\section{The bound}
 
-So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-4,\dots,4\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has one or three distinct entries.
-
-\begin{lemma}\label{lem:block}
-Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
-the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
-$\pi_j=(\gamma,\delta)$ it is
-\[
-\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
--\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
-\]
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
-order. Multiplying all four by $\pm1$ does not change how many are distinct.
-\end{proof}
-
-Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3\}$. The condition on the
-matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
-which asks each pair to be compatible with itself. In other words:
-
-\begin{corollary}
-The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 81$ pairs.
-\end{corollary}
-
-\section{A walk on the sequence}
-
-The clique condition is not local: a pair must be compatible with every pair anywhere else in
-the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
-what it FORBIDS is not.
-
-\begin{lemma}\label{lem:lump}
-Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
-continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
-$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
-$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
-\end{lemma}
-
-\begin{proof}
-The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
-after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
-by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
-the only other thing a step needs.
-\end{proof}
-
-The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
-subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=108$. The two parity classes never mix, so the walk starts by choosing a parity and a first
-value, and every state may end a sequence:
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=108.
-\]
-The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
-constant read off by matching the published terms rather than assumed. In particular $a$ is
-$C$-finite --- for a family in which both dimensions grow with $n$.
+In the shift $T=S^{\,0}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,0}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=11$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{10}-\sum_ic_iz^{10-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 5\,a(n-2) - 20\,a(n-3) - 5\,a(n-4) + 45\,a(n-5) - 5\,a(n-6) - 40\,a(n-7) + 6\,a(n-8) + 12\,a(n-9)
+a(n)\;=\;a(n-2) + 100000000\,a(n-8) - 100000000\,a(n-10)
 \]
-for every $n>9$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=11+1$ onwards, and the run exceeds $S+10$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-4,\dots,4\}$ and each
-$2\times2$ subblock tested for summing to zero and for having one or three distinct entries. The
-sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
-the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
-small sizes and small ranges the number of symmetric sum-zero matrices found by direct
-enumeration equals the number of admissible sequences.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211492.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283581.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

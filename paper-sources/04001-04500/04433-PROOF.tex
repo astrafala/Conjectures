@@ -12,127 +12,146 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280410, proved from an exact model}
+\title{The empirical closed form and generating function for OEIS A194933, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280410 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A194933 counts the lower triangles of a $4\times4$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A280410 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 261", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A194933 is ``Number of lower triangles of a 4 X 4 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
 \[
-1, 10, 1, 1110, 1, 111110, 1, 11111110,\ \dots
+1024, 5873, 12474, 19379, 26316, 33255,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Jan 03 2017: (Start) a(n) = 101*a(n-2) - 100*a(n-4) for n>3.
+Empirical: a(n) = 6939*n - 8379 for n>4.
+
+Empirical g.f.: x*(1024 + 3825*x + 1752*x\^{}2 + 304*x\^{}3 + 32*x\^{}4 + 2*x\^{}5) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:36, revision 12)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (May 05 2018 20:42:29, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{The value is a certified growth}
+\section{What is being counted}
 
-The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
-takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
-sequence is that the CONFIGURATION is periodic in time:
+The lower triangle of a $4\times4$ array is the set of cells $(i,j)$ with $0\le j\le
+i<4$, so there are $T=10$ of them. Two cells are adjacent when they differ by one of the
+horizontal, vertical offsets, which here gives $12$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
-\]
-This was checked directly, and one instance of it is all that is needed: the automaton is a
-deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
-every $k$, and likewise in each residue class. No locality argument and no induction over
-boundary windows is involved.
-
-Getting the background right is the whole of the check. A rule taking an empty von Neumann
-neighbourhood to a live cell flips the ENTIRE plane, and rule 261 is read
-in that light: comparing two stages by padding the smaller with zeros would compare two
-different things.
-
-The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
-that is not changing, so the window widening by one cell on each side per step gives
-\[
-w(n+2)\;=\;L_r + w(n) + R_r
-\]
-with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
-identity that is now a consequence rather than an observation. Concatenation is multiplication
-by a power of the base $B$ and addition, so along a class
-\[
-a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
 \]
 
-\section{The bound}
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
 
-In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
-constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
-occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
-pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
+\section{Translation}
 
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
+\[
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+\]
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot6=6$, where $6$ is the
+diameter of the neighbour graph.
+\end{lemma}
+
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $6$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot6$.
+\end{proof}
+
+\section{The count}
+
+\begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;101\,a(n-2) - 100\,a(n-4)
+a(n)\;=\;6939\,n-8379\qquad\text{for every }n\ge5,
 \]
-for every $n>0$.
+and $\mathcal P$ has exactly $6939$ elements.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+For $n\ge6$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(6)$ and
+$a(6+1)$ were computed exactly, giving slope $6939$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=5$ was then read off by
+comparing it with the exact values of $a(n)$ below $6$, each computed the same way.
 \end{proof}
+
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $4+1$ of
+them --- so no array is ever written down.
+
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the count reproduces all $32$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $10$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{10}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280410.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A194933.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

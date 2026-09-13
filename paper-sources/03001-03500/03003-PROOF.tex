@@ -12,77 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268777, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203780, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268777 counts arrays of width $4$ over $\{0,1\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=38$ states.
+OEIS A203780 counts arrays of width $2$ over $\{0,1,2,3\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $9$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=32$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A268777 is ``Number of n X 4 binary arrays with some element plus some horizontally, vertically, diagonally or antidiagonally adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A203780 is ``Number of (n+1) X 2 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-13, 65, 316, 1462, 6383, 27531, 115391, 478849,\ \dots
+90, 565, 3352, 18332, 93578, 452825, 2103364, 9466880,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) + 10*a(n-2) - 32*a(n-3) - 47*a(n-4) + 40*a(n-5) + 38*a(n-6) - 12*a(n-7) - 9*a(n-8).
+Empirical: a(n) = 18*a(n-1) -139*a(n-2) +604*a(n-3) -1627*a(n-4) +2818*a(n-5) -3141*a(n-6) +2176*a(n-7) -852*a(n-8) +144*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 15 2019 09:11:04, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 04 2018 14:17:13, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across, with entries in $\{0,1\}$. An ADJACENT PAIR is a pair of cells
+The array $a$ has $2$ cells across, with entries in $\{0,1,2,3\}$. Two derived arrays are formed,
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
-\end{array}
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
 
-\section{A capped count is a state}
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,1)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+\section{Two rows decide it}
+
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=38.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=32.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -90,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -98,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -107,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 10\,a(n-2) - 32\,a(n-3) - 47\,a(n-4) + 40\,a(n-5) + 38\,a(n-6) - 12\,a(n-7) - 9\,a(n-8)
+a(n)\;=\;18\,a(n-1) - 139\,a(n-2) + 604\,a(n-3) - 1627\,a(n-4) + 2818\,a(n-5) - 3141\,a(n-6) + 2176\,a(n-7) - 852\,a(n-8) + 144\,a(n-9)
 \]
-for every $n>7$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -123,14 +118,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -140,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268777.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203780.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

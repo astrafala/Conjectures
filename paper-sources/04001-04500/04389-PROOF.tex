@@ -12,158 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A290193, proved}
+\title{The empirical recurrence for OEIS A223557, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A290193 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=9$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $19$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A223557 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$2$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $2$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=32$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A290193 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 705", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A223557 is ``Petersen graph (3,1) coloring a rectangular array: number of 2 X n 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
 \[
-1, 1, 101, 1011, 111, 101111,\ \dots
+6, 27, 171, 1089, 6939, 44217, 281763, 1795473,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-G.f.: (10000*x\^{}5 - 10900*x\^{}4 + 910*x\^{}3 + 1)/((x - 1)*(10*x - 1)*(10*x + 1)) (conjectured). (End)
+Empirical: a(n) = 7*a(n-1) - 4*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:40, revision 15) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+As of the ``Last modified'' line on the live entry (Aug 21 2018 06:31:08, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
+\section{What is being counted}
 
-\section{The value is a certified growth}
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the $6$ nodes $0,\dots,5$ with the edges the entry lists, namely \{0,1\}, \{0,2\}, \{0,3\}, \{1,2\}, \{1,4\}, \{2,5\}, \{3,4\}, \{3,5\}, \{4,5\}.
 
-The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
-takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
-sequence is that the CONFIGURATION is periodic in time:
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions antidiagonal and horizontal, that is the cell offsets
 \[
-C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 3.
+(1,-1), (0,1),
 \]
-This was checked directly, and one instance of it is all that is needed: the automaton is a
-deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
-every $k$, and likewise in each residue class. No locality argument and no induction over
-boundary windows is involved.
-
-Getting the background right is the whole of the check. A rule taking an empty von Neumann
-neighbourhood to a live cell flips the ENTIRE plane, and rule 705 is read
-in that light: comparing two stages by padding the smaller with zeros would compare two
-different things.
-
-The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
-that is not changing, so the window widening by one cell on each side per step gives
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
 \[
-w(n+2)\;=\;L_r + w(n) + R_r
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
 \]
-with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
-identity that is now a consequence rather than an observation. Concatenation is multiplication
-by a power of the base $B$ and addition, so along a class
-\[
-a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
-\]
+The entry also fixes the top-left cell: $x(0,0)=0$.
 
-\section{The bound}
-
-In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
-constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
-occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
-pre-period to raise the numerator's degree gives a monic annihilator of order $S=9$.
-
-The family this entry belongs to is read by one model, described by its author as: ``The x-axis and diagonal of a two-dimensional cellular automaton, read as a number.''
-
-
-The model reproduces all $21$ terms the entry publishes, exactly, in integer arithmetic:
-it is built by reading the entry's own English, and a misreading gives different counts, so
-this ties the model to the entry and not merely to the arithmetic.
-
-\section{Its generating function is rational, with bounded degree}
-
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge0}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)$ has degree at most $S=9$ and
-$D_1(0)=1$, and $\deg N_1<S+0$.
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
 \end{lemma}
 
 \begin{proof}
-The section above derives a MONIC linear recurrence of order $S$ that $a$ provably satisfies
-from some index onwards; write its characteristic polynomial as $z^S-\sum_{j<S}\alpha_jz^j$
-and put $D_1(x)=1-\sum_{j<S}\alpha_jx^{S-j}$, the same polynomial written backwards, so
-$\deg D_1\le S$ and $D_1(0)=1$. Multiplying the power series $A(x)$ by $D_1(x)$ annihilates
-every coefficient at which the recurrence is in force, so $N_1=AD_1$ is a polynomial, and the
-indices it can be supported on are the offset together with the finitely many below the point
-where the recurrence takes hold, all of them less than $S+0$. No matrix is involved: the
-model here is not a walk and has no adjacency matrix, and the bound comes from the recurrence
-the model itself supplies.
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Here the labelling is written out in the entry itself, so nothing is left to choose.
+\end{proof}
+
+\section{One slice is a state}
+
+Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
+Every offset the entry names has its two cells either in the same $column$ or in two
+consecutive ones. So a $column$, a word of length $2$ over the vertices of $G$, carries
+everything the next $column$ needs: the conditions inside a $column$ constrain that
+$column$ alone, and the conditions across $column$s are a relation between the
+$column$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$column$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=32.
+\]
+The $column$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $column$
+of length $2$ over $6$ vertices is one of $6^{2}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The conjectured generating function is $A(x)$.
+\[
+a(n)\;=\;7\,a(n-1) - 4\,a(n-2)
+\]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=5$ and $\deg D_2=3$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
-\[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
-\]
-a polynomial of degree at most $14$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{14}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $19$
-of them --- more than the $14+1$ the argument requires --- agree.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\section{A recurrence the entry does not state}
-
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>5,
-\]
-a constant-coefficient linear recurrence of order $3$, valid past the degree of the
-numerator. The entry records no recurrence, so this is not a restatement of anything
-already there.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $21$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A290193.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223557.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

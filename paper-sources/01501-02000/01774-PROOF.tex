@@ -12,111 +12,128 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A value repeated at its own distance: OEIS A210781}
+\title{The empirical recurrence for OEIS A264067, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210781 carries an empirical recurrence of order $49$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
-alphabet, so a window of that many lines decides it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=99$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A264067 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ rows in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=1$, the matching splits into
+independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
+every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
+partly used. Carrying those as bitmasks makes the count a walk on $S=1024$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A210781 is ``Number of n X 1 1..4 arrays with no element with value z exactly a city block distance of z from another element with value z.''. It has offset $1$ and begins
+OEIS A264067 is ``Number of (n+1) X (4+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 1,1 or 1,2.''. It has offset $1$ and begins
 \[
-4, 15, 53, 170, 497, 1407, 3962, 10867,\ \dots
+34, 605, 12100, 239580, 4745620, 94000060, 1861931060, 36880691100,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-2) +2*a(n-3) +4*a(n-4) +38*a(n-5) +106*a(n-6) +172*a(n-7) +596*a(n-8) +573*a(n-9) +971*a(n-10) +744*a(n-11) -1425*a(n-12) -4335*a(n-13) -10525*a(n-14) -11517*a(n-15) -13462*a(n-16) -6001*a(n-17) -4772*a(n-18) +619*a(n-19) +10548*a(n-20) +45667*a(n-21) +64053*a(n-22) +34800*a(n-23) -11095*a(n-24) -26829*a(n-25) +41629*a(n-26) +81493*a(n-27) -35792*a(n-28) -237880*a(n-29) -186310*a(n-30) +61561*a(n-31) +67920*a(n-32) -147561*a(n-33) -221267*a(n-34) -90437*a(n-35) -13145*a(n-36) +33145*a(n-37) +101632*a(n-38) +63235*a(n-39) +3056*a(n-40) -2932*a(n-41) -6086*a(n-42) -5505*a(n-43) +115*a(n-44) +649*a(n-45) +319*a(n-46) +258*a(n-47) +4*a(n-48) -24*a(n-49) for n>51.
+Empirical: a(n) = 19*a(n-1) +16*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2025 21:36:10, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Mar 26 2025 18:44:40, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The object is a matching}
 
-The entry counts arrays with $1$ column over the alphabet $\{1,2,3,4\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that no element of value $z$ may have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
-
-The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $4$. So nothing more than $4$ rows away can matter, and a cell's verdict is settled once the row $4$ beyond it has arrived.
-
-Carry the last $4$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
-
-Merging vertices with identical futures leaves $S=99$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The grid has $W=5$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-2),\ (-1,-1),\ (0,0),\ (1,1),\ (1,2)\},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
+
+\section{The matching is a walk}
+
+Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
+placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
+value with home row at most $i-R$ has been used up, and the only home rows that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home rows are already placed. One step fills
+the cells of one further row, drawing each of its $W$ values from a home row within $R$
+and at an allowed column offset, and the home row that closes at that step must come out
+full. Nonexistent home rows --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
+
+Hence $a$ is a walk count on $S=1024$ vertices,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms; in
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{49}-\sum_i c_it^{49-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+49}-\sum_ic_iM^{j+49-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-2) + 2\,a(n-3) + 4\,a(n-4) + 38\,a(n-5) + 106\,a(n-6) + 172\,a(n-7) + 596\,a(n-8) + 573\,a(n-9) + 971\,a(n-10) + 744\,a(n-11) - 1425\,a(n-12) - 4335\,a(n-13) - 10525\,a(n-14) - 11517\,a(n-15) - 13462\,a(n-16) - 6001\,a(n-17) - 4772\,a(n-18) + 619\,a(n-19) + 10548\,a(n-20) + 45667\,a(n-21) + 64053\,a(n-22) + 34800\,a(n-23) - 11095\,a(n-24) - 26829\,a(n-25) + 41629\,a(n-26) + 81493\,a(n-27) - 35792\,a(n-28) - 237880\,a(n-29) - 186310\,a(n-30) + 61561\,a(n-31) + 67920\,a(n-32) - 147561\,a(n-33) - 221267\,a(n-34) - 90437\,a(n-35) - 13145\,a(n-36) + 33145\,a(n-37) + 101632\,a(n-38) + 63235\,a(n-39) + 3056\,a(n-40) - 2932\,a(n-41) - 6086\,a(n-42) - 5505\,a(n-43) + 115\,a(n-44) + 649\,a(n-45) + 319\,a(n-46) + 258\,a(n-47) + 4\,a(n-48) - 24\,a(n-49)
+a(n)\;=\;19\,a(n-1) + 16\,a(n-2)
 \]
-for every $n>51$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $49$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and measures the distance between every pair
-of cells directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the transfer model reproduces all $18$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210781.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264067.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

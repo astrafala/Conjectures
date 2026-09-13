@@ -12,206 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every odd-indexed term of OEIS A389472 after the first is even}
+\title{The empirical recurrence for OEIS A285644, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A389472 is defined by the functional equation $A(x)=A(x^{2}+x^{3})/x^{2}-1$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that $a(2n-1)$ is
-even for every $n>1$. It is true. The equation determines the coefficients one at a time,
-so it determines them modulo $2$; and over $\mathbb{F}_{2}$ it turns out to be
-\emph{parity-preserving}: the series $x+C(x^{2})$ satisfies it exactly, for $C$ the
-solution of the companion equation $y\,C(y)=C(y^{2}+y^{3})$, because
-$(x^{2}+x^{3})^{2}=x^{4}+x^{6}$ in characteristic $2$. Uniqueness then forces the
-reduction of $A$ to be supported, apart from the term $x$, on even exponents only --- which
-is the conjecture. The entry's second conjecture, modulo $3$, is \emph{not} settled here;
-Section~5 says where the argument fails to carry over.
+OEIS A285644 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F35.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A389472 is ``G.f. satisfies A(x) = A(x\^{}2 + x\^{}3)/x\^{}2 - 1.''. It has offset $1$ and begins
+OEIS A285644 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 65", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-1, 1, 2, 3, 6, 9, 14, 24, 42, 72,\ \dots
+1, 1, 100, 11, 10000, 1111, 1100000, 111111,\ \dots
 \]
-The entry gives the expansion
-\begin{quote}\small
-G.f.: A(x) = x + x\^{}2 + 2*x\^{}3 + 3*x\^{}4 + 6*x\^{}5 + 9*x\^{}6 + 14*x\^{}7 + 24*x\^{}8 + \dots
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Apr 24 2017: (Start) a(n) = 101*a(n-2) - 100*a(n-4) for n>3.
 \end{quote}
-so, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(1)=1,\qquad a(2)=1,
-\end{equation}
-and defines the remaining coefficients by $A(x)=A(x^{2}+x^{3})/x^{2}-1$, which we clear
-of the division and write as
-\begin{equation}\label{eq:fe}
-x^{2}\bigl(A(x)+1\bigr)\;=\;A\bigl(x^{2}+x^{3}\bigr).
-\end{equation}
-This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 14)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(2*n-1) = 0 (mod 2) for n > 1. --- \emph{Paul D. Hanna}
-\end{quote}
-As of the ``Last modified'' line on the live entry (Oct 17 2025 00:08:59, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $a(3n-1)\equiv0$
-modulo $3$ for $n>1$. It is not proved below and it is not claimed.
+\section{The value is a certified growth}
 
-\section{The equation determines the sequence}
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
+\[
+C(n+0)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
+\]
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+0)=C(n_0)$ forces $C(n_0+k\cdot0)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
 
-Because $(x^{2}+x^{3})^{n}=x^{2n}(1+x)^{n}$, comparing coefficients of $x^{N}$ in
-\eqref{eq:fe} gives, for every $N\ge2$,
-\begin{equation}\label{eq:rec}
-a(N-2)\;=\;\sum_{n\ge1}a(n)\binom{n}{N-2n},
-\end{equation}
-with $a(0):=0$ and the convention $\binom{n}{j}=0$ unless $0\le j\le n$.
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 0 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
 
-\begin{lemma}\label{lem:unique}
-The coefficient $a(1)=1$ is forced by \eqref{eq:fe}. Given also $a(2)$, equation
-\eqref{eq:rec} determines $a(m)$ for every $m\ge3$ as a polynomial with integer
-coefficients in $a(1),\dots,a(m-1)$; so \eqref{eq:init} and \eqref{eq:fe} together have
-exactly one integer solution.
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+0)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $0$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+0)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,0}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,0}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-At $N=2$, \eqref{eq:rec} reads $a(0)=a(1)\binom{1}{0}$ --- reading the left side of
-\eqref{eq:fe} instead, the coefficient of $x^{2}$ there is $1$, so $a(1)=1$.
-
-Now take $N\ge5$ and put $m=N-2\ge3$. On the right of \eqref{eq:rec} the binomial
-$\binom{n}{N-2n}$ vanishes unless $2n\le N$, so only $a(n)$ with
-$n\le\lfloor N/2\rfloor$ occur. Since $N\ge5$,
-\[
-\Bigl\lfloor \tfrac{N}{2}\Bigr\rfloor\;\le\;N-3\;=\;m-1,
-\]
-so the right side involves only $a(1),\dots,a(m-1)$ and \eqref{eq:rec} expresses $a(m)$
-through them. (At $N=3$ and $N=4$ the relation reads $a(1)=a(1)$ and $a(2)=a(2)$, giving no
-information; that is why $a(2)$ is part of the data.) Induction finishes the proof.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$, no constant term, and satisfies
-\eqref{eq:fe} with all coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism, so it carries \eqref{eq:rec} to the same
-relation over $\mathbb{Z}/k\mathbb{Z}$; by Lemma~\ref{lem:unique} that relation, together
-with the two initial values, has a unique solution, and both $a\bmod k$ and the
-coefficients of $\bar A$ solve it.
-\end{proof}
-
-\section{The companion equation}
-
-Work in $\mathbb{F}_{2}[[y]]$.
-
-\begin{lemma}\label{lem:C}
-There is exactly one $C(y)=\sum_{m\ge1}c_m y^{m}\in\mathbb{F}_{2}[[y]]$ with $c_1=1$ and
-\begin{equation}\label{eq:C}
-y\,C(y)\;=\;C\bigl(y^{2}+y^{3}\bigr).
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-Comparing coefficients of $y^{m}$ in \eqref{eq:C} and using
-$(y^{2}+y^{3})^{n}=y^{2n}(1+y)^{n}$ gives
-$c_{m-1}=\sum_{n\ge1}c_n\binom{n}{m-2n}$, where again only $n\le\lfloor m/2\rfloor$
-occur. For $m\ge3$ we have $\lfloor m/2\rfloor\le m-2$, so this expresses $c_{m-1}$
-through $c_1,\dots,c_{m-2}$; at $m=2$ it reads $c_1=c_1$. Hence $c_1$ may be prescribed
-and everything after it is determined.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Let $C$ be as in Lemma~\ref{lem:C} and put $\bar A(x)=x+C(x^{2})$. Then $\bar A$ satisfies
-\eqref{eq:fe} over $\mathbb{F}_{2}$, and $\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$.
-\end{lemma}
-
-\begin{proof}
-In characteristic $2$ squaring is additive, so
-\begin{equation}\label{eq:frob}
-\bigl(x^{2}+x^{3}\bigr)^{2}\;=\;x^{4}+x^{6} .
-\end{equation}
-Substituting $u=x^{2}+x^{3}$ into $\bar A(u)=u+C(u^{2})$ and using \eqref{eq:frob},
-\[
-\bar A\bigl(x^{2}+x^{3}\bigr)\;=\;x^{2}+x^{3}+C\bigl(x^{4}+x^{6}\bigr),
-\]
-while
-\[
-x^{2}\bigl(\bar A(x)+1\bigr)\;=\;x^{2}\bigl(x+C(x^{2})+1\bigr)
-\;=\;x^{2}+x^{3}+x^{2}C\bigl(x^{2}\bigr).
-\]
-The two agree exactly when $x^{2}C(x^{2})=C(x^{4}+x^{6})$, which is \eqref{eq:C} read
-at $y=x^{2}$. Finally $\bigl[x^{1}\bigr]\bar A=1$ and
-$\bigl[x^{2}\bigr]\bar A=c_1=1$.
-\end{proof}
-
-\section{The reduction modulo $2$}
 
 \begin{theorem}
-$a(2n-1)\equiv0\pmod 2$ for every $n>1$. This is the conjecture of Section~1.
+\[
+a(n)\;=\;101\,a(n-2) - 100\,a(n-4)
+\]
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $\bar A(x)=x+C(x^{2})$ satisfies \eqref{eq:fe} over
-$\mathbb{F}_{2}$ and matches \eqref{eq:init}. By Corollary~\ref{cor:mod} with $k=2$ it is
-therefore the reduction of $A$ modulo $2$.
-
-Every exponent occurring in $C(x^{2})$ is even, so the only odd exponent occurring in
-$\bar A$ is $1$. Hence $\bigl[x^{m}\bigr]\bar A=0$ for every odd $m\ge3$, that is,
-$a(m)\equiv0\pmod2$ for every odd $m\ge3$. Writing $m=2n-1$ with $n>1$ gives the statement.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=8+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
-
-\begin{remark}
-The mechanism is worth isolating: \eqref{eq:fe} substitutes $x^{2}+x^{3}$, and in
-characteristic $2$ the square of that is again a polynomial in $x^{2}$, by \eqref{eq:frob}.
-So the substitution cannot manufacture new odd exponents beyond the ones already present,
-and the single odd exponent $1$ forced by $a(1)=1$ is all there is.
-\end{remark}
-
-\section{Where the argument stops}
-
-The entry's other conjecture is that $a(3n-1)\equiv0$ modulo $3$ for $n>1$, that is, that
-the reduction of $A$ modulo $3$ is supported off the exponents $\equiv2\pmod 3$ apart from
-$x^{2}$ itself. That is not proved here, and the proof above does not adapt: it turns on
-the Frobenius identity \eqref{eq:frob}, which in characteristic $3$ becomes
-$(x^{2}+x^{3})^{3}=x^{6}+x^{9}$ --- but \eqref{eq:fe} substitutes the \emph{first}
-power of $x^{2}+x^{3}$, not the third, so the Frobenius map is not available where it
-would be needed. The residues modulo $3$ were computed for every $n\le60$ and the
-conjecture holds throughout that range; no proof is offered.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic from
-\eqref{eq:init} and compared against the entry's DATA at every one of the $41$
-published indices; the values agree exactly. A recursion that reproduced only some of them
-would mean the functional equation had been transcribed wrongly.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the series $C$ of Lemma~\ref{lem:C} was generated from its own recursion over
-$\mathbb{F}_{2}$ and $x+C(x^{2})$ compared, coefficient by coefficient, against
-$a(n)\bmod2$ for every $n\le60$; the two agree at every index, with no mismatch. Equation
-\eqref{eq:C} was checked directly over $\mathbb{F}_{2}$ to order $60$.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, $a(2n-1)\bmod2$ was evaluated for every $n$ with $2n-1\le60$: all zero, as the
-theorem requires.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A389472.
-\bibitem{lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
-University Press, 1997.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A285644.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

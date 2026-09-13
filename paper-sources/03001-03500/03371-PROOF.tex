@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A188839, proved}
+\title{The empirical closed form for OEIS A207304, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188839 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A207304 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=32$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=784$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{6}$, of degree
 $6$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A188839 is ``Number of n X 5 binary arrays without the pattern 0 1 diagonally or vertically.''. It has offset $1$ and begins
+OEIS A207304 is ``Number of n X 7 0..1 arrays avoiding 0 0 0 and 1 0 1 horizontally and 0 0 1 and 1 1 0 vertically.''. It has offset $1$ and begins
 \[
-32, 144, 364, 728, 1288, 2108, 3264, 4845,\ \dots
+28, 784, 4344, 14446, 36868, 79802, 154228, 274288,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/120)*n\^{}5 + (7/24)*n\^{}4 + (89/24)*n\^{}3 + (473/24)*n\^{}2 + (1877/60)*n - 33 for n>2.
+Empirical: a(n) = (187/60)*n\^{}5 + (153/4)*n\^{}4 + (455/12)*n\^{}3 - (249/4)*n\^{}2 + (209/30)*n + 4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 30 2018 13:54:29, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 22 2018 07:08:36, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{n^{5}}{120} + \frac{7 n^{4}}{24} + \frac{89 n^{3}}{24} + \frac{473 n^{2}}{24} + \frac{1877 n}{60} - 33.
+f(n)\;=\;\frac{187 n^{5}}{60} + \frac{153 n^{4}}{4} + \frac{455 n^{3}}{12} - \frac{249 n^{2}}{4} + \frac{209 n}{30} + 4.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{n^{5}}{120} + \frac{7 n^{4}}{24} + \frac{89 n^{3}}{24} + \frac{47
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=32$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=784$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -105,43 +105,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge3$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
 The vector $w'=q(M)w$ was formed by $6$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=9$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=7$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>8$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+\eqref{eq:rec} for every $n>6$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
 identically. Both were then evaluated in exact arithmetic at the $6$ consecutive indices
-$n=9,\dots,14$ and agree at each. A monic recurrence of order $6$
-determines $a(m)$ from $a(m-1),\dots,a(m-6)$, and for every $m\ge15$ both
-$m>8$ and $m-6\ge9$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge9$.
-Below $n=9$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=9$ on. The remaining indices $n=3,\dots,8$ were
+$n=7,\dots,12$ and agree at each. A monic recurrence of order $6$
+determines $a(m)$ from $a(m-1),\dots,a(m-6)$, and for every $m\ge13$ both
+$m>6$ and $m-6\ge7$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge7$.
+Below $n=7$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=7$ on. The remaining indices $n=1,\dots,6$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: at $n=2$ the closed form and the sequence differ, so no larger range is available.
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $35$ terms the entry publishes,
+First, the walk model reproduces every one of the $27$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=3$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=3$, far past where the proof already settles the matter.
+$n=1$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188839.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207304.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

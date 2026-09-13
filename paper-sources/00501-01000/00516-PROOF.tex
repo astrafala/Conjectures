@@ -12,123 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A236884}
+\title{A bisection identity between OEIS A155543 and OEIS A090129}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236884 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 31]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+OEIS A155543 carries a conjecture that its $n$-th term equals the $(2n+2)$-nd term of
+OEIS A090129, the multiplicative order of $3$ modulo $2^{n}$. It is true. Both entries
+state closed forms as fact --- A090129's is the order computation $2^{n-2}$ for
+$n\ge3$, recorded there with a proof, and A155543's is a rational generating function ---
+and the two match term for term once the even index $2n+2$ is substituted. The identity
+holds at every index, including the one the comment excludes.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11A07, 11B37, 11A15.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The two sequences and the conjecture}
 
-OEIS A236884 is ``T(n,k) = Number of (n+1) X (k+1) 0..2 arrays with the maximum plus the upper median plus the lower median of every 2 X 2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A155543 is ``a(n) = 2*A081294(n).''. It has offset $0$ and begins
 \[
-81, 211, 211, 537, 669, 537, 1523, 2111,\ \dots
+2, 4, 16, 64, 256, 1024, 4096,\ \dots
 \]
-The entry carries, among its empirical claims:
+OEIS A090129 is ``Smallest exponent such that -1 + 3\^{}a(n) is divisible by 2\^{}n.''. It has offset $1$ and begins
+\[
+1, 2, 2, 4, 8, 16, 32, 64,\ \dots
+\]
+
+The entry A155543 carries the following comment:
 \begin{quote}\small
-k=2: [order 31]\\
-k=3: [order 63]
+Conjecture: a(n) = A090129(2*n+2). --- \emph{the entry (unattributed)}, undated
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 18 2022 18:00:45, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Jun 30 2026 22:40:50, revision 16) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way.
 
-\section{Why a line of the table is a walk count}
+Written out, the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(2n+2),
+\end{equation}
+where $a$ is A155543 and $b$ is A090129. A090129 has offset $1$, so $b(2n+2)$ is defined
+for every $n\ge0$.
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+\section{What each entry states as fact}
 
-\section{Recovering the recurrences}
+A090129 is defined as the smallest exponent $b(n)$ with $2^{n}\mid 3^{b(n)}-1$, that is,
+the multiplicative order of $3$ modulo $2^{n}$. The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = 2\^{}(n-2) if n >= 3, 1 for n=1 and 2 for n=2 (see the order comment above).
+\end{quote}
+that is,
+\begin{equation}\label{eq:b}
+b(1)=1,\qquad b(2)=2,\qquad b(n)=2^{\,n-2}\ \ (n\ge3).
+\end{equation}
+The entry also carries the reason, in a comment of W.~Lang: for $n\ge3$ the order of $3$
+modulo $2^{n}$ is $2^{n-2}$, with a reference for the argument. So that nothing here rests
+on a reference, that fact is proved from scratch in Section~4; \eqref{eq:b} is then not an
+assumption at all.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+A155543 states, not as a conjecture,
+\begin{quote}\small
+G.f.: 2*(1-2*x)/(1-4*x).
+\end{quote}
+Expanding, $\dfrac{2(1-2x)}{1-4x}=2\sum_{k\ge0}4^{k}x^{k}-4\sum_{k\ge0}4^{k}x^{k+1}
+=2+\sum_{k\ge1}\bigl(2\cdot4^{k}-4\cdot4^{k-1}\bigr)x^{k}$, and
+$2\cdot4^{k}-4^{k}=4^{k}$, so
+\begin{equation}\label{eq:a}
+a(0)=2,\qquad a(n)=4^{n}\ \ (n\ge1).
+\end{equation}
+Each was checked against its own entry's DATA at every published index before use:
+\eqref{eq:a} against all $24$ terms of A155543 and \eqref{eq:b} against all
+$36$ terms of A090129.
+
+\section{The order of $3$ modulo a power of $2$}
+
+Write $v_2(m)$ for the exponent of $2$ in the integer $m\ne0$.
+
+\begin{lemma}\label{lem:val}
+$v_2\bigl(3^{2^{k}}-1\bigr)=k+2$ for every $k\ge1$.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=102$ vertices. Berlekamp--Massey on $2S=204$ exact terms
-returns a minimal recurrence of order $31$ --- the order the entry states --- with
-integer coefficients
+\begin{proof}
+For $k=1$, $3^{2}-1=8$ and $v_2(8)=3$. Suppose the claim for some $k\ge1$. Factor
 \[
-(c_1,\dots,c_{31})=(14,\ -28,\ -459,\ 2258,\ 4418,\ -46337,\ 15855,\ 478245,\ -699780,\ -2810786,\ 6844631,\ 9089948,\ -36536014,\ -9754145,\ 120336673,\ -40121314,\ -248844918,\ 191784528,\ 308729988,\ -375062032,\ -194512520,\ 397632272,\ 14941536,\ -230210592,\ 50723072,\ 68301056,\ -26409216,\ -8429056,\ 4614144,\ 122880,\ -184320).
+3^{2^{k+1}}-1=\bigl(3^{2^{k}}-1\bigr)\bigl(3^{2^{k}}+1\bigr).
 \]
-so that $a(m)=\sum_{i=1}^{31}c_i\,a(m-i)$ for every $m$. Removing the first
-$31+4$ terms and repeating gives order $31$ again, which is what the
-identification below needs.
+Since $k\ge1$, the inductive hypothesis gives $8\mid 3^{2^{k}}-1$, so
+$3^{2^{k}}\equiv1\pmod 8$ and hence $3^{2^{k}}+1\equiv2\pmod 8$, giving
+$v_2\bigl(3^{2^{k}}+1\bigr)=1$. Therefore
+$v_2\bigl(3^{2^{k+1}}-1\bigr)=(k+2)+1=(k+1)+2$.
+\end{proof}
 
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=251$ vertices. Berlekamp--Massey on $2S=502$ exact terms
-returns a minimal recurrence of order $63$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{63})=(16,\ 27,\ -1667,\ 4072,\ 76934,\ -341187,\ -2049421,\ 13078549,\ 33627314,\ -318556323,\ -306610231,\ 5496429956,\ 54510153,\ -70935843916,\ 45538376655,\ 706944602204,\ -806626246425,\ -5549283296459,\ 8679696177536,\ 34723994107362,\ -68113932764134,\ -174240406972383,\ 414218469332205,\ 701207183888323,\ -2008642190732129,\ -2246830446293595,\ 7889578094693248,\ 5619591657864136,\ -25328063997365173,\ -10441277176211870,\ 66791970202879633,\ 12296932132110369,\ -145011176324599384,\ -1055842701605466,\ 259241512822452234,\ -34025039397003762,\ -381021968390179388,\ 91434397011877932,\ 458967239587347048,\ -148931424202336496,\ -451028233509798832,\ 175195326671834064,\ 359397679149116544,\ -155964021652045664,\ -230443907502100160,\ 106480622832011904,\ 117774941203385216,\ -55687378365970432,\ -47417347574292480,\ 22079229293202432,\ 14817525871303680,\ -6514237146490880,\ -3524453417234432,\ 1390125346611200,\ 620930322202624,\ -205596162195456,\ -77774770995200,\ 19696234659840,\ 6478165180416,\ -1082279854080,\ -317278126080,\ 25480396800,\ 6794772480).
-\]
-so that $a(m)=\sum_{i=1}^{63}c_i\,a(m-i)$ for every $m$. Removing the first
-$63+4$ terms and repeating gives order $63$ again, which is what the
-identification below needs.
+\begin{proposition}\label{prop:ord}
+For $n\ge3$ the multiplicative order of $3$ modulo $2^{n}$ is $2^{\,n-2}$; it is $1$ for
+$n=1$ and $2$ for $n=2$. That is, \eqref{eq:b} holds.
+\end{proposition}
+
+\begin{proof}
+The group $\bigl(\mathbb{Z}/2^{n}\mathbb{Z}\bigr)^{\times}$ has order $2^{\,n-1}$, so the
+order of $3$ divides $2^{\,n-1}$ and is therefore $2^{k}$ for some $k\ge0$; it is the
+least such $k$ with $2^{n}\mid 3^{2^{k}}-1$, that is, with $v_2\bigl(3^{2^{k}}-1\bigr)\ge n$.
+
+Let $n\ge3$. By Lemma~\ref{lem:val} the condition reads $k+2\ge n$ for $k\ge1$, and for
+$k=0$ it reads $v_2(2)=1\ge n$, which fails. The least admissible $k$ is thus $n-2$, which
+is $\ge1$ exactly because $n\ge3$. Hence the order is $2^{\,n-2}$.
+
+For $n=1$, $3\equiv1\pmod2$ and the order is $1$. For $n=2$, $3\equiv3\pmod4$ and
+$3^{2}=9\equiv1$, so the order is $2$.
+\end{proof}
+
+\section{The proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+For every integer $n\ge0$, $a(n)=b(2n+2)$, where $a$ is OEIS A155543 and $b$ is OEIS
+A090129. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+Take $n\ge1$. Then $2n+2\ge4\ge3$, so Proposition~\ref{prop:ord} gives
+\[
+b(2n+2)\;=\;2^{\,(2n+2)-2}\;=\;2^{2n}\;=\;4^{n},
+\]
+which is $a(n)$ by \eqref{eq:a}.
+
+For $n=0$ the index is $2n+2=2$, and Proposition~\ref{prop:ord} gives $b(2)=2$, while \eqref{eq:a}
+gives $a(0)=2$. The two agree, so the identity holds at $n=0$ as well.
+\end{proof}
+
+\begin{corollary}
+For every $n\ge1$ the multiplicative order of $3$ modulo $2^{2n+2}$ is $4^{n}$.
+\end{corollary}
+
+\begin{proof}
+Immediate from the theorem and the definition of A090129, together with \eqref{eq:a}.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the generating function of A155543 was expanded in exact rational arithmetic and
+compared against every one of the $24$ published terms; the values agree exactly. A
+generating function that reproduced only some of them would not have been used.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, formula \eqref{eq:b} was evaluated and compared against every one of the
+$36$ published terms of A090129; the values agree exactly. Independently, the order
+of $3$ modulo $2^{n}$ was computed directly by repeated squaring for every $n$ in that
+range and matched the same values, so the closed form was not taken on trust; and
+Lemma~\ref{lem:val} was checked by computing $v_2\bigl(3^{2^{k}}-1\bigr)$ exactly for
+$k\le12$, giving $3,4,5,\dots,14$ as the lemma requires.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+either formula: for every $n$ from $0$ to $17$ --- the range for which both $a(n)$ and
+$b(2n+2)$ are published --- the two integers agree.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236884.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

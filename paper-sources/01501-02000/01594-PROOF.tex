@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A200455, proved from an exact model}
+\title{The empirical recurrence for OEIS A199910, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A200455 carries an empirical recurrence of order $4$. It is true, and it is
+OEIS A199910 carries an empirical recurrence of order $5$. It is true, and it is
 decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+which $a$ provably satisfies a MONIC linear recurrence of order $S=25$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,15 +31,15 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A200455 is ``Number of -n..n arrays x(0..2) of 3 elements with zero sum and nonzero first and second differences.''. It has offset $1$ and begins
+OEIS A199910 is ``Number of -n..n arrays x(0..2) of 3 elements with zero sum, and adjacent elements not equal modulo three (with -1 modulo 3 = 2).''. It has offset $1$ and begins
 \[
-4, 10, 26, 44, 72, 102, 142, 184,\ \dots
+6, 12, 24, 42, 60, 84, 114, 144,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -2*a(n-3) +a(n-4)
+Empirical: a(n) = 2*a(n-1) -a(n-2) +a(n-3) -2*a(n-4) +a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 08:38:02, revision 8)
+As of the ``Last modified'' line on the live entry (May 17 2018 08:11:36, revision 9)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a quasi-polynomial}
@@ -65,7 +65,7 @@ contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
 A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-annihilates $a$, and $S=\deg A=9$. A congruence condition modulo $m$ is counted one residue
+annihilates $a$, and $S=\deg A=25$. A congruence condition modulo $m$ is counted one residue
 class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
 $\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
 by $mt$ and nothing else changes.
@@ -74,7 +74,7 @@ Over the common denominator the numerator has degree below that of $A$ for every
 arrangement that HAS a ray, because such a cell's numerator collects a fundamental
 parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
 too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=9$, and
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=25$, and
 $a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
 annihilator is tested on terms the model was not asked for before anything is claimed --- a
 bound one too small fails that test, which is how this one was found.
@@ -83,7 +83,7 @@ bound one too small fails that test, which is how this one was found.
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -97,7 +97,7 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + a(n-4)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) - 2\,a(n-4) + a(n-5)
 \]
 for every $n>0$.
 \end{theorem}
@@ -105,7 +105,7 @@ for every $n>0$.
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+vanish from $n=0+1$ onwards, and the run exceeds $S+5$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -126,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A200455.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199910.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

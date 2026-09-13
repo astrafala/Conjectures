@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183908, proved from an exact model}
+\title{The empirical recurrence for OEIS A208601, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183908 carries an empirical recurrence of order $6$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
+OEIS A208601 carries an empirical recurrence of order $7$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=57$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,51 +31,53 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A183908 is ``Number of nondecreasing arrangements of n+2 numbers in 0..5 with each number being the sum mod 6 of two others.''. It has offset $1$ and begins
+OEIS A208601 is ``Number of 7-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero.''. It has offset $1$ and begins
 \[
-2, 8, 37, 124, 309, 637, 1163, 1953,\ \dots
+57, 1163, 8671, 39019, 129823, 353333, 833253, 1764925,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/120)*n\^{}5 + (5/24)*n\^{}4 + (49/24)*n\^{}3 - (29/24)*n\^{}2 - (461/20)*n + 43 for n>2. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>7.
+Empirical: a(n) = (841/180)*n\^{}6 + (841/60)*n\^{}5 + (325/18)*n\^{}4 + (51/4)*n\^{}3 + (949/180)*n\^{}2 + (37/30)*n + 1. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 06 2018 06:21:20, revision 8)
+As of the ``Last modified'' line on the live entry (Mar 18 2018 17:29:06, revision 11)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial}
+\section{The count is a Burnside sum}
 
-A NONDECREASING arrangement is determined by its multiset of values, so an admissible
-arrangement is exactly an admissible multiset. The condition names how many other entries a
-value must be built from, and a condition of that shape cannot distinguish a value occurring
-$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
-whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
-once by enumeration over the capped profiles.
-
-Given an admissible capped profile with $F$ the total multiplicity of the values capped below
-the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
-profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
-over the list with $\ell$ the entry's own length.
+A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
+dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
+labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
+so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
+labellings with sum zero are the integer solutions of
+\[
+\sum_j w_jx_j = 0,\qquad |x_j|\le n,
+\]
+counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
 
 \section{The bound}
 
-Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
-size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
-$S=6$.
+Each term counts the integer points at height $n$ of the cone
+$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
+hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
+$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
+$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
+over the group's elements annihilates $a$. One more is added to the order, because the origin
+is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
+the common denominator has numerator degree equal to the denominator's rather than below it.
+So $S=57$.
 
-Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
-below is not zero. A profile with no value at the cap contributes the indicator
-$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
-$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
-$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
-$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
-is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
-threshold up, and the run of zeros it uses lies entirely above the transient.
+A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
+determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
+weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
+one. An earlier version of this bound took $S$ to be the number of beads for both, which is
+right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
+$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{7}-\sum_ic_iz^{7-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -89,23 +91,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
+a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
 \]
-for every $n>8$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=8+1$ onwards, and the run exceeds $S+6$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=0+1$ onwards, and the run exceeds $S+7$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $36$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -118,7 +120,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183908.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208601.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

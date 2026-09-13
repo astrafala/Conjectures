@@ -12,127 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A200061, proved from an exact model}
+\title{A lattice count, not a walk count: OEIS A225315}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A200061 carries an empirical recurrence of order $22$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=97$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A225315 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
+determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
+a single linear equation on a box of lattice points, and the arrays disappear entirely. The
+count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
+quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
+$S=13440$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
+is that recurrence is then a finite exact computation. There is no digraph and no matrix
+anywhere in this argument.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A200061 is ``Number of -n..n arrays x(0..6) of 7 elements with zero sum and elements alternately strictly increasing and strictly decreasing.''. It has offset $1$ and begins
+OEIS A225315 is ``Number of 8Xn -1,1 arrays such that the sum over i=1..8,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 8 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
 \[
-14, 472, 4224, 20978, 74338, 211242, 514168, 1115572,\ \dots
+14, 217, 1576, 7445, 26498, 77721, 197440, 449693,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -a(n-3) -a(n-5) +a(n-6) -2*a(n-7) +2*a(n-8) +a(n-9) -a(n-13) -2*a(n-14) +2*a(n-15) -a(n-16) +a(n-17) +a(n-19) -2*a(n-21) +a(n-22)
+Empirical: a(n) = a(n-1) +a(n-2) -a(n-5) -a(n-7) -a(n-9) +a(n-11) +2*a(n-12) +a(n-13) +a(n-15) -a(n-16) -a(n-17) -2*a(n-18) -a(n-19) -a(n-20) +a(n-21) +a(n-23) +2*a(n-24) +a(n-25) -a(n-27) -a(n-29) -a(n-31) +a(n-34) +a(n-35) -a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 08:25:49, revision 9)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:43:12, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+\section{The array disappears}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
+\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
+becomes $\sum_{i=1}^{8} i\,k_i = T(n)$ with $T(n)=18n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{8}$ on one hyperplane.
 
-\section{The bound}
+\section{Why that is enough}
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
-\[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
-\]
-annihilates $a$, and $S=\deg A=97$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
+Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
 
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=97$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
+Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
+\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
+where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,8$. $D$ is a quasi-polynomial in $m$ of degree $7$ with period dividing $\mathrm{lcm}(1,\dots,8)=840$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $7$ and period dividing $1680$, hence satisfies a linear recurrence of order at most $S=13440$.
+
+That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
+so $a$ is $C$-finite of order at most $S=13440$, and the alignment between the model and the
+entry's own $n$ is fixed by matching against every published term.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{22}-\sum_ic_iz^{22-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $36$,
+and let $u_j=a(j+36)-\sum_i c_i\,a(j+36-i)$ be its residual. Then $u$ satisfies the
+same linear recurrence of order $S=13440$ that $a$ does, so if $u_j=0$ for $S$ consecutive
+indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
+exactly.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+A sequence annihilated by a linear operator with constant coefficients has every linear
+combination of its shifts annihilated by the same operator, and $u$ is such a combination of
+shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
+consecutive indices vanishes from the first of them onwards, since every later value is a
+fixed combination of the $S$ before it.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-3) - a(n-5) + a(n-6) - 2\,a(n-7) + 2\,a(n-8) + a(n-9) - a(n-13) - 2\,a(n-14) + 2\,a(n-15) - a(n-16) + a(n-17) + a(n-19) - 2\,a(n-21) + a(n-22)
+a(n)\;=\;a(n-1) + a(n-2) - a(n-5) - a(n-7) - a(n-9) + a(n-11) + 2\,a(n-12) + a(n-13) + a(n-15) - a(n-16) - a(n-17) - 2\,a(n-18) - a(n-19) - a(n-20) + a(n-21) + a(n-23) + 2\,a(n-24) + a(n-25) - a(n-27) - a(n-29) - a(n-31) + a(n-34) + a(n-35) - a(n-36)
 \]
-for every $n>0$.
+for every $n>35$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+22$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
+$S=13440$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
+They vanish from the index corresponding to $n=35+1$ onwards and go on vanishing for more
+than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
+once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the reading was pinned before the reduction was trusted, by a program that enumerates
+the arrays themselves, one by one, from the entry's own words --- every nondecreasing
+row of plus and minus ones, the weighted sum computed directly --- and compares the count
+with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
+hide an error in the other.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the conjectured recurrence was evaluated directly on the published terms, with
+nothing from the argument above involved, and holds wherever the proved range and the data
+overlap.
+
+Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic over every index up to the certified bound, not on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A200061.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A225315.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
+lattice points in dilates of rational polytopes, Section 4.6.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
+ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
 \end{thebibliography}
 
 \end{document}

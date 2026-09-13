@@ -1,0 +1,115 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A225023, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{7 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A225023 carries an empirical recurrence of order $87$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=489$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The conjecture}
+
+OEIS A225023 is ``Number of (n+1)X5 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+\[
+2653, 113261, 1930229, 68599847, 1695172731, 52562324371, 1457105103421, 43215008345605,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical recurrence of order 87 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:30, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a walk count}
+
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=489$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{87}-\sum_i c_it^{87-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+87}-\sum_ic_iM^{j+87-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;55\,a(n-1) - 486\,a(n-2) - 20118\,a(n-3) + 385806\,a(n-4) + 1264653\,a(n-5) - 73042245\,a(n-6) + 214490229\,a(n-7) + 6868192631\,a(n-8) - 43885852516\,a(n-9) - 375250247554\,a(n-10) + 3811089533795\,a(n-11) + 11630511211786\,a(n-12) - 207901779849629\,a(n-13) - 100966192604736\,a(n-14) + 7970374768253043\,a(n-15) - 8860155996964724\,a(n-16) - 226171355277329028\,a(n-17) + 527513918047878529\,a(n-18) + 4877758704102021534\,a(n-19) - 16891897562785265984\,a(n-20) - 80700027084585994419\,a(n-21) + 382961769554314121113\,a(n-22) + 1013317965322851123129\,a(n-23) - 6658686818788404332376\,a(n-24) - 9153176969473476708225\,a(n-25) + 92134638829190935443572\,a(n-26) + 47035813729646297666431\,a(n-27) - 1035790178406437816819082\,a(n-28) + 139936209291595644409084\,a(n-29) + 9580672012376794970910421\,a(n-30) - 6311079256606857623340958\,a(n-31) - 73449571064370312986348646\,a(n-32) + 82252776307711620311772431\,a(n-33) + 468178468843019282010413669\,a(n-34) - 732511181979334559121817891\,a(n-35) - 2477938751024055277386102460\,a(n-36) + 5058430315208466596579459593\,a(n-37) + 10808690276496397165869619080\,a(n-38) - 28332936558102362011731383459\,a(n-39) - 38136365585857450930431871426\,a(n-40) + 131452007552302050458959497506\,a(n-41) + 103984678525417720473068694187\,a(n-42) - 510682247798970867549939845850\,a(n-43) - 190001218832001662814595713392\,a(n-44) + 1670106536195774142377414232593\,a(n-45) + 59638426363622141148595457449\,a(n-46) - 4604715790552637759927460929761\,a(n-47) + 1155164783520093560371855506507\,a(n-48) + 10684384935698436492827219583986\,a(n-49) - 5467558370303643874511062608264\,a(n-50) - 20749585322395783689031890949477\,a(n-51) + 15962288014382668493143070039946\,a(n-52) + 33369551737797712597585506919717\,a(n-53) - 35103032332792948983192720741680\,a(n-54) - 43567073996367238101332495609951\,a(n-55) + 61428006084628701287977460760695\,a(n-56) + 44351477045184122464854442276123\,a(n-57) - 87214149054225181173570971118289\,a(n-58) - 31712084142538201436519387044896\,a(n-59) + 100958422348003705610824747144464\,a(n-60) + 9375843304754423071642576336744\,a(n-61) - 94921665883855372013254510234066\,a(n-62) + 12274310417338557820797204124128\,a(n-63) + 71633544594975210509478465508140\,a(n-64) - 23637378999793167030736247733964\,a(n-65) - 42416053980064385159687913265124\,a(n-66) + 22786078359400709493640908298808\,a(n-67) + 18861781929711047237514108198756\,a(n-68) - 15113778641477078413588155974688\,a(n-69) - 5679376339416482672114749548568\,a(n-70) + 7301856163795684425763815492704\,a(n-71) + 739924877603457139816272510064\,a(n-72) - 2565646950952137889228637285504\,a(n-73) + 247571114291236293685050445472\,a(n-74) + 631012556984779529606738680576\,a(n-75) - 169195695592331370491128055040\,a(n-76) - 98416262556468270350068157696\,a(n-77) + 46670806235751962844590662144\,a(n-78) + 6891753379062713989130569728\,a(n-79) - 7092629924073793927031169024\,a(n-80) + 438927474903783006408806400\,a(n-81) + 540707938229324611100033024\,a(n-82) - 116484381205349658435551232\,a(n-83) - 9929971293028059305607168\,a(n-84) + 5971182723232734495375360\,a(n-85) - 679698258939940039557120\,a(n-86) + 21980459203192959270912\,a(n-87)
+\]
+for every $n>87$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $87$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A225023.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

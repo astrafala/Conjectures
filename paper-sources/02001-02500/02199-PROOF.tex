@@ -12,47 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232939, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232959, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232939 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $2$, together with clauses that pick one array out of
+OEIS A232959 counts arrays over $\{0,\dots,3\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $3$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
-order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+order $26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=22$ states.
+carried by one bounded piece of extra state, so the count is a walk count on $S=28$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232939 is ``Number of nX6 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, vertically or antidiagonally.''. It has offset $1$ and begins
+OEIS A232959 is ``Number of 5Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, and top left element zero.''. It has offset $1$ and begins
 \[
-96, 258, 2360, 18850, 157322, 1294504, 10700160, 88318190,\ \dots
+256, 7203, 400329, 20442651, 1074244299, 56282275743, 2953363127697, 154964050219677,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +42*a(n-2) +147*a(n-3) +70*a(n-4) -478*a(n-5) -449*a(n-6) +1199*a(n-7) +732*a(n-8) -2727*a(n-9) +659*a(n-10) +3827*a(n-11) -5776*a(n-12) +3926*a(n-13) -1152*a(n-14) -148*a(n-15) +154*a(n-16) +32*a(n-17) -29*a(n-18) -6*a(n-19) +3*a(n-20) +a(n-21) for n>22
+Empirical: a(n) = 67*a(n-1) -533*a(n-2) -15660*a(n-3) +183231*a(n-4) +657345*a(n-5) -14397321*a(n-6) +26479475*a(n-7) +308726752*a(n-8) -1394230594*a(n-9) -93496336*a(n-10) +10567010405*a(n-11) -15260787758*a(n-12) -20784722042*a(n-13) +61450333950*a(n-14) -11848262788*a(n-15) -72270718040*a(n-16) +48716606000*a(n-17) +23916567320*a(n-18) -26795989184*a(n-19) -10634656*a(n-20) +4071926912*a(n-21) -391701632*a(n-22) -188446976*a(n-23) +19444224*a(n-24) +1963008*a(n-25) -110592*a(n-26) for n>27
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:44:21, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:46:12, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $6$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
-when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
+The array is $5$ cells across with entries $x(i,j)\in\{0,1,2,3\}$. Call two values $u,v$ CLASHING
+when $u+v=3$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(0,1), (1,-1), (1,0),
+(1,-1), (1,0), (1,1),
 \]
-that is, in the horizontal, antidiagonal (ne--sw) and vertical directions, and the condition is that no two neighbouring cells carry
-clashing values. The clash relation is symmetric, so an offset and its negative name the
-same pairs and only one of each is listed.
+that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
 \section{The walk}
 
@@ -62,7 +62,7 @@ consecutive array rows and on nothing else.
 So a single array row is a state. A step appends a row, which settles every clash between it
 and the row above and every clash inside it. Two states from which, for every remaining length,
 the same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=22$ of them.
+identified; after that identification there are $S=28$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
@@ -74,7 +74,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 42\,a(n-2) + 147\,a(n-3) + 70\,a(n-4) - 478\,a(n-5) - 449\,a(n-6) + 1199\,a(n-7) + 732\,a(n-8) - 2727\,a(n-9) + 659\,a(n-10) + 3827\,a(n-11) - 5776\,a(n-12) + 3926\,a(n-13) - 1152\,a(n-14) - 148\,a(n-15) + 154\,a(n-16) + 32\,a(n-17) - 29\,a(n-18) - 6\,a(n-19) + 3\,a(n-20) + a(n-21)
+a(n)\;=\;67\,a(n-1) - 533\,a(n-2) - 15660\,a(n-3) + 183231\,a(n-4) + 657345\,a(n-5) - 14397321\,a(n-6) + 26479475\,a(n-7) + 308726752\,a(n-8) - 1394230594\,a(n-9) - 93496336\,a(n-10) + 10567010405\,a(n-11) - 15260787758\,a(n-12) - 20784722042\,a(n-13) + 61450333950\,a(n-14) - 11848262788\,a(n-15) - 72270718040\,a(n-16) + 48716606000\,a(n-17) + 23916567320\,a(n-18) - 26795989184\,a(n-19) - 10634656\,a(n-20) + 4071926912\,a(n-21) - 391701632\,a(n-22) - 188446976\,a(n-23) + 19444224\,a(n-24) + 1963008\,a(n-25) - 110592\,a(n-26)
 \]
-for every $n>22$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -123,7 +123,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232939.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232959.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

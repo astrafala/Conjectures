@@ -10,145 +10,169 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A237220: recovering a conjecture that is not written down}
+\title{A proof of the conjectured recurrence for OEIS A026026}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237220 records ``Empirical recurrence of order $88$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=220$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $88$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$88$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A026026 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, so the usual route through a
+functional equation is unavailable. It does post a closed form for $a(n)$, and that is
+enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
+term every shift quotient is a rational function of $n$. The conjectured recurrence
+therefore reduces to one rational-function identity, one for each similarity
+class of terms, and each is decided exactly by cancellation. No expansion is truncated and
+nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
+valid for every $n$ outside an explicitly computed finite set.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A237220 is ``Number of (n+1)X(2+1) 0..3 arrays with the maximum plus the lower median minus the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A026026 is ``a(n) = number of (s(0), s(1), ..., s(2*n-1)) such that s(i) is a nonnegative integer and |s(i) - s(i-1)| = 1 for i = 1,2,...,n, s(0) = 3, s(2*n-1) = 4. Also a(n) = T(2*n-1,n-1), where T is defined in A026022''. It has offset $2$ and begins
 \[
-1416, 14472, 161598, 2006382, 25423162, 338131394, 4474548444, 60750922148,\ \dots
+a(2),\dots,a(9)\;=\;1, 3, 10, 35, 125, 451, 1638, 5980,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 88 (see link above)
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = binomial(2*n-3, n-2) - binomial(2*n-3, n-6). - \emph{Christian Krause}, May 09 2026
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:59:04, revision 7) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;- {\binom{2 n - 3}{n - 6}} + {\binom{2 n - 3}{n - 2}} .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The count is a walk count}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} -(n+3)*(11*n-38)*a(n) +2*(35*n\^{}2-86*n-102)*a(n-1) -4*(13*n-30)*(2*n-5)*a(n-2)=0. - \emph{R. J. Mathar}, Jun 22 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-05-14, revision 27) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=220$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+- \left(n + 3\right) \left(11 n - 38\right)\,a(n) + 2 \left(35 n^{2} - 86 n - 102\right)\,a(n-1) -  4 \left(2 n - 5\right) \left(13 n - 30\right)\,a(n-2)
+\end{equation}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=220$.
+\section{Hypergeometric terms}
+
+\begin{definition}
+A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
+$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
+\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+\end{definition}
+
+Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
+binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
+are hypergeometric, and so is any product of these; a sum of them need not be.
+
+\begin{lemma}\label{lem:shift}
+If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
+$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
+number of substitutions and multiplications.
 \end{lemma}
 
-\section{Recovering the recurrence}
+\begin{proof}
+Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
+$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
+$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+\end{proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
+The fact that makes the test complete rather than merely sufficient is the linear
+independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
+\cite{AB}, Chapter~5.
+
+\begin{lemma}\label{lem:indep}
+Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
+$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
+every $u_{j}$ is the zero rational function.
 \end{lemma}
 
-Running it on $2S'=440$ exact terms of the model returns order $88$ --- the order the
-entry states --- with the integer coefficients
+\section{The recurrence as a finite set of rational identities}
+
+\begin{proposition}\label{prop:main}
+Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
+$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
+each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
+functions $f_{\ell,s}$. Put
 \[
-a(n)\;=\;\sum_{i=1}^{88}c_i\,a(n-i),
+S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
+\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $42$ & $c_{23}$ & $-137673459136688794336$ & $c_{45}$ & $-13971894386700081780288560288$ & $c_{67}$ & $21179695951066121668065362496$ \\
-$c_{2}$ & $-360$ & $c_{24}$ & $-292017139130458019369$ & $c_{46}$ & $-32863987913598556276907983923$ & $c_{68}$ & $-24995312922877584944069681152$ \\
-$c_{3}$ & $-8796$ & $c_{25}$ & $1980651903286791709362$ & $c_{47}$ & $41739162709343243099989995173$ & $c_{69}$ & $-4816933328062526619395094272$ \\
-$c_{4}$ & $180605$ & $c_{26}$ & $1299245441703267675837$ & $c_{48}$ & $57777673904334430178977267964$ & $c_{70}$ & $8590085239346653107749266688$ \\
-$c_{5}$ & $-85611$ & $c_{27}$ & $-21529396739842927507284$ & $c_{49}$ & $-98003686228575705222324307847$ & $c_{71}$ & $502977811686865199268570368$ \\
-$c_{6}$ & $-23295356$ & $c_{28}$ & $6360200787061581581383$ & $c_{50}$ & $-80328726536637592492365874817$ & $c_{72}$ & $-2242615122685311057836017664$ \\
-$c_{7}$ & $150129267$ & $c_{29}$ & $182651332251338883429904$ & $c_{51}$ & $186503235497069257081320046246$ & $c_{73}$ & $96038467718822785825825792$ \\
-$c_{8}$ & $1262431138$ & $c_{30}$ & $-190547205234313147711382$ & $c_{52}$ & $82588794549792606431341433382$ & $c_{74}$ & $433444891672006079284162560$ \\
-$c_{9}$ & $-16746759501$ & $c_{31}$ & $-1223956295952180121000054$ & $c_{53}$ & $-291483437492615791313528636966$ & $c_{75}$ & $-52726422678318634734344192$ \\
-$c_{10}$ & $-12475892762$ & $c_{32}$ & $2139256025612289286676280$ & $c_{54}$ & $-49010366432070721646037296582$ & $c_{76}$ & $-59712646615961280108924928$ \\
-$c_{11}$ & $947714154897$ & $c_{33}$ & $6454331086355185910101923$ & $c_{55}$ & $375951930428547490463456702126$ & $c_{77}$ & $11021622086219669562314752$ \\
-$c_{12}$ & $-2408523973938$ & $c_{34}$ & $-16526462249884242394567714$ & $c_{56}$ & $-17338520741304150703855236538$ & $c_{78}$ & $5548803026131033555222528$ \\
-$c_{13}$ & $-32168478400458$ & $c_{35}$ & $-26073792358656427777260226$ & $c_{57}$ & $-400023549481002077316084240184$ & $c_{79}$ & $-1314498854439028954071040$ \\
-$c_{14}$ & $170367973427493$ & $c_{36}$ & $98100635888331479945043228$ & $c_{58}$ & $89518705210186742027446547592$ & $c_{80}$ & $-320556713241909815377920$ \\
-$c_{15}$ & $640523629353028$ & $c_{37}$ & $73741079053825581386103117$ & $c_{59}$ & $349532114656044357181926770444$ & $c_{81}$ & $91377645676842186506240$ \\
-$c_{16}$ & $-6282156783967400$ & $c_{38}$ & $-466166500862436146682271709$ & $c_{60}$ & $-133169097448783132062071397064$ & $c_{82}$ & $10122878415233846476800$ \\
-$c_{17}$ & $-4290846255146685$ & $c_{39}$ & $-90000222803419039529109662$ & $c_{61}$ & $-248566511897314238454935026416$ & $c_{83}$ & $-3491880194967742971904$ \\
-$c_{18}$ & $154117743524753231$ & $c_{40}$ & $1807349527194395185945502890$ & $c_{62}$ & $132116634746193611761896832896$ & $c_{84}$ & $-128973358466627796992$ \\
-$c_{19}$ & $-164623437237695244$ & $c_{41}$ & $-417675277965351684054917698$ & $c_{63}$ & $141759231326461300261471355824$ & $c_{85}$ & $65518307077194252288$ \\
-$c_{20}$ & $-2691846689195909751$ & $c_{42}$ & $-5767766606228172415089862379$ & $c_{64}$ & $-98012970969858368239679602304$ & $c_{86}$ & $-557231442889801728$ \\
-$c_{21}$ & $6665761134347222518$ & $c_{43}$ & $3388573953017476930557968185$ & $c_{65}$ & $-63289401770139019994520423392$ & $c_{87}$ & $-457449188188225536$ \\
-$c_{22}$ & $33862690421687102075$ & $c_{44}$ & $15185747126057263567991362811$ & $c_{66}$ & $56148040125805875618159121472$ & $c_{88}$ & $17417783193108480$ \\
-\end{tabular}
-\end{center}
+a rational function of $n$ by Lemma~\ref{lem:shift}. Then
+\[
+\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+\]
+and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
+$S_{\ell}=0$ for every $\ell$.
+\end{proposition}
+
+\begin{proof}
+The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
+sum of its terms, each term is its class representative times a rational function, and the
+representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
+construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
+large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
+\end{proof}
+
+Proposition~\ref{prop:main} turns the conjecture into a finite computation in
+$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
+those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
+finite in number and listed below.
+
+\section{The computation for A026026}
+
+The closed form \eqref{eq:cf} splits into one similarity class, with
+representative
+\[
+- {\binom{2 n - 3}{n - 6}}
+\]
+Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+\[
+S_{1}(n)\;=\;0
+\]
+so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+For all $n\ge 4$,
+\[
+- \left(n + 3\right) \left(11 n - 38\right)\,a(n) + 2 \left(35 n^{2} - 86 n - 102\right)\,a(n-1) -  4 \left(2 n - 5\right) \left(13 n - 30\right)\,a(n-2)
+\]
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $88$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $88+4$ terms
-removed returns order $88$ as well, so $\deg q_{\min}=88=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
+being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Two checks were made, and both are independent of the algebra above.
 
-First, the walk model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly. A formula that did
+not reproduce the entry's own terms would not have been used.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
-
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $88+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $88$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $24$ instances beginning at
+$n=4$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237220.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A026026}{A026026}, 2026-05-14.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
 
 \end{document}

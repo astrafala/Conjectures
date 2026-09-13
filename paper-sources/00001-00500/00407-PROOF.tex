@@ -12,170 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A393859 is congruent to $1$ modulo $8$}
+\title{The empirical recurrence for OEIS A211710, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A393859 is defined by the functional equation $A\bigl(x-xA(7x)/7\bigr)=x$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
-congruent to $1$ modulo $8$. It is true, and the reason is that $7\equiv-1$ modulo
-$8$. The functional equation determines the coefficients one at a time, so it determines
-them modulo $8$ as well; and modulo $8$ the series $x/(1-x)$, all of whose coefficients
-are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
-is the conjecture. The argument is an identity between rational functions over
-$\mathbb{Z}/8\mathbb{Z}$ and involves no estimation and no truncation.
+OEIS A211710 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-11,\dots,11\}$ in which every $2\times2$ subblock sums to zero and has two distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=58$ states, and the empirical recurrence of order $3$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A393859 is ``G.f. A(x) satisfies A( x - x*A(7*x)/7 ) = x.''. It has offset $1$ and begins
+OEIS A211710 is ``Number of (n+1) X (n+1) -11..11 symmetric matrices with every 2 X 2 subblock having sum zero and two distinct values.''. It has offset $1$ and begins
 \[
-1, 1, 9, 481, 167937, 404407577,\ \dots
+34, 46, 64, 94, 142, 220, 346, 550,\ \dots
 \]
-So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A\!\left(x-\frac{x\,A(7x)}{7}\right)\;=\;x .
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) == 1 (mod 8) for n >= 1.
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 2*a(n-1) - a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:26, revision 8) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 19 2018 14:31:47, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the conjecture asserts
-\begin{equation}\label{eq:conj}
-a(n)\;\equiv\;1 \pmod{8}\qquad\text{for every } n\ge1 .
-\end{equation}
+\section{The sum-zero condition solved}
 
-\section{The equation determines the sequence}
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-11,\dots,11\}$ such that
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
 
-It is convenient to clear the division. Since $A$ has no constant term,
-\begin{equation}\label{eq:B}
-B(x)\;:=\;x-\frac{x\,A(7x)}{7}\;=\;x-\sum_{n\ge1}a(n)\,7^{\,n-1}x^{n+1},
-\end{equation}
-so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $7$.
-
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-it is given by $a(1)=1$ together with
-\begin{equation}\label{eq:rec}
-a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
-\end{equation}
-in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-11,\dots,11\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
 \end{lemma}
 
 \begin{proof}
-$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
-while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
 \[
-x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
 \]
-Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
-$x^{N}$ gives
-\[
-0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
-\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
-\]
-since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
-claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
-$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
-\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
-and uniqueness.
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le11$ for all $i,j$ is equivalent to $|u_i|\le11$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
-read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
-\end{corollary}
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-11,\dots,11\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has two distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+\]
+\end{lemma}
 
 \begin{proof}
-Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
-reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
-recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
-Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
 \end{proof}
 
-\section{The reduction modulo $8$}
+Call two consecutive pairs COMPATIBLE when that number lies in $\{2\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
 
-Everything now happens in $(\mathbb{Z}/8\mathbb{Z})[[x]]$. The one fact that drives the proof is
-\begin{equation}\label{eq:minus}
-7\;\equiv\;-1 \pmod{8} .
-\end{equation}
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 529$ pairs.
+\end{corollary}
 
-\begin{theorem}\label{thm:main}
-$a(n)\equiv1\pmod{8}$ for every $n\ge1$. This is the conjecture of Section~1.
+\section{A walk on the sequence}
+
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
+
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
+\end{lemma}
+
+\begin{proof}
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
+\end{proof}
+
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=58$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=58.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) - a(n-3)
+\]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/8\mathbb{Z})[[x]]$, so all its
-coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
-check that $\bar A$ satisfies \eqref{eq:fe} modulo $8$.
-
-Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
-$\bigl[x^{n+1}\bigr]\bar B=-7^{\,n-1}$, and by \eqref{eq:minus}
-$7^{\,n-1}\equiv(-1)^{n-1}$, so
-\[
-\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
-\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
-\;=\;x-x\cdot\frac{x}{1+x}
-\;=\;\frac{x}{1+x} .
-\]
-Composing,
-\[
-\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
-\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
-\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
-\]
-Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
-So $\bar A$ satisfies \eqref{eq:fe} modulo $8$, and Corollary~\ref{cor:mod} gives
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{8}$ for every $n\ge1$.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-\begin{remark}
-The proof used nothing about $7$ beyond \eqref{eq:minus}. The same argument shows that
-for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
-its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
-the quantity $7^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
-exactly \eqref{eq:minus}.
-\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
-compared against the entry's DATA at every one of the $13$ published indices; the
-values agree exactly. A recursion that reproduced only some of them would mean the
-functional equation had been transcribed wrongly.
+First, the model reproduces all $34$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the same run was continued to $n=24$ and every term reduced modulo $8$; all
-$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-11,\dots,11\}$ and each
+$2\times2$ subblock tested for summing to zero and for having two distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
-Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
-independently as a formal power series over $\mathbb{Z}/8\mathbb{Z}$, coefficient by
-coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
-the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
-those orders.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A393859.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211710.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

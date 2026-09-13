@@ -123,11 +123,13 @@ SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
 # current the moment integrate_rest.py returns.
 # A withdrawn result must not be rebuilt: nothing stopped that, and 179 papers withdrawn
 # on 13 September were rebuilt within the hour by an unfiltered run of this script.
-roster = set(withdrawnset.anums())
-roster |= {v['anum'] for v in json.load(open('paper-engines.json')).values()}
+roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
+import integrate_rest_names as _labels
+# A withdrawn ARGUMENT must not be rebuilt; a different argument on the same entry may be.
 hits = [h for h in json.load(open('uniall_hits.json'))
-        if not h.get('FAILS') and h.get('anum') not in roster and h.get('engine')]
+        if not h.get('FAILS') and h.get('anum') not in roster and h.get('engine')
+        and not withdrawnset.blocked(h['anum'], _labels.name(h['engine']))]
 only = set(sys.argv[1:])
 if only:
     hits = [h for h in hits if h['engine'] in only]

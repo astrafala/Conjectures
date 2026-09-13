@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207759, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207485, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207759 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
-$(0,0,0), (1,0,1)$ along one axis and $(0,1,1), (1,0,1)$ along the other, and carries an empirical recurrence of
-order $29$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+OEIS A207485 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
+$(0,0,0), (0,1,1)$ along one axis and $(0,1,1), (1,1,0)$ along the other, and carries an empirical recurrence of
+order $31$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
 on $S=169$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-29}q(P)\mathbf{1}$, which vanishes identically
+$\mathbf{1}^{\!\top}P^{\,n-2-31}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A207759 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 1 0 1 horizontally and 0 1 1 and 1 0 1 vertically.''. It has offset
+OEIS A207485 is ``Number of nX5 0..1 arrays avoiding 0 0 0 and 0 1 1 horizontally and 0 1 1 and 1 1 0 vertically.''. It has offset
 $1$ and begins
 \[
-13, 169, 493, 1664, 6552, 21547, 67330,\ \dots
+13, 169, 499, 1322, 4041, 12151, 39050,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) -18*a(n-2) +42*a(n-3) -135*a(n-4) +245*a(n-5) -331*a(n-6) +828*a(n-7) -1162*a(n-8) +899*a(n-9) -2506*a(n-10) +2983*a(n-11) -933*a(n-12) +5079*a(n-13) -5361*a(n-14) -397*a(n-15) -7067*a(n-16) +6470*a(n-17) +2910*a(n-18) +6260*a(n-19) -5476*a(n-20) -3504*a(n-21) -3776*a(n-22) +3472*a(n-23) +1984*a(n-24) +1120*a(n-25) -1184*a(n-26) -576*a(n-27) -128*a(n-28) +256*a(n-29) for n>31
+Empirical: a(n) = 10*a(n-1) +3*a(n-2) -319*a(n-3) +570*a(n-4) +4375*a(n-5) -12102*a(n-6) -33910*a(n-7) +122896*a(n-8) +163430*a(n-9) -765272*a(n-10) -501760*a(n-11) +3186635*a(n-12) +928246*a(n-13) -9216729*a(n-14) -691675*a(n-15) +18785794*a(n-16) -1206433*a(n-17) -26966924*a(n-18) +4392278*a(n-19) +26904794*a(n-20) -6452612*a(n-21) -18149412*a(n-22) +5510570*a(n-23) +7897352*a(n-24) -2815136*a(n-25) -2054612*a(n-26) +816504*a(n-27) +282560*a(n-28) -120480*a(n-29) -15552*a(n-30) +6912*a(n-31) for n>32
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:16:37, revision
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:58:01, revision
 9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) - 18\,a(n-2) + 42\,a(n-3) - 135\,a(n-4) + 245\,a(n-5) - 331\,a(n-6) + 828\,a(n-7) - 1162\,a(n-8) + 899\,a(n-9) - 2506\,a(n-10) + 2983\,a(n-11) - 933\,a(n-12) + 5079\,a(n-13) - 5361\,a(n-14) - 397\,a(n-15) - 7067\,a(n-16) + 6470\,a(n-17) + 2910\,a(n-18) + 6260\,a(n-19) - 5476\,a(n-20) - 3504\,a(n-21) - 3776\,a(n-22) + 3472\,a(n-23) + 1984\,a(n-24) + 1120\,a(n-25) - 1184\,a(n-26) - 576\,a(n-27) - 128\,a(n-28) + 256\,a(n-29)
+a(n)\;=\;10\,a(n-1) + 3\,a(n-2) - 319\,a(n-3) + 570\,a(n-4) + 4375\,a(n-5) - 12102\,a(n-6) - 33910\,a(n-7) + 122896\,a(n-8) + 163430\,a(n-9) - 765272\,a(n-10) - 501760\,a(n-11) + 3186635\,a(n-12) + 928246\,a(n-13) - 9216729\,a(n-14) - 691675\,a(n-15) + 18785794\,a(n-16) - 1206433\,a(n-17) - 26966924\,a(n-18) + 4392278\,a(n-19) + 26904794\,a(n-20) - 6452612\,a(n-21) - 18149412\,a(n-22) + 5510570\,a(n-23) + 7897352\,a(n-24) - 2815136\,a(n-25) - 2054612\,a(n-26) + 816504\,a(n-27) + 282560\,a(n-28) - 120480\,a(n-29) - 15552\,a(n-30) + 6912\,a(n-31)
 \end{equation}
-for all $n>31$. 
+for all $n>32$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (1,0,1)$ as $3$ consecutive entries. There are $13$ admissible rows; that condition
+$(0,0,0), (0,1,1)$ as $3$ consecutive entries. There are $13$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,1,1), (1,0,1)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,1,1), (1,1,0)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
 rows, so $S=169$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,1,1), (1,0,1)$. Let $P$ be the adjacency matrix.
+is none of $(0,1,1), (1,1,0)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -84,20 +84,20 @@ $\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{29}-\sum_i c_i t^{29-i}$ be the characteristic polynomial of
+Let $q(t)=t^{31}-\sum_i c_i t^{31-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-29}$ whenever $n-29\ge2$. Hence
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-31}$ whenever $n-31\ge2$. Hence
 \eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-29$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+$j>t-2-31$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
 characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
 later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
 Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-29}$ gives the identity. The equivalence follows by letting the exponent
+$P^{\,n-2-31}$ gives the identity. The equivalence follows by letting the exponent
 run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
 polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
 degree $S$, it propagates $S$ consecutive zeros forward.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>31$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>32$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $29$ matrix--vector
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $31$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=31+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=32+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -135,7 +135,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207759.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207485.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

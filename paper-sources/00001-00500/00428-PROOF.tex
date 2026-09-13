@@ -12,142 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234446: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A290073, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234446 records ``Empirical recurrence of order $92$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=625$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $92$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$92$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A290073 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A234446 is ``Number of (n+1) X (3+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1 (constant-stress 1 X 1 tilings).''. It has offset $1$ and begins
+OEIS A290073 is ``Decimal representation of the diagonal from the corner to the origin of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 641", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-8064, 125080, 2053280, 34601928, 588663528, 10079824144, 172781443608, 2969800840496,\ \dots
+1, 2, 5, 12, 29, 60, 125, 252,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 92 (see link above).
+Conjectures from \_Colin Barker\_, Jul 20 2017: (Start) a(n) = 2*a(n-1) + a(n-2) - 2*a(n-3) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 18:37:29, revision 8) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:40, revision 15)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The value is a certified growth}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=625$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=625$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=1250$ exact terms of the model returns order $92$ --- the order the
-entry states --- with the integer coefficients
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-a(n)\;=\;\sum_{i=1}^{92}c_i\,a(n-i),
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 2.
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $0$ & $c_{24}$ & $-74101495207295449158683832$ & $c_{47}$ & $0$ & $c_{70}$ & $17401628248943530578508931920227388620800$ \\
-$c_{2}$ & $1512$ & $c_{25}$ & $0$ & $c_{48}$ & $-201228612116073294769566597831039553024$ & $c_{71}$ & $0$ \\
-$c_{3}$ & $0$ & $c_{26}$ & $2064570442717450260497916779$ & $c_{49}$ & $0$ & $c_{72}$ & $-7962775961481875477957059802593054687232$ \\
-$c_{4}$ & $-998072$ & $c_{27}$ & $0$ & $c_{50}$ & $742155211317426766531699109791981771776$ & $c_{73}$ & $0$ \\
-$c_{5}$ & $0$ & $c_{28}$ & $-47982067395414633351179295137$ & $c_{51}$ & $0$ & $c_{74}$ & $2897414666309893328902358910456291131392$ \\
-$c_{6}$ & $383138936$ & $c_{29}$ & $0$ & $c_{52}$ & $-2310778000132063919976456457044177520640$ & $c_{75}$ & $0$ \\
-$c_{7}$ & $0$ & $c_{30}$ & $934678537169628441389316100242$ & $c_{53}$ & $0$ & $c_{76}$ & $-828324170016812359768128041494910074880$ \\
-$c_{8}$ & $-96530056587$ & $c_{31}$ & $0$ & $c_{54}$ & $6058337175674623479414520331437894397952$ & $c_{77}$ & $0$ \\
-$c_{9}$ & $0$ & $c_{32}$ & $-15320289066887208093715030935338$ & $c_{55}$ & $0$ & $c_{78}$ & $183306635912342019137614174843647819776$ \\
-$c_{10}$ & $17124826083632$ & $c_{33}$ & $0$ & $c_{56}$ & $-13333800719381412859917044582371752077312$ & $c_{79}$ & $0$ \\
-$c_{11}$ & $0$ & $c_{34}$ & $211949858139742719231322348759152$ & $c_{57}$ & $0$ & $c_{80}$ & $-30817861884270068490976669293701234688$ \\
-$c_{12}$ & $-2241191424532657$ & $c_{35}$ & $0$ & $c_{58}$ & $24549249677631201227662855167375361945600$ & $c_{81}$ & $0$ \\
-$c_{13}$ & $0$ & $c_{36}$ & $-2480793835991680776528564383910724$ & $c_{59}$ & $0$ & $c_{82}$ & $3842010419160794467623460524936658944$ \\
-$c_{14}$ & $223620668600416008$ & $c_{37}$ & $0$ & $c_{60}$ & $-37660758389294866558518449573919729991680$ & $c_{83}$ & $0$ \\
-$c_{15}$ & $0$ & $c_{38}$ & $24608494270801441712566697988161272$ & $c_{61}$ & $0$ & $c_{84}$ & $-343907438687004578232613088375341056$ \\
-$c_{16}$ & $-17427288482359214080$ & $c_{39}$ & $0$ & $c_{62}$ & $47927511300605205789914072987234352398336$ & $c_{85}$ & $0$ \\
-$c_{17}$ & $0$ & $c_{40}$ & $-207107228511037403128531196171606472$ & $c_{63}$ & $0$ & $c_{86}$ & $21128968575815549276323190956621824$ \\
-$c_{18}$ & $1080392086333608736685$ & $c_{41}$ & $0$ & $c_{64}$ & $-50347605343971099480044736448867102031872$ & $c_{87}$ & $0$ \\
-$c_{19}$ & $0$ & $c_{42}$ & $1479608311101310282497353508626567376$ & $c_{65}$ & $0$ & $c_{88}$ & $-831884265277207208411704168808448$ \\
-$c_{20}$ & $-54040789109953781386900$ & $c_{43}$ & $0$ & $c_{66}$ & $43417240494558256235583248092631812538368$ & $c_{89}$ & $0$ \\
-$c_{21}$ & $0$ & $c_{44}$ & $-8972655743456782528309440110440483904$ & $c_{67}$ & $0$ & $c_{90}$ & $18567858195882194960337057349632$ \\
-$c_{22}$ & $2205500186385719289060810$ & $c_{45}$ & $0$ & $c_{68}$ & $-30542754673350370524777356076811433017344$ & $c_{91}$ & $0$ \\
-$c_{23}$ & $0$ & $c_{46}$ & $46159729761863600988203213985732990976$ & $c_{69}$ & $0$ & $c_{92}$ & $-174692600384853843373562265600$ \\
-\end{tabular}
-\end{center}
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 641 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=8$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;2\,a(n-1) + a(n-2) - 2\,a(n-3)
+\]
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $92$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $92+4$ terms
-removed returns order $92$ as well, so $\deg q_{\min}=92=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=4+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $92+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $92$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234446.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A290073.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

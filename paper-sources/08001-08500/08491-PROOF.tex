@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251059, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184557, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251059 counts $(n+1)\times3$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $11$ contributed
+OEIS A184557 counts $(n+1)\times3$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $12$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=27$ vertices whose edges are the admissible consecutive pairs, and the count is a
@@ -35,22 +35,22 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251059 is ``Number of (n+1)X(2+1) 0..2 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$ and begins
+OEIS A184557 is ``Number of (n+1)X3 0..2 arrays with no 2X2 subblock summing to less than 4.''. It has offset $1$ and begins
 \[
-222, 2740, 31895, 379440, 4499219, 53420941, 634161915, 7528829372,\ \dots
+336, 5736, 91157, 1486258, 24057629, 390354307, 6329171799, 102644935902,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 14*a(n-1) -12*a(n-2) -184*a(n-3) +281*a(n-4) +477*a(n-5) -863*a(n-6) -69*a(n-7) +517*a(n-8) -106*a(n-9) -80*a(n-10) +24*a(n-11)
+Empirical: a(n)=15*a(n-1)+43*a(n-2)-381*a(n-3)-42*a(n-4)+1696*a(n-5)-590*a(n-6)-2216*a(n-7)+1085*a(n-8)+858*a(n-9)-456*a(n-10)-88*a(n-11)+48*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:17:14, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:44:23, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;14\,a(n-1) - 12\,a(n-2) - 184\,a(n-3) + 281\,a(n-4) + 477\,a(n-5) - 863\,a(n-6) - 69\,a(n-7) + 517\,a(n-8) - 106\,a(n-9) - 80\,a(n-10) + 24\,a(n-11)
+a(n)\;=\;15\,a(n-1) + 43\,a(n-2) - 381\,a(n-3) - 42\,a(n-4) + 1696\,a(n-5) - 590\,a(n-6) - 2216\,a(n-7) + 1085\,a(n-8) + 858\,a(n-9) - 456\,a(n-10) - 88\,a(n-11) + 48\,a(n-12)
 \end{equation}
-for all $n>10$.
+for all $n>11$.
 
 \section{The condition is local, so the rows form a digraph}
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\delta-\alpha<\gamma-\beta\bigr),
+\text{not }\bigl(\alpha+\beta+\gamma+\delta<4\bigr),
 \end{equation}
 a condition on the four entries alone.
 
@@ -100,13 +100,13 @@ length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 
 \section{The criterion}
 
-Let $q(t)=t^{11}-\sum_i c_i\,t^{11-i}$ be the characteristic polynomial of
+Let $q(t)=t^{12}-\sum_i c_i\,t^{12-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge11$,
+For every $n$ with $n+1-1\ge12$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-11}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-12}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
 =\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-11}\,q(M)\,\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-12}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-11=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-12=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>10$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -138,12 +138,12 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $11$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $12$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=10+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=11+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>10$.
+holds for every $n>11$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $16$ published indices; the values agree exactly. That is what ties
+every one of the $15$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251059.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184557.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

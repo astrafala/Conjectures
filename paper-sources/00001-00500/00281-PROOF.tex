@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267456, proved from an exact model}
+\title{The empirical recurrence for OEIS A267353, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267456 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified block template for the automaton's row read as a numeral, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
+OEIS A267353 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,65 +31,58 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A267456 is ``Binary representation of the n-th iteration of the "Rule 133" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A267353 is ``Total number of ON (black) cells after n iterations of the "Rule 123" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-1, 10, 100, 1000, 1010100, 10101000, 10101010100, 101010101000,\ \dots
+1, 3, 6, 12, 15, 25, 28, 42,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Jan 15 2016 and Apr 19 2019: (Start) a(n) = 10001*a(n-2) - 10000*a(n-4) for n > 5.
+Conjectures from \_Colin Barker\_, Jan 14 2016: (Start) a(n) = a(n-1)+2*a(n-2)-2*a(n-3)-a(n-4)+a(n-5) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 28)
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 21)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The value is a certified block template}
+\section{What is being counted}
 
-The entry reads the automaton's row at stage $n$ as a string of digits and takes its value in
-base $B$. Nothing is being counted, so there is no digraph. The row does not grow only at its
-two ends --- for these rules it gains digits in the MIDDLE of a periodic run --- so the shape
-$w(n+p)=L_r+w(n)+R_r$ is unavailable. What holds instead is a block template: writing $r$ for
-the residue of $n$ modulo the period $p$ and $j$ for the number of periods past a pre-period
-$n_0$,
+The entry counts the running total of its ON (black) cells over the first $n$ iterations of the automaton. Nothing is being enumerated over a window, so there is
+no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
+the row grows only at its two ends. Writing
+$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
 \[
-w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m,
+w(n+p)\;=\;L_r + w(n) + R_r
 \]
-with the fixed blocks $B_i$ and the repeated blocks $Q_i$ depending only on $r$. This was
-verified for every available $n$, and it is a theorem rather than a fit: the rule is a local
-map of radius $1$, so $p$ steps have radius $p$; the $p$-step map was checked by direct
-simulation at two consecutive $j$ whose repeated runs are longer than $4p+4|Q_i|$, and for a
-larger $j$ the template only inserts further copies of each $Q_i$ inside runs already longer
-than $2p$. An output cell near either end sees only input cells the two configurations share
-at the same distance from that end, and strictly inside a long run the input is
-$|Q_i|$-periodic so the output is too, with period and phase fixed by the two verified steps.
-Hence the template propagates to every $j$.
+was verified for every available $n$ past a
+pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
+both sides gives
+\[
+\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
+\]
+a first-order difference along each class.
 
-For this entry the automaton is rule 133, the period is $p=2$ and the pre-period is $n_0=2$.
+The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
+radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
+window at both boundaries, and induction carries it to every later $n$.
+
+For this entry the automaton is rule 123, the period is $p=2$ and the pre-period is $n_0=1$.
 The certificate is
 \begin{gather*}
-r=0:\quad \texttt{0} \cdot \texttt{0101}^{\,j} \cdot \texttt{0100} \\
-r=1:\quad \texttt{00} \cdot \texttt{0101}^{\,j} \cdot \texttt{01000}
+r=0:\quad w(n+p) = \texttt{00} \cdot w(n) \cdot \texttt{00} \\
+r=1:\quad w(n+p) = \texttt{11} \cdot w(n) \cdot \texttt{11}
 \end{gather*}
 
 \section{The bound}
 
-The row is the light cone, of width $2n+1$, so $\sum_i|Q_i|=2p$. Write $s_i$ for the number of
-digits to the right of the $i$-th repeated run, so $s_1=2p$. Concatenation is multiplication by
-a power of $B$ and addition, and $v(Q_i^{\,j})=v(Q_i)(B^{|Q_i|j}-1)/(B^{|Q_i|}-1)$, so along a
-residue class
-\[
-a(j)\;=\;\sum_i \big(\alpha_i B^{s_i j} + \beta_i\big) + \gamma,
-\]
-a $\mathbf{Z}$-linear combination of $B^{s_1 j},\dots,B^{s_m j}$ and $1$ with coefficients that
-do not depend on $j$. In the shift $T=S^{\,p}$ that is annihilated by
-$\prod_i(T-B^{s_i})(T-1)$. Taking the DISTINCT roots that occur across the $p$ residue classes,
-pulling each back to $z^p-\lambda$, and allowing the pre-period to raise the numerator's degree
-gives the monic annihilator of order $S=8$ used below.
+So
+$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
+the same polynomial, since the width is linear in $n$; a running total contributes one further
+factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
+annihilator of order $S=7$ used below.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -103,23 +96,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;10001\,a(n-2) - 10000\,a(n-4)
+a(n)\;=\;a(n-1) + 2\,a(n-2) - 2\,a(n-3) - a(n-4) + a(n-5)
 \]
-for every $n>5$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=5+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=0+1$ onwards, and the run exceeds $S+5$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -132,7 +125,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267456.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267353.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

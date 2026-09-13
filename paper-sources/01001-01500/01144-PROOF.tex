@@ -12,109 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250145, proved from an exact model}
+\title{The empirical closed form for OEIS A220155, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250145 carries an empirical recurrence of order $9$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A220155 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
+admissible array is replaced by the array of minima of its cells and their diagonal, horizontal neighbours,
+and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
+once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
+of consecutive rows and whose output is the filtered array turns the count into a walk count on
+$S=340$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{10}$; that the walk count
+satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
+in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The entry}
 
-OEIS A250145 is ``Number of length 6+2 0..n arrays with the medians of every three consecutive terms nondecreasing.''. It has offset $1$ and begins
+OEIS A220155 is ``Number of 3Xn arrays of the minimum value of corresponding elements and their horizontal or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 3Xn array.''. It has offset $1$ and begins
 \[
-111, 2026, 16104, 81664, 311498, 974944, 2637228, 6376143,\ \dots
+10, 26, 77, 254, 645, 1413, 2841, 5412,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+and states:
 \begin{quote}
-Empirical: a(n) = (1/12)*n\^{}8 + (1487/1260)*n\^{}7 + (4757/720)*n\^{}6 + (13757/720)*n\^{}5 + (4519/144)*n\^{}4 + (21611/720)*n\^{}3 + (2957/180)*n\^{}2 + (2183/420)*n + 1. a(n) = 9*a(n-1) - 36*a(n-2) + 84*a(n-3) - 126*a(n-4) + 126*a(n-5) - 84*a(n-6) + 36*a(n-7) - 9*a(n-8) + a(n-9) for n>10.
+Empirical: a(n) = (1/362880)*n\^{}9 + (1/40320)*n\^{}8 - (11/60480)*n\^{}7 - (49/2880)*n\^{}6 + (10837/17280)*n\^{}5 - (30473/5760)*n\^{}4 + (1003267/45360)*n\^{}3 + (41353/3360)*n\^{}2 - (594077/2520)*n + 361 for n>6
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 12 2018 03:01:22, revision 11)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:32:10, revision 8)
+this is still recorded as empirical, and it is still open.
 
-\section{The count is a polynomial}
+\section{What is being counted}
 
-The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
-the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
-array is described completely by its weak ordering: the ordered set partition of the $L$
-positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
-of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
-array, and there are $\binom{n+1}{m}$ of them. Hence
+Fix the width $W=3$ and the value range $0..2$. The underlying arrays are the
+$3\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
+is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
+of its diagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
-a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
+a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
-with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
+the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
+problem different in kind from a walk count: two admissible arrays can have the same image, and
+the graph whose walks are the arrays would count such a pair twice.
 
-\section{The bound}
+\section{Two constraints, both made local}
 
-That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
-$a$ and $S=9$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
-estimated.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{9}-\sum_ic_iz^{9-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\begin{lemma}\label{lem:local}
+Whether a sequence of rows is admissible is decided by the previous row together with
+$2$ bits.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+The row order compares consecutive rows and needs only the previous one. The column order
+compares whole columns read downwards, left to right, which is not a condition on consecutive
+rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
+either the two columns agree in every row read so far, or they first differed at some earlier
+row, and there the required inequality was already decided and no later row can affect it. One
+bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
+still agreeing, its two entries either agree again or differ in the permitted direction.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:det}
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=340$
+vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+\end{lemma}
+
+\begin{proof}
+Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
+row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
+emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
+same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
+machine in which each emitted row leads to exactly one state, so distinct words of length $n$
+correspond to distinct paths, and counting them is counting walks. The reachable determinised
+states number $S=340$. The last filtered row is emitted with no row below it, so it is not a
+step of the walk but a count attached to the state the walk stops in; that is $\tau$.
+\end{proof}
+
+\section{The closed form}
+
+The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
+recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9)
+q(x)=(x-1)^{10},\qquad\text{that is}\qquad a(n)=10\,a(n-1) - 45\,a(n-2) + 120\,a(n-3) - 210\,a(n-4) + 252\,a(n-5) - 210\,a(n-6) + 120\,a(n-7) - 45\,a(n-8) + 10\,a(n-9) - a(n-10).
 \]
-for every $n>0$.
+
+\begin{theorem}
+The closed form OEIS A220155 records is correct for all $n>6$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+9$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
+residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
+since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
+$S$ consecutive zeros force every later one. The last index at which it fails is $16$.
+Second, the polynomial and the walk count agree at every index from $7$ up to
+$1 + 31 - 1$, which is more than the $10$ consecutive agreements a
+common recurrence of order $10$ needs. Two sequences satisfying the same monic recurrence
+of order $10$ and agreeing at $10$ consecutive indices past both their thresholds are
+equal from there on.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the model reproduces all $31$ terms the entry publishes, exactly. This is what
+ties the construction to the entry, and it is the only point at which the entry's English is
+read.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the reading was pinned by direct enumeration before the model was written: for the
+one-row case the admissible arrays and their images were listed outright and counted, and the
+count is the entry's own first term.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
+fixed horizon, which is what makes it a proof and not a check of finitely many terms.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250145.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220155.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

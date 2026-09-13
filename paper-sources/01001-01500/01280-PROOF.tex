@@ -12,127 +12,111 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A241966, proved from an exact model}
+\title{Recovering the unwritten recurrences of the table OEIS A236155}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241966 carries an empirical recurrence of order $7$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A236155 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 8]'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A241966 is ``Number of length 3+3 0..n arrays with no consecutive four elements summing to more than 2*n.''. It has offset $1$ and begins
+OEIS A236155 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays colored with the sets of distinct values in every 2X2 subblock.''. It is read by antidiagonals and begins
 \[
-33, 311, 1597, 5778, 16660, 40978, 89622, 179079,\ \dots
+81, 414, 414, 2148, 2502, 2148, 11064, 16128,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = (3/10)*n\^{}6 + (127/60)*n\^{}5 + (149/24)*n\^{}4 + (59/6)*n\^{}3 + (1079/120)*n\^{}2 + (91/20)*n + 1. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=2: [order 8]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 31 2018 06:33:43, revision 8)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:09:47, revision 6) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{The count is a quasi-polynomial}
+\section{Why a line of the table is a walk count}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-\section{The bound}
+\section{Recovering the recurrences}
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
-\[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
-\]
-annihilates $a$, and $S=\deg A=8$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=8$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{7}-\sum_ic_iz^{7-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
-\end{proof}
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=414$ vertices. Berlekamp--Massey on $2S=828$ exact terms
+returns a minimal recurrence of order $8$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $3$ & $c_{3}$ & $24$ & $c_{5}$ & $-22$ & $c_{7}$ & $-2$ \\
+$c_{2}$ & $19$ & $c_{4}$ & $-1$ & $c_{6}$ & $-11$ & $c_{8}$ & $-2$ \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{8}c_i\,a(m-i)$ for every $m$. Removing the first
+$8+4$ terms and repeating gives order $8$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-\[
-a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
-\]
-for every $n>0$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+7$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241966.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236155.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

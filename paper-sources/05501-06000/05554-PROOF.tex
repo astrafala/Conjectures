@@ -12,76 +12,86 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206681, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251189, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206681 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
-every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $41$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=5352$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A251189 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $44$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=5832$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206681 is ``Number of (n+1) X 5 0..2 arrays with every 2 X 3 or 3 X 2 subblock having an unequal number of clockwise and counterclockwise edge increases.''. It has offset $1$ and begins
+OEIS A251189 is ``Number of (n+2)X(3+2) 0..1 arrays with nondecreasing sum of every three consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-5352, 55836, 645144, 7423464, 84549024, 965476188, 11019153780, 125824938768,\ \dots
+5832, 34992, 209952, 1259712, 4665600, 17280000, 64000000, 180000000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +71*a(n-2) +109*a(n-3) +304*a(n-4) +1749*a(n-5) +6190*a(n-6) +40798*a(n-7) +113760*a(n-8) +156451*a(n-9) +56935*a(n-10) -344927*a(n-11) -3135593*a(n-12) -2982120*a(n-13) -4186941*a(n-14) -4278189*a(n-15) +25395411*a(n-16) +21365207*a(n-17) +23528296*a(n-18) +18470333*a(n-19) +10691226*a(n-20) -158651917*a(n-21) +1474977*a(n-22) -90337878*a(n-23) +67235360*a(n-24) +78673890*a(n-25) +28641537*a(n-26) +12971893*a(n-27) -19013172*a(n-28) -10811757*a(n-29) +317677*a(n-30) +183847*a(n-31) -595959*a(n-32) +788026*a(n-33) +829709*a(n-34) +184148*a(n-35) +6927*a(n-36) -15576*a(n-37) -13017*a(n-38) -3018*a(n-39) -438*a(n-40) -72*a(n-41) for n>42.
+Empirical: a(n) = 2*a(n-1) -a(n-2) +14*a(n-3) -28*a(n-4) +14*a(n-5) -91*a(n-6) +182*a(n-7) -91*a(n-8) +364*a(n-9) -728*a(n-10) +364*a(n-11) -1001*a(n-12) +2002*a(n-13) -1001*a(n-14) +2002*a(n-15) -4004*a(n-16) +2002*a(n-17) -3003*a(n-18) +6006*a(n-19) -3003*a(n-20) +3432*a(n-21) -6864*a(n-22) +3432*a(n-23) -3003*a(n-24) +6006*a(n-25) -3003*a(n-26) +2002*a(n-27) -4004*a(n-28) +2002*a(n-29) -1001*a(n-30) +2002*a(n-31) -1001*a(n-32) +364*a(n-33) -728*a(n-34) +364*a(n-35) -91*a(n-36) +182*a(n-37) -91*a(n-38) +14*a(n-39) -28*a(n-40) +14*a(n-41) -a(n-42) +2*a(n-43) -a(n-44)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 13 2015 21:21:31, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:09:36, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Both a $3\times2$ and a $2\times3$ window have all six of their cells on the
-perimeter, so each carries a $6$-cycle. For
-$\begin{pmatrix}p&q\\r&s\\t&u\end{pmatrix}$ the clockwise cycle is
-$p\to q\to s\to u\to t\to r\to p$; for
-$\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
-$p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
-value, and counterclockwise counts the same cycle traversed the other way. The entry requires
-of every window of either shape that its clockwise and counterclockwise edge increases are unequal in number.
+The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$.
 
-The readings were pinned by direct enumeration before anything was built: over
-$\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
-$3$ number $150$; over $\{0,\dots,3\}$ the $3\times2$ arrays of count $1$ number $480$;
-and the $2\times3$ arrays over $\{0,1,2\}$ of clockwise count $2$ also number $423$. Those
-are the first terms the corresponding entries publish.
-
-\section{The count is a walk count}
-
-A $3\times2$ window spans three consecutive array rows and a $2\times3$
-window two, so take as state the PAIR of consecutive rows. The $2\times3$ windows lie inside a
-single pair, so they decide which pairs are admissible at all; the $3\times2$ windows straddle
-three rows, so they decide which pair may follow which. A step appends one array row, turning
-$(r,s)$ into $(s,t)$ and testing every $3\times2$ window of $r,s,t$ at once. An $(n+1)$-row
-array is a walk of $n-1$ steps and
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $3$ consecutive cells --- in words,
+the sum of the $3$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\sigma\bigl(x(i,j),\dots,x(i,j{+}2)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}3)\bigr),
 \]
-on the $S=5352$ admissible pairs.
+and reading down a column,
+\[
+\sigma\bigl(x(i,j),\dots,x(i{+}2,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}3,j)\bigr).
+\]
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
 
-At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
-$2\times3$ windows apply; the entry's first term is
-$5352$, which the model reproduces along with every later term.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+The row comparisons involve one array row each. A column comparison involves the
+$3+1=4$ consecutive rows $i,\dots,i{+}3$ and no others.
+\end{lemma}
+
+\begin{proof}
+The two runs compared start at rows $i$ and $i+1$ and have length $3$, so together they
+occupy rows $i$ through $i+3$.
+\end{proof}
+
+So the window of the last $3$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5832,
+\]
+a walk of no steps being an array of exactly $3$ rows.
+
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -89,7 +99,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -98,39 +108,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 71\,a(n-2) + 109\,a(n-3) + 304\,a(n-4) + 1749\,a(n-5) + 6190\,a(n-6) + 40798\,a(n-7) + 113760\,a(n-8) + 156451\,a(n-9) + 56935\,a(n-10) - 344927\,a(n-11) - 3135593\,a(n-12) - 2982120\,a(n-13) - 4186941\,a(n-14) - 4278189\,a(n-15) + 25395411\,a(n-16) + 21365207\,a(n-17) + 23528296\,a(n-18) + 18470333\,a(n-19) + 10691226\,a(n-20) - 158651917\,a(n-21) + 1474977\,a(n-22) - 90337878\,a(n-23) + 67235360\,a(n-24) + 78673890\,a(n-25) + 28641537\,a(n-26) + 12971893\,a(n-27) - 19013172\,a(n-28) - 10811757\,a(n-29) + 317677\,a(n-30) + 183847\,a(n-31) - 595959\,a(n-32) + 788026\,a(n-33) + 829709\,a(n-34) + 184148\,a(n-35) + 6927\,a(n-36) - 15576\,a(n-37) - 13017\,a(n-38) - 3018\,a(n-39) - 438\,a(n-40) - 72\,a(n-41)
+a(n)\;=\;2\,a(n-1) - a(n-2) + 14\,a(n-3) - 28\,a(n-4) + 14\,a(n-5) - 91\,a(n-6) + 182\,a(n-7) - 91\,a(n-8) + 364\,a(n-9) - 728\,a(n-10) + 364\,a(n-11) - 1001\,a(n-12) + 2002\,a(n-13) - 1001\,a(n-14) + 2002\,a(n-15) - 4004\,a(n-16) + 2002\,a(n-17) - 3003\,a(n-18) + 6006\,a(n-19) - 3003\,a(n-20) + 3432\,a(n-21) - 6864\,a(n-22) + 3432\,a(n-23) - 3003\,a(n-24) + 6006\,a(n-25) - 3003\,a(n-26) + 2002\,a(n-27) - 4004\,a(n-28) + 2002\,a(n-29) - 1001\,a(n-30) + 2002\,a(n-31) - 1001\,a(n-32) + 364\,a(n-33) - 728\,a(n-34) + 364\,a(n-35) - 91\,a(n-36) + 182\,a(n-37) - 91\,a(n-38) + 14\,a(n-39) - 28\,a(n-40) + 14\,a(n-41) - a(n-42) + 2\,a(n-43) - a(n-44)
 \]
-for every $n>42$.
+for every $n>44$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=44+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206681.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251189.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
-Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

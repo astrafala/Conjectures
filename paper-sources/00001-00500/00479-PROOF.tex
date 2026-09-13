@@ -12,138 +12,116 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235073: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A266327, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235073 records ``Empirical recurrence of order $73$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=392$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $73$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$73$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A266327 carries an empirical recurrence of order $2$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A235073 is ``Number of (n+1) X (2+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$ and begins
+OEIS A266327 is ``Binary representation of the n-th iteration of the "Rule 20" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-1828, 12228, 86704, 644188, 4832976, 36598068, 278216484, 2124989472,\ \dots
+1, 11, 1, 11, 1, 11, 1, 11,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 73 (see link above).
+Conjectures from \_Colin Barker\_, Dec 28 2015 and Apr 18 2019: (Start) a(n) = a(n-2) for n>1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2022 23:23:45, revision 8) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 25)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The value is a certified growth}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=392$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=392$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=784$ exact terms of the model returns order $73$ --- the order the
-entry states --- with the integer coefficients
+The entry reads a row of the automaton at stage $n$ as a string of digits and takes its
+numeric value. Nothing is being counted, so there is no digraph. What settles the sequence is
+that the string itself grows by a fixed pattern: the automaton was run and the certificate
 \[
-a(n)\;=\;\sum_{i=1}^{73}c_i\,a(n-i),
+w(n+p)\;=\;L_r + w(n) + R_r
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $9$ & $c_{20}$ & $-2283632847474963$ & $c_{39}$ & $-3329463683883615540161$ & $c_{58}$ & $-225744944363277584384$ \\
-$c_{2}$ & $253$ & $c_{21}$ & $15605178960194553$ & $c_{40}$ & $245300716516507608409$ & $c_{59}$ & $-27782235168095305216$ \\
-$c_{3}$ & $-2296$ & $c_{22}$ & $18458905148435130$ & $c_{41}$ & $5481194002809115052659$ & $c_{60}$ & $60993903838538744960$ \\
-$c_{4}$ & $-28151$ & $c_{23}$ & $-122955462773333188$ & $c_{42}$ & $-963122871609885453735$ & $c_{61}$ & $1049703177590787840$ \\
-$c_{5}$ & $255768$ & $c_{24}$ & $-122446251676533541$ & $c_{43}$ & $-7522195683906434951171$ & $c_{62}$ & $-12447468817924823040$ \\
-$c_{6}$ & $1859886$ & $c_{25}$ & $806629225402213328$ & $c_{44}$ & $2058458454461970952639$ & $c_{63}$ & $809905598671752192$ \\
-$c_{7}$ & $-16727287$ & $c_{26}$ & $667182131877191467$ & $c_{45}$ & $8549214399966799766011$ & $c_{64}$ & $1868440798647906304$ \\
-$c_{8}$ & $-83009548$ & $c_{27}$ & $-4430940721105867228$ & $c_{46}$ & $-3155362747161882170284$ & $c_{65}$ & $-243675660737126400$ \\
-$c_{9}$ & $729387541$ & $c_{28}$ & $-2978297375229876665$ & $c_{47}$ & $-7979548285655389768333$ & $c_{66}$ & $-198087460296695808$ \\
-$c_{10}$ & $2685919408$ & $c_{29}$ & $20462103965419263597$ & $c_{48}$ & $3706593864463403134970$ & $c_{67}$ & $36380602069581824$ \\
-$c_{11}$ & $-22793267893$ & $c_{30}$ & $10806687134235708830$ & $c_{49}$ & $6051487249587236761280$ & $c_{68}$ & $13874843854700544$ \\
-$c_{12}$ & $-65779647686$ & $c_{31}$ & $-79643524358625973344$ & $c_{50}$ & $-3413453559203876872794$ & $c_{69}$ & $-3171143747371008$ \\
-$c_{13}$ & $534767403988$ & $c_{32}$ & $-31319886445936922252$ & $c_{51}$ & $-3677271288867846726924$ & $c_{70}$ & $-566931184680960$ \\
-$c_{14}$ & $1254116051910$ & $c_{33}$ & $261603403683159192127$ & $c_{52}$ & $2482175229170949527036$ & $c_{71}$ & $152226383265792$ \\
-$c_{15}$ & $-9727483891431$ & $c_{34}$ & $69680882992309107234$ & $c_{53}$ & $1756318505495499297736$ & $c_{72}$ & $9975631970304$ \\
-$c_{16}$ & $-18975638746037$ & $c_{35}$ & $-725171880256128246186$ & $c_{54}$ & $-1424899389632322832824$ & $c_{73}$ & $-3069425221632$ \\
-$c_{17}$ & $140416341968064$ & $c_{36}$ & $-106357306795746363554$ & $c_{55}$ & $-640058920803422146240$ &  &  \\
-$c_{18}$ & $230976261260999$ & $c_{37}$ & $1694461108573024804395$ & $c_{56}$ & $642618504247472447952$ &  &  \\
-$c_{19}$ & $-1636592446458350$ & $c_{38}$ & $56813379667179363992$ & $c_{57}$ & $168478657601714799584$ &  &  \\
-\end{tabular}
-\end{center}
+was verified for every available $n$ in each residue class $r$ of $n$ modulo the period $p$,
+after a pre-period $n_0$ during which the shape has not yet settled. Concatenation is
+multiplication by a power of the base $B$ and addition, so along a class
+\[
+a(n+p)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r),
+\]
+with $|w(n)|$ growing by $|L_r|+|R_r|$ every $p$ steps.
+
+\section{The bound}
+
+In the shift $T=S^{\,p}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,p}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$. The
+earlier figure, $p+3$, was the one-dimensional count carried over unchanged; with $p$ classes
+carrying $p$ different pairs it is too small, and a residual test that trusts it checks too few
+coefficients to prove anything.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{2}-\sum_ic_iz^{2-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;a(n-2)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $73$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $73+4$ terms
-removed returns order $73$ as well, so $\deg q_{\min}=73=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+2$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $74$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $73+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $73$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235073.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266327.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

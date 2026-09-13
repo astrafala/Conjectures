@@ -12,144 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A298090, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A285474, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A298090 counts $5$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $equal to$ itself lying in $\{1,2,4,7\}$, and it carries an empirical
-recurrence of order $82$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=1024$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A285474 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A298090 is ``Number of nX5 0..1 arrays with every element equal to 1, 2, 4 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A285474 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 3", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-3, 23, 21, 53, 45, 87, 150, 216,\ \dots
+1, 11, 100, 1111, 10000, 111111, 1000000, 11111111,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = a(n-1) +4*a(n-3) -2*a(n-6) -8*a(n-7) -14*a(n-8) -11*a(n-9) -9*a(n-10) +26*a(n-11) +48*a(n-12) +42*a(n-13) +51*a(n-14) -62*a(n-15) -67*a(n-16) -56*a(n-17) -57*a(n-18) +123*a(n-19) +120*a(n-20) +64*a(n-21) +143*a(n-22) -555*a(n-23) -261*a(n-24) -584*a(n-25) -76*a(n-26) +782*a(n-27) +657*a(n-28) +992*a(n-29) +34*a(n-30) -983*a(n-31) -776*a(n-32) -1202*a(n-33) +107*a(n-34) +1815*a(n-35) +1770*a(n-36) +3202*a(n-37) -178*a(n-38) -1628*a(n-39) -3922*a(n-40) -3738*a(n-41) -1508*a(n-42) +1903*a(n-43) +4277*a(n-44) +4438*a(n-45) +350*a(n-46) -3637*a(n-47) -7078*a(n-48) -5333*a(n-49) -3510*a(n-50) +1704*a(n-51) +6292*a(n-52) +8329*a(n-53) +9238*a(n-54) +3604*a(n-55) -3468*a(n-56) -6364*a(n-57) -9508*a(n-58) -2854*a(n-59) +3284*a(n-60) +6038*a(n-61) +7880*a(n-62) -1292*a(n-63) -5136*a(n-64) -5336*a(n-65) -3836*a(n-66) +1472*a(n-67) +148*a(n-68) +264*a(n-69) +2704*a(n-70) +2840*a(n-71) +3128*a(n-72) -752*a(n-73) -3384*a(n-74) -2624*a(n-75) -672*a(n-76) +1232*a(n-77) +1360*a(n-78) +464*a(n-79) -128*a(n-80) -192*a(n-81) -128*a(n-82) for n>86
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Apr 19 2017: (Start) a(n) = 101*a(n-2) - 100*a(n-4) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 12 2018 09:30:55, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 4\,a(n-3) - 2\,a(n-6) - 8\,a(n-7) - 14\,a(n-8) - 11\,a(n-9) - 9\,a(n-10) + 26\,a(n-11) + 48\,a(n-12) + 42\,a(n-13) + 51\,a(n-14) - 62\,a(n-15) - 67\,a(n-16) - 56\,a(n-17) - 57\,a(n-18) + 123\,a(n-19) + 120\,a(n-20) + 64\,a(n-21) + 143\,a(n-22) - 555\,a(n-23) - 261\,a(n-24) - 584\,a(n-25) - 76\,a(n-26) + 782\,a(n-27) + 657\,a(n-28) + 992\,a(n-29) + 34\,a(n-30) - 983\,a(n-31) - 776\,a(n-32) - 1202\,a(n-33) + 107\,a(n-34) + 1815\,a(n-35) + 1770\,a(n-36) + 3202\,a(n-37) - 178\,a(n-38) - 1628\,a(n-39) - 3922\,a(n-40) - 3738\,a(n-41) - 1508\,a(n-42) + 1903\,a(n-43) + 4277\,a(n-44) + 4438\,a(n-45) + 350\,a(n-46) - 3637\,a(n-47) - 7078\,a(n-48) - 5333\,a(n-49) - 3510\,a(n-50) + 1704\,a(n-51) + 6292\,a(n-52) + 8329\,a(n-53) + 9238\,a(n-54) + 3604\,a(n-55) - 3468\,a(n-56) - 6364\,a(n-57) - 9508\,a(n-58) - 2854\,a(n-59) + 3284\,a(n-60) + 6038\,a(n-61) + 7880\,a(n-62) - 1292\,a(n-63) - 5136\,a(n-64) - 5336\,a(n-65) - 3836\,a(n-66) + 1472\,a(n-67) + 148\,a(n-68) + 264\,a(n-69) + 2704\,a(n-70) + 2840\,a(n-71) + 3128\,a(n-72) - 752\,a(n-73) - 3384\,a(n-74) - 2624\,a(n-75) - 672\,a(n-76) + 1232\,a(n-77) + 1360\,a(n-78) + 464\,a(n-79) - 128\,a(n-80) - 192\,a(n-81) - 128\,a(n-82)
-\end{equation}
-for all $n>82$.
+\section{The value is a certified growth}
 
-\section{The array as a walk, with boundary}
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
+\[
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
+\]
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,4,7\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 3 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
 
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=1024$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,4,7\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,4,7\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,4,7\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
-\end{lemma}
+\section{The bound}
 
-\begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,4,7\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
-\end{proof}
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
 
-\section{The criterion}
-
-Let $q(t)=t^{82}-\sum_i c_i t^{82-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-82}$ whenever $n-82\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-82$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-82}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>82$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;101\,a(n-2) - 100\,a(n-4)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $82$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=82+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $36$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1024$ consecutive
-zeros rather than to a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A298090.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A285474.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

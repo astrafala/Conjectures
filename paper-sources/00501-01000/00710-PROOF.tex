@@ -12,135 +12,129 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219941, proved}
+\title{The empirical recurrence for OEIS A234242: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219941 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their diagonal, horizontal neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=1892$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{27}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A234242 records ``Empirical recurrence of order $45$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=512$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $45$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$45$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The entry}
+\section{A conjecture one cannot read}
 
-OEIS A219941 is ``Number of 3 X n arrays of the minimum value of corresponding elements and their horizontal or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 3 X n array.''. It has offset $1$ and begins
+OEIS A234242 is ``Number of (n+1) X (2+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-20, 76, 368, 2070, 8523, 30558, 100761, 313108,\ \dots
+6706, 99630, 1520024, 23428586, 361889580, 5604275160, 86776363660, 1346057282610,\ \dots
 \]
-and states:
+The entry states:
 \begin{quote}
-Empirical: a(n) = (1/403291461126605635584000000)*n\^{}26 + (1/4431774298094567424000000)*n\^{}25 - (1/41363226782215962624000)*n\^{}24 + (197/620448401733239439360000)*n\^{}23 + (1217/8174550747473510400000)*n\^{}22 - (256279/24523652242420531200000)*n\^{}21 + (65279/408727537373675520000)*n\^{}20 + (1856273/87584472294359040000)*n\^{}19 - (653349821/430239513024921600000)*n\^{}18 + (54055377587/1290718539074764800000)*n\^{}17 + (2320366871/27839027313377280000)*n\^{}16 - (3717812638987/83517081940131840000)*n\^{}15 + (5484808764935099/3619073550739046400000)*n\^{}14 - (2496111855647623/119310117057331200000)*n\^{}13 - (72022776713071/632705166213120000)*n\^{}12 + (37557787492220189/3796230997278720000)*n\^{}11 - (2181011993923982069/13444984782028800000)*n\^{}10 + (27307415379539594171/80669908692172800000)*n\^{}9 + (1343328329294561945371/38318206628782080000)*n\^{}8 - (2841881108865735917063/3649353012264960000)*n\^{}7 + (1799819148808436831247773/195139015239168000000)*n\^{}6 - (3401216027548345002782833/48784753809792000000)*n\^{}5 + (46648398935022032997047/138524609583360000)*n\^{}4 - (7212118970409085627577/7792009289064000)*n\^{}3 + (9943478169830685757/12528895579200)*n\^{}2 + (4275677919744929/1912224600)*n - 4212297 for n>13.
+Empirical recurrence of order 45 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2025 15:09:45, revision 8)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 19:09:47, revision 7) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Fix the width $W=3$ and the value range $0..3$. The underlying arrays are the
-$3\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
-and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its diagonal, horizontal neighbours that lie inside the array. The entry counts
-\[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
-\]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=512$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-\section{Two constraints, both made local}
-
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$2$ bits.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=512$.
 \end{lemma}
 
-\begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
-\end{proof}
+\section{Recovering the recurrence}
 
-\begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=1892$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=1892$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
-\end{proof}
-
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
+Running it on $2S=1024$ exact terms of the model returns order $45$ --- the order the
+entry states --- with the integer coefficients
 \[
-q(x)=(x-1)^{27},\qquad\text{that is}\qquad a(n)=27\,a(n-1) - 351\,a(n-2) + 2925\,a(n-3) - 17550\,a(n-4) + 80730\,a(n-5) - 296010\,a(n-6) + 888030\,a(n-7) - 2220075\,a(n-8) + 4686825\,a(n-9) - 8436285\,a(n-10) + 13037895\,a(n-11) - 17383860\,a(n-12) + 20058300\,a(n-13) - 20058300\,a(n-14) + 17383860\,a(n-15) - 13037895\,a(n-16) + 8436285\,a(n-17) - 4686825\,a(n-18) + 2220075\,a(n-19) - 888030\,a(n-20) + 296010\,a(n-21) - 80730\,a(n-22) + 17550\,a(n-23) - 2925\,a(n-24) + 351\,a(n-25) - 27\,a(n-26) + a(n-27).
+a(n)\;=\;\sum_{i=1}^{45}c_i\,a(n-i),
 \]
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $46$ & $c_{13}$ & $-1075341235831351$ & $c_{25}$ & $-49698971791013793780127$ & $c_{37}$ & $6731574510215276310233088$ \\
+$c_{2}$ & $134$ & $c_{14}$ & $-9712651178468259$ & $c_{26}$ & $141332682505381310893989$ & $c_{38}$ & $2023442562075755966889984$ \\
+$c_{3}$ & $-35276$ & $c_{15}$ & $64089609807225875$ & $c_{27}$ & $183123165803850090714818$ & $c_{39}$ & $-3622018897377210336804864$ \\
+$c_{4}$ & $323233$ & $c_{16}$ & $235935953639737470$ & $c_{28}$ & $-780626390348928587846808$ & $c_{40}$ & $-249427028442759749959680$ \\
+$c_{5}$ & $9930899$ & $c_{17}$ & $-2293634297261234632$ & $c_{29}$ & $-270395567855776777543560$ & $c_{41}$ & $1051812294311127011033088$ \\
+$c_{6}$ & $-157313817$ & $c_{18}$ & $-2725332118925920409$ & $c_{30}$ & $2714801171351407674882096$ & $c_{42}$ & $-29183355035127801446400$ \\
+$c_{7}$ & $-1188548411$ & $c_{19}$ & $52743969089997044624$ & $c_{31}$ & $-595246179658172059475072$ & $c_{43}$ & $-154724729918968981094400$ \\
+$c_{8}$ & $31938720142$ & $c_{20}$ & $-13241802902862635215$ & $c_{32}$ & $-5866168797635701662698496$ & $c_{44}$ & $6813525454104821760000$ \\
+$c_{9}$ & $27717326256$ & $c_{21}$ & $-796374230173916497493$ & $c_{33}$ & $3500666468919287746553856$ & $c_{45}$ & $9084700605473095680000$ \\
+$c_{10}$ & $-3554975670842$ & $c_{22}$ & $971308268134472771020$ & $c_{34}$ & $7599389065184082704108544$ &  &  \\
+$c_{11}$ & $8435049174150$ & $c_{23}$ & $7880760194879554361386$ & $c_{35}$ & $-6789152380252503977717760$ &  &  \\
+$c_{12}$ & $237054281056177$ & $c_{24}$ & $-15782086324909378071518$ & $c_{36}$ & $-5547706382650765698514944$ &  &  \\
+\end{tabular}
+\end{center}
 
 \begin{theorem}
-The closed form OEIS A219941 records is correct for all $n>13$.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $40$.
-Second, the polynomial and the walk count agree at every index from $14$ up to
-$1 + 27 - 1$, which is more than the $27$ consecutive agreements a
-common recurrence of order $27$ needs. Two sequences satisfying the same monic recurrence
-of order $27$ and agreeing at $27$ consecutive indices past both their thresholds are
-equal from there on.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $45$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $45+4$ terms
+removed returns order $45$ as well, so $\deg q_{\min}=45=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $45+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $45$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219941.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234242.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

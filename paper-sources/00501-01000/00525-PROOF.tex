@@ -12,110 +12,170 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A234405}
+\title{Every term of OEIS A393858 is congruent to $1$ modulo $7$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234405 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 60]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A393858 is defined by the functional equation $A\bigl(x-xA(6x)/6\bigr)=x$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
+congruent to $1$ modulo $7$. It is true, and the reason is that $6\equiv-1$ modulo
+$7$. The functional equation determines the coefficients one at a time, so it determines
+them modulo $7$ as well; and modulo $7$ the series $x/(1-x)$, all of whose coefficients
+are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
+is the conjecture. The argument is an identity between rational functions over
+$\mathbb{Z}/7\mathbb{Z}$ and involves no estimation and no truncation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The sequence and the conjecture}
 
-OEIS A234405 is ``T(n,k)=Number of (n+1)X(k+1) 0..6 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 12.''. It is read by antidiagonals and begins
+OEIS A393858 is ``G.f. A(x) satisfies: A( x - x*A(6*x)/6 ) = x.''. It has offset $1$ and begins
 \[
-432, 5646, 5646, 66806, 204320, 66806, 829594, 6467216,\ \dots
+1, 1, 8, 323, 71744, 93490314,\ \dots
 \]
-The entry carries, among its empirical claims:
+So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A\!\left(x-\frac{x\,A(6x)}{6}\right)\;=\;x .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
 \begin{quote}\small
-k=2: [order 60]
+Conjecture: a(n) == 1 (mod 7) for n >= 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:18:06, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:34, revision 10) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-\section{Why a line of the table is a walk count}
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+a(n)\;\equiv\;1 \pmod{7}\qquad\text{for every } n\ge1 .
+\end{equation}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+\section{The equation determines the sequence}
 
-\section{Recovering the recurrences}
+It is convenient to clear the division. Since $A$ has no constant term,
+\begin{equation}\label{eq:B}
+B(x)\;:=\;x-\frac{x\,A(6x)}{6}\;=\;x-\sum_{n\ge1}a(n)\,6^{\,n-1}x^{n+1},
+\end{equation}
+so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $6$.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+it is given by $a(1)=1$ together with
+\begin{equation}\label{eq:rec}
+a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+\end{equation}
+in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=343$ vertices. Berlekamp--Massey on $2S=686$ exact terms
-returns a minimal recurrence of order $60$ --- the order the entry states --- with
-integer coefficients
+\begin{proof}
+$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
+while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
 \[
-(c_1,\dots,c_{60})=(42,\ 230,\ -21067,\ 41293,\ 4000778,\ -16833125,\ -397423643,\ 2101076834,\ 23864708139,\ -142885331062,\ -940143766205,\ 6183822224651,\ 25565496208261,\ -183925178822995,\ -495330773750106,\ 3936825640499573,\ 6958169582892303,\ -62475879129069204,\ -71169403049524908,\ 749774019483732999,\ 523289915169517776,\ -6893718414265243632,\ -2640256308926852298,\ 48958265948927178924,\ 7765225278966119342,\ -269781713576705705527,\ -737725396313766912,\ 1155480337277717809552,\ -114143831266724081789,\ -3844835914979772049890,\ 597751333083684366122,\ 9917735778187692021358,\ -1727886733729875623913,\ -19760864364857975090600,\ 3176536726534157180880,\ 30262590935435818718596,\ -3649383718048213895738,\ -35384080686740227114748,\ 2113259987338312204508,\ 31290944166567450854893,\ 485084961544187217346,\ -20639330047693813210244,\ -2047377089273108836864,\ 9942022999398870922577,\ 1863208165574324170492,\ -3384183573759590667159,\ -948831617448884471456,\ 770337584093056498403,\ 298737932617463047791,\ -105025576542289949412,\ -57968711427481135081,\ 5998651224292401284,\ 6523611075666008404,\ 300293815662093600,\ -364548786859272032,\ -55170081732975976,\ 5767605933368524,\ 1774967719486016,\ 103617321782496,\ 262580605920).
+x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
 \]
-so that $a(m)=\sum_{i=1}^{60}c_i\,a(m-i)$ for every $m$. Removing the first
-$60+4$ terms and repeating gives order $60$ again, which is what the
-identification below needs.
+Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
+$x^{N}$ gives
+\[
+0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
+\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+\]
+since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
+claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
+$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
+\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
+and uniqueness.
+\end{proof}
 
-\begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\begin{corollary}\label{cor:mod}
+For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
+read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
+reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
+recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
+Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $7$}
+
+Everything now happens in $(\mathbb{Z}/7\mathbb{Z})[[x]]$. The one fact that drives the proof is
+\begin{equation}\label{eq:minus}
+6\;\equiv\;-1 \pmod{7} .
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+$a(n)\equiv1\pmod{7}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/7\mathbb{Z})[[x]]$, so all its
+coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
+check that $\bar A$ satisfies \eqref{eq:fe} modulo $7$.
+
+Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
+$\bigl[x^{n+1}\bigr]\bar B=-6^{\,n-1}$, and by \eqref{eq:minus}
+$6^{\,n-1}\equiv(-1)^{n-1}$, so
+\[
+\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
+\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
+\;=\;x-x\cdot\frac{x}{1+x}
+\;=\;\frac{x}{1+x} .
+\]
+Composing,
+\[
+\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
+\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
+\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
+\]
+Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
+So $\bar A$ satisfies \eqref{eq:fe} modulo $7$, and Corollary~\ref{cor:mod} gives
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{7}$ for every $n\ge1$.
 \end{proof}
+
+\begin{remark}
+The proof used nothing about $6$ beyond \eqref{eq:minus}. The same argument shows that
+for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
+its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
+the quantity $6^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
+exactly \eqref{eq:minus}.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
+compared against the entry's DATA at every one of the $13$ published indices; the
+values agree exactly. A recursion that reproduced only some of them would mean the
+functional equation had been transcribed wrongly.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the same run was continued to $n=24$ and every term reduced modulo $7$; all
+$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
+independently as a formal power series over $\mathbb{Z}/7\mathbb{Z}$, coefficient by
+coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
+the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
+those orders.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234405.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A393858.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

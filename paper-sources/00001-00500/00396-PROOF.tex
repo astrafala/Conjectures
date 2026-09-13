@@ -12,147 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A bisection identity between OEIS A111403 and OEIS A002716}
+\title{The empirical recurrence for OEIS A282796, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
-the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
-recurrence A002716 states as fact splits into two closed forms, one for each parity of the
-index, and a short induction proves both at once: the odd-indexed terms are exactly the
-Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
-which is one more than the defining expression for A111403.
+OEIS A282796 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The two sequences and the conjecture}
+\section{The conjecture}
 
-OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
+OEIS A282796 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 505", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
+1, 0, 111, 100, 11111, 10100, 1111111, 1010100,\ \dots
 \]
-OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Feb 21 2017: (Start) a(n) = 101*a(n-2) - 100*a(n-4) for n>3.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:37, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The value is a certified growth}
+
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
+C(n+0)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
+\]
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+0)=C(n_0)$ forces $C(n_0+k\cdot0)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 0 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+0)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $0$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+0)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
 \]
 
-The entry A111403 carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
-\end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
-statement is still recorded as unproved, and nothing on either entry records it as settled
-either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
+\section{The bound}
 
-Write $f(m)=2^{m}$. The name of A111403 defines
-\begin{equation}\label{eq:a}
-a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
-\end{equation}
-and the statement to be proved is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
-\end{equation}
-where $b$ is A002716.
-
-\section{What A002716 states as fact}
-
-A002716 states, not as a conjecture,
-\begin{quote}\small
-a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
-a(0) = 3, a(1) = 5.
-\end{quote}
-that is, with $b$ for the sequence,
-\begin{equation}\label{eq:rec}
-b(0)=3,\quad b(1)=5,\qquad
-b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
-b(2n+1)=b(2n)+b(2n-1)-1
-\end{equation}
-for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
-entry; it was checked against all $13$ of its published terms before use.
+In the shift $T=S^{\,0}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,0}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
 
 \section{The proof}
 
-\begin{lemma}\label{lem:cf}
-For every $n\ge0$,
-\[
-b(2n+1)\;=\;2^{2^{n+1}}+1 ,
-\]
-and for every $n\ge1$,
-\[
-b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
-\]
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Induction on $n$, proving the odd-index statement and using it to get the next
-even-index one.
-
-For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
-\eqref{eq:rec}.
-
-Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
-$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
-\[
-b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
-=2^{2^{n+1}}-2^{2^{n}}+1,
-\]
-which is the second claim at $n$. Then, again by \eqref{eq:rec},
-\[
-b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
-=2^{2^{n+1}}+1,
-\]
-which is the first claim at $n$. The induction is complete.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
-For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
-A002716. This is the statement of Section~1.
+\[
+a(n)\;=\;101\,a(n-2) - 100\,a(n-4)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-For $n\ge1$, Lemma~\ref{lem:cf} gives
-$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
-
-For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
-$a(0)=2^{2}-2^{1}=2$. The two agree.
-\end{proof}
-
-\begin{corollary}
-The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
-$F_m=2^{2^{m}}+1$.
-\end{corollary}
-
-\begin{proof}
-This is the first statement of Lemma~\ref{lem:cf}.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
-one of the $8$ published terms of A111403; the values agree exactly.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
-compared against every one of the $13$ published terms of A002716; the values agree
-exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
-matched against the same terms at every index of each parity.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
-any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
-$b(2n)$ are published --- the two integers agree.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282796.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

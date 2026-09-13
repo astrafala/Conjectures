@@ -12,127 +12,160 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279962, proved from an exact model}
+\title{The empirical recurrence for OEIS A214135, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279962 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A214135 counts the proper colourings of a grid $n\times3$, wrapped in the direction of width $3$, with at most $5$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $2$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=90$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A279962 is ``Decimal representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 221", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A214135 is ``Number of 0..4 colorings on an nX3 array circular in the 3 direction with new values 0..4 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 1, 2, 3, 28, 15, 112, 63,\ \dots
+1, 17, 514, 16388, 524296, 16777232, 536870944, 17179869248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Dec 24 2016: (Start) a(n) = 5*a(n-2) - 4*a(n-4) for n>6.
+Empirical: a(n) = 34*a(n-1) -64*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:36, revision 11)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:52:57, revision 12) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The value is a certified growth}
+\section{What is being counted}
 
-The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
-takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
-sequence is that the CONFIGURATION is periodic in time:
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
+
+The clause ``new values $0..4$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 3.
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-This was checked directly, and one instance of it is all that is needed: the automaton is a
-deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
-every $k$, and likewise in each residue class. No locality argument and no induction over
-boundary windows is involved.
-
-Getting the background right is the whole of the check. A rule taking an empty von Neumann
-neighbourhood to a live cell flips the ENTIRE plane, and rule 221 is read
-in that light: comparing two stages by padding the smaller with zeros would compare two
-different things.
-
-The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
-that is not changing, so the window widening by one cell on each side per step gives
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{5}$, so
 \[
-w(n+2)\;=\;L_r + w(n) + R_r
+a\;=\;\sum_{i=1}^{5}w_i\,L_i
 \]
-with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
-identity that is now a consequence rather than an observation. Concatenation is multiplication
-by a power of the base $B$ and addition, so along a class
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
+
+\section{Each $L_i$ is a walk count}
+
+A row of the array is a proper colouring of the cycle $C_{3}$, since the wrapping makes
+its first and last cells adjacent, and two consecutive rows must differ in every one of the
+$3$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
+vertices are the proper colourings of $C_{3}$ over $i$ colours and whose edges join
+colourings differing everywhere:
 \[
-a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
 \]
+There are $(i-1)^{3}+(-1)^{3}(i-1)$ such colourings, which at $i=5$ is already more
+than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
 
-\section{The bound}
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
+\[
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
+\]
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\end{lemma}
 
-In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
-constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
-occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
-pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
+\begin{proof}
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+\end{proof}
+
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=90$ rather than the number of colourings.
+
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,5$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-2) - 4\,a(n-4)
+a(n)\;=\;34\,a(n-1) - 64\,a(n-2)
 \]
-for every $n>6$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=6+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $34$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279962.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214135.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

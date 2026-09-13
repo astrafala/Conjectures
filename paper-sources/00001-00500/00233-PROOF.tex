@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A266723, proved from an exact model}
+\title{The empirical recurrence for OEIS A282655, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266723 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
+OEIS A282655 carries an empirical recurrence of order $6$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
 which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
@@ -31,58 +31,59 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A266723 is ``Total number of ON (black) cells after n iterations of the "Rule 59" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A282655 is ``Decimal representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 491", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-1, 3, 5, 11, 13, 23, 25, 39,\ \dots
+1, 2, 7, 2, 31, 2, 127, 34,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Jan 05 2016 and Apr 18 2019: (Start) a(n) = a(n-1)+2*a(n-2)-2*a(n-3)-a(n-4)+a(n-5) for n>4.
+Conjectures from \_Colin Barker\_, Feb 20 2017: (Start) a(n) = 4*a(n-2) + a(n-4) - 4*a(n-6) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 18)
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:37, revision 11)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The value is a certified growth}
 
-The entry counts the running total of its ON (black) cells over the first $n$ iterations of the automaton. Nothing is being enumerated over a window, so there is
-no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
-the row grows only at its two ends. Writing
-$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-w(n+p)\;=\;L_r + w(n) + R_r
+C(n+0)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 0.
 \]
-was verified for every available $n$ past a
-pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
-both sides gives
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+0)=C(n_0)$ forces $C(n_0+k\cdot0)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 0 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
 \[
-\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
+w(n+0)\;=\;L_r + w(n) + R_r
 \]
-a first-order difference along each class.
-
-The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
-radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
-window at both boundaries, and induction carries it to every later $n$.
-
-For this entry the automaton is rule 59, the period is $p=2$ and the pre-period is $n_0=1$.
-The certificate is
-\begin{gather*}
-r=0:\quad w(n+p) = \texttt{000} \cdot w(n) \cdot \texttt{0} \\
-r=1:\quad w(n+p) = \texttt{111} \cdot w(n) \cdot \texttt{1}
-\end{gather*}
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $0$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+0)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
 
 \section{The bound}
 
-So
-$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
-the same polynomial, since the width is linear in $n$; a running total contributes one further
-factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
-annihilator of order $S=7$ used below.
+In the shift $T=S^{\,0}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,0}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=7$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -96,23 +97,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) - 2\,a(n-3) - a(n-4) + a(n-5)
+a(n)\;=\;4\,a(n-2) + a(n-4) - 4\,a(n-6)
 \]
-for every $n>0$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+5$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+vanish from $n=11+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=11$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $34$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -125,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266723.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282655.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

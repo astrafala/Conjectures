@@ -12,168 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224546, proved by transfer matrix}
+\title{The empirical closed form for OEIS A223951, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224546 counts the $(n+1)\times5$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
-$5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=26$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A223951 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=4096$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{5}$, of degree
+$5$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $5$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224546 is ``Number of (n+1) X 5 0..1 matrices with each 2 X 2 subblock idempotent.''. It has offset $1$ and begins
+OEIS A223951 is ``Number of 4 X n 0..1 arrays with diagonals and antidiagonals unimodal and rows nondecreasing.''. It has offset $1$ and begins
 \[
-48, 86, 125, 196, 294, 448, 682, 1049,\ \dots
+16, 81, 177, 321, 558, 928, 1479, 2267,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 5*a(n-2) + a(n-3) + 2*a(n-4) - a(n-5) for n>6.
+Empirical: a(n) = (1/3)*n\^{}4 + (2/3)*n\^{}3 + (37/6)*n\^{}2 + (107/6)*n + 23 for n>2.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 30 2018 16:00:24, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 24 2018 08:52:29, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
+\[
+f(n)\;=\;\frac{n^{4}}{3} + \frac{2 n^{3}}{3} + \frac{37 n^{2}}{6} + \frac{107 n}{6} + 23.
+\]
 
 \section{The count is a walk count}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
-call a $2\times5$ matrix a \emph{band} when every one of its $4$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $5$ columns
-whose every $2$ consecutive rows form a band.
-
-Take as states the $1\times5$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=4096$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
 \]
-with $M$ the adjacency matrix on $S=26$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
 
-There are $(1 + 1)^{5}$ strips of $1$ rows and $5$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $4$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
+\section{A closed form is a recurrence}
 
-\section{The admissible windows}
-
-The vertices of the overlap graph are the $0/1$ matrices $B$ of size $2\times2$ with
-$B^2=B$. There are $2^{4}$ matrices to sift, which is already awkward at $2=2$ and
-hopeless a little beyond it, so they are not sifted; they are generated from the following
-description, which also makes the count itself transparent.
-
-\begin{lemma}\label{lem:idem}
-Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
-$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
 \[
-r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
 \]
-the rows on the right necessarily having pairwise disjoint supports. Writing
-$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
-when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
-choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
-$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
-$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
-pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
-matrices.
 \end{lemma}
 
 \begin{proof}
-The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
-displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
-$t\in S_i$, are pairwise disjoint with union $S_i$.
-
-Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
-$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
-$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
-by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
-cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
-$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
-$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
-Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
-$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
-from $B$ and distinct data give distinct matrices.
-
-Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
-$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
-$r_i$ each time. Hence $B^2=B$.
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Generating from Lemma~\ref{lem:idem} gives $8$ admissible $2\times2$ windows. For
-$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
-$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
-narrow.
+Here $q(x)=(x-1)^{5}$, of degree $5$; the closed form is a polynomial in $n$, so this is $(x-1)^{5}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5).
+\end{equation}
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
-\]
-for every $n>6$.
+$a(n)=f(n)$ for every $n\ge3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w'=q(M)w$ was formed by $5$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=8$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>7$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $5$ consecutive indices
+$n=8,\dots,12$ and agree at each. A monic recurrence of order $5$
+determines $a(m)$ from $a(m-1),\dots,a(m-5)$, and for every $m\ge13$ both
+$m>7$ and $m-5\ge8$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge8$.
+Below $n=8$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=8$ on. The remaining indices $n=3,\dots,7$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: at $n=2$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the walk model reproduces every one of the $36$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=3$ on, and agrees with the entry's own DATA at each.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=3$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224546.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223951.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

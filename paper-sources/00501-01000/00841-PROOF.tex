@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219622, proved}
+\title{The empirical closed form for OEIS A219688, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219622 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219688 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
+admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal, vertical neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=123$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{17}$; that the walk count
+$S=1064$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{26}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
@@ -35,24 +35,24 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219622 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..2 nX3 array.''. It has offset $1$ and begins
+OEIS A219688 is ``Number of 4Xn arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 4Xn array.''. It has offset $1$ and begins
 \[
-6, 24, 130, 566, 2134, 7259, 22715, 66250,\ \dots
+10, 19, 99, 427, 1531, 5031, 15763, 47784,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/20922789888000)*n\^{}16 + (1/290594304000)*n\^{}15 + (1/13586227200)*n\^{}14 + (19/12454041600)*n\^{}13 + (5681/114960384000)*n\^{}12 + (727/1197504000)*n\^{}11 + (2225/292626432)*n\^{}10 + (18871/203212800)*n\^{}9 + (11673913/20901888000)*n\^{}8 + (1640347/124416000)*n\^{}7 - (546743053/5748019200)*n\^{}6 + (21980969/29937600)*n\^{}5 + (27582691091/13208832000)*n\^{}4 - (569796798931/18162144000)*n\^{}3 + (572483759/4118400)*n\^{}2 - (176846477/720720)*n + 146 for n>3
+Empirical: a(n) = (1/71811157608013824000000)*n\^{}25 - (101/17234677825923317760000)*n\^{}24 + (5449/4308669456480829440000)*n\^{}23 - (68021/374666909259202560000)*n\^{}22 + (9824237/510909421717094400000)*n\^{}21 - (21583/13610640605184000)*n\^{}20 + (5371647499/51090942171709440000)*n\^{}19 - (394323599/68948639907840000)*n\^{}18 + (45438295453/175751435059200000)*n\^{}17 - (16515462281/1687213776568320)*n\^{}16 + (542084002355513/1739939207086080000)*n\^{}15 - (28192245777209/3381806039040000)*n\^{}14 + (3250324207416831463/17399392070860800000)*n\^{}13 - (1612171294329183241/463983788556288000)*n\^{}12 + (2781152508058068181/52725430517760000)*n\^{}11 - (757894220102779469/1198305239040000)*n\^{}10 + (37334585059613913334793/6722492391014400000)*n\^{}9 - (107120698751683891/3939922280448)*n\^{}8 - (79214526965365782185939/798295971432960000)*n\^{}7 + (49706772664271871813409/13646084981760000)*n\^{}6 - (2005940155459581015843920483/48784753809792000000)*n\^{}5 + (15777623834516738464154783/54205282010880000)*n\^{}4 - (17331604984082844755616061/12467214862502400)*n\^{}3 + (215362834119633956818141/49473074851200)*n\^{}2 - (4207251609878775049/524924400)*n + 6438609162 for n>14
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:11:25, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:13:21, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
-Fix the width $W=3$ and the value range $0..2$. The underlying arrays are the
-$n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+Fix the width $W=4$ and the value range $0..2$. The underlying arrays are the
+$4\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
 and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
+of its antidiagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -64,13 +64,13 @@ the graph whose walks are the arrays would count such a pair twice.
 
 \begin{lemma}\label{lem:local}
 Whether a sequence of rows is admissible is decided by the previous row together with
-$2$ bits.
+$3$ bits.
 \end{lemma}
 
 \begin{proof}
 The row order compares consecutive rows and needs only the previous one. The column order
 compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
+rows --- but for each of the $3$ adjacent column pairs there are only two possibilities:
 either the two columns agree in every row read so far, or they first differed at some earlier
 row, and there the required inequality was already decided and no later row can affect it. One
 bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
@@ -78,18 +78,18 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=123$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=1064$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
 \begin{proof}
 Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
+row at a time, holding the last two rows and the $3$ bits of Lemma~\ref{lem:local}, can
 emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=123$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=1064$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -98,22 +98,22 @@ step of the walk but a count attached to the state the walk stops in; that is $\
 The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
 recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-q(x)=(x-1)^{17},\qquad\text{that is}\qquad a(n)=17\,a(n-1) - 136\,a(n-2) + 680\,a(n-3) - 2380\,a(n-4) + 6188\,a(n-5) - 12376\,a(n-6) + 19448\,a(n-7) - 24310\,a(n-8) + 24310\,a(n-9) - 19448\,a(n-10) + 12376\,a(n-11) - 6188\,a(n-12) + 2380\,a(n-13) - 680\,a(n-14) + 136\,a(n-15) - 17\,a(n-16) + a(n-17).
+q(x)=(x-1)^{26},\qquad\text{that is}\qquad a(n)=26\,a(n-1) - 325\,a(n-2) + 2600\,a(n-3) - 14950\,a(n-4) + 65780\,a(n-5) - 230230\,a(n-6) + 657800\,a(n-7) - 1562275\,a(n-8) + 3124550\,a(n-9) - 5311735\,a(n-10) + 7726160\,a(n-11) - 9657700\,a(n-12) + 10400600\,a(n-13) - 9657700\,a(n-14) + 7726160\,a(n-15) - 5311735\,a(n-16) + 3124550\,a(n-17) - 1562275\,a(n-18) + 657800\,a(n-19) - 230230\,a(n-20) + 65780\,a(n-21) - 14950\,a(n-22) + 2600\,a(n-23) - 325\,a(n-24) + 26\,a(n-25) - a(n-26).
 \]
 
 \begin{theorem}
-The closed form OEIS A219622 records is correct for all $n>3$.
+The closed form OEIS A219688 records is correct for all $n>14$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $20$.
-Second, the polynomial and the walk count agree at every index from $4$ up to
-$1 + 25 - 1$, which is more than the $17$ consecutive agreements a
-common recurrence of order $17$ needs. Two sequences satisfying the same monic recurrence
-of order $17$ and agreeing at $17$ consecutive indices past both their thresholds are
+$S$ consecutive zeros force every later one. The last index at which it fails is $40$.
+Second, the polynomial and the walk count agree at every index from $15$ up to
+$1 + 25 - 1$, which is more than the $26$ consecutive agreements a
+common recurrence of order $26$ needs. Two sequences satisfying the same monic recurrence
+of order $26$ and agreeing at $26$ consecutive indices past both their thresholds are
 equal from there on.
 \end{proof}
 
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219622.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219688.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

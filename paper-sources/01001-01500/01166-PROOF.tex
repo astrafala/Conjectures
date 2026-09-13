@@ -12,57 +12,57 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279523, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A281028, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279523 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A281028 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
 matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $8$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=196$ states.
+identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
+numbers. The empirical recurrence of order $10$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=34$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A279523 is ``Number of n X 2 0..2 arrays with no element equal to a strict majority of its horizontal and vertical neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281028 is ``Number of n X 2 0..1 arrays with no element equal to more than three of its king-move neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 4, 46, 384, 2894, 20444, 138944, 918744,\ \dots
+0, 0, 2, 12, 58, 252, 1048, 4204,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) - 36*a(n-2) - 22*a(n-3) + 140*a(n-4) - 48*a(n-5) - 121*a(n-6) + 88*a(n-7) - 16*a(n-8).
+Empirical: a(n) = 6*a(n-1) - 7*a(n-2) - 2*a(n-3) - 17*a(n-4) + 24*a(n-6) + 16*a(n-7) + 12*a(n-8) - 16*a(n-9) - 16*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 26 2018 09:15:11, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Feb 15 2019 04:29:44, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) - 36\,a(n-2) - 22\,a(n-3) + 140\,a(n-4) - 48\,a(n-5) - 121\,a(n-6) + 88\,a(n-7) - 16\,a(n-8)
+a(n)\;=\;6\,a(n-1) - 7\,a(n-2) - 2\,a(n-3) - 17\,a(n-4) + 24\,a(n-6) + 16\,a(n-7) + 12\,a(n-8) - 16\,a(n-9) - 16\,a(n-10)
 \end{equation}
-for all $n>9$.
+for all $n>11$.
 
 \section{The condition, the budget, and the canonical form}
 
 The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\#\{\text{neighbours equal to }x_{t,u}\}>3 .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
@@ -77,14 +77,14 @@ under it.
 The condition is stated in equalities between entries, so it is invariant under relabelling
 the values, and so is the number of offending cells. The clause ``new values introduced in
 order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=3$ classes.
+the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
 
 \begin{lemma}\label{lem:inv}
 Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
 cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
 \qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
@@ -93,10 +93,10 @@ $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 A labelled array is a pattern together with an injection of its classes into the alphabet,
 and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
 identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
 order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
-$\binom{3}{i}D_{3-i}$, an integer.
+$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
+$\binom{2}{i}D_{2-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count}
@@ -128,45 +128,45 @@ never exceeds $1$; since the total only grows, that is implied by the final valu
 $1$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=196$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=34$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \end{equation}
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{8}-\sum_i c_i\,t^{8-i}$ be the characteristic polynomial of
+Let $q(t)=t^{10}-\sum_i c_i\,t^{10-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge8$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge10$
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-8}w,
-\qquad w=h_{8}-\sum_i c_i h_{8-i} .
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-10}w,
+\qquad w=h_{10}-\sum_i c_i h_{10-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
 makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
 that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$8$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$10$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=9+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=11+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -174,8 +174,8 @@ zeros had been seen.
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
+First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
+one of the $25$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279523.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281028.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

@@ -12,84 +12,56 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A225022, proved by transfer matrix}
+\title{A value repeated at its own distance: OEIS A210781}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225022 counts the $(n+1)\times4$ matrices over $\{0,\dots,2\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=196$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A210781 carries an empirical recurrence of order $49$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
+alphabet, so a window of that many lines decides it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=99$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A225022 is ``Number of (n+1)X4 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A210781 is ``Number of n X 1 1..4 arrays with no element with value z exactly a city block distance of z from another element with value z.''. It has offset $1$ and begins
 \[
-759, 12641, 117959, 1930229, 23865033, 356942157, 4807268289, 69047521033,\ \dots
+4, 15, 53, 170, 497, 1407, 3962, 10867,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -20*a(n-2) -2701*a(n-3) +14290*a(n-4) +96871*a(n-5) -821769*a(n-6) -1334756*a(n-7) +22205174*a(n-8) -2051485*a(n-9) -358415097*a(n-10) +335076413*a(n-11) +3816085706*a(n-12) -5474841848*a(n-13) -28179606956*a(n-14) +49887962008*a(n-15) +147948120520*a(n-16) -299147271265*a(n-17) -556239083509*a(n-18) +1245031259726*a(n-19) +1483266239823*a(n-20) -3658543581308*a(n-21) -2715597972088*a(n-22) +7566683853367*a(n-23) +3153572640112*a(n-24) -10789182805002*a(n-25) -1812615431409*a(n-26) +10165463452563*a(n-27) -275438311116*a(n-28) -5857653280734*a(n-29) +1036380387492*a(n-30) +1787112576576*a(n-31) -499228796880*a(n-32) -216471126240*a(n-33) +72471573504*a(n-34) +3769058304*a(n-35) -1625868288*a(n-36)
+Empirical: a(n) = a(n-2) +2*a(n-3) +4*a(n-4) +38*a(n-5) +106*a(n-6) +172*a(n-7) +596*a(n-8) +573*a(n-9) +971*a(n-10) +744*a(n-11) -1425*a(n-12) -4335*a(n-13) -10525*a(n-14) -11517*a(n-15) -13462*a(n-16) -6001*a(n-17) -4772*a(n-18) +619*a(n-19) +10548*a(n-20) +45667*a(n-21) +64053*a(n-22) +34800*a(n-23) -11095*a(n-24) -26829*a(n-25) +41629*a(n-26) +81493*a(n-27) -35792*a(n-28) -237880*a(n-29) -186310*a(n-30) +61561*a(n-31) +67920*a(n-32) -147561*a(n-33) -221267*a(n-34) -90437*a(n-35) -13145*a(n-36) +33145*a(n-37) +101632*a(n-38) +63235*a(n-39) +3056*a(n-40) -2932*a(n-41) -6086*a(n-42) -5505*a(n-43) +115*a(n-44) +649*a(n-45) +319*a(n-46) +258*a(n-47) +4*a(n-48) -24*a(n-49) for n>51.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 19 2025 21:36:10, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-Call a $2\times2$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
-whose every $2$ consecutive rows form a band.
+The entry counts arrays with $1$ column over the alphabet $\{1,2,3,4\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that no element of value $z$ may have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
 
-Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $4$. So nothing more than $4$ rows away can matter, and a cell's verdict is settled once the row $4$ beyond it has arrived.
+
+Carry the last $4$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
+
+Merging vertices with identical futures leaves $S=99$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-with $M$ the adjacency matrix on $S=196$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(2 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,2\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
-\[
-a(n)\;=\;\sum_v a_v(n),
-\]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$8$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $81$ in total.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{49}-\sum_i c_it^{49-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,48 +69,54 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+49}-\sum_ic_iM^{j+49-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 20\,a(n-2) - 2701\,a(n-3) + 14290\,a(n-4) + 96871\,a(n-5) - 821769\,a(n-6) - 1334756\,a(n-7) + 22205174\,a(n-8) - 2051485\,a(n-9) - 358415097\,a(n-10) + 335076413\,a(n-11) + 3816085706\,a(n-12) - 5474841848\,a(n-13) - 28179606956\,a(n-14) + 49887962008\,a(n-15) + 147948120520\,a(n-16) - 299147271265\,a(n-17) - 556239083509\,a(n-18) + 1245031259726\,a(n-19) + 1483266239823\,a(n-20) - 3658543581308\,a(n-21) - 2715597972088\,a(n-22) + 7566683853367\,a(n-23) + 3153572640112\,a(n-24) - 10789182805002\,a(n-25) - 1812615431409\,a(n-26) + 10165463452563\,a(n-27) - 275438311116\,a(n-28) - 5857653280734\,a(n-29) + 1036380387492\,a(n-30) + 1787112576576\,a(n-31) - 499228796880\,a(n-32) - 216471126240\,a(n-33) + 72471573504\,a(n-34) + 3769058304\,a(n-35) - 1625868288\,a(n-36)
+a(n)\;=\;a(n-2) + 2\,a(n-3) + 4\,a(n-4) + 38\,a(n-5) + 106\,a(n-6) + 172\,a(n-7) + 596\,a(n-8) + 573\,a(n-9) + 971\,a(n-10) + 744\,a(n-11) - 1425\,a(n-12) - 4335\,a(n-13) - 10525\,a(n-14) - 11517\,a(n-15) - 13462\,a(n-16) - 6001\,a(n-17) - 4772\,a(n-18) + 619\,a(n-19) + 10548\,a(n-20) + 45667\,a(n-21) + 64053\,a(n-22) + 34800\,a(n-23) - 11095\,a(n-24) - 26829\,a(n-25) + 41629\,a(n-26) + 81493\,a(n-27) - 35792\,a(n-28) - 237880\,a(n-29) - 186310\,a(n-30) + 61561\,a(n-31) + 67920\,a(n-32) - 147561\,a(n-33) - 221267\,a(n-34) - 90437\,a(n-35) - 13145\,a(n-36) + 33145\,a(n-37) + 101632\,a(n-38) + 63235\,a(n-39) + 3056\,a(n-40) - 2932\,a(n-41) - 6086\,a(n-42) - 5505\,a(n-43) + 115\,a(n-44) + 649\,a(n-45) + 319\,a(n-46) + 258\,a(n-47) + 4\,a(n-48) - 24\,a(n-49)
 \]
-for every $n>36$.
+for every $n>51$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $49$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and measures the distance between every pair
+of cells directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225022.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210781.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

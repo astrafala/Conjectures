@@ -12,91 +12,107 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223183, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214163, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223183 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $12$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=3266$ vertices.
+OEIS A214163 counts the proper colourings of a grid $n\times6$, wrapped in the direction of width $6$, with at most $6$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $15$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=124$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A223183 is ``Rolling icosahedron footprints: number of nX5 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, vertical or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A214163 is ``Number of 0..5 colorings of an nX6 array circular in the 6 direction with new values 0..5 introduced in row major order.''. It has offset $1$ and begins
 \[
-625, 1280, 10880, 103520, 1018720, 10117600, 100734400, 1003652480,\ \dots
+41, 121778, 655418810, 3598372134742, 19767477649307133, 108593596081040129576, 596564503952723786971771, 3277257831775251397259797443,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -114*a(n-2) +436*a(n-3) -1171*a(n-4) +2198*a(n-5) -2626*a(n-6) +1520*a(n-7) +79*a(n-8) -490*a(n-9) +156*a(n-10) +20*a(n-11) -16*a(n-12) for n>14
+Empirical: a(n) = 6132*a(n-1) -3622685*a(n-2) +639575585*a(n-3) -32725270678*a(n-4) -553035058681*a(n-5) +76503305094012*a(n-6) -1866677899327574*a(n-7) +18043405701458099*a(n-8) -65572684928670422*a(n-9) +19819882367968339*a(n-10) +446791452135464749*a(n-11) -1165335596737363580*a(n-12) +1235162915085727931*a(n-13) -587321247683006226*a(n-14) +100202633777025000*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:18:58, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:54:32, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
 
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, horizontal and vertical, that is the cell offsets
+The clause ``new values $0..5$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-(1,-1), (0,1), (1,0),
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{6}$, so
 \[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+a\;=\;\sum_{i=1}^{6}w_i\,L_i
 \]
-The entry also fixes the top-left cell: $x(0,0)=0$.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
 
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
+\section{Each $L_i$ is a walk count}
+
+A row of the array is a proper colouring of the cycle $C_{6}$, since the wrapping makes
+its first and last cells adjacent, and two consecutive rows must differ in every one of the
+$6$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
+vertices are the proper colourings of $C_{6}$ over $i$ colours and whose edges join
+colourings differing everywhere:
+\[
+L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
+\]
+There are $(i-1)^{6}+(-1)^{6}(i-1)$ such colourings, which at $i=6$ is already more
+than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
+
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
+\[
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
+\]
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
 \end{lemma}
 
 \begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
 \end{proof}
 
-\section{One slice is a state}
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=124$ rather than the number of colourings.
 
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $5$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3266.
-\]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $5$ over $12$ vertices is one of $12^{5}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,6$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +120,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,43 +129,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 114\,a(n-2) + 436\,a(n-3) - 1171\,a(n-4) + 2198\,a(n-5) - 2626\,a(n-6) + 1520\,a(n-7) + 79\,a(n-8) - 490\,a(n-9) + 156\,a(n-10) + 20\,a(n-11) - 16\,a(n-12)
+a(n)\;=\;6132\,a(n-1) - 3622685\,a(n-2) + 639575585\,a(n-3) - 32725270678\,a(n-4) - 553035058681\,a(n-5) + 76503305094012\,a(n-6) - 1866677899327574\,a(n-7) + 18043405701458099\,a(n-8) - 65572684928670422\,a(n-9) + 19819882367968339\,a(n-10) + 446791452135464749\,a(n-11) - 1165335596737363580\,a(n-12) + 1235162915085727931\,a(n-13) - 587321247683006226\,a(n-14) + 100202633777025000\,a(n-15)
 \]
-for every $n>14$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223183.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214163.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

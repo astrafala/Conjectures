@@ -12,60 +12,60 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229532, proved by counting defective colourings}
+\title{The empirical recurrence for OEIS A229641, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229532 counts the colourings of an array with $K=3$ colours that are proper except at
-exactly one adjacent pair, the colours being introduced in row
+OEIS A229641 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly two adjacent pairs, the colours being introduced in row
 major order. Neither feature is local: the number of monochromatic adjacent pairs is a
 property of the whole array, and the row major clause fixes a representative of each
 relabelling class. Both are removed by machinery already in hand --- the running count of
-mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+mistakes goes into the state, capped at $2$, and the colour clause disappears into the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. What is left is a walk count on $S=1588$ vertices, and the empirical recurrence of
-order $18$ contributed by R.~H.~Hardin follows from a finite exact computation.
+numbers. What is left is a walk count on $S=828$ vertices, and the empirical recurrence of
+order $30$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A229532 is ``Number of defective 3-colorings of an n X 6 0..2 array connected horizontally, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
+OEIS A229641 is ``Number of defective 3-colorings of a 5 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly two mistakes, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-40, 368, 7460, 130854, 2171944, 34811238, 544403948, 8359264560,\ \dots
+0, 925, 8800, 89331, 960325, 9722206, 98015235, 960209886,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 36*a(n-1) - 436*a(n-2) + 1854*a(n-3) + 340*a(n-4) - 19128*a(n-5) + 23849*a(n-6) + 56184*a(n-7) - 108224*a(n-8) - 40816*a(n-9) + 160400*a(n-10) - 34136*a(n-11) - 83203*a(n-12) + 42628*a(n-13) + 6468*a(n-14) - 6334*a(n-15) + 204*a(n-16) + 240*a(n-17) - 25*a(n-18) for n > 19.
+Empirical: a(n) = 18*a(n-1) - 15*a(n-2) - 1191*a(n-3) + 3468*a(n-4) + 31983*a(n-5) - 108707*a(n-6) - 424479*a(n-7) + 1614489*a(n-8) + 2851598*a(n-9) - 13478352*a(n-10) - 7797810*a(n-11) + 66347438*a(n-12) - 12632640*a(n-13) - 190067859*a(n-14) + 147888798*a(n-15) + 287096430*a(n-16) - 412178619*a(n-17) - 138135927*a(n-18) + 522690894*a(n-19) - 168525432*a(n-20) - 273411640*a(n-21) + 227616084*a(n-22) + 9610272*a(n-23) - 73617984*a(n-24) + 21460464*a(n-25) + 7359984*a(n-26) - 4611168*a(n-27) + 186624*a(n-28) + 279936*a(n-29) - 46656*a(n-30) for n > 33.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2021 21:30:54, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Apr 28 2021 01:22:57, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;36\,a(n-1) - 436\,a(n-2) + 1854\,a(n-3) + 340\,a(n-4) - 19128\,a(n-5) + 23849\,a(n-6) + 56184\,a(n-7) - 108224\,a(n-8) - 40816\,a(n-9) + 160400\,a(n-10) - 34136\,a(n-11) - 83203\,a(n-12) + 42628\,a(n-13) + 6468\,a(n-14) - 6334\,a(n-15) + 204\,a(n-16) + 240\,a(n-17) - 25\,a(n-18)
+a(n)\;=\;18\,a(n-1) - 15\,a(n-2) - 1191\,a(n-3) + 3468\,a(n-4) + 31983\,a(n-5) - 108707\,a(n-6) - 424479\,a(n-7) + 1614489\,a(n-8) + 2851598\,a(n-9) - 13478352\,a(n-10) - 7797810\,a(n-11) + 66347438\,a(n-12) - 12632640\,a(n-13) - 190067859\,a(n-14) + 147888798\,a(n-15) + 287096430\,a(n-16) - 412178619\,a(n-17) - 138135927\,a(n-18) + 522690894\,a(n-19) - 168525432\,a(n-20) - 273411640\,a(n-21) + 227616084\,a(n-22) + 9610272\,a(n-23) - 73617984\,a(n-24) + 21460464\,a(n-25) + 7359984\,a(n-26) - 4611168\,a(n-27) + 186624\,a(n-28) + 279936\,a(n-29) - 46656\,a(n-30)
 \end{equation}
-for all $n>19$.
+for all $n>33$.
 
 \section{Mistakes, and the colour clause}
 
-The arrays have $6$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
+The arrays have $5$ rows and $L=n$ columns, entries in $\{0,\dots,3-1\}$.
 Two cells are adjacent when they differ by one of
 \[
-\mathcal N=\{(0,1),\ (1,1),\ (1,-1)\}
+\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\}
 \]
-(as (row shift, column shift)); each unordered adjacency is represented by exactly one
-offset, and every offset has a nonnegative row shift, so the pairs inside a row are
-counted when that row is laid down and the pairs joining two rows when the later one
+(as (column shift, row shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative column shift, so the pairs inside a column are
+counted when that column is laid down and the pairs joining two columns when the later one
 is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
-$E=1$ mistakes.
+$E=2$ mistakes.
 
 That is a statement about the whole array, so no bounded window sees it; but the running
-number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+number of mistakes can be carried in the state, capped at $2$, the states past $2$ being
 absent because a count that has passed the budget can never come back.
 
 The condition is stated in equalities, so it is invariant under relabelling the colours, and
@@ -74,7 +74,7 @@ colouring from each relabelling class, so the entry counts equality PATTERNS wit
 $K=3$ classes.
 
 \begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $2$ mistakes, and $N_j(n)$
 the admissible patterns with exactly $j$ classes. Then
 $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
@@ -94,11 +94,11 @@ which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{6}$ a row
-and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
-rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
-an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
-number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{5}$ a column
+and $0\le c\le2$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+columns $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le2$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=2$.
 
 \begin{lemma}\label{lem:walk}
 $L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
@@ -106,16 +106,16 @@ adjacency matrix of that digraph.
 \end{lemma}
 
 \begin{proof}
-A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
-the count component after $t$ rows is the number of mistakes among the first $t$ rows,
-since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
-inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
-precisely when the running count never exceeds $1$, which for a nondecreasing count follows
-from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
-carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
+A walk of length $L-1$ determines the sequence of $L$ columns, and conversely; by induction
+the count component after $t$ columns is the number of mistakes among the first $t$ columns,
+since each step adds exactly the mistakes joining columns $t$ and $t+1$ together with those
+inside column $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $2$, which for a nondecreasing count follows
+from its final value being $2$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a column, not a boundary, so $L$ columns make a walk of length $L-1$.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=1588$ with the weights of
+Assembling the $3$ chains block-diagonally into $N$ of size $S=828$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -124,15 +124,15 @@ $\mathbf{u}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{18}-\sum_i c_i\,t^{18-i}$ be the characteristic polynomial of
+Let $q(t)=t^{30}-\sum_i c_i\,t^{30-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge18$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge30$
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-18}w,
-\qquad w=h_{18}-\sum_i c_ih_{18-i} .
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-30}w,
+\qquad w=h_{30}-\sum_i c_ih_{30-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -145,15 +145,15 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>19$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>33$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$18$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$30$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=19+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=33+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -162,8 +162,8 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+one of the $17$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of columns being $L=n$
 from the entry's own name and the offset saying which index carries the first published term.
 Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
@@ -175,7 +175,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229532.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229641.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

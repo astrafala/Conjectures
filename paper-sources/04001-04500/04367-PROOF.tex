@@ -12,127 +12,151 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A278758, proved from an exact model}
+\title{The empirical closed form for OEIS A188864, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A278758 carries an empirical recurrence of order $4$ contributed by Chai Wah Wu. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A188864 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=128$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{2}$, of degree
+$2$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $2$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A278758 is ``Binary representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 73", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A188864 is ``Number of n X 7 binary arrays without the pattern 0 1 diagonally, vertically or antidiagonally.''. It has offset $1$ and begins
 \[
-1, 0, 110, 101, 0, 111111, 0, 11111111,\ \dots
+128, 577, 1220, 1931, 2658, 3387, 4116, 4845,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Chai Wah Wu\_, Jun 14 2020: (Start) a(n) = 101*a(n-2) - 100*a(n-4) for n > 7.
+Empirical: a(n) = 729*n - 987 for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:35, revision 13)
-this is still recorded as empirical, and nothing on the entry records it as proved.
-
-\section{The value is a certified growth}
-
-The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
-takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
-sequence is that the CONFIGURATION is periodic in time:
+As of the ``Last modified'' line on the live entry (May 01 2018 09:50:02, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 4.
-\]
-This was checked directly, and one instance of it is all that is needed: the automaton is a
-deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
-every $k$, and likewise in each residue class. No locality argument and no induction over
-boundary windows is involved.
-
-Getting the background right is the whole of the check. A rule taking an empty von Neumann
-neighbourhood to a live cell flips the ENTIRE plane, and rule 73 is read
-in that light: comparing two stages by padding the smaller with zeros would compare two
-different things.
-
-The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
-that is not changing, so the window widening by one cell on each side per step gives
-\[
-w(n+2)\;=\;L_r + w(n) + R_r
-\]
-with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
-identity that is now a consequence rather than an observation. Concatenation is multiplication
-by a power of the base $B$ and addition, so along a class
-\[
-a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+f(n)\;=\;729 n - 987.
 \]
 
-\section{The bound}
+\section{The count is a walk count}
 
-In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
-constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
-occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
-pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=128$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
+\[
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+\]
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
+
+\section{A closed form is a recurrence}
+
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\[
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+\]
+\end{lemma}
+
+\begin{proof}
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
+\end{proof}
+
+Here $q(x)=(x-1)^{2}$, of degree $2$; the closed form is a polynomial in $n$, so this is $(x-1)^{2}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;2\,a(n-1) - a(n-2).
+\end{equation}
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;101\,a(n-2) - 100\,a(n-4)
-\]
-for every $n>7$.
+$a(n)=f(n)$ for every $n\ge5$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=7+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=7$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w'=q(M)w$ was formed by $2$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=7$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>6$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $2$ consecutive indices
+$n=7,\dots,8$ and agree at each. A monic recurrence of order $2$
+determines $a(m)$ from $a(m-1),\dots,a(m-2)$, and for every $m\ge9$ both
+$m>6$ and $m-2\ge7$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge7$.
+Below $n=7$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=7$ on. The remaining indices $n=5,\dots,6$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: at $n=4$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the walk model reproduces every one of the $38$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=5$ on, and agrees with the entry's own DATA at each.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=5$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A278758.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188864.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

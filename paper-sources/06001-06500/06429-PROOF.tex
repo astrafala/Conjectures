@@ -12,138 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A304423, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207914, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A304423 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{1,2,3,4,5\}$, and it carries an empirical
-recurrence of order $27$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A207914 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,0), (1,0,1)$ along one axis and $(0,1,0), (1,0,1)$ along the other, and carries an empirical recurrence of
+order $29$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive rows: taking a
+window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
+on $S=81$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-29}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A304423 is ``Number of nX4 0..1 arrays with every element unequal to 1, 2, 3, 4 or 5 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A207914 is ``Number of nX4 0..1 arrays avoiding 0 0 0 and 1 0 1 horizontally and 0 1 0 and 1 0 1 vertically.''. It has offset
 $1$ and begins
 \[
-2, 98, 836, 9304, 98190, 1043316, 11085965, 117776344,\ \dots
+9, 81, 271, 1309, 5371, 23637, 101069,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) +48*a(n-2) -12*a(n-3) -721*a(n-4) -2134*a(n-5) -2589*a(n-6) +1722*a(n-7) +7674*a(n-8) +10350*a(n-9) +4698*a(n-10) -1865*a(n-11) -5462*a(n-12) -2001*a(n-13) -4274*a(n-14) -7320*a(n-15) -6688*a(n-16) -1106*a(n-17) +2603*a(n-18) +631*a(n-19) +1682*a(n-20) +357*a(n-21) +1545*a(n-22) -138*a(n-23) -106*a(n-24) -73*a(n-25) +61*a(n-26) +20*a(n-27) for n>28
+Empirical: a(n) = 6*a(n-1) -12*a(n-2) +17*a(n-3) +5*a(n-4) +51*a(n-5) +36*a(n-6) -399*a(n-7) +554*a(n-8) -625*a(n-9) -854*a(n-10) -4016*a(n-11) +210*a(n-12) +9416*a(n-13) +9774*a(n-14) +4886*a(n-15) -6673*a(n-16) -6888*a(n-17) -6416*a(n-18) -2847*a(n-19) -607*a(n-20) +1513*a(n-21) +1902*a(n-22) +1033*a(n-23) +100*a(n-24) -185*a(n-25) -162*a(n-26) -18*a(n-27) +8*a(n-29)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 12 2018 09:36:10, revision
-4) the statement is still recorded as empirical, and nothing on the entry
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:27:22, revision
+9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) + 48\,a(n-2) - 12\,a(n-3) - 721\,a(n-4) - 2134\,a(n-5) - 2589\,a(n-6) + 1722\,a(n-7) + 7674\,a(n-8) + 10350\,a(n-9) + 4698\,a(n-10) - 1865\,a(n-11) - 5462\,a(n-12) - 2001\,a(n-13) - 4274\,a(n-14) - 7320\,a(n-15) - 6688\,a(n-16) - 1106\,a(n-17) + 2603\,a(n-18) + 631\,a(n-19) + 1682\,a(n-20) + 357\,a(n-21) + 1545\,a(n-22) - 138\,a(n-23) - 106\,a(n-24) - 73\,a(n-25) + 61\,a(n-26) + 20\,a(n-27)
+a(n)\;=\;6\,a(n-1) - 12\,a(n-2) + 17\,a(n-3) + 5\,a(n-4) + 51\,a(n-5) + 36\,a(n-6) - 399\,a(n-7) + 554\,a(n-8) - 625\,a(n-9) - 854\,a(n-10) - 4016\,a(n-11) + 210\,a(n-12) + 9416\,a(n-13) + 9774\,a(n-14) + 4886\,a(n-15) - 6673\,a(n-16) - 6888\,a(n-17) - 6416\,a(n-18) - 2847\,a(n-19) - 607\,a(n-20) + 1513\,a(n-21) + 1902\,a(n-22) + 1033\,a(n-23) + 100\,a(n-24) - 185\,a(n-25) - 162\,a(n-26) - 18\,a(n-27) + 8\,a(n-29)
 \end{equation}
-for all $n>28$.
+for all $n>29$. 
 
-\section{The array as a walk, with boundary}
+\section{The array as a walk}
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
-has score in $\{1,2,3,4,5\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+Call a row \emph{admissible} if the word it forms contains none of the patterns
+$(0,0,0), (1,0,1)$ as $3$ consecutive entries. There are $9$ admissible rows; that condition
+involves a single row only.
 
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,2,3,4,5\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,2,3,4,5\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,2,3,4,5\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
+The remaining patterns $(0,1,0), (1,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive rows at a fixed position of the column. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+rows, so $S=81$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible row $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,1,0), (1,0,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{1,2,3,4,5\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
+An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ rows by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ rows; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{27}-\sum_i c_i t^{27-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+Let $q(t)=t^{29}-\sum_i c_i t^{29-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-27}$ whenever $n-27\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-27$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-29}$ whenever $n-29\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-29$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-27}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-29}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
 \end{proof}
 
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>28$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>29$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $27$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=28+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $29$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=29+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $17$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $9$ admissible rows. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=81$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A304423.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207914.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

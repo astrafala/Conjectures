@@ -423,6 +423,77 @@ def _read_clause(c, L, out):
             out['nand'].append(((_unit(L, i), 'eqn'), (_unit(L, i + 1), 'eq0')))
         out['tex'].append(r'\text{no }i\text{ with }\{x_i,x_{i+1}\} = \{0,n\}')
         return True
+    def _numword(m, a, b):
+        w = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5}
+        return w[m.group(a)] if m.group(a) else int(m.group(b))
+
+    m = re.fullmatch(r'no element more than (?:(one|two|three|four|five)|(\d+)) '
+                     r'(greater|less) than the previous', c)
+    if m:
+        k = _numword(m, 1, 2)
+        up = m.group(3) == 'greater'
+        for i in range(L - 1):
+            f = [0] * L
+            f[i + 1], f[i] = (1, -1) if up else (-1, 1)
+            out['cl'].append((((tuple(f), 0, -k, 'le'),),))
+        out['tex'].append(r'x_{i+1} - x_i \%s %d' % ('le' if up else 'ge', k if up else -k))
+        return True
+    m = re.fullmatch(r'adjacent elements differing by '
+                     r'(?:more than (?:(one|two|three|four|five)|(\d+))|'
+                     r'(?:(one|two|three|four|five)|(\d+)) or less)', c)
+    if m:
+        more = m.group(1) is not None or m.group(2) is not None
+        k = _numword(m, 1, 2) if more else _numword(m, 3, 4)
+        for i in range(L - 1):
+            f = [0] * L
+            f[i + 1], f[i] = 1, -1
+            d, nd = tuple(f), tuple(-v for v in f)
+            if more:
+                out['cl'].append((((d, 0, -(k + 1), 'ge'),), ((nd, 0, -(k + 1), 'ge'),)))
+            else:
+                out['cl'].append((((d, 0, -k, 'le'), (nd, 0, -k, 'le')),))
+        out['tex'].append(r'|x_{i+1}-x_i| %s %d' % ('>' if more else r'\le', k))
+        return True
+    m = re.fullmatch(r'each element differing from at least one neighbou?r by '
+                     r'(?:(\d+) or more|(\d+) or less|more than (\d+)|'
+                     r'something other than (\d+)|other than (\d+))', c)
+    if m:
+        # for each i, SOME neighbour j has |x_i - x_j| in the named range. Each alternative is
+        # a conjunction of half-spaces with a CONSTANT offset, which is the whole reason this
+        # family was out of reach; the DNF is over the neighbours and, for a two-sided range,
+        # over the sign of the difference.
+        k = int(next(g for g in m.groups() if g is not None))
+        atmost = m.group(2) is not None
+        strict_more = m.group(3) is not None
+        exclude = m.group(4) is not None or m.group(5) is not None
+        for i in range(L):
+            dnf = []
+            for j in (i - 1, i + 1):
+                if not 0 <= j < L:
+                    continue
+                d = [0] * L
+                d[i], d[j] = 1, -1
+                d = tuple(d)
+                nd = tuple(-v for v in d)
+                if atmost:                       # |x_i - x_j| <= k
+                    dnf.append(((d, 0, -k, 'le'), (nd, 0, -k, 'le')))
+                elif exclude:                    # |x_i - x_j| != k
+                    # both signs in ONE conjunct: `by something other than 1' asks for a
+                    # neighbour the element does not differ from by 1 in EITHER direction.
+                    # Two conjuncts made the disjunction true for almost every array, and the
+                    # brute force said so at once -- (n+1)^L against the entry's own terms.
+                    dnf.append(((d, 0, -k, 'ne'), (nd, 0, -k, 'ne')))
+                else:                            # |x_i - x_j| >= k, or > k
+                    kk = k + 1 if strict_more else k
+                    dnf.append(((d, 0, -kk, 'ge'),))
+                    dnf.append(((nd, 0, -kk, 'ge'),))
+            if not dnf:
+                return False
+            out['cl'].append(tuple(dnf))
+        rel = (r'\le %d' % k if atmost else r'\ne %d' % k if exclude else
+               r'> %d' % k if strict_more else r'\ge %d' % k)
+        out['tex'].append(r'\forall i\,\exists j\sim i:\ |x_i-x_j| %s' % rel)
+        return True
     if c == 'each element unequal to at least one neighbor':
         d1 = _dforms(L, 1)
         out['ne'] += [d1[0], d1[L - 2]]
@@ -669,26 +740,26 @@ def _hyperplane_forms(p):
     """
     H = []
     for f in p['box']:
-        H.append((f, -1))
-        H.append((f, 1))
+        H.append((f, -1, 0))
+        H.append((f, 1, 0))
     for f in p['lo']:
-        H.append((f, 0))
+        H.append((f, 0, 0))
     for f in p['hi']:
-        H.append((f, -1))
+        H.append((f, -1, 0))
     for f in p['eq'] + p['ne']:
-        H.append((f, 0))
+        H.append((f, 0, 0))
     for atoms in p['nand']:
         for f, r in atoms:
-            H.append((f, -1 if r == 'eqn' else 0))
+            H.append((f, -1 if r == 'eqn' else 0, 0))
     for dnf in p['cl']:
         for conj in dnf:
-            for f, tc, _r in conj:
-                H.append((f, tc))
+            for item in conj:
+                H.append((item[0], item[1], item[2] if len(item) == 4 else 0))
     for f, _m in p['ncong']:
-        H.append((f, 0))
+        H.append((f, 0, 0))
     for a in p.get('acc', ()):
         if a['kind'] == 'linear':
-            H.append((a['w'], a['tc']))
+            H.append((a['w'], a['tc'], 0))
     if p.get('modge', False) is not False:
         # x_i >= s mod (n+1) with s the sum of the named previous entries. Write m = n+1:
         # the box is 0 <= x_i < m, s lies in [0, k(m-1)], and s mod m is s - jm on the piece
@@ -703,11 +774,11 @@ def _hyperplane_forms(p):
             sform = tuple(1 if st <= q < i else 0 for q in range(L))
             dform = tuple((1 if q == i else 0) - (1 if st <= q < i else 0) for q in range(L))
             for j in range(0, i - st + 1):
-                H.append((sform, -j))
-                H.append((dform, j))
+                H.append((sform, -j, 0))
+                H.append((dform, j, 0))
     if p['alt']:
         for f in _dforms(p['L'], 1):
-            H.append((f, 0))
+            H.append((f, 0, 0))
     return sorted(set(H))
 
 
@@ -791,14 +862,16 @@ def _heights(p, budget=250000):
     for i in range(L):
         tot = tot * (len(H) - i) // (i + 1)
     if tot <= budget:
-        return _rays([tuple(list(f) + [c]) for f, c in H], L, boxes, eqs)
+        # the homogeneous part is what fixes the PERIOD; a constant term shifts the
+        # arrangement without changing which directions its rays can point in
+        return _rays([tuple(list(f) + [c]) for f, c, _k in H], L, boxes, eqs)
     # The arrangement carries two hyperplanes for every box form, so C(|H|, L) grows fast: for
     # nine elements it is 4.7 million where the forms alone give 49 thousand. Falling back to
     # the CRUDER bound is still rigorous -- t* divides the determinant of the x-parts whether
     # or not the ray meets the region, and dropping the ones outside only sharpens it -- and
     # it is what these entries were proved with before the sharper version existed. Refusing
     # instead lost them.
-    F = sorted({f for f, _c in H})
+    F = sorted({f for f, _c, _k in H})
     tot = 1
     for i in range(L):
         tot = tot * (len(F) - i) // (i + 1)
@@ -810,6 +883,64 @@ def _heights(p, budget=250000):
         if d:
             T.setdefault(abs(d), set()).add(None)
     return T
+
+
+def _degen(H, L, budget=400000):
+    """the largest n at which the arrangement changes shape, or None if that is not bounded.
+
+    With every constant zero the hyperplanes all pass through the origin, the arrangement looks
+    the same at every height, and the counting function is a quasi-polynomial from n = 0. A
+    CONSTANT term breaks that: the hyperplane g(x) = -t n - c moves at a different rate from
+    the box, so cells appear and vanish as n grows, and the count is a quasi-polynomial only
+    once the shape has settled. That is not a reason to refuse the family --- it is a reason to
+    compute where it settles.
+
+    The shape of the arrangement in x-space changes exactly at an n where L+1 of the
+    hyperplanes are concurrent: a vertex is cut out by L of them, and it crosses a further one
+    precisely there. Solving each (L+1)-subset as a square system in (x, n) and taking the
+    largest n over the solutions gives an n_0 past which the combinatorial type is constant, so
+    the vertices are affine in n with denominators dividing the same determinants as before and
+    the count is a quasi-polynomial for n > n_0 --- the parametric-polytope theorem. Below n_0
+    the terms are whatever they are, which raises the numerator's degree by n_0 and no more.
+    """
+    if all(c == 0 for _f, _t, c in H):
+        return 0                       # homogeneous: the arrangement never changes shape
+    from fractions import Fraction
+    tot = 1
+    for i in range(L + 1):
+        tot = tot * (len(H) - i) // (i + 1)
+    if tot > budget:
+        return None
+    best = 0
+    for S in combinations(H, L + 1):
+        M = [[Fraction(x) for x in f] + [Fraction(t)] for f, t, _c in S]
+        rhs = [Fraction(-c) for _f, _t, c in S]
+        sol = _solve(M, rhs)
+        if sol is None:
+            continue                   # singular: no isolated wall from this subset
+        nval = sol[L]
+        if nval > best:
+            best = nval
+    return int(best) + 1 if best > 0 else 0
+
+
+def _solve(M, rhs):
+    """the unique solution of a square rational system, or None if it is singular."""
+    from fractions import Fraction
+    m = len(M)
+    A = [row[:] + [rhs[i]] for i, row in enumerate(M)]
+    for c in range(m):
+        piv = next((i for i in range(c, m) if A[i][c]), None)
+        if piv is None:
+            return None
+        A[c], A[piv] = A[piv], A[c]
+        pv = A[c][c]
+        A[c] = [x / pv for x in A[c]]
+        for i in range(m):
+            if i != c and A[i][c]:
+                f = A[i][c]
+                A[i] = [x - f * y for x, y in zip(A[i], A[c])]
+    return [A[i][m] for i in range(m)]
 
 
 def _rank(rows):
@@ -977,8 +1108,8 @@ def _local(p, skip=()):
     for atoms in p['nand']:
         add('nand:' + ','.join(r for _, r in atoms), tuple(f for f, _ in atoms))
     for dnf in p['cl']:
-        pos = [q for conj in dnf for f, _tc, _r in conj
-               for q, c in enumerate(f) if c]
+        pos = [q for conj in dnf for item in conj
+               for q, c in enumerate(item[0]) if c]
         lo, hi = min(pos), max(pos)
         k = max(k, hi - lo)
         loc.append(('cl', dnf, lo, hi))
@@ -1101,8 +1232,13 @@ def _ok_window(cons, win, first_pos):
         if kind == 'cl':
             n = _ok_window.n
             for conj in forms:
-                for f, tc, rel in conj:
-                    u = tc * n
+                for item in conj:
+                    # a conjunct is (form, coefficient of n, relation) or, when the condition
+                    # is INHOMOGENEOUS, (form, coefficient of n, constant, relation). The
+                    # constant is what `latpoly' refused to carry, and 113 names outside the
+                    # roster are refused for no other reason.
+                    f, tc, rel = item[0], item[1], item[-1]
+                    u = tc * n + (item[2] if len(item) == 4 else 0)
                     for q in range(start, lastpos + 1):
                         if f[q]:
                             u += f[q] * win[q - first_pos]
@@ -1374,7 +1510,14 @@ def build(p, cap=200000):
     # given by z*A. A189327 is where this showed: its count is 3n on the evens and (5n-1)/2 on
     # the odds from n = 1, but a(0) = 1 rather than 0 -- the all-zero arrangement -- and the
     # bound was one short by exactly that point.
-    A = [0] + A
+    # and n_0 more, where the arrangement is still changing shape. For a homogeneous
+    # condition that is zero and this is exactly the z*A above; for an inhomogeneous one the
+    # hyperplanes move at different rates, cells appear and vanish, and the count is a
+    # quasi-polynomial only past the last height at which L+1 of them are concurrent.
+    n0 = _degen(_hyperplane_forms(p), L)
+    if n0 is None:
+        return None
+    A = [0] * (n0 + 1) + A
     S = len(A) - 1
     if S > 420:
         return None

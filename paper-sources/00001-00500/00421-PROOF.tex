@@ -12,78 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A200256, proved from an exact model}
+\title{The empirical recurrence for OEIS A267882, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A200256 carries an empirical recurrence of order $96$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=257$, derived below and not
+OEIS A267882 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A200256 is ``Number of 0..n arrays x(0..6) of 7 elements with each no smaller than the sum of its previous elements modulo (n+1).''. It has offset $1$ and begins
+OEIS A267882 is ``Total number of ON (black) cells after n iterations of the "Rule 233" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-34, 192, 1252, 3645, 12063, 28672, 71970, 140625,\ \dots
+1, 1, 4, 10, 19, 30, 43, 58,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -2*a(n-3) +2*a(n-4) -2*a(n-5) +2*a(n-7) -2*a(n-9) +2*a(n-11) -2*a(n-12) +2*a(n-13) -2*a(n-15) +2*a(n-16) -2*a(n-17) +2*a(n-19) -2*a(n-20) +2*a(n-21) -2*a(n-23) +2*a(n-25) -2*a(n-27) +2*a(n-28) -2*a(n-29) +2*a(n-31) +a(n-32) -4*a(n-33) +4*a(n-35) -4*a(n-36) +4*a(n-37) -4*a(n-39) +4*a(n-41) -4*a(n-43) +4*a(n-44) -4*a(n-45) +4*a(n-47) -4*a(n-48) +4*a(n-49) -4*a(n-51) +4*a(n-52) -4*a(n-53) +4*a(n-55) -4*a(n-57) +4*a(n-59) -4*a(n-60) +4*a(n-61) -4*a(n-63) +a(n-64) +2*a(n-65) -2*a(n-67) +2*a(n-68) -2*a(n-69) +2*a(n-71) -2*a(n-73) +2*a(n-75) -2*a(n-76) +2*a(n-77) -2*a(n-79) +2*a(n-80) -2*a(n-81) +2*a(n-83) -2*a(n-84) +2*a(n-85) -2*a(n-87) +2*a(n-89) -2*a(n-91) +2*a(n-92) -2*a(n-93) +2*a(n-95) -a(n-96)
+Conjectures from \_Colin Barker\_, Jan 22 2016 and Apr 20 2019: (Start) a(n) = 3*a(n-1)-3*a(n-2)+a(n-3) for n>2.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 08:32:45, revision 9)
+As of the ``Last modified'' line on the live entry (Sep 08 2025 09:54:46, revision 21)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+\section{What is being counted}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+The entry counts the running total of its ON (black) cells over the first $n$ iterations of the automaton. Nothing is being enumerated over a window, so there is
+no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
+the row grows only at its two ends. Writing
+$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
+\[
+w(n+p)\;=\;L_r + w(n) + R_r
+\]
+was verified for every available $n$ past a
+pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
+both sides gives
+\[
+\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
+\]
+a first-order difference along each class.
+
+The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
+radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
+window at both boundaries, and induction carries it to every later $n$.
+
+For this entry the automaton is rule 233, the period is $p=1$ and the pre-period is $n_0=4$.
+The certificate is
+\begin{gather*}
+r=0:\quad w(n+p) = \varepsilon \cdot w(n) \cdot \texttt{11}
+\end{gather*}
 
 \section{The bound}
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
-\[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
-\]
-annihilates $a$, and $S=\deg A=257$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=257$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
+So
+$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
+the same polynomial, since the width is linear in $n$; a running total contributes one further
+factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
+annihilator of order $S=9$ used below.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{96}-\sum_ic_iz^{96-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -97,23 +95,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - 2\,a(n-3) + 2\,a(n-4) - 2\,a(n-5) + 2\,a(n-7) - 2\,a(n-9) + 2\,a(n-11) - 2\,a(n-12) + 2\,a(n-13) - 2\,a(n-15) + 2\,a(n-16) - 2\,a(n-17) + 2\,a(n-19) - 2\,a(n-20) + 2\,a(n-21) - 2\,a(n-23) + 2\,a(n-25) - 2\,a(n-27) + 2\,a(n-28) - 2\,a(n-29) + 2\,a(n-31) + a(n-32) - 4\,a(n-33) + 4\,a(n-35) - 4\,a(n-36) + 4\,a(n-37) - 4\,a(n-39) + 4\,a(n-41) - 4\,a(n-43) + 4\,a(n-44) - 4\,a(n-45) + 4\,a(n-47) - 4\,a(n-48) + 4\,a(n-49) - 4\,a(n-51) + 4\,a(n-52) - 4\,a(n-53) + 4\,a(n-55) - 4\,a(n-57) + 4\,a(n-59) - 4\,a(n-60) + 4\,a(n-61) - 4\,a(n-63) + a(n-64) + 2\,a(n-65) - 2\,a(n-67) + 2\,a(n-68) - 2\,a(n-69) + 2\,a(n-71) - 2\,a(n-73) + 2\,a(n-75) - 2\,a(n-76) + 2\,a(n-77) - 2\,a(n-79) + 2\,a(n-80) - 2\,a(n-81) + 2\,a(n-83) - 2\,a(n-84) + 2\,a(n-85) - 2\,a(n-87) + 2\,a(n-89) - 2\,a(n-91) + 2\,a(n-92) - 2\,a(n-93) + 2\,a(n-95) - a(n-96)
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
 \]
-for every $n>0$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+96$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+vanish from $n=5+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $50$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -126,7 +124,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A200256.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267882.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

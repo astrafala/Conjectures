@@ -12,45 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A local condition on an array: OEIS A222099}
+\title{The empirical recurrence for OEIS A243723, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A222099 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=7$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A243723 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=55$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A222099 is ``Number of n X 3 0..5 arrays with entries increasing mod 6 by 0, 1, 2 or 3 rightwards and downwards, starting with upper left zero.''. It has offset $1$ and begins
+OEIS A243723 is ``Number of length n+2 0..4 arrays with no three unequal elements in a row and no three equal elements in a row and new values 0..4 introduced in 0..4 order.''. It has offset $1$ and begins
 \[
-16, 530, 17694, 591476, 19776286, 661254950, 22110369320, 739304841874,\ \dots
+3, 6, 12, 25, 53, 116, 259, 593,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 42*a(n-1) - 302*a(n-2) + 521*a(n-3) + 114*a(n-4) - 144*a(n-5).
+Empirical: a(n) = 4*a(n-1) - 13*a(n-3) + 6*a(n-4) + 8*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 15 2018 12:38:00, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Nov 03 2018 08:39:58, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $3$ columns over the alphabet $\{0,1,2,3,4,5\}$, growing one row at a time, and asks that each step to the right and each step downwards must increase the entry by $0$, $1$, $2$ or $3$ modulo $6$, starting from $0$ in the top left.
-
-Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
-
-Merging vertices with identical futures leaves $S=7$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=55$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -70,45 +70,40 @@ Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;42\,a(n-1) - 302\,a(n-2) + 521\,a(n-3) + 114\,a(n-4) - 144\,a(n-5)
+a(n)\;=\;4\,a(n-1) - 13\,a(n-3) + 6\,a(n-4) + 8\,a(n-5)
 \]
-for every $n>5$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A222099.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A243723.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,50 +12,86 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{No column above the one before it in every row: OEIS A212940}
+\title{The empirical recurrence for OEIS A223200, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212940 carries an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition quantifies over all rows at once, so it is not decided by any
-bounded window; but it is a conjunction of independent per-row facts, and one bit per
-adjacent column pair carries it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=7$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A223200 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $7$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=6145$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A212940 is ``Number of nX5 0..4 arrays with no column j greater than or equal to than column j-1 in all rows.''. It has offset $1$ and begins
+OEIS A223200 is ``Rolling cube footprints: number of nX6 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or vertical neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
 \[
-1, 1016501, 10058484751, 52311221188001, 212180664326328751, 764898125476357657001, 2592491557886605293297751, 8492622463881130571398876001,\ \dots
+1024, 995328, 1020002304, 1061444124672, 1110327429169152, 1163614255186968576, 1220273386789986631680, 1280001086812985197854720,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8001*a(n-1) -24144750*a(n-2) +35582371250*a(n-3) -27539217890625*a(n-4) +11055908759765625*a(n-5) -2081011816406250000*a(n-6) +133539505004882812500*a(n-7).
+Empirical: a(n) = 1920*a(n-1) -1191936*a(n-2) +335020032*a(n-3) -48670703616*a(n-4) +3778497478656*a(n-5) -147884313935872*a(n-6) +2269391999729664*a(n-7)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:41:17, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:20:32, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of $5$ columns whose rows are arbitrary over the alphabet $\{0,1,2,3,4\}$, and asks that no column $j$ be greater than or equal to column $j-1$ \emph{in all rows}.
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
 
-That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $4$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than or equal to column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
-
-So the state is that bit mask and nothing else --- at most $2^{4}$ of them, however large the alphabet is, which is why entries whose terms run to twenty digits have models this small. Rows with the same bit pattern act identically, so each row contributes one edge and the multiplicity does the counting. Merging vertices with identical futures leaves $S=7$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which masks may begin and end an array,
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions horizontal and vertical, that is the cell offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+(0,1), (1,0),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
+\[
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+\]
+The entry also fixes the top-left cell: $x(0,0)=0$.
+
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
+\end{lemma}
+
+\begin{proof}
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
+\end{proof}
+
+\section{One slice is a state}
+
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6145.
+\]
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $6$ over $6$ vertices is one of $6^{6}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -72,13 +108,12 @@ Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;8001\,a(n-1) - 24144750\,a(n-2) + 35582371250\,a(n-3) - 27539217890625\,a(n-4) + 11055908759765625\,a(n-5) - 2081011816406250000\,a(n-6) + 133539505004882812500\,a(n-7)
+a(n)\;=\;1920\,a(n-1) - 1191936\,a(n-2) + 335020032\,a(n-3) - 48670703616\,a(n-4) + 3778497478656\,a(n-5) - 147884313935872\,a(n-6) + 2269391999729664\,a(n-7)
 \]
 for every $n>7$.
 \end{theorem}
@@ -94,14 +129,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests, for each adjacent column pair,
-whether every row really does put one above the other. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,11 +146,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A212940.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223200.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

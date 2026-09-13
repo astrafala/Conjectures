@@ -12,91 +12,61 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262919, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A205357}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262919 counts arrays of width $6$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $10$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=81$ states.
+OEIS A205357 carries an empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=25$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A262919 is ``Number of (5+1)X(n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A205357 is ``Number of (n+1)X5 0..2 arrays with every 2X2 subblock having the same number of equal diagonal or antidiagonal elements, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-10, 27, 318, 1411, 18190, 121507, 1444558, 12031011,\ \dots
+770, 8948, 107330, 1329947, 16820450, 216561893, 2826905666, 37314167621,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) +39*a(n-2) -1106*a(n-3) +1561*a(n-4) +22386*a(n-5) -57539*a(n-6) -89894*a(n-7) +251940*a(n-8) +68600*a(n-9) -196000*a(n-10)
+Empirical: a(n) = 41*a(n-1) -634*a(n-2) +4322*a(n-3) -6905*a(n-4) -79071*a(n-5) +489544*a(n-6) -808128*a(n-7) -1807684*a(n-8) +9900708*a(n-9) -17129232*a(n-10) +13584240*a(n-11) -4147200*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 04 2015 10:15:21, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:02:43, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $6$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+The entry counts arrays of 5 columns over the alphabet $\{0,1,2\}$, and asks two different kinds of thing of them at once.
+
+\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, and every subblock in the array must score the same. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+What is compared \emph{across} windows is carried too: the state holds the score fixed by the first band, since every later subblock is compared with it. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,3\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $243$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=25$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-\rho_i\;=\;\sum_{j=1}^{6}x(i,j)\,2^{6-j} ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-the LEFT digit being the most significant, and column $j$ is
-\[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
-\]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
-
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
-\]
-\end{lemma}
-
-\begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
-\end{proof}
-
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{6}\bmod
-3\bigr)$ is a state: at most $3^{6}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=81.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +74,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +83,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) + 39\,a(n-2) - 1106\,a(n-3) + 1561\,a(n-4) + 22386\,a(n-5) - 57539\,a(n-6) - 89894\,a(n-7) + 251940\,a(n-8) + 68600\,a(n-9) - 196000\,a(n-10)
+a(n)\;=\;41\,a(n-1) - 634\,a(n-2) + 4322\,a(n-3) - 6905\,a(n-4) - 79071\,a(n-5) + 489544\,a(n-6) - 808128\,a(n-7) - 1807684\,a(n-8) + 9900708\,a(n-9) - 17129232\,a(n-10) + 13584240\,a(n-11) - 4147200\,a(n-12)
 \]
-for every $n>8$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,15 +99,17 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -145,11 +117,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262919.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205357.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

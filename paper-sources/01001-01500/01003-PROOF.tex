@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A249850, proved from an exact model}
+\title{The empirical recurrence for OEIS A202966, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A249850 carries an empirical recurrence of order $11$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=11$, derived below and not
+OEIS A202966 carries an empirical recurrence of order $15$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=57$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,41 +31,59 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A249850 is ``Number of length 6+4 0..n arrays with no five consecutive terms having the maximum of any two terms equal to the minimum of the remaining three terms.''. It has offset $1$ and begins
+OEIS A202966 is ``Number of arrays of 6 integers in -n..n with sum zero and adjacent elements differing in absolute value.''. It has offset $1$ and begins
 \[
-10, 2163, 81816, 1234328, 10653298, 63374127, 289372688, 1084868616,\ \dots
+0, 200, 1936, 9884, 33736, 90604, 207184, 421620,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = n\^{}10 - (19/35)*n\^{}9 + (4327/840)*n\^{}8 - (104/63)*n\^{}7 + (52/15)*n\^{}6 + (367/90)*n\^{}5 - (491/120)*n\^{}4 + (389/126)*n\^{}3 - (221/420)*n\^{}2 + (1/35)*n. a(n) = 11*a(n-1) - 55*a(n-2) + 165*a(n-3) - 330*a(n-4) + 462*a(n-5) - 462*a(n-6) + 330*a(n-7) - 165*a(n-8) + 55*a(n-9) - 11*a(n-10) + a(n-11) for n>11.
+Empirical: a(n) = 2*a(n-1) -3*a(n-4) +a(n-5) +a(n-6) +a(n-9) +a(n-10) -3*a(n-11) +2*a(n-14) -a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 18 2017 18:11:13, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:59:57, revision 9)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial}
+\section{The count is a quasi-polynomial}
 
-The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
-the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
-array is described completely by its weak ordering: the ordered set partition of the $L$
-positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
-of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
-array, and there are $\binom{n+1}{m}$ of them. Hence
-\[
-a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
-\]
-with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
 \section{The bound}
 
-That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
-$a$ and $S=11$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
-estimated.
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=57$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=57$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{11}-\sum_ic_iz^{11-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{15}-\sum_ic_iz^{15-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -79,7 +97,7 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11)
+a(n)\;=\;2\,a(n-1) - 3\,a(n-4) + a(n-5) + a(n-6) + a(n-9) + a(n-10) - 3\,a(n-11) + 2\,a(n-14) - a(n-15)
 \]
 for every $n>0$.
 \end{theorem}
@@ -87,7 +105,7 @@ for every $n>0$.
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+11$, which by
+vanish from $n=0+1$ onwards, and the run exceeds $S+15$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -95,7 +113,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -108,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A249850.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202966.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

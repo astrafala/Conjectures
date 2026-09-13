@@ -31,12 +31,14 @@ else:
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 have |= {r['anum'] for r in json.load(open('rank-map.json'))}
-have |= set(withdrawnset.anums())   # a withdrawal must be sticky
+
 nxt = max(eng) + 1
 added, nopaper, norefuse = 0, [], []
 for h in sorted(recs, key=lambda x: x.get('anum', '')):
     a = h.get('anum')
-    if not a or h.get('FAILS') or a in have:
+    # a withdrawal blocks the ARGUMENT, not the entry: another engine settling the same
+    # open conjecture is a new result, not the withdrawn one returning
+    if not a or h.get('FAILS') or a in have or withdrawnset.blocked(a, engname):
         continue
     if not refused.ok(h.get('engine')):
         norefuse.append(a)

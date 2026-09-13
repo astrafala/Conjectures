@@ -12,110 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A238311}
+\title{The empirical recurrence for OEIS A290834, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A238311 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 76]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A290834 carries an empirical recurrence of order $2$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A238311 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It is read by antidiagonals and begins
+OEIS A290834 is ``Binary representation of the diagonal from the corner to the origin of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 969", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-256, 1776, 1776, 12372, 20128, 12372, 85984, 227622,\ \dots
+1, 10, 101, 1111, 11100, 111111, 1111111, 11111111,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 76]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Aug 12 2017: (Start) a(n) = 11*a(n-1) - 10*a(n-2) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:51:22, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:41, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{The value is a certified growth}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
+\[
+C(n+1)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 5.
+\]
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+1)=C(n_0)$ forces $C(n_0+k\cdot1)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
 
-\section{Recovering the recurrences}
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 969 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+1)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $1$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+1)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,1}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,1}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=8$.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{2}-\sum_ic_iz^{2-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=1776$ vertices. Berlekamp--Massey on $2S=3552$ exact terms
-returns a minimal recurrence of order $76$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{76})=(0,\ 0,\ 590,\ 6047,\ 33282,\ 143172,\ -51847,\ -3383143,\ -19098221,\ -62660439,\ 50129967,\ 1167166401,\ 3926502816,\ 4633770290,\ -30502410747,\ -161347026851,\ -92876223654,\ 780089150443,\ 1245151657046,\ 143819948233,\ -949452193524,\ -3466310431313,\ 20506201952776,\ -8028535411851,\ -375549140588226,\ -67909347802678,\ 1672222434601647,\ -1014167853197958,\ -3819901933221444,\ 12177171250980535,\ 11379879333755080,\ -19703330851331473,\ -5046728126887472,\ -107938157967819317,\ -157569757784410886,\ 466875447950918420,\ 254581489443163362,\ -971895742022921422,\ 1098815982455005785,\ 1878496926360289268,\ -4154137393506684650,\ -2489534202633012199,\ 5512403342728275355,\ 606241215183684002,\ -1593510698063116450,\ 3736090968544920876,\ -4841764212703579592,\ -6977069500653741268,\ 5774208940465613649,\ 5855695151473940574,\ -962200406677614129,\ -3635673360797615615,\ -2689068586524211097,\ 3797403507458193497,\ 2229508234425503651,\ -3424368555467162215,\ 1184789416489364860,\ 2552131844208767656,\ -1985392340164925609,\ -308502195280952876,\ 2002321901889236764,\ 344130666354013184,\ -262987165354583778,\ 271094423939197184,\ 229978471954441064,\ -55304525405563700,\ -141196591281205736,\ -16903093896289976,\ 22788803756890560,\ 11349407149777184,\ 139234319179520,\ -2069352319020288,\ -660849214850048,\ -93674083704832,\ -6774341369856,\ 34665922560).
-\]
-so that $a(m)=\sum_{i=1}^{76}c_i\,a(m-i)$ for every $m$. Removing the first
-$76+4$ terms and repeating gives order $76$ again, which is what the
-identification below needs.
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+\[
+a(n)\;=\;11\,a(n-1) - 10\,a(n-2)
+\]
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=6+1$ onwards, and the run exceeds $S+2$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A238311.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A290834.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

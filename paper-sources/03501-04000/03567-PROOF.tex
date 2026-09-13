@@ -12,143 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189444, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A263464}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189444 counts the permutations of the cells of an $n\times4$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $11$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=45$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A263464 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A189444 is ``Number of n X 4 array permutations with each element moving zero or one space horizontally or diagonally.''. It has offset $1$ and begins
+OEIS A263464 is ``T(n,k)=Number of (n+1)X(k+1) 0..4 arrays with each row and column divisible by 11, read as a base-5 number with top and left being the most significant digits.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-5, 61, 666, 7300, 80282, 883049, 9712873, 106834338,\ \dots
+2, 3, 3, 8, 17, 8, 23, 173,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 12*a(n-1) -12*a(n-2) +12*a(n-3) -12*a(n-4) +a(n-5).
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=1: a(n) = 3*a(n-1) +a(n-5) -3*a(n-6)\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 02 2018 08:49:16, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 19 2015 09:46:05, revision 4) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{What is being counted}
+\section{A column of the table is a walk count}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<4$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,-1),\ (0,-1),\ (0,0),\ (0,1),\ (1,1)\,\}.
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-The offsets are what the name's words say: one step horizontally or diagonally, in either direction along each of those axes. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
-
-The words name an AXIS, not a single direction: ``diagonally'' admits
-both $(1,1)$ and $(-1,-1)$, and ``antidiagonally'' is a separate word for the other diagonal.
-And a move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
-
-Equivalently, $a(n)$ is the permanent of the $n4\times n4$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
-
-\section{A window of 11 positions}
-
-Number the cells in row-major order, $k=i\cdot4+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_14+\delta_2$ places in that order, so every image lies between $lo=-5$ and
-$hi=5$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-5$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+5$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $11$ positions
-$k+-5,\dots,k+5$ are taken --- a subset of a set of size $11$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $4$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=45,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $6$ & $11$ & $>4$ & $9$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1)X2 0..4 arrays with each row and column divisible by 11, read as a base-5 number with top and left being the most significant digits.''. Its rows are the vertices of a digraph on
+$S=11$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;12\,a(n-1) - 12\,a(n-2) + 12\,a(n-3) - 12\,a(n-4) + a(n-5)
+a(n)\;=\;3\,a(n-1) + a(n-5) - 3\,a(n-6)
 \]
-for every $n>5$.
-\end{theorem}
-
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
-\end{proof}
+holds from index $4+1$ on.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $9$ published values, $21$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189444.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263464.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

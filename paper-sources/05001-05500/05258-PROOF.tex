@@ -12,72 +12,53 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186554, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234772, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186554 counts the $(n+1)\times2$ arrays over $\{0,\dots,3\}$ in which
-neighbouring $2\times2$ subblocks do not commute as matrices, and carries an empirical recurrence
-of order $48$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
-a state, the count is a walk count on $S=256$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A234772 carries an empirical recurrence of order $52$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=626$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A186554 is ``Number of (n+1)X2 0..3 arrays with no 2X2 subblock commuting with any of its horizontal and vertical 2X2 subblock neighbors.''. It has offset $1$ and begins
+OEIS A234772 is ``Number of (n+1)X(3+1) 0..4 arrays with 2X2 edge jumps all no more than +1 in one of the clockwise or counterclockwise directions but not both.''. It has offset $1$ and begins
 \[
-256, 3891, 60074, 927477, 14319230, 221073168, 3413126694, 52694924343,\ \dots
+2056, 28840, 301776, 4255966, 49077768, 678552840, 8058197452, 109362379520,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=4*a(n-1)+104*a(n-2)+797*a(n-3)+3891*a(n-4)+14095*a(n-5)+40200*a(n-6)+92485*a(n-7)+171998*a(n-8)+252349*a(n-9)+268492*a(n-10)+139234*a(n-11)-161414*a(n-12)-521070*a(n-13)-687529*a(n-14)-423636*a(n-15)+253948*a(n-16)+987357*a(n-17)+1330329*a(n-18)+1183644*a(n-19)+932235*a(n-20)+994269*a(n-21)+1201760*a(n-22)+856341*a(n-23)-350728*a(n-24)-1594116*a(n-25)-1551129*a(n-26)-10297*a(n-27)+1532661*a(n-28)+1395959*a(n-29)-294208*a(n-30)-1710585*a(n-31)-1500735*a(n-32)-230622*a(n-33)+624783*a(n-34)+502770*a(n-35)+14161*a(n-36)-185750*a(n-37)-87729*a(n-38)+20841*a(n-39)+32262*a(n-40)+10922*a(n-41)+3426*a(n-42)+3024*a(n-43)+1107*a(n-44)-285*a(n-45)-255*a(n-46)-34*a(n-47)+3*a(n-48) for n>49
+Empirical recurrence of order 52 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:34:58, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:25:41, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The contiguous $2\times2$ subblocks of an $(n+1)\times2$ array form a grid of $n$
-rows and $1$ column. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $2\times1$ entries, vertically
-$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, do not commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
-
-At $n=1$ the array has $2$ rows and the grid is a single row of $1$
-subblock, with no neighbouring pair at all; the entry's first term is
-$256$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
-A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
-$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=626$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-on the $S=256$ admissible $2$-tuples. In particular $a$ is $C$-finite.
-
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $2\ge2$ that row already determines the $2$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $4^{2\cdot2}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{48}-\sum_i c_it^{48-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{52}-\sum_i c_it^{52-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -85,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+48}-\sum_ic_iM^{j+48-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+52}-\sum_ic_iM^{j+52-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -94,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 104\,a(n-2) + 797\,a(n-3) + 3891\,a(n-4) + 14095\,a(n-5) + 40200\,a(n-6) + 92485\,a(n-7) + 171998\,a(n-8) + 252349\,a(n-9) + 268492\,a(n-10) + 139234\,a(n-11) - 161414\,a(n-12) - 521070\,a(n-13) - 687529\,a(n-14) - 423636\,a(n-15) + 253948\,a(n-16) + 987357\,a(n-17) + 1330329\,a(n-18) + 1183644\,a(n-19) + 932235\,a(n-20) + 994269\,a(n-21) + 1201760\,a(n-22) + 856341\,a(n-23) - 350728\,a(n-24) - 1594116\,a(n-25) - 1551129\,a(n-26) - 10297\,a(n-27) + 1532661\,a(n-28) + 1395959\,a(n-29) - 294208\,a(n-30) - 1710585\,a(n-31) - 1500735\,a(n-32) - 230622\,a(n-33) + 624783\,a(n-34) + 502770\,a(n-35) + 14161\,a(n-36) - 185750\,a(n-37) - 87729\,a(n-38) + 20841\,a(n-39) + 32262\,a(n-40) + 10922\,a(n-41) + 3426\,a(n-42) + 3024\,a(n-43) + 1107\,a(n-44) - 285\,a(n-45) - 255\,a(n-46) - 34\,a(n-47) + 3\,a(n-48)
+a(n)\;=\;3\,a(n-1) + 315\,a(n-2) - 666\,a(n-3) - 38125\,a(n-4) + 59855\,a(n-5) + 2523094\,a(n-6) - 3064598\,a(n-7) - 105715234\,a(n-8) + 103056039\,a(n-9) + 3035186969\,a(n-10) - 2457922062\,a(n-11) - 62696173869\,a(n-12) + 43536365994\,a(n-13) + 962613692474\,a(n-14) - 589329444415\,a(n-15) - 11241259302141\,a(n-16) + 6208104616956\,a(n-17) + 101544258025851\,a(n-18) - 51499055357573\,a(n-19) - 718522528462556\,a(n-20) + 339157532755689\,a(n-21) + 4020140428096596\,a(n-22) - 1783465868110113\,a(n-23) - 17906105331129397\,a(n-24) + 7518527642856500\,a(n-25) + 63780630784284161\,a(n-26) - 25472310230261259\,a(n-27) - 182128698060288929\,a(n-28) + 69410085164582698\,a(n-29) + 417134684639163840\,a(n-30) - 151964583996172464\,a(n-31) - 765071404830930528\,a(n-32) + 266459723158897032\,a(n-33) + 1119485601616887620\,a(n-34) - 372015637839894268\,a(n-35) - 1298669473504021308\,a(n-36) + 409830536695428368\,a(n-37) + 1183297333700524952\,a(n-38) - 351593270567139376\,a(n-39) - 835692156481464736\,a(n-40) + 230524154960775808\,a(n-41) + 448974968608718592\,a(n-42) - 112438411886149120\,a(n-43) - 178613410742936064\,a(n-44) + 39187864258001920\,a(n-45) + 50527126494373888\,a(n-46) - 9147890031222784\,a(n-47) - 9517749274755072\,a(n-48) + 1269696565149696\,a(n-49) + 1057336107073536\,a(n-50) - 78325116567552\,a(n-51) - 51518266933248\,a(n-52)
 \]
-for every $n>49$.
+for every $n>52$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $48$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $52$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=49+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=52+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -122,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186554.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234772.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

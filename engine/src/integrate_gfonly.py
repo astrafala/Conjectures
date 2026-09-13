@@ -2,13 +2,14 @@ import withdrawnset
 import json, os, shutil
 hits = [h for h in json.load(open('gfonly_hits.json')) if not h.get('FAILS')]
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
-have = {v['anum'] for v in eng.values()} | set(withdrawnset.anums())
+have = {v['anum'] for v in eng.values()}
 nxt = max(eng) + 1
 added, skipped = [], []
 for h in sorted(hits, key=lambda x: x['anum']):
     a = h['anum']
     src = f"build/gfo{a}/p.pdf"
-    if a in have or not (os.path.exists(src) and os.path.getsize(src) > 50000):
+    if (a in have or withdrawnset.blocked(a, 'gf-conjecture')
+            or not (os.path.exists(src) and os.path.getsize(src) > 50000)):
         skipped.append(a)
         continue
     shutil.copy(src, f"papers-old-numbering/{nxt}-PROOF.pdf")

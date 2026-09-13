@@ -12,98 +12,169 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264471, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251274, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264471 carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A251274 counts $8\times(n+1)$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $16$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the columns of an admissible array are the vertices of a finite digraph
+on $S=256$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A264471 is ``Number of (n+1)X(3+1) arrays of permutations of 0..n*4+3 with each element having directed index change 0,1 1,0 2,1 or -1,-1.''. It has offset $1$ and begins
+OEIS A251274 is ``Number of (7+1)X(n+1) 0..1 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$ and begins
 \[
-0, 4, 6, 16, 49, 124, 384, 1041,\ \dots
+10179, 161906, 1501739, 9772880, 49523566, 208452452, 760734085, 2480493084,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 2*a(n-1) +a(n-2) +6*a(n-3) -6*a(n-4) +6*a(n-5) -27*a(n-6) +5*a(n-7) -9*a(n-8) +33*a(n-9) -4*a(n-10) +7*a(n-11) -12*a(n-12) +a(n-13) -a(n-14) +a(n-15)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 17*a(n-1) -135*a(n-2) +665*a(n-3) -2275*a(n-4) +5733*a(n-5) -11011*a(n-6) +16445*a(n-7) -19305*a(n-8) +17875*a(n-9) -13013*a(n-10) +7371*a(n-11) -3185*a(n-12) +1015*a(n-13) -225*a(n-14) +31*a(n-15) -2*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 14 2015 15:33:30, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:20:31, revision 6) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;17\,a(n-1) - 135\,a(n-2) + 665\,a(n-3) - 2275\,a(n-4) + 5733\,a(n-5) - 11011\,a(n-6) + 16445\,a(n-7) - 19305\,a(n-8) + 17875\,a(n-9) - 13013\,a(n-10) + 7371\,a(n-11) - 3185\,a(n-12) + 1015\,a(n-13) - 225\,a(n-14) + 31\,a(n-15) - 2\,a(n-16)
+\end{equation}
+for all $n>15$.
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65536$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\section{The condition is local, so the columns form a digraph}
+
+Write an array of the shape in question as its list of columns
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,1\}^{8}$, so $|V|=S=256$. A $2\times2$ subblock of the array
+occupies two consecutive columns and two consecutive rows; if the two columns are $r$
+and $s$ (in that order) and the two rows are numbered $i,i+1$,
+the subblock is
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_i&s_i\\r_{i+1}&s_{i+1}\end{pmatrix}.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+\text{not }\bigl(\delta-\alpha<\gamma-\beta\bigr),
+\end{equation}
+a condition on the four entries alone.
 
-\section{The proof}
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le i\le 8-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ columns are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array with $L$ columns and $8$ rows is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive columns $r^{(t)},r^{(t+1)}$ and two
+consecutive rows, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every row pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ columns.
 \end{proof}
 
-\begin{theorem}
+\section{The criterion}
+
+Let $q(t)=t^{16}-\sum_i c_i\,t^{16-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge16$,
 \[
-a(n)\;=\;2\,a(n-1) + a(n-2) + 6\,a(n-3) - 6\,a(n-4) + 6\,a(n-5) - 27\,a(n-6) + 5\,a(n-7) - 9\,a(n-8) + 33\,a(n-9) - 4\,a(n-10) + 7\,a(n-11) - 12\,a(n-12) + a(n-13) - a(n-14) + a(n-15)
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-16}\,q(M)\,\mathbf{1} .
 \]
-for every $n>13$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-16}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-16=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>15$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $8$
+rows: the edge condition is a conjunction of one constraint per consecutive row
+pair, so the successors of a column $r$ are enumerated row by row without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $16$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=15+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>15$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $18$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264471.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251274.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

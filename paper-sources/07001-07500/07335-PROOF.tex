@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on every subblock: the empirical recurrence for OEIS A181250}
+\title{A condition on every subblock: the empirical recurrence for OEIS A183830}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A181250 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
+OEIS A183830 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is a condition on every
 subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=22$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=20$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -32,24 +32,24 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A181250 is ``Number of n X 7 binary matrices with no 2 X 2 block having four 1's.''. It has offset $1$ and begins
+OEIS A183830 is ``Number of (n+1)X4 0..2 arrays with each element of every 2X2 subblock being the sum mod 3 of two others.''. It has offset $1$ and begins
 \[
-128, 11772, 1169792, 114142368, 11185495872, 1095020802848, 107224417436160, 10498818149889952,\ \dots
+523, 5323, 53589, 568635, 5935955, 63219545, 666851127, 7093125423,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=68*a(n-1)+3106*a(n-2)-10300*a(n-3)-731184*a(n-4)+3930848*a(n-5)+47046600*a(n-6)-471525808*a(n-7)+1012118640*a(n-8)+2396096576*a(n-9)-9445394304*a(n-10)-4382776896*a(n-11)+29415041536*a(n-12)+8676097024*a(n-13)-36065068032*a(n-14)-14871987200*a(n-15)+10138337280*a(n-16)+2907136000*a(n-17)-1119682560*a(n-18).
+Empirical: a(n)=13*a(n-1)+42*a(n-2)-942*a(n-3)+1259*a(n-4)+16804*a(n-5)-40879*a(n-6)-117777*a(n-7)+381433*a(n-8)+303856*a(n-9)-1519845*a(n-10)+56140*a(n-11)+2613108*a(n-12)-1083416*a(n-13)-1748449*a(n-14)+1024510*a(n-15)+314900*a(n-16)-213340*a(n-17)+10760*a(n-18)+1824*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 25 2024 21:36:35, revision 5) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:05:11, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $7$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may contain $4$ ones.
+The entry counts arrays with $4$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and the condition it imposes is that in every $2\times2$ subblock, each of the four entries must be congruent modulo $3$ to the sum of two of the other three.
 
-That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=22$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=20$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -57,7 +57,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -65,7 +65,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;68\,a(n-1) + 3106\,a(n-2) - 10300\,a(n-3) - 731184\,a(n-4) + 3930848\,a(n-5) + 47046600\,a(n-6) - 471525808\,a(n-7) + 1012118640\,a(n-8) + 2396096576\,a(n-9) - 9445394304\,a(n-10) - 4382776896\,a(n-11) + 29415041536\,a(n-12) + 8676097024\,a(n-13) - 36065068032\,a(n-14) - 14871987200\,a(n-15) + 10138337280\,a(n-16) + 2907136000\,a(n-17) - 1119682560\,a(n-18)
+a(n)\;=\;13\,a(n-1) + 42\,a(n-2) - 942\,a(n-3) + 1259\,a(n-4) + 16804\,a(n-5) - 40879\,a(n-6) - 117777\,a(n-7) + 381433\,a(n-8) + 303856\,a(n-9) - 1519845\,a(n-10) + 56140\,a(n-11) + 2613108\,a(n-12) - 1083416\,a(n-13) - 1748449\,a(n-14) + 1024510\,a(n-15) + 314900\,a(n-16) - 213340\,a(n-17) + 10760\,a(n-18) + 1824\,a(n-19)
 \]
-for every $n>18$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -108,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A181250.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183830.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

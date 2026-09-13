@@ -1,0 +1,115 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A232427, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{7 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A232427 carries an empirical recurrence of order $55$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6642$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The conjecture}
+
+OEIS A232427 is ``Number of (n+1)X(3+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally or vertically.''. It has offset $1$ and begins
+\[
+64, 1632, 33708, 650696, 14465384, 313201804, 6514702216, 139122934752,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical recurrence of order 55 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:26:21, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a walk count}
+
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6642$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{55}-\sum_i c_it^{55-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+55}-\sum_ic_iM^{j+55-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) + 195\,a(n-2) + 3643\,a(n-3) + 28296\,a(n-4) - 78485\,a(n-5) - 1851855\,a(n-6) - 5597960\,a(n-7) - 14545543\,a(n-8) - 102658236\,a(n-9) + 828734107\,a(n-10) + 3664842685\,a(n-11) - 680110694\,a(n-12) + 108343322251\,a(n-13) + 539232374557\,a(n-14) + 1780127760828\,a(n-15) + 250826575256\,a(n-16) - 8156206468508\,a(n-17) - 27491849271263\,a(n-18) - 854187834337302\,a(n-19) + 582032295100542\,a(n-20) - 852351970473719\,a(n-21) - 27911638173283669\,a(n-22) + 81183204558933944\,a(n-23) - 302990433052227\,a(n-24) - 223865081884433873\,a(n-25) + 1451581827739577131\,a(n-26) - 1310363694069039698\,a(n-27) + 712629056767260864\,a(n-28) - 3042115823136780756\,a(n-29) - 13051474599682052752\,a(n-30) + 52683521632329431744\,a(n-31) - 125826349969691436704\,a(n-32) + 87065790116898283072\,a(n-33) + 151549966916888108864\,a(n-34) - 511234775769211060224\,a(n-35) + 779878366446923160320\,a(n-36) - 521977610515420060160\,a(n-37) - 114287652274122905600\,a(n-38) + 966583193381665372160\,a(n-39) - 1362548282115281539072\,a(n-40) + 1110790873707815043072\,a(n-41) - 436331951401826959360\,a(n-42) - 234928241604927160320\,a(n-43) + 447039013903407251456\,a(n-44) - 520987516148081754112\,a(n-45) + 181360747775254331392\,a(n-46) - 106824099451019198464\,a(n-47) - 16958279787170758656\,a(n-48) - 9094647286411034624\,a(n-49) - 30094103830320906240\,a(n-50) - 1658284880120774656\,a(n-51) + 5177768480476233728\,a(n-52) + 686517468197289984\,a(n-53) + 145522562959409152\,a(n-54) + 18014398509481984\,a(n-55)
+\]
+for every $n>55$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $55$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=55+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232427.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

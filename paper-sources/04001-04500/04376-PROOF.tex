@@ -12,127 +12,158 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279961, proved from an exact model}
+\title{The empirical recurrence for OEIS A209101, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279961 carries an empirical recurrence of order $4$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A209101 counts $2\times n$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
+alphabet; it carries an empirical recurrence of order $2$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
+equality patterns, which is not a walk count --- but it is a fixed rational combination of
+walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
+conjectured recurrence annihilates it is then decided by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A279961 is ``Decimal representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 221", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
+OEIS A209101 is ``Number of 2 X n 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than one of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-1, 2, 2, 12, 7, 60, 7, 252,\ \dots
+2, 11, 76, 520, 3552, 24256, 165632, 1131008,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Dec 24 2016: (Start) a(n) = 5*a(n-2) - 4*a(n-4) for n>6.
+Empirical: a(n) = 8*a(n-1) - 8*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:36, revision 11)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 08 2018 10:48:15, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The value is a certified growth}
+\section{Patterns are a combination of counts}
 
-The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
-takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
-sequence is that the CONFIGURATION is periodic in time:
+The clause ``new values $0..2$ introduced in row major order'' says that the arrays
+counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
+only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
+patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
+alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
+its letters into the alphabet, so
 \[
-C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 3.
+L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
 \]
-This was checked directly, and one instance of it is all that is needed: the automaton is a
-deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
-every $k$, and likewise in each residue class. No locality argument and no induction over
-boundary windows is involved.
-
-Getting the background right is the whole of the check. A rule taking an empty von Neumann
-neighbourhood to a live cell flips the ENTIRE plane, and rule 221 is read
-in that light: comparing two stages by padding the smaller with zeros would compare two
-different things.
-
-The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
-that is not changing, so the window widening by one cell on each side per step gives
+a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
+counts $a=N_1+\dots+N_{3}$, so
 \[
-w(n+2)\;=\;L_r + w(n) + R_r
+a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
 \]
-with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
-identity that is now a consequence rather than an observation. Concatenation is multiplication
-by a power of the base $B$ and addition, so along a class
+a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
+Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
+union of those graphs with the combination's coefficients placed in the starting vector; the
+coefficients are rational and some are negative, which costs nothing in what follows.
+
+This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
+the condition below is stated through equality between entries and never names a particular
+value or compares sizes.
+
+\section{Cells, not blocks}
+
+The entry names the neighbours it means --- horizontal is left and right, vertical is up and
+down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
+all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
+the set is $\{(-1,0), (0,-1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
+the condition
 \[
-a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\text{no cell is equal to more than 1 of its immediate leftward or upward or right-upward antidiagonal neighbours},
 \]
+and the count of neighbours enters it, so the boundary is not a detail that can be papered
+over: a cell in the interior has $3$ neighbours in this set and a cell on the boundary
+fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
+different things at the two. In particular one cannot pad the array with a border of zeros ---
+that would give every cell the full $3$ and change what is being counted. The outside is
+therefore carried
+explicitly, as a sentinel column above the first and below the last and as a sentinel column
+either side, and a neighbour that falls outside is simply absent from both counts.
 
-\section{The bound}
-
-In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
-constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
-occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
-pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
+Write an array as a sequence of columns $u_1,\dots,u_L$, each in
+$\{0,\dots,2\}^{2}$. The neighbourhood of a cell in column $u_i$ meets $u_{i-1}$,
+$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
+$(r,s)\in(\{0,\dots,2\}^{2}\cup\{\varnothing\})\times\{0,\dots,2\}^{2}$,
+and put an edge $(r,s)\to(s,t)$ when column $s$ satisfies the condition at every one of its
+$2$ cells, given $r$ above and $t$ below. An array with $L$ columns is then a walk of length
+$L-1$ starting at $(\varnothing,u_1)$, each step settling one column, and the last column is
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
+with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+\[
+a(n)\;=\;\frac{1}{6}\,\iota^{\!\top}M^{\,n-1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
+recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
+large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
+characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
+nonzero $u_j$ pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-2) - 4\,a(n-4)
+a(n)\;=\;8\,a(n-1) - 8\,a(n-2)
 \]
-for every $n>6$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=6+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
+integers vanish from the index corresponding to $n=3+1$ onwards, and the run was
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>3$. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $43$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. The neighbour offsets are named in the
+array's own frame --- horizontal means along a row --- but when the entry fixes the first
+dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
+offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
+that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
+is not, and the counts came out as those of a different member of the same family until the
+offsets were transposed.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
+with no matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279961.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209101.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}
