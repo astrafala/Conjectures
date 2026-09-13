@@ -12,57 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A124699, proved from an exact model}
+\title{The empirical recurrence for OEIS A200840, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A124699 carries an empirical recurrence of order $6$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
+OEIS A200840 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A124699 is ``Number of base 6 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
+OEIS A200840 is ``Number of 0..n arrays x(0..4) of 5 elements without any two consecutive increases or two consecutive decreases.''. It has offset $1$ and begins
 \[
-1, 6, 16, 36, 92, 236, 622, 1658,\ \dots
+32, 191, 676, 1817, 4108, 8239, 15128, 25953,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1 a(n) = 6*a(n-1) - 10*a(n-2) + 9*a(n-4) - 2*a(n-5) - a(n-6) for n>6.
+Empirical: a(n) = (4/15)*n\^{}5 + (17/6)*n\^{}4 + (28/3)*n\^{}3 + (73/6)*n\^{}2 + (32/5)*n + 1. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:00:09, revision 20)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:49:18, revision 11)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a trace}
+\section{The count is a quasi-polynomial}
 
-Let $G$ be the graph on the digits $0,1,\dots,5$ with an edge between $u$ and $v$ exactly
-when $|u-v|\le1$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
-$|u-v|\le1$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
-$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
-most $1$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
-starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
-\[
-a(n)\;=\;\sum_{u=0}^{5}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
-\]
-The entry counts every string, leading zeros included: requiring a nonzero first digit gives
-$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
-string, where the trace is $6$; that is the entry's convention at one index and the two agree
-at every $n\ge1$, on every published term.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
 \section{The bound}
 
-$\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
-Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=6$,
-computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
-bound is derived from the data: it is the size of the digit alphabet.
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=7$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=7$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
@@ -82,23 +97,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 10\,a(n-2) + 9\,a(n-4) - 2\,a(n-5) - a(n-6)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
-for every $n>6$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=6+1$ onwards, and the run exceeds $S+6$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=0+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -111,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A124699.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A200840.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

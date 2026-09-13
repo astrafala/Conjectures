@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268765, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A268773, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268765 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
+OEIS A268773 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
 exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=256$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=4374$ vertices,
 and the empirical recurrence of order $28$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,22 +32,22 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A268765 is ``Number of nX7 binary arrays with some element plus some horizontally, vertically, diagonally or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
+OEIS A268773 is ``Number of nX7 0..2 arrays with some element plus some horizontally, vertically, diagonally or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
 \[
-38, 595, 8500, 99057, 1129042, 12111209, 127676872, 1312123185,\ \dots
+576, 1456, 17000, 198114, 2258084, 24222418, 255353744, 2624246370,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) +64*a(n-2) -942*a(n-3) -1476*a(n-4) +26868*a(n-5) +2249*a(n-6) -376788*a(n-7) +333472*a(n-8) +2686292*a(n-9) -4376424*a(n-10) -8985248*a(n-11) +21881197*a(n-12) +12658940*a(n-13) -55768960*a(n-14) +923990*a(n-15) +80699088*a(n-16) -25850884*a(n-17) -69171189*a(n-18) +34934900*a(n-19) +34833816*a(n-20) -22502076*a(n-21) -9502460*a(n-22) +7752808*a(n-23) +1023260*a(n-24) -1356480*a(n-25) +55136*a(n-26) +94080*a(n-27) -14400*a(n-28)
+Empirical: a(n) = 12*a(n-1) +64*a(n-2) -942*a(n-3) -1476*a(n-4) +26868*a(n-5) +2249*a(n-6) -376788*a(n-7) +333472*a(n-8) +2686292*a(n-9) -4376424*a(n-10) -8985248*a(n-11) +21881197*a(n-12) +12658940*a(n-13) -55768960*a(n-14) +923990*a(n-15) +80699088*a(n-16) -25850884*a(n-17) -69171189*a(n-18) +34934900*a(n-19) +34833816*a(n-20) -22502076*a(n-21) -9502460*a(n-22) +7752808*a(n-23) +1023260*a(n-24) -1356480*a(n-25) +55136*a(n-26) +94080*a(n-27) -14400*a(n-28) for n>30
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2016 07:37:40, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 13 2016 08:27:33, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
 a(n)\;=\;12\,a(n-1) + 64\,a(n-2) - 942\,a(n-3) - 1476\,a(n-4) + 26868\,a(n-5) + 2249\,a(n-6) - 376788\,a(n-7) + 333472\,a(n-8) + 2686292\,a(n-9) - 4376424\,a(n-10) - 8985248\,a(n-11) + 21881197\,a(n-12) + 12658940\,a(n-13) - 55768960\,a(n-14) + 923990\,a(n-15) + 80699088\,a(n-16) - 25850884\,a(n-17) - 69171189\,a(n-18) + 34934900\,a(n-19) + 34833816\,a(n-20) - 22502076\,a(n-21) - 9502460\,a(n-22) + 7752808\,a(n-23) + 1023260\,a(n-24) - 1356480\,a(n-25) + 55136\,a(n-26) + 94080\,a(n-27) - 14400\,a(n-28)
 \end{equation}
-for all $n>28$.
+for all $n>30$.
 
 \section{A global count, and how to carry it}
 
@@ -73,8 +73,8 @@ entry's requirement is
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{7},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=256,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{7},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=4374,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,7 +84,7 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(1+1)^{2\cdot7}$ edges instead of the sparse set used here.
+the digraph dense, with $(2+1)^{2\cdot7}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
@@ -135,7 +135,7 @@ ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>28$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>30$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -143,7 +143,7 @@ Section~1.
 The digraph was built directly from the definition of a marked pair. The vector $w$ was
 formed by $28$ applications of $G$ in exact integer arithmetic and
 $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=28+1$ onwards, and the run
+those integers vanishes from the index corresponding to $n=30+1$ onwards, and the run
 continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
 settles every larger $m$.
 \end{proof}
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268765.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268773.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

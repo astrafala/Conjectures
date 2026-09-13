@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230985, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231127, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230985 counts the white-square subarrays of arrays of width $5$ over $\{0,1\}$ in which
+OEIS A231127 counts the white-square subarrays of arrays of width $5$ over $\{0,1,2\}$ in which
 no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $18$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
 both coordinates by one and so never changes the colour of a cell, which makes the two colours
 of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=69$ states.
+colour, on $S=556$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A230985 is ``Number of white square subarrays of (n+1)X(4+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
+OEIS A231127 is ``Number of (n+1)X(4+1) white-square subarrays of 0..2 arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-3, 5, 24, 47, 191, 396, 1573, 3317,\ \dots
+16, 176, 2260, 27664, 336004, 4150352, 50257244, 621150768,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-2) -61*a(n-4) +148*a(n-6) -289*a(n-8) +325*a(n-10) -227*a(n-12) +95*a(n-14) -28*a(n-16) +4*a(n-18)
+Empirical: a(n) = 175*a(n-2) -4017*a(n-4) +34311*a(n-6) -146236*a(n-8) +322472*a(n-10) -291040*a(n-12) +116032*a(n-14) -24064*a(n-16) +1024*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:09:41, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:15:58, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -57,7 +57,7 @@ condition is that no cell equals a strict majority of its neighbours:
 \]
 Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,0)$ of the array, is $0$.
+The entry adds that the values $0..2$ are introduced in reading order: reading the cells of the subarray row by row, a value may appear for the first time only after every smaller value has appeared.
 
 \begin{lemma}\label{lem:split}
 Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
@@ -82,13 +82,18 @@ All four offsets move exactly one row, so the neighbours of the white cells of a
 white cells of the rows immediately above and below it. A row's conditions are therefore settled
 by three consecutive rows, and the state is the last two of them together with the parity of the
 next.
+The reading-order clause is carried as one more number in the state: how many distinct values
+have been introduced so far. A cell may then take any value already used, or the next one up,
+and nothing else; writing a row updates the count as the row is filled, left to right, so a
+value first used early in a row makes a larger value legal later in the same row.
+
 
 Appending a row completes one such window and settles the row in the middle of it. Because the
 condition looks one row DOWN as well as up, the last row of a finished array has not been tested
 when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
 last row passes with nothing below it. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=69.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=556.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -113,7 +118,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-2) - 61\,a(n-4) + 148\,a(n-6) - 289\,a(n-8) + 325\,a(n-10) - 227\,a(n-12) + 95\,a(n-14) - 28\,a(n-16) + 4\,a(n-18)
+a(n)\;=\;175\,a(n-2) - 4017\,a(n-4) + 34311\,a(n-6) - 146236\,a(n-8) + 322472\,a(n-10) - 291040\,a(n-12) + 116032\,a(n-14) - 24064\,a(n-16) + 1024\,a(n-18)
 \]
 for every $n>18$.
 \end{theorem}
@@ -129,7 +134,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: the cells
@@ -145,7 +150,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230985.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

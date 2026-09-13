@@ -76,6 +76,15 @@ WINDOW = {
                "consecutive ones needs one row more -- each of those rows being one of the "
                "few whose own bit-windows do not decrease along it"),
     'block2x2': "every $2\\times2$ subblock, hence two consecutive rows",
+    # the vertices are (the common four-value multiset, a row): V is read off any one block
+    # and never changes, so the digraph is the disjoint union of one per V.
+    'samefour': ("every $2\\times2$ subblock, hence two consecutive rows, together with the "
+                 "four-value multiset every block of the array must hold -- which any one "
+                 "block fixes for the whole array"),
+    # no window at all: the partial sums are unbounded and only their residue matters
+    'partsum': ("the leading partial sum modulo the least common multiple of the divisors "
+                "the entry names -- the sums themselves are unbounded, and divisibility by "
+                "any of the divisors is decided by that residue alone"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
@@ -152,6 +161,10 @@ def build(h):
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     win = WINDOW.get(h["engine"], "a bounded window of consecutive lines")
     objisawalk = OBJECT.get(h["engine"], DEFOBJ)
+    # a name reading "1/16 the number of ..." counts a QUOTIENT, and the paper may not print
+    # the walk count as though it were the entry's own sequence
+    q = int(h.get('div') or 1)
+    scale = '' if q == 1 else r'\tfrac{1}{%d}\,' % q
     intro = INTRO.get(h["engine"], DEFINTRO).replace('\n', ' ').format(win=win)
     # Some models are built with the redundancy already removed, so their vertices are not
     # the admissible windows themselves but the classes of windows that behave alike. Saying
@@ -206,7 +219,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 {intro}{merged}
 {objisawalk}, so with $M$ the adjacency matrix on $S={S}$ vertices,
 \[
-a(n)\;=\;\iota^{{\!\top}}M^{{\,{expo}}}\tau ,
+a(n)\;=\;{scale}\iota^{{\!\top}}M^{{\,{expo}}}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.

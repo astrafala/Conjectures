@@ -48,13 +48,22 @@ LINE = re.compile(r'a\(base\s*,\s*n\)\s*=\s*a\(base\s*-\s*1\s*,\s*n\)\s*\+\s*'
                   r'(?:(A\d{6})\s*\(\s*n\s*\+\s*1\s*\)|F\(\s*(\d+)\s*\))', re.I)
 
 
+# the range clause. Every entry of this family but one writes "for base >= d*floor(n/2)+1";
+# A124696 writes "for base = 1..floor(n/2)+1", which is the opposite inequality and, read
+# literally, is false -- at base 3 it claims the identity from n = 6 on, where the difference
+# is 135 and F(1,6) is 141. It is a typo for the form its 228 siblings use, but reading it that
+# way is putting words in the entry's mouth, so it is refused instead of quietly repaired.
+RANGE = re.compile(r'for\s+base\s*>=', re.I)
+
+
 def claim(anum, e=None):
     """the entry's cross-base line, and what it adds, or None"""
     e = e or LE.get(anum)
     for L in conjlines.lines(e):
-        m = LINE.search(' '.join(L.split()))
+        t = ' '.join(L.split())
+        m = LINE.search(t)
         if m:
-            return {'line': ' '.join(L.split()), 'ref': m.group(1),
+            return {'line': t, 'ref': m.group(1), 'range_ok': bool(RANGE.search(t)),
                     'F': int(m.group(2)) if m.group(2) else None}
     return None
 
@@ -103,6 +112,9 @@ def check(anum, nlimit=40):
     if cl is None:
         return None
     b, d = p['b'], p['k']
+    if not cl.get('range_ok'):
+        return {'anum': anum, 'FAILS': True,
+                'why': 'the range clause is not of the "for base >= ..." form this proves'}
     if cl['F'] is not None and cl['F'] != d:
         return {'anum': anum, 'FAILS': True, 'why': 'the line names F(%d) on a difference-%d '
                                                     'entry' % (cl['F'], d)}

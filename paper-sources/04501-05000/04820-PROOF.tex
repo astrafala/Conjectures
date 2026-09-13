@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A274745, proved by counting patterns}
+\title{The empirical recurrence for OEIS A275139, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A274745 counts arrays in which no entry may repeat a value found at any of three stated
+OEIS A275139 counts arrays in which no entry may repeat a value found at any of three stated
 offsets, and which are moreover written in canonical form (``new values introduced in order
 $0..2$''). The canonical-form clause is not local and no transfer matrix over the
 alphabet sees it; but the condition is stated in equalities, so what is counted is equality
@@ -28,7 +28,7 @@ alphabet by inverting a falling factorial:
 $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
 Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
 ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
-cutting $6818$ pairs to $S=1223$ states. The entry's empirical recurrence of order $3$,
+cutting $60074$ pairs to $S=10355$ states. The entry's empirical recurrence of order $3$,
 contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,29 +36,29 @@ contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A274745 is ``Number of n X 4 0..2 arrays with no element equal to any value at offset (-1,-2) (0,-1) or (-1,0) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A275139 is ``Number of n X 5 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,-2) or (0,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-4, 22, 133, 813, 4967, 30349, 185435, 1133025,\ \dots
+8, 144, 528, 2320, 9744, 41360, 175120, 741904,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) + a(n-2) - 2*a(n-3) for n>4.
+Empirical: a(n) = 3*a(n-1) + 5*a(n-2) + a(n-3) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 30 2019 11:16:50, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:47, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + a(n-2) - 2\,a(n-3)
+a(n)\;=\;3\,a(n-1) + 5\,a(n-2) + a(n-3)
 \end{equation}
 for all $n>4$.
 
 \section{The condition, and what the canonical-form clause counts}
 
-The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With
 \[
-\mathcal N=\{(-1,-2),\ (0,-1),\ (-1,0)\}
+\mathcal N=\{(-2,-2),\ (-1,-2),\ (0,-1)\}
 \]
 (offsets as (row shift, column shift)), the entry's requirement is
 \begin{equation}\label{eq:loc}
@@ -98,7 +98,7 @@ integer.
 
 \section{Each $L_i$ is a walk count on pairs of rows}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$ and take $\mathcal V=V_i\times V_i$ as vertices.
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$ and take $\mathcal V=V_i\times V_i$ as vertices.
 Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
 \eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
 back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
@@ -125,7 +125,7 @@ further condition constrains the end of the array, so the walk may finish anywhe
 Two vertices with the same equality pattern have, for each target pattern, the same number of
 successors carrying it, and the same value of $\mathbf{s}_i$. Hence the chain is strongly
 lumpable over patterns, and $L_i$ may be computed on the quotient, whose states are the set
-partitions of the $2\cdot4$ cells of a pair into at most $i$ classes.
+partitions of the $2\cdot5$ cells of a pair into at most $i$ classes.
 \end{lemma}
 
 \begin{proof}
@@ -136,7 +136,7 @@ sets which preserves patterns, and $\mathbf{s}_i$ agrees on the two vertices. Th
 pairs with pattern $P$ is $e_P=i(i-1)\cdots(i-|P|+1)$, which supplies the weights.
 \end{proof}
 
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=1223$, with the
+Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=10355$, with the
 weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
 \begin{equation}\label{eq:walk2}
 3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{1},\qquad L=n .
@@ -187,7 +187,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being read off the
 entry's own name as $L=n$ and the entry's offset saying which index the first published
 term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
@@ -203,7 +203,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A274745.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275139.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

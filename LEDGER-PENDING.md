@@ -645,3 +645,63 @@ records no reason, so they are being re-asked rather than guessed at. `sweep_eng
 `ONLY_ANUMS` filter for exactly this: when a PARSER is widened rather than an engine written, the
 entries that changed are known by name, and sweeping every name of sixty-six engines to reach
 them is hours of work for nothing.
+
+### The one entry of that family that is refused, and why
+
+`circdigit` now also reads "base-6 circular n-digit numbers" and "circular n-letter words over
+the alphabet {0,1,2,3}", which are two more spellings of the same count; that added five entries
+and four of them are installed. The fifth, **A124696**, is refused. Its range clause reads
+
+    for base = 1..floor(n/2)+1
+
+where all 228 of its siblings read `for base >= d*floor(n/2)+1`. That is the opposite
+inequality, and read literally the claim is FALSE: at base 3 it asserts the identity from n = 6
+onwards, where the difference is 135 and F(1,6) is 141. It is plainly a typo. Recording it as a
+disproof would be recording a defect in someone's typing, and quietly reading it the other way
+round would be putting words in the entry's mouth, so `circbase` now requires the clause to be
+of the `for base >= ...` form and refuses anything else.
+
+## 13 September 2026 — `samefour`: every 2 X 2 subblock holding the same four values
+
+    1/16 the number of (n+1) X 7 0..3 arrays with all 2 X 2 subblocks having the same four
+      values.
+
+Fifteen entries, none read. "The same four values" is the same MULTISET in every block, and the
+condition is rigid enough to write down in a paragraph. Two horizontally adjacent blocks of a
+row pair share a column, so with m_j the multiset {r_j, s_j} of the pair's j-th column the
+condition reads m_j + m_{j+1} = V for every j, V being the common four-value multiset. The m_j
+therefore ALTERNATE: m, V-m, m, V-m, .... Once V, the alternation and the top row are fixed the
+bottom row is DETERMINED cell by cell — s_j is what is left of the required multiset after
+removing r_j — and the top row is only constrained to have each r_j in that multiset. The whole
+count is the disjoint union over V of these digraphs, disjoint because V is read off any one
+block and so cannot change within an array. Lumped, every one of the fifteen comes down to
+S = 4 states, whatever the width.
+
+The name's divisor is the square of the alphabet size, 16 over 0..3 and 9 over 0..2. `unibuild`
+now prints the quotient in the formula rather than the walk count, because a paper may not show
+the entry's sequence as something it is not.
+
+**15 names read, every one reproducing its entry's published data exactly, and five confirmed by
+a separate brute force that enumerates the arrays and tests the blocks directly.**
+
+## 13 September 2026 — `partsum`: sums that are unbounded and a condition that is not
+
+    Number of length n 1..(4+1) arrays with every leading partial sum divisible by 2, 3 or 5.
+
+Twenty-three entries, none read. The partial sums grow without bound and the condition does not
+depend on them: divisibility by any of d_1,...,d_r is decided by the sum modulo
+M = lcm(d_1,...,d_r). So the state is that residue, the digraph has exactly M vertices, an array
+is a walk from residue 0 — the empty prefix — through residues each divisible by one of the
+divisors, and the alphabet 1..K contributes K edges out of every vertex of which only the
+admissible ones survive. The bound is M, read off the divisors.
+
+**23 names read, every one reproducing its entry's published data exactly, and three confirmed
+by a separate brute force that enumerates the arrays and adds up the prefixes.**
+
+### And the pool file is stale again
+
+`deep-check/pool-unread.json` still lists the sixteen "every x(i) in a subsequence of length 1
+or 2 with sum zero" entries as read by no engine. `coverzero` reads all sixteen, and thirteen of
+them are already in the roster, proved this morning. That is defect 1 for the eighth time: the
+pool is a snapshot and every engine written since invalidates it. It is re-measured below rather
+than trusted.

@@ -7,147 +7,169 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured identity for OEIS A110320}
+\title{A proof of the conjectured recurrence for OEIS A081204}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A110320 carries a conjectured identity expressing its terms through the terms of
-A051286, A051292. We prove it. Each entry involved posts a generating function, so the claim is
-a single identity between generating functions: writing $F_{a}$ for the generating
-function of A110320 and $F_{j}$ for those of the entries on the right, the conjecture
-says that a specific combination of the $F_{j}$, shifted and weighted as the identity
-prescribes, differs from $F_{a}$ by a polynomial. That difference is computed here in
-closed form and equals $0$, of degree $-1$, which proves the identity for
-every $n>-1$.
+OEIS A081204 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, and the closed form it does post
+is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
+rational and the usual argument does not start. Splitting on the parity of $n$ repairs
+this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
+hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
+each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
+then decided exactly, by grouping into similarity classes and cancelling. The procedure
+returns a proof or a refutation; both halves must hold, and here both do.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B83, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The sequences and the conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A110320 is ``Number of blocks in all RNA secondary structures with n nodes (an RNA secondary structure can be viewed as a restricted noncrossing partition)''. It has offset $1$ and begins
+OEIS A081204 is ``Staircase on Pascal's triangle''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 5, 13, 32, 80, 201, 505,\ \dots
+a(0),\dots,a(7)\;=\;1, 2, 3, 10, 15, 56, 84, 330,\ \dots
 \]
-Its generating function, as posted on the entry, is
-\begin{equation}\label{eq:gf}
-F_{a}(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
-\end{equation}
-and the entry carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-\textbf{Conjecture:} a(n) = (A051292(n+2)-A051286(n+1))/2. - \emph{Gerald McGarvey}, Jan 14 2007
+a(n) = binomial(ceiling((n)/2) + n, n).
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-30, revision 51) the
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;{\binom{n + \left\lceil{\frac{n}{2}}\right\rceil}{n}} .
+\end{equation}
+This is the only input the proof takes from the entry. It was checked against the entry's
+own DATA before use, and the index alignment was determined from that check rather than
+assumed: the formula is stated in the entry's own indexing.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} 4*n*(n+1)*(6*n\^{}2 - 15*n + 8)*a(n) + 6*n*(9*n-7)*a(n-1) - 3*(3*n-4)*(3*n-2)*(6*n\^{}2-3*n-1)*a(n-2) = 0. - \emph{R. J. Mathar}, Nov 07 2014
+\end{quote}
+As of the ``Last modified'' line on the live entry (2022-09-08, revision 17) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
-The entries appearing on the right-hand side post the generating functions
-\[
-F_{A051292}(x) \;=\; \frac{- x^{2} + \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} \qquad F_{A051286}(x) \;=\; \frac{1}{\sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}}
-\]
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+4 n \left(n + 1\right) \left(6 n^{2} - 15 n + 8\right)\,a(n) + 6 n \left(9 n - 7\right)\,a(n-1) -  3 \left(3 n - 4\right) \left(3 n - 2\right) \left(6 n^{2} - 3 n - 1\right)\,a(n-2)
+\end{equation}
 
-\section{Shifts of a generating function}
+\section{Hypergeometric terms, and why the closed form is not one}
 
-Throughout, a sequence $b$ defined on the indices its OEIS entry uses is identified with
-the formal series $F_{b}(x)=\sum_{m\ge0}b(m)x^{m}$, where $b(m)=0$ for $m$ below the
-entry's offset. This convention makes shifting immediate.
+\begin{definition}
+A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
+rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
+rational function of $m$.
+\end{definition}
 
-\begin{lemma}\label{lem:shift}
-For an integer $k\ge0$,
-\[
-\sum_{m\ge0}b(m+k)\,x^{m}=\frac{F_{b}(x)-\sum_{m<k}b(m)x^{m}}{x^{k}},
+Products of factorials, binomial coefficients with arguments linear in the variable,
+exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
+the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
+$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
+reach of the direct argument.
+
+Parity removes the floor. For integer $m$,
+$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
+substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
+free of rounding:
+\begin{equation}\label{eq:halves}
+a(2m)\;=\;e_{0}(m)\;=\;{\binom{3 m}{m}},
 \qquad
-\sum_{m\ge0}b(m-k)\,x^{m}=x^{k}F_{b}(x).
-\]
+a(2m+1)\;=\;e_{1}(m)\;=\;{\binom{3 m + 2}{m + 1}},
+\end{equation}
+and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+
+\begin{lemma}\label{lem:indep}
+Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
+of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
+$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
+Chapter~5.
 \end{lemma}
 
-\begin{proof}
-Both are re-indexings of the defining sum. In the first, subtracting the terms below
-$x^{k}$ removes exactly the coefficients that have no counterpart after the shift, and
-dividing by $x^{k}$ relabels $m+k$ as $m$. In the second, multiplying by $x^{k}$ relabels
-$m$ as $m+k$, and the coefficients of $x^{m}$ for $m<k$ are $b(m-k)=0$.
-\end{proof}
+\section{The recurrence, one residue class at a time}
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$.
-For a polynomial $c$, the sequence $m\mapsto c(m)b(m)$ has generating function
-$c(\theta)F_{b}$. In particular $m\mapsto m^{j}$ has generating function
-$\theta^{j}\bigl[(1-x)^{-1}\bigr]$.
-\end{lemma}
+Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
+$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
+by the parity of $n-i$:
 
-\begin{proof}
-$\theta$ multiplies the coefficient of $x^{m}$ by $m$, so $c(\theta)$ multiplies it by
-$c(m)$. The last statement is the case $b\equiv1$.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-Let $R(x)$ be the generating function assembled from the right-hand side of the conjecture
-by Lemmas~\ref{lem:shift} and~\ref{lem:theta}. Then the conjectured identity holds for
-every $n>d$ if and only if $F_{a}-R$ is a polynomial of degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-The coefficient of $x^{n}$ in $F_{a}-R$ is the difference between the two sides of the
-identity at $n$. That difference vanishes for all $n>d$ exactly when $F_{a}-R$ has no
-terms above $x^{d}$.
-\end{proof}
-
-Note that the test is for a \emph{polynomial}, not for zero. A claim of this kind
-typically fails at a few small indices, where the shifted terms on the right reach outside
-the range of their own sequences; the polynomial records precisely those indices.
-
-\section{The computation for A110320}
-
-Assembling the right-hand side by Lemmas~\ref{lem:shift} and~\ref{lem:theta} gives
+\begin{proposition}\label{prop:split}
+With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
 \[
-R(x)\;=\;\frac{- x^{2} - x - \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1} + 1}{2 x^{2} \sqrt{x^{4} - 2 x^{3} - x^{2} - 2 x + 1}} ,
+T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
 \]
-and subtracting \eqref{eq:gf} the rational parts cancel, leaving
 \[
-F_{a}(x)-R(x)\;=\;0 ,
+T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
 \]
-a polynomial of degree $-1$.
+Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
+$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
+Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
+summands into similarity classes, every class contributes the zero rational function.
+\end{proposition}
+
+\begin{proof}
+The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
+for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
+is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
+$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
+hypergeometric terms. Within a similarity class every summand is the class representative
+times a rational function, so the class contributes the representative times the sum of
+those rational functions; the classes are pairwise dissimilar by construction, and
+Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
+large $n$ is exactly the conjunction of the two.
+\end{proof}
+
+\section{The computation for A081204}
+
+Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
+two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
+does every similarity class of $T(2m+1)$. The even half splits into one class
+and the odd half into one class.
 
 \begin{theorem}
-The conjectured identity holds for every $n>-1$.
+For all $n\ge 2$,
+\[
+4 n \left(n + 1\right) \left(6 n^{2} - 15 n + 8\right)\,a(n) + 6 n \left(9 n - 7\right)\,a(n-1) -  3 \left(3 n - 4\right) \left(3 n - 2\right) \left(6 n^{2} - 3 n - 1\right)\,a(n-2)
+\]
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed difference.
+Both residue classes vanish identically by the computation above, and every integer $n$
+lies in one of them. The excluded values are those at which a class residual has a pole or
+a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
+Two checks were made, and both are independent of the algebra above.
 
-First, no generating function was assumed. For each entry involved, the posted expression
-was expanded as a Taylor series and compared term by term with that entry's own DATA
-section; only expressions reproducing the published terms were used.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly, on both parities. A
+formula that did not reproduce the entry's own terms would not have been used, and the
+alignment was fixed by that comparison rather than assumed.
 
-Second, the identity itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to any generating function: for each $n$ in range
-both sides were formed from the entries' own values and found to agree, for all 28
-values of $n$ from $n=1$ upward. This is what Corollary~\ref{cor:criterion}
-predicts from the degree of the difference, and it is a genuinely different computation
-from the symbolic one.
-
-The symbolic step is exact throughout: the difference is obtained by rational-function
-cancellation, not by series truncation, so the displayed identity is an identity of
-functions and the theorem holds for all $n>-1$ simultaneously.
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $28$ instances beginning at
+$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A110320.
-\bibitem{wilf} H.~S.~Wilf, \emph{generatingfunctionology}, 3rd ed., A K Peters, 2006,
-Chapter 2 (series manipulations and shifts).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011, Chapter 1.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A081204}{A081204}, 2022-09-08.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
+
 \end{document}

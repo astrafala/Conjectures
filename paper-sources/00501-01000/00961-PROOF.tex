@@ -12,189 +12,164 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A396099 modulo $2$}
+\title{Every term of OEIS A393857 is congruent to $1$ modulo $6$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A396099 is defined by a functional equation for its ordinary generating function and
-carries a congruence conjecture of P.~D.~Hanna. It is true. The equation determines the
-coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
-them modulo $2$ as well; and modulo $2$ the series $x/(1-x)$ satisfies the equation
-exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
-denominators collapses. Uniqueness then identifies the reduction, which is the conjecture.
-The whole argument is an identity between rational functions over
-$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A393857 is defined by the functional equation $A\bigl(x-xA(5x)/5\bigr)=x$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
+congruent to $1$ modulo $6$. It is true, and the reason is that $5\equiv-1$ modulo
+$6$. The functional equation determines the coefficients one at a time, so it determines
+them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$, all of whose coefficients
+are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
+is the conjecture. The argument is an identity between rational functions over
+$\mathbb{Z}/6\mathbb{Z}$ and involves no estimation and no truncation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A396099 is ``G.f. satisfies A(x) = x + A\^{}2(x)*A\^{}3(x).''. It has offset $1$ and begins
+OEIS A393857 is ``G.f. A(x) satisfies A( x - x*A(5*x)/5 ) = x.''. It has offset $1$ and begins
 \[
-1, 1, 5, 39, 383, 4357,\ \dots
+1, 1, 7, 205, 26869, 16984687,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
-iterate of $A$, the entry defines $A$ by
+So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
 \begin{equation}\label{eq:fe}
-A(x)\;=\;x+A^{2}(x)\,A^{3}(x) .
+A\!\left(x-\frac{x\,A(5x)}{5}\right)\;=\;x .
 \end{equation}
 This is the only input taken from the entry.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+Conjecture: a(n) == 1 (mod 6) for n >= 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 04 2026 11:37:17, revision 17) it is
-still recorded as a conjecture, and nothing on the entry records
-it as settled either way. The entry carries two further conjectures of the same contributor, on the residues modulo $4$; those are stronger than what is proved here and are not claimed. Section~4 says exactly where the argument stops short of them.
+As of the ``Last modified'' line on the live entry (Mar 12 2026 21:55:07, revision 12) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
+
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+a(n)\;\equiv\;1 \pmod{6}\qquad\text{for every } n\ge1 .
+\end{equation}
 
 \section{The equation determines the sequence}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
-$N\ge1$,
-\[
-\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
-\]
-\end{lemma}
-
-\begin{proof}
-Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
-and
-\[
-\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
-\]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
-contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
-to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
-$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
-\end{proof}
+It is convenient to clear the division. Since $A$ has no constant term,
+\begin{equation}\label{eq:B}
+B(x)\;:=\;x-\frac{x\,A(5x)}{5}\;=\;x-\sum_{n\ge1}a(n)\,5^{\,n-1}x^{n+1},
+\end{equation}
+so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $5$.
 
 \begin{lemma}\label{lem:unique}
 There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+it is given by $a(1)=1$ together with
+\begin{equation}\label{eq:rec}
+a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+\end{equation}
+in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
 \end{lemma}
 
 \begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
-coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
-Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,2}A^{\,3}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,2}A^{\,3}\bigr)$ is a product of one coefficient of $A^{\,2}$ and one of $A^{\,3}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
-Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
-$\mathbb{Z}$, and induction gives existence and uniqueness.
+$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
+while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
+\[
+x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
+\]
+Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
+$x^{N}$ gives
+\[
+0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
+\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+\]
+since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
+claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
+$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
+\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
+and uniqueness.
 \end{proof}
 
 \begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
+read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
 \end{corollary}
 
 \begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
-a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
+reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
+recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
+Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
 \end{proof}
 
-\section{The reduction modulo $2$}
+\section{The reduction modulo $6$}
 
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
-$j$, where $f^{-1}$ denotes the compositional inverse.
-\end{lemma}
-
-\begin{proof}
-For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
-\[
-f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
-=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
-=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
-\]
-The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
-composition, which also gives the statement for $j\le0$; in particular
-$f^{-1}(x)=x/(1+x)$.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f=x+f^{\,2}f^{\,3}$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{\,2}f^{\,3}
-=\dfrac{x^{2}}{(1-2x)\bigl(1-3x\bigr)}$, while
-$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
-$(1-2x)(1-3x)$ and $1-x$ agree in $(\mathbb{Z}/2\mathbb{Z})[x]$. Expanding,
-\[
-(1-2x)\bigl(1-3x\bigr)=1-5x+6x^{2} ,
-\]
-and modulo $2$ we have $5\equiv1$ and $6\equiv0$. Hence both sides equal
-$1-x$, and the two rational functions agree.
-\end{proof}
-
+Everything now happens in $(\mathbb{Z}/6\mathbb{Z})[[x]]$. The one fact that drives the proof is
+\begin{equation}\label{eq:minus}
+5\;\equiv\;-1 \pmod{6} .
+\end{equation}
 
 \begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
-$a(n)\equiv1\pmod{2}$ for every $n\ge1$, and more generally
-\[
-\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{2}
-\]
-for every $n\ge1$ and every integer $j$. This is the conjecture of Section~1.
+$a(n)\equiv1\pmod{6}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
-By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
-$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
+Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/6\mathbb{Z})[[x]]$, so all its
+coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
+check that $\bar A$ satisfies \eqref{eq:fe} modulo $6$.
 
-Reduction modulo $2$ carries composition of power series with unit linear coefficient to
-composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
-because $A$ has linear coefficient $1$, hence is invertible under composition, and the
-reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
-$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
+Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
+$\bigl[x^{n+1}\bigr]\bar B=-5^{\,n-1}$, and by \eqref{eq:minus}
+$5^{\,n-1}\equiv(-1)^{n-1}$, so
+\[
+\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
+\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
+\;=\;x-x\cdot\frac{x}{1+x}
+\;=\;\frac{x}{1+x} .
+\]
+Composing,
+\[
+\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
+\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
+\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
+\]
+Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
+So $\bar A$ satisfies \eqref{eq:fe} modulo $6$, and Corollary~\ref{cor:mod} gives
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{6}$ for every $n\ge1$.
 \end{proof}
 
 \begin{remark}
-The proof used only that $(1-2x)(1-3x)\equiv1-x$ modulo $2$, that is, that
-$2$ divides both $2\cdot2$ and $2\cdot3$. The largest modulus with that property
-is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
-$p=2$ gives $2$. This is exactly why the statement is made modulo $2$ and not modulo
-a larger number.
+The proof used nothing about $5$ beyond \eqref{eq:minus}. The same argument shows that
+for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
+its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
+the quantity $5^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
+exactly \eqref{eq:minus}.
 \end{remark}
-
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $21$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
+compared against the entry's DATA at every one of the $14$ published indices; the
+values agree exactly. A recursion that reproduced only some of them would mean the
+functional equation had been transcribed wrongly.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
-continued to $n=24$ and every term reduced modulo $2$; all residues are
-$1$.
+Second, the same run was continued to $n=24$ and every term reduced modulo $6$; all
+$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
 
-Third, the composition of the proof was carried out independently as a formal power series
-over $\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
-iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
+Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
+independently as a formal power series over $\mathbb{Z}/6\mathbb{Z}$, coefficient by
+coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
+the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
+those orders.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A396099.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A393857.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
 University Press, 1999.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -26,17 +26,31 @@ import re
 WORD = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7,
         'eight': 8, 'nine': 9, 'ten': 10}
 
-NAME = re.compile(
-    r'(?i)^Number of base (\d+) circular n-digit numbers with adjacent digits differing by '
-    r'(\d+|one|two|three|four|five|six|seven|eight|nine|ten) or less\s*\.?\s*$')
+_K = r'(\d+|one|two|three|four|five|six|seven|eight|nine|ten)'
+# "base 7", "base-6" and "over the alphabet {0,1,2,3}" are three spellings of the same thing
+NAMES = (
+    re.compile(r'(?i)^Number of base[- ](\d+) circular n-digit numbers with adjacent digits '
+               r'differing by ' + _K + r' or less\s*\.?\s*$'),
+    re.compile(r'(?i)^Number of circular n-letter words over the alphabet \{([\d, ]+)\} with '
+               r'adjacent letters differing by at most ' + _K + r'\s*\.?\s*$'),
+)
 
 
 def parse_name(nm):
     nm = ' '.join(nm.split())
-    m = NAME.match(nm)
-    if not m:
-        return None
-    b = int(m.group(1))
+    m = NAMES[0].match(nm)
+    if m:
+        b = int(m.group(1))
+    else:
+        m = NAMES[1].match(nm)
+        if not m:
+            return None
+        vals = [int(v) for v in m.group(1).replace(' ', '').split(',') if v != '']
+        # the alphabet must be the consecutive integers 0..b-1 for the band matrix to be the
+        # model; an alphabet with a gap in it is a different graph and is refused
+        if vals != list(range(len(vals))):
+            return None
+        b = len(vals)
     t = m.group(2).lower()
     k = int(t) if t.isdigit() else WORD[t]
     if b < 2 or b > 40 or k < 0:

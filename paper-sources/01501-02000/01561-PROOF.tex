@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A218061, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220762, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A218061 counts the distinct arrays obtained by applying a fixed local operation to every cell
-of an array over a bounded alphabet, and carries an empirical recurrence of order $11$
+OEIS A220762 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $12$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
 counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
 determinising the machine that emits the derived array row by row turns it into one, on
-$S=161$ states, after which the conjectured recurrence is settled by a finite exact
+$S=44$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
@@ -32,25 +32,25 @@ computation.
 
 \section{The conjecture}
 
-OEIS A218061 is ``Number of nX5 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random 0..1 nX5 array.''. It has offset $1$ and begins
+OEIS A220762 is ``Number of 2Xn arrays of the minimum value of corresponding elements and their horizontal, diagonal or antidiagonal neighbors in a random 0..3 2Xn array.''. It has offset $1$ and begins
 \[
-10, 108, 1046, 10246, 99934, 975296, 9519284, 92918894,\ \dots
+16, 28, 268, 708, 4766, 15724, 88434, 331024,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 15*a(n-1) -56*a(n-2) +37*a(n-3) +117*a(n-4) -132*a(n-5) -128*a(n-6) +164*a(n-7) +60*a(n-8) -76*a(n-9) -4*a(n-10) +8*a(n-11) for n>13
+Empirical: a(n) = 2*a(n-1) +13*a(n-2) -10*a(n-3) +12*a(n-4) -41*a(n-5) +6*a(n-6) -16*a(n-7) -40*a(n-8) +4*a(n-9) +64*a(n-11) +32*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 17:32:35, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 19:03:02, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,1\}^{5}$ be the set of rows and let the neighbours of
+Let $R=\{0,\dots,3\}^{2}$ be the set of rows and let the neighbours of
 a cell be the cells at the offsets
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-those falling outside the array being simply absent. For an array
+those falling outside the array being simply absent. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once so that the walk always runs down the rows. For an array
 $A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
 minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
 \[
@@ -102,14 +102,14 @@ since the derived arrays differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=161$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+There are $S=44$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
 Note that $\tau$ is not the all-ones vector: the last derived row is not a
 step of the walk but a count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -117,7 +117,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -126,23 +126,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;15\,a(n-1) - 56\,a(n-2) + 37\,a(n-3) + 117\,a(n-4) - 132\,a(n-5) - 128\,a(n-6) + 164\,a(n-7) + 60\,a(n-8) - 76\,a(n-9) - 4\,a(n-10) + 8\,a(n-11)
+a(n)\;=\;2\,a(n-1) + 13\,a(n-2) - 10\,a(n-3) + 12\,a(n-4) - 41\,a(n-5) + 6\,a(n-6) - 16\,a(n-7) - 40\,a(n-8) + 4\,a(n-9) + 64\,a(n-11) + 32\,a(n-12)
 \]
-for every $n>13$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=13$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -154,7 +154,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A218061.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220762.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

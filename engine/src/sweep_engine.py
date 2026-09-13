@@ -44,6 +44,7 @@ HITS, DONE = 'uniall_hits.json', 'uniall_done.json'
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
+_tick = [0]
 
 want = sys.argv[1:]
 if not want:
@@ -97,6 +98,9 @@ for a in sorted(names):
     if not got:
         continue
     en, p = got
+    _tick[0] += 1
+    if _tick[0] % 25 == 0:
+        print('  ... %d asked, %s so far: %s' % (_tick[0], a, dict(res)), flush=True)
     e = LE.get(a)
     # NOT a word test on the line: a conjecture is very often a block, and then its formula
     # lines carry no conjectural word at all. `sweep_uni` still tests the word, and on the
@@ -161,6 +165,7 @@ for a in sorted(names):
     seen.add(a)
     save()
     print('done', a, en, res['PROVED'], flush=True)
+    _tick[0] = 0
 save()
 try:
     os.remove(LOCK)

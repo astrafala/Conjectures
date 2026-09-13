@@ -1,0 +1,115 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A237393, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{7 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A237393 carries an empirical recurrence of order $97$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=217$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The conjecture}
+
+OEIS A237393 is ``Number of (n+1)X(2+1) 0..3 arrays with the maximum plus the upper median minus the lower median of every 2X2 subblock equal.''. It has offset $1$ and begins
+\[
+1314, 11988, 114034, 1153778, 11725568, 121195320, 1254144270, 13055041806,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical recurrence of order 97 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:09:19, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a walk count}
+
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=217$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{97}-\sum_i c_it^{97-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+97}-\sum_ic_iM^{j+97-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;40\,a(n-1) - 328\,a(n-2) - 7431\,a(n-3) + 139522\,a(n-4) + 125044\,a(n-5) - 18314865\,a(n-6) + 82351007\,a(n-7) + 1203998763\,a(n-8) - 10689441512\,a(n-9) - 38731645343\,a(n-10) + 701739226699\,a(n-11) - 82333779532\,a(n-12) - 29484917239371\,a(n-13) + 70225530548082\,a(n-14) + 846670112642333\,a(n-15) - 3750829581468884\,a(n-16) - 16494233644279995\,a(n-17) + 120001405721049137\,a(n-18) + 187915996694562625\,a(n-19) - 2731104815630560858\,a(n-20) + 116564533846371329\,a(n-21) + 46805322117390837013\,a(n-22) - 56831387384436428971\,a(n-23) - 616798614918641345666\,a(n-24) + 1404167185828778894846\,a(n-25) + 6233452907302495442124\,a(n-26) - 21848936013539181342008\,a(n-27) - 46523103965394964177864\,a(n-28) + 252978210449289742594506\,a(n-29) + 220342419073727480271844\,a(n-30) - 2300120612855918527319873\,a(n-31) - 58774764124682611046985\,a(n-32) + 16793898465481673084879066\,a(n-33) - 10697003567271438074852698\,a(n-34) - 99213449968331429176718593\,a(n-35) + 122868987074191318521460871\,a(n-36) + 472296462355009414618357366\,a(n-37) - 889765070968998476670226873\,a(n-38) - 1774982561449129111939393713\,a(n-39) + 4860358469926963912691308269\,a(n-40) + 4965652570002955237012855100\,a(n-41) - 21136314735257450996042222965\,a(n-42) - 8304548181001865821375948113\,a(n-43) + 74757949968687678240339208052\,a(n-44) - 5392365551363700308853924817\,a(n-45) - 216718498210023571352155475612\,a(n-46) + 99272432463534983289906417028\,a(n-47) + 514423137007153574304017326552\,a(n-48) - 421643251699478479860661682367\,a(n-49) - 990207137852597716616443156153\,a(n-50) + 1199995524696284168473055043489\,a(n-51) + 1509651762664055556165383289801\,a(n-52) - 2607414762788825257186391751575\,a(n-53) - 1722033846791877339694206168497\,a(n-54) + 4507411799529270523390393224433\,a(n-55) + 1216563013783639790466884726760\,a(n-56) - 6295173321209261296913168008102\,a(n-57) + 105736321120294837244365903090\,a(n-58) + 7131805034174320665363012303388\,a(n-59) - 1774788774702032474708485426656\,a(n-60) - 6533640273727455133740952994106\,a(n-61) + 2985095114446420971070857880308\,a(n-62) + 4792901746318852122820380378516\,a(n-63) - 3202377263601970339822007528760\,a(n-64) - 2760694568119122975239731116652\,a(n-65) + 2542760718279601926778860096568\,a(n-66) + 1199659689007903394267647850368\,a(n-67) - 1560511738872614776680431683192\,a(n-68) - 355055685459912019022140613904\,a(n-69) + 751018240491391123018343792736\,a(n-70) + 43241102307510773341749624352\,a(n-71) - 284027776840727207849452827008\,a(n-72) + 19982373813995587624691427328\,a(n-73) + 83932152655515692447373230080\,a(n-74) - 14615821752697116430798617344\,a(n-75) - 19131859370109874239736545664\,a(n-76) + 5096272124084607830635228672\,a(n-77) + 3289120328457214586440669696\,a(n-78) - 1183791779664555565086750208\,a(n-79) - 409748202496170044750985216\,a(n-80) + 195140082348799525647685632\,a(n-81) + 33987519742661604475838464\,a(n-82) - 23005818934087893146836992\,a(n-83) - 1415344466527247012651008\,a(n-84) + 1903528847192563514753024\,a(n-85) - 37424309412407965319168\,a(n-86) - 105589606748565905080320\,a(n-87) + 8961622883573281587200\,a(n-88) + 3561949675257954828288\,a(n-89) - 532357207812366925824\,a(n-90) - 55184217061266030592\,a(n-91) + 14659615785991798784\,a(n-92) - 217419925327708160\,a(n-93) - 146651363856613376\,a(n-94) + 13100155079229440\,a(n-95) - 395890623774720\,a(n-96) + 3503082700800\,a(n-97)
+\]
+for every $n>97$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $97$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=97+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237393.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

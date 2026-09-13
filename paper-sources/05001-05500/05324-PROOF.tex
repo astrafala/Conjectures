@@ -12,118 +12,98 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252645, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234110, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252645 counts $7\times(n+2)$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $90$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive columns, so the state of a transfer matrix is a PAIR of
-consecutive columns and appending one more column is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=1409055$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A234110 carries an empirical recurrence of order $96$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=3125$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A252645 is ``Number of (5+2)X(n+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 0 3 4 6 or 7.''. It has offset $1$ and begins
+OEIS A234110 is ``Number of (n+1)X(4+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 12.''. It has offset $1$ and begins
 \[
-4382, 28978, 145594, 395940, 2641643, 14252070, 39238223, 282076967,\ \dots
+2064, 7742, 31740, 151304, 738628, 3840512, 20547980, 114726620,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 424*a(n-3) -72312*a(n-6) +6593809*a(n-9) -362649424*a(n-12) +12966833847*a(n-15) -318077673736*a(n-18) +5579536172662*a(n-21) -72397889059571*a(n-24) +714990152543472*a(n-27) -5502974489523412*a(n-30) +33615022144780460*a(n-33) -164978487557249434*a(n-36) +654835044110359358*a(n-39) -2106135297077276208*a(n-42) +5481489521504612286*a(n-45) -11505481554272991256*a(n-48) +19391619848013982308*a(n-51) -26122513500027821176*a(n-54) +28001956970298777680*a(n-57) -23793990756728478384*a(n-60) +15973131174315720512*a(n-63) -8433805375387204384*a(n-66) +3471175879527764608*a(n-69) -1095501701926080192*a(n-72) +258934215350992640*a(n-75) -44555469163692032*a(n-78) +5375791566110720*a(n-81) -420928052133888*a(n-84) +17659974385664*a(n-87) -276446576640*a(n-90) for n>94
+Empirical recurrence of order 96 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:30:03, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:11:21, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Three consecutive lines}
+\section{The count is a walk count}
 
-Write an admissible array as a sequence of columns $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{7}$. A $3\times3$ subblock occupies three consecutive columns and
-three consecutive rows, so with $r,s,t$ three consecutive columns the blocks it
-contributes are
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=3125$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-g=\begin{pmatrix}r_i&s_i&t_i\\ r_{i+1}&s_{i+1}&t_{i+1}\\ r_{i+2}&s_{i+2}&t_{i+2}\end{pmatrix}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-for each admissible index, and the entry's condition is the requirement that
-\[
-\text{every row, diagonal sum} \in \{0,3,4,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,3,4,6,7\}
-\]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive columns and on nothing else.
-
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of columns, of which there are
-$(3+1)^{2\cdot7}=268435456$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ columns is then a
-walk of length $L-2$ in $G$: its first two columns name the starting vertex and each further
-column is one step. Most of those pairs are indistinguishable, and exactly so. For a window $j$, whether a column $t$ is admissible there depends on $r$ and $s$ only through their own $j$-th windows, so collect for each $j$ the set of triples $(t_j,t_{j+1},t_{j+2})$ the pair allows and call that tuple $C(r,s)$. The columns that may follow $(r,s)$ are exactly those consistent with every $C_j$, and the successor $(s,t)$ carries $C(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $C$ have the same outgoing columns and the same successors: they may be identified, and the vertex is $(s,C)$. Each such vertex begins an array with the multiplicity of $r$ that produced it, which is what $\iota$ records. That leaves $S=1409055$ vertices. Hence, with $M$ the adjacency matrix of $G$ on $S=1409055$ vertices and
-$\iota$ the vector of starting weights,
-\[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1+1}\mathbf{1},
-\]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{90}-\sum_i c_it^{90-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
+Let $q(t)=t^{96}-\sum_i c_it^{96-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+90}-\sum_ic_iM^{j+90-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+96}-\sum_ic_iM^{j+96-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;424\,a(n-3) - 72312\,a(n-6) + 6593809\,a(n-9) - 362649424\,a(n-12) + 12966833847\,a(n-15) - 318077673736\,a(n-18) + 5579536172662\,a(n-21) - 72397889059571\,a(n-24) + 714990152543472\,a(n-27) - 5502974489523412\,a(n-30) + 33615022144780460\,a(n-33) - 164978487557249434\,a(n-36) + 654835044110359358\,a(n-39) - 2106135297077276208\,a(n-42) + 5481489521504612286\,a(n-45) - 11505481554272991256\,a(n-48) + 19391619848013982308\,a(n-51) - 26122513500027821176\,a(n-54) + 28001956970298777680\,a(n-57) - 23793990756728478384\,a(n-60) + 15973131174315720512\,a(n-63) - 8433805375387204384\,a(n-66) + 3471175879527764608\,a(n-69) - 1095501701926080192\,a(n-72) + 258934215350992640\,a(n-75) - 44555469163692032\,a(n-78) + 5375791566110720\,a(n-81) - 420928052133888\,a(n-84) + 17659974385664\,a(n-87) - 276446576640\,a(n-90)
+a(n)\;=\;12\,a(n-1) + 151\,a(n-2) - 2159\,a(n-3) - 10782\,a(n-4) + 186630\,a(n-5) + 489988\,a(n-6) - 10309178\,a(n-7) - 16280140\,a(n-8) + 408166746\,a(n-9) + 436483471\,a(n-10) - 12313878048\,a(n-11) - 10202112091\,a(n-12) + 293817357505\,a(n-13) + 216724882934\,a(n-14) - 5682722305632\,a(n-15) - 4173406287546\,a(n-16) + 90630479396742\,a(n-17) + 70942431105742\,a(n-18) - 1206873118725580\,a(n-19) - 1038627459765548\,a(n-20) + 13546989348983330\,a(n-21) + 12923874392803629\,a(n-22) - 129141994507456632\,a(n-23) - 136147789009058363\,a(n-24) + 1051923183725926029\,a(n-25) + 1215885939855941584\,a(n-26) - 7358961478237834900\,a(n-27) - 9239141260035823257\,a(n-28) + 44410141167530707134\,a(n-29) + 59999619108113717848\,a(n-30) - 232097410700751654589\,a(n-31) - 334476539272940156900\,a(n-32) + 1054138086744970158579\,a(n-33) + 1607162586965048660479\,a(n-34) - 4173943805202949425295\,a(n-35) - 6680409986407372105125\,a(n-36) + 14450901317815691334394\,a(n-37) + 24095889522978307881974\,a(n-38) - 43866624565116656397507\,a(n-39) - 75613179506110501552285\,a(n-40) + 117052843300784351895551\,a(n-41) + 206850256913784340514310\,a(n-42) - 275221920209288883000328\,a(n-43) - 494059805036826330310600\,a(n-44) + 571475852839302185438912\,a(n-45) + 1031331263937081926192731\,a(n-46) - 1049963481126561247359686\,a(n-47) - 1882374998260544296663452\,a(n-48) + 1709615130755456705646929\,a(n-49) + 3003664339489630531143509\,a(n-50) - 2469604398923171953683307\,a(n-51) - 4187174294746101871458921\,a(n-52) + 3165964716166440447772070\,a(n-53) + 5092380071198416457633888\,a(n-54) - 3599813680666720928174611\,a(n-55) - 5391972941914249976352044\,a(n-56) + 3624261027964676031026645\,a(n-57) + 4956255423149915835248546\,a(n-58) - 3221567119818111932005331\,a(n-59) - 3940009595773878157721312\,a(n-60) + 2517779445482630000908051\,a(n-61) + 2695738930378788934960920\,a(n-62) - 1720776609976061126355295\,a(n-63) - 1577767496150339483739065\,a(n-64) + 1021699504927039797786209\,a(n-65) + 783885981827820754303440\,a(n-66) - 522941711292362568620546\,a(n-67) - 327391707177664571967312\,a(n-68) + 228698352361921804093564\,a(n-69) + 113498101643535878863400\,a(n-70) - 84602761720891649834720\,a(n-71) - 32106025698528772264968\,a(n-72) + 26173966711429185209896\,a(n-73) + 7228854129507471823392\,a(n-74) - 6684567733828454264400\,a(n-75) - 1243438757020575161712\,a(n-76) + 1388228411189141317520\,a(n-77) + 150001782403254245472\,a(n-78) - 230291555084706361280\,a(n-79) - 9428039986123656448\,a(n-80) + 29851110996367156160\,a(n-81) - 508226498295782272\,a(n-82) - 2937701649865168256\,a(n-83) + 199671331718377728\,a(n-84) + 210695681280463872\,a(n-85) - 24202347174864896\,a(n-86) - 10312569856440832\,a(n-87) + 1683282793506816\,a(n-88) + 302521891612672\,a(n-89) - 69392912248832\,a(n-90) - 3489565859840\,a(n-91) + 1516163284992\,a(n-92) - 42129457152\,a(n-93) - 11865489408\,a(n-94) + 972029952\,a(n-95) - 21233664\,a(n-96)
 \]
-for every $n>94$.
+for every $n>96$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $90$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=94+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>94$.
+The vector $w=q(M)\tau$ was formed by $96$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=96+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts.
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252645.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234110.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

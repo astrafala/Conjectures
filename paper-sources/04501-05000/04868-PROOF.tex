@@ -12,102 +12,86 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214107, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223198, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214107 counts the proper colourings of a grid $n\times4$, wrapped in the direction of width $4$, with at most $4$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $3$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=104$ and makes the exact residual test affordable.
+OEIS A223198 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$4$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $3$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=385$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A214107 is ``Number of 0..3 colorings on an n X 4 array circular in the 4 direction with new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A223198 is ``Rolling cube footprints: number of n X 4 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or vertical neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
 \[
-4, 111, 3502, 110985, 3517864, 111505491, 3534382642, 112029109005,\ \dots
+64, 6912, 765952, 85327872, 9515827200, 1061444124672, 118404195287040, 13208119651860480,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 35*a(n-1) -107*a(n-2) +73*a(n-3).
+Empirical: a(n) = 144*a(n-1) - 3840*a(n-2) + 24576*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 18 2024 04:32:06, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Aug 17 2018 09:22:00, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
+Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
 
-The clause ``new values $0..3$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions horizontal and vertical, that is the cell offsets
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+(0,1), (1,0),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
 \[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
+The entry also fixes the top-left cell: $x(0,0)=0$.
 
-\section{Each $L_i$ is a walk count}
-
-A row of the array is a proper colouring of the cycle $C_{4}$, since the wrapping makes
-its first and last cells adjacent, and two consecutive rows must differ in every one of the
-$4$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
-vertices are the proper colourings of $C_{4}$ over $i$ colours and whose edges join
-colourings differing everywhere:
-\[
-L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
-\]
-There are $(i-1)^{4}+(-1)^{4}(i-1)$ such colourings, which at $i=4$ is already more
-than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
-
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
 \end{lemma}
 
 \begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
 \end{proof}
 
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=104$ rather than the number of colourings.
+\section{One slice is a state}
 
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $4$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=385.
+\]
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $4$ over $6$ vertices is one of $6^{4}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -129,7 +113,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;35\,a(n-1) - 107\,a(n-2) + 73\,a(n-3)
+a(n)\;=\;144\,a(n-1) - 3840\,a(n-2) + 24576\,a(n-3)
 \]
 for every $n>3$.
 \end{theorem}
@@ -138,32 +122,34 @@ for every $n>3$.
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214107.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223198.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

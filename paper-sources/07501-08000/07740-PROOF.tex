@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A296331, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A230465, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A296331 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A230465 counts arrays over $\{0,\dots,2\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $21$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
 each step tests the condition on the middle row against both its neighbours and the two
 ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
-with $S=256$ vertices, and the conjectured recurrence is then decided by a finite exact
+with $S=6561$ vertices, and the conjectured recurrence is then decided by a finite exact
 computation.
 \end{abstract}
 
@@ -34,36 +34,36 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A296331 is ``Number of nX4 0..1 arrays with each 1 horizontally, vertically or antidiagonally adjacent to 0 or 2 neighboring 1s.''. It has offset $1$ and begins
+OEIS A230465 is ``Number of nX4 0..2 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 3, and upper left element zero.''. It has offset $1$ and begins
 \[
-8, 47, 230, 1235, 6504, 34224, 180404, 950451,\ \dots
+0, 36, 2398, 76518, 2593962, 89087722, 3045192312, 104165339046,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) +4*a(n-2) +16*a(n-3) -4*a(n-4) -14*a(n-5) -72*a(n-6) -54*a(n-7) -102*a(n-8) +15*a(n-9) -113*a(n-10) +86*a(n-11) -184*a(n-12) +203*a(n-13) -255*a(n-14) +221*a(n-15) -177*a(n-16) +106*a(n-17) -55*a(n-18) +21*a(n-19) -6*a(n-20) +a(n-21)
+Empirical: a(n) = 32*a(n-1) +80*a(n-2) +240*a(n-3) -12842*a(n-4) -17792*a(n-5) -132265*a(n-6) -366801*a(n-7) +47024*a(n-8) +1005370*a(n-9) -553477*a(n-10) +4561400*a(n-11) -1643703*a(n-12) -898500*a(n-13) +4633908*a(n-14) -443679*a(n-15) -4633194*a(n-16) +715486*a(n-17) +824766*a(n-18) -483564*a(n-19) -38952*a(n-20) +33840*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 10 2017 12:07:02, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 05:51:14, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) + 4\,a(n-2) + 16\,a(n-3) - 4\,a(n-4) - 14\,a(n-5) - 72\,a(n-6) - 54\,a(n-7) - 102\,a(n-8) + 15\,a(n-9) - 113\,a(n-10) + 86\,a(n-11) - 184\,a(n-12) + 203\,a(n-13) - 255\,a(n-14) + 221\,a(n-15) - 177\,a(n-16) + 106\,a(n-17) - 55\,a(n-18) + 21\,a(n-19) - 6\,a(n-20) + a(n-21)
+a(n)\;=\;32\,a(n-1) + 80\,a(n-2) + 240\,a(n-3) - 12842\,a(n-4) - 17792\,a(n-5) - 132265\,a(n-6) - 366801\,a(n-7) + 47024\,a(n-8) + 1005370\,a(n-9) - 553477\,a(n-10) + 4561400\,a(n-11) - 1643703\,a(n-12) - 898500\,a(n-13) + 4633908\,a(n-14) - 443679\,a(n-15) - 4633194\,a(n-16) + 715486\,a(n-17) + 824766\,a(n-18) - 483564\,a(n-19) - 38952\,a(n-20) + 33840\,a(n-21)
 \end{equation}
 for all $n>22$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
+row $t$ and column $u$, each in $\{0,\dots,2\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{0,2\}
+\exists\ \text{a neighbour with value }(x_{t,u}+1)\bmod 3
 \end{equation}
-for every cell $(t,u)$.
+for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
 
 Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
 condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
@@ -73,12 +73,12 @@ the state used below.
 
 \section{The digraph}
 
-Let $V=\{0,\dots,1\}^{4}$ be the possible rows and take
-$\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+Let $V=\{0,\dots,2\}^{4}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=6561$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
 when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
-satisfies \eqref{eq:loc} with no row above, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no row above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
 
 \begin{lemma}\label{lem:walk}
@@ -106,10 +106,15 @@ and ending vertices counts them.
 \end{proof}
 
 
+The size of $\mathcal V$ is worth seeing concretely. There are $2+1=3$ values
+and $4$ cells in a row, so $|V|=3^{4}=81$, and the vertex set is
+$V\times V$, of size $81^2=6561$. That is the whole of the state: two consecutive
+rows and nothing else about the array's history.
+
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=20$, the arrays have $4\cdot20$ cells over
-$2$ values, so there are about $10^{24}$ of them to sift. The
-walk count replaces that by $256$ states and one matrix--vector product per row.
+publishes, $n=16$, the arrays have $4\cdot16$ cells over
+$3$ values, so there are about $10^{30}$ of them to sift. The
+walk count replaces that by $6561$ states and one matrix--vector product per row.
 \section{The criterion}
 
 Let $q(t)=t^{21}-\sum_i c_i\,t^{21-i}$ be the characteristic polynomial of
@@ -142,8 +147,8 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pairs and each
-of the $(1+1)^{4}$ possible next rows, the condition was tested on every cell of
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=6561$ pairs and each
+of the $(2+1)^{4}$ possible next rows, the condition was tested on every cell of
 the middle row. The vector $w$ was formed by $21$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
 Every one of those integers vanishes from the index corresponding to $n=22+1$ onwards,
@@ -163,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $20$ published indices, with no shift fitted: the number of rows is
+every one of the $16$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -178,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A296331.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230465.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,98 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A195966, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A305911}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A195966 carries an empirical recurrence of order $94$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=7423$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A305911 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A195966 is ``Number of nX5 0..4 arrays with each element equal to the number its horizontal and vertical neighbors equal to itself.''. It has offset $1$ and begins
+OEIS A305911 is ``T(n,k) = Number of n X k 0..1 arrays with every element unequal to 0, 1, 2, 4, 5 or 7 king-move adjacent elements, with upper left element zero.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-1, 1, 14, 48, 193, 417, 804, 2745,\ \dots
+1, 2, 2, 4, 4, 4, 8, 14,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = a(n-2) +11*a(n-3) +15*a(n-4) +25*a(n-5) +45*a(n-6) -107*a(n-7) -19*a(n-8) -387*a(n-9) +285*a(n-10) -1412*a(n-11) -1215*a(n-12) -227*a(n-13) +753*a(n-14) +7216*a(n-15) -14259*a(n-16) +19069*a(n-17) +7969*a(n-18) +76892*a(n-19) +14266*a(n-20) -100179*a(n-21) +69428*a(n-22) -245584*a(n-23) +490432*a(n-24) -712382*a(n-25) -119975*a(n-26) -923368*a(n-27) -372986*a(n-28) +3109232*a(n-29) -3910411*a(n-30) +5562092*a(n-31) -4510781*a(n-32) +11502036*a(n-33) -746429*a(n-34) -7867106*a(n-35) +23764478*a(n-36) -39125884*a(n-37) +38440110*a(n-38) -59480039*a(n-39) +43116719*a(n-40) -27624370*a(n-41) -44884088*a(n-42) +140100277*a(n-43) -114193259*a(n-44) +134049155*a(n-45) -233016934*a(n-46) +157241999*a(n-47) -15538634*a(n-48) -572251027*a(n-49) +379372987*a(n-50) -302114152*a(n-51) +578885853*a(n-52) -743988137*a(n-53) +961257926*a(n-54) +1067795654*a(n-55) -831089738*a(n-56) +549366848*a(n-57) -110410440*a(n-58) +1054671733*a(n-59) -1958990913*a(n-60) -900697219*a(n-61) +252032268*a(n-62) -610363854*a(n-63) +396954522*a(n-64) -2005727128*a(n-65) +1162828180*a(n-66) +1637079308*a(n-67) +677131632*a(n-68) -886955976*a(n-69) +896941392*a(n-70) +1718640560*a(n-71) -945889408*a(n-72) -521218176*a(n-73) +758311584*a(n-74) -800377792*a(n-75) -212295936*a(n-76) +26209280*a(n-77) +359321984*a(n-78) -516441856*a(n-79) -42942464*a(n-80) +742462464*a(n-81) -924628992*a(n-82) +585785344*a(n-83) -103088128*a(n-84) +633143296*a(n-85) -403996672*a(n-86) -120258560*a(n-87) +336330752*a(n-88) -70778880*a(n-89) +18874368*a(n-90) -121634816*a(n-91) +50331648*a(n-92) +50331648*a(n-93) -134217728*a(n-94) for n>96
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=1: a(n) = 2*a(n-1);\\
+k=2: a(n) = 2*a(n-1) +2*a(n-2) +6*a(n-3) -10*a(n-4) -8*a(n-5) for n > 6;\\
+k=3: [order 15] for n > 16;\\
+k=4: [order 69] for n > 70.\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:21:43, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 26 2021 14:41:05, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{The count is a walk count}
+\section{A column of the table is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. Windows that admit exactly the same continuations and lead to the same states are identified, which changes no count: such windows contribute identically to every walk count, so the vertex is the class rather than the window. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=7423$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{94}-\sum_i c_it^{94-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+94}-\sum_ic_iM^{j+94-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=2$ & $5$ & $16$ & $>6$ & $9$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of n X 2 0..1 arrays with every element unequal to 0, 1, 2, 4, 5 or 7 king-move adjacent elements, with upper left element zero.''. Its rows are the vertices of a digraph on
+$S=16$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;a(n-2) + 11\,a(n-3) + 15\,a(n-4) + 25\,a(n-5) + 45\,a(n-6) - 107\,a(n-7) - 19\,a(n-8) - 387\,a(n-9) + 285\,a(n-10) - 1412\,a(n-11) - 1215\,a(n-12) - 227\,a(n-13) + 753\,a(n-14) + 7216\,a(n-15) - 14259\,a(n-16) + 19069\,a(n-17) + 7969\,a(n-18) + 76892\,a(n-19) + 14266\,a(n-20) - 100179\,a(n-21) + 69428\,a(n-22) - 245584\,a(n-23) + 490432\,a(n-24) - 712382\,a(n-25) - 119975\,a(n-26) - 923368\,a(n-27) - 372986\,a(n-28) + 3109232\,a(n-29) - 3910411\,a(n-30) + 5562092\,a(n-31) - 4510781\,a(n-32) + 11502036\,a(n-33) - 746429\,a(n-34) - 7867106\,a(n-35) + 23764478\,a(n-36) - 39125884\,a(n-37) + 38440110\,a(n-38) - 59480039\,a(n-39) + 43116719\,a(n-40) - 27624370\,a(n-41) - 44884088\,a(n-42) + 140100277\,a(n-43) - 114193259\,a(n-44) + 134049155\,a(n-45) - 233016934\,a(n-46) + 157241999\,a(n-47) - 15538634\,a(n-48) - 572251027\,a(n-49) + 379372987\,a(n-50) - 302114152\,a(n-51) + 578885853\,a(n-52) - 743988137\,a(n-53) + 961257926\,a(n-54) + 1067795654\,a(n-55) - 831089738\,a(n-56) + 549366848\,a(n-57) - 110410440\,a(n-58) + 1054671733\,a(n-59) - 1958990913\,a(n-60) - 900697219\,a(n-61) + 252032268\,a(n-62) - 610363854\,a(n-63) + 396954522\,a(n-64) - 2005727128\,a(n-65) + 1162828180\,a(n-66) + 1637079308\,a(n-67) + 677131632\,a(n-68) - 886955976\,a(n-69) + 896941392\,a(n-70) + 1718640560\,a(n-71) - 945889408\,a(n-72) - 521218176\,a(n-73) + 758311584\,a(n-74) - 800377792\,a(n-75) - 212295936\,a(n-76) + 26209280\,a(n-77) + 359321984\,a(n-78) - 516441856\,a(n-79) - 42942464\,a(n-80) + 742462464\,a(n-81) - 924628992\,a(n-82) + 585785344\,a(n-83) - 103088128\,a(n-84) + 633143296\,a(n-85) - 403996672\,a(n-86) - 120258560\,a(n-87) + 336330752\,a(n-88) - 70778880\,a(n-89) + 18874368\,a(n-90) - 121634816\,a(n-91) + 50331648\,a(n-92) + 50331648\,a(n-93) - 134217728\,a(n-94)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 6\,a(n-3) - 10\,a(n-4) - 8\,a(n-5)
 \]
-for every $n>96$.
-\end{theorem}
-
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $94$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=96+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
-\end{proof}
+holds from index $6+1$ on.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $9$ published values, $22$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+arithmetic rather than on a sampled prefix.
+
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A195966.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A305911.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
