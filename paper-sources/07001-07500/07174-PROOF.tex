@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233629, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A210071, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233629 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $19$ contributed
+OEIS A210071 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $20$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+number of walks: $a(n)=\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
 Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A233629 is ``Number of (n+1)X(2+1) 0..3 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 6.''. It has offset $1$ and begins
+OEIS A210071 is ``1/4 the number of (n+1)X3 0..3 arrays with every 2X2 subblock having one or three distinct clockwise edge differences.''. It has offset $1$ and begins
 \[
-716, 10544, 150054, 2172148, 31361288, 453376730, 6552999568, 94726474064,\ \dots
+313, 7653, 183628, 4437262, 107248254, 2593403383, 62718516080, 1516857228897,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 14*a(n-1) +61*a(n-2) -774*a(n-3) -1112*a(n-4) +13542*a(n-5) +5120*a(n-6) -98447*a(n-7) +17493*a(n-8) +306879*a(n-9) -134073*a(n-10) -393421*a(n-11) +189749*a(n-12) +211175*a(n-13) -85489*a(n-14) -45046*a(n-15) +12738*a(n-16) +2726*a(n-17) -335*a(n-18) -21*a(n-19)
+Empirical: a(n) = 40*a(n-1) -410*a(n-2) +162*a(n-3) +13887*a(n-4) -37312*a(n-5) -114069*a(n-6) +441850*a(n-7) +251010*a(n-8) -1865698*a(n-9) +353991*a(n-10) +3283497*a(n-11) -1672828*a(n-12) -2287997*a(n-13) +1529824*a(n-14) +444317*a(n-15) -334882*a(n-16) -35990*a(n-17) +21286*a(n-18) +648*a(n-19) -288*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 08:53:26, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:40:50, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;14\,a(n-1) + 61\,a(n-2) - 774\,a(n-3) - 1112\,a(n-4) + 13542\,a(n-5) + 5120\,a(n-6) - 98447\,a(n-7) + 17493\,a(n-8) + 306879\,a(n-9) - 134073\,a(n-10) - 393421\,a(n-11) + 189749\,a(n-12) + 211175\,a(n-13) - 85489\,a(n-14) - 45046\,a(n-15) + 12738\,a(n-16) + 2726\,a(n-17) - 335\,a(n-18) - 21\,a(n-19)
+a(n)\;=\;40\,a(n-1) - 410\,a(n-2) + 162\,a(n-3) + 13887\,a(n-4) - 37312\,a(n-5) - 114069\,a(n-6) + 441850\,a(n-7) + 251010\,a(n-8) - 1865698\,a(n-9) + 353991\,a(n-10) + 3283497\,a(n-11) - 1672828\,a(n-12) - 2287997\,a(n-13) + 1529824\,a(n-14) + 444317\,a(n-15) - 334882\,a(n-16) - 35990\,a(n-17) + 21286\,a(n-18) + 648\,a(n-19) - 288\,a(n-20)
 \end{equation}
 for all $n>19$.
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|=6,
+\#\{\beta-\alpha,\ \delta-\beta,\ \gamma-\delta,\ \alpha-\gamma\}\in\{1,3\},
 \end{equation}
 a condition on the four entries alone.
 
@@ -82,7 +82,7 @@ all-ones vector.
 The arrays counted by the entry with $L$ rows are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+a(n)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
 \end{lemma}
 
@@ -95,18 +95,18 @@ if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies i
 every column pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows. The entry counts $\tfrac1{4}$ of those arrays, a constant factor that passes through every step below unchanged.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{19}-\sum_i c_i\,t^{19-i}$ be the characteristic polynomial of
+Let $q(t)=t^{20}-\sum_i c_i\,t^{20-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge19$,
+For every $n$ with $n+1-1\ge20$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-19}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-20}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -114,14 +114,14 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+By Lemma~\ref{lem:walk}, $a(n-i)=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-19}\,q(M)\,\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\tfrac1{4}\mathbf{1}^{\!\top}M^{\,m-20}\,q(M)\,\mathbf{1}
 \]
-with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-19=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+with $m=n+1-1$, which is the stated identity; the scalar $\tfrac1{4}$ never vanishes, so it does not affect whether the left side is zero, and the equivalence follows by letting
+$m-20=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -138,7 +138,7 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $19$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $20$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
 index corresponding to $n=19+1$ onwards, and the run continued until $w$ itself was the
@@ -158,7 +158,7 @@ minimal one is a divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+$\tfrac1{4}\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
 every one of the $15$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233629.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210071.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

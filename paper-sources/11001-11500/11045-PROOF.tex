@@ -7,177 +7,187 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A317820, recovered from its tail}
+\title{A proof of the conjectured recurrence for OEIS A025754}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A317820 records ``Empirical recurrence of order $94$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=240$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=6$, so the recurrence is proved for every $n\ge100$.
-Its last coefficient is $c_{94}=2500\neq0$, so no further tail satisfies anything
-shorter; any order-$94$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A025754 carries a conjectured linear recurrence with polynomial coefficients, of
+order 1, contributed by R.~J.~Mathar. We prove it. The generating function of the
+entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
+differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
+$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
+$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
+when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
+algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
+computed in closed form. Here it equals $10 x$, a polynomial of degree $1$, which proves
+the recurrence for every $n>1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The sequence and the conjecture}
 
-OEIS A317820 is ``Number of nX5 0..1 arrays with every element unequal to 1, 2 or 3 horizontally, vertically or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A025754 is ``9th-order Patalan numbers (generalization of Catalan numbers)''. It has offset $0$ and begins
 \[
-3, 160, 356, 2726, 8556, 47374, 179111, 878802,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 36, 1836, 107406, 6766578, 446594148, 30432201228,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 94 (see link above)
+The entry gives the generating function
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{10}{9} - \frac{\sqrt[9]{1 - 81 x}}{9} ,
+\end{equation}
+and it carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} n*a(n) + 9*(-9*n+10)*a(n-1) = 0. - \emph{R. J. Mathar}, Jul 28 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 07 2018 22:06:48, revision 4)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (2025-11-09, revision 44) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-\section{The count is a walk count}
-
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
+Writing the conjectured relation in the form $\sum_{i=0}^{1}p_{i}(n)\,a(n-i)=0$,
+the coefficient polynomials are
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
+p_{0}(n)=n,\qquad p_{1}(n)=- 9 \left(9 n - 10\right)
 \]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=240$ states remain, and it is that bound every computation below uses.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=240$.
+\section{Recurrences as differential operators}
+
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
+$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
+polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
+
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
+\[
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\]
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
+\begin{corollary}\label{cor:criterion}
+With the notation of Lemma~\ref{lem:transfer}, the recurrence
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
+degree at most $d$.
+\end{corollary}
 
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $94$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=6$ is the first whose minimal order is exactly the stated $94$.
+\begin{proof}
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
+\end{proof}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
+This turns the conjecture into a closed-form identity. The point is that it can then be
+decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
+$A$, and one only has to recognise it.
+
+\begin{lemma}\label{lem:field}
+Let $P(x,y)\in\mathbb{Q}(x)[y]$ be squarefree of degree $m\ge1$ in $y$, let
+$K=\mathbb{Q}(x)[y]/(P)$, and write $\alpha$ for the class of $y$ in $K$. Then $K$ is
+closed under $\theta$. Explicitly,
+\[
+\alpha'=-\frac{P_{x}(x,\alpha)}{P_{y}(x,\alpha)},
+\]
+the quotient taken inside $K$, and for $u=\sum_{i<m}c_{i}(x)\,\alpha^{i}$ with
+$c_{i}\in\mathbb{Q}(x)$,
+\[
+\theta(u)=x\Bigl(\sum_{i<m}c_{i}'(x)\,\alpha^{i}
+ +\alpha'\sum_{i<m}i\,c_{i}(x)\,\alpha^{i-1}\Bigr),
+\]
+reduced modulo $P$.
 \end{lemma}
 
-Applied to $2S'=480$ exact terms from $n=6$ on, it returns order $94$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{94}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $0$ & $c_{25}$ & $-19729620219$ & $c_{49}$ & $-5085367932235$ & $c_{73}$ & $-103226541723$ \\
-$c_{2}$ & $48$ & $c_{26}$ & $-20254565311$ & $c_{50}$ & $509441252278$ & $c_{74}$ & $-28159127628$ \\
-$c_{3}$ & $31$ & $c_{27}$ & $66566136280$ & $c_{51}$ & $3095930150713$ & $c_{75}$ & $15150576411$ \\
-$c_{4}$ & $-1041$ & $c_{28}$ & $9276323215$ & $c_{52}$ & $-319160713185$ & $c_{76}$ & $13472593002$ \\
-$c_{5}$ & $-1110$ & $c_{29}$ & $-160180856767$ & $c_{53}$ & $533316056966$ & $c_{77}$ & $2923084068$ \\
-$c_{6}$ & $13737$ & $c_{30}$ & $86345381470$ & $c_{54}$ & $-1020124054716$ & $c_{78}$ & $-5600404059$ \\
-$c_{7}$ & $18409$ & $c_{31}$ & $276052549628$ & $c_{55}$ & $-3136820996194$ & $c_{79}$ & $-1906480663$ \\
-$c_{8}$ & $-122857$ & $c_{32}$ & $-355722850922$ & $c_{56}$ & $1761330179942$ & $c_{80}$ & $1429510009$ \\
-$c_{9}$ & $-183108$ & $c_{33}$ & $-303228546125$ & $c_{57}$ & $3208124190248$ & $c_{81}$ & $467267417$ \\
-$c_{10}$ & $778496$ & $c_{34}$ & $804712561979$ & $c_{58}$ & $-812380221881$ & $c_{82}$ & $-132155231$ \\
-$c_{11}$ & $1170370$ & $c_{35}$ & $58868902720$ & $c_{59}$ & $-1731238894528$ & $c_{83}$ & $-106384073$ \\
-$c_{12}$ & $-3508564$ & $c_{36}$ & $-1194679540135$ & $c_{60}$ & $-861352254197$ & $c_{84}$ & $-22989242$ \\
-$c_{13}$ & $-4669440$ & $c_{37}$ & $568017929529$ & $c_{61}$ & $426277291369$ & $c_{85}$ & $27514444$ \\
-$c_{14}$ & $10382183$ & $c_{38}$ & $1038561642033$ & $c_{62}$ & $1563293067844$ & $c_{86}$ & $6557698$ \\
-$c_{15}$ & $8995114$ & $c_{39}$ & $-1373744978584$ & $c_{63}$ & $229926673415$ & $c_{87}$ & $-4766430$ \\
-$c_{16}$ & $-9648425$ & $c_{40}$ & $31270308758$ & $c_{64}$ & $-1025717069354$ & $c_{88}$ & $-1206479$ \\
-$c_{17}$ & $9989295$ & $c_{41}$ & $1701848832300$ & $c_{65}$ & $-580575368596$ & $c_{89}$ & $264835$ \\
-$c_{18}$ & $-105287834$ & $c_{42}$ & $-1690637075622$ & $c_{66}$ & $243314294474$ & $c_{90}$ & $371423$ \\
-$c_{19}$ & $-77240875$ & $c_{43}$ & $-744398604100$ & $c_{67}$ & $716800000581$ & $c_{91}$ & $7402$ \\
-$c_{20}$ & $826320431$ & $c_{44}$ & $2831070523350$ & $c_{68}$ & $111493961575$ & $c_{92}$ & $-57620$ \\
-$c_{21}$ & $-236179092$ & $c_{45}$ & $-1634330805630$ & $c_{69}$ & $-578671832292$ & $c_{93}$ & $1600$ \\
-$c_{22}$ & $-3618828869$ & $c_{46}$ & $-2454743997097$ & $c_{70}$ & $-126044526416$ & $c_{94}$ & $2500$ \\
-$c_{23}$ & $3739031298$ & $c_{47}$ & $4240494577988$ & $c_{71}$ & $309289184807$ &  &  \\
-$c_{24}$ & $10779006654$ & $c_{48}$ & $837562769667$ & $c_{72}$ & $64276348534$ &  &  \\
-\end{tabular}
-\end{center}
+\begin{proof}
+$P(x,\alpha)=0$ holds identically in $x$, so differentiating gives
+$P_{x}(x,\alpha)+P_{y}(x,\alpha)\,\alpha'=0$. Because $P$ is squarefree,
+$\gcd(P,P_{y})=1$ in $\mathbb{Q}(x)[y]$, so $P_{y}(x,\alpha)$ is a unit of $K$ and the
+displayed quotient is defined there; its inverse is produced by the extended Euclidean
+algorithm. The formula for $\theta(u)$ is the chain rule, and reduction modulo $P$ returns
+the value to the basis $1,\alpha,\dots,\alpha^{m-1}$. Every operation stays inside $K$.
+\end{proof}
 
-\section{The recurrence, and the identification}
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=\sum_{i<m}b_{i}(x)\,\alpha^{i}$ with $b_{i}\in\mathbb{Q}(x)$, the test of
+Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}=0$ for
+every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
+cancellation of rational functions.
+
+\section{The computation for A025754}
+
+The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
+its minimal polynomial is
+\[
+P(x,y) \;=\; - x + 4782969 y^{9} - 47829690 y^{8} + 212576400 y^{7} - 551124000 y^{6} + 918540000 y^{5} - 1020600000 y^{4} + 756000000 y^{3} - 360000000 y^{2} + 100000000 y - 12345679 ,
+\]
+so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
+expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
+of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
+with $i\ge1$ cancels identically and the remaining rational part collapses to
+\[
+B(x)\;=\;10 x ,
+\]
+a polynomial of degree $1$.
 
 \begin{theorem}
-The recurrence above holds for every $n\ge100$, and it is the recurrence OEIS A317820 records.
+The conjectured recurrence
+\[
+n\,a(n) -  9 \left(9 n - 10\right)\,a(n-1) \;=\;0
+\]
+holds for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=6$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{94}-c_1x^{94-1}-\dots-c_{94}$. Its constant term is
-$-c_{94}=-2500$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $94$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $94$, so $\deg q=94$, and it is monic. It holds from some
-index $t$ on. From $\max(t,6)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $94$, so $q=q_{\min}$.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
+$n\le1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+and $B$ collects exactly those contributions. Above that range the relation is exact.
+\end{remark}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Every number above is an output of a script written separately from this note, and two
+independent checks were run.
 
-First, the walk model reproduces all $21$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A025754, agreeing on all 13 terms compared.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $94$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the recurrence itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to the generating function: for each $n$ in range
+the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
+vanish, for all 15 values of $n$ from $n=2$ upward. This is what
+Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
+different computation from the symbolic one: it never forms $B$, never differentiates, and
+uses only integers.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $2500$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$94$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+The symbolic step is exact throughout. The residual is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=10 x$ is an
+identity of functions and the theorem holds for all $n>1$ simultaneously.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A317820.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A025754.
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
-
 \end{document}

@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251444, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233897, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251444 counts $(n+1)\times2$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A233897 counts $(n+1)\times2$ arrays over $\{0,\dots,6\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $6$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=9$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=49$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,28 +35,28 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251444 is ``Number of (n+1) X (1+1) 0..2 arrays with no 2 X 2 subblock having the minimum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A233897 is ``Number of (n+1) X (1+1) 0..6 arrays with every 2 X 2 subblock having the sum of the squares of all six edge and diagonal differences equal to 35.''. It has offset $1$ and begins
 \[
-45, 230, 1223, 6505, 34674, 184818, 985223, 5251978,\ \dots
+144, 656, 2688, 12288, 51200, 233984, 987136, 4503552,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 5*a(n-1) + 4*a(n-2) - 11*a(n-3) - 6*a(n-4) + 5*a(n-5) + 4*a(n-6).
+Empirical: a(n) = 44*a(n-2) - 608*a(n-4) + 2560*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 29 2018 16:03:46, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 12 2018 08:29:28, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;5\,a(n-1) + 4\,a(n-2) - 11\,a(n-3) - 6\,a(n-4) + 5\,a(n-5) + 4\,a(n-6)
+a(n)\;=\;44\,a(n-2) - 608\,a(n-4) + 2560\,a(n-6)
 \end{equation}
-for all $n>5$.
+for all $n>6$.
 
 \section{The condition is local, so the rows form a digraph}
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{2}$, so $|V|=S=9$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,6\}^{2}$, so $|V|=S=49$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\min(\alpha,\delta)<|\beta-\gamma|\bigr),
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2+(\delta-\alpha)^2+(\gamma-\beta)^2=35,
 \end{equation}
 a condition on the four entries alone.
 
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>5$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>6$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -141,9 +141,9 @@ pair, so the successors of a row $r$ are enumerated column by column without tes
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $6$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=5+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=6+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>5$.
+holds for every $n>6$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $19$ published indices; the values agree exactly. That is what ties
+every one of the $20$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251444.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233897.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

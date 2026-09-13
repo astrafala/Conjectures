@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203959, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203448, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203959 counts arrays of width $3$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
+OEIS A203448 counts arrays of width $5$ over $\{0,1\}$ through two derived arrays of PAIR SUMS ---
 each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $22$
+entry imposes an order condition. The entry carries an empirical recurrence of order $28$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=92$ states.
+a walk count on $S=247$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203959 is ``Number of (n+1)X3 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A203448 is ``Number of (n+1)X5 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-121, 851, 6586, 45307, 276516, 1512850, 7559349, 35013044,\ \dots
+64, 174, 1177, 7481, 46853, 265581, 1371532, 6477799,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 22*a(n-1) -218*a(n-2) +1274*a(n-3) -4794*a(n-4) +11682*a(n-5) -16350*a(n-6) +3138*a(n-7) +38004*a(n-8) -79674*a(n-9) +61398*a(n-10) +35118*a(n-11) -127974*a(n-12) +113430*a(n-13) -3210*a(n-14) -85098*a(n-15) +79101*a(n-16) -21204*a(n-17) -17108*a(n-18) +19328*a(n-19) -8656*a(n-20) +1984*a(n-21) -192*a(n-22) for n>25
+Empirical: a(n) = 27*a(n-1) -349*a(n-2) +2873*a(n-3) -16900*a(n-4) +75530*a(n-5) -266110*a(n-6) +756470*a(n-7) -1759615*a(n-8) +3371225*a(n-9) -5311735*a(n-10) +6788795*a(n-11) -6760390*a(n-12) +4605980*a(n-13) -742900*a(n-14) -3417340*a(n-15) +6277505*a(n-16) -7016035*a(n-17) +5936645*a(n-18) -4029025*a(n-19) +2236520*a(n-20) -1019590*a(n-21) +379730*a(n-22) -114010*a(n-23) +26975*a(n-24) -4849*a(n-25) +623*a(n-26) -51*a(n-27) +2*a(n-28) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:07, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:28:39, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $3$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
+The array $a$ has $5$ cells across, with entries in $\{0,1\}$. Two derived arrays are formed,
 \[
 b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
@@ -51,7 +51,7 @@ so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one AB
 entry asks
 
 that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,2)\bigr)$ and column $j$ of $c$ is
+is $\bigl(b(i,1),\dots,b(i,4)\bigr)$ and column $j$ of $c$ is
 $\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
 
@@ -77,7 +77,7 @@ in order, equality being allowed.
 With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
 starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=92.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=247.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -85,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{28}-\sum_i c_it^{28-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+28}-\sum_ic_iM^{j+28-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;22\,a(n-1) - 218\,a(n-2) + 1274\,a(n-3) - 4794\,a(n-4) + 11682\,a(n-5) - 16350\,a(n-6) + 3138\,a(n-7) + 38004\,a(n-8) - 79674\,a(n-9) + 61398\,a(n-10) + 35118\,a(n-11) - 127974\,a(n-12) + 113430\,a(n-13) - 3210\,a(n-14) - 85098\,a(n-15) + 79101\,a(n-16) - 21204\,a(n-17) - 17108\,a(n-18) + 19328\,a(n-19) - 8656\,a(n-20) + 1984\,a(n-21) - 192\,a(n-22)
+a(n)\;=\;27\,a(n-1) - 349\,a(n-2) + 2873\,a(n-3) - 16900\,a(n-4) + 75530\,a(n-5) - 266110\,a(n-6) + 756470\,a(n-7) - 1759615\,a(n-8) + 3371225\,a(n-9) - 5311735\,a(n-10) + 6788795\,a(n-11) - 6760390\,a(n-12) + 4605980\,a(n-13) - 742900\,a(n-14) - 3417340\,a(n-15) + 6277505\,a(n-16) - 7016035\,a(n-17) + 5936645\,a(n-18) - 4029025\,a(n-19) + 2236520\,a(n-20) - 1019590\,a(n-21) + 379730\,a(n-22) - 114010\,a(n-23) + 26975\,a(n-24) - 4849\,a(n-25) + 623\,a(n-26) - 51\,a(n-27) + 2\,a(n-28)
 \]
-for every $n>25$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $28$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203959.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203448.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

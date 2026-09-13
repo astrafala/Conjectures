@@ -12,134 +12,134 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207546, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A262319}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207546 counts arrays of width $4$ over $\{0,1,2\}$ containing no occurrence of certain short
-patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $82$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
-index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=5701$ states.
+OEIS A262319 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A207546 is ``Number of nX4 0..2 arrays avoiding the pattern z-2 z-1 z in any row, column, nw-to-se diagonal or ne-to-sw antidiagonal.''. It has offset $1$ and begins
+OEIS A262319 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with each row and column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-75, 5625, 327518, 18584111, 1033847229, 57282563287, 3168082336959, 175129179194410,\ \dots
+2, 3, 3, 5, 5, 5, 10, 9,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 69*a(n-1) -243*a(n-2) -35253*a(n-3) +296678*a(n-4) +5187655*a(n-5) -53944260*a(n-6) -214018350*a(n-7) +4021412585*a(n-8) -774565135*a(n-9) -150771495409*a(n-10) +312583115868*a(n-11) +1817375504144*a(n-12) -9590505061416*a(n-13) +57822275349731*a(n-14) +60994982920448*a(n-15) -2195568127977152*a(n-16) +4830930957723462*a(n-17) +17315992408942079*a(n-18) -180973013112390706*a(n-19) +244527031174440701*a(n-20) +3199094062885156463*a(n-21) -5079754235888249640*a(n-22) -33991062409722002066*a(n-23) +32671315897444855908*a(n-24) +225748919152121969648*a(n-25) -110719494436896570773*a(n-26) -949722689455784413596*a(n-27) +560883038663276920585*a(n-28) +2858373572723006833737*a(n-29) -4312303150784893201423*a(n-30) -7782416648110459342691*a(n-31) +21774017937864765356109*a(n-32) +18278870738655349400816*a(n-33) -76992008974013289332698*a(n-34) -27151674817718145278142*a(n-35) +231454134725024215114716*a(n-36) +54846176972788445128666*a(n-37) -572713252394808422296077*a(n-38) -245663809469357116996983*a(n-39) +1037772549073803319659925*a(n-40) +691192386654240660327302*a(n-41) -1435361370615280544538177*a(n-42) -1320996823214328541283861*a(n-43) +1583801848172537353834697*a(n-44) +2069472386564853807998144*a(n-45) -1044955872285596610324027*a(n-46) -2359047375747711421360543*a(n-47) -163548447934659825622339*a(n-48) +1446340554043721973068756*a(n-49) +732837349830549604383521*a(n-50) -183312088845454016741453*a(n-51) -303132824754893110273378*a(n-52) -146942294211472160732448*a(n-53) -4464709080187731921358*a(n-54) +47238860197575186368527*a(n-55) +17421526996256865234276*a(n-56) -4445298778743441137829*a(n-57) -1067503766311095478877*a(n-58) +2373940612611933859914*a(n-59) +828612588224656439490*a(n-60) -670372516173182999005*a(n-61) -455880302512767974058*a(n-62) +59347613034080016649*a(n-63) +101830928257869853042*a(n-64) -1937745762621271014*a(n-65) -18728640219295271912*a(n-66) -1794314623891509765*a(n-67) +2404519648874504342*a(n-68) +614714057585292099*a(n-69) -125416047318381885*a(n-70) -66477197064352636*a(n-71) +787928093212605*a(n-72) +4046106404343321*a(n-73) +75119336268022*a(n-74) -188485496234149*a(n-75) +2389387061818*a(n-76) +5856655206581*a(n-77) -421364084783*a(n-78) -104517622032*a(n-79) +7679376288*a(n-80) +292012560*a(n-81) -75600*a(n-82)
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=1: a(n) = 2*a(n-1) +a(n-3) -2*a(n-4)\\
+k=2: [order 15]\\
+k=3: [order 43]\\
+k=4: [order 29]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:03:20, revision 11) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Sep 17 2015 22:23:41, revision 4) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{What is being counted}
+\section{A column of the table is a walk count}
 
-The array has $4$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
-direction is a run of consecutive cells taken in that direction whose entries match the pattern
-in order; the array is counted when it has no occurrence at all. The entry names
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-\begin{array}{ll}
-\text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z-2,\,z-1,\,z) \\
-\text{down a column} & (z-2,\,z-1,\,z) \\
-\text{down a diagonal, nw to se} & (z-2,\,z-1,\,z) \\
-\text{down an antidiagonal, ne to sw} & (z-2,\,z-1,\,z) \\
-\end{array}
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
- A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
-
-\section{Every occurrence lies in $3$ consecutive rows}
-
-\begin{lemma}\label{lem:win}
-Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
-next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
-consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
-$i-2,\dots,i$.
-\end{lemma}
-
-\begin{proof}
-Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
-\end{proof}
-
-So the state is the window of the last $2$ array rows, a row still to come being written
-$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
-inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
-and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
-of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
-adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5701.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{82}-\sum_i c_it^{82-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+82}-\sum_ic_iM^{j+82-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $4$ & $7$ & $>1$ & $10$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+2)X3 0..1 arrays with each row and column divisible by 7, read as a binary number with top and left being the most significant bits.''. Its rows are the vertices of a digraph on
+$S=7$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;69\,a(n-1) - 243\,a(n-2) - 35253\,a(n-3) + 296678\,a(n-4) + 5187655\,a(n-5) - 53944260\,a(n-6) - 214018350\,a(n-7) + 4021412585\,a(n-8) - 774565135\,a(n-9) - 150771495409\,a(n-10) + 312583115868\,a(n-11) + 1817375504144\,a(n-12) - 9590505061416\,a(n-13) + 57822275349731\,a(n-14) + 60994982920448\,a(n-15) - 2195568127977152\,a(n-16) + 4830930957723462\,a(n-17) + 17315992408942079\,a(n-18) - 180973013112390706\,a(n-19) + 244527031174440701\,a(n-20) + 3199094062885156463\,a(n-21) - 5079754235888249640\,a(n-22) - 33991062409722002066\,a(n-23) + 32671315897444855908\,a(n-24) + 225748919152121969648\,a(n-25) - 110719494436896570773\,a(n-26) - 949722689455784413596\,a(n-27) + 560883038663276920585\,a(n-28) + 2858373572723006833737\,a(n-29) - 4312303150784893201423\,a(n-30) - 7782416648110459342691\,a(n-31) + 21774017937864765356109\,a(n-32) + 18278870738655349400816\,a(n-33) - 76992008974013289332698\,a(n-34) - 27151674817718145278142\,a(n-35) + 231454134725024215114716\,a(n-36) + 54846176972788445128666\,a(n-37) - 572713252394808422296077\,a(n-38) - 245663809469357116996983\,a(n-39) + 1037772549073803319659925\,a(n-40) + 691192386654240660327302\,a(n-41) - 1435361370615280544538177\,a(n-42) - 1320996823214328541283861\,a(n-43) + 1583801848172537353834697\,a(n-44) + 2069472386564853807998144\,a(n-45) - 1044955872285596610324027\,a(n-46) - 2359047375747711421360543\,a(n-47) - 163548447934659825622339\,a(n-48) + 1446340554043721973068756\,a(n-49) + 732837349830549604383521\,a(n-50) - 183312088845454016741453\,a(n-51) - 303132824754893110273378\,a(n-52) - 146942294211472160732448\,a(n-53) - 4464709080187731921358\,a(n-54) + 47238860197575186368527\,a(n-55) + 17421526996256865234276\,a(n-56) - 4445298778743441137829\,a(n-57) - 1067503766311095478877\,a(n-58) + 2373940612611933859914\,a(n-59) + 828612588224656439490\,a(n-60) - 670372516173182999005\,a(n-61) - 455880302512767974058\,a(n-62) + 59347613034080016649\,a(n-63) + 101830928257869853042\,a(n-64) - 1937745762621271014\,a(n-65) - 18728640219295271912\,a(n-66) - 1794314623891509765\,a(n-67) + 2404519648874504342\,a(n-68) + 614714057585292099\,a(n-69) - 125416047318381885\,a(n-70) - 66477197064352636\,a(n-71) + 787928093212605\,a(n-72) + 4046106404343321\,a(n-73) + 75119336268022\,a(n-74) - 188485496234149\,a(n-75) + 2389387061818\,a(n-76) + 5856655206581\,a(n-77) - 421364084783\,a(n-78) - 104517622032\,a(n-79) + 7679376288\,a(n-80) + 292012560\,a(n-81) - 75600\,a(n-82)
+a(n)\;=\;2\,a(n-1) + a(n-3) - 2\,a(n-4)
 \]
-for every $n>81$.
-\end{theorem}
-
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $82$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=81+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
-\end{proof}
+holds from index $1+1$ on.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $10$ published values, $20$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
-completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
-are involved, and the published terms came back.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207546.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262319.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

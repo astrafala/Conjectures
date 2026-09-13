@@ -12,91 +12,112 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223184, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235676, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223184 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $34$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=12146$ vertices.
+OEIS A235676 counts arrays of width $6$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the largest entry minus the smallest---and requiring the resulting derived array to have its rows
+lexicographically nonincreasing and its columns lexicographically nondecreasing. The entry carries an
+empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The row comparison is settled by three consecutive rows of the
+array; the column comparison is not settled by any bounded window, but what is still outstanding
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=289$
+states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223184 is ``Rolling icosahedron footprints: number of nX6 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, vertical or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A235676 is ``Number of (n+1)X(5+1) 0..1 arrays with the difference between each 2X2 subblock maximum and minimum lexicographically nondecreasing columnwise and nonincreasing rowwise.''. It has offset $1$ and begins
 \[
-3125, 5120, 56960, 738720, 10117600, 141047120, 1978496760, 27809548920,\ \dots
+2644, 101398, 3824528, 143484144, 5376199876, 201368802704, 7541722428052, 282448223982692,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 34*a(n-1) -485*a(n-2) +4346*a(n-3) -28802*a(n-4) +150848*a(n-5) -636337*a(n-6) +2159092*a(n-7) -5838756*a(n-8) +12438350*a(n-9) -20709448*a(n-10) +27153588*a(n-11) -29621182*a(n-12) +31551558*a(n-13) -39983024*a(n-14) +57518400*a(n-15) -77018236*a(n-16) +86977128*a(n-17) -80388139*a(n-18) +58849554*a(n-19) -31645539*a(n-20) +11534636*a(n-21) -3954177*a(n-22) +4130000*a(n-23) -5090133*a(n-24) +4343740*a(n-25) -2741059*a(n-26) +1290058*a(n-27) -452154*a(n-28) +127180*a(n-29) -31889*a(n-30) +7256*a(n-31) -1428*a(n-32) +212*a(n-33) -16*a(n-34) for n>37
+Empirical: a(n) = 41*a(n-1) +24*a(n-2) -6193*a(n-3) +1924*a(n-4) +381751*a(n-5) -34904*a(n-6) -12528996*a(n-7) -2476249*a(n-8) +242251344*a(n-9) +95519778*a(n-10) -2921868601*a(n-11) -1424979978*a(n-12) +22890929984*a(n-13) +11443851546*a(n-14) -120327943002*a(n-15) -54753628073*a(n-16) +436238929060*a(n-17) +163082200640*a(n-18) -1115185281644*a(n-19) -305053074990*a(n-20) +2042426147637*a(n-21) +343600635845*a(n-22) -2705840889861*a(n-23) -185737078719*a(n-24) +2604257684139*a(n-25) -47132369846*a(n-26) -1821805821961*a(n-27) +160826214615*a(n-28) +924348718445*a(n-29) -130102603524*a(n-30) -338651235030*a(n-31) +59527885849*a(n-32) +88904498941*a(n-33) -17255577437*a(n-34) -16505197234*a(n-35) +3241956946*a(n-36) +2117356442*a(n-37) -388930038*a(n-38) -180086494*a(n-39) +28441700*a(n-40) +9406424*a(n-41) -1167836*a(n-42) -259016*a(n-43) +24152*a(n-44) +2624*a(n-45) -224*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:19:05, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:44:02, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, horizontal and vertical, that is the cell offsets
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+$2\times2$ subblock of such an array is
 \[
-(1,-1), (0,1), (1,0),
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
+Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+f(B)\;=\;v_4-v_1,
 \]
-The entry also fixes the top-left cell: $x(0,0)=0$.
+the largest entry minus the smallest. An array with $R$ rows and $6$ columns has $(R-1)\times5$ subblocks, and they
+form a derived array
+\[
+D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
+\right),\qquad 0\le i<R-1,\;\; 0\le j<5 .
+\]
+Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
+$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
+rows of $D$, read left to right and compared in this order, are nonincreasing from top to bottom,
+\[
+D_{i}\;\succeq\;D_{i+1}\qquad\text{for every } i,
+\]
+and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
+from left to right,
+\[
+D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
+\]
 
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
+\section{A bounded state}
+
+Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
+so the row condition is decided three array rows at a time and needs no memory beyond the
+derived row just formed. The column condition is different: which of two columns of $D$ is the
+smaller is decided by the first derived row in which they differ, and that row can be
+arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+
+\begin{lemma}\label{lem:bits}
+Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
+every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
+at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
+holds; and if no such row occurs the two columns are equal and the condition holds. If instead
+$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
+such $t$ and no later row can change it.
 \end{lemma}
 
 \begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
+Immediate from the definition of the lexicographic order: it looks only at the first index at
+which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
-\section{One slice is a state}
-
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
+far''---carries everything the future needs to know, and there are $4$ such pairs. The state
+is therefore
+\[
+\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
+\text{the 4 bits}\bigr),
+\]
+with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
+of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
+for the row condition, and for each pair still flagged either leaves the flag set (the pair
+agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=12146.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=289.
 \]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $6$ over $12$ vertices is one of $12^{6}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{34}-\sum_i c_it^{34-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +125,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+34}-\sum_ic_iM^{j+34-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;34\,a(n-1) - 485\,a(n-2) + 4346\,a(n-3) - 28802\,a(n-4) + 150848\,a(n-5) - 636337\,a(n-6) + 2159092\,a(n-7) - 5838756\,a(n-8) + 12438350\,a(n-9) - 20709448\,a(n-10) + 27153588\,a(n-11) - 29621182\,a(n-12) + 31551558\,a(n-13) - 39983024\,a(n-14) + 57518400\,a(n-15) - 77018236\,a(n-16) + 86977128\,a(n-17) - 80388139\,a(n-18) + 58849554\,a(n-19) - 31645539\,a(n-20) + 11534636\,a(n-21) - 3954177\,a(n-22) + 4130000\,a(n-23) - 5090133\,a(n-24) + 4343740\,a(n-25) - 2741059\,a(n-26) + 1290058\,a(n-27) - 452154\,a(n-28) + 127180\,a(n-29) - 31889\,a(n-30) + 7256\,a(n-31) - 1428\,a(n-32) + 212\,a(n-33) - 16\,a(n-34)
+a(n)\;=\;41\,a(n-1) + 24\,a(n-2) - 6193\,a(n-3) + 1924\,a(n-4) + 381751\,a(n-5) - 34904\,a(n-6) - 12528996\,a(n-7) - 2476249\,a(n-8) + 242251344\,a(n-9) + 95519778\,a(n-10) - 2921868601\,a(n-11) - 1424979978\,a(n-12) + 22890929984\,a(n-13) + 11443851546\,a(n-14) - 120327943002\,a(n-15) - 54753628073\,a(n-16) + 436238929060\,a(n-17) + 163082200640\,a(n-18) - 1115185281644\,a(n-19) - 305053074990\,a(n-20) + 2042426147637\,a(n-21) + 343600635845\,a(n-22) - 2705840889861\,a(n-23) - 185737078719\,a(n-24) + 2604257684139\,a(n-25) - 47132369846\,a(n-26) - 1821805821961\,a(n-27) + 160826214615\,a(n-28) + 924348718445\,a(n-29) - 130102603524\,a(n-30) - 338651235030\,a(n-31) + 59527885849\,a(n-32) + 88904498941\,a(n-33) - 17255577437\,a(n-34) - 16505197234\,a(n-35) + 3241956946\,a(n-36) + 2117356442\,a(n-37) - 388930038\,a(n-38) - 180086494\,a(n-39) + 28441700\,a(n-40) + 9406424\,a(n-41) - 1167836\,a(n-42) - 259016\,a(n-43) + 24152\,a(n-44) + 2624\,a(n-45) - 224\,a(n-46)
 \]
-for every $n>37$.
+for every $n>44$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=44+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,14 +150,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $6$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+the derived array formed, and its rows and its columns compared as whole words. No state, no
+bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,10 +167,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223184.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235676.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

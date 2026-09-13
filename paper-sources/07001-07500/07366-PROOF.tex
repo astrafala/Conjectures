@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A260065, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A255796, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A260065 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $17$
+OEIS A255796 counts $(n+2)\times5$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $18$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
@@ -33,15 +33,15 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A260065 is ``Number of (n+2)X(3+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00000001 00000011 or 00000111.''. It has offset $1$ and begins
+OEIS A255796 is ``Number of (n+2) X (3+2) 0..1 arrays with no 3 x 3 subblock diagonal sum 1 and no antidiagonal sum 2 and no row sum 0 and no column sum 3.''. It has offset $1$ and begins
 \[
-256, 594, 1680, 3825, 6714, 16344, 42094, 84761,\ \dots
+210, 178, 158, 198, 256, 258, 329, 344,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-3) +15*a(n-4) -8*a(n-6) -29*a(n-7) -36*a(n-8) -3*a(n-9) -10*a(n-10) +4*a(n-11) +26*a(n-12) -23*a(n-13) -12*a(n-14) -28*a(n-15) -8*a(n-17) for n>21
+Empirical: a(n) = 5*a(n-6) - 8*a(n-12) + 4*a(n-18) for n>20.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:59:32, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Dec 19 2018 09:04:23, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
@@ -55,7 +55,7 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00000011,\ 00000111\}
+\text{every diagonal sum} \notin \{1\}\ \text{ and }\ \text{every antidiagonal sum} \notin \{2\}\ \text{ and }\ \text{every row sum} \notin \{0\}\ \text{ and }\ \text{every column sum} \notin \{3\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
@@ -74,7 +74,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +83,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,26 +92,26 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-3) + 15\,a(n-4) - 8\,a(n-6) - 29\,a(n-7) - 36\,a(n-8) - 3\,a(n-9) - 10\,a(n-10) + 4\,a(n-11) + 26\,a(n-12) - 23\,a(n-13) - 12\,a(n-14) - 28\,a(n-15) - 8\,a(n-17)
+a(n)\;=\;5\,a(n-6) - 8\,a(n-12) + 4\,a(n-18)
 \]
-for every $n>21$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $17$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $18$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=21+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=20+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>21$. The bound is exact: at $n=21$ the recurrence fails on the entry's own published terms, so no larger range holds.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>20$. The bound is exact: at $n=20$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $25$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $43$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
+the entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A260065.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A255796.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

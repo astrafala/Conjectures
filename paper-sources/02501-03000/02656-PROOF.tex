@@ -12,115 +12,111 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252694, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233101, proved by carrying a row major clause across
+columns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252694 counts arrays of width $9$ over an alphabet of $4$ letters in which every three
-consecutive entries taken along any of the directions the entry names hold a prescribed number of
-DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
-empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Nothing in the condition compares letters by size, so the
-count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
-system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
-the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=1450665$.
+OEIS A233101 counts $4\times n$ arrays over $\{0,\dots,3\}$ with a forbidden-pair
+condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
+it carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true.
+The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
+the cells in row major order; the running set of ``values seen so far'' that settles the clause
+for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
+each value the clause names, the least ROW in which it has yet been seen, together with the
+order in which those least rows were attained. That is enough, and it is bounded, so the count
+is a walk count and the recurrence is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A252694 is ``Number of (n+2) X (7+2) 0..3 arrays with every consecutive three elements in every row and column having exactly two distinct values, and in every diagonal and antidiagonal not having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A233101 is ``Number of 4Xn 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
 \[
-3703, 6483, 727, 12740, 1276, 25382, 2592, 51060,\ \dots
+36, 515, 13721, 342626, 8714705, 221113913,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 2*a(n-2) - 7*a(n-3) + 2*a(n-4) + 6*a(n-5) + 14*a(n-6) - 20*a(n-7) - 4*a(n-8) + 8*a(n-9) for n>10.
+Empirical: a(n) = 25*a(n-1) +52*a(n-2) -1084*a(n-3) +16*a(n-4) +9754*a(n-5) -16165*a(n-6) +5229*a(n-7) +5498*a(n-8) -3740*a(n-9) +320*a(n-10) +96*a(n-11) for n>12
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 05 2018 08:11:12, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:52:46, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has width $9$ and entries in $\{0,1,\dots,3\}$. Four families of triples
-run through it, and each carries its own condition on how many distinct values the three
-entries may hold:
+The array has $4$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
+offsets
 \[
-\begin{array}{lll}
-\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $2$ \\
-\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2$ \\
-\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $1, 3$ \\
-\text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $1, 3$ \\
-\end{array}
+(0,1), (1,-1), (1,1),
 \]
-A triple counts only when all three of its cells lie inside the array.
+and the entry forbids any adjacent pair $u,v$ with $u+v=3$. It fixes the top left cell to
+zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
+along the second, and so on --- the first occurrences of the values $1$, $2$ come in a
+prescribed order: $1$ before $2$. A precedence involving a value that never occurs is satisfied
+vacuously; one whose later value occurs while its earlier value does not is broken.
 
-The clause ``new values $0$ upwards introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
-letter may appear for the first time only if every smaller letter already has. So what the
-entry counts is patterns, not arrays.
+\section{Why the obvious state does not work}
 
-\section{From patterns to fixed alphabets}
+Since $n$ grows, the walk must run across the columns: a state is one column, and the
+forbidden-pair condition is settled between two consecutive columns, because every offset above
+moves the column index by at most one.
 
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
+therefore visits the cells in row major order, so it is enough to carry the set of named values
+already written and to refuse a column that introduces a value out of turn. Here the walk
+visits the cells in COLUMN major order, and that set is the wrong one: a value first written
+low down in an early column may be written again higher up in a later column, and it is the
+later, higher cell that comes first in row major order.
+
+\section{What the walk can carry}
+
+\begin{lemma}\label{lem:key}
+For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
+$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
+order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
+$(r_u,c_u)<(r_v,c_v)$ lexicographically.
+\end{lemma}
+
+\begin{proof}
+Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
+element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
+the first coordinate and then the second.
+\end{proof}
+
+\begin{lemma}\label{lem:tie}
+Two distinct values with the same least row attain it in different columns.
+\end{lemma}
+
+\begin{proof}
+If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
+\end{proof}
+
+So the walk carries, for each named value, the least row in which it has been seen so far ---
+or the fact that it has not been seen --- and, for values sharing a least row, which of them
+attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
+the walk meets the columns in order, so ``which attained it first'' is decided as the walk
+goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
+and Lemma~\ref{lem:key} says the comparison depends on nothing else.
+
+One thing must not be done, and is not done here. The clause cannot be enforced along the way,
+because a least row can still drop and reorder the first occurrences retroactively. It is a
+property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
+
+The state is therefore a column together with an ordered partition of the named values by least
+row, and there are $S=163$ of them after states with identical futures are merged. Hence
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
-\[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
-\]
-$F$ being the matrix of falling factorials.
-
-This step is legitimate only if the condition is invariant under permuting the alphabet, and
-here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
-agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
-on them, so the reduction applies with nothing left over.
-
-\section{Each $L_i$ is a walk count, on orbits}
-
-Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
-the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
-with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
-a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
-(c_{t+1},c_{t+2})$ for each admissible window.
-
-That digraph has up to $i^{2\cdot9}$ vertices, which is more than can be written down for
-the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
-letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
-all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
-orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
-states of $O'$ --- a number independent of the representative, again by invariance --- gives
-$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
-\[
-L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
-\]
-the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
-and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
-is fixed only by permutations fixing every letter it shows. So the start vector is the falling
-factorial and the end vector is all ones.
-
-Assembling the $i=1,\dots,4$ pieces as a disjoint union, with $\iota$ carrying the weights
-$w_i$ cleared of denominators,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
-\]
-with $S=1450665$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
-read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
+and $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -128,7 +124,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -137,32 +133,31 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 2\,a(n-2) - 7\,a(n-3) + 2\,a(n-4) + 6\,a(n-5) + 14\,a(n-6) - 20\,a(n-7) - 4\,a(n-8) + 8\,a(n-9)
+a(n)\;=\;25\,a(n-1) + 52\,a(n-2) - 1084\,a(n-3) + 16\,a(n-4) + 9754\,a(n-5) - 16165\,a(n-6) + 5229\,a(n-7) + 5498\,a(n-8) - 3740\,a(n-9) + 320\,a(n-10) + 96\,a(n-11)
 \]
-for every $n>10$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are carried as one common denominator throughout, so no division is
-performed until the final term.
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=12$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic, with no shift fitted.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, allow a cell to introduce a new letter only when every smaller letter
-is already present, and reject a partial array as soon as a triple all of whose cells are
-placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
-nor the falling-factorial inversion, and it returns the published terms.
+Second --- and this is the check the whole paper turns on --- the arrays were enumerated
+directly for the smallest shapes the entry counts, in the orientation the name writes, with the
+cells listed in true row major order and each precedence tested on that list. No transposing
+and no walk. The counts agree. Reading the clause in the walk's own order instead gives
+different numbers for several entries of this family, so this check is what separates the two
+readings.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -172,12 +167,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252694.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233101.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
+Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

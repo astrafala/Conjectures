@@ -12,142 +12,175 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140909, proved}
+\title{The empirical recurrence for OEIS A234708, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140909 counts $5\times7$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $5\times7\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $35$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A234708 counts $(n+1)\times5$ arrays over $\{0,\dots,7\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $36$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=32768$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A140909 is ``Number of 5 X 7 matrices with elements in 0..n with each row and each column in nondecreasing order. 5,7,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A234708 is ``Number of (n+1) X (4+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6 (constant-stress 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-1, 792, 169884, 16195608, 868489479, 30107635272,\ \dots
+47306, 127586, 334938, 1108418, 3530906, 13445762, 48741018, 204403250,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
-\begin{quote}
-(empirical) set p,q,r to n,7,5 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 13*a(n-1) +163*a(n-2) -2779*a(n-3) -9420*a(n-4) +268200*a(n-5) +60770*a(n-6) -15439130*a(n-7) +22995763*a(n-8) +589369361*a(n-9) -1588530069*a(n-10) -15656100243*a(n-11) +58787313370*a(n-12) +294085396250*a(n-13) -1450484076640*a(n-14) -3845621898440*a(n-15) +25550700910752*a(n-16) +32289252593664*a(n-17) -330371143423376*a(n-18) -113428722066352*a(n-19) +3163397610252320*a(n-20) -1019517140684000*a(n-21) -22338341568842880*a(n-22) +18872130722296320*a(n-23) +114348342295028736*a(n-24) -148610586143628288*a(n-25) -409381709070163968*a(n-26) +722386331480346624*a(n-27) +952125730341396480*a(n-28) -2277950012653363200*a(n-29) -1180887662923776000*a(n-30) +4529957329207296000*a(n-31) +69777190748160000*a(n-32) -5142605210910720000*a(n-33) +1663475920404480000*a(n-34) +2524921315983360000*a(n-35) -1415843728588800000*a(n-36).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 17 2025 09:28:58, revision 7) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Jun 20 2022 19:21:46, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;13\,a(n-1) + 163\,a(n-2) - 2779\,a(n-3) - 9420\,a(n-4) + 268200\,a(n-5) + 60770\,a(n-6) - 15439130\,a(n-7) + 22995763\,a(n-8) + 589369361\,a(n-9) - 1588530069\,a(n-10) - 15656100243\,a(n-11) + 58787313370\,a(n-12) + 294085396250\,a(n-13) - 1450484076640\,a(n-14) - 3845621898440\,a(n-15) + 25550700910752\,a(n-16) + 32289252593664\,a(n-17) - 330371143423376\,a(n-18) - 113428722066352\,a(n-19) + 3163397610252320\,a(n-20) - 1019517140684000\,a(n-21) - 22338341568842880\,a(n-22) + 18872130722296320\,a(n-23) + 114348342295028736\,a(n-24) - 148610586143628288\,a(n-25) - 409381709070163968\,a(n-26) + 722386331480346624\,a(n-27) + 952125730341396480\,a(n-28) - 2277950012653363200\,a(n-29) - 1180887662923776000\,a(n-30) + 4529957329207296000\,a(n-31) + 69777190748160000\,a(n-32) - 5142605210910720000\,a(n-33) + 1663475920404480000\,a(n-34) + 2524921315983360000\,a(n-35) - 1415843728588800000\,a(n-36)
+\end{equation}
+for all $n>36$.
 
-A matrix $x$ of shape $5\times7$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$5\times7$ rectangle --- a plane partition in a $5\times7\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,7\}^{5}$, so $|V|=S=32768$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
 \[
-a(n)\;=\;\mathrm{PP}(5,7,n).
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+|\alpha+\delta-\beta-\gamma|=6,
+\end{equation}
+a condition on the four entries alone.
 
-\section{The box count is a polynomial}
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 5-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
 
-\begin{theorem}[MacMahon]\label{thm:mm}
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{5}\prod_{j=1}^{7}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $35$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$5\cdot7=35$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,7,5)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{5-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{5-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
-\]
-
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $45$ and $10$ respectively.
 \end{lemma}
 
 \begin{proof}
-With $s=n+7+5-1$ one has $s-(n+i)=7+5-1-i$, a constant, so
-\[
-\binom{s}{n+i}=\binom{s}{7+5-1-i}
-=\frac{(s-7-5+2+i)(s-7-5+3+i)\cdots s}{(7+5-1-i)!},
-\]
-a polynomial in $n$ of degree $7+5-1-i$. Multiplying over $i=0,\dots,5-1$ gives
-$\deg N=\sum_{i=0}^{5-1}(7+5-1-i)=45$. The denominator is
-$\prod_{i=0}^{5-1}(s-i)^{5-1-i}$, of degree
-$\sum_{i=0}^{5-1}(5-1-i)=10$, and it does not vanish for $n\ge0$.
+An array with $L$ rows and $5$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{36}-\sum_i c_i\,t^{36-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge36$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-36}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-36}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-36=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+The recurrence \eqref{eq:conj} holds for every $n>36$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $35+10=45$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,45$, that is at $46$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $45$ has at most $45$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $5$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $36$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=36+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>36$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $16$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $18$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $5$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,45$ rather than
-sampled, in exact rational arithmetic.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140909.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234708.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251014, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251446, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251014 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $34$ contributed
+OEIS A251446 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $36$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
 on $S=81$ vertices whose edges are the admissible consecutive pairs, and the count is a
@@ -35,22 +35,22 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251014 is ``Number of (n+1)X(3+1) 0..2 arrays with no 2X2 subblock having the sum of its diagonal elements less than the maximum of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A251446 is ``Number of (n+1)X(3+1) 0..2 arrays with no 2X2 subblock having the minimum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
 \[
-2828, 105897, 4006992, 151364054, 5710752444, 215399006284, 8124335802103, 306433731066598,\ \dots
+1223, 26633, 618813, 14434472, 337561156, 7891330499, 184506926190, 4313788353029,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 81*a(n-1) -2545*a(n-2) +46634*a(n-3) -575454*a(n-4) +5121269*a(n-5) -34280905*a(n-6) +178058176*a(n-7) -735235201*a(n-8) +2458566817*a(n-9) -6748619328*a(n-10) +15343346079*a(n-11) -29013049660*a(n-12) +45529780609*a(n-13) -58540171146*a(n-14) +59456107143*a(n-15) -42639489590*a(n-16) +10808203829*a(n-17) +24134688192*a(n-18) -47157251900*a(n-19) +49631856893*a(n-20) -34867409096*a(n-21) +14669052928*a(n-22) -26310236*a(n-23) -5501665710*a(n-24) +4887029579*a(n-25) -2545562559*a(n-26) +878979581*a(n-27) -190430073*a(n-28) +17210302*a(n-29) +3205310*a(n-30) -1326243*a(n-31) +202275*a(n-32) -17010*a(n-33) +729*a(n-34)
+Empirical: a(n) = 17*a(n-1) +201*a(n-2) -876*a(n-3) -8635*a(n-4) +13006*a(n-5) +131844*a(n-6) -111182*a(n-7) -931289*a(n-8) +1032555*a(n-9) +3304892*a(n-10) -7872203*a(n-11) -8207830*a(n-12) +24043132*a(n-13) +11303035*a(n-14) -30232428*a(n-15) -17085802*a(n-16) +10132677*a(n-17) +57114512*a(n-18) -18262991*a(n-19) -78796352*a(n-20) +63528530*a(n-21) +15506828*a(n-22) -32421339*a(n-23) +3367598*a(n-24) +9344702*a(n-25) -3285299*a(n-26) -1421443*a(n-27) +750598*a(n-28) -121690*a(n-29) -42594*a(n-30) +227931*a(n-31) -13269*a(n-32) -41504*a(n-33) -156*a(n-34) +1469*a(n-35) -24*a(n-36) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:59:20, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:22:01, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;81\,a(n-1) - 2545\,a(n-2) + 46634\,a(n-3) - 575454\,a(n-4) + 5121269\,a(n-5) - 34280905\,a(n-6) + 178058176\,a(n-7) - 735235201\,a(n-8) + 2458566817\,a(n-9) - 6748619328\,a(n-10) + 15343346079\,a(n-11) - 29013049660\,a(n-12) + 45529780609\,a(n-13) - 58540171146\,a(n-14) + 59456107143\,a(n-15) - 42639489590\,a(n-16) + 10808203829\,a(n-17) + 24134688192\,a(n-18) - 47157251900\,a(n-19) + 49631856893\,a(n-20) - 34867409096\,a(n-21) + 14669052928\,a(n-22) - 26310236\,a(n-23) - 5501665710\,a(n-24) + 4887029579\,a(n-25) - 2545562559\,a(n-26) + 878979581\,a(n-27) - 190430073\,a(n-28) + 17210302\,a(n-29) + 3205310\,a(n-30) - 1326243\,a(n-31) + 202275\,a(n-32) - 17010\,a(n-33) + 729\,a(n-34)
+a(n)\;=\;17\,a(n-1) + 201\,a(n-2) - 876\,a(n-3) - 8635\,a(n-4) + 13006\,a(n-5) + 131844\,a(n-6) - 111182\,a(n-7) - 931289\,a(n-8) + 1032555\,a(n-9) + 3304892\,a(n-10) - 7872203\,a(n-11) - 8207830\,a(n-12) + 24043132\,a(n-13) + 11303035\,a(n-14) - 30232428\,a(n-15) - 17085802\,a(n-16) + 10132677\,a(n-17) + 57114512\,a(n-18) - 18262991\,a(n-19) - 78796352\,a(n-20) + 63528530\,a(n-21) + 15506828\,a(n-22) - 32421339\,a(n-23) + 3367598\,a(n-24) + 9344702\,a(n-25) - 3285299\,a(n-26) - 1421443\,a(n-27) + 750598\,a(n-28) - 121690\,a(n-29) - 42594\,a(n-30) + 227931\,a(n-31) - 13269\,a(n-32) - 41504\,a(n-33) - 156\,a(n-34) + 1469\,a(n-35) - 24\,a(n-36)
 \end{equation}
-for all $n>34$.
+for all $n>37$.
 
 \section{The condition is local, so the rows form a digraph}
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl((\alpha+\delta)<\max(\beta,\gamma)\bigr),
+\text{not }\bigl(\min(\alpha,\delta)<|\beta-\gamma|\bigr),
 \end{equation}
 a condition on the four entries alone.
 
@@ -100,13 +100,13 @@ length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 
 \section{The criterion}
 
-Let $q(t)=t^{34}-\sum_i c_i\,t^{34-i}$ be the characteristic polynomial of
+Let $q(t)=t^{36}-\sum_i c_i\,t^{36-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge34$,
+For every $n$ with $n+1-1\ge36$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-34}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-36}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
 =\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-34}\,q(M)\,\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-36}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-34=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-36=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,7 +130,7 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>34$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -138,12 +138,12 @@ Section~1.
 The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $34$
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $36$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=34+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=37+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>34$.
+holds for every $n>37$.
 \end{proof}
 
 \begin{remark}
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $13$ published indices; the values agree exactly. That is what ties
+every one of the $14$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251014.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251446.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

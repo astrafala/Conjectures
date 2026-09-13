@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235181, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234985, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235181 counts $4$-column arrays over $\{0,\dots,5\}$ in which every
+OEIS A234985 counts $3$-column arrays over $\{0,\dots,5\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $5$, and in which no two adjacent entries are equal, and it
-carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true,
+exactly $2$, and in which no two adjacent entries are equal, and it
+carries an empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=750$ vertices, which
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=150$ vertices, which
 is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
-the residual is $\mathbf{1}^{\!\top}M^{\,n-26}q(M)\mathbf{1}$, so the recurrence
+the residual is $\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$, so the recurrence
 holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
 of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
 $S$ consecutive zeros settle every later one. The whole test is finite and exact.
@@ -37,23 +37,23 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A235181 is ``Number of (n+1) X (3+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+OEIS A234985 is ``Number of (n+1) X (2+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-576, 1400, 3240, 8224, 19952, 52328, 131120,\ \dots
+370, 1490, 6908, 35598, 189200, 1026784, 5628414,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 3*a(n-1) +44*a(n-2) -133*a(n-3) -842*a(n-4) +2563*a(n-5) +9221*a(n-6) -28202*a(n-7) -64059*a(n-8) +195733*a(n-9) +296446*a(n-10) -893437*a(n-11) -937956*a(n-12) +2714749*a(n-13) +2064161*a(n-14) -5442684*a(n-15) -3205526*a(n-16) +7001040*a(n-17) +3522128*a(n-18) -5502080*a(n-19) -2622832*a(n-20) +2452848*a(n-21) +1173648*a(n-22) -555264*a(n-23) -271584*a(n-24) +48384*a(n-25) +24192*a(n-26).
+Empirical: a(n) = 10*a(n-1) +9*a(n-2) -317*a(n-3) +216*a(n-4) +4392*a(n-5) -4481*a(n-6) -34461*a(n-7) +37067*a(n-8) +168161*a(n-9) -177688*a(n-10) -531245*a(n-11) +547375*a(n-12) +1099678*a(n-13) -1121930*a(n-14) -1478131*a(n-15) +1530027*a(n-16) +1252813*a(n-17) -1355278*a(n-18) -636426*a(n-19) +748324*a(n-20) +180286*a(n-21) -245436*a(n-22) -25096*a(n-23) +44796*a(n-24) +1272*a(n-25) -4080*a(n-26) +144*a(n-28).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2022 02:18:07, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jun 20 2022 01:45:04, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 44\,a(n-2) - 133\,a(n-3) - 842\,a(n-4) + 2563\,a(n-5) + 9221\,a(n-6) - 28202\,a(n-7) - 64059\,a(n-8) + 195733\,a(n-9) + 296446\,a(n-10) - 893437\,a(n-11) - 937956\,a(n-12) + 2714749\,a(n-13) + 2064161\,a(n-14) - 5442684\,a(n-15) - 3205526\,a(n-16) + 7001040\,a(n-17) + 3522128\,a(n-18) - 5502080\,a(n-19) - 2622832\,a(n-20) + 2452848\,a(n-21) + 1173648\,a(n-22) - 555264\,a(n-23) - 271584\,a(n-24) + 48384\,a(n-25) + 24192\,a(n-26)
+a(n)\;=\;10\,a(n-1) + 9\,a(n-2) - 317\,a(n-3) + 216\,a(n-4) + 4392\,a(n-5) - 4481\,a(n-6) - 34461\,a(n-7) + 37067\,a(n-8) + 168161\,a(n-9) - 177688\,a(n-10) - 531245\,a(n-11) + 547375\,a(n-12) + 1099678\,a(n-13) - 1121930\,a(n-14) - 1478131\,a(n-15) + 1530027\,a(n-16) + 1252813\,a(n-17) - 1355278\,a(n-18) - 636426\,a(n-19) + 748324\,a(n-20) + 180286\,a(n-21) - 245436\,a(n-22) - 25096\,a(n-23) + 44796\,a(n-24) + 1272\,a(n-25) - 4080\,a(n-26) + 144\,a(n-28)
 \end{equation}
-for all $n>26$, which is every $n$ at which a recurrence of order $26$ can be
+for all $n>28$, which is every $n$ at which a recurrence of order $28$ can be
 stated.
 
 \section{The rows form a digraph}
@@ -62,16 +62,16 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;5.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
 \]
 Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
 part, which constrains a single row and so selects the vertex set, and a vertical part,
 which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-Let $V$ consist of those $r\in\{0,\dots,5\}^{4}$ with $r_j\ne r_{j+1}$ for every
-$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=750$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=5$ for every $j$ with
-$1\le j\le4-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+Let $V$ consist of those $r\in\{0,\dots,5\}^{3}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=150$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
+$1\le j\le3-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
 \begin{lemma}\label{lem:walk}
@@ -81,7 +81,7 @@ $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $4$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+An array with $n+1$ rows and $3$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
 rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
 $r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
 the entry's condition on all subblocks precisely when every consecutive pair of rows is an
@@ -92,14 +92,14 @@ $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{26}-\sum_i c_i t^{26-i}$ be the characteristic polynomial of
+Let $q(t)=t^{28}-\sum_i c_i t^{28-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For $n\ge26$,
-$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-26}q(M)\mathbf{1}$. Writing
+For $n\ge28$,
+$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$. Writing
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
-$n>t$ exactly when $u_j=0$ for every $j>t-26$. Moreover $(u_j)_{j\ge0}$ satisfies the
+$n>t$ exactly when $u_j=0$ for every $j>t-28$. Moreover $(u_j)_{j\ge0}$ satisfies the
 monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
 if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
 last nonzero $u_j$ determines $t$ exactly.
@@ -108,8 +108,8 @@ last nonzero $u_j$ determines $t$ exactly.
 \begin{proof}
 By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
 $a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}M^{\,n-26}\bigl(M^{26}-\sum_i c_i M^{26-i}\bigr)
-\mathbf{1}$, which is the identity. Putting $j=n-26$ gives the equivalence. For the
+=\mathbf{1}^{\!\top}M^{\,n-28}\bigl(M^{28}-\sum_i c_i M^{28-i}\bigr)
+\mathbf{1}$, which is the identity. Putting $j=n-28$ gives the equivalence. For the
 last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
 $\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
 monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
@@ -119,16 +119,16 @@ forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>26$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>28$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $26$ matrix--vector
+The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $28$ matrix--vector
 products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=26-26+1$ onwards, and the run was continued past
+$j=0,1,\dots$. They vanish from $j=28-28+1$ onwards, and the run was continued past
 $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>26$.
+recurrence holds for every $n>28$.
 \end{proof}
 
 \section{Verification}
@@ -137,19 +137,19 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $23$ published indices; the values agree exactly. That is what ties the digraph to
+the $19$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model reproducing only some published terms would be the wrong model and
 was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=750$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=150$ consecutive
 zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235181.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234985.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

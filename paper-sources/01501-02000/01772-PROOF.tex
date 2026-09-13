@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185490, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A186933, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185490 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+OEIS A186933 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
 every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $37$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=256$ states and is $C$-finite; whether the
+of order $50$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=1072$ states and is $C$-finite; whether the
 conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
@@ -30,30 +30,30 @@ conjectured recurrence annihilates it is then settled by a finite exact computat
 
 \section{The conjecture}
 
-OEIS A185490 is ``Number of (n+1) X 3 binary arrays with every 2 X 2 subblock sum equal to some horizontal or vertical neighbor 2 X 2 subblock sum.''. It has offset $1$ and begins
+OEIS A186933 is ``Number of (n+1) X 4 binary arrays with every 2 X 2 subblock trace equal to exactly one or two horizontal and vertical neighbor 2 X 2 subblock traces.''. It has offset $1$ and begins
 \[
-24, 128, 708, 3792, 20872, 114724, 631720, 3480976,\ \dots
+40, 472, 1840, 10496, 46960, 241320, 1152312, 5769904,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=8*a(n-1)-8*a(n-2)-38*a(n-3)+77*a(n-4)-304*a(n-5)+229*a(n-6)+896*a(n-7)+602*a(n-8)+3542*a(n-9)-1451*a(n-10)-1518*a(n-11)-14971*a(n-12)-30824*a(n-13)-23130*a(n-14)-25773*a(n-15)+40123*a(n-16)+73174*a(n-17)+166738*a(n-18)+101179*a(n-19)+52400*a(n-20)-160962*a(n-21)-297696*a(n-22)-442388*a(n-23)-320904*a(n-24)-33320*a(n-25)+401152*a(n-26)+681440*a(n-27)+823424*a(n-28)+439488*a(n-29)-162240*a(n-30)-562816*a(n-31)-538112*a(n-32)-225024*a(n-33)+151040*a(n-34)+199680*a(n-35)+12288*a(n-36)-36864*a(n-37).
+Empirical: a(n)=2*a(n-1)+7*a(n-2)+5*a(n-3)+96*a(n-4)+211*a(n-5)+224*a(n-6) +359*a(n-7)+2432*a(n-8)-5349*a(n-9)-17935*a(n-10)+3082*a(n-11) +13564*a(n-12) -15993*a(n-13)-84187*a(n-14)+92372*a(n-15)+127000*a(n-16) -113898*a(n-17)+144310*a(n-18)+918134*a(n-19)-1086743*a(n-20) +1853525*a(n-21)-2311497*a(n-22)+3080068*a(n-23)-2708002*a(n-24) +3885818*a(n-25)+2851259*a(n-26)-17123197*a(n-27)+26222153*a(n-28) -9952550*a(n-29)-15769993*a(n-30)+24911652*a(n-31)-10552895*a(n-32) -6025188*a(n-33)+13047010*a(n-34)-9024341*a(n-35)-3552852*a(n-36) +13989635*a(n-37)-9282924*a(n-38)-4282939*a(n-39)+7214307*a(n-40) -1284491*a(n-41)-1670630*a(n-42)-301130*a(n-43)+1276294*a(n-44) -464696*a(n-45)-615900*a(n-46)+484152*a(n-47)+864*a(n-48)-77312*a(n-49) +26624*a(n-50) for n>53.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 11 2023 07:58:54, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 26 2025 13:07:17, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
+Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+and $3$ columns, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as exactly one or two of its neighbours horizontally or vertically.
 
 \section{The count is a walk count}
 
 This condition is NOT a condition on a pair. Whether a subblock has a
 matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
 supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
+each of the $3$ subblocks of the row just completed --- a count of its matches so far, capped at three, three being already too many --- counting its matches
 among its own row and the row above.
 
 A step appends an array row. It fixes the next subblock row, adds the matches between the two
@@ -69,17 +69,17 @@ An array of $n+1$ rows is then a walk of $n-1$ steps and
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
 with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=256$ states in all. Getting the two vectors right is the whole of the argument: with
+$S=1072$ states in all. Getting the two vectors right is the whole of the argument: with
 $\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
 not exist, and the count would be too large. The entry's own first terms settle it --- for
 the smallest cases
 the model reproduces every published term.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,2]$, so the
+grid it labels carries at most $3$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $3$
 subblocks, with only the neighbours inside that row; the entry's first term is
-$24$, which the model reproduces along with every later term, and that is the cheapest
+$40$, which the model reproduces along with every later term, and that is the cheapest
 check that the grid has been read with the right shape.
 
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -88,7 +88,7 @@ checked against its published terms rather than assumed.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{50}-\sum_i c_it^{50-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+50}-\sum_ic_iM^{j+50-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 8\,a(n-2) - 38\,a(n-3) + 77\,a(n-4) - 304\,a(n-5) + 229\,a(n-6) + 896\,a(n-7) + 602\,a(n-8) + 3542\,a(n-9) - 1451\,a(n-10) - 1518\,a(n-11) - 14971\,a(n-12) - 30824\,a(n-13) - 23130\,a(n-14) - 25773\,a(n-15) + 40123\,a(n-16) + 73174\,a(n-17) + 166738\,a(n-18) + 101179\,a(n-19) + 52400\,a(n-20) - 160962\,a(n-21) - 297696\,a(n-22) - 442388\,a(n-23) - 320904\,a(n-24) - 33320\,a(n-25) + 401152\,a(n-26) + 681440\,a(n-27) + 823424\,a(n-28) + 439488\,a(n-29) - 162240\,a(n-30) - 562816\,a(n-31) - 538112\,a(n-32) - 225024\,a(n-33) + 151040\,a(n-34) + 199680\,a(n-35) + 12288\,a(n-36) - 36864\,a(n-37)
+a(n)\;=\;2\,a(n-1) + 7\,a(n-2) + 5\,a(n-3) + 96\,a(n-4) + 211\,a(n-5) + 224\,a(n-6) + 359\,a(n-7) + 2432\,a(n-8) - 5349\,a(n-9) - 17935\,a(n-10) + 3082\,a(n-11) + 13564\,a(n-12) - 15993\,a(n-13) - 84187\,a(n-14) + 92372\,a(n-15) + 127000\,a(n-16) - 113898\,a(n-17) + 144310\,a(n-18) + 918134\,a(n-19) - 1086743\,a(n-20) + 1853525\,a(n-21) - 2311497\,a(n-22) + 3080068\,a(n-23) - 2708002\,a(n-24) + 3885818\,a(n-25) + 2851259\,a(n-26) - 17123197\,a(n-27) + 26222153\,a(n-28) - 9952550\,a(n-29) - 15769993\,a(n-30) + 24911652\,a(n-31) - 10552895\,a(n-32) - 6025188\,a(n-33) + 13047010\,a(n-34) - 9024341\,a(n-35) - 3552852\,a(n-36) + 13989635\,a(n-37) - 9282924\,a(n-38) - 4282939\,a(n-39) + 7214307\,a(n-40) - 1284491\,a(n-41) - 1670630\,a(n-42) - 301130\,a(n-43) + 1276294\,a(n-44) - 464696\,a(n-45) - 615900\,a(n-46) + 484152\,a(n-47) + 864\,a(n-48) - 77312\,a(n-49) + 26624\,a(n-50)
 \]
-for every $n>37$.
+for every $n>53$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185490.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186933.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

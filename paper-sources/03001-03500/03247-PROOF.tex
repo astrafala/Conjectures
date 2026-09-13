@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224552, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224558, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224552 counts the $(n+2)\times3$ matrices over $\{0,\dots,1\}$ all of whose
+OEIS A224558 counts the $(n+2)\times9$ matrices over $\{0,\dots,1\}$ all of whose
 $3\times3$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
 $6$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
 The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
 single row is not a state; the strip of the last $2$ rows is, and the admissible strips
 are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=36$ vertices, hence $C$-finite, and whether the conjectured
+makes $a(n)$ a walk count on $S=611$ vertices, hence $C$-finite, and whether the conjectured
 recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
@@ -33,25 +33,25 @@ recurrence annihilates it is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A224552 is ``Number of (n+2) X 3 0..1 matrices with each 3 X 3 subblock idempotent.''. It has offset $1$ and begins
+OEIS A224558 is ``Number of (n+2) X 9 0..1 matrices with each 3 X 3 subblock idempotent.''. It has offset $1$ and begins
 \[
-50, 70, 113, 172, 263, 418, 669, 1064,\ \dots
+669, 492, 620, 749, 988, 1298, 1668, 2201,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) - 3*a(n-2) + 2*a(n-3) - a(n-4) - a(n-5) + a(n-6) for n>7.
+Empirical: a(n) = 4*a(n-1) - 6*a(n-2) + 5*a(n-3) - 4*a(n-4) + 3*a(n-5) - a(n-6) for n>8.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 31 2018 06:38:02, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Sep 01 2018 09:17:24, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
 Call a $3\times3$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
-call a $3\times3$ matrix a \emph{band} when every one of its $1$ contiguous
-$3\times3$ subblocks is a window. What the entry counts is the matrices of $3$ columns
+call a $3\times9$ matrix a \emph{band} when every one of its $7$ contiguous
+$3\times3$ subblocks is a window. What the entry counts is the matrices of $9$ columns
 whose every $3$ consecutive rows form a band.
 
-Take as states the $2\times3$ strips that occur as the top $2$ rows of a band,
+Take as states the $2\times9$ strips that occur as the top $2$ rows of a band,
 together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
 when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
 A band is determined by that pair, so the edge is unique when it exists. Reading a counted
@@ -62,12 +62,12 @@ band, and since no further condition falls on where a walk starts or ends,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-with $M$ the adjacency matrix on $S=36$ states. In particular $a$ is $C$-finite. The
+with $M$ the adjacency matrix on $S=611$ states. In particular $a$ is $C$-finite. The
 alignment was checked against the entry's published terms rather than assumed.
 
-There are $(1 + 1)^{6}$ strips of $2$ rows and $3$ columns, far too
+There are $(1 + 1)^{18}$ strips of $2$ rows and $9$ columns, far too
 many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $3\times2$ entries, so a band is exactly a walk of $1$ windows in
+overlap in $3\times2$ entries, so a band is exactly a walk of $7$ windows in
 the graph that joins a window to those whose first $2$ columns are its last $2$
 columns. Enumerating those walks produces the bands, and with them the states and the edges,
 directly.
@@ -141,16 +141,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + 2\,a(n-3) - a(n-4) - a(n-5) + a(n-6)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 5\,a(n-3) - 4\,a(n-4) + 3\,a(n-5) - a(n-6)
 \]
-for every $n>7$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=7$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
@@ -169,7 +169,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224552.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224558.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,

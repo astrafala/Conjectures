@@ -49,3 +49,34 @@ offset inside the row certifies **none** of the other 27 rules, at any period up
 settling point up to 27. What those need is a certificate at the level of the count rather
 than the row, and that is the same obstacle as the 82 two-dimensional automata with no growth
 certificate.
+
+## 13 September 2026 — a pair per residue class, and 125 more papers
+
+`ecarow` derives `w(n+p) = L + w(n) + R` for the row of an elementary automaton and verifies it
+over every available step. It asked for ONE pair serving every `n` past the settling point, and
+that is too rigid. Rule 1 alternates between `1^k 000 1^k` and `0^k 1 0^k`: the identity holds
+with `L = R = "11"` on the odd `n` and `"00"` on the even, and no single pair serves both, so
+the engine reported no shape at all. `ca2d` has allowed a pair per residue class of `n` since
+its bound was corrected — the one-dimensional engine never did.
+
+Two families come in on that one change.
+
+**`ecacount`, ON and OFF cell counts.** 87 entries name the ON or OFF cell count of a named
+rule from a single ON cell, or the running total, and every one carries a parsable conjectured
+recurrence. No engine read any of them: the row engine wanted the word "representation" on the
+line. Counting the ON cells of the row identity gives `on(n+p) = on(n) + ones(L_r) + ones(R_r)`
+at once, and the width `2n+1` handles OFF and the totals. With one pair the certificate reached
+5 of the 87; per class it reaches 70, and **69 are proved**.
+
+**`ecarow` itself.** 180 entries it reads sat outside the roster. Per class, 100 of them get a
+certificate and **56 are proved** — the other 44 carry no parsable recurrence. For the value the
+bound is `ca2d`'s: the distinct roots `B^|R_r|`, `B^(|L_r|+|R_r|)` and 1 across the classes,
+pulled back to `S^p`, plus the pre-period.
+
+Said plainly, the generalisation that failed: growth by inserting a fixed block at a fixed
+offset INSIDE the row certifies none of the 27 rules the end-insertion form misses, at any
+period up to 16 and settling point up to 27. What is left needs a certificate at the level of
+the count rather than the row.
+
+Roster: 12,032 papers = 12,026 proofs + 6 disproofs, over 12,005 entries, 122 distinct
+arguments. `stamps/MANIFEST-2026-09-13c.tsv` is stamped.

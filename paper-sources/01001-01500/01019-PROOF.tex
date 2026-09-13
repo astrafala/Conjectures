@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A241969, proved from an exact model}
+\title{The empirical recurrence for OEIS A245999, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241969 carries an empirical closed form: a polynomial in $n$ of degree $9$, recorded on the
-entry and never marked settled. It is true. The entry's count is given exactly by an Ehrhart
-quasi-polynomial, from which $a$ provably satisfies a monic linear recurrence of order $S=11$
-derived below; a polynomial of degree $9$ satisfies $(z-1)^{9+1}$; so the difference
-satisfies the product, and $11+9+1$ consecutive agreements settle it. No transfer matrix is
-involved and the count is not a walk.
+OEIS A245999 carries an empirical recurrence of order $11$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=15$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A241969 is ``Number of length 6+3 0..n arrays with no consecutive four elements summing to more than 2*n.''. It has offset $1$ and begins
+OEIS A245999 is ``Number of length 4+2 0..n arrays with no pair in any consecutive three terms totalling exactly n.''. It has offset $1$ and begins
 \[
-166, 4663, 53553, 365810, 1782453, 6853011, 22111157, 62336336,\ \dots
+2, 26, 396, 2196, 9582, 29790, 80504, 185192,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (24187/181440)*n\^{}9 + (57493/40320)*n\^{}8 + (12829/1890)*n\^{}7 + (54583/2880)*n\^{}6 + (29
+Empirical: a(n) = 3*a(n-1) +a(n-2) -11*a(n-3) +6*a(n-4) +14*a(n-5) -14*a(n-6) -6*a(n-7) +11*a(n-8) -a(n-9) -3*a(n-10) +a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:15:12, revision 6)
+As of the ``Last modified'' line on the live entry (Apr 21 2021 15:10:57, revision 9)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a quasi-polynomial}
@@ -65,7 +65,7 @@ contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
 A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-annihilates $a$, and $S=\deg A=11$. A congruence condition modulo $m$ is counted one residue
+annihilates $a$, and $S=\deg A=15$. A congruence condition modulo $m$ is counted one residue
 class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
 $\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
 by $mt$ and nothing else changes.
@@ -74,48 +74,65 @@ Over the common denominator the numerator has degree below that of $A$ for every
 arrangement that HAS a ray, because such a cell's numerator collects a fundamental
 parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
 too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=11$, and
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=15$, and
 $a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
 annihilator is tested on terms the model was not asked for before anything is claimed --- a
 bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{11}-\sum_ic_iz^{11-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
+
 \begin{theorem}
-The empirical closed form holds for every $n$.
+\[
+a(n)\;=\;3\,a(n-1) + a(n-2) - 11\,a(n-3) + 6\,a(n-4) + 14\,a(n-5) - 14\,a(n-6) - 6\,a(n-7) + 11\,a(n-8) - a(n-9) - 3\,a(n-10) + a(n-11)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-Write $P$ for the claimed polynomial and $r(n)=a(n)-P(n)$. The annihilator $A$ derived above
-kills $a$, and $(z-1)^{9+1}$ kills $P$, so $A(z)(z-1)^{9+1}$ --- monic, of order
-$11+9+1$ --- kills $r$. The model was evaluated exactly in integer arithmetic and $P$ in
-exact rational arithmetic at every index from $n=1$ to $n=1+11+9+1$, and $r$ vanished
-at all of them. A monic recurrence with $11+9+1$ consecutive zeros has every later term zero,
-so $r\equiv0$.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+11$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
-Second, the claimed polynomial was evaluated directly on those published terms, in exact
-rational arithmetic and with no model involved, and agrees with every one of them.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the derived annihilator was itself tested on terms the model was not asked for: the
-model was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound
-that is too small fails this test, which is why it is run.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241969.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A245999.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

@@ -7,135 +7,164 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A264123, proved by transfer matrix}
+\title{A proof of the conjectured recurrence for OEIS A045742}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264123 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=4$ rows in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $1$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=2$, the matching splits into
-independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
-every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=65536$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A045742 carries a conjectured linear recurrence with polynomial coefficients, of
+order 3. The entry gives no generating function, but it does give the sequence as
+a single hypergeometric sum. We prove the conjecture without assuming any generating
+function: creative telescoping produces, from the summand alone, an operator of order
+2 that annihilates the sequence, together with a rational certificate that is
+checked as an exact identity rather than trusted. The conjectured operator is then shown
+to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
+step is what the conjecture needs: the conjectured recurrence has order $3$ while the summand only needs order $2$, so it is not itself a telescoper and cannot be produced directly.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A264123 is ``Number of (n+1) X (3+1) arrays of permutations of 0..n*4+3 with each element having index change +-(.,.) 0,0 1,-2 or 2,-1.''. It has offset $1$ and begins
+OEIS A045742 is ``Number of interior faces in all noncrossing connected graphs on n nodes on a circle''. It has offset $2$ and begins
 \[
-4, 45, 576, 5733, 53361, 533610, 5336100, 53361000,\ \dots
+a(2),\dots,a(9)\;=\;0, 1, 13, 141, 1456, 14778, 149031, 1499773,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 10*a(n-1) for n>5.
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = Sum\_\{k=1..n-2\} k*binomial(n+k-2, k)*binomial(3*n-3, n-2-k)/(n-1).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 29 2023 11:23:22, revision 11) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=1}^{n - 2}F(n,k),
+\qquad F(n,k)=\frac{k {\binom{3 n - 3}{- k + n - 2}} {\binom{k + n - 2}{k}}}{n - 1} .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The object is a matching}
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture D-finite with recurrence n*(n-1)*(523*n-1993)*a(n) -6*(n-1)*(759*n\^{}2-6019*n+12790)*a(n-1) -12*(n-2)*(4707*n\^{}2-17937*n+6260)*a(n-2) +72*(3*n-10)*(759*n-2224)*(3*n-11)*a(n-3)=0. - \emph{R. J. Mathar}, Jul 26 2022
+\end{quote}
+As of the ``Last modified'' line on the live entry (2022-07-26, revision 20) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The grid has $W=4$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
-\[
-(i-h_i,\,j-h_j)\;\in\;\{(-2,1),\ (-1,2),\ (0,0),\ (1,-2),\ (2,-1)\},
-\]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+\section{Telescoping the summand}
 
-\section{The matching is a walk}
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$, $(\Delta_{k}g)(k)=g(k+1)-g(k)$.
 
-Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
-placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
-value with home row at most $i-R$ has been used up, and the only home rows that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home rows are already placed. One step fills
-the cells of one further row, drawing each of its $W$ values from a home row within $R$
-and at an allowed column offset, and the home row that closes at that step must come out
-full. Nonexistent home rows --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
-
-Hence $a$ is a walk count on $S=65536$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{1}-\sum_i c_it^{1-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:tel}
+Suppose there are rational functions $\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero,
+and a rational function $R(n,k)$ such that
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
+\end{equation}
+Suppose further that $F(n,k)=0$ for every $k$ outside the range of summation in
+\eqref{eq:sum}. Then $\sum_{i}\sigma_{i}(n)a(n+i)=0$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+1}-\sum_ic_iM^{j+1-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Because $F(n,k)$ vanishes off the stated range, the sum in \eqref{eq:sum} may be taken
+over all $k\in\mathbb{Z}$ without changing it, and the same holds for each $F(n+i,k)$.
+Summing \eqref{eq:cert} over all $k$, the left side becomes
+$\sum_{i}\sigma_{i}(n)a(n+i)$ and the right side telescopes: the partial sums of a forward
+difference collapse to the boundary values, which are $0$ because $R(n,k)F(n,k)$ vanishes
+for $|k|$ large. Hence the left side is $0$.
 \end{proof}
 
-\begin{theorem}
+The point of Lemma~\ref{lem:tel} is that \eqref{eq:cert} is an identity between rational
+functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k)$ and
+$F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
+proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
+
+For A045742 such a pair exists with $r=2$:
 \[
-a(n)\;=\;10\,a(n-1)
+\sigma_{0}(n)=-2,\qquad \sigma_{1}(n)=\frac{- 9 n^{3} - 33 n^{2} + 8 n + 32}{54 n^{5} + 9 n^{4} - 114 n^{3} + 77 n^{2} - 14 n},\qquad \sigma_{2}(n)=\frac{6 n^{5} + 7 n^{4} - 24 n^{3} - 23 n^{2} + 18 n + 16}{324 n^{5} + 54 n^{4} - 684 n^{3} + 462 n^{2} - 84 n}
 \]
-for every $n>5$.
+and certificate
+\[
+R(n,k)\;=\;\frac{12 k^{5} n^{3} + 14 k^{5} n^{2} - 14 k^{5} n + 60 k^{4} n^{4} + 112 k^{4} n^{3} - 21 k^{4} n^{2} - 49 k^{4} n + 54 k^{3} n^{5} + 207 k^{3} n^{4} + 126 k^{3} n^{3} - 211 k^{3} n^{2} - 32 k^{3} n + 96 k^{3} - 120 k^{2} n^{6} - 134 k^{2} n^{5} + 171 k^{2} n^{4} - 180 k^{2} n^{3} - 150 k^{2} n^{2} + 275 k^{2} n + 144 k^{2} - 222 k n^{7} - 565 k n^{6} - 5 k n^{5} + 767 k n^{4} + 529 k n^{3} - 140 k n^{2} - 484 k n - 240 k + 222 n^{7} + 685 n^{6} + 85 n^{5} - 1205 n^{4} - 599 n^{3} + 508 n^{2} + 304 n}{12 k^{5} n^{3} + 14 k^{5} n^{2} - 14 k^{5} n + 48 k^{4} n^{4} + 104 k^{4} n^{3} - 56 k^{4} n + 12 k^{3} n^{5} + 146 k^{3} n^{4} + 200 k^{3} n^{3} - 84 k^{3} n^{2} - 70 k^{3} n - 120 k^{2} n^{6} - 176 k^{2} n^{5} + 206 k^{2} n^{4} + 192 k^{2} n^{3} - 98 k^{2} n^{2} - 28 k^{2} n - 48 k n^{7} - 248 k n^{6} - 240 k n^{5} + 164 k n^{4} + 112 k n^{3} - 28 k n^{2} + 96 n^{8} + 160 n^{7} - 152 n^{6} - 216 n^{5} + 56 n^{4} + 56 n^{3}} .
+\]
+Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
+Lemma~\ref{lem:tel} applies and
+\begin{equation}\label{eq:L}
+L\;=\;\sum_{i=0}^{2}\sigma_{i}(n)N^{i}
+\end{equation}
+annihilates $a$.
+
+\section{From the derived recurrence to the conjectured one}
+
+The operator \eqref{eq:L} is not the conjectured one. It has order $2$, below the conjectured order $3$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
+division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
+$N\,q(n)=q(n+1)\,N$.
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}$ and $L(a)=0$, then $C(a)=0$ at every $n$ where the coefficients
+of $Q$ are defined.
+\end{lemma}
+
+\begin{proof}
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$. The coefficients of $Q$ are rational functions of
+$n$, so the step is valid away from their poles.
+\end{proof}
+
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
+$0$, with quotient
+\[
+Q\;=\;\left(- 245916 n^{3} + 228744 n^{2} - 37476 n - 3816\right) + \left(\frac{169452 n^{6} + 738126 n^{5} + 739980 n^{4} - 142926 n^{3} - 510624 n^{2} - 226920 n - 30528}{6 n^{3} + 7 n^{2} - 7 n}\right)\,N .
+\]
+The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{0\}$, below the range claimed here.
+
+\begin{theorem}
+The conjectured recurrence
+\[
+n \left(n - 1\right) \left(523 n - 1993\right)\,a(n) -  6 \left(n - 1\right) \left(759 n^{2} - 6019 n + 12790\right)\,a(n-1) -  12 \left(n - 2\right) \left(4707 n^{2} - 17937 n + 6260\right)\,a(n-2) + 72 \left(3 n - 11\right) \left(3 n - 10\right) \left(759 n - 2224\right)\,a(n-3) \;=\;0
+\]
+holds for every $n\ge5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $1$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
+Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=5$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the certificate was verified, not trusted: \eqref{eq:cert} was divided by $F(n,k)$
+and the difference of the two sides cancelled to $0$ as a rational function of $n$ and
+$k$.
 
-Second, the transfer model reproduces all $18$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the vanishing of $F(n,k)$ off the range of summation --- the hypothesis
+Lemma~\ref{lem:tel} needs, and the one that is easy to assume without looking --- was
+checked directly, on concrete integers on both sides of the range.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 16 values of $n$ from $n=5$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264123.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A045742.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
-
 \end{document}

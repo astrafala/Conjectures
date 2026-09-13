@@ -12,166 +12,170 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220792, proved by transfer matrix}
+\title{Every term of OEIS A393856 is congruent to $1$ modulo $5$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220792 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly two of their neighbours, and carries an
-empirical recurrence of order $59$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=275$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A393856 is defined by the functional equation $A\bigl(x-xA(4x)/4\bigr)=x$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
+congruent to $1$ modulo $5$. It is true, and the reason is that $4\equiv-1$ modulo
+$5$. The functional equation determines the coefficients one at a time, so it determines
+them modulo $5$ as well; and modulo $5$ the series $x/(1-x)$, all of whose coefficients
+are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
+is the conjecture. The argument is an identity between rational functions over
+$\mathbb{Z}/5\mathbb{Z}$ and involves no estimation and no truncation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A220792 is ``Equals two maps: number of nX3 binary arrays indicating the locations of corresponding elements equal to exactly two of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 nX3 array.''. It has offset $1$ and begins
+OEIS A393856 is ``G.f. A(x) satisfies: A( x - x*A(4*x)/4 ) = x.''. It has offset $1$ and begins
 \[
-2, 19, 142, 1224, 9500, 74581, 568257, 4365491,\ \dots
+1, 1, 6, 121, 8466, 2227706,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 13*a(n-1) -35*a(n-2) -145*a(n-3) +1022*a(n-4) -2050*a(n-5) -1549*a(n-6) +20179*a(n-7) -46292*a(n-8) +8272*a(n-9) +136479*a(n-10) -173216*a(n-11) -176296*a(n-12) +577186*a(n-13) +196578*a(n-14) -1945384*a(n-15) -548006*a(n-16) +8956828*a(n-17) -6927166*a(n-18) -16006326*a(n-19) +21244020*a(n-20) +31075832*a(n-21) -58929004*a(n-22) -71519712*a(n-23) +196957164*a(n-24) +72480220*a(n-25) -502328348*a(n-26) +113405724*a(n-27) +1032120188*a(n-28) -811288620*a(n-29) -1661363372*a(n-30) +2677972432*a(n-31) +1713915028*a(n-32) -6330143248*a(n-33) +725771184*a(n-34) +10612288116*a(n-35) -8206721280*a(n-36) -12118399464*a(n-37) +20654768280*a(n-38) +5122649968*a(n-39) -30045429504*a(n-40) +11631946112*a(n-41) +27880775680*a(n-42) -30641487616*a(n-43) -8057629056*a(n-44) +31841667840*a(n-45) -15245578240*a(n-46) -11794712064*a(n-47) +14747738112*a(n-48) +126064640*a(n-49) -4460855296*a(n-50) -1594695680*a(n-51) +4442669056*a(n-52) -766705664*a(n-53) -3195207680*a(n-54) +2537422848*a(n-55) -472907776*a(n-56) -295698432*a(n-57) +85983232*a(n-58) +29360128*a(n-59) for n>62
+So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A\!\left(x-\frac{x\,A(4x)}{4}\right)\;=\;x .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) == 1 (mod 5) for n >= 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:04:08, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:38, revision 14) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the conjecture asserts
+\begin{equation}\label{eq:conj}
+a(n)\;\equiv\;1 \pmod{5}\qquad\text{for every } n\ge1 .
+\end{equation}
 
-Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
-\[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
-\]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
-is equal to exactly two of its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+\section{The equation determines the sequence}
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
-\]
+It is convenient to clear the division. Since $A$ has no constant term,
+\begin{equation}\label{eq:B}
+B(x)\;:=\;x-\frac{x\,A(4x)}{4}\;=\;x-\sum_{n\ge1}a(n)\,4^{\,n-1}x^{n+1},
+\end{equation}
+so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $4$.
 
-\section{The image is a walk count after determinisation}
-
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
-\[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
-
-\begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
-\[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
-\]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+it is given by $a(1)=1$ together with
+\begin{equation}\label{eq:rec}
+a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+\end{equation}
+in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
 \end{lemma}
 
 \begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
+$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
+while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
+\[
+x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
+\]
+Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
+$x^{N}$ gives
+\[
+0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
+\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+\]
+since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
+claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
+$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
+\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
+and uniqueness.
 \end{proof}
 
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=275$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{59}-\sum_i c_it^{59-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
+\begin{corollary}\label{cor:mod}
+For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
+read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
+\end{corollary}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+59}-\sum_ic_iM^{j+59-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
+reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
+recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
+Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
 \end{proof}
 
-\begin{theorem}
-\[
-a(n)\;=\;13\,a(n-1) - 35\,a(n-2) - 145\,a(n-3) + 1022\,a(n-4) - 2050\,a(n-5) - 1549\,a(n-6) + 20179\,a(n-7) - 46292\,a(n-8) + 8272\,a(n-9) + 136479\,a(n-10) - 173216\,a(n-11) - 176296\,a(n-12) + 577186\,a(n-13) + 196578\,a(n-14) - 1945384\,a(n-15) - 548006\,a(n-16) + 8956828\,a(n-17) - 6927166\,a(n-18) - 16006326\,a(n-19) + 21244020\,a(n-20) + 31075832\,a(n-21) - 58929004\,a(n-22) - 71519712\,a(n-23) + 196957164\,a(n-24) + 72480220\,a(n-25) - 502328348\,a(n-26) + 113405724\,a(n-27) + 1032120188\,a(n-28) - 811288620\,a(n-29) - 1661363372\,a(n-30) + 2677972432\,a(n-31) + 1713915028\,a(n-32) - 6330143248\,a(n-33) + 725771184\,a(n-34) + 10612288116\,a(n-35) - 8206721280\,a(n-36) - 12118399464\,a(n-37) + 20654768280\,a(n-38) + 5122649968\,a(n-39) - 30045429504\,a(n-40) + 11631946112\,a(n-41) + 27880775680\,a(n-42) - 30641487616\,a(n-43) - 8057629056\,a(n-44) + 31841667840\,a(n-45) - 15245578240\,a(n-46) - 11794712064\,a(n-47) + 14747738112\,a(n-48) + 126064640\,a(n-49) - 4460855296\,a(n-50) - 1594695680\,a(n-51) + 4442669056\,a(n-52) - 766705664\,a(n-53) - 3195207680\,a(n-54) + 2537422848\,a(n-55) - 472907776\,a(n-56) - 295698432\,a(n-57) + 85983232\,a(n-58) + 29360128\,a(n-59)
-\]
-for every $n>62$.
+\section{The reduction modulo $5$}
+
+Everything now happens in $(\mathbb{Z}/5\mathbb{Z})[[x]]$. The one fact that drives the proof is
+\begin{equation}\label{eq:minus}
+4\;\equiv\;-1 \pmod{5} .
+\end{equation}
+
+\begin{theorem}\label{thm:main}
+$a(n)\equiv1\pmod{5}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $59$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/5\mathbb{Z})[[x]]$, so all its
+coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
+check that $\bar A$ satisfies \eqref{eq:fe} modulo $5$.
+
+Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
+$\bigl[x^{n+1}\bigr]\bar B=-4^{\,n-1}$, and by \eqref{eq:minus}
+$4^{\,n-1}\equiv(-1)^{n-1}$, so
+\[
+\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
+\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
+\;=\;x-x\cdot\frac{x}{1+x}
+\;=\;\frac{x}{1+x} .
+\]
+Composing,
+\[
+\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
+\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
+\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
+\]
+Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
+So $\bar A$ satisfies \eqref{eq:fe} modulo $5$, and Corollary~\ref{cor:mod} gives
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{5}$ for every $n\ge1$.
 \end{proof}
+
+\begin{remark}
+The proof used nothing about $4$ beyond \eqref{eq:minus}. The same argument shows that
+for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
+its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
+the quantity $4^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
+exactly \eqref{eq:minus}.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
+compared against the entry's DATA at every one of the $15$ published indices; the
+values agree exactly. A recursion that reproduced only some of them would mean the
+functional equation had been transcribed wrongly.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the same run was continued to $n=24$ and every term reduced modulo $5$; all
+$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
+independently as a formal power series over $\mathbb{Z}/5\mathbb{Z}$, coefficient by
+coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
+the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
+those orders.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220792.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A393856.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

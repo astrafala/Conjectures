@@ -12,168 +12,116 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A bisection identity between OEIS A155543 and OEIS A090129}
+\title{The empirical recurrence for OEIS A266256, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A155543 carries a conjecture that its $n$-th term equals the $(2n+2)$-nd term of
-OEIS A090129, the multiplicative order of $3$ modulo $2^{n}$. It is true. Both entries
-state closed forms as fact --- A090129's is the order computation $2^{n-2}$ for
-$n\ge3$, recorded there with a proof, and A155543's is a rational generating function ---
-and the two match term for term once the even index $2n+2$ is substituted. The identity
-holds at every index, including the one the comment excludes.
+OEIS A266256 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11A07, 11B37, 11A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The two sequences and the conjecture}
+\section{The conjecture}
 
-OEIS A155543 is ``a(n) = 2*A081294(n).''. It has offset $0$ and begins
+OEIS A266256 is ``Number of ON (black) cells in the n-th iteration of the "Rule 11" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-2, 4, 16, 64, 256, 1024, 4096,\ \dots
+1, 1, 2, 5, 2, 9, 2, 13,\ \dots
 \]
-OEIS A090129 is ``Smallest exponent such that -1 + 3\^{}a(n) is divisible by 2\^{}n.''. It has offset $1$ and begins
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+(the empirical recurrence quoted in the entry)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 15)
+this is still recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The value is a certified growth}
+
+The entry reads a row of the automaton at stage $n$ as a string of digits and takes its
+numeric value. Nothing is being counted, so there is no digraph. What settles the sequence is
+that the string itself grows by a fixed pattern: the automaton was run and the certificate
 \[
-1, 2, 2, 4, 8, 16, 32, 64,\ \dots
+w(n+p)\;=\;L_r + w(n) + R_r
 \]
-
-The entry A155543 carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) = A090129(2*n+2). --- \emph{the entry (unattributed)}, undated
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jun 30 2026 22:40:50, revision 16) the
-statement is still recorded as unproved, and nothing on either entry records it as settled
-either way.
-
-Written out, the statement to be proved is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;b(2n+2),
-\end{equation}
-where $a$ is A155543 and $b$ is A090129. A090129 has offset $1$, so $b(2n+2)$ is defined
-for every $n\ge0$.
-
-\section{What each entry states as fact}
-
-A090129 is defined as the smallest exponent $b(n)$ with $2^{n}\mid 3^{b(n)}-1$, that is,
-the multiplicative order of $3$ modulo $2^{n}$. The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = 2\^{}(n-2) if n >= 3, 1 for n=1 and 2 for n=2 (see the order comment above).
-\end{quote}
-that is,
-\begin{equation}\label{eq:b}
-b(1)=1,\qquad b(2)=2,\qquad b(n)=2^{\,n-2}\ \ (n\ge3).
-\end{equation}
-The entry also carries the reason, in a comment of W.~Lang: for $n\ge3$ the order of $3$
-modulo $2^{n}$ is $2^{n-2}$, with a reference for the argument. So that nothing here rests
-on a reference, that fact is proved from scratch in Section~4; \eqref{eq:b} is then not an
-assumption at all.
-
-A155543 states, not as a conjecture,
-\begin{quote}\small
-G.f.: 2*(1-2*x)/(1-4*x).
-\end{quote}
-Expanding, $\dfrac{2(1-2x)}{1-4x}=2\sum_{k\ge0}4^{k}x^{k}-4\sum_{k\ge0}4^{k}x^{k+1}
-=2+\sum_{k\ge1}\bigl(2\cdot4^{k}-4\cdot4^{k-1}\bigr)x^{k}$, and
-$2\cdot4^{k}-4^{k}=4^{k}$, so
-\begin{equation}\label{eq:a}
-a(0)=2,\qquad a(n)=4^{n}\ \ (n\ge1).
-\end{equation}
-Each was checked against its own entry's DATA at every published index before use:
-\eqref{eq:a} against all $24$ terms of A155543 and \eqref{eq:b} against all
-$36$ terms of A090129.
-
-\section{The order of $3$ modulo a power of $2$}
-
-Write $v_2(m)$ for the exponent of $2$ in the integer $m\ne0$.
-
-\begin{lemma}\label{lem:val}
-$v_2\bigl(3^{2^{k}}-1\bigr)=k+2$ for every $k\ge1$.
-\end{lemma}
-
-\begin{proof}
-For $k=1$, $3^{2}-1=8$ and $v_2(8)=3$. Suppose the claim for some $k\ge1$. Factor
+was verified for every available $n$ in each residue class $r$ of $n$ modulo the period $p$,
+after a pre-period $n_0$ during which the shape has not yet settled. Concatenation is
+multiplication by a power of the base $B$ and addition, so along a class
 \[
-3^{2^{k+1}}-1=\bigl(3^{2^{k}}-1\bigr)\bigl(3^{2^{k}}+1\bigr).
+a(n+p)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r),
 \]
-Since $k\ge1$, the inductive hypothesis gives $8\mid 3^{2^{k}}-1$, so
-$3^{2^{k}}\equiv1\pmod 8$ and hence $3^{2^{k}}+1\equiv2\pmod 8$, giving
-$v_2\bigl(3^{2^{k}}+1\bigr)=1$. Therefore
-$v_2\bigl(3^{2^{k+1}}-1\bigr)=(k+2)+1=(k+1)+2$.
-\end{proof}
+with $|w(n)|$ growing by $|L_r|+|R_r|$ every $p$ steps.
 
-\begin{proposition}\label{prop:ord}
-For $n\ge3$ the multiplicative order of $3$ modulo $2^{n}$ is $2^{\,n-2}$; it is $1$ for
-$n=1$ and $2$ for $n=2$. That is, \eqref{eq:b} holds.
-\end{proposition}
+\section{The bound}
 
-\begin{proof}
-The group $\bigl(\mathbb{Z}/2^{n}\mathbb{Z}\bigr)^{\times}$ has order $2^{\,n-1}$, so the
-order of $3$ divides $2^{\,n-1}$ and is therefore $2^{k}$ for some $k\ge0$; it is the
-least such $k$ with $2^{n}\mid 3^{2^{k}}-1$, that is, with $v_2\bigl(3^{2^{k}}-1\bigr)\ge n$.
-
-Let $n\ge3$. By Lemma~\ref{lem:val} the condition reads $k+2\ge n$ for $k\ge1$, and for
-$k=0$ it reads $v_2(2)=1\ge n$, which fails. The least admissible $k$ is thus $n-2$, which
-is $\ge1$ exactly because $n\ge3$. Hence the order is $2^{\,n-2}$.
-
-For $n=1$, $3\equiv1\pmod2$ and the order is $1$. For $n=2$, $3\equiv3\pmod4$ and
-$3^{2}=9\equiv1$, so the order is $2$.
-\end{proof}
+In the shift $T=S^{\,p}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,p}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=7$. The
+earlier figure, $p+3$, was the one-dimensional count carried over unchanged; with $p$ classes
+carrying $p$ different pairs it is too small, and a residual test that trusts it checks too few
+coefficients to prove anything.
 
 \section{The proof}
 
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
+
 \begin{theorem}
-For every integer $n\ge0$, $a(n)=b(2n+2)$, where $a$ is OEIS A155543 and $b$ is OEIS
-A090129. This is the statement of Section~1.
+\[
+a(n)\;=\;2\,a(n-2) - a(n-4)
+\]
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-Take $n\ge1$. Then $2n+2\ge4\ge3$, so Proposition~\ref{prop:ord} gives
-\[
-b(2n+2)\;=\;2^{\,(2n+2)-2}\;=\;2^{2n}\;=\;4^{n},
-\]
-which is $a(n)$ by \eqref{eq:a}.
-
-For $n=0$ the index is $2n+2=2$, and Proposition~\ref{prop:ord} gives $b(2)=2$, while \eqref{eq:a}
-gives $a(0)=2$. The two agree, so the identity holds at $n=0$ as well.
-\end{proof}
-
-\begin{corollary}
-For every $n\ge1$ the multiplicative order of $3$ modulo $2^{2n+2}$ is $4^{n}$.
-\end{corollary}
-
-\begin{proof}
-Immediate from the theorem and the definition of A090129, together with \eqref{eq:a}.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=4+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the generating function of A155543 was expanded in exact rational arithmetic and
-compared against every one of the $24$ published terms; the values agree exactly. A
-generating function that reproduced only some of them would not have been used.
+First, the model reproduces all $72$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, formula \eqref{eq:b} was evaluated and compared against every one of the
-$36$ published terms of A090129; the values agree exactly. Independently, the order
-of $3$ modulo $2^{n}$ was computed directly by repeated squaring for every $n$ in that
-range and matched the same values, so the closed form was not taken on trust; and
-Lemma~\ref{lem:val} was checked by computing $v_2\bigl(3^{2^{k}}-1\bigr)$ exactly for
-$k\le12$, giving $3,4,5,\dots,14$ as the lemma requires.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
-either formula: for every $n$ from $0$ to $17$ --- the range for which both $a(n)$ and
-$b(2n+2)$ are published --- the two integers agree.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266256.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

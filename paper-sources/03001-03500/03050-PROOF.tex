@@ -12,149 +12,172 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A224185, proved}
+\title{The empirical recurrence for OEIS A252725, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224185 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=22$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{7}$, of degree
-$7$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $7$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A252725 counts arrays of width $8$ over an alphabet of $4$ letters in which every three
+consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
+DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
+empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Nothing in the condition compares letters by size, so the
+count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
+system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
+the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
+brings the state count down to $S=24851$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224185 is ``Number of n X 3 0..2 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A252725 is ``Number of (6+2) X (n+2) 0..3 arrays with every consecutive three elements in every row and diagonal having exactly two distinct values, and in every column and antidiagonal not having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
 \[
-22, 158, 684, 2205, 5852, 13524, 28176, 54153,\ \dots
+165, 154, 170, 178, 214, 262, 270, 354,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (23/360)*n\^{}6 + (27/40)*n\^{}5 + (205/72)*n\^{}4 + (49/8)*n\^{}3 + (319/45)*n\^{}2 + (21/5)*n + 1.
+Empirical: a(n) = -a(n-1) +3*a(n-3) +3*a(n-4) -2*a(n-6) -2*a(n-7) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 29 2018 05:57:48, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
+As of the ``Last modified'' line on the live entry (Dec 06 2018 07:49:41, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The array has width $8$ and entries in $\{0,1,\dots,3\}$. Four families of triples
+run through it, and each carries its own condition on how many distinct values the three
+entries may hold:
 \[
-f(n)\;=\;\frac{23 n^{6}}{360} + \frac{27 n^{5}}{40} + \frac{205 n^{4}}{72} + \frac{49 n^{3}}{8} + \frac{319 n^{2}}{45} + \frac{21 n}{5} + 1.
+\begin{array}{lll}
+\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
+\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $1, 3$ \\
+\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2$ \\
+\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $2$ \\
+\text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $1, 3$ \\
+\end{array}
 \]
+A triple counts only when all three of its cells lie inside the array. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges rows with columns and carries each diagonal direction to itself, so the two conditions are exchanged once and the diagonal ones left alone.
 
-\section{The count is a walk count}
+The clause ``new values $0$ upwards introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
+letter may appear for the first time only if every smaller letter already has. So what the
+entry counts is patterns, not arrays.
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=22$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+\section{From patterns to fixed alphabets}
+
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
-
-\section{A closed form is a recurrence}
-
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+a\;=\;\sum_{i=1}^{4}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
 \]
-\end{lemma}
+$F$ being the matrix of falling factorials.
 
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
+This step is legitimate only if the condition is invariant under permuting the alphabet, and
+here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
+agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
+on them, so the reduction applies with nothing left over.
 
-Here $q(x)=(x-1)^{7}$, of degree $7$; the closed form is a polynomial in $n$, so this is $(x-1)^{7}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7).
-\end{equation}
+\section{Each $L_i$ is a walk count, on orbits}
+
+Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
+the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
+with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
+a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
+(c_{t+1},c_{t+2})$ for each admissible window.
+
+That digraph has up to $i^{2\cdot8}$ vertices, which is more than can be written down for
+the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
+letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
+all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
+orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
+states of $O'$ --- a number independent of the representative, again by invariance --- gives
+$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
+\[
+L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
+\]
+the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
+and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
+is fixed only by permutations fixing every letter it shows. So the start vector is the falling
+factorial and the end vector is all ones.
+
+Assembling the $i=1,\dots,4$ pieces as a disjoint union, with $\iota$ carrying the weights
+$w_i$ cleared of denominators,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
+\]
+with $S=24851$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
+read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+\[
+a(n)\;=\;-a(n-1) + 3\,a(n-3) + 3\,a(n-4) - 2\,a(n-6) - 2\,a(n-7)
+\]
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $7$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=8$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>7$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $7$ consecutive indices
-$n=8,\dots,14$ and agree at each. A monic recurrence of order $7$
-determines $a(m)$ from $a(m-1),\dots,a(m-7)$, and for every $m\ge15$ both
-$m>7$ and $m-7\ge8$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge8$.
-Below $n=8$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=8$ on. The remaining indices $n=1,\dots,7$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are carried as one common denominator throughout, so no division is
+performed until the final term.
 \end{proof}
-
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $29$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the model reproduces all $40$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, allow a cell to introduce a new letter only when every smaller letter
+is already present, and reject a partial array as soon as a triple all of whose cells are
+placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
+nor the falling-factorial inversion, and it returns the published terms.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224185.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252725.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
+falling factorials, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

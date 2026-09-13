@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186932, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185481, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186932 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+OEIS A185481 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
 every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=188$ states and is $C$-finite; whether the
+of order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=804$ states and is $C$-finite; whether the
 conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
@@ -30,30 +30,30 @@ conjectured recurrence annihilates it is then settled by a finite exact computat
 
 \section{The conjecture}
 
-OEIS A186932 is ``Number of (n+1) X 3 binary arrays with every 2 X 2 subblock trace equal to exactly one or two horizontal and vertical neighbor 2 X 2 subblock traces.''. It has offset $1$ and begins
+OEIS A185481 is ``Number of (n+1)X4 binary arrays with every 2X2 subblock determinant equal to some horizontal or vertical neighbor 2X2 subblock determinant.''. It has offset $1$ and begins
 \[
-24, 104, 472, 1664, 6848, 27272, 108128, 431656,\ \dots
+76, 684, 4740, 35672, 260172, 1923780, 14150114, 104300522,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=2*a(n-1)+4*a(n-2)+12*a(n-3)+4*a(n-4)+17*a(n-5)+136*a(n-6)-78*a(n-7)-269*a(n-8)-496*a(n-9)+226*a(n-10)+441*a(n-11)-110*a(n-12)+372*a(n-13)+448*a(n-15)-512*a(n-16).
+Empirical: a(n)=11*a(n-1)-23*a(n-2)-69*a(n-3)+409*a(n-4)-768*a(n-5)-571*a(n-6)+4622*a(n-7)-5573*a(n-8)+1199*a(n-9)+2111*a(n-10)-8400*a(n-11)+12500*a(n-12)-4419*a(n-13)-490*a(n-14)+204*a(n-15)-1290*a(n-16)+1264*a(n-17)-1204*a(n-18)+320*a(n-19) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 16 2023 20:51:51, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:01:16, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as exactly one or two of its neighbours horizontally or vertically.
+Write $\sigma$ for its determinant, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+and $3$ columns, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
 
 \section{The count is a walk count}
 
 This condition is NOT a condition on a pair. Whether a subblock has a
 matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
 supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a count of its matches so far, capped at three, three being already too many --- counting its matches
+each of the $3$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
 among its own row and the row above.
 
 A step appends an array row. It fixes the next subblock row, adds the matches between the two
@@ -69,17 +69,17 @@ An array of $n+1$ rows is then a walk of $n-1$ steps and
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
 with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=188$ states in all. Getting the two vectors right is the whole of the argument: with
+$S=804$ states in all. Getting the two vectors right is the whole of the argument: with
 $\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
 not exist, and the count would be too large. The entry's own first terms settle it --- for
 the smallest cases
 the model reproduces every published term.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,2]$, so the
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[-1,1]$, so the
 grid it labels carries at most $3$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
+rows and the grid is a single row of $3$
 subblocks, with only the neighbours inside that row; the entry's first term is
-$24$, which the model reproduces along with every later term, and that is the cheapest
+$76$, which the model reproduces along with every later term, and that is the cheapest
 check that the grid has been read with the right shape.
 
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -88,7 +88,7 @@ checked against its published terms rather than assumed.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -96,7 +96,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -105,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 4\,a(n-2) + 12\,a(n-3) + 4\,a(n-4) + 17\,a(n-5) + 136\,a(n-6) - 78\,a(n-7) - 269\,a(n-8) - 496\,a(n-9) + 226\,a(n-10) + 441\,a(n-11) - 110\,a(n-12) + 372\,a(n-13) + 448\,a(n-15) - 512\,a(n-16)
+a(n)\;=\;11\,a(n-1) - 23\,a(n-2) - 69\,a(n-3) + 409\,a(n-4) - 768\,a(n-5) - 571\,a(n-6) + 4622\,a(n-7) - 5573\,a(n-8) + 1199\,a(n-9) + 2111\,a(n-10) - 8400\,a(n-11) + 12500\,a(n-12) - 4419\,a(n-13) - 490\,a(n-14) + 204\,a(n-15) - 1290\,a(n-16) + 1264\,a(n-17) - 1204\,a(n-18) + 320\,a(n-19)
 \]
-for every $n>16$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186932.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185481.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

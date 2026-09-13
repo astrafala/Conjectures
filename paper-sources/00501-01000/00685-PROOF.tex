@@ -12,201 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223268, proved by transfer matrix}
+\title{Recovering the unwritten recurrences of the table OEIS A238180}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223268 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$7$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $19$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $24576$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $48$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=528$ of those suffice.
+OEIS A238180 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 8]'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2, column 3, column 4.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A223268 is ``Rolling cube footprints: number of nX7 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal, diagonal or antidiagonal neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
+OEIS A238180 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the maximum plus the minimum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-4096, 8060928, 19084083200, 47175115472896, 118579442837618688, 300099634959879241728, 761838097494483172065280, 1936846409617575899985608704,\ \dots
+81, 423, 423, 2329, 5321, 2329, 13447, 69023,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 5248*a(n-1) -8994816*a(n-2) +5490343936*a(n-3) +187904819200*a(n-4) -1264610170634240*a(n-5) +256551247132229632*a(n-6) +70752113095943913472*a(n-7) -23366404249055043518464*a(n-8) -533913337097412407197696*a(n-9) +674953674297109781457928192*a(n-10) -40751378221934631192876810240*a(n-11) -5757910579286783501424165650432*a(n-12) +721053031162241165678293693759488*a(n-13) -13066308561852474555927268289413120*a(n-14) -1348009507077897319716382214971195392*a(n-15) +58039494284702303231713887968022233088*a(n-16) -3987683987354747618711421180841033728*a(n-17) -29604565922121646321313590846563834396672*a(n-18) +348449143727040986586495598010130648530944*a(n-19)
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=2: [order 8]\\
+k=3: [order 17]\\
+k=4: [order 34]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:26:35, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:48:46, revision 6) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{What is being counted}
+\section{Why a line of the table is a walk count}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
-\[
-(1,-1), (1,1), (0,1),
-\]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
+\section{Recovering the recurrences}
 
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=48$.
-
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
-\end{proof}
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=45$ vertices. Berlekamp--Massey on $2S=90$ exact terms
+returns a minimal recurrence of order $8$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $22$ & $c_{3}$ & $-106$ & $c_{5}$ & $-2198$ & $c_{7}$ & $1514$ \\
+$c_{2}$ & $-111$ & $c_{4}$ & $1473$ & $c_{6}$ & $-121$ & $c_{8}$ & $-472$ \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{8}c_i\,a(m-i)$ for every $m$. Removing the first
+$8+4$ terms and repeating gives order $8$ again, which is what the
+identification below needs.
 
-\section{The cell the entry fixes}
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=115$ vertices. Berlekamp--Massey on $2S=230$ exact terms
+returns a minimal recurrence of order $17$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $49$ & $c_{6}$ & $-976002$ & $c_{11}$ & $29650212$ & $c_{16}$ & $-8996864$ \\
+$c_{2}$ & $-545$ & $c_{7}$ & $4971928$ & $c_{12}$ & $-62209316$ & $c_{17}$ & $2113536$ \\
+$c_{3}$ & $-1988$ & $c_{8}$ & $-1809493$ & $c_{13}$ & $-2721808$ &  &  \\
+$c_{4}$ & $54954$ & $c_{9}$ & $-23027443$ & $c_{14}$ & $42539968$ &  &  \\
+$c_{5}$ & $-146726$ & $c_{10}$ & $29412787$ & $c_{15}$ & $-8853248$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{17}c_i\,a(m-i)$ for every $m$. Removing the first
+$17+4$ terms and repeating gives order $17$ again, which is what the
+identification below needs.
 
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
-
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $6$.
-\end{lemma}
-
-\begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $6$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
-\end{proof}
-
-\section{Orbits of slices}
-
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones, so a $row$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $row$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $row$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $24576$ legal $row$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $row$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $row$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+\subsection*{Column $k=4$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=309$ vertices. Berlekamp--Massey on $2S=618$ exact terms
+returns a minimal recurrence of order $34$ --- the order the entry states --- with
+integer coefficients
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+(c_1,\dots,c_{34})=(135,\ -5666,\ 61087,\ 1811543,\ -55590889,\ 352769713,\ 5582536888,\ -104470781270,\ 487448649054,\ 2179031140368,\ -30063665317790,\ 62605540932430,\ 482468790013718,\ -2606364484725106,\ -633046157904300,\ 33525561430591827,\ -59418858719373877,\ -174070308557254966,\ 679977171418549239,\ 2889948029292187,\ -3139041059531921197,\ 3793176658858576985,\ 5377082366413161148,\ -15058190740573860988,\ 4079528418313301968,\ 19896306371658868272,\ -22029910115153395264,\ -860405226659909184,\ 15766791394668619264,\ -10495879036828792832,\ 1726046453512605696,\ 751029229729218560,\ -317093701446008832,\ 30377305524142080).
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
-\[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
-\]
-so the whole walk may be run on $\mathcal{O}$. Summing over $row$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $6$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=528$, down from $24576$.
-
-The orbit representatives are generated directly rather than by listing the $row$s and
-grouping them. A $row$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
-
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+19}-\sum_ic_i\widehat{M}^{j+19-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
-\end{proof}
+so that $a(m)=\sum_{i=1}^{34}c_i\,a(m-i)$ for every $m$. Removing the first
+$34+4$ terms and repeating gives order $34$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-\[
-a(n)\;=\;5248\,a(n-1) - 8994816\,a(n-2) + 5490343936\,a(n-3) + 187904819200\,a(n-4) - 1264610170634240\,a(n-5) + 256551247132229632\,a(n-6) + 70752113095943913472\,a(n-7) - 23366404249055043518464\,a(n-8) - 533913337097412407197696\,a(n-9) + 674953674297109781457928192\,a(n-10) - 40751378221934631192876810240\,a(n-11) - 5757910579286783501424165650432\,a(n-12) + 721053031162241165678293693759488\,a(n-13) - 13066308561852474555927268289413120\,a(n-14) - 1348009507077897319716382214971195392\,a(n-15) + 58039494284702303231713887968022233088\,a(n-16) - 3987683987354747618711421180841033728\,a(n-17) - 29604565922121646321313590846563834396672\,a(n-18) + 348449143727040986586495598010130648530944\,a(n-19)
-\]
-for every $n>19$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $19$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=19+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $48$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223268.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238180.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
