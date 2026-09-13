@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220734, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220714, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220734 counts the ways of linking the cells of a grid $4$ cells wide, each cell either to
+OEIS A220714 counts the ways of linking the cells of a grid $3$ cells wide, each cell either to
 itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
 empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
 no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
 has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=32$ of them, and the conjectured recurrence is then
+state, the count is a walk count on $S=50$ of them, and the conjectured recurrence is then
 settled by a finite exact computation.
 \end{abstract}
 
@@ -33,15 +33,15 @@ settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220734 is ``Number of ways to reciprocally link elements of an nX4 array either to themselves or to exactly two horizontal, diagonal and antidiagonal neighbors, without consecutive collinear links.''. It has offset $1$ and begins
+OEIS A220714 is ``Number of ways to reciprocally link elements of an n X 3 array either to themselves or to exactly two king-move neighbors, without consecutive collinear links.''. It has offset $1$ and begins
 \[
-1, 13, 103, 712, 5760, 45421, 355883, 2807273,\ \dots
+1, 26, 226, 2243, 21195, 201598, 1913495, 18172469,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -4*a(n-2) -23*a(n-3) -153*a(n-4) +204*a(n-5) +564*a(n-6) -700*a(n-7) +95*a(n-8) +2061*a(n-9) -3000*a(n-10) -4459*a(n-11) +2151*a(n-12) +5800*a(n-13) +320*a(n-14) -1276*a(n-15) -925*a(n-16) +233*a(n-17) +48*a(n-18) +13*a(n-19) -a(n-20)
+Empirical: a(n) = 7*a(n-1) +31*a(n-2) -61*a(n-3) -118*a(n-4) +346*a(n-5) +321*a(n-6) -404*a(n-7) -191*a(n-8) -429*a(n-9) -270*a(n-10) +1567*a(n-11) -1015*a(n-12) -504*a(n-13) +179*a(n-14) -554*a(n-15) +136*a(n-16) +185*a(n-17) -21*a(n-18) -3*a(n-19) -a(n-20).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:01:14, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 13 2022 20:12:59, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,11 +50,11 @@ A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. 
 of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
 itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
 graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $4$ columns,
+grid graph on the offset set above, of $n$ rows and $3$ columns,
 whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
 
 One point of the English has to be fixed rather than guessed: whether a cell may spend both of
@@ -80,7 +80,7 @@ condition on the pair of links at a cell, is settled there and never revisited.
 
 Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
 takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=32$ reachable
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=50$ reachable
 states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -109,7 +109,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 4\,a(n-2) - 23\,a(n-3) - 153\,a(n-4) + 204\,a(n-5) + 564\,a(n-6) - 700\,a(n-7) + 95\,a(n-8) + 2061\,a(n-9) - 3000\,a(n-10) - 4459\,a(n-11) + 2151\,a(n-12) + 5800\,a(n-13) + 320\,a(n-14) - 1276\,a(n-15) - 925\,a(n-16) + 233\,a(n-17) + 48\,a(n-18) + 13\,a(n-19) - a(n-20)
+a(n)\;=\;7\,a(n-1) + 31\,a(n-2) - 61\,a(n-3) - 118\,a(n-4) + 346\,a(n-5) + 321\,a(n-6) - 404\,a(n-7) - 191\,a(n-8) - 429\,a(n-9) - 270\,a(n-10) + 1567\,a(n-11) - 1015\,a(n-12) - 504\,a(n-13) + 179\,a(n-14) - 554\,a(n-15) + 136\,a(n-16) + 185\,a(n-17) - 21\,a(n-18) - 3\,a(n-19) - a(n-20)
 \]
 for every $n>19$.
 \end{theorem}
@@ -125,7 +125,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220734.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220714.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,

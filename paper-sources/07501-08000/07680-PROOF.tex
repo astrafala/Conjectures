@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A296035, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A189259, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A296035 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A189259 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $17$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A296035 is ``Number of nX4 0..1 arrays with each 1 adjacent to 2 or 4 king-move neighboring 1s.''. It has offset $1$ and begins
+OEIS A189259 is ``Number of nX4 binary arrays without the pattern 0 0 1 diagonally, antidiagonally or horizontally.''. It has offset $1$ and begins
 \[
-1, 21, 70, 204, 997, 4102, 15399, 63267,\ \dots
+12, 144, 1156, 8900, 65760, 481552, 3510380, 25556548,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 3*a(n-1) +2*a(n-2) +25*a(n-3) -43*a(n-4) -60*a(n-5) -170*a(n-6) +105*a(n-7) +326*a(n-8) +30*a(n-9) -197*a(n-10) -2*a(n-11) +223*a(n-12) -11*a(n-13) -102*a(n-14) -2*a(n-15) +12*a(n-16) +2*a(n-17)
+Empirical: a(n) = 9*a(n-1) -9*a(n-2) -27*a(n-3) +62*a(n-4) -522*a(n-5) +730*a(n-6) +2202*a(n-7) -3620*a(n-8) +5768*a(n-9) -7920*a(n-10) -45696*a(n-11) +71680*a(n-12) +75424*a(n-13) -146112*a(n-14) +13984*a(n-15) +51072*a(n-16) -17024*a(n-17) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 03 2017 07:10:29, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:06:59, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 2\,a(n-2) + 25\,a(n-3) - 43\,a(n-4) - 60\,a(n-5) - 170\,a(n-6) + 105\,a(n-7) + 326\,a(n-8) + 30\,a(n-9) - 197\,a(n-10) - 2\,a(n-11) + 223\,a(n-12) - 11\,a(n-13) - 102\,a(n-14) - 2\,a(n-15) + 12\,a(n-16) + 2\,a(n-17)
+a(n)\;=\;9\,a(n-1) - 9\,a(n-2) - 27\,a(n-3) + 62\,a(n-4) - 522\,a(n-5) + 730\,a(n-6) + 2202\,a(n-7) - 3620\,a(n-8) + 5768\,a(n-9) - 7920\,a(n-10) - 45696\,a(n-11) + 71680\,a(n-12) + 75424\,a(n-13) - 146112\,a(n-14) + 13984\,a(n-15) + 51072\,a(n-16) - 17024\,a(n-17)
 \end{equation}
 for all $n>18$.
 
@@ -56,12 +56,12 @@ for all $n>18$.
 The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(1,1),\ (1,-1),\ (0,1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{2,4\}
+\text{no }0,0,1\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
 for every cell $(t,u)$.
 
@@ -107,9 +107,13 @@ and ending vertices counts them.
 
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=23$, the arrays have $4\cdot23$ cells over
-$2$ values, so there are about $10^{27}$ of them to sift. The
+publishes, $n=19$, the arrays have $4\cdot19$ cells over
+$2$ values, so there are about $10^{22}$ of them to sift. The
 walk count replaces that by $256$ states and one matrix--vector product per row.
+
+The threshold below is exact rather than merely sufficient: at $n=18$ the conjectured
+recurrence fails on the entry's own published terms, so no range larger than the one proved
+can hold.
 \section{The criterion}
 
 Let $q(t)=t^{17}-\sum_i c_i\,t^{17-i}$ be the characteristic polynomial of
@@ -163,7 +167,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $23$ published indices, with no shift fitted: the number of rows is
+every one of the $19$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -178,7 +182,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A296035.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189259.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,47 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232924, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232952, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232924 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $2$, together with clauses that pick one array out of
+OEIS A232952 counts arrays over $\{0,\dots,3\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $3$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $10$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
-carried by one bounded piece of extra state, so the count is a walk count on $S=12$ states.
+carried by one bounded piece of extra state, so the count is a walk count on $S=10$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232924 is ``Number of 5Xn 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A232952 is ``Number of nX5 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, and top left element zero.''. It has offset $1$ and begins
 \[
-243, 486, 5118, 37008, 316800, 2515716, 20706696, 167584476,\ \dots
+81, 4629, 283131, 17429409, 1074244299, 66226131273, 4082986991091, 251727862281441,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +31*a(n-2) -97*a(n-3) -163*a(n-4) +417*a(n-5) +93*a(n-6) -514*a(n-7) +192*a(n-8) +72*a(n-9) -36*a(n-10) for n>11
+Empirical: a(n) = 78*a(n-1) -1043*a(n-2) +2012*a(n-3) +10236*a(n-4) -39726*a(n-5) +41724*a(n-6) -6408*a(n-7) -8680*a(n-8) +2592*a(n-9) -96*a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:43:54, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:45:38, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $5$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
-when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
+The array is $5$ cells across with entries $x(i,j)\in\{0,1,2,3\}$. Call two values $u,v$ CLASHING
+when $u+v=3$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(1,-1), (1,0), (1,1),
+(0,1), (1,-1), (1,1),
 \]
-that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
-clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
-same pairs and only one of each is listed.
+that is, in the horizontal, antidiagonal (ne--sw) and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+clashing values. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
 
 \section{The walk}
 
@@ -62,7 +62,7 @@ consecutive array rows and on nothing else.
 So a single array row is a state. A step appends a row, which settles every clash between it
 and the row above and every clash inside it. Two states from which, for every remaining length,
 the same number of arrays can be completed contribute identically to the count, so they are
-identified; after that identification there are $S=12$ of them.
+identified; after that identification there are $S=10$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 31\,a(n-2) - 97\,a(n-3) - 163\,a(n-4) + 417\,a(n-5) + 93\,a(n-6) - 514\,a(n-7) + 192\,a(n-8) + 72\,a(n-9) - 36\,a(n-10)
+a(n)\;=\;78\,a(n-1) - 1043\,a(n-2) + 2012\,a(n-3) + 10236\,a(n-4) - 39726\,a(n-5) + 41724\,a(n-6) - 6408\,a(n-7) - 8680\,a(n-8) + 2592\,a(n-9) - 96\,a(n-10)
 \]
-for every $n>11$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -123,7 +123,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232924.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232952.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

@@ -14,6 +14,8 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'shiftmult': ("the k+1 values still in play -- those the remaining indices can still "
+                  "take -- and how often each has been used so far"),
     'coverzero': ("the last few values together with which of those positions are still "
                   "waiting for a zero-sum block to cover them -- an obligation a block "
                   "not yet read may meet, so no window decides it alone"),

@@ -366,3 +366,17 @@ installed as `covered-by-zero-block`.** Six are not open.
 After today's engines the pool is **2,048**, down from 2,225 this morning: 386,840 entries
 outside the roster, 3,356 with a parsable conjectured recurrence, 2,048 of those read by no
 engine.
+
+## 13 September 2026 — `shiftmult`: values confined to a sliding range, used at most m times
+
+    Number of length n arrays x(i), i=1..n with x(i) in i..i+3 and no value appearing more than
+      2 times.
+
+Eight entries, none read. The value x(i) = i + d with d in 0..k, so the value v can be taken
+only by the indices v−k..v: at any moment just k+1 values are in play, and how often each has
+been used so far is all the condition asks. The state is those k+1 counters, each capped at the
+allowed multiplicity, and the walk slides one value out and one in at each step — a value that
+leaves has had its final count, and no count is ever required, only bounded.
+
+**8 names read, every one reproducing its entry's published data exactly; all 8 proved and
+installed as `shifted-multiplicity`.**
