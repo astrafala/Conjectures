@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231852, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203392, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231852 counts arrays of width $5$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
-empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=46576$ states.
+OEIS A203392 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every nonzero cell has a neighbour at least as large as itself. The entry carries an
+empirical recurrence of order $22$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=3265$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A231852 is ``Number of nX5 0..2 arrays with no element having a strict majority of its horizontal and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
+OEIS A203392 is ``Number of nX3 0..3 arrays with every nonzero element less than or equal to some NW, E or S neighbor.''. It has offset $1$ and begins
 \[
-21, 612, 85288, 11149456, 1454768048, 189801034186, 24762957054535, 3230773305296573,\ \dots
+1, 185, 7785, 210342, 5666072, 163500122, 4711784187, 134023641768,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 183*a(n-1) -8008*a(n-2) +164477*a(n-3) -1911762*a(n-4) +13545983*a(n-5) -59779265*a(n-6) +159414566*a(n-7) -218855372*a(n-8) +7532104*a(n-9) +451112826*a(n-10) -590711864*a(n-11) +106059884*a(n-12) +386076754*a(n-13) -374591713*a(n-14) +131217119*a(n-15) +37977619*a(n-16) -86897128*a(n-17) +54663372*a(n-18) -17127366*a(n-19) +3057852*a(n-20) -413220*a(n-21) for n>22
+Empirical: a(n) = 64*a(n-1) -1706*a(n-2) +30044*a(n-3) -404960*a(n-4) +4099850*a(n-5) -30536063*a(n-6) +171426725*a(n-7) -757277294*a(n-8) +2720190934*a(n-9) -8042244702*a(n-10) +19622828742*a(n-11) -39893786618*a(n-12) +68882173897*a(n-13) -102395699308*a(n-14) +129694096680*a(n-15) -135121114784*a(n-16) +110642585924*a(n-17) -68014475760*a(n-18) +29890935888*a(n-19) -8795890848*a(n-20) +1545208704*a(n-21) -122145408*a(n-22) for n>23
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 08:48:06, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:25:56, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
-list of offsets the entry names,
+The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. Fix the
+offsets the entry names,
 \[
-\Delta=\{\,(-1,1), (0,-1), (0,1), (1,-1)\,\},
+\Delta=\{\,(-1,-1), (0,1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -56,23 +56,22 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
+The condition is that every cell that is not zero has among its neighbours one at least as large as itself:
 \[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
+x(i,j)\neq0\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)\ge x(i,j).
 \]
-With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
+A zero cell is under no condition, and neither is a cell whose named neighbours all lie outside the array --- except that then the condition forces it to be zero, since the empty set contains nothing at least as large.
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -81,7 +80,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=46576,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3265,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -90,7 +89,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -98,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -107,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;183\,a(n-1) - 8008\,a(n-2) + 164477\,a(n-3) - 1911762\,a(n-4) + 13545983\,a(n-5) - 59779265\,a(n-6) + 159414566\,a(n-7) - 218855372\,a(n-8) + 7532104\,a(n-9) + 451112826\,a(n-10) - 590711864\,a(n-11) + 106059884\,a(n-12) + 386076754\,a(n-13) - 374591713\,a(n-14) + 131217119\,a(n-15) + 37977619\,a(n-16) - 86897128\,a(n-17) + 54663372\,a(n-18) - 17127366\,a(n-19) + 3057852\,a(n-20) - 413220\,a(n-21)
+a(n)\;=\;64\,a(n-1) - 1706\,a(n-2) + 30044\,a(n-3) - 404960\,a(n-4) + 4099850\,a(n-5) - 30536063\,a(n-6) + 171426725\,a(n-7) - 757277294\,a(n-8) + 2720190934\,a(n-9) - 8042244702\,a(n-10) + 19622828742\,a(n-11) - 39893786618\,a(n-12) + 68882173897\,a(n-13) - 102395699308\,a(n-14) + 129694096680\,a(n-15) - 135121114784\,a(n-16) + 110642585924\,a(n-17) - 68014475760\,a(n-18) + 29890935888\,a(n-19) - 8795890848\,a(n-20) + 1545208704\,a(n-21) - 122145408\,a(n-22)
 \]
-for every $n>22$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -123,11 +122,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $5$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $3$ over $\{0,1,2,3\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231852.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203392.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

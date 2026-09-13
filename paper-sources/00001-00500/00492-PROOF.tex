@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234339: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A251332: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234339 records ``Empirical recurrence of order $77$'', with the recurrence itself in a
+OEIS A251332 records ``Empirical recurrence of order $77$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=512$ vertices and
+local to a bounded window of lines, so the count is a walk count on $S=729$ vertices and
 satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
 terms therefore returns the MINIMAL such recurrence. Its order is exactly $77$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
@@ -36,15 +36,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A234339 is ``Number of (n+1)X(2+1) 0..7 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 14.''. It has offset $1$ and begins
+OEIS A251332 is ``Number of (n+1) X (5+1) 0..2 arrays with every 2 X 2 subblock summing to 2 4 or 6.''. It has offset $1$ and begins
 \[
-9076, 411064, 15724414, 661471100, 27487124788, 1154009792030, 48437475144112, 2035786694647460,\ \dots
+14823, 343299, 8863633, 256067697, 8130801167, 277153898751, 9919268234529, 366492859729101,\ \dots
 \]
 The entry states:
 \begin{quote}
-Empirical recurrence of order 77 (see link above)
+Empirical recurrence of order 77 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:17:01, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Apr 10 2022 15:15:33, revision 6) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -52,13 +52,13 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=512$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=729$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
 and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=512$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=729$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -69,33 +69,33 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S=1024$ exact terms of the model returns order $77$ --- the order the
+Running it on $2S=1458$ exact terms of the model returns order $77$ --- the order the
 entry states --- with the integer coefficients
 \[
 a(n)\;=\;\sum_{i=1}^{77}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $46$ & $c_{21}$ & $887710616704701640930$ & $c_{41}$ & $38761362519510759680396864617$ & $c_{61}$ & $17616871680448863839036577568$ \\
-$c_{2}$ & $686$ & $c_{22}$ & $-3326540630701289362292$ & $c_{42}$ & $-586525465202239901670293792807$ & $c_{62}$ & $-43179766888262456598409730485$ \\
-$c_{3}$ & $-39131$ & $c_{23}$ & $-14205591683763300259754$ & $c_{43}$ & $-42211587509722646041687816792$ & $c_{63}$ & $-6324085849369424237145168690$ \\
-$c_{4}$ & $-147608$ & $c_{24}$ & $56297099545629304041237$ & $c_{44}$ & $1260075442354729229942951363119$ & $c_{64}$ & $8060920992777078722215966477$ \\
-$c_{5}$ & $13161758$ & $c_{25}$ & $182735902915047707420017$ & $c_{45}$ & $166592726454454084372210872$ & $c_{65}$ & $1521329718161266593417803797$ \\
-$c_{6}$ & $5491556$ & $c_{26}$ & $-767978059616287745836565$ & $c_{46}$ & $-2182500915576822076327099787940$ & $c_{66}$ & $-1071104515056525255967624652$ \\
-$c_{7}$ & $-2422071738$ & $c_{27}$ & $-1896332022514815683832791$ & $c_{47}$ & $96071521254690064489893640134$ & $c_{67}$ & $-247228926969628374230067392$ \\
-$c_{8}$ & $2669301671$ & $c_{28}$ & $8501727703353782268816913$ & $c_{48}$ & $3037262857751753136498131019873$ & $c_{68}$ & $95721024748194936713263392$ \\
-$c_{9}$ & $280934675228$ & $c_{29}$ & $15888408497295948336347226$ & $c_{49}$ & $-194978093453624708331263307792$ & $c_{69}$ & $26474131406274123724436256$ \\
-$c_{10}$ & $-544179239981$ & $c_{30}$ & $-76708964216142481329364980$ & $c_{50}$ & $-3384177795462660213307834500786$ & $c_{70}$ & $-5195532295082729446156496$ \\
-$c_{11}$ & $-22251655048299$ & $c_{31}$ & $-107260449257105303974342660$ & $c_{51}$ & $217011288989783962536339115686$ & $c_{71}$ & $-1761977505868088586782800$ \\
-$c_{12}$ & $54720382635220$ & $c_{32}$ & $565472654093678652002345121$ & $c_{52}$ & $3007012515559713352976779366246$ & $c_{72}$ & $132916098379404803890848$ \\
-$c_{13}$ & $1267432845547909$ & $c_{33}$ & $580358573439870006956132749$ & $c_{53}$ & $-143474728321082619553140285259$ & $c_{73}$ & $64761631889591477372608$ \\
-$c_{14}$ & $-3576653091034131$ & $c_{34}$ & $-3408463577123319957190881689$ & $c_{54}$ & $-2120011712535679103062495702038$ & $c_{74}$ & $175828816058823338496$ \\
-$c_{15}$ & $-53817823438579862$ & $c_{35}$ & $-2492850609278114242335730243$ & $c_{55}$ & $40296428707275175849286144706$ & $c_{75}$ & $-979982859324325789440$ \\
-$c_{16}$ & $166796201636618054$ & $c_{36}$ & $16790757499970745612792206053$ & $c_{56}$ & $1177861084554219483602981121684$ & $c_{76}$ & $-51737541426085860864$ \\
-$c_{17}$ & $1748506550387989431$ & $c_{37}$ & $8363741285815559104050258937$ & $c_{57}$ & $21208736542570154113267479073$ & $c_{77}$ & $-37734968676925440$ \\
-$c_{18}$ & $-5824255814758095441$ & $c_{38}$ & $-67493887881664764986109749144$ & $c_{58}$ & $-510855824006477751691754030283$ &  &  \\
-$c_{19}$ & $-44303157179923285861$ & $c_{39}$ & $-21296199132742063284311047699$ & $c_{59}$ & $-30505073886353428786157245725$ &  &  \\
-$c_{20}$ & $156893139869964306677$ & $c_{40}$ & $220851309477824621103121309649$ & $c_{60}$ & $170722777333502275178118799597$ &  &  \\
+$c_{1}$ & $275$ & $c_{21}$ & $19582455866490607670391052$ & $c_{41}$ & $-14136576882171366548812874771889999$ & $c_{61}$ & $52976185573881318200172897370112$ \\
+$c_{2}$ & $-34345$ & $c_{22}$ & $-104184297754863592692102503$ & $c_{42}$ & $37116717708306902115980380830202066$ & $c_{62}$ & $488186005309435470261569677426688$ \\
+$c_{3}$ & $2565781$ & $c_{23}$ & $-604803641655809194720528475$ & $c_{43}$ & $37935135393840285987519403672968998$ & $c_{63}$ & $-87305748606191220324656775954432$ \\
+$c_{4}$ & $-126724432$ & $c_{24}$ & $2051317657345021199760224159$ & $c_{44}$ & $-58407303628883935977267879396180592$ & $c_{64}$ & $-65697532292008443746177437925376$ \\
+$c_{5}$ & $4292522395$ & $c_{25}$ & $14685899404014332688019801641$ & $c_{45}$ & $-70651618803505213563822919564378456$ & $c_{65}$ & $22962056721905911172479083085824$ \\
+$c_{6}$ & $-98782830473$ & $c_{26}$ & $-21473601305560667312642838199$ & $c_{46}$ & $74199231000094628390505851643327984$ & $c_{66}$ & $4214098233763875849356842106880$ \\
+$c_{7}$ & $1413517404314$ & $c_{27}$ & $-254209984101641247688185667199$ & $c_{47}$ & $97442919899818689943013009976919360$ & $c_{67}$ & $-3042480500730519038285303513088$ \\
+$c_{8}$ & $-7612912632320$ & $c_{28}$ & $1069600625746274705862692070$ & $c_{48}$ & $-78562477813128728355898951978031424$ & $c_{68}$ & $118991846631088358470327468032$ \\
+$c_{9}$ & $-133383749714916$ & $c_{29}$ & $2979085060420242613091956057303$ & $c_{49}$ & $-102197657713469128164008483619737600$ & $c_{69}$ & $202151902381479986331220180992$ \\
+$c_{10}$ & $3020499366138663$ & $c_{30}$ & $3209327698074998064598603685128$ & $c_{50}$ & $70953426143517046227361498876083200$ & $c_{70}$ & $-38008382788254573015620124672$ \\
+$c_{11}$ & $-15498346546695193$ & $c_{31}$ & $-23050694121290049944116212880016$ & $c_{51}$ & $82099168049248897767079891629714432$ & $c_{71}$ & $-4234367761007131984159309824$ \\
+$c_{12}$ & $-215961707858725792$ & $c_{32}$ & $-46959641845109045716859036004609$ & $c_{52}$ & $-54827155813695693326047481370763264$ & $c_{72}$ & $2097124275001632669692854272$ \\
+$c_{13}$ & $3182435178964201363$ & $c_{33}$ & $113600352340335502033665703972821$ & $c_{53}$ & $-50084443438251615988334397704351744$ & $c_{73}$ & $-161983855235508518044827648$ \\
+$c_{14}$ & $742224312769079570$ & $c_{34}$ & $371384338955202307553267724784813$ & $c_{54}$ & $35523334587060878688434778270490624$ & $c_{74}$ & $-27031648012843645950492672$ \\
+$c_{15}$ & $-255649972072533064746$ & $c_{35}$ & $-313174601085497609135744039898035$ & $c_{55}$ & $22541151063932586056268321554268160$ & $c_{75}$ & $6221782667964118776938496$ \\
+$c_{16}$ & $865959431482882404756$ & $c_{36}$ & $-1916863787738892370194139649642349$ & $c_{56}$ & $-18632115574112489006615926243164160$ & $c_{76}$ & $-462405872390666566238208$ \\
+$c_{17}$ & $13384382789346910149074$ & $c_{37}$ & $105832592488761284751853747838103$ & $c_{57}$ & $-6976376052756043489093283259809792$ & $c_{77}$ & $12410209205174686187520$ \\
+$c_{18}$ & $-72246147667899162384438$ & $c_{38}$ & $6943909201757866800937448756980054$ & $c_{58}$ & $7594925460022867070789451241357312$ &  &  \\
+$c_{19}$ & $-549069127657465866397440$ & $c_{39}$ & $2972593167321852884063800617850059$ & $c_{59}$ & $1183965459271322357149995882119168$ &  &  \\
+$c_{20}$ & $3383738157632401895724599$ & $c_{40}$ & $-18440034364001964908591684527354177$ & $c_{60}$ & $-2300001048359807298160958456725504$ &  &  \\
 \end{tabular}
 \end{center}
 
@@ -138,7 +138,7 @@ to a one-parameter family --- the recurrences of order $77$ that this sequence s
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234339.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251332.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

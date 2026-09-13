@@ -12,125 +12,110 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187957, proved by transfer matrix}
+\title{The empirical closed form for OEIS A199835, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187957 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $3\times3$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $80$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=2816$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A199835 carries an empirical closed form: a polynomial in $n$ of degree $2$, recorded on the
+entry and never marked settled. It is true. The entry's count is given exactly by an Ehrhart
+quasi-polynomial, from which $a$ provably satisfies a monic linear recurrence of order $S=7$
+derived below; a polynomial of degree $2$ satisfies $(z-1)^{2+1}$; so the difference
+satisfies the product, and $7+2+1$ consecutive agreements settle it. No transfer matrix is
+involved and the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A187957 is ``Half the number of (n+2)X4 binary arrays with no 3X3 subblock having a sum equal to any horizontal or vertical neighbor 3X3 subblock sum.''. It has offset $1$ and begins
+OEIS A199835 is ``Number of -n..n arrays x(0..5) of 6 elements with zero sum and no two neighbors summing to zero.''. It has offset $1$ and begins
 \[
-1408, 8768, 53728, 322128, 2092928, 13520976, 86157696, 548059536,\ \dots
+10, 426, 3556, 15708, 49302, 124982, 273728, 538968,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=5*a(n-1)+6*a(n-2)+99*a(n-3)-517*a(n-4)-346*a(n-5)+13033*a(n-6)-57833*a(n-7)-68926*a(n-8)-836599*a(n-9)+4655561*a(n-10)+3070398*a(n-11)-36610155*a(n-12)+119400299*a(n-13)+173417410*a(n-14)+1824238221*a(n-15)-9638608359*a(n-16)-6192477994*a(n-17)+17695576415*a(n-18)+7002784613*a(n-19)-63838801602*a(n-20)-959349540229*a(n-21)+4083676919591*a(n-22)+2355193730782*a(n-23)-4198619892256*a(n-24)-7250034805352*a(n-25)+7731581573048*a(n-26)+194164612372656*a(n-27)-720965905404336*a(n-28)-368111638621968*a(n-29)+652720485880384*a(n-30)+319887464830272*a(n-31)-654416911165280*a(n-32)-17098847044080224*a(n-33)+58688760015389280*a(n-34)+24593110863134208*a(n-35)-58350586496272896*a(n-36)+77161628915051776*a(n-37)+67185400310475904*a(n-38)+594795385181513472*a(n-39)-1933364516082720768*a(n-40)-489171971302665472*a(n-41)+2599243116793135360*a(n-42)-6709901327757569280*a(n-43)-3388850463215656960*a(n-44)-1255020362386550016*a(n-45)+7714005820133745408*a(n-46)-7968601027491098112*a(n-47)-33085684542175014912*a(n-48)+118058533635462125568*a(n-49)+39512750093838385152*a(n-50)-133590905508776103936*a(n-51)+364281432743469293568*a(n-52)+210319981915211218944*a(n-53)-398799763680154927104*a(n-54)+584019030389541470208*a(n-55)+520541510369258962944*a(n-56)-963173390160429711360*a(n-57)+727847118498482749440*a(n-58)+1555489330103731617792*a(n-59)-1245394791974180487168*a(n-60)-2068309943964889251840*a(n-61)+3643324883940909514752*a(n-62)+977068899261735763968*a(n-63)-10300424116071586332672*a(n-64)+2413639308219506491392*a(n-65)+4473242080388271046656*a(n-66)-4528774523925118844928*a(n-67)-5197024805196801245184*a(n-68)+1969790675024043048960*a(n-69)+15024227251673980993536*a(n-70)-7316920907168275759104*a(n-71)-3317013767167313707008*a(n-72)+6475212296736963821568*a(n-73)+1255155103368329822208*a(n-74)-2202144678073300156416*a(n-75)-6121478755531981062144*a(n-76)+2506656217055474221056*a(n-77)+627860856482970992640*a(n-78)+899258775091739099136*a(n-79)-534694406811304329216*a(n-80)
+Empirical: a(n) = n*(2*n+1)*(2*n-1)*(66*n\^{}2-35*n+19)/15.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:10:53, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 22 2025 13:24:45, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a quasi-polynomial}
 
-Write $\sigma$ for the sum of all its entries, taken on a $3\times3$ subblock. The contiguous $3\times3$
-subblocks of an $(n+2)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$. The entry counts $1/2$ of that number, and the model divides by $2$ before anything is compared.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
-\section{The count is a walk count}
+\section{The bound}
 
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $3$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+2$ rows is a walk of $n-1$ steps and
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-on the $S=2816$ admissible tuples.
+annihilates $a$, and $S=\deg A=7$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $4\ge3$ that row already determines the $3$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{3\cdot
-4}=4096$ tuples of $3$ rows, $S=2816$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
-
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,9]$, so the
-grid it labels carries at most $10$ different labels. At $n=1$ the array has $3$
-rows and the grid is a single row of $2$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$1408$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
-
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=7$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{80}-\sum_i c_it^{80-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+80}-\sum_ic_iM^{j+80-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
 \begin{theorem}
-\[
-a(n)\;=\;5\,a(n-1) + 6\,a(n-2) + 99\,a(n-3) - 517\,a(n-4) - 346\,a(n-5) + 13033\,a(n-6) - 57833\,a(n-7) - 68926\,a(n-8) - 836599\,a(n-9) + 4655561\,a(n-10) + 3070398\,a(n-11) - 36610155\,a(n-12) + 119400299\,a(n-13) + 173417410\,a(n-14) + 1824238221\,a(n-15) - 9638608359\,a(n-16) - 6192477994\,a(n-17) + 17695576415\,a(n-18) + 7002784613\,a(n-19) - 63838801602\,a(n-20) - 959349540229\,a(n-21) + 4083676919591\,a(n-22) + 2355193730782\,a(n-23) - 4198619892256\,a(n-24) - 7250034805352\,a(n-25) + 7731581573048\,a(n-26) + 194164612372656\,a(n-27) - 720965905404336\,a(n-28) - 368111638621968\,a(n-29) + 652720485880384\,a(n-30) + 319887464830272\,a(n-31) - 654416911165280\,a(n-32) - 17098847044080224\,a(n-33) + 58688760015389280\,a(n-34) + 24593110863134208\,a(n-35) - 58350586496272896\,a(n-36) + 77161628915051776\,a(n-37) + 67185400310475904\,a(n-38) + 594795385181513472\,a(n-39) - 1933364516082720768\,a(n-40) - 489171971302665472\,a(n-41) + 2599243116793135360\,a(n-42) - 6709901327757569280\,a(n-43) - 3388850463215656960\,a(n-44) - 1255020362386550016\,a(n-45) + 7714005820133745408\,a(n-46) - 7968601027491098112\,a(n-47) - 33085684542175014912\,a(n-48) + 118058533635462125568\,a(n-49) + 39512750093838385152\,a(n-50) - 133590905508776103936\,a(n-51) + 364281432743469293568\,a(n-52) + 210319981915211218944\,a(n-53) - 398799763680154927104\,a(n-54) + 584019030389541470208\,a(n-55) + 520541510369258962944\,a(n-56) - 963173390160429711360\,a(n-57) + 727847118498482749440\,a(n-58) + 1555489330103731617792\,a(n-59) - 1245394791974180487168\,a(n-60) - 2068309943964889251840\,a(n-61) + 3643324883940909514752\,a(n-62) + 977068899261735763968\,a(n-63) - 10300424116071586332672\,a(n-64) + 2413639308219506491392\,a(n-65) + 4473242080388271046656\,a(n-66) - 4528774523925118844928\,a(n-67) - 5197024805196801245184\,a(n-68) + 1969790675024043048960\,a(n-69) + 15024227251673980993536\,a(n-70) - 7316920907168275759104\,a(n-71) - 3317013767167313707008\,a(n-72) + 6475212296736963821568\,a(n-73) + 1255155103368329822208\,a(n-74) - 2202144678073300156416\,a(n-75) - 6121478755531981062144\,a(n-76) + 2506656217055474221056\,a(n-77) + 627860856482970992640\,a(n-78) + 899258775091739099136\,a(n-79) - 534694406811304329216\,a(n-80)
-\]
-for every $n>80$.
+The empirical closed form holds for every $n$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $80$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=80+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Write $P$ for the claimed polynomial and $r(n)=a(n)-P(n)$. The annihilator $A$ derived above
+kills $a$, and $(z-1)^{2+1}$ kills $P$, so $A(z)(z-1)^{2+1}$ --- monic, of order
+$7+2+1$ --- kills $r$. The model was evaluated exactly in integer arithmetic and $P$ in
+exact rational arithmetic at every index from $n=1$ to $n=1+7+2+1$, and $r$ vanished
+at all of them. A monic recurrence with $7+2+1$ consecutive zeros has every later term zero,
+so $r\equiv0$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the claimed polynomial was evaluated directly on those published terms, in exact
+rational arithmetic and with no model involved, and agrees with every one of them.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator was itself tested on terms the model was not asked for: the
+model was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound
+that is too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187957.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199835.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

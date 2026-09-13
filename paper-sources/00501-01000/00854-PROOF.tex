@@ -12,137 +12,183 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219629, proved}
+\title{The empirical recurrence for OEIS A270259, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219629 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=277$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{17}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A270259 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true. The array
+family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
+count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
+digraph to walk. Inclusion--exclusion over the adjacent pairs, together with the observation
+that a set of pairs forces the values along each of its connected components to alternate,
+gives $a(n)$ in closed form as a quasi-polynomial of period $2$, exactly and for every $n$.
+The recurrence, and the entry's two branch formulas with it, then follow by polynomial
+division.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
-\section{The entry}
+\section{The conjecture}
 
-OEIS A219629 is ``Number of 3Xn arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..2 3Xn array.''. It has offset $1$ and begins
+OEIS A270259 is ``Number of 4X4X4 triangular 0..n arrays with some element plus some adjacent element totalling n exactly once.''. It has offset $1$ and begins
 \[
-10, 27, 130, 582, 2109, 6637, 19166, 51491,\ \dots
+0, 468, 37848, 772056, 7876728, 51535116,\ \dots
 \]
-and states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/20922789888000)*n\^{}16 + (1/523069747200)*n\^{}15 - (127/1046139494400)*n\^{}14 + (79/18681062400)*n\^{}13 + (8441/114960384000)*n\^{}12 - (18343/2874009600)*n\^{}11 + (1687829/7315660800)*n\^{}10 - (3838547/914457600)*n\^{}9 + (5697677311/146313216000)*n\^{}8 + (12383887/74649600)*n\^{}7 - (52929867649/5748019200)*n\^{}6 + (86740702999/718502400)*n\^{}5 - (117558072292519/145297152000)*n\^{}4 + (9685884755689/3632428800)*n\^{}3 - (248063317553/201801600)*n\^{}2 - (269195161/16016)*n + 33755 for n>9
+Empirical: a(n) = 2*a(n-1) +7*a(n-2) -16*a(n-3) -20*a(n-4) +56*a(n-5) +28*a(n-6) -112*a(n-7) -14*a(n-8) +140*a(n-9) -14*a(n-10) -112*a(n-11) +28*a(n-12) +56*a(n-13) -20*a(n-14) -16*a(n-15) +7*a(n-16) +2*a(n-17) -a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:12:06, revision 8)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Mar 14 2016 09:31:11, revision 4) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Fix the width $W=3$ and the value range $0..2$. The underlying arrays are the
-$3\times n$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
+The array is the triangle with $4$ rows: cells $(i,j)$ for $0\le i<4$ and $0\le j\le i$,
+so $T=10$ of them. Two cells are adjacent when they are neighbours in that triangle --- side
+by side in a row, or one directly below the other on either side --- and there are
+$3\binom{4}{2}=18$ adjacent pairs. Each cell carries a value in
+$\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
+$\{u,v\}$ has $x_u+x_v=n$.
+
+Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
+a walk in a finite digraph, and nothing about transfer matrices applies.
+
+\section{A set of pairs forces the values along its components}
+
+Write $E$ for the set of adjacent pairs, $t=n$ for the target, and for $S\subseteq E$ let
+$N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
+others.
+
+\begin{lemma}\label{lem:comp}
+Let $S\subseteq E$ and let the graph $(V,S)$ have $c_b$ bipartite and $c_o$ non-bipartite
+components among the cells it touches, $v(S)$ cells being touched. Then
 \[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
+N(S)\;=\;(n+1)^{\,T-v(S)}\;B^{\,c_b}\;F^{\,c_o},
 \]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
-
-\section{Two constraints, both made local}
-
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$2$ bits.
+where $B=\#\{c: 0\le c\le n,\ 0\le t-c\le n\}$ and $F=1$ if $t$ is even with $0\le t/2\le n$,
+and $F=0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
+A pair in $S$ forces $x_v=t-x_u$, so within one connected component of $(V,S)$ the value of any
+one cell determines every other: cells at even distance from a chosen root carry the root's
+value $c$, cells at odd distance carry $t-c$. That assignment is consistent exactly when no
+cycle of the component has odd length; if some cycle does, following it around forces $c=t-c$,
+so $2c=t$, and the component admits one value when $t$ is even and $t/2$ lies in the alphabet,
+and none otherwise. A bipartite component is therefore free to choose $c$ subject only to
+$c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched by no pair
+of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-\begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=277$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
-\end{lemma}
+Here $B=n+1$ and $F=1$ precisely when $n$ is even.
 
-\begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=277$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
-\end{proof}
+\section{The count}
 
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
+\begin{theorem}\label{thm:quasi}
+For every $n\ge0$,
 \[
-q(x)=(x-1)^{17},\qquad\text{that is}\qquad a(n)=17\,a(n-1) - 136\,a(n-2) + 680\,a(n-3) - 2380\,a(n-4) + 6188\,a(n-5) - 12376\,a(n-6) + 19448\,a(n-7) - 24310\,a(n-8) + 24310\,a(n-9) - 19448\,a(n-10) + 12376\,a(n-11) - 6188\,a(n-12) + 2380\,a(n-13) - 680\,a(n-14) + 136\,a(n-15) - 17\,a(n-16) + a(n-17).
+a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
+A(n)=18n^{9} - 144n^{8} + \tfrac{1197}{2}n^{7} - 1593n^{6} + 2898n^{5} - \tfrac{7143}{2}n^{4} + 2691n^{3} - 750n^{2} - \tfrac{981}{2}n + \tfrac{723}{2},
 \]
-
-\begin{theorem}
-The closed form OEIS A219629 records is correct for all $n>9$.
+\[
+C(n)=\tfrac{27}{2}n^{7} - 153n^{6} + 720n^{5} - \tfrac{3861}{2}n^{4} + 3213n^{3} - 3252n^{2} + \tfrac{3537}{2}n - \tfrac{723}{2}.
+\]
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $26$.
-Second, the polynomial and the walk count agree at every index from $10$ up to
-$1 + 25 - 1$, which is more than the $17$ consecutive agreements a
-common recurrence of order $17$ needs. Two sequences satisfying the same monic recurrence
-of order $17$ and agreeing at $17$ consecutive indices past both their thresholds are
-equal from there on.
+For an array $x$ let $\sigma(x)$ be its number of satisfied pairs. Then
+\[
+\sum_{S\subseteq E}w^{|S|}\,\#\{x:\ S\subseteq\text{satisfied pairs of }x\}
+=\sum_x (1+w)^{\sigma(x)},
+\]
+and differentiating in $w$ at $w=-1$ picks out exactly the arrays with $\sigma(x)=1$:
+\[
+a(n)\;=\;\sum_{\emptyset\neq S\subseteq E}(-1)^{|S|-1}\,|S|\;N(S).
+\]
+Each $N(S)$ is given by Lemma~\ref{lem:comp}. The exponents $T-v(S)$, $c_b$ and $c_o$ do not
+involve $n$, so the sum was formed once by running over all $2^{18}$ subsets and
+recording those three numbers. Every term is a polynomial in $n$ multiplied by $F^{c_o}$, and
+$F$ depends only on the parity of $n$; collecting the two parities gives a polynomial identity
+in $n$ on each, and the displayed $A$ and $C$ are their half-sum and half-difference. The
+identity holds for every $n\ge0$, with no threshold: Lemma~\ref{lem:comp} is exact at every
+$n$.
+\end{proof}
+
+The degree of $A$ is $9$ and that of $C$ is $7$. Both are at most $T-1$,
+because a set $S$ with a single pair leaves $T-2$ cells free and contributes one bipartite
+component.
+
+\section{The two branch formulas}
+
+The entry also records, as separate empirical observations:
+\begin{quote}
+Empirical for n mod 2 = 0: a(n) = 18*n\^{}9 - 144*n\^{}8 + 612*n\^{}7 - 1746*n\^{}6 + 3618*n\^{}5 - 5502*n\^{}4 + 5904*n\^{}3 - 4002*n\^{}2 + 1278*n
+
+Empirical for n mod 2 = 1: a(n) = 18*n\^{}9 - 144*n\^{}8 + 585*n\^{}7 - 1440*n\^{}6 + 2178*n\^{}5 - 1641*n\^{}4 - 522*n\^{}3 + 2502*n\^{}2 - 2259*n + 723
+\end{quote}
+These follow at once, and are exact: putting $n$ even and $n$ odd into
+Theorem~\ref{thm:quasi},
+\[
+a(n)=\begin{cases}
+18n^{9} - 144n^{8} + 612n^{7} - 1746n^{6} + 3618n^{5} - 5502n^{4} + 5904n^{3} - 4002n^{2} + 1278n, & n\ \text{even},\\[2pt]
+18n^{9} - 144n^{8} + 585n^{7} - 1440n^{6} + 2178n^{5} - 1641n^{4} - 522n^{3} + 2502n^{2} - 2259n + 723, & n\ \text{odd},
+\end{cases}
+\]
+which is what the entry states.
+
+\section{The recurrence}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) + 7\,a(n-2) - 16\,a(n-3) - 20\,a(n-4) + 56\,a(n-5) + 28\,a(n-6) - 112\,a(n-7) - 14\,a(n-8) + 140\,a(n-9) - 14\,a(n-10) - 112\,a(n-11) + 28\,a(n-12) + 56\,a(n-13) - 20\,a(n-14) - 16\,a(n-15) + 7\,a(n-16) + 2\,a(n-17) - a(n-18)
+\]
+for every $n>18$.
+\end{theorem}
+
+\begin{proof}
+Write $E$ for the shift operator, $(Ea)(n)=a(n+1)$. A polynomial of degree $d$ is annihilated
+by $(E-1)^{d+1}$ and by nothing smaller, and $(-1)^n$ times a polynomial of degree $d$ is
+annihilated by $(E+1)^{d+1}$ and by nothing smaller. By Theorem~\ref{thm:quasi} the
+sequence is therefore annihilated by
+\[
+(E-1)^{10}(E+1)^{8},
+\]
+a monic operator of order $18$, and by no proper divisor of it, since the two
+factors act on the two parts independently and neither part is annihilated by less. The
+characteristic polynomial of the conjectured recurrence is
+$t^{18}-\sum_i c_it^{18-i}$; dividing it by the operator above in
+$\mathbb{Z}[t]$ leaves no remainder, so the conjectured recurrence is a consequence of
+Theorem~\ref{thm:quasi} and holds wherever every index it names is at least the offset.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, the closed form reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $10$ cells written out and its satisfied pairs counted, with no
+inclusion--exclusion and no closed form --- and the counts agree. A wrong reading of the cell
+set, of the adjacency, or of the target would show here and nowhere else.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, the conjectured recurrence was applied directly to the closed form's own values over a
+long range, in exact integer arithmetic, and holds throughout; this is independent of the
+divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219629.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270259.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
+Springer, 2015.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \end{thebibliography}
 
 \end{document}

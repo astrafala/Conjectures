@@ -12,42 +12,42 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A276250, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275568, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A276250 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+OEIS A275568 counts arrays in which no entry may equal the entries at a short list of fixed offsets
 from it, the arrays being counted up to renaming the letters. The entry carries an empirical
-recurrence of order $57$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $63$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. The condition tests only whether two cells are equal, so it survives
 renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
 triangular system of falling factorials, and each of those is a walk count on a window of
-$2$ consecutive columns, $S=973$ states in all.
+$2$ consecutive columns, $S=5279$ states in all.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A276250 is ``Number of 4Xn 0..2 arrays with no element equal to any value at offset (-2,-1) (-1,1) or (0,-2) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A275568 is ``Number of 5Xn 0..2 arrays with no element equal to any value at offset (-2,0) (-1,2) or (0,-2) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-14, 144, 347, 1447, 6372, 26325, 115682, 509750,\ \dots
+12, 864, 1872, 4056, 13104, 42336, 138600, 453750,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +16*a(n-2) -5*a(n-3) -96*a(n-4) -140*a(n-5) +637*a(n-6) +1845*a(n-7) -4795*a(n-8) -4911*a(n-9) +12349*a(n-10) -1040*a(n-11) -18997*a(n-12) +57322*a(n-13) +54548*a(n-14) -182018*a(n-15) -172148*a(n-16) +276602*a(n-17) +240887*a(n-18) -309700*a(n-19) -3428*a(n-20) +178083*a(n-21) -246987*a(n-22) -172205*a(n-23) +88525*a(n-24) +1238349*a(n-25) -316382*a(n-26) -1914836*a(n-27) +450326*a(n-28) +1900140*a(n-29) +67773*a(n-30) -2250174*a(n-31) -208550*a(n-32) +2206511*a(n-33) +362321*a(n-34) -1986445*a(n-35) -432077*a(n-36) +1246173*a(n-37) +592283*a(n-38) -611575*a(n-39) -456433*a(n-40) +225504*a(n-41) +147384*a(n-42) +9126*a(n-43) -62519*a(n-44) -16308*a(n-45) +12194*a(n-46) +3502*a(n-47) -600*a(n-48) -251*a(n-49) +286*a(n-50) +69*a(n-51) -134*a(n-52) -27*a(n-53) +19*a(n-54) +8*a(n-55) -a(n-56) -a(n-57) for n>60
+Empirical: a(n) = 7*a(n-1) +7*a(n-2) -153*a(n-3) +128*a(n-4) +1661*a(n-5) -2987*a(n-6) -11147*a(n-7) +31265*a(n-8) +44933*a(n-9) -209769*a(n-10) -65464*a(n-11) +988481*a(n-12) -428751*a(n-13) -3404950*a(n-14) +3691505*a(n-15) +8623905*a(n-16) -16041975*a(n-17) -15201775*a(n-18) +49315575*a(n-19) +13559611*a(n-20) -116797842*a(n-21) +18028343*a(n-22) +220372013*a(n-23) -106427533*a(n-24) -335355156*a(n-25) +260460612*a(n-26) +411365412*a(n-27) -446068765*a(n-28) -401412528*a(n-29) +590037487*a(n-30) +301637628*a(n-31) -624695552*a(n-32) -161284890*a(n-33) +539917211*a(n-34) +45168922*a(n-35) -388786164*a(n-36) +14654711*a(n-37) +240717215*a(n-38) -29174529*a(n-39) -133749307*a(n-40) +24747125*a(n-41) +68598600*a(n-42) -17271849*a(n-43) -31876238*a(n-44) +10697884*a(n-45) +12697117*a(n-46) -5593463*a(n-47) -4068750*a(n-48) +2346552*a(n-49) +972250*a(n-50) -764373*a(n-51) -148698*a(n-52) +187979*a(n-53) +5357*a(n-54) -33466*a(n-55) +3817*a(n-56) +3912*a(n-57) -1040*a(n-58) -228*a(n-59) +129*a(n-60) -6*a(n-61) -6*a(n-62) +a(n-63) for n>66
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 25 2016 11:05:43, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Aug 01 2016 21:30:48, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-1,1), (0,-2)\}
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,0), (-1,2), (0,-2)\}
 \]
 whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
 introduced in order $0..2$'' says the array is the canonical representative of its equality
@@ -89,7 +89,7 @@ carried as a symbol, so the walk starts at the empty array and a walk of $t$ ste
 of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
 weights cleared of denominators and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=973.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5279.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -97,7 +97,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{57}-\sum_i c_it^{57-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{63}-\sum_i c_it^{63-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -105,7 +105,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+57}-\sum_ic_iM^{j+57-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+63}-\sum_ic_iM^{j+63-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -114,15 +114,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 16\,a(n-2) - 5\,a(n-3) - 96\,a(n-4) - 140\,a(n-5) + 637\,a(n-6) + 1845\,a(n-7) - 4795\,a(n-8) - 4911\,a(n-9) + 12349\,a(n-10) - 1040\,a(n-11) - 18997\,a(n-12) + 57322\,a(n-13) + 54548\,a(n-14) - 182018\,a(n-15) - 172148\,a(n-16) + 276602\,a(n-17) + 240887\,a(n-18) - 309700\,a(n-19) - 3428\,a(n-20) + 178083\,a(n-21) - 246987\,a(n-22) - 172205\,a(n-23) + 88525\,a(n-24) + 1238349\,a(n-25) - 316382\,a(n-26) - 1914836\,a(n-27) + 450326\,a(n-28) + 1900140\,a(n-29) + 67773\,a(n-30) - 2250174\,a(n-31) - 208550\,a(n-32) + 2206511\,a(n-33) + 362321\,a(n-34) - 1986445\,a(n-35) - 432077\,a(n-36) + 1246173\,a(n-37) + 592283\,a(n-38) - 611575\,a(n-39) - 456433\,a(n-40) + 225504\,a(n-41) + 147384\,a(n-42) + 9126\,a(n-43) - 62519\,a(n-44) - 16308\,a(n-45) + 12194\,a(n-46) + 3502\,a(n-47) - 600\,a(n-48) - 251\,a(n-49) + 286\,a(n-50) + 69\,a(n-51) - 134\,a(n-52) - 27\,a(n-53) + 19\,a(n-54) + 8\,a(n-55) - a(n-56) - a(n-57)
+a(n)\;=\;7\,a(n-1) + 7\,a(n-2) - 153\,a(n-3) + 128\,a(n-4) + 1661\,a(n-5) - 2987\,a(n-6) - 11147\,a(n-7) + 31265\,a(n-8) + 44933\,a(n-9) - 209769\,a(n-10) - 65464\,a(n-11) + 988481\,a(n-12) - 428751\,a(n-13) - 3404950\,a(n-14) + 3691505\,a(n-15) + 8623905\,a(n-16) - 16041975\,a(n-17) - 15201775\,a(n-18) + 49315575\,a(n-19) + 13559611\,a(n-20) - 116797842\,a(n-21) + 18028343\,a(n-22) + 220372013\,a(n-23) - 106427533\,a(n-24) - 335355156\,a(n-25) + 260460612\,a(n-26) + 411365412\,a(n-27) - 446068765\,a(n-28) - 401412528\,a(n-29) + 590037487\,a(n-30) + 301637628\,a(n-31) - 624695552\,a(n-32) - 161284890\,a(n-33) + 539917211\,a(n-34) + 45168922\,a(n-35) - 388786164\,a(n-36) + 14654711\,a(n-37) + 240717215\,a(n-38) - 29174529\,a(n-39) - 133749307\,a(n-40) + 24747125\,a(n-41) + 68598600\,a(n-42) - 17271849\,a(n-43) - 31876238\,a(n-44) + 10697884\,a(n-45) + 12697117\,a(n-46) - 5593463\,a(n-47) - 4068750\,a(n-48) + 2346552\,a(n-49) + 972250\,a(n-50) - 764373\,a(n-51) - 148698\,a(n-52) + 187979\,a(n-53) + 5357\,a(n-54) - 33466\,a(n-55) + 3817\,a(n-56) + 3912\,a(n-57) - 1040\,a(n-58) - 228\,a(n-59) + 129\,a(n-60) - 6\,a(n-61) - 6\,a(n-62) + a(n-63)
 \]
-for every $n>60$.
+for every $n>66$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $57$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $63$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=60+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=66+1$ onwards and the run continued
 until the working vector was identically zero. The rational weights are carried as one common
 denominator, so no division is performed until the final term.
 \end{proof}
@@ -131,7 +131,7 @@ denominator, so no division is performed until the final term.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -148,7 +148,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A276250.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275568.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
 Section 1.9.)

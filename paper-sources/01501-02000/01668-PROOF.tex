@@ -12,123 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204738, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264129, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204738 counts arrays of width $7$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the permanent---and requiring the resulting derived array to have its rows
-lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
-empirical recurrence of order $90$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The row comparison is settled by three consecutive rows of the
-array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=1538$
-states.
+OEIS A264129 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ rows in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $2$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=1$, the matching splits into
+independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
+every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
+partly used. Carrying those as bitmasks makes the count a walk on $S=1024$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A204738 is ``Number of (n+1)X7 0..1 arrays with rows and columns of permanents of all 2X2 subblocks lexicographically nondecreasing, and all 2X2 permanents nonzero.''. It has offset $1$ and begins
+OEIS A264129 is ``Number of (n+1) X (4+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 0,2 or 1,2.''. It has offset $1$ and begins
 \[
-255, 2033, 15327, 113694, 825967, 5920734, 41716355, 290523224,\ \dots
+80, 1040, 13600, 178000, 2330000, 30500000, 399250000, 5226250000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +156*a(n-2) -402*a(n-3) -11520*a(n-4) +25884*a(n-5) +538944*a(n-6) -1067688*a(n-7) -18014094*a(n-8) +31735962*a(n-9) +459613152*a(n-10) -724912548*a(n-11) -9334194964*a(n-12) +13251054036*a(n-13) +155308271624*a(n-14) -199310170368*a(n-15) -2162068788831*a(n-16) +2517102391293*a(n-17) +25586669901900*a(n-18) -27102055137702*a(n-19) -260626218074564*a(n-20) +251768475436128*a(n-21) +2307698543980472*a(n-22) -2037089620086744*a(n-23) -17905128087749592*a(n-24) +14466156448400568*a(n-25) +122536921436429584*a(n-26) -90729699910167456*a(n-27) -743715563849008328*a(n-28) +505172464995791832*a(n-29) +4021211396646221168*a(n-30) -2507707874903263680*a(n-31) -19442280483850087279*a(n-32) +11137653667605688077*a(n-33) +84319937099235220084*a(n-34) -44386509161613705534*a(n-35) -328866837655585085736*a(n-36) +159101886685203841788*a(n-37) +1155903430458887014704*a(n-38) -513909176997113516568*a(n-39) -3667352904908688268102*a(n-40) +1498018851689537349282*a(n-41) +10516251920913169879648*a(n-42) -3944839980288828018420*a(n-43) -27279401786486014422276*a(n-44) +9391223146268328015492*a(n-45) +64048843601746934293992*a(n-46) -20218034243592055469568*a(n-47) -136138141590463640347601*a(n-48) +39361254319600121912019*a(n-49) +261928596804791717706916*a(n-50) -69270069267465885640266*a(n-51) -455945846039977486943508*a(n-52) +110113667826994734429960*a(n-53) +717475895235914070446424*a(n-54) -157927282958885541431016*a(n-55) -1019377316836685437757044*a(n-56) +204037364105105354420844*a(n-57) +1305523219230907807918768*a(n-58) -236979052617362392198536*a(n-59) -1503981668883417038837280*a(n-60) +246795177051208308079440*a(n-61) +1554409459539700832305952*a(n-62) -229720482552202847663040*a(n-63) -1436624833209707979807040*a(n-64) +190366804724259545844672*a(n-65) +1182634940799083075428864*a(n-66) -139771750271113883442048*a(n-67) -862938173922648103755776*a(n-68) +90389528800015896372480*a(n-69) +554816930853493008209408*a(n-70) -51111717164495997014016*a(n-71) -312018824785621764752384*a(n-72) +25042505518192898946048*a(n-73) +152094115502184002727936*a(n-74) -10509736506347505973248*a(n-75) -63523663769916863848448*a(n-76) +3722222062040285736960*a(n-77) +22396491522197756567552*a(n-78) -1090729450520960090112*a(n-79) -6534986294365444227072*a(n-80) +257305650888557740032*a(n-81) +1535446164520344748032*a(n-82) -46946592366972272640*a(n-83) -279091829699657072640*a(n-84) +6215460514770124800*a(n-85) +36818607467269324800*a(n-86) -531145113993216000*a(n-87) -3135776357154816000*a(n-88) +21987830661120000*a(n-89) +129399647109120000*a(n-90)
+Empirical: a(n) = 15*a(n-1) - 25*a(n-2).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:27:47, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jan 04 2019 14:44:19, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-The arrays have $7$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock of such an array is
+The grid has $W=5$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-2),\ (0,-2),\ (0,0),\ (0,2),\ (1,2)\},
 \]
-The entry attaches to $B$ the single number
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
+
+\section{The matching is a walk}
+
+Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
+placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
+value with home row at most $i-R$ has been used up, and the only home rows that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home rows are already placed. One step fills
+the cells of one further row, drawing each of its $W$ values from a home row within $R$
+and at an allowed column offset, and the home row that closes at that step must come out
+full. Nonexistent home rows --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
+
+Hence $a$ is a walk count on $S=1024$ vertices,
 \[
-f(B)\;=\;\operatorname{per}B=ps+qr,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-the permanent. An array with $R$ rows and $7$ columns has $(R-1)\times6$ subblocks, and they
-form a derived array
-\[
-D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<6 .
-\]
-Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
-$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
-\[
-D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
-\]
-and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
-from left to right,
-\[
-D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
-\]
-
-The entry asks in addition that no subblock statistic be zero, which is a condition on one subblock at a time.
-
-
-\section{A bounded state}
-
-Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
-so the row condition is decided three array rows at a time and needs no memory beyond the
-derived row just formed. The column condition is different: which of two columns of $D$ is the
-smaller is decided by the first derived row in which they differ, and that row can be
-arbitrarily far down. What is bounded is not the comparison but what remains open about it.
-
-\begin{lemma}\label{lem:bits}
-Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
-every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
-at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
-holds; and if no such row occurs the two columns are equal and the condition holds. If instead
-$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
-such $t$ and no later row can change it.
-\end{lemma}
-
-\begin{proof}
-Immediate from the definition of the lexicographic order: it looks only at the first index at
-which the two sequences differ, and prefixes that agree contribute nothing.
-\end{proof}
-
-So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $5$ such pairs. The state
-is therefore
-\[
-\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 5 bits}\bigr),
-\]
-with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
-of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
-for the row condition, and for each pair still flagged either leaves the flag set (the pair
-agreed again) or clears it after checking the required inequality once. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1538.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{90}-\sum_i c_it^{90-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+90}-\sum_ic_iM^{j+90-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -137,42 +97,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 156\,a(n-2) - 402\,a(n-3) - 11520\,a(n-4) + 25884\,a(n-5) + 538944\,a(n-6) - 1067688\,a(n-7) - 18014094\,a(n-8) + 31735962\,a(n-9) + 459613152\,a(n-10) - 724912548\,a(n-11) - 9334194964\,a(n-12) + 13251054036\,a(n-13) + 155308271624\,a(n-14) - 199310170368\,a(n-15) - 2162068788831\,a(n-16) + 2517102391293\,a(n-17) + 25586669901900\,a(n-18) - 27102055137702\,a(n-19) - 260626218074564\,a(n-20) + 251768475436128\,a(n-21) + 2307698543980472\,a(n-22) - 2037089620086744\,a(n-23) - 17905128087749592\,a(n-24) + 14466156448400568\,a(n-25) + 122536921436429584\,a(n-26) - 90729699910167456\,a(n-27) - 743715563849008328\,a(n-28) + 505172464995791832\,a(n-29) + 4021211396646221168\,a(n-30) - 2507707874903263680\,a(n-31) - 19442280483850087279\,a(n-32) + 11137653667605688077\,a(n-33) + 84319937099235220084\,a(n-34) - 44386509161613705534\,a(n-35) - 328866837655585085736\,a(n-36) + 159101886685203841788\,a(n-37) + 1155903430458887014704\,a(n-38) - 513909176997113516568\,a(n-39) - 3667352904908688268102\,a(n-40) + 1498018851689537349282\,a(n-41) + 10516251920913169879648\,a(n-42) - 3944839980288828018420\,a(n-43) - 27279401786486014422276\,a(n-44) + 9391223146268328015492\,a(n-45) + 64048843601746934293992\,a(n-46) - 20218034243592055469568\,a(n-47) - 136138141590463640347601\,a(n-48) + 39361254319600121912019\,a(n-49) + 261928596804791717706916\,a(n-50) - 69270069267465885640266\,a(n-51) - 455945846039977486943508\,a(n-52) + 110113667826994734429960\,a(n-53) + 717475895235914070446424\,a(n-54) - 157927282958885541431016\,a(n-55) - 1019377316836685437757044\,a(n-56) + 204037364105105354420844\,a(n-57) + 1305523219230907807918768\,a(n-58) - 236979052617362392198536\,a(n-59) - 1503981668883417038837280\,a(n-60) + 246795177051208308079440\,a(n-61) + 1554409459539700832305952\,a(n-62) - 229720482552202847663040\,a(n-63) - 1436624833209707979807040\,a(n-64) + 190366804724259545844672\,a(n-65) + 1182634940799083075428864\,a(n-66) - 139771750271113883442048\,a(n-67) - 862938173922648103755776\,a(n-68) + 90389528800015896372480\,a(n-69) + 554816930853493008209408\,a(n-70) - 51111717164495997014016\,a(n-71) - 312018824785621764752384\,a(n-72) + 25042505518192898946048\,a(n-73) + 152094115502184002727936\,a(n-74) - 10509736506347505973248\,a(n-75) - 63523663769916863848448\,a(n-76) + 3722222062040285736960\,a(n-77) + 22396491522197756567552\,a(n-78) - 1090729450520960090112\,a(n-79) - 6534986294365444227072\,a(n-80) + 257305650888557740032\,a(n-81) + 1535446164520344748032\,a(n-82) - 46946592366972272640\,a(n-83) - 279091829699657072640\,a(n-84) + 6215460514770124800\,a(n-85) + 36818607467269324800\,a(n-86) - 531145113993216000\,a(n-87) - 3135776357154816000\,a(n-88) + 21987830661120000\,a(n-89) + 129399647109120000\,a(n-90)
+a(n)\;=\;15\,a(n-1) - 25\,a(n-2)
 \]
-for every $n>90$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $90$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=90+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $7$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
-the derived array formed, and its rows and its columns compared as whole words. No state, no
-bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
-published terms came back.
+Second, the transfer model reproduces all $16$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204738.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264129.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

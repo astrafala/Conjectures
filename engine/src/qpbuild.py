@@ -23,6 +23,7 @@ import os
 import re
 import json
 
+import conjlines
 import localentry as LE
 import phibuild
 import transferbuild
@@ -42,6 +43,7 @@ SHORT = {
     'ca2d': "a certified growth pattern of the automaton's axis word",
     'ecarow': "a certified growth pattern of the automaton's row word",
     'ecacount': "a certified growth pattern of the automaton's row",
+    'ecablock': "a certified block template for the automaton's row",
 }
 
 MSC = {
@@ -49,6 +51,7 @@ MSC = {
     'ca2d': '68Q80, 11B85, 05A15',
     'ecarow': '68Q80, 11B85, 05A15',
     'ecacount': '68Q80, 11B85, 05A15',
+    'ecablock': '68Q80, 11B85, 05A15',
 }
 
 
@@ -213,7 +216,76 @@ $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilat
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
 """
-    if en in ('ca2d', 'ecarow', 'ecacount'):
+    if en in ('ecacount', 'ecablock'):
+        blk = en == 'ecablock'
+        cert = (r'''
+w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m
+''' if blk else r'''
+w(n+p)\;=\;L_r + w(n) + R_r
+''')
+        story = (r'''the row is a concatenation of a bounded number of blocks, of which some are
+FIXED and some are REPEATED a number of times growing by one every $p$ steps. Writing $r$ for
+the residue of $n$ modulo the period $p$ and $j$ for the number of periods past a pre-period
+$n_0$, the automaton was run and''' if blk else r'''the row grows only at its two ends. Writing
+$r$ for the residue of $n$ modulo the period $p$, the automaton was run and''')
+        after = (r'''was verified for every available $n$, the blocks depending only on $r$. The
+row at stage $n$ is the light cone, of width $2n+1$, so $\sum_i|Q_i|=2p$, and counting ON
+cells along a residue class gives
+\[
+\mathrm{on}(n_0+r+jp)\;=\;\sum_i \mathrm{ones}(B_i)\;+\;j\sum_i \mathrm{ones}(Q_i),
+\]
+which is LINEAR in $j$.''' if blk else r'''was verified for every available $n$ past a
+pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
+both sides gives
+\[
+\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
+\]
+a first-order difference along each class.''')
+        bnd = (r'''So $\mathrm{on}$ is quasi-linear in $n$ with period $p$ and is annihilated by
+$(z^p-1)^2$. The row has width $2n+1$, so $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ is quasi-linear
+too and $(z-1)^2$ divides $(z^p-1)^2$, giving it the same annihilator; a running total is a
+partial sum and contributes one further factor $(z-1)$. The pre-period raises the numerator's
+degree by at most $n_0$, so the recurrence of order $2p+1$ is in force from index $n_0+2p+1$
+and the order $S=%d$ used below covers all four wordings.''' % S if blk else r'''So
+$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
+the same polynomial, since the width is linear in $n$; a running total contributes one further
+factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
+annihilator of order $S=%d$ used below.''' % S)
+        proof = (r'''
+
+The template is a theorem and not a fit. The rule is a local map of radius $1$, so $p$ steps
+have radius $p$. Let the template hold at $j=K$ with every repeated run longer than
+$4p+4|Q_i|$, and let $F^{\,p}(T(K))=T(K+1)$ and $F^{\,p}(T(K+1))=T(K+2)$ be verified by direct
+simulation --- which they were. For $j>K$, $T(j)$ is $T(K)$ with further copies of each $Q_i$
+inserted inside runs already longer than $2p$. An output cell within distance
+$|B_0|+|Q_1|K-p$ of the left end sees only input cells that $T(j)$ and $T(K)$ share at the same
+left-distance, so it agrees with the corresponding cell of $F^{\,p}(T(K))$; symmetrically at
+the right end; and strictly inside a run of length exceeding $2p$ the input is
+$|Q_i|$-periodic, so the output there is $|Q_i|$-periodic with the period and phase already
+fixed by the two verified steps. Hence $F^{\,p}(T(j))=T(j+1)$ for every $j\ge K$, and two
+simulations prove infinitely many.''' if blk else r'''
+
+The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
+radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
+window at both boundaries, and induction carries it to every later $n$.''')
+        nm = e['name'].lower()
+        which = 'OFF (white)' if 'off (white)' in nm else 'ON (black)'
+        run = ('the running total of its %s cells over the first $n$ iterations' % which
+               if nm.startswith('total') else 'the %s cells at stage $n$' % which)
+        return rf'''
+\section{{What is being counted}}
+
+The entry counts {run} of the automaton. Nothing is being enumerated over a window, so there is
+no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
+{story}
+\[{cert}\]
+{after}{proof}
+
+\section{{The bound}}
+
+{bnd}
+'''
+    if en in ('ca2d', 'ecarow'):
         what = 'a diagonal or an axis' if en == 'ca2d' else 'a row'
         return rf"""
 \section{{The value is a certified growth}}
@@ -246,11 +318,25 @@ coefficients to prove anything.
 
 
 def conj_line(anum):
+    """the entry's own words for the conjecture, for section 1 to quote.
+
+    Requiring a conjectural word ON the line is the defect this project keeps paying for. An
+    entry writes "Conjectures from _Colin Barker_, Feb 14 2020: (Start)" and then bare formula
+    lines, and a word test sees none of them; 159 installed papers therefore printed the
+    parenthetical placeholder below instead of the conjecture they were about, on entries
+    whose conjecture is stated perfectly plainly. `conjlines' understands the block, so it is
+    what is asked; the header line is carried along when the recurrence itself is bare, since
+    that is where the contributor and the date are.
+    """
     e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+    cand = conjlines.lines(e)
+    head = next((L for L in cand if re.search(r'onjectur|Empirical', L, re.I)), None)
+    for L in cand:
+        if re.search(r'a\(n\)\s*=', L):
+            if re.search(r'onjectur|Empirical', L, re.I) or head is None:
+                return L
+            return head.rstrip() + ' ' + L.strip()
+    return head
 
 
 def _author(e, conj):

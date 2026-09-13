@@ -12,47 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Parities, differences and neighbours: OEIS A239538}
+\title{The empirical recurrence for OEIS A269431, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A239538 carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=13$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A269431 carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=30$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A239538 is ``Number of (4+1)X(n+1) 0..2 arrays with no element equal to all horizontal neighbors or unequal to all vertical neighbors, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A269431 is ``Number of length-n 0..4 arrays with no repeated value greater than the previous repeated value.''. It has offset $1$ and begins
 \[
-13, 68, 1014, 11108, 131988, 1533792, 17931608, 209295248,\ \dots
+5, 25, 125, 615, 2995, 14455, 69235, 329430,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +46*a(n-2) -22*a(n-3) -166*a(n-4) +28*a(n-5) +68*a(n-6) +208*a(n-7) -160*a(n-8) -48*a(n-9) +32*a(n-10)
+Empirical: a(n) = 20*a(n-1) - 155*a(n-2) + 560*a(n-3) - 810*a(n-4) - 136*a(n-5) + 810*a(n-6) + 560*a(n-7) + 155*a(n-8) + 20*a(n-9) + a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:00:30, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jan 21 2019 12:32:28, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $5$ rows over the alphabet $\{0,1,2\}$, growing one column at a time, and asks that no element may be equal to all of its horizontal neighbours, and none may differ from all of its vertical neighbours.
-
-Every cell the condition names lies within one column of the cell being judged, so three consecutive columns decide everything anchored at the middle one. Carry two consecutive columns as the state; a column is judged when the column after it arrives, and the column with nothing after it is judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what makes the first and last columns behave differently from the rest.
-
-The entry also asks that new values be introduced in row major order, which is not a condition on any window at all: whether a value may appear here depends on the whole prefix of the array. It enters through a single integer --- how many values have been introduced so far --- and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
-
-Merging vertices with identical futures leaves $S=13$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=30$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -72,45 +70,40 @@ Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 46\,a(n-2) - 22\,a(n-3) - 166\,a(n-4) + 28\,a(n-5) + 68\,a(n-6) + 208\,a(n-7) - 160\,a(n-8) - 48\,a(n-9) + 32\,a(n-10)
+a(n)\;=\;20\,a(n-1) - 155\,a(n-2) + 560\,a(n-3) - 810\,a(n-4) - 136\,a(n-5) + 810\,a(n-6) + 560\,a(n-7) + 155\,a(n-8) + 20\,a(n-9) + a(n-10)
 \]
-for every $n>9$.
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A239538.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269431.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

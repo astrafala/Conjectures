@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221552, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221830, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221552 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+OEIS A221830 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
 holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
 cell in is restricted by the direction in which another token arrives there. The entry carries
 an empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the size of an IMAGE --- two different
 assignments of moves with the same occupancy count once --- so it is not a walk count in the
 obvious graph; determinising the machine that emits the occupancy row by row turns it into
-one, on $S=168$ states, after which the conjectured recurrence is settled by a finite exact
+one, on $S=676$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
@@ -34,20 +34,20 @@ computation.
 
 \section{The conjecture}
 
-OEIS A221552 is ``Number of 2Xn arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, without move-in move-out left turns.''. It has offset $1$ and begins
+OEIS A221830 is ``Number of 3Xn arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, without 2-loops or left turns.''. It has offset $1$ and begins
 \[
-1, 10, 72, 503, 3517, 24546, 171268, 1194876,\ \dots
+0, 14, 202, 2879, 40983, 583419, 8304016, 118195328,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) -25*a(n-2) -46*a(n-3) +164*a(n-4) +129*a(n-5) -513*a(n-6) -301*a(n-7) +913*a(n-8) +562*a(n-9) -943*a(n-10) -675*a(n-11) +513*a(n-12) +436*a(n-13) -128*a(n-14) -111*a(n-15) +17*a(n-16) +6*a(n-17)
+Empirical: a(n) = 17*a(n-1) -39*a(n-2) -14*a(n-3) +134*a(n-4) -161*a(n-5) +50*a(n-6) -147*a(n-7) +129*a(n-8) +215*a(n-9) -131*a(n-10) +53*a(n-11) -92*a(n-12) -97*a(n-13) +31*a(n-14) -27*a(n-15) +16*a(n-16) +6*a(n-17) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:46:11, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 20:02:25, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
+Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
 \[
 (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
@@ -60,6 +60,7 @@ cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ord
 $(d,d')$ when
 \begin{itemize}
 \item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
+\item $d'=-d$, that is, the two tokens exchange places --- a $2$-LOOP;
 \end{itemize}
 and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
 zero offset on either side of the pair carries no condition at all.
@@ -77,7 +78,7 @@ occupancy must be counted once, and a walk count over the assignments would coun
 
 \section{One window decides everything}
 
-Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+Write $c_i\in\Delta^{3}$ for the row of offsets chosen by the cells of row $i$, where
 $\Delta$ is the offset set above.
 
 \begin{lemma}\label{lem:win}
@@ -121,7 +122,7 @@ a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
 The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
 is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
-$S=168$ reachable sets. In particular $a$ is $C$-finite.
+$S=676$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -143,15 +144,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - 25\,a(n-2) - 46\,a(n-3) + 164\,a(n-4) + 129\,a(n-5) - 513\,a(n-6) - 301\,a(n-7) + 913\,a(n-8) + 562\,a(n-9) - 943\,a(n-10) - 675\,a(n-11) + 513\,a(n-12) + 436\,a(n-13) - 128\,a(n-14) - 111\,a(n-15) + 17\,a(n-16) + 6\,a(n-17)
+a(n)\;=\;17\,a(n-1) - 39\,a(n-2) - 14\,a(n-3) + 134\,a(n-4) - 161\,a(n-5) + 50\,a(n-6) - 147\,a(n-7) + 129\,a(n-8) + 215\,a(n-9) - 131\,a(n-10) + 53\,a(n-11) - 92\,a(n-12) - 97\,a(n-13) + 31\,a(n-14) - 27\,a(n-15) + 16\,a(n-16) + 6\,a(n-17)
 \]
-for every $n>17$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -159,7 +160,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest grids straight from the definition ---
@@ -176,7 +177,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221552.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221830.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

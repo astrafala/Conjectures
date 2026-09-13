@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279524, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A281125, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279524 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A281125 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -27,7 +27,7 @@ matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $22$ contributed by R.~H.~Hardin then follows
+numbers. The empirical recurrence of order $23$ contributed by R.~H.~Hardin then follows
 from a finite exact computation on $S=1588$ states.
 \end{abstract}
 
@@ -35,34 +35,34 @@ from a finite exact computation on $S=1588$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A279524 is ``Number of nX3 0..2 arrays with no element equal to a strict majority of its horizontal and vertical neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A281125 is ``Number of nX3 0..2 arrays with no element equal to more than one of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-2, 46, 1168, 23610, 456846, 8451524, 152161078, 2683339202,\ \dots
+1, 28, 574, 5590, 48828, 394202, 3042893, 22772368,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 28*a(n-1) -140*a(n-2) -950*a(n-3) +1356*a(n-4) +6540*a(n-5) +8107*a(n-6) +1908*a(n-7) -96796*a(n-8) -102684*a(n-9) +32296*a(n-10) +326040*a(n-11) +669460*a(n-12) +82280*a(n-13) -968164*a(n-14) -764544*a(n-15) -369984*a(n-16) -28992*a(n-17) +499456*a(n-18) +281600*a(n-19) -26880*a(n-20) +51200*a(n-21) -102400*a(n-22)
+Empirical: a(n) = 9*a(n-1) -70*a(n-3) -176*a(n-4) -366*a(n-5) -101*a(n-6) +541*a(n-7) +111*a(n-8) -731*a(n-9) -2114*a(n-10) -1900*a(n-11) +3502*a(n-12) +2900*a(n-13) -4597*a(n-14) -2319*a(n-15) +2436*a(n-16) +220*a(n-17) +76*a(n-18) +1492*a(n-19) +672*a(n-20) +160*a(n-21) +192*a(n-22) +64*a(n-23) for n>30
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 14 2016 09:29:35, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jan 15 2017 07:36:16, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;28\,a(n-1) - 140\,a(n-2) - 950\,a(n-3) + 1356\,a(n-4) + 6540\,a(n-5) + 8107\,a(n-6) + 1908\,a(n-7) - 96796\,a(n-8) - 102684\,a(n-9) + 32296\,a(n-10) + 326040\,a(n-11) + 669460\,a(n-12) + 82280\,a(n-13) - 968164\,a(n-14) - 764544\,a(n-15) - 369984\,a(n-16) - 28992\,a(n-17) + 499456\,a(n-18) + 281600\,a(n-19) - 26880\,a(n-20) + 51200\,a(n-21) - 102400\,a(n-22)
+a(n)\;=\;9\,a(n-1) - 70\,a(n-3) - 176\,a(n-4) - 366\,a(n-5) - 101\,a(n-6) + 541\,a(n-7) + 111\,a(n-8) - 731\,a(n-9) - 2114\,a(n-10) - 1900\,a(n-11) + 3502\,a(n-12) + 2900\,a(n-13) - 4597\,a(n-14) - 2319\,a(n-15) + 2436\,a(n-16) + 220\,a(n-17) + 76\,a(n-18) + 1492\,a(n-19) + 672\,a(n-20) + 160\,a(n-21) + 192\,a(n-22) + 64\,a(n-23)
 \end{equation}
-for all $n>23$.
+for all $n>30$.
 
 \section{The condition, the budget, and the canonical form}
 
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\#\{\text{neighbours equal to }x_{t,u}\}>1 .
 \]
 The entry asks for arrays in which exactly $E=1$ cells offend.
 
@@ -137,15 +137,15 @@ $\mathbf{u}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{22}-\sum_i c_i\,t^{22-i}$ be the characteristic polynomial of
+Let $q(t)=t^{23}-\sum_i c_i\,t^{23-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge22$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge23$
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-22}w,
-\qquad w=h_{22}-\sum_i c_i h_{22-i} .
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-23}w,
+\qquad w=h_{23}-\sum_i c_i h_{23-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -158,15 +158,15 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>23$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>30$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$22$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$23$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=23+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=30+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $19$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279524.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A281125.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

@@ -12,33 +12,33 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297454, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A219075, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297454 counts arrays of width $5$ over $\{0,1\}$ in which every cell of one value has an allowed number of neighbours of another. The entry carries an
-empirical recurrence of order $27$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A219075 counts arrays of width $5$ over $\{0,1\}$ in which every cell of one value has a neighbour of another. The entry carries an
+empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
 condition on a whole row is settled by $3$ consecutive rows and the count is a walk
-count on $S=398$ states.
+count on $S=1057$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A297454 is ``Number of n X 5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 0 or 2 neighboring 1's.''. It has offset $1$ and begins
+OEIS A219075 is ``Number of n X 5 binary arrays with every 0 a horizontal, diagonal or antidiagonal neighbor to some 1.''. It has offset $1$ and begins
 \[
-13, 156, 1143, 10579, 97005, 862112, 7800563, 70510494,\ \dots
+17, 625, 17537, 494713, 14228041, 407374825, 11660290321, 333882416305,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) -36*a(n-2) +65*a(n-3) -798*a(n-4) +2160*a(n-5) -1872*a(n-6) +8488*a(n-7) -16755*a(n-8) +6838*a(n-9) -33024*a(n-10) +45383*a(n-11) +3639*a(n-12) +47582*a(n-13) -40877*a(n-14) -37374*a(n-15) -4880*a(n-16) -10986*a(n-17) +50266*a(n-18) -32259*a(n-19) +30045*a(n-20) -25746*a(n-21) +17456*a(n-22) -9542*a(n-23) +2835*a(n-24) -1578*a(n-25) +860*a(n-26) -144*a(n-27).
+Empirical: a(n) = 20*a(n-1) +158*a(n-2) +2330*a(n-3) +5837*a(n-4) +17850*a(n-5) -57426*a(n-6) -279582*a(n-7) -163347*a(n-8) +746554*a(n-9) +983888*a(n-10) -474072*a(n-11) -1651489*a(n-12) -646204*a(n-13) +913420*a(n-14) +1038852*a(n-15) +300209*a(n-16) -257176*a(n-17) -347922*a(n-18) -148694*a(n-19) +11843*a(n-20) -2590*a(n-21) +19366*a(n-22) -18694*a(n-23) +8067*a(n-24) -1302*a(n-25) -60*a(n-26) +180*a(n-27) -15*a(n-28).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 07 2021 13:55:44, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 19 2026 14:19:22, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -56,11 +56,11 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that every cell equal to $1$ has exactly $0$ or exactly $2$ neighbours equal to $1$:
+The condition is that every cell equal to $0$ has a neighbour equal to $1$:
 \[
-x(i,j)=1\ \Longrightarrow\ \#\{(a,b)\in S(i,j):x(a,b)=1\}\in\{0,2\}.
+x(i,j)=0\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
 \]
-
+Cells of any other value are under no condition.
 
 \section{A window of 3 rows}
 
@@ -80,7 +80,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=398,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1057,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -89,7 +89,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{28}-\sum_i c_it^{28-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+28}-\sum_ic_iM^{j+28-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) - 36\,a(n-2) + 65\,a(n-3) - 798\,a(n-4) + 2160\,a(n-5) - 1872\,a(n-6) + 8488\,a(n-7) - 16755\,a(n-8) + 6838\,a(n-9) - 33024\,a(n-10) + 45383\,a(n-11) + 3639\,a(n-12) + 47582\,a(n-13) - 40877\,a(n-14) - 37374\,a(n-15) - 4880\,a(n-16) - 10986\,a(n-17) + 50266\,a(n-18) - 32259\,a(n-19) + 30045\,a(n-20) - 25746\,a(n-21) + 17456\,a(n-22) - 9542\,a(n-23) + 2835\,a(n-24) - 1578\,a(n-25) + 860\,a(n-26) - 144\,a(n-27)
+a(n)\;=\;20\,a(n-1) + 158\,a(n-2) + 2330\,a(n-3) + 5837\,a(n-4) + 17850\,a(n-5) - 57426\,a(n-6) - 279582\,a(n-7) - 163347\,a(n-8) + 746554\,a(n-9) + 983888\,a(n-10) - 474072\,a(n-11) - 1651489\,a(n-12) - 646204\,a(n-13) + 913420\,a(n-14) + 1038852\,a(n-15) + 300209\,a(n-16) - 257176\,a(n-17) - 347922\,a(n-18) - 148694\,a(n-19) + 11843\,a(n-20) - 2590\,a(n-21) + 19366\,a(n-22) - 18694\,a(n-23) + 8067\,a(n-24) - 1302\,a(n-25) - 60\,a(n-26) + 180\,a(n-27) - 15\,a(n-28)
 \]
-for every $n>26$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $28$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -122,7 +122,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
@@ -138,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297454.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219075.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

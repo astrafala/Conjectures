@@ -12,102 +12,75 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214138, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231051, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214138 counts the proper colourings of a grid $n\times6$, wrapped in the direction of width $6$, with at most $5$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $10$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=83$ and makes the exact residual test affordable.
+OEIS A231051 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every cell must see, among its
+neighbours in named directions, a stated number carrying the value one MORE than its own
+modulo $4$, and in some of the family a stated number carrying the value one less. The entry
+carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
+the count is a walk count on $S=253$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A214138 is ``Number of 0..4 colorings on an nX6 array circular in the 6 direction with new values 0..4 introduced in row major order.''. It has offset $1$ and begins
+OEIS A231051 is ``Number of 3Xn 0..3 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
 \[
-40, 40434, 47730973, 56449101747, 66761857485037, 78958797573536880, 93384051705843287887, 110444707138200962659230,\ \dots
+0, 2, 50, 128, 644, 5100, 33696, 211032,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1343*a(n-1) -193139*a(n-2) +4182587*a(n-3) +13484773*a(n-4) -1046489341*a(n-5) +9211083518*a(n-6) -31222203012*a(n-7) +47496470136*a(n-8) -30991236576*a(n-9) +6534899712*a(n-10)
+Empirical: a(n) = 6*a(n-1) +18*a(n-3) +17*a(n-4) -98*a(n-5) -32*a(n-6) +6*a(n-7) -16*a(n-8) +36*a(n-9) -8*a(n-10) for n>11
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:53:18, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:13:20, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
-
-The clause ``new values $0..4$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+The array has $3$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
+cells reached from it by the offsets
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{5}$, so
-\[
-a\;=\;\sum_{i=1}^{5}w_i\,L_i
-\]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
+those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
+its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
+cell is fixed at $0$. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one, and the top left cell is the top left cell of the transpose as well.
 
-\section{Each $L_i$ is a walk count}
+Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
+is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
 
-A row of the array is a proper colouring of the cycle $C_{6}$, since the wrapping makes
-its first and last cells adjacent, and two consecutive rows must differ in every one of the
-$6$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
-vertices are the proper colourings of $C_{6}$ over $i$ colours and whose edges join
-colourings differing everywhere:
-\[
-L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
-\]
-There are $(i-1)^{6}+(-1)^{6}(i-1)$ such colourings, which at $i=5$ is already more
-than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
+\section{Three rows decide one}
 
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\begin{lemma}\label{lem:win}
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
+decided by those three rows. A neighbour outside the array is not a neighbour and contributes
+nothing to any of the counts.
 \end{lemma}
 
 \begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+Immediate from the offsets listed.
 \end{proof}
 
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=83$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,5$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$, and a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries are decided rather than assumed. The rows that may BEGIN an array are
+exactly those whose first entry is $0$, which is the top-left clause. And the condition for the
+LAST row is settled by the end vector, with nothing below it: the end vector is therefore not
+the all-ones vector, and a row that sees enough neighbours only when a further row is written
+below it does not finish an array. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=253.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -129,41 +102,42 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1343\,a(n-1) - 193139\,a(n-2) + 4182587\,a(n-3) + 13484773\,a(n-4) - 1046489341\,a(n-5) + 9211083518\,a(n-6) - 31222203012\,a(n-7) + 47496470136\,a(n-8) - 30991236576\,a(n-9) + 6534899712\,a(n-10)
+a(n)\;=\;6\,a(n-1) + 18\,a(n-3) + 17\,a(n-4) - 98\,a(n-5) - 32\,a(n-6) + 6\,a(n-7) - 16\,a(n-8) + 36\,a(n-9) - 8\,a(n-10)
 \]
-for every $n>10$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
+array has too few neighbours for any cell to see what the condition demands.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count each
+cell's neighbours of each kind, and keep the array when every cell is satisfied. No window, no
+transfer matrix and no transposition are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214138.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231051.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

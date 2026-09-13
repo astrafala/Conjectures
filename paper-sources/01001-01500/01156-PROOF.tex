@@ -1,0 +1,121 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical closed form for OEIS A199839, proved from an exact model}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A199839 carries an empirical closed form: a polynomial in $n$ of degree $9$, recorded on the
+entry and never marked settled. It is true. The entry's count is given exactly by an Ehrhart
+quasi-polynomial, from which $a$ provably satisfies a monic linear recurrence of order $S=11$
+derived below; a polynomial of degree $9$ satisfies $(z-1)^{9+1}$; so the difference
+satisfies the product, and $11+9+1$ consecutive agreements settle it. No transfer matrix is
+involved and the count is not a walk.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+
+\section{The conjecture}
+
+OEIS A199839 is ``Number of -n..n arrays x(0..9) of 10 elements with zero sum and no two neighbors summing to zero.''. It has offset $1$ and begins
+\[
+138, 88636, 3685550, 51077518, 389832124, 2044221894, 8281149188, 27785393300,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = (124952/567)*n\^{}9 - (35524/315)*n\^{}8 + (50588/945)*n\^{}7 - (2494/45)*n\^{}6 + (13739/270)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:20:11, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a quasi-polynomial}
+
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
+
+\section{The bound}
+
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=11$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=11$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
+
+\section{The proof}
+
+\begin{theorem}
+The empirical closed form holds for every $n$.
+\end{theorem}
+
+\begin{proof}
+Write $P$ for the claimed polynomial and $r(n)=a(n)-P(n)$. The annihilator $A$ derived above
+kills $a$, and $(z-1)^{9+1}$ kills $P$, so $A(z)(z-1)^{9+1}$ --- monic, of order
+$11+9+1$ --- kills $r$. The model was evaluated exactly in integer arithmetic and $P$ in
+exact rational arithmetic at every index from $n=1$ to $n=1+11+9+1$, and $r$ vanished
+at all of them. A monic recurrence with $11+9+1$ consecutive zeros has every later term zero,
+so $r\equiv0$.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
+
+Second, the claimed polynomial was evaluated directly on those published terms, in exact
+rational arithmetic and with no model involved, and agrees with every one of them.
+
+Third, the derived annihilator was itself tested on terms the model was not asked for: the
+model was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound
+that is too small fails this test, which is why it is run.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199839.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\end{thebibliography}
+
+\end{document}

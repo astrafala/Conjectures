@@ -10,14 +10,14 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A071715}
+\title{A proof of the conjectured recurrence for OEIS A026135}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A071715 carries a conjectured linear recurrence with polynomial coefficients, of
+OEIS A026135 carries a conjectured linear recurrence with polynomial coefficients, of
 order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
@@ -25,36 +25,34 @@ $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
 $\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $20068 x + 47768$, a polynomial of degree $1$, which proves
-the recurrence for every $n>1$.
+closed form. Here it equals $2 - 2 x^{2}$, a polynomial of degree $2$, which proves
+the recurrence for every $n>2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A071715 is ``Expansion of (1+x*C\^{}4)*C\^{}4, where C = (1-(1-4*x)\^{}(1/2))/(2*x) is g.f. for Catalan numbers, A000108''. It has offset $0$ and begins
+OEIS A026135 is ``Number of (s(0),s(1),...,s(n)) such that every s(i) is a nonnegative integer, s(0) = 1, |s(1) - s(0)| = 1, |s(i) - s(i-1)| <= 1 for i >= 2. Also sum of numbers in row n+1 of the array T defined in A026120''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 5, 22, 92, 373, 1482, 5810, 22576,\ \dots
+a(0),\dots,a(7)\;=\;1, 2, 5, 14, 39, 110, 312, 890,\ \dots
 \]
-The entry does not list a generating function separately: it is defined as the
-expansion of one, so the identity below is the definition of the sequence rather than a
-claim about it,
+The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{\left(16 x^{3} + \left(\sqrt{1 - 4 x} - 1\right)^{4}\right) \left(\sqrt{1 - 4 x} - 1\right)^{4}}{256 x^{7}} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{x^{2} + \sqrt{\frac{- x - 1}{3 x - 1}} \left(x - 1\right)^{2} - 1}{2 x^{2}} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} (891*n+6824)*(n+7)*a(n) + (891*n\^{}2-38453*n-250970)*a(n-1) + 4*(-5040*n\^{}2-4271*n+8095)*a(n-2) + 4*(1170*n+3847)*(2*n-1)*a(n-3) = 0. - \emph{R. J. Mathar}, Aug 25 2013
+\textbf{Conjecture:} (n+2)*a(n) +3*(-n-1)*a(n-1) +(-n-2)*a(n-2) +3*(n-3)*a(n-3)=0. - \emph{R. J. Mathar}, Jun 23 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-09-26, revision 15) the
+As of the ``Last modified'' line on the live entry (2026-02-12, revision 22) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=\left(n + 7\right) \left(891 n + 6824\right),\qquad p_{1}(n)=891 n^{2} - 38453 n - 250970,\qquad p_{2}(n)=- 4 \left(5040 n^{2} + 4271 n - 8095\right),\qquad p_{3}(n)=4 \left(2 n - 1\right) \left(1170 n + 3847\right)
+p_{0}(n)=n + 2,\qquad p_{1}(n)=- 3 \left(n + 1\right),\qquad p_{2}(n)=- n - 2,\qquad p_{3}(n)=3 \left(n - 3\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -116,26 +114,26 @@ $B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:crite
 becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
 are decided by exact cancellation of rational functions.
 
-\section{The computation for A071715}
+\section{The computation for A026135}
 
 The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-D \;=\; 1 - 4 x .
+D \;=\; - \frac{x + 1}{3 x - 1} .
 \]
 Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
 in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
 the rational part collapses to
 \[
-B(x)\;=\;20068 x + 47768 ,
+B(x)\;=\;2 - 2 x^{2} ,
 \]
-a polynomial of degree $1$.
+a polynomial of degree $2$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-\left(n + 7\right) \left(891 n + 6824\right)\,a(n) + (891 n^{2} - 38453 n - 250970)\,a(n-1) -  4 \left(5040 n^{2} + 4271 n - 8095\right)\,a(n-2) + 4 \left(2 n - 1\right) \left(1170 n + 3847\right)\,a(n-3) \;=\;0
+(n + 2)\,a(n) -  3 \left(n + 1\right)\,a(n-1) + (- n - 2)\,a(n-2) + 3 \left(n - 3\right)\,a(n-3) \;=\;0
 \]
-holds for every $n>1$.
+holds for every $n>2$.
 \end{theorem}
 
 \begin{proof}
@@ -144,7 +142,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -155,23 +153,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A071715, agreeing on all 13 terms compared.
+section of A026135, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 23 values of $n$ from $n=3$ upward. This is what
+vanish, for all 24 values of $n$ from $n=3$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=20068 x + 47768$ is an
-identity of functions and the theorem holds for all $n>1$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=2 - 2 x^{2}$ is an
+identity of functions and the theorem holds for all $n>2$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A071715.
+\url{https://oeis.org}, 2026. Sequence A026135.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

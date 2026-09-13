@@ -1,0 +1,153 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical product formula for OEIS A140923, proved}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{6 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A140923 counts $8\times9$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $8\times9\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $72$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+
+\section{The conjecture}
+
+OEIS A140923 is ``Number of 8 X 9 matrices with elements in 0..n with each row and each column in nondecreasing order. 8,9,n can be permuted, see formula.''. It has offset $0$ and begins
+\[
+1, 24310, 118195220, 198520691512, 151561524301616, 62305564808355232,\ \dots
+\]
+The entry states, as conjectures contributed by its author and never marked settled:
+\begin{quote}
+(empirical) set p,q,r to n,9,8 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jan 19 2025 11:11:31, revision 8) these are still
+recorded as empirical, and nothing on the entry records them as proved.
+
+\section{What is being counted}
+
+A matrix $x$ of shape $8\times9$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$8\times9$ rectangle --- a plane partition in a $8\times9\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
+\[
+a(n)\;=\;\mathrm{PP}(8,9,n).
+\]
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
+
+\section{The box count is a polynomial}
+
+\begin{theorem}[MacMahon]\label{thm:mm}
+\[
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
+\]
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{8}\prod_{j=1}^{9}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $72$ with rational coefficients.
+\end{theorem}
+
+\begin{proof}
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$8\cdot9=72$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,9,8)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{8-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{8-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $100$ and $28$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+9+8-1$ one has $s-(n+i)=9+8-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{9+8-1-i}
+=\frac{(s-9-8+2+i)(s-9-8+3+i)\cdots s}{(9+8-1-i)!},
+\]
+a polynomial in $n$ of degree $9+8-1-i$. Multiplying over $i=0,\dots,8-1$ gives
+$\deg N=\sum_{i=0}^{8-1}(9+8-1-i)=100$. The denominator is
+$\prod_{i=0}^{8-1}(s-i)^{8-1-i}$, of degree
+$\sum_{i=0}^{8-1}(8-1-i)=28$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $72+28=100$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,100$, that is at $101$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $100$ has at most $100$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, Theorem~\ref{thm:poly} reproduces all $7$ terms the entry publishes,
+exactly, in integer arithmetic.
+
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $8$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
+
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,100$ rather than
+sampled, in exact rational arithmetic.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140923.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+\end{thebibliography}
+
+\end{document}

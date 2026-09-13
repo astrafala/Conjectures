@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267785, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267929, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267785 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+OEIS A267929 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
 prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is decidable
+recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: one of the two scans runs inside a slice of the array and the other
 across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=6433$ states.
+value so far in each column of the scan, so the count is a walk count on $S=401$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A267785 is ``Number of nX5 0..1 arrays with every repeated value in every row greater than or equal to, and in every column greater than, the previous repeated value.''. It has offset $1$ and begins
+OEIS A267929 is ``Number of nX2 0..3 arrays with every repeated value in every row and column greater than the previous repeated value.''. It has offset $1$ and begins
 \[
-28, 784, 5004, 34173, 122770, 460598, 1234716, 3380133,\ \dots
+16, 256, 3600, 49284, 646416, 8248384, 102657424, 1251956689,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +8*a(n-2) -18*a(n-3) -27*a(n-4) +72*a(n-5) +48*a(n-6) -168*a(n-7) -42*a(n-8) +252*a(n-9) -252*a(n-11) +42*a(n-12) +168*a(n-13) -48*a(n-14) -72*a(n-15) +27*a(n-16) +18*a(n-17) -8*a(n-18) -2*a(n-19) +a(n-20) for n>22
+Empirical: a(n) = 65*a(n-1) -1714*a(n-2) +21994*a(n-3) -104609*a(n-4) -629015*a(n-5) +9424776*a(n-6) -16529832*a(n-7) -255376098*a(n-8) +1037637378*a(n-9) +3611188980*a(n-10) -20939962212*a(n-11) -32646831786*a(n-12) +213582240666*a(n-13) +202683094344*a(n-14) -1065454174440*a(n-15) -388324470141*a(n-16) +2871948084957*a(n-17) -843801825042*a(n-18) -3200868080118*a(n-19) +3106724901291*a(n-20) -847288609443*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2016 12:29:01, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 22 2016 10:06:55, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
 immediately before it; the row thus produces the sequence of values at the places where two
 equal entries stand side by side. The entry asks that each repeated value of a row be
-greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
+greater than the previous repeated value of that row, and that each repeated value of a column,
 read downwards, be greater than the previous repeated value of that column. The FIRST repeated
 value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
 imposes nothing at all.
@@ -75,10 +75,10 @@ besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
 So the state is the pair (previous $row$, vector of last repeated values), the second
-component taking $1+2$ values at each position --- the letters together with a symbol for
+component taking $3+2$ values at each position --- the letters together with a symbol for
 ``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6433,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=401,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -86,7 +86,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -94,7 +94,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -103,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 8\,a(n-2) - 18\,a(n-3) - 27\,a(n-4) + 72\,a(n-5) + 48\,a(n-6) - 168\,a(n-7) - 42\,a(n-8) + 252\,a(n-9) - 252\,a(n-11) + 42\,a(n-12) + 168\,a(n-13) - 48\,a(n-14) - 72\,a(n-15) + 27\,a(n-16) + 18\,a(n-17) - 8\,a(n-18) - 2\,a(n-19) + a(n-20)
+a(n)\;=\;65\,a(n-1) - 1714\,a(n-2) + 21994\,a(n-3) - 104609\,a(n-4) - 629015\,a(n-5) + 9424776\,a(n-6) - 16529832\,a(n-7) - 255376098\,a(n-8) + 1037637378\,a(n-9) + 3611188980\,a(n-10) - 20939962212\,a(n-11) - 32646831786\,a(n-12) + 213582240666\,a(n-13) + 202683094344\,a(n-14) - 1065454174440\,a(n-15) - 388324470141\,a(n-16) + 2871948084957\,a(n-17) - 843801825042\,a(n-18) - 3200868080118\,a(n-19) + 3106724901291\,a(n-20) - 847288609443\,a(n-21)
 \]
-for every $n>22$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -119,7 +119,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267785.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267929.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

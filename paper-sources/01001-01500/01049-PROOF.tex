@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221796, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221757, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221796 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
+OEIS A221757 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
 holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
 cell in is restricted by the direction in which another token arrives there. The entry carries
 an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the size of an IMAGE --- two different
 assignments of moves with the same occupancy count once --- so it is not a walk count in the
 obvious graph; determinising the machine that emits the occupancy row by row turns it into
-one, on $S=163$ states, after which the conjectured recurrence is settled by a finite exact
+one, on $S=355$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
@@ -34,24 +34,24 @@ computation.
 
 \section{The conjecture}
 
-OEIS A221796 is ``Number of n X 3 arrays of occupancy after each element moves to some horizontal or vertical neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
+OEIS A221757 is ``Number of 3 X n arrays of occupancy after each element moves to some horizontal or antidiagonal neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
 \[
-0, 12, 12, 207, 470, 4073, 13314, 85974,\ \dots
+0, 4, 0, 43, 44, 736, 1680, 14548,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 27*a(n-2) + 14*a(n-3) - 165*a(n-4) - 20*a(n-5) + 329*a(n-6) - 48*a(n-7) - 131*a(n-8) - 34*a(n-9) + 9*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 11 2018 07:13:51, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 10 2018 17:34:03, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
 records, for each cell, how many tokens land on it, and the entry counts how many different
 occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
@@ -122,7 +122,7 @@ a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
 The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
 is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
-$S=163$ reachable sets. In particular $a$ is $C$-finite.
+$S=355$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -160,7 +160,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest grids straight from the definition ---
@@ -177,7 +177,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221796.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221757.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

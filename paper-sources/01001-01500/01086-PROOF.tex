@@ -12,203 +12,183 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223361, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A270258, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223361 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $9$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $46656$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $48$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=1248$ of those suffice.
+OEIS A270258 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true. The array
+family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
+count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
+digraph to walk. Inclusion--exclusion over the adjacent pairs, together with the observation
+that a set of pairs forces the values along each of its connected components to alternate,
+gives $a(n)$ in closed form as a quasi-polynomial of period $2$, exactly and for every $n$.
+The recurrence, and the entry's two branch formulas with it, then follow by polynomial
+division.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A223361 is ``Rolling cube footprints: number of 6Xn 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or antidiagonal neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
+OEIS A270258 is ``Number of 3X3X3 triangular 0..n arrays with some element plus some adjacent element totalling n exactly once.''. It has offset $1$ and begins
 \[
-7776, 4194304, 4076863488, 3962711310336, 4060947412942848, 4204783428144463872, 4387933871654786039808, 4591848540270748206366720,\ \dots
+0, 66, 768, 4428, 14976, 42750,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1920*a(n-1) -1159168*a(n-2) +272105472*a(n-3) -9613344768*a(n-4) -7199438929920*a(n-5) +1446957302153216*a(n-6) -121544413380870144*a(n-7) +4845873199050653696*a(n-8) -74363437047141629952*a(n-9) for n>15
+Empirical: a(n) = 2*a(n-1) +3*a(n-2) -8*a(n-3) -2*a(n-4) +12*a(n-5) -2*a(n-6) -8*a(n-7) +3*a(n-8) +2*a(n-9) -a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:33:54, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 14 2016 09:20:40, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
+The array is the triangle with $3$ rows: cells $(i,j)$ for $0\le i<3$ and $0\le j\le i$,
+so $T=6$ of them. Two cells are adjacent when they are neighbours in that triangle --- side
+by side in a row, or one directly below the other on either side --- and there are
+$3\binom{3}{2}=9$ adjacent pairs. Each cell carries a value in
+$\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
+$\{u,v\}$ has $x_u+x_v=n$.
 
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal and horizontal, that is the cell offsets
+Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
+a walk in a finite digraph, and nothing about transfer matrices applies.
+
+\section{A set of pairs forces the values along its components}
+
+Write $E$ for the set of adjacent pairs, $t=n$ for the target, and for $S\subseteq E$ let
+$N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
+others.
+
+\begin{lemma}\label{lem:comp}
+Let $S\subseteq E$ and let the graph $(V,S)$ have $c_b$ bipartite and $c_o$ non-bipartite
+components among the cells it touches, $v(S)$ cells being touched. Then
 \[
-(1,-1), (0,1),
+N(S)\;=\;(n+1)^{\,T-v(S)}\;B^{\,c_b}\;F^{\,c_o},
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
-
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=48$.
-
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
+where $B=\#\{c: 0\le c\le n,\ 0\le t-c\le n\}$ and $F=1$ if $t$ is even with $0\le t/2\le n$,
+and $F=0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
+A pair in $S$ forces $x_v=t-x_u$, so within one connected component of $(V,S)$ the value of any
+one cell determines every other: cells at even distance from a chosen root carry the root's
+value $c$, cells at odd distance carry $t-c$. That assignment is consistent exactly when no
+cycle of the component has odd length; if some cycle does, following it around forces $c=t-c$,
+so $2c=t$, and the component admits one value when $t$ is even and $t/2$ lies in the alphabet,
+and none otherwise. A bipartite component is therefore free to choose $c$ subject only to
+$c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched by no pair
+of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-\section{The cell the entry fixes}
+Here $B=n+1$ and $F=1$ precisely when $n$ is even.
 
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
+\section{The count}
 
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $6$.
-\end{lemma}
-
-\begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $6$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
-\end{proof}
-
-\section{Orbits of slices}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column; transposing exchanges the horizontal and vertical directions and carries each diagonal direction to itself.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones, so a $column$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $column$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $column$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $46656$ legal $column$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $column$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $column$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+\begin{theorem}\label{thm:quasi}
+For every $n\ge0$,
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
+A(n)=9n^{5} - 27n^{4} + 36n^{3} - \tfrac{33}{2}n^{2} - 12n + \tfrac{21}{2},
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
 \[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
+C(n)=6n^{3} - \tfrac{45}{2}n^{2} + 27n - \tfrac{21}{2}.
 \]
-so the whole walk may be run on $\mathcal{O}$. Summing over $column$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $6$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=1248$, down from $46656$.
-
-The orbit representatives are generated directly rather than by listing the $column$s and
-grouping them. A $column$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
-
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+9}-\sum_ic_i\widehat{M}^{j+9-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;1920\,a(n-1) - 1159168\,a(n-2) + 272105472\,a(n-3) - 9613344768\,a(n-4) - 7199438929920\,a(n-5) + 1446957302153216\,a(n-6) - 121544413380870144\,a(n-7) + 4845873199050653696\,a(n-8) - 74363437047141629952\,a(n-9)
-\]
-for every $n>15$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $9$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=15+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+For an array $x$ let $\sigma(x)$ be its number of satisfied pairs. Then
+\[
+\sum_{S\subseteq E}w^{|S|}\,\#\{x:\ S\subseteq\text{satisfied pairs of }x\}
+=\sum_x (1+w)^{\sigma(x)},
+\]
+and differentiating in $w$ at $w=-1$ picks out exactly the arrays with $\sigma(x)=1$:
+\[
+a(n)\;=\;\sum_{\emptyset\neq S\subseteq E}(-1)^{|S|-1}\,|S|\;N(S).
+\]
+Each $N(S)$ is given by Lemma~\ref{lem:comp}. The exponents $T-v(S)$, $c_b$ and $c_o$ do not
+involve $n$, so the sum was formed once by running over all $2^{9}$ subsets and
+recording those three numbers. Every term is a polynomial in $n$ multiplied by $F^{c_o}$, and
+$F$ depends only on the parity of $n$; collecting the two parities gives a polynomial identity
+in $n$ on each, and the displayed $A$ and $C$ are their half-sum and half-difference. The
+identity holds for every $n\ge0$, with no threshold: Lemma~\ref{lem:comp} is exact at every
+$n$.
+\end{proof}
+
+The degree of $A$ is $5$ and that of $C$ is $3$. Both are at most $T-1$,
+because a set $S$ with a single pair leaves $T-2$ cells free and contributes one bipartite
+component.
+
+\section{The two branch formulas}
+
+The entry also records, as separate empirical observations:
+\begin{quote}
+Empirical for n mod 2 = 0: a(n) = 9*n\^{}5 - 27*n\^{}4 + 42*n\^{}3 - 39*n\^{}2 + 15*n
+
+Empirical for n mod 2 = 1: a(n) = 9*n\^{}5 - 27*n\^{}4 + 30*n\^{}3 + 6*n\^{}2 - 39*n + 21
+\end{quote}
+These follow at once, and are exact: putting $n$ even and $n$ odd into
+Theorem~\ref{thm:quasi},
+\[
+a(n)=\begin{cases}
+9n^{5} - 27n^{4} + 42n^{3} - 39n^{2} + 15n, & n\ \text{even},\\[2pt]
+9n^{5} - 27n^{4} + 30n^{3} + 6n^{2} - 39n + 21, & n\ \text{odd},
+\end{cases}
+\]
+which is what the entry states.
+
+\section{The recurrence}
+
+\begin{theorem}
+\[
+a(n)\;=\;2\,a(n-1) + 3\,a(n-2) - 8\,a(n-3) - 2\,a(n-4) + 12\,a(n-5) - 2\,a(n-6) - 8\,a(n-7) + 3\,a(n-8) + 2\,a(n-9) - a(n-10)
+\]
+for every $n>10$.
+\end{theorem}
+
+\begin{proof}
+Write $E$ for the shift operator, $(Ea)(n)=a(n+1)$. A polynomial of degree $d$ is annihilated
+by $(E-1)^{d+1}$ and by nothing smaller, and $(-1)^n$ times a polynomial of degree $d$ is
+annihilated by $(E+1)^{d+1}$ and by nothing smaller. By Theorem~\ref{thm:quasi} the
+sequence is therefore annihilated by
+\[
+(E-1)^{6}(E+1)^{4},
+\]
+a monic operator of order $10$, and by no proper divisor of it, since the two
+factors act on the two parts independently and neither part is annihilated by less. The
+characteristic polynomial of the conjectured recurrence is
+$t^{10}-\sum_i c_it^{10-i}$; dividing it by the operator above in
+$\mathbb{Z}[t]$ leaves no remainder, so the conjectured recurrence is a consequence of
+Theorem~\ref{thm:quasi} and holds wherever every index it names is at least the offset.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+First, the closed form reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $6$ cells written out and its satisfied pairs counted, with no
+inclusion--exclusion and no closed form --- and the counts agree. A wrong reading of the cell
+set, of the adjacency, or of the target would show here and nowhere else.
 
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $48$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the conjectured recurrence was applied directly to the closed form's own values over a
+long range, in exact integer arithmetic, and holds throughout; this is independent of the
+divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223361.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270258.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
+Springer, 2015.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \end{thebibliography}
 
 \end{document}

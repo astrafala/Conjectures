@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281534, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A279867, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281534 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A279867 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -28,41 +28,41 @@ together with the number of offending cells so far, capped at the budget; and th
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
 numbers. The empirical recurrence of order $12$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=294$ states.
+from a finite exact computation on $S=2382$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A281534 is ``Number of n X 2 0..2 arrays with no element equal to more than one of its king-move neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A279867 is ``Number of n X 3 0..2 arrays with no element unequal to a strict majority of its horizontal and vertical neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 0, 4, 104, 612, 3056, 16368, 82656,\ \dots
+0, 33, 176, 824, 3199, 11983, 42296, 143968,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) -54*a(n-2) +136*a(n-3) -324*a(n-4) +720*a(n-5) -1064*a(n-6) +1632*a(n-7) -2208*a(n-8) +2048*a(n-9) -1920*a(n-10) +1536*a(n-11) -512*a(n-12).
+Empirical: a(n) = 7*a(n-1) -13*a(n-2) -3*a(n-3) +13*a(n-4) +11*a(n-5) +29*a(n-6) -49*a(n-7) -8*a(n-8) -38*a(n-9) +28*a(n-10) +8*a(n-11) +16*a(n-12) for n>18.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 05 2025 14:06:05, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Sep 02 2025 11:47:14, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;12\,a(n-1) - 54\,a(n-2) + 136\,a(n-3) - 324\,a(n-4) + 720\,a(n-5) - 1064\,a(n-6) + 1632\,a(n-7) - 2208\,a(n-8) + 2048\,a(n-9) - 1920\,a(n-10) + 1536\,a(n-11) - 512\,a(n-12)
+a(n)\;=\;7\,a(n-1) - 13\,a(n-2) - 3\,a(n-3) + 13\,a(n-4) + 11\,a(n-5) + 29\,a(n-6) - 49\,a(n-7) - 8\,a(n-8) - 38\,a(n-9) + 28\,a(n-10) + 8\,a(n-11) + 16\,a(n-12)
 \end{equation}
-for all $n>13$.
+for all $n>18$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>1 .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=2$ cells offend.
 
@@ -101,7 +101,7 @@ $\binom{3}{i}D_{3-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{2}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
@@ -128,7 +128,7 @@ never exceeds $2$; since the total only grows, that is implied by the final valu
 $2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=294$ with the weights of
+Assembling the $3$ chains block-diagonally into $N$ of size $S=2382$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $12$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=13+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=18+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $26$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281534.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279867.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

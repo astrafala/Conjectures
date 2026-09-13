@@ -12,76 +12,102 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203177, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253701, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203177 counts arrays of width $4$ over $\{0,1,2\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=111$ states.
+OEIS A253701 counts arrays of width $5$ over $\{0,1\}$ in which two diagonal numbers of every $2\times2$ subblock each differ from the same number at a neighbouring subblock. The entry carries an
+empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: a block of $k$ rows and the block one row lower together
+occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
+$3$ consecutive rows and the count is a walk count on $S=297$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203177 is ``Number of nX4 0..2 arrays with every 1 immediately preceded by 0 to the left or above, no 0 immediately preceded by a 0, and every 2 immediately preceded by 0 1 to the left or above.''. It has offset $1$ and begins
+OEIS A253701 is ``Number of (4+1)X(n+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference unequal to its neighbors horizontally and nw+se diagonal sum unequal to its neighbors vertically.''. It has offset $1$ and begins
 \[
-2, 4, 17, 59, 205, 724, 2466, 8948,\ \dots
+264, 304, 480, 700, 992, 1262, 1790, 2538,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-2) +34*a(n-3) +13*a(n-4) -38*a(n-5) -419*a(n-6) -124*a(n-7) +145*a(n-8) +2520*a(n-9) +37*a(n-10) -584*a(n-11) -6715*a(n-12) +1170*a(n-13) +55*a(n-14) +6304*a(n-15) +476*a(n-16) -78*a(n-17) -480*a(n-19)
+Empirical: a(n) = 2*a(n-2) +a(n-4) +a(n-5) -3*a(n-6) +2*a(n-7) +a(n-8) -9*a(n-9) +2*a(n-10) +4*a(n-11) -3*a(n-12) +7*a(n-13) -5*a(n-15) -a(n-17) +a(n-18) +a(n-19) for n>26
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:10:30, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:10:29, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
-immediately above it, those that lie inside the array. A cell in the top left corner has none
-at all, so a clause demanding a predecessor of a given value forbids that value there --- which
-is what makes the first published term what it is. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has at least one predecessor carrying $0$;
-\item no cell carrying $0$ has a predecessor carrying $0$;
-\item every cell carrying $2$ has the two cells to its left, or the two above it, reading $0$ then $1$ in that order;
-\end{itemize}
-and nothing else.
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$.
 
-\section{Three rows decide everything}
-
-\begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
-\end{lemma}
-
-\begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
-\end{proof}
-
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
-row is settled as it is written and every state may end an array; the end vector is the
-all-ones vector. With $M$ the
-adjacency matrix of the digraph on those states,
+The entry states two conditions at once. For a $k\times k$ block $B$ of
+cells of the array put
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=111.
+f(B)=B_{1,k}-B_{k,1}\qquad\text{compared vertically,}
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+that is, the northeast entry minus the southwest entry;
+\[
+g(B)=B_{1,1}+B_{k,k}\qquad\text{compared horizontally,}
+\]
+that is, the northwest entry plus the southeast entry.
+Each condition says that its own number takes different values on two blocks that are
+neighbours in its own directions: with $B(i,j)$ the block whose top-left cell is $(i,j)$ and
+$(\delta_1,\delta_2)$ the step for the direction concerned --- $(1,0)$ vertically, $(0,1)$ horizontally ---
+\[
+f\bigl(B(i,j)\bigr)\neq f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
+\quad\text{resp.}\quad
+g\bigl(B(i,j)\bigr)\neq g\bigl(B(i+\delta_1,\,j+\delta_2)\bigr),
+\]
+whenever both blocks lie wholly inside the array. Both conditions are imposed for that one size of block,
+$2\times2$. The entry writes the array with $n$ as the number of COLUMNS. Transposing
+it exchanges the horizontal and vertical directions and fixes the two diagonal ones, and it
+either fixes the number $f$ or replaces it by its negative --- the northeast and southwest
+entries change places. An equality is unaffected by negating both sides, so the transposed
+problem is the same problem with the horizontal and vertical directions exchanged, and the
+directions above are named in the transposed frame.
+
+Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
+first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
+confirm it. And a comparison is imposed only when both blocks lie wholly inside the array, so a
+block near an edge is compared in fewer directions and a block whose named neighbour falls off
+the array is under no condition in that direction.
+
+\section{A window of 3 rows}
+
+A $k\times k$ block occupies $k$ consecutive rows, and each of its neighbours occupies either
+the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison lie inside $k+1$
+consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
+comparison reaches further than that, in either direction.
+
+Take the array one column at a time and let the state be the last 2 rows written so far, with a
+distinguished start standing for the array before its first row, so that a walk of $n$ steps is
+an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
+allowed exactly when every comparison whose two blocks both lie inside that window holds.
+
+Every comparison of the finished array is tested this way. Each one lies inside $3$
+consecutive rows, and every $3$ consecutive rows of the array form the window of some
+step. A comparison lying inside more than one window is tested more than once, which costs
+nothing. Conversely no step imposes anything not asked by the definition, since a step tests
+only comparisons whose two blocks lie inside the array.
+
+Every state may end an array, so $\tau=\mathbf{1}$. A block sitting in the final rows whose
+neighbour would lie below the last row is not compared in that direction at all --- the
+neighbour is not part of the array --- so stopping never leaves a condition unchecked. For the
+same reason the array of exactly $2$ rows is handled by the walks of length $2$ with no
+further test: all of its comparisons already lie inside the windows of those steps.
+
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=297,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -103,29 +129,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-2) + 34\,a(n-3) + 13\,a(n-4) - 38\,a(n-5) - 419\,a(n-6) - 124\,a(n-7) + 145\,a(n-8) + 2520\,a(n-9) + 37\,a(n-10) - 584\,a(n-11) - 6715\,a(n-12) + 1170\,a(n-13) + 55\,a(n-14) + 6304\,a(n-15) + 476\,a(n-16) - 78\,a(n-17) - 480\,a(n-19)
+a(n)\;=\;2\,a(n-2) + a(n-4) + a(n-5) - 3\,a(n-6) + 2\,a(n-7) + a(n-8) - 9\,a(n-9) + 2\,a(n-10) + 4\,a(n-11) - 3\,a(n-12) + 7\,a(n-13) - 5\,a(n-15) - a(n-17) + a(n-18) + a(n-19)
 \]
-for every $n>19$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $5$ over $\{0,1\}$ with a few rows was written out cell by cell, every block of
+that one size was located, its number computed, and the comparison made with each neighbouring block
+that lies inside the array. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -135,7 +162,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203177.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253701.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

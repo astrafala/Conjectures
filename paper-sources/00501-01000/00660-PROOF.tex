@@ -12,128 +12,108 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264504, proved by transfer matrix}
+\title{Recovering the unwritten recurrences of the table OEIS A234152}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264504 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=7$ rows in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=1$, the matching splits into
-independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
-every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=16384$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A234152 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 37]'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A264504 is ``Number of (n+1)X(6+1) arrays of permutations of 0..n*7+6 with each element having directed index change -1,1 0,-1 0,1 or 1,0.''. It has offset $1$ and begins
+OEIS A234152 is ``T(n,k)=Number of (n+1)X(k+1) 0..5 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 10 and no adjacent elements equal.''. It is read by antidiagonals and begins
 \[
-24, 432, 6613, 105324, 1697577, 26941396, 427111736, 6776356720,\ \dots
+184, 1264, 1264, 8752, 13936, 8752, 62004, 158812,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 12*a(n-1) +40*a(n-2) +808*a(n-3) -4368*a(n-4) -35344*a(n-5) -281600*a(n-6) +105760*a(n-7) +6658768*a(n-8) +43453632*a(n-9) +53102720*a(n-10) -528449280*a(n-11) -3531571968*a(n-12) -5812271104*a(n-13) +23258690560*a(n-14) +161625722880*a(n-15) +282946011136*a(n-16) -625458413568*a(n-17) -4544958496768*a(n-18) -7745215135744*a(n-19) +11329480949760*a(n-20) +82201077088256*a(n-21) +127143849754624*a(n-22) -148099532062720*a(n-23) -969471560777728*a(n-24) -1269996059623424*a(n-25) +1403002606845952*a(n-26) +7338965237497856*a(n-27) +7488773696782336*a(n-28) -9000052429160448*a(n-29) -33687936763428864*a(n-30) -23415199625117696*a(n-31) +33917734693634048*a(n-32) +81627743246090240*a(n-33) +28147497671065600*a(n-34) -54043195528445952*a(n-35) -72057594037927936*a(n-36) for n>38
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=2: [order 37]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 15 2015 18:36:39, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:21:39, revision 6) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{The object is a matching}
+\section{Why a line of the table is a walk count}
 
-The grid has $W=7$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
-\[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,1),\ (0,-1),\ (0,1),\ (1,0)\},
-\]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-\section{The matching is a walk}
+\section{Recovering the recurrences}
 
-Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
-placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
-value with home row at most $i-R$ has been used up, and the only home rows that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home rows are already placed. One step fills
-the cells of one further row, drawing each of its $W$ values from a home row within $R$
-and at an allowed column offset, and the home row that closes at that step must come out
-full. Nonexistent home rows --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
-
-Hence $a$ is a walk count on $S=16384$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=216$ vertices. Berlekamp--Massey on $2S=432$ exact terms
+returns a minimal recurrence of order $37$ --- the order the entry states --- with
+integer coefficients
+\[
+(c_1,\dots,c_{37})=(10,\ 188,\ -1705,\ -13231,\ 115068,\ 493976,\ -4229448,\ -11190946,\ 96334439,\ 164224925,\ -1453766839,\ -1614673985,\ 15099553644,\ 10806854528,\ -110319519409,\ -49482794946,\ 573293794815,\ 155510560962,\ -2125916423322,\ -344648421788,\ 5607869207405,\ 602950452380,\ -10426809489560,\ -1017179390188,\ 13440589196562,\ 1660271297890,\ -11680287015490,\ -2067440715994,\ 6524300789888,\ 1631686761052,\ -2149016060048,\ -727542691768,\ 347865584016,\ 160185863728,\ -13689852000,\ -13226096640,\ -1457602560).
+\]
+so that $a(m)=\sum_{i=1}^{37}c_i\,a(m-i)$ for every $m$. Removing the first
+$37+4$ terms and repeating gives order $37$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-\[
-a(n)\;=\;12\,a(n-1) + 40\,a(n-2) + 808\,a(n-3) - 4368\,a(n-4) - 35344\,a(n-5) - 281600\,a(n-6) + 105760\,a(n-7) + 6658768\,a(n-8) + 43453632\,a(n-9) + 53102720\,a(n-10) - 528449280\,a(n-11) - 3531571968\,a(n-12) - 5812271104\,a(n-13) + 23258690560\,a(n-14) + 161625722880\,a(n-15) + 282946011136\,a(n-16) - 625458413568\,a(n-17) - 4544958496768\,a(n-18) - 7745215135744\,a(n-19) + 11329480949760\,a(n-20) + 82201077088256\,a(n-21) + 127143849754624\,a(n-22) - 148099532062720\,a(n-23) - 969471560777728\,a(n-24) - 1269996059623424\,a(n-25) + 1403002606845952\,a(n-26) + 7338965237497856\,a(n-27) + 7488773696782336\,a(n-28) - 9000052429160448\,a(n-29) - 33687936763428864\,a(n-30) - 23415199625117696\,a(n-31) + 33917734693634048\,a(n-32) + 81627743246090240\,a(n-33) + 28147497671065600\,a(n-34) - 54043195528445952\,a(n-35) - 72057594037927936\,a(n-36)
-\]
-for every $n>38$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the transfer model reproduces all $16$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264504.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234152.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
