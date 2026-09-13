@@ -53,6 +53,7 @@ REC = re.compile(r'a\(n\)\s*=\s*(.+?)(?:\s+for\b|\s*$)', re.I)
 # silently dropped every recurrence with an implicit coefficient of 1
 TERM = re.compile(r'([+-]?\s*[^+-]*?)\*?\s*a\(n\s*-\s*(\d+)\)')
 FORN = re.compile(r'for\s+n\s*(>=|>|\\ge)\s*(\d+)', re.I)
+BARE_N = re.compile(r'(?<![A-Za-z(])n\s*(>=|>)\s*(\d+)', re.I)
 
 
 def parse_rec(line):
@@ -68,6 +69,28 @@ def parse_rec(line):
     if not m:
         return None
     rhs = m.group(1).strip().rstrip('.')
+    # Trailing text that is not part of the recurrence. The leftover test below is what makes
+    # this parser safe, and it is also what refused four kinds of perfectly ordinary line:
+    #   "... -a(n-16) (=polynomial of degree 15)"      a parenthetical remark
+    #   "a(n) = 4*a(n-3) n > 14."                      a qualifier with no "for"
+    #   "... -a(n-14), for n>18."                      a comma before the qualifier
+    #   "a(n) = a(n-1) + 3*a(n-2) + 2*a(n-3). (Follows from g.f. ...)"
+    # Only text with no recurrence term in it is removed, so nothing that carries a
+    # coefficient can be dropped silently.
+    # A parenthetical is only stripped when it STANDS ALONE -- preceded by whitespace. Requiring
+    # that is the whole safety of this: without it the trailing "(n-16)" of the last recurrence
+    # term is itself a trailing parenthetical, and the line loses its last term silently.
+    # A trailing sentence (". G.f.: ...", ". (Follows from g.f. ...") goes the same way, and
+    # only when the part removed carries no recurrence term.
+    for pat in (r'\s+\([^()]*\)\s*\.?\s*$', r'\s+\([^()]*$', r'\.\s+\S.*$'):
+        while True:
+            t = re.sub(pat, '', rhs)
+            if t == rhs or re.search(r'a\s*\(\s*n', rhs[len(t):]):
+                break
+            rhs = t
+    rhs = re.sub(r'[,;]?\s+(?:for\s+)?n\s*(?:>=|>|<=|<)\s*\d+\s*\.?\s*$', '', rhs,
+                 flags=re.I)
+    rhs = rhs.strip().rstrip('.,; ')
     if 'a(n)' in rhs or re.search(r'a\(n\s*\+', rhs):
         return None
     coeffs = {}
@@ -94,6 +117,9 @@ def parse_rec(line):
     if leftover.strip('+-*'):                     # an inhomogeneous piece: out of scope
         return None
     f = FORN.search(body)
+    if not f:
+        # "a(n) = 4*a(n-3) n > 14." states the same qualifier without the word "for"
+        f = BARE_N.search(body)
     d = None
     if f:
         d = int(f.group(2)) if f.group(1) == '>' else int(f.group(2)) - 1

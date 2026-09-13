@@ -12,141 +12,119 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189182, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183897, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189182 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $53$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $13$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=462$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A183897 carries an empirical recurrence of order $3$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=3$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A189182 is ``Number of nX5 array permutations with each element making a single king move.''. It has offset $1$ and begins
+OEIS A183897 is ``Number of nondecreasing arrangements of n+3 numbers in 0..2 with each number being the sum mod 3 of three others.''. It has offset $1$ and begins
 \[
-0, 913, 47936, 10599449, 1339732352, 212852911361, 30863909708032, 4646631858824169,\ \dots
+1, 7, 17, 25, 34, 44, 55, 67,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 114*a(n-1) +9317*a(n-2) -508866*a(n-3) -20910348*a(n-4) +704525664*a(n-5) +19358697488*a(n-6) -428304917728*a(n-7) -8879601094240*a(n-8) +129853332142720*a(n-9) +2190323609648896*a(n-10) -20574172318548480*a(n-11) -314606162399573504*a(n-12) +1598037911119250432*a(n-13) +27684023072295867392*a(n-14) -32346791780760006656*a(n-15) -1499684717324405215232*a(n-16) -3695155586595907993600*a(n-17) +46583697668722445025280*a(n-18) +290219562521732580573184*a(n-19) -593905480603069347004416*a(n-20) -8401632685478568054226944*a(n-21) -6539590799133706090971136*a(n-22) +96348126155652764263251968*a(n-23) +264417463146912245959622656*a(n-24) +12682495240626001051385856*a(n-25) -1744238428870058772105527296*a(n-26) -5693069153240876119306010624*a(n-27) -4564434382539862336212041728*a(n-28) -7943580772549846384227909632*a(n-29) -31586327988680906132309409792*a(n-30) +143766153982154846382418034688*a(n-31) +511623793291640778265865486336*a(n-32) +551178593322357659823759163392*a(n-33) +202854802351241365026179645440*a(n-34) -2905957648388000419056778739712*a(n-35) -3155337356481894282288074588160*a(n-36) -1042822458306188258889227567104*a(n-37) -2453052645713081078335951339520*a(n-38) +6778721456546169282766280065024*a(n-39) -1504306134813089239960437915648*a(n-40) -10352521978401584357617218617344*a(n-41) -3016565382617002414243131162624*a(n-42) +6150339155711867029113958039552*a(n-43) +10412506380362096054859393400832*a(n-44) +6806793406325595977933081542656*a(n-45) +2721724352275152477557442478080*a(n-46) +569526346586061594312736505856*a(n-47) -1477517748051341183691492687872*a(n-48) -1912761063129875165619605733376*a(n-49) -508156074249026659194220052480*a(n-50) +54066805553079381002532421632*a(n-51) +19155126199747274898514378752*a(n-52) +8773476904398267578136395776*a(n-53)
+Empirical: a(n) = (1/2)*n\^{}2 + (9/2)*n - 1 for n>2. a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:04:21, revision 12) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 05 2018 09:52:28, revision 14)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a polynomial}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
-\[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,-1),\ (-1,0),\ (-1,1),\ (0,-1),\ (0,1),\ (1,-1),\ (1,0),\ (1,1)\,\}.
-\]
-The offsets are what the name's words say: the eight king moves. A cell may not stay where it is: $(0,0)$ is not among the offsets, so the permutation has no fixed point.
+A NONDECREASING arrangement is determined by its multiset of values, so an admissible
+arrangement is exactly an admissible multiset. The condition names how many other entries a
+value must be built from, and a condition of that shape cannot distinguish a value occurring
+$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
+whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
+once by enumeration over the capped profiles.
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+Given an admissible capped profile with $F$ the total multiplicity of the values capped below
+the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
+profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
+over the list with $\ell$ the entry's own length.
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
+\section{The bound}
 
-\section{A window of 13 positions}
+Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
+$S=3$.
 
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-6$ and
-$hi=6$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-6$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+6$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $13$ positions
-$k+-6,\dots,k+6$ are taken --- a subset of a set of size $13$, and nothing else.
-
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
-
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=462,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;114\,a(n-1) + 9317\,a(n-2) - 508866\,a(n-3) - 20910348\,a(n-4) + 704525664\,a(n-5) + 19358697488\,a(n-6) - 428304917728\,a(n-7) - 8879601094240\,a(n-8) + 129853332142720\,a(n-9) + 2190323609648896\,a(n-10) - 20574172318548480\,a(n-11) - 314606162399573504\,a(n-12) + 1598037911119250432\,a(n-13) + 27684023072295867392\,a(n-14) - 32346791780760006656\,a(n-15) - 1499684717324405215232\,a(n-16) - 3695155586595907993600\,a(n-17) + 46583697668722445025280\,a(n-18) + 290219562521732580573184\,a(n-19) - 593905480603069347004416\,a(n-20) - 8401632685478568054226944\,a(n-21) - 6539590799133706090971136\,a(n-22) + 96348126155652764263251968\,a(n-23) + 264417463146912245959622656\,a(n-24) + 12682495240626001051385856\,a(n-25) - 1744238428870058772105527296\,a(n-26) - 5693069153240876119306010624\,a(n-27) - 4564434382539862336212041728\,a(n-28) - 7943580772549846384227909632\,a(n-29) - 31586327988680906132309409792\,a(n-30) + 143766153982154846382418034688\,a(n-31) + 511623793291640778265865486336\,a(n-32) + 551178593322357659823759163392\,a(n-33) + 202854802351241365026179645440\,a(n-34) - 2905957648388000419056778739712\,a(n-35) - 3155337356481894282288074588160\,a(n-36) - 1042822458306188258889227567104\,a(n-37) - 2453052645713081078335951339520\,a(n-38) + 6778721456546169282766280065024\,a(n-39) - 1504306134813089239960437915648\,a(n-40) - 10352521978401584357617218617344\,a(n-41) - 3016565382617002414243131162624\,a(n-42) + 6150339155711867029113958039552\,a(n-43) + 10412506380362096054859393400832\,a(n-44) + 6806793406325595977933081542656\,a(n-45) + 2721724352275152477557442478080\,a(n-46) + 569526346586061594312736505856\,a(n-47) - 1477517748051341183691492687872\,a(n-48) - 1912761063129875165619605733376\,a(n-49) - 508156074249026659194220052480\,a(n-50) + 54066805553079381002532421632\,a(n-51) + 19155126199747274898514378752\,a(n-52) + 8773476904398267578136395776\,a(n-53)
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
 \]
-for every $n>52$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=52+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=5+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189182.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183897.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

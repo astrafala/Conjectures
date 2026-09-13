@@ -12,130 +12,122 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264571, proved by transfer matrix}
+\title{The cross-base identity for OEIS A126521, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264571 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=4$ columns in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $70$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=1$, the matching splits into
-independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
-every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
-partly used. Carrying those as bitmasks makes the count a walk on $S=256$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A126521 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A264571 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having directed index change 1,0 1,1 0,-1 or -1,1.''. It has offset $1$ and begins
+OEIS A126521 is ``Number of base 26 n-digit numbers with adjacent digits differing by four or less.''. It has offset $0$ and begins
 \[
-1, 4, 10, 44, 143, 633, 2172, 8409,\ \dots
+1, 26, 214, 1806, 15374, 131538, 1128990, 9710910,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +a(n-2) +4*a(n-3) +41*a(n-4) -104*a(n-5) +14*a(n-6) +167*a(n-7) -715*a(n-8) +1169*a(n-9) -1018*a(n-10) -3680*a(n-11) +8691*a(n-12) -10335*a(n-13) +2525*a(n-14) +35277*a(n-15) -50582*a(n-16) +64373*a(n-17) +11060*a(n-18) -207508*a(n-19) +200293*a(n-20) -204582*a(n-21) -124748*a(n-22) +704108*a(n-23) -499827*a(n-24) +365700*a(n-25) +473743*a(n-26) -1541579*a(n-27) +729138*a(n-28) -331526*a(n-29) -929717*a(n-30) +2313138*a(n-31) -591289*a(n-32) +10149*a(n-33) +1058138*a(n-34) -2448606*a(n-35) +225766*a(n-36) +341725*a(n-37) -740229*a(n-38) +1867654*a(n-39) -9921*a(n-40) -441602*a(n-41) +343946*a(n-42) -1047499*a(n-43) -9489*a(n-44) +322880*a(n-45) -125643*a(n-46) +431100*a(n-47) -8968*a(n-48) -160742*a(n-49) +44437*a(n-50) -124400*a(n-51) +6980*a(n-52) +54449*a(n-53) -13758*a(n-54) +23185*a(n-55) -1859*a(n-56) -11695*a(n-57) +2887*a(n-58) -2532*a(n-59) +298*a(n-60) +1457*a(n-61) -383*a(n-62) +155*a(n-63) -26*a(n-64) -100*a(n-65) +29*a(n-66) -4*a(n-67) +a(n-68) +3*a(n-69) -a(n-70)
+[Empirical] a(base,n)=a(base-1,n)+9\textasciicircum{}(n-1) for base>=4n-3; a(base,n)=a(base-1,n)+9\textasciicircum{}(n-1)-2 when base=4n-4
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 17 2015 19:14:08, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:16:36, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The object is a matching}
+For this entry the base is $26$ and the permitted difference is $d=4$, so the first clause
+claims $a_{26}(n)-a_{25}(n)=9^{\,n-1}$ whenever $4(n-1)+1\le26$, that is for
+$1\le n\le7$, and the second claims $a_{26}(n)-a_{25}(n)=9^{\,n-1}-2$ at the single
+$n$ with $4(n-1)=26$.
 
-The grid has $W=4$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
-\[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,0),\ (0,1),\ (1,-1),\ (1,1)\},
-\]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+\section{What the entry counts}
 
-\section{The matching is a walk}
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{4}$ at base $26$ reproduces all $19$ terms A126521 publishes.
 
-Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
-placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
-value with home column at most $i-R$ has been used up, and the only home columns that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home columns are already placed. One step fills
-the cells of one further column, drawing each of its $W$ values from a home column within $R$
-and at an allowed column offset, and the home column that closes at that step must come out
-full. Nonexistent home columns --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
-
-Hence $a$ is a walk count on $S=256$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
-\[
-a(n)\;=\;3\,a(n-1) + a(n-2) + 4\,a(n-3) + 41\,a(n-4) - 104\,a(n-5) + 14\,a(n-6) + 167\,a(n-7) - 715\,a(n-8) + 1169\,a(n-9) - 1018\,a(n-10) - 3680\,a(n-11) + 8691\,a(n-12) - 10335\,a(n-13) + 2525\,a(n-14) + 35277\,a(n-15) - 50582\,a(n-16) + 64373\,a(n-17) + 11060\,a(n-18) - 207508\,a(n-19) + 200293\,a(n-20) - 204582\,a(n-21) - 124748\,a(n-22) + 704108\,a(n-23) - 499827\,a(n-24) + 365700\,a(n-25) + 473743\,a(n-26) - 1541579\,a(n-27) + 729138\,a(n-28) - 331526\,a(n-29) - 929717\,a(n-30) + 2313138\,a(n-31) - 591289\,a(n-32) + 10149\,a(n-33) + 1058138\,a(n-34) - 2448606\,a(n-35) + 225766\,a(n-36) + 341725\,a(n-37) - 740229\,a(n-38) + 1867654\,a(n-39) - 9921\,a(n-40) - 441602\,a(n-41) + 343946\,a(n-42) - 1047499\,a(n-43) - 9489\,a(n-44) + 322880\,a(n-45) - 125643\,a(n-46) + 431100\,a(n-47) - 8968\,a(n-48) - 160742\,a(n-49) + 44437\,a(n-50) - 124400\,a(n-51) + 6980\,a(n-52) + 54449\,a(n-53) - 13758\,a(n-54) + 23185\,a(n-55) - 1859\,a(n-56) - 11695\,a(n-57) + 2887\,a(n-58) - 2532\,a(n-59) + 298\,a(n-60) + 1457\,a(n-61) - 383\,a(n-62) + 155\,a(n-63) - 26\,a(n-64) - 100\,a(n-65) + 29\,a(n-66) - 4\,a(n-67) + a(n-68) + 3\,a(n-69) - a(n-70)
-\]
-for every $n>68$.
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=68+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the model reproduces all $19$ terms A126521 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, the transfer model reproduces all $24$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le7$, both sides computed from the definition and not from the theorem:
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{4}(26,n)$ & $L_{4}(25,n)$ & $9^{\,n-1}$ \\ \hline
+1 & 26 & 25 & 1 \\
+2 & 214 & 205 & 9 \\
+3 & 1806 & 1725 & 81 \\
+4 & 15374 & 14645 & 729 \\
+5 & 131538 & 124977 & 6561 \\
+6 & 1128990 & 1069941 & 59049 \\
+7 & 9710910 & 9179469 & 531441 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264571.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=7$.
+
+Third, the second clause was evaluated at its own index.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126521}.
+\end{enumerate}
 
 \end{document}

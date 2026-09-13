@@ -19,6 +19,12 @@ esc = phibuild.esc
 DATE = os.environ.get('PAPER_DATE', '13 September 2026')
 
 
+def qesc(s):
+    """escape a quoted OEIS line: phibuild.esc turns ^ into an accent that prints as nothing,
+    and these lines are all exponents -- 3^(n-1) came out as 3(n-1)."""
+    return esc(s).replace(r'\^{}', r'\textasciicircum{}')
+
+
 def _author(e):
     m = re.search(r'_([^_]+)_', e.get('author') or '')
     return esc(m.group(1).strip()) if m else 'its author'
@@ -69,7 +75,7 @@ OEIS {a} is ``{esc(e['name'].strip())}''. It has offset ${r['offset']}$ and begi
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{{quote}}
-{esc(r['line'])}
+{qesc(r['line'])}
 \end{{quote}}
 As of the ``Last modified'' line on the live entry ({e['modified']}, revision {e['revision']})
 this is still recorded as empirical, and nothing on the entry records it as proved.

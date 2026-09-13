@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208172, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208198, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208172 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A208198 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -29,29 +29,29 @@ $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
 state space down from $1300$ to $S=109$. The entry's empirical recurrence of order
-$16$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+$19$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A208172 is ``Number of nX5 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than one of its immediate leftward or upward neighbors.''. It has offset $1$ and begins
+OEIS A208198 is ``Number of nX5 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than two of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
 \[
-51, 33831, 26625693, 21002874867, 16567902881244, 13069424064243420, 10309684155118737894, 8132690993759302714128,\ \dots
+51, 41272, 39725054, 38372808893, 37069738362057, 35810971705853725, 34594950233928279876, 33420220819293699707599,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 846*a(n-1) -46537*a(n-2) +1162868*a(n-3) -17173907*a(n-4) +166807056*a(n-5) -1125592122*a(n-6) +5444000730*a(n-7) -19238506974*a(n-8) +50296239144*a(n-9) -97844056164*a(n-10) +140881555908*a(n-11) -146587250745*a(n-12) +104533491168*a(n-13) -46130948685*a(n-14) +10416243600*a(n-15) -863591625*a(n-16) for n>17
+Empirical: a(n) = 928*a(n-1) +38247*a(n-2) -1419908*a(n-3) -25003347*a(n-4) +1012531896*a(n-5) -9450054156*a(n-6) +24082844974*a(n-7) +80821917709*a(n-8) -489140400628*a(n-9) +403243304428*a(n-10) +1648713698424*a(n-11) -3331507779798*a(n-12) +632406681414*a(n-13) +2327643475767*a(n-14) -977046212844*a(n-15) -462110735853*a(n-16) +172474098336*a(n-17) +29511981612*a(n-18) -7270112880*a(n-19) for n>20
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 14:42:00, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:42:44, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;846\,a(n-1) - 46537\,a(n-2) + 1162868\,a(n-3) - 17173907\,a(n-4) + 166807056\,a(n-5) - 1125592122\,a(n-6) + 5444000730\,a(n-7) - 19238506974\,a(n-8) + 50296239144\,a(n-9) - 97844056164\,a(n-10) + 140881555908\,a(n-11) - 146587250745\,a(n-12) + 104533491168\,a(n-13) - 46130948685\,a(n-14) + 10416243600\,a(n-15) - 863591625\,a(n-16)
+a(n)\;=\;928\,a(n-1) + 38247\,a(n-2) - 1419908\,a(n-3) - 25003347\,a(n-4) + 1012531896\,a(n-5) - 9450054156\,a(n-6) + 24082844974\,a(n-7) + 80821917709\,a(n-8) - 489140400628\,a(n-9) + 403243304428\,a(n-10) + 1648713698424\,a(n-11) - 3331507779798\,a(n-12) + 632406681414\,a(n-13) + 2327643475767\,a(n-14) - 977046212844\,a(n-15) - 462110735853\,a(n-16) + 172474098336\,a(n-17) + 29511981612\,a(n-18) - 7270112880\,a(n-19)
 \end{equation}
-for all $n>17$.
+for all $n>20$.
 
 \section{What the canonical-form clause counts}
 
@@ -61,15 +61,15 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $1$ of its neighbours at the
+entry's requirement is that no cell equals more than $2$ of its neighbours at the
 offsets
 \[
-\mathcal N=\{(0,-1),\ (-1,0)\}
+\mathcal N=\{(0,-1),\ (-1,0),\ (-1,-1)\}
 \]
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -168,13 +168,13 @@ The unlumped alphabet had $1300$ rows in all; the lumped chain has $S=109$ state
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{16}-\sum_i c_i\,t^{16-i}$ be the characteristic polynomial of
+Let $q(t)=t^{19}-\sum_i c_i\,t^{19-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+0-1\ge16$,
+For every $n$ with $m=n+0-1\ge19$,
 \[
-4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-16}q(N)\mathbf{1} .
+4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-19}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -182,7 +182,7 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} into the left side and factor $N^{m-16}$ out of
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-19}$ out of
 $N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
@@ -191,7 +191,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>17$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>20$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -199,10 +199,10 @@ Section~1.
 The lumped transition counts were obtained by enumerating, for one representative row of
 each pattern, all admissible successors and sorting them by pattern --- the successors being
 generated column by column, since the edge condition is a conjunction of one constraint per
-column. The vector $w=q(N)\mathbf{1}$ was then formed by $16$ matrix--vector products
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $19$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=17+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=20+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208172.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208198.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

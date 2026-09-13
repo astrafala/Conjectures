@@ -12,63 +12,60 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A125343, proved from an exact model}
+\title{The empirical recurrence for OEIS A267472, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125343 carries an empirical recurrence of order $3$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
+OEIS A267472 carries an empirical recurrence of order $5$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A125343 is ``Number of base 6 circular n-digit numbers with adjacent digits differing by 4 or less.''. It has offset $0$ and begins
+OEIS A267472 is ``Number of length-4 0..n arrays with no following elements larger than the first repeated value.''. It has offset $1$ and begins
 \[
-1, 6, 34, 186, 1058, 6026, 34354, 195866,\ \dots
+12, 62, 204, 515, 1096, 2072, 3592, 5829,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A025014(n+1) for base>=4.int(n/2)+1 a(n) = 6*a(n-1) - a(n-2) - 4*a(n-3) for n>3.
+Empirical: a(n) = n\^{}4 + (17/6)*n\^{}3 + 4*n\^{}2 + (19/6)*n + 1. a(n) = 5*a(n-1) - 10*a(n-2) + 10*a(n-3) - 5*a(n-4) + a(n-5) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:03:09, revision 17)
+As of the ``Last modified'' line on the live entry (Feb 05 2018 09:36:15, revision 7)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a trace}
+\section{The count is a polynomial}
 
-Let $G$ be the graph on the digits $0,1,\dots,5$ with an edge between $u$ and $v$ exactly
-when $|u-v|\le4$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
-$|u-v|\le4$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
-$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
-most $4$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
-starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
+The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
+the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
+array is described completely by its weak ordering: the ordered set partition of the $L$
+positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
+of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
+array, and there are $\binom{n+1}{m}$ of them. Hence
 \[
-a(n)\;=\;\sum_{u=0}^{5}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
+a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
 \]
-The entry counts every string, leading zeros included: requiring a nonzero first digit gives
-$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
-string, where the trace is $6$; that is the entry's convention at one index and the two agree
-at every $n\ge1$, on every published term.
+with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
 
 \section{The bound}
 
-$\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
-Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=6$,
-computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
-bound is derived from the data: it is the size of the digit alphabet.
+That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
+$a$ and $S=5$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
+estimated.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -82,23 +79,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - a(n-2) - 4\,a(n-3)
+a(n)\;=\;5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5)
 \]
-for every $n>3$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=0+1$ onwards, and the run exceeds $S+5$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -111,7 +108,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A125343.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267472.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

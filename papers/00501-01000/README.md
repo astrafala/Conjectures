@@ -1,6 +1,6 @@
 # Papers 00501-01000
 
-Ranks 501 to 1000 of 12624, hardest first.
+Ranks 501 to 1000 of 12754, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -322,185 +322,185 @@ Ranks 501 to 1000 of 12624, hardest first.
 | 816 | [A125487](https://oeis.org/A125487) | Proof |  | [00816-PROOF.pdf](00816-PROOF.pdf) |
 | 817 | [A125488](https://oeis.org/A125488) | Proof |  | [00817-PROOF.pdf](00817-PROOF.pdf) |
 | 818 | [A125489](https://oeis.org/A125489) | Proof |  | [00818-PROOF.pdf](00818-PROOF.pdf) |
-| 819 | [A155543](https://oeis.org/A155543) | Proof | an entry equated to an m-section of another entry, decided from both entries' facts | [00819-PROOF.pdf](00819-PROOF.pdf) |
-| 820 | [A196523](https://oeis.org/A196523) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00820-PROOF.pdf](00820-PROOF.pdf) |
-| 821 | [A208545](https://oeis.org/A208545) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00821-PROOF.pdf](00821-PROOF.pdf) |
-| 822 | [A227161](https://oeis.org/A227161) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00822-PROOF.pdf](00822-PROOF.pdf) |
-| 823 | [A378575](https://oeis.org/A378575) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00823-PROOF.pdf](00823-PROOF.pdf) |
-| 824 | [A378576](https://oeis.org/A378576) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00824-PROOF.pdf](00824-PROOF.pdf) |
-| 825 | [A389472](https://oeis.org/A389472) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00825-PROOF.pdf](00825-PROOF.pdf) |
-| 826 | [A393856](https://oeis.org/A393856) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00826-PROOF.pdf](00826-PROOF.pdf) |
-| 827 | [A393857](https://oeis.org/A393857) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00827-PROOF.pdf](00827-PROOF.pdf) |
-| 828 | [A393858](https://oeis.org/A393858) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00828-PROOF.pdf](00828-PROOF.pdf) |
-| 829 | [A393859](https://oeis.org/A393859) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00829-PROOF.pdf](00829-PROOF.pdf) |
-| 830 | [A395833](https://oeis.org/A395833) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00830-PROOF.pdf](00830-PROOF.pdf) |
-| 831 | [A396099](https://oeis.org/A396099) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00831-PROOF.pdf](00831-PROOF.pdf) |
-| 832 | [A396102](https://oeis.org/A396102) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00832-PROOF.pdf](00832-PROOF.pdf) |
-| 833 | [A396797](https://oeis.org/A396797) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00833-PROOF.pdf](00833-PROOF.pdf) |
-| 834 | [A396807](https://oeis.org/A396807) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00834-PROOF.pdf](00834-PROOF.pdf) |
-| 835 | [A397241](https://oeis.org/A397241) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00835-PROOF.pdf](00835-PROOF.pdf) |
-| 836 | [A251454](https://oeis.org/A251454) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00836-PROOF.pdf](00836-PROOF.pdf) |
-| 837 | [A251459](https://oeis.org/A251459) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00837-PROOF.pdf](00837-PROOF.pdf) |
-| 838 | [A237315](https://oeis.org/A237315) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00838-PROOF.pdf](00838-PROOF.pdf) |
-| 839 | [A234078](https://oeis.org/A234078) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00839-PROOF.pdf](00839-PROOF.pdf) |
-| 840 | [A237211](https://oeis.org/A237211) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00840-PROOF.pdf](00840-PROOF.pdf) |
-| 841 | [A250978](https://oeis.org/A250978) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00841-PROOF.pdf](00841-PROOF.pdf) |
-| 842 | [A237398](https://oeis.org/A237398) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00842-PROOF.pdf](00842-PROOF.pdf) |
-| 843 | [A200256](https://oeis.org/A200256) | Proof |  | [00843-PROOF.pdf](00843-PROOF.pdf) |
-| 844 | [A251354](https://oeis.org/A251354) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00844-PROOF.pdf](00844-PROOF.pdf) |
-| 845 | [A251359](https://oeis.org/A251359) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00845-PROOF.pdf](00845-PROOF.pdf) |
-| 846 | [A236875](https://oeis.org/A236875) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00846-PROOF.pdf](00846-PROOF.pdf) |
-| 847 | [A237927](https://oeis.org/A237927) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00847-PROOF.pdf](00847-PROOF.pdf) |
-| 848 | [A237142](https://oeis.org/A237142) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00848-PROOF.pdf](00848-PROOF.pdf) |
-| 849 | [A222387](https://oeis.org/A222387) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00849-PROOF.pdf](00849-PROOF.pdf) |
-| 850 | [A234446](https://oeis.org/A234446) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00850-PROOF.pdf](00850-PROOF.pdf) |
-| 851 | [A236987](https://oeis.org/A236987) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00851-PROOF.pdf](00851-PROOF.pdf) |
-| 852 | [A251015](https://oeis.org/A251015) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00852-PROOF.pdf](00852-PROOF.pdf) |
-| 853 | [A234986](https://oeis.org/A234986) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00853-PROOF.pdf](00853-PROOF.pdf) |
-| 854 | [A233719](https://oeis.org/A233719) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00854-PROOF.pdf](00854-PROOF.pdf) |
-| 855 | [A296112](https://oeis.org/A296112) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00855-PROOF.pdf](00855-PROOF.pdf) |
-| 856 | [A300212](https://oeis.org/A300212) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00856-PROOF.pdf](00856-PROOF.pdf) |
-| 857 | [A237225](https://oeis.org/A237225) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00857-PROOF.pdf](00857-PROOF.pdf) |
-| 858 | [A237488](https://oeis.org/A237488) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00858-PROOF.pdf](00858-PROOF.pdf) |
-| 859 | [A237308](https://oeis.org/A237308) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00859-PROOF.pdf](00859-PROOF.pdf) |
-| 860 | [A234906](https://oeis.org/A234906) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00860-PROOF.pdf](00860-PROOF.pdf) |
-| 861 | [A234911](https://oeis.org/A234911) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00861-PROOF.pdf](00861-PROOF.pdf) |
-| 862 | [A251006](https://oeis.org/A251006) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00862-PROOF.pdf](00862-PROOF.pdf) |
-| 863 | [A237809](https://oeis.org/A237809) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00863-PROOF.pdf](00863-PROOF.pdf) |
-| 864 | [A236819](https://oeis.org/A236819) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00864-PROOF.pdf](00864-PROOF.pdf) |
-| 865 | [A236746](https://oeis.org/A236746) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00865-PROOF.pdf](00865-PROOF.pdf) |
-| 866 | [A236902](https://oeis.org/A236902) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00866-PROOF.pdf](00866-PROOF.pdf) |
-| 867 | [A222149](https://oeis.org/A222149) | Proof |  | [00867-PROOF.pdf](00867-PROOF.pdf) |
-| 868 | [A222039](https://oeis.org/A222039) | Proof |  | [00868-PROOF.pdf](00868-PROOF.pdf) |
-| 869 | [A233729](https://oeis.org/A233729) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00869-PROOF.pdf](00869-PROOF.pdf) |
-| 870 | [A264516](https://oeis.org/A264516) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00870-PROOF.pdf](00870-PROOF.pdf) |
-| 871 | [A236828](https://oeis.org/A236828) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00871-PROOF.pdf](00871-PROOF.pdf) |
-| 872 | [A251563](https://oeis.org/A251563) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00872-PROOF.pdf](00872-PROOF.pdf) |
-| 873 | [A251567](https://oeis.org/A251567) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00873-PROOF.pdf](00873-PROOF.pdf) |
-| 874 | [A236789](https://oeis.org/A236789) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00874-PROOF.pdf](00874-PROOF.pdf) |
-| 875 | [A236798](https://oeis.org/A236798) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00875-PROOF.pdf](00875-PROOF.pdf) |
-| 876 | [A220238](https://oeis.org/A220238) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00876-PROOF.pdf](00876-PROOF.pdf) |
-| 877 | [A220283](https://oeis.org/A220283) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00877-PROOF.pdf](00877-PROOF.pdf) |
-| 878 | [A263814](https://oeis.org/A263814) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00878-PROOF.pdf](00878-PROOF.pdf) |
-| 879 | [A263962](https://oeis.org/A263962) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00879-PROOF.pdf](00879-PROOF.pdf) |
-| 880 | [A233923](https://oeis.org/A233923) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00880-PROOF.pdf](00880-PROOF.pdf) |
-| 881 | [A251397](https://oeis.org/A251397) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00881-PROOF.pdf](00881-PROOF.pdf) |
-| 882 | [A251402](https://oeis.org/A251402) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00882-PROOF.pdf](00882-PROOF.pdf) |
-| 883 | [A250923](https://oeis.org/A250923) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00883-PROOF.pdf](00883-PROOF.pdf) |
-| 884 | [A236728](https://oeis.org/A236728) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00884-PROOF.pdf](00884-PROOF.pdf) |
-| 885 | [A283723](https://oeis.org/A283723) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00885-PROOF.pdf](00885-PROOF.pdf) |
-| 886 | [A234164](https://oeis.org/A234164) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00886-PROOF.pdf](00886-PROOF.pdf) |
-| 887 | [A253375](https://oeis.org/A253375) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00887-PROOF.pdf](00887-PROOF.pdf) |
-| 888 | [A251332](https://oeis.org/A251332) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00888-PROOF.pdf](00888-PROOF.pdf) |
-| 889 | [A234339](https://oeis.org/A234339) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00889-PROOF.pdf](00889-PROOF.pdf) |
-| 890 | [A234343](https://oeis.org/A234343) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00890-PROOF.pdf](00890-PROOF.pdf) |
-| 891 | [A231705](https://oeis.org/A231705) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00891-PROOF.pdf](00891-PROOF.pdf) |
-| 892 | [A231710](https://oeis.org/A231710) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00892-PROOF.pdf](00892-PROOF.pdf) |
-| 893 | [A238311](https://oeis.org/A238311) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00893-PROOF.pdf](00893-PROOF.pdf) |
-| 894 | [A298967](https://oeis.org/A298967) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00894-PROOF.pdf](00894-PROOF.pdf) |
-| 895 | [A233712](https://oeis.org/A233712) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00895-PROOF.pdf](00895-PROOF.pdf) |
-| 896 | [A250960](https://oeis.org/A250960) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00896-PROOF.pdf](00896-PROOF.pdf) |
-| 897 | [A250965](https://oeis.org/A250965) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00897-PROOF.pdf](00897-PROOF.pdf) |
-| 898 | [A237175](https://oeis.org/A237175) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00898-PROOF.pdf](00898-PROOF.pdf) |
-| 899 | [A233660](https://oeis.org/A233660) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00899-PROOF.pdf](00899-PROOF.pdf) |
-| 900 | [A184259](https://oeis.org/A184259) | Proof |  | [00900-PROOF.pdf](00900-PROOF.pdf) |
-| 901 | [A251303](https://oeis.org/A251303) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00901-PROOF.pdf](00901-PROOF.pdf) |
-| 902 | [A251308](https://oeis.org/A251308) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00902-PROOF.pdf](00902-PROOF.pdf) |
-| 903 | [A235073](https://oeis.org/A235073) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00903-PROOF.pdf](00903-PROOF.pdf) |
-| 904 | [A235078](https://oeis.org/A235078) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00904-PROOF.pdf](00904-PROOF.pdf) |
-| 905 | [A237481](https://oeis.org/A237481) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00905-PROOF.pdf](00905-PROOF.pdf) |
-| 906 | [A283039](https://oeis.org/A283039) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00906-PROOF.pdf](00906-PROOF.pdf) |
-| 907 | [A220972](https://oeis.org/A220972) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00907-PROOF.pdf](00907-PROOF.pdf) |
-| 908 | [A233870](https://oeis.org/A233870) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00908-PROOF.pdf](00908-PROOF.pdf) |
-| 909 | [A233875](https://oeis.org/A233875) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00909-PROOF.pdf](00909-PROOF.pdf) |
-| 910 | [A253863](https://oeis.org/A253863) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00910-PROOF.pdf](00910-PROOF.pdf) |
-| 911 | [A254491](https://oeis.org/A254491) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00911-PROOF.pdf](00911-PROOF.pdf) |
-| 912 | [A235003](https://oeis.org/A235003) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00912-PROOF.pdf](00912-PROOF.pdf) |
-| 913 | [A235007](https://oeis.org/A235007) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00913-PROOF.pdf](00913-PROOF.pdf) |
-| 914 | [A230987](https://oeis.org/A230987) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00914-PROOF.pdf](00914-PROOF.pdf) |
-| 915 | [A231069](https://oeis.org/A231069) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [00915-PROOF.pdf](00915-PROOF.pdf) |
-| 916 | [A264571](https://oeis.org/A264571) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00916-PROOF.pdf](00916-PROOF.pdf) |
-| 917 | [A233945](https://oeis.org/A233945) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00917-PROOF.pdf](00917-PROOF.pdf) |
-| 918 | [A250837](https://oeis.org/A250837) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00918-PROOF.pdf](00918-PROOF.pdf) |
-| 919 | [A237150](https://oeis.org/A237150) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00919-PROOF.pdf](00919-PROOF.pdf) |
-| 920 | [A237850](https://oeis.org/A237850) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00920-PROOF.pdf](00920-PROOF.pdf) |
-| 921 | [A233899](https://oeis.org/A233899) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00921-PROOF.pdf](00921-PROOF.pdf) |
-| 922 | [A264509](https://oeis.org/A264509) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00922-PROOF.pdf](00922-PROOF.pdf) |
-| 923 | [A253985](https://oeis.org/A253985) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00923-PROOF.pdf](00923-PROOF.pdf) |
-| 924 | [A233854](https://oeis.org/A233854) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00924-PROOF.pdf](00924-PROOF.pdf) |
-| 925 | [A234425](https://oeis.org/A234425) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00925-PROOF.pdf](00925-PROOF.pdf) |
-| 926 | [A234428](https://oeis.org/A234428) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00926-PROOF.pdf](00926-PROOF.pdf) |
-| 927 | [A237099](https://oeis.org/A237099) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00927-PROOF.pdf](00927-PROOF.pdf) |
-| 928 | [A237241](https://oeis.org/A237241) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00928-PROOF.pdf](00928-PROOF.pdf) |
-| 929 | [A233641](https://oeis.org/A233641) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00929-PROOF.pdf](00929-PROOF.pdf) |
-| 930 | [A253326](https://oeis.org/A253326) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00930-PROOF.pdf](00930-PROOF.pdf) |
-| 931 | [A251207](https://oeis.org/A251207) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00931-PROOF.pdf](00931-PROOF.pdf) |
-| 932 | [A229315](https://oeis.org/A229315) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00932-PROOF.pdf](00932-PROOF.pdf) |
-| 933 | [A220529](https://oeis.org/A220529) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00933-PROOF.pdf](00933-PROOF.pdf) |
-| 934 | [A200158](https://oeis.org/A200158) | Proof |  | [00934-PROOF.pdf](00934-PROOF.pdf) |
-| 935 | [A250930](https://oeis.org/A250930) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00935-PROOF.pdf](00935-PROOF.pdf) |
-| 936 | [A237067](https://oeis.org/A237067) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00936-PROOF.pdf](00936-PROOF.pdf) |
-| 937 | [A235021](https://oeis.org/A235021) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00937-PROOF.pdf](00937-PROOF.pdf) |
-| 938 | [A220914](https://oeis.org/A220914) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00938-PROOF.pdf](00938-PROOF.pdf) |
-| 939 | [A233630](https://oeis.org/A233630) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00939-PROOF.pdf](00939-PROOF.pdf) |
-| 940 | [A236884](https://oeis.org/A236884) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00940-PROOF.pdf](00940-PROOF.pdf) |
-| 941 | [A218176](https://oeis.org/A218176) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00941-PROOF.pdf](00941-PROOF.pdf) |
-| 942 | [A235102](https://oeis.org/A235102) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00942-PROOF.pdf](00942-PROOF.pdf) |
-| 943 | [A237076](https://oeis.org/A237076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00943-PROOF.pdf](00943-PROOF.pdf) |
-| 944 | [A236780](https://oeis.org/A236780) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00944-PROOF.pdf](00944-PROOF.pdf) |
-| 945 | [A233975](https://oeis.org/A233975) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00945-PROOF.pdf](00945-PROOF.pdf) |
-| 946 | [A251217](https://oeis.org/A251217) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00946-PROOF.pdf](00946-PROOF.pdf) |
-| 947 | [A251266](https://oeis.org/A251266) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00947-PROOF.pdf](00947-PROOF.pdf) |
-| 948 | [A234401](https://oeis.org/A234401) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00948-PROOF.pdf](00948-PROOF.pdf) |
-| 949 | [A234405](https://oeis.org/A234405) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00949-PROOF.pdf](00949-PROOF.pdf) |
-| 950 | [A251347](https://oeis.org/A251347) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00950-PROOF.pdf](00950-PROOF.pdf) |
-| 951 | [A281804](https://oeis.org/A281804) | Proof | a cell condition with an exception budget, counted up to relabelling | [00951-PROOF.pdf](00951-PROOF.pdf) |
-| 952 | [A237167](https://oeis.org/A237167) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00952-PROOF.pdf](00952-PROOF.pdf) |
-| 953 | [A236893](https://oeis.org/A236893) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00953-PROOF.pdf](00953-PROOF.pdf) |
-| 954 | [A237340](https://oeis.org/A237340) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00954-PROOF.pdf](00954-PROOF.pdf) |
-| 955 | [A220792](https://oeis.org/A220792) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00955-PROOF.pdf](00955-PROOF.pdf) |
-| 956 | [A233887](https://oeis.org/A233887) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00956-PROOF.pdf](00956-PROOF.pdf) |
-| 957 | [A279265](https://oeis.org/A279265) | Proof | a cell condition with an exception budget, counted up to relabelling | [00957-PROOF.pdf](00957-PROOF.pdf) |
-| 958 | [A237218](https://oeis.org/A237218) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00958-PROOF.pdf](00958-PROOF.pdf) |
-| 959 | [A220920](https://oeis.org/A220920) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00959-PROOF.pdf](00959-PROOF.pdf) |
-| 960 | [A220936](https://oeis.org/A220936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00960-PROOF.pdf](00960-PROOF.pdf) |
-| 961 | [A264417](https://oeis.org/A264417) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00961-PROOF.pdf](00961-PROOF.pdf) |
-| 962 | [A237921](https://oeis.org/A237921) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00962-PROOF.pdf](00962-PROOF.pdf) |
-| 963 | [A237472](https://oeis.org/A237472) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00963-PROOF.pdf](00963-PROOF.pdf) |
-| 964 | [A264572](https://oeis.org/A264572) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00964-PROOF.pdf](00964-PROOF.pdf) |
-| 965 | [A279154](https://oeis.org/A279154) | Proof | a cell condition with an exception budget, counted up to relabelling | [00965-PROOF.pdf](00965-PROOF.pdf) |
-| 966 | [A281984](https://oeis.org/A281984) | Proof | a cell condition with an exception budget, counted up to relabelling | [00966-PROOF.pdf](00966-PROOF.pdf) |
-| 967 | [A183956](https://oeis.org/A183956) | Proof |  | [00967-PROOF.pdf](00967-PROOF.pdf) |
-| 968 | [A280904](https://oeis.org/A280904) | Proof | a cell condition with an exception budget, counted up to relabelling | [00968-PROOF.pdf](00968-PROOF.pdf) |
-| 969 | [A232076](https://oeis.org/A232076) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00969-PROOF.pdf](00969-PROOF.pdf) |
-| 970 | [A281161](https://oeis.org/A281161) | Proof | a cell condition with an exception budget, counted up to relabelling | [00970-PROOF.pdf](00970-PROOF.pdf) |
-| 971 | [A237945](https://oeis.org/A237945) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00971-PROOF.pdf](00971-PROOF.pdf) |
-| 972 | [A279489](https://oeis.org/A279489) | Proof | a cell condition with an exception budget, counted up to relabelling | [00972-PROOF.pdf](00972-PROOF.pdf) |
-| 973 | [A237108](https://oeis.org/A237108) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00973-PROOF.pdf](00973-PROOF.pdf) |
-| 974 | [A221995](https://oeis.org/A221995) | Proof |  | [00974-PROOF.pdf](00974-PROOF.pdf) |
-| 975 | [A222148](https://oeis.org/A222148) | Proof |  | [00975-PROOF.pdf](00975-PROOF.pdf) |
-| 976 | [A222038](https://oeis.org/A222038) | Proof |  | [00976-PROOF.pdf](00976-PROOF.pdf) |
-| 977 | [A263971](https://oeis.org/A263971) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00977-PROOF.pdf](00977-PROOF.pdf) |
-| 978 | [A237299](https://oeis.org/A237299) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00978-PROOF.pdf](00978-PROOF.pdf) |
-| 979 | [A264268](https://oeis.org/A264268) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00979-PROOF.pdf](00979-PROOF.pdf) |
-| 980 | [A234407](https://oeis.org/A234407) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00980-PROOF.pdf](00980-PROOF.pdf) |
-| 981 | [A234412](https://oeis.org/A234412) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00981-PROOF.pdf](00981-PROOF.pdf) |
-| 982 | [A251494](https://oeis.org/A251494) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00982-PROOF.pdf](00982-PROOF.pdf) |
-| 983 | [A223336](https://oeis.org/A223336) | Proof | the same graph-coloured arrays with too many slices to carry one by one, run instead on the orbits of slices u... | [00983-PROOF.pdf](00983-PROOF.pdf) |
-| 984 | [A234892](https://oeis.org/A234892) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00984-PROOF.pdf](00984-PROOF.pdf) |
-| 985 | [A234898](https://oeis.org/A234898) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00985-PROOF.pdf](00985-PROOF.pdf) |
-| 986 | [A222023](https://oeis.org/A222023) | Proof |  | [00986-PROOF.pdf](00986-PROOF.pdf) |
-| 987 | [A254390](https://oeis.org/A254390) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00987-PROOF.pdf](00987-PROOF.pdf) |
-| 988 | [A238046](https://oeis.org/A238046) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00988-PROOF.pdf](00988-PROOF.pdf) |
-| 989 | [A280809](https://oeis.org/A280809) | Proof | a cell condition with an exception budget, counted up to relabelling | [00989-PROOF.pdf](00989-PROOF.pdf) |
-| 990 | [A234545](https://oeis.org/A234545) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00990-PROOF.pdf](00990-PROOF.pdf) |
-| 991 | [A251612](https://oeis.org/A251612) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00991-PROOF.pdf](00991-PROOF.pdf) |
-| 992 | [A251616](https://oeis.org/A251616) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00992-PROOF.pdf](00992-PROOF.pdf) |
-| 993 | [A251257](https://oeis.org/A251257) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00993-PROOF.pdf](00993-PROOF.pdf) |
-| 994 | [A234998](https://oeis.org/A234998) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00994-PROOF.pdf](00994-PROOF.pdf) |
-| 995 | [A222936](https://oeis.org/A222936) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00995-PROOF.pdf](00995-PROOF.pdf) |
-| 996 | [A236737](https://oeis.org/A236737) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00996-PROOF.pdf](00996-PROOF.pdf) |
-| 997 | [A264241](https://oeis.org/A264241) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [00997-PROOF.pdf](00997-PROOF.pdf) |
-| 998 | [A281762](https://oeis.org/A281762) | Proof | a cell condition with an exception budget, counted up to relabelling | [00998-PROOF.pdf](00998-PROOF.pdf) |
-| 999 | [A200255](https://oeis.org/A200255) | Proof |  | [00999-PROOF.pdf](00999-PROOF.pdf) |
-| 1000 | [A264258](https://oeis.org/A264258) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01000-PROOF.pdf](01000-PROOF.pdf) |
+| 819 | [A126358](https://oeis.org/A126358) | Proof |  | [00819-PROOF.pdf](00819-PROOF.pdf) |
+| 820 | [A126360](https://oeis.org/A126360) | Proof |  | [00820-PROOF.pdf](00820-PROOF.pdf) |
+| 821 | [A126362](https://oeis.org/A126362) | Proof |  | [00821-PROOF.pdf](00821-PROOF.pdf) |
+| 822 | [A126363](https://oeis.org/A126363) | Proof |  | [00822-PROOF.pdf](00822-PROOF.pdf) |
+| 823 | [A126364](https://oeis.org/A126364) | Proof |  | [00823-PROOF.pdf](00823-PROOF.pdf) |
+| 824 | [A126365](https://oeis.org/A126365) | Proof |  | [00824-PROOF.pdf](00824-PROOF.pdf) |
+| 825 | [A126366](https://oeis.org/A126366) | Proof |  | [00825-PROOF.pdf](00825-PROOF.pdf) |
+| 826 | [A126367](https://oeis.org/A126367) | Proof |  | [00826-PROOF.pdf](00826-PROOF.pdf) |
+| 827 | [A126368](https://oeis.org/A126368) | Proof |  | [00827-PROOF.pdf](00827-PROOF.pdf) |
+| 828 | [A126369](https://oeis.org/A126369) | Proof |  | [00828-PROOF.pdf](00828-PROOF.pdf) |
+| 829 | [A126370](https://oeis.org/A126370) | Proof |  | [00829-PROOF.pdf](00829-PROOF.pdf) |
+| 830 | [A126371](https://oeis.org/A126371) | Proof |  | [00830-PROOF.pdf](00830-PROOF.pdf) |
+| 831 | [A126372](https://oeis.org/A126372) | Proof |  | [00831-PROOF.pdf](00831-PROOF.pdf) |
+| 832 | [A126373](https://oeis.org/A126373) | Proof |  | [00832-PROOF.pdf](00832-PROOF.pdf) |
+| 833 | [A126374](https://oeis.org/A126374) | Proof |  | [00833-PROOF.pdf](00833-PROOF.pdf) |
+| 834 | [A126375](https://oeis.org/A126375) | Proof |  | [00834-PROOF.pdf](00834-PROOF.pdf) |
+| 835 | [A126376](https://oeis.org/A126376) | Proof |  | [00835-PROOF.pdf](00835-PROOF.pdf) |
+| 836 | [A126377](https://oeis.org/A126377) | Proof |  | [00836-PROOF.pdf](00836-PROOF.pdf) |
+| 837 | [A126378](https://oeis.org/A126378) | Proof |  | [00837-PROOF.pdf](00837-PROOF.pdf) |
+| 838 | [A126379](https://oeis.org/A126379) | Proof |  | [00838-PROOF.pdf](00838-PROOF.pdf) |
+| 839 | [A126380](https://oeis.org/A126380) | Proof |  | [00839-PROOF.pdf](00839-PROOF.pdf) |
+| 840 | [A126381](https://oeis.org/A126381) | Proof |  | [00840-PROOF.pdf](00840-PROOF.pdf) |
+| 841 | [A126382](https://oeis.org/A126382) | Proof |  | [00841-PROOF.pdf](00841-PROOF.pdf) |
+| 842 | [A126383](https://oeis.org/A126383) | Proof |  | [00842-PROOF.pdf](00842-PROOF.pdf) |
+| 843 | [A126384](https://oeis.org/A126384) | Proof |  | [00843-PROOF.pdf](00843-PROOF.pdf) |
+| 844 | [A126385](https://oeis.org/A126385) | Proof |  | [00844-PROOF.pdf](00844-PROOF.pdf) |
+| 845 | [A126386](https://oeis.org/A126386) | Proof |  | [00845-PROOF.pdf](00845-PROOF.pdf) |
+| 846 | [A126395](https://oeis.org/A126395) | Proof |  | [00846-PROOF.pdf](00846-PROOF.pdf) |
+| 847 | [A126396](https://oeis.org/A126396) | Proof |  | [00847-PROOF.pdf](00847-PROOF.pdf) |
+| 848 | [A126397](https://oeis.org/A126397) | Proof |  | [00848-PROOF.pdf](00848-PROOF.pdf) |
+| 849 | [A126398](https://oeis.org/A126398) | Proof |  | [00849-PROOF.pdf](00849-PROOF.pdf) |
+| 850 | [A126399](https://oeis.org/A126399) | Proof |  | [00850-PROOF.pdf](00850-PROOF.pdf) |
+| 851 | [A126400](https://oeis.org/A126400) | Proof |  | [00851-PROOF.pdf](00851-PROOF.pdf) |
+| 852 | [A126401](https://oeis.org/A126401) | Proof |  | [00852-PROOF.pdf](00852-PROOF.pdf) |
+| 853 | [A126402](https://oeis.org/A126402) | Proof |  | [00853-PROOF.pdf](00853-PROOF.pdf) |
+| 854 | [A126403](https://oeis.org/A126403) | Proof |  | [00854-PROOF.pdf](00854-PROOF.pdf) |
+| 855 | [A126405](https://oeis.org/A126405) | Proof |  | [00855-PROOF.pdf](00855-PROOF.pdf) |
+| 856 | [A126406](https://oeis.org/A126406) | Proof |  | [00856-PROOF.pdf](00856-PROOF.pdf) |
+| 857 | [A126407](https://oeis.org/A126407) | Proof |  | [00857-PROOF.pdf](00857-PROOF.pdf) |
+| 858 | [A126408](https://oeis.org/A126408) | Proof |  | [00858-PROOF.pdf](00858-PROOF.pdf) |
+| 859 | [A126409](https://oeis.org/A126409) | Proof |  | [00859-PROOF.pdf](00859-PROOF.pdf) |
+| 860 | [A126410](https://oeis.org/A126410) | Proof |  | [00860-PROOF.pdf](00860-PROOF.pdf) |
+| 861 | [A126411](https://oeis.org/A126411) | Proof |  | [00861-PROOF.pdf](00861-PROOF.pdf) |
+| 862 | [A126412](https://oeis.org/A126412) | Proof |  | [00862-PROOF.pdf](00862-PROOF.pdf) |
+| 863 | [A126413](https://oeis.org/A126413) | Proof |  | [00863-PROOF.pdf](00863-PROOF.pdf) |
+| 864 | [A126414](https://oeis.org/A126414) | Proof |  | [00864-PROOF.pdf](00864-PROOF.pdf) |
+| 865 | [A126415](https://oeis.org/A126415) | Proof |  | [00865-PROOF.pdf](00865-PROOF.pdf) |
+| 866 | [A126416](https://oeis.org/A126416) | Proof |  | [00866-PROOF.pdf](00866-PROOF.pdf) |
+| 867 | [A126417](https://oeis.org/A126417) | Proof |  | [00867-PROOF.pdf](00867-PROOF.pdf) |
+| 868 | [A126418](https://oeis.org/A126418) | Proof |  | [00868-PROOF.pdf](00868-PROOF.pdf) |
+| 869 | [A126419](https://oeis.org/A126419) | Proof |  | [00869-PROOF.pdf](00869-PROOF.pdf) |
+| 870 | [A126473](https://oeis.org/A126473) | Proof |  | [00870-PROOF.pdf](00870-PROOF.pdf) |
+| 871 | [A126475](https://oeis.org/A126475) | Proof |  | [00871-PROOF.pdf](00871-PROOF.pdf) |
+| 872 | [A126476](https://oeis.org/A126476) | Proof |  | [00872-PROOF.pdf](00872-PROOF.pdf) |
+| 873 | [A126477](https://oeis.org/A126477) | Proof |  | [00873-PROOF.pdf](00873-PROOF.pdf) |
+| 874 | [A126478](https://oeis.org/A126478) | Proof |  | [00874-PROOF.pdf](00874-PROOF.pdf) |
+| 875 | [A126479](https://oeis.org/A126479) | Proof |  | [00875-PROOF.pdf](00875-PROOF.pdf) |
+| 876 | [A126480](https://oeis.org/A126480) | Proof |  | [00876-PROOF.pdf](00876-PROOF.pdf) |
+| 877 | [A126481](https://oeis.org/A126481) | Proof |  | [00877-PROOF.pdf](00877-PROOF.pdf) |
+| 878 | [A126482](https://oeis.org/A126482) | Proof |  | [00878-PROOF.pdf](00878-PROOF.pdf) |
+| 879 | [A126483](https://oeis.org/A126483) | Proof |  | [00879-PROOF.pdf](00879-PROOF.pdf) |
+| 880 | [A126484](https://oeis.org/A126484) | Proof |  | [00880-PROOF.pdf](00880-PROOF.pdf) |
+| 881 | [A126485](https://oeis.org/A126485) | Proof |  | [00881-PROOF.pdf](00881-PROOF.pdf) |
+| 882 | [A126486](https://oeis.org/A126486) | Proof |  | [00882-PROOF.pdf](00882-PROOF.pdf) |
+| 883 | [A126487](https://oeis.org/A126487) | Proof |  | [00883-PROOF.pdf](00883-PROOF.pdf) |
+| 884 | [A126488](https://oeis.org/A126488) | Proof |  | [00884-PROOF.pdf](00884-PROOF.pdf) |
+| 885 | [A126489](https://oeis.org/A126489) | Proof |  | [00885-PROOF.pdf](00885-PROOF.pdf) |
+| 886 | [A126490](https://oeis.org/A126490) | Proof |  | [00886-PROOF.pdf](00886-PROOF.pdf) |
+| 887 | [A126491](https://oeis.org/A126491) | Proof |  | [00887-PROOF.pdf](00887-PROOF.pdf) |
+| 888 | [A126492](https://oeis.org/A126492) | Proof |  | [00888-PROOF.pdf](00888-PROOF.pdf) |
+| 889 | [A126493](https://oeis.org/A126493) | Proof |  | [00889-PROOF.pdf](00889-PROOF.pdf) |
+| 890 | [A126494](https://oeis.org/A126494) | Proof |  | [00890-PROOF.pdf](00890-PROOF.pdf) |
+| 891 | [A126495](https://oeis.org/A126495) | Proof |  | [00891-PROOF.pdf](00891-PROOF.pdf) |
+| 892 | [A126496](https://oeis.org/A126496) | Proof |  | [00892-PROOF.pdf](00892-PROOF.pdf) |
+| 893 | [A126497](https://oeis.org/A126497) | Proof |  | [00893-PROOF.pdf](00893-PROOF.pdf) |
+| 894 | [A126498](https://oeis.org/A126498) | Proof |  | [00894-PROOF.pdf](00894-PROOF.pdf) |
+| 895 | [A126499](https://oeis.org/A126499) | Proof |  | [00895-PROOF.pdf](00895-PROOF.pdf) |
+| 896 | [A126500](https://oeis.org/A126500) | Proof |  | [00896-PROOF.pdf](00896-PROOF.pdf) |
+| 897 | [A126502](https://oeis.org/A126502) | Proof |  | [00897-PROOF.pdf](00897-PROOF.pdf) |
+| 898 | [A126503](https://oeis.org/A126503) | Proof |  | [00898-PROOF.pdf](00898-PROOF.pdf) |
+| 899 | [A126504](https://oeis.org/A126504) | Proof |  | [00899-PROOF.pdf](00899-PROOF.pdf) |
+| 900 | [A126505](https://oeis.org/A126505) | Proof |  | [00900-PROOF.pdf](00900-PROOF.pdf) |
+| 901 | [A126506](https://oeis.org/A126506) | Proof |  | [00901-PROOF.pdf](00901-PROOF.pdf) |
+| 902 | [A126507](https://oeis.org/A126507) | Proof |  | [00902-PROOF.pdf](00902-PROOF.pdf) |
+| 903 | [A126508](https://oeis.org/A126508) | Proof |  | [00903-PROOF.pdf](00903-PROOF.pdf) |
+| 904 | [A126509](https://oeis.org/A126509) | Proof |  | [00904-PROOF.pdf](00904-PROOF.pdf) |
+| 905 | [A126510](https://oeis.org/A126510) | Proof |  | [00905-PROOF.pdf](00905-PROOF.pdf) |
+| 906 | [A126511](https://oeis.org/A126511) | Proof |  | [00906-PROOF.pdf](00906-PROOF.pdf) |
+| 907 | [A126512](https://oeis.org/A126512) | Proof |  | [00907-PROOF.pdf](00907-PROOF.pdf) |
+| 908 | [A126513](https://oeis.org/A126513) | Proof |  | [00908-PROOF.pdf](00908-PROOF.pdf) |
+| 909 | [A126514](https://oeis.org/A126514) | Proof |  | [00909-PROOF.pdf](00909-PROOF.pdf) |
+| 910 | [A126515](https://oeis.org/A126515) | Proof |  | [00910-PROOF.pdf](00910-PROOF.pdf) |
+| 911 | [A126516](https://oeis.org/A126516) | Proof |  | [00911-PROOF.pdf](00911-PROOF.pdf) |
+| 912 | [A126517](https://oeis.org/A126517) | Proof |  | [00912-PROOF.pdf](00912-PROOF.pdf) |
+| 913 | [A126518](https://oeis.org/A126518) | Proof |  | [00913-PROOF.pdf](00913-PROOF.pdf) |
+| 914 | [A126519](https://oeis.org/A126519) | Proof |  | [00914-PROOF.pdf](00914-PROOF.pdf) |
+| 915 | [A126520](https://oeis.org/A126520) | Proof |  | [00915-PROOF.pdf](00915-PROOF.pdf) |
+| 916 | [A126521](https://oeis.org/A126521) | Proof |  | [00916-PROOF.pdf](00916-PROOF.pdf) |
+| 917 | [A126522](https://oeis.org/A126522) | Proof |  | [00917-PROOF.pdf](00917-PROOF.pdf) |
+| 918 | [A126523](https://oeis.org/A126523) | Proof |  | [00918-PROOF.pdf](00918-PROOF.pdf) |
+| 919 | [A126524](https://oeis.org/A126524) | Proof |  | [00919-PROOF.pdf](00919-PROOF.pdf) |
+| 920 | [A126525](https://oeis.org/A126525) | Proof |  | [00920-PROOF.pdf](00920-PROOF.pdf) |
+| 921 | [A126526](https://oeis.org/A126526) | Proof |  | [00921-PROOF.pdf](00921-PROOF.pdf) |
+| 922 | [A126527](https://oeis.org/A126527) | Proof |  | [00922-PROOF.pdf](00922-PROOF.pdf) |
+| 923 | [A126528](https://oeis.org/A126528) | Proof |  | [00923-PROOF.pdf](00923-PROOF.pdf) |
+| 924 | [A126529](https://oeis.org/A126529) | Proof |  | [00924-PROOF.pdf](00924-PROOF.pdf) |
+| 925 | [A126530](https://oeis.org/A126530) | Proof |  | [00925-PROOF.pdf](00925-PROOF.pdf) |
+| 926 | [A126531](https://oeis.org/A126531) | Proof |  | [00926-PROOF.pdf](00926-PROOF.pdf) |
+| 927 | [A126532](https://oeis.org/A126532) | Proof |  | [00927-PROOF.pdf](00927-PROOF.pdf) |
+| 928 | [A126533](https://oeis.org/A126533) | Proof |  | [00928-PROOF.pdf](00928-PROOF.pdf) |
+| 929 | [A126534](https://oeis.org/A126534) | Proof |  | [00929-PROOF.pdf](00929-PROOF.pdf) |
+| 930 | [A126535](https://oeis.org/A126535) | Proof |  | [00930-PROOF.pdf](00930-PROOF.pdf) |
+| 931 | [A126536](https://oeis.org/A126536) | Proof |  | [00931-PROOF.pdf](00931-PROOF.pdf) |
+| 932 | [A126537](https://oeis.org/A126537) | Proof |  | [00932-PROOF.pdf](00932-PROOF.pdf) |
+| 933 | [A126538](https://oeis.org/A126538) | Proof |  | [00933-PROOF.pdf](00933-PROOF.pdf) |
+| 934 | [A126539](https://oeis.org/A126539) | Proof |  | [00934-PROOF.pdf](00934-PROOF.pdf) |
+| 935 | [A126540](https://oeis.org/A126540) | Proof |  | [00935-PROOF.pdf](00935-PROOF.pdf) |
+| 936 | [A126541](https://oeis.org/A126541) | Proof |  | [00936-PROOF.pdf](00936-PROOF.pdf) |
+| 937 | [A126542](https://oeis.org/A126542) | Proof |  | [00937-PROOF.pdf](00937-PROOF.pdf) |
+| 938 | [A126543](https://oeis.org/A126543) | Proof |  | [00938-PROOF.pdf](00938-PROOF.pdf) |
+| 939 | [A126544](https://oeis.org/A126544) | Proof |  | [00939-PROOF.pdf](00939-PROOF.pdf) |
+| 940 | [A126545](https://oeis.org/A126545) | Proof |  | [00940-PROOF.pdf](00940-PROOF.pdf) |
+| 941 | [A126546](https://oeis.org/A126546) | Proof |  | [00941-PROOF.pdf](00941-PROOF.pdf) |
+| 942 | [A126547](https://oeis.org/A126547) | Proof |  | [00942-PROOF.pdf](00942-PROOF.pdf) |
+| 943 | [A126548](https://oeis.org/A126548) | Proof |  | [00943-PROOF.pdf](00943-PROOF.pdf) |
+| 944 | [A126549](https://oeis.org/A126549) | Proof |  | [00944-PROOF.pdf](00944-PROOF.pdf) |
+| 945 | [A126550](https://oeis.org/A126550) | Proof |  | [00945-PROOF.pdf](00945-PROOF.pdf) |
+| 946 | [A126551](https://oeis.org/A126551) | Proof |  | [00946-PROOF.pdf](00946-PROOF.pdf) |
+| 947 | [A126552](https://oeis.org/A126552) | Proof |  | [00947-PROOF.pdf](00947-PROOF.pdf) |
+| 948 | [A126553](https://oeis.org/A126553) | Proof |  | [00948-PROOF.pdf](00948-PROOF.pdf) |
+| 949 | [A155543](https://oeis.org/A155543) | Proof | an entry equated to an m-section of another entry, decided from both entries' facts | [00949-PROOF.pdf](00949-PROOF.pdf) |
+| 950 | [A196523](https://oeis.org/A196523) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00950-PROOF.pdf](00950-PROOF.pdf) |
+| 951 | [A208545](https://oeis.org/A208545) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00951-PROOF.pdf](00951-PROOF.pdf) |
+| 952 | [A227161](https://oeis.org/A227161) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00952-PROOF.pdf](00952-PROOF.pdf) |
+| 953 | [A378575](https://oeis.org/A378575) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00953-PROOF.pdf](00953-PROOF.pdf) |
+| 954 | [A378576](https://oeis.org/A378576) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00954-PROOF.pdf](00954-PROOF.pdf) |
+| 955 | [A389472](https://oeis.org/A389472) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00955-PROOF.pdf](00955-PROOF.pdf) |
+| 956 | [A393856](https://oeis.org/A393856) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00956-PROOF.pdf](00956-PROOF.pdf) |
+| 957 | [A393857](https://oeis.org/A393857) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00957-PROOF.pdf](00957-PROOF.pdf) |
+| 958 | [A393858](https://oeis.org/A393858) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00958-PROOF.pdf](00958-PROOF.pdf) |
+| 959 | [A393859](https://oeis.org/A393859) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00959-PROOF.pdf](00959-PROOF.pdf) |
+| 960 | [A395833](https://oeis.org/A395833) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00960-PROOF.pdf](00960-PROOF.pdf) |
+| 961 | [A396099](https://oeis.org/A396099) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00961-PROOF.pdf](00961-PROOF.pdf) |
+| 962 | [A396102](https://oeis.org/A396102) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00962-PROOF.pdf](00962-PROOF.pdf) |
+| 963 | [A396797](https://oeis.org/A396797) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00963-PROOF.pdf](00963-PROOF.pdf) |
+| 964 | [A396807](https://oeis.org/A396807) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00964-PROOF.pdf](00964-PROOF.pdf) |
+| 965 | [A397241](https://oeis.org/A397241) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00965-PROOF.pdf](00965-PROOF.pdf) |
+| 966 | [A251454](https://oeis.org/A251454) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00966-PROOF.pdf](00966-PROOF.pdf) |
+| 967 | [A251459](https://oeis.org/A251459) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00967-PROOF.pdf](00967-PROOF.pdf) |
+| 968 | [A237315](https://oeis.org/A237315) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00968-PROOF.pdf](00968-PROOF.pdf) |
+| 969 | [A234078](https://oeis.org/A234078) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00969-PROOF.pdf](00969-PROOF.pdf) |
+| 970 | [A237211](https://oeis.org/A237211) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00970-PROOF.pdf](00970-PROOF.pdf) |
+| 971 | [A250978](https://oeis.org/A250978) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00971-PROOF.pdf](00971-PROOF.pdf) |
+| 972 | [A237398](https://oeis.org/A237398) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00972-PROOF.pdf](00972-PROOF.pdf) |
+| 973 | [A200256](https://oeis.org/A200256) | Proof |  | [00973-PROOF.pdf](00973-PROOF.pdf) |
+| 974 | [A251354](https://oeis.org/A251354) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00974-PROOF.pdf](00974-PROOF.pdf) |
+| 975 | [A251359](https://oeis.org/A251359) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00975-PROOF.pdf](00975-PROOF.pdf) |
+| 976 | [A236875](https://oeis.org/A236875) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00976-PROOF.pdf](00976-PROOF.pdf) |
+| 977 | [A237927](https://oeis.org/A237927) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00977-PROOF.pdf](00977-PROOF.pdf) |
+| 978 | [A237142](https://oeis.org/A237142) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00978-PROOF.pdf](00978-PROOF.pdf) |
+| 979 | [A222387](https://oeis.org/A222387) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [00979-PROOF.pdf](00979-PROOF.pdf) |
+| 980 | [A234446](https://oeis.org/A234446) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00980-PROOF.pdf](00980-PROOF.pdf) |
+| 981 | [A236987](https://oeis.org/A236987) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00981-PROOF.pdf](00981-PROOF.pdf) |
+| 982 | [A251015](https://oeis.org/A251015) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00982-PROOF.pdf](00982-PROOF.pdf) |
+| 983 | [A234986](https://oeis.org/A234986) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00983-PROOF.pdf](00983-PROOF.pdf) |
+| 984 | [A233719](https://oeis.org/A233719) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00984-PROOF.pdf](00984-PROOF.pdf) |
+| 985 | [A296112](https://oeis.org/A296112) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00985-PROOF.pdf](00985-PROOF.pdf) |
+| 986 | [A300212](https://oeis.org/A300212) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00986-PROOF.pdf](00986-PROOF.pdf) |
+| 987 | [A237225](https://oeis.org/A237225) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00987-PROOF.pdf](00987-PROOF.pdf) |
+| 988 | [A237488](https://oeis.org/A237488) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00988-PROOF.pdf](00988-PROOF.pdf) |
+| 989 | [A237308](https://oeis.org/A237308) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00989-PROOF.pdf](00989-PROOF.pdf) |
+| 990 | [A234906](https://oeis.org/A234906) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00990-PROOF.pdf](00990-PROOF.pdf) |
+| 991 | [A234911](https://oeis.org/A234911) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00991-PROOF.pdf](00991-PROOF.pdf) |
+| 992 | [A251006](https://oeis.org/A251006) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00992-PROOF.pdf](00992-PROOF.pdf) |
+| 993 | [A237809](https://oeis.org/A237809) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00993-PROOF.pdf](00993-PROOF.pdf) |
+| 994 | [A236819](https://oeis.org/A236819) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00994-PROOF.pdf](00994-PROOF.pdf) |
+| 995 | [A236746](https://oeis.org/A236746) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00995-PROOF.pdf](00995-PROOF.pdf) |
+| 996 | [A236902](https://oeis.org/A236902) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00996-PROOF.pdf](00996-PROOF.pdf) |
+| 997 | [A222149](https://oeis.org/A222149) | Proof |  | [00997-PROOF.pdf](00997-PROOF.pdf) |
+| 998 | [A222039](https://oeis.org/A222039) | Proof |  | [00998-PROOF.pdf](00998-PROOF.pdf) |
+| 999 | [A233729](https://oeis.org/A233729) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00999-PROOF.pdf](00999-PROOF.pdf) |
+| 1000 | [A264516](https://oeis.org/A264516) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [01000-PROOF.pdf](01000-PROOF.pdf) |

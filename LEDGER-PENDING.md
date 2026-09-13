@@ -584,3 +584,64 @@ verified over their whole claimed range and installed as `circular-base-identity
 of those 219 are flagged by the openness check, and in all twenty-six the settlement wording is
 Ray Chandler's confirmation of the LINEAR RECURRENCE on the entry, a different statement; the
 cross-base line is still marked empirical on each.
+
+## 13 September 2026 — `linbase`: the same claim on the linear strings, and where the -2 comes from
+
+    Number of base 11 n-digit numbers with adjacent digits differing by two or less.
+      [Empirical] a(base,n)=a(base-1,n)+5^(n-1) for base>=2n-1;
+                  a(base,n)=a(base-1,n)+5^(n-1)-2 when base=2n-2.
+
+130 more entries, found by asking section P's question of the clone: 121 of them came back in
+the "two-parameter identity" bucket, the rest by name. The model is the same one step simpler —
+strings, not cycles, so a(n) = 1^T M^(n-1) 1 and a(0) = 1 is the empty string — and the proof is
+the same four steps with the boundary case now IN the claim:
+
+  1. a(base,n) - a(base-1,n) counts the admissible strings over {0..b-1} using the value b-1.
+  2. Translation acts freely on the admissible strings over Z; each orbit has one representative
+     with c_1 = 0, determined by its step vector in {-d..d}^(n-1), so there are (2d+1)^(n-1)
+     orbits, and every orbit has a range at most d(n-1).
+  3. A string counted in 1 is the representative with maximum b-1 of an orbit whose range is at
+     most b-1, and conversely. So the difference counts the orbits of range <= b-1.
+  4. If b >= d(n-1)+1 every orbit qualifies: the difference is (2d+1)^(n-1). If b = d(n-1)
+     exactly, the orbits of range d(n-1) are lost, and an orbit has that range only if the walk
+     from its minimum to its maximum uses all n-1 steps in one direction at full size — so
+     exactly TWO of them, all +d and all -d.
+
+That is the entry's second clause, and the -2 is those two monotone strings. Both thresholds are
+the entry's own.
+
+**130 verified over their whole claimed range and installed as `linear-base-identity`.** One
+entry, A126404, is refused: it declares offset 1 while its first published term is the empty
+string's 1, so the entry's own n and the string length are out of step by one and no reading of
+"n" in the claim can be defended. Three more are flagged by the openness check, and in all three
+the settled statement is the linear recurrence (Barker's conjecture, or the transfer-matrix
+identity), not the cross-base line.
+
+## 13 September 2026 — `ratrec` refused four kinds of ordinary recurrence line
+
+The parser that decides whether a line states a constant-coefficient recurrence takes everything
+after `a(n) =` and then refuses the line if anything is left over once the recurrence terms are
+removed. That leftover test is what makes it safe. It is also what refused these:
+
+    Empirical: a(n)=16*a(n-1)-...-a(n-16) (=polynomial of degree 15)
+    Empirical: a(n) = 4*a(n-3) n > 14.
+    Empirical: a(n) = 3*a(n-1) ... -a(n-14), for n>18.
+    Empirical: a(n) = a(n-1) + 3*a(n-2) + 2*a(n-3). (Follows from g.f. ...)
+
+A trailing parenthetical, a qualifier with no "for", a comma before the qualifier, and a second
+sentence. Each is now removed before the leftover test, and only when the removed text carries
+no recurrence term — which matters more than it looks: a trailing parenthetical is also what
+the LAST TERM of every one of these lines ends with, `-a(n-16)`, so the strip had to require the
+parenthesis to stand alone, preceded by whitespace. Without that the parser silently dropped the
+final term of the recurrence it was reading. A bare `n > k` qualifier is now read as a threshold
+as well.
+
+Checked against a baseline of 11,176 lines that parsed before the change: **0 lost, 0 changed,
+15 gained.** Ten of the fifteen proved immediately.
+
+And the question the change raises, asked of the sweep's own candidate list: **790 entries that
+`sweep_uni` marked done are not in the roster and DO carry a parsable recurrence.** The done set
+records no reason, so they are being re-asked rather than guessed at. `sweep_engine.py` grew an
+`ONLY_ANUMS` filter for exactly this: when a PARSER is widened rather than an engine written, the
+entries that changed are known by name, and sweeping every name of sixty-six engines to reach
+them is hours of work for nothing.

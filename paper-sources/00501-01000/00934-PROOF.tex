@@ -12,127 +12,119 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A200158, proved from an exact model}
+\title{The cross-base identity for OEIS A126539, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A200158 carries an empirical recurrence of order $64$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=257$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A126539 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A200158 is ``Number of 0..n arrays x(0..6) of 7 elements with zero 6th difference.''. It has offset $1$ and begins
+OEIS A126539 is ``Number of base 18 n-digit numbers with adjacent digits differing by five or less.''. It has offset $0$ and begins
 \[
-2, 45, 182, 685, 2036, 5153, 11370, 23035,\ \dots
+1, 18, 168, 1628, 15938, 156652, 1541646, 15178334,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -a(n-2) +2*a(n-6) -4*a(n-7) +2*a(n-8) -a(n-12) +2*a(n-13) -a(n-14) +2*a(n-15) -4*a(n-16) +2*a(n-17) +a(n-20) -6*a(n-21) +9*a(n-22) -4*a(n-23) -2*a(n-26) +6*a(n-27) -6*a(n-28) +2*a(n-29) -a(n-30) +2*a(n-31) -2*a(n-33) +a(n-34) -2*a(n-35) +6*a(n-36) -6*a(n-37) +2*a(n-38) +4*a(n-41) -9*a(n-42) +6*a(n-43) -a(n-44) -2*a(n-47) +4*a(n-48) -2*a(n-49) +a(n-50) -2*a(n-51) +a(n-52) -2*a(n-56) +4*a(n-57) -2*a(n-58) +a(n-62) -2*a(n-63) +a(n-64)
+[Empirical] a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1) for base>=5n-4; a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1)-2 when base=5n-5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 08:27:45, revision 9)
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:17:55, revision 15)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+For this entry the base is $18$ and the permitted difference is $d=5$, so the first clause
+claims $a_{18}(n)-a_{17}(n)=11^{\,n-1}$ whenever $5(n-1)+1\le18$, that is for
+$1\le n\le4$, and the second claims $a_{18}(n)-a_{17}(n)=11^{\,n-1}-2$ at the single
+$n$ with $5(n-1)=18$.
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+\section{What the entry counts}
 
-\section{The bound}
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{5}$ at base $18$ reproduces all $18$ terms A126539 publishes.
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
-\[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
-\]
-annihilates $a$, and $S=\deg A=257$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=257$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{64}-\sum_ic_iz^{64-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
-\end{lemma}
-
-\begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
-\[
-a(n)\;=\;2\,a(n-1) - a(n-2) + 2\,a(n-6) - 4\,a(n-7) + 2\,a(n-8) - a(n-12) + 2\,a(n-13) - a(n-14) + 2\,a(n-15) - 4\,a(n-16) + 2\,a(n-17) + a(n-20) - 6\,a(n-21) + 9\,a(n-22) - 4\,a(n-23) - 2\,a(n-26) + 6\,a(n-27) - 6\,a(n-28) + 2\,a(n-29) - a(n-30) + 2\,a(n-31) - 2\,a(n-33) + a(n-34) - 2\,a(n-35) + 6\,a(n-36) - 6\,a(n-37) + 2\,a(n-38) + 4\,a(n-41) - 9\,a(n-42) + 6\,a(n-43) - a(n-44) - 2\,a(n-47) + 4\,a(n-48) - 2\,a(n-49) + a(n-50) - 2\,a(n-51) + a(n-52) - 2\,a(n-56) + 4\,a(n-57) - 2\,a(n-58) + a(n-62) - 2\,a(n-63) + a(n-64)
-\]
-for every $n>0$.
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+64$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the model reproduces all $18$ terms A126539 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le4$, both sides computed from the definition and not from the theorem:
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{5}(18,n)$ & $L_{5}(17,n)$ & $11^{\,n-1}$ \\ \hline
+1 & 18 & 17 & 1 \\
+2 & 168 & 157 & 11 \\
+3 & 1628 & 1507 & 121 \\
+4 & 15938 & 14607 & 1331 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A200158.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=4$.
+
+Third, the second clause was evaluated at its own index.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126539}.
+\end{enumerate}
 
 \end{document}

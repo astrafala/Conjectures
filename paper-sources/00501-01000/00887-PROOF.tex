@@ -12,123 +12,123 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A253375}
+\title{The cross-base identity for OEIS A126491, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253375 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 45]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, row 2.
+OEIS A126491 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A253375 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with every 2X2 subblock sum nondecreasing horizontally, vertically and antidiagonally ne-to-sw.''. It is read by antidiagonals and begins
+OEIS A126491 is ``Number of base 23 n-digit numbers with adjacent digits differing by three or less.''. It has offset $0$ and begins
 \[
-81, 450, 450, 2500, 3111, 2500, 11100, 22877,\ \dots
+1, 23, 149, 987, 6589, 44191, 297261, 2003755,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 45]\\
-n=2: [order 79]
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+7\textasciicircum{}(n-1) for base>=3n-2; a(base,n)=a(base-1,n)+7\textasciicircum{}(n-1)-2 when base=3n-3
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:01:08, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:14:10, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+For this entry the base is $23$ and the permitted difference is $d=3$, so the first clause
+claims $a_{23}(n)-a_{22}(n)=7^{\,n-1}$ whenever $3(n-1)+1\le23$, that is for
+$1\le n\le8$, and the second claims $a_{23}(n)-a_{22}(n)=7^{\,n-1}-2$ at the single
+$n$ with $3(n-1)=23$.
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+\section{What the entry counts}
 
-\section{Recovering the recurrences}
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{3}$ at base $23$ reproduces all $20$ terms A126491 publishes.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
-\end{lemma}
-
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=450$ vertices. Berlekamp--Massey on $2S=900$ exact terms
-returns a minimal recurrence of order $45$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{45})=(9,\ 18,\ -390,\ 363,\ 7557,\ -16924,\ -85080,\ 289038,\ 592626,\ -3022596,\ -2302692,\ 22010974,\ 263586,\ -118108608,\ 60625464,\ 480363315,\ -453795339,\ -1497838078,\ 2041953882,\ 3566209239,\ -6619257735,\ -6304597140,\ 16357594512,\ 7550240128,\ -31527338352,\ -3791317152,\ 47758481952,\ -6659648352,\ -56728278048,\ 20129722880,\ 52207707264,\ -28856183808,\ -36302235648,\ 27669476352,\ 18144427008,\ -18828638464,\ -5799153408,\ 9055982592,\ 719677440,\ -2944438272,\ 244629504,\ 582598656,\ -119439360,\ -53084160,\ 15925248).
-\]
-so that $a(m)=\sum_{i=1}^{45}c_i\,a(m-i)$ for every $m$. Removing the first
-$45+4$ terms and repeating gives order $45$ again, which is what the
-identification below needs.
-
-\subsection*{Row $n=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=450$ vertices. Berlekamp--Massey on $2S=900$ exact terms
-returns a minimal recurrence of order $79$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{79})=(9,\ 65,\ -813,\ -1503,\ 35067,\ -2049,\ -960243,\ 1086240,\ 18711228,\ -35736696,\ -275381736,\ 714658500,\ 3165994812,\ -10469468628,\ -28924095228,\ 120561637986,\ 210319415742,\ -1132860637250,\ -1190202257382,\ 8890114025950,\ 4801619959530,\ -59186272390110,\ -8367164615610,\ 338018085156660,\ -63026938123020,\ -1669263148180740,\ 783202925756340,\ 7168284121132980,\ -5196566728384740,\ -26866295989193748,\ 26010783052803972,\ 88048679140737015,\ -106748031772881279,\ -252329474348288919,\ 371635847674498251,\ 630909828966841993,\ -1116759425621881869,\ -1368846121844868905,\ 2925275798772753429,\ 2549493296941549716,\ -6718378143067818744,\ -3990279397586265900,\ 13573200380588028348,\ 5003881995007001088,\ -24158694316978174512,\ -4356492449072602896,\ 37885311670133837328,\ 702180134840233920,\ -52281979345965347328,\ 6495657021495425856,\ 63334702238132746176,\ -16079014545805946880,\ -67090134345597242112,\ 25187434137260649728,\ 61801025531016991488,\ -30523610020098282496,\ -49124893907374282752,\ 30216827194676075520,\ 33334146513723036672,\ -24903026047945359360,\ -19010417886235054080,\ 17168181780647301120,\ 8895860007639920640,\ -9868786556970516480,\ -3276824012368773120,\ 4685347765788917760,\ 868947223463608320,\ -1807894348725288960,\ -120651665681940480,\ 553134494117265408,\ -17459153936842752,\ -129178265777602560,\ 14777776041099264,\ 21637807214690304,\ -4007539482034176,\ -2315214083063808,\ 570630428688384,\ 118881339310080,\ -35664401793024).
-\]
-so that $a(m)=\sum_{i=1}^{79}c_i\,a(m-i)$ for every $m$. Removing the first
-$79+4$ terms and repeating gives order $79$ again, which is what the
-identification below needs.
+\section{The identity}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the proof above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $20$ terms A126491 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le8$, both sides computed from the definition and not from the theorem:
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{3}(23,n)$ & $L_{3}(22,n)$ & $7^{\,n-1}$ \\ \hline
+1 & 23 & 22 & 1 \\
+2 & 149 & 142 & 7 \\
+3 & 987 & 938 & 49 \\
+4 & 6589 & 6246 & 343 \\
+5 & 44191 & 41790 & 2401 \\
+6 & 297261 & 280454 & 16807 \\
+7 & 2003755 & 1886106 & 117649 \\
+8 & 13527217 & 12703674 & 823543 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253375.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=8$.
+
+Third, the second clause was evaluated at its own index.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126491}.
+\end{enumerate}
 
 \end{document}

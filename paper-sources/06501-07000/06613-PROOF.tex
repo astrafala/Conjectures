@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197404, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A196213, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197404 counts arrays over $\{0,\dots,4\}$ in which every cell is constrained by the
-values of its neighbours, and carries an empirical recurrence of order $34$ contributed
+OEIS A196213 counts arrays over $\{0,\dots,4\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $36$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
@@ -34,22 +34,22 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A197404 is ``Number of nX3 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 3,0,1,1,1 for x=0,1,2,3,4.''. It has offset $1$ and begins
+OEIS A196213 is ``Number of nX3 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 3,0,1,2,4 for x=0,1,2,3,4.''. It has offset $1$ and begins
 \[
-4, 20, 60, 358, 1626, 7232, 34717, 160988,\ \dots
+4, 20, 58, 290, 1217, 5110, 21969, 93666,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) +4*a(n-2) +8*a(n-3) -37*a(n-4) -13*a(n-5) -58*a(n-6) -814*a(n-7) -2710*a(n-8) -1095*a(n-9) +6385*a(n-10) +15988*a(n-11) +42018*a(n-12) +47855*a(n-13) +32250*a(n-14) -50035*a(n-15) -77306*a(n-16) -41809*a(n-17) -25413*a(n-18) -49387*a(n-19) -14658*a(n-20) +11927*a(n-21) +12328*a(n-22) +6216*a(n-23) +17403*a(n-24) +12464*a(n-25) -363*a(n-26) +6490*a(n-27) -2100*a(n-28) +61*a(n-29) -629*a(n-30) -131*a(n-31) +42*a(n-32) +a(n-33) +a(n-34)
+Empirical: a(n) = 4*a(n-1) +3*a(n-2) -2*a(n-3) +11*a(n-4) -62*a(n-5) -156*a(n-6) -641*a(n-7) -1661*a(n-8) -89*a(n-9) +1488*a(n-10) +10023*a(n-11) +43316*a(n-12) +46311*a(n-13) +45550*a(n-14) +21396*a(n-15) -79295*a(n-16) -76219*a(n-17) -105192*a(n-18) -56481*a(n-19) +54675*a(n-20) +38374*a(n-21) +65404*a(n-22) +5601*a(n-23) -13298*a(n-24) -5976*a(n-25) -4115*a(n-26) -1642*a(n-27) -2966*a(n-28) -1951*a(n-29) +693*a(n-30) +657*a(n-31) +83*a(n-32) +199*a(n-33) +48*a(n-34) -16*a(n-35) -3*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:11:32, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 06:25:51, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) + 4\,a(n-2) + 8\,a(n-3) - 37\,a(n-4) - 13\,a(n-5) - 58\,a(n-6) - 814\,a(n-7) - 2710\,a(n-8) - 1095\,a(n-9) + 6385\,a(n-10) + 15988\,a(n-11) + 42018\,a(n-12) + 47855\,a(n-13) + 32250\,a(n-14) - 50035\,a(n-15) - 77306\,a(n-16) - 41809\,a(n-17) - 25413\,a(n-18) - 49387\,a(n-19) - 14658\,a(n-20) + 11927\,a(n-21) + 12328\,a(n-22) + 6216\,a(n-23) + 17403\,a(n-24) + 12464\,a(n-25) - 363\,a(n-26) + 6490\,a(n-27) - 2100\,a(n-28) + 61\,a(n-29) - 629\,a(n-30) - 131\,a(n-31) + 42\,a(n-32) + a(n-33) + a(n-34)
+a(n)\;=\;4\,a(n-1) + 3\,a(n-2) - 2\,a(n-3) + 11\,a(n-4) - 62\,a(n-5) - 156\,a(n-6) - 641\,a(n-7) - 1661\,a(n-8) - 89\,a(n-9) + 1488\,a(n-10) + 10023\,a(n-11) + 43316\,a(n-12) + 46311\,a(n-13) + 45550\,a(n-14) + 21396\,a(n-15) - 79295\,a(n-16) - 76219\,a(n-17) - 105192\,a(n-18) - 56481\,a(n-19) + 54675\,a(n-20) + 38374\,a(n-21) + 65404\,a(n-22) + 5601\,a(n-23) - 13298\,a(n-24) - 5976\,a(n-25) - 4115\,a(n-26) - 1642\,a(n-27) - 2966\,a(n-28) - 1951\,a(n-29) + 693\,a(n-30) + 657\,a(n-31) + 83\,a(n-32) + 199\,a(n-33) + 48\,a(n-34) - 16\,a(n-35) - 3\,a(n-36)
 \end{equation}
-for all $n>35$.
+for all $n>37$.
 
 \section{The condition, and why one row is not enough}
 
@@ -61,7 +61,7 @@ row $t$ and column $u$, each in $\{0,\dots,4\}$. With the neighbour offsets
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with value }f(x_{t,u})\}=x_{t,u},\quad f=(3,0,1,1,1)
+\#\{\text{neighbours with value }f(x_{t,u})\}=x_{t,u},\quad f=(3,0,1,2,4)
 \end{equation}
 for every cell $(t,u)$.
 
@@ -117,16 +117,16 @@ $5$ values, so there are about $10^{46}$ of them to sift. The
 walk count replaces that by $15625$ states and one matrix--vector product per row.
 \section{The criterion}
 
-Let $q(t)=t^{34}-\sum_i c_i\,t^{34-i}$ be the characteristic polynomial of
+Let $q(t)=t^{36}-\sum_i c_i\,t^{36-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
 $1$ row.
 
 \begin{lemma}\label{lem:crit}
 Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
-$o=1n_0+0-2$. Then for $j\ge34$,
+$o=1n_0+0-2$. Then for $j\ge36$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-34}w,
-\qquad w=h_{34}-\sum_i c_i\,h_{34-i} .
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-36}w,
+\qquad w=h_{36}-\sum_i c_i\,h_{36-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -134,7 +134,7 @@ $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor $G^{j-34}$ out of
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-36}$ out of
 $G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
 vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
 $I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
@@ -142,16 +142,16 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>35$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>37$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from \eqref{eq:loc}: for each of the $S=15625$ pairs and each
 of the $(4+1)^{3}$ possible next rows, the condition was tested on every cell of
-the middle row. The vector $w$ was formed by $34$ applications of $G$ in exact integer
+the middle row. The vector $w$ was formed by $36$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=35+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=37+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197404.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A196213.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,135 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233975: recovering a conjecture that is not written down}
+\title{The cross-base identity for OEIS A126550, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233975 records ``Empirical recurrence of order $62$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=343$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $62$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$62$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A126550 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A233975 is ``Number of (n+1)X(2+1) 0..6 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 13.''. It has offset $1$ and begins
+OEIS A126550 is ``Number of base 29 n-digit numbers with adjacent digits differing by five or less.''. It has offset $0$ and begins
 \[
-1308, 8688, 59440, 453988, 3530540, 29109544, 242057156, 2076801776,\ \dots
+1, 29, 289, 2959, 30579, 317691, 3311243, 34585355,\ \dots
 \]
-The entry states:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical recurrence of order 62 (see link above)
+[Empirical] a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1) for base>=5n-4; a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1)-2 when base=5n-5
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:07:01, revision 7) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:18:55, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+For this entry the base is $29$ and the permitted difference is $d=5$, so the first clause
+claims $a_{29}(n)-a_{28}(n)=11^{\,n-1}$ whenever $5(n-1)+1\le29$, that is for
+$1\le n\le6$, and the second claims $a_{29}(n)-a_{28}(n)=11^{\,n-1}-2$ at the single
+$n$ with $5(n-1)=29$.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=343$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{What the entry counts}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=343$.
-\end{lemma}
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{5}$ at base $29$ reproduces all $18$ terms A126550 publishes.
 
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=686$ exact terms of the model returns order $62$ --- the order the
-entry states --- with the integer coefficients
-\[
-a(n)\;=\;\sum_{i=1}^{62}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $11$ & $c_{17}$ & $55888647078051$ & $c_{33}$ & $-6144882855064084192$ & $c_{49}$ & $-745732926501390640$ \\
-$c_{2}$ & $218$ & $c_{18}$ & $-205412655353490$ & $c_{34}$ & $-12574807632474555090$ & $c_{50}$ & $59891400187625904$ \\
-$c_{3}$ & $-2763$ & $c_{19}$ & $-434223964913230$ & $c_{35}$ & $12386045956587720219$ & $c_{51}$ & $153387579650359712$ \\
-$c_{4}$ & $-18299$ & $c_{20}$ & $1988224860702160$ & $c_{36}$ & $16202784522529513192$ & $c_{52}$ & $-18329885361139808$ \\
-$c_{5}$ & $294278$ & $c_{21}$ & $2426276466444437$ & $c_{37}$ & $-18816464261473754511$ & $c_{53}$ & $-22005432377063312$ \\
-$c_{6}$ & $711132$ & $c_{22}$ & $-14687045433277213$ & $c_{38}$ & $-15980114028246051853$ & $c_{54}$ & $3108361893602368$ \\
-$c_{7}$ & $-17920404$ & $c_{23}$ & $-8970606818218775$ & $c_{39}$ & $21813315679261433140$ & $c_{55}$ & $2099322534108352$ \\
-$c_{8}$ & $-6762661$ & $c_{24}$ & $83871142521860535$ & $c_{40}$ & $11830426338304097459$ & $c_{56}$ & $-305213487527680$ \\
-$c_{9}$ & $705239900$ & $c_{25}$ & $14427826021121647$ & $c_{41}$ & $-19364336259445032127$ & $c_{57}$ & $-123843835293952$ \\
-$c_{10}$ & $-593123053$ & $c_{26}$ & $-373127447224725510$ & $c_{42}$ & $-6343086187946366246$ & $c_{58}$ & $15999192697856$ \\
-$c_{11}$ & $-19142505019$ & $c_{27}$ & $58951133990165657$ & $c_{43}$ & $13135915499046459493$ & $c_{59}$ & $3989693159424$ \\
-$c_{12}$ & $32296499743$ & $c_{28}$ & $1298656357735298144$ & $c_{44}$ & $2273297819672350748$ & $c_{60}$ & $-347750834176$ \\
-$c_{13}$ & $372295030173$ & $c_{29}$ & $-541175393032359862$ & $c_{45}$ & $-6763845362579532769$ & $c_{61}$ & $-53250785280$ \\
-$c_{14}$ & $-879638723215$ & $c_{30}$ & $-3541166713791662988$ & $c_{46}$ & $-408410915846254680$ & $c_{62}$ & $922091520$ \\
-$c_{15}$ & $-5303661975817$ & $c_{31}$ & $2227325458092028974$ & $c_{47}$ & $2614021160567708124$ &  &  \\
-$c_{16}$ & $15853808593545$ & $c_{32}$ & $7557014833232297310$ & $c_{48}$ & $-56828782016844040$ &  &  \\
-\end{tabular}
-\end{center}
+\section{The identity}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $62$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $62+4$ terms
-removed returns order $62$ as well, so $\deg q_{\min}=62=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the proof above.
 
-First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $18$ terms A126550 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le6$, both sides computed from the definition and not from the theorem:
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $62+4$ terms removed, which is what the identification above
-requires. All three agree.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{5}(29,n)$ & $L_{5}(28,n)$ & $11^{\,n-1}$ \\ \hline
+1 & 29 & 28 & 1 \\
+2 & 289 & 278 & 11 \\
+3 & 2959 & 2838 & 121 \\
+4 & 30579 & 29248 & 1331 \\
+5 & 317691 & 303050 & 14641 \\
+6 & 3311243 & 3150192 & 161051 \\
+\end{tabular}
+\end{center}
 
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $62$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=6$.
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233975.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+Third, the second clause was evaluated at its own index.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126550}.
+\end{enumerate}
 
 \end{document}

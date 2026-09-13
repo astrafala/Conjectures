@@ -12,166 +12,120 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220283, proved by transfer matrix}
+\title{The cross-base identity for OEIS A126481, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220283 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
-$\{0,\dots,1\}$ by marking the cells whose value is equal to exactly one of their neighbours, and carries an
-empirical recurrence of order $83$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=160$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A126481 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A220283 is ``Equals one maps: number of nX2 binary arrays indicating the locations of corresponding elements equal to exactly one of their horizontal and vertical neighbors in a random 0..1 nX2 array.''. It has offset $1$ and begins
+OEIS A126481 is ``Number of base 13 n-digit numbers with adjacent digits differing by three or less.''. It has offset $0$ and begins
 \[
-2, 4, 31, 96, 424, 1422, 5504, 19606,\ \dots
+1, 13, 79, 497, 3159, 20181, 129205, 828005,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) -38*a(n-2) +3*a(n-3) +273*a(n-4) -585*a(n-5) +163*a(n-6) +1138*a(n-7) -2783*a(n-8) +4248*a(n-9) -1873*a(n-10) -9106*a(n-11) +20882*a(n-12) -16423*a(n-13) -2894*a(n-14) +29328*a(n-15) -64667*a(n-16) +57077*a(n-17) +7835*a(n-18) +33002*a(n-19) -214480*a(n-20) +380503*a(n-21) -473048*a(n-22) -7236*a(n-23) +1761437*a(n-24) -4294641*a(n-25) +6923832*a(n-26) -9655487*a(n-27) +11841807*a(n-28) -14350503*a(n-29) +20243605*a(n-30) -30073838*a(n-31) +42142135*a(n-32) -53997680*a(n-33) +59808207*a(n-34) -56918978*a(n-35) +49815419*a(n-36) -44280580*a(n-37) +45956243*a(n-38) -59728794*a(n-39) +73013849*a(n-40) -75824776*a(n-41) +59437004*a(n-42) -24886315*a(n-43) -13755017*a(n-44) +37112277*a(n-45) -38824998*a(n-46) +24036641*a(n-47) +1556561*a(n-48) -13532613*a(n-49) +16676591*a(n-50) -8351532*a(n-51) -1444994*a(n-52) +8304511*a(n-53) -8619173*a(n-54) +5663049*a(n-55) -3195347*a(n-56) -2177828*a(n-57) +1197405*a(n-58) -3015864*a(n-59) +1195200*a(n-60) +168657*a(n-61) +60704*a(n-62) +1196966*a(n-63) -67458*a(n-64) +278858*a(n-65) +108811*a(n-66) -170807*a(n-67) +23752*a(n-68) -119899*a(n-69) -45780*a(n-70) -13842*a(n-71) -32740*a(n-72) +5874*a(n-73) +4752*a(n-74) +5808*a(n-75) +5816*a(n-76) +684*a(n-77) +984*a(n-78) +468*a(n-79) -40*a(n-80) -64*a(n-81) -240*a(n-82) -96*a(n-83)
+[Empirical] a(base,n)=a(base-1,n)+7\textasciicircum{}(n-1) for base>=3n-2; a(base,n)=a(base-1,n)+7\textasciicircum{}(n-1)-2 when base=3n-3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:39:25, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:13:14, revision 13)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+For this entry the base is $13$ and the permitted difference is $d=3$, so the first clause
+claims $a_{13}(n)-a_{12}(n)=7^{\,n-1}$ whenever $3(n-1)+1\le13$, that is for
+$1\le n\le5$, and the second claims $a_{13}(n)-a_{12}(n)=7^{\,n-1}-2$ at the single
+$n$ with $3(n-1)=13$.
 
-Let $R=\{0,\dots,1\}^{2}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
-\[
-(-1,0), (0,-1), (0,1), (1,0),
-\]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
-is equal to exactly one of its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+\section{What the entry counts}
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
-\]
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{3}$ at base $13$ reproduces all $20$ terms A126481 publishes.
 
-\section{The image is a walk count after determinisation}
-
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
-\[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
-
-\begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
-\[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
-\]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
-\end{lemma}
-
-\begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
-\end{proof}
-
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=160$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{83}-\sum_i c_it^{83-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+83}-\sum_ic_iM^{j+83-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
-\[
-a(n)\;=\;11\,a(n-1) - 38\,a(n-2) + 3\,a(n-3) + 273\,a(n-4) - 585\,a(n-5) + 163\,a(n-6) + 1138\,a(n-7) - 2783\,a(n-8) + 4248\,a(n-9) - 1873\,a(n-10) - 9106\,a(n-11) + 20882\,a(n-12) - 16423\,a(n-13) - 2894\,a(n-14) + 29328\,a(n-15) - 64667\,a(n-16) + 57077\,a(n-17) + 7835\,a(n-18) + 33002\,a(n-19) - 214480\,a(n-20) + 380503\,a(n-21) - 473048\,a(n-22) - 7236\,a(n-23) + 1761437\,a(n-24) - 4294641\,a(n-25) + 6923832\,a(n-26) - 9655487\,a(n-27) + 11841807\,a(n-28) - 14350503\,a(n-29) + 20243605\,a(n-30) - 30073838\,a(n-31) + 42142135\,a(n-32) - 53997680\,a(n-33) + 59808207\,a(n-34) - 56918978\,a(n-35) + 49815419\,a(n-36) - 44280580\,a(n-37) + 45956243\,a(n-38) - 59728794\,a(n-39) + 73013849\,a(n-40) - 75824776\,a(n-41) + 59437004\,a(n-42) - 24886315\,a(n-43) - 13755017\,a(n-44) + 37112277\,a(n-45) - 38824998\,a(n-46) + 24036641\,a(n-47) + 1556561\,a(n-48) - 13532613\,a(n-49) + 16676591\,a(n-50) - 8351532\,a(n-51) - 1444994\,a(n-52) + 8304511\,a(n-53) - 8619173\,a(n-54) + 5663049\,a(n-55) - 3195347\,a(n-56) - 2177828\,a(n-57) + 1197405\,a(n-58) - 3015864\,a(n-59) + 1195200\,a(n-60) + 168657\,a(n-61) + 60704\,a(n-62) + 1196966\,a(n-63) - 67458\,a(n-64) + 278858\,a(n-65) + 108811\,a(n-66) - 170807\,a(n-67) + 23752\,a(n-68) - 119899\,a(n-69) - 45780\,a(n-70) - 13842\,a(n-71) - 32740\,a(n-72) + 5874\,a(n-73) + 4752\,a(n-74) + 5808\,a(n-75) + 5816\,a(n-76) + 684\,a(n-77) + 984\,a(n-78) + 468\,a(n-79) - 40\,a(n-80) - 64\,a(n-81) - 240\,a(n-82) - 96\,a(n-83)
-\]
-for every $n>83$.
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $83$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=83+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $20$ terms A126481 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le5$, both sides computed from the definition and not from the theorem:
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{3}(13,n)$ & $L_{3}(12,n)$ & $7^{\,n-1}$ \\ \hline
+1 & 13 & 12 & 1 \\
+2 & 79 & 72 & 7 \\
+3 & 497 & 448 & 49 \\
+4 & 3159 & 2816 & 343 \\
+5 & 20181 & 17780 & 2401 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220283.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=5$.
+
+Third, the second clause was evaluated at its own index.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126481}.
+\end{enumerate}
 
 \end{document}

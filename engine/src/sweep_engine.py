@@ -48,9 +48,16 @@ res = collections.Counter()
 want = sys.argv[1:]
 if not want:
     raise SystemExit('name at least one engine')
+# a narrow re-ask: when a PARSER is widened rather than an engine written, the entries that
+# changed are known by name and sweeping every one of an engine's names to reach fifteen of
+# them is hours of work for nothing.
+ONLY_ANUMS = set(os.environ.get('ONLY_ANUMS', '').replace(',', ' ').split())
 for en in want:
     if en not in uniform.M:
         raise SystemExit(f'{en} is not a registered engine')
+# ask them in the order `uniform.read' would, not the order they were typed: ENG is a priority
+# list, and a name two engines can read should go to the same one here as in the standing sweep.
+want = [en for en in uniform.ENG if en in set(want)]
 
 LOCK = HITS + '.lock'
 if os.path.exists(LOCK):
@@ -74,6 +81,8 @@ def save():
 seen = {h['anum'] for h in hits if h.get('anum')}
 for a in sorted(names):
     if a in roster or a in seen:
+        continue
+    if ONLY_ANUMS and a not in ONLY_ANUMS:
         continue
     nm = names[a]
     got = None

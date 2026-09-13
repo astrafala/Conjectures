@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220213, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220407, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220213 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
-$\{0,\dots,1\}$ by marking the cells whose value is equal to at least half of their neighbours, and carries an
-empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A220407 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,1\}$ by marking the cells whose value is equal to exactly two of their neighbours, and carries an
+empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=15$ states, after which the conjectured
+indicator row by row turns it into one, on $S=22$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,15 +32,15 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220213 is ``Majority value maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to at least half of their king-move neighbors in a random 0..1 n X 2 array.''. It has offset $1$ and begins
+OEIS A220407 is ``Equals two maps: number of 2 X n binary arrays indicating the locations of corresponding elements equal to exactly two of their horizontal, diagonal and antidiagonal neighbors in a random 0..1 2 X n array.''. It has offset $1$ and begins
 \[
-2, 6, 23, 75, 241, 777, 2512, 8132,\ \dots
+1, 6, 17, 40, 93, 206, 431, 924,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + 2*a(n-2) + 3*a(n-3) + 7*a(n-4) + 9*a(n-5) + 12*a(n-6) + 11*a(n-7) + 4*a(n-8) + 4*a(n-9).
+Empirical: a(n) = 2*a(n-1) + 7*a(n-2) - 14*a(n-3) - 19*a(n-4) + 38*a(n-5) + 25*a(n-6) - 50*a(n-7) - 16*a(n-8) + 32*a(n-9) + 4*a(n-10) - 8*a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 31 2018 07:22:22, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 31 2018 14:04:38, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -48,11 +48,11 @@ recorded as empirical, and nothing on the entry records it as proved.
 Let $R=\{0,\dots,1\}^{2}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-those falling outside the array being simply absent. For an array
+those falling outside the array being simply absent. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once so that the walk always runs down the rows. For an array
 $A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
-is equal to at least half of its neighbours. The entry counts
+is equal to exactly two of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -112,14 +112,14 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=15$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=22$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -127,7 +127,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -136,15 +136,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 3\,a(n-3) + 7\,a(n-4) + 9\,a(n-5) + 12\,a(n-6) + 11\,a(n-7) + 4\,a(n-8) + 4\,a(n-9)
+a(n)\;=\;2\,a(n-1) + 7\,a(n-2) - 14\,a(n-3) - 19\,a(n-4) + 38\,a(n-5) + 25\,a(n-6) - 50\,a(n-7) - 16\,a(n-8) + 32\,a(n-9) + 4\,a(n-10) - 8\,a(n-11)
 \]
-for every $n>9$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220213.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220407.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)
