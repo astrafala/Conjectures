@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189440, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189448, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189440 counts the permutations of the cells of an $n\times8$ array in which every cell
+OEIS A189448 counts the permutations of the cells of an $n\times8$ array in which every cell
 moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+order $41$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. The count is the permanent of the incidence matrix of the offset graph; read the
 cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $17$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=2056$ states, hence $C$-finite, and whether the published
+carried is which images inside a window of $19$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=8715$ states, hence $C$-finite, and whether the published
 recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
@@ -33,15 +33,15 @@ recurrence is one of its recurrences is then a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A189440 is ``Number of 8Xn array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
+OEIS A189448 is ``Number of n X 8 array permutations with each element moving zero or one space horizontally or diagonally.''. It has offset $1$ and begins
 \[
-1, 178, 4247, 151081, 4681376, 150278792, 4742833745, 150293731826,\ \dots
+34, 11705, 2455013, 569476049, 129699382789, 29628810704689, 6765736745152657, 1544933702911323688,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 41*a(n-1) +4*a(n-2) -11620*a(n-3) +36842*a(n-4) +1075370*a(n-5) -2836328*a(n-6) -48309578*a(n-7) +90931538*a(n-8) +1244988774*a(n-9) -1330625788*a(n-10) -20764885728*a(n-11) -807100472*a(n-12) +238887356494*a(n-13) +241073214022*a(n-14) -1547096306562*a(n-15) -2156429020912*a(n-16) +2299948270878*a(n-17) +555225276722*a(n-18) +22196146658772*a(n-19) +35039812353132*a(n-20) -38273112869294*a(n-21) -78128931220886*a(n-22) -66141096694820*a(n-23) -82372827473972*a(n-24) +44882503153426*a(n-25) +213386056389486*a(n-26) -238605737532448*a(n-27) -236154021779002*a(n-28) +243937070936182*a(n-29) -27414905904242*a(n-30) -59027273543752*a(n-31) -6342449715912*a(n-32) -23074078011388*a(n-33) +12249673700910*a(n-34) +2028566638082*a(n-35) +478373441582*a(n-36) -47898668640*a(n-37) -51624561206*a(n-38) +2997662842*a(n-39) +324210628*a(n-40) -114260276*a(n-41) +3563*a(n-42) -12287*a(n-43)
+Empirical: a(n) = 271*a(n-1) -9281*a(n-2) -132793*a(n-3) +6435503*a(n-4) +6180631*a(n-5) -1532732417*a(n-6) +31313049127*a(n-7) -572074427641*a(n-8) +7170704782047*a(n-9) -51266858495897*a(n-10) +231917665131791*a(n-11) -707422794603657*a(n-12) +1512758157163207*a(n-13) -2416565333435121*a(n-14) +3828566087055831*a(n-15) -4502939947225841*a(n-16) +2761124753871575*a(n-17) -3103177724436865*a(n-18) +2492986861400335*a(n-19) -3031830947082385*a(n-20) +3031830947082385*a(n-21) -2492986861400335*a(n-22) +3103177724436865*a(n-23) -2761124753871575*a(n-24) +4502939947225841*a(n-25) -3828566087055831*a(n-26) +2416565333435121*a(n-27) -1512758157163207*a(n-28) +707422794603657*a(n-29) -231917665131791*a(n-30) +51266858495897*a(n-31) -7170704782047*a(n-32) +572074427641*a(n-33) -31313049127*a(n-34) +1532732417*a(n-35) -6180631*a(n-36) -6435503*a(n-37) +132793*a(n-38) +9281*a(n-39) -271*a(n-40) +a(n-41) for n>43.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:49, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Apr 18 2023 09:16:54, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,11 +51,13 @@ Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<8$. An
 the cells such that for every cell,
 \[
 \pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,1),\ (0,-1),\ (0,0),\ (1,1)\,\}.
+\Delta=\{\,(-1,-1),\ (0,-1),\ (0,0),\ (0,1),\ (1,1)\,\}.
 \]
-The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets. The entry writes the array with $n$ as the number of ROWS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+The offsets are what the name's words say: one step horizontally or diagonally, in either direction along each of those axes. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
 
-A move is only allowed when its target is a cell of the array, so cells near an
+The words name an AXIS, not a single direction: ``diagonally'' admits
+both $(1,1)$ and $(-1,-1)$, and ``antidiagonally'' is a separate word for the other diagonal.
+And a move is only allowed when its target is a cell of the array, so cells near an
 edge have fewer choices. The reading is pinned against the entry's own published terms rather
 than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
 gives $24$ where A189305 publishes $14$.
@@ -63,15 +65,15 @@ gives $24$ where A189305 publishes $14$.
 Equivalently, $a(n)$ is the permanent of the $n8\times n8$ matrix whose $(c,c')$ entry is
 $1$ exactly when $c'-c\in\Delta$.
 
-\section{A window of 17 positions}
+\section{A window of 19 positions}
 
 Number the cells in row-major order, $k=i\cdot8+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_18+\delta_2$ places in that order, so every image lies between $lo=-7$ and
+cell by $\delta_18+\delta_2$ places in that order, so every image lies between $lo=-9$ and
 $hi=9$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-7$ can never be chosen
+Once the cell at position $k$ has been dealt with, the position $k+-9$ can never be chosen
 again by anybody, so it must already be taken; and no position beyond $k+9$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $17$ positions
-$k+-7,\dots,k+9$ are taken --- a subset of a set of size $17$, and nothing else.
+taken yet. What has to be remembered is therefore exactly which of the $19$ positions
+$k+-9,\dots,k+9$ are taken --- a subset of a set of size $19$, and nothing else.
 
 That is the state. One step of the walk is one row, that is $8$ cell choices, and the
 condition ``the position leaving the window is taken'' is what makes the walk count permutations
@@ -84,7 +86,7 @@ last row do not exist either, so the walk must end with exactly those positions 
 nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
 also the only accepting state and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2056,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=8715,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -93,7 +95,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +103,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,15 +112,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;41\,a(n-1) + 4\,a(n-2) - 11620\,a(n-3) + 36842\,a(n-4) + 1075370\,a(n-5) - 2836328\,a(n-6) - 48309578\,a(n-7) + 90931538\,a(n-8) + 1244988774\,a(n-9) - 1330625788\,a(n-10) - 20764885728\,a(n-11) - 807100472\,a(n-12) + 238887356494\,a(n-13) + 241073214022\,a(n-14) - 1547096306562\,a(n-15) - 2156429020912\,a(n-16) + 2299948270878\,a(n-17) + 555225276722\,a(n-18) + 22196146658772\,a(n-19) + 35039812353132\,a(n-20) - 38273112869294\,a(n-21) - 78128931220886\,a(n-22) - 66141096694820\,a(n-23) - 82372827473972\,a(n-24) + 44882503153426\,a(n-25) + 213386056389486\,a(n-26) - 238605737532448\,a(n-27) - 236154021779002\,a(n-28) + 243937070936182\,a(n-29) - 27414905904242\,a(n-30) - 59027273543752\,a(n-31) - 6342449715912\,a(n-32) - 23074078011388\,a(n-33) + 12249673700910\,a(n-34) + 2028566638082\,a(n-35) + 478373441582\,a(n-36) - 47898668640\,a(n-37) - 51624561206\,a(n-38) + 2997662842\,a(n-39) + 324210628\,a(n-40) - 114260276\,a(n-41) + 3563\,a(n-42) - 12287\,a(n-43)
+a(n)\;=\;271\,a(n-1) - 9281\,a(n-2) - 132793\,a(n-3) + 6435503\,a(n-4) + 6180631\,a(n-5) - 1532732417\,a(n-6) + 31313049127\,a(n-7) - 572074427641\,a(n-8) + 7170704782047\,a(n-9) - 51266858495897\,a(n-10) + 231917665131791\,a(n-11) - 707422794603657\,a(n-12) + 1512758157163207\,a(n-13) - 2416565333435121\,a(n-14) + 3828566087055831\,a(n-15) - 4502939947225841\,a(n-16) + 2761124753871575\,a(n-17) - 3103177724436865\,a(n-18) + 2492986861400335\,a(n-19) - 3031830947082385\,a(n-20) + 3031830947082385\,a(n-21) - 2492986861400335\,a(n-22) + 3103177724436865\,a(n-23) - 2761124753871575\,a(n-24) + 4502939947225841\,a(n-25) - 3828566087055831\,a(n-26) + 2416565333435121\,a(n-27) - 1512758157163207\,a(n-28) + 707422794603657\,a(n-29) - 231917665131791\,a(n-30) + 51266858495897\,a(n-31) - 7170704782047\,a(n-32) + 572074427641\,a(n-33) - 31313049127\,a(n-34) + 1532732417\,a(n-35) - 6180631\,a(n-36) - 6435503\,a(n-37) + 132793\,a(n-38) + 9281\,a(n-39) - 271\,a(n-40) + a(n-41)
 \]
-for every $n>42$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -126,7 +128,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: the
@@ -142,7 +144,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189440.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189448.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its

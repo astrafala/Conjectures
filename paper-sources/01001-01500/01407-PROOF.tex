@@ -12,156 +12,109 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A217639, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A249709, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A217639 counts the distinct arrays obtained by applying a fixed local operation to every cell
-of an array over a bounded alphabet, and carries an empirical recurrence of order $6$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
-counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
-determinising the machine that emits the derived array row by row turns it into one, on
-$S=24$ states, after which the conjectured recurrence is settled by a finite exact
-computation.
+OEIS A249709 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A217639 is ``Number of nX2 arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random 0..2 nX2 array.''. It has offset $1$ and begins
+OEIS A249709 is ``Number of length 3+3 0..n arrays with every four consecutive terms having the maximum of some two terms equal to the minimum of the remaining two terms.''. It has offset $1$ and begins
 \[
-3, 9, 27, 91, 293, 959, 3121, 10171,\ \dots
+20, 125, 440, 1153, 2524, 4893, 8688, 14433,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +3*a(n-2) +3*a(n-3) +2*a(n-4) -a(n-6).
+Empirical: a(n) = (1/15)*n\^{}5 + 2*n\^{}4 + 7*n\^{}3 + 7*n\^{}2 + (44/15)*n + 1. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 17:27:01, revision 10) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 10 2018 04:40:13, revision 8)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a polynomial}
 
-Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of
-a cell be the cells at the offsets
+The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
+the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
+array is described completely by its weak ordering: the ordered set partition of the $L$
+positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
+of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
+array, and there are $\binom{n+1}{m}$ of them. Hence
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
 \]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
-minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. That is the whole difficulty: two different arrays with the same
-minimum-array must be counted once, and a walk count on the arrays would count them twice.
+with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
 
-Because every offset above moves the row index by at most one, row $i$ of
-$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
-or $x$ allowed to be $\bot$ for ``outside''; then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
-\]
+\section{The bound}
 
-\section{The image is a walk count after determinisation}
-
-For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
-
-\begin{lemma}\label{lem:det}
-For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
-$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
-derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
-\[
-a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the empty sets contributing nothing.
-\end{lemma}
-
-\begin{proof}
-Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
-pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
-$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
-$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
-$D_{n-1}\neq\emptyset$, and then the possible last rows are
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
-are distinct derived arrays, so each is counted once.
-\end{proof}
-
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
-several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
-since the derived arrays differ ---
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=24$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
-Note that $\tau$ is not the all-ones vector: the last derived row is not a
-step of the walk but a count attached to the state the walk stops in.
+That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
+$a$ and $S=7$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
+estimated.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 3\,a(n-2) + 3\,a(n-3) + 2\,a(n-4) - a(n-6)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
-for every $n>6$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A217639.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A249709.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

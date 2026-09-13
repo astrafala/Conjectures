@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """One paper per Hardin 2 X 2-subblock array entry."""
+import conjquote
 import os, json, re
 import localentry as LE, phibuild, transfer2 as T
 
@@ -12,12 +13,11 @@ def modinfo(anum):
     return e["modified"], e["revision"]
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e["comment"] + e["formula"]:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def rec_tex(coeffs):
@@ -46,7 +46,7 @@ def build(h):
     e = LE.get(a)
     d = [int(v) for v in e["data"].split(",") if v.strip()]
     mod, rev = e["modified"], e["revision"]
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     sumtex = ", ".join(str(s) for s in sums[:-1]) + (" or " if len(sums) > 1 else "") + str(sums[-1])
     setname = rf"\{{{', '.join(str(s) for s in sums)}\}}"
     extratex = (r", and in which no $2\times2$ subblock has exactly two nonzero entries"

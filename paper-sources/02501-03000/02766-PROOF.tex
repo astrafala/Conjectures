@@ -12,84 +12,104 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A209963, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235560, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209963 counts arrays of width $3$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $10$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=100$ states in all.
+OEIS A235560 counts arrays of width $2$ over $\{0,1,2\}$ by reducing every $2\times2$ subblock to a
+single number---here the upper median minus the lower median---and requiring the resulting derived array to have its rows
+lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
+empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The row comparison is settled by three consecutive rows of the
+array; the column comparison is not settled by any bounded window, but what is still outstanding
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=32$
+states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A209963 is ``Number of (n+1)X3 0..3 arrays containing all values 0..3 with every 2X2 subblock having one or two distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A235560 is ``Number of (n+1) X (1+1) 0..2 arrays with the difference of the upper and lower median value of each 2 X 2 subblock in lexicographically nondecreasing order rowwise and columnwise.''. It has offset $1$ and begins
 \[
-0, 26, 665, 13529, 235614, 3745144, 56080379, 806021187,\ \dots
+81, 537, 3199, 17837, 95679, 498597, 2546207, 12796069,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 33*a(n-1) -374*a(n-2) +1586*a(n-3) -1093*a(n-4) -4559*a(n-5) +7212*a(n-6) -420*a(n-7) -4336*a(n-8) +2208*a(n-9) -256*a(n-10)
+Empirical: a(n) = 9*a(n-1) -9*a(n-2) -109*a(n-3) +254*a(n-4) +260*a(n-5) -1156*a(n-6) +576*a(n-7) +944*a(n-8) -1024*a(n-9) +256*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:37:36, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 22 2022 01:21:10, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries in $\{0,1,\dots,3\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 2$. Two
-further clauses come with it:
-
-\begin{itemize}
-\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
-occur.
-\end{itemize}
-
-
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
+$2\times2$ subblock of such an array is
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{4}$ alone and the weights are the single row
-$e_{4}^{\!\top}F^{-1}$ of the same inverse:
+Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
 \[
-a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
+f(B)\;=\;v_3-v_2,
+\]
+the upper median minus the lower median. An array with $R$ rows and $2$ columns has $(R-1)\times1$ subblocks, and they
+form a derived array
+\[
+D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
+\right),\qquad 0\le i<R-1,\;\; 0\le j<1 .
+\]
+Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
+$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
+rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
+\[
+D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
+\]
+and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
+from left to right,
+\[
+D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
 \]
 
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
+\section{A bounded state}
 
-\section{Each $L_i$ is a walk count}
+Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
+so the row condition is decided three array rows at a time and needs no memory beyond the
+derived row just formed. The column condition is different: which of two columns of $D$ is the
+smaller is decided by the first derived row in which they differ, and that row can be
+arbitrarily far down. What is bounded is not the comparison but what remains open about it.
 
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
+\begin{lemma}\label{lem:bits}
+Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
+every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
+at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
+holds; and if no such row occurs the two columns are equal and the condition holds. If instead
+$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
+such $t$ and no later row can change it.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definition of the lexicographic order: it looks only at the first index at
+which the two sequences differ, and prefixes that agree contribute nothing.
+\end{proof}
+
+So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
+far''---carries everything the future needs to know, and there are $0$ such pairs. The state
+is therefore
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=100.
+\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
+\text{the 0 bits}\bigr),
+\]
+with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
+of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
+for the row condition, and for each pair still flagged either leaves the flag set (the pair
+agreed again) or clears it after checking the required inequality once. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=32.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -114,7 +134,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;33\,a(n-1) - 374\,a(n-2) + 1586\,a(n-3) - 1093\,a(n-4) - 4559\,a(n-5) + 7212\,a(n-6) - 420\,a(n-7) - 4336\,a(n-8) + 2208\,a(n-9) - 256\,a(n-10)
+a(n)\;=\;9\,a(n-1) - 9\,a(n-2) - 109\,a(n-3) + 254\,a(n-4) + 260\,a(n-5) - 1156\,a(n-6) + 576\,a(n-7) + 944\,a(n-8) - 1024\,a(n-9) + 256\,a(n-10)
 \]
 for every $n>9$.
 \end{theorem}
@@ -123,23 +143,21 @@ for every $n>9$.
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $4$ letters at all.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $2$ over $\{0,1,2\}$ with two and with three rows was written out cell by cell,
+the derived array formed, and its rows and its columns compared as whole words. No state, no
+bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -149,10 +167,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209963.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235560.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

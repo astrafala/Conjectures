@@ -12,127 +12,178 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A246482, proved from an exact model}
+\title{The empirical recurrence for OEIS A221656, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A246482 carries an empirical recurrence of order $11$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=15$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A221656 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=164$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A246482 is ``Number of length 3+3 0..n arrays with no pair in any consecutive four terms totalling exactly n.''. It has offset $1$ and begins
+OEIS A221656 is ``Number of 2 X n arrays of occupancy after each element moves to some horizontal, diagonal or antidiagonal neighbor, without move-in move-out left turns.''. It has offset $1$ and begins
 \[
-2, 20, 292, 1376, 6534, 20004, 57416, 133664,\ \dots
+0, 4, 24, 165, 1054, 6862, 44576, 289789,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + a(n-2) - 11*a(n-3) + 6*a(n-4) + 14*a(n-5) - 14*a(n-6) - 6*a(n-7) + 11*a(n-8) - a(n-9) - 3*a(n-10) + a(n-11).
+Empirical: a(n) = 9*a(n-1) -15*a(n-2) -15*a(n-3) +52*a(n-4) -51*a(n-5) -a(n-6) +127*a(n-7) -32*a(n-8) -28*a(n-9) +25*a(n-10) for n>12.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 06 2018 06:45:05, revision 7)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 12 2026 11:59:07, revision 10) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+\section{What is being counted}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
-
-\section{The bound}
-
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-annihilates $a$, and $S=\deg A=15$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=15$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all.
+
+The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
+$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
+$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
+an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
+The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
+turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
+two readings.
+
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
+
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
+
+\begin{lemma}\label{lem:win}
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
+\end{lemma}
+
+\begin{proof}
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
+\end{proof}
+
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
+
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
+\[
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
+\]
+
+\section{The image is a walk count after determinisation}
+
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=164$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{11}-\sum_ic_iz^{11-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + a(n-2) - 11\,a(n-3) + 6\,a(n-4) + 14\,a(n-5) - 14\,a(n-6) - 6\,a(n-7) + 11\,a(n-8) - a(n-9) - 3\,a(n-10) + a(n-11)
+a(n)\;=\;9\,a(n-1) - 15\,a(n-2) - 15\,a(n-3) + 52\,a(n-4) - 51\,a(n-5) - a(n-6) + 127\,a(n-7) - 32\,a(n-8) - 28\,a(n-9) + 25\,a(n-10)
 \]
-for every $n>0$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+11$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A246482.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221656.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

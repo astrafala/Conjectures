@@ -12,60 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184449, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204647, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184449 counts arrays of width $3$ over $\{0,1,2\}$ in which every $3\times3$ subblock
-satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
-$7$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
-$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
-count is a walk count on $S=757$ states.
+OEIS A204647 carries an empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=33$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A184449 is ``1/36 the number of (n+2) X 3 0..2 arrays with each 3 X 3 subblock containing two of one value, two of another, and five of the last.''. It has offset $1$ and begins
+OEIS A204647 is ``Number of (n+1) X 5 0..1 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
 \[
-63, 234, 864, 3159, 12879, 51759, 203391, 898857,\ \dots
+48, 90, 178, 330, 571, 938, 1478, 2248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 162*a(n-3) - 486*a(n-4) - 5832*a(n-6) + 17496*a(n-7).
+Empirical: a(n) = 5*a(n-1) -9*a(n-2) +5*a(n-3) +5*a(n-4) -9*a(n-5) +5*a(n-6) -a(n-7) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 12 2018 11:37:51, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 08 2018 10:02:32, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
-condition is imposed on every $3\times3$ block of the array --- every choice of three
-consecutive rows and three consecutive columns --- and asks that the numbers of times the values occur are $2,\,2,\,5$ in some order. The entry publishes $1/36$ of that count; the division is by a constant and changes nothing about the recurrence.
-
-The entry's phrasing names the multiplicities without saying which value takes which, so what is fixed is the sorted list; this reading is pinned against the entry's own published terms.
-
-\section{Three rows}
-
-A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
-by three consecutive rows and nothing wider. Take the array one row at a time and let the state
-be the last two rows written, with a distinguished start standing for the array before its
-first row. Appending a row completes the blocks whose bottom row is the new one, and the step
-is allowed exactly when each of those blocks passes.
-
-Every block of the finished array is tested exactly once, at the step that writes its bottom
-row, and no step imposes anything the definition does not ask. The first two rows complete no
-block at all, which is why they are laid down without a test. Every state may end an array, so
-$\tau=\mathbf{1}$. Thus
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=33$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -88,41 +75,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 162\,a(n-3) - 486\,a(n-4) - 5832\,a(n-6) + 17496\,a(n-7)
+a(n)\;=\;5\,a(n-1) - 9\,a(n-2) + 5\,a(n-3) + 5\,a(n-4) - 9\,a(n-5) + 5\,a(n-6) - a(n-7)
 \]
-for every $n>7$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $36$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $3\times3$ block tested directly on its nine
-entries. No rows, no window, no state and no transfer matrix are involved in that computation,
-and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184449.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204647.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

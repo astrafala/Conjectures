@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Papers for the distance-inequality family."""
+import conjquote
 import os
 
 # a paper carries the date its result was obtained; one already in the roster keeps
@@ -22,12 +23,11 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def build(h):
@@ -41,7 +41,7 @@ def build(h):
     raw = bf62.raw(e['name'])[1]
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     offs = texbits.offsets_tex(raw)
     L = max(-s for s, _ in p['offs']) or 1

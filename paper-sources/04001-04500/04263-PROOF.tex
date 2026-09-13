@@ -12,133 +12,209 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A250740, proved}
+\title{The empirical recurrence for OEIS A198638, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250740 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=128$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $134$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A198638 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+sides, and which are moreover written in canonical form (``values introduced in row major
+order''). Neither feature is visible to a one-line transfer matrix: the cell condition
+reaches the row above and the row below, and the canonical-form clause is not local at
+all. Both are dealt with. What is counted is equality patterns, so
+$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers and
+$L_i$ the count over an $i$-letter alphabet; and each $L_i$ is a walk count whose vertices
+are ordered pairs of consecutive rows. Relabelling-invariance makes the chain strongly
+lumpable, cutting $98$ pairs down to $S=23$ states. The entry's empirical recurrence of
+order $2$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A250740 is ``Number of (n+1) X (6+1) 0..1 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nonincreasing x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A198638 is ``Number of 2n X 2 0..2 arrays with values 0..2 introduced in row major order and each element equal to an even number of horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-130, 134, 142, 158, 190, 254,\ \dots
+4, 36, 376, 3936, 41216, 431616, 4519936, 47333376,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
-\begin{quote}
-Empirical g.f.: 2*x*(65 - 128*x) / ((1 - x)*(1 - 2*x)). - \_Colin Barker\_, Nov 17 2018
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 12*a(n-1) -16*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 17 2018 13:11:14, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+As of the ``Last modified'' line on the live entry (May 15 2018 06:42:06, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;12\,a(n-1) - 16\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-Every condition the entry names is decided inside a bounded number of consecutive rows: it
-compares a cell with cells a bounded distance from it, and no comparison reaches further than
-that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
-read off row by row, and appending one more row is one step, legal exactly when the row it
-completes satisfies every condition that becomes testable.
+\section{The condition, and what the canonical-form clause counts}
 
-Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
-$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
-in,
+The arrays have $2$ columns and $L=2n+0$ rows. Write $x_{t,u}$ for the entry in
+row $t$ and column $u$. with the neighbour offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
+\mathcal N=\{(-1,0),\ (1,0),\ (0,-1),\ (0,1)\}
 \]
-and there are $S=128$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $31$ terms the entry publishes, exactly, in integer arithmetic --- a
-misreading of the condition gives a different digraph and different counts, so this ties the
-model to the entry and not merely to the arithmetic.
+written as (row shift, column shift), the requirement is
+\begin{equation}\label{eq:loc}
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
+equal to x_{t,u}\bigr\}\ \ \text{is even}
+\end{equation}
+for every cell $(t,u)$.
 
-The family this entry belongs to is read by one model, described by its author as: ```... arrays with nondecreasing <f>(x(i,j),x(i,j-1)) in the i direction and nondecreasing <g>(x(i,j),x(i-1,j)) in the j direction' and `... with nondecreasing <statistic> of every <k> consecutive values in every row and column'.''
+The condition is stated purely in equalities between entries, so it is unchanged by any
+relabelling of the values: it is a property of the \emph{equality pattern} --- the partition
+of the cells into classes of equal entries --- and not of the values themselves. The clause
+``values introduced in row major order'' selects exactly one array from each relabelling
+class, so with $K=3$ available values the entry counts admissible patterns with at most $K$
+classes.
 
-
-\section{Its generating function is rational, with bounded degree}
-
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
-$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters that satisfy the cell
+condition, with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly
+$j$ classes. Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
-power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
-relating the walk index to the entry's own $n$. By Cramer's rule every entry of
-$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
-$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
+A labelled array satisfying the condition is a pattern together with an injection of its
+classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of
+them; that is the first identity. Writing $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads
+$L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
+order of summation, the coefficient of $L_i$ is
+$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
+$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$.
+\end{proof}
+
+\section{Each $L_i$ is a walk count on pairs of rows}
+
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{2}$. Because \eqref{eq:loc} at a cell of row
+$t$ involves rows $t-1$, $t$ and $t+1$, a single row is not enough state. Take the
+ordered pairs $(p,c)\in V_i\times V_i$ as vertices and declare $(p,c)\to(c,x)$ an edge when
+every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it. Let $P_i$ be the adjacency matrix, $\mathbf{s}_i$ the indicator of the pairs
+$(p,c)$ whose first row $p$ satisfies the condition with no row above, and
+$\mathbf{e}_i$ the indicator of the pairs whose second row $c$ satisfies it with no
+row below.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, the arrays of $L$ rows satisfying the condition are exactly the walks
+$(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length
+$L-2$ that start at a vertex marked by $\mathbf{s}_i$ and end at one marked by
+$\mathbf{e}_i$, so
+$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$.
+\end{lemma}
+
+\begin{proof}
+A walk of that form is exactly a sequence of rows $r^{(1)},\dots,r^{(L)}$, since
+consecutive vertices overlap in one row. In such a walk the condition at the cells of
+row $t$ is tested once, at the step leaving $(r^{(t-1)},r^{(t)})$, and with the
+correct neighbours $r^{(t-1)}$ and $r^{(t+1)}$; the cells of row $1$ are tested by
+$\mathbf{s}_i$, which uses the condition with the row above absent, and those of row
+$L$ by $\mathbf{e}_i$. So every cell is tested exactly once and with its true
+neighbourhood, which is the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:lump}
+Write $\pi(p,c)$ for the equality pattern of the pair. If $\pi(p,c)=\pi(p',c')$ then for
+every pattern $Q$ the two vertices have the same number of successors of pattern $Q$, and
+$\mathbf{s}_i$, $\mathbf{e}_i$ take the same value at both. Hence the chain is strongly
+lumpable over $\pi$ and $L_i$ is computed on the quotient, whose states are the set
+partitions of the $2\cdot2$ cells of a pair into at most $i$ classes.
+\end{lemma}
+
+\begin{proof}
+Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
+alphabet. The edge condition and the two boundary conditions are statements about equalities
+between entries, so they are invariant under $\sigma$, and $x\mapsto\sigma(x)$ is a bijection
+between the successor sets preserving patterns. The number of pairs with a given pattern $P$
+is $e_P=i(i-1)\cdots(i-|P|+1)$, the number of injections of its classes into the alphabet,
+which supplies the weights on the quotient.
+\end{proof}
+
+Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=23$, with the
+weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$ and the
+end-of-array indicator into $\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=2n+0 .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N^{2}$, so that consecutive values of $n$ advance the
+walk by $2$ rows.
+
+\begin{lemma}\label{lem:crit}
+With $h_j=G^{j}N^{o}\mathbf{u}$ for the offset $o$ that aligns the first admissible
+index,
+\[
+3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-2}\,
+\Bigl(h_{2}-\sum_i c_i h_{2-i}\Bigr)
+\]
+for the corresponding $j$. Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, where
+$w=h_{2}-\sum_i c_ih_{2-i}$; and it is enough to check $m=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor. The scalar $3!$ is nonzero, so it does not
+affect vanishing. For the last clause, Cayley--Hamilton applied to $G$ makes $G^{S}$ an
+integer combination of $I,G,\dots,G^{S-1}$, so each $\mathbf{v}^{\!\top}G^{m}w$ with
+$m\ge S$ is the same combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The conjectured generating function is $A(x)$.
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=2$ and $\deg D_2=2$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
-\[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
-\]
-a polynomial of degree at most $130$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{130}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $134$
-of them --- more than the $130+1$ the argument requires --- agree.
+The lumped transition counts were built by taking one representative pair for each pattern,
+enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middle
+row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
+$2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run was continued until $S+1$
+consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
 \end{proof}
-
-\section{A recurrence the entry does not state}
-
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>2,
-\]
-a constant-coefficient linear recurrence of order $2$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{2}$ read off $D_2$, the first few being $3,\ -2$. The entry records no recurrence, so this is not a restatement of anything
-already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $31$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the whole construction was compared against the entry's DATA: the right-hand side of
+\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $18$
+published indices and agrees exactly, the quotient coming out an integer each time. This
+tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
+the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
+alignment of the entry's index with $L=2n+0$ would each show up as a mismatch.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second, the lumped chain was checked against the unlumped one on the small shapes of this
+family: the walk counts over the full alphabet agree with $\sum_P e_Pf_m(P)$ term by term.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
+arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
+carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250740.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198638.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Strong lumpability, Section 6.3.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
 \end{thebibliography}
 
 \end{document}

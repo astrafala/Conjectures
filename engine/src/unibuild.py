@@ -26,16 +26,15 @@ WINDOW = {
 # the date a paper prints is the day the result was obtained, and this builder is run again
 # whenever the sweep finds more; a hard-coded date would stamp today's results with the day
 # the builder was written
+import conjquote
 import os as _os
 DATE = _os.environ.get('PAPER_DATE', '2 September 2026')
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e["comment"] + e["formula"]:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test on the line missed 542 of these and 41 quoted the wrong
+    line of the block -- a closed form where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def _author(e, conj):
@@ -56,7 +55,7 @@ def build(h):
     e = LE.get(a)
     d = [int(v) for v in e["data"].split(",") if v.strip()]
     mod, rev = e["modified"], e["revision"]
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     win = WINDOW.get(h["engine"], "a bounded window of consecutive lines")
     # Some models are built with the redundancy already removed, so their vertices are not

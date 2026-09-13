@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280809, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280176, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280809 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A280176 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -27,34 +27,34 @@ matrix over rows. All three are handled: the state is a pair of consecutive rows
 together with the number of offending cells so far, capped at the budget; and the
 canonical-form clause is removed by counting equality patterns instead of arrays, through the
 identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $49$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=49155$ states.
+numbers. The empirical recurrence of order $45$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=771$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A280809 is ``Number of nX7 0..1 arrays with no element equal to more than two of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280176 is ``Number of nX4 0..1 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 1047, 24490, 133067, 521862, 1736603, 5219491, 14672850,\ \dots
+3, 41, 279, 1633, 8759, 43094, 202693, 919058,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 13*a(n-1) -72*a(n-2) +220*a(n-3) -400*a(n-4) +432*a(n-5) -256*a(n-6) +64*a(n-7) +6*a(n-8) -54*a(n-9) +183*a(n-10) -249*a(n-11) -51*a(n-12) +573*a(n-13) -672*a(n-14) +264*a(n-15) +33*a(n-16) +39*a(n-17) -156*a(n-18) +12*a(n-19) +225*a(n-20) -57*a(n-21) -390*a(n-22) +402*a(n-23) -19*a(n-24) -173*a(n-25) +66*a(n-26) +126*a(n-27) -156*a(n-28) +33*a(n-30) +93*a(n-31) -96*a(n-32) +2*a(n-33) +43*a(n-34) -45*a(n-35) -20*a(n-36) +74*a(n-37) -30*a(n-38) -18*a(n-39) +15*a(n-40) -3*a(n-41) -9*a(n-42) +15*a(n-43) -3*a(n-44) -3*a(n-45) -a(n-48) +a(n-49) for n>60
+Empirical: a(n) = 12*a(n-1) -36*a(n-2) -95*a(n-3) +636*a(n-4) -114*a(n-5) -4112*a(n-6) +3501*a(n-7) +15858*a(n-8) -14979*a(n-9) -50898*a(n-10) +32472*a(n-11) +155801*a(n-12) -45672*a(n-13) -392154*a(n-14) +6334*a(n-15) +749964*a(n-16) +263487*a(n-17) -1160906*a(n-18) -865320*a(n-19) +1407168*a(n-20) +1507520*a(n-21) -1000752*a(n-22) -1913922*a(n-23) +131582*a(n-24) +1715757*a(n-25) +370377*a(n-26) -692041*a(n-27) -487062*a(n-28) -59226*a(n-29) +231552*a(n-30) +194424*a(n-31) -19149*a(n-32) -65094*a(n-33) -26457*a(n-34) -891*a(n-35) +9182*a(n-36) +4908*a(n-37) -726*a(n-38) -746*a(n-39) -222*a(n-40) -24*a(n-41) +60*a(n-42) +12*a(n-43) -9*a(n-44) +a(n-45) for n>54
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 08 2017 09:46:28, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 28 2016 07:00:36, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;13\,a(n-1) - 72\,a(n-2) + 220\,a(n-3) - 400\,a(n-4) + 432\,a(n-5) - 256\,a(n-6) + 64\,a(n-7) + 6\,a(n-8) - 54\,a(n-9) + 183\,a(n-10) - 249\,a(n-11) - 51\,a(n-12) + 573\,a(n-13) - 672\,a(n-14) + 264\,a(n-15) + 33\,a(n-16) + 39\,a(n-17) - 156\,a(n-18) + 12\,a(n-19) + 225\,a(n-20) - 57\,a(n-21) - 390\,a(n-22) + 402\,a(n-23) - 19\,a(n-24) - 173\,a(n-25) + 66\,a(n-26) + 126\,a(n-27) - 156\,a(n-28) + 33\,a(n-30) + 93\,a(n-31) - 96\,a(n-32) + 2\,a(n-33) + 43\,a(n-34) - 45\,a(n-35) - 20\,a(n-36) + 74\,a(n-37) - 30\,a(n-38) - 18\,a(n-39) + 15\,a(n-40) - 3\,a(n-41) - 9\,a(n-42) + 15\,a(n-43) - 3\,a(n-44) - 3\,a(n-45) - a(n-48) + a(n-49)
+a(n)\;=\;12\,a(n-1) - 36\,a(n-2) - 95\,a(n-3) + 636\,a(n-4) - 114\,a(n-5) - 4112\,a(n-6) + 3501\,a(n-7) + 15858\,a(n-8) - 14979\,a(n-9) - 50898\,a(n-10) + 32472\,a(n-11) + 155801\,a(n-12) - 45672\,a(n-13) - 392154\,a(n-14) + 6334\,a(n-15) + 749964\,a(n-16) + 263487\,a(n-17) - 1160906\,a(n-18) - 865320\,a(n-19) + 1407168\,a(n-20) + 1507520\,a(n-21) - 1000752\,a(n-22) - 1913922\,a(n-23) + 131582\,a(n-24) + 1715757\,a(n-25) + 370377\,a(n-26) - 692041\,a(n-27) - 487062\,a(n-28) - 59226\,a(n-29) + 231552\,a(n-30) + 194424\,a(n-31) - 19149\,a(n-32) - 65094\,a(n-33) - 26457\,a(n-34) - 891\,a(n-35) + 9182\,a(n-36) + 4908\,a(n-37) - 726\,a(n-38) - 746\,a(n-39) - 222\,a(n-40) - 24\,a(n-41) + 60\,a(n-42) + 12\,a(n-43) - 9\,a(n-44) + a(n-45)
 \end{equation}
-for all $n>60$.
+for all $n>54$.
 
 \section{The condition, the budget, and the canonical form}
 
-The arrays have $7$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
 \mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
@@ -62,7 +62,7 @@ row $t$ and column $u$. With the neighbour offsets
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>2 .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=2$ cells offend.
 
@@ -101,7 +101,7 @@ $\binom{2}{i}D_{2-i}$, an integer.
 
 \section{Each $L_i$ is a walk count}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{7}$, and take the triples $(p,c,v)$ with
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$, and take the triples $(p,c,v)$ with
 $p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
 of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
 absent, in which case the corresponding neighbours simply do not exist). Declare
@@ -128,7 +128,7 @@ never exceeds $2$; since the total only grows, that is implied by the final valu
 $2$, which $\mathbf{e}_i$ imposes.
 \end{proof}
 
-Assembling the $2$ chains block-diagonally into $N$ of size $S=49155$ with the weights of
+Assembling the $2$ chains block-diagonally into $N$ of size $S=771$ with the weights of
 Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
 $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
@@ -137,15 +137,15 @@ $\mathbf{u}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{49}-\sum_i c_i\,t^{49-i}$ be the characteristic polynomial of
+Let $q(t)=t^{45}-\sum_i c_i\,t^{45-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge49$
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge45$
 \[
-2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-49}w,
-\qquad w=h_{49}-\sum_i c_i h_{49-i} .
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-45}w,
+\qquad w=h_{45}-\sum_i c_i h_{45-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
@@ -158,15 +158,15 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>60$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>54$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The digraph was built directly from the definitions above. The vector $w$ was formed by
-$49$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+$45$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=60+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=54+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280809.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280176.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

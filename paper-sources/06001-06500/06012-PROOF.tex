@@ -12,52 +12,68 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on every subblock: the empirical recurrence for OEIS A183807}
+\title{The empirical recurrence for OEIS A237862, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183807 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is a condition on every
-subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=55$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/16$ of them, so every count below is divided by $16$; the division is exact at every term, which is itself a check on the model.
+OEIS A237862 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$33$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=336$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A183807 is ``1/16 the number of (n+1)X6 binary arrays with no 2X2 subblock being a reflection across the shared element pair of any horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A237862 is ``Number of (n+1)X(2+1) 0..2 arrays with the upper median plus the lower median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-81, 1011, 11619, 143191, 1701473, 20745787, 249227639, 3023598287,\ \dots
+336, 1944, 11454, 68830, 405758, 2385956, 14144254, 84226372,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=15*a(n-1)+110*a(n-2)-2305*a(n-3)-891*a(n-4)+125083*a(n-5)-243502*a(n-6)-2877148*a(n-7)+8795527*a(n-8)+27727447*a(n-9)-101226891*a(n-10)-43240980*a(n-11)-79975763*a(n-12)-680699282*a(n-13)+10953583229*a(n-14)-3221230812*a(n-15)-82978052876*a(n-16)+72785470699*a(n-17)+134369376084*a(n-18)-124679575504*a(n-19)+843000278192*a(n-20)-1580151635606*a(n-21)-2695042718660*a(n-22)+5684097111755*a(n-23)-3975339670937*a(n-24)+6858358660190*a(n-25)+17395248113157*a(n-26)-46405408055301*a(n-27)+3240133345994*a(n-28)+21004315650603*a(n-29)-16124690699477*a(n-30)+66278718366899*a(n-31)-35683008630253*a(n-32)-22465044442773*a(n-33)+2356096909734*a(n-34)-17220973586580*a(n-35)+22524996368520*a(n-36)
+Empirical: a(n) = 48*a(n-3) +764*a(n-4) +1113*a(n-5) +2630*a(n-6) -1330*a(n-7) -76808*a(n-8) -103834*a(n-9) +42139*a(n-10) +213170*a(n-11) +624044*a(n-12) +404402*a(n-13) -474767*a(n-14) -1195423*a(n-15) -845864*a(n-16) -233832*a(n-17) -278031*a(n-18) +2684781*a(n-19) -785243*a(n-20) +690749*a(n-21) +16053*a(n-22) -191039*a(n-23) -140612*a(n-24) -402983*a(n-25) +152122*a(n-26) -120738*a(n-27) -14602*a(n-28) +3372*a(n-29) +2280*a(n-30) -1368*a(n-31) +264*a(n-32) +128*a(n-33)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:02:59, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:31:37, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The $2\times2$ subblocks of an $(n+1)\times3$ array form an
+$n\times2$ grid, and each carries the value $\sigma=-a+b+c$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
+
+At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $336$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may be the mirror image of the subblock beside it or the subblock below it, reflected in the line the two share.
-
-That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, and a condition relating one subblock to the next needs one more, so a window of $3$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=55$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
-a(n)\;=\;\tfrac{1}{16}\,\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+over the $S=336$ pairs whose own subblock row already satisfies the condition along itself.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{33}-\sum_i c_it^{33-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -65,54 +81,48 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+33}-\sum_ic_iM^{j+33-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;15\,a(n-1) + 110\,a(n-2) - 2305\,a(n-3) - 891\,a(n-4) + 125083\,a(n-5) - 243502\,a(n-6) - 2877148\,a(n-7) + 8795527\,a(n-8) + 27727447\,a(n-9) - 101226891\,a(n-10) - 43240980\,a(n-11) - 79975763\,a(n-12) - 680699282\,a(n-13) + 10953583229\,a(n-14) - 3221230812\,a(n-15) - 82978052876\,a(n-16) + 72785470699\,a(n-17) + 134369376084\,a(n-18) - 124679575504\,a(n-19) + 843000278192\,a(n-20) - 1580151635606\,a(n-21) - 2695042718660\,a(n-22) + 5684097111755\,a(n-23) - 3975339670937\,a(n-24) + 6858358660190\,a(n-25) + 17395248113157\,a(n-26) - 46405408055301\,a(n-27) + 3240133345994\,a(n-28) + 21004315650603\,a(n-29) - 16124690699477\,a(n-30) + 66278718366899\,a(n-31) - 35683008630253\,a(n-32) - 22465044442773\,a(n-33) + 2356096909734\,a(n-34) - 17220973586580\,a(n-35) + 22524996368520\,a(n-36)
+a(n)\;=\;48\,a(n-3) + 764\,a(n-4) + 1113\,a(n-5) + 2630\,a(n-6) - 1330\,a(n-7) - 76808\,a(n-8) - 103834\,a(n-9) + 42139\,a(n-10) + 213170\,a(n-11) + 624044\,a(n-12) + 404402\,a(n-13) - 474767\,a(n-14) - 1195423\,a(n-15) - 845864\,a(n-16) - 233832\,a(n-17) - 278031\,a(n-18) + 2684781\,a(n-19) - 785243\,a(n-20) + 690749\,a(n-21) + 16053\,a(n-22) - 191039\,a(n-23) - 140612\,a(n-24) - 402983\,a(n-25) + 152122\,a(n-26) - 120738\,a(n-27) - 14602\,a(n-28) + 3372\,a(n-29) + 2280\,a(n-30) - 1368\,a(n-31) + 264\,a(n-32) + 128\,a(n-33)
 \]
-for every $n>36$.
+for every $n>33$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $33$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=33+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on each subblock
-directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183807.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237862.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

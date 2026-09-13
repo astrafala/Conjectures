@@ -23,6 +23,16 @@ ONLY = set(sys.argv[1:])
 ORIG = {}
 if os.path.exists('deep-check/orig-paper-dates.json'):
     ORIG = json.load(open('deep-check/orig-paper-dates.json'))
+# `papers/' is not the authority: rank.py deletes and rebuilds the whole directory from
+# `papers-old-numbering/', keyed by build number. A rebuild that writes only to the ranked
+# path is therefore thrown away by the next ranking -- silently, with the paper reverting to
+# the text it was rewritten to fix. The build-numbered copy is what must be written; the
+# ranked path is updated too so the change is visible before the next ranking.
+ENG = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
+BUILDNO = {}
+for _n, _v in ENG.items():
+    BUILDNO.setdefault(_v['anum'], []).append(_n)
+
 rank = {r['anum']: r for r in json.load(open('rank-map.json'))}
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('engine') in qpbuild.SHORT]
@@ -46,6 +56,9 @@ for h in sorted(hits, key=lambda x: x['anum']):
     if r is None:
         missing.append(a)
         continue
+    for _n in BUILDNO.get(a, ()):
+        shutil.copyfile(pdf, 'papers-old-numbering/{}-{}.pdf'.format(
+            _n, 'DISPROOF' if ENG[_n].get('disproof') else 'PROOF'))
     shutil.copyfile(pdf, r['path'])
     done += 1
 print('rebuilt', done, 'not installed yet', len(missing), 'failed', len(failed))

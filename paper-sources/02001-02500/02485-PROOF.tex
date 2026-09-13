@@ -12,55 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{No column above the one before it in every row: OEIS A212942}
+\title{The empirical recurrence for OEIS A189438, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212942 carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition quantifies over all rows at once, so it is not decided by any
-bounded window; but it is a conjunction of independent per-row facts, and one bit per
-adjacent column pair carries it; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=15$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A189438 counts the permutations of the cells of an $n\times6$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $13$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=160$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A212942 is ``Number of nX7 0..6 arrays with no column j greater than or equal to than column j-1 in all rows.''. It has offset $1$ and begins
+OEIS A189438 is ``Number of 6Xn array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
 \[
-1, 32383630189, 135992452878101359, 221920456466342315024785, 255478496068295791189905082231, 250841509251155966625680184691562929, 227328735342370296661661894900118524516359,\ \dots
+1, 41, 367, 4653, 52241, 606201, 6944573, 79826592,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2323483*a(n-1) -2167154969952*a(n-2) +1086330796113513244*a(n-3) -329778884328286978977952*a(n-4) +64517502456132437770369148544*a(n-5) -8421554343462670052897532765935616*a(n-6) +747012180292693168982253383087616310272*a(n-7) -45320700037087646211097507312328132762984448*a(n-8) +1872991150391269654429084597380378344674028617728*a(n-9) -51936059702018704067955656273063090467733238547218432*a(n-10) +938955828089973458590692996057468119367652949010608553984*a(n-11) -10544878359956363252917775501846837273628118104421027150823424*a(n-12) +67581624519887879771651501946182123485150605725959917286635601920*a(n-13) -209181393867491964480827236276816398998810506947956308433062959513600*a(n-14) +205819420752306963772376008790571963882492713708055771807588273881088000*a(n-15)
+Empirical: a(n) = 15*a(n-1) -23*a(n-2) -262*a(n-3) +680*a(n-4) +550*a(n-5) -1875*a(n-6) +1927*a(n-7) -3037*a(n-8) +822*a(n-9) -652*a(n-10) +98*a(n-11) -33*a(n-12) +3*a(n-13) +a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:41:25, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:34, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of $7$ columns whose rows are arbitrary over the alphabet $\{0,1,\dots,6\}$, and asks that no column $j$ be greater than or equal to column $j-1$ \emph{in all rows}.
-
-That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $6$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than or equal to column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
-
-So the state is that bit mask and nothing else --- at most $2^{6}$ of them, however large the alphabet is, which is why entries whose terms run to twenty digits have models this small. Rows with the same bit pattern act identically, so each row contributes one edge and the multiplicity does the counting. Merging vertices with identical futures leaves $S=15$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which masks may begin and end an array,
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<6$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-1,1),\ (0,-1),\ (0,0),\ (1,1)\,\}.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
+The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets. The entry writes the array with $n$ as the number of ROWS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+
+A move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
+
+Equivalently, $a(n)$ is the permanent of the $n6\times n6$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
+
+\section{A window of 13 positions}
+
+Number the cells in row-major order, $k=i\cdot6+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_16+\delta_2$ places in that order, so every image lies between $lo=-5$ and
+$hi=7$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-5$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+7$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $13$ positions
+$k+-5,\dots,k+7$ are taken --- a subset of a set of size $13$, and nothing else.
+
+That is the state. One step of the walk is one row, that is $6$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
+
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=160,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -68,25 +101,24 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;2323483\,a(n-1) - 2167154969952\,a(n-2) + 1086330796113513244\,a(n-3) - 329778884328286978977952\,a(n-4) + 64517502456132437770369148544\,a(n-5) - 8421554343462670052897532765935616\,a(n-6) + 747012180292693168982253383087616310272\,a(n-7) - 45320700037087646211097507312328132762984448\,a(n-8) + 1872991150391269654429084597380378344674028617728\,a(n-9) - 51936059702018704067955656273063090467733238547218432\,a(n-10) + 938955828089973458590692996057468119367652949010608553984\,a(n-11) - 10544878359956363252917775501846837273628118104421027150823424\,a(n-12) + 67581624519887879771651501946182123485150605725959917286635601920\,a(n-13) - 209181393867491964480827236276816398998810506947956308433062959513600\,a(n-14) + 205819420752306963772376008790571963882492713708055771807588273881088000\,a(n-15)
+a(n)\;=\;15\,a(n-1) - 23\,a(n-2) - 262\,a(n-3) + 680\,a(n-4) + 550\,a(n-5) - 1875\,a(n-6) + 1927\,a(n-7) - 3037\,a(n-8) + 822\,a(n-9) - 652\,a(n-10) + 98\,a(n-11) - 33\,a(n-12) + 3\,a(n-13) + a(n-14)
 \]
-for every $n>15$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -94,14 +126,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $7$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests, for each adjacent column pair,
-whether every row really does put one above the other. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,13 +142,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A212942.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189438.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

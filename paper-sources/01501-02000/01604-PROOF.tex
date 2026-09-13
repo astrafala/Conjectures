@@ -12,134 +12,119 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A217340, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183898, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A217340 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
-holds one token and each token moves to a neighbouring cell, and carries an empirical
-recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
-moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=28$
-states, after which the conjectured recurrence is settled by a finite exact computation.
+OEIS A183898 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=4$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A217340 is ``Number of n X 2 arrays of occupancy after each element moves to some horizontal or vertical neighbor but without 2-loops.''. It has offset $1$ and begins
+OEIS A183898 is ``Number of nondecreasing arrangements of n+3 numbers in 0..3 with each number being the sum mod 4 of three others.''. It has offset $1$ and begins
 \[
-0, 1, 7, 38, 190, 918, 4367, 20623,\ \dots
+5, 14, 38, 70, 111, 162, 224, 298,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) -11*a(n-2) +a(n-3) -a(n-4).
+Empirical: a(n) = (1/6)*n\^{}3 + (5/2)*n\^{}2 + (25/3)*n - 14 for n>1. a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 22 2025 23:39:20, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 05 2018 10:27:29, revision 8)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a polynomial}
 
-Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
-\[
-(-1,0), (0,-1), (0,1), (1,0),
-\]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
-records, for each cell, how many tokens land on it; the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also forbids $2$-loops: no two tokens may exchange places.
+A NONDECREASING arrangement is determined by its multiset of values, so an admissible
+arrangement is exactly an admissible multiset. The condition names how many other entries a
+value must be built from, and a condition of that shape cannot distinguish a value occurring
+$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
+whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
+once by enumeration over the capped profiles.
 
-That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
+Given an admissible capped profile with $F$ the total multiplicity of the values capped below
+the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
+profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
+over the list with $\ell$ the entry's own length.
 
-\section{The image is a walk count after determinisation}
+\section{The bound}
 
-Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
-moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
-$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
-\[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
-\]
-for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
-``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
-when the row it is given cannot occur in that position.
+Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
+$S=4$.
 
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
-\]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=28$ reachable sets. In particular $a$ is $C$-finite.
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) - 11\,a(n-2) + a(n-3) - a(n-4)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4)
 \]
-for every $n>4$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=5+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
-one-row grid offers only the moves that stay within one row, so a neighbour set with no
-horizontal offset gives no legal assignment at all and the count is zero, which is what the
-entries of that shape publish.
+First, the model reproduces all $44$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A217340.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183898.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

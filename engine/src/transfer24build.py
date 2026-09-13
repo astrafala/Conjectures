@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """One paper per entry settled by the reciprocal-link engine."""
+import conjquote
 import os, json, re
 import texbits
 import localentry as LE, phibuild, transferbuild, transfer24
@@ -9,12 +10,11 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def dirtex(D):
@@ -31,7 +31,7 @@ def build(h):
     D = [tuple(t) for t in p['dirs']]
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     mod, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     trans = ('' if re.search(r'n\s*X', e['name']) else
              " The entry writes the array with $n$ as the number of COLUMNS; transposing it "

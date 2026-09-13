@@ -12,164 +12,179 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235549, proved by transfer matrix}
+\title{The empirical column recurrences for the table OEIS A251010}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235549 counts arrays of width $2$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the two extreme entries minus the two middle ones---and requiring the resulting derived array to have its rows
-lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The row comparison is settled by three consecutive rows of the
-array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=15$
-states.
+OEIS A251010 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
+true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
+vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
+column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The table and the conjectures}
 
-OEIS A235549 is ``Number of (n+1) X (1+1) 0..1 arrays with the sum of each 2 X 2 subblock two extreme terms minus its two median terms lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
+OEIS A251010 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. It has offset $1$, is
+read by antidiagonals, and begins
 \[
-16, 46, 120, 288, 660, 1456, 3136, 6624,\ \dots
+69, 530, 530, 4083, 10743, 4083, 31456, 218298,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 2*a(n-1) + 4*a(n-2) - 8*a(n-3) - 4*a(n-4) + 8*a(n-5).
+The entry carries the following block:
+\begin{quote}\small
+Empirical for column k:\\
+k=1: a(n) = 9*a(n-1) -12*a(n-2) +17*a(n-3) -12*a(n-4) +4*a(n-5)\\
+k=2: [order 13]\\
+k=3: [order 31]\\
+k=4: [order 87]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 19 2018 10:35:57, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:59, revision 6) these are still
+recorded as empirical, and nothing on the entry records any of them as settled.
 
-\section{What is being counted}
+\section{A column of the table is a walk count}
 
-The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock of such an array is
+Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
+is $n$ and the other is determined by $k$, subject to a condition imposed on every
+$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
+Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
+digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
+in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
+of $G_k$,
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
 \]
-Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
-\[
-f(B)\;=\;(v_1+v_4)-(v_2+v_3),
-\]
-the two extreme entries minus the two middle ones. An array with $R$ rows and $2$ columns has $(R-1)\times1$ subblocks, and they
-form a derived array
-\[
-D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<1 .
-\]
-Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
-$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
-\[
-D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
-\]
-and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
-from left to right,
-\[
-D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
-\]
-
-\section{A bounded state}
-
-Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
-so the row condition is decided three array rows at a time and needs no memory beyond the
-derived row just formed. The column condition is different: which of two columns of $D$ is the
-smaller is decided by the first derived row in which they differ, and that row can be
-arbitrarily far down. What is bounded is not the comparison but what remains open about it.
-
-\begin{lemma}\label{lem:bits}
-Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
-every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
-at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
-holds; and if no such row occurs the two columns are equal and the condition holds. If instead
-$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
-such $t$ and no later row can change it.
-\end{lemma}
-
-\begin{proof}
-Immediate from the definition of the lexicographic order: it looks only at the first index at
-which the two sequences differ, and prefixes that agree contribute nothing.
-\end{proof}
-
-So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $0$ such pairs. The state
-is therefore
-\[
-\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 0 bits}\bigr),
-\]
-with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
-of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
-for the row condition, and for each pair still flagged either leaves the flag set (the pair
-agreed again) or clears it after checking the required inequality once. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=15.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
+$\tfrac14$ where the name says so, and $1$ otherwise).
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
+recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+\[
+T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\]
+so the recurrence holds from some point on if and only if
+$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
+Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
+of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
+the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
+$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
+$j\ge S_k$ repeats that combination of earlier values.
 \end{proof}
 
-\begin{theorem}
+\section{The computation, column by column}
+
+\begin{center}
+\begin{tabular}{ccccc}
+line & order & vertices $S$ & proved for & terms checked \\ \hline
+column $k$$=1$ & $5$ & $9$ & $>4$ & $7$ \\
+\end{tabular}
+\end{center}
+
+In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
+exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
+again exactly; every one of those integers vanishes from the stated point onwards and the run
+continued until the working vector was identically zero, which settles all larger $j$ at once.
+
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. Its rows are the vertices of a digraph on
+$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-a(n)\;=\;2\,a(n-1) + 4\,a(n-2) - 8\,a(n-3) - 4\,a(n-4) + 8\,a(n-5)
+a(n)\;=\;9\,a(n-1) - 12\,a(n-2) + 17\,a(n-3) - 12\,a(n-4) + 4\,a(n-5)
 \]
-for every $n>5$.
-\end{theorem}
+holds from index $4+1$ on.
 
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
-\end{proof}
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 13]''. Its model is a walk on
+$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
+$13$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $27$ & $c_{5}$ & $5874$ & $c_{9}$ & $-1473$ & $c_{13}$ & $-68$ \\
+$c_{2}$ & $-169$ & $c_{6}$ & $-6458$ & $c_{10}$ & $1896$ &  &  \\
+$c_{3}$ & $800$ & $c_{7}$ & $2876$ & $c_{11}$ & $-1394$ &  &  \\
+$c_{4}$ & $-2847$ & $c_{8}$ & $558$ & $c_{12}$ & $460$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $13+4$ terms removed gives order $13$ again.
+
+\subsection*{Column $k=3$, recovered}
+The entry gives only the order for this line: ``k=3: [order 31]''. Its model is a walk on
+$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
+$31$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{31})=(81,\ -1954,\ 32379,\ -419520,\ 4000383,\ -27981900,\ 149000935,\ -627790962,\ 2173730790,\ -6430085803,\ 16294231907,\ -32054037021,\ 35251149270,\ 27785627597,\ -214291598331,\ 474340001188,\ -525110612953,\ -51492530582,\ 1353650012855,\ -2781865247427,\ 3444068301525,\ -3009309907241,\ 1966627276737,\ -984303214776,\ 380879357640,\ -116690528485,\ 31239482235,\ -8714904964,\ 2491548140,\ -492231312,\ 38390400).
+\]
+Repeating with the first $31+4$ terms removed gives order $31$ again.
+
+\subsection*{Column $k=4$, recovered}
+The entry gives only the order for this line: ``k=4: [order 87]''. Its model is a walk on
+$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
+$87$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{87})=(243,\ -20493,\ 1137320,\ -48968370,\ 1660074126,\ -44634837818,\ 967746677672,\ -17068124680628,\ 243689314141870,\ -2771271784376738,\ 24244713468588507,\ -146741653931132321,\ 290165718947140921,\ 6772301199597629044,\ -120128686970779626924,\ 1290337980725726668601,\ -10997095841855253481106,\ 80531766804597322929398,\ -525717119916835093119093,\ 3110972934649033445604839,\ -16735849846923323800937993,\ 81244203916263823067469744,\ -350416340703436310165956982,\ 1310053014008769100611217140,\ -4069404609077554356080488904,\ 9553096110498373060623750168,\ -11390048466311802311290569758,\ -31247919197470577449527684590,\ 261318622987444316954896951975,\ -1032420856145510224087880547173,\ 2978242929861329612880677440996,\ -6834017778181258768810376827115,\ 12711258476587812926162830736737,\ -18557557689923271217607264914481,\ 17681774295226746906280242801957,\ 4535426194989267465243562688612,\ -74547830576501127926017986796070,\ 235915091706266418767778764894910,\ -558303972809578921355842829140242,\ 1149235873598640209626628103083624,\ -2152009249958486012157521262691128,\ 3693465780073345062916544686127700,\ -5752653298321353700715534979870528,\ 7981639485078402516851358413364395,\ -9598730701328796719754729796091179,\ 9514756312069300079568455925815100,\ -6764873493034973828802443507757448,\ 1101514550246997923992367741291162,\ 6593628794790764808241461731732899,\ -14403210142600165189288288408053172,\ 20032849737318289029981848564608331,\ -21746737653130442457401678080256608,\ 19102397952940763916280752363152005,\ -13133290144566069777846799538322202,\ 5916570047809196908191570911537545,\ 297822875692614179862428439508332,\ -4010565310845367397769525785860904,\ 4970404517112722178051808903497689,\ -3985948792481019808149192914211769,\ 2259307403472709941604337764467396,\ -736300367463740141829742776485060,\ -172512012230111394574174010575517,\ 499260653232545808620520692993349,\ -473013558067733674288084782395529,\ 318275606129283276176229749435141,\ -168912174536011328381728590158321,\ 71311965505396984246098728150653,\ -22300727298963511178740099625720,\ 3383377312083433652557691823272,\ 1543019862106404853806447777196,\ -1699951001231530528674005733344,\ 953194042622459306234161368496,\ -403071658686695750991297960432,\ 139782789350949963342991248064,\ -40810889723384509367836895936,\ 10043609348766007957089796544,\ -2045054782918797363668803840,\ 329172275089893338104934144,\ -37644661522835323464593408,\ 2021156027010784923045888,\ 195581527384791055122432,\ -46310233280696986042368,\ 1147679428600438194176,\ 689456767726494154752,\ -101410677207091642368,\ 4976803086619115520,\ -21059185114349568).
+\]
+Repeating with the first $87+4$ terms removed gives order $87$ again.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, each model was compared against the entry's own published values for its line, taken
+both from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is what ties a model to the table:
+substituting the fixed index into the entry's wording is a reading of English, and a wrong
+reading gives a different digraph and different counts. Across the lines settled here the
+model reproduces $7$ published values, $35$ decimal digits in all, every one of
+them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $2$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
-the derived array formed, and its rows and its columns compared as whole words. No state, no
-bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
-published terms came back.
+Second, each conjectured recurrence was evaluated on those published values in exact
+integer arithmetic, with no matrices involved, and holds wherever the proved range and the
+data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic rather than on a sampled prefix.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{remark}
+A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
+count of arrays of fixed height, which is the same kind of object with the two dimensions
+exchanged. Both are settled here by the same argument. Only the lines the entry states
+explicitly, and for which enough published values exist to run the first check above, are
+claimed.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235549.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251010.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

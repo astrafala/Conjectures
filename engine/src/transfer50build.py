@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Papers for the self-counting neighbour family."""
+import conjquote
 import os, json, re
 import texbits
 import localentry as LE, phibuild, transferbuild, transfer50
@@ -24,12 +25,11 @@ FORM = {'zero': 'y=0', 'eqk': 'y=%d', 'lt': 'y<v', 'le': r'y\le v', 'gt': 'y>v',
         'd1': r'\lvert y-v\rvert=1'}
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def build(h):
@@ -42,7 +42,7 @@ def build(h):
     D = [tuple(t) for t in p['dirs']]
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     w = WORD[p['pred']] % p['k'] if p['pred'] == 'eqk' else WORD[p['pred']]
     fo = FORM[p['pred']] % p['k'] if p['pred'] == 'eqk' else FORM[p['pred']]

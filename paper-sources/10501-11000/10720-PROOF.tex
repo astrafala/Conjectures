@@ -12,74 +12,50 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232289, proved by transfer matrix}
+\title{A local condition on an array: OEIS A183356}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232289 counts arrays of width $2$ over $\{0,1,2\}$ in which every cell carrying one stated
-value must have a neighbour carrying another. The entry carries an empirical recurrence of
-order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
-$S=67$ states.
+OEIS A183356 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=5$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/4$ of them, so every count below is divided by $4$; the division is exact at every term, which is itself a check on the model.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A232289 is ``Number of nX2 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or antidiagonally.''. It has offset $1$ and begins
+OEIS A183356 is ``One quarter the number of n X 4 1..4 arrays with no two neighbors of any element equal to each other.''. It has offset $1$ and begins
 \[
-3, 15, 73, 355, 1727, 8401, 40867, 198799,\ \dots
+36, 576, 1296, 3600, 9216, 24336, 63504, 166464,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +4*a(n-2) +a(n-3).
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) - a(n-3) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:15:35, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 22 2018 04:53:10, revision 15) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $2$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+The entry counts arrays with $4$ columns over the alphabet $\{1,2,3,4\}$, growing one row at a time, and asks that the neighbours of any one element --- those directly above, below, left and right of it --- must all be different from each other.
+
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
+
+The entry counts not the arrays themselves but $1/4$ of them, so every count below is divided by $4$; the division comes out exact at every term, which is itself a check on the model.
+
+Merging vertices with identical futures leaves $S=5$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-(-1,1), (0,-1), (0,1), (1,-1),
+a(n)\;=\;\tfrac{1}{4}\,\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-those lying inside the array. The entry asks that
-\begin{itemize}
-\item every cell carrying $0$ has at least one neighbour carrying $1$;
-\item every cell carrying $1$ has at least one neighbour carrying $2$;
-
-\end{itemize}
-A cell whose value is not named on the left of any clause is unconstrained.
-
-\section{Three rows decide one}
-
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows.
-\end{lemma}
-
-\begin{proof}
-Immediate from the offsets listed, together with the rule that a neighbour outside the array is
-not a neighbour.
-\end{proof}
-
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. The condition for the LAST row is settled by the end vector, with nothing below it:
-the end vector is therefore not the all-ones vector, and a row whose cells find what they need
-only because a further row is written below them does not finish an array. With $M$ the
-adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=67.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -96,34 +72,35 @@ Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 4\,a(n-2) + a(n-3)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - a(n-3)
 \]
-for every $n>2$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-cell against its neighbours directly. No window, no state and no transposition are involved,
-and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,9 +110,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232289.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183356.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

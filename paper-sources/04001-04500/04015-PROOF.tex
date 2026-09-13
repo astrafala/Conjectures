@@ -12,46 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A222778, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A222868, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A222778 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+OEIS A222868 counts arrays in which no entry may equal the entries at a short list of fixed offsets
 from it, the arrays being counted up to renaming the letters. The entry carries an empirical
 recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. The condition tests only whether two cells are equal, so it survives
 renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
 triangular system of falling factorials, and each of those is a walk count on a window of
-$2$ consecutive rows, $S=63363$ states in all.
+$2$ consecutive rows, $S=1581$ states in all.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A222778 is ``Number of n X 3 0..6 arrays with no element equal to another at a city block distance of exactly two, and new values 0..6 introduced in row major order.''. It has offset $1$ and begins
+OEIS A222868 is ``Number of n X 2 0..5 arrays with no element equal to another at a city block distance of exactly two, and new values 0..5 introduced in row major order.''. It has offset $1$ and begins
 \[
-3, 34, 969, 64752, 5227536, 436214328, 36601614264, 3073970725512,\ \dots
+2, 7, 34, 370, 5314, 82690, 1313794, 20983810,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 101*a(n-1) - 1470*a(n-2) + 3528*a(n-3) for n>5.
+Empirical: a(n) = 21*a(n-1) - 84*a(n-2) + 64*a(n-3) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 16 2018 08:59:02, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 16 2018 08:59:28, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Entries lie in $\{0,1,\dots,6\}$ and the condition is that
+Entries lie in $\{0,1,\dots,5\}$ and the condition is that
 \[
 x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,0), (-1,-1), (-1,1), (0,-2), (0,2), (1,-1), (1,1), (2,0)\}
 \]
 whenever the second cell lies inside the array. The offsets are not written out in the entry: they are named by a
 DISTANCE rule --- so many positions along a row or column, or a city block distance --- and the
-list above is that rule read out. The closing clause ``new values $0..6$ introduced in row
+list above is that rule read out. The closing clause ``new values $0..5$ introduced in row
 major order'' says the array is the canonical representative of its equality pattern.
 
 \begin{lemma}\label{lem:order}
@@ -76,7 +76,7 @@ with an injection of its letters into the alphabet, so
 L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
-$N_1+\dots+N_{7}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
+$N_1+\dots+N_{6}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
 matrix of falling factorials.
 
 \section{Each $L_i$ is a walk count}
@@ -87,10 +87,10 @@ grows makes every pair tested once, from the later of its two cells. After that 
 offset reaches more than $2$ rows back, so the window of the last $2$
 rows is a state and one step appends a row. A row not yet written is
 carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
-of $t$ rows. Assembling $i=1,\dots,7$ as a disjoint union with $\iota$ carrying the
+of $t$ rows. Assembling $i=1,\dots,6$ as a disjoint union with $\iota$ carrying the
 weights cleared of denominators and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=63363.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1581.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -115,7 +115,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;101\,a(n-1) - 1470\,a(n-2) + 3528\,a(n-3)
+a(n)\;=\;21\,a(n-1) - 84\,a(n-2) + 64\,a(n-3)
 \]
 for every $n>5$.
 \end{theorem}
@@ -132,11 +132,11 @@ denominator, so no division is performed until the final term.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,6\}$, keep those whose values are introduced in the
+enumerate every array over $\{0,\dots,5\}$, keep those whose values are introduced in the
 order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
 the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
 the published terms came back.
@@ -149,7 +149,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A222778.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A222868.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
 Section 1.9.)

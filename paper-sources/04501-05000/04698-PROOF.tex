@@ -12,134 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A196340, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140930, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A196340 counts $n\times5$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
-order $85$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
-matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=9475$ vertices, which is $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A140930 counts $7\times10$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $7\times10\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $70$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A196340 is ``Number of nX5 0..4 arrays with each element x equal to the number its horizontal and vertical neighbors equal to 1,4,0,2,3 for x=0,1,2,3,4.''. It has offset $1$ and begins
+OEIS A140930 is ``Number of 7 X 10 matrices with elements in 0..n with each row and each column in nondecreasing order. 7,10,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-5, 57, 299, 2223, 16949, 119487, 869434, 6327405,\ \dots
+1, 19448, 77364144, 108284013552, 69951472754592, 24648355308799872,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) +8*a(n-2) +42*a(n-3) +116*a(n-4) +45*a(n-5) +895*a(n-6) -315*a(n-7) -1358*a(n-8) -17019*a(n-9) -61913*a(n-10) +18538*a(n-11) -48426*a(n-12) -344003*a(n-13) +1184845*a(n-14) +3828333*a(n-15) +599626*a(n-16) -7167543*a(n-17) -4621582*a(n-18) +584889*a(n-19) -30485068*a(n-20) -70025284*a(n-21) -7991285*a(n-22) +194398049*a(n-23) +374666400*a(n-24) +218790373*a(n-25) -9116757*a(n-26) +72577759*a(n-27) +71107276*a(n-28) -738985322*a(n-29) -1775222937*a(n-30) -1369022818*a(n-31) +429068913*a(n-32) +1892447203*a(n-33) +1717602454*a(n-34) +1004647670*a(n-35) -239036570*a(n-36) -1779459899*a(n-37) -2813513971*a(n-38) -2536913821*a(n-39) -537173362*a(n-40) +2567388282*a(n-41) +5019655793*a(n-42) +4972780323*a(n-43) +1300345327*a(n-44) -3785463308*a(n-45) -5511670674*a(n-46) -3329819222*a(n-47) +1542046077*a(n-48) +4185764391*a(n-49) +3366883513*a(n-50) +66662821*a(n-51) -1541326483*a(n-52) -1796928920*a(n-53) -395298815*a(n-54) +648560821*a(n-55) +735751251*a(n-56) +128410953*a(n-57) -621249729*a(n-58) -758316818*a(n-59) -256023615*a(n-60) +162970616*a(n-61) +204547296*a(n-62) +8148040*a(n-63) -132750984*a(n-64) +12369634*a(n-65) +48202308*a(n-66) +18304099*a(n-67) -9767424*a(n-68) -14852803*a(n-69) -489702*a(n-70) -467359*a(n-71) -3057058*a(n-72) -785431*a(n-73) +953186*a(n-74) +703957*a(n-75) +77119*a(n-76) -9802*a(n-77) -8932*a(n-78) -26827*a(n-79) -3993*a(n-80) +1558*a(n-81) -459*a(n-82) +172*a(n-83) +108*a(n-84) -12*a(n-85)
+(empirical) set p,q,r to n,10,7 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 06:31:10, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 20 2025 10:52:10, revision 8) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{Cells, not blocks}
+\section{What is being counted}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+A matrix $x$ of shape $7\times10$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$7\times10$ rectangle --- a plane partition in a $7\times10\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-\text{a cell of value }x\text{ has exactly }x\text{ neighbours of the value paired with }x,
+a(n)\;=\;\mathrm{PP}(7,10,n).
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,4\}^{5}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,4\}^{5}\cup\{\varnothing\})\times\{0,\dots,4\}^{5}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$5$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Most of those pairs are indistinguishable, and exactly so. Every offset named above has $|dj|\le 1$, so whether the cell at column $j$ of the middle row is satisfied depends on the three rows only through their windows at $j-1,j,j+1$. Collect for each $j$ the indicator over the window of the row below, and call that tuple $P(r,s)$: the number of cells any $t$ violates is read off $P$, so is the number violated at the bottom edge, and the successor $(s,t)$ carries $P(s,t)$, which does not mention $r$. Hence two pairs $(r,s)$ and $(r',s)$ with the same $P$ have the same outgoing rows and the same successors, and the vertex is $(s,P)$. That leaves $S=9475$ vertices in place of $9765625$. Hence,
-with $M$ the adjacency matrix on $S=9475$ vertices, $\iota$ the starting vector and $\tau$ the
-terminal weight,
+\section{The box count is a polynomial}
+
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+\end{theorem}
 
-\section{The proof}
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{85}-\sum_i c_it^{85-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+85}-\sum_ic_iM^{j+85-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}\label{thm:poly}
 \[
-a(n)\;=\;5\,a(n-1) + 8\,a(n-2) + 42\,a(n-3) + 116\,a(n-4) + 45\,a(n-5) + 895\,a(n-6) - 315\,a(n-7) - 1358\,a(n-8) - 17019\,a(n-9) - 61913\,a(n-10) + 18538\,a(n-11) - 48426\,a(n-12) - 344003\,a(n-13) + 1184845\,a(n-14) + 3828333\,a(n-15) + 599626\,a(n-16) - 7167543\,a(n-17) - 4621582\,a(n-18) + 584889\,a(n-19) - 30485068\,a(n-20) - 70025284\,a(n-21) - 7991285\,a(n-22) + 194398049\,a(n-23) + 374666400\,a(n-24) + 218790373\,a(n-25) - 9116757\,a(n-26) + 72577759\,a(n-27) + 71107276\,a(n-28) - 738985322\,a(n-29) - 1775222937\,a(n-30) - 1369022818\,a(n-31) + 429068913\,a(n-32) + 1892447203\,a(n-33) + 1717602454\,a(n-34) + 1004647670\,a(n-35) - 239036570\,a(n-36) - 1779459899\,a(n-37) - 2813513971\,a(n-38) - 2536913821\,a(n-39) - 537173362\,a(n-40) + 2567388282\,a(n-41) + 5019655793\,a(n-42) + 4972780323\,a(n-43) + 1300345327\,a(n-44) - 3785463308\,a(n-45) - 5511670674\,a(n-46) - 3329819222\,a(n-47) + 1542046077\,a(n-48) + 4185764391\,a(n-49) + 3366883513\,a(n-50) + 66662821\,a(n-51) - 1541326483\,a(n-52) - 1796928920\,a(n-53) - 395298815\,a(n-54) + 648560821\,a(n-55) + 735751251\,a(n-56) + 128410953\,a(n-57) - 621249729\,a(n-58) - 758316818\,a(n-59) - 256023615\,a(n-60) + 162970616\,a(n-61) + 204547296\,a(n-62) + 8148040\,a(n-63) - 132750984\,a(n-64) + 12369634\,a(n-65) + 48202308\,a(n-66) + 18304099\,a(n-67) - 9767424\,a(n-68) - 14852803\,a(n-69) - 489702\,a(n-70) - 467359\,a(n-71) - 3057058\,a(n-72) - 785431\,a(n-73) + 953186\,a(n-74) + 703957\,a(n-75) + 77119\,a(n-76) - 9802\,a(n-77) - 8932\,a(n-78) - 26827\,a(n-79) - 3993\,a(n-80) + 1558\,a(n-81) - 459\,a(n-82) + 172\,a(n-83) + 108\,a(n-84) - 12\,a(n-85)
+a(n)\;=\;\prod_{i=1}^{7}\prod_{j=1}^{10}\frac{n+i+j-1}{i+j-1},
 \]
-for every $n>85$.
+a polynomial in $n$ of degree $70$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $85$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=85+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>85$.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$7\cdot10=70$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,10,7)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{7-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{7-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $91$ and $21$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+10+7-1$ one has $s-(n+i)=10+7-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{10+7-1-i}
+=\frac{(s-10-7+2+i)(s-10-7+3+i)\cdots s}{(10+7-1-i)!},
+\]
+a polynomial in $n$ of degree $10+7-1-i$. Multiplying over $i=0,\dots,7-1$ gives
+$\deg N=\sum_{i=0}^{7-1}(10+7-1-i)=91$. The denominator is
+$\prod_{i=0}^{7-1}(s-i)^{7-1-i}$, of degree
+$\sum_{i=0}^{7-1}(7-1-i)=21$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $70+21=91$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,91$, that is at $92$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $91$ has at most $91$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, Theorem~\ref{thm:poly} reproduces all $8$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $7$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,91$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A196340.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140930.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

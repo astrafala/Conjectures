@@ -12,23 +12,23 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208404, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208254, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208404 counts arrays subject to a local condition \emph{and} to the clause ``new values
-$0..3$ introduced in row major order'', which says the array is written in canonical
+OEIS A208254 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..2$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
 of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
 inverting a falling factorial. The result is the clean identity
-$4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
+$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $354$ to $S=38$. The entry's empirical recurrence of order
+state space down from $98$ to $S=23$. The entry's empirical recurrence of order
 $4$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,20 +36,20 @@ $4$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A208404 is ``Number of n X 4 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than two of its immediate leftward or upward or right-upward antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A208254 is ``Number of n X 4 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than one of its immediate leftward or upward neighbors.''. It has offset $1$ and begins
 \[
-15, 2698, 658450, 163422914, 40595679634, 10084768380770, 2505261257850802, 622357842865595522,\ \dots
+14, 768, 43344, 2445264, 137947632, 7782199824, 439026252912, 24767296501776,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 262*a(n-1) - 3385*a(n-2) + 2868*a(n-3) - 576*a(n-4) for n>5.
+Empirical: a(n) = 61*a(n-1) - 266*a(n-2) + 416*a(n-3) - 256*a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 02 2018 14:14:19, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jun 29 2018 08:05:00, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;262\,a(n-1) - 3385\,a(n-2) + 2868\,a(n-3) - 576\,a(n-4)
+a(n)\;=\;61\,a(n-1) - 266\,a(n-2) + 416\,a(n-3) - 256\,a(n-4)
 \end{equation}
 for all $n>5$.
 
@@ -61,15 +61,15 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $2$ of its neighbours at the
+entry's requirement is that no cell equals more than $1$ of its neighbours at the
 offsets
 \[
-\mathcal N=\{(0,-1),\ (-1,0),\ (-1,1)\}
+\mathcal N=\{(0,-1),\ (-1,0)\}
 \]
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -79,14 +79,14 @@ The condition is stated purely in terms of equalities between entries, so it is 
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
 pattern \emph{admissible} when it has the property.
 
-The clause ``new values $0..3$ introduced in row major order'' selects, from each class
+The clause ``new values $0..2$ introduced in row major order'' selects, from each class
 of arrays that differ only by a relabelling, exactly one representative: reading the cells in
 row major order, the first occurrence of the value $v$ must precede the first occurrence of
-$v+1$. Every pattern with at most $K=4$ classes has exactly one such representative, and
+$v+1$. Every pattern with at most $K=3$ classes has exactly one such representative, and
 every array in canonical form is the representative of its own pattern. Hence, writing
 $N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
 \begin{equation}\label{eq:apat}
-a(n)\;=\;\sum_{j=0}^{4}N_j(n).
+a(n)\;=\;\sum_{j=0}^{3}N_j(n).
 \end{equation}
 
 \begin{lemma}\label{lem:inv}
@@ -95,7 +95,7 @@ condition, with no canonical-form clause. Then
 \[
 L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
 \qquad
-4!\,\sum_{j=0}^{4}N_j(n)=\sum_{i=0}^{4}\binom{4}{i}D_{4-i}\,L_i(n),
+3!\,\sum_{j=0}^{3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
 \]
 where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
@@ -106,14 +106,14 @@ with an injection of its classes into the alphabet, and conversely; a pattern wi
 classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
 $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
 binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
-$j\le 4$ and exchanging the order of summation,
+$j\le 3$ and exchanging the order of summation,
 \[
-\sum_{j=0}^{4}N_j=\sum_{i=0}^{4}L_i\sum_{j=i}^{4}\frac{(-1)^{j-i}}{i!\,(j-i)!}
-=\sum_{i=0}^{4}\frac{L_i}{i!}\sum_{t=0}^{4-i}\frac{(-1)^t}{t!} ,
+\sum_{j=0}^{3}N_j=\sum_{i=0}^{3}L_i\sum_{j=i}^{3}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{3}\frac{L_i}{i!}\sum_{t=0}^{3-i}\frac{(-1)^t}{t!} ,
 \]
-and multiplying by $4!$ turns the coefficient of $L_i$ into
-$\frac{4!}{i!}\sum_{t\le 4-i}(-1)^t/t!=\binom{4}{i}(4-i)!\sum_{t\le 4-i}(-1)^t/t!
-=\binom{4}{i}D_{4-i}$, an integer.
+and multiplying by $3!$ turns the coefficient of $L_i$ into
+$\frac{3!}{i!}\sum_{t\le 3-i}(-1)^t/t!=\binom{3}{i}(3-i)!\sum_{t\le 3-i}(-1)^t/t!
+=\binom{3}{i}D_{3-i}$, an integer.
 \end{proof}
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
@@ -158,13 +158,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=38$ and
+Assembling the $3$ lumped chains into one block-diagonal matrix $N$ of size $S=23$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
-$\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
+$\mathbf{v}=\bigl(\binom{3}{i}D_{3-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $354$ rows in all; the lumped chain has $S=38$ states.
+The unlumped alphabet had $98$ rows in all; the lumped chain has $S=23$ states.
 
 \section{The criterion, and the computation}
 
@@ -174,7 +174,7 @@ Let $q(t)=t^{4}-\sum_i c_i\,t^{4-i}$ be the characteristic polynomial of
 \begin{lemma}\label{lem:crit}
 For every $n$ with $m=n+0-1\ge4$,
 \[
-4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-4}q(N)\mathbf{1} .
+3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-4}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -183,7 +183,7 @@ $j=0,1,\dots,S-1$.
 
 \begin{proof}
 Substitute \eqref{eq:walk} into the left side and factor $N^{m-4}$ out of
-$N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $3!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
 $\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
@@ -211,11 +211,11 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $12$
+\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $14$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
-show up as a mismatch, and the quotient by $4!$ came out an integer at every index.
+show up as a mismatch, and the quotient by $3!$ came out an integer at every index.
 
 Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
 counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208404.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208254.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

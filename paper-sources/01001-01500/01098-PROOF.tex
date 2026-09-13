@@ -12,201 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223361, proved by transfer matrix}
+\title{The empirical closed form for OEIS A219829, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223361 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is octahedron graph. The entry carries an empirical recurrence of order $9$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $46656$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $48$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=1248$ of those suffice.
+OEIS A219829 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
+admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal neighbours,
+and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
+once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
+of consecutive rows and whose output is the filtered array turns the count into a walk count on
+$S=54$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+monic recurrence with characteristic polynomial $(x-1)^{9}$; that the walk count
+satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
+in exact integer arithmetic, and together they prove the formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The entry}
 
-OEIS A223361 is ``Rolling cube footprints: number of 6Xn 0..5 arrays starting with 0 where 0..5 label faces of a cube and every array movement to a horizontal or antidiagonal neighbor moves across a corresponding cube edge.''. It has offset $1$ and begins
+OEIS A219829 is ``Number of 2Xn arrays of the minimum value of corresponding elements and their horizontal, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..3 2Xn array.''. It has offset $1$ and begins
 \[
-7776, 4194304, 4076863488, 3962711310336, 4060947412942848, 4204783428144463872, 4387933871654786039808, 4591848540270748206366720,\ \dots
+10, 13, 38, 87, 176, 370, 721, 1374,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+and states:
 \begin{quote}
-Empirical: a(n) = 1920*a(n-1) -1159168*a(n-2) +272105472*a(n-3) -9613344768*a(n-4) -7199438929920*a(n-5) +1446957302153216*a(n-6) -121544413380870144*a(n-7) +4845873199050653696*a(n-8) -74363437047141629952*a(n-9) for n>15
+Empirical: a(n) = (1/40320)*n\^{}8 - (1/3360)*n\^{}7 - (1/2880)*n\^{}6 + (31/240)*n\^{}5 - (7913/5760)*n\^{}4 + (2933/480)*n\^{}3 + (12179/1120)*n\^{}2 - (33527/280)*n + 202 for n>8
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:33:54, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:20:31, revision 8)
+this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the six faces of a cube, two of them adjacent unless they are opposite. That is the octahedron graph $K_{2,2,2}$: $6$ vertices, $4$-regular, $12$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal and horizontal, that is the cell offsets
+Fix the width $W=2$ and the value range $0..3$. The underlying arrays are the
+$2\times n$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
+is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
+of its antidiagonal, diagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
-(1,-1), (0,1),
+a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
+the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
+problem different in kind from a walk count: two admissible arrays can have the same image, and
+the graph whose walks are the arrays would count such a pair twice.
 
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=48$.
+\section{Two constraints, both made local}
 
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
+\begin{lemma}\label{lem:local}
+Whether a sequence of rows is admissible is decided by the previous row together with
+$1$ bits.
 \end{lemma}
 
 \begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
+The row order compares consecutive rows and needs only the previous one. The column order
+compares whole columns read downwards, left to right, which is not a condition on consecutive
+rows --- but for each of the $1$ adjacent column pairs there are only two possibilities:
+either the two columns agree in every row read so far, or they first differed at some earlier
+row, and there the required inequality was already decided and no later row can affect it. One
+bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
+still agreeing, its two entries either agree again or differ in the permitted direction.
 \end{proof}
 
-\section{The cell the entry fixes}
-
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
-
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $6$.
+\begin{lemma}\label{lem:det}
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=54$
+vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $6$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
+Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
+row at a time, holding the last two rows and the $1$ bits of Lemma~\ref{lem:local}, can
+emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
+same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
+machine in which each emitted row leads to exactly one state, so distinct words of length $n$
+correspond to distinct paths, and counting them is counting walks. The reachable determinised
+states number $S=54$. The last filtered row is emitted with no row below it, so it is not a
+step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
-\section{Orbits of slices}
+\section{The closed form}
 
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column; transposing exchanges the horizontal and vertical directions and carries each diagonal direction to itself.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones, so a $column$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $column$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $column$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $46656$ legal $column$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $column$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $column$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
+recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+q(x)=(x-1)^{9},\qquad\text{that is}\qquad a(n)=9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9).
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
-\[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
-\]
-so the whole walk may be run on $\mathcal{O}$. Summing over $column$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $6$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=1248$, down from $46656$.
-
-The orbit representatives are generated directly rather than by listing the $column$s and
-grouping them. A $column$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
-
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+9}-\sum_ic_i\widehat{M}^{j+9-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
-\end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;1920\,a(n-1) - 1159168\,a(n-2) + 272105472\,a(n-3) - 9613344768\,a(n-4) - 7199438929920\,a(n-5) + 1446957302153216\,a(n-6) - 121544413380870144\,a(n-7) + 4845873199050653696\,a(n-8) - 74363437047141629952\,a(n-9)
-\]
-for every $n>15$.
+The closed form OEIS A219829 records is correct for all $n>8$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $9$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=15+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
+residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
+since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
+$S$ consecutive zeros force every later one. The last index at which it fails is $17$.
+Second, the polynomial and the walk count agree at every index from $9$ up to
+$1 + 33 - 1$, which is more than the $9$ consecutive agreements a
+common recurrence of order $9$ needs. Two sequences satisfying the same monic recurrence
+of order $9$ and agreeing at $9$ consecutive indices past both their thresholds are
+equal from there on.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $33$ terms the entry publishes, exactly. This is what
+ties the construction to the entry, and it is the only point at which the entry's English is
+read.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
+Second, the reading was pinned by direct enumeration before the model was written: for the
+one-row case the admissible arrays and their images were listed outright and counted, and the
+count is the entry's own first term.
 
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $48$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
+fixed horizon, which is what makes it a proof and not a check of finitely many terms.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223361.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219829.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

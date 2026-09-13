@@ -71,6 +71,24 @@ Recurring defects, all found this way:
     exactly S rather than below it. The bound was one short, and the guard that extrapolates
     past the computed terms is what caught it, on A189327. Test a derived bound by asking the
     model for terms it did not supply.
+12. **a certificate verified where the induction that would carry it does not exist.**
+    `ecarow` may check `w(n+p) = L_r + w(n) + R_r` over the stages it ran and call it proved,
+    because a row of a ONE-dimensional automaton is a function of the row before it. `ca2d`
+    copied the sentence one dimension up, where the axis is not a function of the axis before
+    it, and 272 results stood on an identity nobody had shown persists. 184 papers withdrawn
+    on 13 September. Before a verified identity is used past the range it was verified on,
+    name the induction that carries it and check that the model actually supports it.
+
+13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
+    `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
+    was left alone for another 219 papers. When a defect is found in one place, ask which
+    other place has the same code.
+
+14. **writing a rebuild to the derived copy rather than the authority.** `rank.py` deletes
+    `papers/` and rebuilds it from `papers-old-numbering/`. Two rebuild scripts wrote only to
+    the ranked path, so their corrections would have been thrown away by the next ranking,
+    silently, with each paper reverting to the text it was rewritten to fix.
+
 10. **taking a line with no conjectural word on it to be a statement of fact.** It is not.
     A `Conjectures from X: (Start) ... (End)' block holds bare formula lines and none of them
     says "conjecture". This cost 1,353 installed papers, withdrawn on 8 September 2026: they

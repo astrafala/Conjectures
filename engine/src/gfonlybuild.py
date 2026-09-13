@@ -2,7 +2,7 @@
 """Papers for the entries whose only conjecture is a generating function."""
 import os, json, re
 import sympy
-import localentry as LE, phibuild, gfonly, uniform
+import localentry as LE, phibuild, gfonly, qpbuild, uniform
 
 x = sympy.Symbol('x')
 
@@ -26,6 +26,66 @@ def rec_from_den(expr):
 
 PRE = phibuild.PRE
 esc = phibuild.esc
+
+
+_MODEL_WALK = r"""\section{{The count is a walk count}}
+
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
+
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
+\[
+a(n)\;=\;\iota^{{\!\top}}M^{{\,n-{off}+{shift}}}\tau ,
+\]
+and there are $S={S}$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all ${nterms}$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.{fam}
+
+\section{{Its generating function is rational, with bounded degree}}
+
+\begin{{lemma}}\label{{lem:rat}}
+$A(x)=\sum_{{n\ge{off}}}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+{off}$.
+\end{{lemma}}
+
+\begin{{proof}}
+Summing the geometric series of matrices, $\sum_{{j\ge0}}M^jx^j=(I-xM)^{{-1}}$ as a formal
+power series, so $A(x)$ is $x^{{c}}\,\iota^{{\!\top}}(I-xM)^{{-1}}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{{-1}}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
+\end{{proof}}"""
+
+_MODEL_RAT = r"""
+
+The model reproduces all ${nterms}$ terms the entry publishes, exactly, in integer arithmetic:
+it is built by reading the entry's own English, and a misreading gives different counts, so
+this ties the model to the entry and not merely to the arithmetic.
+
+\section{{Its generating function is rational, with bounded degree}}
+
+\begin{{lemma}}\label{{lem:rat}}
+$A(x)=\sum_{{n\ge{off}}}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)$ has degree at most $S={S}$ and
+$D_1(0)=1$, and $\deg N_1<S+{off}$.
+\end{{lemma}}
+
+\begin{{proof}}
+The section above derives a MONIC linear recurrence of order $S$ that $a$ provably satisfies
+from some index onwards; write its characteristic polynomial as $z^S-\sum_{{j<S}}\alpha_jz^j$
+and put $D_1(x)=1-\sum_{{j<S}}\alpha_jx^{{S-j}}$, the same polynomial written backwards, so
+$\deg D_1\le S$ and $D_1(0)=1$. Multiplying the power series $A(x)$ by $D_1(x)$ annihilates
+every coefficient at which the recurrence is in force, so $N_1=AD_1$ is a polynomial, and the
+indices it can be supported on are the offset together with the finitely many below the point
+where the recurrence takes hold, all of them less than $S+{off}$. No matrix is involved: the
+model here is not a walk and has no adjacency matrix, and the bound comes from the recurrence
+the model itself supplies.
+\end{{proof}}"""
 
 
 def build(h):
@@ -53,6 +113,15 @@ def build(h):
                 break
     except Exception:
         rec = None
+    # `unibuild' wrote the digraph paper for engines whose model is no walk and 461 papers
+    # said a false thing about the object their numbers came from; this builder was never
+    # given the same correction, and 219 of ITS installed papers say it too. The model
+    # section comes from `qpbuild' for those engines, and the rationality lemma is then
+    # stated from the annihilator rather than from a matrix that does not exist.
+    model = _MODEL_WALK.format(off=off, shift=h['shift'], S=S, nterms=nterms, fam=fam)
+    if h['engine'] in qpbuild.SHORT:
+        model = (qpbuild._model(h['engine'], h, e).rstrip() + fam +
+                 _MODEL_RAT.format(S=S, off=off, nterms=nterms))
     recnote = ('' if rec is None else
                ('Its coefficients are the integers $c_1,\\dots,c_{%d}$ read off $D_2$, the '
                 'first few being $%s$. ' % (dd, ',\\ '.join(str(v) for v in rec[:6]))))
@@ -90,39 +159,7 @@ recorded as empirical, and nothing on the entry records it as proved. The entry 
 conjectured recurrence, which is why this generating function is the whole of what is open
 here.
 
-\section{{The count is a walk count}}
-
-Every condition the entry names is decided inside a bounded number of consecutive rows: it
-compares a cell with cells a bounded distance from it, and no comparison reaches further than
-that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
-read off row by row, and appending one more row is one step, legal exactly when the row it
-completes satisfies every condition that becomes testable.
-
-Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
-$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
-in,
-\[
-a(n)\;=\;\iota^{{\!\top}}M^{{\,n-{off}+{h['shift']}}}\tau ,
-\]
-and there are $S={S}$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all ${nterms}$ terms the entry publishes, exactly, in integer arithmetic --- a
-misreading of the condition gives a different digraph and different counts, so this ties the
-model to the entry and not merely to the arithmetic.{fam}
-
-\section{{Its generating function is rational, with bounded degree}}
-
-\begin{{lemma}}\label{{lem:rat}}
-$A(x)=\sum_{{n\ge{off}}}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
-$S$ and $D_1(0)=1$, and $\deg N_1<S+{off}$.
-\end{{lemma}}
-
-\begin{{proof}}
-Summing the geometric series of matrices, $\sum_{{j\ge0}}M^jx^j=(I-xM)^{{-1}}$ as a formal
-power series, so $A(x)$ is $x^{{c}}\,\iota^{{\!\top}}(I-xM)^{{-1}}\tau$ for the constant $c$
-relating the walk index to the entry's own $n$. By Cramer's rule every entry of
-$(I-xM)^{{-1}}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
-$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
-\end{{proof}}
+{model}
 
 \begin{{theorem}}
 The conjectured generating function is $A(x)$.

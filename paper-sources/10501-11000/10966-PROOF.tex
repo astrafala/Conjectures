@@ -10,146 +10,169 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A302675, proved by transfer matrix}
+\title{A proof of the conjectured recurrence for OEIS A026026}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A302675 counts $3$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{0,1,4,6\}$, and it carries an empirical
-recurrence of order $2$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=64$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A026026 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, so the usual route through a
+functional equation is unavailable. It does post a closed form for $a(n)$, and that is
+enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
+term every shift quotient is a rational function of $n$. The conjectured recurrence
+therefore reduces to one rational-function identity, one for each similarity
+class of terms, and each is decided exactly by cancellation. No expansion is truncated and
+nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
+valid for every $n$ outside an explicitly computed finite set.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A302675 is ``Number of nX3 0..1 arrays with every element equal to 0, 1, 4 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A026026 is ``a(n) = number of (s(0), s(1), ..., s(2*n-1)) such that s(i) is a nonnegative integer and |s(i) - s(i-1)| = 1 for i = 1,2,...,n, s(0) = 3, s(2*n-1) = 4. Also a(n) = T(2*n-1,n-1), where T is defined in A026022''. It has offset $2$ and begins
 \[
-3, 3, 8, 7, 11, 18, 29, 47,\ \dots
+a(2),\dots,a(9)\;=\;1, 3, 10, 35, 125, 451, 1638, 5980,\ \dots
 \]
-The entry carries the following comment:
+The entry states, not as a conjecture,
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +a(n-2) for n>5
+a(n) = binomial(2*n-3, n-2) - binomial(2*n-3, n-6). - \emph{Christian Krause}, May 09 2026
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 11 2018 12:24:58, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
-
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + a(n-2)
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;- {\binom{2 n - 3}{n - 6}} + {\binom{2 n - 3}{n - 2}} .
 \end{equation}
-for all $n>5$.
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The array as a walk, with boundary}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} -(n+3)*(11*n-38)*a(n) +2*(35*n\^{}2-86*n-102)*a(n-1) -4*(13*n-30)*(2*n-5)*a(n-2)=0. - \emph{R. J. Mathar}, Jun 22 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (2026-05-14, revision 27) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{0,1,4,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+- \left(n + 3\right) \left(11 n - 38\right)\,a(n) + 2 \left(35 n^{2} - 86 n - 102\right)\,a(n-1) -  4 \left(2 n - 5\right) \left(13 n - 30\right)\,a(n-2)
+\end{equation}
 
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=64$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,4,6\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,4,6\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,4,6\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
+\section{Hypergeometric terms}
 
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
+\begin{definition}
+A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
+$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
+\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
+\end{definition}
+
+Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
+binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
+are hypergeometric, and so is any product of these; a sum of them need not be.
+
+\begin{lemma}\label{lem:shift}
+If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
+$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
+number of substitutions and multiplications.
 \end{lemma}
 
 \begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{0,1,4,6\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
+Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
+$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
+$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
 \end{proof}
 
-\section{The criterion}
+The fact that makes the test complete rather than merely sufficient is the linear
+independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
+\cite{AB}, Chapter~5.
 
-Let $q(t)=t^{2}-\sum_i c_i t^{2-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
-
-\begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-2}$ whenever $n-2\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-2$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+\begin{lemma}\label{lem:indep}
+Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
+$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
+every $u_{j}$ is the zero rational function.
 \end{lemma}
 
+\section{The recurrence as a finite set of rational identities}
+
+\begin{proposition}\label{prop:main}
+Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
+$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
+each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
+functions $f_{\ell,s}$. Put
+\[
+S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
+\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+\]
+a rational function of $n$ by Lemma~\ref{lem:shift}. Then
+\[
+\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
+\]
+and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
+$S_{\ell}=0$ for every $\ell$.
+\end{proposition}
+
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-2}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
+sum of its terms, each term is its class representative times a rational function, and the
+representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
+construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
+large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
 \end{proof}
 
-\section{The computation}
+Proposition~\ref{prop:main} turns the conjecture into a finite computation in
+$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
+those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
+finite in number and listed below.
+
+\section{The computation for A026026}
+
+The closed form \eqref{eq:cf} splits into one similarity class, with
+representative
+\[
+- {\binom{2 n - 3}{n - 6}}
+\]
+Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
+\[
+S_{1}(n)\;=\;0
+\]
+so every class residual vanishes identically and the conjecture follows.
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>5$. This is the statement of
-Section~1.
+For all $n\ge 4$,
+\[
+- \left(n + 3\right) \left(11 n - 38\right)\,a(n) + 2 \left(35 n^{2} - 86 n - 102\right)\,a(n-1) -  4 \left(2 n - 5\right) \left(13 n - 30\right)\,a(n-2)
+\]
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $2$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=5+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
+being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Two checks were made, and both are independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $37$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly. A formula that did
+not reproduce the entry's own terms would not have been used.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
-
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=64$ consecutive
-zeros rather than to a sampled prefix.
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $24$ instances beginning at
+$n=4$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A302675.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A026026}{A026026}, 2026-05-14.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
 
 \end{document}

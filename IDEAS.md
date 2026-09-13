@@ -225,6 +225,52 @@ transients eventually periodic in n, which makes the count quasi-linear without 
 repeating itself. That is the same obstacle as the 82 `ca2d` names with no growth certificate,
 and one mechanism would settle both.
 
+## I. The block template, and the two-dimensional certificate it does NOT give (13 Sep 2026)
+
+**Done and installed.** `ecashape` finds, for a one-dimensional automaton,
+
+    w(n0 + r + j*p) = B_0 . Q_1^j . B_1 . ... . Q_m^j . B_m,
+
+fixed blocks and repeated blocks, the repeats gaining one copy every p steps. It generalises
+the end-growth shape `ecarow`/`ecacount` use (that is m = 2 with the outer blocks empty) and
+brings in 17 of the 56 rules those refuse — rule 133 gains `1010' in the middle of a periodic
+run, rule 141 gains `10' in one run and `11' in another. It is PROVED by locality: p steps of a
+radius-1 map have radius p, so verifying the p-step map by simulation at two consecutive j
+whose runs exceed the dependence cone carries it to every larger j. `ecablock` (counts, 17
+installed) and `ecarowb` (numerals, 15 installed) are the engines.
+
+**The remaining 39 elementary rules are empty at the entry level.** 98 entries sit on them and
+not one carries a parsable conjectured recurrence. Nothing to go back for.
+
+**The open problem is two-dimensional.** `ca2d`'s certificate is not provable by locality: the
+axis of a 2-D automaton is not a function of the axis before it, so 179 papers were withdrawn
+(see WITHDRAWN.md). 21 rules survive because their whole CONFIGURATION is exactly periodic in
+time, which determinism alone settles. Three rescues were measured and failed: the
+configuration as a fixed frame around the previous one (0 of 39 rules), the interior frozen
+with growth only in the new boundary ring (0 of 26), a cross insertion of 2p rows and 2p
+columns (2 of 39).
+
+What is left to try, and would recover the 179 plus the 82 `ca2d` names never certified:
+
+* **a 2-D block template with product structure** — C(n+p) is C(n) with fixed row-bands and
+  column-bands inserted at fixed positions, the bands themselves repeats. Then 2-D locality
+  closes the induction exactly as it does in one dimension. The cross test is the special case
+  of a single band each, so the general case is what is untried. The search is the 1-D
+  `_templates` run twice, once on the column structure of the centre row and once on the
+  sequence of rows with those columns deleted.
+* **a band certificate with a growing height.** To get the axis at n+p one needs the band
+  |y| <= p at n, and to get THAT band at n one needs |y| <= 2p at n-p. A band identity whose
+  verified height grows faster than p per step would close it; measure how the height at which
+  the row-wise identity holds grows with n. Rules 3, 73 and 413 already satisfy the row-wise
+  identity at every height, which is why they are among the 21 already proved.
+* **spatial periodicity of the interior.** Rule 14's bulk is an exact checkerboard with
+  bounded transients at the corners and edges. That is the 2-D form of the mechanism section H
+  wanted for the counts, and it would settle the axis, the diagonal and the active-cell count
+  at once.
+
+Until one of those lands, `ca2d` refuses anything without the temporal-periodicity certificate
+and `ca2dcount` refuses everything, which is what they should do.
+
 ## F1. What no engine reads, measured fresh on 9 September 2026
 
 2,791 entries outside the roster carry a readable conjectured recurrence and a name no engine

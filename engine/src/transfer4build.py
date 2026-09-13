@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """One paper per Hardin pattern-avoidance array entry."""
+import conjquote
 import os, json, re
 import localentry as LE, phibuild
 from transferbuild import rec_tex
@@ -8,11 +9,10 @@ PRE = phibuild.PRE
 esc = phibuild.esc
 
 
-def conj_line(anum):
-    for L in LE.get(anum)["comment"] + LE.get(anum)["formula"]:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers and 41 quoted the
+    wrong line of the block -- a closed form where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def pat(p):
@@ -25,7 +25,7 @@ def build(h):
     S, order, nterms, thr, nrows = h["S"], h["order"], h["nterms"], h["threshold"], h["nrows"]
     e = LE.get(a)
     d = [int(v) for v in e["data"].split(",") if v.strip()]
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     Hs = ", ".join(pat(p) for p in H)
     Vs = ", ".join(pat(p) for p in V)
     L1 = L - 1

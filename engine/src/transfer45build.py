@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Papers for the consecutive-triple family."""
+import conjquote
 import os
 
 _ROSTER = None
@@ -31,12 +32,11 @@ NAMED = {'row': 'a row', 'column': 'a column', 'diagonal': 'a diagonal (nw--se)'
 ORDER = ('row', 'column', 'diagonal', 'antidiagonal')
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def build(h):
@@ -48,7 +48,7 @@ def build(h):
     W, K, cond = p['W'], p['K'], p['cond']
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     rows = []
     for k in ORDER:

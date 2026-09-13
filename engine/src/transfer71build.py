@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Papers for the existential-neighbour family."""
+import conjquote
 import os, json, re
 import localentry as LE, phibuild, transferbuild, transfer71
 
@@ -18,12 +19,11 @@ def datefor(a):
     return '4 September 2026' if a in _ROSTER_AT_BUILD else '6 September 2026'
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def offs_tex(offs):
@@ -100,7 +100,7 @@ def build(h):
     U, D = transfer71._reach(p)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     body, short = cond_tex(p)
     aset = (r'\{' + ','.join(str(t) for t in range(A)) + r'\}' if A <= 5 else

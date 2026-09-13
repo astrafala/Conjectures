@@ -12,162 +12,106 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220223, proved by transfer matrix}
+\title{Recovering the unwritten recurrences of the table OEIS A235239}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220223 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
-$\{0,\dots,1\}$ by marking the cells whose value is equal to at least half of their neighbours, and carries an
-empirical recurrence of order $31$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=80$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A235239 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 28].'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A220223 is ``Majority value maps: number of nX3 binary arrays indicating the locations of corresponding elements equal to at least half of their horizontal, diagonal and antidiagonal neighbors in a random 0..1 nX3 array.''. It has offset $1$ and begins
+OEIS A235239 is ``T(n,k) is the number of (n+1) X (k+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It is read by antidiagonals and begins
 \[
-4, 18, 115, 697, 4406, 27584, 173216, 1087102,\ \dots
+120, 420, 420, 1328, 1288, 1328, 4652, 3688,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 4*a(n-1) +11*a(n-2) +20*a(n-3) +10*a(n-4) -22*a(n-5) -73*a(n-6) -130*a(n-7) -255*a(n-8) -324*a(n-9) +76*a(n-10) +462*a(n-11) +1018*a(n-12) +1198*a(n-13) +626*a(n-14) -544*a(n-15) -1353*a(n-16) -1612*a(n-17) -1219*a(n-18) -68*a(n-19) +153*a(n-20) +934*a(n-21) +548*a(n-22) -166*a(n-23) -146*a(n-24) -642*a(n-25) -164*a(n-26) +140*a(n-27) +76*a(n-28) +120*a(n-29) -8*a(n-30) -32*a(n-31) for n>32
+The entry carries, among its empirical claims:
+\begin{quote}\small
+k=2: [order 28].
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:35:45, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 19 2022 00:00:47, revision 7) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{What is being counted}
+\section{Why a line of the table is a walk count}
 
-Let $R=\{0,\dots,1\}^{3}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
-\[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
-\]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
-is equal to at least half of its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
-\]
+\section{Recovering the recurrences}
 
-\section{The image is a walk count after determinisation}
-
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
-\[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
-
-\begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
-\[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
-\]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
-\end{proof}
-
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=252$ vertices. Berlekamp--Massey on $2S=504$ exact terms
+returns a minimal recurrence of order $28$ --- the order the entry states --- with
+integer coefficients
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+(c_1,\dots,c_{28})=(6,\ 47,\ -331,\ -846,\ 7735,\ 6531,\ -99876,\ -4062,\ 780931,\ -294777,\ -3829232,\ 2187642,\ 11922251,\ -7106223,\ -23840076,\ 11482195,\ 31200479,\ -9197246,\ -26295345,\ 2967600,\ 13895070,\ 468804,\ -4403844,\ -634896,\ 759672,\ 171504,\ -54432,\ -15552).
 \]
-There are $S=80$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{31}-\sum_i c_it^{31-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+31}-\sum_ic_iM^{j+31-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+so that $a(m)=\sum_{i=1}^{28}c_i\,a(m-i)$ for every $m$. Removing the first
+$28+4$ terms and repeating gives order $28$ again, which is what the
+identification below needs.
 
 \begin{theorem}
-\[
-a(n)\;=\;4\,a(n-1) + 11\,a(n-2) + 20\,a(n-3) + 10\,a(n-4) - 22\,a(n-5) - 73\,a(n-6) - 130\,a(n-7) - 255\,a(n-8) - 324\,a(n-9) + 76\,a(n-10) + 462\,a(n-11) + 1018\,a(n-12) + 1198\,a(n-13) + 626\,a(n-14) - 544\,a(n-15) - 1353\,a(n-16) - 1612\,a(n-17) - 1219\,a(n-18) - 68\,a(n-19) + 153\,a(n-20) + 934\,a(n-21) + 548\,a(n-22) - 166\,a(n-23) - 146\,a(n-24) - 642\,a(n-25) - 164\,a(n-26) + 140\,a(n-27) + 76\,a(n-28) + 120\,a(n-29) - 8\,a(n-30) - 32\,a(n-31)
-\]
-for every $n>32$.
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $31$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220223.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235239.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

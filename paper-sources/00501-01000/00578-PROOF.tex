@@ -12,131 +12,175 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263971: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A229539, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263971 records ``Empirical recurrence of order $53$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=1024$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $53$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$53$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A229539 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=1588$ vertices, and the empirical recurrence of
+order $46$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The sequence and the conjecture}
 
-OEIS A263971 is ``Number of (n+1)X(4+1) arrays of permutations of 0..n*5+4 with each element having index change (+-,+-) 0,2 1,1 or 1,0.''. It has offset $1$ and begins
+OEIS A229539 is ``Number of defective 3-colorings of a 6 X n 0..2 array connected horizontally, diagonally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-465, 10720, 2604481, 226810352, 31702909989, 3594130469760, 448695451459909, 53640316831369632,\ \dots
+0, 1188, 11184, 185808, 2451728, 34811238, 463976296, 6218438820,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 53 (see link above)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 12*a(n-1) + 182*a(n-2) - 1820*a(n-3) - 15113*a(n-4) + 101664*a(n-5) + 646022*a(n-6) - 3003324*a(n-7) -1 5725808*a(n-8) + 55305760*a(n-9) + 234926070*a(n-10) - 698528578*a(n-11) - 2270736611*a(n-12) + 6320752450*a(n-13) + 14600825558*a(n-14) - 41434331996*a(n-15) - 62768577651*a(n-16) + 196263429930*a(n-17) + 176943063476*a(n-18) - 669462409316*a(n-19) - 305019512324*a(n-20) + 1647405492614*a(n-21) + 230358934675*a(n-22) - 2942270801898*a(n-23) + 243588718325*a(n-24) + 3841770422896*a(n-25) - 923967990222*a(n-26) - 3689384232910*a(n-27) + 1300617284437*a(n-28) + 2614259101122*a(n-29) - 1127033659748*a(n-30) - 1366254718948*a(n-31) + 660843537364*a(n-32) + 524090586634*a(n-33) - 269727615782*a(n-34) - 146010681184*a(n-35) + 76928224259*a(n-36) + 28983533038*a(n-37) - 15160113967*a(n-38) - 3964319226*a(n-39) + 2009807783*a(n-40) + 352152984*a(n-41) -1 70267256*a(n-42) - 18138336*a(n-43) + 8296524*a(n-44) + 408240*a(n-45) - 176400*a(n-46) for n > 48.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 10:29:14, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Apr 27 2021 21:09:10, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;12\,a(n-1) + 182\,a(n-2) - 1820\,a(n-3) - 15113\,a(n-4) + 101664\,a(n-5) + 646022\,a(n-6) - 3003324\,a(n-7) - 15725808\,a(n-8) + 55305760\,a(n-9) + 234926070\,a(n-10) - 698528578\,a(n-11) - 2270736611\,a(n-12) + 6320752450\,a(n-13) + 14600825558\,a(n-14) - 41434331996\,a(n-15) - 62768577651\,a(n-16) + 196263429930\,a(n-17) + 176943063476\,a(n-18) - 669462409316\,a(n-19) - 305019512324\,a(n-20) + 1647405492614\,a(n-21) + 230358934675\,a(n-22) - 2942270801898\,a(n-23) + 243588718325\,a(n-24) + 3841770422896\,a(n-25) - 923967990222\,a(n-26) - 3689384232910\,a(n-27) + 1300617284437\,a(n-28) + 2614259101122\,a(n-29) - 1127033659748\,a(n-30) - 1366254718948\,a(n-31) + 660843537364\,a(n-32) + 524090586634\,a(n-33) - 269727615782\,a(n-34) - 146010681184\,a(n-35) + 76928224259\,a(n-36) + 28983533038\,a(n-37) - 15160113967\,a(n-38) - 3964319226\,a(n-39) + 2009807783\,a(n-40) + 352152984\,a(n-41) - 170267256\,a(n-42) - 18138336\,a(n-43) + 8296524\,a(n-44) + 408240\,a(n-45) - 176400\,a(n-46)
+\end{equation}
+for all $n>48$.
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1024$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+\section{Mistakes, and the colour clause}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=1024$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=2048$ exact terms of the model returns order $53$ --- the order the
-entry states --- with the integer coefficients
+The arrays have $6$ rows and $L=n$ columns, entries in $\{0,\dots,3-1\}$.
+Two cells are adjacent when they differ by one of
 \[
-a(n)\;=\;\sum_{i=1}^{53}c_i\,a(n-i),
+\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\}
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $100$ & $c_{15}$ & $-43525067588896056688$ & $c_{29}$ & $78986562369395514289567662080$ & $c_{43}$ & $-31738133142848611382052595433472$ \\
-$c_{2}$ & $6087$ & $c_{16}$ & $161818387177195861296$ & $c_{30}$ & $-6706712031173755395816226816$ & $c_{44}$ & $-5477614633585659795158062858240$ \\
-$c_{3}$ & $-390976$ & $c_{17}$ & $475912773522818875440$ & $c_{31}$ & $-534621920393806037643865751552$ & $c_{45}$ & $24952030482858066877821394878464$ \\
-$c_{4}$ & $-8403494$ & $c_{18}$ & $-1486483114546636158032$ & $c_{32}$ & $989489981213535893481084157952$ & $c_{46}$ & $-11893376156898118341195259183104$ \\
-$c_{5}$ & $474196768$ & $c_{19}$ & $17935195481479563200224$ & $c_{33}$ & $-668221624829111426184466923520$ & $c_{47}$ & $-16609890359806883924035606937600$ \\
-$c_{6}$ & $5002152626$ & $c_{20}$ & $-145444951281278549025344$ & $c_{34}$ & $-1660479584643431598263078223872$ & $c_{48}$ & $934705446545505551254435135488$ \\
-$c_{7}$ & $-260715013792$ & $c_{21}$ & $-249150635744669666536320$ & $c_{35}$ & $7190243724787351229119584010240$ & $c_{49}$ & $6021276219268172274751189811200$ \\
-$c_{8}$ & $-1403473040977$ & $c_{22}$ & $3076760846040317647500032$ & $c_{36}$ & $-5096317403500266722222499954688$ & $c_{50}$ & $1715056353044513427150040203264$ \\
-$c_{9}$ & $74204170986356$ & $c_{23}$ & $-4785223727969525937227264$ & $c_{37}$ & $-775947942823691568513814626304$ & $c_{51}$ & $-416882327215458005628814884864$ \\
-$c_{10}$ & $138338337533047$ & $c_{24}$ & $15408224934677544376771584$ & $c_{38}$ & $-9684858390747275318422101032960$ & $c_{52}$ & $-102651697537977396421338333184$ \\
-$c_{11}$ & $-11747087671883792$ & $c_{25}$ & $-32145094419417547582588928$ & $c_{39}$ & $-1384504055891744739328585105408$ & $c_{53}$ & $12979329830837562476939182080$ \\
-$c_{12}$ & $8825649132981656$ & $c_{26}$ & $129398530007428453999210496$ & $c_{40}$ & $22414394229124014782591520473088$ &  &  \\
-$c_{13}$ & $1022710783433343640$ & $c_{27}$ & $-357210748892431242891976704$ & $c_{41}$ & $6152966768214105487220402028544$ &  &  \\
-$c_{14}$ & $-2637146528978763792$ & $c_{28}$ & $-15866489056824725565236297728$ & $c_{42}$ & $1009789285296792988461912031232$ &  &  \\
-\end{tabular}
-\end{center}
+(as (column shift, row shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative column shift, so the pairs inside a column are
+counted when that column is laid down and the pairs joining two columns when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
+
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
+
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=3$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
+\end{lemma}
+
+\begin{proof}
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
+\end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{6}$ a column
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+columns $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ determines the sequence of $L$ columns, and conversely; by induction
+the count component after $t$ columns is the number of mistakes among the first $t$ columns,
+since each step adds exactly the mistakes joining columns $t$ and $t+1$ together with those
+inside column $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a column, not a boundary, so $L$ columns make a walk of length $L-1$.
+\end{proof}
+
+Assembling the $3$ chains block-diagonally into $N$ of size $S=1588$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{46}-\sum_i c_i\,t^{46-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge46$
+\[
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-46}w,
+\qquad w=h_{46}-\sum_i c_ih_{46-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+The recurrence \eqref{eq:conj} holds for every $n>48$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $53$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $53+4$ terms
-removed returns order $53$ as well, so $\deg q_{\min}=53=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$46$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=48+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $16$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of columns being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $53+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $53$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263971.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229539.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -7,6 +7,7 @@ scaling factor in front of the count. The general builder would describe all of 
 bounded window of consecutive lines", which is true but says nothing about the entry in
 hand, and would drop the scaling factor entirely.
 """
+import conjquote
 import json
 import os
 import re
@@ -77,12 +78,11 @@ def sb_desc(h, w):
     return rf"${h}\times{w}$ subblock"
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e["comment"] + e["formula"]:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def build(h):
@@ -92,7 +92,7 @@ def build(h):
     e = LE.get(a)
     d = [int(v) for v in e["data"].split(",") if v.strip()]
     mod, rev = e["modified"], e["revision"]
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     p = transfer82.parse_name(e['name'])
     kk = off - sh

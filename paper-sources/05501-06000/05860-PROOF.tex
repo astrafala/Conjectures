@@ -12,66 +12,52 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234834, proved by transfer matrix}
+\title{A condition on every subblock: the empirical recurrence for OEIS A183807}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234834 counts arrays of width $3$ over $\{0,1,2\}$ in which every $3\times3$ subblock
-satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
-$38$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
-$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
-count is a walk count on $S=757$ states.
+OEIS A183807 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=55$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/16$ of them, so every count below is divided by $16$; the division is exact at every term, which is itself a check on the model.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A234834 is ``Number of (n+2)X(1+2) 0..2 arrays with each 3X3 subblock having the sum of its 72 absolute element differences equal to 34.''. It has offset $1$ and begins
+OEIS A183807 is ``1/16 the number of (n+1)X6 binary arrays with no 2X2 subblock being a reflection across the shared element pair of any horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-4032, 28716, 204618, 1480140, 11003508, 81917442, 610407090, 4599763200,\ \dots
+81, 1011, 11619, 143191, 1701473, 20745787, 249227639, 3023598287,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +9*a(n-2) +789*a(n-3) -2313*a(n-4) -6696*a(n-5) -207666*a(n-6) +613926*a(n-7) +1658070*a(n-8) +24654780*a(n-9) -78498963*a(n-10) -180994662*a(n-11) -1400753817*a(n-12) +5240802141*a(n-13) +9315327483*a(n-14) +35316124335*a(n-15) -180514151127*a(n-16) -225010406979*a(n-17) -273283200675*a(n-18) +3034401272748*a(n-19) +2351614733298*a(n-20) +97770795093*a(n-21) -25129106905968*a(n-22) +2369195864460*a(n-23) -48100205160702*a(n-24) +50827932381402*a(n-25) -289456311030156*a(n-26) +1093187493175212*a(n-27) +1157937854342760*a(n-28) +3814277139079524*a(n-29) -7799950652174604*a(n-30) -13223099849563548*a(n-31) -22117245288184764*a(n-32) -1807549033478400*a(n-33) +32996807606148192*a(n-34) +38961719416626912*a(n-35) -4270334591592720*a(n-36) -20131577360365680*a(n-37) -8784688302705024*a(n-38)
+Empirical: a(n)=15*a(n-1)+110*a(n-2)-2305*a(n-3)-891*a(n-4)+125083*a(n-5)-243502*a(n-6)-2877148*a(n-7)+8795527*a(n-8)+27727447*a(n-9)-101226891*a(n-10)-43240980*a(n-11)-79975763*a(n-12)-680699282*a(n-13)+10953583229*a(n-14)-3221230812*a(n-15)-82978052876*a(n-16)+72785470699*a(n-17)+134369376084*a(n-18)-124679575504*a(n-19)+843000278192*a(n-20)-1580151635606*a(n-21)-2695042718660*a(n-22)+5684097111755*a(n-23)-3975339670937*a(n-24)+6858358660190*a(n-25)+17395248113157*a(n-26)-46405408055301*a(n-27)+3240133345994*a(n-28)+21004315650603*a(n-29)-16124690699477*a(n-30)+66278718366899*a(n-31)-35683008630253*a(n-32)-22465044442773*a(n-33)+2356096909734*a(n-34)-17220973586580*a(n-35)+22524996368520*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:19:12, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:02:59, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
-condition is imposed on every $3\times3$ block of the array --- every choice of three
-consecutive rows and three consecutive columns --- and asks that the sum of the absolute differences over the $36$ pairs of distinct entries equals $34$.
+The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that no $2\times2$ subblock may be the mirror image of the subblock beside it or the subblock below it, reflected in the line the two share.
 
-The entry counts those differences as $72$, which is the number of ORDERED pairs; the number it compares against is the sum over the $36$ unordered pairs, and that is the reading its published terms confirm --- the value named is not an achievable ordered-pair sum at all.
-
-\section{Three rows}
-
-A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
-by three consecutive rows and nothing wider. Take the array one row at a time and let the state
-be the last two rows written, with a distinguished start standing for the array before its
-first row. Appending a row completes the blocks whose bottom row is the new one, and the step
-is allowed exactly when each of those blocks passes.
-
-Every block of the finished array is tested exactly once, at the step that writes its bottom
-row, and no step imposes anything the definition does not ask. The first two rows complete no
-block at all, which is why they are laid down without a test. Every state may end an array, so
-$\tau=\mathbf{1}$. Thus
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, and a condition relating one subblock to the next needs one more, so a window of $3$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=55$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,
+a(n)\;=\;\tfrac{1}{16}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{38}-\sum_i c_it^{38-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -79,24 +65,25 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+38}-\sum_ic_iM^{j+38-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 9\,a(n-2) + 789\,a(n-3) - 2313\,a(n-4) - 6696\,a(n-5) - 207666\,a(n-6) + 613926\,a(n-7) + 1658070\,a(n-8) + 24654780\,a(n-9) - 78498963\,a(n-10) - 180994662\,a(n-11) - 1400753817\,a(n-12) + 5240802141\,a(n-13) + 9315327483\,a(n-14) + 35316124335\,a(n-15) - 180514151127\,a(n-16) - 225010406979\,a(n-17) - 273283200675\,a(n-18) + 3034401272748\,a(n-19) + 2351614733298\,a(n-20) + 97770795093\,a(n-21) - 25129106905968\,a(n-22) + 2369195864460\,a(n-23) - 48100205160702\,a(n-24) + 50827932381402\,a(n-25) - 289456311030156\,a(n-26) + 1093187493175212\,a(n-27) + 1157937854342760\,a(n-28) + 3814277139079524\,a(n-29) - 7799950652174604\,a(n-30) - 13223099849563548\,a(n-31) - 22117245288184764\,a(n-32) - 1807549033478400\,a(n-33) + 32996807606148192\,a(n-34) + 38961719416626912\,a(n-35) - 4270334591592720\,a(n-36) - 20131577360365680\,a(n-37) - 8784688302705024\,a(n-38)
+a(n)\;=\;15\,a(n-1) + 110\,a(n-2) - 2305\,a(n-3) - 891\,a(n-4) + 125083\,a(n-5) - 243502\,a(n-6) - 2877148\,a(n-7) + 8795527\,a(n-8) + 27727447\,a(n-9) - 101226891\,a(n-10) - 43240980\,a(n-11) - 79975763\,a(n-12) - 680699282\,a(n-13) + 10953583229\,a(n-14) - 3221230812\,a(n-15) - 82978052876\,a(n-16) + 72785470699\,a(n-17) + 134369376084\,a(n-18) - 124679575504\,a(n-19) + 843000278192\,a(n-20) - 1580151635606\,a(n-21) - 2695042718660\,a(n-22) + 5684097111755\,a(n-23) - 3975339670937\,a(n-24) + 6858358660190\,a(n-25) + 17395248113157\,a(n-26) - 46405408055301\,a(n-27) + 3240133345994\,a(n-28) + 21004315650603\,a(n-29) - 16124690699477\,a(n-30) + 66278718366899\,a(n-31) - 35683008630253\,a(n-32) - 22465044442773\,a(n-33) + 2356096909734\,a(n-34) - 17220973586580\,a(n-35) + 22524996368520\,a(n-36)
 \]
-for every $n>38$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -104,13 +91,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $3\times3$ block tested directly on its nine
-entries. No rows, no window, no state and no transfer matrix are involved in that computation,
-and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -120,9 +108,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234834.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183807.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

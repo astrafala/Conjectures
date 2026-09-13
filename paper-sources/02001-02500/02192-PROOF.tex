@@ -12,79 +12,50 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A231852, proved by transfer matrix}
+\title{A value repeated at its own distance: OEIS A209370}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231852 counts arrays of width $5$ over $\{0,1,2\}$ in which no cell is beaten by a strict majority of its neighbours. The entry carries an
-empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=46576$ states.
+OEIS A209370 carries an empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition reaches only as far as the value itself, which is bounded by the
+alphabet, so a window of that many lines decides it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=158$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A231852 is ``Number of nX5 0..2 arrays with no element having a strict majority of its horizontal and antidiagonal neighbors equal to itself plus one mod 3, with upper left element zero (rock paper and scissors drawn positions).''. It has offset $1$ and begins
+OEIS A209370 is ``Number of nX4 1..3 arrays with no element with value z exactly a city block distance of z from another element with value z.''. It has offset $1$ and begins
 \[
-21, 612, 85288, 11149456, 1454768048, 189801034186, 24762957054535, 3230773305296573,\ \dots
+35, 129, 242, 968, 3698, 14112, 54450, 208658,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 183*a(n-1) -8008*a(n-2) +164477*a(n-3) -1911762*a(n-4) +13545983*a(n-5) -59779265*a(n-6) +159414566*a(n-7) -218855372*a(n-8) +7532104*a(n-9) +451112826*a(n-10) -590711864*a(n-11) +106059884*a(n-12) +386076754*a(n-13) -374591713*a(n-14) +131217119*a(n-15) +37977619*a(n-16) -86897128*a(n-17) +54663372*a(n-18) -17127366*a(n-19) +3057852*a(n-20) -413220*a(n-21) for n>22
+Empirical: a(n) = a(n-1) +4*a(n-2) +13*a(n-3) +38*a(n-4) +56*a(n-5) +20*a(n-6) -107*a(n-7) -179*a(n-8) -5*a(n-9) +123*a(n-10) -11*a(n-11) -105*a(n-12) -74*a(n-13) -16*a(n-14) +25*a(n-15) +19*a(n-16) +6*a(n-17) +3*a(n-18) +2*a(n-20) -a(n-21) for n>23
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 08:48:06, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:13:22, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
-list of offsets the entry names,
+The entry counts arrays with $4$ columns over the alphabet $\{1,2,3\}$, distance measured as $|\Delta \text{row}|+|\Delta \text{column}|$, and asks that no element of value $z$ may have another element of value $z$ exactly $z$ steps away. An element of value $0$ is $0$ steps from itself and so always has such a partner. That is not an interpretation imposed on the entry: it is the reading the entry's own published terms select, and reading ``another'' as strictly some other cell disagrees with them at the very first term.
+
+The condition ranges over the whole array, but only as far as the value itself reaches: a cell of value $z$ looks exactly $z$ steps away, and $z$ is at most $3$. So nothing more than $3$ rows away can matter, and a cell's verdict is settled once the row $3$ beyond it has arrived.
+
+Carry the last $3$ rows together with one bit for each of their cells, recording whether that cell has already found its partner. A new row is paired against the rows it can still reach, sets the bits it completes, and retires the row that has now seen everything it will ever see: the walk continues if that row's bits say what the entry asks and stops otherwise. The rows still held when the array ends are judged by the end vector, which is where the boundary is honest --- a partner off the edge of the array is not a partner.
+
+Merging vertices with identical futures leaves $S=158$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-\Delta=\{\,(-1,1), (0,-1), (0,1), (1,-1)\,\},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-and for a cell $(i,j)$ write
-\[
-S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
-\text{(the cells of the array)}
-\]
-for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours.
-
-The condition is that no cell has a strict majority of its neighbours one greater than itself modulo $3$:
-\[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)\equiv x(i,j)+1 \bmod 3\}\;\le\;|S(i,j)| .
-\]
-With three values this is the drawn position of rock, paper and scissors: each value beats the one below it modulo $3$, and no cell is to be beaten by a strict majority of its neighbours. The entry adds that the top-left cell is $0$.
-
-\section{A window of 3 rows}
-
-The offsets reach one row up and one row down, so everything the condition asks of one row is
-decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
-
-Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
-
-When the array stops, the last row of it has never been tested, because the
-conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
-those rows pass with nothing below them, which is decided by running the same test on the window
-with absent rows appended --- the same rule that governs a cell at the bottom edge in
-Section 2.
-Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=46576,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
+the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -102,34 +73,36 @@ Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;183\,a(n-1) - 8008\,a(n-2) + 164477\,a(n-3) - 1911762\,a(n-4) + 13545983\,a(n-5) - 59779265\,a(n-6) + 159414566\,a(n-7) - 218855372\,a(n-8) + 7532104\,a(n-9) + 451112826\,a(n-10) - 590711864\,a(n-11) + 106059884\,a(n-12) + 386076754\,a(n-13) - 374591713\,a(n-14) + 131217119\,a(n-15) + 37977619\,a(n-16) - 86897128\,a(n-17) + 54663372\,a(n-18) - 17127366\,a(n-19) + 3057852\,a(n-20) - 413220\,a(n-21)
+a(n)\;=\;a(n-1) + 4\,a(n-2) + 13\,a(n-3) + 38\,a(n-4) + 56\,a(n-5) + 20\,a(n-6) - 107\,a(n-7) - 179\,a(n-8) - 5\,a(n-9) + 123\,a(n-10) - 11\,a(n-11) - 105\,a(n-12) - 74\,a(n-13) - 16\,a(n-14) + 25\,a(n-15) + 19\,a(n-16) + 6\,a(n-17) + 3\,a(n-18) + 2\,a(n-20) - a(n-21)
 \]
-for every $n>22$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=23$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $5$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
-tested against the neighbours it has. No window, no state and no end vector are involved in that
-computation, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and measures the distance between every pair
+of cells directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -139,9 +112,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231852.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209370.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

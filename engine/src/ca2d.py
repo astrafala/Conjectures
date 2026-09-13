@@ -165,15 +165,33 @@ def value(word, base):
 
 
 def build(p, cap=200000):
-    """the reading that matches, with its growth certificate"""
-    import localentry as LE
+    """the reading that matches, with a growth certificate that is PROVED.
+
+    For a long time this engine verified w(n+p) = L_r + w(n) + R_r over every stage it
+    computed and stopped there, and 272 results were built on it. That check is a proof for
+    the ONE-dimensional automata, where a row is a function of the row before it, and it is
+    not one here: the cell at (x, 0) at stage n+1 reads (x, 0), (x+-1, 0) and (x, +-1), so the
+    axis is not a function of the axis before it and no induction carries the identity past
+    the stages that were run. 179 papers claimed a theorem on that footing and were withdrawn.
+
+    What does prove it is periodicity of the whole CONFIGURATION: C(n+p) = C(n) as
+    configurations of the plane, which by determinism gives C(n+kp) = C(n) for every k and so
+    fixes every axis and diagonal reading at once. 21 of the rules have it -- rule 3 is a
+    single live cell at even stages and a live plane minus a small figure at odd ones -- and
+    those are the ones this engine now accepts. The rest are refused with the reason, not
+    proved with an argument that does not reach them.
+    """
+    import ca2dgrid
+    tp = ca2dgrid.timeperiod(p['rule'])
+    if tp is None:
+        return None
     for dr in p['dirs']:
         ws = words(p['rule'], 64, dr, p['axis'])
         sh = shape(ws)
         if sh is None:
             continue
         return {'rule': p['rule'], 'B': p['base'], 'axis': p['axis'], 'dir': dr,
-                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws,
+                'n0': sh[0], 'p': sh[1], 'per': sh[2], 'ws': ws, 'tper': tp,
                 'S': bound(p['base'], sh[0], sh[1], sh[2])}
     return None
 

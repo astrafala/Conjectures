@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259766, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A259717, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259766 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $11$
+OEIS A259717 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every $3\times3$ subblock, and it carries an empirical recurrence of order $10$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
@@ -33,15 +33,15 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A259766 is ``Number of (n+2) X (2+2) 0..1 arrays with each 3 X 3 subblock having clockwise perimeter pattern 00000001 or 00000101.''. It has offset $1$ and begins
+OEIS A259717 is ``Number of (n+2) X (2+2) 0..1 arrays with each 3 X 3 subblock having clockwise perimeter pattern 00000001 or 00000011.''. It has offset $1$ and begins
 \[
-49, 87, 167, 299, 564, 1086, 2045, 3870,\ \dots
+54, 95, 228, 392, 556, 1219, 2330, 3544,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + a(n-2) + a(n-3) + 2*a(n-4) - 2*a(n-5) + 2*a(n-6) - 4*a(n-7) - 3*a(n-8) + 2*a(n-9) - 4*a(n-10) + 2*a(n-11) for n>12.
+Empirical: a(n) = a(n-2) + 5*a(n-3) + 4*a(n-4) - 4*a(n-5) - 8*a(n-6) - 5*a(n-7) - 3*a(n-8) + 2*a(n-9) + 3*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 27 2018 06:20:13, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Dec 26 2018 11:34:09, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
@@ -55,7 +55,7 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00000101\}
+\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00000011\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
@@ -74,7 +74,7 @@ In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{10}-\sum_i c_it^{10-i}$ be the characteristic polynomial of the
 conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
 $j$, so the recurrence holds from some point on if and only if
@@ -83,7 +83,7 @@ Cayley--Hamilton theorem it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+10}-\sum_ic_iM^{j+10-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
 $u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
 the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + a(n-3) + 2\,a(n-4) - 2\,a(n-5) + 2\,a(n-6) - 4\,a(n-7) - 3\,a(n-8) + 2\,a(n-9) - 4\,a(n-10) + 2\,a(n-11)
+a(n)\;=\;a(n-2) + 5\,a(n-3) + 4\,a(n-4) - 4\,a(n-5) - 8\,a(n-6) - 5\,a(n-7) - 3\,a(n-8) + 2\,a(n-9) + 3\,a(n-10)
 \]
-for every $n>12$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $11$ matrix--vector products in exact
+The vector $w=q(M)\mathbf{1}$ was formed by $10$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=12+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=10+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>12$. The bound is exact: at $n=12$ the recurrence fails on the entry's own published terms, so no larger range holds.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>10$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $29$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $30$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259766.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259717.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

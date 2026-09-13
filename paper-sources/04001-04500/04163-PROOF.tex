@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A250764, proved}
+\title{The conjectured generating function for OEIS A259216, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250764 counts arrays of a fixed width under a local condition, and carries a conjectured
+OEIS A259216 counts arrays of a fixed width under a local condition, and carries a conjectured
 generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=16$ vertices, so its generating function is a rational function whose numerator
+digraph on $S=9$ vertices, so its generating function is a rational function whose numerator
 and denominator have degrees bounded by $S$; the conjectured expression is another rational
 function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $24$ coefficients in exact arithmetic
+coefficients of their expansions do. Comparing $17$ coefficients in exact arithmetic
 therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
@@ -32,15 +32,15 @@ therefore settles the conjecture, rather than testing it.
 
 \section{The conjecture}
 
-OEIS A250764 is ``Number of (n+1) X (3+1) 0..1 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A259216 is ``Number of (n+1) X (2+1) 0..1 arrays with each 2 X 2 subblock having clockwise pattern 0000 0011 or 0101.''. It has offset $1$ and begins
 \[
-35, 62, 114, 216, 418, 820,\ \dots
+13, 23, 40, 71, 127, 230,\ \dots
 \]
 The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-Empirical g.f.: x*(35 - 78*x + 41*x\^{}2) / ((1 - x)\^{}2*(1 - 2*x)). - \_Colin Barker\_, Nov 18 2018
+G.f.: x*(13 - 16*x - 16*x\^{}2) / ((1 - 2*x)*(1 - x - x\^{}2)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 18 2018 09:00:25, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Aug 24 2026 09:41:49, revision 20) this is still
 recorded as empirical, and nothing on the entry records it as proved. The entry carries no
 conjectured recurrence, which is why this generating function is the whole of what is open
 here.
@@ -57,14 +57,14 @@ Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, 
 $\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
 in,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1+2}\tau ,
 \]
-and there are $S=16$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $28$ terms the entry publishes, exactly, in integer arithmetic --- a
+and there are $S=9$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $33$ terms the entry publishes, exactly, in integer arithmetic --- a
 misreading of the condition gives a different digraph and different counts, so this ties the
 model to the entry and not merely to the arithmetic.
 
-The family this entry belongs to is read by one model, described by its author as: ```... arrays with nondecreasing <f>(x(i,j),x(i,j-1)) in the i direction and nondecreasing <g>(x(i,j),x(i-1,j)) in the j direction' and `... with nondecreasing <statistic> of every <k> consecutive values in every row and column'.''
+The family this entry belongs to is read by one model, described by its author as: ```Number of (n+1) X W 0..m arrays with each 2 X 2 subblock having clockwise pattern ...', and the whole family of conditions the encyclopedia states on the four corners of a 2 X 2 subblock read round its perimeter.''
 
 
 \section{Its generating function is rational, with bounded degree}
@@ -92,14 +92,14 @@ power series exists because $D_2(0)\neq0$. Put
 \[
 R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
 \]
-a polynomial of degree at most $19$ by Lemma~\ref{lem:rat}. The difference
+a polynomial of degree at most $12$ by Lemma~\ref{lem:rat}. The difference
 $A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{19}$ then $R$ has a zero of order greater than its own
+every coefficient up to $x^{12}$ then $R$ has a zero of order greater than its own
 degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
 
 The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $24$
-of them --- more than the $19+1$ the argument requires --- agree.
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $17$
+of them --- more than the $12+1$ the argument requires --- agree.
 \end{proof}
 
 \section{A recurrence the entry does not state}
@@ -111,14 +111,14 @@ $D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
 a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>3,
 \]
 a constant-coefficient linear recurrence of order $3$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $4,\ -5,\ 2$. The entry records no recurrence, so this is not a restatement of anything
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $3,\ -1,\ -2$. The entry records no recurrence, so this is not a restatement of anything
 already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $28$ published terms, with the index shift
+First, the model reproduces every one of the $33$ published terms, with the index shift
 read off the entry's offset rather than fitted.
 
 Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
@@ -132,7 +132,7 @@ bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250764.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A259216.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

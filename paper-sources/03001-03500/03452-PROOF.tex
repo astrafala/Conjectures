@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A231806}
+\title{The empirical column recurrences for the table OEIS A230977}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A231806 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A230977 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A231806 is ``T(n,k)=Number of (n+1)X(k+1) 0..1 arrays with no element having a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors equal to one.''. It has offset $1$, is
+OEIS A230977 is ``T(n,k)=Number of (n+2)X(k+2) 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-5, 13, 13, 32, 61, 32, 79, 252,\ \dots
+0, 16, 16, 64, 144, 64, 256, 1024,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = a(n-1) +2*a(n-2) +5*a(n-3) -2*a(n-5) -4*a(n-6)\\
-k=2: [order 20]\\
-k=3: [order 45]\\
+k=1: a(n) = 4*a(n-1) +20*a(n-3) +25*a(n-4)\\
+k=2: a(n) = 9*a(n-1) -8*a(n-2) +72*a(n-3) +9*a(n-4) -81*a(n-5)\\
+k=3: [order 25]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:42:34, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:09:27, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,7 +86,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $15$ & $>6$ & $9$ \\
+column $k$$=1$ & $4$ & $737$ & $>2$ & $8$ \\
+column $k$$=2$ & $5$ & $5841$ & $>3$ & $7$ \\
 \end{tabular}
 \end{center}
 
@@ -96,50 +97,24 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..1 arrays with no element having a strict majority of its horizontal, vertical, diagonal and antidiagonal neighbors equal to one.''. Its rows are the vertices of a digraph on
-$S=15$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+2)X3 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. Its rows are the vertices of a digraph on
+$S=737$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 5\,a(n-3) - 2\,a(n-5) - 4\,a(n-6)
+a(n)\;=\;4\,a(n-1) + 20\,a(n-3) + 25\,a(n-4)
 \]
-holds from index $6+1$ on.
+holds from index $2+1$ on.
 
-
-\section{Lines whose recurrence the entry does not print}
-
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 20]''. Its model is a walk on
-$S=55$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=110$ exact terms returns the minimal one, of order
-$20$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $3$ & $c_{6}$ & $-56$ & $c_{11}$ & $-20$ & $c_{16}$ & $27$ \\
-$c_{2}$ & $3$ & $c_{7}$ & $-47$ & $c_{12}$ & $110$ & $c_{17}$ & $48$ \\
-$c_{3}$ & $19$ & $c_{8}$ & $-70$ & $c_{13}$ & $-76$ & $c_{18}$ & $1$ \\
-$c_{4}$ & $11$ & $c_{9}$ & $91$ & $c_{14}$ & $126$ & $c_{19}$ & $4$ \\
-$c_{5}$ & $-49$ & $c_{10}$ & $-34$ & $c_{15}$ & $32$ & $c_{20}$ & $4$ \\
-\end{tabular}\end{center}
-Repeating with the first $20+4$ terms removed gives order $20$ again.
-
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 45]''. Its model is a walk on
-$S=181$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=362$ exact terms returns the minimal one, of order
-$45$ --- the stated order --- with integer coefficients
+\subsection*{Column $k$$=2$}
+The sequence is ``Number of (n+2)X4 0..3 arrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. Its rows are the vertices of a digraph on
+$S=5841$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
 \[
-(c_1,\dots,c_{45})=(5,\ 10,\ 63,\ 42,\ -662,\ -1140,\ 905,\ -1388,\ 5735,\ 6185,\ -3923,\ 19540,\ 11566,\ -49577,\ 77585,\ -154556,\ 110582,\ -87034,\ 10724,\ 21118,\ -19280,\ 32064,\ 87255,\ -49901,\ 5955,\ -30246,\ 2649,\ 15546,\ -15886,\ -9862,\ 11413,\ 35,\ -1316,\ -1895,\ 449,\ 1537,\ 876,\ -132,\ -30,\ -22,\ -55,\ -15,\ -24,\ -12,\ -2).
+a(n)\;=\;9\,a(n-1) - 8\,a(n-2) + 72\,a(n-3) + 9\,a(n-4) - 81\,a(n-5)
 \]
-Repeating with the first $45+4$ terms removed gives order $45$ again.
+holds from index $3+1$ on.
 
 \section{Verification}
 
@@ -150,7 +125,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $9$ published values, $25$ decimal digits in all, every one of
+model reproduces $15$ published values, $58$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -170,7 +145,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A231806.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230977.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

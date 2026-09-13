@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A274956, proved by counting patterns}
+\title{The empirical recurrence for OEIS A275396, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A274956 counts arrays in which no entry may repeat a value found at any of three stated
+OEIS A275396 counts arrays in which no entry may repeat a value found at any of three stated
 offsets, and which are moreover written in canonical form (``new values introduced in order
 $0..2$''). The canonical-form clause is not local and no transfer matrix over the
 alphabet sees it; but the condition is stated in equalities, so what is counted is equality
@@ -28,7 +28,7 @@ alphabet by inverting a falling factorial:
 $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
 Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
 ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
-cutting $60074$ pairs to $S=10355$ states. The entry's empirical recurrence of order $25$,
+cutting $794$ pairs to $S=155$ states. The entry's empirical recurrence of order $24$,
 contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,29 +36,29 @@ contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A274956 is ``Number of nX5 0..2 arrays with no element equal to any value at offset (-1,-1) (-2,0) or (0,-2) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A275396 is ``Number of nX3 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-12, 216, 1638, 14406, 126540, 1119744, 9902040, 87416934,\ \dots
+5, 54, 84, 178, 394, 1017, 2645, 6980,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 9*a(n-1) -14*a(n-3) +126*a(n-4) -1046*a(n-5) -596*a(n-6) +6988*a(n-7) -890*a(n-8) -10542*a(n-9) +7876*a(n-10) -14656*a(n-11) -2216*a(n-12) +23008*a(n-13) -19912*a(n-14) +17376*a(n-15) -4912*a(n-16) -8912*a(n-17) +7632*a(n-18) -3520*a(n-19) +704*a(n-20) +1568*a(n-21) -1120*a(n-22) +160*a(n-24) -32*a(n-25) for n>28
+Empirical: a(n) = 3*a(n-1) +4*a(n-2) -19*a(n-3) +a(n-4) +65*a(n-5) -47*a(n-6) -99*a(n-7) +83*a(n-8) +66*a(n-9) -4*a(n-10) -60*a(n-11) -73*a(n-12) +36*a(n-13) +121*a(n-14) -88*a(n-15) +13*a(n-16) +8*a(n-17) -19*a(n-18) +20*a(n-19) -7*a(n-20) -a(n-21) +2*a(n-22) -a(n-23) +a(n-24) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 12 2016 08:03:16, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jul 26 2016 14:50:06, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;9\,a(n-1) - 14\,a(n-3) + 126\,a(n-4) - 1046\,a(n-5) - 596\,a(n-6) + 6988\,a(n-7) - 890\,a(n-8) - 10542\,a(n-9) + 7876\,a(n-10) - 14656\,a(n-11) - 2216\,a(n-12) + 23008\,a(n-13) - 19912\,a(n-14) + 17376\,a(n-15) - 4912\,a(n-16) - 8912\,a(n-17) + 7632\,a(n-18) - 3520\,a(n-19) + 704\,a(n-20) + 1568\,a(n-21) - 1120\,a(n-22) + 160\,a(n-24) - 32\,a(n-25)
+a(n)\;=\;3\,a(n-1) + 4\,a(n-2) - 19\,a(n-3) + a(n-4) + 65\,a(n-5) - 47\,a(n-6) - 99\,a(n-7) + 83\,a(n-8) + 66\,a(n-9) - 4\,a(n-10) - 60\,a(n-11) - 73\,a(n-12) + 36\,a(n-13) + 121\,a(n-14) - 88\,a(n-15) + 13\,a(n-16) + 8\,a(n-17) - 19\,a(n-18) + 20\,a(n-19) - 7\,a(n-20) - a(n-21) + 2\,a(n-22) - a(n-23) + a(n-24)
 \end{equation}
 for all $n>28$.
 
 \section{The condition, and what the canonical-form clause counts}
 
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With
 \[
-\mathcal N=\{(-1,-1),\ (-2,0),\ (0,-2)\}
+\mathcal N=\{(-2,-1),\ (-2,0),\ (-1,1)\}
 \]
 (offsets as (row shift, column shift)), the entry's requirement is
 \begin{equation}\label{eq:loc}
@@ -98,7 +98,7 @@ integer.
 
 \section{Each $L_i$ is a walk count on pairs of rows}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$ and take $\mathcal V=V_i\times V_i$ as vertices.
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$ and take $\mathcal V=V_i\times V_i$ as vertices.
 Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
 \eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
 back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
@@ -125,7 +125,7 @@ further condition constrains the end of the array, so the walk may finish anywhe
 Two vertices with the same equality pattern have, for each target pattern, the same number of
 successors carrying it, and the same value of $\mathbf{s}_i$. Hence the chain is strongly
 lumpable over patterns, and $L_i$ may be computed on the quotient, whose states are the set
-partitions of the $2\cdot5$ cells of a pair into at most $i$ classes.
+partitions of the $2\cdot3$ cells of a pair into at most $i$ classes.
 \end{lemma}
 
 \begin{proof}
@@ -136,7 +136,7 @@ sets which preserves patterns, and $\mathbf{s}_i$ agrees on the two vertices. Th
 pairs with pattern $P$ is $e_P=i(i-1)\cdots(i-|P|+1)$, which supplies the weights.
 \end{proof}
 
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=10355$, with the
+Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=155$, with the
 weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
 \begin{equation}\label{eq:walk2}
 3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{1},\qquad L=n .
@@ -144,16 +144,16 @@ weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{25}-\sum_i c_i\,t^{25-i}$ be the characteristic polynomial of
+Let $q(t)=t^{24}-\sum_i c_i\,t^{24-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
 With $n_0$ the least index for which $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{1}$,
-$o=1n_0+0-2$, we have for $j\ge25$
+$o=1n_0+0-2$, we have for $j\ge24$
 \[
 3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)
-=\mathbf{v}^{\!\top}G^{\,j-25}w,\qquad
-w=h_{25}-\sum_i c_i h_{25-i} .
+=\mathbf{v}^{\!\top}G^{\,j-24}w,\qquad
+w=h_{24}-\sum_i c_i h_{24-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
@@ -175,7 +175,7 @@ Section~1.
 \begin{proof}
 The lumped transition counts were built by taking one representative pair for each pattern,
 enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
-the survivors by the pattern of the new pair. The vector $w$ was formed by $25$
+the survivors by the pattern of the new pair. The vector $w$ was formed by $24$
 applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
 index corresponding to $n=28+1$ onwards, and the run continued until $S+1$ consecutive
@@ -187,7 +187,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $18$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $26$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being read off the
 entry's own name as $L=n$ and the entry's offset saying which index the first published
 term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
@@ -203,7 +203,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A274956.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275396.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

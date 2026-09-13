@@ -23,7 +23,7 @@ import os
 import re
 import json
 
-import conjlines
+import conjquote
 import localentry as LE
 import phibuild
 import transferbuild
@@ -44,6 +44,7 @@ SHORT = {
     'ecarow': "a certified growth pattern of the automaton's row word",
     'ecacount': "a certified growth pattern of the automaton's row",
     'ecablock': "a certified block template for the automaton's row",
+    'ecarowb': "a certified block template for the automaton's row read as a numeral",
 }
 
 MSC = {
@@ -52,7 +53,93 @@ MSC = {
     'ecarow': '68Q80, 11B85, 05A15',
     'ecacount': '68Q80, 11B85, 05A15',
     'ecablock': '68Q80, 11B85, 05A15',
+    'ecarowb': '68Q80, 11B85, 05A15',
 }
+
+
+def _blocks(en, e):
+    """the certificate the engine actually derived, so the reader can check it.
+
+    A paper that says "a template was verified" and never says WHICH template asks to be
+    taken on trust. These are short -- a period, a pre-period and a handful of words -- and
+    printing them costs nothing.
+    """
+    import importlib
+    eng = importlib.import_module(en)
+    p = eng.parse_name(e['name'])
+    if p is None:
+        return ''
+    b = eng.build(p)
+    if b is None:
+        return ''
+    if 'tem' in b:
+        tem = b['tem']
+    elif 'pairs' in b:
+        tem = {r: [('q', L), ('f', '.'), ('q', R)] for r, (L, R) in b['pairs'].items()}
+    else:
+        return ''
+    n0, per = b['n0'], b['p']
+    rows = []
+    for r in sorted(tem)[:4]:
+        if 'tem' not in b:
+            L, R = b['pairs'][r]
+            tt = lambda w: (r'\texttt{%s}' % w) if w else r'\varepsilon'
+            rows.append(r'r=%d:\quad w(n+p) = %s \cdot w(n) \cdot %s'
+                        % (r, tt(L), tt(R)))
+            continue
+        parts = r' \cdot '.join(
+            ((r'\texttt{%s}^{\,j}' % blk) if k == 'q' else (r'\texttt{%s}' % blk))
+            for k, blk in tem[r] if blk)
+        rows.append(r'r=%d:\quad %s' % (r, parts))
+    more = '' if len(tem) <= 4 else (r' The remaining %d residue classes are of the same '
+                                     r'shape and were verified in the same way.'
+                                     % (len(tem) - 4))
+    return ('\n\nFor this entry the automaton is rule %d, the period is $p=%d$ and the '
+            'pre-period is $n_0=%d$.\nThe certificate is\n'
+            r'\begin{gather*}' '\n%s\n' r'\end{gather*}' '%s'
+            % (b['rule'], per, n0, ' \\\\\n'.join(rows), more))
+
+
+def _rowb(h, e):
+    """the model section for a row read as a numeral whose growth is in the middle."""
+    S = h['S']
+    return (r"""
+\section{The value is a certified block template}
+
+The entry reads the automaton's row at stage $n$ as a string of digits and takes its value in
+base $B$. Nothing is being counted, so there is no digraph. The row does not grow only at its
+two ends --- for these rules it gains digits in the MIDDLE of a periodic run --- so the shape
+$w(n+p)=L_r+w(n)+R_r$ is unavailable. What holds instead is a block template: writing $r$ for
+the residue of $n$ modulo the period $p$ and $j$ for the number of periods past a pre-period
+$n_0$,
+\[
+w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m,
+\]
+with the fixed blocks $B_i$ and the repeated blocks $Q_i$ depending only on $r$. This was
+verified for every available $n$, and it is a theorem rather than a fit: the rule is a local
+map of radius $1$, so $p$ steps have radius $p$; the $p$-step map was checked by direct
+simulation at two consecutive $j$ whose repeated runs are longer than $4p+4|Q_i|$, and for a
+larger $j$ the template only inserts further copies of each $Q_i$ inside runs already longer
+than $2p$. An output cell near either end sees only input cells the two configurations share
+at the same distance from that end, and strictly inside a long run the input is
+$|Q_i|$-periodic so the output is too, with period and phase fixed by the two verified steps.
+Hence the template propagates to every $j$.""" + _blocks('ecarowb', e) + r"""
+
+\section{The bound}
+
+The row is the light cone, of width $2n+1$, so $\sum_i|Q_i|=2p$. Write $s_i$ for the number of
+digits to the right of the $i$-th repeated run, so $s_1=2p$. Concatenation is multiplication by
+a power of $B$ and addition, and $v(Q_i^{\,j})=v(Q_i)(B^{|Q_i|j}-1)/(B^{|Q_i|}-1)$, so along a
+residue class
+\[
+a(j)\;=\;\sum_i \big(\alpha_i B^{s_i j} + \beta_i\big) + \gamma,
+\]
+a $\mathbf{Z}$-linear combination of $B^{s_1 j},\dots,B^{s_m j}$ and $1$ with coefficients that
+do not depend on $j$. In the shift $T=S^{\,p}$ that is annihilated by
+$\prod_i(T-B^{s_i})(T-1)$. Taking the DISTINCT roots that occur across the $p$ residue classes,
+pulling each back to $z^p-\lambda$, and allowing the pre-period to raise the numerator's degree
+gives the monic annihilator of order $S=%d$ used below.
+""" % S)
 
 
 def _model(en, h, e):
@@ -216,8 +303,8 @@ $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilat
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
 """
-    if en in ('ecacount', 'ecablock'):
-        blk = en == 'ecablock'
+    if en in ('ecacount', 'ecablock', 'ecarowb'):
+        blk = en != 'ecacount'
         cert = (r'''
 w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m
 ''' if blk else r'''
@@ -268,6 +355,8 @@ simulations prove infinitely many.''' if blk else r'''
 The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
 radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
 window at both boundaries, and induction carries it to every later $n$.''')
+        if en == 'ecarowb':
+            return _rowb(h, e)
         nm = e['name'].lower()
         which = 'OFF (white)' if 'off (white)' in nm else 'ON (black)'
         run = ('the running total of its %s cells over the first $n$ iterations' % which
@@ -279,14 +368,59 @@ The entry counts {run} of the automaton. Nothing is being enumerated over a wind
 no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
 {story}
 \[{cert}\]
-{after}{proof}
+{after}{proof}{_blocks(en, e)}
 
 \section{{The bound}}
 
 {bnd}
 '''
-    if en in ('ca2d', 'ecarow'):
-        what = 'a diagonal or an axis' if en == 'ca2d' else 'a row'
+    if en == 'ca2d':
+        import ca2d as _c
+        import ca2dgrid as _g
+        q = _c.parse_name(e['name'])
+        b = _c.build(q) if q else None
+        tp = (b or {}).get('tper')
+        n0, p = tp if tp else (0, 0)
+        return rf"""
+\section{{The value is a certified growth}}
+
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
+\[
+C(n+{p})\;=\;C(n)\qquad\text{{as configurations of the whole plane, for every }} n\ge {n0}.
+\]
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+{p})=C(n_0)$ forces $C(n_0+k\cdot{p})=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule {b['rule'] if b else 0} is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+{p})\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo ${p}$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+{p})\;=\;v(L_r)\,B^{{|w(n)|+|R_r|}} + a(n)\,B^{{|R_r|}} + v(R_r).
+\]
+
+\section{{The bound}}
+
+In the shift $T=S^{{\,{p}}}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{{|R_r|}})(T-B^{{|L_r|+|R_r|}})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{{\,{p}}}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S={h['S']}$.
+"""
+    if en == 'ecarow':
+        what = 'a row'
         return rf"""
 \section{{The value is a certified growth}}
 
@@ -317,26 +451,8 @@ coefficients to prove anything.
     raise KeyError(en)
 
 
-def conj_line(anum):
-    """the entry's own words for the conjecture, for section 1 to quote.
-
-    Requiring a conjectural word ON the line is the defect this project keeps paying for. An
-    entry writes "Conjectures from _Colin Barker_, Feb 14 2020: (Start)" and then bare formula
-    lines, and a word test sees none of them; 159 installed papers therefore printed the
-    parenthetical placeholder below instead of the conjecture they were about, on entries
-    whose conjecture is stated perfectly plainly. `conjlines' understands the block, so it is
-    what is asked; the header line is carried along when the recurrence itself is bare, since
-    that is where the contributor and the date are.
-    """
-    e = LE.get(anum)
-    cand = conjlines.lines(e)
-    head = next((L for L in cand if re.search(r'onjectur|Empirical', L, re.I)), None)
-    for L in cand:
-        if re.search(r'a\(n\)\s*=', L):
-            if re.search(r'onjectur|Empirical', L, re.I) or head is None:
-                return L
-            return head.rstrip() + ' ' + L.strip()
-    return head
+def conj_line(anum, coeffs=None):
+    return conjquote.line(anum, coeffs)
 
 
 def _author(e, conj):
@@ -360,7 +476,7 @@ def build(h):
     off = h['offset']
     e = LE.get(a)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
-    conj = conj_line(a)
+    conj = conj_line(a, h.get('coeffs'))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     tight = ''
     if off <= nthr - order and nthr - off < len(d):

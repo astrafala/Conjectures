@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A199902, proved from an exact model}
+\title{The empirical recurrence for OEIS A269470, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A199902 carries an empirical recurrence of order $7$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+OEIS A269470 carries an empirical recurrence of order $7$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,53 +31,35 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A199902 is ``Number of -n..n arrays x(0..6) of 7 elements with zero sum, and adjacent elements not both strictly positive and not both strictly negative.''. It has offset $1$ and begins
+OEIS A269470 is ``Number of length-6 0..n arrays with no repeated value equal to the previous repeated value.''. It has offset $1$ and begins
 \[
-171, 1783, 8823, 30199, 82555, 193689, 406575, 783989,\ \dots
+22, 462, 3180, 13300, 41730, 108402, 246232, 505800,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (151/180)*n\^{}6 + (163/15)*n\^{}5 + (377/9)*n\^{}4 + (395/6)*n\^{}3 + (7429/180)*n\^{}2 + (93/10)*n + 1.
+Empirical: a(n) = n\^{}6 + 6*n\^{}5 + 11*n\^{}4 + 4*n\^{}3 - n\^{}2 + n. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 17 2018 06:35:05, revision 8)
+As of the ``Last modified'' line on the live entry (Jan 23 2019 07:12:07, revision 7)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+\section{The count is a polynomial}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
+the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
+array is described completely by its weak ordering: the ordered set partition of the $L$
+positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
+of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
+array, and there are $\binom{n+1}{m}$ of them. Hence
+\[
+a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
+\]
+with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
 
 \section{The bound}
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
-\[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
-\]
-annihilates $a$, and $S=\deg A=9$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=9$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
+That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
+$a$ and $S=7$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
+estimated.
 
 \section{The proof}
 
@@ -126,7 +108,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A199902.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269470.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

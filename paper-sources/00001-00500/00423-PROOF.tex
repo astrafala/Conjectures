@@ -12,176 +12,123 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A091713 modulo $2$}
+\title{Recovering the unwritten recurrences of the table OEIS A251359}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A091713 is defined by the functional equation $A(x)=x+x\,A^{3}(x)$, where
-$A^{3}$ is the $3$-th compositional iterate, and carries a conjecture of
-P.~D.~Hanna that every term is odd. It is true. The equation determines the coefficients one at a
-time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $2$ as
-well. Modulo $2$ the series $x/(1-x)$ satisfies the equation exactly, because its
-iterates are $x/(1-jx)$ and $3\equiv1$ modulo $2$. Uniqueness then identifies the
-reduction. The argument is an identity between rational functions over
-$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A251359 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 27]'' and the like --- with the
+coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
+and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
+count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
+order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
+one. Where its order equals the order the entry states --- and where the same holds after the
+first few terms are dropped --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. This note settles column 2, column 3.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The table and the unwritten conjectures}
 
-OEIS A091713 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(x))).''. It has offset $1$ and begins
+OEIS A251359 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. It is read by antidiagonals and begins
 \[
-1, 1, 3, 15, 99, 781, 7001,\ \dots
+216, 2920, 2920, 39594, 137642, 39594, 536886, 6505867,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
-iterate of $A$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A(x)\;=\;x+x\,A^{3}(x).
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
+The entry carries, among its empirical claims:
 \begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+k=2: [order 27]\\
+k=3: [order 96]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:47, revision 32) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:18:01, revision 6) these are still
+recorded as empirical, and the recurrences themselves are not in the entry text.
 
-\section{The equation determines the sequence}
+\section{Why a line of the table is a walk count}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
-\[
-\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
-\]
+Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
+determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
+lines. Substituting the fixed index into the entry's own wording turns the definition into an
+ordinary one-parameter array count, and for such a count the admissible windows are the
+vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
+vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
+at most $S$.
+
+\section{Recovering the recurrences}
+
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
+minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
+minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
-$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
+\subsection*{Column $k=2$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=64$ vertices. Berlekamp--Massey on $2S=128$ exact terms
+returns a minimal recurrence of order $27$ --- the order the entry states --- with
+integer coefficients
 \[
-\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+(c_1,\dots,c_{27})=(64,\ -996,\ 11578,\ -101830,\ 565355,\ -1946836,\ 4382875,\ -7058116,\ 8578826,\ -2416016,\ -37859617,\ 159993227,\ -380786469,\ 627428234,\ -768933079,\ 716269935,\ -490794809,\ 216766686,\ -25791720,\ -53590442,\ 66325899,\ -49766753,\ 26021030,\ -9346626,\ 2208580,\ -306048,\ 18432).
 \]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
-contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
-$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
-terms in $a(1),\dots,a(N-1)$.
-\end{proof}
+so that $a(m)=\sum_{i=1}^{27}c_i\,a(m-i)$ for every $m$. Removing the first
+$27+4$ terms and repeating gives order $27$ again, which is what the
+identification below needs.
 
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
-\end{lemma}
-
-\begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{3}(x)$ has
-no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
-$\bigl[x^{N}\bigr]\bigl(x\,A^{3}\bigr)=\bigl[x^{N-1}\bigr]A^{3}$, which by
-Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
-order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
-induction gives existence and uniqueness.
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
-solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $2$}
-
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
-\end{lemma}
-
-\begin{proof}
-True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=256$ vertices. Berlekamp--Massey on $2S=512$ exact terms
+returns a minimal recurrence of order $96$ --- the order the entry states --- with
+integer coefficients
 \[
-f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
-=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
-=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
+(c_1,\dots,c_{96})=(256,\ -20306,\ 1096141,\ -46130653,\ 1465746894,\ -35293177101,\ 669656498716,\ -10439713264260,\ 137839981216810,\ -1569935153952007,\ 15540271468945659,\ -132853833549530938,\ 958418417606589452,\ -5564358137451893092,\ 23032026782442858326,\ -31455493446232585383,\ -518984897073177330293,\ 6318490397360266499044,\ -44762364025609539817414,\ 232248525204359936223354,\ -904517875995871040727500,\ 2531666362839233699341104,\ -4798726334370278005843550,\ 12360750534002113385359257,\ -124928738953008686340968596,\ 1128172055547175595684911733,\ -7178938552563705187353868462,\ 35292956425953488554158557489,\ -141945824219498544242257611321,\ 477417253185896531052585045744,\ -1326054635716980262299866678213,\ 2807521203275483091466039082948,\ -2893765500662719343527801000213,\ -10509805256004341131708073305653,\ 84463373805260752688434177937503,\ -366758586427219064031975572525920,\ 1254707686655723870359224455381533,\ -3682647913914106174927037485510530,\ 9582782633418438954302472772434736,\ -22451603160518752838831199278045978,\ 47769110218196978200600495000582604,\ -92916949884731655066792416260628708,\ 166549572444435287699358309775803181,\ -278169389825801345581879902318729781,\ 439204186207743768242558484944757110,\ -665855485260863474153695377757903154,\ 981039869522012932379017453341622458,\ -1410021510294587603945555810525800547,\ 1965502949224382552899109343007258567,\ -2624721908926509680936083969176918139,\ 3310218416505143487021578684325561832,\ -3890197140137977385831252098689009012,\ 4208310031977635635405181984501902727,\ -4137438437647103745670958626521931588,\ 3635534890466839609905599698391848969,\ -2774618601217560934550197579270584030,\ 1724213753113196014126162420692520140,\ -694174296395911259965284403999807015,\ -136176332824541139873633399088160382,\ 669748576205596055364013618023273908,\ -904156600433093196938664467586716637,\ 907085306892385055279669147450849596,\ -774095246897239143207597584015152316,\ 591375660389595596719402245958588563,\ -416189937295598302167522447277684398,\ 275179264604548187957517791218386914,\ -173198006781117352976054164536679142,\ 104379579235646726113074403201344646,\ -60139704335497339734338873897085435,\ 32898531104545083026982539041849791,\ -16930347418276622335161792599376223,\ 8122979373989968303180897800575139,\ -3605559068445717636362639626415322,\ 1470842716406389977944829615828567,\ -547863642000831423306569046520398,\ 184969264829277298946161381651622,\ -56135601035893912757716649806170,\ 15190710259369179284539288569572,\ -3650313470991497040624895125453,\ 784916428400404455485812428366,\ -154973867423438996624591323063,\ 29013645157402891950592995686,\ -5210824018300670225713959248,\ 878848923413278768483576726,\ -133281871785109607122655904,\ 17353744755663267757107440,\ -1743813048789150169283856,\ 59789658497191106482112,\ 29485314777008299671492,\ -9295901827776417663792,\ 1563985028033057934720,\ -168440743638558111744,\ 11413859526320910336,\ -434238938620968960,\ 7416642765717504,\ -54487280517120).
 \]
-\end{proof}
+so that $a(m)=\sum_{i=1}^{96}c_i\,a(m-i)$ for every $m$. Removing the first
+$96+4$ terms and repeating gives order $96$ again, which is what the
+identification below needs.
 
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{3}(x)$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$. Since $3\equiv1$ modulo
-$2$ --- this is the whole content of the choice of modulus, as $2=3-1$ --- we have
-$1-3x=1-x$ in $(\mathbb{Z}/2\mathbb{Z})[x]$, so $f^{3}(x)=\dfrac{x}{1-x}$.
-Therefore
-\[
-x+x\,f^{3}(x)=x+\frac{x^{2}}{1-x}
-=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
-\]
-\end{proof}
-
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
-$a(n)\equiv1\pmod{2}$ for every $n\ge1$. This is the conjecture of Section~1.
+\begin{theorem}
+For each line above, the displayed recurrence holds for every index, and it is the recurrence
+the entry records.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
-$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
-coefficient of which is $1$.
+It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
+satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
+$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
+terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
+monic, so $q=q_{\min}$.
 \end{proof}
-
-\begin{remark}
-The proof used only $3\equiv1$ modulo $2$. The same argument shows that for every
-$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
-$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
-$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
-reduced equation and this route says nothing modulo $m$.
-\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $22$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, each line's model was compared against the entry's own published values for that line,
+taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
+block, and agrees at every available term. This is the only point at which reading the entry's
+English enters, and a misreading gives different counts.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The run was continued
-to $n=25$ and every term reduced modulo $2$; all residues are $1$.
+Second, each recovered recurrence was evaluated directly on the model's values, with no
+Berlekamp--Massey involved, and holds at every index tested.
 
-Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
-$\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
-were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
+Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
+every intermediate is a machine word, and again in exact rational arithmetic --- and once more
+on the line with its first few terms dropped, which is what the identification requires. All
+agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A091713.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251359.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

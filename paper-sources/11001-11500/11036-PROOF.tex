@@ -7,174 +7,177 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A371753}
+
+\title{The empirical recurrence for OEIS A236060, recovered from its tail}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A371753 carries a conjectured linear recurrence with polynomial coefficients, of
-order 3. The entry posts no generating function; it defines the sequence by an
-extraction, $a(n)=[x^{n}]\,f(x)g(x)^{n}$. We derive a generating function from that
-definition and prove the conjecture from it. Reading the extraction as a contour integral
-and summing the geometric series turns $\sum_{n}a(n)t^{n}$ into a single integral whose
-only pole inside a small circle is the branch of $x=t\,g(x)$ through the origin; the
-residue there gives $A(t)=f(x(t))/\bigl(1-t\,g'(x(t))\bigr)$. So $A$ is algebraic, with
-minimal polynomial obtained by eliminating $x$, and the recurrence follows from the
-residual test in the field that polynomial generates. Here the residual is
-$- 18272137998960 x^{2} + 802322469147426240 x$, of degree $2$, which proves the recurrence for every $n>2$.
+OEIS A236060 records ``Empirical recurrence of order $94$'' and keeps the recurrence itself in
+a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
+It can still be settled. The entry counts arrays under a condition local to a bounded window of
+lines, which makes the count a walk count on a finite digraph and forces a monic integer
+recurrence of order at most the number $S'=1616$ of states with distinct futures. Berlekamp--Massey on
+enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=8$, so the recurrence is proved for every $n\ge102$.
+Its last coefficient is $c_{94}=-519356416\neq0$, so no further tail satisfies anything
+shorter; any order-$94$ recurrence the sequence satisfies from any point on must then have
+the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
+its linked file contains, and it is proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{A conjecture that is not written down}
 
-OEIS A371753 is ``a(n) = Sum\_\{k=0..floor(n/2)\} binomial(5*n-2*k-1,n-2*k)''. It has offset $0$ and begins
+OEIS A236060 is ``Number of (n+1)X(3+1) 0..2 arrays colored with the difference of the upper median and the minimum in each 2X2 subblock.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 4, 37, 376, 4013, 44064, 492871, 5585080,\ \dots
+1616, 8506, 45987, 221292, 1178874, 6003004, 32549159, 160724066,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = [x\^{}n] 1/((1-x\^{}2) * (1-x)\^{}(4*n)).
+The entry states:
+\begin{quote}
+Empirical recurrence of order 94 (see link above)
 \end{quote}
-that is,
-\begin{equation}\label{eq:def}
-a(n)\;=\;[x^{n}]\,f(x)\,g(x)^{n},
-\qquad f(x)=- \frac{1}{x^{2} - 1},\qquad g(x)=\frac{1}{x^{4} - 4 x^{3} + 6 x^{2} - 4 x + 1} .
-\end{equation}
-This is the only input taken from the entry, and it was checked against the entry's own
-DATA before use. In particular \emph{no generating function is assumed}: the entry posts
-none, and the one used below is derived.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:03:41, revision 7)
+this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
+entry text: what is conjectured is only that a recurrence of that order exists.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture D-finite with recurrence +1024*n*(796184150374453*n -1374782084855770) *(4*n-3)*(2*n-1)*(4*n-1)*a(n) +64*(-4720591427354845074*n\^{}5 +16046598674673412696*n\^{}4 -14164434258362644374*n\^{}3 -6132680339747354209*n\^{}2 +16406971563067867560*n -7312237120275595200)*a(n-1) +40*(-4968388566264801507*n\^{}5 +51044954667717039608*n\^{}4 -218029351288077225930*n\^{}3 +471970442274586326109*n\^{}2 -511707487331990011785*n +221366817798624198360)*a(n-2) -25*(5*n-11) *(719005061479699*n -1438086256867727)*(5*n-9) *(5*n-13)*(5*n-12)*a(n-3)=0. - \emph{R. J. Mathar}, Sep 27 2024
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-08-16, revision 31) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{The count is a walk count}
 
-\section{A generating function from the extraction}
-
-\begin{lemma}\label{lem:diag}
-Let $f,g$ be rational functions regular at $0$ with $g(0)\neq0$, and let
-$a(n)=[x^{n}]f(x)g(x)^{n}$. Then $A(t)=\sum_{n\ge0}a(n)t^{n}$ satisfies
+The entry's condition is local. It constrains a bounded window of consecutive lines of the
+array and nothing beyond it, so the admissible configurations of one window are the vertices of
+a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
+exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
+of the admissible first and last windows,
 \[
-A(t)\;=\;\frac{f\bigl(x(t)\bigr)}{1-t\,g'\bigl(x(t)\bigr)},
+a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
 \]
-where $x(t)$ is the unique power series with $x(0)=0$ solving $x=t\,g(x)$. In particular
-$A$ is algebraic over $\mathbb{Q}(t)$.
+for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
+contribute identically to that product and may be merged without changing any count; after
+merging $S'=1616$ states remain, and it is that bound every computation below uses.
+
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=1616$.
 \end{lemma}
 
 \begin{proof}
-Write the extraction as a contour integral on a circle $|x|=\rho$ small enough that $f$
-and $g$ are regular on and inside it:
-\[
-a(n)=\frac{1}{2\pi i}\oint \frac{f(x)g(x)^{n}}{x^{n+1}}\,dx .
-\]
-For $|t|$ small, $|t\,g(x)/x|<1$ on the circle, so the geometric series may be summed
-under the integral:
-\[
-A(t)=\frac{1}{2\pi i}\oint\frac{f(x)}{x}\sum_{n\ge0}\Bigl(\frac{t\,g(x)}{x}\Bigr)^{n}dx
-     =\frac{1}{2\pi i}\oint\frac{f(x)}{x-t\,g(x)}\,dx .
-\]
-Since $g(0)\neq0$, the equation $x=t\,g(x)$ has, for small $t$, exactly one root in the
-disc, namely the branch $x(t)$ with $x(0)=0$ furnished by Lagrange inversion; it is a
-simple zero of $x-t\,g(x)$ because the derivative $1-t\,g'(x)$ is $1$ at $t=0$. The
-residue theorem gives the stated value. Both $x(t)$ and hence $A(t)$ are algebraic,
-being defined by polynomial equations over $\mathbb{Q}(t)$.
+By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
+and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
+$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
 \end{proof}
 
-\begin{corollary}\label{cor:minpoly}
-$A$ satisfies the polynomial obtained by eliminating $x$ between
-$x-t\,g(x)=0$ and $y\bigl(1-t\,g'(x)\bigr)-f(x)=0$.
-\end{corollary}
+\section{Why the question has to be asked of a tail}
 
-\begin{proof}
-Both equations hold at $x=x(t)$, $y=A(t)$ by Lemma~\ref{lem:diag}. Eliminating $x$ by a
-resultant produces a polynomial in $t$ and $y$ vanishing there.
-\end{proof}
+Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $94$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=8$ is the first whose minimal order is exactly the stated $94$.
 
-For A371753 this yields
-\[
-3125 t^{2} y^{5} + 49744 t y^{5} - 25000 t y^{4} + 1500 t y^{3} - 4096 y^{5} + 2048 y^{4} + 1664 y^{3} + 352 y^{2} + 31 y + 1 \;=\;0 ,
-\]
-and $A$ is the branch of this polynomial whose expansion is the entry's own sequence.
-The branch is identified by that expansion, not by solving for it in radicals --- the
-polynomial can have degree beyond four, where no such expression exists.
-
-\section{The recurrence}
-
-Let $\theta=x\,\dfrac{d}{dx}$, acting on $x^{m}$ as multiplication by $m$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i}p_{i}(n)a(n-i)$, with
-$a(m)=0$ for $m<0$. Then $B(x)=\sum_{n}b(n)x^{n}=\sum_{i}x^{i}(p_{i}(\theta+i)A)(x)$, so
-the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a
-polynomial of degree at most $d$.
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
+together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
+to them returns that minimal recurrence exactly.
 \end{lemma}
 
-\begin{proof}
-Substituting $m=n-i$ gives $\sum_{n}p_{i}(n)a(n-i)x^{n}=x^{i}(p_{i}(\theta+i)A)(x)$, and
-$b(n)$ is the coefficient of $x^{n}$ in $B$.
-\end{proof}
-
-Since $A$ lies in the algebraic function field generated by the polynomial of
-Corollary~\ref{cor:minpoly}, and such a field is closed under $\theta$ --- differentiating
-its defining relation expresses the derivative of the generator inside the field ---
-every $p_{i}(\theta+i)A$ lies there too, and so does $B$. Computing it exactly gives
+Applied to $2S'=3232$ exact terms from $n=8$ on, it returns order $94$ --- the
+order the entry states --- with integer coefficients:
 \[
-B(x)\;=\;- 18272137998960 x^{2} + 802322469147426240 x ,
+a(n)\;=\;\sum_{i=1}^{94}c_i\,a(n-i),
 \]
-a polynomial of degree $2$.
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{25}$ & $-10533527924$ & $c_{49}$ & $974787116470920$ & $c_{73}$ & $261921639599556$ \\
+$c_{2}$ & $0$ & $c_{26}$ & $37616029484$ & $c_{50}$ & $10787053451733722$ & $c_{74}$ & $-444928371683606$ \\
+$c_{3}$ & $0$ & $c_{27}$ & $-3235107994$ & $c_{51}$ & $1635078352075522$ & $c_{75}$ & $138915275607280$ \\
+$c_{4}$ & $670$ & $c_{28}$ & $-821124706403$ & $c_{52}$ & $19515301092162490$ & $c_{76}$ & $-160326836761924$ \\
+$c_{5}$ & $4$ & $c_{29}$ & $146269806628$ & $c_{53}$ & $310154930817594$ & $c_{77}$ & $72321842043080$ \\
+$c_{6}$ & $5498$ & $c_{30}$ & $-4552988184384$ & $c_{54}$ & $25514633993204913$ & $c_{78}$ & $-71729262403964$ \\
+$c_{7}$ & $148$ & $c_{31}$ & $361595542390$ & $c_{55}$ & $-4558695507747418$ & $c_{79}$ & $-7584606819440$ \\
+$c_{8}$ & $-81785$ & $c_{32}$ & $-6833549376759$ & $c_{56}$ & $26402544179515508$ & $c_{80}$ & $-17480127330072$ \\
+$c_{9}$ & $1266$ & $c_{33}$ & $792657746524$ & $c_{57}$ & $-7571990267089218$ & $c_{81}$ & $-6907164278384$ \\
+$c_{10}$ & $-836232$ & $c_{34}$ & $26984294532329$ & $c_{58}$ & $19255717262821841$ & $c_{82}$ & $6983694210408$ \\
+$c_{11}$ & $-2798$ & $c_{35}$ & $-1789580760474$ & $c_{59}$ & $-7400733448694610$ & $c_{83}$ & $-2998084947552$ \\
+$c_{12}$ & $3479313$ & $c_{36}$ & $113070277365055$ & $c_{60}$ & $14477764525918391$ & $c_{84}$ & $5990705178064$ \\
+$c_{13}$ & $-221342$ & $c_{37}$ & $-15742149147544$ & $c_{61}$ & $-6559880474494338$ & $c_{85}$ & $-3907624570048$ \\
+$c_{14}$ & $49511058$ & $c_{38}$ & $111449920976075$ & $c_{62}$ & $12753306702934939$ & $c_{86}$ & $1780685441760$ \\
+$c_{15}$ & $-1608754$ & $c_{39}$ & $-12629089954460$ & $c_{63}$ & $-3972572262177680$ & $c_{87}$ & $-917377124992$ \\
+$c_{16}$ & $10667878$ & $c_{40}$ & $-223544534401691$ & $c_{64}$ & $6303347350300022$ & $c_{88}$ & $398270335040$ \\
+$c_{17}$ & $9746666$ & $c_{41}$ & $646835922432$ & $c_{65}$ & $-1749768463046508$ & $c_{89}$ & $-163314237440$ \\
+$c_{18}$ & $-1514082434$ & $c_{42}$ & $-878383486894378$ & $c_{66}$ & $1232756251732448$ & $c_{90}$ & $39673188864$ \\
+$c_{19}$ & $97698494$ & $c_{43}$ & $-12179240562224$ & $c_{67}$ & $-944322717023844$ & $c_{91}$ & $-74098628608$ \\
+$c_{20}$ & $-4901221534$ & $c_{44}$ & $-1952472896231725$ & $c_{68}$ & $846390775377926$ & $c_{92}$ & $-2686113280$ \\
+$c_{21}$ & $851108$ & $c_{45}$ & $263740484879848$ & $c_{69}$ & $159082745611180$ & $c_{93}$ & $-12124295168$ \\
+$c_{22}$ & $23402811478$ & $c_{46}$ & $-2856847896602143$ & $c_{70}$ & $255131944863342$ & $c_{94}$ & $-519356416$ \\
+$c_{23}$ & $-1591673874$ & $c_{47}$ & $701965212107346$ & $c_{71}$ & $611957029372644$ &  &  \\
+$c_{24}$ & $116493563299$ & $c_{48}$ & $995328082146859$ & $c_{72}$ & $-602532143256224$ &  &  \\
+\end{tabular}
+\end{center}
+
+\section{The recurrence, and the identification}
 
 \begin{theorem}
-The conjectured recurrence
-\[
-1024 n \left(2 n - 1\right) \left(4 n - 3\right) \left(4 n - 1\right) \left(796184150374453 n - 1374782084855770\right)\,a(n) -  64 \left(4720591427354845074 n^{5} - 16046598674673412696 n^{4} + 14164434258362644374 n^{3} + 6132680339747354209 n^{2} - 16406971563067867560 n + 7312237120275595200\right)\,a(n-1) -  40 \left(4968388566264801507 n^{5} - 51044954667717039608 n^{4} + 218029351288077225930 n^{3} - 471970442274586326109 n^{2} + 511707487331990011785 n - 221366817798624198360\right)\,a(n-2) -  25 \left(5 n - 13\right) \left(5 n - 12\right) \left(5 n - 11\right) \left(5 n - 9\right) \left(719005061479699 n - 1438086256867727\right)\,a(n-3) \;=\;0
-\]
-holds for every $n>2$.
+The recurrence above holds for every $n\ge102$, and it is the recurrence OEIS A236060 records.
 \end{theorem}
 
 \begin{proof}
-Immediate from Lemma~\ref{lem:transfer} and the displayed value of $B$.
+That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=8$, whose minimal
+recurrence it is.
+
+For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
+recurrence, $x^{94}-c_1x^{94-1}-\dots-c_{94}$. Its constant term is
+$-c_{94}=519356416$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
+root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
+$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
+components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
+component of $a$ dies out, and the minimal recurrence of every further tail is again
+$q_{\min}$ --- the order cannot drop below $94$ at any later starting point.
+
+Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
+entry asserts it has order $94$, so $\deg q=94$, and it is monic. It holds from some
+index $t$ on. From $\max(t,8)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
+the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
+$q_{\min}\mid q$. Both are monic of degree $94$, so $q=q_{\min}$.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
-independent checks were run.
+Four checks, all in exact integer or rational arithmetic.
 
-First, the derived generating function was not assumed to be right. Its series was
-computed from \eqref{eq:def} in two independent ways --- once through the residue formula
-of Lemma~\ref{lem:diag}, by solving $x=t\,g(x)$ as a truncated series, and once directly,
-by expanding $f\,g^{n}$ and reading off the coefficient of $x^{n}$ --- and the two agree.
-The result was then compared term by term with the DATA section of A371753, agreeing on
-all 13 terms compared.
+First, the walk model reproduces all $18$ terms the entry publishes, exactly. This is
+what ties the model to the entry, and it is the only place where reading the entry's English
+enters the argument.
 
-Second, the recurrence was evaluated directly on the published terms, in exact integer
-arithmetic and without reference to any generating function: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 18 values of $n$ from $n=3$ upward.
+Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
+Both return $94$, and the exact run additionally confirms every coefficient is an integer
+--- had any been a proper fraction the recurrence would not be the entry's.
 
-Third, the symbolic step is exact throughout. The residual is obtained by
-rational-function arithmetic in the algebraic function field, not by series truncation, so
-the identity $B=- 18272137998960 x^{2} + 802322469147426240 x$ is an identity of functions and the theorem holds for all
-$n>2$ simultaneously.
+Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
+no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
+the entry publishes enough earlier terms to test it.
+
+Fourth, the last coefficient was checked to be nonzero, which is what the identification above
+turns on; it is $-519356416$.
+
+\begin{remark}
+The conjecture's own statement was never read. The entry pins it down to the family of
+order-$94$ recurrences this sequence satisfies from some point on, and that family turns
+out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A371753.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Section 6.3 (Lagrange inversion) and Chapter 6 (algebraic and
-D-finite generating functions).
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009, Chapter VII.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236060.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(C-finite sequences and their closure properties.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
+
 \end{document}

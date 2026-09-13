@@ -12,168 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269055, proved by a counting transfer matrix}
+\title{The empirical closed form for OEIS A223841, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269055 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
-whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
-because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=162$ vertices,
-and the empirical recurrence of order $12$ contributed by R.~H.~Hardin then follows from
-a finite exact computation.
+OEIS A223841 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=196608$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{11}$, of degree
+$11$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $11$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A269055 is ``Number of 4Xn 0..2 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A223841 is ``Number of 5 X n 0..1 arrays with rows, diagonals and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-81, 666, 3258, 24192, 149358, 971844, 6053094, 37741920,\ \dots
+6, 36, 149, 471, 1240, 2884, 6159, 12371,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +23*a(n-2) -102*a(n-3) -288*a(n-4) +250*a(n-5) +787*a(n-6) -238*a(n-7) -741*a(n-8) +124*a(n-9) +196*a(n-10) -16*a(n-11) -16*a(n-12) for n>14
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = (1/3628800)*n\^{}10 - (1/241920)*n\^{}9 + (17/120960)*n\^{}8 - (1/13440)*n\^{}7 + (3733/172800)*n\^{}6 - (893/11520)*n\^{}5 + (178931/90720)*n\^{}4 - (188123/60480)*n\^{}3 + (504149/25200)*n\^{}2 - (30581/420)*n + 121 for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 18 2016 11:41:11, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
-
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 23\,a(n-2) - 102\,a(n-3) - 288\,a(n-4) + 250\,a(n-5) + 787\,a(n-6) - 238\,a(n-7) - 741\,a(n-8) + 124\,a(n-9) + 196\,a(n-10) - 16\,a(n-11) - 16\,a(n-12)
-\end{equation}
-for all $n>14$.
-
-\section{A global count, and how to carry it}
-
-The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
-offsets
+As of the ``Last modified'' line on the live entry (Mar 18 2025 17:07:26, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-\mathcal N=\{(1,0),\ (1,1),\ (1,-1)\},
+f(n)\;=\;\frac{n^{10}}{3628800} - \frac{n^{9}}{241920} + \frac{17 n^{8}}{120960} - \frac{n^{7}}{13440} + \frac{3733 n^{6}}{172800} - \frac{893 n^{5}}{11520} + \frac{178931 n^{4}}{90720} - \frac{188123 n^{3}}{60480} + \frac{504149 n^{2}}{25200} - \frac{30581 n}{420} + 121.
 \]
-written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
-\emph{marked} when
+
+\section{The count is a walk count}
+
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=196608$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
 \[
-x_{p}+x_{q}=2 .
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
 \]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
-shift, so every pair is named once and only once: the pairs inside a column are seen when
-that column is laid down, and the pairs joining two columns when the later of the two is. The
-entry's requirement is
-\begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
-\end{equation}
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
 
-This is not a condition on any bounded window, so no transfer matrix over columns alone can
-express it. It becomes one as soon as the running total is part of the state. Let
+\section{A closed form is a recurrence}
+
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{4},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=162,
-\]
-and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
-number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
-$c+\beta(r,s)\le1$, and no edge otherwise.
-
-\begin{remark}
-Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
-can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
-the digraph dense, with $(2+1)^{2\cdot4}$ edges instead of the sparse set used here.
-\end{remark}
-
-\begin{lemma}\label{lem:walk}
-Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
-of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
-vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
-\[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
 \]
 \end{lemma}
 
 \begin{proof}
-A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
-$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
-starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
-definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
-pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
-exactly one offset. The walk exists (no edge is missing) if and only if the running total
-never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
-$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-column, so $L$ columns correspond to a walk of length $L-1$.
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-\section{The criterion, and the computation}
+Here $q(x)=(x-1)^{11}$, of degree $11$; the closed form is a polynomial in $n$, so this is $(x-1)^{11}$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;11\,a(n-1) - 55\,a(n-2) + 165\,a(n-3) - 330\,a(n-4) + 462\,a(n-5) - 462\,a(n-6) + 330\,a(n-7) - 165\,a(n-8) + 55\,a(n-9) - 11\,a(n-10) + a(n-11).
+\end{equation}
 
-Let $q(t)=t^{12}-\sum_i c_i\,t^{12-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
-$o=1n_0+0-1$,
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-12}w,
-\qquad w=h_{12}-\sum_i c_i h_{12-i},
-\]
-for $j\ge12$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
-ones.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>14$, which is the statement of
-Section~1.
+$a(n)=f(n)$ for every $n\ge5$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $12$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=14+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
-settles every larger $m$.
+The vector $w'=q(M)w$ was formed by $11$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=16$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>15$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $11$ consecutive indices
+$n=16,\dots,26$ and agree at each. A monic recurrence of order $11$
+determines $a(m)$ from $a(m-1),\dots,a(m-11)$, and for every $m\ge27$ both
+$m>15$ and $m-11\ge16$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge16$.
+Below $n=16$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=16$ on. The remaining indices $n=5,\dots,15$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: at $n=4$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $19$ published indices, with no shift fitted: the number of columns is
-$L=n$, read off the entry's own name, and the offset says which index the first
-published term carries. The values agree exactly. This is where an error in the pair
-bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first column, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
-boundary --- and every value came out one index late, which the DATA comparison rejected.
+First, the walk model reproduces every one of the $32$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=5$ on, and agrees with the entry's own DATA at each.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=5$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269055.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223841.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

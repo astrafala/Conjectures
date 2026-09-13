@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251069, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250922, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251069 counts $6\times(n+1)$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $33$ contributed
+OEIS A250922 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $31$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
-to each subblock, so the columns of an admissible array are the vertices of a finite digraph
-on $S=729$ vertices whose edges are the admissible consecutive pairs, and the count is a
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=81$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,42 +35,42 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251069 is ``Number of (5+1)X(n+1) 0..2 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$ and begins
+OEIS A250922 is ``Number of (n+1)X(3+1) 0..2 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
 \[
-92429, 4499219, 119032248, 2062530658, 26192388204, 262314968432, 2179252808041, 15575644526039,\ \dots
+2007, 50722, 1320397, 34521887, 899626256, 23390844328, 607786907671, 15792648591051,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 46*a(n-1) -1021*a(n-2) +14566*a(n-3) -150115*a(n-4) +1190818*a(n-5) -7565523*a(n-6) +39546498*a(n-7) -173394318*a(n-8) +646904260*a(n-9) -2076097186*a(n-10) +5779538716*a(n-11) -14047031686*a(n-12) +29955478756*a(n-13) -56258286310*a(n-14) +93298957284*a(n-15) -136868817069*a(n-16) +177768541494*a(n-17) -204435461489*a(n-18) +208007834270*a(n-19) -186949454951*a(n-20) +148041763226*a(n-21) -102919401431*a(n-22) +62512079546*a(n-23) -32963315700*a(n-24) +14966379960*a(n-25) -5788295520*a(n-26) +1880029760*a(n-27) -503070080*a(n-28) +107966720*a(n-29) -17863424*a(n-30) +2138624*a(n-31) -164864*a(n-32) +6144*a(n-33)
+Empirical: a(n) = 81*a(n-1) -2899*a(n-2) +63295*a(n-3) -958285*a(n-4) +10756670*a(n-5) -93330409*a(n-6) +644640204*a(n-7) -3624496674*a(n-8) +16880394940*a(n-9) -66023717068*a(n-10) +219240302561*a(n-11) -623358921354*a(n-12) +1527544435817*a(n-13) -3241977665792*a(n-14) +5979956364272*a(n-15) -9608041848406*a(n-16) +13461986448007*a(n-17) -16448861092094*a(n-18) +17508255649822*a(n-19) -16196842918537*a(n-20) +12974801039902*a(n-21) -8952649323986*a(n-22) +5282187628341*a(n-23) -2638768086999*a(n-24) +1101316093488*a(n-25) -377022705948*a(n-26) +103145374080*a(n-27) -21690899280*a(n-28) +3292887168*a(n-29) -321226560*a(n-30) +15116544*a(n-31)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:18:18, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:51:19, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;46\,a(n-1) - 1021\,a(n-2) + 14566\,a(n-3) - 150115\,a(n-4) + 1190818\,a(n-5) - 7565523\,a(n-6) + 39546498\,a(n-7) - 173394318\,a(n-8) + 646904260\,a(n-9) - 2076097186\,a(n-10) + 5779538716\,a(n-11) - 14047031686\,a(n-12) + 29955478756\,a(n-13) - 56258286310\,a(n-14) + 93298957284\,a(n-15) - 136868817069\,a(n-16) + 177768541494\,a(n-17) - 204435461489\,a(n-18) + 208007834270\,a(n-19) - 186949454951\,a(n-20) + 148041763226\,a(n-21) - 102919401431\,a(n-22) + 62512079546\,a(n-23) - 32963315700\,a(n-24) + 14966379960\,a(n-25) - 5788295520\,a(n-26) + 1880029760\,a(n-27) - 503070080\,a(n-28) + 107966720\,a(n-29) - 17863424\,a(n-30) + 2138624\,a(n-31) - 164864\,a(n-32) + 6144\,a(n-33)
+a(n)\;=\;81\,a(n-1) - 2899\,a(n-2) + 63295\,a(n-3) - 958285\,a(n-4) + 10756670\,a(n-5) - 93330409\,a(n-6) + 644640204\,a(n-7) - 3624496674\,a(n-8) + 16880394940\,a(n-9) - 66023717068\,a(n-10) + 219240302561\,a(n-11) - 623358921354\,a(n-12) + 1527544435817\,a(n-13) - 3241977665792\,a(n-14) + 5979956364272\,a(n-15) - 9608041848406\,a(n-16) + 13461986448007\,a(n-17) - 16448861092094\,a(n-18) + 17508255649822\,a(n-19) - 16196842918537\,a(n-20) + 12974801039902\,a(n-21) - 8952649323986\,a(n-22) + 5282187628341\,a(n-23) - 2638768086999\,a(n-24) + 1101316093488\,a(n-25) - 377022705948\,a(n-26) + 103145374080\,a(n-27) - 21690899280\,a(n-28) + 3292887168\,a(n-29) - 321226560\,a(n-30) + 15116544\,a(n-31)
 \end{equation}
-for all $n>32$.
+for all $n>30$.
 
-\section{The condition is local, so the columns form a digraph}
+\section{The condition is local, so the rows form a digraph}
 
-Write an array of the shape in question as its list of columns
+Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{6}$, so $|V|=S=729$. A $2\times2$ subblock of the array
-occupies two consecutive columns and two consecutive rows; if the two columns are $r$
-and $s$ (in that order) and the two rows are numbered $i,i+1$,
+$V=\{0,1,\dots,2\}^{4}$, so $|V|=S=81$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_i&s_i\\r_{i+1}&s_{i+1}\end{pmatrix}.
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\delta-\alpha<\gamma-\beta\bigr),
+\text{not }\bigl(\min(\alpha,\delta)<\min(\beta,\gamma)\bigr),
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le i\le 6-1$,
+$1\le j\le 4-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -79,7 +79,7 @@ Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ th
 all-ones vector.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $L$ columns are exactly the walks
+The arrays counted by the entry with $L$ rows are exactly the walks
 $r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
 \[
 a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
@@ -87,26 +87,26 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ columns and $6$ rows is precisely a sequence
+An array with $L$ rows and $4$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
-Every $2\times2$ subblock lies in two consecutive columns $r^{(t)},r^{(t+1)}$ and two
-consecutive rows, so the array satisfies the entry's condition on all of its subblocks
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
 if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
-every row pair --- which is exactly the edge relation of $G$. The number of walks of
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
 length $L-1$, summed over all starting and ending vertices, is
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ columns.
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{33}-\sum_i c_i\,t^{33-i}$ be the characteristic polynomial of
+Let $q(t)=t^{31}-\sum_i c_i\,t^{31-i}$ be the characteristic polynomial of
 \eqref{eq:conj}, with the $c_i$ read off that equation.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge33$,
+For every $n$ with $n+1-1\ge31$,
 \[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-33}\,q(M)\,\mathbf{1} .
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-31}\,q(M)\,\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
@@ -118,10 +118,10 @@ By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
 \[
 a(n)-\sum_i c_i a(n-i)
 =\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-33}\,q(M)\,\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-31}\,q(M)\,\mathbf{1}
 \]
 with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-33=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+$m-31=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
 Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
 $\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
 values; if those all vanish, so do all the rest.
@@ -130,20 +130,20 @@ values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>32$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>30$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
-rows: the edge condition is a conjunction of one constraint per consecutive row
-pair, so the successors of a column $r$ are enumerated row by row without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $33$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $31$
 matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
 evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=32+1$ onwards, and the run continued until $w$ itself was the
+index corresponding to $n=30+1$ onwards, and the run continued until $w$ itself was the
 zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>32$.
+holds for every $n>30$.
 \end{proof}
 
 \begin{remark}
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251069.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250922.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

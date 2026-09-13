@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Papers for the capped-pair-count family."""
+import conjquote
 import os
 
 _ROSTER = None
@@ -26,12 +27,11 @@ STEP = {'horizontally': '(i,j)\\text{ and }(i,j{+}1)',
 ORDER = ('horizontally', 'vertically', 'diagonally', 'antidiagonally')
 
 
-def conj_line(anum):
-    e = LE.get(anum)
-    for L in e['comment'] + e['formula']:
-        if re.search(r'onjectur|Empirical', L, re.I) and re.search(r'a\(n\)\s*=', L):
-            return L
-    return None
+def conj_line(anum, coeffs=None):
+    """see `conjquote': a word test ON the line missed 542 installed papers, whose section 1
+    then printed a placeholder, and 41 quoted the wrong line of the block -- a closed form
+    where the theorem proves the recurrence."""
+    return conjquote.line(anum, coeffs)
 
 
 def build(h):
@@ -43,7 +43,7 @@ def build(h):
     W, A, T = p['W'], p['alpha'] + 1, p['total']
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     modf, rev = e['modified'], e['revision']
-    conj = conj_line(a)
+    conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     lines = '\n'.join('$%s$ \\\\' % STEP[w] for w in ORDER if w in p['dirs'])
     want = ('exactly one' if p['exact'] else 'at most one')

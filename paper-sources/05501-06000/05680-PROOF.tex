@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236585, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236139, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236585 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+OEIS A236139 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+$39$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
 The condition is local to two consecutive rows, so the count is a walk count on $S=256$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
@@ -31,21 +31,21 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A236585 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the maximum plus the upper median minus the minimum of every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A236139 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the maximum plus the upper median plus the minimum minus the lower median of every 2X2 subblock.''. It has offset $1$ and begins
 \[
-256, 2858, 31944, 358178, 4013896, 44966244, 503819820, 5645017984,\ \dots
+256, 2976, 34734, 405132, 4726586, 55128306, 643062117, 7501428048,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 394*a(n-3) +5386*a(n-4) +34292*a(n-5) +239776*a(n-6) +1025472*a(n-7) +3463659*a(n-8) +9244364*a(n-9) -8544408*a(n-10) -118885894*a(n-11) -703536752*a(n-12) -2710828048*a(n-13) -5007844272*a(n-14) -6240042572*a(n-15) +26001251568*a(n-16) +174608116528*a(n-17) +434674492988*a(n-18) +936325029664*a(n-19) +498062549200*a(n-20) -4412895564352*a(n-21) -13703202646864*a(n-22) -32316273316928*a(n-23) -40481448209472*a(n-24) +51293555926400*a(n-25) +230963885190144*a(n-26) +487702061169152*a(n-27) +718807717359616*a(n-28) -250453412659200*a(n-29) -2519654989697024*a(n-30) -3881453707214848*a(n-31) -4013490377048064*a(n-32) +1046683317338112*a(n-33) +15026450426560512*a(n-34) +18019468064194560*a(n-35) -4402933899984896*a(n-36) -21230885445566464*a(n-37) -10606454888202240*a(n-38) +3255003072430080*a(n-39) +3815069888544768*a(n-40) +682583364993024*a(n-41) -51254327771136*a(n-42)
+Empirical: a(n) = 476*a(n-3) +6828*a(n-4) +42328*a(n-5) +261628*a(n-6) +939596*a(n-7) +1141424*a(n-8) -5531408*a(n-9) -77255920*a(n-10) -353396376*a(n-11) -894119952*a(n-12) -1389075520*a(n-13) +5482024400*a(n-14) +35751673856*a(n-15) +90044584192*a(n-16) +154625904768*a(n-17) -247634417920*a(n-18) -1941041280512*a(n-19) -3666475576320*a(n-20) -3881308749824*a(n-21) +10379052684288*a(n-22) +55618412687360*a(n-23) +57311677382656*a(n-24) -29077267808256*a(n-25) -220194357346304*a(n-26) -620840327184384*a(n-27) -114135561601024*a(n-28) +1580499698188288*a(n-29) +1200720990175232*a(n-30) -655072073613312*a(n-31) -1208870658637824*a(n-32) -1743801332793344*a(n-33) -259325561929728*a(n-34) +1825629737582592*a(n-35) +753137564516352*a(n-36) -225950646140928*a(n-37) -218161118969856*a(n-38) -176903260471296*a(n-39)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:19:47, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:08:36, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid. Colour each of them by $\sigma=-a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
+$n\times1$ grid. Colour each of them by $\sigma=a-b+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
 asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
 vertically, must receive different colours.
 
@@ -74,7 +74,7 @@ terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{39}-\sum_i c_it^{39-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,7 +82,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+39}-\sum_ic_iM^{j+39-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;394\,a(n-3) + 5386\,a(n-4) + 34292\,a(n-5) + 239776\,a(n-6) + 1025472\,a(n-7) + 3463659\,a(n-8) + 9244364\,a(n-9) - 8544408\,a(n-10) - 118885894\,a(n-11) - 703536752\,a(n-12) - 2710828048\,a(n-13) - 5007844272\,a(n-14) - 6240042572\,a(n-15) + 26001251568\,a(n-16) + 174608116528\,a(n-17) + 434674492988\,a(n-18) + 936325029664\,a(n-19) + 498062549200\,a(n-20) - 4412895564352\,a(n-21) - 13703202646864\,a(n-22) - 32316273316928\,a(n-23) - 40481448209472\,a(n-24) + 51293555926400\,a(n-25) + 230963885190144\,a(n-26) + 487702061169152\,a(n-27) + 718807717359616\,a(n-28) - 250453412659200\,a(n-29) - 2519654989697024\,a(n-30) - 3881453707214848\,a(n-31) - 4013490377048064\,a(n-32) + 1046683317338112\,a(n-33) + 15026450426560512\,a(n-34) + 18019468064194560\,a(n-35) - 4402933899984896\,a(n-36) - 21230885445566464\,a(n-37) - 10606454888202240\,a(n-38) + 3255003072430080\,a(n-39) + 3815069888544768\,a(n-40) + 682583364993024\,a(n-41) - 51254327771136\,a(n-42)
+a(n)\;=\;476\,a(n-3) + 6828\,a(n-4) + 42328\,a(n-5) + 261628\,a(n-6) + 939596\,a(n-7) + 1141424\,a(n-8) - 5531408\,a(n-9) - 77255920\,a(n-10) - 353396376\,a(n-11) - 894119952\,a(n-12) - 1389075520\,a(n-13) + 5482024400\,a(n-14) + 35751673856\,a(n-15) + 90044584192\,a(n-16) + 154625904768\,a(n-17) - 247634417920\,a(n-18) - 1941041280512\,a(n-19) - 3666475576320\,a(n-20) - 3881308749824\,a(n-21) + 10379052684288\,a(n-22) + 55618412687360\,a(n-23) + 57311677382656\,a(n-24) - 29077267808256\,a(n-25) - 220194357346304\,a(n-26) - 620840327184384\,a(n-27) - 114135561601024\,a(n-28) + 1580499698188288\,a(n-29) + 1200720990175232\,a(n-30) - 655072073613312\,a(n-31) - 1208870658637824\,a(n-32) - 1743801332793344\,a(n-33) - 259325561929728\,a(n-34) + 1825629737582592\,a(n-35) + 753137564516352\,a(n-36) - 225950646140928\,a(n-37) - 218161118969856\,a(n-38) - 176903260471296\,a(n-39)
 \]
-for every $n>42$.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236585.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236139.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

@@ -8,114 +8,120 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured generating function for OEIS A266072}
+
+\title{The empirical recurrence for OEIS A267887, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266072 carries a conjectured generating function. We prove it. The entry states, as fact,
-a closed form, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured generating function is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $3$ whose leading coefficient does not vanish, together with $3$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A267887 carries an empirical recurrence of order $2$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The conjecture}
 
-OEIS A266072 is ``Number of ON (black) cells in the n-th iteration of the "Rule 3" elementary cellular automaton starting with a single ON (black) cell''. It has offset $0$ and begins
+OEIS A267887 is ``Binary representation of the n-th iteration of the "Rule 237" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 1, 1, 5, 1, 9, 1, 13,\ \dots
+1, 10, 11111, 1111111, 111111111, 11111111111, 1111111111111, 111111111111111,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = n-(-1)\textasciicircum{}n*(n-1).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Jan 22 2016 and Apr 17 2019: (Start) a(n) = 101*a(n-1)-100*a(n-2) for n>3.
 \end{quote}
-and separately carries the comment
-\begin{quote}\small
-Conjectured g.f.: (1 + x - x\textasciicircum{}2 + 3*x\textasciicircum{}3)/(-1 + x\textasciicircum{}2)\textasciicircum{}2. - \emph{Michael De Vlieger}, Dec 21 2015
-\end{quote}
-As of the ``Last modified'' line on the live entry (2025-02-16, revision 30) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Jun 30 2025 12:54:33, revision 18)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A recurrence from what is known}
+\section{The value is a certified growth}
 
-The closed form the entry posts is a sum of finitely many hypergeometric terms. For terms $t_{1},\dots,t_{m}$ one may seek $c_{0},\dots,c_{m}$ in $\mathbb{Q}(n)$ with $\sum_{k}c_{k}(n)t_{j}(n+k)=0$ for every $j$; dividing the $j$-th equation by $t_{j}(n)$ makes every coefficient a rational function, so this is $m$ equations in $m+1$ unknowns over $\mathbb{Q}(n)$ and a nonzero solution exists. It gives
+The entry reads a row of the automaton at stage $n$ as a string of digits and takes its
+numeric value. Nothing is being counted, so there is no digraph. What settles the sequence is
+that the string itself grows by a fixed pattern: the automaton was run and the certificate
+\[
+w(n+p)\;=\;L_r + w(n) + R_r
+\]
+was verified for every available $n$ in each residue class $r$ of $n$ modulo the period $p$,
+after a pre-period $n_0$ during which the shape has not yet settled. Concatenation is
+multiplication by a power of the base $B$ and addition, so along a class
+\[
+a(n+p)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r),
+\]
+with $|w(n)|$ growing by $|L_r|+|R_r|$ every $p$ steps.
 
-\begin{equation}\label{eq:rec}
-\left(- n - 2\right)\,a(n) + \left(- n - 3\right)\,a(n+1) + n\,a(n+2) + \left(n + 1\right)\,a(n+3) \;=\; 0
-\end{equation}
+\section{The bound}
 
-The leading coefficient of \eqref{eq:rec} is $n + 1$. Its only integer zeros are $n\in\{-1\}$, all below the range claimed here.
+In the shift $T=S^{\,p}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,p}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$. The
+earlier figure, $p+3$, was the one-dimensional count carried over unchanged; with $p$ classes
+carrying $p$ different pairs it is too small, and a residual test that trusts it checks too few
+coefficients to prove anything.
 
-\section{The conjectured description satisfies it}
+\section{The proof}
 
-Write $\theta=x\,\frac{d}{dx}$ and, for the coefficients $p_{i}$ of \eqref{eq:rec} written in the backward form $\sum_{i}p_{i}(n)a(n-i)=0$, set $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$ for the conjectured generating function $A$. Then $[x^{n}]B=\sum_{i}p_{i}(n)a(n-i)$, so the conjectured generating function has coefficients satisfying \eqref{eq:rec} exactly when $B$ is a polynomial. Reducing $B$ inside the field $A$ generates, which is closed under $\theta$, gives a polynomial, and the verification is an exact cancellation of rational functions.
-
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{2}-\sum_ic_iz^{2-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
-For all $n\ge 0$,
 \[
-\sum_{n\ge 0} a(n)x^{n} \;=\; \frac{3 x^{3} - x^{2} + x + 1}{\left(x^{2} - 1\right)^{2}}
+a(n)\;=\;101\,a(n-1) - 100\,a(n-2)
 \]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a closed form, and the conjectured generating function by the computation of the
-previous section. They agree at the $3$ consecutive indices beginning
-$n=0$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge0$, so
-Lemma~\ref{lem:unique} applies.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=3+1$ onwards, and the run exceeds $S+2$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the algebra above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured generating function was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A266072.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267887.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

@@ -12,151 +12,112 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A234890}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A206378}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234890 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+OEIS A206378 carries an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=17$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A234890 is ``T(n,k) is the number of (n+1) X (k+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A206378 is ``Number of (n+1)X4 0..3 arrays with every 2X2 subblock having the same number of equal diagonal or antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-80, 272, 272, 856, 980, 856, 2896, 3164,\ \dots
+641, 25945, 1198601, 57656713, 2808967145, 137393517193, 6728546532521, 329641979105737,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 14*a(n-2) -37*a(n-4) +21*a(n-6).\\
-k=2: [order 27].\\
-k=3: [order 46].\\
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 74*a(n-1) -1401*a(n-2) +9064*a(n-3) -21992*a(n-4) +21312*a(n-5) -7056*a(n-6)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 21:11:55, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:54:30, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{The count is a walk count}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+The entry counts arrays of 4 columns over the alphabet $\{0,1,2,3\}$, and asks two different kinds of thing of them at once.
+
+\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, and every subblock in the array must score the same. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+What is compared \emph{across} windows is carried too: the state holds the score fixed by the first band, since every later subblock is compared with it. With $3$ subblocks to a band that is a bounded amount of bookkeeping and no more.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_4$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,4\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $256$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=17$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation, column by column}
-
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $30$ & $>6$ & $8$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1) X (2) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. Its rows are the vertices of a digraph on
-$S=30$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{theorem}
 \[
-a(n)\;=\;14\,a(n-2) - 37\,a(n-4) + 21\,a(n-6)
+a(n)\;=\;74\,a(n-1) - 1401\,a(n-2) + 9064\,a(n-3) - 21992\,a(n-4) + 21312\,a(n-5) - 7056\,a(n-6)
 \]
-holds from index $6+1$ on.
+for every $n>6$.
+\end{theorem}
 
-
-\section{Lines whose recurrence the entry does not print}
-
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 27].''. Its model is a walk on
-$S=150$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=300$ exact terms returns the minimal one, of order
-$27$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{27})=(2,\ 46,\ -91,\ -852,\ 1670,\ 8364,\ -16318,\ -48531,\ 94856,\ 177211,\ -349287,\ -422181,\ 844527,\ 666796,\ -1362305,\ -697540,\ 1464198,\ 475379,\ -1029412,\ -204338,\ 455683,\ 52461,\ -118912,\ -7142,\ 16187,\ 376,\ -846).
-\]
-Repeating with the first $27+4$ terms removed gives order $27$ again.
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $32$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234890.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206378.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,45 +12,51 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263702, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A204860}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263702 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=3881$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A204860 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=23$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A263702 is ``Number of length n arrays of permutations of 0..n-1 with each element moved by -7 to 7 places and every three consecutive elements having its maximum within 4 of its minimum.''. It has offset $1$ and begins
+OEIS A204860 is ``Number of (n+2) X 3 0..1 arrays with every 3 X 3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally exactly two different ways, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
 \[
-1, 2, 6, 24, 120, 288, 456, 768,\ \dots
+102, 382, 1437, 5352, 20113, 75595, 283877, 1066520,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +a(n-2) +7*a(n-5) +2*a(n-6) +a(n-7) +5*a(n-8) -4*a(n-9) -3*a(n-10) -3*a(n-11) -4*a(n-12) -4*a(n-14) -a(n-15) +3*a(n-16) -a(n-17) +a(n-19) for n>33
+Empirical: a(n) = 2*a(n-1) +7*a(n-2) -8*a(n-4) +22*a(n-6) +41*a(n-7) +22*a(n-8) +13*a(n-9) -270*a(n-10) +64*a(n-11) +392*a(n-12) -424*a(n-13) +24*a(n-14) -228*a(n-15) +304*a(n-16) +200*a(n-17) -192*a(n-18) +32*a(n-19).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 24 2015 06:47:34, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jul 22 2025 18:23:14, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=3881$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry counts arrays of 3 columns over the alphabet $\{0,1\}$, and asks two different kinds of thing of them at once.
+
+\textbf{The subblock condition is local.} It says that every $3\times3$ subblock must contain three equal elements in a line --- along one of its three rows, one of its three columns, or one of its two diagonals --- in exactly two of those eight ways. A $ 3\times3$ subblock spans $3$ consecutive rows, so a window of $3$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_3$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,2\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $2$ rows, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $8$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=23$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,35 +81,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + 7\,a(n-5) + 2\,a(n-6) + a(n-7) + 5\,a(n-8) - 4\,a(n-9) - 3\,a(n-10) - 3\,a(n-11) - 4\,a(n-12) - 4\,a(n-14) - a(n-15) + 3\,a(n-16) - a(n-17) + a(n-19)
+a(n)\;=\;2\,a(n-1) + 7\,a(n-2) - 8\,a(n-4) + 22\,a(n-6) + 41\,a(n-7) + 22\,a(n-8) + 13\,a(n-9) - 270\,a(n-10) + 64\,a(n-11) + 392\,a(n-12) - 424\,a(n-13) + 24\,a(n-14) - 228\,a(n-15) + 304\,a(n-16) + 200\,a(n-17) - 192\,a(n-18) + 32\,a(n-19)
 \]
-for every $n>33$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=33+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $31$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263702.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204860.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

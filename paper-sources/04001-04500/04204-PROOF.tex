@@ -12,151 +12,205 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form, generating function and recurrence for OEIS A195000, proved}
+\title{The empirical recurrence for OEIS A275138, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A195000 counts the lower triangles of a $4\times4$ array over $\{0,\dots,n\}$ in which
-adjacent entries differ by exactly $1$, and carries closed form, generating function and recurrence recorded as empirical. The shape here is FIXED
-and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
-condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
-admissible, so the arrays split into translation classes, and a class with spread $s$ contains
-exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
-$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
-known in advance, and two evaluations pin it. Nothing is fitted.
+OEIS A275138 counts arrays in which no entry may repeat a value found at any of three stated
+offsets, and which are moreover written in canonical form (``new values introduced in order
+$0..2$''). The canonical-form clause is not local and no transfer matrix over the
+alphabet sees it; but the condition is stated in equalities, so what is counted is equality
+patterns, and the pattern counts are recovered from the counts $L_i$ over an $i$-letter
+alphabet by inverting a falling factorial:
+$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
+Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
+ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
+cutting $6818$ pairs to $S=1223$ states. The entry's empirical recurrence of order $2$,
+contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A195000 is ``Number of lower triangles of a 4 X 4 0..n array with each element differing from all of its horizontal and vertical neighbors by one.''. It has offset $1$ and begins
+OEIS A275138 is ``Number of n X 4 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,-2) or (0,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-2, 80, 248, 458, 672, 888,\ \dots
+4, 48, 224, 1088, 5248, 25344, 122368, 590848,\ \dots
 \]
-The entry states, as conjectures contributed by its author and by later readers and never
-marked settled:
-\begin{quote}
-a(n) = 24*(9*n - 17) for n>4.
-
-G.f.: 2*x*(1 + 38*x + 45*x\^{}2 + 21*x\^{}3 + 2*x\^{}4 + x\^{}5) / (1 - x)\^{}2.
-
-a(n) = 2*a(n-1) - a(n-2) for n>6.
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 4*a(n-1) + 4*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 06 2018 10:12:14, revision 9) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:41, revision 10) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;4\,a(n-1) + 4\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-The lower triangle of a $4\times4$ array is the set of cells $(i,j)$ with $0\le j\le
-i<4$, so there are $T=10$ of them. Two cells are adjacent when they differ by one of the
-horizontal, vertical offsets, which here gives $12$ adjacent pairs. Each cell carries a value in
-$\{0,\dots,n\}$, and the entry requires
+\section{The condition, and what the canonical-form clause counts}
+
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With
 \[
-|x_u-x_v|=1\qquad\text{for every adjacent pair }u,v .
+\mathcal N=\{(-2,-2),\ (-1,-2),\ (0,-1)\}
 \]
+(offsets as (row shift, column shift)), the entry's requirement is
+\begin{equation}\label{eq:loc}
+x_{t+d_1,\,u+d_2}\ne x_{t,u}\quad\text{for every }(d_1,d_2)\in\mathcal N\text{ inside the array}.
+\end{equation}
+Every offset has a nonpositive row shift, so the condition at a cell of row $t$ is
+settled by rows $t-2$, $t-1$ and $t$; but some shift is $-2$, so one previous row is not
+enough state.
 
-The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
-nothing about transfer matrices applies.
+The condition is stated purely in equalities, so it is unchanged by any relabelling of the
+values and is a property of the \emph{equality pattern} of the array --- the partition of
+the cells into classes of equal entries. The clause ``new values introduced in order
+$0..2$'' keeps exactly one array from each relabelling class, so with $K=3$ values
+available the entry counts admissible patterns with at most $K$ classes.
 
-\section{Translation}
-
-\begin{lemma}\label{lem:trans}
-Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
-and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
-entry. Then $\mathcal P$ is finite and
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters satisfying \eqref{eq:loc},
+with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly $j$ classes.
+Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
 
 \begin{proof}
-The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
-for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
-integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
-$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
-$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
-Lemma~\ref{lem:bound}.
+A labelled array satisfying the condition is a pattern together with an injection of its
+classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ such
+injections; that is the first identity. Writing the falling factorial as $j!\binom{i}{j}$
+gives $L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion yields
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
+order of summation, the coefficient of $L_i$ is $\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which on
+multiplying by $3!$ becomes
+$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$, an
+integer.
 \end{proof}
 
-\begin{lemma}\label{lem:bound}
-Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot6=6$, where $6$ is the
-diameter of the neighbour graph.
+\section{Each $L_i$ is a walk count on pairs of rows}
+
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$ and take $\mathcal V=V_i\times V_i$ as vertices.
+Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
+\eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
+back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
+$(p,c)$ in which $p$ satisfies \eqref{eq:loc} with no row before it and $c$ satisfies it
+with only $p$ before it.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$ the arrays of $L$ rows satisfying \eqref{eq:loc} are exactly the walks
+$(r^{(1)},r^{(2)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length $L-2$ starting at a
+vertex marked by $\mathbf{s}_i$, so
+$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-The neighbour graph is connected, so any two cells are joined by a path of at most $6$
-edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
-entry differ by at most $1\cdot6$.
+Consecutive vertices overlap in one row, so such a walk is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of rows. The condition at the cells of row $t$ for $t\ge3$
+is tested exactly once, at the step arriving at $(r^{(t-1)},r^{(t)})$, and with the
+correct earlier rows; the cells of rows $1$ and $2$ are tested by $\mathbf{s}_i$, with
+the rows that would lie before them absent, which is how the array behaves at its top. No
+further condition constrains the end of the array, so the walk may finish anywhere.
 \end{proof}
 
-\section{The count}
+\begin{lemma}\label{lem:lump}
+Two vertices with the same equality pattern have, for each target pattern, the same number of
+successors carrying it, and the same value of $\mathbf{s}_i$. Hence the chain is strongly
+lumpable over patterns, and $L_i$ may be computed on the quotient, whose states are the set
+partitions of the $2\cdot4$ cells of a pair into at most $i$ classes.
+\end{lemma}
 
-\begin{theorem}\label{thm:line}
+\begin{proof}
+Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
+alphabet. Condition \eqref{eq:loc} is a statement about equalities between entries, so it is
+invariant under $\sigma$; therefore $x\mapsto\sigma(x)$ is a bijection between the successor
+sets which preserves patterns, and $\mathbf{s}_i$ agrees on the two vertices. The number of
+pairs with pattern $P$ is $e_P=i(i-1)\cdots(i-|P|+1)$, which supplies the weights.
+\end{proof}
+
+Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=1223$, with the
+weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{1},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{1}$,
+$o=1n_0+0-2$, we have for $j\ge2$
 \[
-a(n)\;=\;216\,n-408\qquad\text{for every }n\ge5,
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)
+=\mathbf{v}^{\!\top}G^{\,j-2}w,\qquad
+w=h_{2}-\sum_i c_i h_{2-i} .
 \]
-and $\mathcal P$ has exactly $216$ elements.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; the nonzero scalar $3!$ does not affect
+vanishing. By Cayley--Hamilton $G^{S}$ is an integer combination of $I,G,\dots,G^{S-1}$,
+so each $\mathbf{v}^{\!\top}G^{m}w$ with $m\ge S$ is the corresponding combination of
+earlier values.
+\end{proof}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-For $n\ge6$ every term of Lemma~\ref{lem:trans} is positive by
-Lemma~\ref{lem:bound}, so
-\[
-a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
-=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
-\]
-which is a linear function of $n$. Two values determine it, and $a(6)$ and
-$a(6+1)$ were computed exactly, giving slope $216$ and the stated intercept; the slope
-is $|\mathcal P|$. That the identity already holds from $n=5$ was then read off by
-comparing it with the exact values of $a(n)$ below $6$, each computed the same way.
+The lumped transition counts were built by taking one representative pair for each pattern,
+enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
+the survivors by the pattern of the new pair. The vector $w$ was formed by $2$
+applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
-
-The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
-carrying only the entries a later cell can still see --- for this shape at most $4+1$ of
-them --- so no array is ever written down.
-
-Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
-polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
-tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
-the second differences of the values below the threshold. The conjectured generating function
-is that one, which was checked coefficient by coefficient in exact rational arithmetic.
-
-The conjectured recurrence $a(n)=2a(n-1)-a(n-2)$ is the statement that the second difference
-vanishes, which for a linear function it does; it therefore holds for every $n\ge5+2$.
-
-Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
-also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the argument above.
+Three checks, each independent of the algebra above.
 
-First, the count reproduces all $44$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being read off the
+entry's own name as $L=n$ and the entry's offset saying which index the first published
+term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
+two rows would show up here.
 
-Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
-of $0..n$ to the $10$ cells written out and every adjacent pair tested --- with no
-translation argument and no frontier walk. Where the shape is too large for that, the first
-term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
-most'' condition is no condition and the count is $2^{10}$, while ``differing by exactly
-one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
-adjacency, which is what this check is for.
+Second, the lumped chain was checked against the unlumped one on the small shapes of this
+family, the walk counts over the full alphabet agreeing with the weighted sum over patterns
+term by term.
 
-Third, the linear form was compared against the entry's own published terms over their whole
-range, and the conjectured statements were each evaluated against it in exact arithmetic
-rather than sampled.
+Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
+arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
+carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A195000.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275138.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Strong lumpability, Section 6.3.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
 
 \end{document}
