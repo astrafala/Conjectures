@@ -48,9 +48,27 @@ WINDOW = {
     # the two conditions no window can decide -- one per adjacent column pair for the
     # lexicographic comparison down the whole height, and one per position for an obligation
     # only a row BELOW can meet. Saying 'a window of consecutive lines' here would be false.
+    # the source is constrained but the entry counts the DISTINCT IMAGES of a map applied to
+    # it, so the vertices are not source configurations but SETS of them, exactly as in
+    # `winimage'. A distinct output array of height n and a length-n walk are the same thing.
+    'lexsub': ("a set of source states -- those a source array consistent with the output "
+               "emitted so far can be left in, one such state being a row of the source "
+               "together with, for each adjacent pair of its columns, whether that pair is "
+               "still equal or has already gone strictly less -- sets with the same future "
+               "behaviour being identified"),
     'arrlex': ("the previous row together with, for each adjacent pair of columns, whether "
                "they still agree and which way their latest difference went, and, for each "
                "position, whether its obligation to equal a neighbour is still outstanding"),
+    # the input is unconstrained; what is bounded is how much of its past the MARK at a
+    # position can depend on. A plateau of the convolved sequence may be arbitrarily long, so
+    # the lookback is not a window -- one bit carries it. And, the entry counting images, the
+    # vertices are sets of these states, and the end vector is not 0/1: see ENDVEC.
+    'edgemark': ("a set of automaton states -- those the input can have left the marker in, "
+                 "one such state being the last $|K|$ input values together with one bit "
+                 "saying whether the nearest earlier position whose convolved value differs "
+                 "from the current one is lower -- sets with the same future behaviour being "
+                 "identified"),
+    'block2x2': "every $2\\times2$ subblock, hence two consecutive rows",
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
@@ -60,6 +78,37 @@ WINDOW = {
     'transfer36': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer37': "every $2\\times3$ and $3\\times2$ subblock, hence three consecutive lines",
 }
+# How section 2 opens. The default is the sentence every transfer-matrix paper has always
+# printed, and it says three things: the condition is local to a window, the vertices are the
+# admissible windows, and the edge relation is the condition read on two of them. For an engine
+# that counts distinct IMAGES none of the three is right -- the vertices are SETS of states and
+# the edge carries an emitted symbol -- so those engines open differently. Saying "window" of a
+# set of states would be false about the object the numbers came from.
+IMAGEINTRO = ("""The entry counts distinct IMAGES and not the objects that produce them, so the
+vertices are not single configurations but sets of them: {win}. The set a word leaves the model
+in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing,
+so distinct output words and walks from the initial vertex are the same thing. The condition
+itself is decided within the model by inspection of a state and the symbol read.""")
+DEFINTRO = ("""The condition the entry imposes is local: it constrains {win} and nothing beyond.
+Take as vertices the admissible configurations of one such window and put an edge from $u$ to
+$v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.""")
+INTRO = {en: IMAGEINTRO for en in ('winimage', 'lexsub', 'edgemark')}
+
+
+# What a walk IS, and what the two boundary vectors ARE. The default sentence is the one
+# every transfer-matrix engine has always printed; an engine whose object is not an admissible
+# array, or whose end vector is not a 0/1 incidence vector, says so here rather than letting
+# the paper state something false about the model its numbers came from.
+OBJECT = {
+    'edgemark': ("A distinct indicator array is then exactly a walk of length $n$ followed by "
+                 "one of the distinct completions forced by the all-zero tail beyond the "
+                 "input; $\\iota$ is the indicator of the initial vertex and $\\tau$ is the vector "
+                 "counting, at each vertex, those completions"),
+}
+DEFOBJ = ("An admissible array is then exactly a walk, and $\\iota,\\tau$ are the vectors "
+          "recording which windows may begin and end an array")
+
+
 # the date a paper prints is the day the result was obtained, and this builder is run again
 # whenever the sweep finds more; a hard-coded date would stamp today's results with the day
 # the builder was written
@@ -95,6 +144,8 @@ def build(h):
     conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     win = WINDOW.get(h["engine"], "a bounded window of consecutive lines")
+    objisawalk = OBJECT.get(h["engine"], DEFOBJ)
+    intro = INTRO.get(h["engine"], DEFINTRO).replace('\n', ' ').format(win=win)
     # Some models are built with the redundancy already removed, so their vertices are not
     # the admissible windows themselves but the classes of windows that behave alike. Saying
     # "the vertices are the windows" would then be false, and a paper may not say a false
@@ -145,11 +196,8 @@ recorded as empirical, and nothing on the entry records it as proved.
 
 \section{{The count is a walk count}}
 
-The condition the entry imposes is local: it constrains {win} and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two.{merged} An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S={S}$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+{intro}{merged}
+{objisawalk}, so with $M$ the adjacency matrix on $S={S}$ vertices,
 \[
 a(n)\;=\;\iota^{{\!\top}}M^{{\,{expo}}}\tau ,
 \]

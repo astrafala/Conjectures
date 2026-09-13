@@ -49,7 +49,18 @@ SHORT = {
     'necklace2': 'a Burnside sum over the necklace group',
     'multizero': 'an Ehrhart quasi-polynomial of the multiset cone',
     'ecacol': "a proved period for the automaton's middle column",
+    'boardwalk': 'a finite sum over walk shapes of the ways each fits the board',
 }
+
+# every engine here has a model that is NOT a walk in a digraph, and the abstract says so. The
+# one exception counts WALKS -- of a fixed length, on a growing board -- by a sum over shapes,
+# so the sentence has to distinguish the objects from the model.
+NOTWALK = {
+    'boardwalk': ('No transfer matrix is involved: the objects counted are walks, but the '
+                  'count is a finite sum over their shapes and not a walk count in any '
+                  'digraph.'),
+}
+DEFNOTWALK = 'No transfer matrix is involved and the count is not a walk.'
 
 MSC = {
     'cuspdim': '11F11, 11F72, 05A15',
@@ -405,6 +416,49 @@ maximum over $g$ of the resulting multiplicities gives a monic annihilator of or
 $S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
 annihilator was then asked for terms the model had not supplied and reproduced them.
 """
+    if en == 'boardwalk':
+        import boardwalk as _bw
+        q = _bw.parse_name(e['name'])
+        b = _bw.build(q) if q else None
+        d = (q or {}).get('d', 2)
+        cells = (q or {}).get('cells', 0)
+        base = (q or {}).get('base', 0)
+        nmoves = len((q or {}).get('moves', ()))
+        shapes = (b or {}).get('shapes', 0)
+        n0 = (b or {}).get('n0', 0)
+        side = 'n' if not base else 'n+%d' % base
+        return rf"""
+\section{{The count is a sum over a FIXED set of shapes}}
+
+The number of steps is fixed at ${cells}$ cells, hence ${cells - 1}$ moves, and it is the BOARD
+that grows. So the walks themselves do not depend on $n$ at all. Let $M$ be the ${nmoves}$
+vectors the piece may move by, read from the entry's own words, and call two walks the same
+SHAPE when one is a translate of the other. There are exactly ${shapes}$ shapes: self-avoiding
+sequences of ${cells}$ distinct cells in $\mathbf{{Z}}^{{{d}}}$ with each consecutive difference in
+$M$, counted up to translation, which a finite search enumerates once and for all.
+
+A shape occupies a bounding box with sides $(w_1,\dots,w_{{{d}}})$, the range of its cells in each
+coordinate. Placing it on a board of side ${side}$ means choosing where that box sits, and the
+choices in the coordinates are independent, so the shape occurs in exactly
+$\prod_{{i}}\max(0,\,{side}-w_i)$ positions and in no others. Distinct pairs (starting cell,
+walk) are exactly distinct pairs (shape, placement) --- a walk determines its shape and its
+translation, and conversely --- so, with $N_w$ the number of shapes of bounding box $w$,
+\[
+a(n)\;=\;\sum_{{w}} N_w \prod_{{i=1}}^{{{d}}}\max\bigl(0,\ {side}-w_i\bigr).
+\]
+This is exact for every $n$, not asymptotic, and it is not a walk count in any digraph: there is
+no transfer matrix here and no window.
+
+\section{{The bound}}
+
+Write $w^\ast$ for the largest bounding-box side over all ${shapes}$ shapes. Once ${side}\ge w^\ast$
+every factor above is nonnegative, so the truncation does nothing and
+$a(n)=\sum_w N_w\prod_i({side}-w_i)$, a polynomial in $n$ of degree ${d}$. Hence $(z-1)^{{{d + 1}}}$
+annihilates $a$ from $n={n0}$ onwards, and the annihilator in force on the whole sequence is
+$z^{{{n0 + 1}}}(z-1)^{{{d + 1}}}$, monic of order $S={h['S']}$. Both numbers are read off the enumerated
+shapes; neither is assumed. The model was then asked for terms beyond those the entry publishes
+and reproduced the published ones exactly.
+"""
     if en == 'multizero':
         import multizero as _mz
         q = _mz.parse_name(e['name'])
@@ -664,6 +718,7 @@ def build(h):
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     conj = conj_line(a, h.get('coeffs'))
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
+    notwalk = NOTWALK.get(en, DEFNOTWALK)
     tight = ''
     if off <= nthr - order and nthr - off < len(d):
         kk = nthr - off
@@ -682,8 +737,7 @@ OEIS {a} carries an empirical recurrence of order ${order}${_author(e, conj)}. I
 decidable rather than empirical. The entry's sequence is given exactly by {SHORT[en]}, from
 which $a$ provably satisfies a MONIC linear recurrence of order $S={S}$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+annihilates $a$ is settled by a finite exact computation. {notwalk}
 \end{{abstract}}
 
 \noindent\small 2020 Mathematics Subject Classification. {MSC.get(en, '05A15, 05A19, 11P21')}.\normalsize

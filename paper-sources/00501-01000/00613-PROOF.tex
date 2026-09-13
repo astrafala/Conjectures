@@ -12,127 +12,169 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184259, proved from an exact model}
+\title{The reduction of OEIS A396102 modulo $3$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184259 carries an empirical recurrence of order $74$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=273$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A396102 is defined by a functional equation for its ordinary generating function and
+carries a congruence conjecture of P.~D.~Hanna. It is true. The equation determines the
+coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
+them modulo $3$ as well; and modulo $3$ the series $x/(1-x)$ satisfies the equation
+exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
+denominators collapses. Uniqueness then identifies the reduction, which is the conjecture.
+The whole argument is an identity between rational functions over
+$\mathbb{Z}/3\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A184259 is ``Number of strings of numbers x(i=1..4) in 0..n with sum i\^{}3*x(i) equal to 64*n.''. It has offset $1$ and begins
+OEIS A396102 is ``G.f. A(x) satisfies A(A(A(x))) = (1+x) * A(A(x)).''. It has offset $1$ and begins
 \[
-1, 2, 2, 3, 4, 5, 8, 13,\ \dots
+1, 1, -2, 10, -71, 616,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n)=2*a(n-1)-a(n-2)+a(n-8)-2*a(n-9)+a(n-10)+a(n-64)-2*a(n-65)+a(n-66)-a(n-72)+2*a(n-73)-a(n-74)
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A^{3}(x)\;=\;(1+x)\,A^{2}(x) .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) == 1 (mod 3) for n >= 1. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:29:21, revision 9)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 08 2026 10:53:10, revision 14) it is
+still recorded as a conjecture, and nothing on the entry records
+it as settled either way. 
 
-\section{The count is a quasi-polynomial}
+\section{The equation determines the sequence}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
-
-\section{The bound}
-
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
+$N\ge1$,
 \[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
 \]
-annihilates $a$, and $S=\deg A=273$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=273$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{74}-\sum_ic_iz^{74-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
+Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
+and
+\[
+\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+\]
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
+contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
+to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
+$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
 \end{proof}
 
-\begin{theorem}
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+\end{lemma}
+
+\begin{proof}
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
+coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
+Lemma~\ref{lem:jaN}. On the left, $\bigl[x^{N}\bigr]A^{3}=3a(N)+\cdots$. On the right, $\bigl[x^{N}\bigr]\bigl((1+x)A^{2}\bigr)=\bigl[x^{N}\bigr]A^{2}+\bigl[x^{N-1}\bigr]A^{2}=2a(N)+\cdots$, the second summand involving only $a(1),\dots,a(N-1)$. Hence the net coefficient of $a(N)$ is $3-2=1$.
+Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
+$\mathbb{Z}$, and induction gives existence and uniqueness.
+\end{proof}
+
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
+a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $3$}
+
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/3\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$.
+\end{lemma}
+
+\begin{proof}
+For $j=1$ this is the definition, and if $f^{\,j}(x)=x/(1-jx)$ then
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-8) - 2\,a(n-9) + a(n-10) + a(n-64) - 2\,a(n-65) + a(n-66) - a(n-72) + 2\,a(n-73) - a(n-74)
+f^{\,j+1}(x)=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
+=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
 \]
-for every $n>0$.
+\end{proof}
+
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/3\mathbb{Z}$, $f$ satisfies $f^{3}=(1+x)f^{2}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$, and $3\equiv0$ modulo $3$, so
+$f^{3}(x)=x$. Again by Lemma~\ref{lem:iter}, $f^{2}(x)=\dfrac{x}{1-2x}$, and
+$-2\equiv1$ modulo $3$, so $f^{2}(x)=\dfrac{x}{1+x}$. Therefore
+\[
+(1+x)\,f^{2}(x)=(1+x)\cdot\frac{x}{1+x}=x=f^{3}(x).
+\]
+\end{proof}
+
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/3\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
+$a(n)\equiv1\pmod3$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+74$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
+By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, whose every coefficient is
+$1$.
 \end{proof}
+
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $55$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $23$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The same run was
+continued to $n=25$ and every term reduced modulo $3$; all residues are
+$1$.
 
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
+Third, the composition of the proof was carried out independently as a formal power series
+over $\mathbb{Z}/3\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
+iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184259.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A396102.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

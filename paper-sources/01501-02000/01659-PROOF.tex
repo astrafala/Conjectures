@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A209345, proved from an exact model}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A209345 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=13$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+
+\section{The conjecture}
+
+OEIS A209345 is ``Number of 4-bead necklaces labeled with numbers -n..n allowing reversal, with sum zero with no three beads in a row equal.''. It has offset $1$ and begins
+\[
+4, 15, 35, 72, 128, 205, 311, 448,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) - 3*a(n-2) + 2*a(n-3) - 3*a(n-4) + 3*a(n-5) - a(n-6).
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 22 2025 21:41:42, revision 14)
+this is still recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a Burnside sum}
+
+The entry counts $4$-bead necklaces labelled from $-n..n$ with sum zero under a further
+condition on consecutive beads, the beads identified under the dihedral group of rotations and reflections, written $G$. Nothing is a
+walk here: the bead count is fixed and the ALPHABET grows.
+
+By Burnside's lemma the number of orbits is $\frac{1}{|G|}\sum_{g\in G}|\mathrm{Fix}(g)|$.
+A labelling fixed by $g$ is constant on the orbits of $g$, so it is a choice of one value per
+orbit. For a rotation by $d$ with $c=\gcd(4,d)$ the fixed labellings are exactly the
+$c$-periodic words, the whole sum is $(4/c)$ times the sum of one period, and the condition on
+the $4$-periodic extension is the condition on the length-$c$ cyclic word; for a reflection
+they are the palindromes, determined by $\lceil(4+1)/2\rceil$ values, and the condition is
+again local in those. Every term is therefore a count of integer points of
+\[
+\sum_i w_i y_i = 0, \qquad -n \le y_i \le n,
+\]
+$w_i$ the orbit sizes, under a condition on consecutive beads. The forbidden windows the entry
+names are defined by EQUALITIES between bead values, with fixed offsets, so inclusion-exclusion
+over them turns each term into a count under a set of affine identifications --- one
+convolution each --- and nothing is enumerated over the alphabet.
+
+\section{The bound}
+
+Each term is a lattice-point count over a union of relatively open rational cones in the orbit
+variables, hence a quasi-polynomial in $n$; a Burnside average of quasi-polynomials is one. The
+period is read off the arrangement: every ray of every cell is cut out by as many independent
+hyperplanes as there are variables, so by Cramer its primitive generator has its $n$-coordinate
+dividing the determinant of their $y$-parts, and a ray leaving the box or the sum-zero plane
+bounds no cell and is dropped. The multiplicity of each cyclotomic factor is bounded by the
+number of distinct rays whose height it divides, and by the dimension of the cone. Taking the
+maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
+$S=13$, which includes the pre-period $n_0=0$ the conditions with an offset need. The
+annihilator was then asked for terms the model had not supplied and reproduced them.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + 2\,a(n-3) - 3\,a(n-4) + 3\,a(n-5) - a(n-6)
+\]
+for every $n>0$.
+\end{theorem}
+
+\begin{proof}
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $42$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
+
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209345.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
+\end{thebibliography}
+
+\end{document}

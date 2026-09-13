@@ -259,25 +259,38 @@ parsable conjectured recurrence**. Of the 245:
   8 `3 X 3 0..n arrays`, 7 `strictly increasing arrangements`, 6 `second differences of
   arrays`, 5 `arrays of median of ...`, and a tail of two-dimensional fixed shapes.
 
-## M. `edgemark`: 34 entries whose READING is not pinned down (13 September 2026)
+## M. `edgemark`: SETTLED — what "trailing edge maxima" means (13 September 2026)
 
     Number of binary arrays indicating the locations of trailing edge maxima of a random
       length-n 0..A array extended with zeros and convolved with 1,4,6,4,1.
 
-The model is clear: the marker word is the image of a sliding-window map, so the achievable
-markers form a regular language and the count is a walk in its subset construction — a state is
-the set of input windows consistent with the marks emitted so far. `engine/src/edgemark.py`
-builds it, 37 states for A = 1 and 183 for A = 2.
+Recorded here as null earlier the same day, on the grounds that no tie-breaking rule fit: the
+engine reproduced every published term of A221992 (0..1) and was one too many for A221993
+(0..2) at n = 10, 85 against 84, and a brute force agreed with the engine, so the reading was
+what was wrong. Three tie-breaking rules, four marker windows, two paddings each side and the
+reversed kernel all gave 85.
 
-It reproduces **every published term of A221992** (the 0..1 case) and is **one too many at
-n = 10 for A221993** (0..2): 85 against the entry's 84. Brute force over all 3^10 arrays gives
-85 as well, so the automaton is faithful to the reading and the reading is what is wrong.
-Tried and all giving 85: three tie-breaking rules for a trailing edge maximum, four choices of
-which positions carry a mark, two padding lengths on each side, and the reversed kernel.
+The hidden assumption was that the mark is a RADIUS-ONE test. It is not, and the refusal was
+what said so: an exhaustive search over all 512 predicates on the sign pair
+(sign(c(i)-c(i-1)), sign(c(i)-c(i+1))), at every contiguous window, fails on A222021 and
+A222329 at n = 4. A plateau of the convolved sequence can be arbitrarily long — with kernel
+1,1 the plateau condition is x(i-1) = x(i+1), so x = a,b,a,b,... is one plateau throughout.
 
-Not registered, nothing installed. The way in is to find the wording's intended tie-breaking —
-the sibling entries with `leading edge' and with other kernels will constrain it, since the
-same reading must fit all 34 at once.
+    Position i is a trailing edge maximum when c(i) > c(i+1) and the nearest EARLIER
+    position whose value differs from c(i) is lower.
+
+That is the right-hand end of a plateau which is a strict local maximum, the all-zero left tail
+counting as lower. One bit of state carries the unbounded lookback: whether the nearest earlier
+different value was lower or higher. The engine is the last |K| input values plus that bit,
+emitting one mark per step with a delay of one, determinised for images and lumped. 50 names,
+every one reproducing its entry's data exactly and every one confirmed by an independent brute
+force. The remaining eight names are two-parameter tables T(n,k) and are refused.
+
+The lesson, which is defect 8 in another dress: an instrument that cannot see what it is asked
+about returns a confident answer. A radius-one marker is a perfectly good instrument and it was
+answering a question about plateaus that it could not see. What broke the deadlock was asking
+which family of instruments COULD fit all the entries at once, and finding that none of them
+could — the refusal, not the proof.
 
 ## L. THE POOL, measured on the whole clone (13 September 2026)
 
@@ -472,3 +485,45 @@ families that are hard for a reason, not by families nobody has read.
 * 3,206 English-only conjectures on proved entries — mostly open research problems
   (Cramér's conjecture among them), not settleable here, and named so they are not mistaken
   for a gap
+
+## N. Walks of a FIXED number of steps on a growing board (13 September 2026)
+
+    Number of 7-step self-avoiding walks on an n X n square summed over all starting positions.
+    Number of 3-step one space at a time bishop's tours on an n X n board summed over all
+      starting positions.
+    Number of 9-step self-avoiding walks on an n X n X n cube summed over all starting
+      positions.
+
+**78 in the pool, 156 in the clone.** The number of STEPS is fixed and the BOARD grows, which
+is the whole point: the set of walk shapes is finite and does not depend on n at all. Fix the
+move set M (four unit steps for a self-avoiding walk, four diagonals for a bishop, eight for a
+king, king ∪ knight for a king-knight, and for the "asymmetric" pieces one space leftwards or
+up against two spaces rightwards or down, which is why the name adds that its antidiagonal
+moves become knight moves). Enumerate every self-avoiding walk of k steps in M up to
+translation and take each one's bounding box (w_1,...,w_d). A shape with bounding box w fits an
+n X ... X n board in exactly prod_i max(0, n - w_i) positions, so
+
+    a(n) = sum over shapes of prod_i max(0, n - w_i),
+
+which for n > max_i w_i is a POLYNOMIAL of degree d in n. The annihilator is (z-1)^(d+1) and
+the threshold is the largest bounding-box side over all shapes — both derived, not assumed, and
+the formula also gives the small terms exactly, so the entry's own published data checks it.
+
+Not a transfer matrix and not a walk in a digraph: qpbuild's shape, with the model section
+stating the shape count and the bounding-box argument.
+
+Refused, and separately: the seven "k-TURN" entries (bishop's and queen's tours counted by
+turns rather than steps) have straight segments of unbounded length, so the shape set is not
+finite and this argument does not apply. They need their own reading.
+
+## O. The coordination sequences — the largest single cluster, and what it needs
+
+**378 entries in the pool**, all of the form "Coordination sequence Gal.u.t.v ... in the
+Galebach list of u-uniform tilings", each carrying a conjectured recurrence and g.f. of Chai
+Wah Wu's from November 2025. Fifty published terms each, no program, no adjacency data on the
+entry. The route is real but not short: a coordination sequence of a periodic planar graph is
+eventually quasi-polynomial, and an effective proof needs the tiling's own combinatorics (the
+trunk-and-branch argument of Goodman-Strauss and Sloane, or an Ehrhart count on a distance
+polytope). Nothing here can start until the Galebach tilings are reconstructed as graphs. Noted
+because it is by far the largest cluster left and because its size should not be mistaken for
+its difficulty in either direction.

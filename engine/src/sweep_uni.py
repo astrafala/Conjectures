@@ -10,6 +10,7 @@ the offset read off from where they line up. The engine's threshold is in the sa
 terms are, so one conversion serves them all.
 """
 import json, re, os, sys, collections, signal
+import conjlines
 import localentry as LE, ratrec, openness, uniform
 
 
@@ -88,8 +89,11 @@ for a in sorted(CANDS):
         except Exception:
             pass
     e = LE.get(a)
-    recs = [r for r in (ratrec.parse_rec(L) for L in e['comment'] + e['formula']
-                        if MARK.search(L)) if r]
+    # not a word test on the line: a conjecture written as a block carries no conjectural
+    # word on its formula lines, and this sweep tested the word for its whole life. The cost
+    # here is small only because the candidate list was already filtered with `conjlines';
+    # asked of every name instead, the same test refused 170 entries out of 205.
+    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.lines(e)) if r]
     if not recs:
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:

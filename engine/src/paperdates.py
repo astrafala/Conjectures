@@ -64,17 +64,33 @@ BYPAPER = os.path.join(repopaths.ROOT, 'engine', 'paper-dates-by-anum.json')
 
 
 def build(index):
-    """paper path (repository-relative) -> the date printed in that paper"""
+    """paper path (repository-relative) -> the date printed in that paper
+
+    The cache entry carries the PDF's byte size beside the date, and a paper whose size has
+    changed is read again. Without that a REBUILT paper keeps the date the cache remembers
+    forever: 99 papers rewritten and recompiled on 13 September went on reporting the date of
+    the text they had replaced, and the by-A-number key -- which is what makes the cache
+    survive a re-ranking -- is exactly what hid it. An old entry stored as a bare string has
+    no size and is read once to acquire one.
+    """
     known = json.load(open(BYPAPER)) if os.path.exists(BYPAPER) else {}
     out, fresh = {}, 0
     for row in index:
         key = f"{row['anum']}-{row['verdict']}"
-        d = known.get(key)
+        path = os.path.join(repopaths.ROOT, row['file'])
+        try:
+            size = os.path.getsize(path)
+        except OSError:
+            size = None
+        ent = known.get(key)
+        d = None
+        if isinstance(ent, list) and len(ent) == 2 and ent[1] == size:
+            d = ent[0]
         if d is None:
-            d = from_pdf(os.path.join(repopaths.ROOT, row['file']))
+            d = from_pdf(path)
             fresh += 1
             if d:
-                known[key] = d
+                known[key] = [d, size]
         if d:
             out[row['file']] = d
     json.dump(known, open(BYPAPER, 'w'), indent=0, sort_keys=True)

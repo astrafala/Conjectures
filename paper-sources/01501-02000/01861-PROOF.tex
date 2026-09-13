@@ -12,91 +12,122 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223185, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221756, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223185 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$7$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $88$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=46426$ vertices.
+OEIS A221756 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=32$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A223185 is ``Rolling icosahedron footprints: number of nX7 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, vertical or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A221756 is ``Number of 2 X n arrays of occupancy after each element moves to some horizontal or antidiagonal neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
 \[
-15625, 20480, 298240, 5274720, 100734400, 1978496760, 39288329040, 783477286880,\ \dots
+0, 2, 1, 9, 17, 64, 171, 536,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 66*a(n-1) -1994*a(n-2) +38728*a(n-3) -560345*a(n-4) +6524130*a(n-5) -63671988*a(n-6) +531974880*a(n-7) -3848127650*a(n-8) +24271100034*a(n-9) -134248443158*a(n-10) +655104948054*a(n-11) -2840396229946*a(n-12) +11036021680176*a(n-13) -38791547925412*a(n-14) +124494074580576*a(n-15) -367351231567847*a(n-16) +999423446499110*a(n-17) -2499682520503839*a(n-18) +5690193562332578*a(n-19) -11551701732786876*a(n-20) +20071834370464908*a(n-21) -26876930663729930*a(n-22) +16317455183578594*a(n-23) +48424143854136547*a(n-24) -232211807643068642*a(n-25) +619464131345898580*a(n-26) -1282603906919244192*a(n-27) +2246605267792077403*a(n-28) -3489756978989727022*a(n-29) +4961464486889135750*a(n-30) -6469026702301613346*a(n-31) +7329127932627038108*a(n-32) -6107234316090609958*a(n-33) +1162350802936222707*a(n-34) +7797511221055222740*a(n-35) -18320112533950980909*a(n-36) +25782686710553708814*a(n-37) -26288270304669587613*a(n-38) +19774652510597920460*a(n-39) -10455502060923941526*a(n-40) +3846976781027716952*a(n-41) -2806689875314218244*a(n-42) +5990574561835742408*a(n-43) -9733337958117669182*a(n-44) +11123090360366078896*a(n-45) -9526133271383869478*a(n-46) +6085416185309130020*a(n-47) -2519532035859176458*a(n-48) +198152251562375604*a(n-49) +409467046281215433*a(n-50) +173910200548990740*a(n-51) -953018710281797197*a(n-52) +1224804507173323572*a(n-53) -932642136688428695*a(n-54) +434183935379320384*a(n-55) -72193818175133294*a(n-56) -49906923480155472*a(n-57) +20474695186042204*a(n-58) +35115723175174348*a(n-59) -54464059521030890*a(n-60) +40858228760018700*a(n-61) -19405207254479583*a(n-62) +5489913900342334*a(n-63) -535412982931541*a(n-64) +144399016026068*a(n-65) -656384732198270*a(n-66) +758260979482646*a(n-67) -514336442439891*a(n-68) +247075410873890*a(n-69) -93435139860166*a(n-70) +33799715845024*a(n-71) -15185583427369*a(n-72) +7872340486682*a(n-73) -3646561240884*a(n-74) +1378702706660*a(n-75) -440156846148*a(n-76) +126163892100*a(n-77) -32801670964*a(n-78) +7254467820*a(n-79) -1320516804*a(n-80) +209594608*a(n-81) -28206256*a(n-82) +1579488*a(n-83) +418368*a(n-84) -62144*a(n-85) +6848*a(n-86) -4224*a(n-87) +512*a(n-88) for n>93
+Empirical: a(n) = a(n-1) + 6*a(n-2) + a(n-3) - 4*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:19:12, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 10 2018 17:33:54, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, horizontal and vertical, that is the cell offsets
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-(1,-1), (0,1), (1,0),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
-\[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
-\]
-The entry also fixes the top-left cell: $x(0,0)=0$.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
+\item $d'=d$, that is, the token arriving at a cell and the token leaving it move in the same direction --- the move goes STRAIGHT THROUGH;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all.
+
+The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
+$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
+$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
+an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
+The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
+turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
+two readings.
+
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
+
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
+
+\begin{lemma}\label{lem:win}
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
 \end{lemma}
 
 \begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
 \end{proof}
 
-\section{One slice is a state}
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
 
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $7$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=46426.
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
 \]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $7$ over $12$ vertices is one of $12^{7}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The image is a walk count after determinisation}
+
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=32$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{88}-\sum_i c_it^{88-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +135,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+88}-\sum_ic_iM^{j+88-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +144,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;66\,a(n-1) - 1994\,a(n-2) + 38728\,a(n-3) - 560345\,a(n-4) + 6524130\,a(n-5) - 63671988\,a(n-6) + 531974880\,a(n-7) - 3848127650\,a(n-8) + 24271100034\,a(n-9) - 134248443158\,a(n-10) + 655104948054\,a(n-11) - 2840396229946\,a(n-12) + 11036021680176\,a(n-13) - 38791547925412\,a(n-14) + 124494074580576\,a(n-15) - 367351231567847\,a(n-16) + 999423446499110\,a(n-17) - 2499682520503839\,a(n-18) + 5690193562332578\,a(n-19) - 11551701732786876\,a(n-20) + 20071834370464908\,a(n-21) - 26876930663729930\,a(n-22) + 16317455183578594\,a(n-23) + 48424143854136547\,a(n-24) - 232211807643068642\,a(n-25) + 619464131345898580\,a(n-26) - 1282603906919244192\,a(n-27) + 2246605267792077403\,a(n-28) - 3489756978989727022\,a(n-29) + 4961464486889135750\,a(n-30) - 6469026702301613346\,a(n-31) + 7329127932627038108\,a(n-32) - 6107234316090609958\,a(n-33) + 1162350802936222707\,a(n-34) + 7797511221055222740\,a(n-35) - 18320112533950980909\,a(n-36) + 25782686710553708814\,a(n-37) - 26288270304669587613\,a(n-38) + 19774652510597920460\,a(n-39) - 10455502060923941526\,a(n-40) + 3846976781027716952\,a(n-41) - 2806689875314218244\,a(n-42) + 5990574561835742408\,a(n-43) - 9733337958117669182\,a(n-44) + 11123090360366078896\,a(n-45) - 9526133271383869478\,a(n-46) + 6085416185309130020\,a(n-47) - 2519532035859176458\,a(n-48) + 198152251562375604\,a(n-49) + 409467046281215433\,a(n-50) + 173910200548990740\,a(n-51) - 953018710281797197\,a(n-52) + 1224804507173323572\,a(n-53) - 932642136688428695\,a(n-54) + 434183935379320384\,a(n-55) - 72193818175133294\,a(n-56) - 49906923480155472\,a(n-57) + 20474695186042204\,a(n-58) + 35115723175174348\,a(n-59) - 54464059521030890\,a(n-60) + 40858228760018700\,a(n-61) - 19405207254479583\,a(n-62) + 5489913900342334\,a(n-63) - 535412982931541\,a(n-64) + 144399016026068\,a(n-65) - 656384732198270\,a(n-66) + 758260979482646\,a(n-67) - 514336442439891\,a(n-68) + 247075410873890\,a(n-69) - 93435139860166\,a(n-70) + 33799715845024\,a(n-71) - 15185583427369\,a(n-72) + 7872340486682\,a(n-73) - 3646561240884\,a(n-74) + 1378702706660\,a(n-75) - 440156846148\,a(n-76) + 126163892100\,a(n-77) - 32801670964\,a(n-78) + 7254467820\,a(n-79) - 1320516804\,a(n-80) + 209594608\,a(n-81) - 28206256\,a(n-82) + 1579488\,a(n-83) + 418368\,a(n-84) - 62144\,a(n-85) + 6848\,a(n-86) - 4224\,a(n-87) + 512\,a(n-88)
+a(n)\;=\;a(n-1) + 6\,a(n-2) + a(n-3) - 4\,a(n-4)
 \]
-for every $n>93$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $88$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=93+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,14 +160,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,10 +177,12 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223185.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221756.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

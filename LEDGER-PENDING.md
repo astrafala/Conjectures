@@ -398,3 +398,128 @@ sum, which is what the walk accepts on.
 
 **13 names read, every one reproducing its entry's published data exactly; all 13 proved and
 installed as `modular-running-sum`.**
+
+## 13 September 2026 — `lexsub`: a lex-ordered source, and the images of its subblocks
+
+    Number of n X 2 (-1,0,1) arrays of determinants of 2 X 2 subblocks of some (n+1) X 3 binary
+      array with rows and columns of the latter in lexicographically nondecreasing order.
+
+Nineteen entries, none read, and they are two solved shapes composed. The SOURCE is an
+(n+1) X (k+1) binary array whose rows are lexicographically nondecreasing downwards and whose
+columns are lexicographically nondecreasing rightwards: the row order is a condition on two
+consecutive rows, and the column order needs one bit per adjacent column pair saying whether
+that pair is still equal or has already gone strictly less — `arrlex`'s walk. The OUTPUT is the
+DISTINCT images of a map whose value on output row i is a function of source rows i and i+1 —
+`winimage`'s subset construction, a vertex being the set of source states consistent with the
+output emitted so far. Nothing about the statistic matters beyond its being a function of the
+four cells, so determinants, permanents, sums, diagonal-minus-antidiagonal, the two lex-order
+indicators, the sum indicators and "nonzero determinant" are one engine.
+
+**19 names read, every one reproducing its entry's published data exactly, and every one
+confirmed by a separate brute force that shares no code with the engine.**
+
+## 13 September 2026 — `edgemark`, reopened: what "trailing edge maxima" actually means
+
+    Number of binary arrays indicating the locations of trailing edge maxima of a random
+      length-n 0..2 array extended with zeros and convolved with 1,4,6,4,1.
+
+This family was recorded as null on 13 September: the machinery was right — a brute force over
+all 3^10 arrays agreed with it — and the READING was wrong, giving 85 against A221993's 84 at
+n = 10. Three tie-breaking rules, four marker windows, two paddings each side and the reversed
+kernel all gave 85, so the reading was declared unpinned and nothing was installed.
+
+What was wrong was the assumption that the mark is a radius-one test. It is not, and no such
+test can work: an exhaustive search over ALL 512 predicates on (sign(c(i)-c(i-1)),
+sign(c(i)-c(i+1))), at every contiguous window, fails on A222021 and A222329 at n = 4. A
+plateau of the convolved sequence can be arbitrarily long — with kernel 1,1 the plateau
+condition is x(i-1) = x(i+1), so x = a,b,a,b,... is one plateau throughout — and whether the
+plateau's left end rose or fell is not visible from one neighbour.
+
+Position i is a trailing edge maximum when c(i) > c(i+1) and the nearest EARLIER position with
+a different value is lower: the right-hand end of a plateau that is a strict local maximum, the
+all-zero tail on the left counting as lower. One bit of state carries the unbounded lookback.
+The model is then an automaton on the last |K| input values together with that bit, emitting
+one mark per step with a delay of one; and the entry counting images rather than inputs, the
+count is a walk in its subset construction, with an end vector that is NOT an incidence vector
+— it records how many distinct completions the forced all-zero tail admits from each vertex.
+`unibuild` now prints what a walk is and what the two boundary vectors are per engine, because
+its standing sentence ("the vectors recording which windows may begin and end an array") would
+have been false here.
+
+**50 names read, every one reproducing its entry's published data exactly, and every one
+confirmed by a separate brute force that shares no code with the engine.** The eight remaining
+names in the family are two-parameter tables T(n,k) and are refused.
+
+## 13 September 2026 — `boardwalk`: a fixed number of steps, a board that grows
+
+    Number of 7-step self-avoiding walks on an n X n square summed over all starting positions.
+    Number of 3-step one space at a time bishop's tours on an n X n board summed over all
+      starting positions.
+
+156 entries in the clone, 78 in the pool, and none of them read. The number of steps is fixed
+and the BOARD grows, so the set of walk shapes is finite and independent of n. Enumerate every
+self-avoiding walk of the stated length in the piece's move set, up to translation; a shape
+whose bounding box has sides (w_1,...,w_d) fits a board of side n in exactly
+prod_i max(0, n - w_i) positions, and distinct (start, walk) pairs are exactly distinct
+(shape, placement) pairs. So a(n) = sum over shapes of prod_i max(0, n - w_i) — exact for every
+n, a polynomial of degree d once n reaches the largest bounding-box side, annihilator
+z^(n0+1)(z-1)^(d+1) with both numbers read off the enumerated shapes.
+
+Two readings had to be settled and both were settled by the entries' own data. A "k-step" walk
+visits k CELLS and therefore makes k-1 moves: with k moves the 3-step bishop of A187156 gives 8
+where the entry gives 20, and with k-1 it gives every published term, as does A188152. And the
+"asymmetric" pieces take one space leftwards or up against two rightwards or down, which the
+name itself checks by adding that the antidiagonal moves become knight moves — (2,1) and
+(-1,-2) are knight moves and the other two diagonals are not.
+
+Sixteen move-set readings — self-avoiding walks in 2, 3 and 4 dimensions, one- and
+one-or-two-space bishops and rooks, the collinear queen, the king, the king-knight, the knight,
+the left-handed knight (out two, left one), the three restricted kings, the asymmetric rook and
+the quasi-bishop — were confirmed by a separate brute force that shares no code and no reasoning
+with the engine: it walks the actual board from every cell and counts.
+
+Refused and recorded: the "k-TURN" families (bishop's, rook's and queen's tours counted by
+turns) have straight segments of unbounded length, so their shape set is not finite and this
+argument does not apply; the T(n,k) tables are two-parameter; and seven entries whose shape
+count passes eight million are refused at the cap rather than enumerated.
+
+## 13 September 2026 — `block2x2`: the two medians of every 2 X 2 subblock
+
+    Number of (n+1) X (7+1) 0..2 arrays with the minimum plus the upper median equal to the
+      lower median plus the maximum in every 2 X 2 subblock.
+    Number of (n+1) X (7+1) 0..2 arrays with the upper median equal to the lower median in
+      every 2 X 2 subblock.
+
+Twenty-seven entries, none read, and the machinery was already here: the width is fixed and the
+height grows, so a row is a state and a condition spanning two consecutive rows is the edge
+relation. What was missing was a reading.
+
+For a 2 X 2 block with entries sorted v1 <= v2 <= v3 <= v4 the minimum is v1, the lower median
+v2, the upper median v3 and the maximum v4, so the first family asks v1 + v3 = v2 + v4. Since
+v1 <= v2 and v3 <= v4 the left side never exceeds the right, and equality forces BOTH v1 = v2
+and v3 = v4: the four entries form two equal pairs. That is why the digraph is sparse — 65,536
+rows and 67,072 edges at width 8 over 0..3 — and the edges are found by walking the row one
+column at a time rather than by testing 4 x 10^9 pairs of rows. The sibling family asks only
+v2 = v3.
+
+Two entries of the family are (n+1) X (n+1): both dimensions grow, no row is a state, and they
+are refused.
+
+**27 names read, every one reproducing its entry's published data exactly, and eight of them
+confirmed by a separate brute force that enumerates the arrays cell by cell and shares no code
+with the engine.**
+
+## 13 September 2026 — the block defect, found once more in the sweep that feeds everything
+
+`sweep_uni` decided which lines of an entry to read with a word test, `onjectur|Empirical`, on
+the line. That is defect 2, and it was fixed in the pool filter, in the live re-check and in
+`pooltrim` — and never in the standing sweep. It went unnoticed because the CANDIDATE LIST the
+sweep reads was already filtered with `conjlines`, so only six of its candidates were hidden by
+it. Asked of every name instead, by the new `sweep_engine.py`, the same test refused 170 of 205
+entries as "no parsable recurrence": every lexsub name and every boardwalk name, with the
+recurrence in plain sight inside a `Conjectures from X: (Start)` block. Both sweeps now read
+`conjlines.lines(e)`.
+
+`sweep_engine.py` exists because a newly written engine was invisible to every sweep until
+`uni_cands.json` was rebuilt, a quarter of an hour of work that three engines in one afternoon
+restarted three times. It asks the named engines about every name with no cache in between.

@@ -89,6 +89,27 @@ Recurring defects, all found this way:
     the ranked path, so their corrections would have been thrown away by the next ranking,
     silently, with each paper reverting to the text it was rewritten to fix.
 
+15. **the standing sweep still testing for the conjectural word ON the line.** Defect 2 was
+    fixed in the pool filter, in `pooltrim`, and in the live re-check, and never in
+    `sweep_uni` -- which is the sweep every recent vein runs through. It hid almost nothing
+    there only because the candidate list it reads had already been filtered properly; asked
+    of every name instead, the same test refused 170 entries out of 205. When a defect is
+    found, the question is not only which other file has the same code but which file was
+    protected by an accident rather than by a fix.
+
+16. **a rebuilt paper keeping the date the cache remembers.** `paperdates` keys its cache by
+    A-number and verdict, which is what makes it survive a re-ranking, and it therefore never
+    re-read a paper that had been recompiled: 99 papers rewritten on 13 September went on
+    reporting the date of the text they had replaced. The entry now carries the PDF's size
+    and a paper whose size changed is read again.
+
+17. **installing a batch with the wrong installer.** `install_vein.py` takes the engine label
+    as an ARGUMENT and applies it to every record in the list it is given, so pointing it at
+    `uniall_hits.json` labelled 192 results with one vein's name -- and, worse, checked the
+    withdrawal set under that name, so 60 results from the WITHDRAWN `ca2d` argument were
+    installed. `integrate_rest.py` is the installer for that file: it reads each hit's own
+    engine. Caught and reverted within the minute, but only because the count was wrong.
+
 10. **taking a line with no conjectural word on it to be a statement of fact.** It is not.
     A `Conjectures from X: (Start) ... (End)' block holds bare formula lines and none of them
     says "conjecture". This cost 1,353 installed papers, withdrawn on 8 September 2026: they
