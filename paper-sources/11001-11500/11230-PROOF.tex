@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A213801}
+\title{A proof of the conjectured recurrence for OEIS A005654}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A213801 carries a conjectured linear recurrence with polynomial coefficients, of
-order 8. The entry posts no generating function, and the closed form it does post
+OEIS A005654 carries a conjectured linear recurrence with polynomial coefficients, of
+order 4. The entry posts no generating function, and the closed form it does post
 is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
 rational and the usual argument does not start. Splitting on the parity of $n$ repairs
 this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
@@ -34,17 +34,17 @@ returns a proof or a refutation; both halves must hold, and here both do.
 
 \section{The sequence and the conjecture}
 
-OEIS A213801 is ``Number of 3 X 3 0..n symmetric arrays with all rows summing to floor(n*3/2)''. It has offset $1$ and begins
+OEIS A005654 is ``Number of bracelets (turn over necklaces) with n red, 1 pink and n-1 blue beads; also reversible strings with n red and n-1 blue beads; also next-to-central column in Losanitsch's triangle A034851''. It has offset $1$ and begins
 \[
-a(1),\dots,a(8)\;=\;4, 13, 29, 57, 96, 153, 226, 323,\ \dots
+a(1),\dots,a(8)\;=\;1, 2, 6, 19, 66, 236, 868, 3235,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = (14*n\textasciicircum{}3+42*n\textasciicircum{}2+53*n+25+3*(n+1)*(-1)\textasciicircum{}n+2*((-1)\textasciicircum{}((2*n+1-(-1)\textasciicircum{}n)/4)-(-1)\textasciicircum{}((6*n+5-(-1)\textasciicircum{}n)/4)))/32. - \emph{Luce ETIENNE}, Aug 23 2014
+a(n) = (1/2) * (binomial(2*n-1, n) + binomial(n-1, floor(n/2))). - \emph{Michael Somos}
 \end{quote}
 that is,
 \begin{equation}\label{eq:cf}
-a(n)\;=\;\frac{\left(-1\right)^{n} \left(3 n + 3\right)}{32} + \frac{\left(-1\right)^{- \frac{\left(-1\right)^{n}}{4} + \frac{n}{2} + \frac{1}{4}}}{16} - \frac{\left(-1\right)^{- \frac{\left(-1\right)^{n}}{4} + \frac{3 n}{2} + \frac{5}{4}}}{16} + \frac{7 n^{3}}{16} + \frac{21 n^{2}}{16} + \frac{53 n}{32} + \frac{25}{32} .
+a(n)\;=\;\frac{{\binom{n - 1}{\left\lfloor{\frac{n}{2}}\right\rfloor}}}{2} + \frac{{\binom{2 n - 1}{n}}}{2} .
 \end{equation}
 This is the only input the proof takes from the entry. It was checked against the entry's
 own DATA before use, and the index alignment was determined from that check rather than
@@ -52,15 +52,15 @@ assumed: the formula is stated in the entry's own indexing.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) -2*a(n-3) +2*a(n-4) -2*a(n-5) +2*a(n-7) -a(n-8).
+\textbf{Conjecture:} n*(n-2)*a(n) - (5*n-3)*(n-2)*a(n-1) + 4*(n-2)*a(n-2) + 4*(5*n\^{}2-27*n+37)*a(n-3) - 8*(2*n-7)*(n-4)*a(n-4) = 0. - \emph{R. J. Mathar}, Nov 09 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (2024-10-27, revision 40) the
+As of the ``Last modified'' line on the live entry (2025-11-12, revision 65) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Written out, the conjecture is
 \begin{equation}\label{eq:conj}
-1\,a(n) - 2\,a(n-1) + 2\,a(n-3) - 2\,a(n-4) + 2\,a(n-5) - 2\,a(n-7) + 1\,a(n-8)
+n \left(n - 2\right)\,a(n) -  \left(n - 2\right) \left(5 n - 3\right)\,a(n-1) + 4 \left(n - 2\right)\,a(n-2) + 4 \left(5 n^{2} - 27 n + 37\right)\,a(n-3) -  8 \left(n - 4\right) \left(2 n - 7\right)\,a(n-4)
 \end{equation}
 
 \section{Hypergeometric terms, and why the closed form is not one}
@@ -82,9 +82,9 @@ $\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the c
 substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
 free of rounding:
 \begin{equation}\label{eq:halves}
-a(2m)\;=\;e_{0}(m)\;=\;\frac{\left(-1\right)^{m}}{8} + \frac{7 m^{3}}{2} + \frac{21 m^{2}}{4} + \frac{7 m}{2} + \frac{7}{8},
+a(2m)\;=\;e_{0}(m)\;=\;\frac{\left(4 m\right)!}{4 \left(2 m\right)!^{2}} + \frac{\left(2 m\right)!}{4 m!^{2}},
 \qquad
-a(2m+1)\;=\;e_{1}(m)\;=\;\frac{7 m^{3}}{2} + \frac{21 m^{2}}{2} + 11 m + 4,
+a(2m+1)\;=\;e_{1}(m)\;=\;\frac{{\binom{2 m}{m}}}{2} + \frac{{\binom{4 m + 1}{2 m + 1}}}{2},
 \end{equation}
 and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
 
@@ -129,17 +129,17 @@ Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0
 large $n$ is exactly the conjunction of the two.
 \end{proof}
 
-\section{The computation for A213801}
+\section{The computation for A005654}
 
 Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
 two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
-does every similarity class of $T(2m+1)$. The even half splits into 0 classes
-and the odd half into 0 classes.
+does every similarity class of $T(2m+1)$. The even half splits into two classes
+and the odd half into two classes.
 
 \begin{theorem}
-For all $n\ge 9$,
+For all $n\ge 5$,
 \[
-1\,a(n) - 2\,a(n-1) + 2\,a(n-3) - 2\,a(n-4) + 2\,a(n-5) - 2\,a(n-7) + 1\,a(n-8)
+n \left(n - 2\right)\,a(n) -  \left(n - 2\right) \left(5 n - 3\right)\,a(n-1) + 4 \left(n - 2\right)\,a(n-2) + 4 \left(5 n^{2} - 27 n + 37\right)\,a(n-3) -  8 \left(n - 4\right) \left(2 n - 7\right)\,a(n-4)
 \]
 \end{theorem}
 
@@ -159,15 +159,15 @@ formula that did not reproduce the entry's own terms would not have been used, a
 alignment was fixed by that comparison rather than assumed.
 
 Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $35$ instances beginning at
-$n=9$, all of them zero. This is not part of the proof, which is symbolic, but it
+exact integer arithmetic at every index where it applies: $23$ instances beginning at
+$n=5$, all of them zero. This is not part of the proof, which is symbolic, but it
 would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
 \bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 Wellesley MA, 1996.
 \bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A213801}{A213801}, 2024-10-27.
+entry \href{https://oeis.org/A005654}{A005654}, 2025-11-12.
 \bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
 2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}

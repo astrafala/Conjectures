@@ -14,6 +14,9 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'arrline': ("a line of the array along whichever dimension grows, together with, for "
+                "each adjacent pair of lines running the other way, whether they still "
+                "agree or have already been decided"),
     'permset': ("a window of consecutive VALUES: at position i only the values in "
                 "[i - L, i + R] are in play, and the state is which of them are used"),
     # again not a window: the condition quantifies over all pairs (or triples) of

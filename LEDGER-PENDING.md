@@ -228,3 +228,20 @@ permutation is exactly a closed walk of length n.
 
 **22 names read, every one reproducing its entry's published data exactly; 21 proved and
 installed as `displacement-set`.** One is not open.
+
+## 13 September 2026 — `arrline`: the growing dimension either way
+
+`arrlex` carries the lexicographic conditions for a growing HEIGHT. Seven more entries grow the
+WIDTH — `Number of 5 X n 0..2 arrays with ...` — and add a local condition on the differences
+mod 3. Both are the same walk once the array is read line by line along whichever dimension
+grows: the fixed dimension gives the line length, one of the two lexicographic conditions
+compares CONSECUTIVE lines and is local, the other compares the k lines running the other way
+over the whole growth and is carried by one flag per adjacent pair, and a difference condition
+is local either way — within a line, or between consecutive lines. The `nonincreasing' variant
+is the same flag with the comparison reversed.
+
+A clause the parser does not know makes it refuse the name rather than ignore the clause: an
+engine that silently drops a condition counts something the entry did not ask for.
+
+**17 names read, every one reproducing its entry's published data exactly; 13 proved and
+installed as `line-order-array`.** Four carry no parsable recurrence.
