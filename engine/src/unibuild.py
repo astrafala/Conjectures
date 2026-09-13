@@ -68,6 +68,13 @@ WINDOW = {
                  "saying whether the nearest earlier position whose convolved value differs "
                  "from the current one is lower -- sets with the same future behaviour being "
                  "identified"),
+    # not two lines but w+1 of them: a vertical window spans w rows, so comparing two
+    # consecutive ones needs one more. The row condition is what keeps the state small --
+    # only 21 of the 512 binary rows of width 9 satisfy it for a window of four.
+    'binwin': ("a window of consecutive rows one longer than the bit-window the entry "
+               "names -- a vertical bit-window spans that many rows, so comparing two "
+               "consecutive ones needs one row more -- each of those rows being one of the "
+               "few whose own bit-windows do not decrease along it"),
     'block2x2': "every $2\\times2$ subblock, hence two consecutive rows",
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",

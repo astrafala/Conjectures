@@ -523,3 +523,64 @@ recurrence in plain sight inside a `Conjectures from X: (Start)` block. Both swe
 `sweep_engine.py` exists because a newly written engine was invisible to every sweep until
 `uni_cands.json` was rebuilt, a quarter of an hour of work that three engines in one afternoon
 restarted three times. It asks the named engines about every name with no cache in between.
+
+## 13 September 2026 — `binwin`: windows of a binary array read as numbers, in order
+
+    Number of (n+2) X 9 binary arrays with consecutive windows of three bits considered as a
+      binary number nondecreasing in every row and column.
+
+Sixteen entries, none read. The width W is fixed and the height grows. Along a ROW the W-w+1
+windows of w consecutive bits, read as binary numbers, must not decrease left to right — a
+property of the row alone, and an extremely restrictive one: of the 512 binary rows of width 9
+only 14 survive it for a window of three and 21 for a window of four. Down a COLUMN the same
+must hold of the vertical windows, and a vertical window spans w rows, so comparing two
+consecutive ones needs w+1 rows; the state is the last w rows, each of them one of that
+handful. That is why the height in the name is n + w - 1 and why the names read (n+1), (n+2),
+(n+3) as the window widens: the array must be at least w tall to have a vertical window at all.
+
+**16 names read, every one reproducing its entry's published data exactly, and six confirmed by
+a separate brute force that enumerates the arrays and tests the windows directly.**
+
+## 13 September 2026 — `circdigit` and `circbase`: circular digits, and a claim about the BASE
+
+    Number of base 7 circular n-digit numbers with adjacent digits differing by 5 or less.
+
+229 entries, none read. The model is one line: let G be the graph on the digits 0..b-1 with an
+edge between u and v when |u-v| <= d, loops included. A circular n-digit string is a closed walk
+of length n in G with a marked start, so a(n) = trace(M^n) for n >= 1, and the characteristic
+polynomial of M annihilates it — monic of degree exactly b, by Cayley–Hamilton, with no bound to
+estimate. The entry counts every string, leading zeros included: requiring a nonzero first digit
+gives 4, 11, 25 where A124698 gives 5, 13, 29. At n = 0 the entries write a(0) = 1 where the
+trace is b; that is a convention at one index and the papers say so.
+
+Only **10** of the 229 carry a conjectured recurrence. **219 carry something else entirely**,
+which is why every sweep called them "no parsable recurrence":
+
+    [Empirical] a(base,n) = a(base-1,n) + F(5) for base >= 5*int(n/2)+1
+    and F(d) is the largest coefficient in (1+x+...+x^(2d))^n
+
+It is not a recurrence in n. It relates two DIFFERENT entries. It is also true, sharply, and the
+proof is four steps with no computation in it:
+
+  1. a(base,n) - a(base-1,n) counts the admissible cyclic tuples over {0..b-1} that USE the
+     value b-1, since the rest are exactly the tuples over {0..b-2}.
+  2. Every admissible cyclic tuple has max - min <= d*floor(n/2): the two arcs between a
+     position of the max and one of the min have lengths summing to n, so one has length at
+     most floor(n/2), and along an arc of length L the value moves by at most d*L.
+  3. A tuple using b-1 has maximum b-1, so all its values lie in a window of width
+     d*floor(n/2) below b-1. The hypothesis base >= d*floor(n/2)+1 says exactly that the
+     window fits inside the alphabet, so the count is that of the admissible cyclic tuples
+     over Z with maximum 0 — independent of the base.
+  4. Translation is free on those, each orbit has one representative with max 0 and one with
+     c_1 = 0, and the latter are the step vectors in {-d..d}^n summing to zero, of which there
+     are [x^(dn)](1+x+...+x^(2d))^n — the entry's own F(d).
+
+The entry's threshold is exactly the hypothesis of step 3 and is sharp: one base lower the
+window no longer fits and the identity fails, which was checked for d = 1, 2, 3 and every
+n <= 8.
+
+**10 proved as recurrences and installed as `circular-digit-trace`; 219 cross-base identities
+verified over their whole claimed range and installed as `circular-base-identity`.** Twenty-six
+of those 219 are flagged by the openness check, and in all twenty-six the settlement wording is
+Ray Chandler's confirmation of the LINEAR RECURRENCE on the entry, a different statement; the
+cross-base line is still marked empirical on each.

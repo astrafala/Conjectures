@@ -12,166 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220914, proved by transfer matrix}
+\title{The cross-base identity for OEIS A125386, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220914 counts the distinct indicator arrays obtained from the $n\times3$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is equal to exactly one of their neighbours, and carries an
-empirical recurrence of order $63$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=445$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A125386 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A220914 is ``Equals one maps: number of nX3 binary arrays indicating the locations of corresponding elements equal to exactly one of their horizontal, diagonal and antidiagonal neighbors in a random 0..2 nX3 array.''. It has offset $1$ and begins
+OEIS A125386 is ``Number of base 23 circular n-digit numbers with adjacent digits differing by 5 or less.''. It has offset $0$ and begins
 \[
-4, 37, 379, 3299, 27365, 220299, 1754781, 13920341,\ \dots
+1, 23, 223, 1763, 16243, 152373, 1463803, 14257189,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11*a(n-1) -13*a(n-2) -88*a(n-3) -179*a(n-4) +963*a(n-5) +3374*a(n-6) -4092*a(n-7) -27752*a(n-8) -54928*a(n-9) +159273*a(n-10) +565084*a(n-11) +262024*a(n-12) -2548728*a(n-13) -9489404*a(n-14) -3862504*a(n-15) +48520232*a(n-16) +136801104*a(n-17) +34658552*a(n-18) -677179488*a(n-19) -1711015536*a(n-20) +28469504*a(n-21) +7647579792*a(n-22) +17156152832*a(n-23) +10757172640*a(n-24) -51483411712*a(n-25) -179983506432*a(n-26) -190932391040*a(n-27) +213395380864*a(n-28) +783959354112*a(n-29) +1174739137792*a(n-30) +749321041920*a(n-31) -2051932146688*a(n-32) -5471137934336*a(n-33) -4763822426112*a(n-34) -1136691800064*a(n-35) -1642622783488*a(n-36) -10474931142656*a(n-37) -3637079998464*a(n-38) +36568785813504*a(n-39) +99840437256192*a(n-40) +144085753987072*a(n-41) +174717893804032*a(n-42) +188630020718592*a(n-43) +93143850483712*a(n-44) -49825152630784*a(n-45) +17014351462400*a(n-46) +14859929911296*a(n-47) -10286599241728*a(n-48) +133670360317952*a(n-49) -132373305884672*a(n-50) -213409776795648*a(n-51) +27968935034880*a(n-52) -114439382630400*a(n-53) -53710499610624*a(n-54) +22803071893504*a(n-55) -36764240576512*a(n-56) -26657024901120*a(n-57) -3002651901952*a(n-58) +859630993408*a(n-59) -146968412160*a(n-60) -5053029023744*a(n-61) +3498250862592*a(n-62) -1013612281856*a(n-63)
+[Empirical] a(base,n)=a(base-1,n)+F(5) for base>=5.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\^{}(2d))\^{}n
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:06:19, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:31:31, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
-
-Let $R=\{0,\dots,2\}^{3}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
+the base is $23$ and the permitted difference is $d=5$, so the claim is that
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+a_{23}(n)-a_{22}(n)\;=\;F_{5}(n)
+\qquad\text{for every } n \text{ with } 5\lfloor n/2\rfloor+1\le23,
 \]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times3}$ mark the cells whose value
-is equal to exactly one of its neighbours. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
-\]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+that is, for $1\le n\le9$.
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{3}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
-\]
+\section{What the entry counts}
 
-\section{The image is a walk count after determinisation}
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{5}$
+at base $23$ reproduces all $18$ terms A125386 publishes, and at base $22$ all the
+terms the entry one base smaller publishes.
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{3}$ put
-\[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
-\begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
-\[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
-\]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{3}$, empty $D$'s contributing nothing.
-\end{lemma}
-
-\begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
-\end{proof}
-
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=445$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{63}-\sum_i c_it^{63-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+63}-\sum_ic_iM^{j+63-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-a(n)\;=\;11\,a(n-1) - 13\,a(n-2) - 88\,a(n-3) - 179\,a(n-4) + 963\,a(n-5) + 3374\,a(n-6) - 4092\,a(n-7) - 27752\,a(n-8) - 54928\,a(n-9) + 159273\,a(n-10) + 565084\,a(n-11) + 262024\,a(n-12) - 2548728\,a(n-13) - 9489404\,a(n-14) - 3862504\,a(n-15) + 48520232\,a(n-16) + 136801104\,a(n-17) + 34658552\,a(n-18) - 677179488\,a(n-19) - 1711015536\,a(n-20) + 28469504\,a(n-21) + 7647579792\,a(n-22) + 17156152832\,a(n-23) + 10757172640\,a(n-24) - 51483411712\,a(n-25) - 179983506432\,a(n-26) - 190932391040\,a(n-27) + 213395380864\,a(n-28) + 783959354112\,a(n-29) + 1174739137792\,a(n-30) + 749321041920\,a(n-31) - 2051932146688\,a(n-32) - 5471137934336\,a(n-33) - 4763822426112\,a(n-34) - 1136691800064\,a(n-35) - 1642622783488\,a(n-36) - 10474931142656\,a(n-37) - 3637079998464\,a(n-38) + 36568785813504\,a(n-39) + 99840437256192\,a(n-40) + 144085753987072\,a(n-41) + 174717893804032\,a(n-42) + 188630020718592\,a(n-43) + 93143850483712\,a(n-44) - 49825152630784\,a(n-45) + 17014351462400\,a(n-46) + 14859929911296\,a(n-47) - 10286599241728\,a(n-48) + 133670360317952\,a(n-49) - 132373305884672\,a(n-50) - 213409776795648\,a(n-51) + 27968935034880\,a(n-52) - 114439382630400\,a(n-53) - 53710499610624\,a(n-54) + 22803071893504\,a(n-55) - 36764240576512\,a(n-56) - 26657024901120\,a(n-57) - 3002651901952\,a(n-58) + 859630993408\,a(n-59) - 146968412160\,a(n-60) - 5053029023744\,a(n-61) + 3498250862592\,a(n-62) - 1013612281856\,a(n-63)
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
-for every $n>63$.
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{23}(n)-a_{22}(n)=F_{5}(n)$ for $1\le n\le9$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $63$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
+
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $18$ terms A125386 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le9$, with both sides computed from the definition and not from the theorem:
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{5}(23,n)$ & $T_{5}(22,n)$ & $F_{5}(n)$ \\ \hline
+1 & 23 & 22 & 1 \\
+2 & 223 & 212 & 11 \\
+3 & 1763 & 1672 & 91 \\
+4 & 16243 & 15352 & 891 \\
+5 & 152373 & 143572 & 8801 \\
+6 & 1463803 & 1374890 & 88913 \\
+7 & 14257189 & 13348434 & 908755 \\
+8 & 140352907 & 130975440 & 9377467 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220914.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=9$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A125386}.
+\end{enumerate}
 
 \end{document}

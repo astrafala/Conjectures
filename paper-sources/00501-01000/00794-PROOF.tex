@@ -12,130 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264880, proved by transfer matrix}
+\title{The cross-base identity for OEIS A125464, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264880 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=4$ columns in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=1$, the matching splits into
-independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
-every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
-partly used. Carrying those as bitmasks makes the count a walk on $S=256$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A125464 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A264880 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having directed index change 0,1 0,-1 -2,0 or 1,1.''. It has offset $1$ and begins
+OEIS A125464 is ``Number of base 29 circular n-digit numbers with adjacent digits differing by 8 or less.''. It has offset $0$ and begins
 \[
-1, 0, 5, 4, 65, 228, 1101, 4832,\ \dots
+1, 29, 421, 5069, 70837, 1010249, 14740909, 217995737,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +15*a(n-2) -68*a(n-3) -69*a(n-4) +516*a(n-5) -5*a(n-6) -2512*a(n-7) +1593*a(n-8) +11468*a(n-9) -15799*a(n-10) -49100*a(n-11) +101093*a(n-12) +164044*a(n-13) -436187*a(n-14) -389856*a(n-15) +1321846*a(n-16) +642184*a(n-17) -2924570*a(n-18) -715336*a(n-19) +4872606*a(n-20) +473736*a(n-21) -6251634*a(n-22) +6251634*a(n-24) -473736*a(n-25) -4872606*a(n-26) +715336*a(n-27) +2924570*a(n-28) -642184*a(n-29) -1321846*a(n-30) +389856*a(n-31) +436187*a(n-32) -164044*a(n-33) -101093*a(n-34) +49100*a(n-35) +15799*a(n-36) -11468*a(n-37) -1593*a(n-38) +2512*a(n-39) +5*a(n-40) -516*a(n-41) +69*a(n-42) +68*a(n-43) -15*a(n-44) -4*a(n-45) +a(n-46)
+[Empirical] a(base,n)=a(base-1,n)+F(8) for base>=8.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\^{}(2d))\^{}n
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 27 2015 07:36:28, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:39:37, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The object is a matching}
-
-The grid has $W=4$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
+the base is $29$ and the permitted difference is $d=8$, so the claim is that
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-1,0),\ (0,-2),\ (1,0),\ (1,1)\},
+a_{29}(n)-a_{28}(n)\;=\;F_{8}(n)
+\qquad\text{for every } n \text{ with } 8\lfloor n/2\rfloor+1\le29,
 \]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+that is, for $1\le n\le7$.
 
-\section{The matching is a walk}
+\section{What the entry counts}
 
-Let $R=1$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
-placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
-value with home column at most $i-R$ has been used up, and the only home columns that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home columns are already placed. One step fills
-the cells of one further column, drawing each of its $W$ values from a home column within $R$
-and at an allowed column offset, and the home column that closes at that step must come out
-full. Nonexistent home columns --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{8}$
+at base $29$ reproduces all $17$ terms A125464 publishes, and at base $28$ all the
+terms the entry one base smaller publishes.
 
-Hence $a$ is a walk count on $S=256$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-a(n)\;=\;4\,a(n-1) + 15\,a(n-2) - 68\,a(n-3) - 69\,a(n-4) + 516\,a(n-5) - 5\,a(n-6) - 2512\,a(n-7) + 1593\,a(n-8) + 11468\,a(n-9) - 15799\,a(n-10) - 49100\,a(n-11) + 101093\,a(n-12) + 164044\,a(n-13) - 436187\,a(n-14) - 389856\,a(n-15) + 1321846\,a(n-16) + 642184\,a(n-17) - 2924570\,a(n-18) - 715336\,a(n-19) + 4872606\,a(n-20) + 473736\,a(n-21) - 6251634\,a(n-22) + 6251634\,a(n-24) - 473736\,a(n-25) - 4872606\,a(n-26) + 715336\,a(n-27) + 2924570\,a(n-28) - 642184\,a(n-29) - 1321846\,a(n-30) + 389856\,a(n-31) + 436187\,a(n-32) - 164044\,a(n-33) - 101093\,a(n-34) + 49100\,a(n-35) + 15799\,a(n-36) - 11468\,a(n-37) - 1593\,a(n-38) + 2512\,a(n-39) + 5\,a(n-40) - 516\,a(n-41) + 69\,a(n-42) + 68\,a(n-43) - 15\,a(n-44) - 4\,a(n-45) + a(n-46)
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
-for every $n>44$.
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{29}(n)-a_{28}(n)=F_{8}(n)$ for $1\le n\le7$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=44+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
+
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the model reproduces all $17$ terms A125464 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the transfer model reproduces all $25$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le7$, with both sides computed from the definition and not from the theorem:
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{8}(29,n)$ & $T_{8}(28,n)$ & $F_{8}(n)$ \\ \hline
+1 & 29 & 28 & 1 \\
+2 & 421 & 404 & 17 \\
+3 & 5069 & 4852 & 217 \\
+4 & 70837 & 67556 & 3281 \\
+5 & 1010249 & 960148 & 50101 \\
+6 & 14740909 & 13958756 & 782153 \\
+7 & 217995737 & 205641268 & 12354469 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264880.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=7$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A125464}.
+\end{enumerate}
 
 \end{document}

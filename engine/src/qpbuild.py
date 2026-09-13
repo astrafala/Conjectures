@@ -50,12 +50,16 @@ SHORT = {
     'multizero': 'an Ehrhart quasi-polynomial of the multiset cone',
     'ecacol': "a proved period for the automaton's middle column",
     'boardwalk': 'a finite sum over walk shapes of the ways each fits the board',
+    'circdigit': 'the trace of a power of the adjacency matrix of the digit graph',
 }
 
 # every engine here has a model that is NOT a walk in a digraph, and the abstract says so. The
 # one exception counts WALKS -- of a fixed length, on a growing board -- by a sum over shapes,
 # so the sentence has to distinguish the objects from the model.
 NOTWALK = {
+    'circdigit': ('The count is a walk count, but not of the usual shape: it is a TRACE and '
+                  'not a product with two boundary vectors, so the bound comes from the '
+                  'characteristic polynomial of the matrix itself.'),
     'boardwalk': ('No transfer matrix is involved: the objects counted are walks, but the '
                   'count is a finite sum over their shapes and not a walk count in any '
                   'digraph.'),
@@ -415,6 +419,35 @@ number of distinct rays whose height it divides, and by the dimension of the con
 maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
 $S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
 annihilator was then asked for terms the model had not supplied and reproduced them.
+"""
+    if en == 'circdigit':
+        import circdigit as _cd
+        q = _cd.parse_name(e['name'])
+        b = (q or {}).get('b', 0)
+        k = (q or {}).get('k', 0)
+        return rf"""
+\section{{The count is a trace}}
+
+Let $G$ be the graph on the digits $0,1,\dots,{b - 1}$ with an edge between $u$ and $v$ exactly
+when $|u-v|\le{k}$, loops included, and let $M$ be its adjacency matrix, so $M_{{uv}}=1$ when
+$|u-v|\le{k}$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
+$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
+most ${k}$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
+starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{{uu}}$, so for $n\ge1$
+\[
+a(n)\;=\;\sum_{{u=0}}^{{{b - 1}}}(M^{{n}})_{{uu}}\;=\;\operatorname{{tr}}M^{{n}} .
+\]
+The entry counts every string, leading zeros included: requiring a nonzero first digit gives
+$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
+string, where the trace is ${b}$; that is the entry's convention at one index and the two agree
+at every $n\ge1$, on every published term.
+
+\section{{The bound}}
+
+$\operatorname{{tr}}M^{{n}}$ is the $n$-th power sum of the eigenvalues of $M$, so by
+Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S={b}$,
+computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
+bound is derived from the data: it is the size of the digit alphabet.
 """
     if en == 'boardwalk':
         import boardwalk as _bw

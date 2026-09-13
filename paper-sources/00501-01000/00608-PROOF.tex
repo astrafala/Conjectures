@@ -12,170 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A393857 is congruent to $1$ modulo $6$}
+\title{The cross-base identity for OEIS A124707, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A393857 is defined by the functional equation $A\bigl(x-xA(5x)/5\bigr)=x$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
-congruent to $1$ modulo $6$. It is true, and the reason is that $5\equiv-1$ modulo
-$6$. The functional equation determines the coefficients one at a time, so it determines
-them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$, all of whose coefficients
-are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
-is the conjecture. The argument is an identity between rational functions over
-$\mathbb{Z}/6\mathbb{Z}$ and involves no estimation and no truncation.
+OEIS A124707 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A393857 is ``G.f. A(x) satisfies A( x - x*A(5*x)/5 ) = x.''. It has offset $1$ and begins
+OEIS A124707 is ``Number of base 14 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
 \[
-1, 1, 7, 205, 26869, 16984687,\ \dots
+1, 14, 40, 92, 244, 644, 1750, 4802,\ \dots
 \]
-So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A\!\left(x-\frac{x\,A(5x)}{5}\right)\;=\;x .
-\end{equation}
-This is the only input taken from the entry.
-
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) == 1 (mod 6) for n >= 1.
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n) = a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 12 2026 21:55:07, revision 12) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:13:11, revision 23)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the conjecture asserts
-\begin{equation}\label{eq:conj}
-a(n)\;\equiv\;1 \pmod{6}\qquad\text{for every } n\ge1 .
-\end{equation}
-
-\section{The equation determines the sequence}
-
-It is convenient to clear the division. Since $A$ has no constant term,
-\begin{equation}\label{eq:B}
-B(x)\;:=\;x-\frac{x\,A(5x)}{5}\;=\;x-\sum_{n\ge1}a(n)\,5^{\,n-1}x^{n+1},
-\end{equation}
-so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $5$.
-
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-it is given by $a(1)=1$ together with
-\begin{equation}\label{eq:rec}
-a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
-\end{equation}
-in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
-\end{lemma}
-
-\begin{proof}
-$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
-while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A002426}(n+1)$, the $(n+1)$st term of OEIS A002426; that sequence is the central coefficient of $(1+x+\dots+x^{2})^{n}$ and its published terms agree with $F_{1}(n)$ term by term, which is the identification used here. For this entry
+the base is $14$ and the permitted difference is $d=1$, so the claim is that
 \[
-x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
+a_{14}(n)-a_{13}(n)\;=\;F_{1}(n)
+\qquad\text{for every } n \text{ with } \lfloor n/2\rfloor+1\le14,
 \]
-Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
-$x^{N}$ gives
+that is, for $1\le n\le27$.
+
+\section{What the entry counts}
+
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{1}$
+at base $14$ reproduces all $28$ terms A124707 publishes, and at base $13$ all the
+terms the entry one base smaller publishes.
+
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
+
+\section{The identity}
+
+\begin{theorem}
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
-\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
-since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
-claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
-$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
-\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
-and uniqueness.
-\end{proof}
-
-\begin{corollary}\label{cor:mod}
-For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
-read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
-\end{corollary}
-
-\begin{proof}
-Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
-reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
-recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
-Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
-\end{proof}
-
-\section{The reduction modulo $6$}
-
-Everything now happens in $(\mathbb{Z}/6\mathbb{Z})[[x]]$. The one fact that drives the proof is
-\begin{equation}\label{eq:minus}
-5\;\equiv\;-1 \pmod{6} .
-\end{equation}
-
-\begin{theorem}\label{thm:main}
-$a(n)\equiv1\pmod{6}$ for every $n\ge1$. This is the conjecture of Section~1.
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{14}(n)-a_{13}(n)=F_{1}(n)$ for $1\le n\le27$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/6\mathbb{Z})[[x]]$, so all its
-coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
-check that $\bar A$ satisfies \eqref{eq:fe} modulo $6$.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
 
-Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
-$\bigl[x^{n+1}\bigr]\bar B=-5^{\,n-1}$, and by \eqref{eq:minus}
-$5^{\,n-1}\equiv(-1)^{n-1}$, so
-\[
-\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
-\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
-\;=\;x-x\cdot\frac{x}{1+x}
-\;=\;\frac{x}{1+x} .
-\]
-Composing,
-\[
-\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
-\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
-\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
-\]
-Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
-So $\bar A$ satisfies \eqref{eq:fe} modulo $6$, and Corollary~\ref{cor:mod} gives
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{6}$ for every $n\ge1$.
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
 
 \begin{remark}
-The proof used nothing about $5$ beyond \eqref{eq:minus}. The same argument shows that
-for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
-its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
-the quantity $5^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
-exactly \eqref{eq:minus}.
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
 \end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
-compared against the entry's DATA at every one of the $14$ published indices; the
-values agree exactly. A recursion that reproduced only some of them would mean the
-functional equation had been transcribed wrongly.
+First, the model reproduces all $28$ terms A124707 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the same run was continued to $n=24$ and every term reduced modulo $6$; all
-$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le27$, with both sides computed from the definition and not from the theorem:
 
-Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
-independently as a formal power series over $\mathbb{Z}/6\mathbb{Z}$, coefficient by
-coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
-the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
-those orders.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{1}(14,n)$ & $T_{1}(13,n)$ & $F_{1}(n)$ \\ \hline
+1 & 14 & 13 & 1 \\
+2 & 40 & 37 & 3 \\
+3 & 92 & 85 & 7 \\
+4 & 244 & 225 & 19 \\
+5 & 644 & 593 & 51 \\
+6 & 1750 & 1609 & 141 \\
+7 & 4802 & 4409 & 393 \\
+8 & 13324 & 12217 & 1107 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A393857.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=27$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A124707}.
+\end{enumerate}
 
 \end{document}

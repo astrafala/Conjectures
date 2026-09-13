@@ -8,114 +8,153 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A208545}
+
+\title{The cross-base identity for OEIS A124701, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
-a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $5$ whose leading coefficient does not vanish, together with $5$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A124701 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The conjecture}
 
-OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
+OEIS A124701 is ``Number of base 8 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
+1, 8, 22, 50, 130, 338, 904, 2444,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1
 \end{quote}
-and separately carries the comment
-\begin{quote}\small
-a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
-\end{quote}
-As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:00:20, revision 20)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A recurrence from what is known}
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A002426}(n+1)$, the $(n+1)$st term of OEIS A002426; that sequence is the central coefficient of $(1+x+\dots+x^{2})^{n}$ and its published terms agree with $F_{1}(n)$ term by term, which is the identification used here. For this entry
+the base is $8$ and the permitted difference is $d=1$, so the claim is that
+\[
+a_{8}(n)-a_{7}(n)\;=\;F_{1}(n)
+\qquad\text{for every } n \text{ with } \lfloor n/2\rfloor+1\le8,
+\]
+that is, for $1\le n\le15$.
 
-The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
+\section{What the entry counts}
 
-\begin{equation}\label{eq:rec}
-\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
-\end{equation}
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{1}$
+at base $8$ reproduces all $26$ terms A124701 publishes, and at base $7$ all the
+terms the entry one base smaller publishes.
 
-The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
-\section{The conjectured description satisfies it}
-
-The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
-
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
-\end{lemma}
-
-\begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
-For all $n\ge 6$,
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{8}(n)-a_{7}(n)=F_{1}(n)$ for $1\le n\le15$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a generating function, and the conjectured closed form by the computation of the
-previous section. They agree at the $5$ consecutive indices beginning
-$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge6$, so
-Lemma~\ref{lem:unique} applies.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
+
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the proof above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, the model reproduces all $26$ terms A124701 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le15$, with both sides computed from the definition and not from the theorem:
 
-Third, the conjectured closed form was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{1}(8,n)$ & $T_{1}(7,n)$ & $F_{1}(n)$ \\ \hline
+1 & 8 & 7 & 1 \\
+2 & 22 & 19 & 3 \\
+3 & 50 & 43 & 7 \\
+4 & 130 & 111 & 19 \\
+5 & 338 & 287 & 51 \\
+6 & 904 & 763 & 141 \\
+7 & 2444 & 2051 & 393 \\
+8 & 6682 & 5575 & 1107 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A208545.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=15$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A124701}.
+\end{enumerate}
 
 \end{document}

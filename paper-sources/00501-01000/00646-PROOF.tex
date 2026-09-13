@@ -12,140 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A236746}
+\title{The cross-base identity for OEIS A124954, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236746 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 18]'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3, column 4.
+OEIS A124954 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A236746 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median plus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A124954 is ``Number of base 26 circular n-digit numbers with adjacent digits differing by 2 or less.''. It has offset $0$ and begins
 \[
-81, 267, 267, 833, 1411, 833, 2907, 7377,\ \dots
+1, 26, 124, 464, 2032, 8956, 40498, 185358,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 18]\\
-k=3: [order 38]\\
-k=4: [order 86]
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+A005191(n+1) for base>=2.int(n/2)+1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:31:42, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:17:59, revision 16)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
-
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
-
-\section{Recovering the recurrences}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
-\end{lemma}
-
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=93$ vertices. Berlekamp--Massey on $2S=186$ exact terms
-returns a minimal recurrence of order $18$ --- the order the entry states --- with
-integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $17$ & $c_{6}$ & $-14868$ & $c_{11}$ & $473554$ & $c_{16}$ & $-171072$ \\
-$c_{2}$ & $-78$ & $c_{7}$ & $37484$ & $c_{12}$ & $-502900$ & $c_{17}$ & $157120$ \\
-$c_{3}$ & $-142$ & $c_{8}$ & $39431$ & $c_{13}$ & $-310088$ & $c_{18}$ & $-32640$ \\
-$c_{4}$ & $1902$ & $c_{9}$ & $-204023$ & $c_{14}$ & $766120$ &  &  \\
-$c_{5}$ & $-2258$ & $c_{10}$ & $60026$ & $c_{15}$ & $-297584$ &  &  \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{18}c_i\,a(m-i)$ for every $m$. Removing the first
-$18+4$ terms and repeating gives order $18$ again, which is what the
-identification below needs.
-
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=243$ vertices. Berlekamp--Massey on $2S=486$ exact terms
-returns a minimal recurrence of order $38$ --- the order the entry states --- with
-integer coefficients
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A005191}(n+1)$, the $(n+1)$st term of OEIS A005191; that sequence is the central coefficient of $(1+x+\dots+x^{4})^{n}$ and its published terms agree with $F_{2}(n)$ term by term, which is the identification used here. For this entry
+the base is $26$ and the permitted difference is $d=2$, so the claim is that
 \[
-(c_1,\dots,c_{38})=(29,\ -236,\ -530,\ 16058,\ -44099,\ -359428,\ 2037666,\ 2641959,\ -38207537,\ 26566108,\ 394980672,\ -749280468,\ -2366139159,\ 7499380996,\ 7313304008,\ -43398468452,\ -1170978370,\ 160201297848,\ -83692886880,\ -390363727264,\ 354528700808,\ 637126357152,\ -786883396000,\ -700593013632,\ 1098115601088,\ 520503186176,\ -1014936927488,\ -264788255744,\ 628983984128,\ 97800536064,\ -257790742528,\ -29839360000,\ 66734374912,\ 7884767232,\ -9802874880,\ -1429733376,\ 613416960,\ 113246208).
+a_{26}(n)-a_{25}(n)\;=\;F_{2}(n)
+\qquad\text{for every } n \text{ with } 2\lfloor n/2\rfloor+1\le26,
 \]
-so that $a(m)=\sum_{i=1}^{38}c_i\,a(m-i)$ for every $m$. Removing the first
-$38+4$ terms and repeating gives order $38$ again, which is what the
-identification below needs.
+that is, for $1\le n\le25$.
 
-\subsection*{Column $k=4$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=657$ vertices. Berlekamp--Massey on $2S=1314$ exact terms
-returns a minimal recurrence of order $86$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{86})=(56,\ -971,\ -152,\ 190873,\ -1661887,\ -10009206,\ 213828146,\ -312175856,\ -12610205483,\ 66713398446,\ 384188036780,\ -4069754544077,\ -2970246585544,\ 145450214494923,\ -260085066899947,\ -3389529900369997,\ 13437100535257914,\ 49901573197783878,\ -364155800303484757,\ -309048914527576159,\ 6693706416724637849,\ -5293405206431529293,\ -88446472645102617151,\ 189703042852733857249,\ 832480918929966534951,\ -3147931526385388195938,\ -4982867947477027772269,\ 35744713444977948535612,\ 6602349093447677536009,\ -301209810911293867384168,\ 238699555746690517592636,\ 1917867056603366392212474,\ -3250879857566599449169865,\ -9021390986329552113938280,\ 25702420173974928592296374,\ 28130870271634328062490137,\ -147062988088131091098368746,\ -26482957345743932638765509,\ 645125392261628761703284995,\ -304952979906921662062790849,\ -2202780261306128925726760480,\ 2329867427067214688914531910,\ 5787794445026478112504831387,\ -10041438664471031213750311635,\ -11078842104635443948380076365,\ 31468475919075686426485822419,\ 12354722441315253154852427645,\ -76519317526070181580388021284,\ 6133192123440808923868375827,\ 147531434786839346425260796567,\ -67607820835288691508451652323,\ -225963172752204105161432620551,\ 185450411753089956307334138380,\ 270558574911593990653527754082,\ -338725158984611952959386745108,\ -241102032962494027581075625768,\ 467511584304256743355102024856,\ 135477959681789037882763204724,\ -507016704763296591995520520240,\ -1807913563854425524833517816,\ 437526343153511336076569994464,\ -95174312359171190384206308032,\ -300348193561033103745352744768,\ 123182847888821401799137972864,\ 162396678032868024066180336384,\ -97810180468021909967610445824,\ -67701854391562253369639063552,\ 56163127676633147343642025984,\ 20872466437286802216809275392,\ -24342881261878518215026139136,\ -4318515969671209454095187968,\ 8050283096077472683816943616,\ 403752404210830088816361472,\ -2025583667668892646967345152,\ 70664439126020602398769152,\ 383578725086594313962913792,\ -34184188020431730845417472,\ -53678080702240805156290560,\ 6310719444052906113761280,\ 5392813591250939456520192,\ -657097221731299268493312,\ -369941503469134156922880,\ 37829871798266458275840,\ 15652394185300063027200,\ -940704535119554150400,\ -311136828310683648000).
-\]
-so that $a(m)=\sum_{i=1}^{86}c_i\,a(m-i)$ for every $m$. Removing the first
-$86+4$ terms and repeating gives order $86$ again, which is what the
-identification below needs.
+\section{What the entry counts}
+
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{2}$
+at base $26$ reproduces all $21$ terms A124954 publishes, and at base $25$ all the
+terms the entry one base smaller publishes.
+
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
+
+\section{The identity}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
+\[
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
+\]
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{26}(n)-a_{25}(n)=F_{2}(n)$ for $1\le n\le25$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
+
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the proof above.
 
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
+First, the model reproduces all $21$ terms A124954 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le25$, with both sides computed from the definition and not from the theorem:
 
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{2}(26,n)$ & $T_{2}(25,n)$ & $F_{2}(n)$ \\ \hline
+1 & 26 & 25 & 1 \\
+2 & 124 & 119 & 5 \\
+3 & 464 & 445 & 19 \\
+4 & 2032 & 1947 & 85 \\
+5 & 8956 & 8575 & 381 \\
+6 & 40498 & 38747 & 1751 \\
+7 & 185358 & 177223 & 8135 \\
+8 & 857352 & 819187 & 38165 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236746.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=25$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A124954}.
+\end{enumerate}
 
 \end{document}

@@ -12,191 +12,197 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A279974, proved by counting patterns with a budget}
+\title{The reduction of OEIS A396797 modulo $6$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A279974 imposes three things at once: a condition on each cell that reaches one row up and
-one row down; a global budget allowing exactly two cells to
-break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
-says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over rows. All three are handled: the state is a pair of consecutive rows
-together with the number of offending cells so far, capped at the budget; and the
-canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $38$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=3075$ states.
+OEIS A396797 is defined by a functional equation for its ordinary generating function and
+carries a congruence conjectures of P.~D.~Hanna. It is true. The equation determines the
+coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
+them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$ satisfies the equation
+exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
+denominators collapses. Uniqueness then identifies the reduction, which is the conjectures.
+The whole argument is an identity between rational functions over
+$\mathbb{Z}/6\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A279974 is ``Number of nX5 0..1 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A396797 is ``G.f. satisfies A(x) = x + A\^{}3(x)*A\^{}4(x).''. It has offset $1$ and begins
 \[
-3, 62, 822, 10491, 124030, 1393359, 15071233, 158391708,\ \dots
+1, 1, 7, 79, 1135, 18985,\ \dots
 \]
-The entry carries the following comment:
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A(x)\;=\;x+A^{3}(x)\,A^{4}(x) .
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comments:
 \begin{quote}\small
-Empirical: a(n) = 53*a(n-1) -1291*a(n-2) +19418*a(n-3) -204835*a(n-4) +1632329*a(n-5) -10324115*a(n-6) +53654890*a(n-7) -234937934*a(n-8) +882771616*a(n-9) -2885212091*a(n-10) +8285140483*a(n-11) -21058509124*a(n-12) +47630930849*a(n-13) -96230469370*a(n-14) +174085724937*a(n-15) -282388861308*a(n-16) +410961960219*a(n-17) -536498538568*a(n-18) +627876381653*a(n-19) -658110830698*a(n-20) +617080503289*a(n-21) -516968320637*a(n-22) +386461849324*a(n-23) -257438979196*a(n-24) +152574757688*a(n-25) -80292463252*a(n-26) +37420429652*a(n-27) -15389322205*a(n-28) +5557085609*a(n-29) -1749901992*a(n-30) +476005587*a(n-31) -110393019*a(n-32) +21427460*a(n-33) -3388972*a(n-34) +419408*a(n-35) -38032*a(n-36) +2240*a(n-37) -64*a(n-38) for n>39
+Conjecture: a(n) = 1 (mod 6) for n >= 1.
+
+Conjecture: [x\^{}n] A\^{}k(x) == k\^{}(n-1) (mod 6) for n >= 1 and all integer k. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 24 2016 08:32:15, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 17 2026 00:54:04, revision 22) they are
+still recorded as conjectures, and nothing on the entry records
+them as settled either way. 
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;53\,a(n-1) - 1291\,a(n-2) + 19418\,a(n-3) - 204835\,a(n-4) + 1632329\,a(n-5) - 10324115\,a(n-6) + 53654890\,a(n-7) - 234937934\,a(n-8) + 882771616\,a(n-9) - 2885212091\,a(n-10) + 8285140483\,a(n-11) - 21058509124\,a(n-12) + 47630930849\,a(n-13) - 96230469370\,a(n-14) + 174085724937\,a(n-15) - 282388861308\,a(n-16) + 410961960219\,a(n-17) - 536498538568\,a(n-18) + 627876381653\,a(n-19) - 658110830698\,a(n-20) + 617080503289\,a(n-21) - 516968320637\,a(n-22) + 386461849324\,a(n-23) - 257438979196\,a(n-24) + 152574757688\,a(n-25) - 80292463252\,a(n-26) + 37420429652\,a(n-27) - 15389322205\,a(n-28) + 5557085609\,a(n-29) - 1749901992\,a(n-30) + 476005587\,a(n-31) - 110393019\,a(n-32) + 21427460\,a(n-33) - 3388972\,a(n-34) + 419408\,a(n-35) - 38032\,a(n-36) + 2240\,a(n-37) - 64\,a(n-38)
-\end{equation}
-for all $n>39$.
+\section{The equation determines the sequence}
 
-\section{The condition, the budget, and the canonical form}
-
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. With the neighbour offsets
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
+$N\ge1$,
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\}
-\]
-as (row shift, column shift), counting only positions inside the array, call a cell
-$(t,u)$ \emph{offending} when
-\[
-2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
-\]
-The entry asks for arrays in which exactly $E=2$ cells offend.
-
-Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
-$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
-enough; and the number of offending cells is a property of the whole array, so no bounded
-window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive rows together with a running count $v\in\{0,1,\dots,2\}$, and a count that
-would exceed $2$ is simply not represented --- an array that passes it can never come back
-under it.
-
-The condition is stated in equalities between entries, so it is invariant under relabelling
-the values, and so is the number of offending cells. The clause ``new values introduced in
-order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
-
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $2$ offending
-cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
-\[
-2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
 \]
 \end{lemma}
 
 \begin{proof}
-A labelled array is a pattern together with an injection of its classes into the alphabet,
-and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
-identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
-order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
-$\binom{2}{i}D_{2-i}$, an integer.
+Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
+and
+\[
+\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+\]
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
+contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
+to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
+$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
 \end{proof}
 
-\section{Each $L_i$ is a walk count}
-
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{5}$, and take the triples $(p,c,v)$ with
-$p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
-absent, in which case the corresponding neighbours simply do not exist). Declare
-\[
-(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
-\]
-an edge whenever the new count is at most $2$. Let $\mathbf{s}_i$ mark the vertices with
-$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
-$v+\mathrm{viol}(c\mid p,\text{--})=2$.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
-adjacency matrix of that digraph.
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
 \end{lemma}
 
 \begin{proof}
-Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
-of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
-judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
-$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
-offending cells among the rows judged so far, and the walk exists exactly when that total
-never exceeds $2$; since the total only grows, that is implied by the final value being
-$2$, which $\mathbf{e}_i$ imposes.
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
+coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
+Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,3}A^{\,4}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,3}A^{\,4}\bigr)$ is a product of one coefficient of $A^{\,3}$ and one of $A^{\,4}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
+Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
+$\mathbb{Z}$, and induction gives existence and uniqueness.
 \end{proof}
 
-Assembling the $2$ chains block-diagonally into $N$ of size $S=3075$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
-\end{equation}
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\end{corollary}
 
-\section{The criterion, and the computation}
+\begin{proof}
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
+a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+\end{proof}
 
-Let $q(t)=t^{38}-\sum_i c_i\,t^{38-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The reduction modulo $6$}
 
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge38$
-\[
-2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-38}w,
-\qquad w=h_{38}-\sum_i c_i h_{38-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/6\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
+$j$, where $f^{-1}$ denotes the compositional inverse.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
+For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
+\[
+f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
+=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
+=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
+\]
+The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
+composition, which also gives the statement for $j\le0$; in particular
+$f^{-1}(x)=x/(1+x)$.
 \end{proof}
 
-\begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>39$, which is the statement of
-Section~1.
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/6\mathbb{Z}$, $f$ satisfies $f=x+f^{\,3}f^{\,4}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{\,3}f^{\,4}
+=\dfrac{x^{2}}{(1-3x)\bigl(1-4x\bigr)}$, while
+$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
+$(1-3x)(1-4x)$ and $1-x$ agree in $(\mathbb{Z}/6\mathbb{Z})[x]$. Expanding,
+\[
+(1-3x)\bigl(1-4x\bigr)=1-7x+12x^{2} ,
+\]
+and modulo $6$ we have $7\equiv1$ and $12\equiv0$. Hence both sides equal
+$1-x$, and the two rational functions agree.
+\end{proof}
+
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/6\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
+$a(n)\equiv1\pmod{6}$ for every $n\ge1$, and more generally
+\[
+\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{6}
+\]
+for every $n\ge1$ and every integer $j$. This is the conjectures of Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$38$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=39+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
+By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
+$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
+
+Reduction modulo $6$ carries composition of power series with unit linear coefficient to
+composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
+because $A$ has linear coefficient $1$, hence is invertible under composition, and the
+reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
+$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
 \end{proof}
+
+\begin{remark}
+The proof used only that $(1-3x)(1-4x)\equiv1-x$ modulo $6$, that is, that
+$6$ divides both $2\cdot3$ and $3\cdot4$. The largest modulus with that property
+is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
+$p=3$ gives $6$. This is exactly why the statement is made modulo $6$ and not modulo
+a larger number.
+\end{remark}
+
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $17$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being
-$L=n$ from the entry's own name and the offset saying which index the first published
-term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
-Lemma~\ref{lem:inv} would change the counts and be rejected here.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $21$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
+continued to $n=24$ and every term reduced modulo $6$; all residues are
+$1$.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the composition of the proof was carried out independently as a formal power series
+over $\mathbb{Z}/6\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
+iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A279974.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A396797.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

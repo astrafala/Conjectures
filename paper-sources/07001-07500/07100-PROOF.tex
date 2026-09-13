@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258888, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A256765, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258888 counts arrays of width $4$ over $\{0,1\}$ in which every $3\times3$ window has
+OEIS A256765 counts arrays of width $4$ over $\{0,1\}$ in which every $3\times3$ window has
 constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
-empirical recurrence of order $24$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $27$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
 so the count is a walk count on $S=273$ states.
 \end{abstract}
@@ -30,15 +30,15 @@ so the count is a walk count on $S=273$ states.
 
 \section{The conjecture}
 
-OEIS A258888 is ``Number of (n+2)X(2+2) 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum or central row sum less than the central column sum.''. It has offset $1$ and begins
+OEIS A256765 is ``Number of (n+2)X(2+2) 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum.''. It has offset $1$ and begins
 \[
-900, 2304, 4489, 10680, 23409, 51188, 104329, 216395,\ \dots
+1936, 14641, 81796, 456976, 2196324, 10556001, 46785600, 207360000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +4*a(n-2) -8*a(n-3) -2*a(n-5) -14*a(n-6) +34*a(n-7) +8*a(n-8) -8*a(n-9) +16*a(n-10) -58*a(n-11) -16*a(n-12) +14*a(n-13) -4*a(n-14) +48*a(n-15) +16*a(n-16) -6*a(n-17) -2*a(n-18) -18*a(n-19) -8*a(n-20) +2*a(n-23) +a(n-24) for n>27
+Empirical: a(n) = 6*a(n-1) +30*a(n-2) -230*a(n-3) -312*a(n-4) +3822*a(n-5) +534*a(n-6) -36354*a(n-7) +17505*a(n-8) +220020*a(n-9) -193524*a(n-10) -889056*a(n-11) +1056104*a(n-12) +2438976*a(n-13) -3613728*a(n-14) -4492832*a(n-15) +8271888*a(n-16) +5259072*a(n-17) -12868032*a(n-18) -3211008*a(n-19) +13425408*a(n-20) -181248*a(n-21) -8979456*a(n-22) +1806336*a(n-23) +3473408*a(n-24) -1179648*a(n-25) -589824*a(n-26) +262144*a(n-27)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:31:52, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 15:14:05, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,7 +49,6 @@ of consecutive cells lying inside the array. Every window must satisfy
 \begin{array}{ll}
 \text{the sum along} & \text{} \\[2pt]
 \text{the main diagonal} & \text{must NOT be less than the sum along the antidiagonal} \\
-\text{the central row} & \text{must NOT be less than the sum along the central column} \\
 \end{array}
 \]
 where the main diagonal of a window runs from its top left corner to its bottom right, and its
@@ -80,7 +79,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{24}-\sum_i c_it^{24-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{27}-\sum_i c_it^{27-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,7 +87,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+24}-\sum_ic_iM^{j+24-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+27}-\sum_ic_iM^{j+27-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,15 +96,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 4\,a(n-2) - 8\,a(n-3) - 2\,a(n-5) - 14\,a(n-6) + 34\,a(n-7) + 8\,a(n-8) - 8\,a(n-9) + 16\,a(n-10) - 58\,a(n-11) - 16\,a(n-12) + 14\,a(n-13) - 4\,a(n-14) + 48\,a(n-15) + 16\,a(n-16) - 6\,a(n-17) - 2\,a(n-18) - 18\,a(n-19) - 8\,a(n-20) + 2\,a(n-23) + a(n-24)
+a(n)\;=\;6\,a(n-1) + 30\,a(n-2) - 230\,a(n-3) - 312\,a(n-4) + 3822\,a(n-5) + 534\,a(n-6) - 36354\,a(n-7) + 17505\,a(n-8) + 220020\,a(n-9) - 193524\,a(n-10) - 889056\,a(n-11) + 1056104\,a(n-12) + 2438976\,a(n-13) - 3613728\,a(n-14) - 4492832\,a(n-15) + 8271888\,a(n-16) + 5259072\,a(n-17) - 12868032\,a(n-18) - 3211008\,a(n-19) + 13425408\,a(n-20) - 181248\,a(n-21) - 8979456\,a(n-22) + 1806336\,a(n-23) + 3473408\,a(n-24) - 1179648\,a(n-25) - 589824\,a(n-26) + 262144\,a(n-27)
 \]
-for every $n>27$.
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $27$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -113,7 +112,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -129,7 +128,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258888.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A256765.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

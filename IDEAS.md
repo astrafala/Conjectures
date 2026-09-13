@@ -527,3 +527,44 @@ trunk-and-branch argument of Goodman-Strauss and Sloane, or an Ehrhart count on 
 polytope). Nothing here can start until the Galebach tilings are reconstructed as graphs. Noted
 because it is by far the largest cluster left and because its size should not be mistaken for
 its difficulty in either direction.
+
+## P. What a claim that is NOT a recurrence looks like, and how much of it there is
+
+The circular-digit family taught this and it is the most transferable thing found on
+13 September. 229 entries, and only 10 of them carry a conjectured recurrence: every sweep in
+this project reported the other 219 as "no parsable recurrence" and moved on. What they carry is
+
+    [Empirical] a(base,n) = a(base-1,n) + F(5) for base >= 5*int(n/2)+1
+
+— a claim relating one entry to ANOTHER entry, in a parameter that is not n. `ratrec` cannot
+parse it because it is not a recurrence; nothing else looked. It took four lines to prove.
+
+So the question worth asking of the whole clone is: **how many entries carry a conjecture that
+no sweep here can even read as a claim?** Not "carry no conjecture" — carry one of a shape no
+parser has. Kinds seen so far in passing, none of them swept:
+
+  * cross-parameter identities: a(k,n) = a(k-1,n) + <something>(n), a(n) = T(n,k) of a table
+  * claims about a DIFFERENT sequence: "a(n) is the number of ... in A012345"
+  * asymptotics and limits: "a(n) ~ c * r^n", "lim a(n)/a(n-1) = ..."
+  * divisibility and congruence claims that name no modulus pattern
+  * claims about the positions of terms: "a(n) is prime only for n = ...", "a(n) = 0 iff ..."
+  * claims stated as a program or a construction rather than a formula
+
+The measurement to make: for every entry outside the roster, take `conjlines.lines(e)`, ask
+`ratrec` and the g.f. parser, and BUCKET WHAT IS LEFT by shape. The 219 above were one bucket
+and they were invisible for the whole life of the project.
+
+## Q. Two clusters measured and left, 13 September evening
+
+* **"all 2 X 2 subblocks having the same four values"**, 15 usable entries (plus 2 tables).
+  The structure is rigid and worth writing down before coding: for consecutive 2 X 2 blocks in a
+  row-pair the shared column forces the column MULTISETS m_j to satisfy m_j + m_{j+1} = V for
+  the common four-value multiset V, so they alternate between m and V - m. Given V, an
+  alternation pattern and the top row, the bottom row is DETERMINED cell by cell. That makes the
+  row digraph tiny and the enumeration trivial; the divisor in the name is (alphabet size)^2.
+
+* **the k-TURN tours**, 7 entries plus tables. `boardwalk` does not apply: a tour with k turns
+  has straight segments of unbounded length, so the shape set is infinite. The right model is a
+  lattice-point count -- choose the alternating direction sequence, then the segment lengths
+  live in a polytope depending on n -- which is `latpoly`'s shape, with self-avoidance handled
+  by inclusion-exclusion over crossing patterns. Not attempted.

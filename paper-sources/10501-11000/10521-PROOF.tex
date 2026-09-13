@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220611, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220705, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220611 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
+OEIS A220705 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
 itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
+empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
 no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
 has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=10$ of them, and the conjectured recurrence is then
+state, the count is a walk count on $S=6$ of them, and the conjectured recurrence is then
 settled by a finite exact computation.
 \end{abstract}
 
@@ -33,15 +33,15 @@ settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220611 is ``Number of ways to reciprocally link elements of an n X 5 array either to themselves or to exactly two horizontal and vertical neighbors, without consecutive collinear links.''. It has offset $1$ and begins
+OEIS A220705 is ``Number of ways to reciprocally link elements of an n X 5 array either to themselves or to exactly two horizontal and antidiagonal neighbors, without consecutive collinear links.''. It has offset $1$ and begins
 \[
-1, 8, 21, 95, 324, 1277, 4673, 17768,\ \dots
+1, 5, 12, 37, 107, 317, 932, 2749,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 6*a(n-2) - 11*a(n-3) - 5*a(n-4) + 6*a(n-5).
+Empirical: a(n) = 2*a(n-1) + 3*a(n-2) - a(n-4) - 2*a(n-5) - a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 01 2018 14:29:44, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Aug 02 2018 06:49:16, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,7 +50,7 @@ A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. 
 of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
 itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
 and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
 graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
@@ -80,7 +80,7 @@ condition on the pair of links at a cell, is settled there and never revisited.
 
 Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
 takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=10$ reachable
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=6$ reachable
 states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -92,7 +92,7 @@ checked against its published terms rather than assumed.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -100,7 +100,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -109,15 +109,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 6\,a(n-2) - 11\,a(n-3) - 5\,a(n-4) + 6\,a(n-5)
+a(n)\;=\;2\,a(n-1) + 3\,a(n-2) - a(n-4) - 2\,a(n-5) - a(n-6)
 \]
-for every $n>4$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -125,7 +125,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220611.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220705.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,

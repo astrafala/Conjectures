@@ -35,7 +35,9 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             'gfonly_hits*.json',
             # the unified sweep's own file. install_vein has always read it directly, so the
             # live re-check -- which reads THIS list -- never saw its results at all.
-            'uniall_hits.json'):
+            'uniall_hits.json',
+            # the cross-base identity on the circular-digit family: its own vein, its own file
+            'circbase_hits.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:

@@ -12,206 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every odd-indexed term of OEIS A389472 after the first is even}
+\title{The cross-base identity for OEIS A124705, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A389472 is defined by the functional equation $A(x)=A(x^{2}+x^{3})/x^{2}-1$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that $a(2n-1)$ is
-even for every $n>1$. It is true. The equation determines the coefficients one at a time,
-so it determines them modulo $2$; and over $\mathbb{F}_{2}$ it turns out to be
-\emph{parity-preserving}: the series $x+C(x^{2})$ satisfies it exactly, for $C$ the
-solution of the companion equation $y\,C(y)=C(y^{2}+y^{3})$, because
-$(x^{2}+x^{3})^{2}=x^{4}+x^{6}$ in characteristic $2$. Uniqueness then forces the
-reduction of $A$ to be supported, apart from the term $x$, on even exponents only --- which
-is the conjecture. The entry's second conjecture, modulo $3$, is \emph{not} settled here;
-Section~5 says where the argument fails to carry over.
+OEIS A124705 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F35.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A389472 is ``G.f. satisfies A(x) = A(x\^{}2 + x\^{}3)/x\^{}2 - 1.''. It has offset $1$ and begins
+OEIS A124705 is ``Number of base 12 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
 \[
-1, 1, 2, 3, 6, 9, 14, 24, 42, 72,\ \dots
+1, 12, 34, 78, 206, 542, 1468, 4016,\ \dots
 \]
-The entry gives the expansion
-\begin{quote}\small
-G.f.: A(x) = x + x\^{}2 + 2*x\^{}3 + 3*x\^{}4 + 6*x\^{}5 + 9*x\^{}6 + 14*x\^{}7 + 24*x\^{}8 + \dots
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1.
 \end{quote}
-so, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry fixes
-\begin{equation}\label{eq:init}
-a(1)=1,\qquad a(2)=1,
-\end{equation}
-and defines the remaining coefficients by $A(x)=A(x^{2}+x^{3})/x^{2}-1$, which we clear
-of the division and write as
-\begin{equation}\label{eq:fe}
-x^{2}\bigl(A(x)+1\bigr)\;=\;A\bigl(x^{2}+x^{3}\bigr).
-\end{equation}
-This is the only input taken from the entry.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:00:41, revision 22)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-Conjecture: a(2*n-1) = 0 (mod 2) for n > 1. --- \emph{Paul D. Hanna}
-\end{quote}
-As of the ``Last modified'' line on the live entry (Oct 17 2025 00:08:59, revision 7) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
-The entry carries a second conjecture of the same contributor, that $a(3n-1)\equiv0$
-modulo $3$ for $n>1$. It is not proved below and it is not claimed.
-
-\section{The equation determines the sequence}
-
-Because $(x^{2}+x^{3})^{n}=x^{2n}(1+x)^{n}$, comparing coefficients of $x^{N}$ in
-\eqref{eq:fe} gives, for every $N\ge2$,
-\begin{equation}\label{eq:rec}
-a(N-2)\;=\;\sum_{n\ge1}a(n)\binom{n}{N-2n},
-\end{equation}
-with $a(0):=0$ and the convention $\binom{n}{j}=0$ unless $0\le j\le n$.
-
-\begin{lemma}\label{lem:unique}
-The coefficient $a(1)=1$ is forced by \eqref{eq:fe}. Given also $a(2)$, equation
-\eqref{eq:rec} determines $a(m)$ for every $m\ge3$ as a polynomial with integer
-coefficients in $a(1),\dots,a(m-1)$; so \eqref{eq:init} and \eqref{eq:fe} together have
-exactly one integer solution.
-\end{lemma}
-
-\begin{proof}
-At $N=2$, \eqref{eq:rec} reads $a(0)=a(1)\binom{1}{0}$ --- reading the left side of
-\eqref{eq:fe} instead, the coefficient of $x^{2}$ there is $1$, so $a(1)=1$.
-
-Now take $N\ge5$ and put $m=N-2\ge3$. On the right of \eqref{eq:rec} the binomial
-$\binom{n}{N-2n}$ vanishes unless $2n\le N$, so only $a(n)$ with
-$n\le\lfloor N/2\rfloor$ occur. Since $N\ge5$,
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A002426}(n+1)$, the $(n+1)$st term of OEIS A002426; that sequence is the central coefficient of $(1+x+\dots+x^{2})^{n}$ and its published terms agree with $F_{1}(n)$ term by term, which is the identification used here. For this entry
+the base is $12$ and the permitted difference is $d=1$, so the claim is that
 \[
-\Bigl\lfloor \tfrac{N}{2}\Bigr\rfloor\;\le\;N-3\;=\;m-1,
+a_{12}(n)-a_{11}(n)\;=\;F_{1}(n)
+\qquad\text{for every } n \text{ with } \lfloor n/2\rfloor+1\le12,
 \]
-so the right side involves only $a(1),\dots,a(m-1)$ and \eqref{eq:rec} expresses $a(m)$
-through them. (At $N=3$ and $N=4$ the relation reads $a(1)=a(1)$ and $a(2)=a(2)$, giving no
-information; that is why $a(2)$ is part of the data.) Induction finishes the proof.
-\end{proof}
+that is, for $1\le n\le23$.
 
-\begin{corollary}\label{cor:mod}
-Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$, no constant term, and satisfies
-\eqref{eq:fe} with all coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
-\end{corollary}
+\section{What the entry counts}
 
-\begin{proof}
-Reduction modulo $k$ is a ring homomorphism, so it carries \eqref{eq:rec} to the same
-relation over $\mathbb{Z}/k\mathbb{Z}$; by Lemma~\ref{lem:unique} that relation, together
-with the two initial values, has a unique solution, and both $a\bmod k$ and the
-coefficients of $\bar A$ solve it.
-\end{proof}
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{1}$
+at base $12$ reproduces all $26$ terms A124705 publishes, and at base $11$ all the
+terms the entry one base smaller publishes.
 
-\section{The companion equation}
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
-Work in $\mathbb{F}_{2}[[y]]$.
-
-\begin{lemma}\label{lem:C}
-There is exactly one $C(y)=\sum_{m\ge1}c_m y^{m}\in\mathbb{F}_{2}[[y]]$ with $c_1=1$ and
-\begin{equation}\label{eq:C}
-y\,C(y)\;=\;C\bigl(y^{2}+y^{3}\bigr).
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-Comparing coefficients of $y^{m}$ in \eqref{eq:C} and using
-$(y^{2}+y^{3})^{n}=y^{2n}(1+y)^{n}$ gives
-$c_{m-1}=\sum_{n\ge1}c_n\binom{n}{m-2n}$, where again only $n\le\lfloor m/2\rfloor$
-occur. For $m\ge3$ we have $\lfloor m/2\rfloor\le m-2$, so this expresses $c_{m-1}$
-through $c_1,\dots,c_{m-2}$; at $m=2$ it reads $c_1=c_1$. Hence $c_1$ may be prescribed
-and everything after it is determined.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Let $C$ be as in Lemma~\ref{lem:C} and put $\bar A(x)=x+C(x^{2})$. Then $\bar A$ satisfies
-\eqref{eq:fe} over $\mathbb{F}_{2}$, and $\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$.
-\end{lemma}
-
-\begin{proof}
-In characteristic $2$ squaring is additive, so
-\begin{equation}\label{eq:frob}
-\bigl(x^{2}+x^{3}\bigr)^{2}\;=\;x^{4}+x^{6} .
-\end{equation}
-Substituting $u=x^{2}+x^{3}$ into $\bar A(u)=u+C(u^{2})$ and using \eqref{eq:frob},
-\[
-\bar A\bigl(x^{2}+x^{3}\bigr)\;=\;x^{2}+x^{3}+C\bigl(x^{4}+x^{6}\bigr),
-\]
-while
-\[
-x^{2}\bigl(\bar A(x)+1\bigr)\;=\;x^{2}\bigl(x+C(x^{2})+1\bigr)
-\;=\;x^{2}+x^{3}+x^{2}C\bigl(x^{2}\bigr).
-\]
-The two agree exactly when $x^{2}C(x^{2})=C(x^{4}+x^{6})$, which is \eqref{eq:C} read
-at $y=x^{2}$. Finally $\bigl[x^{1}\bigr]\bar A=1$ and
-$\bigl[x^{2}\bigr]\bar A=c_1=1$.
-\end{proof}
-
-\section{The reduction modulo $2$}
+\section{The identity}
 
 \begin{theorem}
-$a(2n-1)\equiv0\pmod 2$ for every $n>1$. This is the conjecture of Section~1.
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
+\[
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
+\]
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{12}(n)-a_{11}(n)=F_{1}(n)$ for $1\le n\le23$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat} the series $\bar A(x)=x+C(x^{2})$ satisfies \eqref{eq:fe} over
-$\mathbb{F}_{2}$ and matches \eqref{eq:init}. By Corollary~\ref{cor:mod} with $k=2$ it is
-therefore the reduction of $A$ modulo $2$.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
 
-Every exponent occurring in $C(x^{2})$ is even, so the only odd exponent occurring in
-$\bar A$ is $1$. Hence $\bigl[x^{m}\bigr]\bar A=0$ for every odd $m\ge3$, that is,
-$a(m)\equiv0\pmod2$ for every odd $m\ge3$. Writing $m=2n-1$ with $n>1$ gives the statement.
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
 
 \begin{remark}
-The mechanism is worth isolating: \eqref{eq:fe} substitutes $x^{2}+x^{3}$, and in
-characteristic $2$ the square of that is again a polynomial in $x^{2}$, by \eqref{eq:frob}.
-So the substitution cannot manufacture new odd exponents beyond the ones already present,
-and the single odd exponent $1$ forced by $a(1)=1$ is all there is.
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
 \end{remark}
-
-\section{Where the argument stops}
-
-The entry's other conjecture is that $a(3n-1)\equiv0$ modulo $3$ for $n>1$, that is, that
-the reduction of $A$ modulo $3$ is supported off the exponents $\equiv2\pmod 3$ apart from
-$x^{2}$ itself. That is not proved here, and the proof above does not adapt: it turns on
-the Frobenius identity \eqref{eq:frob}, which in characteristic $3$ becomes
-$(x^{2}+x^{3})^{3}=x^{6}+x^{9}$ --- but \eqref{eq:fe} substitutes the \emph{first}
-power of $x^{2}+x^{3}$, not the third, so the Frobenius map is not available where it
-would be needed. The residues modulo $3$ were computed for every $n\le60$ and the
-conjecture holds throughout that range; no proof is offered.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic from
-\eqref{eq:init} and compared against the entry's DATA at every one of the $41$
-published indices; the values agree exactly. A recursion that reproduced only some of them
-would mean the functional equation had been transcribed wrongly.
+First, the model reproduces all $26$ terms A124705 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the series $C$ of Lemma~\ref{lem:C} was generated from its own recursion over
-$\mathbb{F}_{2}$ and $x+C(x^{2})$ compared, coefficient by coefficient, against
-$a(n)\bmod2$ for every $n\le60$; the two agree at every index, with no mismatch. Equation
-\eqref{eq:C} was checked directly over $\mathbb{F}_{2}$ to order $60$.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le23$, with both sides computed from the definition and not from the theorem:
 
-Third, $a(2n-1)\bmod2$ was evaluated for every $n$ with $2n-1\le60$: all zero, as the
-theorem requires.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{1}(12,n)$ & $T_{1}(11,n)$ & $F_{1}(n)$ \\ \hline
+1 & 12 & 11 & 1 \\
+2 & 34 & 31 & 3 \\
+3 & 78 & 71 & 7 \\
+4 & 206 & 187 & 19 \\
+5 & 542 & 491 & 51 \\
+6 & 1468 & 1327 & 141 \\
+7 & 4016 & 3623 & 393 \\
+8 & 11110 & 10003 & 1107 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A389472.
-\bibitem{lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
-University Press, 1997.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=23$.
+
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A124705}.
+\end{enumerate}
 
 \end{document}

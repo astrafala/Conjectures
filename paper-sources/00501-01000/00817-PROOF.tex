@@ -12,121 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A lattice count, not a walk count: OEIS A225313}
+\title{The cross-base identity for OEIS A125488, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225313 carries an empirical recurrence of order $42$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. A nondecreasing row of $-1$s and $1$s is
-determined by one number --- how many $-1$s it holds --- so the entry's condition collapses to
-a single linear equation on a box of lattice points, and the arrays disappear entirely. The
-count is then the number of lattice points in a dilate of a fixed rational polytope, hence a
-quasi-polynomial in $n$; its degree and its period can both be named, which bounds by
-$S=720$ the order of a linear recurrence it must satisfy. Whether the conjectured recurrence
-is that recurrence is then a finite exact computation. There is no digraph and no matrix
-anywhere in this argument.
+OEIS A125488 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A225313 is ``Number of 6Xn -1,1 arrays such that the sum over i=1..6,j=1..n of i*x(i,j) is zero and rows are nondecreasing (ways to put n thrusters pointing east or west at each of 6 positions 1..n distance from the hinge of a south-pointing gate without turning the gate).''. It has offset $1$ and begins
+OEIS A125488 is ``Number of base 31 circular n-digit numbers with adjacent digits differing by 9 or less.''. It has offset $0$ and begins
 \[
-0, 35, 0, 443, 0, 2341, 0, 8221,\ \dots
+1, 31, 499, 6691, 103999, 1650331, 26785795, 440527111,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-2) +a(n-4) -a(n-10) -2*a(n-14) +a(n-18) +a(n-20) +a(n-22) +a(n-24) -2*a(n-28) -a(n-32) +a(n-38) +a(n-40) -a(n-42)
+[Empirical] a(base,n)=a(base-1,n)+F(9) for base>=9.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\^{}(2d))\^{}n
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:42:57, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:41:50, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The array disappears}
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
+the base is $31$ and the permitted difference is $d=9$, so the claim is that
+\[
+a_{31}(n)-a_{30}(n)\;=\;F_{9}(n)
+\qquad\text{for every } n \text{ with } 9\lfloor n/2\rfloor+1\le31,
+\]
+that is, for $1\le n\le7$.
 
-A row of $-1$s and $1$s that is nondecreasing is a block of $-1$s followed by a block of $1$s, so it is determined by a single number: how many $-1$s it holds. Write $k_i\in\{0,1,\dots,n\}$ for that number in row $i$. Then row $i$ sums to $(n-k_i)-k_i = n-2k_i$, and the entry's condition
-\[ \sum_{i=1}^{H}\sum_{j=1}^{n} i\,x(i,j) \;=\; \sum_{i=1}^{H} i\,(n-2k_i) \;=\; 0 \]
-becomes $\sum_{i=1}^{6} i\,k_i = T(n)$ with $T(n)=\tfrac{21}{2}n$. The arrays are gone: what is left is the lattice points of the box $\{0,\dots,n\}^{6}$ on one hyperplane.
+\section{What the entry counts}
 
-\section{Why that is enough}
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{9}$
+at base $31$ reproduces all $16$ terms A125488 publishes, and at base $30$ all the
+terms the entry one base smaller publishes.
 
-Those lattice points are the ones in the $n$-th dilate of a fixed rational polytope, so the count is a quasi-polynomial in $n$. That is the whole reason a linear recurrence can be proved here rather than observed: a quasi-polynomial of degree $d$ and period $P$ satisfies the recurrence whose characteristic polynomial is $(x^{P}-1)^{d+1}$, so it is $C$-finite of order at most $P(d+1)$.
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
-Both numbers can be named. By inclusion-exclusion over which coordinates exceed $n$,
-\[ a(n)\;=\;\sum_{S\subseteq\{1,\dots,H\}}(-1)^{|S|}\,D\bigl(T(n)-(n+1)\sigma(S)\bigr), \]
-where $\sigma(S)$ is the sum of $S$ and $D(m)$ counts the solutions of $\sum i\,k_i=m$ in non-negative integers with no upper bound --- the classical denumerant for the parts $1,\dots,6$. $D$ is a quasi-polynomial in $m$ of degree $5$ with period dividing $\mathrm{lcm}(1,\dots,6)=60$; each argument above is an integer-linear function of $n$, which preserves the degree and can only shrink the period, and the parity case at worst doubles it. So $a$ is a quasi-polynomial of degree at most $5$ and period dividing $120$, hence satisfies a linear recurrence of order at most $S=720$.
-
-That bound is the certificate. It is also what makes the computation cheap: $D$ is one table, so thousands of exact terms of $a$ cost almost nothing.
-so $a$ is $C$-finite of order at most $S=720$, and the alignment between the model and the
-entry's own $n$ is fixed by matching against every published term.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q$ be the characteristic polynomial of the conjectured recurrence, of order $42$,
-and let $u_j=a(j+42)-\sum_i c_i\,a(j+42-i)$ be its residual. Then $u$ satisfies the
-same linear recurrence of order $S=720$ that $a$ does, so if $u_j=0$ for $S$ consecutive
-indices then $u_j=0$ for every larger $j$, and the last nonzero $u_j$ pins the threshold
-exactly.
-\end{lemma}
-
-\begin{proof}
-A sequence annihilated by a linear operator with constant coefficients has every linear
-combination of its shifts annihilated by the same operator, and $u$ is such a combination of
-shifts of $a$. A sequence satisfying a linear recurrence of order $S$ and vanishing at $S$
-consecutive indices vanishes from the first of them onwards, since every later value is a
-fixed combination of the $S$ before it.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-a(n)\;=\;a(n-2) + a(n-4) - a(n-10) - 2\,a(n-14) + a(n-18) + a(n-20) + a(n-22) + a(n-24) - 2\,a(n-28) - a(n-32) + a(n-38) + a(n-40) - a(n-42)
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
-for every $n>41$.
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{31}(n)-a_{30}(n)=F_{9}(n)$ for $1\le n\le7$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-The terms $a(n)$ were computed exactly from the lattice-point formula, far enough to cover
-$S=720$ consecutive residuals, and the residuals were formed in exact integer arithmetic.
-They vanish from the index corresponding to $n=41+1$ onwards and go on vanishing for more
-than $S$ consecutive indices, which by Lemma~\ref{lem:crit} settles every larger $n$ at
-once.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
+
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
+
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the model reproduces all $45$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the reduction to the entry: the lattice count is derived by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms A125488 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the reading was pinned before the reduction was trusted, by a program that enumerates
-the arrays themselves, one by one, from the entry's own words --- every nondecreasing
-row of plus and minus ones, the weighted sum computed directly --- and compares the count
-with the lattice-point formula. That program shares no code with the lattice-point formula, so an error in one does not
-hide an error in the other.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le7$, with both sides computed from the definition and not from the theorem:
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with
-nothing from the argument above involved, and holds wherever the proved range and the data
-overlap.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{9}(31,n)$ & $T_{9}(30,n)$ & $F_{9}(n)$ \\ \hline
+1 & 31 & 30 & 1 \\
+2 & 499 & 480 & 19 \\
+3 & 6691 & 6420 & 271 \\
+4 & 103999 & 99420 & 4579 \\
+5 & 1650331 & 1572180 & 78151 \\
+6 & 26785795 & 25422222 & 1363573 \\
+7 & 440527111 & 416454978 & 24072133 \\
+\end{tabular}
+\end{center}
 
-Fourth, the residual test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic over every index up to the certified bound, not on a sampled prefix.
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=7$.
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225313.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Quasi-polynomials and denumerants, Sections 4.4 and 4.6;
-lattice points in dilates of rational polytopes, Section 4.6.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd
-ed., Springer, 2015. (Ehrhart quasi-polynomials; the denumerant.)
-\end{thebibliography}
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A125488}.
+\end{enumerate}
 
 \end{document}

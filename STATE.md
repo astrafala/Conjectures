@@ -119,9 +119,10 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **11,240 papers installed** over 11,213 entries (counts are re-derived by
-  `src/sync_counts.py`, never typed by hand). 8 September 2026: 1,353 were withdrawn and 581
-  installed, from 12,012 before.
+* **12,624 papers installed** over 12,597 entries and 145 distinct arguments, as of the
+  evening of 13 September 2026 (counts are re-derived by `src/sync_counts.py`, never typed by
+  hand). 8 September: 1,353 withdrawn. 13 September: 184 withdrawn for the two-dimensional
+  certificate, and 377 installed across seven new veins.
 * **The generating-function-as-fact vein is null**, not 2,151. Asked correctly it proves 2.
   Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
 * Held: 85 generating-function results being re-derived under the corrected automaton bound,
@@ -165,6 +166,27 @@ into that sweep's own merged file. A TAG'd run of `sweep_shard` writes `shard<TA
 and whichever script runs first consumes them -- so results merged by `merge_sharded` land in
 `shard<TAG>_hits.json` and reach nothing. Fold that file into `uniall_hits.json` by hand when
 it happens; 21 results sat there this morning.
+
+## Two installers, and they are not interchangeable
+
+`integrate_rest.py` installs from `uniall_hits.json` and reads each hit's OWN engine, mapping it
+through `integrate_rest_names.ENGNAME`. `install_vein.py` takes the engine label as an ARGUMENT
+and stamps it on every record in whatever file it is given -- which is right for a vein with its
+own hits file and catastrophic for the unified one: pointed at `uniall_hits.json` it labelled
+192 results with one vein's name and, because it checks the withdrawal set under that name,
+installed 60 results from the WITHDRAWN `ca2d` argument. See defect 17.
+
+## A new engine is invisible until the candidate cache is rebuilt
+
+`sweep_uni` reads `uni_cands.json`, and rebuilding it costs a quarter of an hour. `sweep_engine.py`
+asks named engines about every name with no cache in between:
+
+```
+BUDGET=900 CAP=400000 python3 src/sweep_engine.py <engine> [<engine> ...]
+```
+
+Its results go into `uniall_hits.json` like the standing sweep's, so the rest of the pipeline is
+unchanged. Rebuild `uni_cands.json` with `src/mkcands.py` when convenient, not before sweeping.
 
 ## Installing a batch
 

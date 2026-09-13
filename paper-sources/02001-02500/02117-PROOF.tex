@@ -12,146 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A263120, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A208598, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A263120 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $15$ and whose columns, read the same way, are not divisible by
-$15$. The entry carries an empirical recurrence of order $46$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=225$ states.
+OEIS A208598 carries an empirical recurrence of order $4$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=21$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A263120 is ``Number of (n+3)X(2+3) 0..1 arrays with each row divisible by 15 and column not divisible by 15, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A208598 is ``Number of 4-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero.''. It has offset $1$ and begins
 \[
-36, 148, 522, 1708, 5124, 15640, 47602, 144236,\ \dots
+6, 23, 60, 125, 226, 371, 568, 825,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -a(n-2) -8*a(n-3) +48*a(n-4) -168*a(n-5) +48*a(n-6) +312*a(n-7) -955*a(n-8) +2884*a(n-9) -955*a(n-10) -4832*a(n-11) +7632*a(n-12) -16032*a(n-13) +7632*a(n-14) +17568*a(n-15) +4886*a(n-16) -72248*a(n-17) +4886*a(n-18) +197200*a(n-19) -366336*a(n-20) +873744*a(n-21) -366336*a(n-22) -1155888*a(n-23) +1014058*a(n-24) -588568*a(n-25) +1014058*a(n-26) -2290528*a(n-27) +6020160*a(n-28) -17209056*a(n-29) +6020160*a(n-30) +27546528*a(n-31) -27604133*a(n-32) +27776948*a(n-33) -27604133*a(n-34) +27085688*a(n-35) -75797424*a(n-36) +221932632*a(n-37) -75797424*a(n-38) -362608200*a(n-39) +362785825*a(n-40) -363318700*a(n-41) +362785825*a(n-42) -361187200*a(n-43) +406335600*a(n-44) -541780800*a(n-45) +406335600*a(n-46)
+Empirical: a(n) = (4/3)*n\^{}3 + 2*n\^{}2 + (5/3)*n + 1. a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2015 07:05:36, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 18 2018 15:18:12, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a Burnside sum}
 
-The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
+dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
+labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
+so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
+labellings with sum zero are the integer solutions of
 \[
-\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
+\sum_j w_jx_j = 0,\qquad |x_j|\le n,
 \]
-the LEFT digit being the most significant, and column $j$ is
-\[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
-\]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$15$ and every $\gamma_j$ be not divisible by $15$.
+counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
 
+\section{The bound}
 
-\section{Column residues by Horner's rule}
+Each term counts the integer points at height $n$ of the cone
+$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
+hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
+$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
+$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
+over the group's elements annihilates $a$. One more is added to the order, because the origin
+is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
+the common denominator has numerator degree equal to the denominator's rather than below it.
+So $S=21$.
 
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 15\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 15)+x(i,j)\bigr)\bmod 15 .
-\]
-\end{lemma}
-
-\begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$15$ commutes with both operations.
-\end{proof}
-
-So the vector $\bigl(\gamma_1\bmod 15,\dots,\gamma_{5}\bmod
-15\bigr)$ is a state: at most $15^{5}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is not divisible by $15$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=225.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
+determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
+weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
+one. An earlier version of this bound took $S$ to be the number of beads for both, which is
+right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
+$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{46}-\sum_i c_it^{46-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+46}-\sum_ic_iM^{j+46-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - a(n-2) - 8\,a(n-3) + 48\,a(n-4) - 168\,a(n-5) + 48\,a(n-6) + 312\,a(n-7) - 955\,a(n-8) + 2884\,a(n-9) - 955\,a(n-10) - 4832\,a(n-11) + 7632\,a(n-12) - 16032\,a(n-13) + 7632\,a(n-14) + 17568\,a(n-15) + 4886\,a(n-16) - 72248\,a(n-17) + 4886\,a(n-18) + 197200\,a(n-19) - 366336\,a(n-20) + 873744\,a(n-21) - 366336\,a(n-22) - 1155888\,a(n-23) + 1014058\,a(n-24) - 588568\,a(n-25) + 1014058\,a(n-26) - 2290528\,a(n-27) + 6020160\,a(n-28) - 17209056\,a(n-29) + 6020160\,a(n-30) + 27546528\,a(n-31) - 27604133\,a(n-32) + 27776948\,a(n-33) - 27604133\,a(n-34) + 27085688\,a(n-35) - 75797424\,a(n-36) + 221932632\,a(n-37) - 75797424\,a(n-38) - 362608200\,a(n-39) + 362785825\,a(n-40) - 363318700\,a(n-41) + 362785825\,a(n-42) - 361187200\,a(n-43) + 406335600\,a(n-44) - 541780800\,a(n-45) + 406335600\,a(n-46)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4)
 \]
-for every $n>43$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $46$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+4$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $40$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A263120.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208598.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}
