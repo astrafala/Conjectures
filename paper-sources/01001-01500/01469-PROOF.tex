@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229386, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A229314, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229386 counts the distinct arrays obtained by applying a fixed local operation to every cell
+OEIS A229314 counts the distinct arrays obtained by applying a fixed local operation to every cell
 of an array over a bounded alphabet, and carries an empirical recurrence of order $4$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
 counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
 determinising the machine that emits the derived array row by row turns it into one, on
-$S=11$ states, after which the conjectured recurrence is settled by a finite exact
+$S=13$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
@@ -32,24 +32,24 @@ computation.
 
 \section{The conjecture}
 
-OEIS A229386 is ``Number of n X 2 0..3 arrays of the sum of the corresponding element, the element to the east and the element to the south in a larger (n+1) X 3 0..1 array.''. It has offset $1$ and begins
+OEIS A229314 is ``Number of n X 1 0..3 arrays of the median of the corresponding element, the element to the east and the element to the south in a larger (n+1) X 2 0..3 array without adjacent equal elements in the latter.''. It has offset $1$ and begins
 \[
-14, 128, 1064, 8592, 68672, 546752, 4346752, 34537984,\ \dots
+4, 14, 50, 176, 622, 2196, 7756, 27390,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) - 36*a(n-2) + 32*a(n-3) - 16*a(n-4).
+Empirical: a(n) = 3*a(n-1) + 2*a(n-2) - a(n-3) + 2*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 14 2018 16:12:13, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Sep 14 2018 12:14:29, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R$ be the set of rows of length $3$ over $\{0,\dots,1\}$.
+Let $R$ be the set of rows of length $2$ over $\{0,\dots,3\}$ and no two adjacent entries of the larger array are equal.
 For a larger array $A=(r_1,\dots,r_{n+1})$ of $n+1$ such rows let $\Phi(A)$ be the
-$n\times2$ array with
+$n\times1$ array with
 \[
-\Phi(A)(i,j)\;=\;\operatorname{sum}\bigl(A(i,j),\,A(i,j+1),\,A(i+1,j)\bigr),
+\Phi(A)(i,j)\;=\;\operatorname{median}\bigl(A(i,j),\,A(i,j+1),\,A(i+1,j)\bigr),
 \]
 the element, the one to its east and the one to its south. The entry counts
 \[
@@ -94,7 +94,7 @@ since the derived arrays differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad \iota=e_{D_0},\quad \tau=(1,\dots,1)^{\!\top} .
 \]
-There are $S=11$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+There are $S=13$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
 
 
 \section{The proof}
@@ -117,7 +117,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 36\,a(n-2) + 32\,a(n-3) - 16\,a(n-4)
+a(n)\;=\;3\,a(n-1) + 2\,a(n-2) - a(n-3) + 2\,a(n-4)
 \]
 for every $n>3$.
 \end{theorem}
@@ -133,7 +133,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229386.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229314.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

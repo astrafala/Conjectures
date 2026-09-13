@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221276, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221420, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221276 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+OEIS A221420 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
 holds one token and each token moves to a neighbouring cell, and carries an empirical
 recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
 moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=17$
+determinising the machine that emits the occupancy row by row turns it into one, on $S=27$
 states, after which the conjectured recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,24 +32,24 @@ states, after which the conjectured recurrence is settled by a finite exact comp
 
 \section{The conjecture}
 
-OEIS A221276 is ``Number of 2 X n arrays of occupancy after each element moves to some horizontal, diagonal or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
+OEIS A221420 is ``Number of 2 X n arrays of occupancy after each element stays put or moves to some horizontal or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
 \[
-0, 4, 4, 25, 52, 196, 520, 1681,\ \dots
+0, 4, 10, 29, 84, 242, 696, 2000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 12*a(n-3) + 9*a(n-4).
+Empirical: a(n) = 4*a(n-1) - 3*a(n-2) - 2*a(n-4) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 04 2018 14:33:10, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Aug 05 2018 08:20:51, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
+(-1,0), (-1,1), (0,0), (1,-1), (1,0),
 \]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows. The OCCUPANCY array
+a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows. The OCCUPANCY array
 records, for each cell, how many tokens land on it; the entry counts how many different
 occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that every occupancy be $0 or 2$.
 
@@ -80,7 +80,7 @@ occupancy row it admits,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=17$ reachable sets. In particular $a$ is $C$-finite.
+There are $S=27$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 12\,a(n-3) + 9\,a(n-4)
+a(n)\;=\;4\,a(n-1) - 3\,a(n-2) - 2\,a(n-4)
 \]
-for every $n>4$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
 one-row grid offers only the moves that stay within one row, so a neighbour set with no
 horizontal offset gives no legal assignment at all and the count is zero, which is what the
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221276.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221420.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

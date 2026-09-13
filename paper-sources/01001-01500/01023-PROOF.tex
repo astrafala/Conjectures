@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250085, proved from an exact model}
+\title{The empirical recurrence for OEIS A200891, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250085 carries an empirical recurrence of order $9$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
+OEIS A200891 carries an empirical recurrence of order $9$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
 which $a$ provably satisfies a MONIC linear recurrence of order $S=10$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
@@ -31,35 +31,53 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A250085 is ``Number of length 4+5 0..n arrays with every six consecutive terms having the maximum of some two terms equal to the minimum of the remaining four terms.''. It has offset $1$ and begins
+OEIS A200891 is ``Number of 0..n arrays x(0..7) of 8 elements without any interior element greater than both neighbors.''. It has offset $1$ and begins
 \[
-252, 5084, 42936, 222329, 847708, 2623376, 6978064, 16547001,\ \dots
+114, 1691, 11472, 50995, 173606, 491533, 1215616, 2710413,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (3/28)*n\^{}8 + (121/35)*n\^{}7 + (85/4)*n\^{}6 + (501/10)*n\^{}5 + (249/4)*n\^{}4 + (1717/30)*n\^{}3 + (1159/28)*n\^{}2 + (1597/105)*n + 1.
+Empirical: a(n) = (1/315)*n\^{}8 + (134/315)*n\^{}7 + (21/5)*n\^{}6 + (571/36)*n\^{}5 + (1841/60)*n\^{}4 + (6047/180)*n\^{}3 + (26603/1260)*n\^{}2 + (299/42)*n + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 12 2018 03:00:27, revision 11)
+As of the ``Last modified'' line on the live entry (Oct 16 2017 12:23:20, revision 10)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial}
+\section{The count is a quasi-polynomial}
 
-The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
-the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
-array is described completely by its weak ordering: the ordered set partition of the $L$
-positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
-of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
-array, and there are $\binom{n+1}{m}$ of them. Hence
-\[
-a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
-\]
-with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
 \section{The bound}
 
-That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
-$a$ and $S=10$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
-estimated.
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=10$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=10$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
 
 \section{The proof}
 
@@ -95,7 +113,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -108,7 +126,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250085.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A200891.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

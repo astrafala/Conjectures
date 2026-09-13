@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A260364, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185527, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A260364 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A185527 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every $3\times3$ subblock, and it carries an empirical recurrence of order $12$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
@@ -33,15 +33,15 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A260364 is ``Number of (n+2) X (2+2) 0..1 arrays with each 3 X 3 subblock having clockwise perimeter pattern 00000001 00000011 or 00001111.''. It has offset $1$ and begins
+OEIS A185527 is ``Number of (n+2)X4 binary arrays with each 3X3 subblock nonsingular.''. It has offset $1$ and begins
 \[
-78, 127, 342, 700, 896, 2047, 4438, 6674,\ \dots
+726, 4362, 25854, 150234, 886926, 5221098, 30631134, 180225834,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-2) + 5*a(n-3) + 5*a(n-4) - 4*a(n-5) - 6*a(n-6) - 10*a(n-7) - 7*a(n-8) + 4*a(n-9) + 5*a(n-10) + 5*a(n-11) + 3*a(n-12).
+Empirical: a(n)=3*a(n-1)+8*a(n-2)+77*a(n-3)-79*a(n-4)-180*a(n-5)-1228*a(n-6)+48*a(n-7)+232*a(n-8)+4208*a(n-9)-1184*a(n-10)-1664*a(n-11)-6144*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 29 2018 07:08:14, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:04:41, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
@@ -55,7 +55,7 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000001,\ 00000011,\ 00001111\}
+\det g \ne 0
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
@@ -92,7 +92,7 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-2) + 5\,a(n-3) + 5\,a(n-4) - 4\,a(n-5) - 6\,a(n-6) - 10\,a(n-7) - 7\,a(n-8) + 4\,a(n-9) + 5\,a(n-10) + 5\,a(n-11) + 3\,a(n-12)
+a(n)\;=\;3\,a(n-1) + 8\,a(n-2) + 77\,a(n-3) - 79\,a(n-4) - 180\,a(n-5) - 1228\,a(n-6) + 48\,a(n-7) + 232\,a(n-8) + 4208\,a(n-9) - 1184\,a(n-10) - 1664\,a(n-11) - 6144\,a(n-12)
 \]
 for every $n>12$.
 \end{theorem}
@@ -109,9 +109,9 @@ at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>12$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $29$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
+the entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A260364.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185527.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

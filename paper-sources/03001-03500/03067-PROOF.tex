@@ -12,148 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A252544}
+\title{The empirical recurrence for OEIS A262236, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252544 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 4$.
+OEIS A262236 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $11$ and whose columns, read the same way, are divisible by
+$11$. The entry carries an empirical recurrence of order $7$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=11$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A252544 is ``T(n,k)=Number of (n+2)X(k+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A262236 is ``Number of (n+3) X (1+3) 0..1 arrays with each row and column divisible by 11, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-478, 1048, 850, 2532, 3880, 2142, 5608, 15480,\ \dots
+2, 3, 6, 12, 24, 47, 94, 187,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 18*a(n-3) -32*a(n-6) for n>8\\
-k=2: a(n) = 118*a(n-3) -4264*a(n-6) +55168*a(n-9) -225280*a(n-12) +262144*a(n-15) for n>16\\
-k=3: a(n) = 454*a(n-3) -60040*a(n-6) +2444800*a(n-9) -13041664*a(n-12) +16777216*a(n-15) for n>16\\
-k=4: a(n) = 260*a(n-3) -1024*a(n-6) for n>7\\
-k=5: a(n) = 1804*a(n-3) -939040*a(n-6) +145285120*a(n-9) -1639972864*a(n-12) +4294967296*a(n-15) for n>16\\
-k=6: a(n) = 7180*a(n-3) -14766112*a(n-6) +8766324736*a(n-9) -103548977152*a(n-12) +274877906944*a(n-15) for n>16\\
-k=7: a(n) = 4104*a(n-3) -32768*a(n-6) for n>7\\
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) -2*a(n-2) -a(n-5) +3*a(n-6) -2*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:20:27, revision 7) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Sep 25 2021 10:56:19, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A column of the table is a walk count}
+\section{What is being counted}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+the LEFT digit being the most significant, and column $j$ is
 \[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$11$ and every $\gamma_j$ be divisible by $11$.
+
+
+\section{Column residues by Horner's rule}
+
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
+
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
+\[
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 11\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 11)+x(i,j)\bigr)\bmod 11 .
+\]
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$11$ commutes with both operations.
 \end{proof}
 
-\section{The computation, column by column}
-
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $209$ & $>8$ & $10$ \\
-column $k$$=4$ & $6$ & $88249$ & $>7$ & $10$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+2)X(3) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
-$S=209$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+So the vector $\bigl(\gamma_1\bmod 11,\dots,\gamma_{4}\bmod
+11\bigr)$ is a state: at most $11^{4}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is divisible by $11$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
 \[
-a(n)\;=\;18\,a(n-3) - 32\,a(n-6)
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=11.
 \]
-holds from index $8+1$ on.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
-\subsection*{Column $k$$=4$}
-The sequence is ``Number of (n+2)X(6) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
-$S=88249$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
 \[
-a(n)\;=\;260\,a(n-3) - 1024\,a(n-6)
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - a(n-5) + 3\,a(n-6) - 2\,a(n-7)
 \]
-holds from index $7+1$ on.
+for every $n>3$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $20$ published values, $127$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252544.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262236.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

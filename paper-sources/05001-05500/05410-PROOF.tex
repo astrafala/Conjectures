@@ -12,117 +12,98 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252452, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A247722, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252452 counts $(n+2)\times5$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $44$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
-consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=1048576$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A247722 carries an empirical recurrence of order $45$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=125$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A252452 is ``Number of (n+2)X(3+2) 0..3 arrays with every 3X3 subblock row, column, diagonal and antidiagonal sum not equal to 0 2 4 6 or 7.''. It has offset $1$ and begins
+OEIS A247722 is ``Number of length n+3 0..4 arrays with no disjoint pairs in any consecutive four terms having the same sum.''. It has offset $1$ and begins
 \[
-323, 959, 3366, 11334, 38966, 134907, 464384, 1603397,\ \dots
+440, 1592, 5796, 21152, 77236, 282384, 1032952, 3779018,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) -8*a(n-2) +31*a(n-3) -46*a(n-4) -30*a(n-5) -238*a(n-6) -338*a(n-7) +318*a(n-8) +1332*a(n-9) +3970*a(n-10) +3841*a(n-11) -2401*a(n-12) -15360*a(n-13) -24500*a(n-14) -6584*a(n-15) +32113*a(n-16) +50465*a(n-17) +6658*a(n-18) -54545*a(n-19) -40309*a(n-20) +34108*a(n-21) +92882*a(n-22) +54935*a(n-23) -66171*a(n-24) -137823*a(n-25) -87689*a(n-26) +35941*a(n-27) +110894*a(n-28) +83622*a(n-29) +8828*a(n-30) -42389*a(n-31) -45791*a(n-32) -24569*a(n-33) -3451*a(n-34) +9236*a(n-35) +12522*a(n-36) +9282*a(n-37) +3964*a(n-38) +40*a(n-39) -1136*a(n-40) -1008*a(n-41) -440*a(n-42) -144*a(n-43) -16*a(n-44) for n>47
+Empirical: a(n) = 3*a(n-1) -6*a(n-2) +20*a(n-3) +54*a(n-4) -66*a(n-5) +313*a(n-6) -619*a(n-7) -797*a(n-8) -493*a(n-9) -5172*a(n-10) +1690*a(n-11) -2554*a(n-12) -84*a(n-13) +563*a(n-14) +3103*a(n-15) +12407*a(n-16) +10585*a(n-17) +147780*a(n-18) -40884*a(n-19) +31860*a(n-20) -71368*a(n-21) -151570*a(n-22) +112176*a(n-23) +332750*a(n-24) +324290*a(n-25) -1170072*a(n-26) -16160*a(n-27) -274274*a(n-28) +949452*a(n-29) +1863096*a(n-30) -195890*a(n-31) -2817928*a(n-32) -3449516*a(n-33) +2141463*a(n-34) +2233863*a(n-35) +3747347*a(n-36) +474055*a(n-37) -4040991*a(n-38) -2274839*a(n-39) -660322*a(n-40) +2250384*a(n-41) +934278*a(n-42) +180486*a(n-43) -56268*a(n-44) -559872*a(n-45)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:15:57, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:36:38, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Three consecutive lines}
+\section{The count is a walk count}
 
-Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{5}$. A $3\times3$ subblock occupies three consecutive rows and
-three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
-contributes are
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=125$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
 \]
-for each admissible index, and the entry's condition is the requirement that
-\[
-\text{every row, column, diagonal, antidiagonal sum} \notin \{0,2,4,6,7\}
-\]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive rows and on nothing else.
-
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(3+1)^{2\cdot5}=1048576$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
-walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
-row is one step. Hence, with $M$ the adjacency matrix of $G$,
-\[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
-\]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
+Let $q(t)=t^{45}-\sum_i c_it^{45-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+45}-\sum_ic_iM^{j+45-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 8\,a(n-2) + 31\,a(n-3) - 46\,a(n-4) - 30\,a(n-5) - 238\,a(n-6) - 338\,a(n-7) + 318\,a(n-8) + 1332\,a(n-9) + 3970\,a(n-10) + 3841\,a(n-11) - 2401\,a(n-12) - 15360\,a(n-13) - 24500\,a(n-14) - 6584\,a(n-15) + 32113\,a(n-16) + 50465\,a(n-17) + 6658\,a(n-18) - 54545\,a(n-19) - 40309\,a(n-20) + 34108\,a(n-21) + 92882\,a(n-22) + 54935\,a(n-23) - 66171\,a(n-24) - 137823\,a(n-25) - 87689\,a(n-26) + 35941\,a(n-27) + 110894\,a(n-28) + 83622\,a(n-29) + 8828\,a(n-30) - 42389\,a(n-31) - 45791\,a(n-32) - 24569\,a(n-33) - 3451\,a(n-34) + 9236\,a(n-35) + 12522\,a(n-36) + 9282\,a(n-37) + 3964\,a(n-38) + 40\,a(n-39) - 1136\,a(n-40) - 1008\,a(n-41) - 440\,a(n-42) - 144\,a(n-43) - 16\,a(n-44)
+a(n)\;=\;3\,a(n-1) - 6\,a(n-2) + 20\,a(n-3) + 54\,a(n-4) - 66\,a(n-5) + 313\,a(n-6) - 619\,a(n-7) - 797\,a(n-8) - 493\,a(n-9) - 5172\,a(n-10) + 1690\,a(n-11) - 2554\,a(n-12) - 84\,a(n-13) + 563\,a(n-14) + 3103\,a(n-15) + 12407\,a(n-16) + 10585\,a(n-17) + 147780\,a(n-18) - 40884\,a(n-19) + 31860\,a(n-20) - 71368\,a(n-21) - 151570\,a(n-22) + 112176\,a(n-23) + 332750\,a(n-24) + 324290\,a(n-25) - 1170072\,a(n-26) - 16160\,a(n-27) - 274274\,a(n-28) + 949452\,a(n-29) + 1863096\,a(n-30) - 195890\,a(n-31) - 2817928\,a(n-32) - 3449516\,a(n-33) + 2141463\,a(n-34) + 2233863\,a(n-35) + 3747347\,a(n-36) + 474055\,a(n-37) - 4040991\,a(n-38) - 2274839\,a(n-39) - 660322\,a(n-40) + 2250384\,a(n-41) + 934278\,a(n-42) + 180486\,a(n-43) - 56268\,a(n-44) - 559872\,a(n-45)
 \]
-for every $n>47$.
+for every $n>45$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $44$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=47+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>47$.
+The vector $w=q(M)\tau$ was formed by $45$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252452.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A247722.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

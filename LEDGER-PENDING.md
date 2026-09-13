@@ -18,3 +18,19 @@ papers prints its own date again.
 
 Roster: 11,901 papers = 11,895 proofs + 6 disproofs, over 11,874 entries, 120 distinct
 arguments. `stamps/MANIFEST-2026-09-13a.tsv` is stamped.
+
+## 13 September 2026 — six closed forms, from the same model
+
+Of the 441 names `latpoly` reads, 167 carry no parsable conjectured RECURRENCE. Most of that is
+real emptiness: **154 carry no conjectural line at all**, so there is nothing on them to settle.
+Twelve carry an empirical CLOSED FORM instead — a polynomial in `n` — and one an order-92
+recurrence kept in a link.
+
+The closed forms need no new mathematics. The model gives `a(n)` exactly with a derived monic
+annihilator `A` of order `S`; a polynomial of degree `d` is annihilated by `(z-1)^(d+1)`; so the
+difference is annihilated by `A(z)(z-1)^(d+1)` and `S + d + 1` consecutive agreements settle it.
+Six were proved this way and are installed as `lattice-closed-form`; the other six build too
+slowly under the present limits and are recorded, not counted.
+
+Roster: 11,907 papers = 11,901 proofs + 6 disproofs, over 11,880 entries, 121 distinct
+arguments. `stamps/MANIFEST-2026-09-13b.tsv` is stamped.
