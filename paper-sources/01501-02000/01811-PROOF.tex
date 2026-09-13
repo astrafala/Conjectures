@@ -12,105 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A240790, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264273, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240790 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
-constant plus the SUM of all the entries lying before it along one of several rays. The entry
-carries an empirical recurrence of order $76$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical. None of those sums is bounded and none is local, but
-each is built one term at a time, so its residue modulo $4$ is carried in the state; the
-count is then a walk count on $S=337$ states.
+OEIS A264273 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=3$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $1$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=2$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=4096$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A240790 is ``Number of n X 3 0..3 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
+OEIS A264273 is ``Number of (2+1) X (n+1) arrays of permutations of 0..n*3+2 with each element having index change +-(.,.) 0,0 1,0 or 1,2.''. It has offset $1$ and begins
 \[
-4, 5, 8, 27, 49, 50, 89, 115,\ \dots
+9, 48, 256, 1280, 6400, 32000, 160000, 800000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-5) +4*a(n-6) +a(n-7) +4*a(n-8) +5*a(n-9) -6*a(n-10) -12*a(n-11) -a(n-12) -13*a(n-13) -16*a(n-14) -7*a(n-15) +13*a(n-16) +2*a(n-17) +20*a(n-18) +24*a(n-19) +15*a(n-20) -3*a(n-21) -2*a(n-22) -20*a(n-23) -44*a(n-24) -11*a(n-25) +9*a(n-26) -82*a(n-27) -30*a(n-28) +19*a(n-29) -21*a(n-30) -108*a(n-31) +132*a(n-32) +43*a(n-33) -68*a(n-34) +17*a(n-35) +171*a(n-36) -171*a(n-37) +66*a(n-38) +206*a(n-39) -46*a(n-40) -124*a(n-41) +214*a(n-42) -29*a(n-43) -283*a(n-44) +123*a(n-45) +129*a(n-46) -251*a(n-47) -6*a(n-48) +164*a(n-49) -17*a(n-50) -121*a(n-51) +216*a(n-52) +51*a(n-53) -79*a(n-54) +40*a(n-55) +58*a(n-56) -21*a(n-57) -16*a(n-58) +32*a(n-59) -3*a(n-60) -47*a(n-61) -29*a(n-62) -9*a(n-63) -2*a(n-64) -11*a(n-65) -2*a(n-66) +10*a(n-67) -6*a(n-69) +12*a(n-70) +3*a(n-71) -4*a(n-72) -3*a(n-73) +3*a(n-74) +a(n-75) -3*a(n-76) for n>87.
+Empirical: a(n) = 5*a(n-1) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 30 2014 05:03:57, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jun 29 2023 11:30:18, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-The array has $3$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
-rays out of a cell $(i,j)$, with the constant it attaches to each:
+The grid has $W=3$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-\begin{array}{lll}
-\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
-\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
-\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
-\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
-\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
-\end{array}
+(i-h_i,\,j-h_j)\;\in\;\{(-2,-1),\ (0,-1),\ (0,0),\ (0,1),\ (2,1)\},
 \]
-Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
-inside the array, the condition is
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
+
+\section{The matching is a walk}
+
+Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
+
+Hence $a$ is a walk count on $S=4096$ vertices,
 \[
-x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
-zero.
-
-\section{The rays as a bounded state}
-
-Take the array one $row$ at a time, in the direction in which it grows, and index the
-positions of a $row $ by $p$. Let $x$ be the $row$ just written.
-
-\begin{lemma}\label{lem:rays}
-Along the $row$s, the 4 ray sums named by this entry satisfy
-\[
-\begin{aligned}
-\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
-U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
-NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
-NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
-\end{aligned}
-\]
-\end{lemma}
-
-\begin{proof}
-Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
-moves a cell one step along the north ray, one step along the northwest ray together with one
-position to the right, and one step along the northeast ray together with one position to the
-left; in each case exactly the cell just left behind is the new term. At the border of the
-array the diagonal rays are empty, which is the stated boundary value.
-\end{proof}
-
-Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
-of the walk writes a whole $row$: the position $p$ is filled left to right and the
-running total of the west ray is carried along as it is filled, so every cell is tested
-against every ray at the moment it is written. The walk starts at the all-zero state, the empty
-array, and every state may end one, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=337.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{76}-\sum_i c_it^{76-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{1}-\sum_i c_it^{1-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+76}-\sum_ic_iM^{j+76-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+1}-\sum_ic_iM^{j+1-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -119,41 +97,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-5) + 4\,a(n-6) + a(n-7) + 4\,a(n-8) + 5\,a(n-9) - 6\,a(n-10) - 12\,a(n-11) - a(n-12) - 13\,a(n-13) - 16\,a(n-14) - 7\,a(n-15) + 13\,a(n-16) + 2\,a(n-17) + 20\,a(n-18) + 24\,a(n-19) + 15\,a(n-20) - 3\,a(n-21) - 2\,a(n-22) - 20\,a(n-23) - 44\,a(n-24) - 11\,a(n-25) + 9\,a(n-26) - 82\,a(n-27) - 30\,a(n-28) + 19\,a(n-29) - 21\,a(n-30) - 108\,a(n-31) + 132\,a(n-32) + 43\,a(n-33) - 68\,a(n-34) + 17\,a(n-35) + 171\,a(n-36) - 171\,a(n-37) + 66\,a(n-38) + 206\,a(n-39) - 46\,a(n-40) - 124\,a(n-41) + 214\,a(n-42) - 29\,a(n-43) - 283\,a(n-44) + 123\,a(n-45) + 129\,a(n-46) - 251\,a(n-47) - 6\,a(n-48) + 164\,a(n-49) - 17\,a(n-50) - 121\,a(n-51) + 216\,a(n-52) + 51\,a(n-53) - 79\,a(n-54) + 40\,a(n-55) + 58\,a(n-56) - 21\,a(n-57) - 16\,a(n-58) + 32\,a(n-59) - 3\,a(n-60) - 47\,a(n-61) - 29\,a(n-62) - 9\,a(n-63) - 2\,a(n-64) - 11\,a(n-65) - 2\,a(n-66) + 10\,a(n-67) - 6\,a(n-69) + 12\,a(n-70) + 3\,a(n-71) - 4\,a(n-72) - 3\,a(n-73) + 3\,a(n-74) + a(n-75) - 3\,a(n-76)
+a(n)\;=\;5\,a(n-1)
 \]
-for every $n>87$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $76$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $1$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $37$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time in the orientation the entry's own name writes and, for each candidate
-value, walk each ray to the edge of the array and add the entries up. No residue, no state and
-no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
+Second, the transfer model reproduces all $21$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240790.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264273.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

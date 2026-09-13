@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234755, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250366, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234755 carries an empirical recurrence of order $55$ contributed by R. H. Hardin. It is
+OEIS A250366 carries an empirical recurrence of order $56$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=257$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=64$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A234755 is ``Number of (n+1)X(3+1) 0..3 arrays with 2X2 edge jumps all no more than +1 in one of the clockwise or counterclockwise directions or both.''. It has offset $1$ and begins
+OEIS A250366 is ``Number of length n+6 0..1 arrays with every seven consecutive terms having the maximum of some three terms equal to the minimum of the remaining four terms.''. It has offset $1$ and begins
 \[
-8968, 646036, 41065150, 2683721676, 174451064914, 11352560005654, 738613242438722, 48057390396250352,\ \dots
+93, 151, 252, 424, 714, 1198, 1996, 3292,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 55 (see link above)
+Empirical: a(n) = 2*a(n-1) -a(n-2) +a(n-3) +6*a(n-7) -7*a(n-8) -2*a(n-9) -7*a(n-10) -5*a(n-11) -6*a(n-12) +a(n-13) -22*a(n-14) +6*a(n-15) +11*a(n-16) +20*a(n-17) +22*a(n-18) +33*a(n-19) +3*a(n-20) +47*a(n-21) +11*a(n-22) -15*a(n-23) -27*a(n-24) -38*a(n-25) -60*a(n-26) -11*a(n-27) -62*a(n-28) -28*a(n-29) +11*a(n-30) +21*a(n-31) +36*a(n-32) +55*a(n-33) +10*a(n-34) +51*a(n-35) +23*a(n-36) -11*a(n-37) -10*a(n-38) -21*a(n-39) -29*a(n-40) -4*a(n-41) -27*a(n-42) -8*a(n-43) +6*a(n-44) +2*a(n-45) +7*a(n-46) +8*a(n-47) +a(n-48) +8*a(n-49) +a(n-50) -a(n-51) -a(n-53) -a(n-54) -a(n-56)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:24:03, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:21:00, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=257$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=64$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{55}-\sum_i c_it^{55-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{56}-\sum_i c_it^{56-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+55}-\sum_ic_iM^{j+55-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+56}-\sum_ic_iM^{j+56-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;65\,a(n-1) + 386\,a(n-2) - 25139\,a(n-3) - 38422\,a(n-4) + 3818001\,a(n-5) + 93193\,a(n-6) - 312566085\,a(n-7) + 221511982\,a(n-8) + 15688276425\,a(n-9) - 17528906563\,a(n-10) - 516822461274\,a(n-11) + 703307979184\,a(n-12) + 11631225938657\,a(n-13) - 17581775871456\,a(n-14) - 183222442962229\,a(n-15) + 294552218345283\,a(n-16) + 2050061126827130\,a(n-17) - 3426049329714142\,a(n-18) - 16434318376679997\,a(n-19) + 28211458281468692\,a(n-20) + 94882472723248209\,a(n-21) - 166378579177782682\,a(n-22) - 395901548798838089\,a(n-23) + 708136685488705218\,a(n-24) + 1197230873519469786\,a(n-25) - 2187931503961450400\,a(n-26) - 2630401249981243939\,a(n-27) + 4933462485710191871\,a(n-28) + 4205657292189457225\,a(n-29) - 8159219193521117571\,a(n-30) - 4891888038438891340\,a(n-31) + 9940890239977287928\,a(n-32) + 4121807383451442606\,a(n-33) - 8950116238196313741\,a(n-34) - 2485955866445450724\,a(n-35) + 5961354274232566149\,a(n-36) + 1043440905558834928\,a(n-37) - 2932543496126557499\,a(n-38) - 283537442452216101\,a(n-39) + 1059455445418646567\,a(n-40) + 37911875683307314\,a(n-41) - 277941754444689735\,a(n-42) + 3499318703999176\,a(n-43) + 51917615645303512\,a(n-44) - 2695360658675880\,a(n-45) - 6682617778454304\,a(n-46) + 565604175948284\,a(n-47) + 560997051636704\,a(n-48) - 63084383258696\,a(n-49) - 27840010565800\,a(n-50) + 3801013822112\,a(n-51) + 667326413344\,a(n-52) - 105511277824\,a(n-53) - 4333996544\,a(n-54) + 804298752\,a(n-55)
+a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) + 6\,a(n-7) - 7\,a(n-8) - 2\,a(n-9) - 7\,a(n-10) - 5\,a(n-11) - 6\,a(n-12) + a(n-13) - 22\,a(n-14) + 6\,a(n-15) + 11\,a(n-16) + 20\,a(n-17) + 22\,a(n-18) + 33\,a(n-19) + 3\,a(n-20) + 47\,a(n-21) + 11\,a(n-22) - 15\,a(n-23) - 27\,a(n-24) - 38\,a(n-25) - 60\,a(n-26) - 11\,a(n-27) - 62\,a(n-28) - 28\,a(n-29) + 11\,a(n-30) + 21\,a(n-31) + 36\,a(n-32) + 55\,a(n-33) + 10\,a(n-34) + 51\,a(n-35) + 23\,a(n-36) - 11\,a(n-37) - 10\,a(n-38) - 21\,a(n-39) - 29\,a(n-40) - 4\,a(n-41) - 27\,a(n-42) - 8\,a(n-43) + 6\,a(n-44) + 2\,a(n-45) + 7\,a(n-46) + 8\,a(n-47) + a(n-48) + 8\,a(n-49) + a(n-50) - a(n-51) - a(n-53) - a(n-54) - a(n-56)
 \]
-for every $n>55$.
+for every $n>61$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $55$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $56$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=55+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=61+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234755.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250366.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

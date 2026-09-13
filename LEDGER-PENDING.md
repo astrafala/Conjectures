@@ -51,3 +51,37 @@ line of such a block from the one the theorem proves. Fixed in `conjquote.py`, w
 builders now delegate to, and 633 installed papers were regenerated in place at their own
 dates. 119 held results that had never had a paper built were built and installed at the same
 time.
+
+## 13 September 2026 — `ordrep`: fixed length, growing alphabet, constrained by repeated values
+
+A *repeated value* is a term equal to the one before it. `repval` reads the mirror family —
+`length-n 0..K arrays`, growing length over a fixed alphabet, where the count is a walk on at
+most (K+1)(K+2) states. Here the length is fixed and the ALPHABET grows, so nothing is a walk:
+the state that remembers the previous repeated value has as many values as the alphabet.
+`ordpoly` reads the name shape but only conditions decided by ORDER alone, and these name an
+actual difference. 43 entries of this shape carry a conjectured recurrence and no engine read
+one.
+
+The count is taken exactly in O(n²) per step rather than O(n³): with `A[p][v]` the number of
+prefixes ending in `v` whose previous repeated value is `p`, appending `t` gives
+`A'[p][t] += (Σ_v A[p][v]) − A[p][t]` when `t` differs from the last term and
+`A'[t][t] += A[p][t]` when it equals it and the condition allows.
+
+The bound is derived, not assumed. Let `k` be the point past which the predicate stops caring —
+it depends on the difference of the two repeated values only through its sign and its magnitude
+up to `k`, and is constant beyond that in each direction; `k` is read off the predicate. An
+array is its weak ordering plus a base value `g_0 ≥ 0` and gaps `g_i ≥ 1` with `g_0 + Σ g_i ≤ n`.
+Every constraint is on a signed sum of consecutive gaps and, since the predicate is constant
+past `k`, splits into finitely many cases each fixing that sum to one of at most `2k+1` values
+or pushing it beyond `k`. In each case the count is a polynomial in `n` of degree at most `L`,
+valid once `n` exceeds the total forced amount, which is at most `L + L(k+1)`. So
+
+    a(n) is a polynomial of degree at most L for n >= n_0 = L + L(k+1),
+
+annihilated by `(z−1)^(L+1)` there and by `z^(n_0+1)(z−1)^(L+1)` everywhere. The annihilator was
+then asked for terms the model had not supplied, and reproduced them.
+
+**24 names read, every one reproducing its entry's published data exactly; 22 proved and
+installed as `repeated-value-polynomial`.** Two carry no parsable recurrence. The variants
+taken modulo n+1 are refused with the reason: the modulus moves with the parameter, the
+differences are no longer bounded, and the argument does not reach them.

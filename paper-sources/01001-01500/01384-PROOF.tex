@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A201874, proved from an exact model}
+\title{The empirical recurrence for OEIS A269609, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A201874 carries an empirical recurrence of order $7$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=13$, derived below and not
+OEIS A269609 carries an empirical recurrence of order $7$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$ past a computed transient, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=26$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,53 +31,55 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A201874 is ``Number of zero-sum -n..n arrays of 3 elements with first and second differences also in -n..n.''. It has offset $1$ and begins
+OEIS A269609 is ``Number of length-6 0..n arrays with no repeated value differing from the previous repeated value by one or less.''. It has offset $1$ and begins
 \[
-3, 5, 15, 21, 27, 47, 57, 67,\ \dots
+12, 376, 2878, 12570, 40288, 105892, 242226, 499798,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2*a(n-3) -2*a(n-4) -a(n-6) +a(n-7).
+Empirical: a(n) = n\^{}6 + 6*n\^{}5 + 11*n\^{}4 - 8*n\^{}3 + n\^{}2 + 3*n - 2. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 15 2018 08:13:23, revision 10)
+As of the ``Last modified'' line on the live entry (Jan 25 2019 08:28:47, revision 8)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a quasi-polynomial}
+\section{The count is a polynomial past a computed transient}
 
-The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
-condition the entry imposes is a boolean combination of statements
-$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
-$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
-that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
-jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
-of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
-the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
-heights of the cones' ray generators.
+A REPEATED VALUE is a term equal to the one before it, and its value is that term; the entry's
+condition relates each repeated value to the previous one. The length is fixed at $6$ and the
+alphabet $0..n$ grows, so nothing here is a walk on a finite digraph --- the state that
+remembers the previous repeated value has as many values as the alphabet. The count is taken
+exactly instead. Writing $A[p][v]$ for the number of prefixes ending in $v$ whose previous
+repeated value is $p$, appending a term $t$ gives
+\[
+A'[p][t] \mathrel{+}= \Big(\sum_v A[p][v]\Big) - A[p][t],
+\qquad
+A'[t][t] \mathrel{+}= A[p][t]\ \text{when the condition allows},
+\]
+the first for a $t$ differing from the last term and the second for a $t$ equal to it. Every
+term the model produces is an exact integer.
 
 \section{The bound}
 
-The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
-$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
-system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
-primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
-those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
-contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+Let $k$ be the point past which the condition stops caring: the predicate depends on the
+difference of the two repeated values only through its sign and its magnitude up to $k$, and is
+constant beyond that in each direction. Here $k=1$, read off the predicate rather than
+assumed. An array is determined by its weak ordering --- the ordered set partition of the
+$6$ positions into $m$ blocks of equal value, listed in increasing value --- together with
+the base value $g_0\ge0$ and the gaps $g_1,\dots,g_{m-1}\ge1$ between consecutive distinct
+values, subject to $g_0+\sum g_i\le n$. Each constraint is on a difference of two values, which
+is a signed sum of consecutive gaps; since the predicate is constant past $k$, each constraint
+splits into finitely many cases, and in every case it either fixes that gap-sum to one of at
+most $2k+1$ values or pushes it beyond $k$. Within a case the count is the number of integer
+points of a system (fixed amounts) plus (free gaps) $\le n$, a polynomial in $n$ of degree at
+most $6$, valid as soon as $n$ exceeds the total forced amount. That total is at most
+$(m-1)+(\text{constrained pairs})(k+1)\le L+L(k+1)$, so with
 \[
-A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+n_0 \;=\; L + L(k+1) \;=\; 18
 \]
-annihilates $a$, and $S=\deg A=13$. A congruence condition modulo $m$ is counted one residue
-class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
-$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
-by $mt$ and nothing else changes.
-
-Over the common denominator the numerator has degree below that of $A$ for every cell of the
-arrangement that HAS a ray, because such a cell's numerator collects a fundamental
-parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
-too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
-exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=13$, and
-$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
-annihilator is tested on terms the model was not asked for before anything is claimed --- a
-bound one too small fails that test, which is how this one was found.
+the sequence agrees with a polynomial of degree at most $6$ for every $n\ge n_0$. It is
+therefore annihilated by $(z-1)^{6+1}$ from that point, and by $z^{n_0+1}(z-1)^{6+1}$
+everywhere, a monic recurrence of order $S=26$. The annihilator was then asked for terms the
+model had not supplied and reproduced them, which is what a bound one short fails.
 
 \section{The proof}
 
@@ -97,15 +99,15 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-3) - 2\,a(n-4) - a(n-6) + a(n-7)
+a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
 \]
-for every $n>0$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+7$, which by
+vanish from $n=7+1$ onwards, and the run exceeds $S+7$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -113,7 +115,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $50$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -126,7 +128,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A201874.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269609.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,178 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A251010}
+\title{The conjectured generating function for OEIS A239844, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251010 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+OEIS A239844 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=14$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $28$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A251010 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A239844 is ``Number of n X 2 0..3 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of elements above it or two plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
 \[
-69, 530, 530, 4083, 10743, 4083, 31456, 218298,\ \dots
+3, 8, 17, 35, 64, 109,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 9*a(n-1) -12*a(n-2) +17*a(n-3) -12*a(n-4) +4*a(n-5)\\
-k=2: [order 13]\\
-k=3: [order 31]\\
-k=4: [order 87]\\
+The entry states, as a conjecture contributed by a reader and never marked settled:
+\begin{quote}
+G.f.: x*(1 - x + x\^{}2)*(3 - 4*x + 4*x\^{}3 - 2*x\^{}4) / (1 - x)\^{}5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:59, revision 6) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:26, revision 10) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
-\section{A column of the table is a walk count}
+\section{The count is a walk count}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
+
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
+and there are $S=14$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $41$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
-\[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
-\]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
+The family this entry belongs to is read by one model, described by its author as: ```Number of n X W 0..m-1 arrays with no element equal to c1 plus the sum of elements to its left or c2 plus the sum of elements above it [or c3 plus the sum of the elements diagonally to its northwest] [or c4 plus the sum of the elements antidiagonally to its northeast], modulo m.'''
+
+
+\section{Its generating function is rational, with bounded degree}
+
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
+power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
 \end{proof}
 
-\section{The computation, column by column}
+\begin{theorem}
+The conjectured generating function is $A(x)$.
+\end{theorem}
 
-\begin{center}
-\begin{tabular}{ccccc}
-line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $5$ & $9$ & $>4$ & $7$ \\
-\end{tabular}
-\end{center}
-
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-
-\subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X(2) 0..2 arrays with no 2X2 subblock having its maximum diagonal element less than the absolute difference of its antidiagonal elements.''. Its rows are the vertices of a digraph on
-$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{proof}
+Write the conjecture as $N_2/D_2$ with $\deg N_2=7$ and $\deg D_2=5$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
 \[
-a(n)\;=\;9\,a(n-1) - 12\,a(n-2) + 17\,a(n-3) - 12\,a(n-4) + 4\,a(n-5)
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
 \]
-holds from index $4+1$ on.
+a polynomial of degree at most $21$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{21}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
 
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $28$
+of them --- more than the $21+1$ the argument requires --- agree.
+\end{proof}
 
-\section{Lines whose recurrence the entry does not print}
+\section{A recurrence the entry does not state}
 
-For the lines below the entry records only an order, the coefficients being in a linked file.
-They can still be settled, and the recurrences recovered. A line is a walk count on $S$
-vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
-$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
-where the same holds after the first few terms are dropped, since the entry's recurrence may
-begin only partway along --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
-
-\subsection*{Column $k=2$, recovered}
-The entry gives only the order for this line: ``k=2: [order 13]''. Its model is a walk on
-$S=27$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=54$ exact terms returns the minimal one, of order
-$13$ --- the stated order --- with integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $27$ & $c_{5}$ & $5874$ & $c_{9}$ & $-1473$ & $c_{13}$ & $-68$ \\
-$c_{2}$ & $-169$ & $c_{6}$ & $-6458$ & $c_{10}$ & $1896$ &  &  \\
-$c_{3}$ & $800$ & $c_{7}$ & $2876$ & $c_{11}$ & $-1394$ &  &  \\
-$c_{4}$ & $-2847$ & $c_{8}$ & $558$ & $c_{12}$ & $460$ &  &  \\
-\end{tabular}\end{center}
-Repeating with the first $13+4$ terms removed gives order $13$ again.
-
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 31]''. Its model is a walk on
-$S=81$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=162$ exact terms returns the minimal one, of order
-$31$ --- the stated order --- with integer coefficients
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
 \[
-(c_1,\dots,c_{31})=(81,\ -1954,\ 32379,\ -419520,\ 4000383,\ -27981900,\ 149000935,\ -627790962,\ 2173730790,\ -6430085803,\ 16294231907,\ -32054037021,\ 35251149270,\ 27785627597,\ -214291598331,\ 474340001188,\ -525110612953,\ -51492530582,\ 1353650012855,\ -2781865247427,\ 3444068301525,\ -3009309907241,\ 1966627276737,\ -984303214776,\ 380879357640,\ -116690528485,\ 31239482235,\ -8714904964,\ 2491548140,\ -492231312,\ 38390400).
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>7,
 \]
-Repeating with the first $31+4$ terms removed gives order $31$ again.
-
-\subsection*{Column $k=4$, recovered}
-The entry gives only the order for this line: ``k=4: [order 87]''. Its model is a walk on
-$S=243$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=486$ exact terms returns the minimal one, of order
-$87$ --- the stated order --- with integer coefficients
-\[
-(c_1,\dots,c_{87})=(243,\ -20493,\ 1137320,\ -48968370,\ 1660074126,\ -44634837818,\ 967746677672,\ -17068124680628,\ 243689314141870,\ -2771271784376738,\ 24244713468588507,\ -146741653931132321,\ 290165718947140921,\ 6772301199597629044,\ -120128686970779626924,\ 1290337980725726668601,\ -10997095841855253481106,\ 80531766804597322929398,\ -525717119916835093119093,\ 3110972934649033445604839,\ -16735849846923323800937993,\ 81244203916263823067469744,\ -350416340703436310165956982,\ 1310053014008769100611217140,\ -4069404609077554356080488904,\ 9553096110498373060623750168,\ -11390048466311802311290569758,\ -31247919197470577449527684590,\ 261318622987444316954896951975,\ -1032420856145510224087880547173,\ 2978242929861329612880677440996,\ -6834017778181258768810376827115,\ 12711258476587812926162830736737,\ -18557557689923271217607264914481,\ 17681774295226746906280242801957,\ 4535426194989267465243562688612,\ -74547830576501127926017986796070,\ 235915091706266418767778764894910,\ -558303972809578921355842829140242,\ 1149235873598640209626628103083624,\ -2152009249958486012157521262691128,\ 3693465780073345062916544686127700,\ -5752653298321353700715534979870528,\ 7981639485078402516851358413364395,\ -9598730701328796719754729796091179,\ 9514756312069300079568455925815100,\ -6764873493034973828802443507757448,\ 1101514550246997923992367741291162,\ 6593628794790764808241461731732899,\ -14403210142600165189288288408053172,\ 20032849737318289029981848564608331,\ -21746737653130442457401678080256608,\ 19102397952940763916280752363152005,\ -13133290144566069777846799538322202,\ 5916570047809196908191570911537545,\ 297822875692614179862428439508332,\ -4010565310845367397769525785860904,\ 4970404517112722178051808903497689,\ -3985948792481019808149192914211769,\ 2259307403472709941604337764467396,\ -736300367463740141829742776485060,\ -172512012230111394574174010575517,\ 499260653232545808620520692993349,\ -473013558067733674288084782395529,\ 318275606129283276176229749435141,\ -168912174536011328381728590158321,\ 71311965505396984246098728150653,\ -22300727298963511178740099625720,\ 3383377312083433652557691823272,\ 1543019862106404853806447777196,\ -1699951001231530528674005733344,\ 953194042622459306234161368496,\ -403071658686695750991297960432,\ 139782789350949963342991248064,\ -40810889723384509367836895936,\ 10043609348766007957089796544,\ -2045054782918797363668803840,\ 329172275089893338104934144,\ -37644661522835323464593408,\ 2021156027010784923045888,\ 195581527384791055122432,\ -46310233280696986042368,\ 1147679428600438194176,\ 689456767726494154752,\ -101410677207091642368,\ 4976803086619115520,\ -21059185114349568).
-\]
-Repeating with the first $87+4$ terms removed gives order $87$ again.
+a constant-coefficient linear recurrence of order $5$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{5}$ read off $D_2$, the first few being $5,\ -10,\ 10,\ -5,\ 1$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, each model was compared against the entry's own published values for its line, taken
-both from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is what ties a model to the table:
-substituting the fixed index into the entry's wording is a reading of English, and a wrong
-reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $7$ published values, $35$ decimal digits in all, every one of
-them exactly; a misreading of the entry would have to reproduce all of them by accident.
+First, the model reproduces every one of the $41$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, each conjectured recurrence was evaluated on those published values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A row of the table is a column of the transposed table: fixing $n$ and letting $k$ vary gives a
-count of arrays of fixed height, which is the same kind of object with the two dimensions
-exchanged. Both are settled here by the same argument. Only the lines the entry states
-explicitly, and for which enough published values exist to run the first check above, are
-claimed.
-\end{remark}
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251010.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A239844.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.

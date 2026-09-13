@@ -1,6 +1,6 @@
 # Proposed OEIS comments
 
-A proposed comment for each of the **11393** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
+A proposed comment for each of the **11415** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
 
 Each section names the entry, **the date the result was obtained**, the paper that proves it, and what the entry still records as unsettled. The date is the point: an OEIS comment is stamped with the day it is posted, so the date here is what shows when the work was actually done.
 
@@ -35,11 +35,11 @@ If a conjecture is settled by somebody else after the date recorded here, nothin
 | [A255789 – A262236](A255789-A262236.md) | 400 |
 | [A262237 – A266049](A262237-A266049.md) | 400 |
 | [A266050 – A268976](A266050-A268976.md) | 400 |
-| [A268977 – A278151](A268977-A278151.md) | 400 |
-| [A278152 – A282333](A278152-A282333.md) | 400 |
-| [A282334 – A296152](A282334-A296152.md) | 400 |
-| [A296153 – A298542](A296153-A298542.md) | 400 |
-| [A298543 – A302070](A298543-A302070.md) | 400 |
-| [A302071 – A304843](A302071-A304843.md) | 400 |
-| [A304844 – A392976](A304844-A392976.md) | 400 |
-| [A393856 – A397241](A393856-A397241.md) | 10 |
+| [A268977 – A277936](A268977-A277936.md) | 400 |
+| [A277939 – A282052](A277939-A282052.md) | 400 |
+| [A282053 – A295844](A282053-A295844.md) | 400 |
+| [A295845 – A298332](A295845-A298332.md) | 400 |
+| [A298333 – A301965](A298333-A301965.md) | 400 |
+| [A301966 – A304546](A301966-A304546.md) | 400 |
+| [A304547 – A326101](A304547-A326101.md) | 400 |
+| [A326102 – A397241](A326102-A397241.md) | 32 |

@@ -12,141 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204392, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224570, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204392 counts $(n+2)\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $19$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
-equality patterns, which is not a walk count --- but it is a fixed rational combination of
-walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A224570 counts the $(n+5)\times6$ matrices over $\{0,\dots,1\}$ all of whose
+$6\times6$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $6$ consecutive rows and $6$ consecutive columns at once, so a
+single row is not a state; the strip of the last $5$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=104865$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A204392 is ``Number of (n+2) X 4 0..1 arrays with no 3 X 3 subblock having three equal diagonal elements or three equal antidiagonal elements, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A224570 is ``Number of (n+5)X6 0..1 matrices with each 6X6 subblock idempotent.''. It has offset $1$ and begins
 \[
-648, 4050, 27378, 175232, 1131008, 7311488, 47258642, 305390898,\ \dots
+96608, 18044, 16696, 18868, 22096, 25769, 28708, 33705,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +15*a(n-2) +89*a(n-3) +211*a(n-4) +375*a(n-5) +149*a(n-6) -29*a(n-7) -195*a(n-8) -61*a(n-9) +61*a(n-10) +195*a(n-11) +29*a(n-12) -149*a(n-13) -375*a(n-14) -211*a(n-15) -89*a(n-16) -15*a(n-17) -a(n-18) +a(n-19).
+Empirical: a(n) = 2*a(n-1) -2*a(n-2) +2*a(n-3) -a(n-4) +2*a(n-6) -3*a(n-7) +4*a(n-8) -4*a(n-9) +3*a(n-10) -2*a(n-11) -2*a(n-14) +2*a(n-15) -2*a(n-16) +2*a(n-17) -a(n-18) +a(n-19) for n>30
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 04 2022 22:37:36, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:28:16, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Patterns are a combination of counts}
+\section{The count is a walk count}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
-counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
-only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
-patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
-alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
-its letters into the alphabet, so
-\[
-L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
-\[
-a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
-\]
-a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
-Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
-union of those graphs with the combination's coefficients placed in the starting vector; the
-coefficients are rational and some are negative, which costs nothing in what follows.
+Call a $6\times6$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $6\times6$ matrix a \emph{band} when every one of its $1$ contiguous
+$6\times6$ subblocks is a window. What the entry counts is the matrices of $6$ columns
+whose every $6$ consecutive rows form a band.
 
-This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
-the condition below is stated through equality between entries and never names a particular
-value or compares sizes.
-
-\section{Three consecutive lines}
-
-The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
-rows and three consecutive columns. Writing an array as a sequence of rows
-$u_1,u_2,\dots$ over $\{0,\dots,1\}^{4}$, the condition
+Take as states the $5\times6$ strips that occur as the top $5$ rows of a band,
+together with those that occur as its bottom $5$ rows, and put an edge from $u$ to $v$
+when the band whose first $5$ rows are $u$ and whose last $5$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..5$, then $2..6$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+5$ rows gives a walk of $n$ edges.
+Since the first $5$ rows of a counted matrix with at least $6$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\text{not }\bigl(\text{the diagonal or the antidiagonal of }g\text{ is constant}\bigr)
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
-rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
-$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
-Doing that for each alphabet size $1,\dots,2$ and combining as above gives
+with $M$ the adjacency matrix on $S=104865$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{30}$ strips of $5$ rows and $6$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $6\times5$ entries, so a band is exactly a walk of $1$ windows in
+the graph that joins a window to those whose first $5$ columns are its last $5$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $6\times6$ with
+$B^2=B$. There are $2^{36}$ matrices to sift, which is already awkward at $6=6$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
 \[
-a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n}\tau
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
 \]
-on $S=256$ vertices in total, the exponent fixed by the entry's own shape and checked against
-its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
-changes no value and only shrinks the computation.
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
+\end{lemma}
+
+\begin{proof}
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
+\end{proof}
+
+Generating from Lemma~\ref{lem:idem} gives $96608$ admissible $6\times6$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{19}-\sum_i c_it^{19-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+19}-\sum_ic_iM^{j+19-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 15\,a(n-2) + 89\,a(n-3) + 211\,a(n-4) + 375\,a(n-5) + 149\,a(n-6) - 29\,a(n-7) - 195\,a(n-8) - 61\,a(n-9) + 61\,a(n-10) + 195\,a(n-11) + 29\,a(n-12) - 149\,a(n-13) - 375\,a(n-14) - 211\,a(n-15) - 89\,a(n-16) - 15\,a(n-17) - a(n-18) + a(n-19)
+a(n)\;=\;2\,a(n-1) - 2\,a(n-2) + 2\,a(n-3) - a(n-4) + 2\,a(n-6) - 3\,a(n-7) + 4\,a(n-8) - 4\,a(n-9) + 3\,a(n-10) - 2\,a(n-11) - 2\,a(n-14) + 2\,a(n-15) - 2\,a(n-16) + 2\,a(n-17) - a(n-18) + a(n-19)
 \]
-for every $n>18$.
+for every $n>30$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=18+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>18$.
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204392.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224570.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

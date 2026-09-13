@@ -45,6 +45,7 @@ SHORT = {
     'ecacount': "a certified growth pattern of the automaton's row",
     'ecablock': "a certified block template for the automaton's row",
     'ecarowb': "a certified block template for the automaton's row read as a numeral",
+    'ordrep': 'an exact polynomial in $n$ past a computed transient',
 }
 
 MSC = {
@@ -302,6 +303,53 @@ them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero
 $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
+"""
+    if en == 'ordrep':
+        import ordrep as _o
+        q = _o.parse_name(e['name'])
+        b = _o.build(q) if q else None
+        L = (b or q or {}).get('L', 0)
+        k = (b or q or {}).get('k', 0)
+        n0 = (b or {}).get('n0', 0)
+        return rf"""
+\section{{The count is a polynomial past a computed transient}}
+
+A REPEATED VALUE is a term equal to the one before it, and its value is that term; the entry's
+condition relates each repeated value to the previous one. The length is fixed at ${L}$ and the
+alphabet $0..n$ grows, so nothing here is a walk on a finite digraph --- the state that
+remembers the previous repeated value has as many values as the alphabet. The count is taken
+exactly instead. Writing $A[p][v]$ for the number of prefixes ending in $v$ whose previous
+repeated value is $p$, appending a term $t$ gives
+\[
+A'[p][t] \mathrel{{+}}= \Big(\sum_v A[p][v]\Big) - A[p][t],
+\qquad
+A'[t][t] \mathrel{{+}}= A[p][t]\ \text{{when the condition allows}},
+\]
+the first for a $t$ differing from the last term and the second for a $t$ equal to it. Every
+term the model produces is an exact integer.
+
+\section{{The bound}}
+
+Let $k$ be the point past which the condition stops caring: the predicate depends on the
+difference of the two repeated values only through its sign and its magnitude up to $k$, and is
+constant beyond that in each direction. Here $k={k}$, read off the predicate rather than
+assumed. An array is determined by its weak ordering --- the ordered set partition of the
+${L}$ positions into $m$ blocks of equal value, listed in increasing value --- together with
+the base value $g_0\ge0$ and the gaps $g_1,\dots,g_{{m-1}}\ge1$ between consecutive distinct
+values, subject to $g_0+\sum g_i\le n$. Each constraint is on a difference of two values, which
+is a signed sum of consecutive gaps; since the predicate is constant past $k$, each constraint
+splits into finitely many cases, and in every case it either fixes that gap-sum to one of at
+most $2k+1$ values or pushes it beyond $k$. Within a case the count is the number of integer
+points of a system (fixed amounts) plus (free gaps) $\le n$, a polynomial in $n$ of degree at
+most ${L}$, valid as soon as $n$ exceeds the total forced amount. That total is at most
+$(m-1)+(\text{{constrained pairs}})(k+1)\le L+L(k+1)$, so with
+\[
+n_0 \;=\; L + L(k+1) \;=\; {n0}
+\]
+the sequence agrees with a polynomial of degree at most ${L}$ for every $n\ge n_0$. It is
+therefore annihilated by $(z-1)^{{{L}+1}}$ from that point, and by $z^{{n_0+1}}(z-1)^{{{L}+1}}$
+everywhere, a monic recurrence of order $S={S}$. The annihilator was then asked for terms the
+model had not supplied and reproduced them, which is what a bound one short fails.
 """
     if en in ('ecacount', 'ecablock', 'ecarowb'):
         blk = en != 'ecacount'

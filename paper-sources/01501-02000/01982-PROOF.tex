@@ -12,91 +12,59 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223560, proved by transfer matrix}
+\title{Arrays counted up to renaming: the empirical recurrence for OEIS A204316}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223560 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $41$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=4422$ vertices.
+OEIS A204316 carries an empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry imposes two conditions of different
+kinds: a condition on every subblock, which is local, and ``new values introduced in row major
+order'', which is not --- it makes the count a count of colourings up to renaming. The first is
+handled by a window of consecutive rows; the second by one extra integer, the number of values
+introduced so far, which is an exact summary of everything the whole prefix contributes. With
+both in the state the arrays are exactly the walks in a digraph on $S=59$ vertices, so $a(n)$
+is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A223560 is ``Petersen graph (3,1) coloring a rectangular array: number of 5Xn 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
+OEIS A204316 is ``Number of (n+2)X3 0..3 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally at least two different ways, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-1296, 19683, 1172889, 72906921, 4715559621, 308267930115, 20248676896077, 1332349841732589,\ \dots
+900, 15309, 296570, 3885869, 61395233, 998872022, 15147453273, 236632580900,\ \dots
 \]
+Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 138*a(n-1) -6973*a(n-2) +184648*a(n-3) -2923158*a(n-4) +28742148*a(n-5) -164862328*a(n-6) +323303482*a(n-7) +2664572505*a(n-8) -23705019366*a(n-9) +69355645652*a(n-10) +70054378686*a(n-11) -1192186614062*a(n-12) +3436488705480*a(n-13) -144865949345*a(n-14) -25285605346206*a(n-15) +67796388682571*a(n-16) -36846019769990*a(n-17) -198206747323771*a(n-18) +539872407671898*a(n-19) -524423165469667*a(n-20) -173098284258962*a(n-21) +1095810256049880*a(n-22) -1391226239663130*a(n-23) +883819140137974*a(n-24) -205123488401360*a(n-25) -109599889287411*a(n-26) +100027213354804*a(n-27) -24361114004738*a(n-28) -4709924309874*a(n-29) +4076735604787*a(n-30) -668752166416*a(n-31) -125749417451*a(n-32) +60592095948*a(n-33) -5244227851*a(n-34) -1102919206*a(n-35) +264396239*a(n-36) -12021054*a(n-37) -1712600*a(n-38) +222192*a(n-39) -8748*a(n-40) +108*a(n-41) for n>45
+Empirical: a(n) = 22*a(n-1) -119*a(n-2) +1148*a(n-3) -19142*a(n-4) +102346*a(n-5) -296822*a(n-6) +3139506*a(n-7) -17422094*a(n-8) +26324236*a(n-9) -128714479*a(n-10) +982639012*a(n-11) -881519791*a(n-12) -3835450308*a(n-13) -14164183760*a(n-14) +54843321982*a(n-15) +143773588667*a(n-16) -421147795822*a(n-17) -506301269317*a(n-18) +300563067312*a(n-19) +3197934667874*a(n-20) +3965911183994*a(n-21) -8966689060712*a(n-22) -14613863059144*a(n-23) -10342173673300*a(n-24) +29852979743336*a(n-25) +55550077164136*a(n-26) +927670269048*a(n-27) -34177938429792*a(n-28) -82246627809120*a(n-29) -15804172099872*a(n-30) +29229877967616*a(n-31) -13979244036096*a(n-32) +28593720906048*a(n-33) +24957241337088*a(n-34) +81534201661440*a(n-35) +25331504004864*a(n-36) -76108888037376*a(n-37) -43913943770112*a(n-38) -15206741121024*a(n-39) +22676452319232*a(n-40) +15618529714176*a(n-41) -4816869949440*a(n-42) -812665405440*a(n-43)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:47:40, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:06:32, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,5\}$ whose vertices are the $6$ nodes $0,\dots,5$ with the edges the entry lists, namely \{0,1\}, \{0,2\}, \{0,3\}, \{1,2\}, \{1,4\}, \{2,5\}, \{3,4\}, \{3,5\}, \{4,5\}.
+The entry counts arrays of 3 columns over the alphabet $\{0,1,2,3\}$, and asks two different kinds of thing of them at once.
 
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal and horizontal, that is the cell offsets
+\textbf{The subblock condition is local.} It says that every $3\times3$ subblock must contain three equal elements in a line --- along one of its three rows, one of its three columns, or one of its two diagonals --- in at least two of those eight ways. A $ 3\times3$ subblock spans $3$ consecutive rows, so a window of $3$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
+
+\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_3$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,4\}$, is an exact summary of everything the condition needs, and it joins the state.
+
+The vertices of the digraph are therefore the triples (the last $2$ rows, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $64$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=59$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-(1,-1), (0,1),
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
-\[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
-\]
-The entry also fixes the top-left cell: $x(0,0)=0$.
-
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
-\end{lemma}
-
-\begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Here the labelling is written out in the entry itself, so nothing is left to choose.
-\end{proof}
-
-\section{One slice is a state}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones. So a $column$, a word of length $5$ over the vertices of $G$, carries
-everything the next $column$ needs: the conditions inside a $column$ constrain that
-$column$ alone, and the conditions across $column$s are a relation between the
-$column$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$column$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4422.
-\]
-The $column$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $column$
-of length $5$ over $6$ vertices is one of $6^{5}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +72,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +81,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;138\,a(n-1) - 6973\,a(n-2) + 184648\,a(n-3) - 2923158\,a(n-4) + 28742148\,a(n-5) - 164862328\,a(n-6) + 323303482\,a(n-7) + 2664572505\,a(n-8) - 23705019366\,a(n-9) + 69355645652\,a(n-10) + 70054378686\,a(n-11) - 1192186614062\,a(n-12) + 3436488705480\,a(n-13) - 144865949345\,a(n-14) - 25285605346206\,a(n-15) + 67796388682571\,a(n-16) - 36846019769990\,a(n-17) - 198206747323771\,a(n-18) + 539872407671898\,a(n-19) - 524423165469667\,a(n-20) - 173098284258962\,a(n-21) + 1095810256049880\,a(n-22) - 1391226239663130\,a(n-23) + 883819140137974\,a(n-24) - 205123488401360\,a(n-25) - 109599889287411\,a(n-26) + 100027213354804\,a(n-27) - 24361114004738\,a(n-28) - 4709924309874\,a(n-29) + 4076735604787\,a(n-30) - 668752166416\,a(n-31) - 125749417451\,a(n-32) + 60592095948\,a(n-33) - 5244227851\,a(n-34) - 1102919206\,a(n-35) + 264396239\,a(n-36) - 12021054\,a(n-37) - 1712600\,a(n-38) + 222192\,a(n-39) - 8748\,a(n-40) + 108\,a(n-41)
+a(n)\;=\;22\,a(n-1) - 119\,a(n-2) + 1148\,a(n-3) - 19142\,a(n-4) + 102346\,a(n-5) - 296822\,a(n-6) + 3139506\,a(n-7) - 17422094\,a(n-8) + 26324236\,a(n-9) - 128714479\,a(n-10) + 982639012\,a(n-11) - 881519791\,a(n-12) - 3835450308\,a(n-13) - 14164183760\,a(n-14) + 54843321982\,a(n-15) + 143773588667\,a(n-16) - 421147795822\,a(n-17) - 506301269317\,a(n-18) + 300563067312\,a(n-19) + 3197934667874\,a(n-20) + 3965911183994\,a(n-21) - 8966689060712\,a(n-22) - 14613863059144\,a(n-23) - 10342173673300\,a(n-24) + 29852979743336\,a(n-25) + 55550077164136\,a(n-26) + 927670269048\,a(n-27) - 34177938429792\,a(n-28) - 82246627809120\,a(n-29) - 15804172099872\,a(n-30) + 29229877967616\,a(n-31) - 13979244036096\,a(n-32) + 28593720906048\,a(n-33) + 24957241337088\,a(n-34) + 81534201661440\,a(n-35) + 25331504004864\,a(n-36) - 76108888037376\,a(n-37) - 43913943770112\,a(n-38) - 15206741121024\,a(n-39) + 22676452319232\,a(n-40) + 15618529714176\,a(n-41) - 4816869949440\,a(n-42) - 812665405440\,a(n-43)
 \]
-for every $n>45$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,16 +97,17 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+the arrays one by one from the entry's own words --- generating every array over the
+alphabet, discarding those that fail the relabelling condition, then testing each subblock
+directly --- and compares the count with the published terms. That program shares no code
+with the transfer matrix, so an error in one does not hide an error in the other.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Third, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -146,10 +115,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223560.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204316.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

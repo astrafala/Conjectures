@@ -1,0 +1,115 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A250467, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{7 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A250467 carries an empirical recurrence of order $67$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=256$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The conjecture}
+
+OEIS A250467 is ``Number of (n+1)X(7+1) 0..1 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
+\[
+4757, 166765, 5286723, 169000988, 5383012776, 171499189113, 5462124226322, 173973296060000,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical recurrence of order 67 (see link above)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:27:07, revision 6) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a walk count}
+
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=256$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{67}-\sum_i c_it^{67-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+67}-\sum_ic_iM^{j+67-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;9\,a(n-1) + 860\,a(n-2) + 1128\,a(n-3) - 173938\,a(n-4) - 414920\,a(n-5) + 16993857\,a(n-6) + 35725323\,a(n-7) - 982860326\,a(n-8) - 1437896242\,a(n-9) + 36820348969\,a(n-10) + 28999201369\,a(n-11) - 939149924812\,a(n-12) - 174167911854\,a(n-13) + 16836140031976\,a(n-14) - 5381768492500\,a(n-15) - 216870858071462\,a(n-16) + 159877914124844\,a(n-17) + 2040297501360566\,a(n-18) - 2219809790388852\,a(n-19) - 14198330546191550\,a(n-20) + 19823133216123176\,a(n-21) + 73833004219003941\,a(n-22) - 124596042232667133\,a(n-23) - 289138580911622922\,a(n-24) + 575773677886994038\,a(n-25) + 856661449759644905\,a(n-26) - 2009659095857457031\,a(n-27) - 1919577049188649356\,a(n-28) + 5399152531281015454\,a(n-29) + 3222481493258002722\,a(n-30) - 11323330878356223130\,a(n-31) - 3934369659780475081\,a(n-32) + 18737265000056552775\,a(n-33) + 3187594738909438924\,a(n-34) - 24660411122591766774\,a(n-35) - 1054840566249855608\,a(n-36) + 25962978933617988912\,a(n-37) - 1256785936152716256\,a(n-38) - 21947916215512494896\,a(n-39) + 2467492198255511712\,a(n-40) + 14925463907601576256\,a(n-41) - 2318742370830525824\,a(n-42) - 8165360893984628544\,a(n-43) + 1481749423691503872\,a(n-44) + 3587023991087163776\,a(n-45) - 695630317870508032\,a(n-46) - 1260394536910368768\,a(n-47) + 246098485535575040\,a(n-48) + 352010252958166016\,a(n-49) - 66038849216618496\,a(n-50) - 77424747844276224\,a(n-51) + 13392305483595776\,a(n-52) + 13239630419865600\,a(n-53) - 2029351351181312\,a(n-54) - 1729123595010048\,a(n-55) + 225483459051520\,a(n-56) + 168308947255296\,a(n-57) - 17866546544640\,a(n-58) - 11800236654592\,a(n-59) + 969870278656\,a(n-60) + 567322607616\,a(n-61) - 33970192384\,a(n-62) - 17352359936\,a(n-63) + 692060160\,a(n-64) + 296747008\,a(n-65) - 6291456\,a(n-66) - 2097152\,a(n-67)
+\]
+for every $n>67$.
+\end{theorem}
+
+\begin{proof}
+The vector $w=q(M)\tau$ was formed by $67$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=67+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250467.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

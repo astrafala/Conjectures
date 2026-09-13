@@ -1,6 +1,6 @@
 # Papers 01001-01500
 
-Ranks 1001 to 1500 of 12037, hardest first.
+Ranks 1001 to 1500 of 12059, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -312,195 +312,195 @@ Ranks 1001 to 1500 of 12037, hardest first.
 | 1306 | [A279978](https://oeis.org/A279978) | Proof | a cell condition with an exception budget, counted up to relabelling | [01306-PROOF.pdf](01306-PROOF.pdf) |
 | 1307 | [A281057](https://oeis.org/A281057) | Proof | a cell condition with an exception budget, counted up to relabelling | [01307-PROOF.pdf](01307-PROOF.pdf) |
 | 1308 | [A221256](https://oeis.org/A221256) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01308-PROOF.pdf](01308-PROOF.pdf) |
-| 1309 | [A230984](https://oeis.org/A230984) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01309-PROOF.pdf](01309-PROOF.pdf) |
-| 1310 | [A281394](https://oeis.org/A281394) | Proof | a cell condition with an exception budget, counted up to relabelling | [01310-PROOF.pdf](01310-PROOF.pdf) |
-| 1311 | [A245874](https://oeis.org/A245874) | Proof |  | [01311-PROOF.pdf](01311-PROOF.pdf) |
-| 1312 | [A248435](https://oeis.org/A248435) | Proof |  | [01312-PROOF.pdf](01312-PROOF.pdf) |
-| 1313 | [A219129](https://oeis.org/A219129) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01313-PROOF.pdf](01313-PROOF.pdf) |
-| 1314 | [A249291](https://oeis.org/A249291) | Proof |  | [01314-PROOF.pdf](01314-PROOF.pdf) |
-| 1315 | [A202079](https://oeis.org/A202079) | Proof |  | [01315-PROOF.pdf](01315-PROOF.pdf) |
-| 1316 | [A200155](https://oeis.org/A200155) | Proof |  | [01316-PROOF.pdf](01316-PROOF.pdf) |
-| 1317 | [A200554](https://oeis.org/A200554) | Proof |  | [01317-PROOF.pdf](01317-PROOF.pdf) |
-| 1318 | [A219137](https://oeis.org/A219137) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01318-PROOF.pdf](01318-PROOF.pdf) |
-| 1319 | [A220227](https://oeis.org/A220227) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01319-PROOF.pdf](01319-PROOF.pdf) |
-| 1320 | [A245952](https://oeis.org/A245952) | Proof |  | [01320-PROOF.pdf](01320-PROOF.pdf) |
-| 1321 | [A247728](https://oeis.org/A247728) | Proof |  | [01321-PROOF.pdf](01321-PROOF.pdf) |
-| 1322 | [A249713](https://oeis.org/A249713) | Proof |  | [01322-PROOF.pdf](01322-PROOF.pdf) |
-| 1323 | [A254704](https://oeis.org/A254704) | Proof |  | [01323-PROOF.pdf](01323-PROOF.pdf) |
-| 1324 | [A199837](https://oeis.org/A199837) | Proof |  | [01324-PROOF.pdf](01324-PROOF.pdf) |
-| 1325 | [A200435](https://oeis.org/A200435) | Proof |  | [01325-PROOF.pdf](01325-PROOF.pdf) |
-| 1326 | [A254703](https://oeis.org/A254703) | Proof |  | [01326-PROOF.pdf](01326-PROOF.pdf) |
-| 1327 | [A200789](https://oeis.org/A200789) | Proof |  | [01327-PROOF.pdf](01327-PROOF.pdf) |
-| 1328 | [A200842](https://oeis.org/A200842) | Proof |  | [01328-PROOF.pdf](01328-PROOF.pdf) |
-| 1329 | [A200875](https://oeis.org/A200875) | Proof |  | [01329-PROOF.pdf](01329-PROOF.pdf) |
-| 1330 | [A200890](https://oeis.org/A200890) | Proof |  | [01330-PROOF.pdf](01330-PROOF.pdf) |
-| 1331 | [A201046](https://oeis.org/A201046) | Proof |  | [01331-PROOF.pdf](01331-PROOF.pdf) |
-| 1332 | [A212840](https://oeis.org/A212840) | Proof |  | [01332-PROOF.pdf](01332-PROOF.pdf) |
-| 1333 | [A241620](https://oeis.org/A241620) | Proof |  | [01333-PROOF.pdf](01333-PROOF.pdf) |
-| 1334 | [A241967](https://oeis.org/A241967) | Proof |  | [01334-PROOF.pdf](01334-PROOF.pdf) |
-| 1335 | [A250084](https://oeis.org/A250084) | Proof |  | [01335-PROOF.pdf](01335-PROOF.pdf) |
-| 1336 | [A250156](https://oeis.org/A250156) | Proof |  | [01336-PROOF.pdf](01336-PROOF.pdf) |
-| 1337 | [A250339](https://oeis.org/A250339) | Proof |  | [01337-PROOF.pdf](01337-PROOF.pdf) |
-| 1338 | [A254702](https://oeis.org/A254702) | Proof |  | [01338-PROOF.pdf](01338-PROOF.pdf) |
-| 1339 | [A183910](https://oeis.org/A183910) | Proof |  | [01339-PROOF.pdf](01339-PROOF.pdf) |
-| 1340 | [A249847](https://oeis.org/A249847) | Proof |  | [01340-PROOF.pdf](01340-PROOF.pdf) |
-| 1341 | [A249884](https://oeis.org/A249884) | Proof |  | [01341-PROOF.pdf](01341-PROOF.pdf) |
-| 1342 | [A249962](https://oeis.org/A249962) | Proof |  | [01342-PROOF.pdf](01342-PROOF.pdf) |
-| 1343 | [A250016](https://oeis.org/A250016) | Proof |  | [01343-PROOF.pdf](01343-PROOF.pdf) |
-| 1344 | [A250060](https://oeis.org/A250060) | Proof |  | [01344-PROOF.pdf](01344-PROOF.pdf) |
-| 1345 | [A250144](https://oeis.org/A250144) | Proof |  | [01345-PROOF.pdf](01345-PROOF.pdf) |
-| 1346 | [A250390](https://oeis.org/A250390) | Proof |  | [01346-PROOF.pdf](01346-PROOF.pdf) |
-| 1347 | [A267236](https://oeis.org/A267236) | Proof |  | [01347-PROOF.pdf](01347-PROOF.pdf) |
-| 1348 | [A267475](https://oeis.org/A267475) | Proof |  | [01348-PROOF.pdf](01348-PROOF.pdf) |
-| 1349 | [A269413](https://oeis.org/A269413) | Proof |  | [01349-PROOF.pdf](01349-PROOF.pdf) |
-| 1350 | [A269439](https://oeis.org/A269439) | Proof |  | [01350-PROOF.pdf](01350-PROOF.pdf) |
-| 1351 | [A269471](https://oeis.org/A269471) | Proof |  | [01351-PROOF.pdf](01351-PROOF.pdf) |
-| 1352 | [A264423](https://oeis.org/A264423) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01352-PROOF.pdf](01352-PROOF.pdf) |
-| 1353 | [A220037](https://oeis.org/A220037) | Proof |  | [01353-PROOF.pdf](01353-PROOF.pdf) |
-| 1354 | [A219501](https://oeis.org/A219501) | Proof |  | [01354-PROOF.pdf](01354-PROOF.pdf) |
-| 1355 | [A222090](https://oeis.org/A222090) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01355-PROOF.pdf](01355-PROOF.pdf) |
-| 1356 | [A221226](https://oeis.org/A221226) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01356-PROOF.pdf](01356-PROOF.pdf) |
-| 1357 | [A220031](https://oeis.org/A220031) | Proof |  | [01357-PROOF.pdf](01357-PROOF.pdf) |
-| 1358 | [A222094](https://oeis.org/A222094) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01358-PROOF.pdf](01358-PROOF.pdf) |
-| 1359 | [A220939](https://oeis.org/A220939) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01359-PROOF.pdf](01359-PROOF.pdf) |
-| 1360 | [A221894](https://oeis.org/A221894) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01360-PROOF.pdf](01360-PROOF.pdf) |
-| 1361 | [A221899](https://oeis.org/A221899) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01361-PROOF.pdf](01361-PROOF.pdf) |
-| 1362 | [A221821](https://oeis.org/A221821) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01362-PROOF.pdf](01362-PROOF.pdf) |
-| 1363 | [A218517](https://oeis.org/A218517) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01363-PROOF.pdf](01363-PROOF.pdf) |
-| 1364 | [A221352](https://oeis.org/A221352) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01364-PROOF.pdf](01364-PROOF.pdf) |
-| 1365 | [A221329](https://oeis.org/A221329) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01365-PROOF.pdf](01365-PROOF.pdf) |
-| 1366 | [A221415](https://oeis.org/A221415) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01366-PROOF.pdf](01366-PROOF.pdf) |
-| 1367 | [A221357](https://oeis.org/A221357) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01367-PROOF.pdf](01367-PROOF.pdf) |
-| 1368 | [A221297](https://oeis.org/A221297) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01368-PROOF.pdf](01368-PROOF.pdf) |
-| 1369 | [A218237](https://oeis.org/A218237) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01369-PROOF.pdf](01369-PROOF.pdf) |
-| 1370 | [A221484](https://oeis.org/A221484) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01370-PROOF.pdf](01370-PROOF.pdf) |
-| 1371 | [A218805](https://oeis.org/A218805) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01371-PROOF.pdf](01371-PROOF.pdf) |
-| 1372 | [A217978](https://oeis.org/A217978) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01372-PROOF.pdf](01372-PROOF.pdf) |
-| 1373 | [A279152](https://oeis.org/A279152) | Proof | a cell condition with an exception budget, counted up to relabelling | [01373-PROOF.pdf](01373-PROOF.pdf) |
-| 1374 | [A221667](https://oeis.org/A221667) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01374-PROOF.pdf](01374-PROOF.pdf) |
-| 1375 | [A218804](https://oeis.org/A218804) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01375-PROOF.pdf](01375-PROOF.pdf) |
-| 1376 | [A221526](https://oeis.org/A221526) | Proof |  | [01376-PROOF.pdf](01376-PROOF.pdf) |
-| 1377 | [A218236](https://oeis.org/A218236) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01377-PROOF.pdf](01377-PROOF.pdf) |
-| 1378 | [A219398](https://oeis.org/A219398) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01378-PROOF.pdf](01378-PROOF.pdf) |
-| 1379 | [A220971](https://oeis.org/A220971) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01379-PROOF.pdf](01379-PROOF.pdf) |
-| 1380 | [A222381](https://oeis.org/A222381) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01380-PROOF.pdf](01380-PROOF.pdf) |
-| 1381 | [A245873](https://oeis.org/A245873) | Proof |  | [01381-PROOF.pdf](01381-PROOF.pdf) |
-| 1382 | [A218843](https://oeis.org/A218843) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01382-PROOF.pdf](01382-PROOF.pdf) |
-| 1383 | [A221576](https://oeis.org/A221576) | Proof |  | [01383-PROOF.pdf](01383-PROOF.pdf) |
-| 1384 | [A201874](https://oeis.org/A201874) | Proof |  | [01384-PROOF.pdf](01384-PROOF.pdf) |
-| 1385 | [A220191](https://oeis.org/A220191) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01385-PROOF.pdf](01385-PROOF.pdf) |
-| 1386 | [A218759](https://oeis.org/A218759) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01386-PROOF.pdf](01386-PROOF.pdf) |
-| 1387 | [A201089](https://oeis.org/A201089) | Proof |  | [01387-PROOF.pdf](01387-PROOF.pdf) |
-| 1388 | [A218189](https://oeis.org/A218189) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01388-PROOF.pdf](01388-PROOF.pdf) |
-| 1389 | [A245997](https://oeis.org/A245997) | Proof |  | [01389-PROOF.pdf](01389-PROOF.pdf) |
-| 1390 | [A246480](https://oeis.org/A246480) | Proof |  | [01390-PROOF.pdf](01390-PROOF.pdf) |
-| 1391 | [A249712](https://oeis.org/A249712) | Proof |  | [01391-PROOF.pdf](01391-PROOF.pdf) |
-| 1392 | [A199534](https://oeis.org/A199534) | Proof |  | [01392-PROOF.pdf](01392-PROOF.pdf) |
-| 1393 | [A199836](https://oeis.org/A199836) | Proof |  | [01393-PROOF.pdf](01393-PROOF.pdf) |
-| 1394 | [A199902](https://oeis.org/A199902) | Proof |  | [01394-PROOF.pdf](01394-PROOF.pdf) |
-| 1395 | [A200434](https://oeis.org/A200434) | Proof |  | [01395-PROOF.pdf](01395-PROOF.pdf) |
-| 1396 | [A221466](https://oeis.org/A221466) | Proof |  | [01396-PROOF.pdf](01396-PROOF.pdf) |
-| 1397 | [A200788](https://oeis.org/A200788) | Proof |  | [01397-PROOF.pdf](01397-PROOF.pdf) |
-| 1398 | [A200841](https://oeis.org/A200841) | Proof |  | [01398-PROOF.pdf](01398-PROOF.pdf) |
-| 1399 | [A200874](https://oeis.org/A200874) | Proof |  | [01399-PROOF.pdf](01399-PROOF.pdf) |
-| 1400 | [A200889](https://oeis.org/A200889) | Proof |  | [01400-PROOF.pdf](01400-PROOF.pdf) |
-| 1401 | [A201045](https://oeis.org/A201045) | Proof |  | [01401-PROOF.pdf](01401-PROOF.pdf) |
-| 1402 | [A212839](https://oeis.org/A212839) | Proof |  | [01402-PROOF.pdf](01402-PROOF.pdf) |
-| 1403 | [A220172](https://oeis.org/A220172) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01403-PROOF.pdf](01403-PROOF.pdf) |
-| 1404 | [A241966](https://oeis.org/A241966) | Proof |  | [01404-PROOF.pdf](01404-PROOF.pdf) |
-| 1405 | [A250083](https://oeis.org/A250083) | Proof |  | [01405-PROOF.pdf](01405-PROOF.pdf) |
-| 1406 | [A250155](https://oeis.org/A250155) | Proof |  | [01406-PROOF.pdf](01406-PROOF.pdf) |
-| 1407 | [A250338](https://oeis.org/A250338) | Proof |  | [01407-PROOF.pdf](01407-PROOF.pdf) |
-| 1408 | [A250374](https://oeis.org/A250374) | Proof |  | [01408-PROOF.pdf](01408-PROOF.pdf) |
-| 1409 | [A254701](https://oeis.org/A254701) | Proof |  | [01409-PROOF.pdf](01409-PROOF.pdf) |
-| 1410 | [A183901](https://oeis.org/A183901) | Proof |  | [01410-PROOF.pdf](01410-PROOF.pdf) |
-| 1411 | [A183909](https://oeis.org/A183909) | Proof |  | [01411-PROOF.pdf](01411-PROOF.pdf) |
-| 1412 | [A208601](https://oeis.org/A208601) | Proof |  | [01412-PROOF.pdf](01412-PROOF.pdf) |
-| 1413 | [A249846](https://oeis.org/A249846) | Proof |  | [01413-PROOF.pdf](01413-PROOF.pdf) |
-| 1414 | [A249961](https://oeis.org/A249961) | Proof |  | [01414-PROOF.pdf](01414-PROOF.pdf) |
-| 1415 | [A250015](https://oeis.org/A250015) | Proof |  | [01415-PROOF.pdf](01415-PROOF.pdf) |
-| 1416 | [A250143](https://oeis.org/A250143) | Proof |  | [01416-PROOF.pdf](01416-PROOF.pdf) |
-| 1417 | [A250389](https://oeis.org/A250389) | Proof |  | [01417-PROOF.pdf](01417-PROOF.pdf) |
-| 1418 | [A267235](https://oeis.org/A267235) | Proof |  | [01418-PROOF.pdf](01418-PROOF.pdf) |
-| 1419 | [A267474](https://oeis.org/A267474) | Proof |  | [01419-PROOF.pdf](01419-PROOF.pdf) |
-| 1420 | [A269412](https://oeis.org/A269412) | Proof |  | [01420-PROOF.pdf](01420-PROOF.pdf) |
-| 1421 | [A269438](https://oeis.org/A269438) | Proof |  | [01421-PROOF.pdf](01421-PROOF.pdf) |
-| 1422 | [A269470](https://oeis.org/A269470) | Proof |  | [01422-PROOF.pdf](01422-PROOF.pdf) |
-| 1423 | [A208826](https://oeis.org/A208826) | Proof |  | [01423-PROOF.pdf](01423-PROOF.pdf) |
-| 1424 | [A280439](https://oeis.org/A280439) | Proof | a cell condition with an exception budget, counted up to relabelling | [01424-PROOF.pdf](01424-PROOF.pdf) |
-| 1425 | [A281211](https://oeis.org/A281211) | Proof | a cell condition with an exception budget, counted up to relabelling | [01425-PROOF.pdf](01425-PROOF.pdf) |
-| 1426 | [A229753](https://oeis.org/A229753) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01426-PROOF.pdf](01426-PROOF.pdf) |
-| 1427 | [A280438](https://oeis.org/A280438) | Proof | a cell condition with an exception budget, counted up to relabelling | [01427-PROOF.pdf](01427-PROOF.pdf) |
-| 1428 | [A281210](https://oeis.org/A281210) | Proof | a cell condition with an exception budget, counted up to relabelling | [01428-PROOF.pdf](01428-PROOF.pdf) |
-| 1429 | [A229390](https://oeis.org/A229390) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01429-PROOF.pdf](01429-PROOF.pdf) |
-| 1430 | [A280897](https://oeis.org/A280897) | Proof | a cell condition with an exception budget, counted up to relabelling | [01430-PROOF.pdf](01430-PROOF.pdf) |
-| 1431 | [A280437](https://oeis.org/A280437) | Proof | a cell condition with an exception budget, counted up to relabelling | [01431-PROOF.pdf](01431-PROOF.pdf) |
-| 1432 | [A281209](https://oeis.org/A281209) | Proof | a cell condition with an exception budget, counted up to relabelling | [01432-PROOF.pdf](01432-PROOF.pdf) |
-| 1433 | [A229584](https://oeis.org/A229584) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01433-PROOF.pdf](01433-PROOF.pdf) |
-| 1434 | [A279575](https://oeis.org/A279575) | Proof | a cell condition with an exception budget, counted up to relabelling | [01434-PROOF.pdf](01434-PROOF.pdf) |
-| 1435 | [A279852](https://oeis.org/A279852) | Proof | a cell condition with an exception budget, counted up to relabelling | [01435-PROOF.pdf](01435-PROOF.pdf) |
-| 1436 | [A280393](https://oeis.org/A280393) | Proof | a cell condition with an exception budget, counted up to relabelling | [01436-PROOF.pdf](01436-PROOF.pdf) |
-| 1437 | [A264281](https://oeis.org/A264281) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01437-PROOF.pdf](01437-PROOF.pdf) |
-| 1438 | [A264332](https://oeis.org/A264332) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01438-PROOF.pdf](01438-PROOF.pdf) |
-| 1439 | [A264360](https://oeis.org/A264360) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01439-PROOF.pdf](01439-PROOF.pdf) |
-| 1440 | [A264502](https://oeis.org/A264502) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01440-PROOF.pdf](01440-PROOF.pdf) |
-| 1441 | [A264565](https://oeis.org/A264565) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01441-PROOF.pdf](01441-PROOF.pdf) |
-| 1442 | [A264579](https://oeis.org/A264579) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01442-PROOF.pdf](01442-PROOF.pdf) |
-| 1443 | [A220036](https://oeis.org/A220036) | Proof |  | [01443-PROOF.pdf](01443-PROOF.pdf) |
-| 1444 | [A280436](https://oeis.org/A280436) | Proof | a cell condition with an exception budget, counted up to relabelling | [01444-PROOF.pdf](01444-PROOF.pdf) |
-| 1445 | [A281208](https://oeis.org/A281208) | Proof | a cell condition with an exception budget, counted up to relabelling | [01445-PROOF.pdf](01445-PROOF.pdf) |
-| 1446 | [A221687](https://oeis.org/A221687) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01446-PROOF.pdf](01446-PROOF.pdf) |
-| 1447 | [A221189](https://oeis.org/A221189) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01447-PROOF.pdf](01447-PROOF.pdf) |
-| 1448 | [A229667](https://oeis.org/A229667) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01448-PROOF.pdf](01448-PROOF.pdf) |
-| 1449 | [A229633](https://oeis.org/A229633) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01449-PROOF.pdf](01449-PROOF.pdf) |
-| 1450 | [A279651](https://oeis.org/A279651) | Proof | a cell condition with an exception budget, counted up to relabelling | [01450-PROOF.pdf](01450-PROOF.pdf) |
-| 1451 | [A280474](https://oeis.org/A280474) | Proof | a cell condition with an exception budget, counted up to relabelling | [01451-PROOF.pdf](01451-PROOF.pdf) |
-| 1452 | [A280896](https://oeis.org/A280896) | Proof | a cell condition with an exception budget, counted up to relabelling | [01452-PROOF.pdf](01452-PROOF.pdf) |
-| 1453 | [A282185](https://oeis.org/A282185) | Proof | a cell condition with an exception budget, counted up to relabelling | [01453-PROOF.pdf](01453-PROOF.pdf) |
-| 1454 | [A264000](https://oeis.org/A264000) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01454-PROOF.pdf](01454-PROOF.pdf) |
-| 1455 | [A264166](https://oeis.org/A264166) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01455-PROOF.pdf](01455-PROOF.pdf) |
-| 1456 | [A264218](https://oeis.org/A264218) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01456-PROOF.pdf](01456-PROOF.pdf) |
-| 1457 | [A264239](https://oeis.org/A264239) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01457-PROOF.pdf](01457-PROOF.pdf) |
-| 1458 | [A264245](https://oeis.org/A264245) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01458-PROOF.pdf](01458-PROOF.pdf) |
-| 1459 | [A264359](https://oeis.org/A264359) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01459-PROOF.pdf](01459-PROOF.pdf) |
-| 1460 | [A221110](https://oeis.org/A221110) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01460-PROOF.pdf](01460-PROOF.pdf) |
-| 1461 | [A229388](https://oeis.org/A229388) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01461-PROOF.pdf](01461-PROOF.pdf) |
-| 1462 | [A219500](https://oeis.org/A219500) | Proof |  | [01462-PROOF.pdf](01462-PROOF.pdf) |
-| 1463 | [A229455](https://oeis.org/A229455) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01463-PROOF.pdf](01463-PROOF.pdf) |
-| 1464 | [A229589](https://oeis.org/A229589) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01464-PROOF.pdf](01464-PROOF.pdf) |
-| 1465 | [A280118](https://oeis.org/A280118) | Proof | a cell condition with an exception budget, counted up to relabelling | [01465-PROOF.pdf](01465-PROOF.pdf) |
-| 1466 | [A281124](https://oeis.org/A281124) | Proof | a cell condition with an exception budget, counted up to relabelling | [01466-PROOF.pdf](01466-PROOF.pdf) |
-| 1467 | [A219940](https://oeis.org/A219940) | Proof |  | [01467-PROOF.pdf](01467-PROOF.pdf) |
-| 1468 | [A279263](https://oeis.org/A279263) | Proof | a cell condition with an exception budget, counted up to relabelling | [01468-PROOF.pdf](01468-PROOF.pdf) |
-| 1469 | [A279736](https://oeis.org/A279736) | Proof | a cell condition with an exception budget, counted up to relabelling | [01469-PROOF.pdf](01469-PROOF.pdf) |
-| 1470 | [A281760](https://oeis.org/A281760) | Proof | a cell condition with an exception budget, counted up to relabelling | [01470-PROOF.pdf](01470-PROOF.pdf) |
-| 1471 | [A219004](https://oeis.org/A219004) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01471-PROOF.pdf](01471-PROOF.pdf) |
-| 1472 | [A221236](https://oeis.org/A221236) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01472-PROOF.pdf](01472-PROOF.pdf) |
-| 1473 | [A229601](https://oeis.org/A229601) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01473-PROOF.pdf](01473-PROOF.pdf) |
-| 1474 | [A229632](https://oeis.org/A229632) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01474-PROOF.pdf](01474-PROOF.pdf) |
-| 1475 | [A219579](https://oeis.org/A219579) | Proof |  | [01475-PROOF.pdf](01475-PROOF.pdf) |
-| 1476 | [A220030](https://oeis.org/A220030) | Proof |  | [01476-PROOF.pdf](01476-PROOF.pdf) |
-| 1477 | [A221801](https://oeis.org/A221801) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01477-PROOF.pdf](01477-PROOF.pdf) |
-| 1478 | [A220205](https://oeis.org/A220205) | Proof |  | [01478-PROOF.pdf](01478-PROOF.pdf) |
-| 1479 | [A231125](https://oeis.org/A231125) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01479-PROOF.pdf](01479-PROOF.pdf) |
-| 1480 | [A229536](https://oeis.org/A229536) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01480-PROOF.pdf](01480-PROOF.pdf) |
-| 1481 | [A231134](https://oeis.org/A231134) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01481-PROOF.pdf](01481-PROOF.pdf) |
-| 1482 | [A263999](https://oeis.org/A263999) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01482-PROOF.pdf](01482-PROOF.pdf) |
-| 1483 | [A264202](https://oeis.org/A264202) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01483-PROOF.pdf](01483-PROOF.pdf) |
-| 1484 | [A219715](https://oeis.org/A219715) | Proof |  | [01484-PROOF.pdf](01484-PROOF.pdf) |
-| 1485 | [A229387](https://oeis.org/A229387) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01485-PROOF.pdf](01485-PROOF.pdf) |
-| 1486 | [A279971](https://oeis.org/A279971) | Proof | a cell condition with an exception budget, counted up to relabelling | [01486-PROOF.pdf](01486-PROOF.pdf) |
-| 1487 | [A281050](https://oeis.org/A281050) | Proof | a cell condition with an exception budget, counted up to relabelling | [01487-PROOF.pdf](01487-PROOF.pdf) |
-| 1488 | [A281930](https://oeis.org/A281930) | Proof | a cell condition with an exception budget, counted up to relabelling | [01488-PROOF.pdf](01488-PROOF.pdf) |
-| 1489 | [A218060](https://oeis.org/A218060) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01489-PROOF.pdf](01489-PROOF.pdf) |
-| 1490 | [A220011](https://oeis.org/A220011) | Proof |  | [01490-PROOF.pdf](01490-PROOF.pdf) |
-| 1491 | [A229638](https://oeis.org/A229638) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01491-PROOF.pdf](01491-PROOF.pdf) |
-| 1492 | [A279300](https://oeis.org/A279300) | Proof | a cell condition with an exception budget, counted up to relabelling | [01492-PROOF.pdf](01492-PROOF.pdf) |
-| 1493 | [A279865](https://oeis.org/A279865) | Proof | a cell condition with an exception budget, counted up to relabelling | [01493-PROOF.pdf](01493-PROOF.pdf) |
-| 1494 | [A280309](https://oeis.org/A280309) | Proof | a cell condition with an exception budget, counted up to relabelling | [01494-PROOF.pdf](01494-PROOF.pdf) |
-| 1495 | [A219406](https://oeis.org/A219406) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01495-PROOF.pdf](01495-PROOF.pdf) |
-| 1496 | [A221059](https://oeis.org/A221059) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01496-PROOF.pdf](01496-PROOF.pdf) |
-| 1497 | [A280155](https://oeis.org/A280155) | Proof | a cell condition with an exception budget, counted up to relabelling | [01497-PROOF.pdf](01497-PROOF.pdf) |
-| 1498 | [A281982](https://oeis.org/A281982) | Proof | a cell condition with an exception budget, counted up to relabelling | [01498-PROOF.pdf](01498-PROOF.pdf) |
-| 1499 | [A220045](https://oeis.org/A220045) | Proof |  | [01499-PROOF.pdf](01499-PROOF.pdf) |
-| 1500 | [A229665](https://oeis.org/A229665) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01500-PROOF.pdf](01500-PROOF.pdf) |
+| 1309 | [A269623](https://oeis.org/A269623) | Proof |  | [01309-PROOF.pdf](01309-PROOF.pdf) |
+| 1310 | [A269644](https://oeis.org/A269644) | Proof |  | [01310-PROOF.pdf](01310-PROOF.pdf) |
+| 1311 | [A230984](https://oeis.org/A230984) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01311-PROOF.pdf](01311-PROOF.pdf) |
+| 1312 | [A281394](https://oeis.org/A281394) | Proof | a cell condition with an exception budget, counted up to relabelling | [01312-PROOF.pdf](01312-PROOF.pdf) |
+| 1313 | [A245874](https://oeis.org/A245874) | Proof |  | [01313-PROOF.pdf](01313-PROOF.pdf) |
+| 1314 | [A248435](https://oeis.org/A248435) | Proof |  | [01314-PROOF.pdf](01314-PROOF.pdf) |
+| 1315 | [A269541](https://oeis.org/A269541) | Proof |  | [01315-PROOF.pdf](01315-PROOF.pdf) |
+| 1316 | [A269587](https://oeis.org/A269587) | Proof |  | [01316-PROOF.pdf](01316-PROOF.pdf) |
+| 1317 | [A269610](https://oeis.org/A269610) | Proof |  | [01317-PROOF.pdf](01317-PROOF.pdf) |
+| 1318 | [A219129](https://oeis.org/A219129) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01318-PROOF.pdf](01318-PROOF.pdf) |
+| 1319 | [A249291](https://oeis.org/A249291) | Proof |  | [01319-PROOF.pdf](01319-PROOF.pdf) |
+| 1320 | [A202079](https://oeis.org/A202079) | Proof |  | [01320-PROOF.pdf](01320-PROOF.pdf) |
+| 1321 | [A200155](https://oeis.org/A200155) | Proof |  | [01321-PROOF.pdf](01321-PROOF.pdf) |
+| 1322 | [A200554](https://oeis.org/A200554) | Proof |  | [01322-PROOF.pdf](01322-PROOF.pdf) |
+| 1323 | [A219137](https://oeis.org/A219137) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01323-PROOF.pdf](01323-PROOF.pdf) |
+| 1324 | [A220227](https://oeis.org/A220227) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01324-PROOF.pdf](01324-PROOF.pdf) |
+| 1325 | [A245952](https://oeis.org/A245952) | Proof |  | [01325-PROOF.pdf](01325-PROOF.pdf) |
+| 1326 | [A247728](https://oeis.org/A247728) | Proof |  | [01326-PROOF.pdf](01326-PROOF.pdf) |
+| 1327 | [A249713](https://oeis.org/A249713) | Proof |  | [01327-PROOF.pdf](01327-PROOF.pdf) |
+| 1328 | [A254704](https://oeis.org/A254704) | Proof |  | [01328-PROOF.pdf](01328-PROOF.pdf) |
+| 1329 | [A199837](https://oeis.org/A199837) | Proof |  | [01329-PROOF.pdf](01329-PROOF.pdf) |
+| 1330 | [A200435](https://oeis.org/A200435) | Proof |  | [01330-PROOF.pdf](01330-PROOF.pdf) |
+| 1331 | [A254703](https://oeis.org/A254703) | Proof |  | [01331-PROOF.pdf](01331-PROOF.pdf) |
+| 1332 | [A200789](https://oeis.org/A200789) | Proof |  | [01332-PROOF.pdf](01332-PROOF.pdf) |
+| 1333 | [A200842](https://oeis.org/A200842) | Proof |  | [01333-PROOF.pdf](01333-PROOF.pdf) |
+| 1334 | [A200875](https://oeis.org/A200875) | Proof |  | [01334-PROOF.pdf](01334-PROOF.pdf) |
+| 1335 | [A200890](https://oeis.org/A200890) | Proof |  | [01335-PROOF.pdf](01335-PROOF.pdf) |
+| 1336 | [A201046](https://oeis.org/A201046) | Proof |  | [01336-PROOF.pdf](01336-PROOF.pdf) |
+| 1337 | [A212840](https://oeis.org/A212840) | Proof |  | [01337-PROOF.pdf](01337-PROOF.pdf) |
+| 1338 | [A241620](https://oeis.org/A241620) | Proof |  | [01338-PROOF.pdf](01338-PROOF.pdf) |
+| 1339 | [A241967](https://oeis.org/A241967) | Proof |  | [01339-PROOF.pdf](01339-PROOF.pdf) |
+| 1340 | [A250084](https://oeis.org/A250084) | Proof |  | [01340-PROOF.pdf](01340-PROOF.pdf) |
+| 1341 | [A250156](https://oeis.org/A250156) | Proof |  | [01341-PROOF.pdf](01341-PROOF.pdf) |
+| 1342 | [A250339](https://oeis.org/A250339) | Proof |  | [01342-PROOF.pdf](01342-PROOF.pdf) |
+| 1343 | [A254702](https://oeis.org/A254702) | Proof |  | [01343-PROOF.pdf](01343-PROOF.pdf) |
+| 1344 | [A183910](https://oeis.org/A183910) | Proof |  | [01344-PROOF.pdf](01344-PROOF.pdf) |
+| 1345 | [A249847](https://oeis.org/A249847) | Proof |  | [01345-PROOF.pdf](01345-PROOF.pdf) |
+| 1346 | [A249884](https://oeis.org/A249884) | Proof |  | [01346-PROOF.pdf](01346-PROOF.pdf) |
+| 1347 | [A249962](https://oeis.org/A249962) | Proof |  | [01347-PROOF.pdf](01347-PROOF.pdf) |
+| 1348 | [A250016](https://oeis.org/A250016) | Proof |  | [01348-PROOF.pdf](01348-PROOF.pdf) |
+| 1349 | [A250060](https://oeis.org/A250060) | Proof |  | [01349-PROOF.pdf](01349-PROOF.pdf) |
+| 1350 | [A250144](https://oeis.org/A250144) | Proof |  | [01350-PROOF.pdf](01350-PROOF.pdf) |
+| 1351 | [A250390](https://oeis.org/A250390) | Proof |  | [01351-PROOF.pdf](01351-PROOF.pdf) |
+| 1352 | [A267236](https://oeis.org/A267236) | Proof |  | [01352-PROOF.pdf](01352-PROOF.pdf) |
+| 1353 | [A267475](https://oeis.org/A267475) | Proof |  | [01353-PROOF.pdf](01353-PROOF.pdf) |
+| 1354 | [A269413](https://oeis.org/A269413) | Proof |  | [01354-PROOF.pdf](01354-PROOF.pdf) |
+| 1355 | [A269439](https://oeis.org/A269439) | Proof |  | [01355-PROOF.pdf](01355-PROOF.pdf) |
+| 1356 | [A269471](https://oeis.org/A269471) | Proof |  | [01356-PROOF.pdf](01356-PROOF.pdf) |
+| 1357 | [A264423](https://oeis.org/A264423) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01357-PROOF.pdf](01357-PROOF.pdf) |
+| 1358 | [A220037](https://oeis.org/A220037) | Proof |  | [01358-PROOF.pdf](01358-PROOF.pdf) |
+| 1359 | [A219501](https://oeis.org/A219501) | Proof |  | [01359-PROOF.pdf](01359-PROOF.pdf) |
+| 1360 | [A222090](https://oeis.org/A222090) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01360-PROOF.pdf](01360-PROOF.pdf) |
+| 1361 | [A221226](https://oeis.org/A221226) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01361-PROOF.pdf](01361-PROOF.pdf) |
+| 1362 | [A220031](https://oeis.org/A220031) | Proof |  | [01362-PROOF.pdf](01362-PROOF.pdf) |
+| 1363 | [A222094](https://oeis.org/A222094) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01363-PROOF.pdf](01363-PROOF.pdf) |
+| 1364 | [A220939](https://oeis.org/A220939) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01364-PROOF.pdf](01364-PROOF.pdf) |
+| 1365 | [A221894](https://oeis.org/A221894) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01365-PROOF.pdf](01365-PROOF.pdf) |
+| 1366 | [A221899](https://oeis.org/A221899) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01366-PROOF.pdf](01366-PROOF.pdf) |
+| 1367 | [A221821](https://oeis.org/A221821) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01367-PROOF.pdf](01367-PROOF.pdf) |
+| 1368 | [A218517](https://oeis.org/A218517) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01368-PROOF.pdf](01368-PROOF.pdf) |
+| 1369 | [A221352](https://oeis.org/A221352) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01369-PROOF.pdf](01369-PROOF.pdf) |
+| 1370 | [A221329](https://oeis.org/A221329) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01370-PROOF.pdf](01370-PROOF.pdf) |
+| 1371 | [A221415](https://oeis.org/A221415) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01371-PROOF.pdf](01371-PROOF.pdf) |
+| 1372 | [A221357](https://oeis.org/A221357) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01372-PROOF.pdf](01372-PROOF.pdf) |
+| 1373 | [A221297](https://oeis.org/A221297) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01373-PROOF.pdf](01373-PROOF.pdf) |
+| 1374 | [A218237](https://oeis.org/A218237) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01374-PROOF.pdf](01374-PROOF.pdf) |
+| 1375 | [A221484](https://oeis.org/A221484) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01375-PROOF.pdf](01375-PROOF.pdf) |
+| 1376 | [A218805](https://oeis.org/A218805) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01376-PROOF.pdf](01376-PROOF.pdf) |
+| 1377 | [A217978](https://oeis.org/A217978) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01377-PROOF.pdf](01377-PROOF.pdf) |
+| 1378 | [A279152](https://oeis.org/A279152) | Proof | a cell condition with an exception budget, counted up to relabelling | [01378-PROOF.pdf](01378-PROOF.pdf) |
+| 1379 | [A269622](https://oeis.org/A269622) | Proof |  | [01379-PROOF.pdf](01379-PROOF.pdf) |
+| 1380 | [A269643](https://oeis.org/A269643) | Proof |  | [01380-PROOF.pdf](01380-PROOF.pdf) |
+| 1381 | [A221667](https://oeis.org/A221667) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01381-PROOF.pdf](01381-PROOF.pdf) |
+| 1382 | [A269540](https://oeis.org/A269540) | Proof |  | [01382-PROOF.pdf](01382-PROOF.pdf) |
+| 1383 | [A269586](https://oeis.org/A269586) | Proof |  | [01383-PROOF.pdf](01383-PROOF.pdf) |
+| 1384 | [A269609](https://oeis.org/A269609) | Proof |  | [01384-PROOF.pdf](01384-PROOF.pdf) |
+| 1385 | [A218804](https://oeis.org/A218804) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01385-PROOF.pdf](01385-PROOF.pdf) |
+| 1386 | [A221526](https://oeis.org/A221526) | Proof |  | [01386-PROOF.pdf](01386-PROOF.pdf) |
+| 1387 | [A218236](https://oeis.org/A218236) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01387-PROOF.pdf](01387-PROOF.pdf) |
+| 1388 | [A219398](https://oeis.org/A219398) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01388-PROOF.pdf](01388-PROOF.pdf) |
+| 1389 | [A220971](https://oeis.org/A220971) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01389-PROOF.pdf](01389-PROOF.pdf) |
+| 1390 | [A222381](https://oeis.org/A222381) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01390-PROOF.pdf](01390-PROOF.pdf) |
+| 1391 | [A245873](https://oeis.org/A245873) | Proof |  | [01391-PROOF.pdf](01391-PROOF.pdf) |
+| 1392 | [A218843](https://oeis.org/A218843) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01392-PROOF.pdf](01392-PROOF.pdf) |
+| 1393 | [A221576](https://oeis.org/A221576) | Proof |  | [01393-PROOF.pdf](01393-PROOF.pdf) |
+| 1394 | [A201874](https://oeis.org/A201874) | Proof |  | [01394-PROOF.pdf](01394-PROOF.pdf) |
+| 1395 | [A220191](https://oeis.org/A220191) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01395-PROOF.pdf](01395-PROOF.pdf) |
+| 1396 | [A218759](https://oeis.org/A218759) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01396-PROOF.pdf](01396-PROOF.pdf) |
+| 1397 | [A201089](https://oeis.org/A201089) | Proof |  | [01397-PROOF.pdf](01397-PROOF.pdf) |
+| 1398 | [A218189](https://oeis.org/A218189) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01398-PROOF.pdf](01398-PROOF.pdf) |
+| 1399 | [A245997](https://oeis.org/A245997) | Proof |  | [01399-PROOF.pdf](01399-PROOF.pdf) |
+| 1400 | [A246480](https://oeis.org/A246480) | Proof |  | [01400-PROOF.pdf](01400-PROOF.pdf) |
+| 1401 | [A249712](https://oeis.org/A249712) | Proof |  | [01401-PROOF.pdf](01401-PROOF.pdf) |
+| 1402 | [A199534](https://oeis.org/A199534) | Proof |  | [01402-PROOF.pdf](01402-PROOF.pdf) |
+| 1403 | [A199836](https://oeis.org/A199836) | Proof |  | [01403-PROOF.pdf](01403-PROOF.pdf) |
+| 1404 | [A199902](https://oeis.org/A199902) | Proof |  | [01404-PROOF.pdf](01404-PROOF.pdf) |
+| 1405 | [A200434](https://oeis.org/A200434) | Proof |  | [01405-PROOF.pdf](01405-PROOF.pdf) |
+| 1406 | [A221466](https://oeis.org/A221466) | Proof |  | [01406-PROOF.pdf](01406-PROOF.pdf) |
+| 1407 | [A200788](https://oeis.org/A200788) | Proof |  | [01407-PROOF.pdf](01407-PROOF.pdf) |
+| 1408 | [A200841](https://oeis.org/A200841) | Proof |  | [01408-PROOF.pdf](01408-PROOF.pdf) |
+| 1409 | [A200874](https://oeis.org/A200874) | Proof |  | [01409-PROOF.pdf](01409-PROOF.pdf) |
+| 1410 | [A200889](https://oeis.org/A200889) | Proof |  | [01410-PROOF.pdf](01410-PROOF.pdf) |
+| 1411 | [A201045](https://oeis.org/A201045) | Proof |  | [01411-PROOF.pdf](01411-PROOF.pdf) |
+| 1412 | [A212839](https://oeis.org/A212839) | Proof |  | [01412-PROOF.pdf](01412-PROOF.pdf) |
+| 1413 | [A220172](https://oeis.org/A220172) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01413-PROOF.pdf](01413-PROOF.pdf) |
+| 1414 | [A241966](https://oeis.org/A241966) | Proof |  | [01414-PROOF.pdf](01414-PROOF.pdf) |
+| 1415 | [A250083](https://oeis.org/A250083) | Proof |  | [01415-PROOF.pdf](01415-PROOF.pdf) |
+| 1416 | [A250155](https://oeis.org/A250155) | Proof |  | [01416-PROOF.pdf](01416-PROOF.pdf) |
+| 1417 | [A250338](https://oeis.org/A250338) | Proof |  | [01417-PROOF.pdf](01417-PROOF.pdf) |
+| 1418 | [A250374](https://oeis.org/A250374) | Proof |  | [01418-PROOF.pdf](01418-PROOF.pdf) |
+| 1419 | [A254701](https://oeis.org/A254701) | Proof |  | [01419-PROOF.pdf](01419-PROOF.pdf) |
+| 1420 | [A183901](https://oeis.org/A183901) | Proof |  | [01420-PROOF.pdf](01420-PROOF.pdf) |
+| 1421 | [A183909](https://oeis.org/A183909) | Proof |  | [01421-PROOF.pdf](01421-PROOF.pdf) |
+| 1422 | [A208601](https://oeis.org/A208601) | Proof |  | [01422-PROOF.pdf](01422-PROOF.pdf) |
+| 1423 | [A249846](https://oeis.org/A249846) | Proof |  | [01423-PROOF.pdf](01423-PROOF.pdf) |
+| 1424 | [A249961](https://oeis.org/A249961) | Proof |  | [01424-PROOF.pdf](01424-PROOF.pdf) |
+| 1425 | [A250015](https://oeis.org/A250015) | Proof |  | [01425-PROOF.pdf](01425-PROOF.pdf) |
+| 1426 | [A250143](https://oeis.org/A250143) | Proof |  | [01426-PROOF.pdf](01426-PROOF.pdf) |
+| 1427 | [A250389](https://oeis.org/A250389) | Proof |  | [01427-PROOF.pdf](01427-PROOF.pdf) |
+| 1428 | [A267235](https://oeis.org/A267235) | Proof |  | [01428-PROOF.pdf](01428-PROOF.pdf) |
+| 1429 | [A267474](https://oeis.org/A267474) | Proof |  | [01429-PROOF.pdf](01429-PROOF.pdf) |
+| 1430 | [A269412](https://oeis.org/A269412) | Proof |  | [01430-PROOF.pdf](01430-PROOF.pdf) |
+| 1431 | [A269438](https://oeis.org/A269438) | Proof |  | [01431-PROOF.pdf](01431-PROOF.pdf) |
+| 1432 | [A269470](https://oeis.org/A269470) | Proof |  | [01432-PROOF.pdf](01432-PROOF.pdf) |
+| 1433 | [A208826](https://oeis.org/A208826) | Proof |  | [01433-PROOF.pdf](01433-PROOF.pdf) |
+| 1434 | [A280439](https://oeis.org/A280439) | Proof | a cell condition with an exception budget, counted up to relabelling | [01434-PROOF.pdf](01434-PROOF.pdf) |
+| 1435 | [A281211](https://oeis.org/A281211) | Proof | a cell condition with an exception budget, counted up to relabelling | [01435-PROOF.pdf](01435-PROOF.pdf) |
+| 1436 | [A229753](https://oeis.org/A229753) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01436-PROOF.pdf](01436-PROOF.pdf) |
+| 1437 | [A280438](https://oeis.org/A280438) | Proof | a cell condition with an exception budget, counted up to relabelling | [01437-PROOF.pdf](01437-PROOF.pdf) |
+| 1438 | [A281210](https://oeis.org/A281210) | Proof | a cell condition with an exception budget, counted up to relabelling | [01438-PROOF.pdf](01438-PROOF.pdf) |
+| 1439 | [A229390](https://oeis.org/A229390) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01439-PROOF.pdf](01439-PROOF.pdf) |
+| 1440 | [A280897](https://oeis.org/A280897) | Proof | a cell condition with an exception budget, counted up to relabelling | [01440-PROOF.pdf](01440-PROOF.pdf) |
+| 1441 | [A280437](https://oeis.org/A280437) | Proof | a cell condition with an exception budget, counted up to relabelling | [01441-PROOF.pdf](01441-PROOF.pdf) |
+| 1442 | [A281209](https://oeis.org/A281209) | Proof | a cell condition with an exception budget, counted up to relabelling | [01442-PROOF.pdf](01442-PROOF.pdf) |
+| 1443 | [A229584](https://oeis.org/A229584) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01443-PROOF.pdf](01443-PROOF.pdf) |
+| 1444 | [A279575](https://oeis.org/A279575) | Proof | a cell condition with an exception budget, counted up to relabelling | [01444-PROOF.pdf](01444-PROOF.pdf) |
+| 1445 | [A279852](https://oeis.org/A279852) | Proof | a cell condition with an exception budget, counted up to relabelling | [01445-PROOF.pdf](01445-PROOF.pdf) |
+| 1446 | [A280393](https://oeis.org/A280393) | Proof | a cell condition with an exception budget, counted up to relabelling | [01446-PROOF.pdf](01446-PROOF.pdf) |
+| 1447 | [A264281](https://oeis.org/A264281) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01447-PROOF.pdf](01447-PROOF.pdf) |
+| 1448 | [A264332](https://oeis.org/A264332) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01448-PROOF.pdf](01448-PROOF.pdf) |
+| 1449 | [A264360](https://oeis.org/A264360) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01449-PROOF.pdf](01449-PROOF.pdf) |
+| 1450 | [A264502](https://oeis.org/A264502) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01450-PROOF.pdf](01450-PROOF.pdf) |
+| 1451 | [A264565](https://oeis.org/A264565) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01451-PROOF.pdf](01451-PROOF.pdf) |
+| 1452 | [A264579](https://oeis.org/A264579) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01452-PROOF.pdf](01452-PROOF.pdf) |
+| 1453 | [A220036](https://oeis.org/A220036) | Proof |  | [01453-PROOF.pdf](01453-PROOF.pdf) |
+| 1454 | [A280436](https://oeis.org/A280436) | Proof | a cell condition with an exception budget, counted up to relabelling | [01454-PROOF.pdf](01454-PROOF.pdf) |
+| 1455 | [A281208](https://oeis.org/A281208) | Proof | a cell condition with an exception budget, counted up to relabelling | [01455-PROOF.pdf](01455-PROOF.pdf) |
+| 1456 | [A221687](https://oeis.org/A221687) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01456-PROOF.pdf](01456-PROOF.pdf) |
+| 1457 | [A221189](https://oeis.org/A221189) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01457-PROOF.pdf](01457-PROOF.pdf) |
+| 1458 | [A229667](https://oeis.org/A229667) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01458-PROOF.pdf](01458-PROOF.pdf) |
+| 1459 | [A229633](https://oeis.org/A229633) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01459-PROOF.pdf](01459-PROOF.pdf) |
+| 1460 | [A279651](https://oeis.org/A279651) | Proof | a cell condition with an exception budget, counted up to relabelling | [01460-PROOF.pdf](01460-PROOF.pdf) |
+| 1461 | [A280474](https://oeis.org/A280474) | Proof | a cell condition with an exception budget, counted up to relabelling | [01461-PROOF.pdf](01461-PROOF.pdf) |
+| 1462 | [A280896](https://oeis.org/A280896) | Proof | a cell condition with an exception budget, counted up to relabelling | [01462-PROOF.pdf](01462-PROOF.pdf) |
+| 1463 | [A282185](https://oeis.org/A282185) | Proof | a cell condition with an exception budget, counted up to relabelling | [01463-PROOF.pdf](01463-PROOF.pdf) |
+| 1464 | [A264000](https://oeis.org/A264000) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01464-PROOF.pdf](01464-PROOF.pdf) |
+| 1465 | [A264166](https://oeis.org/A264166) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01465-PROOF.pdf](01465-PROOF.pdf) |
+| 1466 | [A264218](https://oeis.org/A264218) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01466-PROOF.pdf](01466-PROOF.pdf) |
+| 1467 | [A264239](https://oeis.org/A264239) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01467-PROOF.pdf](01467-PROOF.pdf) |
+| 1468 | [A264245](https://oeis.org/A264245) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01468-PROOF.pdf](01468-PROOF.pdf) |
+| 1469 | [A264359](https://oeis.org/A264359) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01469-PROOF.pdf](01469-PROOF.pdf) |
+| 1470 | [A221110](https://oeis.org/A221110) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01470-PROOF.pdf](01470-PROOF.pdf) |
+| 1471 | [A229388](https://oeis.org/A229388) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01471-PROOF.pdf](01471-PROOF.pdf) |
+| 1472 | [A219500](https://oeis.org/A219500) | Proof |  | [01472-PROOF.pdf](01472-PROOF.pdf) |
+| 1473 | [A229455](https://oeis.org/A229455) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01473-PROOF.pdf](01473-PROOF.pdf) |
+| 1474 | [A229589](https://oeis.org/A229589) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01474-PROOF.pdf](01474-PROOF.pdf) |
+| 1475 | [A280118](https://oeis.org/A280118) | Proof | a cell condition with an exception budget, counted up to relabelling | [01475-PROOF.pdf](01475-PROOF.pdf) |
+| 1476 | [A281124](https://oeis.org/A281124) | Proof | a cell condition with an exception budget, counted up to relabelling | [01476-PROOF.pdf](01476-PROOF.pdf) |
+| 1477 | [A219940](https://oeis.org/A219940) | Proof |  | [01477-PROOF.pdf](01477-PROOF.pdf) |
+| 1478 | [A279263](https://oeis.org/A279263) | Proof | a cell condition with an exception budget, counted up to relabelling | [01478-PROOF.pdf](01478-PROOF.pdf) |
+| 1479 | [A279736](https://oeis.org/A279736) | Proof | a cell condition with an exception budget, counted up to relabelling | [01479-PROOF.pdf](01479-PROOF.pdf) |
+| 1480 | [A281760](https://oeis.org/A281760) | Proof | a cell condition with an exception budget, counted up to relabelling | [01480-PROOF.pdf](01480-PROOF.pdf) |
+| 1481 | [A219004](https://oeis.org/A219004) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01481-PROOF.pdf](01481-PROOF.pdf) |
+| 1482 | [A221236](https://oeis.org/A221236) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01482-PROOF.pdf](01482-PROOF.pdf) |
+| 1483 | [A229601](https://oeis.org/A229601) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01483-PROOF.pdf](01483-PROOF.pdf) |
+| 1484 | [A229632](https://oeis.org/A229632) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01484-PROOF.pdf](01484-PROOF.pdf) |
+| 1485 | [A219579](https://oeis.org/A219579) | Proof |  | [01485-PROOF.pdf](01485-PROOF.pdf) |
+| 1486 | [A220030](https://oeis.org/A220030) | Proof |  | [01486-PROOF.pdf](01486-PROOF.pdf) |
+| 1487 | [A221801](https://oeis.org/A221801) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01487-PROOF.pdf](01487-PROOF.pdf) |
+| 1488 | [A220205](https://oeis.org/A220205) | Proof |  | [01488-PROOF.pdf](01488-PROOF.pdf) |
+| 1489 | [A231125](https://oeis.org/A231125) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01489-PROOF.pdf](01489-PROOF.pdf) |
+| 1490 | [A229536](https://oeis.org/A229536) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01490-PROOF.pdf](01490-PROOF.pdf) |
+| 1491 | [A231134](https://oeis.org/A231134) | Proof | white- and black-square subarrays: a diagonal step never changes the colour of a cell, so the two colour class... | [01491-PROOF.pdf](01491-PROOF.pdf) |
+| 1492 | [A263999](https://oeis.org/A263999) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01492-PROOF.pdf](01492-PROOF.pdf) |
+| 1493 | [A264202](https://oeis.org/A264202) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01493-PROOF.pdf](01493-PROOF.pdf) |
+| 1494 | [A219715](https://oeis.org/A219715) | Proof |  | [01494-PROOF.pdf](01494-PROOF.pdf) |
+| 1495 | [A229387](https://oeis.org/A229387) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01495-PROOF.pdf](01495-PROOF.pdf) |
+| 1496 | [A279971](https://oeis.org/A279971) | Proof | a cell condition with an exception budget, counted up to relabelling | [01496-PROOF.pdf](01496-PROOF.pdf) |
+| 1497 | [A281050](https://oeis.org/A281050) | Proof | a cell condition with an exception budget, counted up to relabelling | [01497-PROOF.pdf](01497-PROOF.pdf) |
+| 1498 | [A281930](https://oeis.org/A281930) | Proof | a cell condition with an exception budget, counted up to relabelling | [01498-PROOF.pdf](01498-PROOF.pdf) |
+| 1499 | [A218060](https://oeis.org/A218060) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01499-PROOF.pdf](01499-PROOF.pdf) |
+| 1500 | [A220011](https://oeis.org/A220011) | Proof |  | [01500-PROOF.pdf](01500-PROOF.pdf) |

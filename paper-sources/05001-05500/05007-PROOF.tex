@@ -12,138 +12,98 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A298899, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235909, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A298899 counts $5$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $equal to$ itself lying in $\{3,4,5,6,8\}$, and it carries an empirical
-recurrence of order $61$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=1024$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A235909 carries an empirical recurrence of order $62$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=2187$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A298899 is ``Number of nX5 0..1 arrays with every element equal to 3, 4, 5, 6 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A235909 is ``Number of (n+1)X(6+1) 0..2 arrays with the minimum plus the maximum unequal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
 \[
-0, 3, 3, 10, 32, 120, 471, 2070,\ \dots
+224064, 27447272, 3481713664, 454589648064, 59328151603200, 7811201385507328, 1025006860079382528, 135029882305524674560,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 3*a(n-1) +14*a(n-2) -10*a(n-3) -74*a(n-4) -174*a(n-5) +92*a(n-6) +550*a(n-7) +284*a(n-8) +2822*a(n-9) +387*a(n-10) -4568*a(n-11) +667*a(n-12) -34031*a(n-13) +14309*a(n-14) -20283*a(n-15) -15631*a(n-16) +126141*a(n-17) -18534*a(n-18) +138037*a(n-19) -92804*a(n-20) -62863*a(n-21) -145683*a(n-22) +145669*a(n-23) -252735*a(n-24) +856599*a(n-25) +603305*a(n-26) -951928*a(n-27) +40836*a(n-28) -1648325*a(n-29) +67746*a(n-30) -2832702*a(n-31) +2920682*a(n-32) +2347923*a(n-33) +2455740*a(n-34) -529807*a(n-35) -3152693*a(n-36) -1484407*a(n-37) -780449*a(n-38) -47439*a(n-39) -945802*a(n-40) +5691923*a(n-41) +2876338*a(n-42) -4570720*a(n-43) -3088139*a(n-44) +889471*a(n-45) +1193058*a(n-46) +289889*a(n-47) +642191*a(n-48) -399302*a(n-49) -564706*a(n-50) +60480*a(n-51) +33698*a(n-52) +64879*a(n-53) +81675*a(n-54) -1730*a(n-55) -6011*a(n-56) -1096*a(n-57) -7487*a(n-58) -2317*a(n-59) -530*a(n-60) -144*a(n-61)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical recurrence of order 62 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 28 2018 09:19:21, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:55:49, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 14\,a(n-2) - 10\,a(n-3) - 74\,a(n-4) - 174\,a(n-5) + 92\,a(n-6) + 550\,a(n-7) + 284\,a(n-8) + 2822\,a(n-9) + 387\,a(n-10) - 4568\,a(n-11) + 667\,a(n-12) - 34031\,a(n-13) + 14309\,a(n-14) - 20283\,a(n-15) - 15631\,a(n-16) + 126141\,a(n-17) - 18534\,a(n-18) + 138037\,a(n-19) - 92804\,a(n-20) - 62863\,a(n-21) - 145683\,a(n-22) + 145669\,a(n-23) - 252735\,a(n-24) + 856599\,a(n-25) + 603305\,a(n-26) - 951928\,a(n-27) + 40836\,a(n-28) - 1648325\,a(n-29) + 67746\,a(n-30) - 2832702\,a(n-31) + 2920682\,a(n-32) + 2347923\,a(n-33) + 2455740\,a(n-34) - 529807\,a(n-35) - 3152693\,a(n-36) - 1484407\,a(n-37) - 780449\,a(n-38) - 47439\,a(n-39) - 945802\,a(n-40) + 5691923\,a(n-41) + 2876338\,a(n-42) - 4570720\,a(n-43) - 3088139\,a(n-44) + 889471\,a(n-45) + 1193058\,a(n-46) + 289889\,a(n-47) + 642191\,a(n-48) - 399302\,a(n-49) - 564706\,a(n-50) + 60480\,a(n-51) + 33698\,a(n-52) + 64879\,a(n-53) + 81675\,a(n-54) - 1730\,a(n-55) - 6011\,a(n-56) - 1096\,a(n-57) - 7487\,a(n-58) - 2317\,a(n-59) - 530\,a(n-60) - 144\,a(n-61)
-\end{equation}
-for all $n>61$.
+\section{The count is a walk count}
 
-\section{The array as a walk, with boundary}
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=2187$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{3,4,5,6,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
-
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=1024$, and set
-\begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{3,4,5,6,8\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{3,4,5,6,8\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{3,4,5,6,8\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
-\end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
-
-\begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{3,4,5,6,8\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{61}-\sum_i c_i t^{61-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-61}$ whenever $n-61\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-61$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+Let $q(t)=t^{62}-\sum_i c_it^{62-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-61}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Factor $M^{j}$ out of $M^{j+62}-\sum_ic_iM^{j+62-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>61$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;170\,a(n-1) + 25936\,a(n-2) - 5557728\,a(n-3) - 207692352\,a(n-4) + 75552622592\,a(n-5) - 79892318720\,a(n-6) - 568995774089216\,a(n-7) + 11894599641456640\,a(n-8) + 2673917974404587520\,a(n-9) - 92060781422931640320\,a(n-10) - 8325966948793890897920\,a(n-11) + 386578290659164005859328\,a(n-12) + 17602734173372454933626880\,a(n-13) - 1065011596598817956911120384\,a(n-14) - 24921031429316229808902897664\,a(n-15) + 2065240577314372231089646206976\,a(n-16) + 21298981592895423415564097290240\,a(n-17) - 2917040636068528482386733443317760\,a(n-18) - 4805373073668346770805147643674624\,a(n-19) + 3052550801768414927670302508213862400\,a(n-20) - 14082145540667233186738718031063547904\,a(n-21) - 2380869304203793490187688349559154540544\,a(n-22) + 22683475100025313945076793672590096859136\,a(n-23) + 1379634248678386880352218181798804198522880\,a(n-24) - 19007631028766641817373584955950634559864832\,a(n-25) - 586151141179810746402658323846498189020495872\,a(n-26) + 10529127483864713964393438803701664258820407296\,a(n-27) + 177653600887928149971936743968200293111392370688\,a(n-28) - 4070665031380397055658469208720026464120937119744\,a(n-29) - 36376852728472964420160613773808832761250357182464\,a(n-30) + 1109262390811778339041592398339201017480863555780608\,a(n-31) + 4412015280005862299068234957833707462218991875915776\,a(n-32) - 211128195922068779482199856945369896462862017353482240\,a(n-33) - 161467158815424080046058224572714394714442332914057216\,a(n-34) + 27564632079117820885265498640216623880486381928490991616\,a(n-35) - 35319516555011130273708828017065877804263977530511327232\,a(n-36) - 2430763815656623104289577738938206843826514500496195059712\,a(n-37) + 6051880233643095625911621271591257743130218056958024351744\,a(n-38) + 145339688592960342848463628112518131834008490498702757068800\,a(n-39) - 457582855321590223552840332335938565914562460249543866843136\,a(n-40) - 5995411518697081584719371191372046806611959772855622378192896\,a(n-41) + 20820704470167285577470540118392796100211444375907705064259584\,a(n-42) + 173899511234440022066590596921715528531937867598254541874659328\,a(n-43) - 625979359133461571230899319928455258536604160319740092199469056\,a(n-44) - 3600236059381090632813270845571066000434400729009585400775180288\,a(n-45) + 13003791786770652498089244616639666036183784804656849884039610368\,a(n-46) + 53697388135220219509663807491996021898518165069171469124217339904\,a(n-47) - 191154056824767392538204213519954437730171343451605724148906590208\,a(n-48) - 578695104730749883164127693852613080838265823171479325082105413632\,a(n-49) + 2010426776045956481229032836902283449084069888146067904590593916928\,a(n-50) + 4486368794648323569689687217655252152183210669335789358068910784512\,a(n-51) - 15133834279144991246531062548347349164744723836630958440111667150848\,a(n-52) - 24669811239223663473838243770102869117494765887247323777656151867392\,a(n-53) + 80637021728466446327148278687813655940989420466925621496179501039616\,a(n-54) + 93511912068974696992494326284113378631866528116531485463341592215552\,a(n-55) - 296105083433207242445294693105691841992137787751945999911245542588416\,a(n-56) - 231546096362075035698895298781397285968809687555459993093784333189120\,a(n-57) + 710875811553238106866287146617747340509057111411128363461908812005376\,a(n-58) + 336068768051485890346793444342388666470028699865811913140498457427968\,a(n-59) - 1001794919855616880718095255046554375114642321840371542943337487007744\,a(n-60) - 216242252635810504170925066426838911846082802742298277489597902487552\,a(n-61) + 626896859201029540307903933603552072311989857022191951840365586153472\,a(n-62)
+\]
+for every $n>62$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $61$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=61+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The vector $w=q(M)\tau$ was formed by $62$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=62+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $24$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1024$ consecutive
-zeros rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A298899.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235909.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

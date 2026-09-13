@@ -12,135 +12,128 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A220031, proved}
+\title{The empirical recurrence for OEIS A264423, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220031 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
-it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their diagonal, horizontal neighbours,
-and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
-once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
-of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=203$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
-monic recurrence with characteristic polynomial $(x-1)^{7}$; that the walk count
-satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
-in exact integer arithmetic, and together they prove the formula.
+OEIS A264423 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=3$ columns in which
+every value moves from its home cell by an index change on a short list, and it carries an
+empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Such an arrangement is a perfect matching between cells and
+values, and because a value's row moves by at most $R=2$, the matching splits into
+independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
+every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
+partly used. Carrying those as bitmasks makes the count a walk on $S=4096$ vertices, so it is
+$C$-finite and the conjectured recurrence is decided by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
-\section{The entry}
+\section{The conjecture}
 
-OEIS A220031 is ``Number of n X 7 arrays of the minimum value of corresponding elements and their horizontal or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..1 n X 7 array.''. It has offset $1$ and begins
+OEIS A264423 is ``Number of (2+1) X (n+1) arrays of permutations of 0..n*3+2 with each element having directed index change 0,1 2,2 1,0 -1,2 -2,-1 or -1,-1.''. It has offset $1$ and begins
 \[
-7, 18, 55, 137, 302, 613, 1165, 2094,\ \dots
+1, 3, 12, 37, 119, 385, 1252, 4061,\ \dots
 \]
-and states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/720)*n\^{}6 + (7/240)*n\^{}5 + (11/144)*n\^{}4 + (25/48)*n\^{}3 + (263/90)*n\^{}2 + (29/20)*n - 4 for n>2.
+Empirical: a(n) = 3*a(n-1) + a(n-3) + 5*a(n-4) + a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 30 2018 06:14:21, revision 7)
-this is still recorded as empirical, and it is still open.
+As of the ``Last modified'' line on the live entry (Feb 18 2021 17:50:35, revision 13) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The object is a matching}
 
-Fix the width $W=7$ and the value range $0..1$. The underlying arrays are the
-$n\times7$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
-is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its diagonal, horizontal neighbours that lie inside the array. The entry counts
+The grid has $W=3$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
+$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
+$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
+allows the index changes
 \[
-a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
+(i-h_i,\,j-h_j)\;\in\;\{(-1,-2),\ (-1,-1),\ (0,1),\ (1,0),\ (2,-1),\ (2,2)\},
 \]
-the number of DISTINCT images --- not the number of admissible $g$. This is what makes the
-problem different in kind from a walk count: two admissible arrays can have the same image, and
-the graph whose walks are the arrays would count such a pair twice.
+the list being the entry's own, read with the sign convention its wording uses. An admissible
+arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
+the values it may hold.
 
-\section{Two constraints, both made local}
+\section{The matching is a walk}
 
-\begin{lemma}\label{lem:local}
-Whether a sequence of rows is admissible is decided by the previous row together with
-$6$ bits.
+Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
+placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
+value with home column at most $i-R$ has been used up, and the only home columns that can be
+partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
+$2R$ bitmasks recording which values of those home columns are already placed. One step fills
+the cells of one further column, drawing each of its $W$ values from a home column within $R$
+and at an allowed column offset, and the home column that closes at that step must come out
+full. Nonexistent home columns --- before the first and after the last --- are carried as
+full, which makes the starting and accepting states the same one.
+
+Hence $a$ is a walk count on $S=4096$ vertices,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\]
+the exponent fixed by the entry's own shape and checked against its published terms; in
+particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-The row order compares consecutive rows and needs only the previous one. The column order
-compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $6$ adjacent column pairs there are only two possibilities:
-either the two columns agree in every row read so far, or they first differed at some earlier
-row, and there the required inequality was already decided and no later row can affect it. One
-bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
-still agreeing, its two entries either agree again or differ in the permitted direction.
+Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-\begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=203$
-vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
-\end{lemma}
-
-\begin{proof}
-Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $6$ bits of Lemma~\ref{lem:local}, can
-emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
-same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
-machine in which each emitted row leads to exactly one state, so distinct words of length $n$
-correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=203$. The last filtered row is emitted with no row below it, so it is not a
-step of the walk but a count attached to the state the walk stops in; that is $\tau$.
-\end{proof}
-
-\section{The closed form}
-
-The entry's formula is a polynomial in $n$. Any polynomial of degree $m$ satisfies the monic
-recurrence whose characteristic polynomial is $(x-1)^{m+1}$, here
-\[
-q(x)=(x-1)^{7},\qquad\text{that is}\qquad a(n)=7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7).
-\]
 
 \begin{theorem}
-The closed form OEIS A220031 records is correct for all $n>2$.
+\[
+a(n)\;=\;3\,a(n-1) + a(n-3) + 5\,a(n-4) + a(n-7)
+\]
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
-residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
-since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $9$.
-Second, the polynomial and the walk count agree at every index from $3$ up to
-$1 + 34 - 1$, which is more than the $7$ consecutive agreements a
-common recurrence of order $7$ needs. Two sequences satisfying the same monic recurrence
-of order $7$ and agreeing at $7$ consecutive indices past both their thresholds are
-equal from there on.
+The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+until the working vector was identically zero, settling every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $34$ terms the entry publishes, exactly. This is what
-ties the construction to the entry, and it is the only point at which the entry's English is
-read.
+First, the reading of the entry's wording was tested against the entries themselves by brute
+force before any of this was built, and separately for each of the three sign conventions the
+family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
+signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
+literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
+of an entry of each convention. Testing only one of them would have proved only that one:
+reading the second convention as the first silently drops displacements, and thirty-eight
+entries disagreed with their own published data until the conventions were separated.
 
-Second, the reading was pinned by direct enumeration before the model was written: for the
-one-row case the admissible arrays and their images were listed outright and counted, and the
-count is the entry's own first term.
+Second, the transfer model reproduces all $26$ terms this entry publishes, exactly, in
+integer arithmetic.
 
-Third, the annihilation test was run to $S$ consecutive vanishing residuals rather than to a
-fixed horizon, which is what makes it a proof and not a check of finitely many terms.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220031.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264423.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

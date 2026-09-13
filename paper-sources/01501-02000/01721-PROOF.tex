@@ -12,90 +12,117 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A228980, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221891, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228980 counts the distinct arrays obtained by applying a fixed local operation to every cell
-of an array over a bounded alphabet, and carries an empirical recurrence of order $4$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
-counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
-determinising the machine that emits the derived array row by row turns it into one, on
-$S=11$ states, after which the conjectured recurrence is settled by a finite exact
+OEIS A221891 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=48$ states, after which the conjectured recurrence is settled by a finite exact
 computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A228980 is ``Number of n X 2 0..1 arrays of the median of the corresponding element, the element to the east and the element to the south in a larger (n+1) X 3 0..1 array.''. It has offset $1$ and begins
+OEIS A221891 is ``Number of 2 X n arrays of occupancy after each element moves to some horizontal, diagonal or antidiagonal neighbor, without 2-loops or left turns.''. It has offset $1$ and begins
 \[
-4, 16, 64, 252, 992, 3900, 15328, 60228,\ \dots
+0, 0, 8, 37, 169, 811, 3878, 18502,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) - 7*a(n-2) - 6*a(n-3) + 6*a(n-4).
+Empirical: a(n) = 5*a(n-1) -2*a(n-2) +5*a(n-3) -3*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 13 2018 09:47:27, revision 12) this is still
+As of the ``Last modified'' line on the live entry (Feb 12 2018 15:12:45, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R$ be the set of rows of length $3$ over $\{0,\dots,1\}$.
-For a larger array $A=(r_1,\dots,r_{n+1})$ of $n+1$ such rows let $\Phi(A)$ be the
-$n\times2$ array with
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-\Phi(A)(i,j)\;=\;\operatorname{median}\bigl(A(i,j),\,A(i,j+1),\,A(i+1,j)\bigr),
+(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1),
 \]
-the element, the one to its east and the one to its south. The entry counts
-\[
-a(n)\;=\;\bigl|\{\Phi(A)\}\bigr| ,
-\]
-the size of an IMAGE. That is the whole difficulty: two different larger arrays with the same
-derived array must be counted once, and a walk count on the larger arrays would count them
-twice.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Row $i$ of $\Phi(A)$ reads rows $i$ and $i+1$ of $A$ and nothing else, so
-writing $\beta(r,x)$ for the derived row produced by two consecutive rows,
-\[
-\Phi(r_1,\dots,r_{n+1})=\bigl(\beta(r_1,r_2),\ \dots,\ \beta(r_n,r_{n+1})\bigr),
-\]
-and there is no row emitted with nothing below it.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
+\item $d'=-d$, that is, the two tokens exchange places --- a $2$-LOOP;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all.
 
-\section{The image is a walk count after determinisation}
+The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
+$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
+$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
+an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
+The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
+turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
+two readings.
 
-For a set $D$ of rows and a derived row $b$ put
-\[
-\delta(D,b)=\{x\in R:\ r\in D,\ \beta(r,x)=b\},
-\]
-and let $D_0=R$.
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
 
-\begin{lemma}\label{lem:det}
-For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of rows
-$r_{t+1}$ completing a prefix $r_1,\dots,r_{t+1}$ whose derived rows are $b_1,\dots,b_t$.
-Consequently $a(n)$ is the number of sequences $(b_1,\dots,b_n)$ with $D_n\neq\emptyset$.
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
+
+\begin{lemma}\label{lem:win}
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
 \end{lemma}
 
 \begin{proof}
-Induction on $t$: $D_0=R$ is the set of possible first rows, and $\delta(D_t,b)$ collects the
-rows $r_{t+2}$ for which some consistent prefix ends in a row $r_{t+1}$ with
-$\beta(r_{t+1},r_{t+2})=b$. A derived array of $n$ rows is realisable exactly when the
-corresponding $D_n$ is nonempty, and distinct sequences are distinct derived arrays.
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
 \end{proof}
 
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
-several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
-since the derived arrays differ ---
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad \iota=e_{D_0},\quad \tau=(1,\dots,1)^{\!\top} .
-\]
-There are $S=11$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
 
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
+\[
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
+\]
+
+\section{The image is a walk count after determinisation}
+
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=48$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -117,7 +144,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 7\,a(n-2) - 6\,a(n-3) + 6\,a(n-4)
+a(n)\;=\;5\,a(n-1) - 2\,a(n-2) + 5\,a(n-3) - 3\,a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -131,21 +158,26 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
 First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A228980.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221891.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

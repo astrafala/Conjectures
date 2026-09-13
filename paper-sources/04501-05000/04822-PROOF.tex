@@ -12,104 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235928, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140923, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235928 carries an empirical recurrence of order $70$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=256$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A140923 counts $8\times9$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $8\times9\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $72$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A235928 is ``Number of (n+1)X(3+1) 0..3 arrays with the minimum plus the maximum unequal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A140923 is ``Number of 8 X 9 matrices with elements in 0..n with each row and each column in nondecreasing order. 8,9,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-18992, 1490648, 116219056, 9098402456, 710992703856, 55608647673784, 4347481602940704, 339955485269085344,\ \dots
+1, 24310, 118195220, 198520691512, 151561524301616, 62305564808355232,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 70 (see link above)
+(empirical) set p,q,r to n,9,8 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:56:09, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 19 2025 11:11:31, revision 8) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=256$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A matrix $x$ of shape $8\times9$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$8\times9$ rectangle --- a plane partition in a $8\times9\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\mathrm{PP}(8,9,n).
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-\section{The proof}
+\section{The box count is a polynomial}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;-0\,a(n-1) + 6796\,a(n-2) + 113468\,a(n-3) - 12185323\,a(n-4) - 225122106\,a(n-5) + 11127198829\,a(n-6) + 184814714126\,a(n-7) - 6294151148133\,a(n-8) - 81607265345366\,a(n-9) + 2363983111320163\,a(n-10) + 21152235213336922\,a(n-11) - 598507563900684936\,a(n-12) - 3352148231749121024\,a(n-13) + 102436960717527436426\,a(n-14) + 344030365409220305754\,a(n-15) - 12062703487489176036408\,a(n-16) - 26055137419813860316022\,a(n-17) + 1012506131970720361585140\,a(n-18) + 1747934095273082842708380\,a(n-19) - 62500563894669356384908659\,a(n-20) - 114166856431414805417571904\,a(n-21) + 2883913926832371798189453666\,a(n-22) + 6654246584966097400086520650\,a(n-23) - 99179498172089037462425050696\,a(n-24) - 307003400962368155814948046488\,a(n-25) + 2472206598757043641402081652706\,a(n-26) + 10515767800646627241213294586532\,a(n-27) - 41422833502739409451238095805104\,a(n-28) - 258766487369942228970078796807402\,a(n-29) + 360582235585167395161318737159774\,a(n-30) + 4427904377562676483146584462195460\,a(n-31) + 1488667596810776074735933299069012\,a(n-32) - 49836902318783146405077485885132592\,a(n-33) - 87012643800858641701720229569283888\,a(n-34) + 324005716150290674214956791618553824\,a(n-35) + 1136520082951907337176204426020774336\,a(n-36) - 645720270479384929530703048771305536\,a(n-37) - 7527731514802138028443116933316097920\,a(n-38) - 6275725986561113586924696287208341504\,a(n-39) + 24992576773646737667658277866289172992\,a(n-40) + 51129500245840153755889294833242065408\,a(n-41) - 24973665976557416156416921323593524224\,a(n-42) - 158139623638928702002355825927844356096\,a(n-43) - 77102900154621678284687459361092920320\,a(n-44) + 242171127876741937039342568121747787776\,a(n-45) + 283917701231878721873809898061302939648\,a(n-46) - 166781023971719071491334425488932601856\,a(n-47) - 412409266370509665244588448570794426368\,a(n-48) - 13807744076974397410432660704551436288\,a(n-49) + 336744159617160805916750674716847702016\,a(n-50) + 112410747907214878937729585048119410688\,a(n-51) - 169273514997059681972902990027917623296\,a(n-52) - 89208724015670984420202291183059206144\,a(n-53) + 55069268156690546669748143408784867328\,a(n-54) + 36566806340507019944618667636831551488\,a(n-55) - 12286008051439979180669935830173745152\,a(n-56) - 8890811905277500332913803047263535104\,a(n-57) + 2041699091184441952097860712575008768\,a(n-58) + 1296905028150575372024261869804978176\,a(n-59) - 264603951626084856228943549861724160\,a(n-60) - 105853539652523555735176540057501696\,a(n-61) + 24140532927384257515297473365540864\,a(n-62) + 3787028732915138476436927847333888\,a(n-63) - 1203990142865066376180871207059456\,a(n-64) + 4431885719379857662061190316032\,a(n-65) + 20321797685020996631458989735936\,a(n-66) - 1851443838157900408233337552896\,a(n-67) + 48259860736587766968027709440\,a(n-68) + 38274899166138461790928896\,a(n-69) - 9895202745938503689830400\,a(n-70)
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-for every $n>70$.
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{8}\prod_{j=1}^{9}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $72$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=70+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$8\cdot9=72$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,9,8)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{8-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{8-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $100$ and $28$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+9+8-1$ one has $s-(n+i)=9+8-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{9+8-1-i}
+=\frac{(s-9-8+2+i)(s-9-8+3+i)\cdots s}{(9+8-1-i)!},
+\]
+a polynomial in $n$ of degree $9+8-1-i$. Multiplying over $i=0,\dots,8-1$ gives
+$\deg N=\sum_{i=0}^{8-1}(9+8-1-i)=100$. The denominator is
+$\prod_{i=0}^{8-1}(s-i)^{8-1-i}$, of degree
+$\sum_{i=0}^{8-1}(8-1-i)=28$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $72+28=100$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,100$, that is at $101$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $100$ has at most $100$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $7$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $8$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,100$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235928.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140923.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

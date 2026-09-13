@@ -12,53 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234792, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203971, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234792 carries an empirical recurrence of order $66$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=1025$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A203971 counts arrays of width $4$ over $\{0,1,2\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
+order $67$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=1299$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A234792 is ``Number of (n+1)X(4+1) 0..3 arrays with each 2X2 subblock having the number of clockwise edge increases less than or equal to the number of counterclockwise edge increases.''. It has offset $1$ and begins
+OEIS A203971 is ``Number of nX4 0..2 arrays with every 1 immediately preceded by 0 to the left or above, and every 2 immediately preceded by 0 1 to the left or above.''. It has offset $1$ and begins
 \[
-371976, 102517088, 25695321008, 6215062828960, 1482624037868512, 351765183794721104, 83279814838224225520, 19699545274283046003568,\ \dots
+7, 106, 2061, 34799, 601521, 10443081, 180623180, 3127443494,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 66 (see link above)
+Empirical: a(n) = 7*a(n-1) +65*a(n-2) +1532*a(n-3) +5728*a(n-4) +36988*a(n-5) -79954*a(n-6) -263553*a(n-7) -3722150*a(n-8) +3261200*a(n-9) +8444409*a(n-10) +152666516*a(n-11) -124486119*a(n-12) -492693233*a(n-13) -2755397610*a(n-14) +4009588292*a(n-15) +10293308252*a(n-16) +22336995885*a(n-17) -64924516938*a(n-18) -92755388359*a(n-19) -57474729030*a(n-20) +551610997114*a(n-21) +370469633714*a(n-22) -292081751432*a(n-23) -2630782090265*a(n-24) -301735948456*a(n-25) +2480960089737*a(n-26) +7374666257918*a(n-27) -2515766371859*a(n-28) -7296390671023*a(n-29) -12848715039718*a(n-30) +9261937257065*a(n-31) +11488496485545*a(n-32) +15234546948215*a(n-33) -14912487767600*a(n-34) -11435235548211*a(n-35) -13211824155401*a(n-36) +13970588762093*a(n-37) +7731108650320*a(n-38) +8675779656844*a(n-39) -8276900249091*a(n-40) -3561091877330*a(n-41) -4260429005786*a(n-42) +3209229435553*a(n-43) +1072805871492*a(n-44) +1506322359632*a(n-45) -828404552953*a(n-46) -194259086304*a(n-47) -368735917326*a(n-48) +143996746787*a(n-49) +16734372045*a(n-50) +60312985338*a(n-51) -17012881739*a(n-52) +289141565*a(n-53) -6324998526*a(n-54) +1368060305*a(n-55) -185095968*a(n-56) +399628198*a(n-57) -73289542*a(n-58) +13531943*a(n-59) -13912036*a(n-60) +2336844*a(n-61) -364629*a(n-62) +225419*a(n-63) -31536*a(n-64) +3130*a(n-65) -1258*a(n-66) +110*a(n-67)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:27:17, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:55:06, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=1025$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The array has $4$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
+immediately above it, those that lie inside the array. A cell in the top left corner has none
+at all, so a clause demanding a predecessor of a given value forbids that value there --- which
+is what makes the first published term what it is. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has at least one predecessor carrying $0$;
+\item every cell carrying $2$ has the two cells to its left, or the two above it, reading $0$ then $1$ in that order;
+\end{itemize}
+and nothing else.
+
+\section{Three rows decide everything}
+
+\begin{lemma}\label{lem:win}
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
+\end{lemma}
+
+\begin{proof}
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
+\end{proof}
+
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
+row is settled as it is written and every state may end an array; the end vector is the
+all-ones vector. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1299.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{66}-\sum_i c_it^{66-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{67}-\sum_i c_it^{67-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+66}-\sum_ic_iM^{j+66-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+67}-\sum_ic_iM^{j+67-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,39 +102,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;571\,a(n-1) - 127728\,a(n-2) + 15627599\,a(n-3) - 1209154423\,a(n-4) + 64232622171\,a(n-5) - 2470695276575\,a(n-6) + 71428128199002\,a(n-7) - 1595361434622326\,a(n-8) + 28114421414468609\,a(n-9) - 397457759265378458\,a(n-10) + 4569798231038056022\,a(n-11) - 43262971064959651304\,a(n-12) + 341655565906821093888\,a(n-13) - 2287024438997840604056\,a(n-14) + 13245519143028531712322\,a(n-15) - 67769400613749640039795\,a(n-16) + 307717011102816539754961\,a(n-17) - 1187240378507290382757657\,a(n-18) + 3297004009492857114461236\,a(n-19) - 1522769366239488005164585\,a(n-20) - 52716104074106033451797116\,a(n-21) + 401348942292875765983192139\,a(n-22) - 1878749208056812818619874388\,a(n-23) + 6568939471296368894517046696\,a(n-24) - 18033950241719384434435791779\,a(n-25) + 38744288730097142110069182214\,a(n-26) - 59687064749361732365891690822\,a(n-27) + 36332810486792655977584681421\,a(n-28) + 144711753715846175156677550031\,a(n-29) - 680086211511394057857542588642\,a(n-30) + 1811790961935555258870478364293\,a(n-31) - 3751321061693180171599145531173\,a(n-32) + 6627057895804526054016060022639\,a(n-33) - 10528743390394947253677952291479\,a(n-34) + 15748881307006635234280768153720\,a(n-35) - 23047921075784547535949803351250\,a(n-36) + 33042903159903854188512877073457\,a(n-37) - 44261301135446468228295211902000\,a(n-38) + 52045393980426043459250663541892\,a(n-39) - 51302106035775278357645960392150\,a(n-40) + 41344865598795792522041460688620\,a(n-41) - 26899660724154223947861926679564\,a(n-42) + 13819102174778814178834941618480\,a(n-43) - 5030163982690011316602482857712\,a(n-44) + 503719268671934372383126290732\,a(n-45) + 1008391964815237140620432651576\,a(n-46) - 954682134979581553169830607408\,a(n-47) + 472857026448054196736724969272\,a(n-48) - 114137297864014152543804150624\,a(n-49) - 32619732034904874604882094800\,a(n-50) + 54335969089607198555676038880\,a(n-51) - 35347327654148230980001791072\,a(n-52) + 15446467752619349304596667872\,a(n-53) - 4740652632085084022336601760\,a(n-54) + 985033689043273686953562816\,a(n-55) - 112492674931578374874327680\,a(n-56) - 3770615169812070122082048\,a(n-57) + 3666551813014860931242368\,a(n-58) - 570010566035823755821824\,a(n-59) - 39324517484655145038336\,a(n-60) + 31638488210084274045440\,a(n-61) - 4033672325939114222592\,a(n-62) - 338267449168727603200\,a(n-63) + 48280917491488962560\,a(n-64) + 4259372797769318400\,a(n-65) + 276911332687872000\,a(n-66)
+a(n)\;=\;7\,a(n-1) + 65\,a(n-2) + 1532\,a(n-3) + 5728\,a(n-4) + 36988\,a(n-5) - 79954\,a(n-6) - 263553\,a(n-7) - 3722150\,a(n-8) + 3261200\,a(n-9) + 8444409\,a(n-10) + 152666516\,a(n-11) - 124486119\,a(n-12) - 492693233\,a(n-13) - 2755397610\,a(n-14) + 4009588292\,a(n-15) + 10293308252\,a(n-16) + 22336995885\,a(n-17) - 64924516938\,a(n-18) - 92755388359\,a(n-19) - 57474729030\,a(n-20) + 551610997114\,a(n-21) + 370469633714\,a(n-22) - 292081751432\,a(n-23) - 2630782090265\,a(n-24) - 301735948456\,a(n-25) + 2480960089737\,a(n-26) + 7374666257918\,a(n-27) - 2515766371859\,a(n-28) - 7296390671023\,a(n-29) - 12848715039718\,a(n-30) + 9261937257065\,a(n-31) + 11488496485545\,a(n-32) + 15234546948215\,a(n-33) - 14912487767600\,a(n-34) - 11435235548211\,a(n-35) - 13211824155401\,a(n-36) + 13970588762093\,a(n-37) + 7731108650320\,a(n-38) + 8675779656844\,a(n-39) - 8276900249091\,a(n-40) - 3561091877330\,a(n-41) - 4260429005786\,a(n-42) + 3209229435553\,a(n-43) + 1072805871492\,a(n-44) + 1506322359632\,a(n-45) - 828404552953\,a(n-46) - 194259086304\,a(n-47) - 368735917326\,a(n-48) + 143996746787\,a(n-49) + 16734372045\,a(n-50) + 60312985338\,a(n-51) - 17012881739\,a(n-52) + 289141565\,a(n-53) - 6324998526\,a(n-54) + 1368060305\,a(n-55) - 185095968\,a(n-56) + 399628198\,a(n-57) - 73289542\,a(n-58) + 13531943\,a(n-59) - 13912036\,a(n-60) + 2336844\,a(n-61) - 364629\,a(n-62) + 225419\,a(n-63) - 31536\,a(n-64) + 3130\,a(n-65) - 1258\,a(n-66) + 110\,a(n-67)
 \]
 for every $n>66$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $66$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $67$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=66+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234792.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203971.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

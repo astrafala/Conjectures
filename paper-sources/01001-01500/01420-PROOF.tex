@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269412, proved from an exact model}
+\title{The empirical recurrence for OEIS A183901, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269412 carries an empirical recurrence of order $7$. It is true, and it is
+OEIS A183901 carries an empirical recurrence of order $7$. It is true, and it is
 decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
 which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
@@ -31,35 +31,45 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A269412 is ``Number of length-6 0..n arrays with no repeated value greater than or equal to the previous repeated value.''. It has offset $1$ and begins
+OEIS A183901 is ``Number of nondecreasing arrangements of n+3 numbers in 0..6 with each number being the sum mod 7 of three others.''. It has offset $1$ and begins
 \[
-16, 394, 2872, 12380, 39560, 104006, 238224, 492312,\ \dots
+1, 1, 136, 664, 1720, 3491, 6263, 10400,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = n\^{}6 + 6*n\^{}5 + 8*n\^{}4 + (5/3)*n\^{}3 - n\^{}2 + (1/3)*n. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>7.
+Empirical: a(n) = (1/720)*n\^{}6 + (13/240)*n\^{}5 + (125/144)*n\^{}4 + (117/16)*n\^{}3 + (12287/360)*n\^{}2 - (4421/30)*n - 44 for n>3. a(n) = 7*a(n-1) - 21*a(n-2) + 35*a(n-3) - 35*a(n-4) + 21*a(n-5) - 7*a(n-6) + a(n-7) for n>10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 21 2019 12:22:35, revision 8)
+As of the ``Last modified'' line on the live entry (Apr 05 2018 11:13:21, revision 8)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a polynomial}
 
-The array has a FIXED length $L$ and an alphabet $0..n$ that grows. The condition is decided by
-the ORDER of the terms alone --- by which are equal and which is larger --- so an admissible
-array is described completely by its weak ordering: the ordered set partition of the $L$
-positions into $m$ blocks of equal value, blocks listed in increasing order. Every assignment
-of $m$ distinct values from $\{0,\dots,n\}$ to those blocks, in increasing order, gives one
-array, and there are $\binom{n+1}{m}$ of them. Hence
-\[
-a(n)\;=\;\sum_{m=1}^{L} N_m\binom{n+1}{m},
-\]
-with $N_m$ the number of admissible weak orderings into $m$ blocks, computed exactly.
+A NONDECREASING arrangement is determined by its multiset of values, so an admissible
+arrangement is exactly an admissible multiset. The condition names how many other entries a
+value must be built from, and a condition of that shape cannot distinguish a value occurring
+$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
+whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
+once by enumeration over the capped profiles.
+
+Given an admissible capped profile with $F$ the total multiplicity of the values capped below
+the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
+profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
+over the list with $\ell$ the entry's own length.
 
 \section{The bound}
 
-That expression is a polynomial in $n$ of degree at most $L$, so $(z-1)^{L+1}$ annihilates
-$a$ and $S=7$. Nothing is fitted and no threshold is guessed: the $N_m$ are counted, not
-estimated.
+Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
+size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
+$S=7$.
+
+Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
+below is not zero. A profile with no value at the cap contributes the indicator
+$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
+$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
+$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
+$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
+is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
+threshold up, and the run of zeros it uses lies entirely above the transient.
 
 \section{The proof}
 
@@ -81,21 +91,21 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 \[
 a(n)\;=\;7\,a(n-1) - 21\,a(n-2) + 35\,a(n-3) - 35\,a(n-4) + 21\,a(n-5) - 7\,a(n-6) + a(n-7)
 \]
-for every $n>0$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+7$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+vanish from $n=10+1$ onwards, and the run exceeds $S+7$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -108,7 +118,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269412.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183901.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224371, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224009, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224371 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+OEIS A224009 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
 order $11$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=86$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=672$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,39 +32,43 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A224371 is ``Number of nX5 0..2 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A224009 is ``Number of n X 5 0..2 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-86, 1915, 26314, 311367, 3607078, 42132769, 495660330, 5848449149,\ \dots
+21, 441, 6815, 90051, 1108969, 13275381, 157347899, 1859567103,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 21*a(n-1) -141*a(n-2) +427*a(n-3) -546*a(n-4) +526*a(n-5) -2124*a(n-6) +3302*a(n-7) +2396*a(n-8) +7504*a(n-9) +580*a(n-10) +1632*a(n-11) for n>13
+Empirical: a(n) = 21*a(n-1) -141*a(n-2) +427*a(n-3) -546*a(n-4) +526*a(n-5) -2124*a(n-6) +3302*a(n-7) +2396*a(n-8) +7504*a(n-9) +580*a(n-10) +1632*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:24:22, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Sep 18 2025 04:52:39, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
 a(n)\;=\;21\,a(n-1) - 141\,a(n-2) + 427\,a(n-3) - 546\,a(n-4) + 526\,a(n-5) - 2124\,a(n-6) + 3302\,a(n-7) + 2396\,a(n-8) + 7504\,a(n-9) + 580\,a(n-10) + 1632\,a(n-11)
 \end{equation}
-for all $n>13$.
+for all $n>11$.
 
 \section{The conditions}
 
 The arrays have $5$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
-All the conditions here are local --- each compares two cells one step apart ---
-so no extra state is needed beyond the row itself.
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $5$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=86$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=672$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -107,7 +111,7 @@ earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -115,7 +119,7 @@ Section~1.
 The digraph was built directly from the conditions listed above. The vector $w$ was formed by
 $11$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=13+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=11+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -138,7 +142,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224371.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224009.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

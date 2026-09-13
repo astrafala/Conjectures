@@ -12,130 +12,121 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264622, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A208827, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264622 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=2$ rows in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=2$, the matching splits into
-independent decisions row by row: after the cells of rows $0,\dots,i$ are filled,
-every value whose home row is at most $i-R$ has been used, and only $2R$ home rows are
-partly used. Carrying those as bitmasks makes the count a walk on $S=256$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A208827 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=43$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A264622 is ``Number of (n+1) X (1+1) arrays of permutations of 0..n*2+1 with each element having directed index change -2,0 -1,0 0,-1 or 1,1.''. It has offset $1$ and begins
+OEIS A208827 is ``Number of 6-bead necklaces labeled with numbers -n..n allowing reversal, with sum zero.''. It has offset $1$ and begins
 \[
-0, 1, 2, 1, 1, 4, 6, 5,\ \dots
+18, 167, 828, 2821, 7582, 17339, 35288, 65769,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-3) + 2*a(n-4) + a(n-5).
+Empirical: a(n) = (22/15)*n\^{}5 + (11/3)*n\^{}4 + (14/3)*n\^{}3 + (13/3)*n\^{}2 + (43/15)*n + 1. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 08 2019 12:29:42, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 07 2018 06:15:43, revision 13)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The object is a matching}
+\section{The count is a Burnside sum}
 
-The grid has $W=2$ rows across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
+A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
+dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
+labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
+so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
+labellings with sum zero are the integer solutions of
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-2,0),\ (-1,0),\ (0,-1),\ (1,1)\},
+\sum_j w_jx_j = 0,\qquad |x_j|\le n,
 \]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
 
-\section{The matching is a walk}
+\section{The bound}
 
-Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home row is $h$ can only be
-placed in rows $h-R,\dots,h+R$. So once the cells of rows $0,\dots,i$ are filled, every
-value with home row at most $i-R$ has been used up, and the only home rows that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home rows are already placed. One step fills
-the cells of one further row, drawing each of its $W$ values from a home row within $R$
-and at an allowed column offset, and the home row that closes at that step must come out
-full. Nonexistent home rows --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
+Each term counts the integer points at height $n$ of the cone
+$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
+hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
+$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
+$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
+over the group's elements annihilates $a$. One more is added to the order, because the origin
+is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
+the common denominator has numerator degree equal to the denominator's rather than below it.
+So $S=43$.
 
-Hence $a$ is a walk count on $S=256$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
+A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
+determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
+weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
+one. An earlier version of this bound took $S$ to be the number of beads for both, which is
+right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
+$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-3) + 2\,a(n-4) + a(n-5)
+a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
 \]
-for every $n>3$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the transfer model reproduces all $44$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264622.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208827.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

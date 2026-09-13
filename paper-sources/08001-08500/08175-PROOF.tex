@@ -12,69 +12,55 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236051, proved by transfer matrix}
+\title{An element and the cells around it: OEIS A180753}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236051 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$13$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=3760$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A180753 carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=18$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work. The entry does not count the arrays themselves but $1/2$ of them, so every count below is divided by $2$; the division is exact at every term, which is itself a check on the model.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A236051 is ``Number of (n+1)X(4+1) 0..2 arrays colored with the difference of the maximum and minimum in each 2X2 subblock.''. It has offset $1$ and begins
+OEIS A180753 is ``Half the number of nX4 binary arrays with each element equal to at least two neighbors.''. It has offset $1$ and begins
 \[
-3760, 11656, 32608, 92392, 258432, 741592, 2124772, 6124496,\ \dots
+0, 2, 2, 9, 21, 70, 207, 658,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-2) +3*a(n-3) +24*a(n-4) +21*a(n-5) +28*a(n-6) -64*a(n-7) -199*a(n-8) -396*a(n-9) -578*a(n-10) -30*a(n-11) -136*a(n-12) -192*a(n-13) for n>16
+Empirical: a(n) = 5*a(n-1) - 6*a(n-2) + a(n-3) + a(n-4) - 9*a(n-5) + 4*a(n-6) + a(n-7) + 28*a(n-8) - 16*a(n-9) - 3*a(n-10) + 2*a(n-11) - 6*a(n-12) + 2*a(n-13) - a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:02:44, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:08:26, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The $2\times2$ subblocks of an $(n+1)\times5$ array form an
-$n\times4$ grid. Colour each of them by $\sigma=-a+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
-asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
-vertically, must receive different colours.
-
-That reading is fixed by the entries themselves rather than guessed. Take the upper median
-over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
-$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
-arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
-qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
-would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
-would give $0$ at $3\times3$, so neither is what is meant.
 
 \section{The count is a walk count}
 
-A subblock's colour is decided by two consecutive rows of the array, and
-the vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
-must be properly coloured along itself and must differ from the previous subblock row in every
-position. An $(n+1)$-row array is a walk of $n-1$ steps, so
+The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that every element must equal at least $2$ of its horizontal and vertical neighbours.
+
+The furthest that condition reaches is $1$ row, so a window of $3$ consecutive rows decides it for the row in the middle. Carry $2$ rows as the state; a row is judged when the row $1$ beyond it arrives, and the last $1$ row --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
+
+The entry counts not the arrays themselves but $1/2$ of them, so every count below is divided by $2$; the division comes out exact at every term, which is itself a check on the model.
+
+Merging vertices with identical futures leaves $S=18$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\tfrac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-over the $S=3760$ pairs whose own subblock row is properly coloured.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -82,48 +68,54 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-2) + 3\,a(n-3) + 24\,a(n-4) + 21\,a(n-5) + 28\,a(n-6) - 64\,a(n-7) - 199\,a(n-8) - 396\,a(n-9) - 578\,a(n-10) - 30\,a(n-11) - 136\,a(n-12) - 192\,a(n-13)
+a(n)\;=\;5\,a(n-1) - 6\,a(n-2) + a(n-3) + a(n-4) - 9\,a(n-5) + 4\,a(n-6) + a(n-7) + 28\,a(n-8) - 16\,a(n-9) - 3\,a(n-10) + 2\,a(n-11) - 6\,a(n-12) + 2\,a(n-13) - a(n-14)
 \]
-for every $n>16$.
+for every $n>14$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=16$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests the entry's condition at each cell
+directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236051.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A180753.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

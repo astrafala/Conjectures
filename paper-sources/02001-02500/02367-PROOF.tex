@@ -12,79 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224742, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267716, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224742 counts the $(n+1)\times6$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=86$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A267716 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=1632$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224742 is ``Number of (n+1) X 6 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
+OEIS A267716 is ``Number of nX5 0..1 arrays with every repeated value in every row and column greater than the previous repeated value.''. It has offset $1$ and begins
 \[
-538, 9554, 107665, 1644874, 21910274, 316084673, 4390392346, 62260133978,\ \dots
+12, 144, 546, 1915, 4444, 10489, 20226, 39485,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) +7*a(n-2) -1516*a(n-3) +4721*a(n-4) +32621*a(n-5) -149676*a(n-6) -264873*a(n-7) +1850099*a(n-8) +416492*a(n-9) -11177731*a(n-10) +5573265*a(n-11) +33910965*a(n-12) -31589024*a(n-13) -47422880*a(n-14) +62438904*a(n-15) +21268656*a(n-16) -49177152*a(n-17) +6728832*a(n-18) +10917504*a(n-19) -3359232*a(n-20).
+Empirical: a(n) = 2*a(n-1) +8*a(n-2) -18*a(n-3) -27*a(n-4) +72*a(n-5) +48*a(n-6) -168*a(n-7) -42*a(n-8) +252*a(n-9) -252*a(n-11) +42*a(n-12) +168*a(n-13) -48*a(n-14) -72*a(n-15) +27*a(n-16) +18*a(n-17) -8*a(n-18) -2*a(n-19) +a(n-20) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:12, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jan 19 2016 20:15:06, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times6$ matrix a \emph{band} when every one of its $5$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $6$ columns
-whose every $2$ consecutive rows form a band.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+greater than the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be greater than the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-Take as states the $1\times6$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
+
+\section{One scan inside a slice, one across}
+
+Take the array a $row$ at a time, the direction in which it grows.
+
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
+\end{lemma}
+
+\begin{proof}
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
+\end{proof}
+
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $1+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1632,\quad\tau=\mathbf{1} .
 \]
-with $M$ the adjacency matrix on $S=86$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(1 + 1)^{6}$ strips of $1$ rows and $6$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $5$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
-\[
-a(n)\;=\;\sum_v a_v(n),
-\]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -106,39 +103,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) + 7\,a(n-2) - 1516\,a(n-3) + 4721\,a(n-4) + 32621\,a(n-5) - 149676\,a(n-6) - 264873\,a(n-7) + 1850099\,a(n-8) + 416492\,a(n-9) - 11177731\,a(n-10) + 5573265\,a(n-11) + 33910965\,a(n-12) - 31589024\,a(n-13) - 47422880\,a(n-14) + 62438904\,a(n-15) + 21268656\,a(n-16) - 49177152\,a(n-17) + 6728832\,a(n-18) + 10917504\,a(n-19) - 3359232\,a(n-20)
+a(n)\;=\;2\,a(n-1) + 8\,a(n-2) - 18\,a(n-3) - 27\,a(n-4) + 72\,a(n-5) + 48\,a(n-6) - 168\,a(n-7) - 42\,a(n-8) + 252\,a(n-9) - 252\,a(n-11) + 42\,a(n-12) + 168\,a(n-13) - 48\,a(n-14) - 72\,a(n-15) + 27\,a(n-16) + 18\,a(n-17) - 8\,a(n-18) - 2\,a(n-19) + a(n-20)
 \]
-for every $n>20$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224742.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267716.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

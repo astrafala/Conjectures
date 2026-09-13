@@ -12,22 +12,22 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A198447, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A198205, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A198447 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+OEIS A198205 counts arrays in which every cell is constrained by its neighbours on \emph{both}
 sides, and which are moreover written in canonical form (``values introduced in row major
 order''). Neither feature is visible to a one-line transfer matrix: the cell condition
 reaches the row above and the row below, and the canonical-form clause is not local at
 all. Both are dealt with. What is counted is equality patterns, so
-$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers and
+$4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers and
 $L_i$ the count over an $i$-letter alphabet; and each $L_i$ is a walk count whose vertices
 are ordered pairs of consecutive rows. Relabelling-invariance makes the chain strongly
-lumpable, cutting $98$ pairs down to $S=23$ states. The entry's empirical recurrence of
+lumpable, cutting $354$ pairs down to $S=38$ states. The entry's empirical recurrence of
 order $3$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -35,20 +35,20 @@ order $3$, contributed by R.~H.~Hardin, then follows from a finite exact computa
 
 \section{The sequence and the conjecture}
 
-OEIS A198447 is ``Number of 2n X 2 0..2 arrays with values 0..2 introduced in row major order and each element unequal to exactly two horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A198205 is ``Number of 2nX2 0..3 arrays with values 0..3 introduced in row major order and each element unequal to exactly two horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-3, 13, 71, 433, 2763, 17941, 117263, 768313,\ \dots
+4, 43, 658, 11029, 189376, 3272959, 56665678, 981535273,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) -25*a(n-2) +16*a(n-3).
+Empirical: a(n) = 23*a(n-1) -103*a(n-2) +81*a(n-3)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 14 2018 10:30:32, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 07:49:26, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) - 25\,a(n-2) + 16\,a(n-3)
+a(n)\;=\;23\,a(n-1) - 103\,a(n-2) + 81\,a(n-3)
 \end{equation}
 for all $n>3$.
 
@@ -70,7 +70,7 @@ The condition is stated purely in equalities between entries, so it is unchanged
 relabelling of the values: it is a property of the \emph{equality pattern} --- the partition
 of the cells into classes of equal entries --- and not of the values themselves. The clause
 ``values introduced in row major order'' selects exactly one array from each relabelling
-class, so with $K=3$ available values the entry counts admissible patterns with at most $K$
+class, so with $K=4$ available values the entry counts admissible patterns with at most $K$
 classes.
 
 \begin{lemma}\label{lem:inv}
@@ -78,7 +78,7 @@ Let $L_i(n)$ count the arrays over an alphabet of $i$ letters that satisfy the c
 condition, with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly
 $j$ classes. Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
+4!\,\sum_{j\le 4}N_j(n)\;=\;\sum_{i=0}^{4}\binom{4}{i}D_{4-i}\,L_i(n),
 \qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
@@ -88,10 +88,10 @@ A labelled array satisfying the condition is a pattern together with an injectio
 classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of
 them; that is the first identity. Writing $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads
 $L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion gives
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le4$ and exchanging the
 order of summation, the coefficient of $L_i$ is
-$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
-$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$.
+$\sum_{t\le4-i}(-1)^t/(i!\,t!)$, which multiplied by $4!$ is
+$\binom{4}{i}(4-i)!\sum_{t\le4-i}(-1)^t/t!=\binom{4}{i}D_{4-i}$.
 \end{proof}
 
 \section{Each $L_i$ is a walk count on pairs of rows}
@@ -140,11 +140,11 @@ is $e_P=i(i-1)\cdots(i-|P|+1)$, the number of injections of its classes into the
 which supplies the weights on the quotient.
 \end{proof}
 
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=23$, with the
+Assembling the $4$ lumped chains block-diagonally into $N$ of size $S=38$, with the
 weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$ and the
 end-of-array indicator into $\mathbf{u}$,
 \begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=2n+0 .
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=2n+0 .
 \end{equation}
 
 \section{The criterion, and the computation}
@@ -157,7 +157,7 @@ walk by $2$ rows.
 With $h_j=G^{j}N^{o}\mathbf{u}$ for the offset $o$ that aligns the first admissible
 index,
 \[
-3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-3}\,
+4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-3}\,
 \Bigl(h_{3}-\sum_i c_i h_{3-i}\Bigr)
 \]
 for the corresponding $j$. Hence \eqref{eq:conj} holds from that point on if and only if
@@ -166,7 +166,7 @@ $w=h_{3}-\sum_i c_ih_{3-i}$; and it is enough to check $m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor. The scalar $3!$ is nonzero, so it does not
+Substitute \eqref{eq:walk2} and factor. The scalar $4!$ is nonzero, so it does not
 affect vanishing. For the last clause, Cayley--Hamilton applied to $G$ makes $G^{S}$ an
 integer combination of $I,G,\dots,G^{S-1}$, so each $\mathbf{v}^{\!\top}G^{m}w$ with
 $m\ge S$ is the same combination of the earlier values; if those vanish, so do all the rest.
@@ -192,7 +192,7 @@ consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every lar
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk2}, divided by $3!$, was evaluated at every one of the $20$
+\eqref{eq:walk2}, divided by $4!$, was evaluated at every one of the $16$
 published indices and agrees exactly, the quotient coming out an integer each time. This
 tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
 the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
@@ -207,7 +207,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A198447.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198205.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)
