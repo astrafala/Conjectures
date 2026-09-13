@@ -12,78 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220567, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232409, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220567 counts the ways of linking the cells of a grid $6$ cells wide, each cell either to
-itself or to exactly $1$ of its neighbours, the links being reciprocal, and carries an
-empirical recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
-no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
-has degree $0$ or $1$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=233$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A232409 carries an empirical recurrence of order $64$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6643$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A220567 is ``Number of ways to reciprocally link elements of an 6Xn array either to themselves or to exactly one horizontal or antidiagonal neighbor.''. It has offset $1$ and begins
+OEIS A232409 is ``Number of (n+1) X (3+1) 0..2 arrays with every element both >= and <= some horizontal, diagonal or antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-1, 233, 6076, 338581, 14298089, 665748170, 29955561052, 1363847439227,\ \dots
+973, 44971, 2189991, 107913855, 5322933313, 262249675165, 12924602609687, 636974571589143,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) +1348*a(n-2) +10654*a(n-3) -198504*a(n-4) -1906076*a(n-5) +16144268*a(n-6) +135853346*a(n-7) -925177576*a(n-8) -4891188529*a(n-9) +35999318281*a(n-10) +81980396412*a(n-11) -848296316904*a(n-12) -276758340388*a(n-13) +11227641980488*a(n-14) -7107958733596*a(n-15) -92787258095632*a(n-16) +107881224287236*a(n-17) +525583351897147*a(n-18) -774675289613655*a(n-19) -2182902615756840*a(n-20) +3555500220788694*a(n-21) +6973910104740084*a(n-22) -11426713159097796*a(n-23) -17667940720548336*a(n-24) +26747813225197794*a(n-25) +35945989169311476*a(n-26) -46394604844529149*a(n-27) -58560503957694547*a(n-28) +59946651607436776*a(n-29) +75473026016657552*a(n-30) -57619701988418728*a(n-31) -75893814357642448*a(n-32) +40983675195728936*a(n-33) +58931290214948032*a(n-34) -21385512054198856*a(n-35) -35152757210761395*a(n-36) +8057875480743783*a(n-37) +16091164614749124*a(n-38) -2117225467318182*a(n-39) -5658108579422624*a(n-40) +352030436802844*a(n-41) +1530178310024236*a(n-42) -22441127837162*a(n-43) -318296736753680*a(n-44) -5136539584403*a(n-45) +50823610079499*a(n-46) +1734560714908*a(n-47) -6199297816488*a(n-48) -263242733620*a(n-49) +572842763656*a(n-50) +25065179764*a(n-51) -39590221744*a(n-52) -1591760572*a(n-53) +2008410297*a(n-54) +67587747*a(n-55) -72760800*a(n-56) -1863630*a(n-57) +1806100*a(n-58) +31300*a(n-59) -28744*a(n-60) -282*a(n-61) +260*a(n-62) +a(n-63) -a(n-64)
+Empirical recurrence of order 64 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:51:08, revision 8) this is still
+As of the ``Last modified'' line on the live entry (May 17 2021 15:23:03, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
-of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
-itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
-\[
-(-1,0), (-1,1), (1,-1), (1,0),
-\]
-and the condition ``either to themselves or to exactly $1$ neighbours'' says that in that
-graph every cell has degree $0$ or $1$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $6$ columns,
-whose every degree is $0$ or $1$: a matching. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
-
-One point of the English has to be fixed rather than guessed: whether a cell may spend both of
-its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
-and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
-and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
-family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
-model below is required to reproduce every term the entry publishes.
-
 
 \section{The count is a walk count}
 
-Every offset above changes the row index by at most one, so an edge either lies inside a row
-or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
-one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
-sends down to the next row; at that moment each of its cells knows all of its links --- those
-arriving from the row above, those inside the row, those going down --- so its degree, and any
-condition on the pair of links at a cell, is settled there and never revisited.
-
-Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
-takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=233$ reachable
-states and $\iota,\tau$ the indicator vectors of the empty boundary,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6643$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
-reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -105,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 1348\,a(n-2) + 10654\,a(n-3) - 198504\,a(n-4) - 1906076\,a(n-5) + 16144268\,a(n-6) + 135853346\,a(n-7) - 925177576\,a(n-8) - 4891188529\,a(n-9) + 35999318281\,a(n-10) + 81980396412\,a(n-11) - 848296316904\,a(n-12) - 276758340388\,a(n-13) + 11227641980488\,a(n-14) - 7107958733596\,a(n-15) - 92787258095632\,a(n-16) + 107881224287236\,a(n-17) + 525583351897147\,a(n-18) - 774675289613655\,a(n-19) - 2182902615756840\,a(n-20) + 3555500220788694\,a(n-21) + 6973910104740084\,a(n-22) - 11426713159097796\,a(n-23) - 17667940720548336\,a(n-24) + 26747813225197794\,a(n-25) + 35945989169311476\,a(n-26) - 46394604844529149\,a(n-27) - 58560503957694547\,a(n-28) + 59946651607436776\,a(n-29) + 75473026016657552\,a(n-30) - 57619701988418728\,a(n-31) - 75893814357642448\,a(n-32) + 40983675195728936\,a(n-33) + 58931290214948032\,a(n-34) - 21385512054198856\,a(n-35) - 35152757210761395\,a(n-36) + 8057875480743783\,a(n-37) + 16091164614749124\,a(n-38) - 2117225467318182\,a(n-39) - 5658108579422624\,a(n-40) + 352030436802844\,a(n-41) + 1530178310024236\,a(n-42) - 22441127837162\,a(n-43) - 318296736753680\,a(n-44) - 5136539584403\,a(n-45) + 50823610079499\,a(n-46) + 1734560714908\,a(n-47) - 6199297816488\,a(n-48) - 263242733620\,a(n-49) + 572842763656\,a(n-50) + 25065179764\,a(n-51) - 39590221744\,a(n-52) - 1591760572\,a(n-53) + 2008410297\,a(n-54) + 67587747\,a(n-55) - 72760800\,a(n-56) - 1863630\,a(n-57) + 1806100\,a(n-58) + 31300\,a(n-59) - 28744\,a(n-60) - 282\,a(n-61) + 260\,a(n-62) + a(n-63) - a(n-64)
+a(n)\;=\;31\,a(n-1) + 675\,a(n-2) + 10565\,a(n-3) + 45228\,a(n-4) - 551077\,a(n-5) - 11748812\,a(n-6) - 90639458\,a(n-7) - 247039162\,a(n-8) - 117911408\,a(n-9) + 2797954603\,a(n-10) + 20983199585\,a(n-11) + 43185602498\,a(n-12) - 99864865084\,a(n-13) - 562637388635\,a(n-14) - 694791392869\,a(n-15) + 814207854380\,a(n-16) + 4452085692042\,a(n-17) + 8308311743208\,a(n-18) + 9210191961762\,a(n-19) + 988227013167\,a(n-20) - 37372603189689\,a(n-21) - 98622338480267\,a(n-22) - 113758839591231\,a(n-23) - 99134912671582\,a(n-24) - 198378432842935\,a(n-25) - 65052615983836\,a(n-26) + 143492193303485\,a(n-27) + 872259401816159\,a(n-28) + 615003509833203\,a(n-29) + 1020834635092078\,a(n-30) + 605255148539830\,a(n-31) - 361551634458955\,a(n-32) - 288525623566092\,a(n-33) - 1752445176332158\,a(n-34) - 1067384304438195\,a(n-35) - 311709910185581\,a(n-36) - 669948530174918\,a(n-37) + 429729831908702\,a(n-38) + 649398313590521\,a(n-39) + 218850426697279\,a(n-40) + 700085737988674\,a(n-41) - 74728471063430\,a(n-42) - 13175401454945\,a(n-43) - 51827093985090\,a(n-44) - 128265126154998\,a(n-45) + 25563224606504\,a(n-46) - 10748158791084\,a(n-47) + 7766154457590\,a(n-48) + 9519849190077\,a(n-49) - 4738192329330\,a(n-50) + 1495649479666\,a(n-51) - 802126236958\,a(n-52) - 191366368560\,a(n-53) + 312349178340\,a(n-54) - 128845573568\,a(n-55) + 34707331556\,a(n-56) + 4082866368\,a(n-57) - 6069271376\,a(n-58) + 1725474688\,a(n-59) - 331817728\,a(n-60) + 100213504\,a(n-61) - 74746368\,a(n-62) + 24637440\,a(n-63) - 2433024\,a(n-64)
 \]
-for every $n>63$.
+for every $n>64$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=63+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -133,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220567.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232409.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
-2009.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

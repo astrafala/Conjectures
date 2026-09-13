@@ -47,6 +47,7 @@ SHORT = {
     'ecarowb': "a certified block template for the automaton's row read as a numeral",
     'ordrep': 'an exact polynomial in $n$ past a computed transient',
     'necklace2': 'a Burnside sum over the necklace group',
+    'ecacol': "a proved period for the automaton's middle column",
 }
 
 MSC = {
@@ -55,6 +56,7 @@ MSC = {
     'ecarow': '68Q80, 11B85, 05A15',
     'ecacount': '68Q80, 11B85, 05A15',
     'ecablock': '68Q80, 11B85, 05A15',
+    'ecacol': '68Q80, 11B85, 05A15',
     'ecarowb': '68Q80, 11B85, 05A15',
 }
 
@@ -304,6 +306,55 @@ them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero
 $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
+"""
+    if en == 'ecacol':
+        import ecacol as _c
+        q = _c.parse_name(e['name'])
+        b = _c.build(q) if q else None
+        per, n0 = (b or {}).get('q', 0), (b or {}).get('n0', 0)
+        B = (q or {}).get('base')
+        read = ('the bits themselves' if B is None else
+                'the first $n+1$ of them concatenated and read as a %s numeral'
+                % ('decimal' if B == 10 else 'binary'))
+        _bnd = (r'The sequence IS the column, so it is annihilated by $z^{%d}-1$.' % per
+                if B is None else
+                r'Concatenating gives $a(n+q)=a(n)B^{q}+v(\text{the }q\text{ new digits})$ '
+                r'with the same constant in each residue class, so $a$ is annihilated by '
+                r'$(z^{q}-B^{q})(z^{q}-1)$.')
+        return rf"""
+\section{{The middle column has a proved period}}
+
+The middle column is the cell at the origin at each step, $c(n)=w(n)[n]$, the centre of the
+light cone; the entry lists {read}. Nothing is being counted, so there is no digraph, and that
+the column settles into a period is an observation rather than a proof. The row certificate the
+automaton already carries gives one.
+
+Write it as $w(n+p)=L_r+w(n)+R_r$ for $n\ge n_0$, $r=n \bmod p$. In absolute coordinates, where
+the row covers $x\in[-n,n]$ and $w(n)[i]$ is the cell at $x=i-n$, this says
+\[
+\mathrm{{cell}}(x,\,n+p)\;=\;\mathrm{{cell}}(x+d_r,\,n),\qquad d_r=p-|L_r| ,
+\]
+so the column reads a diagonal that moves by $d_r$ every $p$ steps. Three cases close it, and
+this automaton meets one of them:
+
+\begin{{itemize}}
+\item every $L_r$ empty --- the row grows only on the right, every prefix is frozen, so there
+is one infinite word $W$ with $w(n)[i]=W[i]$ and $c(n)=W[n]$ outright; $W$ is $w(n_0)$ followed
+by $R_{{r_0}}R_{{r_1}}\cdots$, eventually periodic with period dividing $\sum_r|R_r|$;
+\item every $R_r$ empty --- the mirror, with the word read from the right end;
+\item $\sum_r d_r=0$ --- the diagonal returns to the origin after a full cycle of residues, so
+$\mathrm{{cell}}(0,n+p^2)=\mathrm{{cell}}(0,n)$.
+\end{{itemize}}
+
+For this entry the column is periodic with period $q={per}$ from $n={n0}$: the period above is a
+proved bound and the exact one is a divisor of it, found inside one window of computed rows,
+which is a finite check.
+
+\section{{The bound}}
+
+{_bnd}
+Allowing the pre-period to raise the numerator's degree gives a monic annihilator of order
+$S={h['S']}$.
 """
     if en == 'necklace2':
         import necklace2 as _nk

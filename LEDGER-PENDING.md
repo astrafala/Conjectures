@@ -122,3 +122,35 @@ cases are refused because the sharp ray enumeration is over budget and the crude
 an annihilator too large to evaluate; the `first differences in -n..n` condition past five beads
 is refused because it has no equality form and needs the slow dynamic programme. Both are
 recorded with the reason rather than left to run.
+
+## 13 September 2026 — the pool re-measured, and the automaton's middle column
+
+**The pool is 2,225, not 245.** The earlier measurement was restricted to one name shape. Asked
+of the whole clone — outside the roster, open, carrying a parsable conjectured recurrence, read
+by no engine — the answer is 2,225. The largest clusters: `n X 2 / n X 3 / n X 4 / n X n ...`
+arrays (about 145), `binary arrays indicating ...` (34), fixed-alphabet growing-length arrays
+`-1..1 / -2..2 / -3..3 arrays x(i)` (about 60), `permutations of 1..n` (22), the middle column
+of an elementary automaton (25), `nondecreasing arrangements of` (12).
+
+### `ecacol`: the middle column
+
+The middle column is the cell at the origin at each step, c(n) = w(n)[n]. `Binary
+representation of` concatenates c(0..n) and reads it as a decimal numeral, `Decimal
+representation of` as a binary one, and the bare wording lists the bits. 25 entries, none read.
+
+Observing that the column settles into a period is not a proof — defect 12, the one that cost
+184 papers this morning. The row certificate gives one. In absolute coordinates the certificate
+`w(n+p) = L_r + w(n) + R_r` says `cell(x, n+p) = cell(x + d_r, n)` with `d_r = p − |L_r|`, so
+the column reads a diagonal moving by d_r every p steps. Three cases close it:
+
+* **every L_r empty** — the row grows only on the right, every prefix is frozen, so there is a
+  single infinite word W with w(n)[i] = W[i] and c(n) = W[n] outright; W is w(n0) followed by
+  R_{r_0} R_{r_1} …, eventually periodic with period dividing Σ|R_r|;
+* **every R_r empty** — the mirror, reading from the right end;
+* **Σ_r d_r = 0** — the diagonal returns to the origin after a full cycle of residues, so
+  cell(0, n + p²) = cell(0, n).
+
+Each gives a proved period; the exact one is a divisor found inside one window of computed
+rows, which is a finite check. A rule meeting none of the three is refused: its column may well
+be periodic, and saying so would be an observation. **72 names read, 18 proved and installed as
+`automaton-column`**; rules 25, 109, 137 and 169 are the ones refused.

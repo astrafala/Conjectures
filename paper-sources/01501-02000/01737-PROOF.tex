@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219498, proved}
+\title{The empirical closed form for OEIS A220034, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219498 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A220034 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their horizontal, vertical neighbours,
+admissible array is replaced by the array of minima of its cells and their diagonal, horizontal neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=33$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=92$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{4}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,24 +35,24 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219498 is ``Number of n X 4 arrays of the minimum value of corresponding elements and their horizontal or vertical neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..1 n X 4 array.''. It has offset $1$ and begins
+OEIS A220034 is ``Number of 4 X n arrays of the minimum value of corresponding elements and their horizontal or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..1 4 X n array.''. It has offset $1$ and begins
 \[
-4, 7, 18, 35, 58, 88, 126, 173,\ \dots
+5, 8, 15, 34, 61, 95, 137, 187,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/6)*n\^{}3 + 1*n\^{}2 + (23/6)*n - 7 for n>2.
+Empirical: a(n) = (1/6)*n\^{}3 + (1/2)*n\^{}2 + (43/3)*n - 45 for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 26 2018 06:35:00, revision 8)
+As of the ``Last modified'' line on the live entry (Jul 30 2018 07:39:59, revision 7)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
 Fix the width $W=4$ and the value range $0..1$. The underlying arrays are the
-$n\times4$ arrays over that range whose rows are lexicographically nondecreasing read downwards
-and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
+$4\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
+and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its horizontal, vertical neighbours that lie inside the array. The entry counts
+of its diagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=33$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=92$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=33$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=92$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,15 +102,15 @@ q(x)=(x-1)^{4},\qquad\text{that is}\qquad a(n)=4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3)
 \]
 
 \begin{theorem}
-The closed form OEIS A219498 records is correct for all $n>2$.
+The closed form OEIS A220034 records is correct for all $n>5$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $6$.
-Second, the polynomial and the walk count agree at every index from $3$ up to
+$S$ consecutive zeros force every later one. The last index at which it fails is $9$.
+Second, the polynomial and the walk count agree at every index from $6$ up to
 $1 + 45 - 1$, which is more than the $4$ consecutive agreements a
 common recurrence of order $4$ needs. Two sequences satisfying the same monic recurrence
 of order $4$ and agreeing at $4$ consecutive indices past both their thresholds are
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219498.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220034.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

@@ -1,6 +1,6 @@
 # Proposed OEIS comments
 
-A proposed comment for each of the **11415** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
+A proposed comment for each of the **11433** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
 
 Each section names the entry, **the date the result was obtained**, the paper that proves it, and what the entry still records as unsettled. The date is the point: an OEIS comment is stamped with the day it is posted, so the date here is what shows when the work was actually done.
 
@@ -32,14 +32,14 @@ If a conjecture is settled by somebody else after the date recorded here, nothin
 | [A250728 – A251396](A250728-A251396.md) | 400 |
 | [A251397 – A252934](A251397-A252934.md) | 400 |
 | [A252935 – A255756](A252935-A255756.md) | 400 |
-| [A255757 – A261548](A255757-A261548.md) | 400 |
-| [A261549 – A265993](A261549-A265993.md) | 400 |
-| [A265994 – A268955](A265994-A268955.md) | 400 |
-| [A268965 – A277798](A268965-A277798.md) | 400 |
-| [A277799 – A281950](A277799-A281950.md) | 400 |
-| [A281951 – A295711](A281951-A295711.md) | 400 |
-| [A295712 – A298276](A295712-A298276.md) | 400 |
-| [A298277 – A301947](A298277-A301947.md) | 400 |
-| [A301948 – A304421](A301948-A304421.md) | 400 |
-| [A304422 – A320359](A304422-A320359.md) | 400 |
-| [A320360 – A397241](A320360-A397241.md) | 43 |
+| [A255757 – A261380](A255757-A261380.md) | 400 |
+| [A261548 – A265988](A261548-A265988.md) | 400 |
+| [A265992 – A268901](A265992-A268901.md) | 400 |
+| [A268902 – A276296](A268902-A276296.md) | 400 |
+| [A276300 – A281762](A276300-A281762.md) | 400 |
+| [A281766 – A295272](A281766-A295272.md) | 400 |
+| [A295273 – A298181](A295273-A298181.md) | 400 |
+| [A298182 – A301840](A298182-A301840.md) | 400 |
+| [A301842 – A304267](A301842-A304267.md) | 400 |
+| [A304268 – A318218](A304268-A318218.md) | 400 |
+| [A318338 – A397241](A318338-A397241.md) | 61 |

@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224683, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224741, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224683 counts the $(n+4)\times5$ matrices over $\{0,\dots,1\}$ all of whose
-$5\times5$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
-$12$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $5$ consecutive rows and $5$ consecutive columns at once, so a
-single row is not a state; the strip of the last $4$ rows is, and the admissible strips
+OEIS A224741 counts the $(n+1)\times5$ matrices over $\{0,\dots,1\}$ all of whose
+$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
+$13$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
 are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=5875$ vertices, hence $C$-finite, and whether the conjectured
+makes $a(n)$ a walk count on $S=46$ vertices, hence $C$-finite, and whether the conjectured
 recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
@@ -33,98 +33,63 @@ recurrence annihilates it is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A224683 is ``Number of (n+4)X5 0..1 matrices with each 5X5 subblock idempotent.''. It has offset $1$ and begins
+OEIS A224741 is ``Number of (n+1)X5 0..1 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
 \[
-5682, 2351, 2662, 3465, 4405, 5385, 6713, 8897,\ \dots
+218, 2326, 18257, 180546, 1644874, 15845297, 149592266, 1430571502,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -a(n-2) +a(n-3) -2*a(n-4) +2*a(n-5) -a(n-7) -a(n-9) +a(n-10) -a(n-11) +a(n-12) for n>18
+Empirical: a(n) = 13*a(n-1) +a(n-2) -436*a(n-3) +747*a(n-4) +3955*a(n-5) -7874*a(n-6) -12461*a(n-7) +25451*a(n-8) +13120*a(n-9) -30315*a(n-10) -175*a(n-11) +9975*a(n-12) -2000*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:35:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-Call a $5\times5$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
-call a $5\times5$ matrix a \emph{band} when every one of its $1$ contiguous
-$5\times5$ subblocks is a window. What the entry counts is the matrices of $5$ columns
-whose every $5$ consecutive rows form a band.
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
+call a $2\times5$ matrix a \emph{band} when every one of its $4$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $5$ columns
+whose every $2$ consecutive rows form a band.
 
-Take as states the $4\times5$ strips that occur as the top $4$ rows of a band,
-together with those that occur as its bottom $4$ rows, and put an edge from $u$ to $v$
-when the band whose first $4$ rows are $u$ and whose last $4$ rows are $v$ exists.
+Take as states the $1\times5$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
 A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..4$, then $2..5$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+4$ rows gives a walk of $n$ edges.
-Since the first $4$ rows of a counted matrix with at least $5$ rows are the top of a
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
 band, and since no further condition falls on where a walk starts or ends,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-with $M$ the adjacency matrix on $S=5875$ states. In particular $a$ is $C$-finite. The
+with $M$ the adjacency matrix on $S=46$ states. In particular $a$ is $C$-finite. The
 alignment was checked against the entry's published terms rather than assumed.
 
-There are $(1 + 1)^{20}$ strips of $4$ rows and $5$ columns, far too
+There are $(1 + 1)^{5}$ strips of $1$ rows and $5$ columns, far too
 many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $5\times4$ entries, so a band is exactly a walk of $1$ windows in
-the graph that joins a window to those whose first $4$ columns are its last $4$
+overlap in $2\times1$ entries, so a band is exactly a walk of $4$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
 columns. Enumerating those walks produces the bands, and with them the states and the edges,
 directly.
 
 \section{The admissible windows}
 
-The vertices of the overlap graph are the $0/1$ matrices $B$ of size $5\times5$ with
-$B^2=B$. There are $2^{25}$ matrices to sift, which is already awkward at $5=5$ and
-hopeless a little beyond it, so they are not sifted; they are generated from the following
-description, which also makes the count itself transparent.
-
-\begin{lemma}\label{lem:idem}
-Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
-$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
+$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
 \[
-r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
+a(n)\;=\;\sum_v a_v(n),
 \]
-the rows on the right necessarily having pairwise disjoint supports. Writing
-$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
-when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
-choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
-$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
-$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
-pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
-matrices.
-\end{lemma}
-
-\begin{proof}
-The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
-displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
-$t\in S_i$, are pairwise disjoint with union $S_i$.
-
-Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
-$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
-$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
-by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
-cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
-$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
-$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
-Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
-$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
-from $B$ and distinct data give distinct matrices.
-
-Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
-$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
-$r_i$ each time. Hence $B^2=B$.
-\end{proof}
-
-Generating from Lemma~\ref{lem:idem} gives $5682$ admissible $5\times5$ windows. For
-$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
-$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
-narrow.
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -132,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+12}-\sum_ic_iM^{j+12-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -141,23 +106,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) - 2\,a(n-4) + 2\,a(n-5) - a(n-7) - a(n-9) + a(n-10) - a(n-11) + a(n-12)
+a(n)\;=\;13\,a(n-1) + a(n-2) - 436\,a(n-3) + 747\,a(n-4) + 3955\,a(n-5) - 7874\,a(n-6) - 12461\,a(n-7) + 25451\,a(n-8) + 13120\,a(n-9) - 30315\,a(n-10) - 175\,a(n-11) + 9975\,a(n-12) - 2000\,a(n-13)
 \]
-for every $n>18$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=18$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $31$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -169,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224683.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224741.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,

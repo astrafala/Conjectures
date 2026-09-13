@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267052, proved from an exact model}
+\title{The empirical recurrence for OEIS A267045, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{12 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267052 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified block template for the automaton's row read as a numeral, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+OEIS A267045 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a proved period for the automaton's middle column, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=13$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,59 +31,50 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A267052 is ``Decimal representation of the n-th iteration of the "Rule 92" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A267045 is ``Decimal representation of the middle column of the "Rule 91" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-1, 3, 7, 11, 23, 43, 87, 171,\ \dots
+1, 2, 4, 8, 17, 34, 69, 138,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Jan 10 2016 and Apr 17 2019: (Start) a(n) = 2*a(n-1)+a(n-2)-2*a(n-3) for n>3.
+Conjectures from \_Colin Barker\_, Jan 10 2016 and Apr 17 2019: (Start) a(n) = 2*a(n-1)+a(n-2)-2*a(n-3) for n>4. [Typo corrected by \_Karl V. Keller, Jr.\_, Mar 16 2022]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 22)
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 24)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The value is a certified block template}
+\section{The middle column has a proved period}
 
-The entry reads the automaton's row at stage $n$ as a string of digits and takes its value in
-base $B$. Nothing is being counted, so there is no digraph. The row does not grow only at its
-two ends --- for these rules it gains digits in the MIDDLE of a periodic run --- so the shape
-$w(n+p)=L_r+w(n)+R_r$ is unavailable. What holds instead is a block template: writing $r$ for
-the residue of $n$ modulo the period $p$ and $j$ for the number of periods past a pre-period
-$n_0$,
+The middle column is the cell at the origin at each step, $c(n)=w(n)[n]$, the centre of the
+light cone; the entry lists the first $n+1$ of them concatenated and read as a binary numeral. Nothing is being counted, so there is no digraph, and that
+the column settles into a period is an observation rather than a proof. The row certificate the
+automaton already carries gives one.
+
+Write it as $w(n+p)=L_r+w(n)+R_r$ for $n\ge n_0$, $r=n \bmod p$. In absolute coordinates, where
+the row covers $x\in[-n,n]$ and $w(n)[i]$ is the cell at $x=i-n$, this says
 \[
-w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m,
+\mathrm{cell}(x,\,n+p)\;=\;\mathrm{cell}(x+d_r,\,n),\qquad d_r=p-|L_r| ,
 \]
-with the fixed blocks $B_i$ and the repeated blocks $Q_i$ depending only on $r$. This was
-verified for every available $n$, and it is a theorem rather than a fit: the rule is a local
-map of radius $1$, so $p$ steps have radius $p$; the $p$-step map was checked by direct
-simulation at two consecutive $j$ whose repeated runs are longer than $4p+4|Q_i|$, and for a
-larger $j$ the template only inserts further copies of each $Q_i$ inside runs already longer
-than $2p$. An output cell near either end sees only input cells the two configurations share
-at the same distance from that end, and strictly inside a long run the input is
-$|Q_i|$-periodic so the output is too, with period and phase fixed by the two verified steps.
-Hence the template propagates to every $j$.
+so the column reads a diagonal that moves by $d_r$ every $p$ steps. Three cases close it, and
+this automaton meets one of them:
 
-For this entry the automaton is rule 92, the period is $p=2$ and the pre-period is $n_0=1$.
-The certificate is
-\begin{gather*}
-r=0:\quad \texttt{00}^{\,j} \cdot \texttt{0} \cdot \texttt{10}^{\,j} \cdot \texttt{11} \\
-r=1:\quad \texttt{00}^{\,j} \cdot \texttt{0} \cdot \texttt{01}^{\,j} \cdot \texttt{0111}
-\end{gather*}
+\begin{itemize}
+\item every $L_r$ empty --- the row grows only on the right, every prefix is frozen, so there
+is one infinite word $W$ with $w(n)[i]=W[i]$ and $c(n)=W[n]$ outright; $W$ is $w(n_0)$ followed
+by $R_{r_0}R_{r_1}\cdots$, eventually periodic with period dividing $\sum_r|R_r|$;
+\item every $R_r$ empty --- the mirror, with the word read from the right end;
+\item $\sum_r d_r=0$ --- the diagonal returns to the origin after a full cycle of residues, so
+$\mathrm{cell}(0,n+p^2)=\mathrm{cell}(0,n)$.
+\end{itemize}
+
+For this entry the column is periodic with period $q=2$ from $n=3$: the period above is a
+proved bound and the exact one is a divisor of it, found inside one window of computed rows,
+which is a finite check.
 
 \section{The bound}
 
-The row is the light cone, of width $2n+1$, so $\sum_i|Q_i|=2p$. Write $s_i$ for the number of
-digits to the right of the $i$-th repeated run, so $s_1=2p$. Concatenation is multiplication by
-a power of $B$ and addition, and $v(Q_i^{\,j})=v(Q_i)(B^{|Q_i|j}-1)/(B^{|Q_i|}-1)$, so along a
-residue class
-\[
-a(j)\;=\;\sum_i \big(\alpha_i B^{s_i j} + \beta_i\big) + \gamma,
-\]
-a $\mathbf{Z}$-linear combination of $B^{s_1 j},\dots,B^{s_m j}$ and $1$ with coefficients that
-do not depend on $j$. In the shift $T=S^{\,p}$ that is annihilated by
-$\prod_i(T-B^{s_i})(T-1)$. Taking the DISTINCT roots that occur across the $p$ residue classes,
-pulling each back to $z^p-\lambda$, and allowing the pre-period to raise the numerator's degree
-gives the monic annihilator of order $S=9$ used below.
+Concatenating gives $a(n+q)=a(n)B^{q}+v(\text{the }q\text{ new digits})$ with the same constant in each residue class, so $a$ is annihilated by $(z^{q}-B^{q})(z^{q}-1)$.
+Allowing the pre-period to raise the numerator's degree gives a monic annihilator of order
+$S=13$.
 
 \section{The proof}
 
@@ -105,14 +96,14 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 \[
 a(n)\;=\;2\,a(n-1) + a(n-2) - 2\,a(n-3)
 \]
-for every $n>3$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=4+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
@@ -132,7 +123,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267052.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267045.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

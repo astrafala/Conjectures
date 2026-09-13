@@ -12,201 +12,177 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223286, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221930, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223286 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is dodecahedron graph. The entry carries an empirical recurrence of order $12$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. A slice of
-the array would be a state, but there are $3200000$ legal slices here and that is too many to
-carry one by one. The condition names only the edge relation, so the automorphism group of $G$
---- of order $120$ --- acts on the arrays and commutes with the transfer matrix; the walk may
-then be run on the ORBITS of slices instead of on the slices, and $S=26800$ of those suffice.
+OEIS A221930 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=466$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 05C25, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
 \section{The conjecture}
 
-OEIS A223286 is ``Rolling icosahedron face footprints: number of 5Xn 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal, diagonal or antidiagonal neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
+OEIS A221930 is ``Number of 2Xn arrays of occupancy after each element stays put or moves to some horizontal, diagonal or antidiagonal neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
 \[
-160000, 1875, 81057, 1048923, 28271577, 473368227, 10801441521, 200475062187,\ \dots
+1, 25, 232, 2197, 20933, 198589, 1885324, 17896442,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) +278*a(n-2) -2372*a(n-3) -11584*a(n-4) +98256*a(n-5) +68096*a(n-6) -1208064*a(n-7) +753664*a(n-8) +4509696*a(n-9) -4485120*a(n-10) -4571136*a(n-11) +4718592*a(n-12) for n>13
+Empirical: a(n) = 9*a(n-1) +10*a(n-2) -45*a(n-3) -57*a(n-4) +45*a(n-5) -3*a(n-6) -616*a(n-7) -57*a(n-8) +1200*a(n-9) -268*a(n-10) -289*a(n-11) -9*a(n-12) +6*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:27:45, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 20:06:14, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,19\}$ whose vertices are the twenty faces of a regular icosahedron, two of them adjacent when they share an edge. That is the dodecahedron graph: $20$ vertices, $3$-regular, $30$ edges.
-
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-(1,-1), (1,1), (0,1),
+(-1,-1), (-1,0), (-1,1), (0,0), (1,-1), (1,0), (1,1),
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Write $\Gamma=\operatorname{Aut}(G)$ for the group of adjacency-preserving bijections of the
-vertex set. It was computed by backtracking over the vertices in breadth-first order, assigning
-each an image consistent with every vertex already placed, and has order $|\Gamma|=120$.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
+\item $d'=d$, that is, the token arriving at a cell and the token leaving it move in the same direction --- the move goes STRAIGHT THROUGH;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all.
 
-\begin{lemma}\label{lem:act}
-For $\sigma\in\Gamma$ the array $\sigma\circ x$ is valid whenever $x$ is, and this is an action
-of $\Gamma$ on the set of valid arrays. In particular the count does not depend on how the
-vertices of $G$ are labelled.
+The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
+$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
+$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
+an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
+The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
+turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
+two readings.
+
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
+
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
+
+\begin{lemma}\label{lem:win}
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
 \end{lemma}
 
 \begin{proof}
-The condition mentions the vertices only through the relation ``joined by an edge'', which
-$\sigma$ preserves in both directions. The same argument with an isomorphism between two
-labelled copies of $G$ gives the second statement.
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
 \end{proof}
 
-\section{The cell the entry fixes}
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
 
-The entry asks for $x(0,0)=0$. That condition is removed here, and paid for once at the end.
-
-\begin{lemma}\label{lem:fibre}
-$\Gamma$ is transitive on the vertices of $G$. Consequently the valid arrays with $x(0,0)=v$
-are equinumerous for every vertex $v$, and the number with $x(0,0)=0$ is the number of valid
-arrays with no condition on any cell, divided by $20$.
-\end{lemma}
-
-\begin{proof}
-Transitivity was checked directly on the group computed above: the orbit of one vertex is the
-whole vertex set. Given vertices $v,w$ pick $\sigma\in\Gamma$ with $\sigma v=w$; then
-$x\mapsto\sigma\circ x$ is a bijection from the valid arrays with $x(0,0)=v$ onto the valid
-arrays with $x(0,0)=w$, with inverse given by $\sigma^{-1}$. The $20$ fibres of
-$x\mapsto x(0,0)$ therefore all have the same size and partition the unrestricted count.
-\end{proof}
-
-\section{Orbits of slices}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column; transposing exchanges the horizontal and vertical directions and carries each diagonal direction to itself.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones, so a $column$ is a state: let $M$ be the $0/1$ matrix indexed by the
-legal $column$s with $M_{uv}=1$ when $v$ may follow $u$, and let $\tau=\mathbf{1}$.
-The number of valid arrays of $m$ $column$s is $\mathbf{1}^{\!\top}M^{m-1}\tau$.
-
-There are $3200000$ legal $column$s, which is more than can be carried one at a time. They
-need not be.
-
-\begin{lemma}\label{lem:lump}
-$\Gamma$ acts on the $column$s coordinatewise; $M_{uv}=M_{\sigma u\,\sigma v}$ for
-every $\sigma\in\Gamma$, and $\tau$ is fixed by $\Gamma$. Consequently $M^{m}\tau$ is constant
-on each $\Gamma$-orbit of $column$s, for every $m\ge0$.
-\end{lemma}
-
-\begin{proof}
-That $v$ may follow $u$ is again a conjunction of statements ``these two vertices are joined by
-an edge'', so $\sigma$ preserves it; and $\tau$ is the all-ones vector. Induct on $m$: if
-$w=M^{m}\tau$ satisfies $w_{\sigma u}=w_u$ then
-$(Mw)_{\sigma u}=\sum_v M_{\sigma u\,v}w_v=\sum_v M_{u\,\sigma^{-1}v}w_v
-=\sum_{v'}M_{uv'}w_{\sigma v'}=(Mw)_u$.
-\end{proof}
-
-Let $\mathcal{O}$ be the set of orbits, $r_O$ a representative of $O$, and
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
 \[
-\widehat{M}_{O,O'}=\#\{\,v\in O' : M_{r_O v}=1\,\} .
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
 \]
-By Lemma~\ref{lem:lump} the value $(M^{m}\tau)_{r_O}$ is what $M^m\tau$ takes on all of
-$O$, and one step reads
-\[
-(M w)_{r_O}=\sum_{O'}\widehat{M}_{O,O'}\,w_{r_{O'}} ,
-\]
-so the whole walk may be run on $\mathcal{O}$. Summing over $column$s and grouping,
-\[
-\mathbf{1}^{\!\top}M^{m}\tau=\sum_{O\in\mathcal{O}}|O|\,(M^{m}\tau)_{r_O}
-=\iota^{\!\top}\widehat{M}^{\,m}\mathbf{1},\qquad \iota_O=|O| ,
-\]
-and the count the entry publishes is that divided by $20$, by Lemma~\ref{lem:fibre}. Here $S=|\mathcal{O}|=26800$, down from $3200000$.
 
-The orbit representatives are generated directly rather than by listing the $column$s and
-grouping them. A $column$ is built one cell at a time, carrying the set of $\sigma$ that
-have so far written exactly the same prefix; a choice is abandoned as soon as one of them would
-write a smaller letter. What reaches the last cell is the lexicographically least member of its
-orbit, one per orbit, and the set still tied there is its stabiliser, so
-$|O|=|\Gamma|/|\Gamma_{r_O}|$ falls out of the same walk.
+\section{The image is a walk count after determinisation}
 
-The walk index and the entry's own $n$ differ by a constant, read off by matching the published
-terms rather than assumed. In particular $a$ is $C$-finite.
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=466$ reachable sets. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{12}-\sum_i c_it^{12-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}\widehat{M}^{\,j}q(\widehat{M})\mathbf{1}$ for the corresponding walk
-index $j$, so the recurrence holds from some point on if and only if that vanishes for all large
-$j$, and it is enough to examine $j<S$.
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $\widehat{M}^{j}$ out of
-$\widehat{M}^{j+12}-\sum_ic_i\widehat{M}^{j+12-i}$. For the bound,
-$\widehat{M}^{S}$ is an integer combination of
-$I,\widehat{M},\dots,\widehat{M}^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}\widehat{M}^{j}q(\widehat{M})\mathbf{1}$ obey the monic recurrence
-given by its characteristic polynomial; $S$ consecutive zeros force every later one, and the
-last nonzero $u_j$ pins the threshold exactly.
+Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 278\,a(n-2) - 2372\,a(n-3) - 11584\,a(n-4) + 98256\,a(n-5) + 68096\,a(n-6) - 1208064\,a(n-7) + 753664\,a(n-8) + 4509696\,a(n-9) - 4485120\,a(n-10) - 4571136\,a(n-11) + 4718592\,a(n-12)
+a(n)\;=\;9\,a(n-1) + 10\,a(n-2) - 45\,a(n-3) - 57\,a(n-4) + 45\,a(n-5) - 3\,a(n-6) - 616\,a(n-7) - 57\,a(n-8) + 1200\,a(n-9) - 268\,a(n-10) - 289\,a(n-11) - 9\,a(n-12) + 6\,a(n-13)
 \]
 for every $n>13$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(\widehat{M})\mathbf{1}$ was formed by $12$ matrix--vector products in
-exact integer arithmetic and $\iota^{\!\top}\widehat{M}^{j}w$ evaluated for
-$j=0,1,\dots$, again exactly; those integers vanish from the index corresponding to
-$n=13+1$ onwards and the run continued until the working vector was identically zero, which
-settles every larger $j$ at once.
+The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Five checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. That recount applies the
-entry's own condition on the top-left cell directly, so it tests Lemma~\ref{lem:fibre} as well:
-no orbit, no lumping and no division is involved in it, and the published terms came back.
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
 
-Third, the automorphism group was checked to be a group---closed under composition and
-inverses---and every one of its $120$ elements verified to preserve the edge set.
-
-Fourth, the conjectured recurrence was evaluated directly on the published terms, with no
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fifth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223286.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221930.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
