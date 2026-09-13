@@ -14,6 +14,9 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'modsum': ("the two running row sums modulo M and the previous column: the sums look "
+               "unbounded but every comparison is taken modulo M, so only residues "
+               "matter, and the north-east comparison is deferred one column"),
     'shiftmult': ("the k+1 values still in play -- those the remaining indices can still "
                   "take -- and how often each has been used so far"),
     'coverzero': ("the last few values together with which of those positions are still "

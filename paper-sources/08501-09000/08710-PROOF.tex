@@ -12,70 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204612, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235899, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204612 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $11$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=335$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A235899 counts arrays of width $6$ over $\{0,1,2\}$ in which the smallest and largest of the
+four entries of every $2\times2$ block have a sum equal to the sum of the other two. The entry
+carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical: the condition involves two consecutive rows and nothing
+wider, so the count is a walk count on $S=729$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A204612 is ``Number of (n+1)X5 0..1 arrays with the determinants of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
+OEIS A235899 is ``Number of (n+1)X(5+1) 0..2 arrays with the minimum plus the maximum equal to the lower median plus the upper median in every 2X2 subblock.''. It has offset $1$ and begins
 \[
-335, 3254, 31805, 313597, 3084029, 30487865, 301345617, 2981578169,\ \dots
+6849, 89857, 1030145, 12931393, 160019457, 2053474753, 26681279873, 354762714433,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -73*a(n-2) -256*a(n-3) +2060*a(n-4) -1216*a(n-5) -12612*a(n-6) +18224*a(n-7) +20992*a(n-8) -40064*a(n-9) -9984*a(n-10) +24576*a(n-11) for n>15
+Empirical: a(n) = 49*a(n-1) -680*a(n-2) -2152*a(n-3) +106896*a(n-4) -244848*a(n-5) -6547072*a(n-6) +18222592*a(n-7) +219136000*a(n-8) -245395456*a(n-9) -3590750208*a(n-10) -5119672320*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:21:36, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:54:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times5$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $4$
-columns, and $\sigma$ colours that grid.
-
-The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
-horizontally or vertically, must not decrease. Rightwards and downwards are the two directions named.
-
-\section{The count is a walk count}
-
-A subblock's value needs two consecutive array rows, and the vertical
-comparison needs the two subblock rows that three consecutive array rows produce. So the state
-is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
-admissible at all, and the vertical ones decide which pair may follow which. A step appends one
-array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
-rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Take any
+$2\times2$ block of the array and sort its four entries as
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\alpha\le\beta\le\gamma\le\delta .
 \]
-on the $S=335$ admissible pairs.
+The minimum is $\alpha$ and the maximum is $\delta$; the lower median is $\beta$ and the upper
+median is $\gamma$. The entry's condition, imposed on every $2\times2$ block, is therefore
+\[
+\alpha+\delta\;=\;\beta+\gamma .
+\]
 
-At $n=1$ the array has two rows, so the grid is a single row of $4$
-subblocks with no vertical neighbours, so only the horizontal comparisons apply. The
-entry's first term is $335$, and the model reproduces it along with every later term; that
-is the cheapest check that the grid has been read with the right shape.
+Nothing here depends on where in the block each value sits: the condition is a statement about
+the multiset of the four entries. In particular it is symmetric under every rearrangement of
+the block, and under adding a constant to all four entries.
 
-Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
-$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\section{Two rows}
+
+A $2\times2$ block occupies two consecutive rows, so everything the condition asks is decided
+by a pair of consecutive rows and nothing wider. Take the array one row at a time and let the
+state be the row just written; a step appends a new row and is allowed exactly when every one
+of the $6-1$ blocks spanning the two rows satisfies the condition.
+
+Every block of the finished array is tested exactly once, at the step that writes its lower
+row, and no step tests anything the definition does not ask. A one-row array has no block at
+all, so every row may start and every state may end: $\iota$ and $\tau$ are both
+$\mathbf{1}$, and the states are all $3^{6}=729$ rows. Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=729,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -97,38 +96,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 73\,a(n-2) - 256\,a(n-3) + 2060\,a(n-4) - 1216\,a(n-5) - 12612\,a(n-6) + 18224\,a(n-7) + 20992\,a(n-8) - 40064\,a(n-9) - 9984\,a(n-10) + 24576\,a(n-11)
+a(n)\;=\;49\,a(n-1) - 680\,a(n-2) - 2152\,a(n-3) + 106896\,a(n-4) - 244848\,a(n-5) - 6547072\,a(n-6) + 18222592\,a(n-7) + 219136000\,a(n-8) - 245395456\,a(n-9) - 3590750208\,a(n-10) - 5119672320\,a(n-11)
 \]
-for every $n>15$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=15$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array was written out cell by cell and each $2\times2$ block tested by sorting its four values
+and comparing the outer two with the inner two. No rows, no state and no transfer matrix are
+involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204612.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235899.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

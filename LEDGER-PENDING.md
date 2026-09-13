@@ -380,3 +380,21 @@ leaves has had its final count, and no count is ever required, only bounded.
 
 **8 names read, every one reproducing its entry's published data exactly; all 8 proved and
 installed as `shifted-multiplicity`.**
+
+## 13 September 2026 — `modsum`: sums that look unbounded but are taken modulo M
+
+    Number of 2Xn 0..3 arrays with no element equal to zero plus the sum of elements to its
+      left or one plus the sum of the elements above it or one plus the sum of the elements
+      diagonally to its northwest or one plus the sum of the elements antidiagonally to its
+      northeast, modulo 4.
+
+14 entries, none read. The four sums look unbounded, but every comparison is taken MODULO M, so
+only the residues matter and the state is finite. Reading the array column by column, the sum to
+the left of a cell is its row's running sum; the sum above it is the cell over it in the same
+column; the sum diagonally to the north-west is the cell above and one column back. The sum
+ANTIDIAGONALLY to the north-east is the cell above and one column FORWARD, which has not been
+read yet, so that comparison is deferred by one column — and at the last column it is the empty
+sum, which is what the walk accepts on.
+
+**13 names read, every one reproducing its entry's published data exactly; all 13 proved and
+installed as `modular-running-sum`.**

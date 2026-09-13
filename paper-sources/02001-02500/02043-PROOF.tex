@@ -12,76 +12,85 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269140, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206355, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269140 counts arrays of width $5$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
-order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=2105$ states.
+OEIS A206355 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+from it, the arrays being counted up to renaming the letters. The entry carries an empirical
+recurrence of order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical. The condition tests only whether two cells are equal, so it survives
+renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
+triangular system of falling factorials, and each of those is a walk count on a window of
+$2$ consecutive rows, $S=15395$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A269140 is ``Number of nX5 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
+OEIS A206355 is ``Number of nX4 0..4 arrays with no element equal to another within two positions in the same row or column, and new values 0..4 introduced in row major order.''. It has offset $1$ and begins
 \[
-756, 59916, 3924212, 240647068, 14197016484, 815458664276, 45920055321732, 2546667557472940,\ \dots
+2, 120, 3284, 91518, 2545230, 70894196, 1973960628, 54973461294,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 134*a(n-1) -6403*a(n-2) +137212*a(n-3) -1537987*a(n-4) +10006762*a(n-5) -41364815*a(n-6) +107588656*a(n-7) -111196320*a(n-8) -399050332*a(n-9) +2108507944*a(n-10) -4098003684*a(n-11) +445179883*a(n-12) +18009896226*a(n-13) -42207232033*a(n-14) +12581717548*a(n-15) +122544940860*a(n-16) -203283873760*a(n-17) -79843687188*a(n-18) +508551706160*a(n-19) -240288894385*a(n-20) -648319426210*a(n-21) +662670918703*a(n-22) +480938145704*a(n-23) -858808887300*a(n-24) -176689259732*a(n-25) +734283407564*a(n-26) -39751157620*a(n-27) -450104705459*a(n-28) +101139044518*a(n-29) +200718146529*a(n-30) -72282159428*a(n-31) -63674380919*a(n-32) +31546829386*a(n-33) +13183985923*a(n-34) -9057688788*a(n-35) -1275648164*a(n-36) +1571020336*a(n-37) -67398016*a(n-38) -125671104*a(n-39) +17151168*a(n-40) +3564288*a(n-41) -665856*a(n-42) for n>45
+Empirical: a(n) = 32*a(n-1) +76*a(n-2) -5904*a(n-3) +1721*a(n-4) +419123*a(n-5) -145197*a(n-6) -17668949*a(n-7) +20880296*a(n-8) +307017229*a(n-9) -259902590*a(n-10) -2211508824*a(n-11) -3884842364*a(n-12) +1052899979*a(n-13) +85838941255*a(n-14) +121001157362*a(n-15) -385025973349*a(n-16) -1252681827229*a(n-17) -1873575838949*a(n-18) +4681783162473*a(n-19) +22323753578645*a(n-20) +9811253613783*a(n-21) -50670876095585*a(n-22) -100273865134560*a(n-23) -84704041294374*a(n-24) +132299239770787*a(n-25) +372399486830938*a(n-26) +189639080959232*a(n-27) -164338224373849*a(n-28) -344164045191618*a(n-29) -220338091824960*a(n-30) -45873259303120*a(n-31) +44287016659527*a(n-32) +292067697148194*a(n-33) +126193726646364*a(n-34) -159628839066498*a(n-35) -61818190307576*a(n-36) +39629245365500*a(n-37) +10915954711700*a(n-38) -10133626522160*a(n-39) +649024333200*a(n-40) +371869896960*a(n-41) -16637166720*a(n-42) for n>43
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2016 06:47:08, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:53:00, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
+Entries lie in $\{0,1,\dots,4\}$ and the condition is that
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
-\end{array}
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(0,1), (0,-1), (1,0), (-1,0), (0,2), (0,-2), (2,0), (-2,0)\}
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
-entry counts the arrays with $k$ at most one.
+whenever the second cell lies inside the array. The offsets are not written out in the entry: they are named by a
+DISTANCE rule --- so many positions along a row or column, or a city block distance --- and the
+list above is that rule read out. The closing clause ``new values $0..4$ introduced in row
+major order'' says the array is the canonical representative of its equality pattern.
 
-\section{A capped count is a state}
-
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
-
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+\begin{lemma}\label{lem:order}
+The number counted does not depend on the order in which the array is read.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+The condition tests only whether two cells carry equal values, so it is unchanged by permuting
+the alphabet, and the admissible arrays fall into classes under renaming. Fix any reading order
+of the cells. Each class contains exactly one array whose distinct values, in order of first
+appearance in that reading, are $0,1,2,\dots$: take any member and rename its values by their
+rank of first appearance. So the count is the number of CLASSES, whatever reading order is
+meant.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\section{From classes to fixed alphabets}
+
+Write $N_j$ for the number of classes on exactly $j$ letters and $L_i$ for the number of
+admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a class together
+with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2105.
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+\]
+a triangular system with unit diagonal. By Lemma~\ref{lem:order} the entry counts
+$N_1+\dots+N_{5}$, so $a=\sum_i w_iL_i$ with $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the
+matrix of falling factorials.
+
+\section{Each $L_i$ is a walk count}
+
+Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
+each offset by whichever of the two points BACKWARDS along the direction in which the array
+grows makes every pair tested once, from the later of its two cells. After that replacement no
+offset reaches more than $2$ rows back, so the window of the last $2$
+rows is a state and one step appends a row. A row not yet written is
+carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
+of $t$ rows. Assembling $i=1,\dots,5$ as a disjoint union with $\iota$ carrying the
+weights cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=15395.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -106,29 +115,30 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;134\,a(n-1) - 6403\,a(n-2) + 137212\,a(n-3) - 1537987\,a(n-4) + 10006762\,a(n-5) - 41364815\,a(n-6) + 107588656\,a(n-7) - 111196320\,a(n-8) - 399050332\,a(n-9) + 2108507944\,a(n-10) - 4098003684\,a(n-11) + 445179883\,a(n-12) + 18009896226\,a(n-13) - 42207232033\,a(n-14) + 12581717548\,a(n-15) + 122544940860\,a(n-16) - 203283873760\,a(n-17) - 79843687188\,a(n-18) + 508551706160\,a(n-19) - 240288894385\,a(n-20) - 648319426210\,a(n-21) + 662670918703\,a(n-22) + 480938145704\,a(n-23) - 858808887300\,a(n-24) - 176689259732\,a(n-25) + 734283407564\,a(n-26) - 39751157620\,a(n-27) - 450104705459\,a(n-28) + 101139044518\,a(n-29) + 200718146529\,a(n-30) - 72282159428\,a(n-31) - 63674380919\,a(n-32) + 31546829386\,a(n-33) + 13183985923\,a(n-34) - 9057688788\,a(n-35) - 1275648164\,a(n-36) + 1571020336\,a(n-37) - 67398016\,a(n-38) - 125671104\,a(n-39) + 17151168\,a(n-40) + 3564288\,a(n-41) - 665856\,a(n-42)
+a(n)\;=\;32\,a(n-1) + 76\,a(n-2) - 5904\,a(n-3) + 1721\,a(n-4) + 419123\,a(n-5) - 145197\,a(n-6) - 17668949\,a(n-7) + 20880296\,a(n-8) + 307017229\,a(n-9) - 259902590\,a(n-10) - 2211508824\,a(n-11) - 3884842364\,a(n-12) + 1052899979\,a(n-13) + 85838941255\,a(n-14) + 121001157362\,a(n-15) - 385025973349\,a(n-16) - 1252681827229\,a(n-17) - 1873575838949\,a(n-18) + 4681783162473\,a(n-19) + 22323753578645\,a(n-20) + 9811253613783\,a(n-21) - 50670876095585\,a(n-22) - 100273865134560\,a(n-23) - 84704041294374\,a(n-24) + 132299239770787\,a(n-25) + 372399486830938\,a(n-26) + 189639080959232\,a(n-27) - 164338224373849\,a(n-28) - 344164045191618\,a(n-29) - 220338091824960\,a(n-30) - 45873259303120\,a(n-31) + 44287016659527\,a(n-32) + 292067697148194\,a(n-33) + 126193726646364\,a(n-34) - 159628839066498\,a(n-35) - 61818190307576\,a(n-36) + 39629245365500\,a(n-37) + 10915954711700\,a(n-38) - 10133626522160\,a(n-39) + 649024333200\,a(n-40) + 371869896960\,a(n-41) - 16637166720\,a(n-42)
 \]
-for every $n>45$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+enumerate every array over $\{0,\dots,4\}$, keep those whose values are introduced in the
+order $0,1,2,\dots$ reading row by row, and test each offset directly. Neither the window, nor
+the backward normalisation of the offsets, nor the falling-factorial inversion is involved, and
 the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -139,9 +149,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269140.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206355.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
+Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

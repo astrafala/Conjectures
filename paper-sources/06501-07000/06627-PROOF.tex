@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203833, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203794, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203833 counts $(n+1)\times7$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A203794 counts $(n+1)\times7$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $28$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=2187$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=16384$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A203833 is ``Number of (n+1)X7 0..2 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
+OEIS A203794 is ``Number of (n+1)X7 0..3 arrays with every 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
 \[
-140625, 11669859, 1043088057, 95763046491, 8882824128417, 827309554361235, 77176081545485769, 7204002753036584331,\ \dots
+1882384, 345682576, 72168659104, 15768587718160, 3504288958063120, 783865714144759744, 175775764083051254128, 39454255487228836622320,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 117*a(n-1) -614*a(n-2) -193608*a(n-3) +4171896*a(n-4) +11415328*a(n-5) -842180224*a(n-6) +3384845504*a(n-7) +50528534400*a(n-8) -356768428544*a(n-9) -786566761984*a(n-10) +10681051645952*a(n-11) -6785526038528*a(n-12) -118510105321472*a(n-13) +197530250887168*a(n-14) +559297782349824*a(n-15) -1309510355714048*a(n-16) -1087672042455040*a(n-17) +3564507406925824*a(n-18) +719985279238144*a(n-19) -4461650060509184*a(n-20) +91947477762048*a(n-21) +2549613680656384*a(n-22) -206006306996224*a(n-23) -619282299879424*a(n-24) +65421579386880*a(n-25) +47138239152128*a(n-26) -8245531901952*a(n-27) +260919263232*a(n-28)
+Empirical: a(n) = 208*a(n-1) +17400*a(n-2) -3283416*a(n-3) +23420421*a(n-4) +5886581850*a(n-5) -83228590584*a(n-6) -3526251031431*a(n-7) +57850559193204*a(n-8) +782023861525509*a(n-9) -14739518837987658*a(n-10) -60641138261637936*a(n-11) +1598662604889997434*a(n-12) +238856341604935320*a(n-13) -76586199580277604432*a(n-14) +119784669306218825400*a(n-15) +1667672399025022092660*a(n-16) -3846520848128975062668*a(n-17) -16550563018684070626632*a(n-18) +43676894398326611425920*a(n-19) +69929164554171688755288*a(n-20) -199117214696190701946528*a(n-21) -104062366058720357995200*a(n-22) +320309318149377624589824*a(n-23) +62868535445891985578496*a(n-24) -158787620907305349641472*a(n-25) -9126122457607434141696*a(n-26) +19192360132970190176256*a(n-27) -2161923504213443346432*a(n-28)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:45:38, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:44:10, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;117\,a(n-1) - 614\,a(n-2) - 193608\,a(n-3) + 4171896\,a(n-4) + 11415328\,a(n-5) - 842180224\,a(n-6) + 3384845504\,a(n-7) + 50528534400\,a(n-8) - 356768428544\,a(n-9) - 786566761984\,a(n-10) + 10681051645952\,a(n-11) - 6785526038528\,a(n-12) - 118510105321472\,a(n-13) + 197530250887168\,a(n-14) + 559297782349824\,a(n-15) - 1309510355714048\,a(n-16) - 1087672042455040\,a(n-17) + 3564507406925824\,a(n-18) + 719985279238144\,a(n-19) - 4461650060509184\,a(n-20) + 91947477762048\,a(n-21) + 2549613680656384\,a(n-22) - 206006306996224\,a(n-23) - 619282299879424\,a(n-24) + 65421579386880\,a(n-25) + 47138239152128\,a(n-26) - 8245531901952\,a(n-27) + 260919263232\,a(n-28)
+a(n)\;=\;208\,a(n-1) + 17400\,a(n-2) - 3283416\,a(n-3) + 23420421\,a(n-4) + 5886581850\,a(n-5) - 83228590584\,a(n-6) - 3526251031431\,a(n-7) + 57850559193204\,a(n-8) + 782023861525509\,a(n-9) - 14739518837987658\,a(n-10) - 60641138261637936\,a(n-11) + 1598662604889997434\,a(n-12) + 238856341604935320\,a(n-13) - 76586199580277604432\,a(n-14) + 119784669306218825400\,a(n-15) + 1667672399025022092660\,a(n-16) - 3846520848128975062668\,a(n-17) - 16550563018684070626632\,a(n-18) + 43676894398326611425920\,a(n-19) + 69929164554171688755288\,a(n-20) - 199117214696190701946528\,a(n-21) - 104062366058720357995200\,a(n-22) + 320309318149377624589824\,a(n-23) + 62868535445891985578496\,a(n-24) - 158787620907305349641472\,a(n-25) - 9126122457607434141696\,a(n-26) + 19192360132970190176256\,a(n-27) - 2161923504213443346432\,a(n-28)
 \end{equation}
 for all $n>27$.
 
@@ -56,7 +56,7 @@ for all $n>27$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{7}$, so $|V|=S=2187$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,3\}^{7}$, so $|V|=S=16384$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $11$ published indices; the values agree exactly. That is what ties
+every one of the $10$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203833.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203794.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
