@@ -85,3 +85,40 @@ then asked for terms the model had not supplied, and reproduced them.
 installed as `repeated-value-polynomial`.** Two carry no parsable recurrence. The variants
 taken modulo n+1 are refused with the reason: the modulus moves with the parameter, the
 differences are no longer bounded, and the argument does not reach them.
+
+## 13 September 2026 — `necklace2`: necklaces and bracelets with a condition
+
+`necklace` reads `Number of k-bead necklaces labeled with numbers -n..n ... with sum zero.` and
+stops there. 31 entries add a condition — no three beads in a row equal, first differences in
+-n..n, avoiding the patterns z z+1 z+2 and z z-1 z-2 — and no engine read one.
+
+Burnside still applies; the condition changes only what is counted at each group element. For a
+rotation by d with c = gcd(k, d) the fixed labellings are exactly the c-periodic words, the
+whole sum is (k/c) times the sum of one period, and the condition on the k-periodic extension
+is the condition on the length-c cyclic word; for a reflection they are the palindromes,
+determined by ceil((k+1)/2) values, and the condition is again local in those.
+
+The first count was a dynamic programme over pairs of consecutive beads with the running sum
+carried alongside, and closing the cycle means fixing two values, so its cost is (2n+1)^4 times
+the sum range: **fourteen minutes for one four-bead entry**. The forbidden windows are defined
+by EQUALITIES between bead values with fixed offsets, so inclusion–exclusion over them turns
+each term into a count under a set of affine identifications — a union-find with offsets, then
+one convolution — and the same entry takes well under a second. Seven beads with no three equal
+at n = 30 is a tenth of a second.
+
+The bound is read off the arrangement and was twice wrong in a way the extrapolation guard
+caught, which is exactly what that guard is for:
+
+* the multiplicity of each cyclotomic factor was taken as the number of orbit variables, giving
+  degree 126 at seven beads where the true bound is a fraction of that — a model that cannot be
+  evaluated is a refusal, so this mattered;
+* and `|y_i − y_j| ≤ n` was put into the arrangement as a hyperplane through the origin rather
+  than as a pair that MOVES with the parameter. The derived annihilator then failed at every
+  index. Each form now carries its own coefficient of n.
+
+**26 names read; 13 build within the limits and every one of those reproduces its entry's
+published data exactly; 11 are proved and installed as `necklace-condition`.** The seven-bead
+cases are refused because the sharp ray enumeration is over budget and the crude fallback gives
+an annihilator too large to evaluate; the `first differences in -n..n` condition past five beads
+is refused because it has no equality form and needs the slow dynamic programme. Both are
+recorded with the reason rather than left to run.

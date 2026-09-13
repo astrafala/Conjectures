@@ -46,6 +46,7 @@ SHORT = {
     'ecablock': "a certified block template for the automaton's row",
     'ecarowb': "a certified block template for the automaton's row read as a numeral",
     'ordrep': 'an exact polynomial in $n$ past a computed transient',
+    'necklace2': 'a Burnside sum over the necklace group',
 }
 
 MSC = {
@@ -303,6 +304,54 @@ them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero
 $n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
 the residual below is computed term by term from the closed form rather than through $A$, and
 the run of zeros the theorem uses lies entirely above the transient.
+"""
+    if en == 'necklace2':
+        import necklace2 as _nk
+        q = _nk.parse_name(e['name'])
+        k = (q or {}).get('k', 0)
+        rev = (q or {}).get('reversal', False)
+        b = _nk.build(q) if q else None
+        n0 = 0
+        try:
+            n0 = _nk.bound(k, rev, q['cond'])[1] or 0
+        except Exception:
+            pass
+        grp = ('the dihedral group of rotations and reflections' if rev
+               else 'the cyclic group of rotations')
+        return rf"""
+\section{{The count is a Burnside sum}}
+
+The entry counts ${k}$-bead necklaces labelled from $-n..n$ with sum zero under a further
+condition on consecutive beads, the beads identified under {grp}, written $G$. Nothing is a
+walk here: the bead count is fixed and the ALPHABET grows.
+
+By Burnside's lemma the number of orbits is $\frac{{1}}{{|G|}}\sum_{{g\in G}}|\mathrm{{Fix}}(g)|$.
+A labelling fixed by $g$ is constant on the orbits of $g$, so it is a choice of one value per
+orbit. For a rotation by $d$ with $c=\gcd({k},d)$ the fixed labellings are exactly the
+$c$-periodic words, the whole sum is $({k}/c)$ times the sum of one period, and the condition on
+the ${k}$-periodic extension is the condition on the length-$c$ cyclic word; for a reflection
+they are the palindromes, determined by $\lceil({k}+1)/2\rceil$ values, and the condition is
+again local in those. Every term is therefore a count of integer points of
+\[
+\sum_i w_i y_i = 0, \qquad -n \le y_i \le n,
+\]
+$w_i$ the orbit sizes, under a condition on consecutive beads. The forbidden windows the entry
+names are defined by EQUALITIES between bead values, with fixed offsets, so inclusion-exclusion
+over them turns each term into a count under a set of affine identifications --- one
+convolution each --- and nothing is enumerated over the alphabet.
+
+\section{{The bound}}
+
+Each term is a lattice-point count over a union of relatively open rational cones in the orbit
+variables, hence a quasi-polynomial in $n$; a Burnside average of quasi-polynomials is one. The
+period is read off the arrangement: every ray of every cell is cut out by as many independent
+hyperplanes as there are variables, so by Cramer its primitive generator has its $n$-coordinate
+dividing the determinant of their $y$-parts, and a ray leaving the box or the sum-zero plane
+bounds no cell and is dropped. The multiplicity of each cyclotomic factor is bounded by the
+number of distinct rays whose height it divides, and by the dimension of the cone. Taking the
+maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
+$S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
+annihilator was then asked for terms the model had not supplied and reproduced them.
 """
     if en == 'ordrep':
         import ordrep as _o

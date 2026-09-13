@@ -259,6 +259,60 @@ parsable conjectured recurrence**. Of the 245:
   8 `3 X 3 0..n arrays`, 7 `strictly increasing arrangements`, 6 `second differences of
   arrays`, 5 `arrays of median of ...`, and a tail of two-dimensional fixed shapes.
 
+## K. Two clusters analysed on 13 September: one tractable, one hard
+
+### Necklaces and bracelets with a condition — 31 entries, TRACTABLE, not yet built
+
+`necklace` reads `Number of k-bead necklaces labeled with numbers -n..n ... with sum zero.` and
+nothing after it. 31 entries add a condition and are read by no engine:
+
+    8   with no three beads in a row equal
+    7   and first differences in -n..n
+    7   and avoiding the patterns z z+1 z+2 and z z-1 z-2
+    6   and first and second differences in -n..n
+    3   and avoiding the pattern z z+1 z+2
+
+Burnside still applies. A labelling fixed by a group element g is constant on each orbit of g,
+so for a rotation by d with c = gcd(k, d) the fixed labellings are exactly the c-periodic words,
+and the condition on the k-periodic extension is a condition on the length-c cyclic word. The
+fixed-point count is then: length-c cyclic words over -n..n with sum zero (the whole sum is
+(k/c) times the sum of the c values) and a cyclic window condition. Averaging over G gives the
+necklace count exactly.
+
+**What is missing is one feature: CYCLIC windows in `latpoly`.** Its DP already counts
+zero-sum -n..n arrays of 7 elements under window conditions (A202257, S = 127); the cyclic
+version fixes the wrap-around window and runs the same DP with the closing windows required to
+match. Everything else is already proved machinery: the region is still a union of relatively
+open rational cones, so each fixed-point count is a quasi-polynomial, and a Burnside average of
+quasi-polynomials is one, with the period the lcm over the group elements and the degree at
+most k - 1. For a prime bead count only c = 1 and c = k occur, so the identity is the only hard
+term; reflections give c about k/2.
+
+### The +-1 arrangement sums — 21 entries, analysed and HARD
+
+    3  the sum of adjacent differences multiplied by some arrangement of +-1 equal to zero
+    3  the sum of the maximum of each adjacent pair ... (and 3 for the minimum)
+    3  the sum of medians of adjacent triples ... (and 3 each for max-median, max-min)
+    2  the sum of the maximum minus twice the median plus the minimum of adjacent triples
+    1  the sum of second differences ...   (+1 for cubes, +1 for squares: not piecewise linear)
+
+The condition is `there EXIST signs e_i in {+-1} with sum e_i X_i = 0`, i.e. the multiset of
+window statistics splits into two parts of equal sum. For a linear statistic that is a
+disjunction of 2^(m-1) linear equations and would fit `latpoly`'s clause vocabulary at once --
+except that each equation is GLOBAL, spanning the whole array, so the window DP degenerates to
+brute force (2n+1)^L. The obvious repairs all fail:
+
+* an accumulator carrying the partial sum counts (array, sign vector) PAIRS, over-counting
+  every array that several sign vectors satisfy;
+* an accumulator carrying the SET of achievable partial sums has a state space of frozensets
+  drawn from a range that grows with n, so it is not bounded independently of n;
+* inclusion-exclusion over the 2^(m-1) hyperplanes is 2^(2^(m-1)) terms.
+
+Max, min and median are piecewise linear, so those add a factor of (orderings)^m on top and do
+not change the difficulty; cubes and squares are not piecewise linear at all and are refused
+outright. **Recorded as hard, not as unread.** The way in, if there is one, is a bound on the
+number of distinct achievable-sum SETS rather than on their contents.
+
 ## I. The block template, and the two-dimensional certificate it does NOT give (13 Sep 2026)
 
 **Done and installed.** `ecashape` finds, for a one-dimensional automaton,
