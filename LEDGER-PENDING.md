@@ -297,3 +297,22 @@ again in the neighbour count, which is what the two remaining mismatches were.
 
 **14 names read, every one reproducing its entry's published data exactly; 4 more installed as
 `connected-regions`.**
+
+## 13 September 2026 — `multizero`: nondecreasing arrangements with sum zero
+
+A nondecreasing arrangement of n numbers from -A..A is a MULTISET, so it is its counts c_v, and
+every condition is linear in those and in n: `sum c_v = n`, `sum v c_v = 0`, `c_v >= 0`, and
+sometimes `sum v^2 c_v <= alpha n`. Nothing is a walk — the LENGTH grows and the alphabet is
+fixed — and `latpoly` reads the mirror shape where the length is fixed.
+
+Use the first equation to ELIMINATE n and every remaining condition is homogeneous in c alone,
+so the admissible c form a union of relatively open rational cones and a(n) counts their lattice
+points at height sum c_v = n: an Ehrhart quasi-polynomial. Passing the equality to `latpoly`'s
+ray finder instead — which reads its forms in the x variables only — asked for `sum c = 0` and
+found two rays where the arrangement has many; the derived annihilator then failed at every
+index, which is exactly what the extrapolation guard is for.
+
+**6 names read, 3 build within the limits and all 3 reproduce their entry's published data
+exactly; 2 proved and installed as `zero-sum-multiset`.** The square clause costs a third axis
+in the count, so an annihilator of degree 138 there is a model that cannot be evaluated and is
+refused with the reason; so is -6..6, whose annihilator has degree 160.

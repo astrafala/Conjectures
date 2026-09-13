@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297632, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A296152, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297632 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A296152 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $15$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A297632 is ``Number of nX3 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 0, 2 or 3 neighboring 1s.''. It has offset $1$ and begins
+OEIS A296152 is ``Number of nX3 0..1 arrays with each 1 adjacent to 3 or 5 king-move neighboring 1s.''. It has offset $1$ and begins
 \[
-5, 29, 113, 494, 2344, 10587, 48187, 222804,\ \dots
+1, 4, 9, 16, 34, 76, 157, 325,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) -11*a(n-2) +33*a(n-3) -184*a(n-4) +159*a(n-5) -265*a(n-6) +1190*a(n-7) -508*a(n-8) +20*a(n-9) -1256*a(n-10) +664*a(n-11) +1408*a(n-12) -2464*a(n-13) +1024*a(n-14) -768*a(n-15)
+Empirical: a(n) = 14*a(n-3) +5*a(n-4) +7*a(n-5) -44*a(n-6) -41*a(n-7) -63*a(n-8) -11*a(n-9) -21*a(n-10) -a(n-11) -20*a(n-12) -2*a(n-13) -2*a(n-14) +4*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 02 2018 11:55:34, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 06 2017 08:34:08, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) - 11\,a(n-2) + 33\,a(n-3) - 184\,a(n-4) + 159\,a(n-5) - 265\,a(n-6) + 1190\,a(n-7) - 508\,a(n-8) + 20\,a(n-9) - 1256\,a(n-10) + 664\,a(n-11) + 1408\,a(n-12) - 2464\,a(n-13) + 1024\,a(n-14) - 768\,a(n-15)
+a(n)\;=\;14\,a(n-3) + 5\,a(n-4) + 7\,a(n-5) - 44\,a(n-6) - 41\,a(n-7) - 63\,a(n-8) - 11\,a(n-9) - 21\,a(n-10) - a(n-11) - 20\,a(n-12) - 2\,a(n-13) - 2\,a(n-14) + 4\,a(n-15)
 \end{equation}
 for all $n>16$.
 
@@ -56,12 +56,12 @@ for all $n>16$.
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{0,2,3\}
+x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{3,5\}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -107,8 +107,8 @@ and ending vertices counts them.
 
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=22$, the arrays have $3\cdot22$ cells over
-$2$ values, so there are about $10^{19}$ of them to sift. The
+publishes, $n=30$, the arrays have $3\cdot30$ cells over
+$2$ values, so there are about $10^{27}$ of them to sift. The
 walk count replaces that by $64$ states and one matrix--vector product per row.
 \section{The criterion}
 
@@ -163,7 +163,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $22$ published indices, with no shift fitted: the number of rows is
+every one of the $30$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297632.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A296152.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

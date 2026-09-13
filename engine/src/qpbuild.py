@@ -47,6 +47,7 @@ SHORT = {
     'ecarowb': "a certified block template for the automaton's row read as a numeral",
     'ordrep': 'an exact polynomial in $n$ past a computed transient',
     'necklace2': 'a Burnside sum over the necklace group',
+    'multizero': 'an Ehrhart quasi-polynomial of the multiset cone',
     'ecacol': "a proved period for the automaton's middle column",
 }
 
@@ -403,6 +404,43 @@ number of distinct rays whose height it divides, and by the dimension of the con
 maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
 $S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
 annihilator was then asked for terms the model had not supplied and reproduced them.
+"""
+    if en == 'multizero':
+        import multizero as _mz
+        q = _mz.parse_name(e['name'])
+        A = (q or {}).get('A', 0)
+        sq = (q or {}).get('sq')
+        extra = ('' if sq is None else
+                 r' and $\sum_v v^2 c_v %s %d n$' %
+                 ({'not greater than': r'\le', 'less than': '<', 'greater than': '>',
+                   'not less than': r'\ge'}[sq[0]], sq[1]))
+        return rf"""
+\section{{The count is an Ehrhart quasi-polynomial}}
+
+A nondecreasing arrangement of $n$ numbers from $-{A}..{A}$ is a MULTISET, so it is its counts
+$c_v$ for $v=-{A},\dots,{A}$, and every condition the entry names is linear in those and in $n$:
+\[
+\sum_v c_v = n,\qquad \sum_v v\,c_v = 0,\qquad c_v\ge0{extra}.
+\]
+Nothing here is a walk: the LENGTH grows and the alphabet is fixed, so no window counts it. Use
+the first equation to eliminate $n$; every remaining condition is then homogeneous in $c$ alone,
+the admissible $c$ form a finite union of relatively open rational cones in $\mathbf{{R}}^{{{A}\cdot2+1}}$,
+and $a(n)$ counts their lattice points at height $\sum_v c_v = n$. It is therefore an Ehrhart
+quasi-polynomial, and the count itself is an exact integer dynamic programme over $v$ carrying
+the running sums.
+
+\section{{The bound}}
+
+The period is read off the arrangement rather than assumed. Every ray of every cell is cut out
+by as many independent hyperplanes as there are variables less one, so by Cramer its primitive
+generator is the vector of cofactors, and its height $\sum_v c_v$ is what the period divides. A
+ray leaving the region --- some $c_v$ negative, or the wrong side of one of the two other
+conditions --- bounds no cell and is dropped. Writing $T$ for the heights that survive, the
+annihilator is $\prod_{{d\,\mid\,t\in T}}\Phi_d(z)^{{m_d}}$ with $m_d$ at most the dimension of the
+cone, which the equality $\sum_v v c_v=0$ drops to ${2 * A}$; one further factor $z$ covers the
+origin, the one cell with no ray, whose series is the constant $1$. That gives a monic
+annihilator of order $S={h['S']}$, which was then asked for terms the model had not supplied
+and reproduced them.
 """
     if en == 'ordrep':
         import ordrep as _o

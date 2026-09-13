@@ -12,48 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232409, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250442, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232409 carries an empirical recurrence of order $64$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6643$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A250442 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=50625$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A232409 is ``Number of (n+1) X (3+1) 0..2 arrays with every element both >= and <= some horizontal, diagonal or antidiagonal neighbor.''. It has offset $1$ and begins
+OEIS A250442 is ``Number of (n+1)X(7+1) 0..2 arrays with nondecreasing sum of every two consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-973, 44971, 2189991, 107913855, 5322933313, 262249675165, 12924602609687, 636974571589143,\ \dots
+50625, 2480625, 121550625, 2647102500, 57648010000, 747118209600, 9682651996416, 87143867967744,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 64 (see link above).
+Empirical: a(n) = 2*a(n-1) +30*a(n-2) -62*a(n-3) -434*a(n-4) +930*a(n-5) +4030*a(n-6) -8990*a(n-7) -26970*a(n-8) +62930*a(n-9) +138446*a(n-10) -339822*a(n-11) -566370*a(n-12) +1472562*a(n-13) +1893294*a(n-14) -5259150*a(n-15) -5259150*a(n-16) +15777450*a(n-17) +12271350*a(n-18) -40320150*a(n-19) -24192090*a(n-20) +88704330*a(n-21) +40320150*a(n-22) -169344630*a(n-23) -56448210*a(n-24) +282241050*a(n-25) +65132550*a(n-26) -412506150*a(n-27) -58929450*a(n-28) +530365050*a(n-29) +35357670*a(n-30) -601080390*a(n-31) +601080390*a(n-33) -35357670*a(n-34) -530365050*a(n-35) +58929450*a(n-36) +412506150*a(n-37) -65132550*a(n-38) -282241050*a(n-39) +56448210*a(n-40) +169344630*a(n-41) -40320150*a(n-42) -88704330*a(n-43) +24192090*a(n-44) +40320150*a(n-45) -12271350*a(n-46) -15777450*a(n-47) +5259150*a(n-48) +5259150*a(n-49) -1893294*a(n-50) -1472562*a(n-51) +566370*a(n-52) +339822*a(n-53) -138446*a(n-54) -62930*a(n-55) +26970*a(n-56) +8990*a(n-57) -4030*a(n-58) -930*a(n-59) +434*a(n-60) +62*a(n-61) -30*a(n-62) -2*a(n-63) +a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 17 2021 15:23:03, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:25:17, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6643$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The array has $8$ cells across and entries $x(i,j)\in\{0,1,2\}$.
+
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $2$ consecutive cells --- in words,
+the sum of the $2$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and reading down a column,
+\[
+\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
+\]
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+The row comparisons involve one array row each. A column comparison involves the
+$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
+\end{lemma}
+
+\begin{proof}
+The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
+occupy rows $i$ through $i+2$.
+\end{proof}
+
+So the window of the last $2$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=50625,
+\]
+a walk of no steps being an array of exactly $2$ rows.
+
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -75,7 +108,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;31\,a(n-1) + 675\,a(n-2) + 10565\,a(n-3) + 45228\,a(n-4) - 551077\,a(n-5) - 11748812\,a(n-6) - 90639458\,a(n-7) - 247039162\,a(n-8) - 117911408\,a(n-9) + 2797954603\,a(n-10) + 20983199585\,a(n-11) + 43185602498\,a(n-12) - 99864865084\,a(n-13) - 562637388635\,a(n-14) - 694791392869\,a(n-15) + 814207854380\,a(n-16) + 4452085692042\,a(n-17) + 8308311743208\,a(n-18) + 9210191961762\,a(n-19) + 988227013167\,a(n-20) - 37372603189689\,a(n-21) - 98622338480267\,a(n-22) - 113758839591231\,a(n-23) - 99134912671582\,a(n-24) - 198378432842935\,a(n-25) - 65052615983836\,a(n-26) + 143492193303485\,a(n-27) + 872259401816159\,a(n-28) + 615003509833203\,a(n-29) + 1020834635092078\,a(n-30) + 605255148539830\,a(n-31) - 361551634458955\,a(n-32) - 288525623566092\,a(n-33) - 1752445176332158\,a(n-34) - 1067384304438195\,a(n-35) - 311709910185581\,a(n-36) - 669948530174918\,a(n-37) + 429729831908702\,a(n-38) + 649398313590521\,a(n-39) + 218850426697279\,a(n-40) + 700085737988674\,a(n-41) - 74728471063430\,a(n-42) - 13175401454945\,a(n-43) - 51827093985090\,a(n-44) - 128265126154998\,a(n-45) + 25563224606504\,a(n-46) - 10748158791084\,a(n-47) + 7766154457590\,a(n-48) + 9519849190077\,a(n-49) - 4738192329330\,a(n-50) + 1495649479666\,a(n-51) - 802126236958\,a(n-52) - 191366368560\,a(n-53) + 312349178340\,a(n-54) - 128845573568\,a(n-55) + 34707331556\,a(n-56) + 4082866368\,a(n-57) - 6069271376\,a(n-58) + 1725474688\,a(n-59) - 331817728\,a(n-60) + 100213504\,a(n-61) - 74746368\,a(n-62) + 24637440\,a(n-63) - 2433024\,a(n-64)
+a(n)\;=\;2\,a(n-1) + 30\,a(n-2) - 62\,a(n-3) - 434\,a(n-4) + 930\,a(n-5) + 4030\,a(n-6) - 8990\,a(n-7) - 26970\,a(n-8) + 62930\,a(n-9) + 138446\,a(n-10) - 339822\,a(n-11) - 566370\,a(n-12) + 1472562\,a(n-13) + 1893294\,a(n-14) - 5259150\,a(n-15) - 5259150\,a(n-16) + 15777450\,a(n-17) + 12271350\,a(n-18) - 40320150\,a(n-19) - 24192090\,a(n-20) + 88704330\,a(n-21) + 40320150\,a(n-22) - 169344630\,a(n-23) - 56448210\,a(n-24) + 282241050\,a(n-25) + 65132550\,a(n-26) - 412506150\,a(n-27) - 58929450\,a(n-28) + 530365050\,a(n-29) + 35357670\,a(n-30) - 601080390\,a(n-31) + 601080390\,a(n-33) - 35357670\,a(n-34) - 530365050\,a(n-35) + 58929450\,a(n-36) + 412506150\,a(n-37) - 65132550\,a(n-38) - 282241050\,a(n-39) + 56448210\,a(n-40) + 169344630\,a(n-41) - 40320150\,a(n-42) - 88704330\,a(n-43) + 24192090\,a(n-44) + 40320150\,a(n-45) - 12271350\,a(n-46) - 15777450\,a(n-47) + 5259150\,a(n-48) + 5259150\,a(n-49) - 1893294\,a(n-50) - 1472562\,a(n-51) + 566370\,a(n-52) + 339822\,a(n-53) - 138446\,a(n-54) - 62930\,a(n-55) + 26970\,a(n-56) + 8990\,a(n-57) - 4030\,a(n-58) - 930\,a(n-59) + 434\,a(n-60) + 62\,a(n-61) - 30\,a(n-62) - 2\,a(n-63) + a(n-64)
 \]
 for every $n>64$.
 \end{theorem}
@@ -89,25 +122,27 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
 First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232409.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250442.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -24,7 +24,7 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'latpoly': 'lattice-quasipolynomial', 'ordpoly': 'fixed-length-polynomial',
            'necklace': 'necklace-burnside', 'multiset': 'multiset-profile',
            'cuspdim': 'cusp-form-dimension', 'ca2d': 'automaton-axis',
-           'ecarow': 'automaton-row', 'ecacount': 'automaton-cell-count', 'ecablock': 'automaton-block-count', 'ecarowb': 'automaton-block-row', 'ordrep': 'repeated-value-polynomial', 'necklace2': 'necklace-condition', 'ecacol': 'automaton-column', 'arrlex': 'lexicographic-array', 'pairclique': 'pairwise-compatible-array', 'permset': 'displacement-set', 'arrline': 'line-order-array', 'conn': 'connected-regions', 'conn2': 'connected-ones', 'permdisp': 'bounded-displacement',
+           'ecarow': 'automaton-row', 'ecacount': 'automaton-cell-count', 'ecablock': 'automaton-block-count', 'ecarowb': 'automaton-block-row', 'ordrep': 'repeated-value-polynomial', 'necklace2': 'necklace-condition', 'ecacol': 'automaton-column', 'arrlex': 'lexicographic-array', 'pairclique': 'pairwise-compatible-array', 'permset': 'displacement-set', 'arrline': 'line-order-array', 'conn': 'connected-regions', 'conn2': 'connected-ones', 'multizero': 'zero-sum-multiset', 'permdisp': 'bounded-displacement',
            'window': 'window-condition', 'repval': 'repeated-value-chain'}
 
 
