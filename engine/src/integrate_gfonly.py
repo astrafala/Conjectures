@@ -1,7 +1,8 @@
+import withdrawnset
 import json, os, shutil
 hits = [h for h in json.load(open('gfonly_hits.json')) if not h.get('FAILS')]
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
-have = {v['anum'] for v in eng.values()}
+have = {v['anum'] for v in eng.values()} | set(withdrawnset.anums())
 nxt = max(eng) + 1
 added, skipped = [], []
 for h in sorted(hits, key=lambda x: x['anum']):

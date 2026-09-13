@@ -13,6 +13,7 @@ The engine name written into the roster is the third argument. A paper is instal
 its PDF compiled to a plausible size and its entry is not already in the roster, so running
 this twice is safe.
 """
+import withdrawnset
 import json
 import os
 import shutil
@@ -30,6 +31,7 @@ else:
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
 have = {v['anum'] for v in eng.values()}
 have |= {r['anum'] for r in json.load(open('rank-map.json'))}
+have |= set(withdrawnset.anums())   # a withdrawal must be sticky
 nxt = max(eng) + 1
 added, nopaper, norefuse = 0, [], []
 for h in sorted(recs, key=lambda x: x.get('anum', '')):

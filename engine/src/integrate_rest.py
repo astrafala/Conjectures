@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Install every proved result that has a compiled paper and is not yet in the roster."""
+import withdrawnset
 import json, os, shutil
 ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition',
            'transfer83': 'neighbour-condition', 'transfer84': 'column-domination',
@@ -24,7 +25,7 @@ ENGNAME = {'transfer81': 'canonical-subblock', 'transfer82': 'subblock-condition
            'ecarow': 'automaton-row', 'ecacount': 'automaton-cell-count', 'ecablock': 'automaton-block-count', 'ecarowb': 'automaton-block-row', 'permdisp': 'bounded-displacement',
            'window': 'window-condition', 'repval': 'repeated-value-chain'}
 eng = {int(k): v for k, v in json.load(open('paper-engines.json')).items()}
-have = {v['anum'] for v in eng.values()}
+have = {v['anum'] for v in eng.values()} | set(withdrawnset.anums())
 nxt = max(eng) + 1
 added = 0
 for h in sorted(json.load(open('uniall_hits.json')), key=lambda x: x.get('anum', '')):

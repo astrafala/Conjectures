@@ -268,6 +268,17 @@ What is left to try, and would recover the 179 plus the 82 `ca2d` names never ce
   wanted for the counts, and it would settle the axis, the diagonal and the active-cell count
   at once.
 
+**Two of the three were tried on 13 September and are NULL.** The product block template --
+C(n+p) is C(n) with whole rows inserted at fixed places and whole columns at fixed places, the
+column set taken from the axis certificate, which already says the axis grows at its ends --
+holds for **0 of the 51** rules. A bounded periodic interior is worse than null: for rule 14 at
+q = (2,2) the width of the region disagreeing with the checkerboard is 0, 1, 5, 7 at stages 16,
+18, 22, 24, growing with n rather than staying bounded. The departures sit at a fixed FRACTION
+of the radius, which is what a self-similar growth looks like and is exactly why no finite
+certificate of this shape exists. The band certificate with a growing height is the one still
+untried, and the measurement it needs is how the height at which the row-wise identity holds
+grows with n.
+
 Until one of those lands, `ca2d` refuses anything without the temporal-periodicity certificate
 and `ca2dcount` refuses everything, which is what they should do.
 

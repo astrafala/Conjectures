@@ -8,6 +8,7 @@ on a paper is the day the result was obtained.
 
     PAPER_DATE='7 September 2026' python3 src/build_new.py
 """
+import withdrawnset
 import importlib
 import re
 import json
@@ -120,7 +121,10 @@ SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
 # it is stale -- and building from a stale roster silently overwrote a hundred papers that
 # had just been installed by a different builder. paper-engines.json is the authority and is
 # current the moment integrate_rest.py returns.
-roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
+# A withdrawn result must not be rebuilt: nothing stopped that, and 179 papers withdrawn
+# on 13 September were rebuilt within the hour by an unfiltered run of this script.
+roster = set(withdrawnset.anums())
+roster |= {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('anum') not in roster and h.get('engine')]
