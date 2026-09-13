@@ -14,6 +14,9 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'coverzero': ("the last few values together with which of those positions are still "
+                  "waiting for a zero-sum block to cover them -- an obligation a block "
+                  "not yet read may meet, so no window decides it alone"),
     # the entry counts distinct IMAGES, not arrays, so the vertices are not windows but
     # sets of them: the inputs still consistent with the output emitted so far.
     'winimage': ("a set of input windows -- those consistent with the output word so "

@@ -12,151 +12,146 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A203821, proved}
+\title{The empirical closed form and generating function for OEIS A194932, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203821 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on every $2\times2$ subblock, hence on two consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=256$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-49)$, of degree
-$1$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $1$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A194932 counts the lower triangles of a $3\times3$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A203821 is ``Number of (n+1)X4 0..3 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
+OEIS A194932 is ``Number of lower triangles of a 3 X 3 0..n array with no element differing from any of its horizontal or vertical neighbors by more than one.''. It has offset $1$ and begins
 \[
-11664, 571536, 28005264, 1372257936, 67240638864, 3294791304336, 161444773912464, 7910793921710736,\ \dots
+64, 217, 386, 557, 728, 899,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
 \begin{quote}
-Empirical: a(n) = 11664*49\^{}(n-1)
+Empirical: a(n) = 171*n - 127 for n>2.
+
+Empirical g.f.: x*(64 + 89*x + 16*x\^{}2 + 2*x\^{}3) / (1 - x)\^{}2. - \_Colin Barker\_, May 05 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:44:38, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
+As of the ``Last modified'' line on the live entry (May 05 2018 13:17:52, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
+
+\section{What is being counted}
+
+The lower triangle of a $3\times3$ array is the set of cells $(i,j)$ with $0\le j\le
+i<3$, so there are $T=6$ of them. Two cells are adjacent when they differ by one of the
+horizontal, vertical offsets, which here gives $6$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-f(n)\;=\;11664 \cdot 49^{n - 1}.
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
 \]
 
-\section{The count is a walk count}
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
 
-The entry's defining condition is local: it is a condition on every $2\times2$ subblock, hence on two consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=256$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+\section{Translation}
+
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
-\]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
-
-\section{A closed form is a recurrence}
-
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
-\[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
 \]
 \end{lemma}
 
 \begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-Here $q(x)=(x-49)$, of degree $1$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;49\,a(n-1).
-\end{equation}
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot4=4$, where $4$ is the
+diameter of the neighbour graph.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+The neighbour graph is connected, so any two cells are joined by a path of at most $4$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot4$.
 \end{proof}
 
-\begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+\section{The count}
+
+\begin{theorem}\label{thm:line}
+\[
+a(n)\;=\;171\,n-127\qquad\text{for every }n\ge3,
+\]
+and $\mathcal P$ has exactly $171$ elements.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $1$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=2$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>1$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $1$ consecutive indices
-$n=2,\dots,2$ and agree at each. A monic recurrence of order $1$
-determines $a(m)$ from $a(m-1),\dots,a(m-1)$, and for every $m\ge3$ both
-$m>1$ and $m-1\ge2$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge2$.
-Below $n=2$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=2$ on. The remaining indices $n=1,\dots,1$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+For $n\ge4$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(4)$ and
+$a(4+1)$ were computed exactly, giving slope $171$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=3$ was then read off by
+comparing it with the exact values of $a(n)$ below $4$, each computed the same way.
 \end{proof}
 
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $3+1$ of
+them --- so no array is ever written down.
+
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, the walk model reproduces every one of the $12$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the count reproduces all $43$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $6$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{6}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203821.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A194932.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A298926, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A305480, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A298926 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $equal to$ itself lying in $\{2,3,5,7,8\}$, and it carries an empirical
+OEIS A305480 counts $6$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $different from$ itself lying in $\{0,1,3,6,8\}$, and it carries an empirical
 recurrence of order $60$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=256$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
+on $S=4096$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
 row has nothing above it and the last nothing below --- so the count is
 $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
 all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
@@ -34,40 +34,40 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A298926 is ``Number of n X 4 0..1 arrays with every element equal to 2, 3, 5, 7 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A305480 is ``Number of nX6 0..1 arrays with every element unequal to 0, 1, 3, 6 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-0, 2, 4, 11, 23, 72, 201, 597,\ \dots
+13, 49, 70, 192, 577, 1558, 3910, 10465,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) -10*a(n-2) +7*a(n-3) -23*a(n-4) +31*a(n-5) -15*a(n-6) +104*a(n-7) -147*a(n-8) +182*a(n-9) -366*a(n-10) +376*a(n-11) -685*a(n-12) +689*a(n-13) -613*a(n-14) +1143*a(n-15) -710*a(n-16) -129*a(n-17) -82*a(n-18) -584*a(n-19) +5620*a(n-20) -1356*a(n-21) +6298*a(n-22) -15575*a(n-23) +6568*a(n-24) -15985*a(n-25) +6661*a(n-26) -23488*a(n-27) +19556*a(n-28) +16109*a(n-29) +18333*a(n-30) +8059*a(n-31) -12197*a(n-32) +16533*a(n-33) -27875*a(n-34) -8576*a(n-35) -28209*a(n-36) +16299*a(n-37) +26487*a(n-38) +4040*a(n-39) -22226*a(n-40) +1134*a(n-41) -9128*a(n-42) -7294*a(n-43) +16692*a(n-44) +6504*a(n-45) +1137*a(n-46) -5253*a(n-47) +2127*a(n-48) -324*a(n-49) +1885*a(n-50) -1689*a(n-51) -59*a(n-52) -235*a(n-53) +346*a(n-54) -86*a(n-55) +12*a(n-56) -46*a(n-57) +24*a(n-58) +8*a(n-59) -4*a(n-60) for n>61.
+Empirical: a(n) = a(n-2) +42*a(n-3) +13*a(n-4) -21*a(n-5) -798*a(n-6) -445*a(n-7) +75*a(n-8) +9104*a(n-9) +6959*a(n-10) +2234*a(n-11) -69792*a(n-12) -66002*a(n-13) -37730*a(n-14) +380931*a(n-15) +424993*a(n-16) +309218*a(n-17) -1528192*a(n-18) -1970173*a(n-19) -1649924*a(n-20) +4576312*a(n-21) +6801498*a(n-22) +6275732*a(n-23) -10243999*a(n-24) -17832907*a(n-25) -17740672*a(n-26) +16858216*a(n-27) +35874947*a(n-28) +38075221*a(n-29) -19327607*a(n-30) -55534070*a(n-31) -62663406*a(n-32) +12749005*a(n-33) +65902528*a(n-34) +79253835*a(n-35) +1122656*a(n-36) -59316885*a(n-37) -76701433*a(n-38) -13361361*a(n-39) +39723689*a(n-40) +56211280*a(n-41) +16514241*a(n-42) -19179752*a(n-43) -30660429*a(n-44) -11758729*a(n-45) +6333137*a(n-46) +12129025*a(n-47) +5458452*a(n-48) -1293494*a(n-49) -3348674*a(n-50) -1664936*a(n-51) +125204*a(n-52) +607532*a(n-53) +319432*a(n-54) +1688*a(n-55) -65000*a(n-56) -34544*a(n-57) -928*a(n-58) +3136*a(n-59) +1568*a(n-60) for n>66
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 04 2022 13:20:04, revision
-6) the statement is still recorded as empirical, and nothing on the entry
+As of the ``Last modified'' line on the live entry (Jun 02 2018 08:53:34, revision
+4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) - 10\,a(n-2) + 7\,a(n-3) - 23\,a(n-4) + 31\,a(n-5) - 15\,a(n-6) + 104\,a(n-7) - 147\,a(n-8) + 182\,a(n-9) - 366\,a(n-10) + 376\,a(n-11) - 685\,a(n-12) + 689\,a(n-13) - 613\,a(n-14) + 1143\,a(n-15) - 710\,a(n-16) - 129\,a(n-17) - 82\,a(n-18) - 584\,a(n-19) + 5620\,a(n-20) - 1356\,a(n-21) + 6298\,a(n-22) - 15575\,a(n-23) + 6568\,a(n-24) - 15985\,a(n-25) + 6661\,a(n-26) - 23488\,a(n-27) + 19556\,a(n-28) + 16109\,a(n-29) + 18333\,a(n-30) + 8059\,a(n-31) - 12197\,a(n-32) + 16533\,a(n-33) - 27875\,a(n-34) - 8576\,a(n-35) - 28209\,a(n-36) + 16299\,a(n-37) + 26487\,a(n-38) + 4040\,a(n-39) - 22226\,a(n-40) + 1134\,a(n-41) - 9128\,a(n-42) - 7294\,a(n-43) + 16692\,a(n-44) + 6504\,a(n-45) + 1137\,a(n-46) - 5253\,a(n-47) + 2127\,a(n-48) - 324\,a(n-49) + 1885\,a(n-50) - 1689\,a(n-51) - 59\,a(n-52) - 235\,a(n-53) + 346\,a(n-54) - 86\,a(n-55) + 12\,a(n-56) - 46\,a(n-57) + 24\,a(n-58) + 8\,a(n-59) - 4\,a(n-60)
+a(n)\;=\;a(n-2) + 42\,a(n-3) + 13\,a(n-4) - 21\,a(n-5) - 798\,a(n-6) - 445\,a(n-7) + 75\,a(n-8) + 9104\,a(n-9) + 6959\,a(n-10) + 2234\,a(n-11) - 69792\,a(n-12) - 66002\,a(n-13) - 37730\,a(n-14) + 380931\,a(n-15) + 424993\,a(n-16) + 309218\,a(n-17) - 1528192\,a(n-18) - 1970173\,a(n-19) - 1649924\,a(n-20) + 4576312\,a(n-21) + 6801498\,a(n-22) + 6275732\,a(n-23) - 10243999\,a(n-24) - 17832907\,a(n-25) - 17740672\,a(n-26) + 16858216\,a(n-27) + 35874947\,a(n-28) + 38075221\,a(n-29) - 19327607\,a(n-30) - 55534070\,a(n-31) - 62663406\,a(n-32) + 12749005\,a(n-33) + 65902528\,a(n-34) + 79253835\,a(n-35) + 1122656\,a(n-36) - 59316885\,a(n-37) - 76701433\,a(n-38) - 13361361\,a(n-39) + 39723689\,a(n-40) + 56211280\,a(n-41) + 16514241\,a(n-42) - 19179752\,a(n-43) - 30660429\,a(n-44) - 11758729\,a(n-45) + 6333137\,a(n-46) + 12129025\,a(n-47) + 5458452\,a(n-48) - 1293494\,a(n-49) - 3348674\,a(n-50) - 1664936\,a(n-51) + 125204\,a(n-52) + 607532\,a(n-53) + 319432\,a(n-54) + 1688\,a(n-55) - 65000\,a(n-56) - 34544\,a(n-57) - 928\,a(n-58) + 3136\,a(n-59) + 1568\,a(n-60)
 \end{equation}
-for all $n>61$.
+for all $n>66$.
 
 \section{The array as a walk, with boundary}
 
 For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{2,3,5,7,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
+has score in $\{0,1,3,6,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
 cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
+Take as state an ordered pair $(r,s)$ of rows, so $S=4096$, and set
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{2,3,5,7,8\}$ \emph{with no row
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,3,6,8\}$ \emph{with no row
 above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{2,3,5,7,8\}$ computed from
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,3,6,8\}$ computed from
 $r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{2,3,5,7,8\}$ \emph{with no row
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,3,6,8\}$ \emph{with no row
 below $s$}, and $0$ otherwise.
 \end{itemize}
 Let $P$ be the adjacency matrix of that edge relation.
@@ -78,7 +78,7 @@ $a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 
 \begin{proof}
 An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{2,3,5,7,8\}$. Read the sequence as the
+exactly when every one of its $n$ rows has all scores in $\{0,1,3,6,8\}$. Read the sequence as the
 walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
 \bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
 checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
@@ -113,14 +113,14 @@ degree $S$, which propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>61$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>66$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $60$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=61+1$ onwards, and the run was continued
+They vanish from the index corresponding to $n=66+1$ onwards, and the run was continued
 past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -130,7 +130,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph, the start vector and the end vector were built directly from the
 entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $27$ published indices; they
+compared against the entry's DATA at every one of the $26$ published indices; they
 agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
 getting the boundary rows wrong, or treating them as interior rows, changes the early terms
 immediately.
@@ -138,12 +138,12 @@ immediately.
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=256$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=4096$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A298926.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A305480.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

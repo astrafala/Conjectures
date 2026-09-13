@@ -12,135 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183998, proved by splitting on the common sum}
+\title{The empirical recurrence for OEIS A224686, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183998 counts arrays over $\{0,\dots,2\}$ in which all $2\times2$ subblock sums are
-EQUAL --- the common value not being named --- and carries an empirical recurrence of order
-$9$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
-applying directly, and it costs nothing to remove: an array with at least one $2\times2$
-subblock determines its own common sum, so the count splits as a sum over the $8+1$
-possible values with nothing counted twice, and each summand is an ordinary walk count. On
-the block-diagonal matrix over those values the recurrence is decided by a finite exact
-computation on $S=2187$ vertices.
+OEIS A224686 counts the $(n+4)\times8$ matrices over $\{0,\dots,1\}$ all of whose
+$5\times5$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $5$ consecutive rows and $5$ consecutive columns at once, so a
+single row is not a state; the strip of the last $4$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=3847$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A183998 is ``Number of (n+1) X 5 0..2 arrays with all 2 X 2 subblock sums the same.''. It has offset $1$ and begins
+OEIS A224686 is ``Number of (n+4) X 8 0..1 matrices with each 5 X 5 subblock idempotent.''. It has offset $1$ and begins
 \[
-855, 1233, 1887, 3309, 6111, 12525, 26655, 61125,\ \dots
+3465, 1720, 1896, 2166, 2429, 2646, 3214, 4122,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 6*a(n-1) - 60*a(n-3) + 85*a(n-4) + 150*a(n-5) - 360*a(n-6) + 396*a(n-8) - 216*a(n-9).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 3*a(n-1) - 2*a(n-2) - 2*a(n-3) + 3*a(n-4) - 2*a(n-6) + 2*a(n-8) - a(n-9) for n>13.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 09 2018 13:00:49, revision 8) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Sep 03 2018 03:49:56, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) - 60\,a(n-3) + 85\,a(n-4) + 150\,a(n-5) - 360\,a(n-6) + 396\,a(n-8) - 216\,a(n-9)
-\end{equation}
-for all $n>9$.
+\section{The count is a walk count}
 
-\section{Splitting on the common sum}
+Call a $5\times5$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $5\times8$ matrix a \emph{band} when every one of its $4$ contiguous
+$5\times5$ subblocks is a window. What the entry counts is the matrices of $8$ columns
+whose every $5$ consecutive rows form a band.
 
-The arrays have $5$ columns and $L=n+1$ rows, entries in
-$\{0,\dots,2\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
-$5\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
-sum is the common value; so each array belongs to exactly one of the classes
+Take as states the $4\times8$ strips that occur as the top $4$ rows of a band,
+together with those that occur as its bottom $4$ rows, and put an edge from $u$ to $v$
+when the band whose first $4$ rows are $u$ and whose last $4$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..4$, then $2..5$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+4$ rows gives a walk of $n$ edges.
+Since the first $4$ rows of a counted matrix with at least $5$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
-\qquad 0\le c\le 8,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. The bound
-$8=4\cdot2$ is the largest possible subblock sum.
+with $M$ the adjacency matrix on $S=3847$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
-$V=\{0,\dots,2\}^{5}$ be the possible rows and let $M_c$ be the adjacency
-matrix of the digraph in which $r\to s$ when
-$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 5-1$. Then
-$|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
-sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
-rows and two consecutive columns.
+There are $(1 + 1)^{32}$ strips of $4$ rows and $8$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $5\times4$ entries, so a band is exactly a walk of $4$ windows in
+the graph that joins a window to those whose first $4$ columns are its last $4$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-Writing $N=\bigoplus_{c=0}^{8}M_c$, of size $S=2187$, and $\mathbf{v}$ for the
-all-ones vector on it,
-\begin{equation}\label{eq:walk}
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
-\end{equation}
+\section{The admissible windows}
 
-\section{The criterion, and the computation}
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $5\times5$ with
+$B^2=B$. There are $2^{25}$ matrices to sift, which is already awkward at $5=5$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
 
-Let $q(t)=t^{9}-\sum_i c_i\,t^{9-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+1-1$ and
-$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge9$
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-9}w,
-\qquad w=h_{9}-\sum_i c_ih_{9-i} .
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
 \]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
-earlier ones.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
+\end{proof}
+
+Generating from Lemma~\ref{lem:idem} gives $5682$ admissible $5\times5$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;3\,a(n-1) - 2\,a(n-2) - 2\,a(n-3) + 3\,a(n-4) - 2\,a(n-6) + 2\,a(n-8) - a(n-9)
+\]
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
-Each $M_c$ was built directly from its defining condition. The vector $w$ was formed by
-$9$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=9+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=13$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
-
-\begin{remark}
-The splitting is what makes the argument finite, and it is exact rather than an
-over-count only because every array here has a subblock. For a one-column or one-row
-shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
-sum would count each array $8+1$ times; those shapes are excluded by $L\ge2$ and
-$5\ge2$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk} was evaluated at every one of the $24$
-published indices and agrees with the entry's DATA exactly, with no shift fitted. A double
-count in the splitting, or a wrong bound on $c$, would show up here immediately.
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183998.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224686.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

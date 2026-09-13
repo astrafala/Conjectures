@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A282881, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A297090, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A282881 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
+OEIS A297090 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
 order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=225$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=272$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,46 +33,40 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A282881 is ``Number of nX4 0..1 arrays with no 1 equal to more than one of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly one element.''. It has offset $1$ and begins
+OEIS A297090 is ``Number of nX4 0..1 arrays with no 1 adjacent to 3 king-move neighboring 1s.''. It has offset $1$ and begins
 \[
-2, 32, 430, 3762, 34314, 286920, 2342046, 18668994,\ \dots
+16, 152, 1256, 11925, 113084, 1060921, 10038612, 95094637,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +47*a(n-2) +124*a(n-3) -408*a(n-4) -3902*a(n-5) -15430*a(n-6) -42962*a(n-7) -94378*a(n-8) -169172*a(n-9) -254731*a(n-10) -324792*a(n-11) -346186*a(n-12) -306142*a(n-13) -226049*a(n-14) -101410*a(n-15) -32004*a(n-16) +9038*a(n-17) +56744*a(n-18) +18514*a(n-19) -78727*a(n-20) +278126*a(n-21) -491637*a(n-22) +664706*a(n-23) -600043*a(n-24) +363134*a(n-25) -86242*a(n-26) -73590*a(n-27) +88574*a(n-28) -49032*a(n-29) +20328*a(n-30) -6196*a(n-31) -2591*a(n-32) +4334*a(n-33) -1998*a(n-34) +278*a(n-35) +31*a(n-36) -40*a(n-37) +63*a(n-38) -34*a(n-39) +2*a(n-40) +4*a(n-41) -a(n-42)
+Empirical: a(n) = 13*a(n-1) -32*a(n-2) +91*a(n-3) -1148*a(n-4) +1189*a(n-5) +432*a(n-6) +28862*a(n-7) +1885*a(n-8) -99288*a(n-9) -277764*a(n-10) -73602*a(n-11) +940696*a(n-12) +830603*a(n-13) +656028*a(n-14) -1842327*a(n-15) +670113*a(n-16) -4449019*a(n-17) +328722*a(n-18) -7184185*a(n-19) +5048924*a(n-20) -5904485*a(n-21) +17433108*a(n-22) +14043747*a(n-23) -6345609*a(n-24) -5376327*a(n-25) -14541923*a(n-26) +7951703*a(n-27) -46141383*a(n-28) +48123785*a(n-29) +10991042*a(n-30) +34162142*a(n-31) -12716751*a(n-32) +10255038*a(n-33) -6907418*a(n-34) -5580039*a(n-35) -2794607*a(n-36) +1015404*a(n-37) -7152*a(n-38) +25911*a(n-39) +630*a(n-40) -4704*a(n-41) -560*a(n-42)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 24 2017 07:45:50, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Dec 25 2017 09:48:52, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
+carries the condition
 \[
-\text{every 1 has at most 1 neighbouring 1s},
+\text{every }1\text{ has }\#\{\text{neighbouring }1\text{s}\}\notin\{3\},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $6$ and change what is being counted. The outside is
-therefore carried
+over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
+condition such as ``a strict majority of its neighbours'' means different things at each. In
+particular one cannot pad the array with a border of zeros --- that would give boundary cells
+eight neighbours and change what is being counted. The outside is therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
 $\{0,\dots,1\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4} \times \{0,\dots,1\}$,
+$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
 $4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. The clause ``with the exception of exactly $1$ elements'' is carried in
-the state as a counter of violations so far, capped at $1$; a step that would push it past
-$1$ has no edge, and a walk is accepted only when the count reaches exactly $1$. Hence,
+settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
 a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
@@ -100,7 +94,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 47\,a(n-2) + 124\,a(n-3) - 408\,a(n-4) - 3902\,a(n-5) - 15430\,a(n-6) - 42962\,a(n-7) - 94378\,a(n-8) - 169172\,a(n-9) - 254731\,a(n-10) - 324792\,a(n-11) - 346186\,a(n-12) - 306142\,a(n-13) - 226049\,a(n-14) - 101410\,a(n-15) - 32004\,a(n-16) + 9038\,a(n-17) + 56744\,a(n-18) + 18514\,a(n-19) - 78727\,a(n-20) + 278126\,a(n-21) - 491637\,a(n-22) + 664706\,a(n-23) - 600043\,a(n-24) + 363134\,a(n-25) - 86242\,a(n-26) - 73590\,a(n-27) + 88574\,a(n-28) - 49032\,a(n-29) + 20328\,a(n-30) - 6196\,a(n-31) - 2591\,a(n-32) + 4334\,a(n-33) - 1998\,a(n-34) + 278\,a(n-35) + 31\,a(n-36) - 40\,a(n-37) + 63\,a(n-38) - 34\,a(n-39) + 2\,a(n-40) + 4\,a(n-41) - a(n-42)
+a(n)\;=\;13\,a(n-1) - 32\,a(n-2) + 91\,a(n-3) - 1148\,a(n-4) + 1189\,a(n-5) + 432\,a(n-6) + 28862\,a(n-7) + 1885\,a(n-8) - 99288\,a(n-9) - 277764\,a(n-10) - 73602\,a(n-11) + 940696\,a(n-12) + 830603\,a(n-13) + 656028\,a(n-14) - 1842327\,a(n-15) + 670113\,a(n-16) - 4449019\,a(n-17) + 328722\,a(n-18) - 7184185\,a(n-19) + 5048924\,a(n-20) - 5904485\,a(n-21) + 17433108\,a(n-22) + 14043747\,a(n-23) - 6345609\,a(n-24) - 5376327\,a(n-25) - 14541923\,a(n-26) + 7951703\,a(n-27) - 46141383\,a(n-28) + 48123785\,a(n-29) + 10991042\,a(n-30) + 34162142\,a(n-31) - 12716751\,a(n-32) + 10255038\,a(n-33) - 6907418\,a(n-34) - 5580039\,a(n-35) - 2794607\,a(n-36) + 1015404\,a(n-37) - 7152\,a(n-38) + 25911\,a(n-39) + 630\,a(n-40) - 4704\,a(n-41) - 560\,a(n-42)
 \]
 for every $n>42$.
 \end{theorem}
@@ -117,14 +111,13 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>42$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $19$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the transfer model reproduces all $18$ terms the entry publishes, exactly, in
+integer arithmetic. That check earned its place here. An early version of the construction
+tested whether a neighbour lay in the current row by comparing the row objects rather
+than their positions; when the row above happened to be identical to the current one, the
+cell directly above was then skipped as though it were the cell itself. The counts agreed with
+the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
+error that a check on a handful of small cases would have missed.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,7 +127,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A282881.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A297090.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

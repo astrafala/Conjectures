@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187932, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185849, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187932 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+OEIS A185849 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
 every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
 of order $36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=212$ states and is $C$-finite; whether the
+empirical. The count is a walk count on $S=630$ states and is $C$-finite; whether the
 conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
@@ -30,56 +30,47 @@ conjectured recurrence annihilates it is then settled by a finite exact computat
 
 \section{The conjecture}
 
-OEIS A187932 is ``Number of (n+2)X3 binary arrays with every 2X2 subblock sum equal to some diagonal or antidiagonal neighbor 2X2 subblock sum.''. It has offset $1$ and begins
+OEIS A185849 is ``Number of (n+1)X3 0..2 arrays with no 2X2 subblock diagonal sum less antidiagonal sum equal to any horizontal or vertical neighbor 2X2 subblock diagonal sum less antidiagonal sum.''. It has offset $1$ and begins
 \[
-48, 44, 304, 784, 3188, 10296, 38020, 131184,\ \dots
+630, 11610, 215880, 4004914, 74358926, 1380412312, 25625942242, 475728999902,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=6*a(n-1)-5*a(n-2)-27*a(n-3)+76*a(n-4)-91*a(n-5)-51*a(n-6)+46*a(n-7)+7*a(n-8)+1378*a(n-9)-1195*a(n-10)+1324*a(n-11)-1078*a(n-12)-2750*a(n-13)-3729*a(n-14)-2433*a(n-15)-8936*a(n-16)+8415*a(n-17)+9599*a(n-18)-9292*a(n-19)+13722*a(n-20)-40054*a(n-21)-8978*a(n-22)-23008*a(n-23)+25496*a(n-24)+19792*a(n-25)+72996*a(n-26)+67912*a(n-27)-11848*a(n-28)-48960*a(n-29)-61120*a(n-30)-26816*a(n-31)+5440*a(n-32)+27904*a(n-33)+12544*a(n-34)-2048*a(n-35)-4096*a(n-36)
+Empirical: a(n)=8*a(n-1)+106*a(n-2)+1154*a(n-3)+7341*a(n-4)+38354*a(n-5)+75897*a(n-6)+26908*a(n-7)+363811*a(n-8)-971504*a(n-9)-6880482*a(n-10)-1595117*a(n-11)+13890723*a(n-12)-50693559*a(n-13)-54673009*a(n-14)+185578667*a(n-15)-214035759*a(n-16)-910901251*a(n-17)+1570495381*a(n-18)+2337237818*a(n-19)-6890840995*a(n-20)-7626185862*a(n-21)+18279944018*a(n-22)+20105596552*a(n-23)-48993202848*a(n-24)-29327197968*a(n-25)+67685629696*a(n-26)+13126132416*a(n-27)-29811833984*a(n-28)-9414272512*a(n-29)-22788287488*a(n-30)+12806834176*a(n-31)+16026865664*a(n-32)-6554771456*a(n-33)-1887731712*a(n-34)+627769344*a(n-35)+55836672*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:09:42, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:15:03, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+Write $\sigma$ for its diagonal sum minus its antidiagonal sum, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times3$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
 and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours diagonally or antidiagonally.
+requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$.
 
 \section{The count is a walk count}
 
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
-
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
-
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
+rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
+whose subblock row has just been completed: the horizontal pairs inside that row decide which
+tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
+step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=212$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
+on the $S=630$ admissible tuples.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
+The state does not compress. What a step needs of the past is the previous subblock row, and
+for $3\ge2$ that row already determines the $2$ array rows it came from, so carrying the
+rows costs nothing and carrying anything smaller loses information. Of the $3^{2\cdot
+3}=729$ tuples of $2$ rows, $S=630$ survive the condition inside a single subblock row;
+the rest could not occur in a counted array at all.
+
+Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[-4,4]$, so the
+grid it labels carries at most $9$ different labels. At $n=1$ the array has $2$
 rows and the grid is a single row of $2$
 subblocks, with only the neighbours inside that row; the entry's first term is
-$48$, which the model reproduces along with every later term, and that is the cheapest
+$630$, which the model reproduces along with every later term, and that is the cheapest
 check that the grid has been read with the right shape.
 
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -105,15 +96,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 5\,a(n-2) - 27\,a(n-3) + 76\,a(n-4) - 91\,a(n-5) - 51\,a(n-6) + 46\,a(n-7) + 7\,a(n-8) + 1378\,a(n-9) - 1195\,a(n-10) + 1324\,a(n-11) - 1078\,a(n-12) - 2750\,a(n-13) - 3729\,a(n-14) - 2433\,a(n-15) - 8936\,a(n-16) + 8415\,a(n-17) + 9599\,a(n-18) - 9292\,a(n-19) + 13722\,a(n-20) - 40054\,a(n-21) - 8978\,a(n-22) - 23008\,a(n-23) + 25496\,a(n-24) + 19792\,a(n-25) + 72996\,a(n-26) + 67912\,a(n-27) - 11848\,a(n-28) - 48960\,a(n-29) - 61120\,a(n-30) - 26816\,a(n-31) + 5440\,a(n-32) + 27904\,a(n-33) + 12544\,a(n-34) - 2048\,a(n-35) - 4096\,a(n-36)
+a(n)\;=\;8\,a(n-1) + 106\,a(n-2) + 1154\,a(n-3) + 7341\,a(n-4) + 38354\,a(n-5) + 75897\,a(n-6) + 26908\,a(n-7) + 363811\,a(n-8) - 971504\,a(n-9) - 6880482\,a(n-10) - 1595117\,a(n-11) + 13890723\,a(n-12) - 50693559\,a(n-13) - 54673009\,a(n-14) + 185578667\,a(n-15) - 214035759\,a(n-16) - 910901251\,a(n-17) + 1570495381\,a(n-18) + 2337237818\,a(n-19) - 6890840995\,a(n-20) - 7626185862\,a(n-21) + 18279944018\,a(n-22) + 20105596552\,a(n-23) - 48993202848\,a(n-24) - 29327197968\,a(n-25) + 67685629696\,a(n-26) + 13126132416\,a(n-27) - 29811833984\,a(n-28) - 9414272512\,a(n-29) - 22788287488\,a(n-30) + 12806834176\,a(n-31) + 16026865664\,a(n-32) - 6554771456\,a(n-33) - 1887731712\,a(n-34) + 627769344\,a(n-35) + 55836672\,a(n-36)
 \]
-for every $n>35$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +112,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -133,7 +124,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187932.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185849.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

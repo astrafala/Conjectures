@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237844, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236083, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237844 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236083 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $29$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=66$
+The condition is local to two consecutive rows, so the count is a walk count on $S=256$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,43 +31,43 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237844 is ``Number of (n+1)X(2+1) 0..2 arrays with the maximum minus the lower median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A236083 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the difference of the upper median and the minimum in each 2X2 subblock.''. It has offset $1$ and begins
 \[
-369, 3419, 31661, 320263, 3281101, 34361837, 361511653, 3828421599,\ \dots
+256, 2400, 22506, 211560, 1998580, 18841712, 177646290, 1674513256,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) -26*a(n-2) -1354*a(n-3) +6471*a(n-4) +28813*a(n-5) -231046*a(n-6) -109423*a(n-7) +3526315*a(n-8) -3576784*a(n-9) -26974056*a(n-10) +52871335*a(n-11) +103996087*a(n-12) -324210864*a(n-13) -147836704*a(n-14) +1068205642*a(n-15) -281417288*a(n-16) -1965277664*a(n-17) +1461313160*a(n-18) +1869996168*a(n-19) -2374039488*a(n-20) -570178496*a(n-21) +1797323328*a(n-22) -380875136*a(n-23) -564139008*a(n-24) +295181312*a(n-25) +22262784*a(n-26) -45019136*a(n-27) +9666560*a(n-28) -491520*a(n-29)
+Empirical: a(n) = 224*a(n-3) +2810*a(n-4) +13856*a(n-5) +90672*a(n-6) +291072*a(n-7) +952484*a(n-8) +1912080*a(n-9) -1157526*a(n-10) -12079672*a(n-11) -80765163*a(n-12) -186815512*a(n-13) -311515244*a(n-14) -242959664*a(n-15) +1413551712*a(n-16) +3132342592*a(n-17) +6646937984*a(n-18) +3604272384*a(n-19) -10896930560*a(n-20) -17680504832*a(n-21) -26707124224*a(n-22) +5417844736*a(n-23) +14742724608*a(n-24) +16130326528*a(n-25) +19947962368*a(n-26) -13724549120*a(n-27) +9831972864*a(n-28) -12022972416*a(n-29)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:30:21, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:04:44, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;-b+d,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times3$ array over $\{0,\dots,2\}$.
+The $2\times2$ subblocks of an $(n+1)\times2$ array form an
+$n\times1$ grid. Colour each of them by $\sigma=-a+c$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
+asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
+vertically, must receive different colours.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
+That reading is fixed by the entries themselves rather than guessed. Take the upper median
+over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
+$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
+arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
+qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
+would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
+would give $0$ at $3\times3$, so neither is what is meant.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$2$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+A subblock's colour is decided by two consecutive rows of the array, and
+the vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
+must be properly coloured along itself and must differ from the previous subblock row in every
+position. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=66$ states left.
+over the $S=256$ pairs whose own subblock row is properly coloured.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,15 +91,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) - 26\,a(n-2) - 1354\,a(n-3) + 6471\,a(n-4) + 28813\,a(n-5) - 231046\,a(n-6) - 109423\,a(n-7) + 3526315\,a(n-8) - 3576784\,a(n-9) - 26974056\,a(n-10) + 52871335\,a(n-11) + 103996087\,a(n-12) - 324210864\,a(n-13) - 147836704\,a(n-14) + 1068205642\,a(n-15) - 281417288\,a(n-16) - 1965277664\,a(n-17) + 1461313160\,a(n-18) + 1869996168\,a(n-19) - 2374039488\,a(n-20) - 570178496\,a(n-21) + 1797323328\,a(n-22) - 380875136\,a(n-23) - 564139008\,a(n-24) + 295181312\,a(n-25) + 22262784\,a(n-26) - 45019136\,a(n-27) + 9666560\,a(n-28) - 491520\,a(n-29)
+a(n)\;=\;224\,a(n-3) + 2810\,a(n-4) + 13856\,a(n-5) + 90672\,a(n-6) + 291072\,a(n-7) + 952484\,a(n-8) + 1912080\,a(n-9) - 1157526\,a(n-10) - 12079672\,a(n-11) - 80765163\,a(n-12) - 186815512\,a(n-13) - 311515244\,a(n-14) - 242959664\,a(n-15) + 1413551712\,a(n-16) + 3132342592\,a(n-17) + 6646937984\,a(n-18) + 3604272384\,a(n-19) - 10896930560\,a(n-20) - 17680504832\,a(n-21) - 26707124224\,a(n-22) + 5417844736\,a(n-23) + 14742724608\,a(n-24) + 16130326528\,a(n-25) + 19947962368\,a(n-26) - 13724549120\,a(n-27) + 9831972864\,a(n-28) - 12022972416\,a(n-29)
 \]
-for every $n>28$.
+for every $n>29$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=29+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237844.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236083.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

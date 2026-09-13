@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269095, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204050, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269095 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A204050 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $3\times3$ subblock, hence three consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=8192$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65793$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,23 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A269095 is ``Number of nX6 0..3 arrays with some element plus some horizontally or vertically adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
+OEIS A204050 is ``Number of (n+2) X 4 0..3 arrays with every 3 X 3 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-1620, 889056, 300056400, 86415197088, 22984646281176, 5826856525990272, 1430390977786967280, 343122372255163660560,\ \dots
+10447, 112362, 756338, 5883499, 45689226, 361569647, 2777961511, 21501371450,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 624*a(n-1) -148392*a(n-2) +17707654*a(n-3) -1237692774*a(n-4) +55270649556*a(n-5) -1656470723141*a(n-6) +34132157660412*a(n-7) -484096890617541*a(n-8) +4569992373952272*a(n-9) -25146261177957786*a(n-10) +25694778316842858*a(n-11) +756190434082200840*a(n-12) -6052462771631752224*a(n-13) +18126128855859433455*a(n-14) +18664609483184919500*a(n-15) -342070453287924453888*a(n-16) +1141375792492508055684*a(n-17) -1231488788816842507708*a(n-18) -2418565901590843869576*a(n-19) +9095171580512370570684*a(n-20) -8677540039273932904920*a(n-21) -4965678440542161492372*a(n-22) +17155105764294227912496*a(n-23) -13588702943203699236720*a(n-24) +4184136771765648014016*a(n-25) -441364595341874186304*a(n-26) for n>27
+Empirical: a(n) = 8*a(n-1) +5*a(n-2) -99*a(n-3) +724*a(n-4) -2536*a(n-5) -3590*a(n-6) +1687*a(n-7) +11959*a(n-8) +163995*a(n-9) +260790*a(n-10) -1081279*a(n-11) +60097*a(n-12) -364566*a(n-13) -8610867*a(n-14) +6484656*a(n-15) +14892705*a(n-16) +9662463*a(n-17) -7454322*a(n-18) -21790782*a(n-19) -17972280*a(n-20) +16159257*a(n-21) +13997529*a(n-22) -3470769*a(n-23) +1062882*a(n-24) -2539107*a(n-25) +531441*a(n-26) for n>27.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 19 2016 09:49:40, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jun 05 2026 15:48:11, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+The condition the entry imposes is local: it constrains every $3\times3$ subblock, hence three consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=8192$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65793$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -75,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;624\,a(n-1) - 148392\,a(n-2) + 17707654\,a(n-3) - 1237692774\,a(n-4) + 55270649556\,a(n-5) - 1656470723141\,a(n-6) + 34132157660412\,a(n-7) - 484096890617541\,a(n-8) + 4569992373952272\,a(n-9) - 25146261177957786\,a(n-10) + 25694778316842858\,a(n-11) + 756190434082200840\,a(n-12) - 6052462771631752224\,a(n-13) + 18126128855859433455\,a(n-14) + 18664609483184919500\,a(n-15) - 342070453287924453888\,a(n-16) + 1141375792492508055684\,a(n-17) - 1231488788816842507708\,a(n-18) - 2418565901590843869576\,a(n-19) + 9095171580512370570684\,a(n-20) - 8677540039273932904920\,a(n-21) - 4965678440542161492372\,a(n-22) + 17155105764294227912496\,a(n-23) - 13588702943203699236720\,a(n-24) + 4184136771765648014016\,a(n-25) - 441364595341874186304\,a(n-26)
+a(n)\;=\;8\,a(n-1) + 5\,a(n-2) - 99\,a(n-3) + 724\,a(n-4) - 2536\,a(n-5) - 3590\,a(n-6) + 1687\,a(n-7) + 11959\,a(n-8) + 163995\,a(n-9) + 260790\,a(n-10) - 1081279\,a(n-11) + 60097\,a(n-12) - 364566\,a(n-13) - 8610867\,a(n-14) + 6484656\,a(n-15) + 14892705\,a(n-16) + 9662463\,a(n-17) - 7454322\,a(n-18) - 21790782\,a(n-19) - 17972280\,a(n-20) + 16159257\,a(n-21) + 13997529\,a(n-22) - 3470769\,a(n-23) + 1062882\,a(n-24) - 2539107\,a(n-25) + 531441\,a(n-26)
 \]
 for every $n>27$.
 \end{theorem}
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269095.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204050.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

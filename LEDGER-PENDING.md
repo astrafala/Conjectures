@@ -341,3 +341,28 @@ installed as `window-image`.**
 This is the same construction `edgemark` uses, where the machinery was right and the reading of
 `trailing edge maxima' was not. Here the statistics are unambiguous, and every entry's own terms
 confirm it.
+
+## 13 September 2026 — `coverzero`: an obligation a block not yet read can meet
+
+    Number of arrays of -3..3 integers x(1..n) with every x(i) in a subsequence of length 1, 2
+      or 3 with sum zero.
+    Number of arrays of n 0..14 integers with new values introduced in order 0..14 but
+      otherwise unconstrained.
+
+Two families, both walks, neither local on its own. An obligation on position i — that it lie in
+a zero-sum block of length at most W — can be met by a block that has not been read yet, so the
+state carries the last W−1 values together with which of those positions are still uncovered,
+and a position may only leave the window once covered. With W = 3 over -3..3 that is 49 windows
+and four flags. `New values introduced in order' needs no values at all: the array is determined
+by which of the values already used each term repeats, or that it is the next unused one, so the
+state is HOW MANY distinct values have been used — a walk on the alphabet's size with m+1 edges
+out of state m.
+
+**18 names read, every one reproducing its entry's published data exactly; 12 proved and
+installed as `covered-by-zero-block`.** Six are not open.
+
+### The pool, re-measured
+
+After today's engines the pool is **2,048**, down from 2,225 this morning: 386,840 entries
+outside the roster, 3,356 with a parsable conjectured recurrence, 2,048 of those read by no
+engine.

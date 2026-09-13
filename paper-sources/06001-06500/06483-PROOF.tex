@@ -12,69 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258676, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A270147, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258676 counts arrays of width $5$ over $\{0,1\}$ in which every $3\times3$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
-empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=1057$ states.
+OEIS A270147 carries an empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=8192$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A258676 is ``Number of (n+2)X(3+2) 0..1 arrays with no 3x3 subblock diagonal sum equal to the antidiagonal sum.''. It has offset $1$ and begins
+OEIS A270147 is ``Number of nX4 0..7 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling seven exactly once.''. It has offset $1$ and begins
 \[
-8320, 67600, 635440, 5973136, 51939888, 451647504, 4096960560, 37164128400,\ \dots
+1176, 4126368, 5750902944, 6697695002208, 7142783643783792, 7232246139319438944, 7076007579749239522560, 6756572506861579320074976,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -16*a(n-2) +208*a(n-3) +4712*a(n-4) -2904*a(n-5) +72928*a(n-6) -376480*a(n-7) -6880000*a(n-8) -690688*a(n-9) -93244416*a(n-10) +217147392*a(n-11) +4038631424*a(n-12) +1051099136*a(n-13) +52312670208*a(n-14) -53388509184*a(n-15) -1049520766976*a(n-16) -121475432448*a(n-17) -13177328762880*a(n-18) +9328937402368*a(n-19) +126283849662464*a(n-20) +9629316677632*a(n-21) +1510282299965440*a(n-22) -964821453373440*a(n-23) -6641050231767040*a(n-24) -2199023255552000*a(n-25) -73535337665658880*a(n-26) +37154696925806592*a(n-27) +108086391056891904*a(n-28) +144115188075855872*a(n-29) +1152921504606846976*a(n-30)
+Empirical: a(n) = 1742*a(n-1) -827249*a(n-2) +55735166*a(n-3) +2410177430*a(n-4) -208388398056*a(n-5) -3167015848153*a(n-6) +256479806611406*a(n-7) +2376722394136390*a(n-8) -119974226647646126*a(n-9) -748066037036869804*a(n-10) +14495677890626797680*a(n-11) -44282335922464026472*a(n-12) -87656882172897101898*a(n-13) +633122185223835748191*a(n-14) -486595208994066512314*a(n-15) -2521515704709696475982*a(n-16) +4786585967458397581320*a(n-17) +2256779180091586437315*a(n-18) -11568026205666473386010*a(n-19) +4081366110373471964624*a(n-20) +11206797106037834726810*a(n-21) -8694022358907130403200*a(n-22) -3768022188795704598344*a(n-23) +5316074296028246592431*a(n-24) -410670862474703529840*a(n-25) -1029555514715631146860*a(n-26) +336961514541159804000*a(n-27) -22395037969800912100*a(n-28) -1605006621279476000*a(n-29) -20684134872040000*a(n-30) for n>31
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:30:04, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 12 2016 08:44:16, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $5$ cells across, with entries in $\{0,1\}$. A WINDOW is a $3\times3$ block
-of consecutive cells lying inside the array. Every window must satisfy
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=8192$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-\begin{array}{ll}
-\text{the sum along} & \text{} \\[2pt]
-\text{the main diagonal} & \text{must NOT be equal to the sum along the antidiagonal} \\
-\end{array}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-where the main diagonal of a window runs from its top left corner to its bottom right, and its
-antidiagonal from top right to bottom left.
-
-\section{The walk}
-
-\begin{lemma}\label{lem:win}
-A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
-decided by $3$ consecutive rows and by nothing else.
-\end{lemma}
-
-\begin{proof}
-By definition of a window.
-\end{proof}
-
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
-window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
-at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
-matrix and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1057.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -96,41 +75,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 16\,a(n-2) + 208\,a(n-3) + 4712\,a(n-4) - 2904\,a(n-5) + 72928\,a(n-6) - 376480\,a(n-7) - 6880000\,a(n-8) - 690688\,a(n-9) - 93244416\,a(n-10) + 217147392\,a(n-11) + 4038631424\,a(n-12) + 1051099136\,a(n-13) + 52312670208\,a(n-14) - 53388509184\,a(n-15) - 1049520766976\,a(n-16) - 121475432448\,a(n-17) - 13177328762880\,a(n-18) + 9328937402368\,a(n-19) + 126283849662464\,a(n-20) + 9629316677632\,a(n-21) + 1510282299965440\,a(n-22) - 964821453373440\,a(n-23) - 6641050231767040\,a(n-24) - 2199023255552000\,a(n-25) - 73535337665658880\,a(n-26) + 37154696925806592\,a(n-27) + 108086391056891904\,a(n-28) + 144115188075855872\,a(n-29) + 1152921504606846976\,a(n-30)
+a(n)\;=\;1742\,a(n-1) - 827249\,a(n-2) + 55735166\,a(n-3) + 2410177430\,a(n-4) - 208388398056\,a(n-5) - 3167015848153\,a(n-6) + 256479806611406\,a(n-7) + 2376722394136390\,a(n-8) - 119974226647646126\,a(n-9) - 748066037036869804\,a(n-10) + 14495677890626797680\,a(n-11) - 44282335922464026472\,a(n-12) - 87656882172897101898\,a(n-13) + 633122185223835748191\,a(n-14) - 486595208994066512314\,a(n-15) - 2521515704709696475982\,a(n-16) + 4786585967458397581320\,a(n-17) + 2256779180091586437315\,a(n-18) - 11568026205666473386010\,a(n-19) + 4081366110373471964624\,a(n-20) + 11206797106037834726810\,a(n-21) - 8694022358907130403200\,a(n-22) - 3768022188795704598344\,a(n-23) + 5316074296028246592431\,a(n-24) - 410670862474703529840\,a(n-25) - 1029555514715631146860\,a(n-26) + 336961514541159804000\,a(n-27) - 22395037969800912100\,a(n-28) - 1605006621279476000\,a(n-29) - 20684134872040000\,a(n-30)
 \]
-for every $n>29$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=29+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test a window as
-soon as its last cell is placed. No state, no transposition and no transfer matrix are
-involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258676.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270147.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

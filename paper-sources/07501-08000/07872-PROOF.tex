@@ -12,129 +12,137 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254736, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207732, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254736 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=128$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A207732 counts arrays over $\{0,\dots,1\}$ of width $5$ that avoid the patterns
+$(0,1,1), (1,0,1)$ along one axis and $(0,0,0), (0,1,0)$ along the other, and carries an empirical recurrence of
+order $16$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive columns: taking a
+window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
+on $S=196$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-16}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A254736 is ``Number of (n+2) X (1+2) 0..1 arrays with every 3 X 3 subblock sum of the two medians of the central row and column minus the sum of the minimums of the diagonal and antidiagonal nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A207732 is ``Number of 5Xn 0..1 arrays avoiding 0 0 0 and 0 1 0 horizontally and 0 1 1 and 1 0 1 vertically.''. It has offset
+$1$ and begins
 \[
-512, 2848, 13504, 62579, 281213, 1223367, 5203324, 21804750,\ \dots
+14, 196, 490, 1225, 8575, 60025, 211680,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 9*a(n-1) -28*a(n-2) +46*a(n-3) -59*a(n-4) -81*a(n-5) +576*a(n-6) -1373*a(n-7) +2977*a(n-8) -4744*a(n-9) +6620*a(n-10) -10881*a(n-11) +14299*a(n-12) -20512*a(n-13) +28752*a(n-14) -21216*a(n-15) +5616*a(n-16) for n>20.
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = a(n-1) +21*a(n-3) +285*a(n-4) +40*a(n-5) +116*a(n-6) -1248*a(n-7) -17520*a(n-8) -5440*a(n-9) +3712*a(n-10) +13824*a(n-11) +291840*a(n-12) +102400*a(n-13) +131072*a(n-15) -1048576*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 01 2026 15:47:51, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:13:45, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;a(n-1) + 21\,a(n-3) + 285\,a(n-4) + 40\,a(n-5) + 116\,a(n-6) - 1248\,a(n-7) - 17520\,a(n-8) - 5440\,a(n-9) + 3712\,a(n-10) + 13824\,a(n-11) + 291840\,a(n-12) + 102400\,a(n-13) + 131072\,a(n-15) - 1048576\,a(n-16)
+\end{equation}
+for all $n>16$. The entry's array has a fixed number of rows and a growing number of
+columns, so the roles of the two directions are exchanged: what the entry calls the
+horizontal direction runs along the growing side. The transfer below is written in the
+growing direction throughout.
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
-\[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
-\]
-whenever both positions exist.
+\section{The array as a walk}
 
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
+Call a column \emph{admissible} if the word it forms contains none of the patterns
+$(0,1,1), (1,0,1)$ as $3$ consecutive entries. There are $14$ admissible columns; that condition
+involves a single column only.
 
-\section{The count is a walk count}
+The remaining patterns $(0,0,0), (0,1,0)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive columns at a fixed position of the row. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+columns, so $S=196$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible column $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(0,0,0), (0,1,0)$. Let $P$ be the adjacency matrix.
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
-\[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
-\]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=128$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{16}-\sum_i c_it^{16-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:walk}
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+16}-\sum_ic_iM^{j+16-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ columns by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ columns; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
+\section{The criterion}
+
+Let $q(t)=t^{16}-\sum_i c_i t^{16-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+
+\begin{lemma}\label{lem:crit}
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-16}$ whenever $n-16\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-16$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
+\end{lemma}
+
+\begin{proof}
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-16}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
+\end{proof}
+
+\section{The computation}
+
 \begin{theorem}
-\[
-a(n)\;=\;9\,a(n-1) - 28\,a(n-2) + 46\,a(n-3) - 59\,a(n-4) - 81\,a(n-5) + 576\,a(n-6) - 1373\,a(n-7) + 2977\,a(n-8) - 4744\,a(n-9) + 6620\,a(n-10) - 10881\,a(n-11) + 14299\,a(n-12) - 20512\,a(n-13) + 28752\,a(n-14) - 21216\,a(n-15) + 5616\,a(n-16)
-\]
-for every $n>20$.
+The recurrence \eqref{eq:conj} holds for every $n>16$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $16$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=16+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $14$ admissible columns. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=196$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254736.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207732.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
