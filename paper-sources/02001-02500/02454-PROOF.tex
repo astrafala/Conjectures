@@ -12,46 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230991, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231110, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230991 counts arrays of width $3$ over $\{0,1,2,3\}$ in which every cell must see, among its
+OEIS A231110 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every cell must see, among its
 neighbours in named directions, a stated number carrying the value one MORE than its own
 modulo $4$, and in some of the family a stated number carrying the value one less. The entry
-carries an empirical recurrence of order $49$ contributed by R.~H.~Hardin. It is true, and
+carries an empirical recurrence of order $51$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
-the count is a walk count on $S=3601$ states.
+the count is a walk count on $S=6557$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A230991 is ``Number of nX3 0..3 arrays x(i,j) with each element horizontally, vertically or antidiagonally next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, and upper left element zero.''. It has offset $1$ and begins
+OEIS A231110 is ``Number of 4Xn 0..3 arrays x(i,j) with each element horizontally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
 \[
-0, 2, 14, 182, 2364, 36020, 513774, 7466956,\ \dots
+0, 0, 42, 438, 4674, 53530, 616562, 7084870,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -149*a(n-2) +383*a(n-3) -104*a(n-4) +317*a(n-5) -30985*a(n-6) +256815*a(n-7) -992410*a(n-8) +1272169*a(n-9) +5426136*a(n-10) -34942372*a(n-11) +116124441*a(n-12) -308887574*a(n-13) +758615563*a(n-14) -1805037482*a(n-15) +4125802269*a(n-16) -8011638180*a(n-17) +14758066106*a(n-18) -45484548705*a(n-19) +120405912285*a(n-20) -128300026622*a(n-21) -6060650964*a(n-22) +33555194302*a(n-23) -93703260352*a(n-24) +462538307466*a(n-25) -559690521304*a(n-26) -163640092140*a(n-27) +548638490999*a(n-28) +557307876237*a(n-29) -524363364551*a(n-30) -859741374611*a(n-31) +1135665697589*a(n-32) +531682029352*a(n-33) -703229647302*a(n-34) -261109826702*a(n-35) +344415159214*a(n-36) +296398095252*a(n-37) +72247983516*a(n-38) -29069776848*a(n-39) -92977319528*a(n-40) +16884602640*a(n-41) +38376325040*a(n-42) -26514851136*a(n-43) -35845053248*a(n-44) -21519041280*a(n-45) -7309768192*a(n-46) -1399013376*a(n-47) -141680640*a(n-48) -5963776*a(n-49)
+Empirical: a(n) = 28*a(n-1) -284*a(n-2) +1189*a(n-3) -144*a(n-4) -16202*a(n-5) +43314*a(n-6) +51726*a(n-7) -378092*a(n-8) +142812*a(n-9) +1787045*a(n-10) -2071922*a(n-11) -5399600*a(n-12) +10035017*a(n-13) +9756451*a(n-14) -27257530*a(n-15) -9262577*a(n-16) +43800387*a(n-17) +823484*a(n-18) -25963993*a(n-19) -5631788*a(n-20) -43551782*a(n-21) +58894906*a(n-22) +72195172*a(n-23) -73850308*a(n-24) +9275284*a(n-25) -85663152*a(n-26) -50216070*a(n-27) +247099342*a(n-28) -15789086*a(n-29) -168327877*a(n-30) +34428902*a(n-31) -8906080*a(n-32) +16412437*a(n-33) +62237635*a(n-34) -31892052*a(n-35) -25353207*a(n-36) +10821699*a(n-37) -31603*a(n-38) +689681*a(n-39) +2169758*a(n-40) -686435*a(n-41) -375254*a(n-42) -46338*a(n-43) -50759*a(n-44) +32108*a(n-45) +27901*a(n-46) +299*a(n-47) -4056*a(n-48) -595*a(n-49) +162*a(n-50) +48*a(n-51) for n>56
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:10:15, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:15:23, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
+The array has $4$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
 those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The top left
-cell is fixed at $0$.
+its neighbours there be at least $1$ carrying $v+1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
+cell is fixed at $0$. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one, and the top left cell is the top left cell of the transpose as well.
 
 Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
 is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
@@ -77,7 +77,7 @@ LAST row is settled by the end vector, with nothing below it: the end vector is 
 the all-ones vector, and a row that sees enough neighbours only when a further row is written
 below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3601.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6557.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -85,7 +85,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{49}-\sum_i c_it^{49-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{51}-\sum_i c_it^{51-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -93,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+49}-\sum_ic_iM^{j+49-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+51}-\sum_ic_iM^{j+51-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 149\,a(n-2) + 383\,a(n-3) - 104\,a(n-4) + 317\,a(n-5) - 30985\,a(n-6) + 256815\,a(n-7) - 992410\,a(n-8) + 1272169\,a(n-9) + 5426136\,a(n-10) - 34942372\,a(n-11) + 116124441\,a(n-12) - 308887574\,a(n-13) + 758615563\,a(n-14) - 1805037482\,a(n-15) + 4125802269\,a(n-16) - 8011638180\,a(n-17) + 14758066106\,a(n-18) - 45484548705\,a(n-19) + 120405912285\,a(n-20) - 128300026622\,a(n-21) - 6060650964\,a(n-22) + 33555194302\,a(n-23) - 93703260352\,a(n-24) + 462538307466\,a(n-25) - 559690521304\,a(n-26) - 163640092140\,a(n-27) + 548638490999\,a(n-28) + 557307876237\,a(n-29) - 524363364551\,a(n-30) - 859741374611\,a(n-31) + 1135665697589\,a(n-32) + 531682029352\,a(n-33) - 703229647302\,a(n-34) - 261109826702\,a(n-35) + 344415159214\,a(n-36) + 296398095252\,a(n-37) + 72247983516\,a(n-38) - 29069776848\,a(n-39) - 92977319528\,a(n-40) + 16884602640\,a(n-41) + 38376325040\,a(n-42) - 26514851136\,a(n-43) - 35845053248\,a(n-44) - 21519041280\,a(n-45) - 7309768192\,a(n-46) - 1399013376\,a(n-47) - 141680640\,a(n-48) - 5963776\,a(n-49)
+a(n)\;=\;28\,a(n-1) - 284\,a(n-2) + 1189\,a(n-3) - 144\,a(n-4) - 16202\,a(n-5) + 43314\,a(n-6) + 51726\,a(n-7) - 378092\,a(n-8) + 142812\,a(n-9) + 1787045\,a(n-10) - 2071922\,a(n-11) - 5399600\,a(n-12) + 10035017\,a(n-13) + 9756451\,a(n-14) - 27257530\,a(n-15) - 9262577\,a(n-16) + 43800387\,a(n-17) + 823484\,a(n-18) - 25963993\,a(n-19) - 5631788\,a(n-20) - 43551782\,a(n-21) + 58894906\,a(n-22) + 72195172\,a(n-23) - 73850308\,a(n-24) + 9275284\,a(n-25) - 85663152\,a(n-26) - 50216070\,a(n-27) + 247099342\,a(n-28) - 15789086\,a(n-29) - 168327877\,a(n-30) + 34428902\,a(n-31) - 8906080\,a(n-32) + 16412437\,a(n-33) + 62237635\,a(n-34) - 31892052\,a(n-35) - 25353207\,a(n-36) + 10821699\,a(n-37) - 31603\,a(n-38) + 689681\,a(n-39) + 2169758\,a(n-40) - 686435\,a(n-41) - 375254\,a(n-42) - 46338\,a(n-43) - 50759\,a(n-44) + 32108\,a(n-45) + 27901\,a(n-46) + 299\,a(n-47) - 4056\,a(n-48) - 595\,a(n-49) + 162\,a(n-50) + 48\,a(n-51)
 \]
-for every $n>49$.
+for every $n>56$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $49$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $51$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=49+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=56+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230991.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231110.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

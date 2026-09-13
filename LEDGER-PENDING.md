@@ -748,3 +748,34 @@ reachable state count manageable — 191 states at k=3 and 1,174,575 at k=7, lum
 The entry's length, n+k+1 or n+k+2, is exactly where the first window closes.
 
 **10 names read, all 10 proved, every one reproducing its entry's published data exactly.**
+
+## 14 September 2026 — `introord`: an order the array is introduced in, from one end or both
+
+    Number of 0..5 arrays of length n with no adjacent pair equal to its immediately preceding
+      adjacent pair, and new values introduced in 0..5 order.
+    Number of length n 0..5 arrays with new values introduced in order from both ends.
+
+Eleven entries. The introduction order is a condition no window can decide, and one counter
+carries it: how many values have been introduced so far, the values arriving in order.
+
+The first family's other clause had to be settled by brute force, and the obvious reading is
+wrong. "No adjacent pair equal to its immediately preceding adjacent pair" is NOT "no three
+equal in a row": the pairs OVERLAP, and the pair immediately preceding (x_i, x_{i+1}) is
+(x_{i-2}, x_{i-1}), the one starting two places back. The condition forbids a window of four
+with period two and is vacuous below length four — which is exactly what the entries' own a(3)
+says, 5 where the three-in-a-row reading gives 4. The non-overlapping reading gives 36 at n=5
+against the entry's 33; the overlapping one gives 33 and every later term.
+
+The second family is the better piece of machinery. Introducing new values in order from BOTH
+ends says every prefix AND every suffix has a value set of the form {0,1,...,m}. The prefix half
+is the counter. The suffix half is the same condition on the reversed array, so read left to
+right it is the REVERSE of a deterministic automaton — nondeterministic, but UNAMBIGUOUS, since
+each array has exactly one run backwards, and an unambiguous automaton's walk count is still the
+number of words. So the vertex is (introduced in the prefix, still to be introduced in the
+suffix, the total), the two ends tied together by that total, and the walk runs from (0,t) to
+(t,0). A first attempt tracked the suffix MAXIMUM instead of the suffix count and silently
+reproduced the plain introduction-order numbers — the maximum does not know whether the values
+below it are all present.
+
+**11 names read, all 11 proved, every one reproducing its entry's published data exactly, and
+both readings settled against a brute force before any engine was written.**

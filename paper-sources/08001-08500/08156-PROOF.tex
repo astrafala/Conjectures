@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234108, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233812, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234108 counts $(n+1)\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
+OEIS A233812 counts $(n+1)\times3$ arrays over $\{0,\dots,5\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $18$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=125$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=216$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A234108 is ``Number of (n+1)X(2+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of all six edge and diagonal differences equal to 12.''. It has offset $1$ and begins
+OEIS A233812 is ``Number of (n+1) X (2+1) 0..5 arrays with every 2 X 2 subblock having the sum of the squares of all six edge and diagonal differences equal to 11.''. It has offset $1$ and begins
 \[
-186, 608, 2086, 7742, 29278, 113666, 446590, 1777146,\ \dots
+428, 2216, 10972, 59164, 301132, 1671748, 8669484, 49193332,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1) +6*a(n-2) -172*a(n-3) +144*a(n-4) +1438*a(n-5) -1805*a(n-6) -6160*a(n-7) +8467*a(n-8) +14464*a(n-9) -20123*a(n-10) -17822*a(n-11) +25464*a(n-12) +9216*a(n-13) -15948*a(n-14) +136*a(n-15) +3552*a(n-16) -928*a(n-17) +64*a(n-18)
+Empirical: a(n) = 5*a(n-1) +74*a(n-2) -386*a(n-3) -1919*a(n-4) +10855*a(n-5) +21122*a(n-6) -141906*a(n-7) -86736*a(n-8) +918488*a(n-9) -46708*a(n-10) -2918256*a(n-11) +1088816*a(n-12) +4381664*a(n-13) -2361152*a(n-14) -2591360*a(n-15) +1642176*a(n-16) +224256*a(n-17) -168192*a(n-18).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:11:08, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Feb 15 2026 22:37:28, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) + 6\,a(n-2) - 172\,a(n-3) + 144\,a(n-4) + 1438\,a(n-5) - 1805\,a(n-6) - 6160\,a(n-7) + 8467\,a(n-8) + 14464\,a(n-9) - 20123\,a(n-10) - 17822\,a(n-11) + 25464\,a(n-12) + 9216\,a(n-13) - 15948\,a(n-14) + 136\,a(n-15) + 3552\,a(n-16) - 928\,a(n-17) + 64\,a(n-18)
+a(n)\;=\;5\,a(n-1) + 74\,a(n-2) - 386\,a(n-3) - 1919\,a(n-4) + 10855\,a(n-5) + 21122\,a(n-6) - 141906\,a(n-7) - 86736\,a(n-8) + 918488\,a(n-9) - 46708\,a(n-10) - 2918256\,a(n-11) + 1088816\,a(n-12) + 4381664\,a(n-13) - 2361152\,a(n-14) - 2591360\,a(n-15) + 1642176\,a(n-16) + 224256\,a(n-17) - 168192\,a(n-18)
 \end{equation}
 for all $n>18$.
 
@@ -56,7 +56,7 @@ for all $n>18$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,4\}^{3}$, so $|V|=S=125$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,5\}^{3}$, so $|V|=S=216$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|+|\delta-\alpha|+|\gamma-\beta|\;=\;12,
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2+(\delta-\alpha)^2+(\gamma-\beta)^2=11,
 \end{equation}
 a condition on the four entries alone.
 
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $21$ published indices; the values agree exactly. That is what ties
+every one of the $18$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234108.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233812.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

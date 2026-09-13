@@ -95,6 +95,12 @@ WINDOW = {
                "together with how many of the values have been introduced so far -- the "
                "coverage condition is decided by the window, and the introduction order, "
                "which no window can decide, by that counter, the values arriving in order"),
+    # the introduction order is decided by no window; a counter carries it, and for the
+    # both-ends family a second counter running the other way, guessed and verified
+    'introord': ("the last few values together with how many values have been introduced so "
+                 "far -- and, where the entry asks for the order from BOTH ends, how many "
+                 "remain to be introduced in what is still to come, which is the same "
+                 "condition read backwards and is verified rather than decided"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
