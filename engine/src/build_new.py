@@ -90,7 +90,7 @@ import localentry as LE
 # rather than describe it in general terms.
 MERGED = {'transfer9'}
 
-ENRICH = {'samefour', 'transfer17', 'transfer6', 'transfer20', 'transfer21',
+ENRICH = {'samefour', 'seconddiff', 'transfer17', 'transfer6', 'transfer20', 'transfer21',
           'transfer9', 'transfer14', 'transfer10', 'transfer22', 'transfer19'}
 
 SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',

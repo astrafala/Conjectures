@@ -779,3 +779,23 @@ below it are all present.
 
 **11 names read, all 11 proved, every one reproducing its entry's published data exactly, and
 both readings settled against a brute force before any engine was written.**
+
+## 14 September 2026 — `seconddiff`: half the arrays whose second differences never vanish
+
+    Half the number of 0..2 arrays of length n+2 with second differences nonzero.
+
+Six entries. The second difference at i is x_i - 2x_{i+1} + x_{i+2}, a window of three, so the
+condition is the edge relation on the pairs and the digraph has (k+1)^2 vertices — nothing to
+discover there. What the paper has to get right is the entry's divisor. It is the reflection
+x -> k - x: that map sends every second difference to its negative, so it preserves the counted
+set, it is an involution, and it has NO fixed point in that set, since a fixed array is constant
+and a constant array has second difference zero. So the count is even and half of it counts the
+reflection orbits.
+
+The one index where that argument fails is the one the entry does not use. At length 2 there is
+no second difference at all, every array qualifies, and the constant array k/2 IS fixed when k
+is even — so the count is odd and has no half. The entry's a(1) is the length-3 count, and the
+engine steps the walk once before emitting anything. Three of the six came back as "terms
+failed" until that was fixed, which is the refusal saying what the reading is.
+
+**6 names read, all 6 proved, every one reproducing its entry's published data exactly.**

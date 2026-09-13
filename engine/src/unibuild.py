@@ -101,6 +101,8 @@ WINDOW = {
                  "far -- and, where the entry asks for the order from BOTH ends, how many "
                  "remain to be introduced in what is still to come, which is the same "
                  "condition read backwards and is verified rather than decided"),
+    'seconddiff': ("a window of three consecutive elements, which is what a second "
+                   "difference reads"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
