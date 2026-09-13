@@ -172,6 +172,15 @@ bound in force is z*A. A189327 is where it showed -- the count is 3n on the even
 is admissible, and that single point is the whole difference. Nothing had been installed
 under the smaller bound; every held result was re-asked under the corrected one.
 
+**Where the 441 stand, measured after the install (13 September 2026).** 126 are installed as
+`lattice-quasipolynomial`; 167 carry no parsable conjectured recurrence at all, so there is
+nothing to settle on them; 4 are no longer open; and **144 are readable, open, carry a
+conjecture, and are refused only by the compute limits** -- the derived `S` above the cap, or
+the walk's layer above it. That 144 is the pool to attack next, and the attack is engineering
+rather than mathematics: a sharper exponent (the cone's dimension rather than L+1, already
+done, worth 10-15%), a faster inner loop, or eliminating a variable against an equality before
+the walk starts.
+
 What it does NOT reach, and why:
 
 * 12 names whose condition is INHOMOGENEOUS -- "no element more than one greater than the
