@@ -129,7 +129,10 @@ $\{{|x_j|\le t,\ \sum_j w_jx_j=0\}}$, whose rays are cut out by $m$ of the defin
 hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
 $x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
 $\prod_{{d\mid w_j\ \text{{some}}\ j}}\Phi_d(z)^{{m+1}}$ annihilates that term, and the product
-over the group's elements annihilates $a$: $S={S}$.
+over the group's elements annihilates $a$. One more is added to the order, because the origin
+is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
+the common denominator has numerator degree equal to the denominator's rather than below it.
+So $S={S}$.
 
 A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
 determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving

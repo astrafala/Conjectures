@@ -128,7 +128,11 @@ def _bound(orbits):
         if mm > 1:
             t -= t // mm
         deg += t
-    return deg * (max(len(ws) for ws in orbits) + 1)
+    # One more than that. Each Burnside term is a cone containing the origin, and the origin
+    # is a cell of the arrangement with no ray: its series is the constant 1, whose numerator
+    # over the common denominator has degree exactly the denominator's. Every cell that HAS a
+    # ray keeps the numerator below it. Same correction as latpoly's, for the same reason.
+    return deg * (max(len(ws) for ws in orbits) + 1) + 1
 
 
 def build(p, cap=200000):
