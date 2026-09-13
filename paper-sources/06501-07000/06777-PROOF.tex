@@ -12,75 +12,81 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254354, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251187, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254354 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
+OEIS A251187 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=128$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=512$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A254354 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock sum of the two medians of the central row and the central column and the two maximums of the diagonal and antidiagonal nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A251187 is ``Number of (n+2)X(1+2) 0..1 arrays with nondecreasing sum of every three consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-512, 2868, 15051, 72939, 332330, 1451174, 6117882, 25078442,\ \dots
+512, 1728, 5832, 19683, 46656, 110592, 262144, 512000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -16*a(n-2) -10*a(n-3) +49*a(n-4) -134*a(n-5) +511*a(n-6) -823*a(n-7) +1122*a(n-8) -1482*a(n-9) +467*a(n-10) +329*a(n-11) -2184*a(n-12) +2463*a(n-13) -1910*a(n-14) +2072*a(n-15) +52*a(n-16) +877*a(n-17) -2244*a(n-18) +480*a(n-19) +3226*a(n-20) -3604*a(n-21) -568*a(n-22) +944*a(n-23) +1272*a(n-24) -1120*a(n-25) +224*a(n-26) for n>27
+Empirical: a(n) = 2*a(n-1) -a(n-2) +8*a(n-3) -16*a(n-4) +8*a(n-5) -28*a(n-6) +56*a(n-7) -28*a(n-8) +56*a(n-9) -112*a(n-10) +56*a(n-11) -70*a(n-12) +140*a(n-13) -70*a(n-14) +56*a(n-15) -112*a(n-16) +56*a(n-17) -28*a(n-18) +56*a(n-19) -28*a(n-20) +8*a(n-21) -16*a(n-22) +8*a(n-23) -a(n-24) +2*a(n-25) -a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:37:09, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:09:22, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
+The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$.
+
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $3$ consecutive cells --- in words,
+the sum of the $3$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+\sigma\bigl(x(i,j),\dots,x(i,j{+}2)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}3)\bigr),
 \]
-whenever both positions exist.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
-
-\section{The count is a walk count}
-
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+and reading down a column,
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+\sigma\bigl(x(i,j),\dots,x(i{+}2,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}3,j)\bigr).
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
 
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
+
+\begin{lemma}\label{lem:win}
+The row comparisons involve one array row each. A column comparison involves the
+$3+1=4$ consecutive rows $i,\dots,i{+}3$ and no others.
+\end{lemma}
+
+\begin{proof}
+The two runs compared start at rows $i$ and $i+1$ and have length $3$, so together they
+occupy rows $i$ through $i+3$.
+\end{proof}
+
+So the window of the last $3$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=512,
 \]
-on the $S=128$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+a walk of no steps being an array of exactly $3$ rows.
+
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,39 +108,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 16\,a(n-2) - 10\,a(n-3) + 49\,a(n-4) - 134\,a(n-5) + 511\,a(n-6) - 823\,a(n-7) + 1122\,a(n-8) - 1482\,a(n-9) + 467\,a(n-10) + 329\,a(n-11) - 2184\,a(n-12) + 2463\,a(n-13) - 1910\,a(n-14) + 2072\,a(n-15) + 52\,a(n-16) + 877\,a(n-17) - 2244\,a(n-18) + 480\,a(n-19) + 3226\,a(n-20) - 3604\,a(n-21) - 568\,a(n-22) + 944\,a(n-23) + 1272\,a(n-24) - 1120\,a(n-25) + 224\,a(n-26)
+a(n)\;=\;2\,a(n-1) - a(n-2) + 8\,a(n-3) - 16\,a(n-4) + 8\,a(n-5) - 28\,a(n-6) + 56\,a(n-7) - 28\,a(n-8) + 56\,a(n-9) - 112\,a(n-10) + 56\,a(n-11) - 70\,a(n-12) + 140\,a(n-13) - 70\,a(n-14) + 56\,a(n-15) - 112\,a(n-16) + 56\,a(n-17) - 28\,a(n-18) + 56\,a(n-19) - 28\,a(n-20) + 8\,a(n-21) - 16\,a(n-22) + 8\,a(n-23) - a(n-24) + 2\,a(n-25) - a(n-26)
 \]
-for every $n>27$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254354.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251187.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

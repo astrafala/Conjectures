@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234916, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234878, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234916 counts $4$-column arrays over $\{0,\dots,4\}$ in which every
+OEIS A234878 counts $5$-column arrays over $\{0,\dots,4\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $2$, and in which no two adjacent entries are equal, and it
+exactly $1$, and in which no two adjacent entries are equal, and it
 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=320$ vertices, which
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=1280$ vertices, which
 is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
 the residual is $\mathbf{1}^{\!\top}M^{\,n-19}q(M)\mathbf{1}$, so the recurrence
 holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
@@ -37,21 +37,21 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A234916 is ``Number of (n+1) X (3+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+OEIS A234878 is ``Number of (n+1) X (4+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 1, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-376, 1128, 3684, 13336, 49056, 186500, 710304,\ \dots
+268, 628, 1116, 3336, 6364, 22748, 44540,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 9*a(n-1) -2*a(n-2) -188*a(n-3) +413*a(n-4) +1077*a(n-5) -3828*a(n-6) -1678*a(n-7) +14385*a(n-8) -3643*a(n-9) -26998*a(n-10) +16004*a(n-11) +26132*a(n-12) -21362*a(n-13) -12072*a(n-14) +12608*a(n-15) +2016*a(n-16) -3096*a(n-17) +224*a(n-19).
+Empirical: a(n) = 2*a(n-1) +27*a(n-2) -55*a(n-3) -290*a(n-4) +607*a(n-5) +1617*a(n-6) -3524*a(n-7) -5091*a(n-8) +11799*a(n-9) +9192*a(n-10) -23475*a(n-11) -9214*a(n-12) +27620*a(n-13) +4652*a(n-14) -18518*a(n-15) -912*a(n-16) +6476*a(n-17) -912*a(n-19).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 14 2025 07:46:10, revision 10) the statement is
+As of the ``Last modified'' line on the live entry (Jun 20 2022 00:39:48, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;9\,a(n-1) - 2\,a(n-2) - 188\,a(n-3) + 413\,a(n-4) + 1077\,a(n-5) - 3828\,a(n-6) - 1678\,a(n-7) + 14385\,a(n-8) - 3643\,a(n-9) - 26998\,a(n-10) + 16004\,a(n-11) + 26132\,a(n-12) - 21362\,a(n-13) - 12072\,a(n-14) + 12608\,a(n-15) + 2016\,a(n-16) - 3096\,a(n-17) + 224\,a(n-19)
+a(n)\;=\;2\,a(n-1) + 27\,a(n-2) - 55\,a(n-3) - 290\,a(n-4) + 607\,a(n-5) + 1617\,a(n-6) - 3524\,a(n-7) - 5091\,a(n-8) + 11799\,a(n-9) + 9192\,a(n-10) - 23475\,a(n-11) - 9214\,a(n-12) + 27620\,a(n-13) + 4652\,a(n-14) - 18518\,a(n-15) - 912\,a(n-16) + 6476\,a(n-17) - 912\,a(n-19)
 \end{equation}
 for all $n>19$, which is every $n$ at which a recurrence of order $19$ can be
 stated.
@@ -62,16 +62,16 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;1.
 \]
 Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
 part, which constrains a single row and so selects the vertex set, and a vertical part,
 which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-Let $V$ consist of those $r\in\{0,\dots,4\}^{4}$ with $r_j\ne r_{j+1}$ for every
-$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=320$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
-$1\le j\le4-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+Let $V$ consist of those $r\in\{0,\dots,4\}^{5}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=1280$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=1$ for every $j$ with
+$1\le j\le5-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
 \begin{lemma}\label{lem:walk}
@@ -81,7 +81,7 @@ $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
 \end{lemma}
 
 \begin{proof}
-An array with $n+1$ rows and $4$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
+An array with $n+1$ rows and $5$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
 rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
 $r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
 the entry's condition on all subblocks precisely when every consecutive pair of rows is an
@@ -144,12 +144,12 @@ was rejected wherever it occurred.
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=320$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1280$ consecutive
 zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234916.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234878.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

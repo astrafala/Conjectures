@@ -316,3 +316,28 @@ index, which is exactly what the extrapolation guard is for.
 exactly; 2 proved and installed as `zero-sum-multiset`.** The square clause costs a third axis
 in the count, so an annihilator of degree 138 there is a model that cannot be evaluated and is
 refused with the reason; so is -6..6, whose annihilator has degree 160.
+
+## 13 September 2026 — `winimage`: how many distinct arrays a window statistic can produce
+
+    Number of second differences of arrays of length n+2 of numbers in 0..6.
+    Number of arrays of median of three adjacent elements of some length n+2 0..3 array, with
+      no adjacent equal elements in the latter.
+    Number of arrays of maxima of three adjacent elements of some length n+2 0..6 array.
+
+The entry counts the DISTINCT images, not the arrays: two inputs giving the same output word are
+one. That is the image of a sliding-window map, so the output words form a regular language and
+the count is a walk in its subset construction — a state is the set of input windows still
+consistent with the output emitted so far. Nothing about the statistic matters beyond its being
+a function of a fixed window, so medians, maxima, minima and k-th differences are one engine.
+
+The subset automaton is enormously redundant — a third difference over 0..5 has 7,917 states
+and 21 behaviours — and the residual test runs until S consecutive residuals vanish, so the
+state count is the whole cost. Merging states with the same FUTURE changes no count and is what
+makes these evaluable at all.
+
+**17 names read, every one reproducing its entry's published data exactly; all 17 proved and
+installed as `window-image`.**
+
+This is the same construction `edgemark` uses, where the machinery was right and the reading of
+`trailing edge maxima' was not. Here the statistics are unambiguous, and every entry's own terms
+confirm it.

@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A240456, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A240272, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240456 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+OEIS A240272 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
 constant plus the SUM of all the entries lying before it along one of several rays. The entry
 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical. None of those sums is bounded and none is local, but
 each is built one term at a time, so its residue modulo $4$ is carried in the state; the
-count is then a walk count on $S=36$ states.
+count is then a walk count on $S=37$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A240456 is ``Number of nX2 0..3 arrays with no element equal to one plus the sum of elements to its left or three plus the sum of elements above it or one plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
+OEIS A240272 is ``Number of 2Xn 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of the elements above it or one plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
 \[
-4, 21, 102, 476, 2200, 10123, 46471, 213000,\ \dots
+3, 7, 35, 157, 713, 3263, 14895, 68101,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -20*a(n-2) +34*a(n-3) -84*a(n-4) +92*a(n-5) -68*a(n-6) +222*a(n-7) +13*a(n-8) -251*a(n-9) +25*a(n-10) -495*a(n-11) +485*a(n-12) -44*a(n-13) -180*a(n-14) +554*a(n-15) -648*a(n-16) +14*a(n-17) +152*a(n-18) -190*a(n-19) -140*a(n-20) +397*a(n-21) -273*a(n-22) +75*a(n-23) +167*a(n-24) -136*a(n-25) +27*a(n-26)
+Empirical: a(n) = 8*a(n-1) -20*a(n-2) +34*a(n-3) -84*a(n-4) +92*a(n-5) -68*a(n-6) +222*a(n-7) +13*a(n-8) -251*a(n-9) +25*a(n-10) -495*a(n-11) +485*a(n-12) -44*a(n-13) -180*a(n-14) +554*a(n-15) -648*a(n-16) +14*a(n-17) +152*a(n-18) -190*a(n-19) -140*a(n-20) +397*a(n-21) -273*a(n-22) +75*a(n-23) +167*a(n-24) -136*a(n-25) +27*a(n-26) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:58:22, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:45:26, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,7 +50,7 @@ rays out of a cell $(i,j)$, with the constant it attaches to each:
 \begin{array}{lll}
 \text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
 \text{west} & (i,j-1),(i,j-2),\dots & 1 \\
-\text{north} & (i-1,j),(i-2,j),\dots & 3 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 0 \\
 \text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 1 \\
 \end{array}
 \]
@@ -60,39 +60,39 @@ inside the array, the condition is
 x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
 \]
 for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
-zero.
+zero. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column and the roles of the west and north rays are exchanged. The northwest ray is carried to itself by that exchange.
 
 \section{The rays as a bounded state}
 
-Take the array one $row$ at a time, in the direction in which it grows, and index the
-positions of a $row $ by $p$. Let $x$ be the $row$ just written.
+Take the array one $column$ at a time, in the direction in which it grows, and index the
+positions of a $column $ by $p$. Let $x$ be the $column$ just written.
 
 \begin{lemma}\label{lem:rays}
-Along the $row$s, the 3 ray sums named by this entry satisfy
+Along the $column$s, the 3 ray sums named by this entry satisfy
 \[
 \begin{aligned}
-\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
-U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+\Sigma_{\mathrm{north}}\ &\text{is the running total inside the current column},\\
+U'[p]&=U[p]+x[p], &&\text{the west ray, per position},\\
 NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0 .
 \end{aligned}
 \]
 \end{lemma}
 
 \begin{proof}
-Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
-moves a cell one step along the north ray, one step along the northwest ray together with one
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $column$
+moves a cell one step along the west ray, one step along the northwest ray together with one
 position to the right, and one step along the northeast ray together with one position to the
 left; in each case exactly the cell just left behind is the new term. At the border of the
 array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
 Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
-of the walk writes a whole $row$: the position $p$ is filled left to right and the
-running total of the west ray is carried along as it is filled, so every cell is tested
+of the walk writes a whole $column$: the position $p$ is filled left to right and the
+running total of the north ray is carried along as it is filled, so every cell is tested
 against every ray at the moment it is written. The walk starts at the all-zero state, the empty
 array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=36.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=37.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -119,13 +119,13 @@ pins the threshold exactly.
 \[
 a(n)\;=\;8\,a(n-1) - 20\,a(n-2) + 34\,a(n-3) - 84\,a(n-4) + 92\,a(n-5) - 68\,a(n-6) + 222\,a(n-7) + 13\,a(n-8) - 251\,a(n-9) + 25\,a(n-10) - 495\,a(n-11) + 485\,a(n-12) - 44\,a(n-13) - 180\,a(n-14) + 554\,a(n-15) - 648\,a(n-16) + 14\,a(n-17) + 152\,a(n-18) - 190\,a(n-19) - 140\,a(n-20) + 397\,a(n-21) - 273\,a(n-22) + 75\,a(n-23) + 167\,a(n-24) - 136\,a(n-25) + 27\,a(n-26)
 \]
-for every $n>25$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -149,7 +149,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240456.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240272.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

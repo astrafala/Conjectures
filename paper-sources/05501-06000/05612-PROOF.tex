@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236296, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237906, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236296 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+OEIS A237906 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $46$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=256$
+The condition is local to two consecutive rows, so the count is a walk count on $S=1780$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,43 +31,42 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A236296 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the maximum plus the upper median plus the minimum of every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A237906 is ``Number of (n+1)X(2+1) 0..3 arrays with the maximum minus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-256, 3040, 36192, 432292, 5161664, 61594004, 735086888, 8773890972,\ \dots
+1780, 22128, 271292, 3324618, 40005364, 490622010, 6035315040, 73714662652,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 496*a(n-3) +6976*a(n-4) +48436*a(n-5) +329216*a(n-6) +1437760*a(n-7) +3979634*a(n-8) +4940132*a(n-9) -55741792*a(n-10) -390877624*a(n-11) -1473869888*a(n-12) -4031176420*a(n-13) -1262305248*a(n-14) +33517081024*a(n-15) +155320073087*a(n-16) +472592340348*a(n-17) +530125840256*a(n-18) -1501534470840*a(n-19) -8023945719440*a(n-20) -23066155324272*a(n-21) -26970122998624*a(n-22) +53711172706752*a(n-23) +248959902556160*a(n-24) +532406307593472*a(n-25) +455715391093696*a(n-26) -1386551094356224*a(n-27) -4426082018291456*a(n-28) -5065787868470272*a(n-29) +38737497779200*a(n-30) +16628061270116352*a(n-31) +32449752313597952*a(n-32) +10910755550486528*a(n-33) -35673387072094208*a(n-34) -63851414223945728*a(n-35) -61910833253777408*a(n-36) +15490979644964864*a(n-37) +124304876301189120*a(n-38) +83968026177175552*a(n-39) -54274400025837568*a(n-40) -73655933378494464*a(n-41) -4669132624625664*a(n-42) +18475093453701120*a(n-43) +4665135561965568*a(n-44) -1358607509618688*a(n-45) -458848267665408*a(n-46)
+Empirical: a(n) = 490*a(n-3) +12320*a(n-4) +32334*a(n-5) +174761*a(n-6) +728620*a(n-7) -4478227*a(n-8) -7207644*a(n-9) -27000775*a(n-10) -86386386*a(n-11) +547827458*a(n-12) +554856222*a(n-13) +536708856*a(n-14) +1329549296*a(n-15) -23669830297*a(n-16) -6434035554*a(n-17) +56696777905*a(n-18) -15832476910*a(n-19) +164427921697*a(n-20) +62206824756*a(n-21) -828346221747*a(n-22) -204063315132*a(n-23) +1304893695215*a(n-24) +680120199232*a(n-25) -1013570261870*a(n-26) -1248410862186*a(n-27) +90792816132*a(n-28) +976633774310*a(n-29) +607888452553*a(n-30) -146598881908*a(n-31) -552981695101*a(n-32) -391639304456*a(n-33) -26300252816*a(n-34) +231598966342*a(n-35) +224335145560*a(n-36) +43215570986*a(n-37) -60284011665*a(n-38) -57945132090*a(n-39) -18549813839*a(n-40) +6197072112*a(n-41) +6419665863*a(n-42) +2191120924*a(n-43) +363299396*a(n-44) -86845568*a(n-45) -25033872*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:13:27, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:34:13, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times2$ array form an
-$n\times1$ grid. Colour each of them by $\sigma=a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
-asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
-vertically, must receive different colours.
+The $2\times2$ subblocks of an $(n+1)\times3$ array form an
+$n\times2$ grid, and each carries the value $\sigma=-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
 
-That reading is fixed by the entries themselves rather than guessed. Take the upper median
-over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
-$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
-arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
-qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
-would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
-would give $0$ at $3\times3$, so neither is what is meant.
+At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $1780$ counts those, and the model was made to
+reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-A subblock's colour is decided by two consecutive rows of the array, and
-the vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
-must be properly coloured along itself and must differ from the previous subblock row in every
-position. An $(n+1)$-row array is a walk of $n-1$ steps, so
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=256$ pairs whose own subblock row is properly coloured.
+over the $S=1780$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,7 +90,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;496\,a(n-3) + 6976\,a(n-4) + 48436\,a(n-5) + 329216\,a(n-6) + 1437760\,a(n-7) + 3979634\,a(n-8) + 4940132\,a(n-9) - 55741792\,a(n-10) - 390877624\,a(n-11) - 1473869888\,a(n-12) - 4031176420\,a(n-13) - 1262305248\,a(n-14) + 33517081024\,a(n-15) + 155320073087\,a(n-16) + 472592340348\,a(n-17) + 530125840256\,a(n-18) - 1501534470840\,a(n-19) - 8023945719440\,a(n-20) - 23066155324272\,a(n-21) - 26970122998624\,a(n-22) + 53711172706752\,a(n-23) + 248959902556160\,a(n-24) + 532406307593472\,a(n-25) + 455715391093696\,a(n-26) - 1386551094356224\,a(n-27) - 4426082018291456\,a(n-28) - 5065787868470272\,a(n-29) + 38737497779200\,a(n-30) + 16628061270116352\,a(n-31) + 32449752313597952\,a(n-32) + 10910755550486528\,a(n-33) - 35673387072094208\,a(n-34) - 63851414223945728\,a(n-35) - 61910833253777408\,a(n-36) + 15490979644964864\,a(n-37) + 124304876301189120\,a(n-38) + 83968026177175552\,a(n-39) - 54274400025837568\,a(n-40) - 73655933378494464\,a(n-41) - 4669132624625664\,a(n-42) + 18475093453701120\,a(n-43) + 4665135561965568\,a(n-44) - 1358607509618688\,a(n-45) - 458848267665408\,a(n-46)
+a(n)\;=\;490\,a(n-3) + 12320\,a(n-4) + 32334\,a(n-5) + 174761\,a(n-6) + 728620\,a(n-7) - 4478227\,a(n-8) - 7207644\,a(n-9) - 27000775\,a(n-10) - 86386386\,a(n-11) + 547827458\,a(n-12) + 554856222\,a(n-13) + 536708856\,a(n-14) + 1329549296\,a(n-15) - 23669830297\,a(n-16) - 6434035554\,a(n-17) + 56696777905\,a(n-18) - 15832476910\,a(n-19) + 164427921697\,a(n-20) + 62206824756\,a(n-21) - 828346221747\,a(n-22) - 204063315132\,a(n-23) + 1304893695215\,a(n-24) + 680120199232\,a(n-25) - 1013570261870\,a(n-26) - 1248410862186\,a(n-27) + 90792816132\,a(n-28) + 976633774310\,a(n-29) + 607888452553\,a(n-30) - 146598881908\,a(n-31) - 552981695101\,a(n-32) - 391639304456\,a(n-33) - 26300252816\,a(n-34) + 231598966342\,a(n-35) + 224335145560\,a(n-36) + 43215570986\,a(n-37) - 60284011665\,a(n-38) - 57945132090\,a(n-39) - 18549813839\,a(n-40) + 6197072112\,a(n-41) + 6419665863\,a(n-42) + 2191120924\,a(n-43) + 363299396\,a(n-44) - 86845568\,a(n-45) - 25033872\,a(n-46)
 \]
 for every $n>46$.
 \end{theorem}
@@ -119,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236296.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237906.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

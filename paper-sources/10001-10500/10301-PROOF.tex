@@ -12,73 +12,73 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A229406, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207276, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229406 counts arrays of width $2$ over $\{0,1,2,3\}$ containing no occurrence of certain short
+OEIS A207276 counts arrays of width $1$ over $\{0,1,2,3\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: no pattern is longer than $2$ letters and no direction moves the row
-index by more than one, so every occurrence lies inside $2$ consecutive array rows and the
-count is a walk count on $S=16$ states.
+rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
+count is a walk count on $S=21$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A229406 is ``Number of n X 2 0..3 arrays avoiding 11 horizontally, 22 vertically, 33 antidiagonally and 00 diagonally.''. It has offset $1$ and begins
+OEIS A207276 is ``Number of n X 1 0..3 arrays avoiding the patterns z z+1 z or z z-1 z in any row, column, diagonal or antidiagonal.''. It has offset $1$ and begins
 \[
-15, 163, 1756, 18712, 199595, 2127718, 22684613, 241841143,\ \dots
+4, 16, 58, 214, 788, 2902, 10686, 39350,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) + 13*a(n-2) - 67*a(n-3) + 38*a(n-4) - 2*a(n-5).
+Empirical: a(n) = 3*a(n-1) + 2*a(n-2) + a(n-3) + 3*a(n-4) + a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 15 2018 05:30:04, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 20 2018 14:26:30, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2,3\}$. An OCCURRENCE of a pattern in a
+The array has $1$ cells across, with entries in $\{0,1,2,3\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & \mathtt{11} \\
-\text{down a column} & \mathtt{22} \\
-\text{down an antidiagonal, ne to sw} & \mathtt{33} \\
-\text{down a diagonal, nw to se} & \mathtt{00} \\
+\text{along a row, left to right} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down a column} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down a diagonal, nw to se} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down an antidiagonal, ne to sw} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
 \end{array}
 \]
+ A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
 
-
-\section{Every occurrence lies in $2$ consecutive rows}
+\section{Every occurrence lies in $3$ consecutive rows}
 
 \begin{lemma}\label{lem:win}
 Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
-next, and no pattern is longer than $2$ letters. Hence every occurrence lies inside $2$
+next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
 consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
-$i-1,\dots,i$.
+$i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
 Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
 \end{proof}
 
-So the state is the window of the last $1$ array rows, a row still to come being written
+So the state is the window of the last $2$ array rows, a row still to come being written
 $\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
 inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
 and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=16.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=21.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -103,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) + 13\,a(n-2) - 67\,a(n-3) + 38\,a(n-4) - 2\,a(n-5)
+a(n)\;=\;3\,a(n-1) + 2\,a(n-2) + a(n-3) + 3\,a(n-4) + a(n-5)
 \]
-for every $n>4$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -119,7 +119,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229406.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207276.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

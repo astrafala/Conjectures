@@ -12,87 +12,107 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A240401, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A205228, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240401 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
-constant plus the SUM of all the entries lying before it along one of several rays. The entry
-carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical. None of those sums is bounded and none is local, but
-each is built one term at a time, so its residue modulo $4$ is carried in the state; the
-count is then a walk count on $S=24$ states.
+OEIS A205228 counts arrays of width $2$ over $\{0,1,2\}$ by reducing every $2\times2$ subblock to a
+single number---here the permanent---and requiring the resulting derived array to have its rows
+lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
+empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The row comparison is settled by three consecutive rows of the
+array; the column comparison is not settled by any bounded window, but what is still outstanding
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=38$
+states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A240401 is ``Number of nX2 0..3 arrays with no element equal to one plus the sum of elements to its left or three plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
+OEIS A205228 is ``Number of (n+1) X 2 0..2 arrays with rows and columns of permanents of all 2 X 2 subblocks lexicographically nondecreasing, and all 2 X 2 permanents nonzero.''. It has offset $1$ and begins
 \[
-2, 5, 14, 24, 77, 182, 397, 1164,\ \dots
+56, 266, 1187, 4584, 17010, 58892, 198325, 642908,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-2) +10*a(n-3) -3*a(n-4) -6*a(n-5) -3*a(n-6) +8*a(n-7) -7*a(n-8) -9*a(n-9) -4*a(n-10) +13*a(n-11) -14*a(n-12) +17*a(n-13) -a(n-15)
+Empirical: a(n) = 5*a(n-1) +8*a(n-2) -69*a(n-3) +389*a(n-5) -198*a(n-6) -1143*a(n-7) +865*a(n-8) +1830*a(n-9) -1686*a(n-10) -1468*a(n-11) +1612*a(n-12) +376*a(n-13) -616*a(n-14) +96*a(n-15).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:54:39, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Apr 27 2023 15:05:27, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
-rays out of a cell $(i,j)$, with the constant it attaches to each:
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
+$2\times2$ subblock of such an array is
 \[
-\begin{array}{lll}
-\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
-\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
-\text{north} & (i-1,j),(i-2,j),\dots & 3 \\
-\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
-\end{array}
+B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
+\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
-inside the array, the condition is
+The entry attaches to $B$ the single number
 \[
-x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
+f(B)\;=\;\operatorname{per}B=ps+qr,
 \]
-for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
-zero.
-
-\section{The rays as a bounded state}
-
-Take the array one $row$ at a time, in the direction in which it grows, and index the
-positions of a $row $ by $p$. Let $x$ be the $row$ just written.
-
-\begin{lemma}\label{lem:rays}
-Along the $row$s, the 3 ray sums named by this entry satisfy
+the permanent. An array with $R$ rows and $2$ columns has $(R-1)\times1$ subblocks, and they
+form a derived array
 \[
-\begin{aligned}
-\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
-U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
-NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0 .
-\end{aligned}
+D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
+\right),\qquad 0\le i<R-1,\;\; 0\le j<1 .
 \]
+Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
+$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
+rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
+\[
+D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
+\]
+and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
+from left to right,
+\[
+D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
+\]
+
+The entry asks in addition that no subblock statistic be zero, which is a condition on one subblock at a time.
+
+
+\section{A bounded state}
+
+Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
+so the row condition is decided three array rows at a time and needs no memory beyond the
+derived row just formed. The column condition is different: which of two columns of $D$ is the
+smaller is decided by the first derived row in which they differ, and that row can be
+arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+
+\begin{lemma}\label{lem:bits}
+Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
+every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
+at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
+holds; and if no such row occurs the two columns are equal and the condition holds. If instead
+$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
+such $t$ and no later row can change it.
 \end{lemma}
 
 \begin{proof}
-Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
-moves a cell one step along the north ray, one step along the northwest ray together with one
-position to the right, and one step along the northeast ray together with one position to the
-left; in each case exactly the cell just left behind is the new term. At the border of the
-array the diagonal rays are empty, which is the stated boundary value.
+Immediate from the definition of the lexicographic order: it looks only at the first index at
+which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
-Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
-of the walk writes a whole $row$: the position $p$ is filled left to right and the
-running total of the west ray is carried along as it is filled, so every cell is tested
-against every ray at the moment it is written. The walk starts at the all-zero state, the empty
-array, and every state may end one, so $\tau=\mathbf{1}$ and
+So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
+far''---carries everything the future needs to know, and there are $0$ such pairs. The state
+is therefore
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=24.
+\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
+\text{the 0 bits}\bigr),
+\]
+with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
+of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
+for the row condition, and for each pair still flagged either leaves the flag set (the pair
+agreed again) or clears it after checking the required inequality once. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=38.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -117,7 +137,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-2) + 10\,a(n-3) - 3\,a(n-4) - 6\,a(n-5) - 3\,a(n-6) + 8\,a(n-7) - 7\,a(n-8) - 9\,a(n-9) - 4\,a(n-10) + 13\,a(n-11) - 14\,a(n-12) + 17\,a(n-13) - a(n-15)
+a(n)\;=\;5\,a(n-1) + 8\,a(n-2) - 69\,a(n-3) + 389\,a(n-5) - 198\,a(n-6) - 1143\,a(n-7) + 865\,a(n-8) + 1830\,a(n-9) - 1686\,a(n-10) - 1468\,a(n-11) + 1612\,a(n-12) + 376\,a(n-13) - 616\,a(n-14) + 96\,a(n-15)
 \]
 for every $n>15$.
 \end{theorem}
@@ -133,13 +153,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time in the orientation the entry's own name writes and, for each candidate
-value, walk each ray to the edge of the array and add the entries up. No residue, no state and
-no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $2$ over $\{0,1,2\}$ with two and with three rows was written out cell by cell,
+the derived array formed, and its rows and its columns compared as whole words. No state, no
+bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -149,7 +170,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240401.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205228.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,76 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250466, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183327, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250466 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=128$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A183327 counts arrays of width $6$ over $\{0,1\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
+order $41$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=947$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A250466 is ``Number of (n+1)X(6+1) 0..1 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
+OEIS A183327 is ``Number of n X 6 binary arrays with each 1 adjacent to exactly two other 1's.''. It has offset $1$ and begins
 \[
-1741, 40124, 847278, 18018051, 381830463, 8093522514, 171499189113, 3634222052535,\ \dots
+1, 9, 37, 179, 996, 4740, 21259, 96524,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +341*a(n-2) -140*a(n-3) -26087*a(n-4) -11140*a(n-5) +905202*a(n-6) +320648*a(n-7) -17475892*a(n-8) -1365694*a(n-9) +206007224*a(n-10) -44788000*a(n-11) -1559558596*a(n-12) +750137354*a(n-13) +7802430054*a(n-14) -5490868104*a(n-15) -26214099595*a(n-16) +23387483566*a(n-17) +59682318683*a(n-18) -63249448212*a(n-19) -92552555877*a(n-20) +113338105026*a(n-21) +97922922144*a(n-22) -138114844800*a(n-23) -70332228080*a(n-24) +116307538432*a(n-25) +33684598752*a(n-26) -68218694848*a(n-27) -10269373504*a(n-28) +27867808832*a(n-29) +1732942784*a(n-30) -7855049600*a(n-31) -56257536*a(n-32) +1495126016*a(n-33) -37505024*a(n-34) -184716288*a(n-35) +7526400*a(n-36) +13803520*a(n-37) -587776*a(n-38) -544768*a(n-39) +16384*a(n-40) +8192*a(n-41)
+Empirical: a(n)=7*a(n-1)-18*a(n-2)+38*a(n-3)-48*a(n-4)+110*a(n-5)-30*a(n-6)+13*a(n-7)+12*a(n-8)-168*a(n-9)+12*a(n-10)+396*a(n-11)+2076*a(n-12)-2107*a(n-13)-11936*a(n-14)-23630*a(n-15)-11374*a(n-16)+33929*a(n-17)+86596*a(n-18)+85928*a(n-19)-5767*a(n-20)-137160*a(n-21)-186375*a(n-22)-82400*a(n-23)+98660*a(n-24)+206026*a(n-25)+154539*a(n-26)+271*a(n-27)-129682*a(n-28)-144333*a(n-29)-59907*a(n-30)+31467*a(n-31)+61883*a(n-32)+37532*a(n-33)+5039*a(n-34)-7723*a(n-35)-5583*a(n-36)-944*a(n-37)+520*a(n-38)+332*a(n-39)+24*a(n-40)-32*a(n-41).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:27:01, revision 6) this is still
+As of the ``Last modified'' line on the live entry (May 03 2023 21:14:45, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across and entries $x(i,j)\in\{0,1\}$.
+The array has $6$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has exactly $2$ of its four neighbours carrying $1$;
+\end{itemize}
+and nothing else.
 
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
-\[
-b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
-\]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
-\[
-c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
-\]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the smaller of a cell and its left neighbour, and the vertical one is
-the smaller of a cell and the cell above it.
-
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
-
-\section{A bounded window}
+\section{Three rows decide everything}
 
 \begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $2^{7}=128$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
+written, so the condition for the LAST row of an array belongs to the end vector, which asks
+whether that row is satisfied with nothing below it. The end vector is therefore not the
+all-ones vector: a row satisfied only because a further row is written below it does not
+finish an array. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=128.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=947.
 \]
-
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -105,7 +100,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 341\,a(n-2) - 140\,a(n-3) - 26087\,a(n-4) - 11140\,a(n-5) + 905202\,a(n-6) + 320648\,a(n-7) - 17475892\,a(n-8) - 1365694\,a(n-9) + 206007224\,a(n-10) - 44788000\,a(n-11) - 1559558596\,a(n-12) + 750137354\,a(n-13) + 7802430054\,a(n-14) - 5490868104\,a(n-15) - 26214099595\,a(n-16) + 23387483566\,a(n-17) + 59682318683\,a(n-18) - 63249448212\,a(n-19) - 92552555877\,a(n-20) + 113338105026\,a(n-21) + 97922922144\,a(n-22) - 138114844800\,a(n-23) - 70332228080\,a(n-24) + 116307538432\,a(n-25) + 33684598752\,a(n-26) - 68218694848\,a(n-27) - 10269373504\,a(n-28) + 27867808832\,a(n-29) + 1732942784\,a(n-30) - 7855049600\,a(n-31) - 56257536\,a(n-32) + 1495126016\,a(n-33) - 37505024\,a(n-34) - 184716288\,a(n-35) + 7526400\,a(n-36) + 13803520\,a(n-37) - 587776\,a(n-38) - 544768\,a(n-39) + 16384\,a(n-40) + 8192\,a(n-41)
+a(n)\;=\;7\,a(n-1) - 18\,a(n-2) + 38\,a(n-3) - 48\,a(n-4) + 110\,a(n-5) - 30\,a(n-6) + 13\,a(n-7) + 12\,a(n-8) - 168\,a(n-9) + 12\,a(n-10) + 396\,a(n-11) + 2076\,a(n-12) - 2107\,a(n-13) - 11936\,a(n-14) - 23630\,a(n-15) - 11374\,a(n-16) + 33929\,a(n-17) + 86596\,a(n-18) + 85928\,a(n-19) - 5767\,a(n-20) - 137160\,a(n-21) - 186375\,a(n-22) - 82400\,a(n-23) + 98660\,a(n-24) + 206026\,a(n-25) + 154539\,a(n-26) + 271\,a(n-27) - 129682\,a(n-28) - 144333\,a(n-29) - 59907\,a(n-30) + 31467\,a(n-31) + 61883\,a(n-32) + 37532\,a(n-33) + 5039\,a(n-34) - 7723\,a(n-35) - 5583\,a(n-36) - 944\,a(n-37) + 520\,a(n-38) + 332\,a(n-39) + 24\,a(n-40) - 32\,a(n-41)
 \]
 for every $n>40$.
 \end{theorem}
@@ -114,20 +109,20 @@ for every $n>40$.
 The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=40+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -137,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250466.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183327.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

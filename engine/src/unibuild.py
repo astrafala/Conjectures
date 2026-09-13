@@ -14,6 +14,10 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    # the entry counts distinct IMAGES, not arrays, so the vertices are not windows but
+    # sets of them: the inputs still consistent with the output emitted so far.
+    'winimage': ("a set of input windows -- those consistent with the output word so "
+                 "far -- states with the same future behaviour being identified"),
     'conn2': ("the current row, which of its 1s lie in the same component of the region "
               "seen so far, whether that component has closed off, and whether a 1 has "
               "yet appeared in the left column and in the right"),
