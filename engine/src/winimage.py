@@ -27,8 +27,30 @@ STAT = re.compile(
     r'(.*?)\s*\.?\s*$', re.I)
 
 
+# The same map written the other way round: the entry names the OUTPUT length first and calls
+# the input "a random ... array of n+k-1 elements". 25 entries are written that way and no
+# sweep could read one of them.
+FILT = re.compile(
+    r'(?i)^Number of n[- ]element (-?\d+)\.\.(-?\d+) arrays with each element the '
+    r'(minimum|maximum|median) of (\d+) adjacent elements of a random (-?\d+)\.\.(-?\d+) '
+    r'array of n\+(\d+) elements\s*\.?\s*$')
+
+
 def parse_name(nm):
     nm = ' '.join(nm.split())
+    m = FILT.match(nm)
+    if m:
+        lo, hi = int(m.group(1)), int(m.group(2))
+        if (int(m.group(5)), int(m.group(6))) != (lo, hi):
+            return None                       # the two alphabets must be the same one
+        w, off = int(m.group(4)), int(m.group(7))
+        if off != w - 1 or hi - lo > 8 or w < 2 or w > 8:
+            return None
+        st = {'minimum': 'minima', 'maximum': 'maxima', 'median': 'median'}[m.group(3).lower()]
+        if st == 'median' and w % 2 == 0:
+            return None                       # no median of an even window is named here
+        return {'engine': 'winimage', 'kind': st, 'k': w - 1, 'off': off,
+                'lo': lo, 'hi': hi, 'cond': None, 'frac': 1}
     m = DIFF.match(nm)
     if m:
         k = WORD[m.group(1).lower()]

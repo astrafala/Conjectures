@@ -705,3 +705,26 @@ or 2 with sum zero" entries as read by no engine. `coverzero` reads all sixteen,
 them are already in the roster, proved this morning. That is defect 1 for the eighth time: the
 pool is a snapshot and every engine written since invalidates it. It is re-measured below rather
 than trusted.
+
+## 13 September 2026 — two more, both found by asking what the pool still could not read
+
+    Number of n element 0..2 arrays with each element the minimum of 7 adjacent elements of a
+      random 0..2 array of n+6 elements.
+    Number of 0..5 arrays x(0..n-1) of n elements with each no smaller than the sum of its two
+      previous neighbors modulo 6.
+
+**`winimage`, widened: 10 entries.** The same sliding-window image the engine was written for,
+with the name written the other way round — the entry gives the OUTPUT length first and calls
+the input "a random 0..2 array of n+6 elements" instead of "some length n+6 0..2 array". Not a
+new model; a new sentence. That is the shape of most of what the pool still holds.
+
+**`modprev`: 11 entries.** Each element must be no smaller than a sum of earlier ones taken
+modulo M. The sums are unbounded and the condition is not. For the "k previous neighbors" form
+the sum runs over a window, so the state is the last k values — their residue is what the
+condition reads, but the window must be carried in full because the oldest value leaves it. For
+the "previous elements" form the sum runs over everything read so far, and the running total
+modulo M IS the state, one vertex per residue. At the start there are fewer previous elements
+than the window asks for; the entries' own terms say the sum is over those that exist, so x(0)
+is unconstrained and a(1) is the whole alphabet, and every published term follows.
+
+**21 names read and proved; every one reproducing its entry's published data exactly.**

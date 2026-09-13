@@ -85,6 +85,11 @@ WINDOW = {
     'partsum': ("the leading partial sum modulo the least common multiple of the divisors "
                 "the entry names -- the sums themselves are unbounded, and divisibility by "
                 "any of the divisors is decided by that residue alone"),
+    # the sum is unbounded; the modulus is what makes the state finite. For the windowed
+    # form the window must be carried in full, because the oldest value leaves it.
+    'modprev': ("the last few values, or -- when the sum runs over everything read so far "
+                "-- the running total modulo the entry's own modulus, the sums themselves "
+                "being unbounded and only their residue being read"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
