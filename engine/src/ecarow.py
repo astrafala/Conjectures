@@ -91,7 +91,23 @@ def build(p, cap=200000):
     ws = rows(p['rule'], 80)
     s = shape(ws)
     if s is None:
-        return None
+        # One pair serving every n is too rigid. Rule 1 alternates between 1^k 000 1^k and
+        # 0^k 1 0^k: the identity holds with L = R = "11" on the odd n and "00" on the even,
+        # and no single pair serves both. `ca2d' has allowed a pair per residue class of n
+        # since its bound was corrected; this engine never did, and 180 entries it reads sat
+        # outside the roster because of it.
+        import ecacount
+        t = ecacount.shape_res(ws)
+        if t is None:
+            return None
+        n0, per, pairs = t
+        B = p['base']
+        lam = {1}
+        for L, R in pairs.values():
+            lam.add(B ** len(R))
+            lam.add(B ** (len(L) + len(R)))
+        return {'rule': p['rule'], 'B': B, 'n0': n0, 'p': per, 'pairs': pairs,
+                'ws': ws, 'S': len(lam) * per + n0 + per}
     n0, per, L, R = s
     # the annihilator of a(n): the shape gives a(n+p) = a(n)*B^|R| + val(L)*B^(2n+1+|R|)
     # + val(R), so (S^p - B^|R|) kills the first term and leaves a geometric B^(2n) and a
@@ -118,9 +134,10 @@ def terms(b, N):
 def certify(b, upto=80):
     """how far past the settling point the shape identity was checked"""
     ws = rows(b['rule'], upto)
-    n0, p, L, R = b['n0'], b['p'], b['L'], b['R']
+    n0, p = b['n0'], b['p']
     k = 0
     for n in range(n0, len(ws) - p):
+        L, R = b['pairs'][n % p] if 'pairs' in b else (b['L'], b['R'])
         if ws[n + p] != L + ws[n] + R:
             break
         k += 1
