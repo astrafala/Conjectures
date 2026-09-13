@@ -154,3 +154,28 @@ Each gives a proved period; the exact one is a divisor found inside one window o
 rows, which is a finite check. A rule meeting none of the three is refused: its column may well
 be periodic, and saying so would be an observation. **72 names read, 18 proved and installed as
 `automaton-column`**; rules 25, 109, 137 and 169 are the ones refused.
+
+## 13 September 2026 — `arrlex`: n X k arrays ordered lexicographically
+
+The 198 `n X k` entries in the pool are transfer-matrix shaped — growing height, fixed width,
+fixed alphabet — so what stops them is the condition vocabulary, not the model. The largest
+condition that can be carried in a finite state is the lexicographic one, and neither half of it
+is local to a pair of rows, which is why nothing read them:
+
+* rows lexicographically nondecreasing IS local, a condition on the pair;
+* **columns** lexicographically nondecreasing is not — column j and column j+1 are compared
+  over the whole height — but one flag per adjacent pair carries it;
+* and `every element equal to at least one horizontal or vertical neighbour' is not either,
+  since an element's obligation can be met by the row BELOW, which has not been chosen yet.
+  One bit per position carries that, and the walk may only end with none outstanding.
+
+The `read forwards, and nonincreasing read backwards' variant needed the flag widened from two
+values to three. Read forwards a column pair is decided by its FIRST difference; read backwards
+(bottom to top) by its LAST. So the flag is: the two still agree; they have differed and the
+latest difference was `less'; they have differed and the latest was `greater'. A pair whose
+first difference goes the wrong way is dead either way, and at the end the backward condition
+rejects `latest was less'. Reading it as a two-state flag gave 5 where the entry says 2 on a
+single row, which is what said the reading was wrong.
+
+**34 names read, every one of the 11 checked reproducing its entry's published data exactly;
+11 proved and installed as `lexicographic-array`.** The rest carry no parsable recurrence.

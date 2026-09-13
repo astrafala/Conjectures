@@ -14,6 +14,13 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    # not a window at all: the state is the previous row together with the flags that carry
+    # the two conditions no window can decide -- one per adjacent column pair for the
+    # lexicographic comparison down the whole height, and one per position for an obligation
+    # only a row BELOW can meet. Saying 'a window of consecutive lines' here would be false.
+    'arrlex': ("the previous row together with, for each adjacent pair of columns, whether "
+               "they still agree and which way their latest difference went, and, for each "
+               "position, whether its obligation to equal a neighbour is still outstanding"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
