@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253700, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253701, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253700 counts arrays of width $4$ over $\{0,1\}$ in which two diagonal numbers of every $2\times2$ subblock each differ from the same number at a neighbouring subblock. The entry carries an
+OEIS A253701 counts arrays of width $5$ over $\{0,1\}$ in which two diagonal numbers of every $2\times2$ subblock each differ from the same number at a neighbouring subblock. The entry carries an
 empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a block of $k$ rows and the block one row lower together
 occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
-$3$ consecutive rows and the count is a walk count on $S=121$ states.
+$3$ consecutive rows and the count is a walk count on $S=297$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253700 is ``Number of (3+1)X(n+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference unequal to its neighbors horizontally and nw+se diagonal sum unequal to its neighbors vertically.''. It has offset $1$ and begins
+OEIS A253701 is ``Number of (4+1)X(n+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference unequal to its neighbors horizontally and nw+se diagonal sum unequal to its neighbors vertically.''. It has offset $1$ and begins
 \[
-104, 146, 234, 356, 618, 968, 1608, 2558,\ \dots
+264, 304, 480, 700, 992, 1262, 1790, 2538,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-2) +2*a(n-4) +2*a(n-5) -3*a(n-6) +a(n-7) -a(n-8) -6*a(n-9) +2*a(n-10) -2*a(n-12) -3*a(n-13) +a(n-14) +6*a(n-15) +a(n-16) +a(n-17) -a(n-18) -a(n-19) for n>21
+Empirical: a(n) = 2*a(n-2) +a(n-4) +a(n-5) -3*a(n-6) +2*a(n-7) +a(n-8) -9*a(n-9) +2*a(n-10) +4*a(n-11) -3*a(n-12) +7*a(n-13) -5*a(n-15) -a(n-17) +a(n-18) +a(n-19) for n>26
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:10:22, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:10:29, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$.
+The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$.
 
 The entry states two conditions at once. For a $k\times k$ block $B$ of
 cells of the array put
@@ -103,7 +103,7 @@ further test: all of its comparisons already lie inside the windows of those ste
 
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=121,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=297,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -129,15 +129,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-2) + 2\,a(n-4) + 2\,a(n-5) - 3\,a(n-6) + a(n-7) - a(n-8) - 6\,a(n-9) + 2\,a(n-10) - 2\,a(n-12) - 3\,a(n-13) + a(n-14) + 6\,a(n-15) + a(n-16) + a(n-17) - a(n-18) - a(n-19)
+a(n)\;=\;2\,a(n-2) + a(n-4) + a(n-5) - 3\,a(n-6) + 2\,a(n-7) + a(n-8) - 9\,a(n-9) + 2\,a(n-10) + 4\,a(n-11) - 3\,a(n-12) + 7\,a(n-13) - 5\,a(n-15) - a(n-17) + a(n-18) + a(n-19)
 \]
-for every $n>21$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -145,11 +145,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $4$ over $\{0,1\}$ with a few rows was written out cell by cell, every block of
+array of width $5$ over $\{0,1\}$ with a few rows was written out cell by cell, every block of
 that one size was located, its number computed, and the comparison made with each neighbouring block
 that lies inside the array. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
@@ -162,7 +162,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253700.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253701.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

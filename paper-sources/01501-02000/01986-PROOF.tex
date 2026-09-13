@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197437, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231140, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197437 counts arrays of width $3$ over $\{0,1,2\}$ in which no cell is the average of its neighbours. The entry carries an
+OEIS A231140 counts arrays of width $4$ over $\{0,1,2\}$ in which no cell matches a strict majority of its neighbours. The entry carries an
 empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above
 it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=757$ states.
+$3$ consecutive rows and the count is a walk count on $S=4936$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A197437 is ``Number of nX3 0..2 arrays with no element equal to the average of its horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A231140 is ``Number of (n+1)X(3+1) 0..2 arrays with no element equal to a strict majority of its horizontal and vertical neighbors, with upper left element zero.''. It has offset $1$ and begins
 \[
-10, 246, 5032, 98356, 1933358, 37989740, 746250884, 14659367358,\ \dots
+570, 22870, 966000, 40511376, 1701515682, 71441888932, 2999853495524, 125962412008712,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) +35*a(n-2) -61*a(n-3) -13*a(n-4) +3117*a(n-5) +3379*a(n-6) +1915*a(n-7) -67360*a(n-8) -241591*a(n-9) -226996*a(n-10) +25375*a(n-11) +737089*a(n-12) +3126672*a(n-13) +3761574*a(n-14) +8031291*a(n-15) +9053025*a(n-16) +7428456*a(n-17) +25883807*a(n-18) +11917914*a(n-19) +14247252*a(n-20) +5335644*a(n-21) -69627357*a(n-22) -48977927*a(n-23) -98422209*a(n-24) -56620180*a(n-25) +67901295*a(n-26) -96860898*a(n-27) +25847034*a(n-28) -67349647*a(n-29) -153324952*a(n-30) +90828708*a(n-31) -117791700*a(n-32) +28167574*a(n-33) +26039914*a(n-34) +9358608*a(n-35) +120580068*a(n-36) +20754360*a(n-37) +34657880*a(n-38) -2770312*a(n-39) -6927312*a(n-40) -404512*a(n-41) -845376*a(n-42) +714752*a(n-43) -98304*a(n-44) -17408*a(n-45) +8192*a(n-46)
+Empirical: a(n) = 43*a(n-1) -15*a(n-2) -1374*a(n-3) +10633*a(n-4) -56952*a(n-5) +114570*a(n-6) -239541*a(n-7) +3041986*a(n-8) -17861828*a(n-9) +58365458*a(n-10) -62338989*a(n-11) -251648626*a(n-12) +335697507*a(n-13) +1178413953*a(n-14) +2244379849*a(n-15) -7023078091*a(n-16) -9155731119*a(n-17) +3188972279*a(n-18) +9050748100*a(n-19) +17752695597*a(n-20) +18730586476*a(n-21) -4049075552*a(n-22) -27111946390*a(n-23) -26603876436*a(n-24) -5290500709*a(n-25) +34077168659*a(n-26) +73977083037*a(n-27) +20877757434*a(n-28) -101325400702*a(n-29) -121656003798*a(n-30) +24053746682*a(n-31) +124533338236*a(n-32) +71767911424*a(n-33) -39392055372*a(n-34) -60164690192*a(n-35) -17731852672*a(n-36) +10549750816*a(n-37) +10420762112*a(n-38) +1890718720*a(n-39) -68985344*a(n-40) -136270848*a(n-41) -103795712*a(n-42) -115070976*a(n-43) +29294592*a(n-44) +4521984*a(n-45) -1048576*a(n-46)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:13:12, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:16:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $3$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
 list of offsets the entry names,
 \[
 \Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
@@ -56,11 +56,11 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that no cell equals the average of the neighbours it has:
+The condition is that no cell is equal to a strict majority of its neighbours:
 \[
-x(i,j)\;\neq\;\frac{1}{|S(i,j)|}\sum_{(a,b)\in S(i,j)}x(a,b)
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
 \]
-whenever $S(i,j)$ is not empty. A cell with no neighbour at all is under no condition, and that is what the entry's first published term says.
+Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition. The entry adds that the top-left cell is $0$.
 
 \section{A window of 3 rows}
 
@@ -81,7 +81,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4936,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -107,7 +107,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) + 35\,a(n-2) - 61\,a(n-3) - 13\,a(n-4) + 3117\,a(n-5) + 3379\,a(n-6) + 1915\,a(n-7) - 67360\,a(n-8) - 241591\,a(n-9) - 226996\,a(n-10) + 25375\,a(n-11) + 737089\,a(n-12) + 3126672\,a(n-13) + 3761574\,a(n-14) + 8031291\,a(n-15) + 9053025\,a(n-16) + 7428456\,a(n-17) + 25883807\,a(n-18) + 11917914\,a(n-19) + 14247252\,a(n-20) + 5335644\,a(n-21) - 69627357\,a(n-22) - 48977927\,a(n-23) - 98422209\,a(n-24) - 56620180\,a(n-25) + 67901295\,a(n-26) - 96860898\,a(n-27) + 25847034\,a(n-28) - 67349647\,a(n-29) - 153324952\,a(n-30) + 90828708\,a(n-31) - 117791700\,a(n-32) + 28167574\,a(n-33) + 26039914\,a(n-34) + 9358608\,a(n-35) + 120580068\,a(n-36) + 20754360\,a(n-37) + 34657880\,a(n-38) - 2770312\,a(n-39) - 6927312\,a(n-40) - 404512\,a(n-41) - 845376\,a(n-42) + 714752\,a(n-43) - 98304\,a(n-44) - 17408\,a(n-45) + 8192\,a(n-46)
+a(n)\;=\;43\,a(n-1) - 15\,a(n-2) - 1374\,a(n-3) + 10633\,a(n-4) - 56952\,a(n-5) + 114570\,a(n-6) - 239541\,a(n-7) + 3041986\,a(n-8) - 17861828\,a(n-9) + 58365458\,a(n-10) - 62338989\,a(n-11) - 251648626\,a(n-12) + 335697507\,a(n-13) + 1178413953\,a(n-14) + 2244379849\,a(n-15) - 7023078091\,a(n-16) - 9155731119\,a(n-17) + 3188972279\,a(n-18) + 9050748100\,a(n-19) + 17752695597\,a(n-20) + 18730586476\,a(n-21) - 4049075552\,a(n-22) - 27111946390\,a(n-23) - 26603876436\,a(n-24) - 5290500709\,a(n-25) + 34077168659\,a(n-26) + 73977083037\,a(n-27) + 20877757434\,a(n-28) - 101325400702\,a(n-29) - 121656003798\,a(n-30) + 24053746682\,a(n-31) + 124533338236\,a(n-32) + 71767911424\,a(n-33) - 39392055372\,a(n-34) - 60164690192\,a(n-35) - 17731852672\,a(n-36) + 10549750816\,a(n-37) + 10420762112\,a(n-38) + 1890718720\,a(n-39) - 68985344\,a(n-40) - 136270848\,a(n-41) - 103795712\,a(n-42) - 115070976\,a(n-43) + 29294592\,a(n-44) + 4521984\,a(n-45) - 1048576\,a(n-46)
 \]
 for every $n>46$.
 \end{theorem}
@@ -123,11 +123,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $3$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+array of width $4$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +139,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197437.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231140.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

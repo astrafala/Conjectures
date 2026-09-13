@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A208375, proved}
+\title{The conjectured generating function for OEIS A250768, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208375 counts arrays of a fixed width under a local condition, and carries a conjectured
+OEIS A250768 counts arrays of a fixed width under a local condition, and carries a conjectured
 generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=111$ vertices, so its generating function is a rational function whose numerator
+digraph on $S=256$ vertices, so its generating function is a rational function whose numerator
 and denominator have degrees bounded by $S$; the conjectured expression is another rational
 function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $120$ coefficients in exact arithmetic
+coefficients of their expansions do. Comparing $264$ coefficients in exact arithmetic
 therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
@@ -32,15 +32,15 @@ therefore settles the conjecture, rather than testing it.
 
 \section{The conjecture}
 
-OEIS A208375 is ``Number of n X 4 0..1 arrays avoiding 0 0 0 and 1 1 1 horizontally and 0 0 1 and 1 0 1 vertically.''. It has offset $1$ and begins
+OEIS A250768 is ``Number of (n+1) X (7+1) 0..1 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-10, 100, 240, 420, 640, 900,\ \dots
+519, 798, 1158, 1680, 2526, 4020,\ \dots
 \]
 The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-G.f.: 10*x*(1 + 7*x - 3*x\^{}2 - x\^{}3) / (1 - x)\^{}3.
+Empirical g.f.: 3*x*(173 - 426*x + 187*x\^{}2) / ((1 - x)\^{}2*(1 - 2*x)). - \_Colin Barker\_, Nov 19 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 02 2018 05:45:47, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Nov 19 2018 07:18:34, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. The entry carries no
 conjectured recurrence, which is why this generating function is the whole of what is open
 here.
@@ -59,12 +59,12 @@ in,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
 \]
-and there are $S=111$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $40$ terms the entry publishes, exactly, in integer arithmetic --- a
+and there are $S=256$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $27$ terms the entry publishes, exactly, in integer arithmetic --- a
 misreading of the condition gives a different digraph and different counts, so this ties the
 model to the entry and not merely to the arithmetic.
 
-The family this entry belongs to is read by one model, described by its author as: ```... arrays avoiding patterns 001 and 100 in rows and columns' and its relatives.''
+The family this entry belongs to is read by one model, described by its author as: ```... arrays with nondecreasing <f>(x(i,j),x(i,j-1)) in the i direction and nondecreasing <g>(x(i,j),x(i-1,j)) in the j direction' and `... with nondecreasing <statistic> of every <k> consecutive values in every row and column'.''
 
 
 \section{Its generating function is rational, with bounded degree}
@@ -87,19 +87,19 @@ The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=4$ and $\deg D_2=3$; its expansion as a
+Write the conjecture as $N_2/D_2$ with $\deg N_2=3$ and $\deg D_2=3$; its expansion as a
 power series exists because $D_2(0)\neq0$. Put
 \[
 R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
 \]
-a polynomial of degree at most $115$ by Lemma~\ref{lem:rat}. The difference
+a polynomial of degree at most $259$ by Lemma~\ref{lem:rat}. The difference
 $A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{115}$ then $R$ has a zero of order greater than its own
+every coefficient up to $x^{259}$ then $R$ has a zero of order greater than its own
 degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
 
 The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $120$
-of them --- more than the $115+1$ the argument requires --- agree.
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $264$
+of them --- more than the $259+1$ the argument requires --- agree.
 \end{proof}
 
 \section{A recurrence the entry does not state}
@@ -108,17 +108,17 @@ The denominator of a rational generating function is a linear recurrence written
 the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
 $D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
 \[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>4,
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>3,
 \]
 a constant-coefficient linear recurrence of order $3$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $3,\ -3,\ 1$. The entry records no recurrence, so this is not a restatement of anything
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $4,\ -5,\ 2$. The entry records no recurrence, so this is not a restatement of anything
 already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $40$ published terms, with the index shift
+First, the model reproduces every one of the $27$ published terms, with the index shift
 read off the entry's offset rather than fitted.
 
 Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
@@ -132,7 +132,7 @@ bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208375.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250768.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

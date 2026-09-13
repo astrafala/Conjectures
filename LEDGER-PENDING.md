@@ -209,3 +209,22 @@ evaluated rather than one that merely exists:
 published data exactly; 52 proved and installed as `pairwise-compatible-array`.** The triple
 condition over -3..3 is refused: it is not pairwise, so the state must carry the set of pairs
 used rather than the set still allowed, and at 49 pairs that space is past any budget.
+
+## 13 September 2026 — `permset`: displacements restricted to a SET
+
+23 entries read `Number of permutations of 1..n with displacements restricted to
+{-5,-4,-2,0,1,3}.` and nothing read one. `permdisp` counts permutations whose displacement lies
+in an INTERVAL -d..d and reads a different name shape; here the allowed set has holes in it,
+which the same walk handles without changing anything but which values a step may choose.
+
+Build the permutation left to right. At position i the value placed is i+delta for delta in D,
+so only the values in the window [i−L, i+R] are ever in play, with L = −min D and R = max D.
+Carry a bitmask of which of those W = L+R+1 values are used and slide the window one place each
+step; the value i−L can never be reached again once position i is passed, so it must be used by
+then, and that is the whole constraint on the slide. Before position 1 the window's values below
+1 do not exist, so their bits start set; after n positions every value at most n is used and
+every value above n does not exist, so the accepting mask is the one the walk started from. A
+permutation is exactly a closed walk of length n.
+
+**22 names read, every one reproducing its entry's published data exactly; 21 proved and
+installed as `displacement-set`.** One is not open.

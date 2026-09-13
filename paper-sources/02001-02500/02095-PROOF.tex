@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187932, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A185744, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187932 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+OEIS A185744 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
 every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
 of order $36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=212$ states and is $C$-finite; whether the
+empirical. The count is a walk count on $S=1196$ states and is $C$-finite; whether the
 conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
@@ -30,30 +30,30 @@ conjectured recurrence annihilates it is then settled by a finite exact computat
 
 \section{The conjecture}
 
-OEIS A187932 is ``Number of (n+2)X3 binary arrays with every 2X2 subblock sum equal to some diagonal or antidiagonal neighbor 2X2 subblock sum.''. It has offset $1$ and begins
+OEIS A185744 is ``Number of (n+1)X4 binary arrays with every 2X2 subblock trace equal to some horizontal or vertical neighbor 2X2 subblock trace.''. It has offset $1$ and begins
 \[
-48, 44, 304, 784, 3188, 10296, 38020, 131184,\ \dots
+40, 544, 4056, 33768, 273928, 2237680, 18242392, 148782184,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=6*a(n-1)-5*a(n-2)-27*a(n-3)+76*a(n-4)-91*a(n-5)-51*a(n-6)+46*a(n-7)+7*a(n-8)+1378*a(n-9)-1195*a(n-10)+1324*a(n-11)-1078*a(n-12)-2750*a(n-13)-3729*a(n-14)-2433*a(n-15)-8936*a(n-16)+8415*a(n-17)+9599*a(n-18)-9292*a(n-19)+13722*a(n-20)-40054*a(n-21)-8978*a(n-22)-23008*a(n-23)+25496*a(n-24)+19792*a(n-25)+72996*a(n-26)+67912*a(n-27)-11848*a(n-28)-48960*a(n-29)-61120*a(n-30)-26816*a(n-31)+5440*a(n-32)+27904*a(n-33)+12544*a(n-34)-2048*a(n-35)-4096*a(n-36)
+Empirical: a(n)=9*a(n-1)-17*a(n-2)+73*a(n-3)+92*a(n-4)-240*a(n-5)+1138*a(n-6)-856*a(n-7)-4412*a(n-8)+5722*a(n-9)+7036*a(n-10)-23333*a(n-11)-7776*a(n-12)+19505*a(n-13)+27120*a(n-14)+27301*a(n-15)-16807*a(n-16)-83683*a(n-17)+14978*a(n-18)+28073*a(n-19)+37181*a(n-20)-34392*a(n-21)+3645*a(n-22)-1339*a(n-23)-5386*a(n-24)-26621*a(n-25)+37448*a(n-26)-1164*a(n-27)+4386*a(n-28)-4788*a(n-29)-5243*a(n-30)+3211*a(n-31)-193*a(n-32)+52*a(n-33)+344*a(n-34)+16*a(n-35)-128*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:09:42, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:09:05, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $2$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours diagonally or antidiagonally.
+Write $\sigma$ for the sum of its main diagonal, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+and $3$ columns, and $\sigma$ labels that grid. The entry
+requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours horizontally or vertically.
 
 \section{The count is a walk count}
 
 This condition is NOT a condition on a pair. Whether a subblock has a
 matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
 supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $2$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
+each of the $3$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
 among its own row and the row above.
 
 A step appends an array row. It fixes the next subblock row, adds the matches between the two
@@ -69,17 +69,17 @@ An array of $n+1$ rows is then a walk of $n-1$ steps and
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
 \]
 with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=212$ states in all. Getting the two vectors right is the whole of the argument: with
+$S=1196$ states in all. Getting the two vectors right is the whole of the argument: with
 $\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
 not exist, and the count would be too large. The entry's own first terms settle it --- for
 the smallest cases
 the model reproduces every published term.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $2$
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,2]$, so the
+grid it labels carries at most $3$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $3$
 subblocks, with only the neighbours inside that row; the entry's first term is
-$48$, which the model reproduces along with every later term, and that is the cheapest
+$40$, which the model reproduces along with every later term, and that is the cheapest
 check that the grid has been read with the right shape.
 
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -105,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 5\,a(n-2) - 27\,a(n-3) + 76\,a(n-4) - 91\,a(n-5) - 51\,a(n-6) + 46\,a(n-7) + 7\,a(n-8) + 1378\,a(n-9) - 1195\,a(n-10) + 1324\,a(n-11) - 1078\,a(n-12) - 2750\,a(n-13) - 3729\,a(n-14) - 2433\,a(n-15) - 8936\,a(n-16) + 8415\,a(n-17) + 9599\,a(n-18) - 9292\,a(n-19) + 13722\,a(n-20) - 40054\,a(n-21) - 8978\,a(n-22) - 23008\,a(n-23) + 25496\,a(n-24) + 19792\,a(n-25) + 72996\,a(n-26) + 67912\,a(n-27) - 11848\,a(n-28) - 48960\,a(n-29) - 61120\,a(n-30) - 26816\,a(n-31) + 5440\,a(n-32) + 27904\,a(n-33) + 12544\,a(n-34) - 2048\,a(n-35) - 4096\,a(n-36)
+a(n)\;=\;9\,a(n-1) - 17\,a(n-2) + 73\,a(n-3) + 92\,a(n-4) - 240\,a(n-5) + 1138\,a(n-6) - 856\,a(n-7) - 4412\,a(n-8) + 5722\,a(n-9) + 7036\,a(n-10) - 23333\,a(n-11) - 7776\,a(n-12) + 19505\,a(n-13) + 27120\,a(n-14) + 27301\,a(n-15) - 16807\,a(n-16) - 83683\,a(n-17) + 14978\,a(n-18) + 28073\,a(n-19) + 37181\,a(n-20) - 34392\,a(n-21) + 3645\,a(n-22) - 1339\,a(n-23) - 5386\,a(n-24) - 26621\,a(n-25) + 37448\,a(n-26) - 1164\,a(n-27) + 4386\,a(n-28) - 4788\,a(n-29) - 5243\,a(n-30) + 3211\,a(n-31) - 193\,a(n-32) + 52\,a(n-33) + 344\,a(n-34) + 16\,a(n-35) - 128\,a(n-36)
 \]
-for every $n>35$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187932.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A185744.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

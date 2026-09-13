@@ -10,140 +10,173 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A143017}
+\title{A proof of the conjectured recurrence for OEIS A177182}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{26 August 2026}
+\date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A143017 carries a conjectured linear recurrence with polynomial coefficients, of
-order 6. The entry separately states a recurrence of order 4 that is not
-labelled a conjecture. We prove that the first is a consequence of the second, so the
-conjecture holds. The argument is a division in the Ore algebra
-$\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
-recurrences read as operators, we exhibit $Q$ with $C=QP$, whence
-$C(a)=Q(P(a))=Q(0)=0$. No generating function is used. The division is exact
-rational-function arithmetic, and the finitely many $n$ excluded by denominators of $Q$
-are computed rather than ignored.
+OEIS A177182 carries a conjectured linear recurrence with polynomial coefficients, of
+order 5, contributed by R.~J.~Mathar. We prove it. The generating function of the
+entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
+differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
+$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
+$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
+when $B$ is a polynomial of degree $d$. Since $A$ lies in a quadratic extension of
+$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
+closed form. Here it equals $- 16 x^{4} + 46 x^{3} - 42 x^{2} + 9 x + 1$, a polynomial of degree $4$, which proves
+the recurrence for every $n>4$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 12H10, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
-\section{The sequence and the two recurrences}
+\section{The sequence and the conjecture}
 
-OEIS A143017 is ``Number of \{2-1-3, 2'\^{}e-31\}-avoiding permutations of size n (see definition in the Elizalde paper)''. It has offset $1$ and begins
+OEIS A177182 is ``Sequence defined by the recurrence formula a(n+1)=sum(a(p)*a(n-p)+k,p=0..n)+l for n>=1, with here a(0)=1, a(1)=7, k=-1 and l=-1''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 2, 4, 9, 22, 56, 147, 396,\ \dots
+a(0),\dots,a(7)\;=\;1, 7, 11, 67, 283, 1619, 8667, 50707,\ \dots
 \]
-The entry carries the following comment, still recorded as a conjecture:
+The entry posts no generating function of its own. Its NAME states the
+relation \texttt{the entry states the generating function as G.f f: f(z)=(1-sqrt(1-4*z*(a(0)-z*a(0)\textasciicircum{}2+z*a(1)+(k+l)*z\textasciicircum{}2/(1-z)+k*z\textasciicircum{}2/(1-z)\textasciicircum{}2)))/(2*z) (k=-1, l=-1); a(0) and a(1) are read off the entry's own terms and the parameters are the values given on that line} to another entry, and that entry's exponential generating
+function is known, so the relation supplies one here (a constant $c$ contributes
+$c\,e^{x}$ to an exponential generating function):
+\begin{equation}\label{eq:gf}
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{1 - \sqrt{\frac{- 32 x^{4} + 56 x^{3} - 15 x^{2} - 6 x + 1}{x^{2} - 2 x + 1}}}{2 x} ,
+\end{equation}
+and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} -8*n*(n+1)*a(n) + 4*n*(2*n+5)*a(n-1) + 4*n*(n+7)*a(n-2) + 2*(70*n\^{}2-395*n+564)*a(n-3) + 2*(25*n\^{}2-143*n+222)*a(n-4) + 4*(49*n-228)*(n-5)*a(n-5) - 45*(n-5)*(n-6)*a(n-6) = 0. - \emph{R. J. Mathar}, Mar 14 2014
+\textbf{Conjecture:} +(n+1)*a(n) +(-7*n+2)*a(n-1) +9*(-n+3)*a(n-2) +(71*n-226)*a(n-3) +4*(-22*n+89)*a(n-4) +32*(n-5)*a(n-5)=0. - \emph{R. J. Mathar}, Mar 02 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-03-25, revision 33) it is still
-a conjecture, and no proof appears among the entry's links, formulas or programs.
+As of the ``Last modified'' line on the live entry (2016-03-02, revision 5) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The same entry also states, \emph{not} as a conjecture:
-\begin{quote}\small
-Recurrence (of order 4): 4*n*(n+1)*(91*n\^{}2 - 217*n + 102)*a(n) = 6*n*(182*n\^{}3 - 525*n\^{}2 + 365*n - 78)*a(n-1) - 4*(91*n\^{}4 - 399*n\^{}3 - 136*n\^{}2 + 990*n - 450)*a(n-2) + 12*(n-3)*(182*n\^{}3 - 525*n\^{}2 + 92*n + 140)*a(n-3) - 5*(n-4)*(n-3)*(91*n\^{}2 - 35*n - 24)*a(n-4). - \emph{Vaclav Kotesovec}, Mar 20 2014
-\end{quote}
-This second relation is what the argument below rests on; it is taken as given, exactly as
-a posted generating function would be. It was checked against the entry's own DATA before
-being used, and holds on every published term it reaches.
-
-\section{Recurrences as operators, and what division proves}
-
-Let $N$ be the shift operator, $(Nf)(n)=f(n+1)$, acting on sequences. Polynomials in $n$
-and $N$ generate the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, in which multiplication is
-associative and distributive but not commutative: moving $N$ past a coefficient shifts it,
+Writing the conjectured relation in the form $\sum_{i=0}^{5}p_{i}(n)\,a(n-i)=0$,
+the coefficient polynomials are
 \[
-N\,q(n)\;=\;q(n+1)\,N .
+p_{0}(n)=n + 1,\qquad p_{1}(n)=2 - 7 n,\qquad p_{2}(n)=- 9 \left(n - 3\right),\qquad p_{3}(n)=71 n - 226,\qquad p_{4}(n)=- 4 \left(22 n - 89\right),\qquad p_{5}(n)=32 \left(n - 5\right)
 \]
-A recurrence $\sum_{i=0}^{r}p_{i}(n)\,a(n-i)=0$ becomes an element of $\mathcal{A}$ after
-re-indexing $n\mapsto n+r$, namely
-\[
-L\;=\;\sum_{j=0}^{r}q_{j}(n)\,N^{j},\qquad q_{j}(n)=p_{r-j}(n+r),
-\]
-and the recurrence says exactly that $L$ annihilates the sequence, $L(a)=0$.
 
-\begin{lemma}\label{lem:factor}
-Let $P,C\in\mathcal{A}$ and suppose $C=QP$ for some $Q\in\mathcal{A}$. If $P(a)=0$ then
-$C(a)=0$, at every $n$ where the coefficients of $Q$ are defined.
+\section{Recurrences as differential operators}
+
+Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
+$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
+polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
+$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
+
+\begin{lemma}\label{lem:transfer}
+Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
+the convention $a(m)=0$ for $m<0$. Then
+\[
+B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
+\]
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QP)(a)=Q\bigl(P(a)\bigr)=Q(0)=0$. The only caveat is the one stated: a coefficient
-of $Q$ is a rational function of $n$, so the step is valid at every $n$ that is not a pole
-of one of them.
+Fix $i$ and substitute $m=n-i$:
+\[
+\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
+=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
+\]
+the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
+$p_{i}(m+i)$. Summing over $i$ gives the claim.
 \end{proof}
 
-\begin{lemma}\label{lem:div}
-Right division works in $\mathcal{A}$: given $C$ and $P\neq0$, there are $Q,R\in\mathcal{A}$
-with $C=QP+R$ and $\deg_{N}R<\deg_{N}P$.
+\begin{corollary}\label{cor:criterion}
+With the notation of Lemma~\ref{lem:transfer}, the recurrence
+$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
+degree at most $d$.
+\end{corollary}
+
+\begin{proof}
+$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
+$B$ has no terms above $x^{d}$.
+\end{proof}
+
+This turns the conjecture into a closed-form identity. The point is that it can then be
+decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
+$A$, and one only has to recognise it.
+
+\begin{lemma}\label{lem:field}
+Let $D\in\mathbb{Q}(x)$ and let $K=\mathbb{Q}(x)\bigl[\sqrt{D}\bigr]$. Then $K$ is closed
+under $\theta$; explicitly,
+\[
+\theta\bigl(u+v\sqrt{D}\bigr)=x\,u'+\Bigl(x\,v'+\frac{x\,v\,D'}{2D}\Bigr)\sqrt{D},
+\qquad u,v\in\mathbb{Q}(x).
+\]
 \end{lemma}
 
 \begin{proof}
-Induct on $\deg_{N}C$. If $\deg_{N}C<\deg_{N}P$ take $Q=0$, $R=C$. Otherwise let
-$d=\deg_{N}C-\deg_{N}P$ and let $c$, $p$ be the leading coefficients of $C$ and $P$. By the
-commutation rule, the leading coefficient of $N^{d}P$ is $p(n+d)$, which is a nonzero
-element of $\mathbb{Q}(n)$ and hence invertible there. Then
-$C-\dfrac{c(n)}{p(n+d)}\,N^{d}P$ has strictly smaller degree in $N$, and induction applies.
+Differentiate: $(\sqrt{D})'=D'/(2\sqrt{D})=\bigl(D'/(2D)\bigr)\sqrt{D}$, and multiply by
+$x$. Both components remain in $\mathbb{Q}(x)$.
 \end{proof}
 
-So the question ``does the conjecture follow from the stated recurrence?'' is decided by
-running the division and looking at the remainder. Nothing is approximated: the
-coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
+Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
+$B=P+Q\sqrt{D}$ with $P,Q\in\mathbb{Q}(x)$, the test of Corollary~\ref{cor:criterion}
+becomes: $B$ is a polynomial precisely when $Q=0$ and $P$ has constant denominator. Both
+are decided by exact cancellation of rational functions.
 
-\section{The computation for A143017}
+\section{The computation for A177182}
 
-Reading both relations as operators and dividing the conjectured one by the stated one
-leaves remainder $0$, with quotient
+The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[\sqrt{D}]$ with
 \[
-Q \;=\; \left(- \frac{9}{91 n^{2} + 693 n + 1292}\right) + \left(\frac{- 364 n^{2} - 3136 n - 6456}{8281 n^{4} + 142688 n^{3} + 912863 n^{2} + 2569168 n + 2682192}\right)\,N + \left(- \frac{2}{91 n^{2} + 875 n + 2076}\right)\,N^{2} .
+D \;=\; - \frac{32 x^{4} - 56 x^{3} + 15 x^{2} + 6 x - 1}{\left(x - 1\right)^{2}} .
 \]
-Hence $C=QP$ in $\mathcal{A}$.
-
-The coefficients of $Q$ are rational functions of $n$, and none of their poles is an integer, so Lemma~\ref{lem:factor} applies at every index.
+Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
+in $K$ by Lemma~\ref{lem:field}, the $\sqrt{D}$ component of $B$ cancels identically and
+the rational part collapses to
+\[
+B(x)\;=\;- 16 x^{4} + 46 x^{3} - 42 x^{2} + 9 x + 1 ,
+\]
+a polynomial of degree $4$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-- 8 n \left(n + 1\right)\,a(n) + 4 n \left(2 n + 5\right)\,a(n-1) + 4 n \left(n + 7\right)\,a(n-2) + 2 \left(70 n^{2} - 395 n + 564\right)\,a(n-3) + 2 \left(25 n^{2} - 143 n + 222\right)\,a(n-4) + 4 \left(n - 5\right) \left(49 n - 228\right)\,a(n-5) -  45 \left(n - 6\right) \left(n - 5\right)\,a(n-6) \;=\;0
+(n + 1)\,a(n) + (2 - 7 n)\,a(n-1) -  9 \left(n - 3\right)\,a(n-2) + (71 n - 226)\,a(n-3) -  4 \left(22 n - 89\right)\,a(n-4) + 32 \left(n - 5\right)\,a(n-5) \;=\;0
 \]
-holds for every $n\ge7$.
+holds for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:factor} applied to the factorisation above, using that the stated
-recurrence annihilates the sequence. No coefficient of $Q$ has an integer pole, so the lemma applies at every $n$.
+Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 \end{proof}
+
+\begin{remark}
+The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
+$n\le4$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+and $B$ collects exactly those contributions. Above that range the relation is exact.
+\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and three
+Every number above is an output of a script written separately from this note, and two
 independent checks were run.
 
-First, the factorisation was not assumed but computed, and then confirmed by multiplying
-back: $QP$ was expanded in $\mathcal{A}$ and its coefficients cancelled against those of
-$C$ to zero, as rational functions of $n$.
+First, the generating function was checked against the entry rather than assumed: the
+Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
+section of A177182, agreeing on all 13 terms compared.
 
-Second, the relation the argument rests on was checked against the entry rather than
-trusted: the stated recurrence was evaluated on the published terms in exact integer
-arithmetic and holds on every one it reaches.
+Second, the recurrence itself was evaluated directly on the published terms, in exact
+integer arithmetic and without reference to the generating function: for each $n$ in range
+the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
+vanish, for all 16 values of $n$ from $n=5$ upward. This is what
+Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
+different computation from the symbolic one: it never forms $B$, never differentiates, and
+uses only integers.
 
-Third, the conjecture itself was evaluated the same way, directly and without reference to
-either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 21 values of $n$ from
-$n=7$ upward.
+The symbolic step is exact throughout. The residual is obtained by rational-function
+cancellation in $K$, not by series truncation, so the identity $B=- 16 x^{4} + 46 x^{3} - 42 x^{2} + 9 x + 1$ is an
+identity of functions and the theorem holds for all $n>4$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A143017.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\url{https://oeis.org}, 2026. Sequence A177182.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7.
-\bibitem{bronstein} M.~Bronstein and M.~Petkov\v{s}ek, \emph{An introduction to
-pseudo-linear algebra}, Theoret. Comput. Sci. 157 (1996), 3--33.
+Chapter 7 (holonomic closure properties and the translation between recurrences and
+differential equations).
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
 \end{thebibliography}
 \end{document}

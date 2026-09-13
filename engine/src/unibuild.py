@@ -14,6 +14,8 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'permset': ("a window of consecutive VALUES: at position i only the values in "
+                "[i - L, i + R] are in play, and the state is which of them are used"),
     # again not a window: the condition quantifies over all pairs (or triples) of
     # positions and depends on them only through the adjacent pairs they sit at, so the
     # state is the last value together with which adjacent pairs are still allowed.

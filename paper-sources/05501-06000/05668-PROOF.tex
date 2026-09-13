@@ -12,158 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280359, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140920, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280359 counts $n\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $44$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
-equality patterns, which is not a walk count --- but it is a fixed rational combination of
-walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A140920 counts $5\times9$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $5\times9\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $45$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A280359 is ``Number of nX4 0..2 arrays with no element equal to more than one of its horizontal and vertical neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A140920 is ``Number of 5 X 9 matrices with elements in 0..n with each row and each column in nondecreasing order. 5,9,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-11, 285, 6727, 164326, 3992071, 97147710, 2363431872, 57503068637,\ \dots
+1, 2002, 1002001, 208416208, 23029990984, 1566039386912,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 30*a(n-1) -103*a(n-2) -1092*a(n-3) +5847*a(n-4) +2804*a(n-5) -50379*a(n-6) +41079*a(n-7) -126386*a(n-8) +1514584*a(n-9) -1194277*a(n-10) -6905803*a(n-11) +6655712*a(n-12) +16213430*a(n-13) -21948067*a(n-14) -16861080*a(n-15) +41679338*a(n-16) +426137*a(n-17) -57615511*a(n-18) +28148770*a(n-19) +60186728*a(n-20) -41569682*a(n-21) -23465826*a(n-22) +95973316*a(n-23) -9699443*a(n-24) -206500242*a(n-25) -85311247*a(n-26) +112347612*a(n-27) +89204829*a(n-28) +124190867*a(n-29) +185283712*a(n-30) -74437936*a(n-31) -288002168*a(n-32) -164637824*a(n-33) +109790912*a(n-34) +171661568*a(n-35) +34990720*a(n-36) -45687040*a(n-37) -38017024*a(n-38) -10430464*a(n-39) +9265152*a(n-40) +5439488*a(n-41) +950272*a(n-42) -262144*a(n-43) -524288*a(n-44)
+(empirical) set p,q,r to n,9,5 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 01 2017 08:55:20, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 19 2025 11:09:39, revision 7) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{Patterns are a combination of counts}
+\section{What is being counted}
 
-The clause ``new values $0..2$ introduced in row major order'' says that the arrays
-counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
-only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
-patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
-alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
-its letters into the alphabet, so
+A matrix $x$ of shape $5\times9$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$5\times9$ rectangle --- a plane partition in a $5\times9\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\mathrm{PP}(5,9,n).
 \]
-a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{3}$, so
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
+
+\section{The box count is a polynomial}
+
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
-Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
-union of those graphs with the combination's coefficients placed in the starting vector; the
-coefficients are rational and some are negative, which costs nothing in what follows.
+\end{theorem}
 
-This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
-the condition below is stated through equality between entries and never names a particular
-value or compares sizes.
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
 
-\section{Cells, not blocks}
-
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+\begin{theorem}\label{thm:poly}
 \[
-\text{no cell is equal to more than 1 of its horizontal and vertical neighbours},
+a(n)\;=\;\prod_{i=1}^{5}\prod_{j=1}^{9}\frac{n+i+j-1}{i+j-1},
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
-
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,2\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,2\}^{4}\cup\{\varnothing\})\times\{0,\dots,2\}^{4}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
-\[
-a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n-1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
-\[
-a(n)\;=\;30\,a(n-1) - 103\,a(n-2) - 1092\,a(n-3) + 5847\,a(n-4) + 2804\,a(n-5) - 50379\,a(n-6) + 41079\,a(n-7) - 126386\,a(n-8) + 1514584\,a(n-9) - 1194277\,a(n-10) - 6905803\,a(n-11) + 6655712\,a(n-12) + 16213430\,a(n-13) - 21948067\,a(n-14) - 16861080\,a(n-15) + 41679338\,a(n-16) + 426137\,a(n-17) - 57615511\,a(n-18) + 28148770\,a(n-19) + 60186728\,a(n-20) - 41569682\,a(n-21) - 23465826\,a(n-22) + 95973316\,a(n-23) - 9699443\,a(n-24) - 206500242\,a(n-25) - 85311247\,a(n-26) + 112347612\,a(n-27) + 89204829\,a(n-28) + 124190867\,a(n-29) + 185283712\,a(n-30) - 74437936\,a(n-31) - 288002168\,a(n-32) - 164637824\,a(n-33) + 109790912\,a(n-34) + 171661568\,a(n-35) + 34990720\,a(n-36) - 45687040\,a(n-37) - 38017024\,a(n-38) - 10430464\,a(n-39) + 9265152\,a(n-40) + 5439488\,a(n-41) + 950272\,a(n-42) - 262144\,a(n-43) - 524288\,a(n-44)
-\]
-for every $n>44$.
+a polynomial in $n$ of degree $45$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=44+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>44$.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$5\cdot9=45$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,9,5)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{5-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{5-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $55$ and $10$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+9+5-1$ one has $s-(n+i)=9+5-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{9+5-1-i}
+=\frac{(s-9-5+2+i)(s-9-5+3+i)\cdots s}{(9+5-1-i)!},
+\]
+a polynomial in $n$ of degree $9+5-1-i$. Multiplying over $i=0,\dots,5-1$ gives
+$\deg N=\sum_{i=0}^{5-1}(9+5-1-i)=55$. The denominator is
+$\prod_{i=0}^{5-1}(s-i)^{5-1-i}$, of degree
+$\sum_{i=0}^{5-1}(5-1-i)=10$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $45+10=55$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,55$, that is at $56$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $55$ has at most $55$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $15$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, Theorem~\ref{thm:poly} reproduces all $15$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $5$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,55$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280359.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140920.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}
