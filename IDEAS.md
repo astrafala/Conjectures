@@ -259,6 +259,57 @@ parsable conjectured recurrence**. Of the 245:
   8 `3 X 3 0..n arrays`, 7 `strictly increasing arrangements`, 6 `second differences of
   arrays`, 5 `arrays of median of ...`, and a tail of two-dimensional fixed shapes.
 
+## L. THE POOL, measured on the whole clone (13 September 2026)
+
+Every earlier measurement in this file was restricted to a name shape. Asked of everything —
+outside the roster, open, carrying a parsable conjectured recurrence, read by no engine — the
+answer is
+
+    386,984 entries outside the roster
+      3,500 with a parsable conjectured recurrence
+      2,225 of those read by NO ENGINE          <- the pool
+
+`deep-check/pool-unread.json` holds the list. By leading words:
+
+     46  Number of n X 2 ...            41  Number of n X 3 ...
+     34  Number of binary arrays indicating ...
+     29  Number of -2..2 arrays x(i) ...    20  -3..3 ...    11  -1..1 ...
+     22  Number of permutations of 1..n ...
+     17  Number of n X 4 ...            12  Number of n X n ...
+     15  Binary representation of the middle ...   9  Decimal representation of the middle ...
+     12  Number of nondecreasing arrangements of ...
+     12  a(n) is the number of ...      11  Numbers that are the sum ...
+     10  Number of 2Xn 0..3 arrays ...  10  Number of length n arrays ...
+     10  Number of nonnegative integer arrays ...
+      9  Number of (n+1) X (n+1) ...     9  Sum of the products of ...
+      9  Number of arrays of median ...  9  Number of second differences of ...
+      ... and a long tail
+
+**The n X k families are 198 entries** and are transfer-matrix shaped — growing height, fixed
+width, fixed alphabet — so what stops them is the condition vocabulary, not the model. The
+conditions, by size:
+
+     19  rows and columns OF THE LATTER in lexicographically nondecreasing order
+     15  rows and columns lexicographically nondecreasing (+ a tail: read backwards, every
+         element equal to a neighbour, instance counts within one of each other)
+     10  all 1s connected, all 2s connected, ... (connectivity: needs a union-find in the state)
+      8  horizontal differences mod 3 never 1, vertical differences mod 3 never ...
+      6  new values introduced in each row and column in sequential order
+      5  every row and column running average nondecreasing rightwards and downwards
+      5  every row and column nondecreasing rightwards and downwards, and ...
+      4  each element moving exactly one horizontally or vertically
+      3+ each of: no three 1's in a line, no 2x2 circuit 0101, no 1 with an adjacent 1 above
+         and to its left, no 1 adjacent to a king-move-neighbouring 1, ...
+
+The engine to build is a ROW TRANSFER WITH FLAGS: the state is (previous row, the lex-comparison
+flag of each adjacent column pair, the bitmask of positions whose `equal to at least one
+neighbour' obligation is still unmet). Rows lex-nondecreasing is a condition on consecutive
+rows; columns lex-nondecreasing is carried by one flag per adjacent pair (equal so far, or
+already strictly less — already greater rejects); an obligation that only a row BELOW can meet
+is one bit per position. For k = 6 over 0..1 that is 64 x 32 x 64 states. The connectivity
+conditions need a union-find of the frontier in the state — the standard broken-profile trick,
+and 10 entries plus whatever else it opens.
+
 ## K. Two clusters analysed on 13 September: one tractable, one hard
 
 ### Necklaces and bracelets with a condition — 31 entries, TRACTABLE, not yet built
