@@ -14,6 +14,9 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    'conn2': ("the current row, which of its 1s lie in the same component of the region "
+              "seen so far, whether that component has closed off, and whether a 1 has "
+              "yet appeared in the left column and in the right"),
     # connectivity is decided by no window at all: two cells of one colour may be joined
     # through a path that leaves any window and comes back. The FRONTIER carries it.
     'conn': ("the colours of the current row, which of its cells lie in the same "

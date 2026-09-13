@@ -12,86 +12,124 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262919, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214114, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262919 counts arrays of width $6$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $7$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $10$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=81$ states.
+OEIS A214114 counts the proper colourings of a grid $3\times(n+1)$, wrapped in the growing direction, with at most $4$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $10$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=98$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A262919 is ``Number of (5+1)X(n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A214114 is ``Number of 0..3 colorings of a 3X(n+1) array circular in the n+1 direction with new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-10, 27, 318, 1411, 18190, 121507, 1444558, 12031011,\ \dots
+25, 121, 3502, 44900, 825105, 12777541, 214404272, 3462096250,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) +39*a(n-2) -1106*a(n-3) +1561*a(n-4) +22386*a(n-5) -57539*a(n-6) -89894*a(n-7) +251940*a(n-8) +68600*a(n-9) -196000*a(n-10)
+Empirical: a(n) = 11*a(n-1) +123*a(n-2) -509*a(n-3) -1615*a(n-4) +7137*a(n-5) -19*a(n-6) -20571*a(n-7) +13176*a(n-8) +13932*a(n-9) -11664*a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 04 2015 10:15:21, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:52:19, revision 12) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
+
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-\rho_i\;=\;\sum_{j=1}^{6}x(i,j)\,2^{6-j} ,
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-the LEFT digit being the most significant, and column $j$ is
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$7$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
 
+\section{Each $L_i$ is a walk count}
 
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
+A column of the array is a proper colouring of the path $P_{3}$ and two consecutive
+columns must differ in every one of the $3$ positions; the wrapping makes the last column
+adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
+in the digraph $T_i$ whose vertices are the proper colourings of $P_{3}$ over $i$ colours
+and whose edges join colourings differing everywhere, so
 \[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
+L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
 \]
+A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
+starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
+walks with fixed ends.
+
+\begin{lemma}\label{lem:trace}
+Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
+be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
+$\sigma\in G$, and hence
+\[
+\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
+\]
+one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
+are the equality patterns and the orbit of a colouring using $j$ colours has
+$i(i-1)\cdots(i-j+1)$ members.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
+$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
+length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
+gives the displayed identity. Permuting colours preserves ``differ in every position'', so
+$S_i$ acts on the colourings of $P_{3}$ preserving $T_i$; two colourings lie in one orbit
+exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
+in $i(i-1)\cdots(i-j+1)$ ways.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{6}\bmod
-3\bigr)$ is a state: at most $3^{6}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=81.
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\end{lemma}
+
+\begin{proof}
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+\end{proof}
+
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=98$ rather than the number of colourings.
+
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -113,43 +151,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) + 39\,a(n-2) - 1106\,a(n-3) + 1561\,a(n-4) + 22386\,a(n-5) - 57539\,a(n-6) - 89894\,a(n-7) + 251940\,a(n-8) + 68600\,a(n-9) - 196000\,a(n-10)
+a(n)\;=\;11\,a(n-1) + 123\,a(n-2) - 509\,a(n-3) - 1615\,a(n-4) + 7137\,a(n-5) - 19\,a(n-6) - 20571\,a(n-7) + 13176\,a(n-8) + 13932\,a(n-9) - 11664\,a(n-10)
 \]
-for every $n>8$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
 First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262919.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214114.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

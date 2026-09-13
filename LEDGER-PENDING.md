@@ -276,3 +276,24 @@ Two things the first version got wrong, both caught by the entries' own publishe
 installed as `connected-regions`.** Nine carry no parsable recurrence and one is not open. The
 same machinery reaches the binary `all 1s connected' family and the `slanted' variants, which
 add a path condition and a shifted geometry respectively; both are next.
+
+## 13 September 2026 — `conn2` and the slanted geometry
+
+Two extensions of the frontier engine, both small and both caught by the entries' own terms.
+
+**`conn2`, the binary family.** `conn` asks EVERY value's cells to be connected; the binary
+names ask it of the 1s alone and leave the 0s free, and enforcing it for the 0s as well counted
+10, 61, 273 against A163030's 10, 88, 920. With the 1s in one component, `a path of 1s from the
+top row to the bottom row' says exactly that some 1 lies in the top row and some in the bottom —
+the path is then automatic — so the endpoint clauses cost four flags and nothing more. **22
+names read, all 8 with published data checked reproducing it exactly; 1 proved and installed as
+`connected-ones`.** The rest are not open or carry no parsable recurrence: an honest small
+number for a family that looked like fourteen.
+
+**The slanted arrays.** `slanted n X k (i=1..n) X (j=i..k+i-1)` is a parallelogram: row i spans
+columns i..i+k-1, so the cell below (i,j) sits one place to the LEFT in the next row's own
+indexing. One offset in the frontier union-find handles it — and the same offset was needed
+again in the neighbour count, which is what the two remaining mismatches were.
+
+**14 names read, every one reproducing its entry's published data exactly; 4 more installed as
+`connected-regions`.**

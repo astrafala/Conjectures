@@ -30,8 +30,8 @@ import re
 from itertools import product
 
 HEAD = re.compile(
-    r'^\s*Number of n ?X ?(\d+) (?:1\.\.(\d+)|(binary)) arrays (?:with|containing) (.*?)\s*\.?\s*$',
-    re.I)
+    r'^\s*Number of (slanted )?n ?X ?(\d+)(?: \(i=1\.\.n\) ?X ?\(j=i\.\.\d+\+i-1\))? '
+    r'(?:1\.\.(\d+)|(binary)) arrays (?:with|containing) (.*?)\s*\.?\s*$', re.I)
 UNSEEN, OPEN, CLOSED = 0, 1, 2
 
 
@@ -39,9 +39,10 @@ def parse_name(nm):
     m = HEAD.match(' '.join(nm.split()))
     if not m:
         return None
-    k = int(m.group(1))
-    A = int(m.group(2)) if m.group(2) else 2
-    body = ' '.join(m.group(4).lower().split()).replace("'", '')
+    slant = 1 if m.group(1) else 0
+    k = int(m.group(2))
+    A = int(m.group(3)) if m.group(3) else 2
+    body = ' '.join(m.group(5).lower().split()).replace("'", '')
     rest = body
     allconn = False
     if 'all equal values connected' in rest:
@@ -73,7 +74,7 @@ def parse_name(nm):
     if not 1 <= k <= 4 or not 2 <= A <= 4 or (A ** k) * 20 > 40000:
         return None
     return {'engine': 'conn', 'k': k, 'A': A, 'need_all': need_all, 'corners': corners,
-            'maxsame': maxsame, 'frac': 1}
+            'maxsame': maxsame, 'slant': slant, 'frac': 1}
 
 
 def _canon(colour, parent):
@@ -88,8 +89,12 @@ def _canon(colour, parent):
     return tuple(lab)
 
 
-def _step(k, A, prev, cur):
+def _step(k, A, prev, cur, only=None, slant=0):
     """(colours, labels, status) for the next row, or None if the array is already dead.
+
+    `only` names the colours whose connectivity is required; the rest are free and neither
+    merge nor close. The binary family asks it of the 1s alone, and enforcing it for the 0s as
+    well counted far too few -- 10, 61, 273 against the entry's 10, 88, 920.
 
     A union-find over the old frontier cells and the new ones: old cells that shared a label
     are the same component, new neighbours of equal colour join, and a new cell joins the cell
@@ -97,6 +102,7 @@ def _step(k, A, prev, cur):
     reach it again -- so the colour must have had exactly that one component and must not
     appear again.
     """
+    req = set(range(1, A + 1)) if only is None else set(only)
     par = list(range(2 * k))
 
     def find(x):
@@ -117,23 +123,28 @@ def _step(k, A, prev, cur):
         pc, pl, status = prev
         st = list(status)
         for c in set(cur):
-            if st[c - 1] == CLOSED:
+            if c in req and st[c - 1] == CLOSED:
                 return None
         for a in range(k):
             for b in range(a + 1, k):
-                if pl[a] == pl[b]:
+                if pl[a] == pl[b] and pc[a] in req:
                     uni(a, b)
+        # a `slanted' array has row i spanning columns i..i+k-1, so the cell below
+        # (i, j) sits one place to the LEFT in the next row's own indexing
         for a in range(k):
-            if pc[a] == cur[a]:
-                uni(a, k + a)
+            b = a - slant
+            if 0 <= b < k and pc[a] == cur[b] and cur[b] in req:
+                uni(a, k + b)
     for a in range(k - 1):
-        if cur[a] == cur[a + 1]:
+        if cur[a] == cur[a + 1] and cur[a] in req:
             uni(k + a, k + a + 1)
     if prev is not None:
         oldc = {}
         for a in range(k):
             oldc.setdefault((pc[a], pl[a]), []).append(a)
         for (col, _lab), cells in oldc.items():
+            if col not in req:
+                continue
             root = find(cells[0])
             alive = any(find(k + b) == root for b in range(k))
             if alive:
@@ -159,6 +170,7 @@ def build(p, cap=200000):
     k, A = p['k'], p['A']
     cols = list(product(range(1, A + 1), repeat=k))
     maxsame, corners, need_all = p['maxsame'], p['corners'], p['need_all']
+    slant = p.get('slant', 0)
 
     # A cell's same-valued neighbours are its left, its right, the cell above and the cell
     # BELOW, and the last of those is not known when the row is placed. Checking only the
@@ -173,7 +185,8 @@ def build(p, cap=200000):
                 c += 1
             if i + 1 < k and cur[i + 1] == cur[i]:
                 c += 1
-            if prev is not None and prev[i] == cur[i]:
+            # in a slanted array the cell above cur[i] is prev[i + slant]
+            if prev is not None and 0 <= i + slant < k and prev[i + slant] == cur[i]:
                 c += 1
             out.append(min(c, 4))
         return tuple(out)
@@ -183,7 +196,9 @@ def build(p, cap=200000):
             return True
         if pend is not None:
             for i in range(k):
-                if pend[i] + (1 if prev[i] == cur[i] else 0) > maxsame:
+                b = i - slant
+                below = 0 <= b < k and cur[b] == prev[i]
+                if pend[i] + (1 if below else 0) > maxsame:
                     return False
         return all(v <= maxsame for v in partial(prev, cur))
 
@@ -204,7 +219,7 @@ def build(p, cap=200000):
             continue
         if not same_ok(None, None, cur):
             continue
-        s = _step(k, A, None, cur)
+        s = _step(k, A, None, cur, slant=slant)
         if s is not None:
             start.append(sid(s + (partial(None, cur),) if maxsame is not None else s))
     adj = {}
@@ -217,7 +232,7 @@ def build(p, cap=200000):
         for cur in cols:
             if not same_ok(pend, prev[0], cur):
                 continue
-            s = _step(k, A, prev, cur)
+            s = _step(k, A, prev, cur, slant=slant)
             if s is None:
                 continue
             out.append(sid(s + (partial(prev[0], cur),) if maxsame is not None else s))

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207770, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206781, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207770 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
-$(0,0,0), (1,1,1)$ along one axis and $(0,0,1), (0,1,0)$ along the other, and carries an empirical recurrence of
+OEIS A206781 counts arrays over $\{0,\dots,1\}$ of width $4$ that avoid the patterns
+$(0,0,1)$ along one axis and $(0,1,1)$ along the other, and carries an empirical recurrence of
 order $24$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=100$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=144$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
 $\mathbf{1}^{\!\top}P^{\,n-2-24}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A207770 is ``Number of n X 4 0..1 arrays avoiding 0 0 0 and 1 1 1 horizontally and 0 0 1 and 0 1 0 vertically.''. It has offset
+OEIS A206781 is ``Number of nX4 0..1 arrays avoiding 0 0 1 horizontally and 0 1 1 vertically.''. It has offset
 $1$ and begins
 \[
-10, 100, 292, 828, 2514, 7164, 20104,\ \dots
+12, 144, 1020, 6752, 39276, 219061, 1165366,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 5*a(n-1) -8*a(n-2) +17*a(n-3) -46*a(n-4) +40*a(n-5) -41*a(n-6) +115*a(n-7) -38*a(n-8) +2*a(n-9) -144*a(n-10) -18*a(n-11) +52*a(n-12) +133*a(n-13) +44*a(n-14) -42*a(n-15) -86*a(n-16) -34*a(n-17) +16*a(n-18) +26*a(n-19) +16*a(n-20) -2*a(n-21) -3*a(n-22) -2*a(n-23) -a(n-24) for n>25.
+Empirical: a(n) = 12*a(n-1) -28*a(n-2) -167*a(n-3) +737*a(n-4) +570*a(n-5) -5810*a(n-6) +1525*a(n-7) +22058*a(n-8) -14330*a(n-9) -47100*a(n-10) +38200*a(n-11) +61863*a(n-12) -52870*a(n-13) -52680*a(n-14) +42745*a(n-15) +29773*a(n-16) -20710*a(n-17) -11060*a(n-18) +5845*a(n-19) +2554*a(n-20) -872*a(n-21) -322*a(n-22) +52*a(n-23) +16*a(n-24)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 01 2023 15:30:41, revision
-11) the statement is still recorded as empirical, and nothing on the entry
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:08:50, revision
+9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;5\,a(n-1) - 8\,a(n-2) + 17\,a(n-3) - 46\,a(n-4) + 40\,a(n-5) - 41\,a(n-6) + 115\,a(n-7) - 38\,a(n-8) + 2\,a(n-9) - 144\,a(n-10) - 18\,a(n-11) + 52\,a(n-12) + 133\,a(n-13) + 44\,a(n-14) - 42\,a(n-15) - 86\,a(n-16) - 34\,a(n-17) + 16\,a(n-18) + 26\,a(n-19) + 16\,a(n-20) - 2\,a(n-21) - 3\,a(n-22) - 2\,a(n-23) - a(n-24)
+a(n)\;=\;12\,a(n-1) - 28\,a(n-2) - 167\,a(n-3) + 737\,a(n-4) + 570\,a(n-5) - 5810\,a(n-6) + 1525\,a(n-7) + 22058\,a(n-8) - 14330\,a(n-9) - 47100\,a(n-10) + 38200\,a(n-11) + 61863\,a(n-12) - 52870\,a(n-13) - 52680\,a(n-14) + 42745\,a(n-15) + 29773\,a(n-16) - 20710\,a(n-17) - 11060\,a(n-18) + 5845\,a(n-19) + 2554\,a(n-20) - 872\,a(n-21) - 322\,a(n-22) + 52\,a(n-23) + 16\,a(n-24)
 \end{equation}
-for all $n>25$. 
+for all $n>24$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,0), (1,1,1)$ as $3$ consecutive entries. There are $10$ admissible rows; that condition
+$(0,0,1)$ as $3$ consecutive entries. There are $12$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(0,0,1), (0,1,0)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,1,1)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=100$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=144$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,1), (0,1,0)$. Let $P$ be the adjacency matrix.
+is none of $(0,1,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>25$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>24$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $24$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=25+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=24+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $24$ published indices; the
-values agree exactly, including the initial count of $10$ admissible rows. That is
+compared against the entry's DATA at every one of the $20$ published indices; the
+values agree exactly, including the initial count of $12$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=100$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=144$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207770.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206781.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
