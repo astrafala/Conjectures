@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210400, proved by counting patterns}
+\title{The empirical recurrence for OEIS A210130, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210400 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A210130 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,20 +36,20 @@ $32$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A210400 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having one or three distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A210130 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having one, three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-5167, 668468, 85979301, 11066406572, 1424263182001, 183306323524536, 23591974220786341, 3036345393226822100,\ \dots
+10019, 2731088, 735336694, 198219480450, 53426898480029, 14400523684710903, 3881469298371686670, 1046198452246381246181,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 222*a(n-1) -14466*a(n-2) +294924*a(n-3) +4656995*a(n-4) -258980402*a(n-5) +1519478244*a(n-6) +65765309856*a(n-7) -899946571108*a(n-8) -6066410464024*a(n-9) +162105406266400*a(n-10) -88886529769536*a(n-11) -13947758522827904*a(n-12) +56368494845199616*a(n-13) +595808254992314112*a(n-14) -4168954910728206336*a(n-15) -10590192881040593920*a(n-16) +140772489264317126656*a(n-17) -38165648086702518272*a(n-18) -2466112169355411496960*a(n-19) +4370610701672862203904*a(n-20) +22131193152696389959680*a(n-21) -66520641034825424371712*a(n-22) -84130431929983157141504*a(n-23) +444218891805352251097088*a(n-24) -24524753263238930497536*a(n-25) -1357521916200660102021120*a(n-26) +906383329842391263739904*a(n-27) +1679955754896158917394432*a(n-28) -1768503113779591826636800*a(n-29) -469035266983925668380672*a(n-30) +970910637009369175162880*a(n-31) -255356668034757049712640*a(n-32)
+Empirical: a(n) = 319*a(n-1) -12448*a(n-2) -307770*a(n-3) +19003857*a(n-4) -47940781*a(n-5) -8062797435*a(n-6) +95630724963*a(n-7) +949633978540*a(n-8) -23587913597875*a(n-9) +72618564306781*a(n-10) +1459146419334837*a(n-11) -13658086185029599*a(n-12) +17603864407218421*a(n-13) +283502331705919989*a(n-14) -1303129591973246857*a(n-15) -279014374825669271*a(n-16) +13815024039103815024*a(n-17) -22992880145677918265*a(n-18) -44182446460842415541*a(n-19) +152128697073903743642*a(n-20) -14505606850313450236*a(n-21) -344933214811274872678*a(n-22) +261141694209971459720*a(n-23) +296779187097877685464*a(n-24) -389773691540956876144*a(n-25) -44632888312447155024*a(n-26) +204261362669091285120*a(n-27) -46639179100779322176*a(n-28) -30753710235878999040*a(n-29) +11357654705402941440*a(n-30) +637302851625194496*a(n-31) -414118546177001472*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:58:18, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:45:02, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;222\,a(n-1) - 14466\,a(n-2) + 294924\,a(n-3) + 4656995\,a(n-4) - 258980402\,a(n-5) + 1519478244\,a(n-6) + 65765309856\,a(n-7) - 899946571108\,a(n-8) - 6066410464024\,a(n-9) + 162105406266400\,a(n-10) - 88886529769536\,a(n-11) - 13947758522827904\,a(n-12) + 56368494845199616\,a(n-13) + 595808254992314112\,a(n-14) - 4168954910728206336\,a(n-15) - 10590192881040593920\,a(n-16) + 140772489264317126656\,a(n-17) - 38165648086702518272\,a(n-18) - 2466112169355411496960\,a(n-19) + 4370610701672862203904\,a(n-20) + 22131193152696389959680\,a(n-21) - 66520641034825424371712\,a(n-22) - 84130431929983157141504\,a(n-23) + 444218891805352251097088\,a(n-24) - 24524753263238930497536\,a(n-25) - 1357521916200660102021120\,a(n-26) + 906383329842391263739904\,a(n-27) + 1679955754896158917394432\,a(n-28) - 1768503113779591826636800\,a(n-29) - 469035266983925668380672\,a(n-30) + 970910637009369175162880\,a(n-31) - 255356668034757049712640\,a(n-32)
+a(n)\;=\;319\,a(n-1) - 12448\,a(n-2) - 307770\,a(n-3) + 19003857\,a(n-4) - 47940781\,a(n-5) - 8062797435\,a(n-6) + 95630724963\,a(n-7) + 949633978540\,a(n-8) - 23587913597875\,a(n-9) + 72618564306781\,a(n-10) + 1459146419334837\,a(n-11) - 13658086185029599\,a(n-12) + 17603864407218421\,a(n-13) + 283502331705919989\,a(n-14) - 1303129591973246857\,a(n-15) - 279014374825669271\,a(n-16) + 13815024039103815024\,a(n-17) - 22992880145677918265\,a(n-18) - 44182446460842415541\,a(n-19) + 152128697073903743642\,a(n-20) - 14505606850313450236\,a(n-21) - 344933214811274872678\,a(n-22) + 261141694209971459720\,a(n-23) + 296779187097877685464\,a(n-24) - 389773691540956876144\,a(n-25) - 44632888312447155024\,a(n-26) + 204261362669091285120\,a(n-27) - 46639179100779322176\,a(n-28) - 30753710235878999040\,a(n-29) + 11357654705402941440\,a(n-30) + 637302851625194496\,a(n-31) - 414118546177001472\,a(n-32)
 \end{equation}
 for all $n>32$.
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3\}.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3,4\}.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210400.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210130.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

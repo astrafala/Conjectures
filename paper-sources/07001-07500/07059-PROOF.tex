@@ -12,141 +12,138 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204359, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233498, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204359 counts $(n+2)\times8$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $21$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
-equality patterns, which is not a walk count --- but it is a fixed rational combination of
-walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A233498 counts arrays of width $3$ over $\{0,1,2\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $22$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=757$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A204359 is ``Number of (n+2)X8 0..1 arrays with every 3X3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally exactly one way, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A233498 is ``Number of (1+2)X(n+2) 0..2 arrays with no increasing sequence of length 3 horizontally or antidiagonally downwards.''. It has offset $1$ and begins
 \[
-23912, 48226, 92286, 167480, 412860, 1006754, 2225410, 4825526,\ \dots
+16928, 388908, 8946936, 205862149, 4735554885, 108935413524, 2505862495421, 57642807090627,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -4*a(n-2) +5*a(n-3) +9*a(n-4) -31*a(n-5) +49*a(n-6) -59*a(n-7) +15*a(n-8) +54*a(n-9) -102*a(n-10) +110*a(n-11) -52*a(n-12) -25*a(n-13) +74*a(n-14) -77*a(n-15) +38*a(n-16) +2*a(n-17) -18*a(n-18) +17*a(n-19) -8*a(n-20) +a(n-21) for n>31
+Empirical: a(n) = 29*a(n-1) -84*a(n-2) -1570*a(n-3) +6618*a(n-4) +28026*a(n-5) -136815*a(n-6) -145173*a(n-7) +1005714*a(n-8) -486446*a(n-9) -1842056*a(n-10) +1805556*a(n-11) +1069186*a(n-12) -1763040*a(n-13) +27675*a(n-14) +626313*a(n-15) -148782*a(n-16) -66294*a(n-17) +19454*a(n-18) +2708*a(n-19) -849*a(n-20) -37*a(n-21) +12*a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:09:57, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:04:31, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Patterns are a combination of counts}
+\section{What is being counted}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
-counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
-only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
-patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
-alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
-its letters into the alphabet, so
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
+\begin{array}{l}
+\text{down an antidiagonal, ne to sw, read the other way} \\
+\text{down a column} \\
+\end{array}
 \]
-a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
-\[
-a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
-\]
-a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
-Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
-union of those graphs with the combination's coefficients placed in the starting vector; the
-coefficients are rational and some are negative, which costs nothing in what follows.
+all of them inside the array. The array is counted when no run has its entries strictly increasing. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the directions above are already the transposed ones.
 
-This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
-the condition below is stated through equality between entries and never names a particular
-value or compares sizes.
 
-\section{Three consecutive lines}
+One direction above is marked ``read the other way''. Transposing an array exchanges a row with
+a column and carries each diagonal direction to itself only up to sense: an antidiagonal read
+from the northeast becomes one read from the southwest. For a condition built from EQUALITY
+that would not matter, but ``strictly increasing'' read backwards is ``strictly decreasing'',
+so the sense is carried explicitly rather than normalised away. The
+difference is not subtle: normalising it away makes the model disagree with the entry's
+published terms from the very first one, which is how the point was found.
 
-The entry's condition constrains every $3\times3$ subblock, which spans three consecutive
-rows and three consecutive columns. Writing an array as a sequence of rows
-$u_1,u_2,\dots$ over $\{0,\dots,1\}^{8}$, the condition
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
+
+\section{Every run lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-\text{exactly }1\text{ of the horizontally, vertically, diagonally or antidiagonally lines of }g\text{ \text{is constant}}
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=757,\quad\tau=\mathbf{1} .
 \]
-involves only three consecutive rows. Take as vertices the ordered PAIRS $(r,s)$ of
-rows and put an edge $(r,s)\to(s,t)$ exactly when the condition holds for the triple
-$(r,s,t)$ at every admissible column; an array with $L$ rows is a walk of length $L-2$.
-Doing that for each alphabet size $1,\dots,2$ and combining as above gives
-\[
-a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n}\tau
-\]
-on $S=65536$ vertices in total, the exponent fixed by the entry's own shape and checked against
-its published terms. States lying on no walk from $\iota$ to $\tau$ are removed first; that
-changes no value and only shrinks the computation.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 4\,a(n-2) + 5\,a(n-3) + 9\,a(n-4) - 31\,a(n-5) + 49\,a(n-6) - 59\,a(n-7) + 15\,a(n-8) + 54\,a(n-9) - 102\,a(n-10) + 110\,a(n-11) - 52\,a(n-12) - 25\,a(n-13) + 74\,a(n-14) - 77\,a(n-15) + 38\,a(n-16) + 2\,a(n-17) - 18\,a(n-18) + 17\,a(n-19) - 8\,a(n-20) + a(n-21)
+a(n)\;=\;29\,a(n-1) - 84\,a(n-2) - 1570\,a(n-3) + 6618\,a(n-4) + 28026\,a(n-5) - 136815\,a(n-6) - 145173\,a(n-7) + 1005714\,a(n-8) - 486446\,a(n-9) - 1842056\,a(n-10) + 1805556\,a(n-11) + 1069186\,a(n-12) - 1763040\,a(n-13) + 27675\,a(n-14) + 626313\,a(n-15) - 148782\,a(n-16) - 66294\,a(n-17) + 19454\,a(n-18) + 2708\,a(n-19) - 849\,a(n-20) - 37\,a(n-21) + 12\,a(n-22)
 \]
-for every $n>31$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=31+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>31$.
+The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204359.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233498.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

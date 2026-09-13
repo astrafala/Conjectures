@@ -12,74 +12,87 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A197058, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A240377, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A197058 counts arrays of width $5$ in which every entry is equal to the NUMBER of its own
-neighbours, in named directions, that stand in a stated relation to it. The entry carries an
-empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The condition is self-referential but local: a cell's
-neighbours lie in the row above, its own row and the row below, so a window of three
-consecutive rows decides the condition for the middle one, and the count is a walk count on
-$S=34368$ states.
+OEIS A240377 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $4$ is carried in the state; the
+count is then a walk count on $S=37$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A197058 is ``Number of n X 5 0..4 arrays with each element equal to the number its horizontal and vertical neighbors equal to 2.''. It has offset $1$ and begins
+OEIS A240377 is ``Number of nX2 0..3 arrays with no element equal to zero plus the sum of elements to its left or two plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
 \[
-1, 5, 14, 28, 48, 90, 200, 447,\ \dots
+2, 10, 44, 148, 636, 2430, 9648, 37946,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) -a(n-2) +a(n-3) +2*a(n-4) +3*a(n-5) -a(n-6) -2*a(n-7) -2*a(n-8) +2*a(n-9) -2*a(n-10) -a(n-11) -3*a(n-12) -a(n-13).
+Empirical: a(n) = 2*a(n-1) +11*a(n-2) -a(n-3) -39*a(n-4) -40*a(n-5) +3*a(n-6) +13*a(n-7) +64*a(n-8) +162*a(n-9) -220*a(n-10) +122*a(n-11) -38*a(n-12) -82*a(n-13) +60*a(n-14) for n>15
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 11 2018 09:54:38, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:52:31, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
-offsets
+The array has $2$ cells across one way, entries $x(i,j)\in\{0,1,2,3\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 2 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
+\end{array}
 \]
-those that lie inside the array. The condition is that every entry counts its own neighbours
-that are equal to $2$: writing $v=x(i,j)$,
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
 \[
-v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=2\} .
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
 \]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero.
 
+\section{The rays as a bounded state}
 
-\section{Three rows decide one}
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
-therefore decided by those three rows, an absent row contributing no neighbours.
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 3 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0 .
+\end{aligned}
+\]
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets, together with the rule that a neighbour outside the array is not a
-neighbour.
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$; a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
-$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
-one step is a one-row array. And the condition for the LAST row is settled by the end vector,
-which asks whether that row satisfies its condition with nothing written below it: the end
-vector is therefore NOT the all-ones vector, and a row that counts correctly only when
-something is written below it does not finish an array. With $M$ the adjacency matrix,
+Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=34368.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=37.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -87,7 +100,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{13}-\sum_i c_it^{13-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{14}-\sum_i c_it^{14-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -95,7 +108,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+13}-\sum_ic_iM^{j+13-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+14}-\sum_ic_iM^{j+14-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -104,15 +117,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + a(n-3) + 2\,a(n-4) + 3\,a(n-5) - a(n-6) - 2\,a(n-7) - 2\,a(n-8) + 2\,a(n-9) - 2\,a(n-10) - a(n-11) - 3\,a(n-12) - a(n-13)
+a(n)\;=\;2\,a(n-1) + 11\,a(n-2) - a(n-3) - 39\,a(n-4) - 40\,a(n-5) + 3\,a(n-6) + 13\,a(n-7) + 64\,a(n-8) + 162\,a(n-9) - 220\,a(n-10) + 122\,a(n-11) - 38\,a(n-12) - 82\,a(n-13) + 60\,a(n-14)
 \]
-for every $n>12$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $13$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -120,13 +133,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, count each cell's neighbours satisfying the relation, and
-keep the array when every cell equals its own count. No window, no transfer matrix and no
-transposition are involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -136,11 +149,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A197058.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240377.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,78 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268626, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224576, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268626 counts arrays of width $6$ over $\{0,1,2\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $2$ is at most one. The entry carries an empirical recurrence of
-order $14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=1162$ states.
+OEIS A224576 counts the $(n+5)\times12$ matrices over $\{0,\dots,1\}$ all of whose
+$6\times6$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $6$ consecutive rows and $6$ consecutive columns at once, so a
+single row is not a state; the strip of the last $5$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=31857$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A268626 is ``Number of nX6 0..2 arrays with some element plus some horizontally or vertically adjacent neighbor totalling two no more than once.''. It has offset $1$ and begins
+OEIS A224576 is ``Number of (n+5)X12 0..1 matrices with each 6X6 subblock idempotent.''. It has offset $1$ and begins
 \[
-336, 8586, 187224, 3819654, 74914554, 1430057208, 26758514760, 493042858032,\ \dots
+28708, 7843, 8294, 9164, 9946, 10561, 11032, 12921,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 60*a(n-1) -1482*a(n-2) +20016*a(n-3) -167163*a(n-4) +924894*a(n-5) -3537110*a(n-6) +9593166*a(n-7) -18693789*a(n-8) +26218062*a(n-9) -26188161*a(n-10) +18139608*a(n-11) -8262712*a(n-12) +2220864*a(n-13) -266256*a(n-14) for n>15
+Empirical: a(n) = 3*a(n-1) -3*a(n-2) +a(n-3) +2*a(n-6) -5*a(n-7) +4*a(n-8) -a(n-9) -a(n-12) +2*a(n-13) -a(n-14) for n>18
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 09 2016 09:23:16, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:28:40, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $6$ cells across, with entries in $\{0,1,2\}$. An ADJACENT PAIR is a pair of cells
+Call a $6\times6$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $6\times12$ matrix a \emph{band} when every one of its $7$ contiguous
+$6\times6$ subblocks is a window. What the entry counts is the matrices of $12$ columns
+whose every $6$ consecutive rows form a band.
+
+Take as states the $5\times12$ strips that occur as the top $5$ rows of a band,
+together with those that occur as its bottom $5$ rows, and put an edge from $u$ to $v$
+when the band whose first $5$ rows are $u$ and whose last $5$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..5$, then $2..6$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+5$ rows gives a walk of $n$ edges.
+Since the first $5$ rows of a counted matrix with at least $6$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-\end{array}
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $2$, the
-entry counts the arrays with $k$ at most one.
+with $M$ the adjacency matrix on $S=31857$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-\section{A capped count is a state}
+There are $(1 + 1)^{60}$ strips of $5$ rows and $12$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $6\times5$ entries, so a band is exactly a walk of $7$ windows in
+the graph that joins a window to those whose first $5$ columns are its last $5$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
+\section{The admissible windows}
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $6\times6$ with
+$B^2=B$. There are $2^{36}$ matrices to sift, which is already awkward at $6=6$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
 \[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
 \]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1162.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Generating from Lemma~\ref{lem:idem} gives $96608$ admissible $6\times6$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
@@ -105,42 +141,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;60\,a(n-1) - 1482\,a(n-2) + 20016\,a(n-3) - 167163\,a(n-4) + 924894\,a(n-5) - 3537110\,a(n-6) + 9593166\,a(n-7) - 18693789\,a(n-8) + 26218062\,a(n-9) - 26188161\,a(n-10) + 18139608\,a(n-11) - 8262712\,a(n-12) + 2220864\,a(n-13) - 266256\,a(n-14)
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3) + 2\,a(n-6) - 5\,a(n-7) + 4\,a(n-8) - a(n-9) - a(n-12) + 2\,a(n-13) - a(n-14)
 \]
-for every $n>15$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=18$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $2$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268626.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224576.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

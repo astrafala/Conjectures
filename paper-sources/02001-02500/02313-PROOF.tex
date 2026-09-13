@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232925, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233226, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232925 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
-a named set of directions may sum to $2$, together with clauses that pick one array out of
+OEIS A233226 counts arrays over $\{0,\dots,5\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $5$, together with clauses that pick one array out of
 each class of arrays differing by a renaming. The entry carries an empirical recurrence of
 order $23$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: the clash condition is local to two consecutive rows and the renaming clauses are
@@ -31,37 +31,66 @@ carried by one bounded piece of extra state, so the count is a walk count on $S=
 
 \section{The conjecture}
 
-OEIS A232925 is ``Number of 6Xn 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A233226 is ``Number of nX4 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally, antidiagonally or vertically, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
 \[
-729, 1458, 23346, 235824, 2986152, 33994188, 409408542, 4791504648,\ \dots
+23, 2541, 420948, 72049266, 12389989684, 2131764323784, 366805442634477, 63115455429961173,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) +109*a(n-2) -256*a(n-3) -3152*a(n-4) +4016*a(n-5) +36307*a(n-6) -39164*a(n-7) -200969*a(n-8) +225166*a(n-9) +558858*a(n-10) -666143*a(n-11) -821349*a(n-12) +1028812*a(n-13) +665423*a(n-14) -859266*a(n-15) -301764*a(n-16) +388624*a(n-17) +75683*a(n-18) -91245*a(n-19) -9839*a(n-20) +10158*a(n-21) +486*a(n-22) -420*a(n-23) for n>24
+Empirical: a(n) = 208*a(n-1) -6194*a(n-2) -6657*a(n-3) +1510366*a(n-4) -4909922*a(n-5) -83197258*a(n-6) +434631988*a(n-7) +327946201*a(n-8) -4201117068*a(n-9) +1899947531*a(n-10) +14849526767*a(n-11) -12775127323*a(n-12) -22240589415*a(n-13) +23935227067*a(n-14) +13900628187*a(n-15) -18073202257*a(n-16) -2644553309*a(n-17) +5223316598*a(n-18) -76874653*a(n-19) -517583738*a(n-20) +40060322*a(n-21) +4525360*a(n-22) -152800*a(n-23)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:44:00, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 07:56:50, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array is $6$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
-when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
+The array is $4$ cells across with entries $x(i,j)\in\{0,1,\dots,5\}$. Call two values $u,v$ CLASHING
+when $u+v=5$. Two cells are neighbours when one is obtained from the other by one of
 the offsets
 \[
-(1,-1), (1,0), (1,1),
+(0,1), (1,-1), (1,0), (1,1),
 \]
-that is, in the antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
-clashing values. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, so the offsets above are already the transposed ones: transposing exchanges the horizontal and vertical directions and fixes each diagonal one. The clash relation is symmetric, so an offset and its negative name the
-same pairs and only one of each is listed.
+that is, in the horizontal, antidiagonal (ne--sw), vertical and diagonal (nw--se) directions, and the condition is that no two neighbouring cells carry
+clashing values. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed. The entry also fixes the top left entry: $x(1,1)=0$.
+
+Finally the entry asks that, reading the cells in ROW MAJOR order, certain values make their
+first appearance before certain others:
+\[
+1\prec 2,\qquad 1\prec 3,\qquad 1\prec 4,\qquad 2\prec 3 ,
+\]
+writing $u\prec v$ for ``the first cell carrying $u$ comes before the first cell carrying
+$v$''. The entry's own name glosses the effect of this clause together with $x(1,1)=0$ as
+counting UNLABELLED colourings. Nothing below rests on that gloss: the clause is imposed
+exactly as it is written, and it is the written clause that the model and the independent
+check both test.
+
+\begin{lemma}\label{lem:seen}
+Let $P$ be the set of values named in the clause. Reading the cells in row major order and
+carrying the SET $T\subseteq P$ of named values already written, the clause holds if and only
+if every cell whose value $v\in P$ is not yet in $T$ has $u\in T$ for every $u$ with $u\prec v$.
+\end{lemma}
+
+\begin{proof}
+$u\prec v$ says the first cell carrying $v$ is preceded by some cell carrying $u$, that is, at
+the moment $v$ is first written $u$ already belongs to $T$. Conversely if that holds at each
+first writing then each required precedence holds. A cell whose value is already in $T$ is not
+a first appearance and imposes nothing.
+\end{proof}
+
+The walk of this paper runs DOWN THE ROWS and visits the cells of each row from left to right,
+which is exactly row major order, so the set $T$ can be carried in the state. It takes at most
+$2^{4}$ values, and the state of the walk is a pair (array row, set $T$).
 
 \section{The walk}
 
 Every offset above moves the row index by at most one, so a clash is a condition on two
 consecutive array rows and on nothing else.
 
-So a single array row is a state. A step appends a row, which settles every clash between it
-and the row above and every clash inside it. Two states from which, for every remaining length,
-the same number of arrays can be completed contribute identically to the count, so they are
+So the state is a pair: the last array row, and the set $T$ of Lemma~\ref{lem:seen}. A step
+appends a row, which settles every clash between it and the row above, every clash inside it,
+and every first appearance it contains. Two states from which, for every remaining length, the
+same number of arrays can be completed contribute identically to the count, so they are
 identified; after that identification there are $S=25$ of them.
 
 With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
@@ -91,15 +120,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) + 109\,a(n-2) - 256\,a(n-3) - 3152\,a(n-4) + 4016\,a(n-5) + 36307\,a(n-6) - 39164\,a(n-7) - 200969\,a(n-8) + 225166\,a(n-9) + 558858\,a(n-10) - 666143\,a(n-11) - 821349\,a(n-12) + 1028812\,a(n-13) + 665423\,a(n-14) - 859266\,a(n-15) - 301764\,a(n-16) + 388624\,a(n-17) + 75683\,a(n-18) - 91245\,a(n-19) - 9839\,a(n-20) + 10158\,a(n-21) + 486\,a(n-22) - 420\,a(n-23)
+a(n)\;=\;208\,a(n-1) - 6194\,a(n-2) - 6657\,a(n-3) + 1510366\,a(n-4) - 4909922\,a(n-5) - 83197258\,a(n-6) + 434631988\,a(n-7) + 327946201\,a(n-8) - 4201117068\,a(n-9) + 1899947531\,a(n-10) + 14849526767\,a(n-11) - 12775127323\,a(n-12) - 22240589415\,a(n-13) + 23935227067\,a(n-14) + 13900628187\,a(n-15) - 18073202257\,a(n-16) - 2644553309\,a(n-17) + 5223316598\,a(n-18) - 76874653\,a(n-19) - 517583738\,a(n-20) + 40060322\,a(n-21) + 4525360\,a(n-22) - 152800\,a(n-23)
 \]
-for every $n>24$.
+for every $n>23$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -107,7 +136,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -123,7 +152,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232925.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233226.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

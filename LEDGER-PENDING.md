@@ -179,3 +179,33 @@ single row, which is what said the reading was wrong.
 
 **34 names read, every one of the 11 checked reproducing its entry's published data exactly;
 11 proved and installed as `lexicographic-array`.** The rest carry no parsable recurrence.
+
+## 13 September 2026 — `pairclique`: a condition over every pair or triple of positions
+
+65 entries of the shape
+
+    Number of -3..3 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1),
+      -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having two, three or four distinct values for every
+      i<=n and j<=n.
+
+quantify over ALL pairs — or, in the larger variant, all triples — of positions, so no bounded
+window decides them and no engine read one. But the condition depends on those positions only
+through the ADJACENT PAIRS (x_i, x_{i+1}) they sit at. Writing D for the set of distinct
+adjacent pairs an array uses, the condition says exactly that every two (or three) members of D
+are compatible: D must be a clique of a fixed graph on the (2A+1)² pairs.
+
+That makes the state (last value, the pairs used so far), and admissibility is subset-closed so
+appending only tests the new pair. Two further steps were needed to make it a model that can be
+evaluated rather than one that merely exists:
+
+* for a PAIRWISE condition the future depends only on which pairs are still ALLOWED, not on
+  which were used — the allowed set is the intersection of the neighbourhoods — and carrying
+  that instead took the raw state count from over 300,000 to **189**;
+* and the raw automaton is highly redundant, so it is lumped by identical future behaviour:
+  9,018 states to **29** for the triple family, 189 to **10** for the pair family. The
+  residual test runs until S consecutive residuals vanish, so the state count is the whole cost.
+
+**111 names read, 65 build within the limits and every one of those reproduces its entry's
+published data exactly; 52 proved and installed as `pairwise-compatible-array`.** The triple
+condition over -3..3 is refused: it is not pairwise, so the state must carry the set of pairs
+used rather than the set still allowed, and at 49 pairs that space is past any budget.

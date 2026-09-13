@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A232672, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250008, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A232672 carries an empirical recurrence of order $53$ contributed by R. H. Hardin. It is
+OEIS A250008 carries an empirical recurrence of order $55$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6642$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=243$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A232672 is ``Number of (n+1)X(3+1) 0..2 arrays with every element next to itself plus and minus one within the range 0..2 horizontally, vertically, diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A250008 is ``Number of length n+5 0..2 arrays with no six consecutive terms having the maximum of any three terms equal to the minimum of the remaining three terms.''. It has offset $1$ and begins
 \[
-1568, 63632, 3684840, 223396744, 12890094328, 754650484792, 44225213151124, 2584211741776292,\ \dots
+300, 520, 912, 1612, 2864, 5102, 9090, 16272,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 53 (see link above)
+Empirical: a(n) = a(n-1) +a(n-2) +a(n-4) -a(n-5) +22*a(n-6) -13*a(n-7) -27*a(n-8) -3*a(n-9) -24*a(n-10) +18*a(n-11) -162*a(n-12) +30*a(n-13) +223*a(n-14) +24*a(n-15) +211*a(n-16) -102*a(n-17) +323*a(n-18) +231*a(n-19) -610*a(n-20) +29*a(n-21) -645*a(n-22) +195*a(n-23) +585*a(n-24) -1099*a(n-25) +329*a(n-26) -622*a(n-27) +20*a(n-28) +143*a(n-29) -1010*a(n-30) +864*a(n-31) -339*a(n-32) +678*a(n-33) +39*a(n-34) -2*a(n-35) -84*a(n-36) -358*a(n-37) +539*a(n-38) +106*a(n-39) +81*a(n-40) -113*a(n-41) +71*a(n-42) +190*a(n-43) -97*a(n-44) -83*a(n-45) -5*a(n-46) -46*a(n-47) +65*a(n-48) -28*a(n-49) +12*a(n-50) -18*a(n-51) -12*a(n-54) -8*a(n-55)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:33:30, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:09:34, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6642$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=243$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{55}-\sum_i c_it^{55-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+55}-\sum_ic_iM^{j+55-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) + 1179\,a(n-2) + 47801\,a(n-3) + 295142\,a(n-4) + 349830\,a(n-5) - 83258146\,a(n-6) - 579202036\,a(n-7) - 2890497677\,a(n-8) + 44312348515\,a(n-9) + 284463556971\,a(n-10) + 1319519035341\,a(n-11) - 10268358688788\,a(n-12) - 50590492259292\,a(n-13) - 260280305470468\,a(n-14) + 1202933246698358\,a(n-15) + 3823724345194900\,a(n-16) + 22815509832425644\,a(n-17) - 63891636229773392\,a(n-18) - 137632450945124168\,a(n-19) - 854077186917743224\,a(n-20) + 1337960723399414896\,a(n-21) + 1730043927112435920\,a(n-22) + 15236440613333828832\,a(n-23) - 14043938165667360992\,a(n-24) - 2541855592070908928\,a(n-25) - 144888329201570062752\,a(n-26) + 82700419848167842080\,a(n-27) - 111910318727832577600\,a(n-28) + 749713986925877274496\,a(n-29) - 312060840208458881920\,a(n-30) + 857203039925459213056\,a(n-31) - 2118610568859290996480\,a(n-32) + 764020647115734063104\,a(n-33) - 2343918360887695571968\,a(n-34) + 3461303669449446682624\,a(n-35) - 997113903590955950080\,a(n-36) + 2877387424387989254144\,a(n-37) - 3193367094809222885376\,a(n-38) + 569451319039215796224\,a(n-39) - 1635231012910299742208\,a(n-40) + 1540001104831457918976\,a(n-41) + 1046559358238326784\,a(n-42) + 348947683058137432064\,a(n-43) - 355853008085383643136\,a(n-44) - 100987836680795848704\,a(n-45) + 11775798764088852480\,a(n-46) + 39763879999676874752\,a(n-47) + 17284729912883675136\,a(n-48) - 7747529773965901824\,a(n-49) - 1821783839719030784\,a(n-50) - 732828897959215104\,a(n-51) + 513478527241158656\,a(n-52) - 24030926136672256\,a(n-53)
+a(n)\;=\;a(n-1) + a(n-2) + a(n-4) - a(n-5) + 22\,a(n-6) - 13\,a(n-7) - 27\,a(n-8) - 3\,a(n-9) - 24\,a(n-10) + 18\,a(n-11) - 162\,a(n-12) + 30\,a(n-13) + 223\,a(n-14) + 24\,a(n-15) + 211\,a(n-16) - 102\,a(n-17) + 323\,a(n-18) + 231\,a(n-19) - 610\,a(n-20) + 29\,a(n-21) - 645\,a(n-22) + 195\,a(n-23) + 585\,a(n-24) - 1099\,a(n-25) + 329\,a(n-26) - 622\,a(n-27) + 20\,a(n-28) + 143\,a(n-29) - 1010\,a(n-30) + 864\,a(n-31) - 339\,a(n-32) + 678\,a(n-33) + 39\,a(n-34) - 2\,a(n-35) - 84\,a(n-36) - 358\,a(n-37) + 539\,a(n-38) + 106\,a(n-39) + 81\,a(n-40) - 113\,a(n-41) + 71\,a(n-42) + 190\,a(n-43) - 97\,a(n-44) - 83\,a(n-45) - 5\,a(n-46) - 46\,a(n-47) + 65\,a(n-48) - 28\,a(n-49) + 12\,a(n-50) - 18\,a(n-51) - 12\,a(n-54) - 8\,a(n-55)
 \]
-for every $n>53$.
+for every $n>60$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $55$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=60+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A232672.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250008.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

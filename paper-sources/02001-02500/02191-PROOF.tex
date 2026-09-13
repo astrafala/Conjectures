@@ -12,35 +12,35 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214190, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214104, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214190 counts the proper colourings of a grid $3\times(n+1)$, wrapped in the growing direction, with at most $7$ colours and
+OEIS A214104 counts the proper colourings of a grid $5\times(n+1)$, wrapped in the growing direction, with at most $3$ colours and
 counted up to renaming the colours, and carries an empirical recurrence of order $29$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
 up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
 a walk count; and because permuting the colours preserves everything in sight, the walk may be
 run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=281$ and makes the exact residual test affordable.
+down to $S=386$ and makes the exact residual test affordable.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A214190 is ``Number of 0..6 colorings of a 3X(n+1) array circular in the n+1 direction with new values 0..6 introduced in row major order.''. It has offset $1$ and begins
+OEIS A214104 is ``Number of 0..2 colorings of a 5 X (n+1) array circular in the n+1 direction with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-34, 1046, 147943, 21418431, 3375824210, 537471327779, 85978533129243, 13765597336821245,\ \dots
+81, 16, 4913, 6480, 428383, 1262128, 41634729, 190532944,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 139*a(n-1) +5515*a(n-2) -286157*a(n-3) -9529273*a(n-4) +113179647*a(n-5) +4029123791*a(n-6) -21482035001*a(n-7) -665136918315*a(n-8) +3470737828565*a(n-9) +52035528093885*a(n-10) -353663596245035*a(n-11) -1772488823978235*a(n-12) +18597082646494445*a(n-13) +6436724051209165*a(n-14) -461676350902794315*a(n-15) +989689896962549920*a(n-16) +4490761773386882420*a(n-17) -20885571816583158340*a(n-18) +2406786493445125820*a(n-19) +135386533520490778816*a(n-20) -242458279252260285504*a(n-21) -117064394722434074400*a(n-22) +741048574341017155392*a(n-23) -533060382247946111232*a(n-24) -464734745166440627712*a(n-25) +719025841858074960384*a(n-26) -101164868845572040704*a(n-27) -184396432098202951680*a(n-28) +60855200138907648000*a(n-29)
+Empirical: a(n) = 15*a(n-1) +56*a(n-2) -1688*a(n-3) +4037*a(n-4) +44693*a(n-5) -203873*a(n-6) -312833*a(n-7) +2832059*a(n-8) -909541*a(n-9) -17058886*a(n-10) +18627946*a(n-11) +50511099*a(n-12) -83121717*a(n-13) -71958333*a(n-14) +176504835*a(n-15) +32625006*a(n-16) -199821666*a(n-17) +30366700*a(n-18) +122944620*a(n-19) -43577864*a(n-20) -39520072*a(n-21) +20445664*a(n-22) +5749984*a(n-23) -4391680*a(n-24) -152320*a(n-25) +420352*a(n-26) -34304*a(n-27) -14336*a(n-28) +2048*a(n-29).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:56:09, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Nov 03 2014 01:54:08, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings o
 colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
 family publishes.
 
-The clause ``new values $0..6$ introduced in row major order'' says the array is the
+The clause ``new values $0..2$ introduced in row major order'' says the array is the
 canonical representative of its equality pattern, so what is counted is patterns, not arrays.
 Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
 number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
@@ -61,9 +61,9 @@ is a pattern together with an injection of its colours into the alphabet, so
 L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
 a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{7}$, so
+$a=N_1+\dots+N_{3}$, so
 \[
-a\;=\;\sum_{i=1}^{7}w_i\,L_i
+a\;=\;\sum_{i=1}^{3}w_i\,L_i
 \]
 for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
 factorials. Being properly coloured is a statement about equalities alone, so it is invariant
@@ -71,10 +71,10 @@ under permuting the colours and the reduction is legitimate.
 
 \section{Each $L_i$ is a walk count}
 
-A column of the array is a proper colouring of the path $P_{3}$ and two consecutive
-columns must differ in every one of the $3$ positions; the wrapping makes the last column
+A column of the array is a proper colouring of the path $P_{5}$ and two consecutive
+columns must differ in every one of the $5$ positions; the wrapping makes the last column
 adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
-in the digraph $T_i$ whose vertices are the proper colourings of $P_{3}$ over $i$ colours
+in the digraph $T_i$ whose vertices are the proper colourings of $P_{5}$ over $i$ colours
 and whose edges join colourings differing everywhere, so
 \[
 L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
@@ -99,7 +99,7 @@ $i(i-1)\cdots(i-j+1)$ members.
 $\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
 length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
 gives the displayed identity. Permuting colours preserves ``differ in every position'', so
-$S_i$ acts on the colourings of $P_{3}$ preserving $T_i$; two colourings lie in one orbit
+$S_i$ acts on the colourings of $P_{5}$ preserving $T_i$; two colourings lie in one orbit
 exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
 in $i(i-1)\cdots(i-j+1)$ ways.
 \end{proof}
@@ -124,10 +124,10 @@ sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ 
 Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
 under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
 subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=281$ rather than the number of colourings.
+state count is $S=386$ rather than the number of colourings.
 
 Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,7$, with $\iota$ carrying the weights $w_i$ cleared of
+orbit digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights $w_i$ cleared of
 denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
 matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -151,15 +151,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;139\,a(n-1) + 5515\,a(n-2) - 286157\,a(n-3) - 9529273\,a(n-4) + 113179647\,a(n-5) + 4029123791\,a(n-6) - 21482035001\,a(n-7) - 665136918315\,a(n-8) + 3470737828565\,a(n-9) + 52035528093885\,a(n-10) - 353663596245035\,a(n-11) - 1772488823978235\,a(n-12) + 18597082646494445\,a(n-13) + 6436724051209165\,a(n-14) - 461676350902794315\,a(n-15) + 989689896962549920\,a(n-16) + 4490761773386882420\,a(n-17) - 20885571816583158340\,a(n-18) + 2406786493445125820\,a(n-19) + 135386533520490778816\,a(n-20) - 242458279252260285504\,a(n-21) - 117064394722434074400\,a(n-22) + 741048574341017155392\,a(n-23) - 533060382247946111232\,a(n-24) - 464734745166440627712\,a(n-25) + 719025841858074960384\,a(n-26) - 101164868845572040704\,a(n-27) - 184396432098202951680\,a(n-28) + 60855200138907648000\,a(n-29)
+a(n)\;=\;15\,a(n-1) + 56\,a(n-2) - 1688\,a(n-3) + 4037\,a(n-4) + 44693\,a(n-5) - 203873\,a(n-6) - 312833\,a(n-7) + 2832059\,a(n-8) - 909541\,a(n-9) - 17058886\,a(n-10) + 18627946\,a(n-11) + 50511099\,a(n-12) - 83121717\,a(n-13) - 71958333\,a(n-14) + 176504835\,a(n-15) + 32625006\,a(n-16) - 199821666\,a(n-17) + 30366700\,a(n-18) + 122944620\,a(n-19) - 43577864\,a(n-20) - 39520072\,a(n-21) + 20445664\,a(n-22) + 5749984\,a(n-23) - 4391680\,a(n-24) - 152320\,a(n-25) + 420352\,a(n-26) - 34304\,a(n-27) - 14336\,a(n-28) + 2048\,a(n-29)
 \]
-for every $n>28$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The
 rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
 computation is over the integers.
@@ -169,7 +169,7 @@ computation is over the integers.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -181,7 +181,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214190.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214104.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University

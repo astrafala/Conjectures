@@ -14,6 +14,11 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    # again not a window: the condition quantifies over all pairs (or triples) of
+    # positions and depends on them only through the adjacent pairs they sit at, so the
+    # state is the last value together with which adjacent pairs are still allowed.
+    'pairclique': ("the last value together with the set of adjacent pairs still "
+                   "compatible with every pair the array has already used"),
     # not a window at all: the state is the previous row together with the flags that carry
     # the two conditions no window can decide -- one per adjacent column pair for the
     # lexicographic comparison down the whole height, and one per position for an obligation

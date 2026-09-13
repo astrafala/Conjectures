@@ -12,75 +12,53 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204615, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236981, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204615 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
-$2\times2$ subblock, and carries an empirical recurrence of order $84$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=6740$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A236981 carries an empirical recurrence of order $92$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=332$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A204615 is ``Number of (n+1)X8 0..1 arrays with the determinants of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
+OEIS A236981 is ``Number of (n+1)X(2+1) 0..3 arrays with the maximum plus the upper median plus the lower median of every 2X2 subblock equal.''. It has offset $1$ and begins
 \[
-6740, 271125, 8522985, 301345617, 10133992449, 349154906413, 11909737623605, 408218289321933,\ \dots
+888, 3852, 16212, 85064, 429108, 2380742, 12891190, 73033832,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 144*a(n-1) -8563*a(n-2) +255626*a(n-3) -2972992*a(n-4) -46865696*a(n-5) +2174714198*a(n-6) -26363209292*a(n-7) -112414254625*a(n-8) +6919525630552*a(n-9) -65770551096007*a(n-10) -282984760153574*a(n-11) +10898425278688666*a(n-12) -64898443773624280*a(n-13) -509497988431144684*a(n-14) +9023085889649185624*a(n-15) -21958507892168020728*a(n-16) -455461716972203949952*a(n-17) +3799039748390986862448*a(n-18) +4433114703051246288096*a(n-19) -200052686711572114925600*a(n-20) +686859194162479673538688*a(n-21) +4940440258658882785166528*a(n-22) -42861549636616322814823296*a(n-23) -6821543682345866122507136*a(n-24) +1276418427626083020838706176*a(n-25) -3759259444397634549979154432*a(n-26) -20433064806078100617166565376*a(n-27) +140060516364157736689117370368*a(n-28) +66061311680920187236972216320*a(n-29) -2824601347579550805634990071808*a(n-30) +5197275357941475425138111643648*a(n-31) +34673731532274580141302886629376*a(n-32) -146700500271443643421781858713600*a(n-33) -202436954331656467469817059868672*a(n-34) +2227482921247546993592526648115200*a(n-35) -1332442470985324075514993316462592*a(n-36) -22188739897447961765003590490914816*a(n-37) +46394914857177354946542084701552640*a(n-38) +142397942155554769243849133370900480*a(n-39) -589903106624180351845014444171067392*a(n-40) -406674249560390571307853683338772480*a(n-41) +4863900259781355516783542223388016640*a(n-42) -2597009522419400327422478690530885632*a(n-43) -28340061646867975912507647836362375168*a(n-44) +43349972449937961409012505193117384704*a(n-45) +115075809285136499484531873747163938816*a(n-46) -321219473700389402249418929872354410496*a(n-47) -276240492709476963626791985695871205376*a(n-48) +1615080106140098076915908012426078978048*a(n-49) -67829317602858236867109071108725276672*a(n-50) -5983224971355020415874290121688945262592*a(n-51) +4105967906524877040636631547218701058048*a(n-52) +16598266513289570151453545323656103591936*a(n-53) -21566054982015635271708471685132241076224*a(n-54) -33621443654640013481696700241464700960768*a(n-55) +70920845321328809620127974169438970707968*a(n-56) +44474530781561361116665468898964049756160*a(n-57) -170244267338966127203959310238663013564416*a(n-58) -17415507881295121948475693338869742174208*a(n-59) +311989189801922413120110160542652725985280*a(n-60) -81760927533321136438125758706121793601536*a(n-61) -442478918818680196873088206617503189696512*a(n-62) +247155237063239199037890973365923089481728*a(n-63) +484611512535332207381410503923684335419392*a(n-64) -407752053084490599663167457997528972132352*a(n-65) -403257279695238584216799667225660512796672*a(n-66) +470329949339018027522473378218164707393536*a(n-67) +245304908276184523235688932684683162943488*a(n-68) -402111052685601918201002559097658331365376*a(n-69) -98941207073180465130119968605814862643200*a(n-70) +258619526528163757019026180531273787768832*a(n-71) +17279744829170662913558789767350359949312*a(n-72) -124581956757074656434091250756619866210304*a(n-73) +6886996406711814739611146223493274664960*a(n-74) +44125321737857392591558830598694904004608*a(n-75) -6136172761090018174078184589407457116160*a(n-76) -11097661645428896952578532590717465788416*a(n-77) +2158647152314394893587982915202470379520*a(n-78) +1864838958848794254111740130935854596096*a(n-79) -423808058266267022884767335345396121600*a(n-80) -186516008106577195393117844082203295744*a(n-81) +44891127045098059416185166577910415360*a(n-82) +8344086018758729695805334307095969792*a(n-83) -1979459229967184318566328995852320768*a(n-84) for n>88
+Empirical recurrence of order 92 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:21:51, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:42:54, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-Write $\sigma$ for the determinant of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times8$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $7$
-columns, and $\sigma$ colours that grid.
-
-The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
-horizontally or vertically, must not decrease. Rightwards and downwards are the two directions named.
 
 \section{The count is a walk count}
 
-A subblock's value needs two consecutive array rows, and the vertical
-comparison needs the two subblock rows that three consecutive array rows produce. So the state
-is the PAIR of consecutive array rows: the horizontal comparisons decide which pairs are
-admissible at all, and the vertical ones decide which pair may follow which. A step appends one
-array row, turning $(r,s)$ into $(s,t)$ and settling every comparison between the two subblock
-rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=332$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-on the $S=6740$ admissible pairs.
-
-At $n=1$ the array has two rows, so the grid is a single row of $7$
-subblocks with no vertical neighbours, so only the horizontal comparisons apply. The
-entry's first term is $6740$, and the model reproduces it along with every later term; that
-is the cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
-$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{84}-\sum_i c_it^{84-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{92}-\sum_i c_it^{92-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -88,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+84}-\sum_ic_iM^{j+84-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+92}-\sum_ic_iM^{j+92-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;144\,a(n-1) - 8563\,a(n-2) + 255626\,a(n-3) - 2972992\,a(n-4) - 46865696\,a(n-5) + 2174714198\,a(n-6) - 26363209292\,a(n-7) - 112414254625\,a(n-8) + 6919525630552\,a(n-9) - 65770551096007\,a(n-10) - 282984760153574\,a(n-11) + 10898425278688666\,a(n-12) - 64898443773624280\,a(n-13) - 509497988431144684\,a(n-14) + 9023085889649185624\,a(n-15) - 21958507892168020728\,a(n-16) - 455461716972203949952\,a(n-17) + 3799039748390986862448\,a(n-18) + 4433114703051246288096\,a(n-19) - 200052686711572114925600\,a(n-20) + 686859194162479673538688\,a(n-21) + 4940440258658882785166528\,a(n-22) - 42861549636616322814823296\,a(n-23) - 6821543682345866122507136\,a(n-24) + 1276418427626083020838706176\,a(n-25) - 3759259444397634549979154432\,a(n-26) - 20433064806078100617166565376\,a(n-27) + 140060516364157736689117370368\,a(n-28) + 66061311680920187236972216320\,a(n-29) - 2824601347579550805634990071808\,a(n-30) + 5197275357941475425138111643648\,a(n-31) + 34673731532274580141302886629376\,a(n-32) - 146700500271443643421781858713600\,a(n-33) - 202436954331656467469817059868672\,a(n-34) + 2227482921247546993592526648115200\,a(n-35) - 1332442470985324075514993316462592\,a(n-36) - 22188739897447961765003590490914816\,a(n-37) + 46394914857177354946542084701552640\,a(n-38) + 142397942155554769243849133370900480\,a(n-39) - 589903106624180351845014444171067392\,a(n-40) - 406674249560390571307853683338772480\,a(n-41) + 4863900259781355516783542223388016640\,a(n-42) - 2597009522419400327422478690530885632\,a(n-43) - 28340061646867975912507647836362375168\,a(n-44) + 43349972449937961409012505193117384704\,a(n-45) + 115075809285136499484531873747163938816\,a(n-46) - 321219473700389402249418929872354410496\,a(n-47) - 276240492709476963626791985695871205376\,a(n-48) + 1615080106140098076915908012426078978048\,a(n-49) - 67829317602858236867109071108725276672\,a(n-50) - 5983224971355020415874290121688945262592\,a(n-51) + 4105967906524877040636631547218701058048\,a(n-52) + 16598266513289570151453545323656103591936\,a(n-53) - 21566054982015635271708471685132241076224\,a(n-54) - 33621443654640013481696700241464700960768\,a(n-55) + 70920845321328809620127974169438970707968\,a(n-56) + 44474530781561361116665468898964049756160\,a(n-57) - 170244267338966127203959310238663013564416\,a(n-58) - 17415507881295121948475693338869742174208\,a(n-59) + 311989189801922413120110160542652725985280\,a(n-60) - 81760927533321136438125758706121793601536\,a(n-61) - 442478918818680196873088206617503189696512\,a(n-62) + 247155237063239199037890973365923089481728\,a(n-63) + 484611512535332207381410503923684335419392\,a(n-64) - 407752053084490599663167457997528972132352\,a(n-65) - 403257279695238584216799667225660512796672\,a(n-66) + 470329949339018027522473378218164707393536\,a(n-67) + 245304908276184523235688932684683162943488\,a(n-68) - 402111052685601918201002559097658331365376\,a(n-69) - 98941207073180465130119968605814862643200\,a(n-70) + 258619526528163757019026180531273787768832\,a(n-71) + 17279744829170662913558789767350359949312\,a(n-72) - 124581956757074656434091250756619866210304\,a(n-73) + 6886996406711814739611146223493274664960\,a(n-74) + 44125321737857392591558830598694904004608\,a(n-75) - 6136172761090018174078184589407457116160\,a(n-76) - 11097661645428896952578532590717465788416\,a(n-77) + 2158647152314394893587982915202470379520\,a(n-78) + 1864838958848794254111740130935854596096\,a(n-79) - 423808058266267022884767335345396121600\,a(n-80) - 186516008106577195393117844082203295744\,a(n-81) + 44891127045098059416185166577910415360\,a(n-82) + 8344086018758729695805334307095969792\,a(n-83) - 1979459229967184318566328995852320768\,a(n-84)
+a(n)\;=\;31\,a(n-1) - 186\,a(n-2) - 3913\,a(n-3) + 54279\,a(n-4) + 97300\,a(n-5) - 5120647\,a(n-6) + 13735401\,a(n-7) + 263592270\,a(n-8) - 1524591017\,a(n-9) - 8004981090\,a(n-10) + 81255805082\,a(n-11) + 112626032357\,a(n-12) - 2859609099075\,a(n-13) + 1877025621850\,a(n-14) + 72746381595025\,a(n-15) - 156908614837670\,a(n-16) - 1382163309546444\,a(n-17) + 4999352606511663\,a(n-18) + 19536090164374090\,a(n-19) - 108155384395072315\,a(n-20) - 192280175423281728\,a(n-21) + 1778771192230039125\,a(n-22) + 909931868317562755\,a(n-23) - 23238288143942194428\,a(n-24) + 9136557320061519751\,a(n-25) + 246145251817292576068\,a(n-26) - 281041603779708264846\,a(n-27) - 2130947151661767242569\,a(n-28) + 3958279856510572086709\,a(n-29) + 15041765917745942993960\,a(n-30) - 40030891835606461751221\,a(n-31) - 85104302245954326355321\,a(n-32) + 319733558687353853518459\,a(n-33) + 367034924260697029707753\,a(n-34) - 2092319373802213634156309\,a(n-35) - 1010208808033368496834684\,a(n-36) + 11414621376719816842120818\,a(n-37) - 225324246787363815989592\,a(n-38) - 52354205325998980879311104\,a(n-39) + 22745883095275096263419518\,a(n-40) + 202489005735033515509394964\,a(n-41) - 163542454902175877341339536\,a(n-42) - 659467456679162271748666536\,a(n-43) + 776298800176918596925406308\,a(n-44) + 1796992498816110471556798536\,a(n-45) - 2851204264649842047545052536\,a(n-46) - 4039693537207701305073747736\,a(n-47) + 8515735695926166881820217024\,a(n-48) + 7272416280947321005313163808\,a(n-49) - 21120117625375217048181173296\,a(n-50) - 9739684518006479526371525760\,a(n-51) + 43912672910843514368930021696\,a(n-52) + 7279560161017176356225917088\,a(n-53) - 76830988504213936405554236672\,a(n-54) + 5366476796245827335850223872\,a(n-55) + 113138777083363374988933566976\,a(n-56) - 30343837214039640007733018240\,a(n-57) - 139862868567236377566680538368\,a(n-58) + 62211796746971153964899470848\,a(n-59) + 144403692810327776564123948544\,a(n-60) - 88455067939448010330088624640\,a(n-61) - 123513832806814318042971801600\,a(n-62) + 96962562709997641994725099520\,a(n-63) + 86454194679885577608561119232\,a(n-64) - 84806059105771796954004944896\,a(n-65) - 48578481148246134660311359488\,a(n-66) + 59917381908149486410760544256\,a(n-67) + 21193213835479758023981293568\,a(n-68) - 34288825857891865456391487488\,a(n-69) - 6686717292925161008351444992\,a(n-70) + 15849938947562831986844958720\,a(n-71) + 1208418514261643526115819520\,a(n-72) - 5879123627196247411704463360\,a(n-73) + 84232755897908939304992768\,a(n-74) + 1732689006954058190001537024\,a(n-75) - 145264967693503875803774976\,a(n-76) - 400440487489552648476033024\,a(n-77) + 54782246276300270762721280\,a(n-78) + 71353221975360414496587776\,a(n-79) - 12564721775553756105015296\,a(n-80) - 9591347365262194131337216\,a(n-81) + 1951034169573861188698112\,a(n-82) + 944912496267974236176384\,a(n-83) - 207516437633589552611328\,a(n-84) - 65514570924511048237056\,a(n-85) + 14727759703010678145024\,a(n-86) + 3002417254496911491072\,a(n-87) - 656123453883090468864\,a(n-88) - 81165296300489441280\,a(n-89) + 16240575126448373760\,a(n-90) + 978134134004121600\,a(n-91) - 165318445183795200\,a(n-92)
 \]
-for every $n>88$.
+for every $n>92$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $84$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $92$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=88+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=92+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -113,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,10 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204615.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236981.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
