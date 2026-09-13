@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223506, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223500, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223506 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$3$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+OEIS A223500 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$4$ so that any two cells adjacent in one of the named directions carry vertices joined by an
 edge of $G$; here $G$ is graph named in the entry. The entry carries an empirical recurrence of order $7$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
 condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=132$ vertices.
+single slice is a state and the count is a walk count on a finite digraph with $S=163$ vertices.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223506 is ``Petersen graph (3,1) coloring a rectangular array: number of 3 X n 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
+OEIS A223500 is ``Petersen graph (3,1) coloring a rectangular array: number of nX4 0..5 arrays where 0..5 label nodes of a graph with edges 0,1 0,3 3,5 3,4 1,2 1,4 4,5 2,0 2,5 and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an edge of this graph, with the array starting at 0.''. It has offset $1$ and begins
 \[
-36, 121, 1519, 16323, 182901, 2030665, 22598167, 251348043,\ \dots
+27, 631, 16323, 426359, 11148439, 291545903, 7624417031, 199391762123,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 12*a(n-1) - 4*a(n-2) - 73*a(n-3) + 103*a(n-4) - 23*a(n-5) - 16*a(n-6) + 4*a(n-7) for n>8.
+Empirical: a(n) = 31*a(n-1) -127*a(n-2) -20*a(n-3) +705*a(n-4) -1027*a(n-5) +499*a(n-6) -60*a(n-7)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 21 2018 05:54:46, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:45:56, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -72,24 +72,24 @@ Here the labelling is written out in the entry itself, so nothing is left to cho
 
 \section{One slice is a state}
 
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones. So a $column$, a word of length $3$ over the vertices of $G$, carries
-everything the next $column$ needs: the conditions inside a $column$ constrain that
-$column$ alone, and the conditions across $column$s are a relation between the
-$column$ just written and the one about to be written.
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $4$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
 
-Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
 follow $u$. Add one further state for the empty array, whose successors are the legal first
-$column$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=132.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=163.
 \]
-The $column$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $column$
-of length $3$ over $6$ vertices is one of $6^{3}$ words, but only $S-1$ of them are
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $4$ over $6$ vertices is one of $6^{4}$ words, but only $S-1$ of them are
 legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 4\,a(n-2) - 73\,a(n-3) + 103\,a(n-4) - 23\,a(n-5) - 16\,a(n-6) + 4\,a(n-7)
+a(n)\;=\;31\,a(n-1) - 127\,a(n-2) - 20\,a(n-3) + 705\,a(n-4) - 1027\,a(n-5) + 499\,a(n-6) - 60\,a(n-7)
 \]
-for every $n>8$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition, with the
@@ -146,7 +146,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223506.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223500.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.

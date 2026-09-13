@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A224376, proved}
+\title{The empirical closed form for OEIS A224264, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224376 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224264 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1296$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=61440$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{17}$, of degree
 $17$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,18 +37,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A224376 is ``Number of 4 X n 0..2 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A224264 is ``Number of 4 X n 0..2 arrays with rows, diagonals and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-81, 1944, 15540, 77793, 311367, 1092281, 3518302, 10643789,\ \dots
+15, 225, 2017, 12467, 59855, 240829, 850875, 2717731,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/106748928000)*n\^{}16 + (1/1482624000)*n\^{}15 + (7/266872320)*n\^{}14 + (127/197683200)*n\^{}13 + (315179/28740096000)*n\^{}12 + (24499/177408000)*n\^{}11 + (89507/65318400)*n\^{}10 + (112109/9676800)*n\^{}9 + (68633371/746496000)*n\^{}8 + (11395841/16128000)*n\^{}7 + (6723664007/1437004800)*n\^{}6 + (295741651/13305600)*n\^{}5 + (262119224347/5189184000)*n\^{}4 - (16331232329/1297296000)*n\^{}3 + (12600631/343200)*n\^{}2 + (38790413/360360)*n - 166 for n>2.
+Empirical: a(n) = (1/106748928000)*n\^{}16 + (1/13343616000)*n\^{}15 + (71/9340531200)*n\^{}14 + (341/3396556800)*n\^{}13 + (70619/28740096000)*n\^{}12 + (6403/186624000)*n\^{}11 + (29921/65318400)*n\^{}10 + (938611/261273600)*n\^{}9 + (179393437/5225472000)*n\^{}8 + (211646789/1306368000)*n\^{}7 + (955811279/1437004800)*n\^{}6 + (152465767/51321600)*n\^{}5 - (11075280679/15567552000)*n\^{}4 - (274011991/117936000)*n\^{}3 + (8155853/123552)*n\^{}2 - (184217/936)*n + 242 for n>2.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 07 2023 19:14:28, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 18 2025 22:32:38, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{n^{16}}{106748928000} + \frac{n^{15}}{1482624000} + \frac{7 n^{14}}{266872320} + \frac{127 n^{13}}{197683200} + \frac{315179 n^{12}}{28740096000} + \frac{24499 n^{11}}{177408000} + \frac{89507 n^{10}}{65318400} + \frac{112109 n^{9}}{9676800} + \frac{68633371 n^{8}}{746496000} + \frac{11395841 n^{7}}{16128000} + \frac{6723664007 n^{6}}{1437004800} + \frac{295741651 n^{5}}{13305600} + \frac{262119224347 n^{4}}{5189184000} - \frac{16331232329 n^{3}}{1297296000} + \frac{12600631 n^{2}}{343200} + \frac{38790413 n}{360360} - 166.
+f(n)\;=\;\frac{n^{16}}{106748928000} + \frac{n^{15}}{13343616000} + \frac{71 n^{14}}{9340531200} + \frac{341 n^{13}}{3396556800} + \frac{70619 n^{12}}{28740096000} + \frac{6403 n^{11}}{186624000} + \frac{29921 n^{10}}{65318400} + \frac{938611 n^{9}}{261273600} + \frac{179393437 n^{8}}{5225472000} + \frac{211646789 n^{7}}{1306368000} + \frac{955811279 n^{6}}{1437004800} + \frac{152465767 n^{5}}{51321600} - \frac{11075280679 n^{4}}{15567552000} - \frac{274011991 n^{3}}{117936000} + \frac{8155853 n^{2}}{123552} - \frac{184217 n}{936} + 242.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +56,7 @@ f(n)\;=\;\frac{n^{16}}{106748928000} + \frac{n^{15}}{1482624000} + \frac{7 n^{14
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1296$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=61440$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -131,7 +131,7 @@ The range is tight in the sense that was checked: at $n=2$ the closed form and t
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $21$ terms the entry publishes,
+First, the walk model reproduces every one of the $25$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -149,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224376.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224264.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

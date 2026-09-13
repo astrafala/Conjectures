@@ -245,3 +245,34 @@ engine that silently drops a condition counts something the entry did not ask fo
 
 **17 names read, every one reproducing its entry's published data exactly; 13 proved and
 installed as `line-order-array`.** Four carry no parsable recurrence.
+
+## 13 September 2026 — `conn`: every value's cells forming ONE connected region
+
+40 entries in the pool turn on connectivity and no engine read one, because connectivity is
+decided by no bounded window at all: two cells of the same colour may be joined through a path
+that leaves any window and comes back. The FRONTIER carries it. Reading the array row by row,
+the state is the colours of the current row, which of its cells lie in the same component of
+the region seen so far (a partition of the k positions, refining the colouring, canonically
+labelled), and for each colour whether it is unseen, still open, or already CLOSED.
+
+A component closes when the new row has no cell in it — nothing can reach it again — so at that
+moment the colour must have had exactly that one component and must not appear later. At the
+end every colour that appeared has exactly one component, and the count is a walk in a finite
+digraph.
+
+Two things the first version got wrong, both caught by the entries' own published terms:
+
+* the component merging was written by hand over group representatives and lost arrays whose
+  two frontier components of one colour are joined by the row below — 24 against the entry's
+  30 at n = 2. Replaced by one union-find over the old frontier cells and the new ones
+  together, which is the whole of the transition.
+* `no element having more than 2 neighbours with the same value' was checked against the left,
+  the right and the cell ABOVE, and a cell's fourth neighbour is the one BELOW, which is not
+  known when the row is placed. A164760 came out identical to the entry without that clause —
+  the clause was being counted as though it were not there. The partial count now travels in
+  the state, one small number per position, and is checked when the row below arrives.
+
+**15 names read, every one reproducing its entry's published data exactly; 5 proved and
+installed as `connected-regions`.** Nine carry no parsable recurrence and one is not open. The
+same machinery reaches the binary `all 1s connected' family and the `slanted' variants, which
+add a path condition and a shifted geometry respectively; both are next.

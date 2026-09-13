@@ -12,156 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280065, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262467, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280065 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
-alphabet; it carries an empirical recurrence of order $15$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
-equality patterns, which is not a walk count --- but it is a fixed rational combination of
-walk counts, one for each alphabet size, and that combination is again $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A262467 counts arrays of width $4$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $3$ and whose columns, read the same way, are divisible by
+$5$. The entry carries an empirical recurrence of order $15$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=125$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A280065 is ``Number of nX4 0..1 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A262467 is ``Number of (n+1)X(3+1) 0..1 arrays with each row divisible by 3 and each column divisible by 5, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-2, 4, 15, 52, 170, 603, 2157, 7777,\ \dots
+1, 6, 36, 115, 469, 2622, 15732, 85723,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +4*a(n-2) -21*a(n-3) -4*a(n-4) +34*a(n-5) +25*a(n-6) -37*a(n-7) -82*a(n-8) +44*a(n-9) +36*a(n-10) +6*a(n-11) -a(n-12) -5*a(n-13) -3*a(n-14) +a(n-15) for n>18
+Empirical: a(n) = 11*a(n-1) -49*a(n-2) +179*a(n-3) -382*a(n-4) -478*a(n-5) +4682*a(n-6) -20542*a(n-7) +61367*a(n-8) -104077*a(n-9) +152183*a(n-10) -136453*a(n-11) -60984*a(n-12) +104544*a(n-13) -156816*a(n-14) +156816*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 25 2016 06:38:25, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Sep 23 2015 18:48:15, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Patterns are a combination of counts}
+\section{What is being counted}
 
-The clause ``new values $0..1$ introduced in row major order'' says that the arrays
-counted are the canonical representatives of their EQUALITY PATTERNS: two arrays that differ
-only by a permutation of the alphabet are one object. Write $N_j$ for the number of admissible
-patterns using exactly $j$ letters and $L_i$ for the number of admissible ARRAYS over an
-alphabet of $i$ letters. An array over $i$ letters is a pattern together with an injection of
-its letters into the alphabet, so
+The array has $4$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-L_i\;=\;\sum_{j}N_j\,i(i-1)\cdots(i-j+1),
+\rho_i\;=\;\sum_{j=1}^{4}x(i,j)\,2^{4-j} ,
 \]
-a triangular system with nonzero diagonal, hence invertible over $\mathbb{Q}$. The entry
-counts $a=N_1+\dots+N_{2}$, so
+the LEFT digit being the most significant, and column $j$ is
 \[
-a\;=\;\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L ,
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-a FIXED rational combination of the $L_i$, where $F$ is the matrix of falling factorials.
-Each $L_i$ is a walk count on its own transfer graph, so $a$ is a walk count on the disjoint
-union of those graphs with the combination's coefficients placed in the starting vector; the
-coefficients are rational and some are negative, which costs nothing in what follows.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$3$ and every $\gamma_j$ be divisible by $5$.
 
-This step needs the condition itself to be unchanged by permuting the alphabet, and it is:
-the condition below is stated through equality between entries and never names a particular
-value or compares sizes.
 
-\section{Cells, not blocks}
+\section{Column residues by Horner's rule}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
+
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
 \[
-\text{no cell is unequal to a strict majority of its horizontal, vertical and antidiagonal neighbours},
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 5\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 5)+x(i,j)\bigr)\bmod 5 .
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $6$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
+\end{lemma}
 
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
+\begin{proof}
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$5$ commutes with both operations.
+\end{proof}
+
+So the vector $\bigl(\gamma_1\bmod 5,\dots,\gamma_{4}\bmod
+5\bigr)$ is a state: at most $5^{4}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is divisible by $5$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\frac{1}{2}\,\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=125.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 4\,a(n-2) - 21\,a(n-3) - 4\,a(n-4) + 34\,a(n-5) + 25\,a(n-6) - 37\,a(n-7) - 82\,a(n-8) + 44\,a(n-9) + 36\,a(n-10) + 6\,a(n-11) - a(n-12) - 5\,a(n-13) - 3\,a(n-14) + a(n-15)
+a(n)\;=\;11\,a(n-1) - 49\,a(n-2) + 179\,a(n-3) - 382\,a(n-4) - 478\,a(n-5) + 4682\,a(n-6) - 20542\,a(n-7) + 61367\,a(n-8) - 104077\,a(n-9) + 152183\,a(n-10) - 136453\,a(n-11) - 60984\,a(n-12) + 104544\,a(n-13) - 156816\,a(n-14) + 156816\,a(n-15)
 \]
-for every $n>18$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=18+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>18$. The bound is exact: at $n=18$ the recurrence fails on the entry's own published terms, so no larger range holds.
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $24$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280065.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262467.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

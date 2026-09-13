@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223677, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224021, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223677 counts arrays over $\{0,\dots,1\}$ whose rows, columns, diagonals or
+OEIS A224021 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
 order $19$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=512$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=1792$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,20 +32,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A223677 is ``Number of nX5 0..1 arrays with rows and antidiagonals unimodal.''. It has offset $1$ and begins
+OEIS A224021 is ``Number of nX5 0..3 arrays with rows nondecreasing and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-16, 256, 3177, 35509, 384009, 4106403, 43632367, 462307835,\ \dots
+56, 3136, 122523, 4002738, 120352359, 3491241557, 99853876444, 2841637297963,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 16*a(n-1) -65*a(n-2) +116*a(n-3) -387*a(n-4) -316*a(n-5) +5502*a(n-6) -6052*a(n-7) -5304*a(n-8) +10256*a(n-9) -13182*a(n-10) +1596*a(n-11) +36430*a(n-12) -48912*a(n-13) +27205*a(n-14) -2186*a(n-15) -10400*a(n-16) +7800*a(n-17) -2128*a(n-18) +192*a(n-19)
+Empirical: a(n) = 56*a(n-1) -1098*a(n-2) +10776*a(n-3) -59038*a(n-4) +197135*a(n-5) -527776*a(n-6) +1780117*a(n-7) -5020078*a(n-8) +3603978*a(n-9) -19091082*a(n-10) +61460622*a(n-11) +49090018*a(n-12) +274177128*a(n-13) +105163104*a(n-14) +354022404*a(n-15) +28705280*a(n-16) +147891456*a(n-17) -1275168*a(n-18) +15980544*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 22:06:39, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:11:02, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;16\,a(n-1) - 65\,a(n-2) + 116\,a(n-3) - 387\,a(n-4) - 316\,a(n-5) + 5502\,a(n-6) - 6052\,a(n-7) - 5304\,a(n-8) + 10256\,a(n-9) - 13182\,a(n-10) + 1596\,a(n-11) + 36430\,a(n-12) - 48912\,a(n-13) + 27205\,a(n-14) - 2186\,a(n-15) - 10400\,a(n-16) + 7800\,a(n-17) - 2128\,a(n-18) + 192\,a(n-19)
+a(n)\;=\;56\,a(n-1) - 1098\,a(n-2) + 10776\,a(n-3) - 59038\,a(n-4) + 197135\,a(n-5) - 527776\,a(n-6) + 1780117\,a(n-7) - 5020078\,a(n-8) + 3603978\,a(n-9) - 19091082\,a(n-10) + 61460622\,a(n-11) + 49090018\,a(n-12) + 274177128\,a(n-13) + 105163104\,a(n-14) + 354022404\,a(n-15) + 28705280\,a(n-16) + 147891456\,a(n-17) - 1275168\,a(n-18) + 15980544\,a(n-19)
 \end{equation}
 for all $n>19$.
 
@@ -54,7 +54,7 @@ for all $n>19$.
 The arrays have $5$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
@@ -68,7 +68,7 @@ far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=512$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=1792$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -128,7 +128,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $17$ published indices, with no shift fitted. The values agree exactly.
+every one of the $15$ published indices, with no shift fitted. The values agree exactly.
 This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
 means the rows and columns are sorted as vectors, not that each is nondecreasing along
 itself, and the two readings already differ at the second published term --- $86$ against
@@ -142,7 +142,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223677.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224021.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

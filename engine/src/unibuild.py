@@ -14,6 +14,11 @@ esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
 
 WINDOW = {
+    # connectivity is decided by no window at all: two cells of one colour may be joined
+    # through a path that leaves any window and comes back. The FRONTIER carries it.
+    'conn': ("the colours of the current row, which of its cells lie in the same "
+             "component of the region seen so far, and for each colour whether it is "
+             "unseen, still open, or already closed off"),
     'arrline': ("a line of the array along whichever dimension grows, together with, for "
                 "each adjacent pair of lines running the other way, whether they still "
                 "agree or have already been decided"),

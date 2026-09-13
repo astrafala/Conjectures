@@ -12,79 +12,86 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224743, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223184, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224743 counts the $(n+1)\times7$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$34$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=163$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A223184 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $34$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=12146$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224743 is ``Number of (n+1)X7 0..1 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A223184 is ``Rolling icosahedron footprints: number of nX6 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, vertical or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
 \[
-1349, 40297, 661569, 15845297, 316084673, 6987578401, 146736389761, 3168731910657,\ \dots
+3125, 5120, 56960, 738720, 10117600, 141047120, 1978496760, 27809548920,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 34*a(n-1) -75*a(n-2) -7140*a(n-3) +54718*a(n-4) +428776*a(n-5) -5148288*a(n-6) -7894384*a(n-7) +216431848*a(n-8) -145979616*a(n-9) -5025133232*a(n-10) +9340472128*a(n-11) +69509336640*a(n-12) -190959984640*a(n-13) -579126695808*a(n-14) +2166687694336*a(n-15) +2696767474176*a(n-16) -15137991368704*a(n-17) -4263323315200*a(n-18) +66643415601152*a(n-19) -21968505323520*a(n-20) -181114010091520*a(n-21) +142147429171200*a(n-22) +282120150515712*a(n-23) -347524113432576*a(n-24) -202500951769088*a(n-25) +419006127800320*a(n-26) -2311631929344*a(n-27) -237796008656896*a(n-28) +74252761956352*a(n-29) +49986725216256*a(n-30) -26211312992256*a(n-31) -1579608440832*a(n-32) +2358473916416*a(n-33) -274877906944*a(n-34)
+Empirical: a(n) = 34*a(n-1) -485*a(n-2) +4346*a(n-3) -28802*a(n-4) +150848*a(n-5) -636337*a(n-6) +2159092*a(n-7) -5838756*a(n-8) +12438350*a(n-9) -20709448*a(n-10) +27153588*a(n-11) -29621182*a(n-12) +31551558*a(n-13) -39983024*a(n-14) +57518400*a(n-15) -77018236*a(n-16) +86977128*a(n-17) -80388139*a(n-18) +58849554*a(n-19) -31645539*a(n-20) +11534636*a(n-21) -3954177*a(n-22) +4130000*a(n-23) -5090133*a(n-24) +4343740*a(n-25) -2741059*a(n-26) +1290058*a(n-27) -452154*a(n-28) +127180*a(n-29) -31889*a(n-30) +7256*a(n-31) -1428*a(n-32) +212*a(n-33) -16*a(n-34) for n>37
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:19, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:19:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times7$ matrix a \emph{band} when every one of its $6$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $7$ columns
-whose every $2$ consecutive rows form a band.
+Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
 
-Take as states the $1\times7$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions antidiagonal, horizontal and vertical, that is the cell offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+(1,-1), (0,1), (1,0),
 \]
-with $M$ the adjacency matrix on $S=163$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(1 + 1)^{7}$ strips of $1$ rows and $7$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $6$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
 \[
-a(n)\;=\;\sum_v a_v(n),
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+The entry also fixes the top-left cell: $x(0,0)=0$.
+
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
+\end{lemma}
+
+\begin{proof}
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
+\end{proof}
+
+\section{One slice is a state}
+
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=12146.
+\]
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $6$ over $12$ vertices is one of $12^{6}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -106,39 +113,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;34\,a(n-1) - 75\,a(n-2) - 7140\,a(n-3) + 54718\,a(n-4) + 428776\,a(n-5) - 5148288\,a(n-6) - 7894384\,a(n-7) + 216431848\,a(n-8) - 145979616\,a(n-9) - 5025133232\,a(n-10) + 9340472128\,a(n-11) + 69509336640\,a(n-12) - 190959984640\,a(n-13) - 579126695808\,a(n-14) + 2166687694336\,a(n-15) + 2696767474176\,a(n-16) - 15137991368704\,a(n-17) - 4263323315200\,a(n-18) + 66643415601152\,a(n-19) - 21968505323520\,a(n-20) - 181114010091520\,a(n-21) + 142147429171200\,a(n-22) + 282120150515712\,a(n-23) - 347524113432576\,a(n-24) - 202500951769088\,a(n-25) + 419006127800320\,a(n-26) - 2311631929344\,a(n-27) - 237796008656896\,a(n-28) + 74252761956352\,a(n-29) + 49986725216256\,a(n-30) - 26211312992256\,a(n-31) - 1579608440832\,a(n-32) + 2358473916416\,a(n-33) - 274877906944\,a(n-34)
+a(n)\;=\;34\,a(n-1) - 485\,a(n-2) + 4346\,a(n-3) - 28802\,a(n-4) + 150848\,a(n-5) - 636337\,a(n-6) + 2159092\,a(n-7) - 5838756\,a(n-8) + 12438350\,a(n-9) - 20709448\,a(n-10) + 27153588\,a(n-11) - 29621182\,a(n-12) + 31551558\,a(n-13) - 39983024\,a(n-14) + 57518400\,a(n-15) - 77018236\,a(n-16) + 86977128\,a(n-17) - 80388139\,a(n-18) + 58849554\,a(n-19) - 31645539\,a(n-20) + 11534636\,a(n-21) - 3954177\,a(n-22) + 4130000\,a(n-23) - 5090133\,a(n-24) + 4343740\,a(n-25) - 2741059\,a(n-26) + 1290058\,a(n-27) - 452154\,a(n-28) + 127180\,a(n-29) - 31889\,a(n-30) + 7256\,a(n-31) - 1428\,a(n-32) + 212\,a(n-33) - 16\,a(n-34)
 \]
-for every $n>34$.
+for every $n>37$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224743.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223184.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

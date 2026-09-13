@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A316818, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A299664, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A316818 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{0,1,2,3,4,6,7\}$, and it carries an empirical
+OEIS A299664 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $equal to$ itself lying in $\{0,1,2,3,4,6,7\}$, and it carries an empirical
 recurrence of order $38$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
@@ -34,29 +34,29 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A316818 is ``Number of nX4 0..1 arrays with every element unequal to 0, 1, 2, 3, 4, 6 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A299664 is ``Number of nX4 0..1 arrays with every element equal to 0, 1, 2, 3, 4, 6 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-8, 112, 983, 9233, 87009, 811854, 7609680, 71307863,\ \dots
+8, 121, 1080, 10363, 100823, 974646, 9424684, 91234133,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) -5*a(n-2) +28*a(n-3) -408*a(n-4) +542*a(n-5) +787*a(n-6) -2049*a(n-7) +2057*a(n-8) -3719*a(n-9) +6885*a(n-10) +504*a(n-11) -4666*a(n-12) +11617*a(n-13) -34519*a(n-14) +4496*a(n-15) +34989*a(n-16) +91122*a(n-17) -389039*a(n-18) +423734*a(n-19) -331342*a(n-20) -433316*a(n-21) +1590108*a(n-22) -1631316*a(n-23) +776241*a(n-24) -264053*a(n-25) -482035*a(n-26) +535407*a(n-27) -517081*a(n-28) +141983*a(n-29) +140727*a(n-30) +56125*a(n-31) +56314*a(n-32) +4504*a(n-33) -47306*a(n-34) +7194*a(n-35) +2430*a(n-36) -3159*a(n-37) +1674*a(n-38) for n>39
+Empirical: a(n) = 10*a(n-1) +a(n-2) +31*a(n-3) -636*a(n-4) -701*a(n-5) +820*a(n-6) +11910*a(n-7) +16436*a(n-8) -26642*a(n-9) -86995*a(n-10) -186911*a(n-11) +329595*a(n-12) +155354*a(n-13) +1326652*a(n-14) -2146505*a(n-15) +1375067*a(n-16) -6071189*a(n-17) +7346058*a(n-18) -8106363*a(n-19) +14679031*a(n-20) -11397484*a(n-21) +14203441*a(n-22) -12222436*a(n-23) +1200199*a(n-24) +791745*a(n-25) -5194748*a(n-26) +9667214*a(n-27) -11972939*a(n-28) +770286*a(n-29) +1084560*a(n-30) -3011274*a(n-31) +9815077*a(n-32) -4481104*a(n-33) -150016*a(n-34) +568897*a(n-35) -223438*a(n-36) +10096*a(n-37) -2408*a(n-38) for n>39
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 14 2018 15:14:48, revision
+As of the ``Last modified'' line on the live entry (Feb 15 2018 14:53:24, revision
 4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) - 5\,a(n-2) + 28\,a(n-3) - 408\,a(n-4) + 542\,a(n-5) + 787\,a(n-6) - 2049\,a(n-7) + 2057\,a(n-8) - 3719\,a(n-9) + 6885\,a(n-10) + 504\,a(n-11) - 4666\,a(n-12) + 11617\,a(n-13) - 34519\,a(n-14) + 4496\,a(n-15) + 34989\,a(n-16) + 91122\,a(n-17) - 389039\,a(n-18) + 423734\,a(n-19) - 331342\,a(n-20) - 433316\,a(n-21) + 1590108\,a(n-22) - 1631316\,a(n-23) + 776241\,a(n-24) - 264053\,a(n-25) - 482035\,a(n-26) + 535407\,a(n-27) - 517081\,a(n-28) + 141983\,a(n-29) + 140727\,a(n-30) + 56125\,a(n-31) + 56314\,a(n-32) + 4504\,a(n-33) - 47306\,a(n-34) + 7194\,a(n-35) + 2430\,a(n-36) - 3159\,a(n-37) + 1674\,a(n-38)
+a(n)\;=\;10\,a(n-1) + a(n-2) + 31\,a(n-3) - 636\,a(n-4) - 701\,a(n-5) + 820\,a(n-6) + 11910\,a(n-7) + 16436\,a(n-8) - 26642\,a(n-9) - 86995\,a(n-10) - 186911\,a(n-11) + 329595\,a(n-12) + 155354\,a(n-13) + 1326652\,a(n-14) - 2146505\,a(n-15) + 1375067\,a(n-16) - 6071189\,a(n-17) + 7346058\,a(n-18) - 8106363\,a(n-19) + 14679031\,a(n-20) - 11397484\,a(n-21) + 14203441\,a(n-22) - 12222436\,a(n-23) + 1200199\,a(n-24) + 791745\,a(n-25) - 5194748\,a(n-26) + 9667214\,a(n-27) - 11972939\,a(n-28) + 770286\,a(n-29) + 1084560\,a(n-30) - 3011274\,a(n-31) + 9815077\,a(n-32) - 4481104\,a(n-33) - 150016\,a(n-34) + 568897\,a(n-35) - 223438\,a(n-36) + 10096\,a(n-37) - 2408\,a(n-38)
 \end{equation}
 for all $n>39$.
 
 \section{The array as a walk, with boundary}
 
 For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
 has score in $\{0,1,2,3,4,6,7\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
@@ -143,7 +143,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A316818.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A299664.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
