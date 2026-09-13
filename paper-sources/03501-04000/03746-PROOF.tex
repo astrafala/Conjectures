@@ -12,69 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A185848, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A269203, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185848 counts arrays over $\{0,\dots,2\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=81$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A269203 counts arrays of width $3$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
+cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
+order $8$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition is global --- no window of the array decides it --- but the quantity
+it constrains is a count that may be capped at two, and a capped count is a bounded state; the
+result is a walk count on $S=193$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A185848 is ``Number of (n+1) X 2 0..2 arrays with no 2 X 2 subblock diagonal sum less antidiagonal sum equal to any horizontal or vertical neighbor 2 X 2 subblock diagonal sum less antidiagonal sum.''. It has offset $1$ and begins
+OEIS A269203 is ``Number of 3 X n 0..3 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
 \[
-81, 630, 4942, 38700, 303212, 2375550, 18611050, 145808838,\ \dots
+64, 1740, 25572, 400428, 5877228, 84310620, 1184381844, 16385570076,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + 20*a(n-2) + 99*a(n-3) + 252*a(n-4) + 510*a(n-5) + 324*a(n-6) - 336*a(n-7) - 288*a(n-8).
+Empirical: a(n) = 24*a(n-1) -130*a(n-2) -248*a(n-3) +935*a(n-4) +272*a(n-5) -1768*a(n-6) +960*a(n-7) -144*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2018 06:18:28, revision 9) this is still
+As of the ``Last modified'' line on the live entry (May 27 2025 16:40:08, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for its diagonal sum minus its antidiagonal sum, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times2$ array over $\{0,\dots,2\}$ form a grid of $n$ rows
-and $1$ column, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$.
-
-\section{The count is a walk count}
-
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
+The array has $3$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+\begin{array}{l}
+$(i,j)\text{ and }(i{+}1,j)$ \\
+$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
+$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
+\end{array}
 \]
-on the $S=81$ admissible tuples.
+both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
+each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
+entry counts the arrays with $k$ at most one. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the pairs above are already the transposed ones --- transposing exchanges the horizontal pairs with the vertical ones and carries each diagonal pair to itself.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $2\ge2$ that row already determines the $2$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $3^{2\cdot
-2}=81$ tuples of $2$ rows, $S=81$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
+\section{A capped count is a state}
 
-Over the alphabet $\{0,\dots,2\}$ the statistic takes values in $[-4,4]$, so the
-grid it labels carries at most $9$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $1$
-subblock, which has no neighbour of any kind; the entry's first term is
-$81$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+No window of the array decides the condition: $k$ is a total over the whole array. But the
+condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
+two and stays bounded.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\begin{lemma}\label{lem:cap}
+Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
+\[
+k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
++\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
+\]
+and both added terms are determined by rows $t-1$ and $t$ alone.
+\end{lemma}
+
+\begin{proof}
+Every adjacent pair lies either inside one row or across two consecutive rows, by the list
+above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
+one of the two kinds counted.
+\end{proof}
+
+So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
+pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
+with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=193.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -96,7 +106,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 20\,a(n-2) + 99\,a(n-3) + 252\,a(n-4) + 510\,a(n-5) + 324\,a(n-6) - 336\,a(n-7) - 288\,a(n-8)
+a(n)\;=\;24\,a(n-1) - 130\,a(n-2) - 248\,a(n-3) + 935\,a(n-4) + 272\,a(n-5) - 1768\,a(n-6) + 960\,a(n-7) - 144\,a(n-8)
 \]
 for every $n>8$.
 \end{theorem}
@@ -105,30 +115,33 @@ for every $n>8$.
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
 First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes, count the
+adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
+the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
+the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185848.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269203.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

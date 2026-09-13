@@ -1,6 +1,6 @@
 # Papers 02001-02500
 
-Ranks 2001 to 2500 of 12814, hardest first.
+Ranks 2001 to 2500 of 12824, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

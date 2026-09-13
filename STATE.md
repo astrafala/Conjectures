@@ -176,6 +176,26 @@ own hits file and catastrophic for the unified one: pointed at `uniall_hits.json
 192 results with one vein's name and, because it checks the withdrawal set under that name,
 installed 60 results from the WITHDRAWN `ca2d` argument. See defect 17.
 
+## Registering a new engine — every place, in order
+
+Eight engines were written on 13 September and this list was reconstructed from memory each
+time. It is six files:
+
+1. `src/<engine>.py` with `parse_name`, `build(p, cap)`, `terms(b, N)`, `threshold(b, coeffs, order)`
+2. `src/uniform.py` — add the name to the FRONT of `ENG` (it is a priority list) and to `IMAGE`
+3. `src/integrate_rest_names.py` — the ENGNAME label the roster stores
+4. `src/rank.py` — a TIER for that label (the file has ONE dict; check you did not add it twice)
+5. the builder: a `WINDOW` entry in `src/unibuild.py` for a walk model, or a `SHORT` entry plus
+   a `_model` branch in `src/qpbuild.py` and a `SPECIAL` entry in `src/build_new.py` for one
+   that is not a walk
+6. `src/build_new.py` `ENRICH` if the paper needs a field only `parse_name` knows (a divisor)
+
+Then `sweep_engine.py <engine>`, `newlist.py`, `livenew.py`, `build_new.py <engine>`,
+`integrate_rest.py`, and the ranking chain.
+
+A vein with its OWN hits file (a claim that is not a recurrence) skips 2, 5 and 6, adds its file
+to `newlist.py`'s glob list, and installs with `install_vein.py <prefix> <file> <label>`.
+
 ## A new engine is invisible until the candidate cache is rebuilt
 
 `sweep_uni` reads `uni_cands.json`, and rebuilding it costs a quarter of an hour. `sweep_engine.py`

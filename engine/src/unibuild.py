@@ -90,6 +90,11 @@ WINDOW = {
     'modprev': ("the last few values, or -- when the sum runs over everything read so far "
                 "-- the running total modulo the entry's own modulus, the sums themselves "
                 "being unbounded and only their residue being read"),
+    # the coverage is local; the introduction order is not, and one counter carries it
+    'covwin': ("a window of consecutive elements one shorter than the one the entry names, "
+               "together with how many of the values have been introduced so far -- the "
+               "coverage condition is decided by the window, and the introduction order, "
+               "which no window can decide, by that counter, the values arriving in order"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",

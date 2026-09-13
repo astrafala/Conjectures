@@ -728,3 +728,23 @@ than the window asks for; the entries' own terms say the sum is over those that 
 is unconstrained and a(1) is the whole alphabet, and every published term follows.
 
 **21 names read and proved; every one reproducing its entry's published data exactly.**
+
+## 13 September 2026 — `covwin`: a window that must hold everything, and an order it cannot see
+
+    Number of length n+3+1 0..3 arrays with every value 0..3 appearing at least once in every
+      consecutive 3+2 elements, and new values 0..3 introduced in order.
+
+Ten entries, none read, and two conditions of opposite character. The COVERAGE is local: a
+window of w consecutive elements must contain all of 0..k, so the last w-1 values decide whether
+a given value may be added next. The INTRODUCTION ORDER is not local at all — a value may be
+used only when every smaller one has already appeared, and "already appeared" reaches back
+without bound. One counter carries it, because the values arrive in order: how many of 0..k have
+been introduced so far.
+
+So the vertex is (the last w-1 values, that counter), and what the edge relation tests is a
+window CLOSING. The alphabet has k+1 values and the window is k+2 or k+3 wide, so a closing
+window holds every value with one or two to spare; that is restrictive enough to keep the
+reachable state count manageable — 191 states at k=3 and 1,174,575 at k=7, lumping to 16 and 60.
+The entry's length, n+k+1 or n+k+2, is exactly where the first window closes.
+
+**10 names read, all 10 proved, every one reproducing its entry's published data exactly.**

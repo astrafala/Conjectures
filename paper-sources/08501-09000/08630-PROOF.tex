@@ -12,47 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206728, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207277, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206728 counts arrays of width $2$ over $\{0,1,2\}$ containing no occurrence of certain short
+OEIS A207277 counts arrays of width $2$ over $\{0,1,2,3\}$ containing no occurrence of certain short
 patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
 recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
 index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=91$ states.
+count is a walk count on $S=273$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206728 is ``Number of n X 2 0..2 arrays avoiding the pattern z-1 z-1 z in any row, column or nw-to-se diagonal.''. It has offset $1$ and begins
+OEIS A207277 is ``Number of n X 2 0..3 arrays avoiding the patterns z z+1 z or z z-1 z in any row, column, diagonal or antidiagonal.''. It has offset $1$ and begins
 \[
-9, 81, 625, 4761, 36100, 273529, 2073600, 15721225,\ \dots
+16, 256, 3364, 45796, 620944, 8421604, 114190596, 1548422500,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -6*a(n-2) -43*a(n-3) +34*a(n-4) +162*a(n-5) -133*a(n-6) -13*a(n-7) +62*a(n-8) -14*a(n-9) -15*a(n-10) -6*a(n-11) +8*a(n-12) -a(n-13) -2*a(n-14) +a(n-15).
+Empirical: a(n) = 11*a(n-1) +28*a(n-2) +48*a(n-3) +536*a(n-4) +664*a(n-5) -205*a(n-6) -656*a(n-7) -535*a(n-8) +4*a(n-9) +212*a(n-10) +175*a(n-11) -36*a(n-12) +5*a(n-13) -8*a(n-14) +a(n-15).
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 14 2013 14:03:10, revision 9) this is still
+As of the ``Last modified'' line on the live entry (May 10 2020 04:28:53, revision 14) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
+The array has $2$ cells across, with entries in $\{0,1,2,3\}$. An OCCURRENCE of a pattern in a
 direction is a run of consecutive cells taken in that direction whose entries match the pattern
 in order; the array is counted when it has no occurrence at all. The entry names
 \[
 \begin{array}{ll}
 \text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z-1,\,z-1,\,z) \\
-\text{down a column} & (z-1,\,z-1,\,z) \\
-\text{down a diagonal, nw to se} & (z-1,\,z-1,\,z) \\
+\text{along a row, left to right} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down a column} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down a diagonal, nw to se} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
+\text{down an antidiagonal, ne to sw} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
 \end{array}
 \]
  A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
@@ -77,7 +78,7 @@ and is not assumed but read off the window. The walk starts at the all-$\bot$ wi
 of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
 adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -102,15 +103,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 6\,a(n-2) - 43\,a(n-3) + 34\,a(n-4) + 162\,a(n-5) - 133\,a(n-6) - 13\,a(n-7) + 62\,a(n-8) - 14\,a(n-9) - 15\,a(n-10) - 6\,a(n-11) + 8\,a(n-12) - a(n-13) - 2\,a(n-14) + a(n-15)
+a(n)\;=\;11\,a(n-1) + 28\,a(n-2) + 48\,a(n-3) + 536\,a(n-4) + 664\,a(n-5) - 205\,a(n-6) - 656\,a(n-7) - 535\,a(n-8) + 4\,a(n-9) + 212\,a(n-10) + 175\,a(n-11) - 36\,a(n-12) + 5\,a(n-13) - 8\,a(n-14) + a(n-15)
 \]
-for every $n>14$.
+for every $n>15$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +119,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -134,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206728.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207277.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata

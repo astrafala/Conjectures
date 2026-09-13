@@ -12,84 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210081, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262419, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210081 counts arrays of width $4$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $19$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=354$ states in all.
+OEIS A262419 counts arrays of width $8$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $3$ and whose columns, read the same way, are not divisible by
+$3$. The entry carries an empirical recurrence of order $19$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
+every row of the array, so the condition is not local; but its RESIDUE is built one row at a
+time by Horner's rule, and the vector of column residues is a state of bounded size. The count
+is then a walk count on $S=2187$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A210081 is ``Number of (n+1)X4 0..3 arrays containing all values 0..3 with every 2X2 subblock having one, three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A262419 is ``Number of (n+1)X(7+1) 0..1 arrays with each row divisible by 3 and column not divisible by 3, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-762, 82691, 7853122, 735082380, 68665065250, 6412474476465, 598825420604059, 55920736247669053,\ \dots
+86, 15293, 1299070, 163388421, 14036526126, 1326209720893, 114043973318270, 10040316574125941,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 111*a(n-1) -1551*a(n-2) -11620*a(n-3) +269796*a(n-4) -346276*a(n-5) -10657824*a(n-6) +37514734*a(n-7) +105399645*a(n-8) -595931403*a(n-9) +25518343*a(n-10) +3128667030*a(n-11) -3607436824*a(n-12) -4027147296*a(n-13) +9243102400*a(n-14) -2810113344*a(n-15) -3425981120*a(n-16) +1936238208*a(n-17) +61521408*a(n-18) -60604416*a(n-19)
+Empirical: a(n) = 86*a(n-1) +3252*a(n-2) -279672*a(n-3) -3329646*a(n-4) +286349556*a(n-5) +1544583660*a(n-6) -132834194760*a(n-7) -365579378025*a(n-8) +31439826510150*a(n-9) +46337467429704*a(n-10) -3985022198954544*a(n-11) -3102790005466128*a(n-12) +266839940470087008*a(n-13) +99548995158787584*a(n-14) -8561213583655732224*a(n-15) -1170690303846912000*a(n-16) +100679366130834432000*a(n-17) +3277061542543360000*a(n-18) -281827292658728960000*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:41:57, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Sep 22 2015 09:31:10, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $4$ cells across and entries in $\{0,1,\dots,3\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 3, 4$. Two
-further clauses come with it:
-
-\begin{itemize}
-\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
-occur.
-\end{itemize}
-
-
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+The array has $8$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+\rho_i\;=\;\sum_{j=1}^{8}x(i,j)\,2^{8-j} ,
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{4}$ alone and the weights are the single row
-$e_{4}^{\!\top}F^{-1}$ of the same inverse:
+the LEFT digit being the most significant, and column $j$ is
 \[
-a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
+\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$3$ and every $\gamma_j$ be not divisible by $3$.
 
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
 
-\section{Each $L_i$ is a walk count}
+\section{Column residues by Horner's rule}
 
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
+The row condition is a condition on one row and is imposed as each row is chosen. The column
+condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
+
+\begin{lemma}\label{lem:horner}
+Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
+Then $\gamma_j^{(0)}=0$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=354.
+\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
+\qquad\text{hence}\qquad
+\gamma_j^{(i)}\bmod 3\;=\;
+\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
+\]
+\end{lemma}
+
+\begin{proof}
+Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
+multiplication by $2$, and puts the new digit in the units place. Reduction modulo
+$3$ commutes with both operations.
+\end{proof}
+
+So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{8}\bmod
+3\bigr)$ is a state: at most $3^{8}$ of them, and each array row
+that satisfies the row condition carries one such vector to another. The walk starts at the
+all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
+which every entry is not divisible by $3$ --- so the end vector is not the all-ones
+vector, and the column condition is imposed once, at the end, exactly as the entry states it.
+With $M$ the adjacency matrix,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2187.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -114,17 +113,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;111\,a(n-1) - 1551\,a(n-2) - 11620\,a(n-3) + 269796\,a(n-4) - 346276\,a(n-5) - 10657824\,a(n-6) + 37514734\,a(n-7) + 105399645\,a(n-8) - 595931403\,a(n-9) + 25518343\,a(n-10) + 3128667030\,a(n-11) - 3607436824\,a(n-12) - 4027147296\,a(n-13) + 9243102400\,a(n-14) - 2810113344\,a(n-15) - 3425981120\,a(n-16) + 1936238208\,a(n-17) + 61521408\,a(n-18) - 60604416\,a(n-19)
+a(n)\;=\;86\,a(n-1) + 3252\,a(n-2) - 279672\,a(n-3) - 3329646\,a(n-4) + 286349556\,a(n-5) + 1544583660\,a(n-6) - 132834194760\,a(n-7) - 365579378025\,a(n-8) + 31439826510150\,a(n-9) + 46337467429704\,a(n-10) - 3985022198954544\,a(n-11) - 3102790005466128\,a(n-12) + 266839940470087008\,a(n-13) + 99548995158787584\,a(n-14) - 8561213583655732224\,a(n-15) - 1170690303846912000\,a(n-16) + 100679366130834432000\,a(n-17) + 3277061542543360000\,a(n-18) - 281827292658728960000\,a(n-19)
 \]
-for every $n>19$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
@@ -135,11 +133,9 @@ First, the model reproduces all $12$ terms the entry publishes, exactly, in inte
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $4$ letters at all.
+enumerate every array of that size, turn each row and each column into a base-$2$ number with
+the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
+any residue state is involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -149,10 +145,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210081.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262419.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
+Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,91 +12,55 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223235, proved by transfer matrix}
+\title{No column above the one before it in every row: OEIS A212926}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223235 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$3$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $4$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
-condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=1146$ vertices.
+OEIS A212926 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition quantifies over all rows at once, so it is not decided by any
+bounded window; but it is a conjunction of independent per-row facts, and one bit per
+adjacent column pair carries it; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=5$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A223235 is ``Rolling icosahedron footprints: number of 3 X n 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A212926 is ``Number of n X 4 0..3 arrays with no column j greater than column j-1 in all rows.''. It has offset $1$ and begins
 \[
-144, 845, 25225, 492365, 11043445, 236027705, 5127809545, 110781320885,\ \dots
+35, 39695, 14177855, 4041974015, 1075113010175, 279128913678335, 71832238695530495, 18425105216039878655,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) + 103*a(n-2) - 552*a(n-3) + 540*a(n-4) for n>5.
+Empirical: a(n) = 405*a(n-1) -43860*a(n-2) +1524160*a(n-3) -15636480*a(n-4) +14155776*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 17 2018 09:23:04, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 04 2025 19:20:55, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
+The entry counts arrays of $4$ columns whose rows are arbitrary over the alphabet $\{0,1,2,3\}$, and asks that no column $j$ be greater than column $j-1$ \emph{in all rows}.
 
-An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
+That is not a condition on any bounded window: ``in all rows'' quantifies over the whole array, and a row arriving at the very end can still decide it. What makes it a walk anyway is that it is a conjunction of independent facts about single rows. For each of the $3$ adjacent column pairs keep one bit, recording whether every row so far has had column $j$ greater than column $j-1$. A new row can only clear bits, never set one, and the array is admissible exactly when every bit has been cleared by the time the array ends.
+
+So the state is that bit mask and nothing else --- at most $2^{3}$ of them, however large the alphabet is, which is why entries whose terms run to twenty digits have models this small. Rows with the same bit pattern act identically, so each row contributes one edge and the multiplicity does the counting. Merging vertices with identical futures leaves $S=5$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which masks may begin and end an array,
 \[
-(1,-1), (1,1), (0,1),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
-and asks that whenever two cells of the array differ by one of those offsets, the two vertices
-they carry are joined by an edge of $G$:
-\[
-x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
-\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
-\]
-The entry also fixes the top-left cell: $x(0,0)=0$.
-
-\begin{lemma}\label{lem:label}
-The count does not depend on how the vertices are labelled.
-\end{lemma}
-
-\begin{proof}
-A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
-labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
-counted for the two copies, because the condition mentions only the edge relation.
-Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
-\end{proof}
-
-\section{One slice is a state}
-
-Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
-Every offset the entry names has its two cells either in the same $column$ or in two
-consecutive ones. So a $column$, a word of length $3$ over the vertices of $G$, carries
-everything the next $column$ needs: the conditions inside a $column$ constrain that
-$column$ alone, and the conditions across $column$s are a relation between the
-$column$ just written and the one about to be written.
-
-Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
-follow $u$. Add one further state for the empty array, whose successors are the legal first
-$column$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1146.
-\]
-The $column$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $column$
-of length $3$ over $12$ vertices is one of $12^{3}$ words, but only $S-1$ of them are
-legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{4}-\sum_i c_it^{4-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,22 +68,23 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+4}-\sum_ic_iM^{j+4-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) + 103\,a(n-2) - 552\,a(n-3) + 540\,a(n-4)
+a(n)\;=\;405\,a(n-1) - 43860\,a(n-2) + 1524160\,a(n-3) - 15636480\,a(n-4) + 14155776\,a(n-5)
 \]
 for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -129,14 +94,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition, with the
-graph rebuilt by a different route---the cube from its corner points and face normals in space,
-the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
-by cell, each cell tested against the cells it must be joined to. No slice, no state and no
-recurrence is involved in that computation, and the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one and tests, for each adjacent column pair,
+whether every row really does put one above the other. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -146,10 +111,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223235.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A212926.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
