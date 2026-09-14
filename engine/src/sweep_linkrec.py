@@ -30,7 +30,12 @@ import uniform
 CAP = int(sys.argv[1]) if len(sys.argv) > 1 else 200000
 SHARD = int(sys.argv[2]) if len(sys.argv) > 2 else 0
 NSHARD = int(sys.argv[3]) if len(sys.argv) > 3 else 1
-SFX = '' if NSHARD == 1 else f'_{SHARD}'
+# TAG, like every other sharded sweep here. Without it a run at a different cap writes into
+# the standing run's own hits and done files, and each holds its whole list in memory and
+# writes it back whole -- so the two silently discard each other's results. A high-cap pass
+# was started that way and had to be stopped.
+TAG = os.environ.get('TAG', '')
+SFX = f'{TAG}' if NSHARD == 1 else f'{TAG}_{SHARD}'
 HITS, DONE = f'linkrec_hits{SFX}.json', f'linkrec_done{SFX}.json'
 WHY = f'linkrec_why{SFX}.json'
 BUDGET = int(os.environ.get('BUDGET', '300'))
@@ -45,6 +50,14 @@ resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFI
 
 pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/linkrec.txt')).read().split()
         if a.startswith('A')]
+# A cap that has been RAISED must be able to re-ask what the old one refused, or the raise is
+# invisible and the sweep reports the same refusals for ever. ONLY names those entries and
+# bypasses `done` for them alone. WHYENT records the refusal per entry so the next raise knows
+# which ones to name without re-deriving it.
+ONLY = {a for a in open(os.environ['LRONLY']).read().split() if a.startswith('A')} \
+    if os.environ.get('LRONLY') else set()
+WHYENT = f'linkrec_whyent{SFX}.json'
+whyent = json.load(open(WHYENT)) if os.path.exists(WHYENT) else {}
 roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
@@ -72,13 +85,16 @@ def save():
     atomicjson.dump(hits, HITS, indent=1)
     atomicjson.dump(sorted(done), DONE)
     atomicjson.dump(dict(res), WHY, indent=1, sort_keys=True)
+    atomicjson.dump(whyent, WHYENT, indent=1, sort_keys=True)
 
 
 import atexit
 atexit.register(save)
 
-for a in sorted(pool):
-    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
+for a in sorted(ONLY or pool):
+    if ONLY and a not in ONLY:
+        continue
+    if (a in done and not ONLY) or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     e = LE.get(a)
     if not e:
@@ -107,11 +123,13 @@ for a in sorted(pool):
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['build timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); res['build timed out'] += 1; whyent[a] = f'build timeout {BUDGET}'
+        done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
     if b is None:
-        res['state space > cap'] += 1; done.add(a); save(); continue
+        res['state space > cap'] += 1; whyent[a] = f'cap {CAP}'
+        done.add(a); save(); continue
     S = uniform.size(en, p, b)
     coeffs, claimed = rec
     order = max(coeffs)
