@@ -16,4 +16,7 @@ for r in 1 2 3 4 5 6 7 8; do
       timeout 1700 python3 src/zeilb_run.py >> /tmp/zeilb_$i.log 2>&1 &
   done
   wait
+  # the shards are progress and are gitignored; harvest installs from zeilb-[0-9].json, so
+  # they are folded into the tracked zeilb-9.json after each wave
+  python3 src/mergezeilb.py >> /tmp/zeilb_merge.log 2>&1
 done
