@@ -11,19 +11,23 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A223860, proved}
+\title{The empirical closed form for OEIS A224413, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223860 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224413 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=2080$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=4096$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{13}$, of degree
 $13$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,26 +41,32 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223860 is ``Number of n X 4 0..3 arrays with rows and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A224413 is ``Number of 6Xn 0..1 arrays with rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-130, 3526, 41682, 315124, 1771012, 8008548, 30627033, 102479569,\ \dots
+64, 972, 4636, 13440, 31710, 68282, 139638, 275766,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (3551/47900160)*n\^{}12 + (3551/1995840)*n\^{}11 + (100307/4354560)*n\^{}10 + (28081/145152)*n\^{}9 + (1559477/1451520)*n\^{}8 + (14951/3456)*n\^{}7 + (54414629/4354560)*n\^{}6 + (18845069/725760)*n\^{}5 + (41975947/1088640)*n\^{}4 + (7155619/181440)*n\^{}3 + (694249/83160)*n\^{}2 - (7351/990)*n - 11 for n>1.
+Empirical: a(n) = (1/479001600)*n\^{}12 + (1/7257600)*n\^{}11 + (199/43545600)*n\^{}10 + (1/10752)*n\^{}9 + (19951/14515200)*n\^{}8 + (5143/345600)*n\^{}7 + (6148357/43545600)*n\^{}6 + (3015961/1451520)*n\^{}5 + (128983289/10886400)*n\^{}4 + (40193333/604800)*n\^{}3 + (444089893/1663200)*n\^{}2 - (4351/20)*n - 222 for n>4
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 07 2022 11:52:33, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:27:04, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{3551 n^{12}}{47900160} + \frac{3551 n^{11}}{1995840} + \frac{100307 n^{10}}{4354560} + \frac{28081 n^{9}}{145152} + \frac{1559477 n^{8}}{1451520} + \frac{14951 n^{7}}{3456} + \frac{54414629 n^{6}}{4354560} + \frac{18845069 n^{5}}{725760} + \frac{41975947 n^{4}}{1088640} + \frac{7155619 n^{3}}{181440} + \frac{694249 n^{2}}{83160} - \frac{7351 n}{990} - 11.
-\]
+\begin{multline*}
+f(n)\;=\;\frac{n^{12}}{479001600} + \frac{n^{11}}{7257600} \\
++ \frac{199 n^{10}}{43545600} + \frac{n^{9}}{10752} \\
++ \frac{19951 n^{8}}{14515200} + \frac{5143 n^{7}}{345600} \\
++ \frac{6148357 n^{6}}{43545600} + \frac{3015961 n^{5}}{1451520} \\
++ \frac{128983289 n^{4}}{10886400} + \frac{40193333 n^{3}}{604800} \\
++ \frac{444089893 n^{2}}{1663200} - \frac{4351 n}{20} \\
+- 222.
+\end{multline*}
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=2080$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=4096$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -105,43 +115,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge2$.
+$a(n)=f(n)$ for every $n\ge5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w'=q(M)w$ was formed by $13$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=15$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=18$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>14$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+\eqref{eq:rec} for every $n>17$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
 identically. Both were then evaluated in exact arithmetic at the $13$ consecutive indices
-$n=15,\dots,27$ and agree at each. A monic recurrence of order $13$
-determines $a(m)$ from $a(m-1),\dots,a(m-13)$, and for every $m\ge28$ both
-$m>14$ and $m-13\ge15$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge15$.
-Below $n=15$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=15$ on. The remaining indices $n=2,\dots,14$ were
+$n=18,\dots,30$ and agree at each. A monic recurrence of order $13$
+determines $a(m)$ from $a(m-1),\dots,a(m-13)$, and for every $m\ge31$ both
+$m>17$ and $m-13\ge18$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge18$.
+Below $n=18$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=18$ on. The remaining indices $n=5,\dots,17$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: at $n=1$ the closed form and the sequence differ, so no larger range is available.
+The range is tight in the sense that was checked: at $n=4$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $20$ terms the entry publishes,
+First, the walk model reproduces every one of the $25$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=2$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=5$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=2$, far past where the proof already settles the matter.
+$n=5$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +159,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223860.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224413.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

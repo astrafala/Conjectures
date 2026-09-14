@@ -12,95 +12,139 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Knight-distance labellings of a strip: OEIS A253115}
+\title{The empirical recurrence for OEIS A211551, proved by a one-dimensional reduction}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253115 carries an empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=1301$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A211551 counts symmetric $(n+1)\times(n+1)$ matrices over
+$\{-9,\dots,9\}$ in which every $2\times2$ subblock sums to zero and has one or three distinct
+entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
+along. There does not need to be: the sum-zero condition is linear and solves completely, and
+its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
+on $S=651$ states, and the empirical recurrence of order $18$ contributed by R.~H.~Hardin
+follows.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253115 is ``Number of (n+2) X (4+2) nonnegative integer arrays with all values the knight distance from the upper left minus as much as 2, with successive minimum path knight move differences either 0 or +1, and any unreachable value zero.''. It has offset $1$ and begins
+OEIS A211551 is ``Number of (n+1)X(n+1) -9..9 symmetric matrices with every 2X2 subblock having sum zero and one or three distinct values.''. It has offset $1$ and begins
 \[
-4619, 28600, 426571, 3950239, 28256241, 201911670, 1873418602, 7421334529,\ \dots
+151, 347, 697, 1351, 2573, 4843, 9101, 17119,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +8*a(n-2) -8*a(n-3) -28*a(n-4) +28*a(n-5) +56*a(n-6) -56*a(n-7) -70*a(n-8) +70*a(n-9) +56*a(n-10) -56*a(n-11) -28*a(n-12) +28*a(n-13) +8*a(n-14) -8*a(n-15) -a(n-16) +a(n-17) for n>37.
+Empirical: a(n) = 4*a(n-1) +11*a(n-2) -60*a(n-3) -34*a(n-4) +375*a(n-5) -53*a(n-6) -1270*a(n-7) +601*a(n-8) +2541*a(n-9) -1636*a(n-10) -3075*a(n-11) +2204*a(n-12) +2210*a(n-13) -1562*a(n-14) -875*a(n-15) +530*a(n-16) +150*a(n-17) -60*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 23 2026 14:19:17, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:13:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{From values to a labelling}
+\section{The sum-zero condition solved}
 
-Write $d(c)$ for the knight distance from the top left corner of the board and $v(c)$ for the entry's value at $c$. The entry asks for $d(c)-2\le v(c)\le d(c)$, and for successive values along a minimum knight path to differ by $0$ or $+1$. Put
-\[ w(c)\;=\;d(c)-v(c). \]
-Then $w$ takes values in $\{0,1,\dots,2\}$, and for an edge $a\to b$ of a minimum path --- so $d(b)=d(a)+1$ --- the condition $v(b)-v(a)\in\{0,1\}$ reads
-\[ v(b)-v(a)=\bigl(d(b)-d(a)\bigr)-\bigl(w(b)-w(a)\bigr)=1-\bigl(w(b)-w(a)\bigr)\in\{0,1\}\quad\Longleftrightarrow\quad w(b)-w(a)\in\{0,1\}. \]
-So the entry counts the labellings $w$ that rise along every minimum-path knight move, by at most one each time. Cells the knight cannot reach carry the value zero and are not labelled; they contribute a factor of one.
+Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-9,\dots,9\}$ such that
+\[
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+\]
+for every $0\le i,j\le N-2$.
 
-\section{The distance field of the strip}
-
-Everything below rests on two properties of $d$ on the strip $S_{6}=\{(i,j): i\ge 0,\ 0\le j<6\}$, and both are proved here rather than measured. Write $d$ for the knight distance from $(0,0)$ on $S_{6}$ and $d_H$ for the knight distance on the board of exactly $H$ rows.
-
-\begin{lemma}\label{lem:bellman}
-Fix a width $C$ and let $D:S_C\to\mathbb{N}\cup\{\infty\}$ be any function at all, satisfying
-(a) $D(0,0)=0$; (b) $D(y)\le D(x)+1$ for every knight-adjacent pair $x,y$; and
-(c) every $x\ne(0,0)$ with $D(x)<\infty$ has a knight neighbour $y$ with $D(x)=D(y)+1$. Then $D=d$.
+\begin{lemma}\label{lem:solve}
+Such matrices are exactly the matrices
+\[
+x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
+\qquad u_0,\dots,u_{N-1}\in\{-9,\dots,9\}\ \text{all of the same parity},
+\]
+and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
+bijection.
 \end{lemma}
 
 \begin{proof}
-By (b) and induction on $d(x)$, $D(x)\le d(x)$: the last step of a shortest path to $x$ is an edge from a cell at distance $d(x)-1$. Conversely (c) forces $D(x)\ge1$ for $x\ne(0,0)$, so $D(x)=0$ only at the corner, and induction on $D(x)$ gives $d(x)\le D(y)+1=D(x)$ with $y$ the neighbour (c) supplies. Neither induction uses where $D$ came from.
-\end{proof}
-
-\begin{proposition}\label{prop:period}
-$d(i+4,j)=d(i,j)+2$ for every $j$ and every $i\ge7$, and the unreachable cells repeat with the same period.
-\end{proposition}
-
-\begin{proof}
-Take the field on rows $0,\dots,14$ as computed by breadth-first search, and DEFINE $D$ on the rest of the strip by $D(i+4,j)=D(i,j)+2$ for $i\ge7$. Conditions (a), (b) and (c) of Lemma~\ref{lem:bellman} at row $i$ involve only rows $i-2,\dots,i+2$, because a knight move changes the row by $1$ or $2$. Once all five of those rows lie at or above $7$, the definition gives $D(r,j)=D(r-4,j)+2$ for each of them, so the condition at row $i$ is the condition at row $i-4$ with $2$ added to both sides, hence the same condition. Checking rows $0,\dots,27$ therefore settles every row, and those checks were carried out in exact integer arithmetic. By Lemma~\ref{lem:bellman}, $D=d$, which is the claim. (The inequality $\le$ needs no certificate: the moves $(2,1)$ then $(2,-1)$ --- or $(2,-1)$ then $(2,1)$ at the right-hand edge --- drop four rows and return to the same column. It is $\ge$ that the certificate supplies.)
-\end{proof}
-
-\begin{proposition}\label{prop:height}
-$d_H(i,j)=d(i,j)$ for every $H\ge5$ and every $i<H$.
-\end{proposition}
-
-\begin{proof}
-For a cell $x$ let $\rho(x)$ be the least number of rows a board needs for $x$ to sit at distance $d(x)$ on it, so $\rho(0,0)=1$ and, minimising over the minimum-path predecessors $y$ of $x$,
-\[ \rho(x)\;=\;\min_y\ \max\bigl(\mathrm{row}(x)+1,\ \mathrm{row}(y)+1,\ \rho(y)\bigr). \]
-A board of $H$ rows realises $d$ on all of its own rows exactly when $H\ge\rho(x)$ for every $x$ in them. By Proposition~\ref{prop:period} the quantity $\rho(x)-\mathrm{row}(x)$ has period $4$ in the row index, so the condition is decided by finitely many rows; it holds for every $H\ge5$ and fails at $H=4$.
-\end{proof}
-
-So one distance function serves every board of $5$ rows or more. The heights 2, 3 and 4 are genuinely different --- on a $3\times3$ board the centre is unreachable, while on any taller board it is at distance $4$ --- and are counted separately, each on its own board with its own distances, which needs no theorem at all.
-
-\section{The count is a walk count}
-
-What a transfer needs to know at row $i$ is which pairs of cells within two rows are minimum-path edges, and how far each cell's label is capped by $\min(2,d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by Proposition~\ref{prop:period} both depend on $i$ only through $i\bmod 4$ once $i\ge9$ --- the cap because $d$ rises with $i$ and has passed $2$ there.
-
-A knight move never stays inside a row, so no edge joins two cells of one row: the label of a new row is constrained only by the two rows above it, and cell by cell at that. Take as vertices the pairs (labelling of the previous row, labelling of the current row) together with the phase $i\bmod 4$ of the current row; an edge to the next such vertex exists when every minimum-path edge closed by the arriving row rises by $0$ or $1$, which the two rows above it decide. Vertices with identical futures are merged, which changes no count, leaving $S=1301$.
-
-Rows $0,\dots,9$ are ABOVE the periodic region and are not carried by the matrix. They are walked once with weights: $\iota$ is the vector counting, at each vertex, the boards of $10$ rows whose last two rows are that pair. So $\iota$ is not an incidence vector, and the paper may not call it one; $\tau$ is all ones, every vertex being a legitimate last pair. Carrying the row index in the vertex instead, which is the obvious alternative, multiplies the vertex set by the $9$ distinct rows above the region and is what made the wider boards unreachable. Summing the early rows away loses nothing: a board is determined by its rows, and two boards agreeing on their last two rows admit the same continuations. With $M$ the adjacency matrix, for every board of at least $10$ rows,
+Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
+under this substitution, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-8}\tau ,
+x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
+=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
+Summing that identity over a rectangle gives
+$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
+$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
+difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
+the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
+because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
+$u_i=y(i,i)=x(i,i)$.
+
+For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
+the same parity; and $|x(i,j)|=|u_i+u_j|/2\le9$ for all $i,j$ is equivalent to $|u_i|\le9$
+for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
+\end{proof}
+
+So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
+$\{-9,\dots,9\}$ with all entries of one parity. What remains is to say, in terms of $u$,
+that every $2\times2$ subblock has one or three distinct entries.
+
+\begin{lemma}\label{lem:block}
+Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
+the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
+$\pi_j=(\gamma,\delta)$ it is
+\[
+\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
+-\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
+\]
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
+order. Multiplying all four by $\pm1$ does not change how many are distinct.
+\end{proof}
+
+Call two consecutive pairs COMPATIBLE when that number lies in $\{1,3\}$. The condition on the
+matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
+which asks each pair to be compatible with itself. In other words:
+
+\begin{corollary}
+The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
+the compatibility graph on the $\le 361$ pairs.
+\end{corollary}
+
+\section{A walk on the sequence}
+
+The clique condition is not local: a pair must be compatible with every pair anywhere else in
+the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
+what it FORBIDS is not.
+
+\begin{lemma}\label{lem:lump}
+Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
+continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
+$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
+$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
+\end{lemma}
+
+\begin{proof}
+The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
+after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
+by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
+the only other thing a step needs.
+\end{proof}
+
+The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
+subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
+$S=651$. The two parity classes never mix, so the walk starts by choosing a parity and a first
+value, and every state may end a sequence:
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=651.
+\]
+The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
+constant read off by matching the published terms rather than assumed. In particular $a$ is
+$C$-finite --- for a family in which both dimensions grow with $n$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{18}-\sum_i c_it^{18-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -108,25 +152,24 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+18}-\sum_ic_iM^{j+18-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 8\,a(n-2) - 8\,a(n-3) - 28\,a(n-4) + 28\,a(n-5) + 56\,a(n-6) - 56\,a(n-7) - 70\,a(n-8) + 70\,a(n-9) + 56\,a(n-10) - 56\,a(n-11) - 28\,a(n-12) + 28\,a(n-13) + 8\,a(n-14) - 8\,a(n-15) - a(n-16) + a(n-17)
+a(n)\;=\;4\,a(n-1) + 11\,a(n-2) - 60\,a(n-3) - 34\,a(n-4) + 375\,a(n-5) - 53\,a(n-6) - 1270\,a(n-7) + 601\,a(n-8) + 2541\,a(n-9) - 1636\,a(n-10) - 3075\,a(n-11) + 2204\,a(n-12) + 2210\,a(n-13) - 1562\,a(n-14) - 875\,a(n-15) + 530\,a(n-16) + 150\,a(n-17) - 60\,a(n-18)
 \]
-for every $n>37$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $18$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=37+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -134,16 +177,16 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every labelling of the board one by one, computing the knight distances by breadth-first
-search on that very board and testing each minimum-path edge directly. That program shares no
-code with the transfer matrix, so an error in one does not hide an error in the other. A
-third, independently written row-pair model, which carries the phase in the vertex rather than
-the row index and merges by a different rule, reproduces the same published terms again.
+Second, the count was recomputed for the smallest matrices straight from the definition:
+symmetric matrices were written out entry by entry over $\{-9,\dots,9\}$ and each
+$2\times2$ subblock tested for summing to zero and for having one or three distinct entries. The
+sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
+the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
+small sizes and small ranges the number of symmetric sum-zero matrices found by direct
+enumeration equals the number of admissible sequences.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -151,19 +194,13 @@ matrices involved, and holds wherever the proved range and the data overlap.
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
-The certificate of Propositions~\ref{prop:period} and~\ref{prop:height} was itself tested
-on cases with known answers before being trusted: the field it produces agrees cell for cell
-with a direct breadth-first search on every board of width $3$ to $9$ and every height up to
-$59$; the threshold it computes is tight, the height below it genuinely disagreeing; and
-perturbing a single entry of its table by one makes it refuse.
-
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253115.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211551.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
+(Lumping, Section 6.3.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

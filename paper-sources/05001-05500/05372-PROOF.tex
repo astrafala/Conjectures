@@ -12,130 +12,143 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A250740, proved}
+\title{The empirical recurrence for OEIS A233083, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250740 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=128$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $134$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A233083 counts arrays over $\{0,\dots,3\}$ under a neighbour condition together with
+two symmetry-breaking clauses: the upper-left entry is $0$, and $1$ must appear before
+$2$ in row major order. The last of these is not local --- it compares first occurrences
+across the whole array --- but it becomes local once the state carries which of the two values
+was seen first. With that, $a(n)$ is a walk count on $S=144$ vertices and the empirical
+recurrence of order $2$ contributed by R.~H.~Hardin follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A250740 is ``Number of (n+1) X (6+1) 0..1 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nonincreasing x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A233083 is ``Number of 2 X n 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
 \[
-130, 134, 142, 158, 190, 254,\ \dots
+3, 14, 95, 662, 4631, 32414, 226895, 1588262,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
-\begin{quote}
-Empirical g.f.: 2*x*(65 - 128*x) / ((1 - x)*(1 - 2*x)). - \_Colin Barker\_, Nov 17 2018
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 8*a(n-1) - 7*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 17 2018 13:11:14, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+As of the ``Last modified'' line on the live entry (Oct 07 2018 08:21:23, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;8\,a(n-1) - 7\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-Every condition the entry names is decided inside a bounded number of consecutive rows: it
-compares a cell with cells a bounded distance from it, and no comparison reaches further than
-that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
-read off row by row, and appending one more row is one step, legal exactly when the row it
-completes satisfies every condition that becomes testable.
+\section{The three clauses}
 
-Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
-$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
-in,
+The arrays have $2$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+column $t$ and row $u$. The neighbour condition is
+\begin{equation}\label{eq:loc}
+x_{t+d_1,\,u+d_2}\ne 3-x_{t,u}\qquad\text{for every offset }(d_1,d_2)\in\mathcal N=\{(1,0),\ (1,-1)\}
+\end{equation}
+inside the array. The relation ``$y=3-x$'' is symmetric, so each unordered adjacency need
+only be tested once; the offsets above are the forward representatives, one per direction,
+and every one of them has a nonnegative column shift. A single column of state is therefore
+enough for \eqref{eq:loc}: the cells of a column are settled by that column and the next.
+
+Because the walk runs along columns while row major order runs along
+rows, the two orders do not agree, and a single flag would not know which of the two
+first occurrences came first. The state therefore carries one flag for each of the $2$
+rows: $0$ while neither $1$ nor $2$ has been seen in that row, $1$ if $1$
+was seen there first, $2$ if $2$ was. An array is accepted when the first row whose
+flag is nonzero has flag $1$ --- row major order compares rows first and, within a
+row, the earlier column --- or when no flag is set at all, in which case nothing is out of
+order.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a column, a flag vector), $|\mathcal V|=S=144$, let
+$(r,f)\to(s,f')$ be an edge when \eqref{eq:loc} holds for the cells of $r$ with $s$ beneath
+it and $f'$ is $f$ updated by $s$, let $\mathbf{v}$ mark the vertices whose column begins
+with $0$ and whose flag is the one that column alone produces, and $\mathbf{u}$ those whose
+column satisfies \eqref{eq:loc} with nothing beneath it and whose flag is accepted. Then
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1+1}\tau ,
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n.
 \]
-and there are $S=128$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $31$ terms the entry publishes, exactly, in integer arithmetic --- a
-misreading of the condition gives a different digraph and different counts, so this ties the
-model to the entry and not merely to the arithmetic.
-
-The family this entry belongs to is read by one model, described by its author as: ```... arrays with nondecreasing <f>(x(i,j),x(i,j-1)) in the i direction and nondecreasing <g>(x(i,j),x(i-1,j)) in the j direction' and `... with nondecreasing <statistic> of every <k> consecutive values in every row and column'.''
-
-
-\section{Its generating function is rational, with bounded degree}
-
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
-$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
 \end{lemma}
 
 \begin{proof}
-Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
-power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
-relating the walk index to the entry's own $n$. By Cramer's rule every entry of
-$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
-$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
+A walk of length $L-1$ is a sequence of $L$ columns, and its flag component is determined by
+them, so walks correspond to arrays. Along the walk the cells of column $t$ are tested once,
+at the step leaving it, with the correct neighbour column; the cells of the last column are
+tested by $\mathbf{u}$ with no column beneath, which is how the array behaves at its edge.
+The flag component is by construction the record of first occurrences among the columns laid
+down so far, so $\mathbf{u}$ imposes exactly the ordering clause, and $\mathbf{v}$ imposes
+the upper-left clause. The state carries a column, not a boundary, so $L$ columns make a walk
+of length $L-1$.
+\end{proof}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge2$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_ih_{2-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of earlier
+ones.
 \end{proof}
 
 \begin{theorem}
-The conjectured generating function is $A(x)$.
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=2$ and $\deg D_2=2$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
-\[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
-\]
-a polynomial of degree at most $130$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{130}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $134$
-of them --- more than the $130+1$ the argument requires --- agree.
+The digraph was built directly from \eqref{eq:loc} and the flag update. The vector $w$ was
+formed by $2$ applications of $G$ in exact integer arithmetic and
+$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
+those integers vanishes from the index corresponding to $n=3+1$ onwards, and the run
+continued until $S+1$ consecutive zeros had been seen.
 \end{proof}
-
-\section{A recurrence the entry does not state}
-
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>2,
-\]
-a constant-coefficient linear recurrence of order $2$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{2}$ read off $D_2$, the first few being $3,\ -2$. The entry records no recurrence, so this is not a restatement of anything
-already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $31$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $20$ published indices, with no shift fitted: the number of columns is
+$L=n$ from the entry's own name and the offset says which index carries the first
+published term. The values agree exactly. The ordering clause is where a misreading would
+show first, and it is the reason the flags are per row rather than a single value.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250740.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233083.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.

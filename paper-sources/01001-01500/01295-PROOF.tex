@@ -11,108 +11,192 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical degree for OEIS A201350, proved from an exact model}
+\title{The empirical recurrence for OEIS A279163, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A201350 carries the empirical claim that its terms agree with a polynomial of degree $31$.
-It is true, and it is decidable rather than empirical. The claim names no coefficients, so
-there is no formula to check; but a sequence agrees with a polynomial of degree at most $d$ on
-a range exactly when its $(d+1)$-st finite difference vanishes there, and the degree is exactly
-$d$ exactly when the $d$-th difference does not eventually vanish. Both are linear recurrences,
-and the entry's count is given by an exact model that provably satisfies a monic linear
-recurrence of order $S=612$, so both are settled by a finite exact computation.
+OEIS A279163 imposes three things at once: a condition on each cell that reaches one row up and
+one row down; a global budget allowing exactly two cells to
+break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
+says the array is written in canonical form. None of the three is visible to a plain transfer
+matrix over rows. All three are handled: the state is a pair of consecutive rows
+together with the number of offending cells so far, capped at the budget; and the
+canonical-form clause is removed by counting equality patterns instead of arrays, through the
+identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
+numbers. The empirical recurrence of order $33$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=195$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A201350 is ``Number of nX5 0..1 arrays with rows and columns lexicographically nondecreasing and every element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A279163 is ``Number of nX3 0..1 arrays with no element equal to a strict majority of its king-move neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-4, 23, 118, 752, 4860, 29540, 164704, 838248,\ \dots
+0, 0, 16, 117, 483, 2001, 7709, 28139,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) is a polynomial of degree 31 for n>10
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 12*a(n-1) -60*a(n-2) +178*a(n-3) -423*a(n-4) +945*a(n-5) -1762*a(n-6) +2718*a(n-7) -4107*a(n-8) +5541*a(n-9) -6003*a(n-10) +6900*a(n-11) -7369*a(n-12) +5673*a(n-13) -6435*a(n-14) +6357*a(n-15) -3486*a(n-16) +5577*a(n-17) -3953*a(n-18) +453*a(n-19) -3432*a(n-20) +780*a(n-21) +357*a(n-22) +2541*a(n-23) +430*a(n-24) -354*a(n-25) -888*a(n-26) -583*a(n-27) -84*a(n-28) +354*a(n-29) +224*a(n-30) -36*a(n-31) -48*a(n-32) -8*a(n-33) for n>36
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:05:06, revision 9)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Dec 07 2016 08:09:47, revision 4) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;12\,a(n-1) - 60\,a(n-2) + 178\,a(n-3) - 423\,a(n-4) + 945\,a(n-5) - 1762\,a(n-6) + 2718\,a(n-7) - 4107\,a(n-8) + 5541\,a(n-9) - 6003\,a(n-10) + 6900\,a(n-11) - 7369\,a(n-12) + 5673\,a(n-13) - 6435\,a(n-14) + 6357\,a(n-15) - 3486\,a(n-16) + 5577\,a(n-17) - 3953\,a(n-18) + 453\,a(n-19) - 3432\,a(n-20) + 780\,a(n-21) + 357\,a(n-22) + 2541\,a(n-23) + 430\,a(n-24) - 354\,a(n-25) - 888\,a(n-26) - 583\,a(n-27) - 84\,a(n-28) + 354\,a(n-29) + 224\,a(n-30) - 36\,a(n-31) - 48\,a(n-32) - 8\,a(n-33)
+\end{equation}
+for all $n>36$.
 
-The entry's defining condition is local: it is a condition on the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may follow
-$u$, which the condition decides by inspection. An admissible array is then exactly a walk, so
-with $M$ the adjacency matrix of that digraph on $S=612$ vertices and $\iota,\tau$ the vectors
-recording which windows may begin and end an array, $a(n)=\iota^{\!\top}M^{\,g(n)}\tau$ for
-the linear function $g$ the entry's shape supplies. In particular $a$ is $C$-finite.
+\section{The condition, the budget, and the canonical form}
 
-\section{A degree is two recurrences}
+The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$. With the neighbour offsets
+\[
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
+\]
+as (row shift, column shift), counting only positions inside the array, call a cell
+$(t,u)$ \emph{offending} when
+\[
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\]
+The entry asks for arrays in which exactly $E=2$ cells offend.
 
-\begin{lemma}\label{lem:diff}
-Let $\Delta$ be the forward difference. For integers $N$ and $d\ge0$, $a$ agrees on
-$n\ge N$ with a polynomial of degree at most $d$ if and only if $(\Delta^{d+1}a)(n)=0$ for
-every $n\ge N$; and that polynomial has degree exactly $d$ unless $(\Delta^{d}a)(n)=0$ for
-all large $n$ as well.
+Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
+$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
+enough; and the number of offending cells is a property of the whole array, so no bounded
+window sees it either. Both are fixed by the same device: states are ordered pairs of
+consecutive rows together with a running count $v\in\{0,1,\dots,2\}$, and a count that
+would exceed $2$ is simply not represented --- an array that passes it can never come back
+under it.
+
+The condition is stated in equalities between entries, so it is invariant under relabelling
+the values, and so is the number of offending cells. The clause ``new values introduced in
+order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
+the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $2$ offending
+cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Standard finite differences. $\Delta^{d+1}$ kills exactly the polynomials of degree at most
-$d$, and on a range where $\Delta^{d+1}a$ vanishes the values of $a$ are determined by
-$d+1$ consecutive ones through the same identity a degree-$d$ polynomial satisfies, so the
-interpolating polynomial through any $d+1$ of them reproduces all of them. Its leading
-coefficient is $(\Delta^{d}a)/d!$, which is the constant the second statement is about.
+A labelled array is a pattern together with an injection of its classes into the alphabet,
+and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
+identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
+order of summation makes the coefficient of $L_i$ equal to
+$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
+$\binom{2}{i}D_{2-i}$, an integer.
 \end{proof}
 
-Written out, $\Delta^{d+1}a=0$ is the monic linear recurrence with characteristic polynomial
-$(z-1)^{31+1}$, and $\Delta^{d}a$ constant is the one with $(z-1)^{31}$. Both are
-fixed recurrences, so each is decided by the annihilation test: $M^{S}$ is an integer
-combination of $I,\dots,M^{S-1}$ by Cayley--Hamilton, the residuals therefore obey the monic
-recurrence given by the characteristic polynomial of $M$, and $S$ consecutive zeros force every
-later one.
+\section{Each $L_i$ is a walk count}
 
-\section{The theorem}
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{3}$, and take the triples $(p,c,v)$ with
+$p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
+of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
+absent, in which case the corresponding neighbours simply do not exist). Declare
+\[
+(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
+\]
+an edge whenever the new count is at most $2$. Let $\mathbf{s}_i$ mark the vertices with
+$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
+$v+\mathrm{viol}(c\mid p,\text{--})=2$.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
+of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
+judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
+those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
+$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
+offending cells among the rows judged so far, and the walk exists exactly when that total
+never exceeds $2$; since the total only grows, that is implied by the final value being
+$2$, which $\mathbf{e}_i$ imposes.
+\end{proof}
+
+Assembling the $2$ chains block-diagonally into $N$ of size $S=195$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{33}-\sum_i c_i\,t^{33-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge33$
+\[
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-33}w,
+\qquad w=h_{33}-\sum_i c_i h_{33-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
+\end{proof}
 
 \begin{theorem}
-$a(n)$ agrees with a polynomial in $n$ of degree exactly $31$ for every $n\ge11$.
+The recurrence \eqref{eq:conj} holds for every $n>36$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The residual of $(z-1)^{31+1}$ was formed at each index in exact integer arithmetic from
-the model. It is nonzero at $n=42$ and vanishes from $n=42+1$ onwards, with the run of
-zeros continuing past $S+31+1$, which by the annihilation bound settles every later index at
-once. So $\Delta^{31+1}a$ vanishes on $n\ge42-31=11$, and
-Lemma~\ref{lem:diff} gives the polynomial there.
-
-For the degree: the residual of $(z-1)^{31}$ has no run of $S+31$ zeros anywhere in the
-computed range, so $\Delta^{31}a$ is not eventually zero and the degree is not smaller
-than $31$. The entry claims it for $n>10$, and the threshold above is exactly $10+31+1=42$, so the range proved is the range claimed and neither is slack.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$33$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=36+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic; this is what ties it to the entry, which is read in English and could be misread.
-Second, both residuals were computed term by term rather than through any closed form. Third,
-the derived bound $S$ was tested on terms it had not been given: the model was evaluated beyond
-the $S$ values that determine it and the annihilator reproduced them.
+Three checks, each independent of the algebra above.
+
+First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
+one of the $24$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being
+$L=n$ from the entry's own name and the offset saying which index the first published
+term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
+Lemma~\ref{lem:inv} would change the counts and be rejected here.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A201350.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279163.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{gkp} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison--Wesley, 1994. (Finite differences.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

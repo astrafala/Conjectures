@@ -11,19 +11,23 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A223928, proved}
+\title{The empirical closed form for OEIS A224311, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223928 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224311 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1408$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=1728$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{13}$, of degree
 $13$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,26 +41,32 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223928 is ``Number of n X 3 0..2 arrays with rows, columns and antidiagonals unimodal and diagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A224311 is ``Number of 3Xn 0..2 arrays with diagonals and rows unimodal and antidiagonals nondecreasing.''. It has offset $1$ and begins
 \[
-22, 218, 1116, 4498, 15791, 49646, 142177, 375777,\ \dots
+27, 324, 1586, 5996, 20214, 61953, 174378, 454832,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/19160064)*n\^{}12 + (1/1064448)*n\^{}11 + (1387/43545600)*n\^{}10 + (577/1451520)*n\^{}9 + (2717/414720)*n\^{}8 + (10553/483840)*n\^{}7 + (13338121/43545600)*n\^{}6 + (19135/32256)*n\^{}5 + (9514387/2177280)*n\^{}4 + (1557389/362880)*n\^{}3 + (1225691/118800)*n\^{}2 + (1887533/27720)*n - 124 for n>3.
+Empirical: a(n) = (1/19160064)*n\^{}12 + (1/1064448)*n\^{}11 + (1507/43545600)*n\^{}10 + (73/161280)*n\^{}9 + (23603/2903040)*n\^{}8 + (111/3584)*n\^{}7 + (13023121/43545600)*n\^{}6 + (130093/96768)*n\^{}5 + (5619469/2177280)*n\^{}4 + (54895/2688)*n\^{}3 - (11456441/1663200)*n\^{}2 + (205131/1540)*n - 196 for n>3
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2022 23:09:17, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:22:28, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{n^{12}}{19160064} + \frac{n^{11}}{1064448} + \frac{1387 n^{10}}{43545600} + \frac{577 n^{9}}{1451520} + \frac{2717 n^{8}}{414720} + \frac{10553 n^{7}}{483840} + \frac{13338121 n^{6}}{43545600} + \frac{19135 n^{5}}{32256} + \frac{9514387 n^{4}}{2177280} + \frac{1557389 n^{3}}{362880} + \frac{1225691 n^{2}}{118800} + \frac{1887533 n}{27720} - 124.
-\]
+\begin{multline*}
+f(n)\;=\;\frac{n^{12}}{19160064} + \frac{n^{11}}{1064448} \\
++ \frac{1507 n^{10}}{43545600} + \frac{73 n^{9}}{161280} \\
++ \frac{23603 n^{8}}{2903040} + \frac{111 n^{7}}{3584} \\
++ \frac{13023121 n^{6}}{43545600} + \frac{130093 n^{5}}{96768} \\
++ \frac{5619469 n^{4}}{2177280} + \frac{54895 n^{3}}{2688} \\
+- \frac{11456441 n^{2}}{1663200} + \frac{205131 n}{1540} \\
+- 196.
+\end{multline*}
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1408$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=1728$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -149,7 +159,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223928.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224311.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

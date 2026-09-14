@@ -12,41 +12,41 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183469, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202800, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183469 counts arrays of width $4$ over $\{0,1\}$ in which every cell is the sum of one of two groups of its neighbours. The entry carries an
+OEIS A202800 counts arrays of width $6$ over $\{0,1\}$ in which every cell of a named value has a neighbour of that same value. The entry carries an
 empirical recurrence of order $45$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: what a cell asks reaches one row above
-it and one row below, so the condition on a whole row is settled by
-$3$ consecutive rows and the count is a walk count on $S=273$ states.
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=4161$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A183469 is ``Number of nX4 binary arrays with every element equal to either the sum mod 2 of its vertical neighbors or the sum mod 2 of its horizontal neighbors.''. It has offset $1$ and begins
+OEIS A202800 is ``Number of nX6 binary arrays with every one adjacent to another one horizontally or vertically.''. It has offset $1$ and begins
 \[
-4, 28, 111, 550, 2769, 13338, 66012, 326010,\ \dots
+21, 1632, 83518, 4217066, 217145076, 11168045764, 573985849362, 29502860015392,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=4*a(n-1)+2*a(n-2)+43*a(n-3)-120*a(n-4)-28*a(n-5)-843*a(n-6)+1176*a(n-7)-295*a(n-8)+8176*a(n-9)-4388*a(n-10)+7759*a(n-11)-37223*a(n-12)+7835*a(n-13)-46292*a(n-14)+89188*a(n-15)-10524*a(n-16)+120676*a(n-17)-118801*a(n-18)+2332*a(n-19)-165492*a(n-20)+73493*a(n-21)+32085*a(n-22)+126221*a(n-23)+24117*a(n-24)-42421*a(n-25)-43901*a(n-26)-35527*a(n-27)+9272*a(n-28)+9759*a(n-29)-9458*a(n-30)+2573*a(n-31)-11427*a(n-32)+1448*a(n-33)+2224*a(n-34)-2291*a(n-35)+1897*a(n-36)-661*a(n-37)-27*a(n-38)+297*a(n-39)+27*a(n-40)-66*a(n-41)+3*a(n-42)-15*a(n-43)-2*a(n-44)+4*a(n-45)
+Empirical: a(n) = 50*a(n-1) -185*a(n-2) +12651*a(n-3) +6423*a(n-4) +1075408*a(n-5) +3259685*a(n-6) +21586628*a(n-7) +76542794*a(n-8) -2812955781*a(n-9) -9282864749*a(n-10) +76466631235*a(n-11) +267889215760*a(n-12) -1134901643747*a(n-13) -4335336001609*a(n-14) +10870807935088*a(n-15) +46906211644574*a(n-16) -69760341260668*a(n-17) -364808849169564*a(n-18) +285890091915548*a(n-19) +2095267330255204*a(n-20) -582913492790936*a(n-21) -8842390435967576*a(n-22) -589993582990688*a(n-23) +25633677190161424*a(n-24) +6313554877821056*a(n-25) -35770558600735552*a(n-26) -82722026192384*a(n-27) -46013612995587072*a(n-28) -82921963670853632*a(n-29) +185344286677962752*a(n-30) -36821534264311808*a(n-31) +193374756561289216*a(n-32) +778031675832008704*a(n-33) -391301125804916736*a(n-34) +2056655992384389120*a(n-35) -1044699927222943744*a(n-36) +2643514994808848384*a(n-37) -1117027627006164992*a(n-38) +2008203304609251328*a(n-39) -663346463232753664*a(n-40) +962288728338857984*a(n-41) -230985402763182080*a(n-42) +273382571130224640*a(n-43) -34339947158700032*a(n-44) +36028797018963968*a(n-45)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:46:02, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:55:44, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
-list of offsets the entry names,
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
+offsets the entry names,
 \[
-\Delta=\{\,(-1,0), (1,0)\,\},
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -56,23 +56,22 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
 the border simply has fewer neighbours.
 
-The condition is that every cell is the sum modulo $2$ of one of two named groups of its neighbours:
+The condition is that every cell equal to $1$ has a neighbour equal to $1$:
 \[
-x(i,j)\;\equiv\;\sum_{(a,b)\in S(i,j)}x(a,b) \quad\text{or}\quad x(i,j)\;\equiv\;\sum_{(a,b)\in T(i,j)}x(a,b) \pmod{2},
+x(i,j)=1\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
 \]
-where $T$ is built from the second group of offsets, (0,-1), (0,1), in the same way. An empty group sums to $0$.
+Cells of any other value are under no condition.
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one row at a time
-and let the state be the last 2 of them, with a distinguished start standing for the
-array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
 
 Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
-allowed when that row passes. Each row of the finished
-array is therefore tested exactly once.
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
 
 When the array stops, the last row of it has never been tested, because the
 conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
@@ -81,7 +80,7 @@ with absent rows appended --- the same rule that governs a cell at the bottom ed
 Section 2.
 Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4161,
 \]
 for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
 differ by a constant, read off by matching the published terms rather than assumed. In
@@ -107,7 +106,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 2\,a(n-2) + 43\,a(n-3) - 120\,a(n-4) - 28\,a(n-5) - 843\,a(n-6) + 1176\,a(n-7) - 295\,a(n-8) + 8176\,a(n-9) - 4388\,a(n-10) + 7759\,a(n-11) - 37223\,a(n-12) + 7835\,a(n-13) - 46292\,a(n-14) + 89188\,a(n-15) - 10524\,a(n-16) + 120676\,a(n-17) - 118801\,a(n-18) + 2332\,a(n-19) - 165492\,a(n-20) + 73493\,a(n-21) + 32085\,a(n-22) + 126221\,a(n-23) + 24117\,a(n-24) - 42421\,a(n-25) - 43901\,a(n-26) - 35527\,a(n-27) + 9272\,a(n-28) + 9759\,a(n-29) - 9458\,a(n-30) + 2573\,a(n-31) - 11427\,a(n-32) + 1448\,a(n-33) + 2224\,a(n-34) - 2291\,a(n-35) + 1897\,a(n-36) - 661\,a(n-37) - 27\,a(n-38) + 297\,a(n-39) + 27\,a(n-40) - 66\,a(n-41) + 3\,a(n-42) - 15\,a(n-43) - 2\,a(n-44) + 4\,a(n-45)
+a(n)\;=\;50\,a(n-1) - 185\,a(n-2) + 12651\,a(n-3) + 6423\,a(n-4) + 1075408\,a(n-5) + 3259685\,a(n-6) + 21586628\,a(n-7) + 76542794\,a(n-8) - 2812955781\,a(n-9) - 9282864749\,a(n-10) + 76466631235\,a(n-11) + 267889215760\,a(n-12) - 1134901643747\,a(n-13) - 4335336001609\,a(n-14) + 10870807935088\,a(n-15) + 46906211644574\,a(n-16) - 69760341260668\,a(n-17) - 364808849169564\,a(n-18) + 285890091915548\,a(n-19) + 2095267330255204\,a(n-20) - 582913492790936\,a(n-21) - 8842390435967576\,a(n-22) - 589993582990688\,a(n-23) + 25633677190161424\,a(n-24) + 6313554877821056\,a(n-25) - 35770558600735552\,a(n-26) - 82722026192384\,a(n-27) - 46013612995587072\,a(n-28) - 82921963670853632\,a(n-29) + 185344286677962752\,a(n-30) - 36821534264311808\,a(n-31) + 193374756561289216\,a(n-32) + 778031675832008704\,a(n-33) - 391301125804916736\,a(n-34) + 2056655992384389120\,a(n-35) - 1044699927222943744\,a(n-36) + 2643514994808848384\,a(n-37) - 1117027627006164992\,a(n-38) + 2008203304609251328\,a(n-39) - 663346463232753664\,a(n-40) + 962288728338857984\,a(n-41) - 230985402763182080\,a(n-42) + 273382571130224640\,a(n-43) - 34339947158700032\,a(n-44) + 36028797018963968\,a(n-45)
 \]
 for every $n>44$.
 \end{theorem}
@@ -123,11 +122,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $4$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
+array of width $6$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
 tested against the neighbours it has. No window, no state and no end vector are involved in that
 computation, and the published terms came back.
 
@@ -139,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183469.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202800.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

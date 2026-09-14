@@ -12,73 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207223, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250999, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207223 counts arrays of width $3$ over $\{0,1,2\}$ containing no occurrence of certain short
-patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
-recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
-index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
-count is a walk count on $S=553$ states.
+OEIS A250999 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=729$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A207223 is ``Number of nX3 0..2 arrays avoiding the patterns z z+1 z or z z-1 z in any row, column or nw-se diagonal.''. It has offset $1$ and begins
+OEIS A250999 is ``Number of (5+1)X(n+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-23, 529, 6819, 100997, 1482361, 21553541, 312522517, 4536114221,\ \dots
+8726, 80133, 542834, 3184615, 16381510, 77449279, 340511877, 1418373594,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 22*a(n-1) -189*a(n-2) +1291*a(n-3) -2505*a(n-4) +5630*a(n-5) +66182*a(n-6) +85302*a(n-7) -183268*a(n-8) +1122516*a(n-9) -9288376*a(n-10) -101606268*a(n-11) -163267092*a(n-12) +1028924256*a(n-13) +4615809720*a(n-14) +1632232760*a(n-15) -27698927152*a(n-16) -65399272512*a(n-17) -869805664*a(n-18) +215485870432*a(n-19) +387139064704*a(n-20) +292441453184*a(n-21) -149794976256*a(n-22) -937237304320*a(n-23) -2455615604224*a(n-24) -4166262247936*a(n-25) -3747983007744*a(n-26) +1241264136192*a(n-27) +10822269165568*a(n-28) +19311970320384*a(n-29) +22552503418880*a(n-30) +17593856000000*a(n-31) +10047152717824*a(n-32) +2601583640576*a(n-33) -536427364352*a(n-34) -1558695641088*a(n-35) -695902142464*a(n-36) -247765925888*a(n-37) +131667591168*a(n-38) +96770981888*a(n-39) +22817013760*a(n-40) +2147483648*a(n-41) -15032385536*a(n-42) +2147483648*a(n-43) for n>46
+Empirical: a(n) = 10*a(n-1) -10*a(n-2) -209*a(n-3) +620*a(n-4) +1726*a(n-5) -8705*a(n-6) -5510*a(n-7) +66883*a(n-8) -16859*a(n-9) -335417*a(n-10) +263017*a(n-11) +1182147*a(n-12) -1412035*a(n-13) -3034442*a(n-14) +4816387*a(n-15) +5747998*a(n-16) -11783798*a(n-17) -7963725*a(n-18) +21708952*a(n-19) +7685226*a(n-20) -30847993*a(n-21) -4253331*a(n-22) +34225316*a(n-23) -465513*a(n-24) -29794693*a(n-25) +3618041*a(n-26) +20341865*a(n-27) -4007281*a(n-28) -10835065*a(n-29) +2669904*a(n-30) +4457443*a(n-31) -1215043*a(n-32) -1394074*a(n-33) +385295*a(n-34) +323675*a(n-35) -83384*a(n-36) -53777*a(n-37) +11638*a(n-38) +6012*a(n-39) -932*a(n-40) -402*a(n-41) +32*a(n-42) +12*a(n-43) for n>45
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:37:54, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:03, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across, with entries in $\{0,1,2\}$. An OCCURRENCE of a pattern in a
-direction is a run of consecutive cells taken in that direction whose entries match the pattern
-in order; the array is counted when it has no occurrence at all. The entry names
-\[
-\begin{array}{ll}
-\text{direction} & \text{forbidden patterns} \\[2pt]
-\text{along a row, left to right} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
-\text{down a column} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
-\text{down a diagonal, nw to se} & (z,\,z+1,\,z),\quad (z,\,z-1,\,z) \\
-\end{array}
-\]
- A pattern written with the free letter $z$ forbids every window standing in those differences, whatever the value of $z$: the window $(v_1,\dots,v_r)$ is an occurrence exactly when the numbers $v_s-o_s$ are all equal, $o$ being the offsets shown.
+The array has $6$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
-\section{Every occurrence lies in $3$ consecutive rows}
+Two derived arrays are formed. The first reads the horizontal statistic across each
+neighbouring pair of a row,
+\[
+b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+\]
+and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
+statistic down each neighbouring pair of a column,
+\[
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+\]
+and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
+is the absolute difference of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
-next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
-consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
-$i-2,\dots,i$.
+Both conditions are conditions on TWO consecutive array rows and nothing more.
 \end{lemma}
 
 \begin{proof}
-Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
+names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row still to come being written
-$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
-inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
-and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
-of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
-adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+So a single row is a state. Let $M$ be the matrix on the $3^{6}=729$ rows with
+$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
+walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=553.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=729.
 \]
+
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -102,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;22\,a(n-1) - 189\,a(n-2) + 1291\,a(n-3) - 2505\,a(n-4) + 5630\,a(n-5) + 66182\,a(n-6) + 85302\,a(n-7) - 183268\,a(n-8) + 1122516\,a(n-9) - 9288376\,a(n-10) - 101606268\,a(n-11) - 163267092\,a(n-12) + 1028924256\,a(n-13) + 4615809720\,a(n-14) + 1632232760\,a(n-15) - 27698927152\,a(n-16) - 65399272512\,a(n-17) - 869805664\,a(n-18) + 215485870432\,a(n-19) + 387139064704\,a(n-20) + 292441453184\,a(n-21) - 149794976256\,a(n-22) - 937237304320\,a(n-23) - 2455615604224\,a(n-24) - 4166262247936\,a(n-25) - 3747983007744\,a(n-26) + 1241264136192\,a(n-27) + 10822269165568\,a(n-28) + 19311970320384\,a(n-29) + 22552503418880\,a(n-30) + 17593856000000\,a(n-31) + 10047152717824\,a(n-32) + 2601583640576\,a(n-33) - 536427364352\,a(n-34) - 1558695641088\,a(n-35) - 695902142464\,a(n-36) - 247765925888\,a(n-37) + 131667591168\,a(n-38) + 96770981888\,a(n-39) + 22817013760\,a(n-40) + 2147483648\,a(n-41) - 15032385536\,a(n-42) + 2147483648\,a(n-43)
+a(n)\;=\;10\,a(n-1) - 10\,a(n-2) - 209\,a(n-3) + 620\,a(n-4) + 1726\,a(n-5) - 8705\,a(n-6) - 5510\,a(n-7) + 66883\,a(n-8) - 16859\,a(n-9) - 335417\,a(n-10) + 263017\,a(n-11) + 1182147\,a(n-12) - 1412035\,a(n-13) - 3034442\,a(n-14) + 4816387\,a(n-15) + 5747998\,a(n-16) - 11783798\,a(n-17) - 7963725\,a(n-18) + 21708952\,a(n-19) + 7685226\,a(n-20) - 30847993\,a(n-21) - 4253331\,a(n-22) + 34225316\,a(n-23) - 465513\,a(n-24) - 29794693\,a(n-25) + 3618041\,a(n-26) + 20341865\,a(n-27) - 4007281\,a(n-28) - 10835065\,a(n-29) + 2669904\,a(n-30) + 4457443\,a(n-31) - 1215043\,a(n-32) - 1394074\,a(n-33) + 385295\,a(n-34) + 323675\,a(n-35) - 83384\,a(n-36) - 53777\,a(n-37) + 11638\,a(n-38) + 6012\,a(n-39) - 932\,a(n-40) - 402\,a(n-41) + 32\,a(n-42) + 12\,a(n-43)
 \]
-for every $n>46$.
+for every $n>45$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=46+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,13 +121,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
-completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
-are involved, and the published terms came back.
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,11 +137,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207223.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250999.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

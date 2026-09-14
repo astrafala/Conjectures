@@ -12,74 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A154141, proved from an exact model}
+\title{The empirical recurrence for OEIS A063105, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A154141 carries an empirical recurrence of order $5$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by the solutions of a Pell equation, in their finitely many orbits, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
+OEIS A063105 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by the classical dimension formula for cusp forms, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved: the sequence is the ordered list of solutions of a Pell equation, and what makes it $C$-finite is the automorph of the quadratic form.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11D09, 11B37, 11D45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11F11, 11F72, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A154141 is ``Indices k such that 8 plus the k-th triangular number is a perfect square.''. It has offset $1$ and begins
+OEIS A063105 is ``Dimension of the space of weight 2n cusp forms for Gamma\_0( 37 ).''. It has offset $1$ and begins
 \[
-1, 7, 16, 46, 97, 271, 568, 1582,\ \dots
+2, 9, 15, 21, 27, 35, 39, 47,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures: (Start) a(n) = a(n-1) + 6*a(n-2) - 6*a(n-3) - a(n-4) + a(n-5).
+Conjecture: a(n) = a(n-2)+a(n-3)-a(n-5) for n>6. G.f.: x*(2 +9*x +13*x\^{}2 +10*x\^{}3 +3*x\^{}4 +x\^{}5)/((1 -x)\^{}2*(1 +x)*(1 +x +x\^{}2)). [\_Colin Barker\_, Sep 27 2012]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 07 2025 12:44:47, revision 31)
+As of the ``Last modified'' line on the live entry (Aug 22 2019 12:18:12, revision 9)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a Pell equation}
+\section{The dimension is given in closed form}
 
-$k(k+1)/2 + 8$ is a perfect square exactly when $8$ times it is, and completing the square
-turns that into
+There is no array here and no transfer matrix. For even $k\ge4$ the dimension of the space of
+cusp forms is given exactly by Diamond and Shurman, Theorem 3.5.1,
 \[
-(2k+1)^2-2(2m)^2\;=\;1-8\cdot8\;=\;-63,
+\dim S_k(\Gamma_0(N))=(k-1)(g-1)+\left(\tfrac{k}{2}-1\right)\varepsilon_\infty
++\left\lfloor\tfrac{k}{4}\right\rfloor\varepsilon_2
++\left\lfloor\tfrac{k}{3}\right\rfloor\varepsilon_3 ,
 \]
-so writing $X=2k+1$ and $Y=2m$ the admissible $k$ are exactly the solutions of $X^2-2Y^2=-63$
-with $X$ odd and positive and $Y$ even and nonnegative. The entry's sequence is that solution
-set, listed by increasing $k$.
-
-The form $x^2-2y^2$ has the automorph coming from the unit $3+2\sqrt2$,
-\[
-T(X,Y)=(3X+4Y,\;2X+3Y),
-\]
-which carries solutions to solutions; and every solution is $T^{j}$ of a FUNDAMENTAL one,
-meaning one whose preimage $T^{-1}(X,Y)=(3X-4Y,-2X+3Y)$ leaves the region. A finite search
-finds them -- there are $2$ here -- and the search is checked rather than bounded by a quoted
-theorem: it is run to a limit and then re-run to four times that limit, and the engine refuses
-unless the two agree.
+with $\dim S_2=g$ and $\dim S_0=0$. Every quantity on the right is elementary integer
+arithmetic in $N$: the index $\mu=N\prod_{p\mid N}(1+1/p)$; the elliptic counts
+$\varepsilon_2,\varepsilon_3$, which vanish when $4\mid N$ and $9\mid N$ respectively and are
+otherwise products of $1+\left(\frac{-1}{p}\right)$ and $1+\left(\frac{-3}{p}\right)$
+over the primes dividing $N$; the cusp count
+$\varepsilon_\infty=\sum_{d\mid N}\varphi(\gcd(d,N/d))$; and the genus
+$g=1+\mu/12-\varepsilon_2/4-\varepsilon_3/3-\varepsilon_\infty/2$.
 
 \section{The bound}
 
-On the region $X\ge1$, $Y\ge0$ one has $Y=\sqrt{(X^2--63)/2}$, an increasing function of $X$,
-so $T(X)=3X+4Y$ is strictly increasing: $T$ PRESERVES THE ORDER of solutions. Hence if the
-sorted list of solutions has its $(n+2)$-th entry equal to $T$ of its $n$-th for $2$
-consecutive $n$, it does so for every later $n$ -- the $2$ orbits interleave in a fixed cyclic
-order from there on. That happens from index $n_0=0$, checked directly.
+With $k=2n$ the right-hand side is linear in $n$ apart from $\lfloor n/2\rfloor$ and
+$\lfloor 2n/3\rfloor$, so for $n\ge2$ --- that is, for the even weights $k\ge4$ the formula
+covers --- $a$ is a quasi-polynomial of period $6$ and degree $1$ satisfying
+$a(n+6)=a(n)+6A+3\varepsilon_2+4\varepsilon_3$ exactly. That difference equation is annihilated
+by $(z^6-1)(z-1)$, and $S=8$ is at least its degree.
 
-Within one orbit $X_{j+2}=6X_{j+1}-X_j$, since $3+2\sqrt2$ and $3-2\sqrt2$ are the roots of
-$t^2-6t+1$; in terms of $k=(X-1)/2$ that reads $k_{j+2}=6k_{j+1}-k_j+2$. Combining with the
-interleaving,
-\[
-a(n+2\cdot2)\;=\;6\,a(n+2)-a(n)+2 \qquad (n\ge n_0),
-\]
-so $(z-1)(z^{2\cdot2}-6z^{2}+1)$ annihilates $a$, monic of order $S=6$ once the
-transient is allowed for. Nothing in that bound is estimated: $2$ is the number of fundamental
-solutions and $n_0$ is where the interleaving is observed to settle, which the order-preservation
-of $T$ then makes permanent.
+The two remaining indices are genuinely outside it: $\dim S_0=0$ and $\dim S_2=g$ are separate
+cases of the theorem, not values of the same expression, and the annihilator does not reach
+them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero at $n=0$ and
+$n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
+the residual below is computed term by term from the closed form rather than through $A$, and
+the run of zeros the theorem uses lies entirely above the transient.
 
 \section{The proof}
 
@@ -99,23 +92,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 6\,a(n-2) - 6\,a(n-3) - a(n-4) + a(n-5)
+a(n)\;=\;a(n-2) + a(n-3) - a(n-5)
 \]
-for every $n>1$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=1+1$ onwards, and the run exceeds $S+5$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+vanish from $n=6+1$ onwards, and the run exceeds $S+5$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $50$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -128,7 +121,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A154141.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A063105.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

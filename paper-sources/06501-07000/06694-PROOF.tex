@@ -12,74 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203178, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250827, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203178 counts arrays of width $5$ over $\{0,1,2\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $43$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=346$ states.
+OEIS A250827 counts arrays over $\{0,1,\dots,4\}$ in which a statistic taken over short runs
+of cells produces a derived array that is monotone in a named direction. The entry carries an
+empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every comparison the condition makes lies inside a bounded
+window of consecutive rows, so the count is a walk count on $S=625$ states, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203178 is ``Number of n X 5 0..2 arrays with every 1 immediately preceded by 0 to the left or above, no 0 immediately preceded by a 0, and every 2 immediately preceded by 0 1 to the left or above.''. It has offset $1$ and begins
+OEIS A250827 is ``Number of (n+1) X (1+1) 0..4 arrays with nondecreasing maximum of every two consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-3, 6, 41, 205, 952, 4654, 23083, 115377,\ \dots
+625, 9025, 119025, 1301881, 13249600, 123432100, 1093360356, 9211008676,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-2) +116*a(n-3) +51*a(n-4) -167*a(n-5) -5304*a(n-6) -2099*a(n-7) -2525*a(n-8) +135828*a(n-9) +21391*a(n-10) +123514*a(n-11) -2093446*a(n-12) +97691*a(n-13) -1966033*a(n-14) +19493219*a(n-15) -3026365*a(n-16) +20145258*a(n-17) -113265090*a(n-18) +15159673*a(n-19) -114880900*a(n-20) +405552988*a(n-21) -19056386*a(n-22) +326124841*a(n-23) -748576479*a(n-24) -82472243*a(n-25) -466324510*a(n-26) +468742748*a(n-27) +186385862*a(n-28) +282899431*a(n-29) +170444820*a(n-30) -68888448*a(n-31) -45542936*a(n-32) -71161527*a(n-33) +37789114*a(n-34) -8127020*a(n-35) -13969563*a(n-36) +5855719*a(n-37) -3592899*a(n-38) -388368*a(n-39) +412490*a(n-40) -118958*a(n-41) +20064*a(n-42) -2340*a(n-43) for n>45.
+Empirical: a(n) = 25*a(n-1) -131*a(n-2) -1640*a(n-3) +18390*a(n-4) +21098*a(n-5) -898470*a(n-6) +1449922*a(n-7) +24694534*a(n-8) -79516250*a(n-9) -434645314*a(n-10) +2047722714*a(n-11) +5089991904*a(n-12) -34226422260*a(n-13) -38156724072*a(n-14) +408656777334*a(n-15) +135544762362*a(n-16) -3642984222786*a(n-17) +617119999350*a(n-18) +24824013529854*a(n-19) -12730359567798*a(n-20) -130913966160894*a(n-21) +99434785174074*a(n-22) +536966717354382*a(n-23) -506800917819311*a(n-24) -1711043806972261*a(n-25) +1860942904207067*a(n-26) +4205369792214218*a(n-27) -5077623195486408*a(n-28) -7857653764349072*a(n-29) +10363496522828544*a(n-30) +10886386212129920*a(n-31) -15702146764127296*a(n-32) -10709517444774016*a(n-33) +17300139976238080*a(n-34) +6875247016863744*a(n-35) -13349858541944832*a(n-36) -2292305035198464*a(n-37) +6755782674087936*a(n-38) -60736730038272*a(n-39) -1977484673286144*a(n-40) +300046960558080*a(n-41) +246128402497536*a(n-42) -63403380965376*a(n-43).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 28 2022 03:46:44, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Dec 15 2023 20:03:21, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
-immediately above it, those that lie inside the array. A cell in the top left corner has none
-at all, so a clause demanding a predecessor of a given value forbids that value there --- which
-is what makes the first published term what it is. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has at least one predecessor carrying $0$;
-\item no cell carrying $0$ has a predecessor carrying $0$;
-\item every cell carrying $2$ has the two cells to its left, or the two above it, reading $0$ then $1$ in that order;
-\end{itemize}
-and nothing else.
+The array has $2$ cells across and entries $x(i,j)\in\{0,1,\dots,4\}$.
 
-\section{Three rows decide everything}
+Fix the statistic $\sigma(v)=\max_t v_t$ of a run $v$ of $2$ consecutive cells --- in words,
+the maximum of the $2$ values. Two derived arrays are formed and both must be
+nondecreasing in their own direction: reading along a row,
+\[
+\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
+\]
+and reading down a column,
+\[
+\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
+\]
+The same statistic and the same run length serve both directions, so the condition is
+unchanged by transposing the array.
+
+Nothing in the condition is invariant under renaming the letters --- each statistic either does
+arithmetic on them or compares them by size --- so no reduction to equality patterns is
+available, and the walk is run over the alphabet the entry names.
+
+\section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
+The row comparisons involve one array row each. A column comparison involves the
+$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
 \end{lemma}
 
 \begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
+The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
+occupy rows $i$ through $i+2$.
 \end{proof}
 
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
-row is settled as it is written and every state may end an array; the end vector is the
-all-ones vector. With $M$ the
-adjacency matrix of the digraph on those states,
+So the window of the last $2$ rows is a state, each row of it already satisfying its own row
+comparisons, and one step appends a row and settles the column comparisons that the new row
+completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=346.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=625,
 \]
+a walk of no steps being an array of exactly $2$ rows.
+
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -103,29 +108,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-2) + 116\,a(n-3) + 51\,a(n-4) - 167\,a(n-5) - 5304\,a(n-6) - 2099\,a(n-7) - 2525\,a(n-8) + 135828\,a(n-9) + 21391\,a(n-10) + 123514\,a(n-11) - 2093446\,a(n-12) + 97691\,a(n-13) - 1966033\,a(n-14) + 19493219\,a(n-15) - 3026365\,a(n-16) + 20145258\,a(n-17) - 113265090\,a(n-18) + 15159673\,a(n-19) - 114880900\,a(n-20) + 405552988\,a(n-21) - 19056386\,a(n-22) + 326124841\,a(n-23) - 748576479\,a(n-24) - 82472243\,a(n-25) - 466324510\,a(n-26) + 468742748\,a(n-27) + 186385862\,a(n-28) + 282899431\,a(n-29) + 170444820\,a(n-30) - 68888448\,a(n-31) - 45542936\,a(n-32) - 71161527\,a(n-33) + 37789114\,a(n-34) - 8127020\,a(n-35) - 13969563\,a(n-36) + 5855719\,a(n-37) - 3592899\,a(n-38) - 388368\,a(n-39) + 412490\,a(n-40) - 118958\,a(n-41) + 20064\,a(n-42) - 2340\,a(n-43)
+a(n)\;=\;25\,a(n-1) - 131\,a(n-2) - 1640\,a(n-3) + 18390\,a(n-4) + 21098\,a(n-5) - 898470\,a(n-6) + 1449922\,a(n-7) + 24694534\,a(n-8) - 79516250\,a(n-9) - 434645314\,a(n-10) + 2047722714\,a(n-11) + 5089991904\,a(n-12) - 34226422260\,a(n-13) - 38156724072\,a(n-14) + 408656777334\,a(n-15) + 135544762362\,a(n-16) - 3642984222786\,a(n-17) + 617119999350\,a(n-18) + 24824013529854\,a(n-19) - 12730359567798\,a(n-20) - 130913966160894\,a(n-21) + 99434785174074\,a(n-22) + 536966717354382\,a(n-23) - 506800917819311\,a(n-24) - 1711043806972261\,a(n-25) + 1860942904207067\,a(n-26) + 4205369792214218\,a(n-27) - 5077623195486408\,a(n-28) - 7857653764349072\,a(n-29) + 10363496522828544\,a(n-30) + 10886386212129920\,a(n-31) - 15702146764127296\,a(n-32) - 10709517444774016\,a(n-33) + 17300139976238080\,a(n-34) + 6875247016863744\,a(n-35) - 13349858541944832\,a(n-36) - 2292305035198464\,a(n-37) + 6755782674087936\,a(n-38) - 60736730038272\,a(n-39) - 1977484673286144\,a(n-40) + 300046960558080\,a(n-41) + 246128402497536\,a(n-42) - 63403380965376\,a(n-43)
 \]
-for every $n>45$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order and test each comparison the moment both of its runs are complete,
+in the orientation the entry's own name writes. No transfer matrix and no transposition are
+involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -135,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203178.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250827.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
