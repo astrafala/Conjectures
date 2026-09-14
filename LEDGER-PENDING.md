@@ -587,17 +587,18 @@ What blocks the vein now is the FIT, not the certificate — and that is a bette
 
 ## 14 September 2026 — running total for the day
 
-Roster **13,000 → 13,198 papers over 13,171 entries**, 157 arguments. 198 results, from four
-readers and no new argument:
+Roster **13,000 → 13,210 papers over 13,183 entries**, and 157 → **158 arguments**.
+210 results:
 
 | | |
 |---:|---|
-| 3 | cusp-form dimensions, from splitting a line that carried three claims |
+| 144 | the closed-form pool, rebuilt from the clone after the hand-made one went stale |
+| 56 | the recurrence or polynomial the entry defers to a linked a-file |
 | 5 | generating functions lost to an attribution in square brackets |
-| 47 | the recurrence or polynomial the entry defers to a linked a-file |
-| 143 | the closed-form pool, rebuilt from the clone after the hand-made one went stale |
+| 3 | cusp-form dimensions, from splitting a line that carried three claims |
+| 2 | Galebach coordination sequences — the new argument |
 
-Every one re-checked against the live OEIS. The sweeps for the last two are still running.
+Every one re-checked against the live OEIS. All the sweeps are still running.
 
 ## 14 September 2026 — the Galebach coordination sequences: 2 results, and a thin vein measured
 

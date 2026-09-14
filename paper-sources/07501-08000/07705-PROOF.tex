@@ -12,67 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187433, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184683, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187433 counts the $(n+1)\times2$ arrays over $\{0,\dots,2\}$ in which
-neighbouring $2\times2$ subblocks do not commute as matrices, and carries an empirical recurrence
-of order $26$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
-a state, the count is a walk count on $S=81$ of them, and the conjectured recurrence is then
-settled by a finite exact computation.
+OEIS A184683 counts arrays over $\{0,\dots,1\}$ under a condition on the determinant of every
+$2\times2$ subblock, and carries an empirical recurrence of order $26$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=128$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A187433 is ``Number of (n+1)X2 0..2 arrays with no 2X2 subblock commuting with any of its horizontal and vertical 2X2 subblock neighbors.''. It has offset $1$ and begins
+OEIS A184683 is ``Number of (n+1)X7 binary arrays with every 2X2 subblock singular.''. It has offset $1$ and begins
 \[
-81, 646, 5344, 44195, 365485, 3022484, 24995294, 206705746,\ \dots
+1552, 45392, 909520, 21547024, 476660624, 10876933264, 245133874960, 5556396815504,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=a(n-1)+32*a(n-2)+160*a(n-3)+468*a(n-4)+929*a(n-5)+1244*a(n-6)+881*a(n-7)-471*a(n-8)-2281*a(n-9)-3120*a(n-10)-1743*a(n-11)+1386*a(n-12)+3903*a(n-13)+3547*a(n-14)+613*a(n-15)-2124*a(n-16)-2314*a(n-17)-511*a(n-18)+932*a(n-19)+840*a(n-20)+73*a(n-21)-281*a(n-22)-172*a(n-23)-25*a(n-24)+8*a(n-25)+2*a(n-26) for n>27
+Empirical: a(n)=56*a(n-1)-1052*a(n-2)+4920*a(n-3)+87215*a(n-4)-1275080*a(n-5)+4248374*a(n-6)+28043568*a(n-7)-257190864*a(n-8)+336187440*a(n-9)+3401007808*a(n-10)-13508494272*a(n-11)-5065367296*a(n-12)+118586597376*a(n-13)-155918166016*a(n-14)-382474903552*a(n-15)+1052692692992*a(n-16)+138988113920*a(n-17)-2622368481280*a(n-18)+1618343657472*a(n-19)+2637273628672*a(n-20)-2971728347136*a(n-21)-751046754304*a(n-22)+1836551503872*a(n-23)-237498269696*a(n-24)-373930590208*a(n-25)+107911053312*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:57:29, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:50:11, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The contiguous $2\times2$ subblocks of an $(n+1)\times2$ array form a grid of $n$
-rows and $1$ column. Two subblocks that are neighbours in that
-grid OVERLAP: horizontally they share $2\times1$ entries, vertically
-$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
-the entry requires that every neighbouring pair, horizontal or vertical, do not commute --- that is,
-$AB=BA$ as matrices over $\mathbf{Z}$.
+Write $\sigma$ for the determinant of a $2\times2$ subblock
+$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
+$(n+1)\times7$ array over $\{0,\dots,1\}$ form a grid of $n$ rows and $6$
+columns, and $\sigma$ colours that grid.
 
-At $n=1$ the array has $2$ rows and the grid is a single row of $1$
-subblock, with no neighbouring pair at all; the entry's first term is
-$81$, which the model reproduces along with every later term.
+The condition is on each subblock separately: every $\sigma$ must vanish, which is what
+``singular'' says of a $2\times2$ matrix. Nothing
+relates one subblock to another.
 
 \section{The count is a walk count}
 
-A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
-two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
-$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
-array row: that fixes the next subblock row, and the horizontal pairs inside it and the
-vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
-a walk of $n-1$ steps and every walk comes from exactly one array, so
+Because the condition looks at one subblock at a time and a subblock is
+built from two consecutive array rows, a single row is a state: rows $r$ and $s$ may follow one
+another exactly when all $6$ of the subblocks they form pass. An $(n+1)$-row array is then a
+walk of $n$ steps and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=81$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+on the $S=128$ rows.
 
-This state does not compress. What a step needs of the past is the previous subblock row, and
-for $2\ge2$ that row already determines the $2$ array rows it was built from, so nothing
-is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
-size of the construction is therefore $3^{2\cdot2}$ before the condition prunes
-it, which is what puts the wider members of this family out of reach rather than settling them.
+At $n=1$ the array has two rows and the grid is a single row of $6$
+subblocks, each tested on its own, so $a(1)$ counts the
+$2\times7$ arrays over $\{0,\dots,1\}$ all of whose subblocks pass. The entry's
+first term is $1552$, and the model reproduces it along with every later term; that is the
+cheapest check that the grid has been read with the right shape.
+
+Over the alphabet $\{0,\dots,1\}$ the determinant of a $2\times2$ subblock takes values in
+$[-1,1]$, so the colouring of the grid it induces has at most $3$ values.
+That bound is what keeps the construction below finite in the only place where the value of
+$\sigma$, rather than a comparison between two of them, has to be carried.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -94,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 32\,a(n-2) + 160\,a(n-3) + 468\,a(n-4) + 929\,a(n-5) + 1244\,a(n-6) + 881\,a(n-7) - 471\,a(n-8) - 2281\,a(n-9) - 3120\,a(n-10) - 1743\,a(n-11) + 1386\,a(n-12) + 3903\,a(n-13) + 3547\,a(n-14) + 613\,a(n-15) - 2124\,a(n-16) - 2314\,a(n-17) - 511\,a(n-18) + 932\,a(n-19) + 840\,a(n-20) + 73\,a(n-21) - 281\,a(n-22) - 172\,a(n-23) - 25\,a(n-24) + 8\,a(n-25) + 2\,a(n-26)
+a(n)\;=\;56\,a(n-1) - 1052\,a(n-2) + 4920\,a(n-3) + 87215\,a(n-4) - 1275080\,a(n-5) + 4248374\,a(n-6) + 28043568\,a(n-7) - 257190864\,a(n-8) + 336187440\,a(n-9) + 3401007808\,a(n-10) - 13508494272\,a(n-11) - 5065367296\,a(n-12) + 118586597376\,a(n-13) - 155918166016\,a(n-14) - 382474903552\,a(n-15) + 1052692692992\,a(n-16) + 138988113920\,a(n-17) - 2622368481280\,a(n-18) + 1618343657472\,a(n-19) + 2637273628672\,a(n-20) - 2971728347136\,a(n-21) - 751046754304\,a(n-22) + 1836551503872\,a(n-23) - 237498269696\,a(n-24) - 373930590208\,a(n-25) + 107911053312\,a(n-26)
 \]
-for every $n>27$.
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -110,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,11 +125,10 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187433.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184683.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
-Academic Press, 1968.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

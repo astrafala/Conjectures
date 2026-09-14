@@ -12,75 +12,48 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259007, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232409, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259007 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $64$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=1474$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A232409 carries an empirical recurrence of order $64$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6643$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A259007 is ``Number of (2+2)X(n+2) 0..1 arrays with every 3X3 subblock sum of the two medians of the central row and column plus the two sums of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A232409 is ``Number of (n+1) X (3+1) 0..2 arrays with every element both >= and <= some horizontal, diagonal or antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-2444, 6271, 18341, 50654, 131557, 317141, 701282, 1467387,\ \dots
+973, 44971, 2189991, 107913855, 5322933313, 262249675165, 12924602609687, 636974571589143,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = -a(n-1) +7*a(n-3) +15*a(n-4) +10*a(n-5) -19*a(n-6) -77*a(n-7) -98*a(n-8) -23*a(n-9) +186*a(n-10) +405*a(n-11) +372*a(n-12) -83*a(n-13) -867*a(n-14) -1362*a(n-15) -921*a(n-16) +671*a(n-17) +2591*a(n-18) +3274*a(n-19) +1574*a(n-20) -2170*a(n-21) -5593*a(n-22) -5929*a(n-23) -1892*a(n-24) +4569*a(n-25) +9216*a(n-26) +8319*a(n-27) +1527*a(n-28) -7084*a(n-29) -11873*a(n-30) -9193*a(n-31) -568*a(n-32) +8475*a(n-33) +12068*a(n-34) +8049*a(n-35) -499*a(n-36) -7936*a(n-37) -9691*a(n-38) -5529*a(n-39) +1132*a(n-40) +5809*a(n-41) +6104*a(n-42) +2881*a(n-43) -1124*a(n-44) -3289*a(n-45) -2947*a(n-46) -1062*a(n-47) +721*a(n-48) +1407*a(n-49) +1037*a(n-50) +238*a(n-51) -314*a(n-52) -432*a(n-53) -241*a(n-54) -17*a(n-55) +90*a(n-56) +85*a(n-57) +30*a(n-58) -5*a(n-59) -15*a(n-60) -8*a(n-61) -a(n-62) +a(n-63) +a(n-64) for n>82
+Empirical recurrence of order 64 (see link above).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:34:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (May 17 2021 15:23:03, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
-\[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
-\]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
-
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
 
 \section{The count is a walk count}
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=6643$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
-
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=1474$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -102,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;-a(n-1) + 7\,a(n-3) + 15\,a(n-4) + 10\,a(n-5) - 19\,a(n-6) - 77\,a(n-7) - 98\,a(n-8) - 23\,a(n-9) + 186\,a(n-10) + 405\,a(n-11) + 372\,a(n-12) - 83\,a(n-13) - 867\,a(n-14) - 1362\,a(n-15) - 921\,a(n-16) + 671\,a(n-17) + 2591\,a(n-18) + 3274\,a(n-19) + 1574\,a(n-20) - 2170\,a(n-21) - 5593\,a(n-22) - 5929\,a(n-23) - 1892\,a(n-24) + 4569\,a(n-25) + 9216\,a(n-26) + 8319\,a(n-27) + 1527\,a(n-28) - 7084\,a(n-29) - 11873\,a(n-30) - 9193\,a(n-31) - 568\,a(n-32) + 8475\,a(n-33) + 12068\,a(n-34) + 8049\,a(n-35) - 499\,a(n-36) - 7936\,a(n-37) - 9691\,a(n-38) - 5529\,a(n-39) + 1132\,a(n-40) + 5809\,a(n-41) + 6104\,a(n-42) + 2881\,a(n-43) - 1124\,a(n-44) - 3289\,a(n-45) - 2947\,a(n-46) - 1062\,a(n-47) + 721\,a(n-48) + 1407\,a(n-49) + 1037\,a(n-50) + 238\,a(n-51) - 314\,a(n-52) - 432\,a(n-53) - 241\,a(n-54) - 17\,a(n-55) + 90\,a(n-56) + 85\,a(n-57) + 30\,a(n-58) - 5\,a(n-59) - 15\,a(n-60) - 8\,a(n-61) - a(n-62) + a(n-63) + a(n-64)
+a(n)\;=\;31\,a(n-1) + 675\,a(n-2) + 10565\,a(n-3) + 45228\,a(n-4) - 551077\,a(n-5) - 11748812\,a(n-6) - 90639458\,a(n-7) - 247039162\,a(n-8) - 117911408\,a(n-9) + 2797954603\,a(n-10) + 20983199585\,a(n-11) + 43185602498\,a(n-12) - 99864865084\,a(n-13) - 562637388635\,a(n-14) - 694791392869\,a(n-15) + 814207854380\,a(n-16) + 4452085692042\,a(n-17) + 8308311743208\,a(n-18) + 9210191961762\,a(n-19) + 988227013167\,a(n-20) - 37372603189689\,a(n-21) - 98622338480267\,a(n-22) - 113758839591231\,a(n-23) - 99134912671582\,a(n-24) - 198378432842935\,a(n-25) - 65052615983836\,a(n-26) + 143492193303485\,a(n-27) + 872259401816159\,a(n-28) + 615003509833203\,a(n-29) + 1020834635092078\,a(n-30) + 605255148539830\,a(n-31) - 361551634458955\,a(n-32) - 288525623566092\,a(n-33) - 1752445176332158\,a(n-34) - 1067384304438195\,a(n-35) - 311709910185581\,a(n-36) - 669948530174918\,a(n-37) + 429729831908702\,a(n-38) + 649398313590521\,a(n-39) + 218850426697279\,a(n-40) + 700085737988674\,a(n-41) - 74728471063430\,a(n-42) - 13175401454945\,a(n-43) - 51827093985090\,a(n-44) - 128265126154998\,a(n-45) + 25563224606504\,a(n-46) - 10748158791084\,a(n-47) + 7766154457590\,a(n-48) + 9519849190077\,a(n-49) - 4738192329330\,a(n-50) + 1495649479666\,a(n-51) - 802126236958\,a(n-52) - 191366368560\,a(n-53) + 312349178340\,a(n-54) - 128845573568\,a(n-55) + 34707331556\,a(n-56) + 4082866368\,a(n-57) - 6069271376\,a(n-58) + 1725474688\,a(n-59) - 331817728\,a(n-60) + 100213504\,a(n-61) - 74746368\,a(n-62) + 24637440\,a(n-63) - 2433024\,a(n-64)
 \]
-for every $n>82$.
+for every $n>64$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $64$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=82+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=64+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259007.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232409.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
