@@ -37,7 +37,7 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # live re-check -- which reads THIS list -- never saw its results at all.
             'uniall_hits.json',
             # the cross-base identity on the circular-digit family: its own vein, its own file
-            'circbase_hits.json',
+            'circbase_hits.json', 'gridbase_hits.json',
             # and the same claim on the linear digit-string family
             'linbase_hits.json'):
     for f in glob.glob(pat):

@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208828, proved from an exact model}
+\title{The empirical recurrence for OEIS A209074, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{9 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208828 carries an empirical recurrence of order $10$. It is true, and it is
+OEIS A209074 carries an empirical recurrence of order $10$. It is true, and it is
 decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=65$, derived below and not
+which $a$ provably satisfies a MONIC linear recurrence of order $S=46$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,47 +31,50 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A208828 is ``Number of 7-bead necklaces labeled with numbers -n..n allowing reversal, with sum zero.''. It has offset $1$ and begins
+OEIS A209074 is ``Number of 5-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero and avoiding the pattern z z+1 z+2.''. It has offset $1$ and begins
 \[
-32, 609, 4390, 19657, 65134, 177097, 417204, 883409,\ \dots
+8, 70, 276, 766, 1722, 3378, 6006, 9928,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 3*a(n-2) - 8*a(n-3) + 14*a(n-4) - 14*a(n-6) + 8*a(n-7) + 3*a(n-8) - 4*a(n-9) + a(n-10).
+Empirical: a(n) = 3*a(n-1) - 3*a(n-2) + 2*a(n-3) - 2*a(n-4) + 2*a(n-6) - 2*a(n-7) + 3*a(n-8) - 3*a(n-9) + a(n-10).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 07 2018 06:16:18, revision 13)
+As of the ``Last modified'' line on the live entry (Jul 08 2018 07:59:47, revision 13)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a Burnside sum}
 
-A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
-dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
-labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
-so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
-labellings with sum zero are the integer solutions of
+The entry counts $5$-bead necklaces labelled from $-n..n$ with sum zero under a further
+condition on consecutive beads, the beads identified under the cyclic group of rotations, written $G$. Nothing is a
+walk here: the bead count is fixed and the ALPHABET grows.
+
+By Burnside's lemma the number of orbits is $\frac{1}{|G|}\sum_{g\in G}|\mathrm{Fix}(g)|$.
+A labelling fixed by $g$ is constant on the orbits of $g$, so it is a choice of one value per
+orbit. For a rotation by $d$ with $c=\gcd(5,d)$ the fixed labellings are exactly the
+$c$-periodic words, the whole sum is $(5/c)$ times the sum of one period, and the condition on
+the $5$-periodic extension is the condition on the length-$c$ cyclic word; for a reflection
+they are the palindromes, determined by $\lceil(5+1)/2\rceil$ values, and the condition is
+again local in those. Every term is therefore a count of integer points of
 \[
-\sum_j w_jx_j = 0,\qquad |x_j|\le n,
+\sum_i w_i y_i = 0, \qquad -n \le y_i \le n,
 \]
-counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
+$w_i$ the orbit sizes, under a condition on consecutive beads. The forbidden windows the entry
+names are defined by EQUALITIES between bead values, with fixed offsets, so inclusion-exclusion
+over them turns each term into a count under a set of affine identifications --- one
+convolution each --- and nothing is enumerated over the alphabet.
 
 \section{The bound}
 
-Each term counts the integer points at height $n$ of the cone
-$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
-hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
-$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
-$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
-over the group's elements annihilates $a$. One more is added to the order, because the origin
-is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
-the common denominator has numerator degree equal to the denominator's rather than below it.
-So $S=65$.
-
-A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
-determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
-weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
-one. An earlier version of this bound took $S$ to be the number of beads for both, which is
-right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
-$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
+Each term is a lattice-point count over a union of relatively open rational cones in the orbit
+variables, hence a quasi-polynomial in $n$; a Burnside average of quasi-polynomials is one. The
+period is read off the arrangement: every ray of every cell is cut out by as many independent
+hyperplanes as there are variables, so by Cramer its primitive generator has its $n$-coordinate
+dividing the determinant of their $y$-parts, and a ray leaving the box or the sum-zero plane
+bounds no cell and is dropped. The multiplicity of each cyclotomic factor is bounded by the
+number of distinct rays whose height it divides, and by the dimension of the cone. Taking the
+maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
+$S=46$, which includes the pre-period $n_0=15$ the conditions with an offset need. The
+annihilator was then asked for terms the model had not supplied and reproduced them.
 
 \section{The proof}
 
@@ -91,15 +94,15 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 3\,a(n-2) - 8\,a(n-3) + 14\,a(n-4) - 14\,a(n-6) + 8\,a(n-7) + 3\,a(n-8) - 4\,a(n-9) + a(n-10)
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + 2\,a(n-3) - 2\,a(n-4) + 2\,a(n-6) - 2\,a(n-7) + 3\,a(n-8) - 3\,a(n-9) + a(n-10)
 \]
-for every $n>0$.
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+10$, which by
+vanish from $n=10+1$ onwards, and the run exceeds $S+10$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -107,7 +110,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -120,7 +123,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208828.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A209074.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

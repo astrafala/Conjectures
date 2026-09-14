@@ -12,44 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A227555, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202798, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227555 carries an empirical recurrence of order $12$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a set of source states -- those a source array consistent with the output emitted so far can be left in, one such state being a row of the source together with, for each adjacent pair of its columns, whether that pair is still equal or has already gone strictly less -- sets with the same future behaviour being identified, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=54$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A202798 counts arrays of width $4$ over $\{0,1\}$ in which every cell of a named value has a neighbour of that same value. The entry carries an
+empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
+condition on a whole row is settled by $3$ consecutive rows and the count is a walk
+count on $S=273$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A227555 is ``Number of n X 3 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 4 binary array having nonzero determinant, with rows and columns of the latter in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A202798 is ``Number of nX4 binary arrays with every one adjacent to another one horizontally or vertically.''. It has offset $1$ and begins
 \[
-7, 33, 147, 585, 2080, 6653, 19356, 51827,\ \dots
+7, 126, 1718, 22946, 311144, 4217066, 57127796, 773948962,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/2217600)*n\^{}11 - (1/201600)*n\^{}10 + (1/3780)*n\^{}9 - (9/4480)*n\^{}8 + (6403/201600)*n\^{}7 - (4609/28800)*n\^{}6 + (4331/4032)*n\^{}5 - (40753/13440)*n\^{}4 + (1339067/151200)*n\^{}3 - (443809/50400)*n\^{}2 + (83507/9240)*n. a(n) = 12*a(n-1) - 66*a(n-2) + 220*a(n-3) - 495*a(n-4) + 792*a(n-5) - 924*a(n-6) + 792*a(n-7) - 495*a(n-8) + 220*a(n-9) - 66*a(n-10) + 12*a(n-11) - a(n-12) for n>12.
+Empirical: a(n) = 13*a(n-1) -7*a(n-2) +181*a(n-3) +123*a(n-4) +940*a(n-5) +545*a(n-6) -2084*a(n-7) -1964*a(n-8) +1512*a(n-9) +1984*a(n-10) -512*a(n-11) -1024*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 08 2018 12:43:19, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:55:31, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts distinct IMAGES and not the objects that produce them, so the vertices are not single configurations but sets of them: a set of source states -- those a source array consistent with the output emitted so far can be left in, one such state being a row of the source together with, for each adjacent pair of its columns, whether that pair is still equal or has already gone strictly less -- sets with the same future behaviour being identified. The set a word leaves the model in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing, so distinct output words and walks from the initial vertex are the same thing. The condition itself is decided within the model by inspection of a state and the symbol read.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=54$ vertices,
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
+offsets the entry names,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
+and for a cell $(i,j)$ write
+\[
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
+\]
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
+
+The condition is that every cell equal to $1$ has a neighbour equal to $1$:
+\[
+x(i,j)=1\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
+\]
+Cells of any other value are under no condition.
+
+\section{A window of 3 rows}
+
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
+let the state be the last 2 of them, with a distinguished start standing for the array before its
+first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished array is therefore tested exactly once.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=273,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -72,39 +106,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) - 66\,a(n-2) + 220\,a(n-3) - 495\,a(n-4) + 792\,a(n-5) - 924\,a(n-6) + 792\,a(n-7) - 495\,a(n-8) + 220\,a(n-9) - 66\,a(n-10) + 12\,a(n-11) - a(n-12)
+a(n)\;=\;13\,a(n-1) - 7\,a(n-2) + 181\,a(n-3) + 123\,a(n-4) + 940\,a(n-5) + 545\,a(n-6) - 2084\,a(n-7) - 1964\,a(n-8) + 1512\,a(n-9) + 1984\,a(n-10) - 512\,a(n-11) - 1024\,a(n-12)
 \]
-for every $n>12$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $4$ over $\{0,1\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A227555.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202798.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

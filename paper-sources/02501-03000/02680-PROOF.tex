@@ -12,115 +12,89 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253037, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267640, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253037 counts arrays of width $3$ over an alphabet of $4$ letters in which every three
-consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
-DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
-empirical recurrence of order $34$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Nothing in the condition compares letters by size, so the
-count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
-system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
-the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=135$.
+OEIS A267640 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $35$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=699$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A253037 is ``Number of (n+2)X(1+2) 0..3 arrays with every consecutive three elements in every row, column, diagonal and antidiagonal having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A267640 is ``Number of nX4 0..1 arrays with every repeated value in every row and column unequal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
 \[
-130, 341, 928, 2638, 7608, 22304, 65765, 195277,\ \dots
+5, 50, 189, 1015, 2887, 12623, 32303, 131673,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +8*a(n-2) -32*a(n-3) -49*a(n-4) +35*a(n-5) +388*a(n-6) +333*a(n-7) -1470*a(n-8) -2015*a(n-9) +1827*a(n-10) +7705*a(n-11) +2724*a(n-12) -22079*a(n-13) -17133*a(n-14) +43082*a(n-15) +66963*a(n-16) -35868*a(n-17) -207245*a(n-18) -79740*a(n-19) +352817*a(n-20) +377343*a(n-21) -206023*a(n-22) -735286*a(n-23) -244312*a(n-24) +744588*a(n-25) +589880*a(n-26) -341664*a(n-27) -577644*a(n-28) +32392*a(n-29) +309128*a(n-30) +20704*a(n-31) -83712*a(n-32) -4480*a(n-33) +8832*a(n-34) for n>35
+Empirical: a(n) = 5*a(n-1) +57*a(n-2) -319*a(n-3) -1391*a(n-4) +9145*a(n-5) +18468*a(n-6) -155864*a(n-7) -132459*a(n-8) +1760919*a(n-9) +254909*a(n-10) -13917643*a(n-11) +4638860*a(n-12) +79124590*a(n-13) -54513835*a(n-14) -327439835*a(n-15) +320570891*a(n-16) +985750855*a(n-17) -1225493352*a(n-18) -2130193456*a(n-19) +3242322831*a(n-20) +3203056845*a(n-21) -6029044853*a(n-22) -3134570201*a(n-23) +7833336809*a(n-24) +1655845581*a(n-25) -6967179434*a(n-26) -21114162*a(n-27) +4096193100*a(n-28) -565113380*a(n-29) -1504086120*a(n-30) +349509240*a(n-31) +309916800*a(n-32) -91209600*a(n-33) -27216000*a(n-34) +9072000*a(n-35)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:52:49, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jan 18 2016 20:09:16, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has width $3$ and entries in $\{0,1,\dots,3\}$. Four families of triples
-run through it, and each carries its own condition on how many distinct values the three
-entries may hold:
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+different from the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be different from the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
+
+The entry closes with ``new values introduced in row-major sequential order'', so what is
+counted is arrays up to renaming the letters. Both relations here are built from equality
+alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
+classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
 \[
-\begin{array}{lll}
-\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $2$ \\
-\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2$ \\
-\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $2$ \\
-\text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $2$ \\
-\end{array}
+L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
+a=N_1+\dots+N_{2}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
 \]
-A triple counts only when all three of its cells lie inside the array.
+An entry of this family whose relation compares letters by size, or does arithmetic on them,
+carries no such clause and is counted over its own alphabet instead; the two cases are not
+mixed.
 
-The clause ``new values $0$ upwards introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
-letter may appear for the first time only if every smaller letter already has. So what the
-entry counts is patterns, not arrays.
+\section{One scan inside a slice, one across}
 
-\section{From patterns to fixed alphabets}
+Take the array a $row$ at a time, the direction in which it grows.
 
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
+\end{lemma}
+
+\begin{proof}
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
+\end{proof}
+
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $1+2$ values at each position --- the letters together with a symbol for
+``none yet''. Assembling the pieces for $i=1,\dots,2$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=699,\quad\tau=\mathbf{1} .
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{4}$, so
-\[
-a\;=\;\sum_{i=1}^{4}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
-\]
-$F$ being the matrix of falling factorials.
-
-This step is legitimate only if the condition is invariant under permuting the alphabet, and
-here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
-agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
-on them, so the reduction applies with nothing left over.
-
-\section{Each $L_i$ is a walk count, on orbits}
-
-Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
-the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
-with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
-a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
-(c_{t+1},c_{t+2})$ for each admissible window.
-
-That digraph has up to $i^{2\cdot3}$ vertices, which is more than can be written down for
-the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
-letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
-all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
-orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
-states of $O'$ --- a number independent of the representative, again by invariance --- gives
-$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
-\[
-L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
-\]
-the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
-and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
-is fixed only by permutations fixing every letter it shows. So the start vector is the falling
-factorial and the end vector is all ones.
-
-Assembling the $i=1,\dots,4$ pieces as a disjoint union, with $\iota$ carrying the weights
-$w_i$ cleared of denominators,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
-\]
-with $S=135$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
-read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{34}-\sum_i c_it^{34-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -128,7 +102,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+34}-\sum_ic_iM^{j+34-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -137,18 +111,16 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 8\,a(n-2) - 32\,a(n-3) - 49\,a(n-4) + 35\,a(n-5) + 388\,a(n-6) + 333\,a(n-7) - 1470\,a(n-8) - 2015\,a(n-9) + 1827\,a(n-10) + 7705\,a(n-11) + 2724\,a(n-12) - 22079\,a(n-13) - 17133\,a(n-14) + 43082\,a(n-15) + 66963\,a(n-16) - 35868\,a(n-17) - 207245\,a(n-18) - 79740\,a(n-19) + 352817\,a(n-20) + 377343\,a(n-21) - 206023\,a(n-22) - 735286\,a(n-23) - 244312\,a(n-24) + 744588\,a(n-25) + 589880\,a(n-26) - 341664\,a(n-27) - 577644\,a(n-28) + 32392\,a(n-29) + 309128\,a(n-30) + 20704\,a(n-31) - 83712\,a(n-32) - 4480\,a(n-33) + 8832\,a(n-34)
+a(n)\;=\;5\,a(n-1) + 57\,a(n-2) - 319\,a(n-3) - 1391\,a(n-4) + 9145\,a(n-5) + 18468\,a(n-6) - 155864\,a(n-7) - 132459\,a(n-8) + 1760919\,a(n-9) + 254909\,a(n-10) - 13917643\,a(n-11) + 4638860\,a(n-12) + 79124590\,a(n-13) - 54513835\,a(n-14) - 327439835\,a(n-15) + 320570891\,a(n-16) + 985750855\,a(n-17) - 1225493352\,a(n-18) - 2130193456\,a(n-19) + 3242322831\,a(n-20) + 3203056845\,a(n-21) - 6029044853\,a(n-22) - 3134570201\,a(n-23) + 7833336809\,a(n-24) + 1655845581\,a(n-25) - 6967179434\,a(n-26) - 21114162\,a(n-27) + 4096193100\,a(n-28) - 565113380\,a(n-29) - 1504086120\,a(n-30) + 349509240\,a(n-31) + 309916800\,a(n-32) - 91209600\,a(n-33) - 27216000\,a(n-34) + 9072000\,a(n-35)
 \]
 for every $n>35$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $34$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are carried as one common denominator throughout, so no division is
-performed until the final term.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
@@ -158,11 +130,10 @@ Four checks, each independent of the algebra above.
 First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, allow a cell to introduce a new letter only when every smaller letter
-is already present, and reject a partial array as soon as a triple all of whose cells are
-placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
-nor the falling-factorial inversion, and it returns the published terms.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -172,12 +143,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253037.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267640.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

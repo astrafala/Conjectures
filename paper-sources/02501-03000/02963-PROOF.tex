@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205470, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A205748, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205470 counts, up to renaming the letters, the arrays of width $4$ over at most $3$
-letters in which all the $2\times2$ subblocks of one array have the SAME number of equal edges, an equal edge being one of the four perimeter edges whose two cells agree; the common value is not named, so the count splits by it. It carries an empirical recurrence of order $21$ contributed by
+OEIS A205748 counts, up to renaming the letters, the arrays of width $4$ over at most $3$
+letters in which horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers. It carries an empirical recurrence of order $21$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
 a fixed rational combination of ordinary array counts, each of those is a walk count, and the
 conjectured recurrence is then settled by a finite exact computation.
@@ -30,20 +30,20 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A205470 is ``Number of (n+1)X4 0..2 arrays with every 2X2 subblock having the same number of equal edges, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A205748 is ``Number of (n+1)X4 0..2 arrays with every 2X2 subblock having the same number of equal edges as its horizontal neighbors and a different number from its vertical neighbors, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-175, 1548, 14639, 147129, 1504556, 15614579, 162976758, 1709130780,\ \dots
+175, 1074, 8926, 63838, 507035, 3797920, 29561841, 224378004,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) -75*a(n-2) -688*a(n-3) +5022*a(n-4) -496*a(n-5) -63723*a(n-6) +111258*a(n-7) +251463*a(n-8) -817674*a(n-9) -9180*a(n-10) +2101200*a(n-11) -1759426*a(n-12) -1578136*a(n-13) +2839836*a(n-14) -596208*a(n-15) -1049272*a(n-16) +620728*a(n-17) +18624*a(n-18) -96072*a(n-19) +24528*a(n-20) -1728*a(n-21)
+Empirical: a(n) = 54*a(n-2) +120*a(n-3) -417*a(n-4) -1856*a(n-5) -569*a(n-6) +11608*a(n-7) +19462*a(n-8) -37804*a(n-9) -97827*a(n-10) +69396*a(n-11) +253384*a(n-12) -49104*a(n-13) -366356*a(n-14) -46288*a(n-15) +244448*a(n-16) +127408*a(n-17) +41532*a(n-18) -58496*a(n-19) -119360*a(n-20) -44544*a(n-21) for n>22
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:08:48, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:14:34, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The condition is that all the $2\times2$ subblocks of one array have the SAME number of equal edges, an equal edge being one of the four perimeter edges whose two cells agree; the common value is not named, so the count splits by it.
+The condition is that horizontally neighbouring $2\times2$ subblocks have the same number of equal edges and vertically neighbouring ones have different numbers.
 
 The clause ``new values $0..2$ introduced in row major order'' says the array is the
 canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
@@ -86,7 +86,7 @@ it compares neighbours, each $L_i$ is a walk count on its own digraph. Assemblin
 a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
 on the disjoint union of those digraphs for $i=1,\dots,3$, with $\iota$ carrying the weights
-$w_i$ cleared of denominators and $S=198$ states in all. The walk index $j$ and the entry's own
+$w_i$ cleared of denominators and $S=1160$ states in all. The walk index $j$ and the entry's own
 $n$ differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
@@ -110,15 +110,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) - 75\,a(n-2) - 688\,a(n-3) + 5022\,a(n-4) - 496\,a(n-5) - 63723\,a(n-6) + 111258\,a(n-7) + 251463\,a(n-8) - 817674\,a(n-9) - 9180\,a(n-10) + 2101200\,a(n-11) - 1759426\,a(n-12) - 1578136\,a(n-13) + 2839836\,a(n-14) - 596208\,a(n-15) - 1049272\,a(n-16) + 620728\,a(n-17) + 18624\,a(n-18) - 96072\,a(n-19) + 24528\,a(n-20) - 1728\,a(n-21)
+a(n)\;=\;54\,a(n-2) + 120\,a(n-3) - 417\,a(n-4) - 1856\,a(n-5) - 569\,a(n-6) + 11608\,a(n-7) + 19462\,a(n-8) - 37804\,a(n-9) - 97827\,a(n-10) + 69396\,a(n-11) + 253384\,a(n-12) - 49104\,a(n-13) - 366356\,a(n-14) - 46288\,a(n-15) + 244448\,a(n-16) + 127408\,a(n-17) + 41532\,a(n-18) - 58496\,a(n-19) - 119360\,a(n-20) - 44544\,a(n-21)
 \]
-for every $n>20$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once. The
 rational weights are cleared by a common denominator first, so the whole computation is over
 the integers.
@@ -128,7 +128,7 @@ the integers.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -140,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205470.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205748.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions

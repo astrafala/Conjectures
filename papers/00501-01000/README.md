@@ -1,6 +1,6 @@
 # Papers 00501-01000
 
-Ranks 501 to 1000 of 12982, hardest first.
+Ranks 501 to 1000 of 13000, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -354,153 +354,153 @@ Ranks 501 to 1000 of 12982, hardest first.
 | 848 | [A125487](https://oeis.org/A125487) | Proof |  | [00848-PROOF.pdf](00848-PROOF.pdf) |
 | 849 | [A125488](https://oeis.org/A125488) | Proof |  | [00849-PROOF.pdf](00849-PROOF.pdf) |
 | 850 | [A125489](https://oeis.org/A125489) | Proof |  | [00850-PROOF.pdf](00850-PROOF.pdf) |
-| 851 | [A126358](https://oeis.org/A126358) | Proof |  | [00851-PROOF.pdf](00851-PROOF.pdf) |
-| 852 | [A126360](https://oeis.org/A126360) | Proof |  | [00852-PROOF.pdf](00852-PROOF.pdf) |
-| 853 | [A126362](https://oeis.org/A126362) | Proof |  | [00853-PROOF.pdf](00853-PROOF.pdf) |
-| 854 | [A126363](https://oeis.org/A126363) | Proof |  | [00854-PROOF.pdf](00854-PROOF.pdf) |
-| 855 | [A126364](https://oeis.org/A126364) | Proof |  | [00855-PROOF.pdf](00855-PROOF.pdf) |
-| 856 | [A126365](https://oeis.org/A126365) | Proof |  | [00856-PROOF.pdf](00856-PROOF.pdf) |
-| 857 | [A126366](https://oeis.org/A126366) | Proof |  | [00857-PROOF.pdf](00857-PROOF.pdf) |
-| 858 | [A126367](https://oeis.org/A126367) | Proof |  | [00858-PROOF.pdf](00858-PROOF.pdf) |
-| 859 | [A126368](https://oeis.org/A126368) | Proof |  | [00859-PROOF.pdf](00859-PROOF.pdf) |
-| 860 | [A126369](https://oeis.org/A126369) | Proof |  | [00860-PROOF.pdf](00860-PROOF.pdf) |
-| 861 | [A126370](https://oeis.org/A126370) | Proof |  | [00861-PROOF.pdf](00861-PROOF.pdf) |
-| 862 | [A126371](https://oeis.org/A126371) | Proof |  | [00862-PROOF.pdf](00862-PROOF.pdf) |
-| 863 | [A126372](https://oeis.org/A126372) | Proof |  | [00863-PROOF.pdf](00863-PROOF.pdf) |
-| 864 | [A126373](https://oeis.org/A126373) | Proof |  | [00864-PROOF.pdf](00864-PROOF.pdf) |
-| 865 | [A126374](https://oeis.org/A126374) | Proof |  | [00865-PROOF.pdf](00865-PROOF.pdf) |
-| 866 | [A126375](https://oeis.org/A126375) | Proof |  | [00866-PROOF.pdf](00866-PROOF.pdf) |
-| 867 | [A126376](https://oeis.org/A126376) | Proof |  | [00867-PROOF.pdf](00867-PROOF.pdf) |
-| 868 | [A126377](https://oeis.org/A126377) | Proof |  | [00868-PROOF.pdf](00868-PROOF.pdf) |
-| 869 | [A126378](https://oeis.org/A126378) | Proof |  | [00869-PROOF.pdf](00869-PROOF.pdf) |
-| 870 | [A126379](https://oeis.org/A126379) | Proof |  | [00870-PROOF.pdf](00870-PROOF.pdf) |
-| 871 | [A126380](https://oeis.org/A126380) | Proof |  | [00871-PROOF.pdf](00871-PROOF.pdf) |
-| 872 | [A126381](https://oeis.org/A126381) | Proof |  | [00872-PROOF.pdf](00872-PROOF.pdf) |
-| 873 | [A126382](https://oeis.org/A126382) | Proof |  | [00873-PROOF.pdf](00873-PROOF.pdf) |
-| 874 | [A126383](https://oeis.org/A126383) | Proof |  | [00874-PROOF.pdf](00874-PROOF.pdf) |
-| 875 | [A126384](https://oeis.org/A126384) | Proof |  | [00875-PROOF.pdf](00875-PROOF.pdf) |
-| 876 | [A126385](https://oeis.org/A126385) | Proof |  | [00876-PROOF.pdf](00876-PROOF.pdf) |
-| 877 | [A126386](https://oeis.org/A126386) | Proof |  | [00877-PROOF.pdf](00877-PROOF.pdf) |
-| 878 | [A126395](https://oeis.org/A126395) | Proof |  | [00878-PROOF.pdf](00878-PROOF.pdf) |
-| 879 | [A126396](https://oeis.org/A126396) | Proof |  | [00879-PROOF.pdf](00879-PROOF.pdf) |
-| 880 | [A126397](https://oeis.org/A126397) | Proof |  | [00880-PROOF.pdf](00880-PROOF.pdf) |
-| 881 | [A126398](https://oeis.org/A126398) | Proof |  | [00881-PROOF.pdf](00881-PROOF.pdf) |
-| 882 | [A126399](https://oeis.org/A126399) | Proof |  | [00882-PROOF.pdf](00882-PROOF.pdf) |
-| 883 | [A126400](https://oeis.org/A126400) | Proof |  | [00883-PROOF.pdf](00883-PROOF.pdf) |
-| 884 | [A126401](https://oeis.org/A126401) | Proof |  | [00884-PROOF.pdf](00884-PROOF.pdf) |
-| 885 | [A126402](https://oeis.org/A126402) | Proof |  | [00885-PROOF.pdf](00885-PROOF.pdf) |
-| 886 | [A126403](https://oeis.org/A126403) | Proof |  | [00886-PROOF.pdf](00886-PROOF.pdf) |
-| 887 | [A126405](https://oeis.org/A126405) | Proof |  | [00887-PROOF.pdf](00887-PROOF.pdf) |
-| 888 | [A126406](https://oeis.org/A126406) | Proof |  | [00888-PROOF.pdf](00888-PROOF.pdf) |
-| 889 | [A126407](https://oeis.org/A126407) | Proof |  | [00889-PROOF.pdf](00889-PROOF.pdf) |
-| 890 | [A126408](https://oeis.org/A126408) | Proof |  | [00890-PROOF.pdf](00890-PROOF.pdf) |
-| 891 | [A126409](https://oeis.org/A126409) | Proof |  | [00891-PROOF.pdf](00891-PROOF.pdf) |
-| 892 | [A126410](https://oeis.org/A126410) | Proof |  | [00892-PROOF.pdf](00892-PROOF.pdf) |
-| 893 | [A126411](https://oeis.org/A126411) | Proof |  | [00893-PROOF.pdf](00893-PROOF.pdf) |
-| 894 | [A126412](https://oeis.org/A126412) | Proof |  | [00894-PROOF.pdf](00894-PROOF.pdf) |
-| 895 | [A126413](https://oeis.org/A126413) | Proof |  | [00895-PROOF.pdf](00895-PROOF.pdf) |
-| 896 | [A126414](https://oeis.org/A126414) | Proof |  | [00896-PROOF.pdf](00896-PROOF.pdf) |
-| 897 | [A126415](https://oeis.org/A126415) | Proof |  | [00897-PROOF.pdf](00897-PROOF.pdf) |
-| 898 | [A126416](https://oeis.org/A126416) | Proof |  | [00898-PROOF.pdf](00898-PROOF.pdf) |
-| 899 | [A126417](https://oeis.org/A126417) | Proof |  | [00899-PROOF.pdf](00899-PROOF.pdf) |
-| 900 | [A126418](https://oeis.org/A126418) | Proof |  | [00900-PROOF.pdf](00900-PROOF.pdf) |
-| 901 | [A126419](https://oeis.org/A126419) | Proof |  | [00901-PROOF.pdf](00901-PROOF.pdf) |
-| 902 | [A126473](https://oeis.org/A126473) | Proof |  | [00902-PROOF.pdf](00902-PROOF.pdf) |
-| 903 | [A126475](https://oeis.org/A126475) | Proof |  | [00903-PROOF.pdf](00903-PROOF.pdf) |
-| 904 | [A126476](https://oeis.org/A126476) | Proof |  | [00904-PROOF.pdf](00904-PROOF.pdf) |
-| 905 | [A126477](https://oeis.org/A126477) | Proof |  | [00905-PROOF.pdf](00905-PROOF.pdf) |
-| 906 | [A126478](https://oeis.org/A126478) | Proof |  | [00906-PROOF.pdf](00906-PROOF.pdf) |
-| 907 | [A126479](https://oeis.org/A126479) | Proof |  | [00907-PROOF.pdf](00907-PROOF.pdf) |
-| 908 | [A126480](https://oeis.org/A126480) | Proof |  | [00908-PROOF.pdf](00908-PROOF.pdf) |
-| 909 | [A126481](https://oeis.org/A126481) | Proof |  | [00909-PROOF.pdf](00909-PROOF.pdf) |
-| 910 | [A126482](https://oeis.org/A126482) | Proof |  | [00910-PROOF.pdf](00910-PROOF.pdf) |
-| 911 | [A126483](https://oeis.org/A126483) | Proof |  | [00911-PROOF.pdf](00911-PROOF.pdf) |
-| 912 | [A126484](https://oeis.org/A126484) | Proof |  | [00912-PROOF.pdf](00912-PROOF.pdf) |
-| 913 | [A126485](https://oeis.org/A126485) | Proof |  | [00913-PROOF.pdf](00913-PROOF.pdf) |
-| 914 | [A126486](https://oeis.org/A126486) | Proof |  | [00914-PROOF.pdf](00914-PROOF.pdf) |
-| 915 | [A126487](https://oeis.org/A126487) | Proof |  | [00915-PROOF.pdf](00915-PROOF.pdf) |
-| 916 | [A126488](https://oeis.org/A126488) | Proof |  | [00916-PROOF.pdf](00916-PROOF.pdf) |
-| 917 | [A126489](https://oeis.org/A126489) | Proof |  | [00917-PROOF.pdf](00917-PROOF.pdf) |
-| 918 | [A126490](https://oeis.org/A126490) | Proof |  | [00918-PROOF.pdf](00918-PROOF.pdf) |
-| 919 | [A126491](https://oeis.org/A126491) | Proof |  | [00919-PROOF.pdf](00919-PROOF.pdf) |
-| 920 | [A126492](https://oeis.org/A126492) | Proof |  | [00920-PROOF.pdf](00920-PROOF.pdf) |
-| 921 | [A126493](https://oeis.org/A126493) | Proof |  | [00921-PROOF.pdf](00921-PROOF.pdf) |
-| 922 | [A126494](https://oeis.org/A126494) | Proof |  | [00922-PROOF.pdf](00922-PROOF.pdf) |
-| 923 | [A126495](https://oeis.org/A126495) | Proof |  | [00923-PROOF.pdf](00923-PROOF.pdf) |
-| 924 | [A126496](https://oeis.org/A126496) | Proof |  | [00924-PROOF.pdf](00924-PROOF.pdf) |
-| 925 | [A126497](https://oeis.org/A126497) | Proof |  | [00925-PROOF.pdf](00925-PROOF.pdf) |
-| 926 | [A126498](https://oeis.org/A126498) | Proof |  | [00926-PROOF.pdf](00926-PROOF.pdf) |
-| 927 | [A126499](https://oeis.org/A126499) | Proof |  | [00927-PROOF.pdf](00927-PROOF.pdf) |
-| 928 | [A126500](https://oeis.org/A126500) | Proof |  | [00928-PROOF.pdf](00928-PROOF.pdf) |
-| 929 | [A126502](https://oeis.org/A126502) | Proof |  | [00929-PROOF.pdf](00929-PROOF.pdf) |
-| 930 | [A126503](https://oeis.org/A126503) | Proof |  | [00930-PROOF.pdf](00930-PROOF.pdf) |
-| 931 | [A126504](https://oeis.org/A126504) | Proof |  | [00931-PROOF.pdf](00931-PROOF.pdf) |
-| 932 | [A126505](https://oeis.org/A126505) | Proof |  | [00932-PROOF.pdf](00932-PROOF.pdf) |
-| 933 | [A126506](https://oeis.org/A126506) | Proof |  | [00933-PROOF.pdf](00933-PROOF.pdf) |
-| 934 | [A126507](https://oeis.org/A126507) | Proof |  | [00934-PROOF.pdf](00934-PROOF.pdf) |
-| 935 | [A126508](https://oeis.org/A126508) | Proof |  | [00935-PROOF.pdf](00935-PROOF.pdf) |
-| 936 | [A126509](https://oeis.org/A126509) | Proof |  | [00936-PROOF.pdf](00936-PROOF.pdf) |
-| 937 | [A126510](https://oeis.org/A126510) | Proof |  | [00937-PROOF.pdf](00937-PROOF.pdf) |
-| 938 | [A126511](https://oeis.org/A126511) | Proof |  | [00938-PROOF.pdf](00938-PROOF.pdf) |
-| 939 | [A126512](https://oeis.org/A126512) | Proof |  | [00939-PROOF.pdf](00939-PROOF.pdf) |
-| 940 | [A126513](https://oeis.org/A126513) | Proof |  | [00940-PROOF.pdf](00940-PROOF.pdf) |
-| 941 | [A126514](https://oeis.org/A126514) | Proof |  | [00941-PROOF.pdf](00941-PROOF.pdf) |
-| 942 | [A126515](https://oeis.org/A126515) | Proof |  | [00942-PROOF.pdf](00942-PROOF.pdf) |
-| 943 | [A126516](https://oeis.org/A126516) | Proof |  | [00943-PROOF.pdf](00943-PROOF.pdf) |
-| 944 | [A126517](https://oeis.org/A126517) | Proof |  | [00944-PROOF.pdf](00944-PROOF.pdf) |
-| 945 | [A126518](https://oeis.org/A126518) | Proof |  | [00945-PROOF.pdf](00945-PROOF.pdf) |
-| 946 | [A126519](https://oeis.org/A126519) | Proof |  | [00946-PROOF.pdf](00946-PROOF.pdf) |
-| 947 | [A126520](https://oeis.org/A126520) | Proof |  | [00947-PROOF.pdf](00947-PROOF.pdf) |
-| 948 | [A126521](https://oeis.org/A126521) | Proof |  | [00948-PROOF.pdf](00948-PROOF.pdf) |
-| 949 | [A126522](https://oeis.org/A126522) | Proof |  | [00949-PROOF.pdf](00949-PROOF.pdf) |
-| 950 | [A126523](https://oeis.org/A126523) | Proof |  | [00950-PROOF.pdf](00950-PROOF.pdf) |
-| 951 | [A126524](https://oeis.org/A126524) | Proof |  | [00951-PROOF.pdf](00951-PROOF.pdf) |
-| 952 | [A126525](https://oeis.org/A126525) | Proof |  | [00952-PROOF.pdf](00952-PROOF.pdf) |
-| 953 | [A126526](https://oeis.org/A126526) | Proof |  | [00953-PROOF.pdf](00953-PROOF.pdf) |
-| 954 | [A126527](https://oeis.org/A126527) | Proof |  | [00954-PROOF.pdf](00954-PROOF.pdf) |
-| 955 | [A126528](https://oeis.org/A126528) | Proof |  | [00955-PROOF.pdf](00955-PROOF.pdf) |
-| 956 | [A126529](https://oeis.org/A126529) | Proof |  | [00956-PROOF.pdf](00956-PROOF.pdf) |
-| 957 | [A126530](https://oeis.org/A126530) | Proof |  | [00957-PROOF.pdf](00957-PROOF.pdf) |
-| 958 | [A126531](https://oeis.org/A126531) | Proof |  | [00958-PROOF.pdf](00958-PROOF.pdf) |
-| 959 | [A126532](https://oeis.org/A126532) | Proof |  | [00959-PROOF.pdf](00959-PROOF.pdf) |
-| 960 | [A126533](https://oeis.org/A126533) | Proof |  | [00960-PROOF.pdf](00960-PROOF.pdf) |
-| 961 | [A126534](https://oeis.org/A126534) | Proof |  | [00961-PROOF.pdf](00961-PROOF.pdf) |
-| 962 | [A126535](https://oeis.org/A126535) | Proof |  | [00962-PROOF.pdf](00962-PROOF.pdf) |
-| 963 | [A126536](https://oeis.org/A126536) | Proof |  | [00963-PROOF.pdf](00963-PROOF.pdf) |
-| 964 | [A126537](https://oeis.org/A126537) | Proof |  | [00964-PROOF.pdf](00964-PROOF.pdf) |
-| 965 | [A126538](https://oeis.org/A126538) | Proof |  | [00965-PROOF.pdf](00965-PROOF.pdf) |
-| 966 | [A126539](https://oeis.org/A126539) | Proof |  | [00966-PROOF.pdf](00966-PROOF.pdf) |
-| 967 | [A126540](https://oeis.org/A126540) | Proof |  | [00967-PROOF.pdf](00967-PROOF.pdf) |
-| 968 | [A126541](https://oeis.org/A126541) | Proof |  | [00968-PROOF.pdf](00968-PROOF.pdf) |
-| 969 | [A126542](https://oeis.org/A126542) | Proof |  | [00969-PROOF.pdf](00969-PROOF.pdf) |
-| 970 | [A126543](https://oeis.org/A126543) | Proof |  | [00970-PROOF.pdf](00970-PROOF.pdf) |
-| 971 | [A126544](https://oeis.org/A126544) | Proof |  | [00971-PROOF.pdf](00971-PROOF.pdf) |
-| 972 | [A126545](https://oeis.org/A126545) | Proof |  | [00972-PROOF.pdf](00972-PROOF.pdf) |
-| 973 | [A126546](https://oeis.org/A126546) | Proof |  | [00973-PROOF.pdf](00973-PROOF.pdf) |
-| 974 | [A126547](https://oeis.org/A126547) | Proof |  | [00974-PROOF.pdf](00974-PROOF.pdf) |
-| 975 | [A126548](https://oeis.org/A126548) | Proof |  | [00975-PROOF.pdf](00975-PROOF.pdf) |
-| 976 | [A126549](https://oeis.org/A126549) | Proof |  | [00976-PROOF.pdf](00976-PROOF.pdf) |
-| 977 | [A126550](https://oeis.org/A126550) | Proof |  | [00977-PROOF.pdf](00977-PROOF.pdf) |
-| 978 | [A126551](https://oeis.org/A126551) | Proof |  | [00978-PROOF.pdf](00978-PROOF.pdf) |
-| 979 | [A126552](https://oeis.org/A126552) | Proof |  | [00979-PROOF.pdf](00979-PROOF.pdf) |
-| 980 | [A126553](https://oeis.org/A126553) | Proof |  | [00980-PROOF.pdf](00980-PROOF.pdf) |
-| 981 | [A155543](https://oeis.org/A155543) | Proof | an entry equated to an m-section of another entry, decided from both entries' facts | [00981-PROOF.pdf](00981-PROOF.pdf) |
-| 982 | [A196523](https://oeis.org/A196523) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00982-PROOF.pdf](00982-PROOF.pdf) |
-| 983 | [A208545](https://oeis.org/A208545) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00983-PROOF.pdf](00983-PROOF.pdf) |
-| 984 | [A227161](https://oeis.org/A227161) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00984-PROOF.pdf](00984-PROOF.pdf) |
-| 985 | [A378575](https://oeis.org/A378575) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00985-PROOF.pdf](00985-PROOF.pdf) |
-| 986 | [A378576](https://oeis.org/A378576) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00986-PROOF.pdf](00986-PROOF.pdf) |
-| 987 | [A389472](https://oeis.org/A389472) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00987-PROOF.pdf](00987-PROOF.pdf) |
-| 988 | [A393856](https://oeis.org/A393856) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00988-PROOF.pdf](00988-PROOF.pdf) |
-| 989 | [A393857](https://oeis.org/A393857) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00989-PROOF.pdf](00989-PROOF.pdf) |
-| 990 | [A393858](https://oeis.org/A393858) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00990-PROOF.pdf](00990-PROOF.pdf) |
-| 991 | [A393859](https://oeis.org/A393859) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00991-PROOF.pdf](00991-PROOF.pdf) |
-| 992 | [A395833](https://oeis.org/A395833) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00992-PROOF.pdf](00992-PROOF.pdf) |
-| 993 | [A396099](https://oeis.org/A396099) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00993-PROOF.pdf](00993-PROOF.pdf) |
-| 994 | [A396102](https://oeis.org/A396102) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00994-PROOF.pdf](00994-PROOF.pdf) |
-| 995 | [A396797](https://oeis.org/A396797) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00995-PROOF.pdf](00995-PROOF.pdf) |
-| 996 | [A396807](https://oeis.org/A396807) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00996-PROOF.pdf](00996-PROOF.pdf) |
-| 997 | [A397241](https://oeis.org/A397241) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [00997-PROOF.pdf](00997-PROOF.pdf) |
-| 998 | [A251454](https://oeis.org/A251454) | Proof | the conjecture's own text was unavailable; the recurrence was recovered and shown unique | [00998-PROOF.pdf](00998-PROOF.pdf) |
-| 999 | [A251459](https://oeis.org/A251459) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [00999-PROOF.pdf](00999-PROOF.pdf) |
-| 1000 | [A237315](https://oeis.org/A237315) | Proof | a table line whose recurrence was unwritten, recovered from its stated order and shown unique | [01000-PROOF.pdf](01000-PROOF.pdf) |
+| 851 | [A125530](https://oeis.org/A125530) | Proof |  | [00851-PROOF.pdf](00851-PROOF.pdf) |
+| 852 | [A125531](https://oeis.org/A125531) | Proof |  | [00852-PROOF.pdf](00852-PROOF.pdf) |
+| 853 | [A125532](https://oeis.org/A125532) | Proof |  | [00853-PROOF.pdf](00853-PROOF.pdf) |
+| 854 | [A125533](https://oeis.org/A125533) | Proof |  | [00854-PROOF.pdf](00854-PROOF.pdf) |
+| 855 | [A125534](https://oeis.org/A125534) | Proof |  | [00855-PROOF.pdf](00855-PROOF.pdf) |
+| 856 | [A125535](https://oeis.org/A125535) | Proof |  | [00856-PROOF.pdf](00856-PROOF.pdf) |
+| 857 | [A125536](https://oeis.org/A125536) | Proof |  | [00857-PROOF.pdf](00857-PROOF.pdf) |
+| 858 | [A125537](https://oeis.org/A125537) | Proof |  | [00858-PROOF.pdf](00858-PROOF.pdf) |
+| 859 | [A125538](https://oeis.org/A125538) | Proof |  | [00859-PROOF.pdf](00859-PROOF.pdf) |
+| 860 | [A125539](https://oeis.org/A125539) | Proof |  | [00860-PROOF.pdf](00860-PROOF.pdf) |
+| 861 | [A125540](https://oeis.org/A125540) | Proof |  | [00861-PROOF.pdf](00861-PROOF.pdf) |
+| 862 | [A125541](https://oeis.org/A125541) | Proof |  | [00862-PROOF.pdf](00862-PROOF.pdf) |
+| 863 | [A125542](https://oeis.org/A125542) | Proof |  | [00863-PROOF.pdf](00863-PROOF.pdf) |
+| 864 | [A125543](https://oeis.org/A125543) | Proof |  | [00864-PROOF.pdf](00864-PROOF.pdf) |
+| 865 | [A125544](https://oeis.org/A125544) | Proof |  | [00865-PROOF.pdf](00865-PROOF.pdf) |
+| 866 | [A125545](https://oeis.org/A125545) | Proof |  | [00866-PROOF.pdf](00866-PROOF.pdf) |
+| 867 | [A125546](https://oeis.org/A125546) | Proof |  | [00867-PROOF.pdf](00867-PROOF.pdf) |
+| 868 | [A125547](https://oeis.org/A125547) | Proof |  | [00868-PROOF.pdf](00868-PROOF.pdf) |
+| 869 | [A126358](https://oeis.org/A126358) | Proof |  | [00869-PROOF.pdf](00869-PROOF.pdf) |
+| 870 | [A126360](https://oeis.org/A126360) | Proof |  | [00870-PROOF.pdf](00870-PROOF.pdf) |
+| 871 | [A126362](https://oeis.org/A126362) | Proof |  | [00871-PROOF.pdf](00871-PROOF.pdf) |
+| 872 | [A126363](https://oeis.org/A126363) | Proof |  | [00872-PROOF.pdf](00872-PROOF.pdf) |
+| 873 | [A126364](https://oeis.org/A126364) | Proof |  | [00873-PROOF.pdf](00873-PROOF.pdf) |
+| 874 | [A126365](https://oeis.org/A126365) | Proof |  | [00874-PROOF.pdf](00874-PROOF.pdf) |
+| 875 | [A126366](https://oeis.org/A126366) | Proof |  | [00875-PROOF.pdf](00875-PROOF.pdf) |
+| 876 | [A126367](https://oeis.org/A126367) | Proof |  | [00876-PROOF.pdf](00876-PROOF.pdf) |
+| 877 | [A126368](https://oeis.org/A126368) | Proof |  | [00877-PROOF.pdf](00877-PROOF.pdf) |
+| 878 | [A126369](https://oeis.org/A126369) | Proof |  | [00878-PROOF.pdf](00878-PROOF.pdf) |
+| 879 | [A126370](https://oeis.org/A126370) | Proof |  | [00879-PROOF.pdf](00879-PROOF.pdf) |
+| 880 | [A126371](https://oeis.org/A126371) | Proof |  | [00880-PROOF.pdf](00880-PROOF.pdf) |
+| 881 | [A126372](https://oeis.org/A126372) | Proof |  | [00881-PROOF.pdf](00881-PROOF.pdf) |
+| 882 | [A126373](https://oeis.org/A126373) | Proof |  | [00882-PROOF.pdf](00882-PROOF.pdf) |
+| 883 | [A126374](https://oeis.org/A126374) | Proof |  | [00883-PROOF.pdf](00883-PROOF.pdf) |
+| 884 | [A126375](https://oeis.org/A126375) | Proof |  | [00884-PROOF.pdf](00884-PROOF.pdf) |
+| 885 | [A126376](https://oeis.org/A126376) | Proof |  | [00885-PROOF.pdf](00885-PROOF.pdf) |
+| 886 | [A126377](https://oeis.org/A126377) | Proof |  | [00886-PROOF.pdf](00886-PROOF.pdf) |
+| 887 | [A126378](https://oeis.org/A126378) | Proof |  | [00887-PROOF.pdf](00887-PROOF.pdf) |
+| 888 | [A126379](https://oeis.org/A126379) | Proof |  | [00888-PROOF.pdf](00888-PROOF.pdf) |
+| 889 | [A126380](https://oeis.org/A126380) | Proof |  | [00889-PROOF.pdf](00889-PROOF.pdf) |
+| 890 | [A126381](https://oeis.org/A126381) | Proof |  | [00890-PROOF.pdf](00890-PROOF.pdf) |
+| 891 | [A126382](https://oeis.org/A126382) | Proof |  | [00891-PROOF.pdf](00891-PROOF.pdf) |
+| 892 | [A126383](https://oeis.org/A126383) | Proof |  | [00892-PROOF.pdf](00892-PROOF.pdf) |
+| 893 | [A126384](https://oeis.org/A126384) | Proof |  | [00893-PROOF.pdf](00893-PROOF.pdf) |
+| 894 | [A126385](https://oeis.org/A126385) | Proof |  | [00894-PROOF.pdf](00894-PROOF.pdf) |
+| 895 | [A126386](https://oeis.org/A126386) | Proof |  | [00895-PROOF.pdf](00895-PROOF.pdf) |
+| 896 | [A126395](https://oeis.org/A126395) | Proof |  | [00896-PROOF.pdf](00896-PROOF.pdf) |
+| 897 | [A126396](https://oeis.org/A126396) | Proof |  | [00897-PROOF.pdf](00897-PROOF.pdf) |
+| 898 | [A126397](https://oeis.org/A126397) | Proof |  | [00898-PROOF.pdf](00898-PROOF.pdf) |
+| 899 | [A126398](https://oeis.org/A126398) | Proof |  | [00899-PROOF.pdf](00899-PROOF.pdf) |
+| 900 | [A126399](https://oeis.org/A126399) | Proof |  | [00900-PROOF.pdf](00900-PROOF.pdf) |
+| 901 | [A126400](https://oeis.org/A126400) | Proof |  | [00901-PROOF.pdf](00901-PROOF.pdf) |
+| 902 | [A126401](https://oeis.org/A126401) | Proof |  | [00902-PROOF.pdf](00902-PROOF.pdf) |
+| 903 | [A126402](https://oeis.org/A126402) | Proof |  | [00903-PROOF.pdf](00903-PROOF.pdf) |
+| 904 | [A126403](https://oeis.org/A126403) | Proof |  | [00904-PROOF.pdf](00904-PROOF.pdf) |
+| 905 | [A126405](https://oeis.org/A126405) | Proof |  | [00905-PROOF.pdf](00905-PROOF.pdf) |
+| 906 | [A126406](https://oeis.org/A126406) | Proof |  | [00906-PROOF.pdf](00906-PROOF.pdf) |
+| 907 | [A126407](https://oeis.org/A126407) | Proof |  | [00907-PROOF.pdf](00907-PROOF.pdf) |
+| 908 | [A126408](https://oeis.org/A126408) | Proof |  | [00908-PROOF.pdf](00908-PROOF.pdf) |
+| 909 | [A126409](https://oeis.org/A126409) | Proof |  | [00909-PROOF.pdf](00909-PROOF.pdf) |
+| 910 | [A126410](https://oeis.org/A126410) | Proof |  | [00910-PROOF.pdf](00910-PROOF.pdf) |
+| 911 | [A126411](https://oeis.org/A126411) | Proof |  | [00911-PROOF.pdf](00911-PROOF.pdf) |
+| 912 | [A126412](https://oeis.org/A126412) | Proof |  | [00912-PROOF.pdf](00912-PROOF.pdf) |
+| 913 | [A126413](https://oeis.org/A126413) | Proof |  | [00913-PROOF.pdf](00913-PROOF.pdf) |
+| 914 | [A126414](https://oeis.org/A126414) | Proof |  | [00914-PROOF.pdf](00914-PROOF.pdf) |
+| 915 | [A126415](https://oeis.org/A126415) | Proof |  | [00915-PROOF.pdf](00915-PROOF.pdf) |
+| 916 | [A126416](https://oeis.org/A126416) | Proof |  | [00916-PROOF.pdf](00916-PROOF.pdf) |
+| 917 | [A126417](https://oeis.org/A126417) | Proof |  | [00917-PROOF.pdf](00917-PROOF.pdf) |
+| 918 | [A126418](https://oeis.org/A126418) | Proof |  | [00918-PROOF.pdf](00918-PROOF.pdf) |
+| 919 | [A126419](https://oeis.org/A126419) | Proof |  | [00919-PROOF.pdf](00919-PROOF.pdf) |
+| 920 | [A126473](https://oeis.org/A126473) | Proof |  | [00920-PROOF.pdf](00920-PROOF.pdf) |
+| 921 | [A126475](https://oeis.org/A126475) | Proof |  | [00921-PROOF.pdf](00921-PROOF.pdf) |
+| 922 | [A126476](https://oeis.org/A126476) | Proof |  | [00922-PROOF.pdf](00922-PROOF.pdf) |
+| 923 | [A126477](https://oeis.org/A126477) | Proof |  | [00923-PROOF.pdf](00923-PROOF.pdf) |
+| 924 | [A126478](https://oeis.org/A126478) | Proof |  | [00924-PROOF.pdf](00924-PROOF.pdf) |
+| 925 | [A126479](https://oeis.org/A126479) | Proof |  | [00925-PROOF.pdf](00925-PROOF.pdf) |
+| 926 | [A126480](https://oeis.org/A126480) | Proof |  | [00926-PROOF.pdf](00926-PROOF.pdf) |
+| 927 | [A126481](https://oeis.org/A126481) | Proof |  | [00927-PROOF.pdf](00927-PROOF.pdf) |
+| 928 | [A126482](https://oeis.org/A126482) | Proof |  | [00928-PROOF.pdf](00928-PROOF.pdf) |
+| 929 | [A126483](https://oeis.org/A126483) | Proof |  | [00929-PROOF.pdf](00929-PROOF.pdf) |
+| 930 | [A126484](https://oeis.org/A126484) | Proof |  | [00930-PROOF.pdf](00930-PROOF.pdf) |
+| 931 | [A126485](https://oeis.org/A126485) | Proof |  | [00931-PROOF.pdf](00931-PROOF.pdf) |
+| 932 | [A126486](https://oeis.org/A126486) | Proof |  | [00932-PROOF.pdf](00932-PROOF.pdf) |
+| 933 | [A126487](https://oeis.org/A126487) | Proof |  | [00933-PROOF.pdf](00933-PROOF.pdf) |
+| 934 | [A126488](https://oeis.org/A126488) | Proof |  | [00934-PROOF.pdf](00934-PROOF.pdf) |
+| 935 | [A126489](https://oeis.org/A126489) | Proof |  | [00935-PROOF.pdf](00935-PROOF.pdf) |
+| 936 | [A126490](https://oeis.org/A126490) | Proof |  | [00936-PROOF.pdf](00936-PROOF.pdf) |
+| 937 | [A126491](https://oeis.org/A126491) | Proof |  | [00937-PROOF.pdf](00937-PROOF.pdf) |
+| 938 | [A126492](https://oeis.org/A126492) | Proof |  | [00938-PROOF.pdf](00938-PROOF.pdf) |
+| 939 | [A126493](https://oeis.org/A126493) | Proof |  | [00939-PROOF.pdf](00939-PROOF.pdf) |
+| 940 | [A126494](https://oeis.org/A126494) | Proof |  | [00940-PROOF.pdf](00940-PROOF.pdf) |
+| 941 | [A126495](https://oeis.org/A126495) | Proof |  | [00941-PROOF.pdf](00941-PROOF.pdf) |
+| 942 | [A126496](https://oeis.org/A126496) | Proof |  | [00942-PROOF.pdf](00942-PROOF.pdf) |
+| 943 | [A126497](https://oeis.org/A126497) | Proof |  | [00943-PROOF.pdf](00943-PROOF.pdf) |
+| 944 | [A126498](https://oeis.org/A126498) | Proof |  | [00944-PROOF.pdf](00944-PROOF.pdf) |
+| 945 | [A126499](https://oeis.org/A126499) | Proof |  | [00945-PROOF.pdf](00945-PROOF.pdf) |
+| 946 | [A126500](https://oeis.org/A126500) | Proof |  | [00946-PROOF.pdf](00946-PROOF.pdf) |
+| 947 | [A126502](https://oeis.org/A126502) | Proof |  | [00947-PROOF.pdf](00947-PROOF.pdf) |
+| 948 | [A126503](https://oeis.org/A126503) | Proof |  | [00948-PROOF.pdf](00948-PROOF.pdf) |
+| 949 | [A126504](https://oeis.org/A126504) | Proof |  | [00949-PROOF.pdf](00949-PROOF.pdf) |
+| 950 | [A126505](https://oeis.org/A126505) | Proof |  | [00950-PROOF.pdf](00950-PROOF.pdf) |
+| 951 | [A126506](https://oeis.org/A126506) | Proof |  | [00951-PROOF.pdf](00951-PROOF.pdf) |
+| 952 | [A126507](https://oeis.org/A126507) | Proof |  | [00952-PROOF.pdf](00952-PROOF.pdf) |
+| 953 | [A126508](https://oeis.org/A126508) | Proof |  | [00953-PROOF.pdf](00953-PROOF.pdf) |
+| 954 | [A126509](https://oeis.org/A126509) | Proof |  | [00954-PROOF.pdf](00954-PROOF.pdf) |
+| 955 | [A126510](https://oeis.org/A126510) | Proof |  | [00955-PROOF.pdf](00955-PROOF.pdf) |
+| 956 | [A126511](https://oeis.org/A126511) | Proof |  | [00956-PROOF.pdf](00956-PROOF.pdf) |
+| 957 | [A126512](https://oeis.org/A126512) | Proof |  | [00957-PROOF.pdf](00957-PROOF.pdf) |
+| 958 | [A126513](https://oeis.org/A126513) | Proof |  | [00958-PROOF.pdf](00958-PROOF.pdf) |
+| 959 | [A126514](https://oeis.org/A126514) | Proof |  | [00959-PROOF.pdf](00959-PROOF.pdf) |
+| 960 | [A126515](https://oeis.org/A126515) | Proof |  | [00960-PROOF.pdf](00960-PROOF.pdf) |
+| 961 | [A126516](https://oeis.org/A126516) | Proof |  | [00961-PROOF.pdf](00961-PROOF.pdf) |
+| 962 | [A126517](https://oeis.org/A126517) | Proof |  | [00962-PROOF.pdf](00962-PROOF.pdf) |
+| 963 | [A126518](https://oeis.org/A126518) | Proof |  | [00963-PROOF.pdf](00963-PROOF.pdf) |
+| 964 | [A126519](https://oeis.org/A126519) | Proof |  | [00964-PROOF.pdf](00964-PROOF.pdf) |
+| 965 | [A126520](https://oeis.org/A126520) | Proof |  | [00965-PROOF.pdf](00965-PROOF.pdf) |
+| 966 | [A126521](https://oeis.org/A126521) | Proof |  | [00966-PROOF.pdf](00966-PROOF.pdf) |
+| 967 | [A126522](https://oeis.org/A126522) | Proof |  | [00967-PROOF.pdf](00967-PROOF.pdf) |
+| 968 | [A126523](https://oeis.org/A126523) | Proof |  | [00968-PROOF.pdf](00968-PROOF.pdf) |
+| 969 | [A126524](https://oeis.org/A126524) | Proof |  | [00969-PROOF.pdf](00969-PROOF.pdf) |
+| 970 | [A126525](https://oeis.org/A126525) | Proof |  | [00970-PROOF.pdf](00970-PROOF.pdf) |
+| 971 | [A126526](https://oeis.org/A126526) | Proof |  | [00971-PROOF.pdf](00971-PROOF.pdf) |
+| 972 | [A126527](https://oeis.org/A126527) | Proof |  | [00972-PROOF.pdf](00972-PROOF.pdf) |
+| 973 | [A126528](https://oeis.org/A126528) | Proof |  | [00973-PROOF.pdf](00973-PROOF.pdf) |
+| 974 | [A126529](https://oeis.org/A126529) | Proof |  | [00974-PROOF.pdf](00974-PROOF.pdf) |
+| 975 | [A126530](https://oeis.org/A126530) | Proof |  | [00975-PROOF.pdf](00975-PROOF.pdf) |
+| 976 | [A126531](https://oeis.org/A126531) | Proof |  | [00976-PROOF.pdf](00976-PROOF.pdf) |
+| 977 | [A126532](https://oeis.org/A126532) | Proof |  | [00977-PROOF.pdf](00977-PROOF.pdf) |
+| 978 | [A126533](https://oeis.org/A126533) | Proof |  | [00978-PROOF.pdf](00978-PROOF.pdf) |
+| 979 | [A126534](https://oeis.org/A126534) | Proof |  | [00979-PROOF.pdf](00979-PROOF.pdf) |
+| 980 | [A126535](https://oeis.org/A126535) | Proof |  | [00980-PROOF.pdf](00980-PROOF.pdf) |
+| 981 | [A126536](https://oeis.org/A126536) | Proof |  | [00981-PROOF.pdf](00981-PROOF.pdf) |
+| 982 | [A126537](https://oeis.org/A126537) | Proof |  | [00982-PROOF.pdf](00982-PROOF.pdf) |
+| 983 | [A126538](https://oeis.org/A126538) | Proof |  | [00983-PROOF.pdf](00983-PROOF.pdf) |
+| 984 | [A126539](https://oeis.org/A126539) | Proof |  | [00984-PROOF.pdf](00984-PROOF.pdf) |
+| 985 | [A126540](https://oeis.org/A126540) | Proof |  | [00985-PROOF.pdf](00985-PROOF.pdf) |
+| 986 | [A126541](https://oeis.org/A126541) | Proof |  | [00986-PROOF.pdf](00986-PROOF.pdf) |
+| 987 | [A126542](https://oeis.org/A126542) | Proof |  | [00987-PROOF.pdf](00987-PROOF.pdf) |
+| 988 | [A126543](https://oeis.org/A126543) | Proof |  | [00988-PROOF.pdf](00988-PROOF.pdf) |
+| 989 | [A126544](https://oeis.org/A126544) | Proof |  | [00989-PROOF.pdf](00989-PROOF.pdf) |
+| 990 | [A126545](https://oeis.org/A126545) | Proof |  | [00990-PROOF.pdf](00990-PROOF.pdf) |
+| 991 | [A126546](https://oeis.org/A126546) | Proof |  | [00991-PROOF.pdf](00991-PROOF.pdf) |
+| 992 | [A126547](https://oeis.org/A126547) | Proof |  | [00992-PROOF.pdf](00992-PROOF.pdf) |
+| 993 | [A126548](https://oeis.org/A126548) | Proof |  | [00993-PROOF.pdf](00993-PROOF.pdf) |
+| 994 | [A126549](https://oeis.org/A126549) | Proof |  | [00994-PROOF.pdf](00994-PROOF.pdf) |
+| 995 | [A126550](https://oeis.org/A126550) | Proof |  | [00995-PROOF.pdf](00995-PROOF.pdf) |
+| 996 | [A126551](https://oeis.org/A126551) | Proof |  | [00996-PROOF.pdf](00996-PROOF.pdf) |
+| 997 | [A126552](https://oeis.org/A126552) | Proof |  | [00997-PROOF.pdf](00997-PROOF.pdf) |
+| 998 | [A126553](https://oeis.org/A126553) | Proof |  | [00998-PROOF.pdf](00998-PROOF.pdf) |
+| 999 | [A155543](https://oeis.org/A155543) | Proof | an entry equated to an m-section of another entry, decided from both entries' facts | [00999-PROOF.pdf](00999-PROOF.pdf) |
+| 1000 | [A196523](https://oeis.org/A196523) | Proof | a defining functional equation reduced mod k, then closed by uniqueness of its recursion | [01000-PROOF.pdf](01000-PROOF.pdf) |

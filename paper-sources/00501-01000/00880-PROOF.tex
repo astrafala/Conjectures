@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A126397, proved}
+\title{The cross-base identity for OEIS A126371, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A126397 carries an empirical identity, in two clauses, relating its counts to those of the
+OEIS A126371 carries an empirical identity, in two clauses, relating its counts to those of the
 entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
 here, with no computation in the argument. The difference between consecutive bases counts the
 admissible strings that USE the new largest digit; those are the translates of the
@@ -33,21 +33,21 @@ is the entry's own $-2$.
 
 \section{The conjecture}
 
-OEIS A126397 is ``Number of base 10 n-digit numbers with adjacent digits differing by two or less.''. It has offset $0$ and begins
+OEIS A126371 is ``Number of base 17 n-digit numbers with adjacent digits differing by one or less.''. It has offset $0$ and begins
 \[
-1, 10, 44, 200, 918, 4236, 19598, 90790,\ \dots
+1, 17, 49, 143, 419, 1231, 3623, 10677,\ \dots
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+5\textasciicircum{}(n-1) for base>=2n-1; a(base,n)=a(base-1,n)+5\textasciicircum{}(n-1)-2 when base=2n-2.
+[Empirical] a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1) for base>=n; a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1)-2 when base=n-1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:10:46, revision 14)
+As of the ``Last modified'' line on the live entry (Aug 10 2026 16:52:42, revision 22)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-For this entry the base is $10$ and the permitted difference is $d=2$, so the first clause
-claims $a_{10}(n)-a_{9}(n)=5^{\,n-1}$ whenever $2(n-1)+1\le10$, that is for
-$1\le n\le5$, and the second claims $a_{10}(n)-a_{9}(n)=5^{\,n-1}-2$ at the single
-$n$ with $2(n-1)=10$.
+For this entry the base is $17$ and the permitted difference is $d=1$, so the first clause
+claims $a_{17}(n)-a_{16}(n)=3^{\,n-1}$ whenever $(n-1)+1\le17$, that is for
+$1\le n\le17$, and the second claims $a_{17}(n)-a_{16}(n)=3^{\,n-1}-2$ at the single
+$n$ with $(n-1)=17$.
 
 \section{What the entry counts}
 
@@ -55,7 +55,7 @@ A base-$b$ $n$-digit string in this family's sense is a tuple
 $(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
 is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
 $a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
-arithmetic, $L_{2}$ at base $10$ reproduces all $22$ terms A126397 publishes.
+arithmetic, $L_{1}$ at base $17$ reproduces all $25$ terms A126371 publishes.
 
 \section{The identity}
 
@@ -100,32 +100,35 @@ vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) foll
 
 Three checks, each independent of the proof above.
 
-First, the model reproduces all $22$ terms A126397 publishes, exactly, in integer
+First, the model reproduces all $25$ terms A126371 publishes, exactly, in integer
 arithmetic; the reading of the entry's English is what is being tested there.
 
 Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le5$, both sides computed from the definition and not from the theorem:
+$1\le n\le17$, both sides computed from the definition and not from the theorem:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & $L_{2}(10,n)$ & $L_{2}(9,n)$ & $5^{\,n-1}$ \\ \hline
-1 & 10 & 9 & 1 \\
-2 & 44 & 39 & 5 \\
-3 & 200 & 175 & 25 \\
-4 & 918 & 793 & 125 \\
-5 & 4236 & 3611 & 625 \\
+$n$ & $L_{1}(17,n)$ & $L_{1}(16,n)$ & $3^{\,n-1}$ \\ \hline
+1 & 17 & 16 & 1 \\
+2 & 49 & 46 & 3 \\
+3 & 143 & 134 & 9 \\
+4 & 419 & 392 & 27 \\
+5 & 1231 & 1150 & 81 \\
+6 & 3623 & 3380 & 243 \\
+7 & 10677 & 9948 & 729 \\
+8 & 31497 & 29310 & 2187 \\
 \end{tabular}
 \end{center}
 
 \noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=5$.
+and at every row up to $n=17$.
 
-Third, the second clause was evaluated at its own index. For this entry the second clause bites at $n=6$, where $b=10=2(n-1)$: there $L_{2}(10,6)-L_{2}(9,6)=3123$ and $5^{5}-2=3123$.
+Third, the second clause was evaluated at its own index. For this entry the second clause bites at $n=18$, where $b=17=(n-1)$: there $L_{1}(17,18)-L_{1}(16,18)=129140161$ and $3^{17}-2=129140161$.
 
 \section*{References}
 \begin{enumerate}
 \item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A126397}.
+\url{https://oeis.org/A126371}.
 \end{enumerate}
 
 \end{document}

@@ -331,3 +331,49 @@ So the honest position on what is left in the pool: the coordination sequences a
 behind a certificate that has now failed twice; the growing-alphabet block is 282 entries of
 which 124 are structurally past the cap and 139 are a fragmented tail. Neither is a vein with a
 cheap opening. That is worth knowing before another turn is spent looking for one.
+
+## 14 September 2026 — section P opened, and the first thing in it was circbase one dimension up
+
+IDEAS section P asks the question that found the circular-base vein: how many entries carry a
+conjecture of a shape no parser here can even read as a claim? Measured across the whole clone:
+
+    entries outside the roster with a conjectural line       25,298
+      of those, a line naming another A-number                8,202
+      of those, open and with no parsable recurrence          6,163
+
+Bucketed by the shape of the line, the head is not what the project can use — 1,500-odd are
+Simon Plouffe's 2025 conjectures of the form `Sum_{k>=0} A0xxxxx(k)/exp(k*Pi) = <constant>`,
+which are analytic identities and not this machinery's business. But eighteen entries carry
+
+    [Empirical] a(base+1,n,diff) = a(base,n,diff) + F(n,diff) for base >= 2.diff.(n-1)
+
+on **n X n arrays with entries in 1..base whose orthogonally adjacent entries differ by at most
+diff** — which is exactly the identity `circbase` proves for circular digit strings, one
+dimension up, and the same four lines settle it:
+
+  1. T(b+1,d,n) - T(b,d,n) counts the admissible arrays over 1..b+1 that USE the value b+1.
+  2. Every admissible array has max - min <= 2d(n-1): the grid graph on n X n cells with
+     orthogonal adjacency has diameter 2(n-1) — along a row then along a column — and the
+     entry changes by at most d per step.
+  3. An array using b+1 has maximum b+1, so all its entries lie in [b+1-2d(n-1), b+1]; when
+     b >= 2d(n-1) that window sits inside 1..b+1 and the alphabet constraint imposes nothing.
+     The count is then the number of admissible arrays over Z with maximum 0, free of b.
+
+**The entry's own threshold is exactly the diameter bound**, and it is sharp: checked at the
+threshold and one above it the identity holds, and below it it fails — at base 5, diff 3, n 3
+the difference is 964,755 where F(3,3) is 1,253,329.
+
+One reading detail decided it. The line names its reference as `A063496(diff+1)`, and those
+sequences do not share an offset — A063496 has offset 1, A068744 offset 0. The index is
+POSITIONAL, the (diff+1)-th term as listed. Both readings agree at n = 2 and only the positional
+one is right at n = 3, where F(3,2) = 87,825 is the third term of A068744 while A068744(3) under
+its own offset is 1,253,329. Getting that backwards would have made eighteen papers cite the
+wrong number.
+
+**18 proved and installed**, A125530 through A125547, all kept by the live re-check, 0 refused.
+Roster 12,982 -> **13,000** papers over 12,973 entries, 157 arguments.
+
+Worth saying plainly: for most of these entries the threshold leaves only n = 1 at their own
+alphabet size, so the identity is not a statement about their published terms. It is a
+statement about the family, each entry carries it, and it is the family statement that is
+proved — the same footing `circbase`'s 223 stand on. Each paper says so in as many words.

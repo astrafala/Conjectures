@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A219082, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203282, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219082 counts arrays of width $5$ over $\{0,1\}$ in which every cell of one value has a neighbour of another. The entry carries an
-empirical recurrence of order $35$ contributed by R.~H.~Hardin. It is true, and it is
+OEIS A203282 counts arrays of width $5$ over $\{0,1\}$ in which every cell has neighbours equal to each of two named values. The entry carries an
+empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: what a cell asks reaches one row above it and one row below, so the
 condition on a whole row is settled by $3$ consecutive rows and the count is a walk
 count on $S=1057$ states.
@@ -30,15 +30,15 @@ count on $S=1057$ states.
 
 \section{The conjecture}
 
-OEIS A219082 is ``Number of 5 X n binary arrays with every 0 a horizontal, diagonal or antidiagonal neighbor to some 1.''. It has offset $1$ and begins
+OEIS A203282 is ``Number of nX5 binary arrays with every element neighboring horizontally or vertically both a 0 and a 1.''. It has offset $1$ and begins
 \[
-1, 547, 18499, 477309, 14228041, 433704331, 12998933707, 389034040749,\ \dots
+0, 36, 372, 4624, 72852, 996004, 14644480, 210076036,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) +146*a(n-2) +3532*a(n-3) +27431*a(n-4) +116656*a(n-5) +474493*a(n-6) -504690*a(n-7) -9727761*a(n-8) -24028992*a(n-9) -66423882*a(n-10) -41186382*a(n-11) +707203710*a(n-12) +1057707036*a(n-13) +400102378*a(n-14) +2214831924*a(n-15) -8080578503*a(n-16) -15125172488*a(n-17) +2822970974*a(n-18) -20788048752*a(n-19) +25829191223*a(n-20) +56646466196*a(n-21) -24732078735*a(n-22) +59826555806*a(n-23) -56845699775*a(n-24) -45194311324*a(n-25) +8339540130*a(n-26) -13101220366*a(n-27) +23960611452*a(n-28) +18278792048*a(n-29) -10927311264*a(n-30) -3516015456*a(n-31) +2062115264*a(n-32) -872547840*a(n-33) -203788800*a(n-34) +235008000*a(n-35).
+Empirical: a(n) = 17*a(n-1) -638*a(n-3) +678*a(n-4) +14260*a(n-5) -31318*a(n-6) -77888*a(n-7) +230062*a(n-8) +800738*a(n-9) -1847062*a(n-10) -12874076*a(n-11) +36370882*a(n-12) -2877388*a(n-13) -108883984*a(n-14) +139903240*a(n-15) +22915510*a(n-16) -94574920*a(n-17) +86030666*a(n-18) -34150532*a(n-19) -291157270*a(n-20) +495606258*a(n-21) -137024746*a(n-22) +41071176*a(n-23) +76637263*a(n-24) -154537901*a(n-25) -354299940*a(n-26) +575474886*a(n-27) -86771088*a(n-28) +143317188*a(n-29) -267467184*a(n-30) +67890312*a(n-31) +62145792*a(n-32) -65610000*a(n-33) -35901792*a(n-35) +34012224*a(n-36)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 19 2026 14:19:26, revision 13) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:17:26, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -46,7 +46,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$. Fix the
 offsets the entry names,
 \[
-\Delta=\{\,(-1,-1), (-1,0), (-1,1), (1,-1), (1,0), (1,1)\,\},
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
 and for a cell $(i,j)$ write
 \[
@@ -54,19 +54,19 @@ S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
 \text{(the cells of the array)}
 \]
 for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
-the border simply has fewer neighbours. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every offset, and the offsets above are written in the transposed frame.
+the border simply has fewer neighbours.
 
-The condition is that every cell equal to $0$ has a neighbour equal to $1$:
+The condition is that every cell has a neighbour equal to $0$ and a neighbour equal to $1$:
 \[
-x(i,j)=0\ \Longrightarrow\ \exists\,(a,b)\in S(i,j)\ \ x(a,b)=1 .
+0\in\{x(a,b):(a,b)\in S(i,j)\}\quad\text{and}\quad1\in\{x(a,b):(a,b)\in S(i,j)\}.
 \]
-Cells of any other value are under no condition.
+
 
 \section{A window of 3 rows}
 
 The offsets reach one row up and one row down, so everything the condition asks of one row is
 decided by that row together with one row above it and one row below --- a window of
-$3$ consecutive rows, and nothing wider. Take the array one column at a time and
+$3$ consecutive rows, and nothing wider. Take the array one row at a time and
 let the state be the last 2 of them, with a distinguished start standing for the array before its
 first row, so that a walk of $n$ steps is an array of $n$ rows.
 
@@ -89,7 +89,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +97,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,15 +106,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) + 146\,a(n-2) + 3532\,a(n-3) + 27431\,a(n-4) + 116656\,a(n-5) + 474493\,a(n-6) - 504690\,a(n-7) - 9727761\,a(n-8) - 24028992\,a(n-9) - 66423882\,a(n-10) - 41186382\,a(n-11) + 707203710\,a(n-12) + 1057707036\,a(n-13) + 400102378\,a(n-14) + 2214831924\,a(n-15) - 8080578503\,a(n-16) - 15125172488\,a(n-17) + 2822970974\,a(n-18) - 20788048752\,a(n-19) + 25829191223\,a(n-20) + 56646466196\,a(n-21) - 24732078735\,a(n-22) + 59826555806\,a(n-23) - 56845699775\,a(n-24) - 45194311324\,a(n-25) + 8339540130\,a(n-26) - 13101220366\,a(n-27) + 23960611452\,a(n-28) + 18278792048\,a(n-29) - 10927311264\,a(n-30) - 3516015456\,a(n-31) + 2062115264\,a(n-32) - 872547840\,a(n-33) - 203788800\,a(n-34) + 235008000\,a(n-35)
+a(n)\;=\;17\,a(n-1) - 638\,a(n-3) + 678\,a(n-4) + 14260\,a(n-5) - 31318\,a(n-6) - 77888\,a(n-7) + 230062\,a(n-8) + 800738\,a(n-9) - 1847062\,a(n-10) - 12874076\,a(n-11) + 36370882\,a(n-12) - 2877388\,a(n-13) - 108883984\,a(n-14) + 139903240\,a(n-15) + 22915510\,a(n-16) - 94574920\,a(n-17) + 86030666\,a(n-18) - 34150532\,a(n-19) - 291157270\,a(n-20) + 495606258\,a(n-21) - 137024746\,a(n-22) + 41071176\,a(n-23) + 76637263\,a(n-24) - 154537901\,a(n-25) - 354299940\,a(n-26) + 575474886\,a(n-27) - 86771088\,a(n-28) + 143317188\,a(n-29) - 267467184\,a(n-30) + 67890312\,a(n-31) + 62145792\,a(n-32) - 65610000\,a(n-33) - 35901792\,a(n-35) + 34012224\,a(n-36)
 \]
-for every $n>34$.
+for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -138,7 +138,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219082.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203282.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
