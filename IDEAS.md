@@ -633,3 +633,59 @@ Also worth asking of every shelved engine: is its REFUSAL RANGE a theorem or a m
 `transfer88` refused widths 8 and above on the strength of a table that stopped at 7. The
 certificate covers every width up to 14 (i0 = 2C - 3), and three of the twenty-one entries are
 in exactly that range. A refusal written from a measurement expires when the measurement does.
+
+## T. What the pool actually is — measured, not guessed (14 September)
+
+The pool, rebuilt as (uni_cands ∪ pool-unread) − roster, filtered to entries with a parsable
+conjecture that openness still calls open, is **2,219**. Two measurements on it, and together
+they say where the next engines belong.
+
+**By NAME SHAPE** (digits to #, single letters to V), 1,073 distinct shapes. The head:
+
+     378  Coordination sequence Gal.#.#.#                       (section O, needs the tilings)
+      43  every 2 X 2 subblock, diagonal sum minus antidiagonal sum = # (constant-stress)
+      42  each # X # subblock idempotent
+      73  every # X # subblock commuting with each neighbour # X # subblock (5 phrasings)
+      64  every # X # subblock row/column/diagonal sum in or not in a given set (6 phrasings)
+      19  each element x = the number of its neighbours equal to a given list
+
+**By REASON FOR REFUSAL**, on a random sample of 160 (122 classified before the run was
+stopped on a slow build):
+
+      no engine reads the name     82   67%
+      state space > cap            39   32%
+      annihilation timed out        1
+      PROVED                        0
+      model does not match DATA     0
+
+Two things follow, and the second is the surprise.
+
+**The pool is not one problem, it is two.** Two thirds is the long tail of 1,073 shapes, most
+of them singletons — that is parser work, one name at a time, and the return per hour is low.
+One third is refused at the CAP, and that is engine work with a much better return.
+
+**The big clusters are NOT in the unread two thirds.** Every name checked by hand from the six
+head clusters above — A234225, A224599, A186562, A186601, A252310, A196074 — is already read,
+by transfer3, transfer23, transfer35, transfer35, transfer17 and transfer19 respectively. They
+are in the pool because the BUILD refuses them, not the parser. So the head of the pool and the
+cap refusals are the same entries, and the ~240 entries in those six clusters are reachable by
+machinery that exists, exactly as the standing habit predicts.
+
+**Where to aim.** `transfer88` refused A253117 at the cap for a reason that turned out to be a
+construction nobody had looked at twice — it carried the row index in the vertex for rows above
+the periodic region, and summing those rows into a weighted start vector took width 7 from
+11,458 states to 3,421 and width 8 from refused to reachable (STATE.md defect 19). The question
+to put to transfer3, transfer17, transfer23 and transfer35 is the same one: **what is in the
+state that does not need to be there?** Candidates to check, in order of how many entries hang
+on them:
+
+  * a boundary row carried in full when only its behaviour under the condition matters;
+  * an initial segment carried as distinct states per index instead of as weights;
+  * vertices distinguished by data the condition cannot see — lump BEFORE building, not after,
+    since the cap is hit during exploration and `lumpauto` runs too late to help.
+
+The last is the most likely and the most general: every one of these engines builds the whole
+reachable set and only then merges. `transfer88` at width 7 built 20,384 states and merged to
+3,421, so more than four fifths of the exploration was redundant. An engine that merges on the
+fly — a partition refinement over the frontier rather than over the finished graph — would move
+the cap by roughly that factor, and that is one change reaching four engines and ~240 entries.

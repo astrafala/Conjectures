@@ -90,6 +90,16 @@ Recurring defects, all found this way:
     period", which was a limit of its measurement and not of the board. A refusal written
     from a measurement expires when the measurement is replaced by a theorem.
 
+19. **a construction that works is not a construction that has been looked at.**
+    `transfer88` refused A253117 at the state-space cap, which reads like a mathematical
+    limit and was not one: it carried the ROW INDEX in the vertex for every row above the
+    periodic region, multiplying the vertex set by 2C-3. Walking those rows once with weights
+    and summing them away took width 7 from 11,458 states to 3,421 and width 8 from refused
+    to 7,657. **Before believing a cap, look at what is in the state.** And when the model
+    changes, the paper changes with it: iota stopped being an incidence vector, and the
+    exponent stopped being the one the offset and the shift give -- `a(n) = iota^T M^(n-k)
+    tau` is right only while the matrix carries the object from the very start.
+
 13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
     `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
     was left alone for another 219 papers. When a defect is found in one place, ask which
