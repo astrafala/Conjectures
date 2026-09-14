@@ -1266,3 +1266,49 @@ So the honest ranking of what is left:
    between two independently-defined sequences mechanically — §W measured the shift-identity
    subfamily at 26, with both sides on the roster in exactly one case, so this needs a real
    idea and not a reader.
+
+## AA. Conjectured P-recursive recurrences (14 September, night)
+
+**459 open entries** conjecture `sum_i p_i(n) a(n-i) = 0` with polynomial coefficients in n.
+`ratrec` reads constant coefficients only, so not one had ever been asked about — bigger by
+claim count than the linked-a-file vein. `precrec` reads **380**.
+
+The proof route is `holonomic`: where the entry states its generating function as FACT and that
+function is algebraic, the claim becomes `B(x) = sum_i x^i (p_i(theta+i)A)(x)`, an element of an
+algebraic function field, zero exactly when the recurrence holds everywhere and a polynomial of
+degree d exactly when it holds for n > d. An identity, not a run of checks.
+
+### The size, measured
+
+| | |
+|---:|---|
+| 28 | have a usable algebraic g.f. — **the reachable set** |
+| 146 | reference another sequence's g.f. by A-number |
+| 137 | have no g.f. line at all |
+| 44 | have a g.f. line the reader still refuses |
+| 23 | are a sum or a binomial formula — `zeilb`'s territory |
+| 6 | give only an exponential g.f. — a different object |
+
+**The reader is not the limit; the proof route is.** This is the first vein whose obstacle is
+mathematics rather than instrumentation.
+
+### What would widen it, in order of value
+
+1. **A-number substitution.** 146 entries cite another sequence's g.f. The citations are a long
+   tail — Catalan 11, Motzkin 5, central binomial 3, then ones and twos — and several need
+   series reversion, which is algebraic but is another operation to implement. `algf.STANDARD`
+   already holds a self-verifying table of five; the work is parsing the *reference*, which the
+   corpus writes a dozen ways ("where F(x) is the g.f. of A007564", "c(x) g.f. of A000108").
+   Realistic gain maybe 15–25 entries.
+2. **Creative telescoping** for the 23 sums — `zeilb.py` exists and has 4 results.
+3. **Holonomic closure**, building the annihilator from the entry's definition rather than
+   reading a g.f. off it. That is the general answer and reaches the 137 with no g.f. line,
+   but it is a real piece of work.
+
+### A speed note, if this is picked up again
+
+`holonomic.prove` calls `sp.simplify` then takes two 40-term series of a nested-radical
+expression; it runs about two entries per seven minutes. The decision does not need full
+simplification: B lies in `Q(x)[y]/(y^2 - D)`, so reducing there and asking whether the
+y-coefficient vanishes and the rational part is a polynomial is the same decision in polynomial
+arithmetic. Worth doing before widening the pool, not before finishing the 28.
