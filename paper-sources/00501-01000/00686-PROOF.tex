@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A125348, proved}
+\title{The cross-base identity for OEIS A125337, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125348 carries an empirical identity relating its counts to those of the entry one base
+OEIS A125337 carries an empirical identity relating its counts to those of the entry one base
 smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
 names, and that range is sharp. The proof is four steps and needs no computation: the
 difference between consecutive bases counts the admissible cyclic sequences that USE the new
@@ -33,26 +33,26 @@ sequences summing to zero.
 
 \section{The conjecture}
 
-OEIS A125348 is ``Number of base 11 circular n-digit numbers with adjacent digits differing by 4 or less.''. It has offset $0$ and begins
+OEIS A125337 is ``Number of base 27 circular n-digit numbers with adjacent digits differing by 3 or less.''. It has offset $0$ and begins
 \[
-1, 11, 79, 491, 3479, 25161, 185353, 1377877,\ \dots
+1, 27, 177, 915, 5545, 33997, 213621, 1359805,\ \dots
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A025014(n+1) for base>=4.int(n/2)+1
+[Empirical] a(base,n)=a(base-1,n)+A025012(n+1) for base>=3.int(n/2)+1
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:03:36, revision 13)
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:24:14, revision 11)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
 stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
-entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A025014}(n+1)$, the $(n+1)$st term of OEIS A025014; that sequence is the central coefficient of $(1+x+\dots+x^{8})^{n}$ and its published terms agree with $F_{4}(n)$ term by term, which is the identification used here. For this entry
-the base is $11$ and the permitted difference is $d=4$, so the claim is that
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A025012}(n+1)$, the $(n+1)$st term of OEIS A025012; that sequence is the central coefficient of $(1+x+\dots+x^{6})^{n}$ and its published terms agree with $F_{3}(n)$ term by term, which is the identification used here. For this entry
+the base is $27$ and the permitted difference is $d=3$, so the claim is that
 \[
-a_{11}(n)-a_{10}(n)\;=\;F_{4}(n)
-\qquad\text{for every } n \text{ with } 4\lfloor n/2\rfloor+1\le11,
+a_{27}(n)-a_{26}(n)\;=\;F_{3}(n)
+\qquad\text{for every } n \text{ with } 3\lfloor n/2\rfloor+1\le27,
 \]
-that is, for $1\le n\le5$.
+that is, for $1\le n\le17$.
 
 \section{What the entry counts}
 
@@ -62,8 +62,8 @@ read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are coun
 $d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
 them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
 $M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
-together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{4}$
-at base $11$ reproduces all $20$ terms A125348 publishes, and at base $10$ all the
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{3}$
+at base $27$ reproduces all $20$ terms A125337 publishes, and at base $26$ all the
 terms the entry one base smaller publishes.
 
 At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
@@ -78,7 +78,7 @@ For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
 where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
-polynomial. In particular $a_{11}(n)-a_{10}(n)=F_{4}(n)$ for $1\le n\le5$, which
+polynomial. In particular $a_{27}(n)-a_{26}(n)=F_{3}(n)$ for $1\le n\le17$, which
 is the entry's claim.
 \end{theorem}
 
@@ -123,26 +123,29 @@ base is in each case exactly one below the entry's own threshold.
 
 Three checks, each independent of the proof above.
 
-First, the model reproduces all $20$ terms A125348 publishes, exactly, in integer
+First, the model reproduces all $20$ terms A125337 publishes, exactly, in integer
 arithmetic; the reading of the entry's English is what is being tested there, since a
 misreading gives different counts.
 
 Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le5$, with both sides computed from the definition and not from the theorem:
+$1\le n\le17$, with both sides computed from the definition and not from the theorem:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & $T_{4}(11,n)$ & $T_{4}(10,n)$ & $F_{4}(n)$ \\ \hline
-1 & 11 & 10 & 1 \\
-2 & 79 & 70 & 9 \\
-3 & 491 & 430 & 61 \\
-4 & 3479 & 2990 & 489 \\
-5 & 25161 & 21210 & 3951 \\
+$n$ & $T_{3}(27,n)$ & $T_{3}(26,n)$ & $F_{3}(n)$ \\ \hline
+1 & 27 & 26 & 1 \\
+2 & 177 & 170 & 7 \\
+3 & 915 & 878 & 37 \\
+4 & 5545 & 5314 & 231 \\
+5 & 33997 & 32546 & 1451 \\
+6 & 213621 & 204290 & 9331 \\
+7 & 1359805 & 1299114 & 60691 \\
+8 & 8748521 & 8349954 & 398567 \\
 \end{tabular}
 \end{center}
 
 \noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=5$.
+and at every row up to $n=17$.
 
 Third, the theorem was tested outside the entry's range as well: the identity holds for every
 $b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
@@ -151,7 +154,7 @@ above.
 \section*{References}
 \begin{enumerate}
 \item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A125348}.
+\url{https://oeis.org/A125337}.
 \end{enumerate}
 
 \end{document}

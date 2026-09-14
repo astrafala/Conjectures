@@ -12,170 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Every term of OEIS A393859 is congruent to $1$ modulo $8$}
+\title{A bisection identity between OEIS A155543 and OEIS A090129}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A393859 is defined by the functional equation $A\bigl(x-xA(7x)/7\bigr)=x$ for its
-ordinary generating function, and carries a conjecture of P.~D.~Hanna that every term is
-congruent to $1$ modulo $8$. It is true, and the reason is that $7\equiv-1$ modulo
-$8$. The functional equation determines the coefficients one at a time, so it determines
-them modulo $8$ as well; and modulo $8$ the series $x/(1-x)$, all of whose coefficients
-are $1$, satisfies the equation exactly. Uniqueness then forces $A(x)\equiv x/(1-x)$, which
-is the conjecture. The argument is an identity between rational functions over
-$\mathbb{Z}/8\mathbb{Z}$ and involves no estimation and no truncation.
+OEIS A155543 carries a conjecture that its $n$-th term equals the $(2n+2)$-nd term of
+OEIS A090129, the multiplicative order of $3$ modulo $2^{n}$. It is true. Both entries
+state closed forms as fact --- A090129's is the order computation $2^{n-2}$ for
+$n\ge3$, recorded there with a proof, and A155543's is a rational generating function ---
+and the two match term for term once the even index $2n+2$ is substituted. The identity
+holds at every index, including the one the comment excludes.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11A07, 11B37, 11A15.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The two sequences and the conjecture}
 
-OEIS A393859 is ``G.f. A(x) satisfies A( x - x*A(7*x)/7 ) = x.''. It has offset $1$ and begins
+OEIS A155543 is ``a(n) = 2*A081294(n).''. It has offset $0$ and begins
 \[
-1, 1, 9, 481, 167937, 404407577,\ \dots
+2, 4, 16, 64, 256, 1024, 4096,\ \dots
 \]
-So, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry defines $A$ by
-\begin{equation}\label{eq:fe}
-A\!\left(x-\frac{x\,A(7x)}{7}\right)\;=\;x .
-\end{equation}
-This is the only input taken from the entry.
+OEIS A090129 is ``Smallest exponent such that -1 + 3\^{}a(n) is divisible by 2\^{}n.''. It has offset $1$ and begins
+\[
+1, 2, 2, 4, 8, 16, 32, 64,\ \dots
+\]
 
-The entry separately carries the following comment:
+The entry A155543 carries the following comment:
 \begin{quote}\small
-Conjecture: a(n) == 1 (mod 8) for n >= 1.
+Conjecture: a(n) = A090129(2*n+2). --- \emph{the entry (unattributed)}, undated
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 12 2026 10:39:26, revision 8) the statement is
-still recorded as a conjecture, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jun 30 2026 22:40:50, revision 16) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way.
 
-Written out, the conjecture asserts
+Written out, the statement to be proved is
 \begin{equation}\label{eq:conj}
-a(n)\;\equiv\;1 \pmod{8}\qquad\text{for every } n\ge1 .
+a(n)\;=\;b(2n+2),
 \end{equation}
+where $a$ is A155543 and $b$ is A090129. A090129 has offset $1$, so $b(2n+2)$ is defined
+for every $n\ge0$.
 
-\section{The equation determines the sequence}
+\section{What each entry states as fact}
 
-It is convenient to clear the division. Since $A$ has no constant term,
-\begin{equation}\label{eq:B}
-B(x)\;:=\;x-\frac{x\,A(7x)}{7}\;=\;x-\sum_{n\ge1}a(n)\,7^{\,n-1}x^{n+1},
+A090129 is defined as the smallest exponent $b(n)$ with $2^{n}\mid 3^{b(n)}-1$, that is,
+the multiplicative order of $3$ modulo $2^{n}$. The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = 2\^{}(n-2) if n >= 3, 1 for n=1 and 2 for n=2 (see the order comment above).
+\end{quote}
+that is,
+\begin{equation}\label{eq:b}
+b(1)=1,\qquad b(2)=2,\qquad b(n)=2^{\,n-2}\ \ (n\ge3).
 \end{equation}
-so $B$ has integer coefficients even though \eqref{eq:fe} appears to divide by $7$.
+The entry also carries the reason, in a comment of W.~Lang: for $n\ge3$ the order of $3$
+modulo $2^{n}$ is $2^{n-2}$, with a reference for the argument. So that nothing here rests
+on a reference, that fact is proved from scratch in Section~4; \eqref{eq:b} is then not an
+assumption at all.
 
-\begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-it is given by $a(1)=1$ together with
-\begin{equation}\label{eq:rec}
-a(N)\;=\;-\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B(x)^{j}\qquad(N\ge2),
+A155543 states, not as a conjecture,
+\begin{quote}\small
+G.f.: 2*(1-2*x)/(1-4*x).
+\end{quote}
+Expanding, $\dfrac{2(1-2x)}{1-4x}=2\sum_{k\ge0}4^{k}x^{k}-4\sum_{k\ge0}4^{k}x^{k+1}
+=2+\sum_{k\ge1}\bigl(2\cdot4^{k}-4\cdot4^{k-1}\bigr)x^{k}$, and
+$2\cdot4^{k}-4^{k}=4^{k}$, so
+\begin{equation}\label{eq:a}
+a(0)=2,\qquad a(n)=4^{n}\ \ (n\ge1).
 \end{equation}
-in which the right-hand side depends only on $a(1),\dots,a(N-1)$.
+Each was checked against its own entry's DATA at every published index before use:
+\eqref{eq:a} against all $24$ terms of A155543 and \eqref{eq:b} against all
+$36$ terms of A090129.
+
+\section{The order of $3$ modulo a power of $2$}
+
+Write $v_2(m)$ for the exponent of $2$ in the integer $m\ne0$.
+
+\begin{lemma}\label{lem:val}
+$v_2\bigl(3^{2^{k}}-1\bigr)=k+2$ for every $k\ge1$.
 \end{lemma}
 
 \begin{proof}
-$B(x)=x+O(x^{2})$, so $B$ has a compositional inverse and $\bigl[x^{j}\bigr]B^{j}=1$
-while $\bigl[x^{N}\bigr]B^{j}=0$ for $N<j$. Expanding \eqref{eq:fe},
+For $k=1$, $3^{2}-1=8$ and $v_2(8)=3$. Suppose the claim for some $k\ge1$. Factor
 \[
-x\;=\;A\bigl(B(x)\bigr)\;=\;\sum_{j\ge1}a(j)\,B(x)^{j} .
+3^{2^{k+1}}-1=\bigl(3^{2^{k}}-1\bigr)\bigl(3^{2^{k}}+1\bigr).
 \]
-Comparing coefficients of $x^{1}$ gives $a(1)=1$. For $N\ge2$, comparing coefficients of
-$x^{N}$ gives
-\[
-0\;=\;\sum_{j=1}^{N}a(j)\,\bigl[x^{N}\bigr]B^{j}
-\;=\;a(N)+\sum_{j=1}^{N-1}a(j)\,\bigl[x^{N}\bigr]B^{j},
-\]
-since the $j=N$ term contributes $a(N)\cdot1$. This is \eqref{eq:rec}. For the dependence
-claim: by \eqref{eq:B}, $\bigl[x^{i}\bigr]B$ involves only $a(i-1)$, so
-$\bigl[x^{N}\bigr]B^{j}$ involves only $a(1),\dots,a(N-1)$ for every $j\ge1$. Hence
-\eqref{eq:rec} determines $a(N)$ from its predecessors, and induction gives both existence
-and uniqueness.
+Since $k\ge1$, the inductive hypothesis gives $8\mid 3^{2^{k}}-1$, so
+$3^{2^{k}}\equiv1\pmod 8$ and hence $3^{2^{k}}+1\equiv2\pmod 8$, giving
+$v_2\bigl(3^{2^{k}}+1\bigr)=1$. Therefore
+$v_2\bigl(3^{2^{k+1}}-1\bigr)=(k+2)+1=(k+1)+2$.
 \end{proof}
 
-\begin{corollary}\label{cor:mod}
-For any integer $k\ge2$, the reductions $a(n)\bmod k$ are determined by the same recursion
-read in $\mathbb{Z}/k\mathbb{Z}$. Consequently, if $\bar A(x)\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
-$\bar A(x)=x+O(x^{2})$ and satisfies \eqref{eq:fe} with coefficients read modulo $k$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A(x) \pmod k$ for every $n$.
-\end{corollary}
+\begin{proposition}\label{prop:ord}
+For $n\ge3$ the multiplicative order of $3$ modulo $2^{n}$ is $2^{\,n-2}$; it is $1$ for
+$n=1$ and $2$ for $n=2$. That is, \eqref{eq:b} holds.
+\end{proposition}
 
 \begin{proof}
-Every operation in \eqref{eq:B} and \eqref{eq:rec} is a sum or product of integers, so
-reduction modulo $k$ is a ring homomorphism carrying the integer recursion to the same
-recursion over $\mathbb{Z}/k\mathbb{Z}$. That recursion has a unique solution, by the argument of
-Lemma~\ref{lem:unique} verbatim; both $a\bmod k$ and $\bar A$ solve it.
+The group $\bigl(\mathbb{Z}/2^{n}\mathbb{Z}\bigr)^{\times}$ has order $2^{\,n-1}$, so the
+order of $3$ divides $2^{\,n-1}$ and is therefore $2^{k}$ for some $k\ge0$; it is the
+least such $k$ with $2^{n}\mid 3^{2^{k}}-1$, that is, with $v_2\bigl(3^{2^{k}}-1\bigr)\ge n$.
+
+Let $n\ge3$. By Lemma~\ref{lem:val} the condition reads $k+2\ge n$ for $k\ge1$, and for
+$k=0$ it reads $v_2(2)=1\ge n$, which fails. The least admissible $k$ is thus $n-2$, which
+is $\ge1$ exactly because $n\ge3$. Hence the order is $2^{\,n-2}$.
+
+For $n=1$, $3\equiv1\pmod2$ and the order is $1$. For $n=2$, $3\equiv3\pmod4$ and
+$3^{2}=9\equiv1$, so the order is $2$.
 \end{proof}
 
-\section{The reduction modulo $8$}
+\section{The proof}
 
-Everything now happens in $(\mathbb{Z}/8\mathbb{Z})[[x]]$. The one fact that drives the proof is
-\begin{equation}\label{eq:minus}
-7\;\equiv\;-1 \pmod{8} .
-\end{equation}
-
-\begin{theorem}\label{thm:main}
-$a(n)\equiv1\pmod{8}$ for every $n\ge1$. This is the conjecture of Section~1.
+\begin{theorem}
+For every integer $n\ge0$, $a(n)=b(2n+2)$, where $a$ is OEIS A155543 and $b$ is OEIS
+A090129. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-Let $\bar A(x)=\dfrac{x}{1-x}=\sum_{n\ge1}x^{n}$ in $(\mathbb{Z}/8\mathbb{Z})[[x]]$, so all its
-coefficients are $1$ and $\bar A(x)=x+O(x^{2})$. By Corollary~\ref{cor:mod} it suffices to
-check that $\bar A$ satisfies \eqref{eq:fe} modulo $8$.
+Take $n\ge1$. Then $2n+2\ge4\ge3$, so Proposition~\ref{prop:ord} gives
+\[
+b(2n+2)\;=\;2^{\,(2n+2)-2}\;=\;2^{2n}\;=\;4^{n},
+\]
+which is $a(n)$ by \eqref{eq:a}.
 
-Form $\bar B$ from $\bar A$ by \eqref{eq:B}. Its coefficients are
-$\bigl[x^{n+1}\bigr]\bar B=-7^{\,n-1}$, and by \eqref{eq:minus}
-$7^{\,n-1}\equiv(-1)^{n-1}$, so
-\[
-\bar B(x)\;=\;x-\sum_{n\ge1}(-1)^{n-1}x^{n+1}
-\;=\;x-x\sum_{n\ge1}(-1)^{n-1}x^{n}
-\;=\;x-x\cdot\frac{x}{1+x}
-\;=\;\frac{x}{1+x} .
-\]
-Composing,
-\[
-\bar A\bigl(\bar B(x)\bigr)\;=\;\frac{\dfrac{x}{1+x}}{1-\dfrac{x}{1+x}}
-\;=\;\frac{\dfrac{x}{1+x}}{\dfrac{(1+x)-x}{1+x}}
-\;=\;\frac{x}{1+x}\cdot\frac{1+x}{1}\;=\;x .
-\]
-Both compositions are legitimate because $\bar B(x)=x+O(x^{2})$ has zero constant term.
-So $\bar A$ satisfies \eqref{eq:fe} modulo $8$, and Corollary~\ref{cor:mod} gives
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A=1\pmod{8}$ for every $n\ge1$.
+For $n=0$ the index is $2n+2=2$, and Proposition~\ref{prop:ord} gives $b(2)=2$, while \eqref{eq:a}
+gives $a(0)=2$. The two agree, so the identity holds at $n=0$ as well.
 \end{proof}
 
-\begin{remark}
-The proof used nothing about $7$ beyond \eqref{eq:minus}. The same argument shows that
-for every integer $m\ge2$, the sequence defined by $A\bigl(x-xA(mx)/m\bigr)=x$ has all of
-its terms congruent to $1$ modulo $m+1$. Note also where the hypothesis bites: modulo $k$
-the quantity $7^{\,n-1}$ must be $(-1)^{n-1}$ for the telescoping above, and that is
-exactly \eqref{eq:minus}.
-\end{remark}
+\begin{corollary}
+For every $n\ge1$ the multiplicative order of $3$ modulo $2^{2n+2}$ is $4^{n}$.
+\end{corollary}
+
+\begin{proof}
+Immediate from the theorem and the definition of A090129, together with \eqref{eq:a}.
+\end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion \eqref{eq:rec} was run in exact integer arithmetic and its output
-compared against the entry's DATA at every one of the $13$ published indices; the
-values agree exactly. A recursion that reproduced only some of them would mean the
-functional equation had been transcribed wrongly.
+First, the generating function of A155543 was expanded in exact rational arithmetic and
+compared against every one of the $24$ published terms; the values agree exactly. A
+generating function that reproduced only some of them would not have been used.
 
-Second, the same run was continued to $n=24$ and every term reduced modulo $8$; all
-$24$ residues are $1$, as Theorem~\ref{thm:main} requires.
+Second, formula \eqref{eq:b} was evaluated and compared against every one of the
+$36$ published terms of A090129; the values agree exactly. Independently, the order
+of $3$ modulo $2^{n}$ was computed directly by repeated squaring for every $n$ in that
+range and matched the same values, so the closed form was not taken on trust; and
+Lemma~\ref{lem:val} was checked by computing $v_2\bigl(3^{2^{k}}-1\bigr)$ exactly for
+$k\le12$, giving $3,4,5,\dots,14$ as the lemma requires.
 
-Third, the composition $\bar A\bigl(\bar B(x)\bigr)$ of the proof was carried out
-independently as a formal power series over $\mathbb{Z}/8\mathbb{Z}$, coefficient by
-coefficient to order $30$, starting from $\bar a(n)=1$ rather than from the closed form;
-the result is $x$ exactly, and the computed $\bar B$ agrees with $x/(1+x)$ at every one of
-those orders.
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+either formula: for every $n$ from $0$ to $17$ --- the range for which both $a(n)$ and
+$b(2n+2)$ are published --- the two integers agree.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A393859.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
 \bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
 Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

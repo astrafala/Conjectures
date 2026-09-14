@@ -12,65 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187851, proved from an exact model}
+\title{The empirical recurrence for OEIS A267052, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187851 carries an empirical recurrence of order $3$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a finite sum over walk shapes of the ways each fits the board, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
+OEIS A267052 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified block template for the automaton's row read as a numeral, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved: the objects counted are walks, but the count is a finite sum over their shapes and not a walk count in any digraph.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A187851 is ``Number of 3-step king-knight's tours (piece capable of both kinds of moves) on an n X n board summed over all starting positions.''. It has offset $1$ and begins
+OEIS A267052 is ``Decimal representation of the n-th iteration of the "Rule 92" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-0, 24, 304, 1056, 2312, 4048, 6264, 8960,\ \dots
+1, 3, 7, 11, 23, 43, 87, 171,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 240*n\^{}2 - 904*n + 832 for n>3. a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3) for n>6.
+Conjectures from \_Colin Barker\_, Jan 10 2016 and Apr 17 2019: (Start) a(n) = 2*a(n-1)+a(n-2)-2*a(n-3) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 26 2018 08:38:59, revision 12)
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:29, revision 22)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a sum over a FIXED set of shapes}
+\section{The value is a certified block template}
 
-The number of steps is fixed at $3$ cells, hence $2$ moves, and it is the BOARD
-that grows. So the walks themselves do not depend on $n$ at all. Let $M$ be the $16$
-vectors the piece may move by, read from the entry's own words, and call two walks the same
-SHAPE when one is a translate of the other. There are exactly $240$ shapes: self-avoiding
-sequences of $3$ distinct cells in $\mathbf{Z}^{2}$ with each consecutive difference in
-$M$, counted up to translation, which a finite search enumerates once and for all.
-
-A shape occupies a bounding box with sides $(w_1,\dots,w_{2})$, the range of its cells in each
-coordinate. Placing it on a board of side $n$ means choosing where that box sits, and the
-choices in the coordinates are independent, so the shape occurs in exactly
-$\prod_{i}\max(0,\,n-w_i)$ positions and in no others. Distinct pairs (starting cell,
-walk) are exactly distinct pairs (shape, placement) --- a walk determines its shape and its
-translation, and conversely --- so, with $N_w$ the number of shapes of bounding box $w$,
+The entry reads the automaton's row at stage $n$ as a string of digits and takes its value in
+base $B$. Nothing is being counted, so there is no digraph. The row does not grow only at its
+two ends --- for these rules it gains digits in the MIDDLE of a periodic run --- so the shape
+$w(n+p)=L_r+w(n)+R_r$ is unavailable. What holds instead is a block template: writing $r$ for
+the residue of $n$ modulo the period $p$ and $j$ for the number of periods past a pre-period
+$n_0$,
 \[
-a(n)\;=\;\sum_{w} N_w \prod_{i=1}^{2}\max\bigl(0,\ n-w_i\bigr).
+w(n_0 + r + jp)\;=\;B_0\,Q_1^{\,j}\,B_1\cdots Q_m^{\,j}\,B_m,
 \]
-This is exact for every $n$, not asymptotic, and it is not a walk count in any digraph: there is
-no transfer matrix here and no window.
+with the fixed blocks $B_i$ and the repeated blocks $Q_i$ depending only on $r$. This was
+verified for every available $n$, and it is a theorem rather than a fit: the rule is a local
+map of radius $1$, so $p$ steps have radius $p$; the $p$-step map was checked by direct
+simulation at two consecutive $j$ whose repeated runs are longer than $4p+4|Q_i|$, and for a
+larger $j$ the template only inserts further copies of each $Q_i$ inside runs already longer
+than $2p$. An output cell near either end sees only input cells the two configurations share
+at the same distance from that end, and strictly inside a long run the input is
+$|Q_i|$-periodic so the output is too, with period and phase fixed by the two verified steps.
+Hence the template propagates to every $j$.
+
+For this entry the automaton is rule 92, the period is $p=2$ and the pre-period is $n_0=1$.
+The certificate is
+\begin{gather*}
+r=0:\quad \texttt{00}^{\,j} \cdot \texttt{0} \cdot \texttt{10}^{\,j} \cdot \texttt{11} \\
+r=1:\quad \texttt{00}^{\,j} \cdot \texttt{0} \cdot \texttt{01}^{\,j} \cdot \texttt{0111}
+\end{gather*}
 
 \section{The bound}
 
-Write $w^\ast$ for the largest bounding-box side over all $240$ shapes. Once $n\ge w^\ast$
-every factor above is nonnegative, so the truncation does nothing and
-$a(n)=\sum_w N_w\prod_i(n-w_i)$, a polynomial in $n$ of degree $2$. Hence $(z-1)^{3}$
-annihilates $a$ from $n=4$ onwards, and the annihilator in force on the whole sequence is
-$z^{5}(z-1)^{3}$, monic of order $S=8$. Both numbers are read off the enumerated
-shapes; neither is assumed. The model was then asked for terms beyond those the entry publishes
-and reproduced the published ones exactly.
+The row is the light cone, of width $2n+1$, so $\sum_i|Q_i|=2p$. Write $s_i$ for the number of
+digits to the right of the $i$-th repeated run, so $s_1=2p$. Concatenation is multiplication by
+a power of $B$ and addition, and $v(Q_i^{\,j})=v(Q_i)(B^{|Q_i|j}-1)/(B^{|Q_i|}-1)$, so along a
+residue class
+\[
+a(j)\;=\;\sum_i \big(\alpha_i B^{s_i j} + \beta_i\big) + \gamma,
+\]
+a $\mathbf{Z}$-linear combination of $B^{s_1 j},\dots,B^{s_m j}$ and $1$ with coefficients that
+do not depend on $j$. In the shift $T=S^{\,p}$ that is annihilated by
+$\prod_i(T-B^{s_i})(T-1)$. Taking the DISTINCT roots that occur across the $p$ residue classes,
+pulling each back to $z^p-\lambda$, and allowing the pre-period to raise the numerator's degree
+gives the monic annihilator of order $S=9$ used below.
 
 \section{The proof}
 
@@ -90,23 +103,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
+a(n)\;=\;2\,a(n-1) + a(n-2) - 2\,a(n-3)
 \]
-for every $n>6$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=6+1$ onwards, and the run exceeds $S+3$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $34$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -119,7 +132,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187851.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267052.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

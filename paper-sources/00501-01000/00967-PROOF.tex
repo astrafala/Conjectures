@@ -12,71 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A396797 modulo $6$}
+\title{The reduction of OEIS A378575 modulo $4$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A396797 is defined by a functional equation for its ordinary generating function and
-carries a congruence conjectures of P.~D.~Hanna. It is true. The equation determines the
-coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
-them modulo $6$ as well; and modulo $6$ the series $x/(1-x)$ satisfies the equation
-exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
-denominators collapses. Uniqueness then identifies the reduction, which is the conjectures.
-The whole argument is an identity between rational functions over
-$\mathbb{Z}/6\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A378575 is defined by the functional equation $A(x)=x+x\,A^{5}(x)$, where
+$A^{5}$ is the $5$-th compositional iterate, and carries a conjecture of
+P.~D.~Hanna that $a(n)\equiv1\pmod{4}$ for every $n\ge1$. It is true. The equation determines the coefficients one at a
+time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $4$ as
+well. Modulo $4$ the series $x/(1-x)$ satisfies the equation exactly, because its
+iterates are $x/(1-jx)$ and $5\equiv1$ modulo $4$. Uniqueness then identifies the
+reduction. The argument is an identity between rational functions over
+$\mathbb{Z}/4\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A396797 is ``G.f. satisfies A(x) = x + A\^{}3(x)*A\^{}4(x).''. It has offset $1$ and begins
+OEIS A378575 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(A(A(x))))), so that this sequence shifts left under the 5th self-COMPOSE.''. It has offset $1$ and begins
 \[
-1, 1, 7, 79, 1135, 18985,\ \dots
+1, 1, 5, 45, 545, 7945, 132005,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
 iterate of $A$, the entry defines $A$ by
 \begin{equation}\label{eq:fe}
-A(x)\;=\;x+A^{3}(x)\,A^{4}(x) .
+A(x)\;=\;x+x\,A^{5}(x).
 \end{equation}
 This is the only input taken from the entry.
 
-The entry separately carries the following comments:
+The entry separately carries the following comment:
 \begin{quote}\small
-Conjecture: a(n) = 1 (mod 6) for n >= 1.
-
-Conjecture: [x\^{}n] A\^{}k(x) == k\^{}(n-1) (mod 6) for n >= 1 and all integer k. --- \emph{Paul D. Hanna}
+Conjecture: a(n) == 1 (mod 4) for n >= 1. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 17 2026 00:54:04, revision 22) they are
-still recorded as conjectures, and nothing on the entry records
-them as settled either way. 
+As of the ``Last modified'' line on the live entry (Jun 16 2026 04:32:30, revision 24) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
 \section{The equation determines the sequence}
 
 \begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
-$N\ge1$,
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
 \[
-\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
+\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
 \]
 \end{lemma}
 
 \begin{proof}
-Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
-and
+Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
+$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
 \[
-\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
+\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
 \]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
-contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
-to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
-$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
+contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
+$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
+terms in $a(1),\dots,a(N-1)$.
 \end{proof}
 
 \begin{lemma}\label{lem:unique}
@@ -86,11 +82,12 @@ $a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
 \end{lemma}
 
 \begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
-coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
-Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,3}A^{\,4}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,3}A^{\,4}\bigr)$ is a product of one coefficient of $A^{\,3}$ and one of $A^{\,4}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
-Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
-$\mathbb{Z}$, and induction gives existence and uniqueness.
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{5}(x)$ has
+no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
+$\bigl[x^{N}\bigr]\bigl(x\,A^{5}\bigr)=\bigl[x^{N-1}\bigr]A^{5}$, which by
+Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
+order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
+induction gives existence and uniqueness.
 \end{proof}
 
 \begin{corollary}\label{cor:mod}
@@ -101,78 +98,61 @@ $a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
 
 \begin{proof}
 Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
-a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
+solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
 \end{proof}
 
-\section{The reduction modulo $6$}
+\section{The reduction modulo $4$}
 
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/6\mathbb{Z}$.
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/4\mathbb{Z}$.
 
 \begin{lemma}\label{lem:iter}
-$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
-$j$, where $f^{-1}$ denotes the compositional inverse.
+$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
 \end{lemma}
 
 \begin{proof}
-For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
+True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
 \[
-f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
-=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
-=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
+f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
+=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
+=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
 \]
-The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
-composition, which also gives the statement for $j\le0$; in particular
-$f^{-1}(x)=x/(1+x)$.
 \end{proof}
 
 \begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/6\mathbb{Z}$, $f$ satisfies $f=x+f^{\,3}f^{\,4}$.
+Over $\mathbb{Z}/4\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{5}(x)$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:iter}, $f^{\,3}f^{\,4}
-=\dfrac{x^{2}}{(1-3x)\bigl(1-4x\bigr)}$, while
-$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
-$(1-3x)(1-4x)$ and $1-x$ agree in $(\mathbb{Z}/6\mathbb{Z})[x]$. Expanding,
+By Lemma~\ref{lem:iter}, $f^{5}(x)=\dfrac{x}{1-5x}$. Since $5\equiv1$ modulo
+$4$ --- this is the whole content of the choice of modulus, as $4=5-1$ --- we have
+$1-5x=1-x$ in $(\mathbb{Z}/4\mathbb{Z})[x]$, so $f^{5}(x)=\dfrac{x}{1-x}$.
+Therefore
 \[
-(1-3x)\bigl(1-4x\bigr)=1-7x+12x^{2} ,
+x+x\,f^{5}(x)=x+\frac{x^{2}}{1-x}
+=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
 \]
-and modulo $6$ we have $7\equiv1$ and $12\equiv0$. Hence both sides equal
-$1-x$, and the two rational functions agree.
 \end{proof}
 
-
 \begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/6\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
-$a(n)\equiv1\pmod{6}$ for every $n\ge1$, and more generally
-\[
-\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{6}
-\]
-for every $n\ge1$ and every integer $j$. This is the conjectures of Section~1.
+Over $\mathbb{Z}/4\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
+$a(n)\equiv1\pmod{4}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
-By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
-$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
-
-Reduction modulo $6$ carries composition of power series with unit linear coefficient to
-composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
-because $A$ has linear coefficient $1$, hence is invertible under composition, and the
-reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
-$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
+By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
+$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
+coefficient of which is $1$.
 \end{proof}
 
 \begin{remark}
-The proof used only that $(1-3x)(1-4x)\equiv1-x$ modulo $6$, that is, that
-$6$ divides both $2\cdot3$ and $3\cdot4$. The largest modulus with that property
-is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
-$p=3$ gives $6$. This is exactly why the statement is made modulo $6$ and not modulo
-a larger number.
+The proof used only $5\equiv1$ modulo $4$. The same argument shows that for every
+$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
+$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
+$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
+reduced equation and this route says nothing modulo $m$.
 \end{remark}
-
 
 \section{Verification}
 
@@ -185,18 +165,17 @@ only some of them would mean the functional equation had been transcribed wrongl
 
 Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
 evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
-continued to $n=24$ and every term reduced modulo $6$; all residues are
-$1$.
+out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The run was continued
+to $n=24$ and every term reduced modulo $4$; all residues are $1$.
 
-Third, the composition of the proof was carried out independently as a formal power series
-over $\mathbb{Z}/6\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
-iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
+Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
+$\mathbb{Z}/4\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
+were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A396797.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A378575.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
 University Press, 1999.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

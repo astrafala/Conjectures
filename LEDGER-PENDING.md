@@ -840,3 +840,35 @@ all 33 names at once. The walk already gave 0 and the special case was the error
 
 **33 names read, every one reproducing its entry's published data exactly; 19 open and
 installed.**
+
+## 14 September 2026 — `triangsq`: a Pell equation in disguise, and why the order is 5
+
+    Indices k such that 6 plus the k-th triangular number is a perfect square.
+
+Seventeen entries, none read, and the first result here that is number theory rather than a
+transfer matrix. k(k+1)/2 + c is a square exactly when eight times it is, and completing the
+square gives
+
+    (2k+1)^2 - 2(2m)^2 = 1 - 8c,
+
+so with X = 2k+1 and Y = 2m the admissible k are the solutions of X^2 - 2Y^2 = N, X odd
+positive and Y even nonnegative. The form's automorph from the unit 3 + 2*sqrt(2) is
+T(X,Y) = (3X+4Y, 2X+3Y); every solution is T^j of a FUNDAMENTAL one, whose preimage leaves the
+region, and there are finitely many of those — r of them, found by a search that is CHECKED
+rather than bounded by a quoted theorem: run to a limit, re-run to four times the limit, and the
+engine refuses unless the two agree.
+
+The bound comes from one observation. On X >= 1, Y >= 0 we have Y = sqrt((X^2-N)/2), increasing
+in X, so T(X) = 3X + 4Y is strictly increasing: **T preserves the order of solutions**. Hence
+once the sorted list has its (n+r)-th entry equal to T of its n-th for r consecutive n, it does
+for ever, and the r orbits interleave in a fixed cyclic order from there. Within an orbit
+X_{j+2} = 6X_{j+1} - X_j, so k_{j+2} = 6k_{j+1} - k_j + 2, and therefore
+
+    a(n + 2r) = 6 a(n + r) - a(n) + 2,
+
+annihilator (z-1)(z^{2r} - 6 z^r + 1) of degree 2r+1. Sixteen of the seventeen have r = 2, which
+is the order-5 recurrence every one of them conjectures; A154145 has r = 4 and conjectures the
+order-9 one. The number the entries could only observe is the number of fundamental solutions.
+
+**17 names read, every one reproducing its entry's published data exactly; 10 open and
+installed.**

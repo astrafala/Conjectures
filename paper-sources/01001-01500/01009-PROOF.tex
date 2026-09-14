@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A236798}
+\title{Recovering the unwritten recurrences of the table OEIS A236746}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236798 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 38]'' and the like --- with the
+OEIS A236746 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 18]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,23 +28,24 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+that polynomial. This note settles column 2, column 3, column 4.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A236798 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the maximum plus the upper median plus the minimum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A236746 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the upper median plus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-81, 255, 255, 825, 1231, 825, 2817, 6217,\ \dots
+81, 267, 267, 833, 1411, 833, 2907, 7377,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 38]\\
-k=3: [order 83]
+k=2: [order 18]\\
+k=3: [order 38]\\
+k=4: [order 86]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:33:56, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:31:42, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -67,26 +68,42 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=78$ vertices. Berlekamp--Massey on $2S=156$ exact terms
+count, a walk on $S=93$ vertices. Berlekamp--Massey on $2S=186$ exact terms
+returns a minimal recurrence of order $18$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $17$ & $c_{6}$ & $-14868$ & $c_{11}$ & $473554$ & $c_{16}$ & $-171072$ \\
+$c_{2}$ & $-78$ & $c_{7}$ & $37484$ & $c_{12}$ & $-502900$ & $c_{17}$ & $157120$ \\
+$c_{3}$ & $-142$ & $c_{8}$ & $39431$ & $c_{13}$ & $-310088$ & $c_{18}$ & $-32640$ \\
+$c_{4}$ & $1902$ & $c_{9}$ & $-204023$ & $c_{14}$ & $766120$ &  &  \\
+$c_{5}$ & $-2258$ & $c_{10}$ & $60026$ & $c_{15}$ & $-297584$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{18}c_i\,a(m-i)$ for every $m$. Removing the first
+$18+4$ terms and repeating gives order $18$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=3$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=243$ vertices. Berlekamp--Massey on $2S=486$ exact terms
 returns a minimal recurrence of order $38$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{38})=(15,\ -9,\ -880,\ 3426,\ 18155,\ -121505,\ -115924,\ 2003052,\ -1313613,\ -18570720,\ 30811261,\ 100624740,\ -269758235,\ -288602304,\ 1357891776,\ 124420915,\ -4267235783,\ 2172222593,\ 8388777279,\ -8441776674,\ -9593628558,\ 15912829245,\ 4511594574,\ -17273359586,\ 2518712071,\ 10814653852,\ -4621110462,\ -3640874304,\ 2541569180,\ 539526448,\ -683839304,\ 5712224,\ 95082784,\ -11026368,\ -6334080,\ 1095936,\ 148480,\ -29696).
+(c_1,\dots,c_{38})=(29,\ -236,\ -530,\ 16058,\ -44099,\ -359428,\ 2037666,\ 2641959,\ -38207537,\ 26566108,\ 394980672,\ -749280468,\ -2366139159,\ 7499380996,\ 7313304008,\ -43398468452,\ -1170978370,\ 160201297848,\ -83692886880,\ -390363727264,\ 354528700808,\ 637126357152,\ -786883396000,\ -700593013632,\ 1098115601088,\ 520503186176,\ -1014936927488,\ -264788255744,\ 628983984128,\ 97800536064,\ -257790742528,\ -29839360000,\ 66734374912,\ 7884767232,\ -9802874880,\ -1429733376,\ 613416960,\ 113246208).
 \]
 so that $a(m)=\sum_{i=1}^{38}c_i\,a(m-i)$ for every $m$. Removing the first
 $38+4$ terms and repeating gives order $38$ again, which is what the
 identification below needs.
 
-\subsection*{Column $k=3$}
+\subsection*{Column $k=4$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=190$ vertices. Berlekamp--Massey on $2S=380$ exact terms
-returns a minimal recurrence of order $83$ --- the order the entry states --- with
+count, a walk on $S=657$ vertices. Berlekamp--Massey on $2S=1314$ exact terms
+returns a minimal recurrence of order $86$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{83})=(17,\ 149,\ -3822,\ -5099,\ 385130,\ -470186,\ -23210949,\ 60570417,\ 940504129,\ -3379677366,\ -27246699520,\ 121431917218,\ 584194818792,\ -3139393787896,\ -9425097731306,\ 61598162124697,\ 114219500453427,\ -946862834116793,\ -1004826003316698,\ 11646036448147900,\ 5571787380506985,\ -116340952161916838,\ -3272779809783538,\ 954302011875230349,\ -320548644721837094,\ -6478914470291856511,\ 4170768349052004296,\ 36612702131063326183,\ -33574882254880366927,\ -172831891596991986931,\ 202795687958598677053,\ 682536774766893321784,\ -975834084459192238409,\ -2252938899441608549659,\ 3843391626158026393232,\ 6190401975549878168591,\ -12570611244671849135022,\ -14030566709588819286664,\ 34427622778574228358699,\ 25747525903434993537460,\ -79324604036960951397983,\ -36717985022501057720706,\ 154113240952271945038052,\ 36243384479322799503009,\ -252558759358735794910697,\ -12090990432014794852664,\ 348668526245119369378700,\ -38616999797218798816301,\ -404308939215042828075753,\ 100905470905950208406915,\ 391915280100857250940160,\ -147383978379028506438470,\ -315346851989417002084179,\ 156919130648950916587258,\ 208477619911831767937308,\ -129927927510832504586596,\ -111524272768219126399088,\ 85511507912413637949661,\ 47101637328217152670628,\ -44993104485233133278692,\ -15004974889836196172242,\ 18870811452105240611561,\ 3225918607639655186313,\ -6248749870809523853017,\ -270423641206479033614,\ 1606626900177725739510,\ -100322171731125546752,\ -312327302479984987304,\ 48944503662932084704,\ 43923239357947742776,\ -11082174452615009040,\ -4104648227612050704,\ 1549756930847606688,\ 201467058895942272,\ -135201595488903808,\ 1500409585375488,\ 6675049646263808,\ -747982718679040,\ -133709763618816,\ 30756323024896,\ -785080713216,\ -215328096256,\ 14144765952).
+(c_1,\dots,c_{86})=(56,\ -971,\ -152,\ 190873,\ -1661887,\ -10009206,\ 213828146,\ -312175856,\ -12610205483,\ 66713398446,\ 384188036780,\ -4069754544077,\ -2970246585544,\ 145450214494923,\ -260085066899947,\ -3389529900369997,\ 13437100535257914,\ 49901573197783878,\ -364155800303484757,\ -309048914527576159,\ 6693706416724637849,\ -5293405206431529293,\ -88446472645102617151,\ 189703042852733857249,\ 832480918929966534951,\ -3147931526385388195938,\ -4982867947477027772269,\ 35744713444977948535612,\ 6602349093447677536009,\ -301209810911293867384168,\ 238699555746690517592636,\ 1917867056603366392212474,\ -3250879857566599449169865,\ -9021390986329552113938280,\ 25702420173974928592296374,\ 28130870271634328062490137,\ -147062988088131091098368746,\ -26482957345743932638765509,\ 645125392261628761703284995,\ -304952979906921662062790849,\ -2202780261306128925726760480,\ 2329867427067214688914531910,\ 5787794445026478112504831387,\ -10041438664471031213750311635,\ -11078842104635443948380076365,\ 31468475919075686426485822419,\ 12354722441315253154852427645,\ -76519317526070181580388021284,\ 6133192123440808923868375827,\ 147531434786839346425260796567,\ -67607820835288691508451652323,\ -225963172752204105161432620551,\ 185450411753089956307334138380,\ 270558574911593990653527754082,\ -338725158984611952959386745108,\ -241102032962494027581075625768,\ 467511584304256743355102024856,\ 135477959681789037882763204724,\ -507016704763296591995520520240,\ -1807913563854425524833517816,\ 437526343153511336076569994464,\ -95174312359171190384206308032,\ -300348193561033103745352744768,\ 123182847888821401799137972864,\ 162396678032868024066180336384,\ -97810180468021909967610445824,\ -67701854391562253369639063552,\ 56163127676633147343642025984,\ 20872466437286802216809275392,\ -24342881261878518215026139136,\ -4318515969671209454095187968,\ 8050283096077472683816943616,\ 403752404210830088816361472,\ -2025583667668892646967345152,\ 70664439126020602398769152,\ 383578725086594313962913792,\ -34184188020431730845417472,\ -53678080702240805156290560,\ 6310719444052906113761280,\ 5392813591250939456520192,\ -657097221731299268493312,\ -369941503469134156922880,\ 37829871798266458275840,\ 15652394185300063027200,\ -940704535119554150400,\ -311136828310683648000).
 \]
-so that $a(m)=\sum_{i=1}^{83}c_i\,a(m-i)$ for every $m$. Removing the first
-$83+4$ terms and repeating gives order $83$ again, which is what the
+so that $a(m)=\sum_{i=1}^{86}c_i\,a(m-i)$ for every $m$. Removing the first
+$86+4$ terms and repeating gives order $86$ again, which is what the
 identification below needs.
 
 \begin{theorem}
@@ -122,7 +139,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236798.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236746.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A303626, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A188609, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A303626 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A188609 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $43$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
@@ -34,36 +34,36 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A303626 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 2, 3, 4, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A188609 is ``Number of 4 X n binary arrays without the pattern 1 1 0 diagonally, vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
 \[
-8, 3, 148, 325, 3591, 19467, 160807, 1173612,\ \dots
+12, 144, 883, 4914, 26723, 140617, 721597, 3648942,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 16*a(n-1) -39*a(n-2) -486*a(n-3) +2076*a(n-4) +6509*a(n-5) -36557*a(n-6) -51456*a(n-7) +351943*a(n-8) +315012*a(n-9) -2226007*a(n-10) -1747803*a(n-11) +10471115*a(n-12) +7461453*a(n-13) -38373678*a(n-14) -20050380*a(n-15) +107152786*a(n-16) +28648842*a(n-17) -222622519*a(n-18) -3530085*a(n-19) +339517313*a(n-20) -76201625*a(n-21) -361639017*a(n-22) +183843854*a(n-23) +214443094*a(n-24) -255187688*a(n-25) +57118500*a(n-26) +258024061*a(n-27) -306102478*a(n-28) -223408872*a(n-29) +409718455*a(n-30) +187726094*a(n-31) -344439874*a(n-32) -146637084*a(n-33) +189433554*a(n-34) +89003404*a(n-35) -61685576*a(n-36) -35202400*a(n-37) +8565840*a(n-38) +7517168*a(n-39) +603968*a(n-40) -519744*a(n-41) -231936*a(n-42) -40960*a(n-43) for n>44
+Empirical: a(n) = 7*a(n-1) + 21*a(n-2) - 204*a(n-3) - 173*a(n-4) + 2511*a(n-5) + 968*a(n-6) - 16924*a(n-7) - 7305*a(n-8) + 66761*a(n-9) + 54645*a(n-10) - 143677*a(n-11) - 256857*a(n-12) + 68263*a(n-13) + 687548*a(n-14) + 523337*a(n-15) - 912372*a(n-16) - 1629031*a(n-17) + 15630*a(n-18) + 2223883*a(n-19) + 1882654*a(n-20) - 1146529*a(n-21) - 2882783*a(n-22) - 899121*a(n-23) + 1832939*a(n-24) + 1848965*a(n-25) - 159860*a(n-26) - 1209333*a(n-27) - 505167*a(n-28) + 332928*a(n-29) + 341728*a(n-30) - 17599*a(n-31) - 115526*a(n-32) - 10956*a(n-33) + 28972*a(n-34) + 12641*a(n-35) - 5903*a(n-36) - 6775*a(n-37) + 1312*a(n-38) + 688*a(n-39) - 554*a(n-40) + 201*a(n-41) + 84*a(n-42) - 36*a(n-43) for n>46.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2018 09:57:10, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 22 2025 18:55:34, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;16\,a(n-1) - 39\,a(n-2) - 486\,a(n-3) + 2076\,a(n-4) + 6509\,a(n-5) - 36557\,a(n-6) - 51456\,a(n-7) + 351943\,a(n-8) + 315012\,a(n-9) - 2226007\,a(n-10) - 1747803\,a(n-11) + 10471115\,a(n-12) + 7461453\,a(n-13) - 38373678\,a(n-14) - 20050380\,a(n-15) + 107152786\,a(n-16) + 28648842\,a(n-17) - 222622519\,a(n-18) - 3530085\,a(n-19) + 339517313\,a(n-20) - 76201625\,a(n-21) - 361639017\,a(n-22) + 183843854\,a(n-23) + 214443094\,a(n-24) - 255187688\,a(n-25) + 57118500\,a(n-26) + 258024061\,a(n-27) - 306102478\,a(n-28) - 223408872\,a(n-29) + 409718455\,a(n-30) + 187726094\,a(n-31) - 344439874\,a(n-32) - 146637084\,a(n-33) + 189433554\,a(n-34) + 89003404\,a(n-35) - 61685576\,a(n-36) - 35202400\,a(n-37) + 8565840\,a(n-38) + 7517168\,a(n-39) + 603968\,a(n-40) - 519744\,a(n-41) - 231936\,a(n-42) - 40960\,a(n-43)
+a(n)\;=\;7\,a(n-1) + 21\,a(n-2) - 204\,a(n-3) - 173\,a(n-4) + 2511\,a(n-5) + 968\,a(n-6) - 16924\,a(n-7) - 7305\,a(n-8) + 66761\,a(n-9) + 54645\,a(n-10) - 143677\,a(n-11) - 256857\,a(n-12) + 68263\,a(n-13) + 687548\,a(n-14) + 523337\,a(n-15) - 912372\,a(n-16) - 1629031\,a(n-17) + 15630\,a(n-18) + 2223883\,a(n-19) + 1882654\,a(n-20) - 1146529\,a(n-21) - 2882783\,a(n-22) - 899121\,a(n-23) + 1832939\,a(n-24) + 1848965\,a(n-25) - 159860\,a(n-26) - 1209333\,a(n-27) - 505167\,a(n-28) + 332928\,a(n-29) + 341728\,a(n-30) - 17599\,a(n-31) - 115526\,a(n-32) - 10956\,a(n-33) + 28972\,a(n-34) + 12641\,a(n-35) - 5903\,a(n-36) - 6775\,a(n-37) + 1312\,a(n-38) + 688\,a(n-39) - 554\,a(n-40) + 201\,a(n-41) + 84\,a(n-42) - 36\,a(n-43)
 \end{equation}
-for all $n>44$.
+for all $n>46$.
 
 \section{The condition, and why one column is not enough}
 
 The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
 column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (1,-1),\ (-1,1)\},
+\mathcal N=\{(1,1),\ (0,1),\ (-1,1),\ (1,0)\},
 \]
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,2,3,4,5,6\}
+\text{no }1,1,0\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive column shift and some a negative one, so the
 condition at a cell of column $t$ involves columns $t-1$, $t$ and $t+1$ together. A transfer
@@ -78,7 +78,7 @@ $\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,
 when every cell of the middle column $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first column $p$
-satisfies \eqref{eq:loc} with no column above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no column above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second column $c$ satisfies it with no column below.
 
 \begin{lemma}\label{lem:walk}
@@ -137,7 +137,7 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>44$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>46$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -146,7 +146,7 @@ The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pair
 of the $(1+1)^{4}$ possible next columns, the condition was tested on every cell of
 the middle column. The vector $w$ was formed by $43$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=44+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=46+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A303626.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188609.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

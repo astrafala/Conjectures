@@ -8,114 +8,124 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A208545}
+
+\title{The cross-base identity for OEIS A126546, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
-a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
-the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
-same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $5$ whose leading coefficient does not vanish, together with $5$
-consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
-is checked numerically and then assumed: the recurrence is derived symbolically, the
-verification is an exact identity, and the finitely many indices where the leading
-coefficient vanishes are computed rather than waved at.
+OEIS A126546 carries an empirical identity, in two clauses, relating its counts to those of the
+entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
+here, with no computation in the argument. The difference between consecutive bases counts the
+admissible strings that USE the new largest digit; those are the translates of the
+translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
+the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
+one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
+is the entry's own $-2$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
 
-\section{The sequence, what is known, and what is conjectured}
+\section{The conjecture}
 
-OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
+OEIS A126546 is ``Number of base 25 n-digit numbers with adjacent digits differing by five or less.''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
+1, 25, 245, 2475, 25255, 259127, 2667039, 27499769,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
+The entry states, as an empirical claim and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1) for base>=5n-4; a(base,n)=a(base-1,n)+11\textasciicircum{}(n-1)-2 when base=5n-5
 \end{quote}
-and separately carries the comment
-\begin{quote}\small
-a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
-\end{quote}
-As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:18:33, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{A recurrence from what is known}
+For this entry the base is $25$ and the permitted difference is $d=5$, so the first clause
+claims $a_{25}(n)-a_{24}(n)=11^{\,n-1}$ whenever $5(n-1)+1\le25$, that is for
+$1\le n\le5$, and the second claims $a_{25}(n)-a_{24}(n)=11^{\,n-1}-2$ at the single
+$n$ with $5(n-1)=25$.
 
-The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
+\section{What the entry counts}
 
-\begin{equation}\label{eq:rec}
-\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
-\end{equation}
+A base-$b$ $n$-digit string in this family's sense is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
+is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
+$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
+arithmetic, $L_{5}$ at base $25$ reproduces all $18$ terms A126546 publishes.
 
-The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
-
-\section{The conjectured description satisfies it}
-
-The conjectured closed form is a sum of hypergeometric terms. Substituting it into \eqref{eq:rec} and grouping the summands into similarity classes -- two terms being similar when their quotient is a rational function of $n$ -- every class contributes a rational function of $n$, and each of those cancels to zero identically. Since pairwise dissimilar hypergeometric terms are linearly independent over $\mathbb{Q}(n)$, that is exactly the statement that the closed form satisfies \eqref{eq:rec}.
-
-\section{Uniqueness}
-
-\begin{lemma}\label{lem:unique}
-Let $\sum_{j=0}^{r}q_{j}(n)\,b(n+j)=0$ be a linear recurrence whose leading coefficient
-$q_{r}$ has no zero at any integer $n\ge n_{0}$. If two sequences both satisfy it for all
-$n\ge n_{0}$ and agree at the $r$ consecutive indices $n_{0},\dots,n_{0}+r-1$, they agree
-at every $n\ge n_{0}$.
-\end{lemma}
-
-\begin{proof}
-Induction. Suppose the two agree at $n_{0},\dots,m+r-1$ for some $m\ge n_{0}$. The
-recurrence at $n=m$ determines $b(m+r)$ from the preceding $r$ values, because $q_{r}(m)$
-is nonzero and may be divided by; both sequences therefore take the same value at $m+r$.
-\end{proof}
+\section{The identity}
 
 \begin{theorem}
-For all $n\ge 6$,
-\[
-a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
-\]
+Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
+\begin{enumerate}
+\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
+\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
-the entry's own a generating function, and the conjectured closed form by the computation of the
-previous section. They agree at the $5$ consecutive indices beginning
-$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge6$, so
-Lemma~\ref{lem:unique} applies.
+\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
+are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
+number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+
+\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
+$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
+freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
+representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
+which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
+Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
+representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
+$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+
+\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
+the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
+of range at most $b-1$ gives exactly one such string. Hence
+\[
+L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
+\]
+
+\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
+giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
+range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
+between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
+must use all $n-1$ of them in the same direction at full size. There are exactly two such step
+vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks, independent of one another.
+Three checks, each independent of the proof above.
 
-First, the description the entry states as fact was itself confirmed against the entry's
-DATA before any recurrence was derived from it; a statement that did not reproduce the
-entry's own terms would not have been used as the basis of anything.
+First, the model reproduces all $18$ terms A126546 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there.
 
-Second, the derived recurrence \eqref{eq:rec} was evaluated on the published terms in
-exact integer arithmetic and vanishes at every index where it applies.
+Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le5$, both sides computed from the definition and not from the theorem:
 
-Third, the conjectured closed form was evaluated at the first $13$ indices and
-compared term by term with the DATA; the values agree exactly. This is not part of the
-proof, which is symbolic, but it would catch a transcription error in either statement.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $L_{5}(25,n)$ & $L_{5}(24,n)$ & $11^{\,n-1}$ \\ \hline
+1 & 25 & 24 & 1 \\
+2 & 245 & 234 & 11 \\
+3 & 2475 & 2354 & 121 \\
+4 & 25255 & 23924 & 1331 \\
+5 & 259127 & 244486 & 14641 \\
+\end{tabular}
+\end{center}
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A208545.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-\end{thebibliography}
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=5$.
+
+Third, the second clause was evaluated at its own index. For this entry the second clause bites at $n=6$, where $b=25=5(n-1)$: there $L_{5}(25,6)-L_{5}(24,6)=161049$ and $11^{5}-2=161049$.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A126546}.
+\end{enumerate}
 
 \end{document}

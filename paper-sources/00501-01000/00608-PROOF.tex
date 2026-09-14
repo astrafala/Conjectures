@@ -12,149 +12,176 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A124707, proved}
+\title{The reduction of OEIS A091713 modulo $2$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A124707 carries an empirical identity relating its counts to those of the entry one base
-smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
-names, and that range is sharp. The proof is four steps and needs no computation: the
-difference between consecutive bases counts the admissible cyclic sequences that USE the new
-largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
-once the base is large enough those sequences are a translate of the admissible cyclic
-sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
-sequences summing to zero.
+OEIS A091713 is defined by the functional equation $A(x)=x+x\,A^{3}(x)$, where
+$A^{3}$ is the $3$-th compositional iterate, and carries a conjecture of
+P.~D.~Hanna that every term is odd. It is true. The equation determines the coefficients one at a
+time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $2$ as
+well. Modulo $2$ the series $x/(1-x)$ satisfies the equation exactly, because its
+iterates are $x/(1-jx)$ and $3\equiv1$ modulo $2$. Uniqueness then identifies the
+reduction. The argument is an identity between rational functions over
+$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A124707 is ``Number of base 14 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
+OEIS A091713 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(x))).''. It has offset $1$ and begins
 \[
-1, 14, 40, 92, 244, 644, 1750, 4802,\ \dots
+1, 1, 3, 15, 99, 781, 7001,\ \dots
 \]
-The entry states, as an empirical claim and never marked settled:
-\begin{quote}
-[Empirical] a(base,n) = a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A(x)\;=\;x+x\,A^{3}(x).
+\end{equation}
+This is the only input taken from the entry.
+
+The entry separately carries the following comment:
+\begin{quote}\small
+Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 10 2026 17:13:11, revision 23)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:47, revision 32) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
-stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
-entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A002426}(n+1)$, the $(n+1)$st term of OEIS A002426; that sequence is the central coefficient of $(1+x+\dots+x^{2})^{n}$ and its published terms agree with $F_{1}(n)$ term by term, which is the identification used here. For this entry
-the base is $14$ and the permitted difference is $d=1$, so the claim is that
+\section{The equation determines the sequence}
+
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
 \[
-a_{14}(n)-a_{13}(n)\;=\;F_{1}(n)
-\qquad\text{for every } n \text{ with } \lfloor n/2\rfloor+1\le14,
+\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
 \]
-that is, for $1\le n\le27$.
+\end{lemma}
 
-\section{What the entry counts}
-
-A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
-$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
-read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
-$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
-them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
-$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
-together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{1}$
-at base $14$ reproduces all $28$ terms A124707 publishes, and at base $13$ all the
-terms the entry one base smaller publishes.
-
-At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
-That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
-which is the range in which the entry's own data lives beyond its first term.
-
-\section{The identity}
-
-\begin{theorem}
-For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
+\begin{proof}
+Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
+$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
 \[
-T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
+\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
 \]
-where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
-polynomial. In particular $a_{14}(n)-a_{13}(n)=F_{1}(n)$ for $1\le n\le27$, which
-is the entry's claim.
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
+contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
+$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
+terms in $a(1),\dots,a(N-1)$.
+\end{proof}
+
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+\end{lemma}
+
+\begin{proof}
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{3}(x)$ has
+no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
+$\bigl[x^{N}\bigr]\bigl(x\,A^{3}\bigr)=\bigl[x^{N-1}\bigr]A^{3}$, which by
+Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
+order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
+induction gives existence and uniqueness.
+\end{proof}
+
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+\end{corollary}
+
+\begin{proof}
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
+solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
+\end{proof}
+
+\section{The reduction modulo $2$}
+
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
+\end{lemma}
+
+\begin{proof}
+True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
+\[
+f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
+=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
+=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
+\]
+\end{proof}
+
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{3}(x)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$. Since $3\equiv1$ modulo
+$2$ --- this is the whole content of the choice of modulus, as $2=3-1$ --- we have
+$1-3x=1-x$ in $(\mathbb{Z}/2\mathbb{Z})[x]$, so $f^{3}(x)=\dfrac{x}{1-x}$.
+Therefore
+\[
+x+x\,f^{3}(x)=x+\frac{x^{2}}{1-x}
+=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
+\]
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
+$a(n)\equiv1\pmod{2}$ for every $n\ge1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
-not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
-$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
-$b-1$ occurs.
-
-\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
-Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
-two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
-$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
-so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
-
-\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
-values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
-says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
-felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
-the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
-$\max_i c_i=0$. That set does not depend on $b$.
-
-\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
-orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
-Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
-step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
-$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
-tuple, and conversely. Their number is the constant term of
-$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
-the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
-and unimodal.
+By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
+$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
+coefficient of which is $1$.
 \end{proof}
 
 \begin{remark}
-The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
-the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
-of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
-base is in each case exactly one below the entry's own threshold.
+The proof used only $3\equiv1$ modulo $2$. The same argument shows that for every
+$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
+$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
+$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
+reduced equation and this route says nothing modulo $m$.
 \end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the proof above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $28$ terms A124707 publishes, exactly, in integer
-arithmetic; the reading of the entry's English is what is being tested there, since a
-misreading gives different counts.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $22$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le27$, with both sides computed from the definition and not from the theorem:
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The run was continued
+to $n=25$ and every term reduced modulo $2$; all residues are $1$.
 
-\begin{center}
-\begin{tabular}{rrrr}
-$n$ & $T_{1}(14,n)$ & $T_{1}(13,n)$ & $F_{1}(n)$ \\ \hline
-1 & 14 & 13 & 1 \\
-2 & 40 & 37 & 3 \\
-3 & 92 & 85 & 7 \\
-4 & 244 & 225 & 19 \\
-5 & 644 & 593 & 51 \\
-6 & 1750 & 1609 & 141 \\
-7 & 4802 & 4409 & 393 \\
-8 & 13324 & 12217 & 1107 \\
-\end{tabular}
-\end{center}
+Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
+$\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
+were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
 
-\noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=27$.
-
-Third, the theorem was tested outside the entry's range as well: the identity holds for every
-$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
-above.
-
-\section*{References}
-\begin{enumerate}
-\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A124707}.
-\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A091713.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
+\end{thebibliography}
 
 \end{document}

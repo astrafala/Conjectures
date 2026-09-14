@@ -12,68 +12,53 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237774, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A263376, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237774 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
-statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$50$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=1176$
-states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
-a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A263376 carries an empirical recurrence of order $51$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=81$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A237774 is ``Number of (n+1)X(3+1) 0..2 arrays with the maximum plus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A263376 is ``Number of (n+1)X(2+1) 0..4 arrays with each row and column divisible by 9, read as a base-5 number with top and left being the most significant digits.''. It has offset $1$ and begins
 \[
-1176, 7220, 44224, 241036, 1618456, 10751680, 75418228, 465173744,\ \dots
+4, 38, 496, 6731, 93378, 1302087, 18221996, 255080336,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1890*a(n-4) +11436*a(n-6) -297317*a(n-8) -1964276*a(n-10) +14369445*a(n-12) +101694144*a(n-14) -182013563*a(n-16) -1485295098*a(n-18) +1261787279*a(n-20) +7944769616*a(n-22) -6190719967*a(n-24) -10223487242*a(n-26) +8861140786*a(n-28) +4411410330*a(n-30) -7175325372*a(n-32) +2763746512*a(n-34) +683460326*a(n-36) -1158240208*a(n-38) +99695884*a(n-40) +172729392*a(n-42) -44372896*a(n-44) +3735360*a(n-46) +487680*a(n-48) -9216*a(n-50) for n>55
+Empirical recurrence of order 51 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:26:43, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 16 2015 08:10:46, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The $2\times2$ subblocks of an $(n+1)\times4$ array form an
-$n\times3$ grid, and each carries the value $\sigma=c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
-subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
-That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
-so it is local to the grid.
-
-At $n=1$ the array has two rows, so its subblock grid is a single row of $3$ subblocks with
-no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $1176$ counts those, and the model was made to
-reproduce it along with every later term.
 
 \section{The count is a walk count}
 
-A subblock's value is decided by two consecutive rows of the array, and the
-vertical condition compares two consecutive rows of the subblock grid, so the state is the
-PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
-neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
-$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
-$n-1$ steps, so
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=81$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-over the $S=1176$ pairs whose own subblock row already satisfies the condition along itself.
-The alignment of the walk index with the entry's own $n$ was checked against its published
-terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{50}-\sum_i c_it^{50-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{51}-\sum_i c_it^{51-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -81,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+50}-\sum_ic_iM^{j+50-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+51}-\sum_ic_iM^{j+51-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -90,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1890\,a(n-4) + 11436\,a(n-6) - 297317\,a(n-8) - 1964276\,a(n-10) + 14369445\,a(n-12) + 101694144\,a(n-14) - 182013563\,a(n-16) - 1485295098\,a(n-18) + 1261787279\,a(n-20) + 7944769616\,a(n-22) - 6190719967\,a(n-24) - 10223487242\,a(n-26) + 8861140786\,a(n-28) + 4411410330\,a(n-30) - 7175325372\,a(n-32) + 2763746512\,a(n-34) + 683460326\,a(n-36) - 1158240208\,a(n-38) + 99695884\,a(n-40) + 172729392\,a(n-42) - 44372896\,a(n-44) + 3735360\,a(n-46) + 487680\,a(n-48) - 9216\,a(n-50)
+a(n)\;=\;14\,a(n-1) + 22\,a(n-2) - 308\,a(n-3) - 90\,a(n-4) + 1260\,a(n-5) + 3464\,a(n-6) - 48496\,a(n-7) - 78278\,a(n-8) + 1095892\,a(n-9) + 319770\,a(n-10) - 4476780\,a(n-11) - 3258388\,a(n-12) + 45617432\,a(n-13) + 79039246\,a(n-14) - 1106549444\,a(n-15) - 321714450\,a(n-16) + 4504002300\,a(n-17) + 1041407336\,a(n-18) - 14579702704\,a(n-19) - 30310393742\,a(n-20) + 424345512388\,a(n-21) + 122359246290\,a(n-22) - 1713029448060\,a(n-23) - 90991383550\,a(n-24) + 1273879369700\,a(n-25) + 4816073102770\,a(n-26) - 67425023438780\,a(n-27) - 19079197439310\,a(n-28) + 267108764150340\,a(n-29) - 4449627557224\,a(n-30) + 62294785801136\,a(n-31) - 340929734845202\,a(n-32) + 4773016287832828\,a(n-33) + 1297582091948430\,a(n-34) - 18166149287278020\,a(n-35) + 872628770574908\,a(n-36) - 12216802788048712\,a(n-37) + 10646555162165914\,a(n-38) - 149051772270322796\,a(n-39) - 36948216831668550\,a(n-40) + 517275035643359700\,a(n-41) - 32656693823274376\,a(n-42) + 457193713525841264\,a(n-43) - 131361723016340378\,a(n-44) + 1839064122228765292\,a(n-45) + 349288853923807110\,a(n-46) - 4890043954933299540\,a(n-47) + 345407866657987031\,a(n-48) - 4835710133211818434\,a(n-49) + 434670573771848848\,a(n-50) - 6085388032805883872\,a(n-51)
 \]
-for every $n>55$.
+for every $n>51$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $51$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=55+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -106,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -118,11 +103,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237774.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A263376.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
-2003.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

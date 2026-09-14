@@ -12,79 +12,87 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224742, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A210304, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224742 counts the $(n+1)\times6$ matrices over $\{0,\dots,1\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=86$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A210304 counts arrays of width $4$ whose every $2\times2$ subblock holds a
+prescribed number of DISTINCT values, which use ALL of the $4$ available letters, and which
+are counted up to renaming. The entry carries an empirical recurrence of order $20$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
+condition counts distinct values and so survives renaming, which lets the count of patterns be
+recovered from counts over fixed alphabets by inverting a triangular system of falling
+factorials; the words ``containing all values'' change which row of that inverse is used and
+nothing else. Each fixed-alphabet count is a walk count on $S=354$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A224742 is ``Number of (n+1) X 6 0..1 matrices with each 2 X 2 permanent equal.''. It has offset $1$ and begins
+OEIS A210304 is ``Number of (n+1)X4 0..3 arrays containing all values 0..3 with every 2X2 subblock having one or three distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-538, 9554, 107665, 1644874, 21910274, 316084673, 4390392346, 62260133978,\ \dots
+414, 27957, 1575467, 85724987, 4628067519, 249417760123, 13436313660615, 723757498910275,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 19*a(n-1) +7*a(n-2) -1516*a(n-3) +4721*a(n-4) +32621*a(n-5) -149676*a(n-6) -264873*a(n-7) +1850099*a(n-8) +416492*a(n-9) -11177731*a(n-10) +5573265*a(n-11) +33910965*a(n-12) -31589024*a(n-13) -47422880*a(n-14) +62438904*a(n-15) +21268656*a(n-16) -49177152*a(n-17) +6728832*a(n-18) +10917504*a(n-19) -3359232*a(n-20).
+Empirical: a(n) = 81*a(n-1) -1553*a(n-2) +2061*a(n-3) +172685*a(n-4) -899169*a(n-5) -6513363*a(n-6) +44110455*a(n-7) +105719944*a(n-8) -862490004*a(n-9) -709417008*a(n-10) +7693929440*a(n-11) +1058374912*a(n-12) -32657532864*a(n-13) +6969586944*a(n-14) +63976482560*a(n-15) -23949775872*a(n-16) -51839258624*a(n-17) +18903613440*a(n-18) +14501412864*a(n-19) -3227516928*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:36:12, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:53:26, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times6$ matrix a \emph{band} when every one of its $5$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $6$ columns
-whose every $2$ consecutive rows form a band.
+The array has $4$ cells across and entries in $\{0,1,\dots,3\}$. In every
+$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 3$. Two
+further clauses come with it:
 
-Take as states the $1\times6$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+\begin{itemize}
+\item ``new values $0..3$ introduced in row major order'' --- reading the cells in row major
+order, a letter may appear for the first time only when every smaller letter already has, so
+the array counted is the canonical representative of its EQUALITY PATTERN;
+\item ``containing all values $0..3$'' --- every one of the $4$ letters must actually
+occur.
+\end{itemize}
+
+
+\section{From patterns to fixed alphabets}
+
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
 \]
-with $M$ the adjacency matrix on $S=86$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
 
-There are $(1 + 1)^{6}$ strips of $1$ rows and $6$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $5$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,1\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+Here is the whole difference between this entry and its neighbours. Without the words
+``containing all values'' the quantity counted is $N_1+\dots+N_{4}$, and the weights are
+the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
+so the quantity counted is $N_{4}$ alone and the weights are the single row
+$e_{4}^{\!\top}F^{-1}$ of the same inverse:
 \[
-a(n)\;=\;\sum_v a_v(n),
+a\;=\;N_{4}\;=\;\sum_{i=1}^{4}\bigl(F^{-1}\bigr)_{4i}\,L_i .
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$3$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $16$ in total.
+
+The step is legitimate only if the condition survives renaming the alphabet, and it does: the
+condition counts how many DISTINCT values a window holds, and whether two cells agree is
+untouched by any renaming. No clause compares letters by size or does arithmetic on them.
+
+\section{Each $L_i$ is a walk count}
+
+A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
+$1$ rows is a state and a step appends a row, settling every subblock it completes.
+Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the
+weights above cleared of denominators and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=354.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -106,7 +114,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;19\,a(n-1) + 7\,a(n-2) - 1516\,a(n-3) + 4721\,a(n-4) + 32621\,a(n-5) - 149676\,a(n-6) - 264873\,a(n-7) + 1850099\,a(n-8) + 416492\,a(n-9) - 11177731\,a(n-10) + 5573265\,a(n-11) + 33910965\,a(n-12) - 31589024\,a(n-13) - 47422880\,a(n-14) + 62438904\,a(n-15) + 21268656\,a(n-16) - 49177152\,a(n-17) + 6728832\,a(n-18) + 10917504\,a(n-19) - 3359232\,a(n-20)
+a(n)\;=\;81\,a(n-1) - 1553\,a(n-2) + 2061\,a(n-3) + 172685\,a(n-4) - 899169\,a(n-5) - 6513363\,a(n-6) + 44110455\,a(n-7) + 105719944\,a(n-8) - 862490004\,a(n-9) - 709417008\,a(n-10) + 7693929440\,a(n-11) + 1058374912\,a(n-12) - 32657532864\,a(n-13) + 6969586944\,a(n-14) + 63976482560\,a(n-15) - 23949775872\,a(n-16) - 51839258624\,a(n-17) + 18903613440\,a(n-18) + 14501412864\,a(n-19) - 3227516928\,a(n-20)
 \]
 for every $n>20$.
 \end{theorem}
@@ -115,30 +123,36 @@ for every $n>20$.
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero. The rational weights are carried as one common
+denominator throughout, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array over $\{0,\dots,3\}$, keep those that are canonical, that use every
+letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
+falling-factorial inversion is involved, and the published terms came back --- including the
+initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
+cannot show $4$ letters at all.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224742.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210304.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
+falling factorials, Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

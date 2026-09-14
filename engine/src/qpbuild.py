@@ -51,12 +51,16 @@ SHORT = {
     'ecacol': "a proved period for the automaton's middle column",
     'boardwalk': 'a finite sum over walk shapes of the ways each fits the board',
     'circdigit': 'the trace of a power of the adjacency matrix of the digit graph',
+    'triangsq': 'the solutions of a Pell equation, in their finitely many orbits',
 }
 
 # every engine here has a model that is NOT a walk in a digraph, and the abstract says so. The
 # one exception counts WALKS -- of a fixed length, on a growing board -- by a sum over shapes,
 # so the sentence has to distinguish the objects from the model.
 NOTWALK = {
+    'triangsq': ('No transfer matrix is involved: the sequence is the ordered list of '
+                 'solutions of a Pell equation, and what makes it $C$-finite is the '
+                 'automorph of the quadratic form.'),
     'circdigit': ('The count is a walk count, but not of the usual shape: it is a TRACE and '
                   'not a product with two boundary vectors, so the bound comes from the '
                   'characteristic polynomial of the matrix itself.'),
@@ -67,6 +71,7 @@ NOTWALK = {
 DEFNOTWALK = 'No transfer matrix is involved and the count is not a walk.'
 
 MSC = {
+    'triangsq': '11D09, 11B37, 11D45',
     'cuspdim': '11F11, 11F72, 05A15',
     'ca2d': '68Q80, 11B85, 05A15',
     'ecarow': '68Q80, 11B85, 05A15',
@@ -419,6 +424,55 @@ number of distinct rays whose height it divides, and by the dimension of the con
 maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
 $S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
 annihilator was then asked for terms the model had not supplied and reproduced them.
+"""
+    if en == 'triangsq':
+        import triangsq as _ts
+        q = _ts.parse_name(e['name'])
+        bb = _ts.build(q) if q else None
+        c = (q or {}).get('c', 0)
+        r = (bb or {}).get('r', 0)
+        n0 = (bb or {}).get('n0', 0)
+        N = 1 - 8 * c
+        return rf"""
+\section{{The count is a Pell equation}}
+
+$k(k+1)/2 + {c}$ is a perfect square exactly when $8$ times it is, and completing the square
+turns that into
+\[
+(2k+1)^2-2(2m)^2\;=\;1-8\cdot{c}\;=\;{N},
+\]
+so writing $X=2k+1$ and $Y=2m$ the admissible $k$ are exactly the solutions of $X^2-2Y^2={N}$
+with $X$ odd and positive and $Y$ even and nonnegative. The entry's sequence is that solution
+set, listed by increasing $k$.
+
+The form $x^2-2y^2$ has the automorph coming from the unit $3+2\sqrt2$,
+\[
+T(X,Y)=(3X+4Y,\;2X+3Y),
+\]
+which carries solutions to solutions; and every solution is $T^{{j}}$ of a FUNDAMENTAL one,
+meaning one whose preimage $T^{{-1}}(X,Y)=(3X-4Y,-2X+3Y)$ leaves the region. A finite search
+finds them -- there are ${r}$ here -- and the search is checked rather than bounded by a quoted
+theorem: it is run to a limit and then re-run to four times that limit, and the engine refuses
+unless the two agree.
+
+\section{{The bound}}
+
+On the region $X\ge1$, $Y\ge0$ one has $Y=\sqrt{{(X^2-{N})/2}}$, an increasing function of $X$,
+so $T(X)=3X+4Y$ is strictly increasing: $T$ PRESERVES THE ORDER of solutions. Hence if the
+sorted list of solutions has its $(n+{r})$-th entry equal to $T$ of its $n$-th for ${r}$
+consecutive $n$, it does so for every later $n$ -- the ${r}$ orbits interleave in a fixed cyclic
+order from there on. That happens from index $n_0={n0}$, checked directly.
+
+Within one orbit $X_{{j+2}}=6X_{{j+1}}-X_j$, since $3+2\sqrt2$ and $3-2\sqrt2$ are the roots of
+$t^2-6t+1$; in terms of $k=(X-1)/2$ that reads $k_{{j+2}}=6k_{{j+1}}-k_j+2$. Combining with the
+interleaving,
+\[
+a(n+2\cdot{r})\;=\;6\,a(n+{r})-a(n)+2 \qquad (n\ge n_0),
+\]
+so $(z-1)(z^{{2\cdot{r}}}-6z^{{{r}}}+1)$ annihilates $a$, monic of order $S={h['S']}$ once the
+transient is allowed for. Nothing in that bound is estimated: ${r}$ is the number of fundamental
+solutions and $n_0$ is where the interleaving is observed to settle, which the order-preservation
+of $T$ then makes permanent.
 """
     if en == 'circdigit':
         import circdigit as _cd

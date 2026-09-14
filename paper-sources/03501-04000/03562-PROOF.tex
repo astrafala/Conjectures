@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A227122, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A241256, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227122 carries an empirical recurrence of order $10$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a set of source states -- those a source array consistent with the output emitted so far can be left in, one such state being a row of the source together with, for each adjacent pair of its columns, whether that pair is still equal or has already gone strictly less -- sets with the same future behaviour being identified, so
+OEIS A241256 carries an empirical recurrence of order $10$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the two running row sums modulo M and the previous column: the sums look unbounded but every comparison is taken modulo M, so only residues matter, and the north-east comparison is deferred one column, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=20$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=34$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,21 +31,24 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A227122 is ``Number of n X 3 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 4 binary array having a sum of zero, with rows and columns of the latter in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A241256 is ``Number of 2 X n 0..3 arrays with no element equal to one plus the sum of elements to its left or zero plus the sum of the elements above it or one plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-4, 13, 33, 81, 202, 492, 1143, 2524,\ \dots
+2, 5, 4, 10, 12, 22, 41, 59,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/362880)*n\^{}9 + (31/60480)*n\^{}7 + (13/17280)*n\^{}5 + (5/12)*n\^{}4 - (167659/90720)*n\^{}3 + (43/12)*n\^{}2 + (12407/1260)*n - 14 for n>2. a(n) = 10*a(n-1) - 45*a(n-2) + 120*a(n-3) - 210*a(n-4) + 252*a(n-5) - 210*a(n-6) + 120*a(n-7) - 45*a(n-8) + 10*a(n-9) - a(n-10) for n>12.
+Empirical: a(n) = 2*a(n-2) + 2*a(n-3) - a(n-4) - a(n-5) - a(n-6) + a(n-7) + 2*a(n-8) + a(n-10) for n>12.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 07 2018 07:59:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2018 20:31:43, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts distinct IMAGES and not the objects that produce them, so the vertices are not single configurations but sets of them: a set of source states -- those a source array consistent with the output emitted so far can be left in, one such state being a row of the source together with, for each adjacent pair of its columns, whether that pair is still equal or has already gone strictly less -- sets with the same future behaviour being identified. The set a word leaves the model in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing, so distinct output words and walks from the initial vertex are the same thing. The condition itself is decided within the model by inspection of a state and the symbol read.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=20$ vertices,
+The condition the entry imposes is local: it constrains the two running row sums modulo M and the previous column: the sums look unbounded but every comparison is taken modulo M, so only residues matter, and the north-east comparison is deferred one column and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=34$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
@@ -72,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 45\,a(n-2) + 120\,a(n-3) - 210\,a(n-4) + 252\,a(n-5) - 210\,a(n-6) + 120\,a(n-7) - 45\,a(n-8) + 10\,a(n-9) - a(n-10)
+a(n)\;=\;2\,a(n-2) + 2\,a(n-3) - a(n-4) - a(n-5) - a(n-6) + a(n-7) + 2\,a(n-8) + a(n-10)
 \]
 for every $n>12$.
 \end{theorem}
@@ -88,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $31$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $37$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -100,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A227122.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A241256.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

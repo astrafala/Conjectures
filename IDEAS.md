@@ -568,3 +568,39 @@ and they were invisible for the whole life of the project.
   lattice-point count -- choose the alternating direction sequence, then the segment lengths
   live in a polytope depending on n -- which is `latpoly`'s shape, with self-avoidance handled
   by inclusion-exclusion over crossing patterns. Not attempted.
+
+## R. The knight-distance family: the reading is PINNED, the model is not built (14 September)
+
+    Number of (n+2)X(1+2) nonnegative integer arrays with all values the knight distance from
+    the upper left minus as much as 2, with successive minimum path knight move differences
+    either 0 or +1, and any unreachable value zero.
+
+18 entries in the pool. The wording is the obstacle and it is now settled, by brute force
+against the entries' own first terms:
+
+  * value(x) = kd(x) - t(x) with t(x) in 0..D-1, where D is one more than the "as much as"
+    number: "minus as much as 2" gives THREE options, and the value must stay NONNEGATIVE.
+    Read with two options, or without the nonnegativity, a 3 X 3 board gives 17, 18 or 71
+    where A253112 gives 53; read this way it gives 53, and 272 and 1342 after it. The
+    "as much as 3" family gives 69, 488, 1928, its entry's own terms.
+  * "successive minimum path knight move differences" are exactly the pairs (p, x) with p a
+    knight neighbour of x and kd(p) = kd(x) - 1, and the condition is value(x) - value(p) in
+    {0, 1}. In terms of t that is t(x) in {t(p), t(p)+1} -- because kd(x) = kd(p) + 1, the
+    kd cancels and the condition becomes local in t alone.
+  * unreachable cells are fixed at 0 and lie on no minimum path, so they carry no freedom.
+
+Two facts the model can rest on, both measured:
+
+  * the knight-distance field on an R X C board does NOT depend on R: for C = 3..8 and every
+    R from 6 to 40 the field agrees with the field one row taller, everywhere. So the field is
+    the infinite strip's and can be computed once.
+  * the field's row signature -- the within-row profile together with which knight moves are
+    minimum-path predecessors -- is periodic in r with period 4 for every width C = 3..8, kd
+    increasing by 2 per period. That is exactly the "n mod 4" in the entries' own empirical
+    quasi-polynomials.
+
+What stops it: a minimum-path edge spans at most two rows, so a transfer matrix needs the last
+TWO rows in its state, and that is D^(2C) -- 729 at C = 3, but 43 million at C = 8. The family
+runs C = 3..8 for each of D = 3 and D = 4, so a straightforward build reaches perhaps six of the
+eighteen. Worth doing only with a state reduction: t is nondecreasing along every minimum path
+and rises by at most one per step, which ought to collapse the row pairs a long way.
