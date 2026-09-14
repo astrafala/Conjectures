@@ -882,3 +882,46 @@ correction carried explicitly rather than fitted away. Do the 723 first.
    install by the ordinary chain.
 4. Test the whole path against the 6,536 published coordination sequences before installing
    anything: the terms are already known to match, so any disagreement is in the Ehrhart step.
+
+### U.4 The proof pipeline is built and verified (14 September)
+
+    galtile  ->  gallat        ->  galhull            ->  galehr
+    graph        lattice,          d = max-of-affine      lattice-point count,
+                 classes           per class              derived period and onset
+
+`galehr` closes the argument where the hull is exact. The ball of radius t meets a class in the
+lattice points of {A_i*m + B_i*n + C_i <= t}; every candidate vertex is the meet of two facets
+and moves AFFINELY in t, so each vertex's relation to each facet flips at most once, at a single
+rational t. Past the largest of those the shape stops changing — that is `onset`, derived, not
+scanned. The period divides the lcm of the 2x2 determinants of facet-normal pairs — those are
+the only denominators a vertex can have — and `fit` then tries the DIVISORS of that bound in
+order and keeps the smallest that reproduces the counts, so the period is checked rather than
+assumed. a(n) = |B(n)| - |B(n-1)| is then an explicit quasi-linear function.
+
+Verified end to end against breadth-first search:
+
+    Gal.1.1  q=2   T=2   6 planes/class     Gal.1.5   q=1  T=1
+    Gal.1.2  q=12  T=5   9 planes/class     Gal.1.11  q=1  T=1
+    Gal.1.3  q=30  T=29  15-18 planes/class
+
+all agreeing on every term computed.
+
+One boundary artifact was found and is worth keeping in mind for anything fitted on a ball: the
+patch rim is not a feature of the tiling, and class points there made a spurious plane look
+tight. On Gal.1.2 its constant marched with the patch radius — -11, -21, -31 at radii 30, 50,
+70 — which is how it was caught, and it inflated the onset from 4 to R-7. `galhull.prune` drops
+supports that are never tight well inside. **A quantity that moves with the size of the patch
+is a property of the patch.**
+
+### U.5 What is left
+
+The mathematics is done for the 723 exact tilings and the 296 pool entries on them. What
+remains is ordinary plumbing: wrap the pipeline as an engine with `parse_name` / `build` /
+`terms` / `threshold`, register it in the six places STATE.md lists, sweep, and install. The
+`threshold` is a finite exact check — a(n) and the conjectured recurrence's residual are both
+quasi-linear with period q, so the residual vanishes identically if and only if it vanishes at
+2q consecutive n past the onset.
+
+Before installing anything, run the whole path against the 6,536 published coordination
+sequences: the terms are already known to match, so any disagreement is in the Ehrhart step
+and nowhere else.

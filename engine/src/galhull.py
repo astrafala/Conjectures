@@ -48,7 +48,27 @@ def _plane(p, q, r):
     return (A, B, Fraction(d1) - A * m1 - B * n1)
 
 
-def pieces(pts, tries=400):
+def prune(planes, pts, margin):
+    """drop supports that are only ever tight near the edge of the patch.
+
+    The patch is a BALL in graph distance, so its rim is not a feature of the tiling: class
+    points there make a plane look tight when it is an artifact of where the computation
+    stopped. On Gal.1.2 exactly one such plane appeared, with gradient (3, 3), and its constant
+    marched with the patch radius -- -11, -21, -31 at radii 30, 50, 70 -- which is how it was
+    caught. A plane that is a real facet is tight somewhere well inside.
+    """
+    if not pts:
+        return planes
+    lim = max(d for (_m, _n, d) in pts) - margin
+    inner = [(m, n, d) for (m, n, d) in pts if d <= lim]
+    if not inner:
+        return planes
+    keep = [pl for pl in planes
+            if any(pl[0] * m + pl[1] * n + pl[2] == d for (m, n, d) in inner)]
+    return keep or planes
+
+
+def pieces(pts, tries=400, margin=6):
     """(planes, leftovers): the max-of-affine description, and the points it cannot reach.
 
     An empty leftover list means d IS the max over `planes` at every point given -- an exact,
@@ -81,5 +101,11 @@ def pieces(pts, tries=400):
                 break
         if best:
             planes.append(best)
-    left = [(m, n, d) for (m, n, d) in P if val(m, n) != d]
+    planes = prune(planes, P, margin)
+
+    def val2(m, n):
+        return max((A * m + B * n + C for A, B, C in planes), default=Fraction(-10 ** 9))
+
+    lim = max(d for (_m, _n, d) in P) - margin
+    left = [(m, n, d) for (m, n, d) in P if d <= lim and val2(m, n) != d]
     return planes, left
