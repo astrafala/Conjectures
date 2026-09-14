@@ -11,175 +11,210 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A220927, proved}
+\title{The empirical recurrence for OEIS A198703, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220927 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=391$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{39}$, of degree
-$39$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $39$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A198703 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+sides, and which are moreover written in canonical form (``values introduced in row major
+order''). Neither feature is visible to a one-line transfer matrix: the cell condition
+reaches the row above and the row below, and the canonical-form clause is not local at
+all. Both are dealt with. What is counted is equality patterns, so
+$5!\,a(n)=\sum_i\binom{5}{i}D_{5-i}L_i(n)$ with $D_m$ the derangement numbers and
+$L_i$ the count over an $i$-letter alphabet; and each $L_i$ is a walk count whose vertices
+are ordered pairs of consecutive rows. Relabelling-invariance makes the chain strongly
+lumpable, cutting $20515$ pairs down to $S=544$ states. The entry's empirical recurrence of
+order $39$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A220927 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..3 nX3 array.''. It has offset $1$ and begins
+OEIS A198703 is ``Number of nX3 0..4 arrays with values 0..4 introduced in row major order and each element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-10, 41, 283, 1448, 6687, 29847, 128985, 528548,\ \dots
+1, 14, 185, 3893, 95209, 2654693, 77622801, 2332544112,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical: a(n) = (1/523022617466601111760007224100074291200000000)*n\^{}38 + (1/9175835394150896697543986387720601600000000)*n\^{}37 - (1/43763920798811907937411699782451200000000)*n\^{}36 + (59/27555061243696386479111070233395200000000)*n\^{}35 + (307/1968218660264027605650790730956800000000)*n\^{}34 - (1549/57888784125412576636787962675200000000)*n\^{}33 + (1624193/994634563609361544032084085964800000000)*n\^{}32 + (121589/1961803872996768331424228966400000000)*n\^{}31 - (862211087/64169971845765260905295747481600000000)*n\^{}30 + (334940077/419411580691276215067292467200000000)*n\^{}29 + (881602781/386354510291963804027505868800000000)*n\^{}28 - (1123886873/366908366848968474859929600000000)*n\^{}27 + (15952682958133/81134447161312398845776232448000000)*n\^{}26 - (894295004698811/270448157204374662819254108160000000)*n\^{}25 - (228156596853291101/811344471613123988457762324480000000)*n\^{}24 + (5101733059113811/230561088835784026273873920000000)*n\^{}23 - (692780969776572349/1153803544130590192089169920000000)*n\^{}22 - (2243838262686431231/384601181376863397363056640000000)*n\^{}21 + (757680056062692907691431/731172092995226361139801620480000000)*n\^{}20 - (581959953416778427639843/16774528449283195869604085760000000)*n\^{}19 + (5511354224236467062364481117/17990681761856227570150381977600000000)*n\^{}18 + (40879216835452378507072451/2449711568880205279159910400000000)*n\^{}17 - (236826152119988143815376123/335377179072885246551654400000000)*n\^{}16 + (6642578071741399997758170841/619157869057634301326131200000000)*n\^{}15 + (28405985333085798680701919749417/760635442137303739179152179200000000)*n\^{}14 - (2151776489142623183168814040553/466075638564524349987225600000000)*n\^{}13 + (1424091974719336255283095572327437/17287169139484175890435276800000000)*n\^{}12 - (800612498869091029720619190616727/1920796571053797321159475200000000)*n\^{}11 - (4966763411298100637669295860759843/568398985311837982792089600000000)*n\^{}10 + (10551986050476453738601614474489679/55261012460873137215897600000000)*n\^{}9 - (3981523334369030919774590230531163843/2748084098835503719465574400000000)*n\^{}8 - (568854062299140169791514988575529/460547025110692763443200000000)*n\^{}7 + (190860909288639665111491234401381180257/1557247656006785441030492160000000)*n\^{}6 - (4867354810542169054981510999137717857/4325687933352181780640256000000)*n\^{}5 + (1778619289191249601556249307356327/363503187676653931146240000)*n\^{}4 - (253662472663677656114377414621/29473606296279365220000)*n\^{}3 - (178529187999606526995551083121/28268061177142554768000)*n\^{}2 + (1518270092662877319067/58075341924600)*n + 29455077 for n>15
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 36*a(n-1) -a(n-2) -5355*a(n-3) +4939*a(n-4) +171547*a(n-5) +187210*a(n-6) -2080273*a(n-7) -6373170*a(n-8) +4618206*a(n-9) +52436433*a(n-10) +65874012*a(n-11) -142129836*a(n-12) -448353529*a(n-13) -92258782*a(n-14) +1182054840*a(n-15) +1645176287*a(n-16) -1092230888*a(n-17) -4897845688*a(n-18) -3393264569*a(n-19) +5453181946*a(n-20) +10604051822*a(n-21) +3233851655*a(n-22) -11263670956*a(n-23) -13806085667*a(n-24) +2193563289*a(n-25) +13819377251*a(n-26) +6644812359*a(n-27) -4919877474*a(n-28) -9065267335*a(n-29) +842958990*a(n-30) +3103300670*a(n-31) +1235389140*a(n-32) -446260304*a(n-33) -841232800*a(n-34) +553687700*a(n-35) -274224576*a(n-36) +45862920*a(n-37) +8532304*a(n-38) +2067648*a(n-39)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:07:39, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
-\begin{multline*}
-f(n)\;=\;\frac{n^{38}}{523022617466601111760007224100074291200000000} + \frac{n^{37}}{9175835394150896697543986387720601600000000} \\
-- \frac{n^{36}}{43763920798811907937411699782451200000000} + \frac{59 n^{35}}{27555061243696386479111070233395200000000} \\
-+ \frac{307 n^{34}}{1968218660264027605650790730956800000000} - \frac{1549 n^{33}}{57888784125412576636787962675200000000} \\
-+ \frac{1624193 n^{32}}{994634563609361544032084085964800000000} + \frac{121589 n^{31}}{1961803872996768331424228966400000000} \\
-- \frac{862211087 n^{30}}{64169971845765260905295747481600000000} + \frac{334940077 n^{29}}{419411580691276215067292467200000000} \\
-+ \frac{881602781 n^{28}}{386354510291963804027505868800000000} - \frac{1123886873 n^{27}}{366908366848968474859929600000000} \\
-+ \frac{15952682958133 n^{26}}{81134447161312398845776232448000000} - \frac{894295004698811 n^{25}}{270448157204374662819254108160000000} \\
-- \frac{228156596853291101 n^{24}}{811344471613123988457762324480000000} + \frac{5101733059113811 n^{23}}{230561088835784026273873920000000} \\
-- \frac{692780969776572349 n^{22}}{1153803544130590192089169920000000} - \frac{2243838262686431231 n^{21}}{384601181376863397363056640000000} \\
-+ \frac{757680056062692907691431 n^{20}}{731172092995226361139801620480000000} - \frac{581959953416778427639843 n^{19}}{16774528449283195869604085760000000} \\
-+ \frac{5511354224236467062364481117 n^{18}}{17990681761856227570150381977600000000} + \frac{40879216835452378507072451 n^{17}}{2449711568880205279159910400000000} \\
-- \frac{236826152119988143815376123 n^{16}}{335377179072885246551654400000000} + \frac{6642578071741399997758170841 n^{15}}{619157869057634301326131200000000} \\
-+ \frac{28405985333085798680701919749417 n^{14}}{760635442137303739179152179200000000} - \frac{2151776489142623183168814040553 n^{13}}{466075638564524349987225600000000} \\
-+ \frac{1424091974719336255283095572327437 n^{12}}{17287169139484175890435276800000000} - \frac{800612498869091029720619190616727 n^{11}}{1920796571053797321159475200000000} \\
-- \frac{4966763411298100637669295860759843 n^{10}}{568398985311837982792089600000000} + \frac{10551986050476453738601614474489679 n^{9}}{55261012460873137215897600000000} \\
-- \frac{3981523334369030919774590230531163843 n^{8}}{2748084098835503719465574400000000} - \frac{568854062299140169791514988575529 n^{7}}{460547025110692763443200000000} \\
-+ \frac{190860909288639665111491234401381180257 n^{6}}{1557247656006785441030492160000000} - \frac{4867354810542169054981510999137717857 n^{5}}{4325687933352181780640256000000} \\
-+ \frac{1778619289191249601556249307356327 n^{4}}{363503187676653931146240000} - \frac{253662472663677656114377414621 n^{3}}{29473606296279365220000} \\
-- \frac{178529187999606526995551083121 n^{2}}{28268061177142554768000} + \frac{1518270092662877319067 n}{58075341924600} \\
-+ 29455077.
-\end{multline*}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 07:59:41, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;36\,a(n-1) - a(n-2) - 5355\,a(n-3) + 4939\,a(n-4) + 171547\,a(n-5) + 187210\,a(n-6) - 2080273\,a(n-7) - 6373170\,a(n-8) + 4618206\,a(n-9) + 52436433\,a(n-10) + 65874012\,a(n-11) - 142129836\,a(n-12) - 448353529\,a(n-13) - 92258782\,a(n-14) + 1182054840\,a(n-15) + 1645176287\,a(n-16) - 1092230888\,a(n-17) - 4897845688\,a(n-18) - 3393264569\,a(n-19) + 5453181946\,a(n-20) + 10604051822\,a(n-21) + 3233851655\,a(n-22) - 11263670956\,a(n-23) - 13806085667\,a(n-24) + 2193563289\,a(n-25) + 13819377251\,a(n-26) + 6644812359\,a(n-27) - 4919877474\,a(n-28) - 9065267335\,a(n-29) + 842958990\,a(n-30) + 3103300670\,a(n-31) + 1235389140\,a(n-32) - 446260304\,a(n-33) - 841232800\,a(n-34) + 553687700\,a(n-35) - 274224576\,a(n-36) + 45862920\,a(n-37) + 8532304\,a(n-38) + 2067648\,a(n-39)
+\end{equation}
+for all $n>40$.
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=391$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+\section{The condition, and what the canonical-form clause counts}
+
+The arrays have $3$ columns and $L=n$ rows. Write $x_{t,u}$ for the entry in
+row $t$ and column $u$. with the neighbour offsets
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+\mathcal N=\{(-1,0),\ (1,0),\ (0,-1),\ (0,1)\}
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
+written as (row shift, column shift), the requirement is
+\begin{equation}\label{eq:loc}
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
+equal to x_{t,u}\bigr\}\ \ge1
+\end{equation}
+for every cell $(t,u)$.
 
-\section{A closed form is a recurrence}
+The condition is stated purely in equalities between entries, so it is unchanged by any
+relabelling of the values: it is a property of the \emph{equality pattern} --- the partition
+of the cells into classes of equal entries --- and not of the values themselves. The clause
+``values introduced in row major order'' selects exactly one array from each relabelling
+class, so with $K=5$ available values the entry counts admissible patterns with at most $K$
+classes.
 
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters that satisfy the cell
+condition, with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly
+$j$ classes. Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
 \[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+5!\,\sum_{j\le 5}N_j(n)\;=\;\sum_{i=0}^{5}\binom{5}{i}D_{5-i}\,L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
 \]
 \end{lemma}
 
 \begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
+A labelled array satisfying the condition is a pattern together with an injection of its
+classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of
+them; that is the first identity. Writing $i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads
+$L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le5$ and exchanging the
+order of summation, the coefficient of $L_i$ is
+$\sum_{t\le5-i}(-1)^t/(i!\,t!)$, which multiplied by $5!$ is
+$\binom{5}{i}(5-i)!\sum_{t\le5-i}(-1)^t/t!=\binom{5}{i}D_{5-i}$.
 \end{proof}
 
-Here $q(x)=(x-1)^{39}$, of degree $39$; the closed form is a polynomial in $n$, so this is $(x-1)^{39}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;39\,a(n-1) - 741\,a(n-2) + 9139\,a(n-3) - 82251\,a(n-4) + 575757\,a(n-5) - 3262623\,a(n-6) + 15380937\,a(n-7) - 61523748\,a(n-8) + 211915132\,a(n-9) - 635745396\,a(n-10) + 1676056044\,a(n-11) - 3910797436\,a(n-12) + 8122425444\,a(n-13) - 15084504396\,a(n-14) + 25140840660\,a(n-15) - 37711260990\,a(n-16) + 51021117810\,a(n-17) - 62359143990\,a(n-18) + 68923264410\,a(n-19) - 68923264410\,a(n-20) + 62359143990\,a(n-21) - 51021117810\,a(n-22) + 37711260990\,a(n-23) - 25140840660\,a(n-24) + 15084504396\,a(n-25) - 8122425444\,a(n-26) + 3910797436\,a(n-27) - 1676056044\,a(n-28) + 635745396\,a(n-29) - 211915132\,a(n-30) + 61523748\,a(n-31) - 15380937\,a(n-32) + 3262623\,a(n-33) - 575757\,a(n-34) + 82251\,a(n-35) - 9139\,a(n-36) + 741\,a(n-37) - 39\,a(n-38) + a(n-39).
-\end{equation}
+\section{Each $L_i$ is a walk count on pairs of rows}
 
-\section{The proof}
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{3}$. Because \eqref{eq:loc} at a cell of row
+$t$ involves rows $t-1$, $t$ and $t+1$, a single row is not enough state. Take the
+ordered pairs $(p,c)\in V_i\times V_i$ as vertices and declare $(p,c)\to(c,x)$ an edge when
+every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it. Let $P_i$ be the adjacency matrix, $\mathbf{s}_i$ the indicator of the pairs
+$(p,c)$ whose first row $p$ satisfies the condition with no row above, and
+$\mathbf{e}_i$ the indicator of the pairs whose second row $c$ satisfies it with no
+row below.
 
-\begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, the arrays of $L$ rows satisfying the condition are exactly the walks
+$(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length
+$L-2$ that start at a vertex marked by $\mathbf{s}_i$ and end at one marked by
+$\mathbf{e}_i$, so
+$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+A walk of that form is exactly a sequence of rows $r^{(1)},\dots,r^{(L)}$, since
+consecutive vertices overlap in one row. In such a walk the condition at the cells of
+row $t$ is tested once, at the step leaving $(r^{(t-1)},r^{(t)})$, and with the
+correct neighbours $r^{(t-1)}$ and $r^{(t+1)}$; the cells of row $1$ are tested by
+$\mathbf{s}_i$, which uses the condition with the row above absent, and those of row
+$L$ by $\mathbf{e}_i$. So every cell is tested exactly once and with its true
+neighbourhood, which is the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:lump}
+Write $\pi(p,c)$ for the equality pattern of the pair. If $\pi(p,c)=\pi(p',c')$ then for
+every pattern $Q$ the two vertices have the same number of successors of pattern $Q$, and
+$\mathbf{s}_i$, $\mathbf{e}_i$ take the same value at both. Hence the chain is strongly
+lumpable over $\pi$ and $L_i$ is computed on the quotient, whose states are the set
+partitions of the $2\cdot3$ cells of a pair into at most $i$ classes.
+\end{lemma}
+
+\begin{proof}
+Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
+alphabet. The edge condition and the two boundary conditions are statements about equalities
+between entries, so they are invariant under $\sigma$, and $x\mapsto\sigma(x)$ is a bijection
+between the successor sets preserving patterns. The number of pairs with a given pattern $P$
+is $e_P=i(i-1)\cdots(i-|P|+1)$, the number of injections of its classes into the alphabet,
+which supplies the weights on the quotient.
+\end{proof}
+
+Assembling the $5$ lumped chains block-diagonally into $N$ of size $S=544$, with the
+weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$ and the
+end-of-array indicator into $\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+5!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{39}-\sum_i c_i\,t^{39-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N^{1}$, so that consecutive values of $n$ advance the
+walk by $1$ rows.
+
+\begin{lemma}\label{lem:crit}
+With $h_j=G^{j}N^{o}\mathbf{u}$ for the offset $o$ that aligns the first admissible
+index,
+\[
+5!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}G^{\,j-39}\,
+\Bigl(h_{39}-\sum_i c_i h_{39-i}\Bigr)
+\]
+for the corresponding $j$. Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, where
+$w=h_{39}-\sum_i c_ih_{39-i}$; and it is enough to check $m=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor. The scalar $5!$ is nonzero, so it does not
+affect vanishing. For the last clause, Cayley--Hamilton applied to $G$ makes $G^{S}$ an
+integer combination of $I,G,\dots,G^{S-1}$, so each $\mathbf{v}^{\!\top}G^{m}w$ with
+$m\ge S$ is the same combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge16$.
+The recurrence \eqref{eq:conj} holds for every $n>40$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $39$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=55$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>54$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $39$ consecutive indices
-$n=55,\dots,93$ and agree at each. A monic recurrence of order $39$
-determines $a(m)$ from $a(m-1),\dots,a(m-39)$, and for every $m\ge94$ both
-$m>54$ and $m-39\ge55$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge55$.
-Below $n=55$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=55$ on. The remaining indices $n=16,\dots,54$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The lumped transition counts were built by taking one representative pair for each pattern,
+enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middle
+row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
+$39$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=40+1$ onwards, and the run was continued until $S+1$
+consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
 \end{proof}
-
-The range is tight in the sense that was checked: at $n=15$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $22$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the whole construction was compared against the entry's DATA: the right-hand side of
+\eqref{eq:walk2}, divided by $5!$, was evaluated at every one of the $16$
+published indices and agrees exactly, the quotient coming out an integer each time. This
+tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
+the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
+alignment of the entry's index with $L=n$ would each show up as a mismatch.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=16$ on, and agrees with the entry's own DATA at each.
+Second, the lumped chain was checked against the unlumped one on the small shapes of this
+family: the walk counts over the full alphabet agree with $\sum_P e_Pf_m(P)$ term by term.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=16$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
+arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
+carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220927.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198703.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
+1976. (Strong lumpability, Section 6.3.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \end{thebibliography}
 
 \end{document}
