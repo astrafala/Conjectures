@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A239851, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A239812, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A239851 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+OEIS A239812 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
 constant plus the SUM of all the entries lying before it along one of several rays. The entry
 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical. None of those sums is bounded and none is local, but
@@ -31,15 +31,15 @@ count is then a walk count on $S=4$ states.
 
 \section{The conjecture}
 
-OEIS A239851 is ``Number of n X 1 0..3 arrays with no element equal to zero plus the sum of elements to its left or zero plus the sum of elements above it or one plus the sum of the elements diagonally to its northwest or one plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
+OEIS A239812 is ``Number of n X 1 0..3 arrays with no element equal to zero plus the sum of elements to its left or one plus the sum of elements above it, modulo 4.''. It has offset $1$ and begins
 \[
-2, 2, 4, 6, 8, 14, 20, 30,\ \dots
+2, 5, 11, 25, 57, 129, 293, 665,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-2) +2*a(n-3).
+Empirical: a(n) = a(n-1) + 2*a(n-2) + 2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 18 2018 08:33:29, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 21 2018 09:42:15, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,9 +50,7 @@ rays out of a cell $(i,j)$, with the constant it attaches to each:
 \begin{array}{lll}
 \text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
 \text{west} & (i,j-1),(i,j-2),\dots & 0 \\
-\text{north} & (i-1,j),(i-2,j),\dots & 0 \\
-\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 1 \\
-\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 1 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 1 \\
 \end{array}
 \]
 Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
@@ -69,13 +67,11 @@ Take the array one $row$ at a time, in the direction in which it grows, and inde
 positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
 \begin{lemma}\label{lem:rays}
-Along the $row$s, the 4 ray sums named by this entry satisfy
+Along the $row$s, the 2 ray sums named by this entry satisfy
 \[
 \begin{aligned}
 \Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
-U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
-NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
-NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position} .
 \end{aligned}
 \]
 \end{lemma}
@@ -119,7 +115,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-2) + 2\,a(n-3)
+a(n)\;=\;a(n-1) + 2\,a(n-2) + 2\,a(n-3)
 \]
 for every $n>2$.
 \end{theorem}
@@ -135,7 +131,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $39$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -151,7 +147,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A239851.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A239812.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

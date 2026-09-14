@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230904, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A230893, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230904 counts arrays of width $2$ over $\{0,1,2,3\}$ in which every cell must see, among its
+OEIS A230893 counts arrays of width $2$ over $\{0,1,2,3\}$ in which every cell must see, among its
 neighbours in named directions, a stated number carrying the value one MORE than its own
 modulo $4$, and in some of the family a stated number carrying the value one less. The entry
 carries an empirical recurrence of order $3$ contributed by R.~H.~Hardin. It is true, and
@@ -31,15 +31,15 @@ the count is a walk count on $S=77$ states.
 
 \section{The conjecture}
 
-OEIS A230904 is ``Number of n X 2 0..3 arrays x(i,j) with each element horizontally, vertically or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
+OEIS A230893 is ``Number of n X 2 0..3 arrays x(i,j) with each element horizontally or vertically next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
 \[
-0, 2, 8, 26, 84, 272, 882, 2862,\ \dots
+0, 2, 2, 10, 22, 70, 186, 538,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) -6*a(n-2) +a(n-3) for n>4.
+Empirical: a(n) = 2*a(n-1) + 3*a(n-2) - 2*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 24 2018 02:47:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 17 2018 07:10:09, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The array has $2$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
 cells reached from it by the offsets
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
 those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
+its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
 cell is fixed at $0$.
 
 Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
@@ -102,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 6\,a(n-2) + a(n-3)
+a(n)\;=\;2\,a(n-1) + 3\,a(n-2) - 2\,a(n-3)
 \]
-for every $n>4$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
 arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
 array has too few neighbours for any cell to see what the condition demands.
 
@@ -135,7 +135,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230904.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230893.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

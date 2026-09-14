@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A224386, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223784, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224386 counts arrays over $\{0,\dots,3\}$ whose rows, columns, diagonals or
+OEIS A223784 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
 order $15$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=1280$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=1408$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,20 +32,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A224386 is ``Number of nX3 0..3 arrays with diagonals and antidiagonals unimodal and rows nondecreasing.''. It has offset $1$ and begins
+OEIS A223784 is ``Number of n X 3 0..2 arrays with rows, diagonals and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-20, 400, 6094, 86701, 1268572, 18794636, 279128617, 4142692993,\ \dots
+22, 484, 8635, 151580, 2703137, 48302789, 862007289, 15379566078,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 20*a(n-1) -70*a(n-2) -211*a(n-3) +2453*a(n-4) -12192*a(n-5) +5907*a(n-6) +119292*a(n-7) -294992*a(n-8) +742820*a(n-9) +144828*a(n-10) -5072952*a(n-11) +6034728*a(n-12) -15994872*a(n-13) -858096*a(n-14) -10368*a(n-15)
+Empirical: a(n) = 18*a(n-1) -24*a(n-2) +364*a(n-3) +605*a(n-4) -5879*a(n-5) -3267*a(n-6) -28514*a(n-7) -68422*a(n-8) +215872*a(n-9) +381625*a(n-10) +110428*a(n-11) +62650*a(n-12) -42873*a(n-13) -108576*a(n-14) -28080*a(n-15).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:25:29, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jan 20 2024 17:03:16, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;20\,a(n-1) - 70\,a(n-2) - 211\,a(n-3) + 2453\,a(n-4) - 12192\,a(n-5) + 5907\,a(n-6) + 119292\,a(n-7) - 294992\,a(n-8) + 742820\,a(n-9) + 144828\,a(n-10) - 5072952\,a(n-11) + 6034728\,a(n-12) - 15994872\,a(n-13) - 858096\,a(n-14) - 10368\,a(n-15)
+a(n)\;=\;18\,a(n-1) - 24\,a(n-2) + 364\,a(n-3) + 605\,a(n-4) - 5879\,a(n-5) - 3267\,a(n-6) - 28514\,a(n-7) - 68422\,a(n-8) + 215872\,a(n-9) + 381625\,a(n-10) + 110428\,a(n-11) + 62650\,a(n-12) - 42873\,a(n-13) - 108576\,a(n-14) - 28080\,a(n-15)
 \end{equation}
 for all $n>15$.
 
@@ -54,9 +54,9 @@ for all $n>15$.
 The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
 \item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
 \item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
@@ -69,7 +69,7 @@ far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=1280$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=1408$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -143,7 +143,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224386.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223784.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

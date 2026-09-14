@@ -587,8 +587,8 @@ What blocks the vein now is the FIT, not the certificate — and that is a bette
 
 ## 14 September 2026 — running total for the day
 
-Roster **13,000 → 13,245 papers over 13,218 entries**, and 157 → **159 arguments**.
-245 results:
+Roster **13,000 → 13,246 papers over 13,219 entries**, and 157 → **159 arguments**.
+246 results:
 
 | | |
 |---:|---|
@@ -596,7 +596,7 @@ Roster **13,000 → 13,245 papers over 13,218 entries**, and 157 → **159 argum
 | 82 | the recurrence or polynomial the entry defers to a linked a-file |
 | 5 | generating functions lost to an attribution in square brackets |
 | 3 | cusp-form dimensions, from splitting a line that carried three claims |
-| 9 | Galebach coordination sequences — a new argument |
+| 10 | Galebach coordination sequences — a new argument |
 | 2 | a claim that names a degree and no coefficients — a second new argument |
 
 Every one re-checked against the live OEIS. All the sweeps are still running.

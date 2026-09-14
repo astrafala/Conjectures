@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210158, proved by counting patterns}
+\title{The empirical recurrence for OEIS A210054, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210158 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A210054 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,22 +36,22 @@ $4$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A210158 is ``Number of (n+1) X 2 0..3 arrays with every 2 X 2 subblock having two or three distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A210054 is ``Number of (n+1) X 2 0..3 arrays with every 2 X 2 subblock having one, two or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-13, 148, 1977, 27720, 393649, 5608216, 79963353, 1140367704,\ \dots
+9, 51, 323, 2187, 15435, 111659, 819243, 6058155,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 16*a(n-1) - 19*a(n-2) - 80*a(n-3) - 36*a(n-4).
+Empirical: a(n) = 13*a(n-1) - 48*a(n-2) + 52*a(n-3) - 16*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 14 2018 15:35:19, revision 10) the statement is
+As of the ``Last modified'' line on the live entry (Jul 14 2018 05:56:01, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;16\,a(n-1) - 19\,a(n-2) - 80\,a(n-3) - 36\,a(n-4)
+a(n)\;=\;13\,a(n-1) - 48\,a(n-2) + 52\,a(n-3) - 16\,a(n-4)
 \end{equation}
-for all $n>4$.
+for all $n>3$.
 
 \section{What the canonical-form clause counts}
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{2,3\}.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,2,4\}.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -186,7 +186,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>4$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -197,7 +197,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $4$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=4+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=3+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,7 +206,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $16$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $20$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210158.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210054.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A198702, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A198522, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A198702 counts arrays in which every cell is constrained by its neighbours on \emph{both}
+OEIS A198522 counts arrays in which every cell is constrained by its neighbours on \emph{both}
 sides, and which are moreover written in canonical form (``values introduced in row major
 order''). Neither feature is visible to a one-line transfer matrix: the cell condition
 reaches the row above and the row below, and the canonical-form clause is not local at
@@ -35,22 +35,22 @@ order $12$, contributed by R.~H.~Hardin, then follows from a finite exact comput
 
 \section{The sequence and the conjecture}
 
-OEIS A198702 is ``Number of nX2 0..4 arrays with values 0..4 introduced in row major order and each element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
+OEIS A198522 is ``Number of n X 2 0..4 arrays with values 0..4 introduced in row major order and each element equal to no more than two horizontal and vertical neighbors.''. It has offset $1$ and begins
 \[
-1, 3, 14, 76, 488, 3508, 27422, 227045,\ \dots
+2, 15, 193, 3660, 81844, 1948672, 47436498, 1163606279,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 17*a(n-1) -80*a(n-2) +37*a(n-3) +349*a(n-4) -60*a(n-5) -729*a(n-6) -553*a(n-7) +572*a(n-8) +783*a(n-9) +139*a(n-10) -304*a(n-11) -170*a(n-12)
+Empirical: a(n) = 35*a(n-1) -267*a(n-2) +246*a(n-3) +924*a(n-4) +710*a(n-5) -1736*a(n-6) -1860*a(n-7) +72*a(n-8) +1984*a(n-9) +720*a(n-10) -320*a(n-11) -512*a(n-12) for n > 14.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 07:59:34, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 07:54:03, revision 10) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;17\,a(n-1) - 80\,a(n-2) + 37\,a(n-3) + 349\,a(n-4) - 60\,a(n-5) - 729\,a(n-6) - 553\,a(n-7) + 572\,a(n-8) + 783\,a(n-9) + 139\,a(n-10) - 304\,a(n-11) - 170\,a(n-12)
+a(n)\;=\;35\,a(n-1) - 267\,a(n-2) + 246\,a(n-3) + 924\,a(n-4) + 710\,a(n-5) - 1736\,a(n-6) - 1860\,a(n-7) + 72\,a(n-8) + 1984\,a(n-9) + 720\,a(n-10) - 320\,a(n-11) - 512\,a(n-12)
 \end{equation}
-for all $n>13$.
+for all $n>14$.
 
 \section{The condition, and what the canonical-form clause counts}
 
@@ -62,7 +62,7 @@ row $t$ and column $u$. with the neighbour offsets
 written as (row shift, column shift), the requirement is
 \begin{equation}\label{eq:loc}
 \#\bigl\{(d_1,d_2)\in\mathcal N:\ (t+d_1,u+d_2)\ \text{lies in the array and its entry is }
-equal to x_{t,u}\bigr\}\ \ge1
+equal to x_{t,u}\bigr\}\ \le2
 \end{equation}
 for every cell $(t,u)$.
 
@@ -173,7 +173,7 @@ $m\ge S$ is the same combination of the earlier values; if those vanish, so do a
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>13$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>14$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -183,7 +183,7 @@ enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on the middl
 row, and sorting the results by the pattern of the new pair. The vector $w$ was formed by
 $12$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=13+1$ onwards, and the run was continued until $S+1$
+index corresponding to $n=14+1$ onwards, and the run was continued until $S+1$
 consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every larger $m$.
 \end{proof}
 
@@ -192,7 +192,7 @@ consecutive zeros had been seen, which by Lemma~\ref{lem:crit} settles every lar
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk2}, divided by $5!$, was evaluated at every one of the $21$
+\eqref{eq:walk2}, divided by $5!$, was evaluated at every one of the $16$
 published indices and agrees exactly, the quotient coming out an integer each time. This
 tests the modelling and not only the arithmetic --- the inversion of Lemma~\ref{lem:inv},
 the reading of \eqref{eq:loc}, the treatment of the first and last rows, and the
@@ -207,7 +207,7 @@ carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A198702.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A198522.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)
