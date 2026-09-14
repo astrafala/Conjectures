@@ -12,49 +12,47 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A183616}
+\title{The white squares of a board: OEIS A230648}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183616 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=5$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work. The entry does not count the arrays themselves but $1/120$ of them, so every count below is divided by $120$.
+OEIS A230648 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=6$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183616 is ``1/120 the number of (n+1) X 4 0..4 arrays with every 2 X 2 subblock containing four distinct values.''. It has offset $1$ and begins
+OEIS A230648 is ``Number of nX4 0..2 white square subarrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value 2-x(i,j).''. It has offset $1$ and begins
 \[
-36, 528, 7792, 115760, 1724208, 25713200, 383674672, 5726373936,\ \dots
+0, 9, 21, 123, 531, 2547, 11745, 54957,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 21*a(n-1) - 84*a(n-2) - 112*a(n-3) + 192*a(n-4).
+Empirical: a(n) = 3*a(n-1) +8*a(n-2) -a(n-3) -a(n-4) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 31 2018 17:00:58, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 08:43:45, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The white squares are a board of their own}
 
-The entry counts arrays with $4$ columns over the alphabet $\{0,1,2,3,4\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $4$ distinct values.
+The board has $4$ columns and grows one row at a time, but only the cells with $i+j$ even carry a value, from the alphabet $\{0,1,2\}$. The diagonal and antidiagonal neighbours of such a cell again have $i+j$ even, so the white squares form a board of their own and the entry's condition never refers to anything else: each white cell must have at least one neighbour, diagonally or antidiagonally, holding the value $2-x$ where $x$ is its own.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+That looks one row up and one row down, so three consecutive rows settle the condition on the middle one. Carry two rows as the state, judge a row when the row after it arrives, and judge the row with nothing after it by the end vector. A cell at the edge of the board simply has fewer neighbours, and having none of the right value is a failure rather than a special case.
 
-The entry counts not the arrays themselves but $1/120$ of them, so every count below is divided by $120$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
+The white cells of a row occupy alternate columns, and which alternate ones depends on the parity of that row, so the two shapes alternate down the board; the state carries that parity in the shape of the row it holds.
 
-Merging vertices with identical futures leaves $S=5$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Merging vertices with identical futures leaves $S=6$. An admissible board is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end a board,
 \[
-a(n)\;=\;\tfrac{1}{120}\,\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -80,30 +78,30 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;21\,a(n-1) - 84\,a(n-2) - 112\,a(n-3) + 192\,a(n-4)
+a(n)\;=\;3\,a(n-1) + 8\,a(n-2) - a(n-3) - a(n-4)
 \]
-for every $n>4$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+every filling of the white cells one by one and tests, for each of them, whether some
+diagonal or antidiagonal neighbour holds the required value. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -113,7 +111,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183616.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230648.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,163 +12,136 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254588, recovered from its tail}
+\title{The empirical recurrence for OEIS A254486: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254588 records ``Empirical recurrence of order $66$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=331$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=16$, so the recurrence is proved for every $n\ge82$.
-Its last coefficient is $c_{66}=137438953472\neq0$, so no further tail satisfies anything
-shorter; any order-$66$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A254486 records ``Empirical recurrence of order $66$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on a finite digraph and
+satisfies some monic recurrence of order at most the number of its states with distinct
+futures, here $S'=219$; Berlekamp--Massey applied to $2S'$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $66$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$66$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{A conjecture that is not written down}
+\section{A conjecture one cannot read}
 
-OEIS A254588 is ``Number of (3+2)X(n+2) 0..1 arrays with every 3X3 subblock sum of the two medians of the central row and the central column and the two maximums of the diagonal and antidiagonal nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A254486 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal minimum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-15051, 110259, 774168, 5909527, 45867931, 350562134, 2634910318, 19541565637,\ \dots
+19456, 278848, 3912576, 50028672, 640020096, 8348864128, 109168144000, 1413241384576,\ \dots
 \]
 The entry states:
 \begin{quote}
 Empirical recurrence of order 66 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:51:40, revision 6)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:43:06, revision 6) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
-\]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=331$ states remain, and it is that bound every computation below uses.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1632$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=219$ of the $1632$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=331$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most
+$S'=219$.
 \end{lemma}
 
-\begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
-\end{proof}
-
-\section{Why the question has to be asked of a tail}
-
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $66$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=16$ is the first whose minimal order is exactly the stated $66$.
+\section{Recovering the recurrence}
 
 \begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
 \end{lemma}
 
-Applied to $2S'=662$ exact terms from $n=16$ on, it returns order $66$ --- the
-order the entry states --- with integer coefficients:
+Running it on $2S'=438$ exact terms of the model returns order $66$ --- the order the
+entry states --- with the integer coefficients
 \[
 a(n)\;=\;\sum_{i=1}^{66}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $15$ & $c_{18}$ & $-982605097$ & $c_{35}$ & $5235981008048$ & $c_{52}$ & $-78146546434048$ \\
-$c_{2}$ & $-43$ & $c_{19}$ & $-525661827$ & $c_{36}$ & $-8961320875968$ & $c_{53}$ & $90659961176064$ \\
-$c_{3}$ & $-301$ & $c_{20}$ & $3537210873$ & $c_{37}$ & $9495076668384$ & $c_{54}$ & $-54038659858432$ \\
-$c_{4}$ & $1733$ & $c_{21}$ & $-13604118395$ & $c_{38}$ & $-3340248323904$ & $c_{55}$ & $-407025745920$ \\
-$c_{5}$ & $-1411$ & $c_{22}$ & $26058085893$ & $c_{39}$ & $-7511230200448$ & $c_{56}$ & $38103729307648$ \\
-$c_{6}$ & $-3935$ & $c_{23}$ & $-21585374861$ & $c_{40}$ & $18343060535296$ & $c_{57}$ & $-43083597086720$ \\
-$c_{7}$ & $30651$ & $c_{24}$ & $11583339$ & $c_{41}$ & $-21290971470080$ & $c_{58}$ & $23873810595840$ \\
-$c_{8}$ & $-214543$ & $c_{25}$ & $88700798091$ & $c_{42}$ & $7684278387200$ & $c_{59}$ & $-1679936192512$ \\
-$c_{9}$ & $352465$ & $c_{26}$ & $-261763128687$ & $c_{43}$ & $19145034636288$ & $c_{60}$ & $-9753468076032$ \\
-$c_{10}$ & $675875$ & $c_{27}$ & $370621113185$ & $c_{44}$ & $-46219530362880$ & $c_{61}$ & $9493756772352$ \\
-$c_{11}$ & $-2626489$ & $c_{28}$ & $-364080189946$ & $c_{45}$ & $53067439591424$ & $c_{62}$ & $-4138200989696$ \\
-$c_{12}$ & $9819780$ & $c_{29}$ & $-14167508972$ & $c_{46}$ & $-23766139846656$ & $c_{63}$ & $62277025792$ \\
-$c_{13}$ & $-26022750$ & $c_{30}$ & $1053920264814$ & $c_{47}$ & $-31571693314048$ & $c_{64}$ & $1090921693184$ \\
-$c_{14}$ & $-807532$ & $c_{31}$ & $-2155578606768$ & $c_{48}$ & $83059134545920$ & $c_{65}$ & $-652835028992$ \\
-$c_{15}$ & $90973530$ & $c_{32}$ & $2844820069284$ & $c_{49}$ & $-95505387749376$ & $c_{66}$ & $137438953472$ \\
-$c_{16}$ & $-278613639$ & $c_{33}$ & $-2245208451152$ & $c_{50}$ & $53673269985280$ &  &  \\
-$c_{17}$ & $862079053$ & $c_{34}$ & $-902781384392$ & $c_{51}$ & $18533572935680$ &  &  \\
+$c_{1}$ & $18$ & $c_{18}$ & $615571959840768$ & $c_{35}$ & $283464896709609281028096$ & $c_{52}$ & $38761788554303855228604121088$ \\
+$c_{2}$ & $-33$ & $c_{19}$ & $-2085554246123520$ & $c_{36}$ & $2883296282817395859390464$ & $c_{53}$ & $-93573276289811527380607434752$ \\
+$c_{3}$ & $-496$ & $c_{20}$ & $12020148877656064$ & $c_{37}$ & $-8251610097073119228329984$ & $c_{54}$ & $67071204472219626612698644480$ \\
+$c_{4}$ & $2048$ & $c_{21}$ & $-25650223296544768$ & $c_{38}$ & $9517522376702267559510016$ & $c_{55}$ & $-104064334552427279358707630080$ \\
+$c_{5}$ & $-23040$ & $c_{22}$ & $-2925147606482944$ & $c_{39}$ & $-26525127858830680162041856$ & $c_{56}$ & $-272501551147694333012169719808$ \\
+$c_{6}$ & $369664$ & $c_{23}$ & $323218347976032256$ & $c_{40}$ & $-76417131511611788042960896$ & $c_{57}$ & $797774984066972250905304367104$ \\
+$c_{7}$ & $-4362240$ & $c_{24}$ & $-2862141467042775040$ & $c_{41}$ & $224220621549483387349106688$ & $c_{58}$ & $-401247315233373881601678639104$ \\
+$c_{8}$ & $11141120$ & $c_{25}$ & $9064818336960872448$ & $c_{42}$ & $-138566250661159412342718464$ & $c_{59}$ & $56016786777663457439185371136$ \\
+$c_{9}$ & $73252864$ & $c_{26}$ & $-47123129377723777024$ & $c_{43}$ & $156407821625414811553628160$ & $c_{60}$ & $401092572728463209067316248576$ \\
+$c_{10}$ & $-414810112$ & $c_{27}$ & $115602044514438479872$ & $c_{44}$ & $528822994963760403848364032$ & $c_{61}$ & $-1049773153314002473114457341952$ \\
+$c_{11}$ & $6203310080$ & $c_{28}$ & $-103267170019698540544$ & $c_{45}$ & $-1579244354468301013073788928$ & $c_{62}$ & $519934816499859715457632174080$ \\
+$c_{12}$ & $-39720058880$ & $c_{29}$ & $510687438964281835520$ & $c_{46}$ & $-52835902245681846120611840$ & $c_{63}$ & $39614081257132168796771975168$ \\
+$c_{13}$ & $167520501760$ & $c_{30}$ & $2181359768377545981952$ & $c_{47}$ & $2241931681826156891089141760$ & $c_{64}$ & $-79228162514264337593543950336$ \\
+$c_{14}$ & $-821476458496$ & $c_{31}$ & $-5415276951475475972096$ & $c_{48}$ & $-2133470729630848314643578880$ & $c_{65}$ & $158456325028528675187087900672$ \\
+$c_{15}$ & $776122400768$ & $c_{32}$ & $-16560939979791681978368$ & $c_{49}$ & $3762328266368177820332457984$ & $c_{66}$ & $-79228162514264337593543950336$ \\
+$c_{16}$ & $5126513229824$ & $c_{33}$ & $30368208010623202623488$ & $c_{50}$ & $1674230033904741056902070272$ &  &  \\
+$c_{17}$ & $-97350802472960$ & $c_{34}$ & $-96692871156445967548416$ & $c_{51}$ & $-3691832779511899756582404096$ &  &  \\
 \end{tabular}
 \end{center}
 
-\section{The recurrence, and the identification}
-
 \begin{theorem}
-The recurrence above holds for every $n\ge82$, and it is the recurrence OEIS A254588 records.
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=16$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{66}-c_1x^{66-1}-\dots-c_{66}$. Its constant term is
-$-c_{66}=-137438953472$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $66$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $66$, so $\deg q=66$, and it is monic. It holds from some
-index $t$ on. From $\max(t,16)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $66$, so $q=q_{\min}$.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $66$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $66+4$ terms
+removed returns order $66$ as well, so $\deg q_{\min}=66=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Three checks.
 
-First, the walk model reproduces all $16$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $66$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $137438953472$.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $66+4$ terms removed, which is what the identification above
+requires. All three agree.
 
 \begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$66$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $66$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
 \end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254588.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254486.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

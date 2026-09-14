@@ -10,15 +10,15 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A000986}
+\title{A proof of the conjectured recurrence for OEIS A025271}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A000986 carries a conjectured linear recurrence with polynomial coefficients, of
-order 5. The entry separately states a recurrence of order 4 that is not
+OEIS A025271 carries a conjectured linear recurrence with polynomial coefficients, of
+order 6. The entry separately states a recurrence of order 4 that is not
 labelled a conjecture. We prove that the first is a consequence of the second, so the
 conjecture holds. The argument is a division in the Ore algebra
 $\mathbb{Q}(n)[N]$, where $N$ is the shift $Nf(n)=f(n+1)$: writing $C$ and $P$ for the two
@@ -32,20 +32,20 @@ are computed rather than ignored.
 
 \section{The sequence and the two recurrences}
 
-OEIS A000986 is ``Number of n X n symmetric matrices with (0,1) entries and all row sums 2''. It has offset $0$ and begins
+OEIS A025271 is ``a(n) = a(1)*a(n-1) + a(2)*a(n-2) + ...+ a(n-1)*a(1) for n >= 5, with initial values 1,1,2,1''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 0, 1, 4, 18, 112, 820, 6912,\ \dots
+a(1),\dots,a(8)\;=\;1, 1, 2, 1, 6, 18, 52, 165,\ \dots
 \]
 The entry carries the following comment, still recorded as a conjecture:
 \begin{quote}\small
-\textbf{Conjecture:} 2*a(n) +2*(-2*n+1)*a(n-1) +2*(n\^{}2-2*n-1)*a(n-2) -2*(n-2)*(n-4)*a(n-3) +(n-1)*(n-2)*(n-3)*a(n-4) -(n-2)*(n-3)*(n-4)*a(n-5)=0. - \emph{R. J. Mathar}, Aug 04 2013
+\textbf{Conjecture:} n*a(n) +(n+1)*a(n-1) +(n+8)*a(n-2) +42*(-2*n+7)*a(n-3) +16*(n-6)*a(n-4) +80*(n-7)*a(n-5) +336*(n-8)*a(n-6)=0. - \emph{R. J. Mathar}, Nov 21 2014
 \end{quote}
-As of the ``Last modified'' line on the live entry (2026-05-30, revision 65) it is still
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 25) it is still
 a conjecture, and no proof appears among the entry's links, formulas or programs.
 
 The same entry also states, \emph{not} as a conjecture:
 \begin{quote}\small
-Recurrence: 2*a(n) = 4*(n-1)*a(n-1) - 2*(n-3)*(n-1)*a(n-2) - (n-3)*(n-2)*(n-1)*a(n-4). - \emph{Vaclav Kotesovec}, Feb 13 2014
+Recurrence: n*a(n) = 2*(2*n-3)*a(n-1) - 16*(n-6)*a(n-4). - \emph{Vaclav Kotesovec}, Jan 25 2015
 \end{quote}
 This second relation is what the argument below rests on; it is taken as given, exactly as
 a posted generating function would be. It was checked against the entry's own DATA before
@@ -94,12 +94,12 @@ So the question ``does the conjecture follow from the stated recurrence?'' is de
 running the division and looking at the remainder. Nothing is approximated: the
 coefficients live in $\mathbb{Q}(n)$ and the arithmetic is exact.
 
-\section{The computation for A000986}
+\section{The computation for A025271}
 
 Reading both relations as operators and dividing the conjectured one by the stated one
 leaves remainder $0$, with quotient
 \[
-Q \;=\; -1 + 1\,N .
+Q \;=\; 21 + 5\,N + 1\,N^{2} .
 \]
 Hence $C=QP$ in $\mathcal{A}$.
 
@@ -108,9 +108,9 @@ The coefficients of $Q$ are rational functions of $n$, and none of their poles i
 \begin{theorem}
 The conjectured recurrence
 \[
-2\,a(n) -  2 \left(2 n - 1\right)\,a(n-1) + 2 \left(n^{2} - 2 n - 1\right)\,a(n-2) -  2 \left(n - 4\right) \left(n - 2\right)\,a(n-3) + \left(n - 3\right) \left(n - 2\right) \left(n - 1\right)\,a(n-4) -  \left(n - 4\right) \left(n - 3\right) \left(n - 2\right)\,a(n-5) \;=\;0
+n\,a(n) + (n + 1)\,a(n-1) + (n + 8)\,a(n-2) -  42 \left(2 n - 7\right)\,a(n-3) + 16 \left(n - 6\right)\,a(n-4) + 80 \left(n - 7\right)\,a(n-5) + 336 \left(n - 8\right)\,a(n-6) \;=\;0
 \]
-holds for every $n\ge5$.
+holds for every $n\ge7$.
 \end{theorem}
 
 \begin{proof}
@@ -133,12 +133,12 @@ arithmetic and holds on every one it reaches.
 
 Third, the conjecture itself was evaluated the same way, directly and without reference to
 either operator: for each $n$ in range the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the
-entry's own values and found to vanish, for all 17 values of $n$ from
-$n=5$ upward.
+entry's own values and found to vanish, for all 22 values of $n$ from
+$n=7$ upward.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A000986.
+\url{https://oeis.org}, 2026. Sequence A025271.
 \bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
 (1933), 480--508.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,

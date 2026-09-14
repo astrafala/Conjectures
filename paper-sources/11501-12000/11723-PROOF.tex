@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A302323, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A297695, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A302323 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A297695 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $3$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A302323 is ``Number of 2Xn 0..1 arrays with every element equal to 0, 1, 2 or 4 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A297695 is ``Number of 2Xn 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 0, 2 or 4 neighboring 1s.''. It has offset $1$ and begins
 \[
-2, 8, 20, 52, 136, 360, 960, 2576,\ \dots
+4, 8, 26, 60, 176, 436, 1216, 3120,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) -2*a(n-2) -4*a(n-3) for n>4
+Empirical: a(n) = 2*a(n-1) +4*a(n-2) -6*a(n-3)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 05 2018 09:53:34, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jan 03 2018 12:29:02, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) - 2\,a(n-2) - 4\,a(n-3)
+a(n)\;=\;2\,a(n-1) + 4\,a(n-2) - 6\,a(n-3)
 \end{equation}
 for all $n>4$.
 
@@ -61,9 +61,9 @@ column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,2,4\}
+x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{0,2,4\}
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive column shift and some a negative one, so the
 condition at a cell of column $t$ involves columns $t-1$, $t$ and $t+1$ together. A transfer
@@ -78,7 +78,7 @@ $\mathcal V=V\times V$, of size $S=16$, as the vertex set. Declare $(p,c)\to(c,x
 when every cell of the middle column $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first column $p$
-satisfies \eqref{eq:loc} with no column above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no column above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second column $c$ satisfies it with no column below.
 
 \begin{lemma}\label{lem:walk}
@@ -110,10 +110,6 @@ It is worth saying why this is not done by enumeration. At the largest index the
 publishes, $n=27$, the arrays have $2\cdot27$ cells over
 $2$ values, so there are about $10^{16}$ of them to sift. The
 walk count replaces that by $16$ states and one matrix--vector product per column.
-
-The threshold below is exact rather than merely sufficient: at $n=4$ the conjectured
-recurrence fails on the entry's own published terms, so no range larger than the one proved
-can hold.
 \section{The criterion}
 
 Let $q(t)=t^{3}-\sum_i c_i\,t^{3-i}$ be the characteristic polynomial of
@@ -182,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A302323.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A297695.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
