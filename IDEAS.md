@@ -1189,3 +1189,27 @@ polyhedral subdivision, convex or not, and `galhull.support` decides convexity q
 outright. A model that produced a non-convex subdivision — §X shape (2), partitioning the patch
 by which neighbour realises the minimum in `D(x) = 1 + min D(y)` — would be certified by the
 machinery as it stands.
+
+## Y. The 558 name-readable bucket, closed out (14 September, late)
+
+Of the 558 entries whose name an engine reads and whose claim nothing did:
+
+| | |
+|---:|---|
+| 228 | the claim is in a linked a-file — `linkrec`, **82 results** and still running |
+| 274 | the claim is a closed form the stale pool never offered — `cfpool`, **144 results** |
+| 7 | "a(n) is a polynomial of degree d for n>k" — `degclaim`, a 159th argument, 2 so far |
+| ~49 | a genuine tail of one-offs |
+
+**The tail is worth reading once and then leaving.** Bucketed, it is: 7 "Rule N also generates
+this sequence" (a claim about a cellular automaton, not about a(n)); 9 shift identities
+`a(n) = A######(n+k)` (measured pool-wide at 26, with both sides on the roster in exactly one
+case — §W); ~8 exponential closed forms with shifted exponents, `a(n) = 19*4^(n-2) - 16*3^(n-3)
++ 1`, which `closedform.parse_line` declines — **that is a parse gap and the cheapest thing
+left in this bucket**; and about 25 true one-offs (Conway's Game of Life, binary
+representations, Fibonacci-then-power splits).
+
+So the next cheap thing in §Y is the exponential parse gap in `closedform`, worth about 8
+entries on `ca2dcount`, `ca2d` and `transfer46`. After that this bucket is done and the pool's
+remaining mass is the 2,211 claim-readable entries (§W.2: 379 Galebach, now known structural,
+plus a tail of ones and twos) and the 16,368 where neither reads.
