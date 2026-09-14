@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210129, proved by counting patterns}
+\title{The empirical recurrence for OEIS A210056, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210129 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A210056 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,22 +36,22 @@ $11$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A210129 is ``Number of (n+1) X 4 0..3 arrays with every 2 X 2 subblock having one, three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A210056 is ``Number of (n+1)X4 0..3 arrays with every 2X2 subblock having one, two or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-897, 84381, 7873809, 735336694, 68668190865, 6412512897051, 598825892889354, 55920742053335527,\ \dots
+323, 8767, 249327, 7293673, 216648913, 6488330257, 195167694929, 5884233366145,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 95*a(n-1) -a(n-2) -14266*a(n-3) +20367*a(n-4) +435937*a(n-5) -1093869*a(n-6) -1923590*a(n-7) +8479272*a(n-8) -8472184*a(n-9) +1936944*a(n-10) +631296*a(n-11).
+Empirical: a(n) = 66*a(n-1) -1511*a(n-2) +14904*a(n-3) -58950*a(n-4) +21360*a(n-5) +330508*a(n-6) -503712*a(n-7) -93160*a(n-8) +369120*a(n-9) -9504*a(n-10) -69120*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 07 2026 20:43:28, revision 11) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:39:57, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;95\,a(n-1) - a(n-2) - 14266\,a(n-3) + 20367\,a(n-4) + 435937\,a(n-5) - 1093869\,a(n-6) - 1923590\,a(n-7) + 8479272\,a(n-8) - 8472184\,a(n-9) + 1936944\,a(n-10) + 631296\,a(n-11)
+a(n)\;=\;66\,a(n-1) - 1511\,a(n-2) + 14904\,a(n-3) - 58950\,a(n-4) + 21360\,a(n-5) + 330508\,a(n-6) - 503712\,a(n-7) - 93160\,a(n-8) + 369120\,a(n-9) - 9504\,a(n-10) - 69120\,a(n-11)
 \end{equation}
-for all $n>11$.
+for all $n>10$.
 
 \section{What the canonical-form clause counts}
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3,4\}.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,2,4\}.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -186,7 +186,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>10$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -197,7 +197,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $11$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=11+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=10+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,7 +206,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $12$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $15$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210129.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210056.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

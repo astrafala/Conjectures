@@ -118,4 +118,12 @@ container restarted under it: A186879, A188103, A188104, A190029-A190032, A20634
 A207147, A207148. All twelve survived the restart because the sweep writes after every entry,
 and all twelve were kept by the live re-check.
 
-Roster: 12,966 -> 12,978 papers over 12,951 entries.
+One more, `A224581` from `transfer23`, came in before the sweep's own time limit stopped it.
+
+Roster: 12,966 -> 12,979 papers over 12,952 entries.
+
+A number worth writing down while restarting the standing sweeps: `restart_all.sh` brings back
+**71 python processes on 4 cores**. That is not a criticism of the sweeps, which do find things
+and are the project's background discovery, but it is the reason a foreground measurement taken
+alongside them means nothing, and it is worth someone deciding deliberately whether
+seventeen-fold oversubscription is the right setting rather than inheriting it.

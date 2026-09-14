@@ -10,48 +10,48 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A026005}
+\title{A proof of the conjectured recurrence for OEIS A243585}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026005 carries a conjectured linear recurrence with polynomial coefficients, of
+OEIS A243585 carries a conjectured linear recurrence with polynomial coefficients, of
 order 2. The entry gives no generating function, but it does give the sequence as
 a single hypergeometric sum. We prove the conjecture without assuming any generating
 function: creative telescoping produces, from the summand alone, an operator of order
-1 that annihilates the sequence, together with a rational certificate that is
+2 that annihilates the sequence, together with a rational certificate that is
 checked as an exact identity rather than trusted. The conjectured operator is then shown
 to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
-step is what the conjecture needs: the conjectured recurrence has order $2$ while the summand only needs order $1$, so it is not itself a telescoper and cannot be produced directly.
+step is what the conjecture needs: the two operators have the same order but are not proportional, so the conjecture still has to be derived from what telescoping gives.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A026005 is ``a(n) = T(4*n,n), where T = Catalan triangle (A008315)''. It has offset $0$ and begins
+OEIS A243585 is ``Expansion of x*log'(C(C(x)-1)-1), C(x) = (1-sqrt(1-4*x))/(2*x)''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 4, 27, 208, 1700, 14364, 123970, 1085760,\ \dots
+a(0),\dots,a(7)\;=\;1, 4, 20, 106, 580, 3244, 18446, 106250,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-a(n) = Sum\emph{\{k=0..n\}((n+k+1)*binomial(n+k,k)*binomial(3*n-k,n-k))/(2*n+1). - }Vladimir Kruchinin\_, Dec 02 2016
+a(n) = Sum\_\{k=0..n\} binomial(2*k,k)*binomial(2*n,n-k).
 \end{quote}
 so that, writing $F(n,k)$ for the summand,
 \begin{equation}\label{eq:sum}
 a(n)\;=\;\sum_{k=0}^{n}F(n,k),
-\qquad F(n,k)=\frac{\left(k + n + 1\right) {\binom{- k + 3 n}{- k + n}} {\binom{k + n}{k}}}{2 n + 1} .
+\qquad F(n,k)={\binom{2 k}{k}} {\binom{2 n}{- k + n}} .
 \end{equation}
 This is the only input the proof takes from the entry, and it was checked against the
 entry's own DATA before use.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 9*n*(3*n+2)*(3*n+1)*a(n) +12*(-55*n\^{}3-59*n\^{}2+65*n-11)*a(n-1) -32*(4*n-5)*(4*n-3)*(2*n-3)*a(n-2)=0. - \emph{R. J. Mathar}, May 22 2013
+Conjecture D-finite with recurrence: 2*n*(2*n-1)*(3*n-5)*a(n) +(-123*n\^{}3+328*n\^{}2-249*n+60)*a(n-1) +50*(n-1)*(2*n-3)*(3*n-2)*a(n-2)=0. - \emph{R. J. Mathar}, Jun 14 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (2017-05-24, revision 28) the
+As of the ``Last modified'' line on the live entry (2025-11-05, revision 33) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
@@ -84,24 +84,24 @@ functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k
 $F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
 proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
 
-For A026005 such a pair exists with $r=1$:
+For A243585 such a pair exists with $r=2$:
 \[
-\sigma_{0}(n)=\frac{- 256 n^{4} - 1152 n^{3} - 1776 n^{2} - 1112 n - 240}{9 n^{3} + 30 n^{2} + 33 n + 12},\qquad \sigma_{1}(n)=3 n + 5
+\sigma_{0}(n)=-5,\qquad \sigma_{1}(n)=\frac{123 n^{3} + 410 n^{2} + 413 n + 110}{60 n^{3} + 170 n^{2} + 150 n + 40},\qquad \sigma_{2}(n)=\frac{- 6 n^{3} - 23 n^{2} - 25 n - 6}{30 n^{3} + 85 n^{2} + 75 n + 20}
 \]
 and certificate
 \[
-R(n,k)\;=\;\frac{9 k^{5} n + 12 k^{5} - 96 k^{4} n^{2} - 192 k^{4} n - 84 k^{4} + 346 k^{3} n^{3} + 856 k^{3} n^{2} + 583 k^{3} n + 84 k^{3} - 712 k^{2} n^{4} - 2496 k^{2} n^{3} - 3138 k^{2} n^{2} - 1688 k^{2} n - 324 k^{2} + 885 k n^{5} + 4252 k n^{4} + 7715 k n^{3} + 6428 k n^{2} + 2368 k n + 312 k}{36 k n^{4} + 174 k n^{3} + 312 k n^{2} + 246 k n + 72 k - 36 n^{5} - 210 n^{4} - 486 n^{3} - 558 n^{2} - 318 n - 72} .
+R(n,k)\;=\;\frac{15 k^{3} n + 20 k^{3} + 9 k^{2} n^{2} - 16 k^{2} - 18 k n^{2} - 46 k n - 30 k}{15 k^{3} n + 20 k^{3} - 15 k^{2} n^{2} - 50 k^{2} n - 40 k^{2} - 15 k n^{3} - 50 k n^{2} - 55 k n - 20 k + 15 n^{4} + 80 n^{3} + 155 n^{2} + 130 n + 40} .
 \]
 Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
 Lemma~\ref{lem:tel} applies and
 \begin{equation}\label{eq:L}
-L\;=\;\sum_{i=0}^{1}\sigma_{i}(n)N^{i}
+L\;=\;\sum_{i=0}^{2}\sigma_{i}(n)N^{i}
 \end{equation}
 annihilates $a$.
 
 \section{From the derived recurrence to the conjectured one}
 
-The operator \eqref{eq:L} is not the conjectured one. It has order $1$, below the conjectured order $2$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
+The operator \eqref{eq:L} is not the conjectured one. It has the same order as the conjectured one but is not a multiple of it by a constant. The two are connected by
 division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
 $N\,q(n)=q(n+1)\,N$.
 
@@ -118,21 +118,21 @@ $n$, so the step is valid away from their poles.
 Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
 $0$, with quotient
 \[
-Q\;=\;\left(\frac{36 n^{3} + 120 n^{2} + 132 n + 48}{n + 2}\right) + \left(27 n^{2} + 117 n + 126\right)\,N .
+Q\;=\;\left(- 60 n^{3} - 170 n^{2} - 150 n - 40\right) .
 \]
-The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-2\}$, below the range claimed here.
+No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-9 n \left(3 n + 1\right) \left(3 n + 2\right)\,a(n) -  12 \left(55 n^{3} + 59 n^{2} - 65 n + 11\right)\,a(n-1) -  32 \left(2 n - 3\right) \left(4 n - 5\right) \left(4 n - 3\right)\,a(n-2) \;=\;0
+2 n \left(2 n - 1\right) \left(3 n - 5\right)\,a(n) + (- 123 n^{3} + 328 n^{2} - 249 n + 60)\,a(n-1) + 50 \left(n - 1\right) \left(2 n - 3\right) \left(3 n - 2\right)\,a(n-2) \;=\;0
 \]
 holds for every $n\ge2$.
 \end{theorem}
 
 \begin{proof}
 By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
-Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=2$.
+Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. No coefficient of $Q$ has an integer pole.
 \end{proof}
 
 \section{Verification}
@@ -154,12 +154,12 @@ $\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
 Fourth, the conjecture itself was evaluated on the published terms, in exact integer
 arithmetic and without reference to any operator: for each $n$ in range the sum
 $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 17 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
+all 19 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
 likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026005.
+\url{https://oeis.org}, 2026. Sequence A243585.
 \bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 1996.
 \bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
