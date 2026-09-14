@@ -648,3 +648,32 @@ recurrence failing at n = 5 when it fails at n = 4, which is the difference betw
 contradicting the entry's stated range and confirming it. And `S` was returned as the period
 q when the annihilator is `(z^q - 1)^2` of degree 2q, which would have put a run half the
 length it needs behind the theorem.
+
+## 14 September 2026 — the claim that names a degree and no coefficients
+
+A **159th argument**, `polynomial-degree`. Seven entries in the pool say only
+
+    Empirical: a(n) is a polynomial of degree 26 for n>13
+
+and nothing here read them: there is no formula, so `ratrec` and `closedform` both decline. But
+the claim is decidable by machinery already present, because it is two linear recurrences:
+
+* `a` agrees with a polynomial of degree at most `d` on `n ≥ N` **iff** the (d+1)-st finite
+  difference vanishes there — that is, `(z−1)^(d+1)` annihilates `a` from `N+d+1` on;
+* the degree is exactly `d` **iff** `(z−1)^d` does not annihilate the tail.
+
+So the entry's "for n>k" predicts a threshold of precisely `k+d+1`. That prediction is what is
+tested, and it is what makes the reading of the English defensible rather than assumed:
+
+| entry | degree | claimed | threshold | k+d+1 |
+|---|---|---|---|---|
+| A201350 | 31 | n > 10 | 42 | 42 |
+| A201351 | 63 | n > 22 | 86 | 86 |
+
+Both tight, both installed, both live-checked. `(z−1)^d` refuses on each, so the degree is
+exactly the one claimed and not smaller. The sweep is still grinding the remaining five —
+degrees 127 and 80 are large enough that the annihilation test is minutes, not seconds.
+
+`degbuild` writes these papers rather than `unibuild`, because the theorem is **not** a
+recurrence: printing `(z−1)^(d+1)` as "the conjectured recurrence" would state something the
+entry does not say.

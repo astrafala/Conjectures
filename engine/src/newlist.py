@@ -46,7 +46,9 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # the closed-form pool rebuilt from the clone, after the hand-made one went stale
             'cfpool_hits*.json',
             # the Galebach coordination sequences, certified on the whole lattice
-            'galcoord_hits*.json'):
+            'galcoord_hits*.json',
+            # the claim that names a DEGREE and no coefficients
+            'degree_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:

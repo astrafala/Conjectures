@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250708, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250529, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250708 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+OEIS A250529 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
@@ -31,15 +31,15 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250708 is ``Number of (1+1)X(n+1) 0..3 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
+OEIS A250529 is ``Number of (n+1)X(1+1) 0..3 arrays with nondecreasing max(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
 \[
-100, 654, 3674, 19876, 102963, 521684, 2597784, 12791393,\ \dots
+110, 700, 3958, 21326, 110546, 559824, 2787971, 13727380,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 10*a(n-1) -25*a(n-2) -30*a(n-3) +166*a(n-4) -43*a(n-5) -343*a(n-6) +230*a(n-7) +301*a(n-8) -287*a(n-9) -110*a(n-10) +159*a(n-11) +5*a(n-12) -41*a(n-13) +6*a(n-14) +4*a(n-15) -a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:43:46, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:30:25, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,16 +49,16 @@ The array has $2$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
 Two derived arrays are formed. The first reads the horizontal statistic across each
 neighbouring pair of a row,
 \[
-b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+b(i,j)\;=\;\bigl[\,\max(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
 and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
 statistic down each neighbouring pair of a column,
 \[
-c(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
 \]
 and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the smaller of a cell and its left neighbour, and the vertical one is
-the sum of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+is the larger of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250708.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250529.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

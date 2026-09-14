@@ -12,135 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250930: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A200158, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{12 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250930 records ``Empirical recurrence of order $64$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on $S=256$ vertices and
-satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $64$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$64$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A200158 carries an empirical recurrence of order $64$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by an Ehrhart quasi-polynomial, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=257$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A250930 is ``Number of (n+1)X(3+1) 0..3 arrays with no 2X2 subblock having a diagonal absolute difference less than its antidiagonal absolute difference.''. It has offset $1$ and begins
+OEIS A200158 is ``Number of 0..n arrays x(0..6) of 7 elements with zero 6th difference.''. It has offset $1$ and begins
 \[
-16588, 1104364, 73855420, 4951389320, 332020435016, 22261912983384, 1492624513556120, 100078269167905748,\ \dots
+2, 45, 182, 685, 2036, 5153, 11370, 23035,\ \dots
 \]
-The entry states:
+The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 64 (see link above)
+Empirical: a(n) = 2*a(n-1) -a(n-2) +2*a(n-6) -4*a(n-7) +2*a(n-8) -a(n-12) +2*a(n-13) -a(n-14) +2*a(n-15) -4*a(n-16) +2*a(n-17) +a(n-20) -6*a(n-21) +9*a(n-22) -4*a(n-23) -2*a(n-26) +6*a(n-27) -6*a(n-28) +2*a(n-29) -a(n-30) +2*a(n-31) -2*a(n-33) +a(n-34) -2*a(n-35) +6*a(n-36) -6*a(n-37) +2*a(n-38) +4*a(n-41) -9*a(n-42) +6*a(n-43) -a(n-44) -2*a(n-47) +4*a(n-48) -2*a(n-49) +a(n-50) -2*a(n-51) +a(n-52) -2*a(n-56) +4*a(n-57) -2*a(n-58) +a(n-62) -2*a(n-63) +a(n-64)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:51:54, revision 6) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 08:27:45, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The count is a quasi-polynomial}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=256$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=256$.
-\end{lemma}
+\section{The bound}
 
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S=512$ exact terms of the model returns order $64$ --- the order the
-entry states --- with the integer coefficients
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
 \[
-a(n)\;=\;\sum_{i=1}^{64}c_i\,a(n-i),
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $144$ & $c_{17}$ & $-178471146718060278$ & $c_{33}$ & $3507784504333770326541$ & $c_{49}$ & $-6287419731645225801146$ \\
-$c_{2}$ & $-8104$ & $c_{18}$ & $1781361685522446417$ & $c_{34}$ & $11212999310017794883271$ & $c_{50}$ & $2072255873477949901714$ \\
-$c_{3}$ & $270492$ & $c_{19}$ & $-10155512355722945285$ & $c_{35}$ & $-19722165561839855773884$ & $c_{51}$ & $-678683173558563374566$ \\
-$c_{4}$ & $-6161630$ & $c_{20}$ & $42155260415671247563$ & $c_{36}$ & $12065547890541733379240$ & $c_{52}$ & $343401224097707418680$ \\
-$c_{5}$ & $99730093$ & $c_{21}$ & $-138406206547966314039$ & $c_{37}$ & $13443485175141760257193$ & $c_{53}$ & $-244733068248375970303$ \\
-$c_{6}$ & $-1121196008$ & $c_{22}$ & $373044358666303838266$ & $c_{38}$ & $-45645663952438029267485$ & $c_{54}$ & $159386904932155925529$ \\
-$c_{7}$ & $7587545511$ & $c_{23}$ & $-838697314192850653721$ & $c_{39}$ & $65255313713197798434684$ & $c_{55}$ & $-83446258379649518477$ \\
-$c_{8}$ & $-3961110497$ & $c_{24}$ & $1573168416083872457654$ & $c_{40}$ & $-57214623312437116092507$ & $c_{56}$ & $35443434438426329587$ \\
-$c_{9}$ & $-602017133753$ & $c_{25}$ & $-2411869132329842910573$ & $c_{41}$ & $21545435531503636551260$ & $c_{57}$ & $-12705921755869780335$ \\
-$c_{10}$ & $8269378274357$ & $c_{26}$ & $2821579677213712749117$ & $c_{42}$ & $26155358606228985040805$ & $c_{58}$ & $3982336919832586925$ \\
-$c_{11}$ & $-65943459092676$ & $c_{27}$ & $-1882581067433523342854$ & $c_{43}$ & $-64911725026000097561093$ & $c_{59}$ & $-1088775194886971952$ \\
-$c_{12}$ & $357133465237518$ & $c_{28}$ & $-1353190580387236551801$ & $c_{44}$ & $81058794964709757800493$ & $c_{60}$ & $242880755687345406$ \\
-$c_{13}$ & $-1301168295812184$ & $c_{29}$ & $7039627238307997770673$ & $c_{45}$ & $-74272352095309360518860$ & $c_{61}$ & $-38258007034895280$ \\
-$c_{14}$ & $2682731067293063$ & $c_{30}$ & $-13584361303380333588711$ & $c_{46}$ & $54193926266586053877827$ & $c_{62}$ & $3181968749231992$ \\
-$c_{15}$ & $-458368241353275$ & $c_{31}$ & $17429408905094487552319$ & $c_{47}$ & $-32309076415370413821928$ & $c_{63}$ & $-6074509170240$ \\
-$c_{16}$ & $-1070558269083224$ & $c_{32}$ & $-14523007920422294655383$ & $c_{48}$ & $15792048493571367082180$ & $c_{64}$ & $-11052683215615$ \\
-\end{tabular}
-\end{center}
+annihilates $a$, and $S=\deg A=257$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=257$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{64}-\sum_ic_iz^{64-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+a(n)\;=\;2\,a(n-1) - a(n-2) + 2\,a(n-6) - 4\,a(n-7) + 2\,a(n-8) - a(n-12) + 2\,a(n-13) - a(n-14) + 2\,a(n-15) - 4\,a(n-16) + 2\,a(n-17) + a(n-20) - 6\,a(n-21) + 9\,a(n-22) - 4\,a(n-23) - 2\,a(n-26) + 6\,a(n-27) - 6\,a(n-28) + 2\,a(n-29) - a(n-30) + 2\,a(n-31) - 2\,a(n-33) + a(n-34) - 2\,a(n-35) + 6\,a(n-36) - 6\,a(n-37) + 2\,a(n-38) + 4\,a(n-41) - 9\,a(n-42) + 6\,a(n-43) - a(n-44) - 2\,a(n-47) + 4\,a(n-48) - 2\,a(n-49) + a(n-50) - 2\,a(n-51) + a(n-52) - 2\,a(n-56) + 4\,a(n-57) - 2\,a(n-58) + a(n-62) - 2\,a(n-63) + a(n-64)
+\]
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $64$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $64+4$ terms
-removed returns order $64$ as well, so $\deg q_{\min}=64=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=0+1$ onwards, and the run exceeds $S+64$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $64+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $64$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250930.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A200158.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

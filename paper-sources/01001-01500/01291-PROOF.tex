@@ -11,145 +11,108 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A230986, proved by transfer matrix}
+\title{The empirical degree for OEIS A201350, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230986 counts the white-square subarrays of arrays of width $6$ over $\{0,1\}$ in which
-no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $32$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
-both coordinates by one and so never changes the colour of a cell, which makes the two colours
-of the chessboard independent of one another; the count is then a walk over the cells of one
-colour, on $S=133$ states.
+OEIS A201350 carries the empirical claim that its terms agree with a polynomial of degree $31$.
+It is true, and it is decidable rather than empirical. The claim names no coefficients, so
+there is no formula to check; but a sequence agrees with a polynomial of degree at most $d$ on
+a range exactly when its $(d+1)$-st finite difference vanishes there, and the degree is exactly
+$d$ exactly when the $d$-th difference does not eventually vanish. Both are linear recurrences,
+and the entry's count is given by an exact model that provably satisfies a monic linear
+recurrence of order $S=612$, so both are settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A230986 is ``Number of white square subarrays of (n+1)X(5+1) binary arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with upper left element zero.''. It has offset $1$ and begins
+OEIS A201350 is ``Number of nX5 0..1 arrays with rows and columns lexicographically nondecreasing and every element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-5, 15, 59, 191, 685, 2379, 8357, 29493,\ \dots
+4, 23, 118, 752, 4860, 29540, 164704, 838248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +14*a(n-2) -32*a(n-3) -104*a(n-4) +154*a(n-5) +508*a(n-6) -484*a(n-7) -1726*a(n-8) +1093*a(n-9) +4145*a(n-10) -1749*a(n-11) -7333*a(n-12) +2022*a(n-13) +9991*a(n-14) -1827*a(n-15) -10876*a(n-16) +1558*a(n-17) +9630*a(n-18) -1406*a(n-19) -6891*a(n-20) +1141*a(n-21) +3895*a(n-22) -694*a(n-23) -1685*a(n-24) +290*a(n-25) +536*a(n-26) -79*a(n-27) -118*a(n-28) +13*a(n-29) +16*a(n-30) -a(n-31) -a(n-32)
+Empirical: a(n) is a polynomial of degree 31 for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:09:48, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:05:06, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Colour the cells of the array like a chessboard: $(i,j)$ is white when $i+j$ is even. The
-condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
-four offsets
-\[
-(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
-\]
-and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
-condition is that no cell equals a strict majority of its neighbours:
-\[
-2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
-\]
-Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
+The entry's defining condition is local: it is a condition on the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may follow
+$u$, which the condition decides by inspection. An admissible array is then exactly a walk, so
+with $M$ the adjacency matrix of that digraph on $S=612$ vertices and $\iota,\tau$ the vectors
+recording which windows may begin and end an array, $a(n)=\iota^{\!\top}M^{\,g(n)}\tau$ for
+the linear function $g$ the entry's shape supplies. In particular $a$ is $C$-finite.
 
-The entry adds that the first cell of the subarray in reading order, the cell $(0,0)$ of the array, is $0$.
+\section{A degree is two recurrences}
 
-\begin{lemma}\label{lem:split}
-Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
-and never changes its parity. Every neighbour of a white cell is therefore white. The condition
-above splits into two systems that share no cell: one on the white cells and one on the black
-cells.
-\end{lemma}
-
-So what the entry counts is the assignments of values to the white cells alone that satisfy the
-white system; the black cells never enter. That this is the entry's own reading, and not
-merely a convenient one, is settled by its ``upper left element zero'': for a white subarray the
-first cell in reading order is the cell $(0,0)$ of the array, and it is that cell the
-clause fixes, as the published terms confirm and as Section~5 records.
-
-\section{A walk on one colour}
-
-Take the array one row at a time. In a row of even index the white cells sit at every other
-column starting from column $0$, and in a row of odd index they sit at the columns in
-between; the two shapes alternate, so a state must record which of them the next row has.
-
-All four offsets move exactly one row, so the neighbours of the white cells of a row are the
-white cells of the rows immediately above and below it. A row's conditions are therefore settled
-by three consecutive rows, and the state is the last two of them together with the parity of the
-next.
-
-Appending a row completes one such window and settles the row in the middle of it. Because the
-condition looks one row DOWN as well as up, the last row of a finished array has not been tested
-when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
-last row passes with nothing below it. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=133.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:diff}
+Let $\Delta$ be the forward difference. For integers $N$ and $d\ge0$, $a$ agrees on
+$n\ge N$ with a polynomial of degree at most $d$ if and only if $(\Delta^{d+1}a)(n)=0$ for
+every $n\ge N$; and that polynomial has degree exactly $d$ unless $(\Delta^{d}a)(n)=0$ for
+all large $n$ as well.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Standard finite differences. $\Delta^{d+1}$ kills exactly the polynomials of degree at most
+$d$, and on a range where $\Delta^{d+1}a$ vanishes the values of $a$ are determined by
+$d+1$ consecutive ones through the same identity a degree-$d$ polynomial satisfies, so the
+interpolating polynomial through any $d+1$ of them reproduces all of them. Its leading
+coefficient is $(\Delta^{d}a)/d!$, which is the constant the second statement is about.
 \end{proof}
 
+Written out, $\Delta^{d+1}a=0$ is the monic linear recurrence with characteristic polynomial
+$(z-1)^{31+1}$, and $\Delta^{d}a$ constant is the one with $(z-1)^{31}$. Both are
+fixed recurrences, so each is decided by the annihilation test: $M^{S}$ is an integer
+combination of $I,\dots,M^{S-1}$ by Cayley--Hamilton, the residuals therefore obey the monic
+recurrence given by the characteristic polynomial of $M$, and $S$ consecutive zeros force every
+later one.
+
+\section{The theorem}
+
 \begin{theorem}
-\[
-a(n)\;=\;3\,a(n-1) + 14\,a(n-2) - 32\,a(n-3) - 104\,a(n-4) + 154\,a(n-5) + 508\,a(n-6) - 484\,a(n-7) - 1726\,a(n-8) + 1093\,a(n-9) + 4145\,a(n-10) - 1749\,a(n-11) - 7333\,a(n-12) + 2022\,a(n-13) + 9991\,a(n-14) - 1827\,a(n-15) - 10876\,a(n-16) + 1558\,a(n-17) + 9630\,a(n-18) - 1406\,a(n-19) - 6891\,a(n-20) + 1141\,a(n-21) + 3895\,a(n-22) - 694\,a(n-23) - 1685\,a(n-24) + 290\,a(n-25) + 536\,a(n-26) - 79\,a(n-27) - 118\,a(n-28) + 13\,a(n-29) + 16\,a(n-30) - a(n-31) - a(n-32)
-\]
-for every $n>32$.
+$a(n)$ agrees with a polynomial in $n$ of degree exactly $31$ for every $n\ge11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The residual of $(z-1)^{31+1}$ was formed at each index in exact integer arithmetic from
+the model. It is nonzero at $n=42$ and vanishes from $n=42+1$ onwards, with the run of
+zeros continuing past $S+31+1$, which by the annihilation bound settles every later index at
+once. So $\Delta^{31+1}a$ vanishes on $n\ge42-31=11$, and
+Lemma~\ref{lem:diff} gives the polynomial there.
+
+For the degree: the residual of $(z-1)^{31}$ has no run of $S+31$ zeros anywhere in the
+computed range, so $\Delta^{31}a$ is not eventually zero and the degree is not smaller
+than $31$. The entry claims it for $n>10$, and the threshold above is exactly $10+31+1=42$, so the range proved is the range claimed and neither is slack.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
-
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
-arithmetic.
-
-Second, the count was recomputed for the smallest arrays straight from the definition: the cells
-of the white colour were listed from $i+j$ directly, every assignment of values to them
-enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
-vector are involved in that computation, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic; this is what ties it to the entry, which is read in English and could be misread.
+Second, both residuals were computed term by term rather than through any closed form. Third,
+the derived bound $S$ was tested on terms it had not been given: the model was evaluated beyond
+the $S$ values that determine it and the annihilator reproduced them.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230986.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A201350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{gkp} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison--Wesley, 1994. (Finite differences.)
 \end{thebibliography}
 
 \end{document}

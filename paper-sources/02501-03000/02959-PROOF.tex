@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250348, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A211501, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250348 carries an empirical recurrence of order $24$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far, so
+OEIS A211501 carries an empirical recurrence of order $24$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=96$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=104$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,23 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A250348 is ``Number of length n arrays x(i), i=1..n with x(i) in i..i+5 and no value appearing more than 2 times.''. It has offset $1$ and begins
+OEIS A211501 is ``Number of -3..3 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1), -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having one, two or three distinct values for every i<=n and j<=n.''. It has offset $1$ and begins
 \[
-6, 36, 212, 1221, 6900, 38543, 214716, 1193739,\ \dots
+49, 143, 357, 879, 2053, 4805, 10971, 25233,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) -8*a(n-3) -12*a(n-4) -66*a(n-5) -332*a(n-6) +132*a(n-7) +447*a(n-8) +294*a(n-9) +630*a(n-10) +396*a(n-11) -484*a(n-12) -222*a(n-13) +192*a(n-14) -188*a(n-15) -144*a(n-16) +114*a(n-17) +50*a(n-18) -12*a(n-19) +21*a(n-20) +16*a(n-21) -a(n-24)
+Empirical: a(n) = 6*a(n-1) +6*a(n-2) -97*a(n-3) +62*a(n-4) +668*a(n-5) -852*a(n-6) -2556*a(n-7) +4359*a(n-8) +5935*a(n-9) -12593*a(n-10) -8545*a(n-11) +22727*a(n-12) +7400*a(n-13) -26431*a(n-14) -3396*a(n-15) +19783*a(n-16) +389*a(n-17) -9298*a(n-18) +302*a(n-19) +2606*a(n-20) -118*a(n-21) -392*a(n-22) +12*a(n-23) +24*a(n-24).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:19:50, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Apr 17 2022 22:49:05, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far and nothing beyond. Take as
+The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=96$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=104$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 8\,a(n-3) - 12\,a(n-4) - 66\,a(n-5) - 332\,a(n-6) + 132\,a(n-7) + 447\,a(n-8) + 294\,a(n-9) + 630\,a(n-10) + 396\,a(n-11) - 484\,a(n-12) - 222\,a(n-13) + 192\,a(n-14) - 188\,a(n-15) - 144\,a(n-16) + 114\,a(n-17) + 50\,a(n-18) - 12\,a(n-19) + 21\,a(n-20) + 16\,a(n-21) - a(n-24)
+a(n)\;=\;6\,a(n-1) + 6\,a(n-2) - 97\,a(n-3) + 62\,a(n-4) + 668\,a(n-5) - 852\,a(n-6) - 2556\,a(n-7) + 4359\,a(n-8) + 5935\,a(n-9) - 12593\,a(n-10) - 8545\,a(n-11) + 22727\,a(n-12) + 7400\,a(n-13) - 26431\,a(n-14) - 3396\,a(n-15) + 19783\,a(n-16) + 389\,a(n-17) - 9298\,a(n-18) + 302\,a(n-19) + 2606\,a(n-20) - 118\,a(n-21) - 392\,a(n-22) + 12\,a(n-23) + 24\,a(n-24)
 \]
-for every $n>0$.
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250348.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211501.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
