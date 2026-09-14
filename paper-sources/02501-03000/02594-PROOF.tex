@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269057, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A269040, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269057 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
+OEIS A269040 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-at most one. A transfer matrix still applies once the running count is carried in the state; and
+exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
 which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=1458$ vertices,
 and the empirical recurrence of order $46$ contributed by R.~H.~Hardin then follows from
@@ -32,15 +32,15 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269057 is ``Number of 6Xn 0..2 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
+OEIS A269040 is ``Number of 6 X n 0..2 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
 \[
-729, 8586, 90450, 1350672, 17696520, 242861616, 3193266318, 42102137568,\ \dots
+0, 7128, 67104, 1114848, 14710368, 208867428, 2783857776, 37310632920,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 12*a(n-1) +182*a(n-2) -1820*a(n-3) -15113*a(n-4) +101664*a(n-5) +646022*a(n-6) -3003324*a(n-7) -15725808*a(n-8) +55305760*a(n-9) +234926070*a(n-10) -698528578*a(n-11) -2270736611*a(n-12) +6320752450*a(n-13) +14600825558*a(n-14) -41434331996*a(n-15) -62768577651*a(n-16) +196263429930*a(n-17) +176943063476*a(n-18) -669462409316*a(n-19) -305019512324*a(n-20) +1647405492614*a(n-21) +230358934675*a(n-22) -2942270801898*a(n-23) +243588718325*a(n-24) +3841770422896*a(n-25) -923967990222*a(n-26) -3689384232910*a(n-27) +1300617284437*a(n-28) +2614259101122*a(n-29) -1127033659748*a(n-30) -1366254718948*a(n-31) +660843537364*a(n-32) +524090586634*a(n-33) -269727615782*a(n-34) -146010681184*a(n-35) +76928224259*a(n-36) +28983533038*a(n-37) -15160113967*a(n-38) -3964319226*a(n-39) +2009807783*a(n-40) +352152984*a(n-41) -170267256*a(n-42) -18138336*a(n-43) +8296524*a(n-44) +408240*a(n-45) -176400*a(n-46) for n>48
+Empirical: a(n) = 12*a(n-1) +182*a(n-2) -1820*a(n-3) -15113*a(n-4) +101664*a(n-5) +646022*a(n-6) -3003324*a(n-7) -15725808*a(n-8) +55305760*a(n-9) +234926070*a(n-10) -698528578*a(n-11) -2270736611*a(n-12) +6320752450*a(n-13) +14600825558*a(n-14) -41434331996*a(n-15) -62768577651*a(n-16) +196263429930*a(n-17) +176943063476*a(n-18) -669462409316*a(n-19) -305019512324*a(n-20) +1647405492614*a(n-21) +230358934675*a(n-22) -2942270801898*a(n-23) +243588718325*a(n-24) +3841770422896*a(n-25) -923967990222*a(n-26) -3689384232910*a(n-27) +1300617284437*a(n-28) +2614259101122*a(n-29) -1127033659748*a(n-30) -1366254718948*a(n-31) +660843537364*a(n-32) +524090586634*a(n-33) -269727615782*a(n-34) -146010681184*a(n-35) +76928224259*a(n-36) +28983533038*a(n-37) -15160113967*a(n-38) -3964319226*a(n-39) +2009807783*a(n-40) +352152984*a(n-41) -170267256*a(n-42) -18138336*a(n-43) +8296524*a(n-44) +408240*a(n-45) -176400*a(n-46) for n>48.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 18 2016 11:42:33, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 22 2025 19:18:29, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
@@ -67,7 +67,7 @@ shift, so every pair is named once and only once: the pairs inside a column are 
 that column is laid down, and the pairs joining two columns when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;\le1.
+\#\{\text{marked pairs in the whole array}\}\;=1.
 \end{equation}
 
 This is not a condition on any bounded window, so no transfer matrix over columns alone can
@@ -89,7 +89,7 @@ the digraph dense, with $(2+1)^{2\cdot6}$ edges instead of the sparse set used h
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
 of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269057.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269040.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

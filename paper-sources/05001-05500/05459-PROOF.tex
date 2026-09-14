@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208561, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208316, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208561 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A208316 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..2$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,20 +36,20 @@ $2$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A208561 is ``Number of n X 2 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than one of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
+OEIS A208316 is ``Number of n X 2 0..2 arrays with new values 0..2 introduced in row major order and no element equal to more than two of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
 \[
-2, 10, 68, 464, 3168, 21632, 147712, 1008640,\ \dots
+2, 13, 113, 982, 8534, 74164, 644516, 5601112,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1) - 8*a(n-2) for n>3.
+Empirical: a(n) = 8*a(n-1) + 6*a(n-2) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 05 2018 07:21:53, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Jul 02 2018 04:53:43, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) - 8\,a(n-2)
+a(n)\;=\;8\,a(n-1) + 6\,a(n-2)
 \end{equation}
 for all $n>3$.
 
@@ -61,7 +61,7 @@ determines a pattern, two cells lying in the same class exactly when they carry 
 value.
 
 Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
-entry's requirement is that no cell equals more than $1$ of its neighbours at the
+entry's requirement is that no cell equals more than $2$ of its neighbours at the
 offsets
 \[
 \mathcal N=\{(0,-1),\ (-1,0),\ (-1,-1)\}
@@ -69,7 +69,7 @@ offsets
 (offsets given as (row shift, column shift), and only cells inside the array count),
 that is
 \begin{equation}\label{eq:loc}
-\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;2
 \qquad\text{for every cell }(t,u).
 \end{equation}
 Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
@@ -211,7 +211,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $20$
+\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $19$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -227,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208561.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208316.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

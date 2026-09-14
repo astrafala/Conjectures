@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A125343, proved from an exact model}
+\title{The empirical recurrence for OEIS A125370, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125343 carries an empirical recurrence of order $3$. It is true, and it is
+OEIS A125370 carries an empirical recurrence of order $3$. It is true, and it is
 decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
+which $a$ provably satisfies a MONIC linear recurrence of order $S=7$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
 \end{abstract}
@@ -30,37 +30,37 @@ annihilates $a$ is settled by a finite exact computation. The count is a walk co
 
 \section{The conjecture}
 
-OEIS A125343 is ``Number of base 6 circular n-digit numbers with adjacent digits differing by 4 or less.''. It has offset $0$ and begins
+OEIS A125370 is ``Number of base 7 circular n-digit numbers with adjacent digits differing by 5 or less.''. It has offset $0$ and begins
 \[
-1, 6, 34, 186, 1058, 6026, 34354, 195866,\ \dots
+1, 7, 47, 307, 2067, 13927, 93887, 632947,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A025014(n+1) for base>=4.int(n/2)+1 a(n) = 6*a(n-1) - a(n-2) - 4*a(n-3) for n>3.
+[Empirical] a(base,n)=a(base-1,n)+F(5) for base>=5.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\^{}(2d))\^{}n a(n) = 7*a(n-1) - a(n-2) - 5*a(n-3) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:03:09, revision 17)
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:04:21, revision 18)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a trace}
 
-Let $G$ be the graph on the digits $0,1,\dots,5$ with an edge between $u$ and $v$ exactly
-when $|u-v|\le4$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
-$|u-v|\le4$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
+Let $G$ be the graph on the digits $0,1,\dots,6$ with an edge between $u$ and $v$ exactly
+when $|u-v|\le5$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
+$|u-v|\le5$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
 $d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
-most $4$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
+most $5$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
 starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
 \[
-a(n)\;=\;\sum_{u=0}^{5}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
+a(n)\;=\;\sum_{u=0}^{6}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
 \]
 The entry counts every string, leading zeros included: requiring a nonzero first digit gives
 $4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
-string, where the trace is $6$; that is the entry's convention at one index and the two agree
+string, where the trace is $7$; that is the entry's convention at one index and the two agree
 at every $n\ge1$, on every published term.
 
 \section{The bound}
 
 $\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
-Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=6$,
+Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=7$,
 computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
 bound is derived from the data: it is the size of the digit alphabet.
 
@@ -82,7 +82,7 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - a(n-2) - 4\,a(n-3)
+a(n)\;=\;7\,a(n-1) - a(n-2) - 5\,a(n-3)
 \]
 for every $n>3$.
 \end{theorem}
@@ -98,7 +98,7 @@ Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at 
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -111,7 +111,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A125343.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A125370.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

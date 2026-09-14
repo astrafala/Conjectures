@@ -12,34 +12,34 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A239420, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A240756, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A239420 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+OEIS A240756 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
 constant plus the SUM of all the entries lying before it along one of several rays. The entry
 carries an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical. None of those sums is bounded and none is local, but
 each is built one term at a time, so its residue modulo $4$ is carried in the state; the
-count is then a walk count on $S=37$ states.
+count is then a walk count on $S=38$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A239420 is ``Number of nX2 0..3 arrays with no element equal to the sum of elements to its left or the sum of elements above it or the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
+OEIS A240756 is ``Number of n X 2 0..3 arrays with no element equal to one plus the sum of elements to its left or zero plus the sum of elements above it or zero plus the sum of the elements diagonally to its northwest or zero plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
 \[
-6, 18, 80, 320, 1244, 4990, 19560, 77220,\ \dots
+5, 6, 12, 16, 16, 35, 35, 36,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +11*a(n-2) -a(n-3) -39*a(n-4) -40*a(n-5) +3*a(n-6) +13*a(n-7) +64*a(n-8) +162*a(n-9) -220*a(n-10) +122*a(n-11) -38*a(n-12) -82*a(n-13) +60*a(n-14) for n>15
+Empirical: a(n) = 3*a(n-3) + a(n-5) - 2*a(n-8) - 4*a(n-9) - a(n-11) + 2*a(n-14) for n>17.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:28:22, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2018 05:19:24, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,9 +49,10 @@ rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
 \begin{array}{lll}
 \text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
-\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
 \text{north} & (i-1,j),(i-2,j),\dots & 0 \\
 \text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 0 \\
+\text{northeast} & (i-1,j+1),(i-2,j+2),\dots & 0 \\
 \end{array}
 \]
 Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
@@ -60,7 +61,7 @@ inside the array, the condition is
 x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
 \]
 for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
-zero, and a ray the entry names without a constant carries the constant $0$.
+zero.
 
 \section{The rays as a bounded state}
 
@@ -68,12 +69,13 @@ Take the array one $row$ at a time, in the direction in which it grows, and inde
 positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
 \begin{lemma}\label{lem:rays}
-Along the $row$s, the 3 ray sums named by this entry satisfy
+Along the $row$s, the 4 ray sums named by this entry satisfy
 \[
 \begin{aligned}
 \Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
 U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
-NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0 .
+NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0,\\
+NE'[p]&=NE[p+1]+x[p+1], && NE'[W-1]=0 .
 \end{aligned}
 \]
 \end{lemma}
@@ -92,7 +94,7 @@ running total of the west ray is carried along as it is filled, so every cell is
 against every ray at the moment it is written. The walk starts at the all-zero state, the empty
 array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=37.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=38.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -117,15 +119,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 11\,a(n-2) - a(n-3) - 39\,a(n-4) - 40\,a(n-5) + 3\,a(n-6) + 13\,a(n-7) + 64\,a(n-8) + 162\,a(n-9) - 220\,a(n-10) + 122\,a(n-11) - 38\,a(n-12) - 82\,a(n-13) + 60\,a(n-14)
+a(n)\;=\;3\,a(n-3) + a(n-5) - 2\,a(n-8) - 4\,a(n-9) - a(n-11) + 2\,a(n-14)
 \]
-for every $n>15$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -133,7 +135,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $43$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -149,7 +151,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A239420.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240756.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

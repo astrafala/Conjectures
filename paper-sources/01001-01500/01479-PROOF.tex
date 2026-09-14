@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A270512, proved by an exact quasi-polynomial}
+\title{The empirical recurrence for OEIS A270259, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A270512 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+OEIS A270259 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
 empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true. The array
 family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
 count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
@@ -34,15 +34,15 @@ division.
 
 \section{The conjecture}
 
-OEIS A270512 is ``Number of 4X4X4 triangular 0..n arrays with some element plus some adjacent element totalling n+1 exactly once.''. It has offset $1$ and begins
+OEIS A270259 is ``Number of 4X4X4 triangular 0..n arrays with some element plus some adjacent element totalling n exactly once.''. It has offset $1$ and begins
 \[
-126, 5406, 132474, 1522068, 12034134, 65046258,\ \dots
+0, 468, 37848, 772056, 7876728, 51535116,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 2*a(n-1) +7*a(n-2) -16*a(n-3) -20*a(n-4) +56*a(n-5) +28*a(n-6) -112*a(n-7) -14*a(n-8) +140*a(n-9) -14*a(n-10) -112*a(n-11) +28*a(n-12) +56*a(n-13) -20*a(n-14) -16*a(n-15) +7*a(n-16) +2*a(n-17) -a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 18 2016 08:08:08, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Mar 14 2016 09:31:11, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,14 +52,14 @@ so $T=10$ of them. Two cells are adjacent when they are neighbours in that trian
 by side in a row, or one directly below the other on either side --- and there are
 $3\binom{4}{2}=18$ adjacent pairs. Each cell carries a value in
 $\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
-$\{u,v\}$ has $x_u+x_v=n+1$.
+$\{u,v\}$ has $x_u+x_v=n$.
 
 Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
 a walk in a finite digraph, and nothing about transfer matrices applies.
 
 \section{A set of pairs forces the values along its components}
 
-Write $E$ for the set of adjacent pairs, $t=n+1$ for the target, and for $S\subseteq E$ let
+Write $E$ for the set of adjacent pairs, $t=n$ for the target, and for $S\subseteq E$ let
 $N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
 others.
 
@@ -84,7 +84,7 @@ $c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched
 of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-Here $B=n$ and $F=1$ precisely when $n$ is odd.
+Here $B=n+1$ and $F=1$ precisely when $n$ is even.
 
 \section{The count}
 
@@ -92,10 +92,10 @@ Here $B=n$ and $F=1$ precisely when $n$ is odd.
 For every $n\ge0$,
 \[
 a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
-A(n)=18n^{9} - 162n^{8} + \tfrac{1917}{2}n^{7} - 3615n^{6} + 9846n^{5} - 18969n^{4} + 25683n^{3} - 22851n^{2} + 11829n - \tfrac{5181}{2},
+A(n)=18n^{9} - 144n^{8} + \tfrac{1197}{2}n^{7} - 1593n^{6} + 2898n^{5} - \tfrac{7143}{2}n^{4} + 2691n^{3} - 750n^{2} - \tfrac{981}{2}n + \tfrac{723}{2},
 \]
 \[
-C(n)=- \tfrac{27}{2}n^{7} + 153n^{6} - 870n^{5} + 2985n^{4} - 6672n^{3} + 9372n^{2} - 7524n + \tfrac{5181}{2}.
+C(n)=\tfrac{27}{2}n^{7} - 153n^{6} + 720n^{5} - \tfrac{3861}{2}n^{4} + 3213n^{3} - 3252n^{2} + \tfrac{3537}{2}n - \tfrac{723}{2}.
 \]
 \end{theorem}
 
@@ -126,16 +126,16 @@ component.
 
 The entry also records, as separate empirical observations:
 \begin{quote}
-Empirical for n mod 2 = 0: a(n) = 18*n\^{}9 - 162*n\^{}8 + 945*n\^{}7 - 3462*n\^{}6 + 8976*n\^{}5 - 15984*n\^{}4 + 19011*n\^{}3 - 13479*n\^{}2 + 4305*n
+Empirical for n mod 2 = 0: a(n) = 18*n\^{}9 - 144*n\^{}8 + 612*n\^{}7 - 1746*n\^{}6 + 3618*n\^{}5 - 5502*n\^{}4 + 5904*n\^{}3 - 4002*n\^{}2 + 1278*n
 
-Empirical for n mod 2 = 1: a(n) = 18*n\^{}9 - 162*n\^{}8 + 972*n\^{}7 - 3768*n\^{}6 + 10716*n\^{}5 - 21954*n\^{}4 + 32355*n\^{}3 - 32223*n\^{}2 + 19353*n - 5181
+Empirical for n mod 2 = 1: a(n) = 18*n\^{}9 - 144*n\^{}8 + 585*n\^{}7 - 1440*n\^{}6 + 2178*n\^{}5 - 1641*n\^{}4 - 522*n\^{}3 + 2502*n\^{}2 - 2259*n + 723
 \end{quote}
 These follow at once, and are exact: putting $n$ even and $n$ odd into
 Theorem~\ref{thm:quasi},
 \[
 a(n)=\begin{cases}
-18n^{9} - 162n^{8} + 945n^{7} - 3462n^{6} + 8976n^{5} - 15984n^{4} + 19011n^{3} - 13479n^{2} + 4305n, & n\ \text{even},\\[2pt]
-18n^{9} - 162n^{8} + 972n^{7} - 3768n^{6} + 10716n^{5} - 21954n^{4} + 32355n^{3} - 32223n^{2} + 19353n - 5181, & n\ \text{odd},
+18n^{9} - 144n^{8} + 612n^{7} - 1746n^{6} + 3618n^{5} - 5502n^{4} + 5904n^{3} - 4002n^{2} + 1278n, & n\ \text{even},\\[2pt]
+18n^{9} - 144n^{8} + 585n^{7} - 1440n^{6} + 2178n^{5} - 1641n^{4} - 522n^{3} + 2502n^{2} - 2259n + 723, & n\ \text{odd},
 \end{cases}
 \]
 which is what the entry states.
@@ -183,7 +183,7 @@ divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A270512.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270259.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
 \bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
