@@ -217,3 +217,42 @@ established rather than assumed. The three notes claiming more were left behind 
 that could not report its own death. STATE.md defect 22: **a sweep that is killed is not a
 sweep that found nothing** — when a long run ends without its summary line, find out whether
 it was killed before believing anything about what it did not find.
+
+## 14 September 2026 — a fit that checked itself, caught one term before it mattered
+
+The coordination-sequence pipeline was built end to end this turn: the tiling as a graph, the
+translation lattice, d as a max of affine pieces per class, and an Ehrhart count with the
+period and the onset derived rather than scanned. It reproduced breadth-first search on every
+tiling tried, and the derived period matched the conjectured recurrences' own.
+
+It is wrong, and the way it is wrong is worth writing down.
+
+`galhull` fits d on a patch and then checks the fit ON THAT SAME PATCH. A cone whose region
+lies entirely outside the patch cannot show up as a leftover, so the fit certifies itself. On
+**A310102** (Gal.4.16.1) the fitted form agrees with breadth-first search for 29 terms and
+diverges at the 30th — one step past the radius it was fitted on:
+
+    engine  ... 90, 93, 96, 94, 103, 118, ...
+    data    ... 90, 93, 96, 99, 102, 119, ...
+
+The Ehrhart half is sound and that was checked separately: the closed form and a direct lattice
+count of the fitted region agree at every radius. The region is what is wrong.
+
+Two consequences, both stated plainly:
+
+  * **the "723 of 1,248 tilings are exact" figure is not what it says.** It counts tilings
+    where a patch-sized fit failed to contradict itself, which is weaker and very likely an
+    overcount. The "296 pool entries reachable" that followed from it is not a number to plan
+    with;
+  * `src/galcoord.py` is written and is **NOT IN SERVICE**. `build` returns None for
+    everything, with the reason in the file.
+
+What makes it a proof is the check deferred twice already: verify the closed form over the
+WHOLE lattice by the two Bellman conditions, with the edges written as (class, class, lattice
+offset). Both sides are convex piecewise-linear, so each condition becomes finitely many
+"affine <= affine on a polyhedral cone" tests, each an exact rational LP in two variables.
+
+The good news is that it was caught by the ordinary discipline — comparing the model against
+the entry's own published data, which is the check that exists precisely for this — and caught
+at 29 terms rather than after a batch of papers. The bad news is that I had already written
+"the mathematics is done for the 723 exact tilings" into IDEAS, and it was not.

@@ -913,15 +913,39 @@ tight. On Gal.1.2 its constant marched with the patch radius — -11, -21, -31 a
 supports that are never tight well inside. **A quantity that moves with the size of the patch
 is a property of the patch.**
 
+### U.4a THE FIT WAS CIRCULAR — read this before trusting U.2 or U.4
+
+`galhull` fits d on a patch and checks it on that same patch. **That is circular.** A cone
+whose region lies entirely outside the patch cannot appear as a leftover, so the fit reports
+itself exact and is not. On A310102 (Gal.4.16.1) the fitted form agrees with breadth-first
+search for 29 terms and diverges at the 30th — one step past the radius it was fitted on.
+
+The Ehrhart half is not at fault and that was checked: the closed form and a direct lattice
+count of the fitted region agree with each other at every radius. It is the REGION that is
+wrong.
+
+So the "723 of 1,248 exact" figure in U.2 is **not** a count of tilings whose distance function
+is max-of-affine. It is a count of tilings where a patch-sized fit did not contradict itself,
+which is a much weaker thing and very likely an overcount. `src/galcoord.py` is written and
+IS NOT IN SERVICE — `build` returns None for everything — because a pipeline that is right on
+29 terms and wrong on the 30th is exactly what this project exists not to ship.
+
 ### U.5 What is left
 
-The mathematics is done for the 723 exact tilings and the 296 pool entries on them. What
-remains is ordinary plumbing: wrap the pipeline as an engine with `parse_name` / `build` /
-`terms` / `threshold`, register it in the six places STATE.md lists, sweep, and install. The
-`threshold` is a finite exact check — a(n) and the conjectured recurrence's residual are both
-quasi-linear with period q, so the residual vanishes identically if and only if it vanishes at
-2q consecutive n past the onset.
+The plumbing is written; what is missing is the mathematics, and it is the part that was
+deferred twice. **Verify the closed form over the whole lattice, not over a patch.** For the
+fitted D, with the tiling's edges expressed as (class c, class c', lattice offset (dm, dn)):
 
-Before installing anything, run the whole path against the 6,536 published coordination
-sequences: the terms are already known to match, so any disagreement is in the Ehrhart step
-and nowhere else.
+    (b)  D_{c'}(m + dm, n + dn) <= D_c(m, n) + 1        for every edge and every (m, n)
+    (c)  every class and every (m, n) other than the origin has an edge attaining equality
+
+Both sides are convex piecewise-linear, so each condition splits into finitely many tests of
+the form "affine <= affine on a polyhedral cone", each an exact rational LP over two variables.
+Finite, decidable, and the whole content of the proof. When a tiling passes, its d IS the
+max-of-affine and everything downstream follows; when it fails, the fit was short a cone and
+the tiling is refused rather than approximated.
+
+Only after that: re-measure how many tilings really are exact (the 723 is an overcount), turn
+`IN_SERVICE` on, register in the six places STATE.md lists, sweep, install. And run the whole
+path against the 6,536 published coordination sequences first — the terms are already known to
+match `galtile`, so any disagreement is downstream of it.
