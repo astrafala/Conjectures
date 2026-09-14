@@ -12,53 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Arrays counted up to renaming: the empirical recurrence for OEIS A204860}
+\title{The empirical recurrence for OEIS A183519, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204860 carries an empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry imposes two conditions of different
-kinds: a condition on every subblock, which is local, and ``new values introduced in row major
-order'', which is not --- it makes the count a count of colourings up to renaming. The first is
-handled by a window of consecutive rows; the second by one extra integer, the number of values
-introduced so far, which is an exact summary of everything the whole prefix contributes. With
-both in the state the arrays are exactly the walks in a digraph on $S=23$ vertices, so $a(n)$
-is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
-exact computation.
+OEIS A183519 counts arrays of width $2$ over $\{0,1,2\}$ in which every cell is the sum of one of two groups of its neighbours. The entry carries an
+empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: what a cell asks reaches one row above
+it and one row below, so the condition on a whole row is settled by
+$3$ consecutive rows and the count is a walk count on $S=91$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A204860 is ``Number of (n+2) X 3 0..1 arrays with every 3 X 3 subblock having three equal elements in a row horizontally, vertically, diagonally or antidiagonally exactly two different ways, and new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A183519 is ``Number of nX2 0..2 arrays with each element equal to either the sum mod 3 of its horizontal and vertical neighbors or the sum mod 3 of its diagonal and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-102, 382, 1437, 5352, 20113, 75595, 283877, 1066520,\ \dots
+3, 9, 31, 95, 309, 911, 2803, 8673,\ \dots
 \]
-Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) +7*a(n-2) -8*a(n-4) +22*a(n-6) +41*a(n-7) +22*a(n-8) +13*a(n-9) -270*a(n-10) +64*a(n-11) +392*a(n-12) -424*a(n-13) +24*a(n-14) -228*a(n-15) +304*a(n-16) +200*a(n-17) -192*a(n-18) +32*a(n-19).
+Empirical: a(n)=3*a(n-1)+6*a(n-3)-16*a(n-4)+7*a(n-6)-25*a(n-7)-44*a(n-9)+102*a(n-10)-184*a(n-12)+520*a(n-13)+320*a(n-15)-720*a(n-16)+640*a(n-18)-1600*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 22 2025 18:23:14, revision 13) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:51:19, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of 3 columns over the alphabet $\{0,1\}$, and asks two different kinds of thing of them at once.
-
-\textbf{The subblock condition is local.} It says that every $3\times3$ subblock must contain three equal elements in a line --- along one of its three rows, one of its three columns, or one of its two diagonals --- in exactly two of those eight ways. A $ 3\times3$ subblock spans $3$ consecutive rows, so a window of $3$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
-
-\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_3$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,2\}$, is an exact summary of everything the condition needs, and it joins the state.
-
-The vertices of the digraph are therefore the triples (the last $2$ rows, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $8$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=23$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The arrays have $2$ columns and a growing number of rows, with entries in $\{0,1,2\}$. Fix the
+list of offsets the entry names,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\Delta=\{\,(-1,0), (0,-1), (0,1), (1,0)\,\},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
+and for a cell $(i,j)$ write
+\[
+S(i,j)=\{\,(i+\delta_1,\,j+\delta_2) : (\delta_1,\delta_2)\in\Delta\,\}\cap
+\text{(the cells of the array)}
+\]
+for the neighbours it actually has. Only offsets landing inside the array count, so a cell on
+the border simply has fewer neighbours.
+
+The condition is that every cell is the sum modulo $3$ of one of two named groups of its neighbours:
+\[
+x(i,j)\;\equiv\;\sum_{(a,b)\in S(i,j)}x(a,b) \quad\text{or}\quad x(i,j)\;\equiv\;\sum_{(a,b)\in T(i,j)}x(a,b) \pmod{3},
+\]
+where $T$ is built from the second group of offsets, (-1,-1), (-1,1), (1,-1), (1,1), in the same way. An empty group sums to $0$.
+
+\section{A window of 3 rows}
+
+The offsets reach one row up and one row down, so everything the condition asks of one row is
+decided by that row together with one row above it and one row below --- a window of
+$3$ consecutive rows, and nothing wider. Take the array one row at a time
+and let the state be the last 2 of them, with a distinguished start standing for the
+array before its first row, so that a walk of $n$ steps is an array of $n$ rows.
+
+Appending a row completes exactly one window, and the row it settles is the one just above the bottom of that window; a step is
+allowed when that row passes. Each row of the finished
+array is therefore tested exactly once.
+
+When the array stops, the last row of it has never been tested, because the
+conditions reach one row below. So the end vector is NOT all ones: a state is accepted exactly when
+those rows pass with nothing below them, which is decided by running the same test on the window
+with absent rows appended --- the same rule that governs a cell at the bottom edge in
+Section 2.
+Thus
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=91,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -81,15 +107,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 7\,a(n-2) - 8\,a(n-4) + 22\,a(n-6) + 41\,a(n-7) + 22\,a(n-8) + 13\,a(n-9) - 270\,a(n-10) + 64\,a(n-11) + 392\,a(n-12) - 424\,a(n-13) + 24\,a(n-14) - 228\,a(n-15) + 304\,a(n-16) + 200\,a(n-17) - 192\,a(n-18) + 32\,a(n-19)
+a(n)\;=\;3\,a(n-1) + 6\,a(n-3) - 16\,a(n-4) + 7\,a(n-6) - 25\,a(n-7) - 44\,a(n-9) + 102\,a(n-10) - 184\,a(n-12) + 520\,a(n-13) + 320\,a(n-15) - 720\,a(n-16) + 640\,a(n-18) - 1600\,a(n-19)
 \]
-for every $n>19$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -97,17 +123,15 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-the arrays one by one from the entry's own words --- generating every array over the
-alphabet, discarding those that fail the relabelling condition, then testing each subblock
-directly --- and compares the count with the published terms. That program shares no code
-with the transfer matrix, so an error in one does not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: every
+array of width $2$ over $\{0,1,2\}$ with a few rows was written out cell by cell and each cell
+tested against the neighbours it has. No window, no state and no end vector are involved in that
+computation, and the published terms came back.
 
-Third, the conjectured recurrence was evaluated directly on those published terms, with no
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -115,11 +139,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204860.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183519.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268786, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A268806, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268786 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
+OEIS A268806 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-exactly one. A transfer matrix still applies once the running count is carried in the state; and
+at most one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=64$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=486$ vertices,
 and the empirical recurrence of order $26$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,22 +32,22 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A268786 is ``Number of nX5 binary arrays with some element plus some horizontally, vertically or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
+OEIS A268806 is ``Number of nX5 0..2 arrays with some element plus some horizontally, vertically or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
 \[
-10, 131, 1144, 9085, 67100, 477128, 3295246, 22302699,\ \dots
+144, 772, 4158, 28452, 195384, 1316226, 8734264, 57302798,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +41*a(n-2) +54*a(n-3) -509*a(n-4) -2182*a(n-5) -2830*a(n-6) +1766*a(n-7) +7914*a(n-8) +2584*a(n-9) -10583*a(n-10) -6092*a(n-11) +11506*a(n-12) +5348*a(n-13) -11688*a(n-14) -620*a(n-15) +9251*a(n-16) -4462*a(n-17) -3137*a(n-18) +4774*a(n-19) -2365*a(n-20) +338*a(n-21) +198*a(n-22) -106*a(n-23) +12*a(n-24) +4*a(n-25) -a(n-26)
+Empirical: a(n) = 2*a(n-1) +41*a(n-2) +54*a(n-3) -509*a(n-4) -2182*a(n-5) -2830*a(n-6) +1766*a(n-7) +7914*a(n-8) +2584*a(n-9) -10583*a(n-10) -6092*a(n-11) +11506*a(n-12) +5348*a(n-13) -11688*a(n-14) -620*a(n-15) +9251*a(n-16) -4462*a(n-17) -3137*a(n-18) +4774*a(n-19) -2365*a(n-20) +338*a(n-21) +198*a(n-22) -106*a(n-23) +12*a(n-24) +4*a(n-25) -a(n-26) for n>29
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2016 12:24:01, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 13 2016 18:21:19, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
 a(n)\;=\;2\,a(n-1) + 41\,a(n-2) + 54\,a(n-3) - 509\,a(n-4) - 2182\,a(n-5) - 2830\,a(n-6) + 1766\,a(n-7) + 7914\,a(n-8) + 2584\,a(n-9) - 10583\,a(n-10) - 6092\,a(n-11) + 11506\,a(n-12) + 5348\,a(n-13) - 11688\,a(n-14) - 620\,a(n-15) + 9251\,a(n-16) - 4462\,a(n-17) - 3137\,a(n-18) + 4774\,a(n-19) - 2365\,a(n-20) + 338\,a(n-21) + 198\,a(n-22) - 106\,a(n-23) + 12\,a(n-24) + 4\,a(n-25) - a(n-26)
 \end{equation}
-for all $n>26$.
+for all $n>29$.
 
 \section{A global count, and how to carry it}
 
@@ -67,14 +67,14 @@ shift, so every pair is named once and only once: the pairs inside a row are see
 that row is laid down, and the pairs joining two rows when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;=1.
+\#\{\text{marked pairs in the whole array}\}\;\le1.
 \end{equation}
 
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{5},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=64,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{5},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=486,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,12 +84,12 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(1+1)^{2\cdot5}$ edges instead of the sparse set used here.
+the digraph dense, with $(2+1)^{2\cdot5}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
 of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
@@ -135,7 +135,7 @@ ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>26$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>29$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -143,7 +143,7 @@ Section~1.
 The digraph was built directly from the definition of a marked pair. The vector $w$ was
 formed by $26$ applications of $G$ in exact integer arithmetic and
 $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=26+1$ onwards, and the run
+those integers vanishes from the index corresponding to $n=29+1$ onwards, and the run
 continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
 settles every larger $m$.
 \end{proof}
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268786.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268806.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

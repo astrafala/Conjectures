@@ -799,3 +799,22 @@ engine steps the walk once before emitting anything. Three of the six came back 
 failed" until that was fixed, which is the refusal saying what the reading is.
 
 **6 names read, all 6 proved, every one reproducing its entry's published data exactly.**
+
+## 14 September 2026 — `rcintro`: an introduction order along every row AND every column
+
+    Number of n X 4 0..2 arrays with new values introduced in each row and column in
+      sequential order starting with zero.
+
+Eight names, six of them open and proved. The ROW condition is a property of one row, so the
+admissible rows are a fixed finite set computed once — 14 of them at width 4 over 0..2, 877 at
+width 7 unbounded. The COLUMN condition is decided by no window at all, and does not need one:
+the values arrive in order, so all a column needs is HOW MANY values it has introduced so far.
+The vertex is one counter per column; adding a row asks only that each entry not exceed its
+column's counter, and increments the counter when it equals it.
+
+The "nonnegative integer" half of the family needs no alphabet bound argued for. A row of width
+k has at most k distinct values and its own introduction order forces r_j <= j, so no entry can
+exceed k-1 however "nonnegative integer" is read; the two halves differ only in where the cap
+bites, and the engine sets A = min(A, k-1) for both.
+
+**8 names read, all 8 reproducing their entries' published data exactly; 6 open and installed.**

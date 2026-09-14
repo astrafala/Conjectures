@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269933, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A269211, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269933 counts arrays over $\{0,\dots,6\}$ subject to a condition on the array as a
+OEIS A269211 counts arrays over $\{0,\dots,3\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
 exactly one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=686$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=2048$ vertices,
 and the empirical recurrence of order $20$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,35 +32,35 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269933 is ``Number of nX3 0..6 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling six exactly once.''. It has offset $1$ and begins
+OEIS A269211 is ``Number of nX5 0..3 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
 \[
-84, 36312, 5695536, 755009274, 91506078732, 10536802638018, 1172354654705496, 127313882431172946,\ \dots
+432, 49536, 4744704, 394072704, 30541426560, 2267772823680, 163535201141376, 11544796423498368,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 144*a(n-1) -244*a(n-2) -431040*a(n-3) -653070*a(n-4) +185824500*a(n-5) -1565542220*a(n-6) -2246788724*a(n-7) +49596662711*a(n-8) -28656277332*a(n-9) -578014144012*a(n-10) +498466153668*a(n-11) +3129025277000*a(n-12) -1799356594080*a(n-13) -8214266955364*a(n-14) +1238204980096*a(n-15) +7873681484512*a(n-16) -756824714624*a(n-17) -2602301179968*a(n-18) +547351490048*a(n-19) -28883682304*a(n-20) for n>21
+Empirical: a(n) = 156*a(n-1) -8170*a(n-2) +166732*a(n-3) -1381249*a(n-4) +2520764*a(n-5) +23584856*a(n-6) -130579860*a(n-7) +143100280*a(n-8) +633365472*a(n-9) -2425054036*a(n-10) +3486590032*a(n-11) -2082954096*a(n-12) -207585696*a(n-13) +891171072*a(n-14) -335167488*a(n-15) -34112320*a(n-16) +43766784*a(n-17) -8385024*a(n-18) +497664*a(n-19) -9216*a(n-20) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 08 2016 07:37:33, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Feb 20 2016 11:27:09, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;144\,a(n-1) - 244\,a(n-2) - 431040\,a(n-3) - 653070\,a(n-4) + 185824500\,a(n-5) - 1565542220\,a(n-6) - 2246788724\,a(n-7) + 49596662711\,a(n-8) - 28656277332\,a(n-9) - 578014144012\,a(n-10) + 498466153668\,a(n-11) + 3129025277000\,a(n-12) - 1799356594080\,a(n-13) - 8214266955364\,a(n-14) + 1238204980096\,a(n-15) + 7873681484512\,a(n-16) - 756824714624\,a(n-17) - 2602301179968\,a(n-18) + 547351490048\,a(n-19) - 28883682304\,a(n-20)
+a(n)\;=\;156\,a(n-1) - 8170\,a(n-2) + 166732\,a(n-3) - 1381249\,a(n-4) + 2520764\,a(n-5) + 23584856\,a(n-6) - 130579860\,a(n-7) + 143100280\,a(n-8) + 633365472\,a(n-9) - 2425054036\,a(n-10) + 3486590032\,a(n-11) - 2082954096\,a(n-12) - 207585696\,a(n-13) + 891171072\,a(n-14) - 335167488\,a(n-15) - 34112320\,a(n-16) + 43766784\,a(n-17) - 8385024\,a(n-18) + 497664\,a(n-19) - 9216\,a(n-20)
 \end{equation}
 for all $n>21$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
-\mathcal N=\{(0,1),\ (1,1),\ (1,-1),\ (1,0)\},
+\mathcal N=\{(0,1),\ (1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=6 .
+x_{p}+x_{q}=3 .
 \]
 Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
 shift, so every pair is named once and only once: the pairs inside a row are seen when
@@ -73,8 +73,8 @@ entry's requirement is
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,6\}^{3},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=686,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,3\}^{5},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=2048,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,7 +84,7 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(6+1)^{2\cdot3}$ edges instead of the sparse set used here.
+the digraph dense, with $(3+1)^{2\cdot5}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269933.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269211.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

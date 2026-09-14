@@ -103,6 +103,11 @@ WINDOW = {
                  "condition read backwards and is verified rather than decided"),
     'seconddiff': ("a window of three consecutive elements, which is what a second "
                    "difference reads"),
+    # the row condition is a property of one row; the column condition is decided by no
+    # window at all, and needs only a counter per column because the values arrive in order
+    'rcintro': ("one counter per column -- how many values that column has introduced so "
+                "far -- the rows themselves being drawn from the fixed finite set that "
+                "satisfies the same condition read along a row"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
