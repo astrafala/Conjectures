@@ -12,147 +12,176 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A bisection identity between OEIS A111403 and OEIS A002716}
+\title{The reduction of OEIS A091713 modulo $2$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
-the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
-recurrence A002716 states as fact splits into two closed forms, one for each parity of the
-index, and a short induction proves both at once: the odd-indexed terms are exactly the
-Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
-which is one more than the defining expression for A111403.
+OEIS A091713 is defined by the functional equation $A(x)=x+x\,A^{3}(x)$, where
+$A^{3}$ is the $3$-th compositional iterate, and carries a conjecture of
+P.~D.~Hanna that every term is odd. It is true. The equation determines the coefficients one at a
+time, with $a(N)$ entering with coefficient $1$, so it determines them modulo $2$ as
+well. Modulo $2$ the series $x/(1-x)$ satisfies the equation exactly, because its
+iterates are $x/(1-jx)$ and $3\equiv1$ modulo $2$. Uniqueness then identifies the
+reduction. The argument is an identity between rational functions over
+$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
 
-\section{The two sequences and the conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
+OEIS A091713 is ``G.f. A(x) satisfies A(x) = x + x*A(A(A(x))).''. It has offset $1$ and begins
 \[
-2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
+1, 1, 3, 15, 99, 781, 7001,\ \dots
 \]
-OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
-\[
-3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
-\]
+Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,i}$ for the $i$-th compositional
+iterate of $A$, the entry defines $A$ by
+\begin{equation}\label{eq:fe}
+A(x)\;=\;x+x\,A^{3}(x).
+\end{equation}
+This is the only input taken from the entry.
 
-The entry A111403 carries the following comment:
+The entry separately carries the following comment:
 \begin{quote}\small
-Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
+Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
-statement is still recorded as unproved, and nothing on either entry records it as settled
-either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
+As of the ``Last modified'' line on the live entry (Jun 13 2026 09:32:47, revision 32) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
 
-Write $f(m)=2^{m}$. The name of A111403 defines
-\begin{equation}\label{eq:a}
-a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
-\end{equation}
-and the statement to be proved is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
-\end{equation}
-where $b$ is A002716.
+\section{The equation determines the sequence}
 
-\section{What A002716 states as fact}
-
-A002716 states, not as a conjecture,
-\begin{quote}\small
-a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
-a(0) = 3, a(1) = 5.
-\end{quote}
-that is, with $b$ for the sequence,
-\begin{equation}\label{eq:rec}
-b(0)=3,\quad b(1)=5,\qquad
-b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
-b(2n+1)=b(2n)+b(2n-1)-1
-\end{equation}
-for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
-entry; it was checked against all $13$ of its published terms before use.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:cf}
-For every $n\ge0$,
+\begin{lemma}\label{lem:jaN}
+Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $i\ge1$ and every $N\ge1$,
 \[
-b(2n+1)\;=\;2^{2^{n+1}}+1 ,
-\]
-and for every $n\ge1$,
-\[
-b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
+\bigl[x^{N}\bigr]A^{\,i}=i\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
 \]
 \end{lemma}
 
 \begin{proof}
-Induction on $n$, proving the odd-index statement and using it to get the next
-even-index one.
-
-For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
-\eqref{eq:rec}.
-
-Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
-$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
+Induction on $i$. For $i=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
+for $i$ and put $B=A^{\,i}$, so $\bigl[x^{1}\bigr]B=1$ and
+$\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$. Then
+$A^{\,i+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$, so
 \[
-b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
-=2^{2^{n+1}}-2^{2^{n}}+1,
+\bigl[x^{N}\bigr]A^{\,i+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
 \]
-which is the second claim at $n$. Then, again by \eqref{eq:rec},
-\[
-b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
-=2^{2^{n+1}}+1,
-\]
-which is the first claim at $n$. The induction is complete.
+The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$; the term $m=1$
+contributes $\bigl[x^{N}\bigr]B=i\,a(N)+\cdots$; and for $2\le m\le N-1$ every monomial of
+$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ whose indices sum to
+$N$, so each index is at most $N-1$ and no $a(N)$ occurs. Adding up gives $(i+1)a(N)$ plus
+terms in $a(1),\dots,a(N-1)$.
 \end{proof}
 
-\begin{theorem}
-For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
-A002716. This is the statement of Section~1.
-\end{theorem}
+\begin{lemma}\label{lem:unique}
+There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
+for each $N\ge2$ the equation read at order $x^{N}$ has the form
+$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+\end{lemma}
 
 \begin{proof}
-For $n\ge1$, Lemma~\ref{lem:cf} gives
-$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
-
-For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
-$a(0)=2^{2}-2^{1}=2$. The two agree.
+Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$, since $x\,A^{3}(x)$ has
+no linear term. Let $N\ge2$. The left side contributes $a(N)$. On the right,
+$\bigl[x^{N}\bigr]\bigl(x\,A^{3}\bigr)=\bigl[x^{N-1}\bigr]A^{3}$, which by
+Lemma~\ref{lem:jaN} involves only $a(1),\dots,a(N-1)$. So the coefficient of $a(N)$ in the
+order-$x^{N}$ equation is $1$, the equation solves for $a(N)$ over $\mathbb{Z}$, and
+induction gives existence and uniqueness.
 \end{proof}
 
-\begin{corollary}
-The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
-$F_m=2^{2^{m}}+1$.
+\begin{corollary}\label{cor:mod}
+Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
+\eqref{eq:fe} with all coefficients read modulo $m$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
 \end{corollary}
 
 \begin{proof}
-This is the first statement of Lemma~\ref{lem:cf}.
+Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
+Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, in which the
+coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion has a unique
+solution, and both $a\bmod m$ and the coefficients of $\bar A$ solve it.
 \end{proof}
+
+\section{The reduction modulo $2$}
+
+Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
+
+\begin{lemma}\label{lem:iter}
+$f^{\,i}(x)=\dfrac{x}{1-ix}$ for every $i\ge1$.
+\end{lemma}
+
+\begin{proof}
+True for $i=1$. If $f^{\,i}(x)=x/(1-ix)$ then
+\[
+f^{\,i+1}(x)=f\bigl(f^{\,i}(x)\bigr)
+=\frac{\dfrac{x}{1-ix}}{1-\dfrac{x}{1-ix}}
+=\frac{x}{(1-ix)-x}=\frac{x}{1-(i+1)x} .
+\]
+\end{proof}
+
+\begin{lemma}\label{lem:sat}
+Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f(x)=x+x\,f^{3}(x)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:iter}, $f^{3}(x)=\dfrac{x}{1-3x}$. Since $3\equiv1$ modulo
+$2$ --- this is the whole content of the choice of modulus, as $2=3-1$ --- we have
+$1-3x=1-x$ in $(\mathbb{Z}/2\mathbb{Z})[x]$, so $f^{3}(x)=\dfrac{x}{1-x}$.
+Therefore
+\[
+x+x\,f^{3}(x)=x+\frac{x^{2}}{1-x}
+=\frac{x(1-x)+x^{2}}{1-x}=\frac{x}{1-x}=f(x).
+\]
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$; equivalently
+$a(n)\equiv1\pmod{2}$ for every $n\ge1$. This is the conjecture of Section~1.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:sat} the series $f=x/(1-x)$ satisfies the reduced equation, and
+$f=x+O(x^{2})$. By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, every
+coefficient of which is $1$.
+\end{proof}
+
+\begin{remark}
+The proof used only $3\equiv1$ modulo $2$. The same argument shows that for every
+$i\ge2$ the sequence defined by $A(x)=x+x\,A^{\,i}(x)$ has all of its terms congruent to
+$1$ modulo $i-1$. It also shows where the argument stops: if $m\nmid i-1$ then $1-ix$ and
+$1-x$ differ in $(\mathbb{Z}/m\mathbb{Z})[x]$, so $x/(1-x)$ is not a solution of the
+reduced equation and this route says nothing modulo $m$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
-one of the $8$ published terms of A111403; the values agree exactly.
+First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
+its output compared against the entry's DATA at every one of the $22$ published
+indices; the values agree exactly, and every one is an integer. A recursion that reproduced
+only some of them would mean the functional equation had been transcribed wrongly.
 
-Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
-compared against every one of the $13$ published terms of A002716; the values agree
-exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
-matched against the same terms at every index of each parity.
+Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
+evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
+out $1$ at every $N$ up to $25$, as Lemma~\ref{lem:unique} requires. The run was continued
+to $n=25$ and every term reduced modulo $2$; all residues are $1$.
 
-Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
-any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
-$b(2n)$ are published --- the two integers agree.
+Third, both sides of \eqref{eq:fe} were expanded independently as formal power series over
+$\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
+rather than from the closed form, and they agree at every order; the iterates $f^{\,i}$
+were confirmed to have coefficients $i^{\,n-1}$ for $i\le6$.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A091713.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999.
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
 Numbers}, 6th ed., Oxford University Press, 2008.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
 \end{thebibliography}
 
 \end{document}

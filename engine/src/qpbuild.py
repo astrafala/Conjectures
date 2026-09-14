@@ -52,12 +52,16 @@ SHORT = {
     'boardwalk': 'a finite sum over walk shapes of the ways each fits the board',
     'circdigit': 'the trace of a power of the adjacency matrix of the digit graph',
     'triangsq': 'the solutions of a Pell equation, in their finitely many orbits',
+    'pellsq': 'the solutions of a Pell equation, in their finitely many orbits',
 }
 
 # every engine here has a model that is NOT a walk in a digraph, and the abstract says so. The
 # one exception counts WALKS -- of a fixed length, on a growing board -- by a sum over shapes,
 # so the sentence has to distinguish the objects from the model.
 NOTWALK = {
+    'pellsq': ('No transfer matrix is involved: the sequence is the ordered list of '
+               'solutions of a Pell equation, and what makes it $C$-finite is the '
+               'automorph of the quadratic form.'),
     'triangsq': ('No transfer matrix is involved: the sequence is the ordered list of '
                  'solutions of a Pell equation, and what makes it $C$-finite is the '
                  'automorph of the quadratic form.'),
@@ -72,6 +76,7 @@ DEFNOTWALK = 'No transfer matrix is involved and the count is not a walk.'
 
 MSC = {
     'triangsq': '11D09, 11B37, 11D45',
+    'pellsq': '11D09, 11B37, 11D45',
     'cuspdim': '11F11, 11F72, 05A15',
     'ca2d': '68Q80, 11B85, 05A15',
     'ecarow': '68Q80, 11B85, 05A15',
@@ -424,6 +429,57 @@ number of distinct rays whose height it divides, and by the dimension of the con
 maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
 $S={h['S']}$, which includes the pre-period $n_0={n0}$ the conditions with an offset need. The
 annihilator was then asked for terms the model had not supplied and reproduced them.
+"""
+    if en == 'pellsq':
+        import pellsq as _ps
+        q = _ps.parse_name(e['name'])
+        bb = _ps.build(q) if q else None
+        A = (q or {}).get('A', 0); Bc = (q or {}).get('B', 0); Cc = (q or {}).get('C', 0)
+        D = (q or {}).get('D', 0); Nn = (q or {}).get('N', 0)
+        r = (bb or {}).get('r', 0); n0 = (bb or {}).get('n0', 0); uu = (bb or {}).get('u', 0)
+        poly = '%d%s^2' % (A, 'k') + (' %+d%s' % (Bc, 'k') if Bc else '') + (' %+d' % Cc if Cc else '')
+        return rf"""
+\section{{The count is a Pell equation}}
+
+The entry asks for the $k$ with ${poly}$ a perfect square. Multiplying by $4\cdot{A}$ and
+completing the square turns $ {poly} = m^2 $ into
+\[
+(2\cdot{A}k+{Bc})^2-{D}\,m^2\;=\;{Bc}^2-4\cdot{A}\cdot{Cc}\;=\;{Nn},
+\]
+so with $X=2\cdot{A}k+{Bc}$ and $Y=m$ the admissible $k$ are exactly the solutions of
+$X^2-{D}Y^2={Nn}$ with $X\ge0$, $Y\ge0$ and $X\equiv{Bc}\pmod{{2\cdot{A}}}$. Since ${D}$ is not
+a perfect square this is a genuine Pell equation and the solution set is infinite.
+
+Let $(u,v)=({uu},\cdot)$ be the fundamental solution of $u^2-{D}v^2=1$, computed from the
+continued fraction of $\sqrt{{{D}}}$. The automorph
+\[
+T(X,Y)=(uX+{D}vY,\;vX+uY)
+\]
+carries solutions to solutions, and every solution of the region is $T^{{j}}$ of one whose
+$|Y|$ is below Nagell's bound $\sqrt{{|N|(u+1)/(2D)}}$ -- BOTH signs of $Y$, because the
+conjugate $(X,-Y)$ is a solution too and its $T$-images re-enter the region as a different
+orbit. Those seeds are enumerated and closed under $T$; the resulting list is then checked
+against a direct search over $k$, so a missed orbit shows up as a missing term rather than as a
+wrong recurrence, and the engine refuses when the two disagree.
+
+\section{{The bound}}
+
+On $X\ge0$, $Y\ge0$ we have $Y=\sqrt{{(X^2-{Nn})/{D}}}$, increasing in $X$, so
+$T(X)=uX+{D}vY$ is strictly increasing: $T$ PRESERVES THE ORDER of solutions. Hence once the
+sorted list has its $(n+{r})$-th entry equal to $T$ of its $n$-th for ${r}$ consecutive $n$, it
+does so for every later $n$; that happens from $n_0={n0}$, checked directly, and the ${r}$
+orbits interleave in a fixed cyclic order from there.
+
+Within one orbit $X_{{j+2}}=2u\,X_{{j+1}}-X_j$, because $u\pm v\sqrt{{{D}}}$ are the roots of
+$t^2-2ut+1$; in terms of $k=(X-{Bc})/(2\cdot{A})$ that is
+$k_{{j+2}}=2u\,k_{{j+1}}-k_j+{Bc}(u-1)/{A}$. Combining,
+\[
+a(n+2\cdot{r})\;=\;2u\,a(n+{r})-a(n)+\text{{const}} \qquad (n\ge n_0),
+\]
+so $(z-1)(z^{{2\cdot{r}}}-2u\,z^{{{r}}}+1)$ annihilates $a$, monic of order $S={h['S']}$ once
+the transient is allowed for. Neither ${r}$ nor $n_0$ is estimated: the first is the number of
+orbits meeting the region and the second is where the interleaving is seen to settle, which the
+order-preservation of $T$ then makes permanent.
 """
     if en == 'triangsq':
         import triangsq as _ts

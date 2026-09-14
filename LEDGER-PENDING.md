@@ -872,3 +872,46 @@ order-9 one. The number the entries could only observe is the number of fundamen
 
 **17 names read, every one reproducing its entry's published data exactly; 10 open and
 installed.**
+
+## 14 September 2026 — `pellsq` is NULL, and it is worth saying why
+
+Having proved the triangular-number family by way of its Pell equation, the obvious next step
+was the general shape: **numbers k for which A k^2 + B k + C is a perfect square**. The engine
+is written (`src/pellsq.py`), it reads 49 names, and 37 of them build a correct model — the
+orbits, the interleaving, the annihilator (z-1)(z^{2r} - 2u z^r + 1).
+
+**Not one of them is a result.** Of the 552 entries in the clone whose name has the shape
+"Numbers/Indices ... is a (perfect) square" and which are outside the roster, exactly TWO carry
+a conjectured recurrence a parser can read, and both are triangular-number entries already
+counted here. The rest state no conjecture at all: there is nothing open to settle. Proving a
+recurrence an entry does not claim is not a result by this project's rules, and padding the
+count with 37 of them would be exactly the kind of inflation the ledger forbids.
+
+The engine stays registered. If such an entry ever grows a conjecture, it is now read.
+
+Two things were learned on the way and are kept in the code:
+
+  * the conjugate solution (X, -Y) is a solution too, and its T-images re-enter the region as a
+    DIFFERENT orbit. Seeding only with Y >= 0 lost half the orbits and produced sorted lists
+    with holes in them — twenty-four names showed it at once, each with a term missing from the
+    middle of the published data.
+  * the generated list is checked against a direct search over k below a limit. A missed orbit
+    then shows up as a missing TERM rather than as a plausible wrong recurrence, and the engine
+    refuses instead of guessing. Twelve of the 49 are refused that way.
+
+## 14 September 2026 — an empirical verification read as a settlement
+
+`openness.status` flagged A154151 as not open on the strength of
+
+    The first conjecture is true for the first 1000 terms of the sequence. - Harvey P. Dale
+
+which is a verification, not a proof. The entry's conjecture is the order-5 recurrence the
+Pell argument settles, and it was excluded from the batch it belonged in. `FINITE` — the list
+of phrasings that mean "a finite check, not a proof" — now includes "for the first N terms".
+A154151 is proved and installed.
+
+The first attempt at that fix was wider: any "for n = <number>" counted as a finite check. That
+turned **A185526** from settled to open, and A185526 carries Robert Israel's complete proof —
+a transfer-matrix argument whose last step happens to read "for n=4". A guard that makes a proof
+look like a check is worse than the gap it closes, so the added phrasing is the narrow one, and
+the wider version is recorded here as the thing not to do.

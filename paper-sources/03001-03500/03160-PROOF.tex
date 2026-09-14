@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A217951, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207095, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A217951 carries an empirical recurrence of order $16$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified, so
+OEIS A207095 carries an empirical recurrence of order $16$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the last few values, or -- when the sum runs over everything read so far -- the running total modulo the entry's own modulus, the sums themselves being unbounded and only their residue being read, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
 arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=16$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
@@ -31,20 +31,20 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A217951 is ``Number of n element 0..3 arrays with each element the minimum of 5 adjacent elements of a random 0..3 array of n+4 elements.''. It has offset $1$ and begins
+OEIS A207095 is ``Number of 0..3 arrays x(0..n-1) of n elements with each no smaller than the sum of its two previous neighbors modulo 4.''. It has offset $1$ and begins
 \[
-4, 16, 50, 130, 296, 610, 1177, 2209,\ \dots
+4, 10, 26, 68, 176, 458, 1193, 3103,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) -6*a(n-2) +4*a(n-3) -a(n-4) +6*a(n-6) -4*a(n-7) +6*a(n-8) +4*a(n-9) +5*a(n-10) +6*a(n-11) +2*a(n-12) +4*a(n-13) +3*a(n-14) +2*a(n-15) +a(n-16)
+Empirical: a(n) = 3*a(n-1) -a(n-2) +a(n-3) -3*a(n-4) +a(n-6) -2*a(n-9) +2*a(n-12) +a(n-13) -a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 17:28:36, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:28:08, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts distinct IMAGES and not the objects that produce them, so the vertices are not single configurations but sets of them: a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified. The set a word leaves the model in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing, so distinct output words and walks from the initial vertex are the same thing. The condition itself is decided within the model by inspection of a state and the symbol read.
+The condition the entry imposes is local: it constrains the last few values, or -- when the sum runs over everything read so far -- the running total modulo the entry's own modulus, the sums themselves being unbounded and only their residue being read and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
 An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=16$ vertices,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -72,7 +72,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4) + 6\,a(n-6) - 4\,a(n-7) + 6\,a(n-8) + 4\,a(n-9) + 5\,a(n-10) + 6\,a(n-11) + 2\,a(n-12) + 4\,a(n-13) + 3\,a(n-14) + 2\,a(n-15) + a(n-16)
+a(n)\;=\;3\,a(n-1) - a(n-2) + a(n-3) - 3\,a(n-4) + a(n-6) - 2\,a(n-9) + 2\,a(n-12) + a(n-13) - a(n-16)
 \]
 for every $n>0$.
 \end{theorem}
@@ -88,7 +88,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -100,7 +100,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A217951.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207095.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

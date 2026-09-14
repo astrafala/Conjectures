@@ -43,9 +43,16 @@ SETTLED = re.compile(
     r"|no\s+longer\s+a\s+conjecture|is\s+now\s+a\s+theorem"
     r"|(?:was|has\s+been)\s+(?:settled|resolved|answered)", re.I)
 
-# these say the opposite -- a finite check is not a proof
+# these say the opposite -- a finite check is not a proof.
+# "is true for the first 1000 terms of the sequence" (A154151) is a verification and was being
+# read as a settlement, so A154151 was excluded from a batch it belonged in; its conjecture is
+# now proved. Only that one phrasing is added. A wider net -- treating any "for n = <number>"
+# as a finite check -- turned A185526 from settled to open, and A185526 carries Robert Israel's
+# complete proof, whose last step happens to read "for n=4". A guard that makes a proof look
+# like a check is worse than the gap it closes.
 FINITE = re.compile(r"for\s+n\s*=\s*\d+\s*\.\.\s*\d+|\bchecked\b|\bverified for\s+n"
-                    r"|\bup to\b\s+n|verification needed", re.I)
+                    r"|\bup\s+to\b\s*n|verification needed"
+                    r"|for\s+the\s+first\s+[\d,]+\s+(?:terms|values|cases)", re.I)
 
 
 def lines(anum, tags="FCHDNe"):
