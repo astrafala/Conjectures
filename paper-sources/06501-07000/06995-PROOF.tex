@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A301997, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A230671, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A301997 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A230671 counts arrays over $\{0,\dots,2\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $32$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
 is wrong; the right object is a walk on ordered \emph{pairs} of consecutive rows, where
 each step tests the condition on the middle row against both its neighbours and the two
 ends are tested with one neighbour row absent. That makes $a(n)$ a walk count on a digraph
-with $S=4096$ vertices, and the conjectured recurrence is then decided by a finite exact
+with $S=6561$ vertices, and the conjectured recurrence is then decided by a finite exact
 computation.
 \end{abstract}
 
@@ -34,36 +34,36 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A301997 is ``Number of nX6 0..1 arrays with every element equal to 1, 2 or 4 horizontally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A230671 is ``Number of nX4 0..2 arrays x(i,j) with each element horizontally, diagonally or antidiagonally next to at least one element with value 2-x(i,j).''. It has offset $1$ and begins
 \[
-5, 50, 309, 2036, 14016, 100176, 729297, 5333386,\ \dots
+9, 513, 18915, 730503, 28368687, 1100265795, 42681522741, 1655698076319,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 37*a(n-1) -646*a(n-2) +7145*a(n-3) -56474*a(n-4) +340368*a(n-5) -1627864*a(n-6) +6344426*a(n-7) -20530229*a(n-8) +55921932*a(n-9) -129560648*a(n-10) +257379094*a(n-11) -441218290*a(n-12) +656019085*a(n-13) -849333774*a(n-14) +960248209*a(n-15) -949688428*a(n-16) +822086289*a(n-17) -622603894*a(n-18) +412123821*a(n-19) -238125530*a(n-20) +119900686*a(n-21) -52488320*a(n-22) +19925276*a(n-23) -6551781*a(n-24) +1868622*a(n-25) -461972*a(n-26) +97988*a(n-27) -17522*a(n-28) +2597*a(n-29) -306*a(n-30) +25*a(n-31) -a(n-32) for n>33
+Empirical: a(n) = 37*a(n-1) +85*a(n-2) -427*a(n-3) -7212*a(n-4) +18333*a(n-5) -11460*a(n-6) -144161*a(n-7) +427156*a(n-8) -283771*a(n-9) -737876*a(n-10) +2778226*a(n-11) -6632316*a(n-12) +11370217*a(n-13) -12647443*a(n-14) +15533606*a(n-15) -15672799*a(n-16) +13230743*a(n-17) -12231559*a(n-18) +8238905*a(n-19) -5597330*a(n-20) +3725581*a(n-21) -1775475*a(n-22) +1133310*a(n-23) -535263*a(n-24) +157955*a(n-25) -84089*a(n-26) +33686*a(n-27) -7250*a(n-28) +372*a(n-29) +636*a(n-30) -360*a(n-31) +72*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 30 2018 12:25:14, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2025 08:44:57, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;37\,a(n-1) - 646\,a(n-2) + 7145\,a(n-3) - 56474\,a(n-4) + 340368\,a(n-5) - 1627864\,a(n-6) + 6344426\,a(n-7) - 20530229\,a(n-8) + 55921932\,a(n-9) - 129560648\,a(n-10) + 257379094\,a(n-11) - 441218290\,a(n-12) + 656019085\,a(n-13) - 849333774\,a(n-14) + 960248209\,a(n-15) - 949688428\,a(n-16) + 822086289\,a(n-17) - 622603894\,a(n-18) + 412123821\,a(n-19) - 238125530\,a(n-20) + 119900686\,a(n-21) - 52488320\,a(n-22) + 19925276\,a(n-23) - 6551781\,a(n-24) + 1868622\,a(n-25) - 461972\,a(n-26) + 97988\,a(n-27) - 17522\,a(n-28) + 2597\,a(n-29) - 306\,a(n-30) + 25\,a(n-31) - a(n-32)
+a(n)\;=\;37\,a(n-1) + 85\,a(n-2) - 427\,a(n-3) - 7212\,a(n-4) + 18333\,a(n-5) - 11460\,a(n-6) - 144161\,a(n-7) + 427156\,a(n-8) - 283771\,a(n-9) - 737876\,a(n-10) + 2778226\,a(n-11) - 6632316\,a(n-12) + 11370217\,a(n-13) - 12647443\,a(n-14) + 15533606\,a(n-15) - 15672799\,a(n-16) + 13230743\,a(n-17) - 12231559\,a(n-18) + 8238905\,a(n-19) - 5597330\,a(n-20) + 3725581\,a(n-21) - 1775475\,a(n-22) + 1133310\,a(n-23) - 535263\,a(n-24) + 157955\,a(n-25) - 84089\,a(n-26) + 33686\,a(n-27) - 7250\,a(n-28) + 372\,a(n-29) + 636\,a(n-30) - 360\,a(n-31) + 72\,a(n-32)
 \end{equation}
 for all $n>33$.
 
 \section{The condition, and why one row is not enough}
 
-The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
+The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+row $t$ and column $u$, each in $\{0,\dots,2\}$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\},
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{1,2,4\}
+\exists\ \text{a neighbour with value }2-x_{t,u}
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
 condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
@@ -73,12 +73,12 @@ the state used below.
 
 \section{The digraph}
 
-Let $V=\{0,\dots,1\}^{6}$ be the possible rows and take
-$\mathcal V=V\times V$, of size $S=4096$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+Let $V=\{0,\dots,2\}^{4}$ be the possible rows and take
+$\mathcal V=V\times V$, of size $S=6561$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
 when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
-satisfies \eqref{eq:loc} with no row above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no row above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
 
 \begin{lemma}\label{lem:walk}
@@ -96,7 +96,7 @@ a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
 \begin{proof}
 Consecutive vertices of such a walk overlap in one row, so a walk of that shape is
 precisely a sequence $r^{(1)},\dots,r^{(L)}$ of rows, that is, an array of $L$ rows
-and $6$ columns. In the walk, the cells of row $t$ for $2\le t\le L-1$ are tested
+and $4$ columns. In the walk, the cells of row $t$ for $2\le t\le L-1$ are tested
 exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
 neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of row $1$ are tested by
 $\mathbf{v}$ and those of row $L$ by $\mathbf{u}$, in both cases by the same condition
@@ -106,15 +106,15 @@ and ending vertices counts them.
 \end{proof}
 
 
-The size of $\mathcal V$ is worth seeing concretely. There are $1+1=2$ values
-and $6$ cells in a row, so $|V|=2^{6}=64$, and the vertex set is
-$V\times V$, of size $64^2=4096$. That is the whole of the state: two consecutive
+The size of $\mathcal V$ is worth seeing concretely. There are $2+1=3$ values
+and $4$ cells in a row, so $|V|=3^{4}=81$, and the vertex set is
+$V\times V$, of size $81^2=6561$. That is the whole of the state: two consecutive
 rows and nothing else about the array's history.
 
 It is worth saying why this is not done by enumeration. At the largest index the entry
-publishes, $n=20$, the arrays have $6\cdot20$ cells over
-$2$ values, so there are about $10^{36}$ of them to sift. The
-walk count replaces that by $4096$ states and one matrix--vector product per row.
+publishes, $n=15$, the arrays have $4\cdot15$ cells over
+$3$ values, so there are about $10^{28}$ of them to sift. The
+walk count replaces that by $6561$ states and one matrix--vector product per row.
 \section{The criterion}
 
 Let $q(t)=t^{32}-\sum_i c_i\,t^{32-i}$ be the characteristic polynomial of
@@ -147,8 +147,8 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc}: for each of the $S=4096$ pairs and each
-of the $(1+1)^{6}$ possible next rows, the condition was tested on every cell of
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=6561$ pairs and each
+of the $(2+1)^{4}$ possible next rows, the condition was tested on every cell of
 the middle row. The vector $w$ was formed by $32$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
 Every one of those integers vanishes from the index corresponding to $n=33+1$ onwards,
@@ -168,7 +168,7 @@ divisor of $q$.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $20$ published indices, with no shift fitted: the number of rows is
+every one of the $15$ published indices, with no shift fitted: the number of rows is
 read off the entry's own name as $L=n$ and the entry's offset says which index the first
 published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
 neighbour set, or of the boundary treatment would give a different digraph and different
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A301997.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230671.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

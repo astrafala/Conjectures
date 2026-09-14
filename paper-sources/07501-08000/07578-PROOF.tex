@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A259639, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252609, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A259639 counts $(n+2)\times7$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A252609 counts $(n+2)\times4$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $3\times3$ subblock, and it carries an empirical recurrence of order $24$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
 consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=16384$ vertices. Such a sequence is $C$-finite, so whether a given
+$a(n)$ is a walk count on $S=65536$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,21 +33,21 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A259639 is ``Number of (n+2)X(5+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00000000 or 00000001.''. It has offset $1$ and begins
+OEIS A252609 is ``Number of (n+2)X(2+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 3 5 6 or 8 and every 3X3 column and antidiagonal sum not equal to 0 3 5 6 or 8.''. It has offset $1$ and begins
 \[
-236, 813, 3849, 12348, 44500, 182654, 670088, 2436036,\ \dots
+1051, 1379, 2817, 5304, 14435, 37917, 75859, 213611,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +2*a(n-2) +33*a(n-3) +20*a(n-4) -18*a(n-5) -257*a(n-6) -260*a(n-7) -44*a(n-8) +912*a(n-9) +798*a(n-10) +241*a(n-11) -1094*a(n-12) -868*a(n-13) -450*a(n-14) +667*a(n-15) +251*a(n-16) +158*a(n-17) -247*a(n-18) -19*a(n-19) +25*a(n-20) +81*a(n-21) +7*a(n-22) -8*a(n-24) for n>25
+Empirical: a(n) = 37*a(n-3) -445*a(n-6) +2151*a(n-9) -4973*a(n-12) +7261*a(n-15) -8366*a(n-18) +5776*a(n-21) -1440*a(n-24) for n>33
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:53:20, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:26:31, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
 Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,1\}^{7}$. A $3\times3$ subblock occupies three consecutive rows and
+$\{0,\dots,3\}^{4}$. A $3\times3$ subblock occupies three consecutive rows and
 three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
 contributes are
 \[
@@ -55,13 +55,13 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00000000,\ 00000001\}
+\text{every row, diagonal sum} \in \{0,3,5,6,8\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,3,5,6,8\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
 
 Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(1+1)^{2\cdot7}=16384$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+$S=(3+1)^{2\cdot4}=65536$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
 holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
 walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
 row is one step. Hence, with $M$ the adjacency matrix of $G$,
@@ -92,26 +92,26 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-2) + 33\,a(n-3) + 20\,a(n-4) - 18\,a(n-5) - 257\,a(n-6) - 260\,a(n-7) - 44\,a(n-8) + 912\,a(n-9) + 798\,a(n-10) + 241\,a(n-11) - 1094\,a(n-12) - 868\,a(n-13) - 450\,a(n-14) + 667\,a(n-15) + 251\,a(n-16) + 158\,a(n-17) - 247\,a(n-18) - 19\,a(n-19) + 25\,a(n-20) + 81\,a(n-21) + 7\,a(n-22) - 8\,a(n-24)
+a(n)\;=\;37\,a(n-3) - 445\,a(n-6) + 2151\,a(n-9) - 4973\,a(n-12) + 7261\,a(n-15) - 8366\,a(n-18) + 5776\,a(n-21) - 1440\,a(n-24)
 \]
-for every $n>25$.
+for every $n>33$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\mathbf{1}$ was formed by $24$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=25+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=33+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>25$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>33$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $23$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
+the entry's English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A259639.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252609.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -1,6 +1,6 @@
 # Papers 06001-06500
 
-Ranks 6001 to 6500 of 12900, hardest first.
+Ranks 6001 to 6500 of 12930, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -502,5 +502,5 @@ Ranks 6001 to 6500 of 12900, hardest first.
 | 6496 | [A261290](https://oeis.org/A261290) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06496-PROOF.pdf](06496-PROOF.pdf) |
 | 6497 | [A232020](https://oeis.org/A232020) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06497-PROOF.pdf](06497-PROOF.pdf) |
 | 6498 | [A252060](https://oeis.org/A252060) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06498-PROOF.pdf](06498-PROOF.pdf) |
-| 6499 | [A235235](https://oeis.org/A235235) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06499-PROOF.pdf](06499-PROOF.pdf) |
-| 6500 | [A254263](https://oeis.org/A254263) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06500-PROOF.pdf](06500-PROOF.pdf) |
+| 6499 | [A235236](https://oeis.org/A235236) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06499-PROOF.pdf](06499-PROOF.pdf) |
+| 6500 | [A235235](https://oeis.org/A235235) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06500-PROOF.pdf](06500-PROOF.pdf) |

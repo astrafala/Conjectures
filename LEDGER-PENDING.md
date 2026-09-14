@@ -1091,3 +1091,44 @@ Roster: 12,899 -> 12,900 papers over 12,873 entries.
 Still out of reach: A253339 (width 7, slack 3) and A253340 (width 8, slack 3), where the row
 alphabet is 4^7 and 4^8. They are refused at the cap, not by anything unproved -- the
 certificate covers their widths -- and they are worth one long run, not a redesign.
+
+## 14 September 2026 — a refusal that was a nested loop
+
+IDEAS.md section T said the pool splits in two, and that the head of it is not unread names but
+entries an engine reads and the BUILD refuses. The first one taken apart was `transfer3`, the
+constant-stress family:
+
+    Number of (n+1) X (K+1) 0..m arrays with every 2 X 2 subblock having its diagonal sum
+    differing from its antidiagonal sum by c [, with no adjacent elements equal].
+
+Its build compared **every row with every other row**. At width 7 over 0..4 that is 78,125 rows
+and six thousand million comparisons, so the entries timed out and sat in the pool looking like
+a state-space problem. There was nothing hard about them at all.
+
+The condition is linear, so it can be SOLVED instead of TESTED. Writing the block condition as
+
+    |r_j + s_{j+1} - r_{j+1} - s_j| = c   <=>   s_{j+1} - s_j = (r_{j+1} - r_j) +- c,
+
+a successor is fixed by its first entry and one sign per column, so each row has at most
+(m+1) * 2^(K) candidates and they are written down directly. Same digraph, found differently:
+
+    A234225  width 7, 0..4   six billion comparisons  ->  12 seconds
+    A234226  width 8, 0..4   hours                    ->  117 seconds
+
+Before the new build was used for anything it was checked against the old one on 72 parameter
+sets (widths 2..4, alphabets 1..3, c = 0..3, with and without the adjacency clause): the state
+lists and the adjacency lists are IDENTICAL, entry for entry. That is the instrument test STATE.md
+defect 8 asks for, and it is what makes the speed-up safe to believe.
+
+`sweep_engine transfer3`: **30 PROVED**, 13 still over the cap, 127 with no parsable recurrence.
+All 30 kept by the live re-check, 0 dropped, 0 flagged.
+
+Roster: 12,900 -> 12,930 papers over 12,903 entries.
+
+Worth stating plainly, because it changes what the remaining pool is worth: the reading of this
+family was ALREADY right and the model was ALREADY right. Nothing was discovered about the
+mathematics. What was wrong was a nested loop nobody had looked at since it was written, and it
+had been costing thirty entries for as long as it had existed.
+
+The same question is now owed to the other engines behind the cap refusals -- transfer17,
+transfer23, transfer35 and transfer19 -- which is where section T points next.

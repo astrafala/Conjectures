@@ -12,169 +12,130 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251066, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206878, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251066 counts $3\times(n+1)$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
-every $2\times2$ subblock, and carries an empirical recurrence of order $12$ contributed
-by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
-to each subblock, so the columns of an admissible array are the vertices of a finite digraph
-on $S=27$ vertices whose edges are the admissible consecutive pairs, and the count is a
-number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
-$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
-Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
-integer arithmetic, and it comes out zero.
+OEIS A206878 counts arrays over $\{0,\dots,1\}$ of width $3$ that avoid the patterns
+$(0,1,0)$ along one axis and $(1,0,1)$ along the other, and carries an empirical recurrence of
+order $12$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+the constraint across the growing direction ties together $3$ consecutive rows: taking a
+window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
+on $S=49$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the residual is
+$\mathbf{1}^{\!\top}P^{\,n-2-12}q(P)\mathbf{1}$, which vanishes identically
+beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A251066 is ``Number of (2+1)X(n+1) 0..2 arrays with no 2X2 subblock having x11-x00 less than x10-x01.''. It has offset $1$ and begins
+OEIS A206878 is ``Number of nX3 0..1 arrays avoiding 0 1 0 horizontally and 1 0 1 vertically.''. It has offset
+$1$ and begins
 \[
-336, 2740, 17129, 89429, 410718, 1716324, 6678657, 24601591,\ \dots
+7, 49, 230, 1011, 4705, 22412, 105936,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 18*a(n-1) -146*a(n-2) +706*a(n-3) -2268*a(n-4) +5102*a(n-5) -8246*a(n-6) +9654*a(n-7) -8131*a(n-8) +4808*a(n-9) -1896*a(n-10) +448*a(n-11) -48*a(n-12)
+Empirical: a(n) = 5*a(n-1) -7*a(n-2) +24*a(n-3) +8*a(n-4) +11*a(n-5) +32*a(n-6) -22*a(n-7) -44*a(n-8) +11*a(n-9) +13*a(n-10) -a(n-11) -a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:17:57, revision 6) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:13:22, revision
+9) the statement is still recorded as empirical, and nothing on the entry
+records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;18\,a(n-1) - 146\,a(n-2) + 706\,a(n-3) - 2268\,a(n-4) + 5102\,a(n-5) - 8246\,a(n-6) + 9654\,a(n-7) - 8131\,a(n-8) + 4808\,a(n-9) - 1896\,a(n-10) + 448\,a(n-11) - 48\,a(n-12)
+a(n)\;=\;5\,a(n-1) - 7\,a(n-2) + 24\,a(n-3) + 8\,a(n-4) + 11\,a(n-5) + 32\,a(n-6) - 22\,a(n-7) - 44\,a(n-8) + 11\,a(n-9) + 13\,a(n-10) - a(n-11) - a(n-12)
 \end{equation}
-for all $n>11$.
+for all $n>12$. 
 
-\section{The condition is local, so the columns form a digraph}
+\section{The array as a walk}
 
-Write an array of the shape in question as its list of columns
-$r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,2\}^{3}$, so $|V|=S=27$. A $2\times2$ subblock of the array
-occupies two consecutive columns and two consecutive rows; if the two columns are $r$
-and $s$ (in that order) and the two rows are numbered $i,i+1$,
-the subblock is
-\[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_i&s_i\\r_{i+1}&s_{i+1}\end{pmatrix}.
-\]
-The entry's requirement on that subblock is
-\begin{equation}\label{eq:loc}
-\text{not }\bigl(\delta-\alpha<\gamma-\beta\bigr),
-\end{equation}
-a condition on the four entries alone.
+Call a row \emph{admissible} if the word it forms contains none of the patterns
+$(0,1,0)$ as $3$ consecutive entries. There are $7$ admissible rows; that condition
+involves a single row only.
 
-For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le i\le 3-1$,
-\begin{itemize}
-\item the four entries above satisfy \eqref{eq:loc};
-
-\end{itemize}
-Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
-all-ones vector.
+The remaining patterns $(1,0,1)$ are forbidden along the other axis, so each of them
+constrains $3$ consecutive rows at a fixed position of the column. Take as state a
+window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
+rows, so $S=49$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+dropped and one further admissible row $t$ appended, subject to: for every position
+$j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
+is none of $(1,0,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $L$ columns are exactly the walks
-$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
-\[
-a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
-\]
+$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
 \end{lemma}
 
 \begin{proof}
-An array with $L$ columns and $3$ rows is precisely a sequence
-$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
-Every $2\times2$ subblock lies in two consecutive columns $r^{(t)},r^{(t+1)}$ and two
-consecutive rows, so the array satisfies the entry's condition on all of its subblocks
-if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
-every row pair --- which is exactly the edge relation of $G$. The number of walks of
-length $L-1$, summed over all starting and ending vertices, is
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
-length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ columns.
+An array of the entry's kind with $n$ rows is a sequence of $n$ admissible rows in
+which no forbidden pattern appears along the other axis. Reading it as the sequence of its
+overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
+$1$ rows by construction, and the edge condition is exactly the requirement on the one
+new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
+and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
+windows, that is $n$ rows; summing over all starting and ending states gives
+$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 \end{proof}
 
 \section{The criterion}
 
-Let $q(t)=t^{12}-\sum_i c_i\,t^{12-i}$ be the characteristic polynomial of
-\eqref{eq:conj}, with the $c_i$ read off that equation.
+Let $q(t)=t^{12}-\sum_i c_i t^{12-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $n+1-1\ge12$,
-\[
-a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-12}\,q(M)\,\mathbf{1} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
-$j=0,1,\dots,S-1$.
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-12}$ whenever $n-12\ge2$. Hence
+\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
+$j>t-2-12$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
+later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
-\[
-a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
-=\mathbf{1}^{\!\top}M^{\,m-12}\,q(M)\,\mathbf{1}
-\]
-with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
-$m-12=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
-Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
-$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
-values; if those all vanish, so do all the rest.
+Substituting Lemma~\ref{lem:walk} into the left side and factoring out
+$P^{\,n-2-12}$ gives the identity. The equivalence follows by letting the exponent
+run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
+polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
+degree $S$, it propagates $S$ consecutive zeros forward.
 \end{proof}
 
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>12$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
-rows: the edge condition is a conjunction of one constraint per consecutive row
-pair, so the successors of a column $r$ are enumerated row by row without testing all
-$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $12$
-matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
-evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=11+1$ onwards, and the run continued until $w$ itself was the
-zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
-holds for every $n>11$.
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $12$ matrix--vector
+products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
+index corresponding to $n=12+1$ onwards, and the run was continued past $S$ consecutive
+zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
-
-\begin{remark}
-The argument gives more than the recurrence: it shows the sequence is $C$-finite with
-characteristic polynomial dividing that of $M$, so it has a rational generating function
-whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
-minimal one is a divisor of $q$.
-\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $21$ published indices; the values agree exactly. That is what ties
-the digraph to the sequence: a model that reproduced only some of the published terms would
-be the wrong model, and would have been rejected. In particular it is what rules out a
-misreading of the entry's wording, since a different reading of the condition gives a
-different digraph and different counts.
+First, the digraph was built directly from the entry's stated patterns and the walk counts
+compared against the entry's DATA at every one of the $21$ published indices; the
+values agree exactly, including the initial count of $7$ admissible rows. That is
+what ties the digraph to the sequence, and a model reproducing only part of the published
+data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
-until the working vector was identically zero, not to a sampled prefix, and returned zero
-throughout.
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=49$ consecutive
+zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251066.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206878.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

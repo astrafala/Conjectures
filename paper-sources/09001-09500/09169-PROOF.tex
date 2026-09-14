@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A205210, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A205022, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A205210 counts arrays over $\{0,\dots,2\}$ under a condition on the determinant of every
+OEIS A205022 counts arrays over $\{0,\dots,3\}$ under a condition on the determinant of every
 $2\times2$ subblock, and carries an empirical recurrence of order $12$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=1970$ states and is
+a bounded window of consecutive rows, so the count is a walk count on $S=15040$ states and is
 $C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
 computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,22 +31,22 @@ computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A205210 is ``Number of (n+1)X4 0..2 arrays with the determinants of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
+OEIS A205022 is ``Number of (n+1)X4 0..3 arrays with the determinants of 2X2 subblocks nondecreasing rightwards and downwards.''. It has offset $1$ and begins
 \[
-1970, 23578, 357812, 5500266, 82656765, 1236875696, 18436719991, 274894006610,\ \dots
+15040, 275853, 7148335, 198539736, 5296848762, 139786868632, 3650380799573, 95296479247095,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 33*a(n-1) -310*a(n-2) -394*a(n-3) +21463*a(n-4) -100223*a(n-5) -82352*a(n-6) +1802520*a(n-7) -4216752*a(n-8) -1467504*a(n-9) +18558720*a(n-10) -25132032*a(n-11) +10616832*a(n-12) for n>19
+Empirical: a(n) = 56*a(n-1) -742*a(n-2) -9488*a(n-3) +284911*a(n-4) -1227272*a(n-5) -17654568*a(n-6) +180271872*a(n-7) -212758272*a(n-8) -3603750912*a(n-9) +17151492096*a(n-10) -28116025344*a(n-11) +14619377664*a(n-12) for n>27
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:51:35, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:40:37, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Write $\sigma$ for the determinant of a $2\times2$ subblock
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps-qr$. The subblocks of an
-$(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $3$
+$(n+1)\times4$ array over $\{0,\dots,3\}$ form a grid of $n$ rows and $3$
 columns, and $\sigma$ colours that grid.
 
 The condition relates NEIGHBOURING subblocks: the values of two subblocks adjacent in the grid,
@@ -63,15 +63,15 @@ rows at once. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=1970$ admissible pairs.
+on the $S=15040$ admissible pairs.
 
 At $n=1$ the array has two rows, so the grid is a single row of $3$
 subblocks with no vertical neighbours, so only the horizontal comparisons apply. The
-entry's first term is $1970$, and the model reproduces it along with every later term; that
+entry's first term is $15040$, and the model reproduces it along with every later term; that
 is the cheapest check that the grid has been read with the right shape.
 
-Over the alphabet $\{0,\dots,2\}$ the determinant of a $2\times2$ subblock takes values in
-$[-4,4]$, so the colouring of the grid it induces has at most $9$ values.
+Over the alphabet $\{0,\dots,3\}$ the determinant of a $2\times2$ subblock takes values in
+$[-9,9]$, so the colouring of the grid it induces has at most $19$ values.
 That bound is what keeps the construction below finite in the only place where the value of
 $\sigma$, rather than a comparison between two of them, has to be carried.
 In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
@@ -97,15 +97,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;33\,a(n-1) - 310\,a(n-2) - 394\,a(n-3) + 21463\,a(n-4) - 100223\,a(n-5) - 82352\,a(n-6) + 1802520\,a(n-7) - 4216752\,a(n-8) - 1467504\,a(n-9) + 18558720\,a(n-10) - 25132032\,a(n-11) + 10616832\,a(n-12)
+a(n)\;=\;56\,a(n-1) - 742\,a(n-2) - 9488\,a(n-3) + 284911\,a(n-4) - 1227272\,a(n-5) - 17654568\,a(n-6) + 180271872\,a(n-7) - 212758272\,a(n-8) - 3603750912\,a(n-9) + 17151492096\,a(n-10) - 28116025344\,a(n-11) + 14619377664\,a(n-12)
 \]
-for every $n>19$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -113,7 +113,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -125,7 +125,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A205210.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A205022.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.

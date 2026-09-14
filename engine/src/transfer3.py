@@ -39,23 +39,49 @@ def parse_name(nm):
 
 
 def build(cols, alpha, c, noadj):
+    """The row digraph, with each row's successors GENERATED rather than searched for.
+
+    The old build compared every row with every other row, which is (alpha+1)^(2*cols) work:
+    at width 7 over 0..4 that is 78,125 rows and six billion comparisons, and the entries of
+    this family sat in the pool as "refused" when nothing about them was hard. The condition
+    is linear, so it can be solved instead of tested. Writing the block condition as
+
+        |r_j + s_{j+1} - r_{j+1} - s_j| = c   <=>   s_{j+1} - s_j = (r_{j+1} - r_j) +- c,
+
+    the successor s is determined by its first entry and one sign per column, so a row has at
+    most (alpha+1) * 2^(cols-1) candidates and they are written down directly. The digraph is
+    the same digraph; only the way it is found has changed.
+    """
     allrows = list(product(range(alpha + 1), repeat=cols))
     if noadj:
         st = [r for r in allrows if all(r[j] != r[j + 1] for j in range(cols - 1))]
     else:
         st = allrows
+    index = {r: i for i, r in enumerate(st)}
+    # c = 0 makes the two signs the same choice; the set keeps one of each
+    signs = sorted(set(product((c, -c), repeat=cols - 1))) if cols > 1 else [()]
     adj = []
     for r in st:
-        row = []
-        for si, s in enumerate(st):
-            ok = True
-            if noadj and any(r[j] == s[j] for j in range(cols)):
-                ok = False
-            if ok:
+        deltas = [r[j + 1] - r[j] for j in range(cols - 1)]
+        out = set()
+        for e in signs:
+            step = [deltas[j] + e[j] for j in range(cols - 1)]
+            for s0 in range(alpha + 1):
+                if noadj and r[0] == s0:
+                    continue
+                v = s0
+                sv = [s0]
+                ok = True
                 for j in range(cols - 1):
-                    if abs(r[j] + s[j + 1] - r[j + 1] - s[j]) != c:
-                        ok = False; break
-            if ok:
-                row.append(si)
-        adj.append(row)
+                    v += step[j]
+                    if not 0 <= v <= alpha or (noadj and v == r[j + 1]):
+                        ok = False
+                        break
+                    sv.append(v)
+                if not ok:
+                    continue
+                i = index.get(tuple(sv))
+                if i is not None:
+                    out.add(i)
+        adj.append(sorted(out))
     return st, adj
