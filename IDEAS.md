@@ -930,6 +930,39 @@ which is a much weaker thing and very likely an overcount. `src/galcoord.py` is 
 IS NOT IN SERVICE — `build` returns None for everything — because a pipeline that is right on
 29 terms and wrong on the 30th is exactly what this project exists not to ship.
 
+### U.4b The certificate has a gap too — A310511
+
+`src/galcert.py` checks the two Bellman conditions over the whole lattice: exhaustively inside
+a breakpoint radius computed from the planes, and at three points per cone outside it. It
+passes every test it was given — accepts the honeycomb, 4.8.8 and the triangular tiling,
+refuses Gal.4.16 (the 29-terms-then-wrong one), and refuses any tiling whose plane constants
+are perturbed by one in either direction.
+
+**It is still not sound.** A310511 is accepted and its fitted form diverges from breadth-first
+search at the 35th term. Two gaps, both in the "outside the breakpoint radius" half:
+
+  * `_cone_points` locates a cone by walking out along its plane's gradient, and when the
+    heuristic fails it returns None and the cone is SKIPPED. A check that silently skips what
+    it cannot find is not a check — this is defect 8 wearing a new hat;
+  * three affinely independent points settle an affine statement on a cone, but condition (c)
+    is "SOME edge attains equality" and the attaining edge may vary from point to point. Three
+    points do not settle a disjunction.
+
+The fix is to stop sampling and compute the arrangement, which in two dimensions is cheap:
+sort the planes by gradient angle; the region where plane i is the maximum is bounded by the
+rays where it ties with its neighbours in that order. Given a cone as an apex plus two
+generator directions, "affine <= affine on the cone" is exact — the difference at the apex and
+its linear part on each generator — and condition (c) is decided per cone by intersecting with
+each edge's equality region. Nothing sampled, nothing skipped.
+
+One thing that IS settled and should not be redone: **counting is exact.** `galehr.count`
+agrees with brute-force enumeration of the region at every radius tried, and `galcoord.ball`
+now uses it always. An earlier version used the Ehrhart closed form wherever the derived onset
+said it applied, which was wrong on entries the certificate accepted — `galehr.onset` can come
+out too small, the quasi-polynomial then gets fitted inside the transient, and its own
+verification passes because the transient is locally smooth (A310393 drifted from t = 12). The
+closed form's only remaining job is to supply the period for the threshold.
+
 ### U.5 What is left
 
 The plumbing is written; what is missing is the mathematics, and it is the part that was

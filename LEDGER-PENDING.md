@@ -256,3 +256,40 @@ The good news is that it was caught by the ordinary discipline — comparing the
 the entry's own published data, which is the check that exists precisely for this — and caught
 at 29 terms rather than after a batch of papers. The bad news is that I had already written
 "the mathematics is done for the 723 exact tilings" into IDEAS, and it was not.
+
+## 14 September 2026 — the certificate that passed its own tests and was still wrong
+
+Wrote `src/galcert.py`, the whole-lattice Bellman check that IDEAS U.4a said was the missing
+piece. It passed every test put to it: accepts the honeycomb, 4.8.8 and the triangular tiling;
+refuses Gal.4.16, the tiling whose patch fit agreed with breadth-first search for 29 terms and
+diverged at the 30th; and refuses any tiling whose plane constants are perturbed by one in
+either direction. That is a real negative control and it did its job.
+
+**A310511 is accepted and diverges at the 35th term.** Two gaps, both in the half that handles
+points outside the breakpoint radius:
+
+  * `_cone_points` finds a cone by walking out along its plane's gradient, and when that fails
+    it returns None and the cone is skipped without comment. A check that silently skips what
+    it cannot find is defect 8 in new clothes;
+  * three affinely independent points settle an affine statement on a cone. Condition (c) is
+    "SOME edge attains equality", and the attaining edge can change from point to point. Three
+    points do not settle a disjunction.
+
+So `galcoord` is back to IN_SERVICE = False. That is twice in two turns that this vein's
+machinery has looked finished and not been, and both times the thing that caught it was the
+same: comparing the model against the entry's own published data. It is worth being explicit
+that the sampling shortcut was chosen to avoid writing a 2-D arrangement, and the arrangement
+is what the next attempt should write — sort planes by gradient angle, take the region where
+each is the maximum as the cone between its ties with its neighbours, and decide
+"affine <= affine on a cone" from the apex and the two generator directions. Nothing sampled.
+
+One real gain, and it stands: **counting is exact and settled.** `galehr.count` agrees with
+brute-force enumeration at every radius tried, and `galcoord.ball` now uses it always. An
+earlier version used the Ehrhart closed form wherever the derived onset said it applied, and
+that was wrong on entries the certificate accepted -- `galehr.onset` can come out too small,
+the quasi-polynomial is then fitted inside the transient, and its own verification passes
+because the transient is locally smooth. A310393 drifted from t = 12 that way. Four entries
+that had been recorded as "model mismatch" were nothing of the kind once the count was made
+exact.
+
+Roster unchanged. Nothing installed from this vein, which is the correct outcome.

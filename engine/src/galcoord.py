@@ -32,6 +32,7 @@ reach them. They are refused with that reason rather than approximated.
 import math
 import re
 
+import galcert
 import galehr
 import gallat
 import galhull
@@ -40,8 +41,7 @@ import galtile
 NAME = re.compile(r'Coordination sequence Gal\.(\d+)\.(\d+)\.(\d+)\b', re.I)
 RADIUS = 34                      # patch radius for fitting
 
-# NOT IN SERVICE. The pipeline below is correct arithmetic on an UNPROVED premise, and the
-# premise is false often enough to matter.
+# The premise is now PROVED per tiling rather than assumed, by `galcert`.
 #
 # `galhull` fits d = max_i(A*m + B*n + C) on a patch and checks it on that same patch. That is
 # circular: a cone whose region lies entirely outside the patch cannot show up as a leftover,
@@ -51,18 +51,40 @@ RADIUS = 34                      # patch radius for fitting
 # lattice count of the fitted region agree with each other everywhere. It is the region that
 # is wrong.
 #
-# What would make it a proof is the check that was deferred: for the closed form D, verify the
-# two Bellman conditions over the WHOLE lattice rather than over a patch --
+# `galcert` is that check: for the closed form D, it verifies the two Bellman conditions over
+# the WHOLE lattice rather than over a patch --
 #
 #   (b) for every edge, given as (class c, class c', lattice offset (dm, dn)),
 #       D_{c'}(m + dm, n + dn) <= D_c(m, n) + 1  for all (m, n);
 #   (c) every class and every (m, n) other than the origin has an edge attaining equality.
 #
-# Both sides are convex piecewise-linear, so each condition splits into finitely many
-# "affine <= affine on a polyhedral cone" tests, each an exact rational LP. Finite, and it is
-# the whole content of the proof. Until it is written this engine refuses everything, because
-# a pipeline that is right on 29 terms and wrong on the 30th is exactly the kind of thing this
-# project exists not to ship.
+# and it decides them without a general LP: D is piecewise affine, so past the last breakpoint
+# of the arrangement every condition is affine on a cone, and an affine statement holding at
+# three affinely independent points of a cone holds on all of it. So: exhaustively inside the
+# breakpoint radius, three points per cone outside it, with the radius computed from the planes.
+#
+# It was validated both ways and PASSED those tests -- it accepts the honeycomb, 4.8.8 and the
+# triangular tiling, it refuses Gal.4.16 whose patch fit agreed with breadth-first search for
+# 29 terms and diverged at the 30th, and perturbing any plane's constant by one in either
+# direction makes it refuse a tiling it otherwise accepts.
+#
+# IT IS STILL NOT SOUND, and A310511 shows it: the certificate accepts, and the fitted form
+# diverges from breadth-first search at the 35th term. Two gaps, both in the "outside the
+# breakpoint radius" half:
+#
+#   * `galcert._cone_points` locates a cone by walking out along its plane's gradient. When
+#     that heuristic fails it returns None and the cone is SKIPPED -- silently unverified.
+#     A check that skips what it cannot find is not a check;
+#   * three affinely independent points settle an affine statement on a cone, but condition
+#     (c) is "SOME edge attains equality", and the edge that attains it may differ from point
+#     to point. Three points do not settle a disjunction.
+#
+# The fix is to stop sampling and compute the arrangement. In two dimensions the normal fan is
+# cheap: sort the planes by gradient angle, and the region where plane i is the maximum is
+# bounded by the rays where it ties with its neighbours in that order. With a cone given by its
+# apex and two generator directions, "affine <= affine on the cone" is decided exactly -- the
+# difference at the apex, and its linear part on each generator -- and condition (c) is decided
+# per cone by intersecting with each edge's equality region. No sampling, nothing skipped.
 IN_SERVICE = False
 
 
@@ -89,23 +111,54 @@ def build(p, cap=400000):
     if L is None:
         return None
     a, b = L
-    cl = _classes(types, a, b, start)
-    if cl is None:
+    seen = gallat.patch(types, RADIUS, start=start)
+    if not seen:
         return None
-    planes, fits = [], []
-    for lst in cl:
+
+    reps, cells = [], []
+
+    def _find(pos, l, r, f):
+        s = gallat.sig(types, l, r, f)
+        for ci, (rp, rl, rr, rf) in enumerate(reps):
+            if gallat.sig(types, rl, rr, rf) != s:
+                continue
+            c = gallat.coords(gallat._sub(pos, rp), a, b)
+            if c is not None:
+                return ci, c, rp
+        return None
+
+    for pos, (l, r, f, d) in seen.items():
+        hit = _find(pos, l, r, f)
+        if hit is None:
+            reps.append((pos, l, r, f))
+            cells.append([(0, 0, d)])
+        else:
+            cells[hit[0]].append((hit[1][0], hit[1][1], d))
+
+    def cls_of(q, nl, nr, nf):
+        h = _find(q, nl, nr, nf)
+        return None if h is None else (h[0], h[2])
+
+    planes = []
+    for lst in cells:
         pts = [(m, n, d) for m, n, d in lst if d <= RADIUS - 6]
         if len(pts) < 12:
             return None
         pl, left = galhull.pieces(pts)
         if left:
-            return None                      # d is not a max of affine pieces here
-        ip = [(int(A), int(B), int(C)) for A, B, C in pl]
-        f = galehr.fit(ip)
-        if f is None:
-            return None
-        planes.append(ip)
-        fits.append(f)
+            return None                      # d is not a max of affine pieces on the patch
+        planes.append([(int(A), int(B), int(C)) for A, B, C in pl])
+
+    el = galcert.edges(types, a, b, reps, cls_of)
+    if el is None:
+        return None
+    ok, _why = galcert.check(planes, el)
+    if not ok:
+        return None                          # the fit does not hold off the patch: refuse
+
+    fits = [galehr.fit(pl) for pl in planes]
+    if any(f is None for f in fits):
+        return None
     q = 1
     for (qq, _T, _c) in fits:
         q = q * qq // math.gcd(q, qq)
@@ -114,40 +167,22 @@ def build(p, cap=400000):
             'u': p['u'], 't': p['t'], 'v': p['v']}
 
 
-def _classes(types, a, b, start):
-    """the translation classes, with distances measured from the entry's own vertex"""
-    seen = gallat.patch(types, RADIUS, start=start)
-    if not seen:
-        return None
-    reps, out = {}, {}
-    for v, (l, r, f, d) in seen.items():
-        s = gallat.sig(types, l, r, f)
-        placed = False
-        for key in reps:
-            if key[0] != s:
-                continue
-            c = gallat.coords(gallat._sub(v, reps[key]), a, b)
-            if c is not None:
-                out[key].append((c[0], c[1], d))
-                placed = True
-                break
-        if not placed:
-            key = (s, v)
-            reps[key] = v
-            out[key] = [(0, 0, d)]
-    return list(out.values())
-
-
 def ball(b, t):
-    """|{v : d(v) <= t}| -- from the closed form where it applies, by direct count below it"""
-    s = 0
-    for pl, (qq, TT, c) in zip(b['planes'], b['fits']):
-        if t >= TT:
-            a0, a1, a2 = c[(t - TT) % qq]
-            s += a0 * t * t + a1 * t + a2
-        else:
-            s += galehr.count(pl, t)
-    return s
+    """|{v : d(v) <= t}| -- counted exactly, every time.
+
+    An earlier version used the Ehrhart closed form wherever the derived onset said it applied,
+    and that was wrong on entries the certificate accepted: `galehr.onset` can come out too
+    small, the quasi-polynomial then gets fitted inside the transient, and its own verification
+    (a few values just past the fit) passes because the transient is locally smooth. A310393
+    showed it -- the planes gave the true ball at every radius while the closed form drifted
+    from t = 12.
+
+    So the closed form is not used for counting at all. `galehr.count` is exact for every t and
+    was checked against brute-force enumeration of the region; the quasi-polynomial's only job
+    is to supply the PERIOD for the threshold, where Ehrhart's theorem is what carries the
+    argument past the computed range.
+    """
+    return sum(galehr.count(pl, t) for pl in b['planes'])
 
 
 def terms(b, N):
