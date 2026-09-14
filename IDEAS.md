@@ -1161,3 +1161,31 @@ modulus (6,6), 32 of 648 classes still carry more than one value, i.e. refining 
 a bad point from a good one. The exceptional points also sit on the rim at every radius
 (max |m| = 5, 8, 11 at R = 30, 50, 70) rather than in a fixed finite region, so they cannot be
 tabulated the way `kdcert` tabulates the boards below H0 either.
+
+### X.3 The fit converges and the certificate still refuses — the obstruction is structural
+
+With `galhull.support` deciding the supporting plane instead of searching for it (a two-variable
+LP through `galpoly.polygon`, ~9 ms a point, and a `None` now MEANS no support exists), fitting
+a whole tiling went from about 90 seconds to under one. That made the decisive experiment
+cheap — push the patch radius and watch both the plane count and the certificate:
+
+| entry | radius 50 | radius 100 | radius 150 |
+|---|---|---|---|
+| A310089 (11 classes) | 246 planes, refuses | 255 planes, refuses | 255 planes, refuses |
+| A310031 (18 classes) | 342 planes, refuses | 337 planes, refuses | 339 planes, refuses |
+
+**The plane count stabilises and the certificate still refuses.** So it is not a facet that a
+bounded patch cannot see. The reason is visible once stated: `scan` takes each constant as
+`C = min(d - A m - B n)` over the points it is given, and extending the patch can only lower
+that minimum — so a patch fit's constants are upper bounds that keep being right on the patch
+and wrong beyond it. There is no global max of affine pieces agreeing with `d`; `d` is a
+polyhedral norm plus a bounded correction that does not settle to a constant per facet, and
+§X.2 already showed that correction is not lattice-periodic either.
+
+**Conclusion: the max-of-affines premise reaches a small minority of these tilings and the
+obstruction is structural, not computational. Stop tuning the fit.** What is worth keeping is
+everything downstream of it: `galpoly` and `galcert2` verify ANY piecewise-affine `D` on ANY
+polyhedral subdivision, convex or not, and `galhull.support` decides convexity questions
+outright. A model that produced a non-convex subdivision — §X shape (2), partitioning the patch
+by which neighbour realises the minimum in `D(x) = 1 + min D(y)` — would be certified by the
+machinery as it stands.
