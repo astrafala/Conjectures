@@ -678,3 +678,44 @@ degrees 127 and 80 are large enough that the annihilation test is minutes, not s
 `degbuild` writes these papers rather than `unibuild`, because the theorem is **not** a
 recurrence: printing `(z−1)^(d+1)` as "the conjectured recurrence" would state something the
 entry does not say.
+
+## 14 September 2026 — the conjectured P-recursive recurrences: a large claim pool, a small proof pool
+
+**459 open entries** conjecture a recurrence with polynomial coefficients in n,
+`sum_i p_i(n) a(n-i) = 0`. `ratrec` reads constant coefficients only, so not one was ever asked
+about — larger than the linked-a-file vein by claim count. `precrec` reads **380** of them.
+
+But the claim being readable is not the same as the claim being provable, and the measurement
+is blunt: of the 380, **24 have a generating function the entry states as FACT and that is
+explicitly algebraic** — the only route `holonomic` can take, where the claim becomes
+
+    B(x) = sum_i x^i (p_i(theta+i) A)(x),  theta = x d/dx,
+
+an element of an algebraic function field, zero exactly when the recurrence holds for every n
+and a polynomial of degree d exactly when it holds for every n > d. An identity of functions,
+not a check of terms.
+
+Every other refusal — 155 of the first 158 asked — says the same thing: **no factual algebraic
+generating function**. The reader is not the limit here; the proof route is. The 88 entries
+with a binomial or `Sum_` formula are `zeilb`'s territory (creative telescoping) and the rest
+would need the closure properties of holonomic functions, built from the entry's definition
+rather than read off it. Both are real work, and this is the first vein today where the
+obstacle is mathematics rather than instrumentation.
+
+### An error found in an entry, not a conjecture disproved
+
+A116388 states, as fact and not as a conjecture,
+
+    G.f.: 2*x/(sqrt(1-2*x-3*x^2)*(sqrt(1-2*x-3*x^2) -1 +2*x +3*x^2)).
+
+That series begins 2, 0, 10, 12, 62, … The entry's published terms are 1, 1, 4, 10, 29, … and
+the expression in the entry's own NAME, `1/((1+x*(1-M(x)))*sqrt(1-2*x-3*x^2))` with M the
+Motzkin g.f., reproduces them exactly. Checked by hand; the two expressions differ by a
+nonzero algebraic function. So the `G.f.` line is wrong.
+
+This is an error in a formula stated as fact — **not** a disproof of a conjecture, and it is
+not counted as a result. It is recorded because the sweep's guard is what caught it: the stated
+generating function is checked against the entry's own terms *before* it is allowed to be the
+premise of a proof. Without that check the sweep would have proved a recurrence from a false
+premise and never known. `algf` now prefers the name's expression when the formula section has
+none, for the same reason.

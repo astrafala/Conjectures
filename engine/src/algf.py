@@ -39,6 +39,49 @@ def _implicit(s):
     return s
 
 
+NAME = re.compile(r'^\s*(?:Expansion of|Generating function(?: for)?)\s*[:]?\s*(.*)$', re.I)
+INNER = re.compile(r'^\s*(?:g\.f\.|ordinary generating function)\s*[:]?\s*', re.I)
+EGF = re.compile(r'\be\.g\.f\.|exponential generating', re.I)
+
+
+def from_name(e):
+    """the g.f. the entry's own NAME gives, when the name IS the definition.
+
+    This is a stronger source than the formula section, and A116388 is why: its `G.f.:` line,
+    stated as fact, does not generate the terms the entry publishes -- the first eight are
+    2, 0, 10, 12, ... against a published 1, 1, 4, 10, ... -- while the expression in its name
+    reproduces them exactly. An erroneous formula line is a fact about that entry and the
+    sweep records it; it must never become the premise of a proof.
+
+    An EXPONENTIAL generating function is a different object -- theta acts on it differently --
+    and is refused rather than read as an ordinary one.
+    """
+    nm = ' '.join(e['name'].split())
+    m = NAME.match(nm)
+    if not m:
+        return None
+    body = m.group(1).strip().rstrip('.')
+    if EGF.search(nm):
+        return None
+    body = INNER.sub('', body).strip()
+    if OUT.search(body) or re.search(r'\bwhere\b|satisf|,', body, re.I):
+        return None
+    return _parse(body)
+
+
+def _parse(body):
+    var = 'z' if ('z' in body and 'x' not in body) else 'x'
+    loc = {var: x, 'sqrt': sp.sqrt}
+    s = _implicit(body)
+    if set(re.findall(r'[A-Za-z]\w*', s)) - set(loc) - {'sqrt'}:
+        return None
+    try:
+        A = sp.sympify(s, locals=loc)
+    except Exception:
+        return None
+    return A if A.has(x) else None
+
+
 def read(e):
     """the g.f. as a sympy expression in x, or None."""
     for L in e['formula'] + e['comment']:
@@ -83,4 +126,4 @@ def read(e):
         if not A.has(x):
             continue
         return A
-    return None
+    return from_name(e)
