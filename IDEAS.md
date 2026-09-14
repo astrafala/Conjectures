@@ -1213,3 +1213,56 @@ So the next cheap thing in §Y is the exponential parse gap in `closedform`, wor
 entries on `ca2dcount`, `ca2d` and `transfer46`. After that this bucket is done and the pool's
 remaining mass is the 2,211 claim-readable entries (§W.2: 379 Galebach, now known structural,
 plus a tail of ones and twos) and the 16,368 where neither reads.
+
+## Z. The 16,174 where neither reads — characterised at last (14 September, night)
+
+The refusal census (§W) counted this block and stopped. What it is, by the KIND of claim:
+
+| | |
+|---:|---|
+| 5,338 | no recognised kind at all |
+| 4,871 | names another sequence |
+| 1,287 | primality |
+| 739 | finiteness or existence ("only", "infinitely many", "always") |
+| 662 | asymptotic |
+| 660 | congruence |
+| 651 | **a recurrence, written in words** |
+| 627 | a pointer to another entry |
+| 568 | positivity or monotonicity |
+| 510 | **a closed form** |
+| 261 | **a generating function or series** |
+
+Only the three in bold are shapes this project's argument can settle at all — 1,422 entries —
+and in every one of them the obstacle is the NAME, not the claim: no engine models the object.
+So the question is whether those 1,422 names cluster.
+
+**They do not.** The largest clusters are 24 "complementary equation" entries, 25 of Zhi-Wei
+Sun's `x^2+y^2+z^2+w^2` representation counts, 13 `number of (s(0), ..., s(n)) such that ...`,
+9 "arrangements of n balls in n boxes", and then it is ones and twos.
+
+And the most walk-shaped of those is a null on inspection. The `(s(0), …, s(n))` family is
+**40 entries** pool-wide — lattice paths with `|s(i) - s(i-1)| <= 1` and `s(i) >= 0` — which
+looks exactly like transfer-matrix territory until you notice the state is UNBOUNDED: these
+are Catalan- and Motzkin-like, P-recursive and not C-finite. Checked rather than assumed:
+**all 40 carry no readable claim of any kind**, because nobody conjectures a linear recurrence
+on a Motzkin number. The shape that looked most promising in the whole block is empty for a
+reason that is mathematical, not instrumental.
+
+### What this says
+
+The pool is close to the end of what the transfer-matrix argument reaches by reading better.
+Every large vein so far was machinery already built and hidden by how a sweep chose what to
+look at; this block is not that. What remains in it needs either a new ARGUMENT (P-recursive
+certificates would open the Catalan/Motzkin families, which are large) or one engine per
+entry, which is the worst ratio here.
+
+So the honest ranking of what is left:
+
+1. finish the sweeps now running (`linkrec` high-cap, `cfpool`, `galcoord`, `degree`) — real
+   results, already flowing;
+2. **P-recursive certificates** — the one new argument with a large family behind it, and the
+   natural successor to everything C-finite here;
+3. the 4,871 "names another sequence" entries, if a way is ever found to settle an identity
+   between two independently-defined sequences mechanically — §W measured the shift-identity
+   subfamily at 26, with both sides on the roster in exactly one case, so this needs a real
+   idea and not a reader.
