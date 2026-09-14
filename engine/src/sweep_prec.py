@@ -46,6 +46,7 @@ HITS, DONE, WHY = f'prec_hits{SFX}.json', f'prec_done{SFX}.json', f'prec_why{SFX
 # see defect 25: the per-step alarm must be shorter than the runner's own timeout
 ALARM = int(os.environ.get('ALARM', '240'))
 MEMGB = float(os.environ.get('MEMGB', '6'))
+SLOW = os.environ.get('SLOW', '') == '1'   # run `prove` where `quadratic` cannot decide
 resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
 
 pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/prec.txt')).read().split()
@@ -114,20 +115,48 @@ for a in sorted(pool):
         res['stated g.f. does not generate the DATA'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': e['name'], 'line': line, 'bad': bad})
         done.add(a); save(); continue
+    # The quadratic route first: every g.f. this sweep accepts is algebraic of degree 2, so B
+    # lies in Q(x)[y]/(y^2 - D) and the question "is B a polynomial" is polynomial arithmetic.
+    # `prove` decides the same thing through sympy's `simplify` and two forty-term series of
+    # nested radicals, at about two entries per seven minutes; `quadratic` does it in seconds
+    # and was checked to agree with it -- same degree on all four entries already proved, and
+    # the same refusal on the ones it had refused. When A is not quadratic in ONE radical,
+    # `quadratic` returns None and the slow route runs.
+    fast = None
     try:
-        signal.alarm(ALARM * 2)
-        is_zero, Bs, coeffs, firstnz = holonomic.prove(a, A, ps)
+        signal.alarm(ALARM)
+        fast = holonomic.quadratic(A, ps)
         signal.alarm(0)
-    except Timeout:
-        signal.alarm(0); res['residual timed out'] += 1; done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); res['residual failed'] += 1; done.add(a); save(); continue
-    nz = [k for k, c in enumerate(coeffs) if c != 0]
-    tail = [k for k in nz if k >= len(coeffs) - 6]
-    if not is_zero and tail:
-        res['residual is not a polynomial: claim not established'] += 1
+        signal.alarm(0); fast = None
+    if fast is not None:
+        ok, deg = fast
+        if not ok:
+            res['residual is not a polynomial: claim not established'] += 1
+            done.add(a); save(); continue
+        is_zero = (deg < 0)
+    elif not SLOW:
+        # `quadratic` returns None only when A is not quadratic in ONE radical, which means
+        # the algebraic degree is above 2. `prove` can still decide those in principle, but it
+        # is the slow route and it stalled this sweep on its first such entry for the whole
+        # window. They are RECORDED and left for an opt-in pass rather than silently skipped.
+        res['not quadratic in one radical'] += 1
         done.add(a); save(); continue
-    deg = max(nz) if nz else -1
+    else:
+        try:
+            signal.alarm(ALARM * 2)
+            is_zero, Bs, coeffs, firstnz = holonomic.prove(a, A, ps)
+            signal.alarm(0)
+        except Timeout:
+            signal.alarm(0); res['residual timed out'] += 1; done.add(a); save(); continue
+        except Exception:
+            signal.alarm(0); res['residual failed'] += 1; done.add(a); save(); continue
+        nz = [k for k, c in enumerate(coeffs) if c != 0]
+        tail = [k for k in nz if k >= len(coeffs) - 6]
+        if not is_zero and tail:
+            res['residual is not a polynomial: claim not established'] += 1
+            done.add(a); save(); continue
+        deg = max(nz) if nz else -1
     res['PROVED'] += 1
     hits.append({'anum': a, 'name': e['name'], 'engine': 'holonomic', 'line': line,
                  'gf': str(A), 'ps': [str(p) for p in ps], 'order': len(ps) - 1,

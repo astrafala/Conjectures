@@ -123,6 +123,13 @@ def read(e):
             A = sp.sympify(s, locals=loc)
         except Exception:
             continue
+        # A `where' definition can be SELF-REFERENTIAL -- "where g = 1 + x*g^6" -- and
+        # substituting it once leaves g free. The name check above passes because g is a key
+        # of the substitution table, so the result looked like a generating function and was
+        # then recorded as "the entry's stated g.f. does not generate its DATA", which blamed
+        # A386368 for a defect of mine. Nothing with a free symbol other than x is a g.f.
+        if A.free_symbols - {x}:
+            continue
         if not A.has(x):
             continue
         return A
@@ -243,6 +250,8 @@ def implicit(body, data, offset):
         try:
             A = sp.simplify(M.subs(g, rt))
         except Exception:
+            continue
+        if A.free_symbols - {x}:
             continue
         if _series_ok(A, data, offset):
             return A

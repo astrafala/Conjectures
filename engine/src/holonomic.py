@@ -97,3 +97,113 @@ def check_against_data(A, data, offset, N=None):
     want = data[:N + 1]
     bad = [k for k in range(N + 1) if sp.simplify(got[k] - want[k]) != 0]
     return (not bad), bad[:5], got[:6]
+
+
+# ---------------------------------------------------------------------------
+# Deciding the same thing in the quadratic field, instead of through `simplify`.
+#
+# `prove` calls sympy's `simplify` and then takes two forty-term series of an expression full
+# of nested radicals; it manages about two entries in seven minutes, which is what the P-
+# recursive sweep spends almost all of its time on. It does not need to.
+#
+# Every generating function this sweep accepts is algebraic of degree 2 -- one square root --
+# so A = P + Q*sqrt(D) with P, Q, D rational. theta = x d/dx preserves that shape, because
+# d/dx sqrt(D) = D'/(2 sqrt(D)) = (D'/(2D)) sqrt(D). So B = R + S*sqrt(D) with R, S rational,
+# and B is a polynomial in x exactly when S = 0 and R is a polynomial. Both are decided by
+# `cancel` on rational functions, which is polynomial arithmetic and fast.
+#
+# This is the same decision, not a cheaper approximation of it: the reduction y^2 -> D is an
+# identity in the field, and `quadratic` refuses outright when A is not of that shape rather
+# than pretending.
+
+def _split_sqrt(A):
+    """(P, Q, D) with A = P + Q*sqrt(D), or None when A is not quadratic in one radical."""
+    rads = {p for p in A.atoms(sp.Pow)
+            if p.exp.is_Rational and sp.denom(p.exp) == 2 and p.base.free_symbols <= {x}}
+    bases = {p.base for p in rads}
+    if len(bases) != 1:
+        return None
+    D = bases.pop()
+    y = sp.Symbol('_y')
+    # Both sqrt(D) and 1/sqrt(D) occur, and the second is the commoner of the two in this
+    # corpus: "(3*x - 1 + (7*x^2-6*x+1)/sqrt(5*x^2-6*x+1))/(2*x^2)". Requiring the exponent to
+    # be exactly +1/2 rejected those, they fell through to the slow route, and one of them
+    # stalled the whole sweep on its first entry. 1/sqrt(D) is y/D.
+    reps = {}
+    for p in rads:
+        if p.exp == sp.Rational(1, 2):
+            reps[p] = y
+        elif p.exp == sp.Rational(-1, 2):
+            reps[p] = y / D
+        elif sp.denom(p.exp) == 2:
+            k = (p.exp - sp.Rational(1, 2)) / 1
+            if not k.is_Integer:
+                return None
+            reps[p] = y * D ** int(k)
+        else:
+            return None
+    E = sp.cancel(sp.together(A.subs(reps)))
+    num, den = sp.fraction(E)
+    try:
+        pn = sp.Poly(sp.expand(num), y)
+        pd = sp.Poly(sp.expand(den), y)
+    except sp.PolynomialError:
+        return None
+    if pn.degree() > 1 or pd.degree() > 1:
+        return None
+    # rationalise the denominator: (a + b y)/(c + d y) = (a + b y)(c - d y)/(c^2 - d^2 D)
+    a1, b1 = pn.nth(0), pn.nth(1)
+    c1, d1 = pd.nth(0), pd.nth(1)
+    denom = sp.cancel(c1 ** 2 - d1 ** 2 * D)
+    if denom == 0:
+        return None
+    P = sp.cancel((a1 * c1 - b1 * d1 * D) / denom)
+    Q = sp.cancel((b1 * c1 - a1 * d1) / denom)
+    return P, Q, D
+
+
+def _theta_pair(P, Q, D):
+    """theta applied to P + Q*sqrt(D), as a new (P, Q) pair."""
+    dP = sp.cancel(x * sp.diff(P, x))
+    dQ = sp.cancel(x * (sp.diff(Q, x) + Q * sp.diff(D, x) / (2 * D)))
+    return dP, dQ
+
+
+def quadratic(A, ps, maxdeg=200):
+    """(ok, degB) deciding the claim in Q(x)[y]/(y^2 - D), or None when A is not quadratic.
+
+    ok is True when B is zero or a polynomial; degB is its degree (-1 when B = 0).
+    """
+    sp_ = _split_sqrt(A)
+    if sp_ is None:
+        return None
+    P, Q, D = sp_
+    RP, RQ = sp.Integer(0), sp.Integer(0)
+    for i, p in enumerate(ps):
+        if p == 0:
+            continue
+        # p_i(theta + i) applied to A, then multiplied by x^i
+        poly = sp.Poly(sp.expand(p.subs(sp.Symbol('n'), sp.Symbol('n'))), sp.Symbol('n'))
+        cur = (P, Q)
+        acc = (sp.Integer(0), sp.Integer(0))
+        # Horner in theta: sum_k c_k (theta + i)^k A
+        coeffs = poly.all_coeffs()[::-1]          # c_0, c_1, ...
+        term = (P, Q)
+        for k, c in enumerate(coeffs):
+            if c != 0:
+                acc = (sp.cancel(acc[0] + c * term[0]), sp.cancel(acc[1] + c * term[1]))
+            t0, t1 = _theta_pair(term[0], term[1], D)
+            term = (sp.cancel(t0 + i * term[0]), sp.cancel(t1 + i * term[1]))
+        RP = sp.cancel(RP + x ** i * acc[0])
+        RQ = sp.cancel(RQ + x ** i * acc[1])
+    if sp.cancel(RQ) != 0:
+        return False, None
+    R = sp.cancel(sp.together(RP))
+    num, den = sp.fraction(R)
+    q, r = sp.div(sp.expand(num), sp.expand(den), x)
+    if sp.expand(r) != 0:
+        return False, None
+    qq = sp.Poly(sp.expand(q), x)
+    if qq.total_degree() > maxdeg:
+        return False, None
+    return True, (-1 if q == 0 else qq.degree())
