@@ -85,6 +85,21 @@ RADIUS = 34                      # patch radius for fitting
 # apex and two generator directions, "affine <= affine on the cone" is decided exactly -- the
 # difference at the apex, and its linear part on each generator -- and condition (c) is decided
 # per cone by intersecting with each edge's equality region. No sampling, nothing skipped.
+# `galcert2` is that fix, and it is written: `galpoly` does exact integer region arithmetic in
+# the plane (vertices, recession rays, emptiness, "affine >= 0 on a region", and subtraction of
+# one region from another), validated against brute force on 1,494 random regions; `galcert2`
+# decides (b) as an affine inequality on each maximum-region and (c) as a COVERING of that
+# region by the neighbours' equality regions, subtracting them one at a time. Nothing is
+# sampled and nothing is skipped. It refuses A310511, which `galcert` certified and which
+# diverges at term 35, and it certifies the honeycomb outright.
+#
+# What still blocks the vein is the FIT, not the certificate. `galhull` fits on a patch of
+# radius 34, which for a tiling with eighteen vertex classes is 64 lattice points per class and
+# fifteen affine pieces -- and extrapolating that to lattice coordinate 40 is off by 63. The
+# plane count also grows with the radius (15 at 34, 21 at 70, and back to 16..20 at 110), which
+# is a fit picking up the patch rim rather than the tiling. So: a bigger patch, and a prune
+# that tests a plane against the tiling rather than against the rim. The certificate will say
+# when it is right; that was the part that could not be trusted before, and now it can.
 IN_SERVICE = False
 
 
