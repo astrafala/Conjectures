@@ -11,78 +11,80 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A269191, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267971, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269191 counts arrays of width $5$ over $\{0,1,2,3\}$ in which the number of adjacent PAIRS of
-cells whose entries add up to $3$ is at most one. The entry carries an empirical recurrence of
-order $40$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The condition is global --- no window of the array decides it --- but the quantity
-it constrains is a count that may be capped at two, and a capped count is a bounded state; the
-result is a walk count on $S=2105$ states.
+OEIS A267971 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $40$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=8001$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A269191 is ``Number of nX5 0..3 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling three no more than once.''. It has offset $1$ and begins
+OEIS A267971 is ``Number of nX3 0..3 arrays with every repeated value in every row greater than or equal to, and in every column greater than, the previous repeated value.''. It has offset $1$ and begins
 \[
-756, 27684, 1399612, 67134380, 3159954052, 145995171708, 6648192704604, 299224791093196,\ \dots
+64, 4096, 216000, 10941048, 519718464, 23689358848, 1040125019968, 44297983526887,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 118*a(n-1) -5041*a(n-2) +93278*a(n-3) -616456*a(n-4) -3048560*a(n-5) +60109885*a(n-6) -129687930*a(n-7) -1739169369*a(n-8) +8259890048*a(n-9) +20240706091*a(n-10) -173579758748*a(n-11) -34263378926*a(n-12) +1854959811756*a(n-13) -1352133363698*a(n-14) -11158815731728*a(n-15) +13195242387667*a(n-16) +40081045519402*a(n-17) -56960114535700*a(n-18) -88448187207398*a(n-19) +137934077935370*a(n-20) +119462198991804*a(n-21) -202996386004581*a(n-22) -94913498792266*a(n-23) +187975033925075*a(n-24) +38342927037264*a(n-25) -110576189373568*a(n-26) -1510870946200*a(n-27) +40619114535308*a(n-28) -5466962964240*a(n-29) -8777770697408*a(n-30) +2325318442944*a(n-31) +946747193728*a(n-32) -404404766528*a(n-33) -21593127872*a(n-34) +28030228480*a(n-35) -2948913408*a(n-36) -308060672*a(n-37) +51977984*a(n-38) +752640*a(n-39) -230400*a(n-40) for n>41
+Empirical recurrence of order 40 (see link above)
+
+Empirical: a(n) = 272*a(n-1) - 31764*a(n-2) + 2014624*a(n-3) - 69088454*a(n-4) + 778910928*a(n-5) + 31158404156*a(n-6) - 1267886795392*a(n-7) + 7568304245883*a(n-8) + 459170585421120*a(n-9) - 8493119054660880*a(n-10) - 68158181166590592*a(n-11) + 2882194670186329464*a(n-12) - 434900337064212672*a(n-13) - 586163289244486630032*a(n-14) + 1898790825438890152704*a(n-15) + 82752166115136513967374*a(n-16) - 340208947261205749693728*a(n-17) - 8456137746336658055611800*a(n-18) + 29941266611260989839065536*a(n-19) + 604182097179463818373693020*a(n-20) - 1443962804669097670887479712*a(n-21) - 27558258072819754958590448376*a(n-22) + 49597316331892657873794487296*a(n-23) + 800900738380853523460217226654*a(n-24) - 1410520185205164735394945664448*a(n-25) - 14619284932824012538616408321616*a(n-26) + 30032762310708396925496838325632*a(n-27) + 155323866481338545548332622945272*a(n-28) - 380927016955152797683818721360320*a(n-29) - 843111924378256788650170383070800*a(n-30) + 2214952685556416387464974071300352*a(n-31) + 3149946797940663538162508956744371*a(n-32) - 6828593820947006571090878565860208*a(n-33) - 9366982853906801818037179933582068*a(n-34) + 10348600733423871322942618070594976*a(n-35) + 19215412772513596951077164880022266*a(n-36) - 1646133458143195614867081430061232*a(n-37) - 17923829541926915169913972246046820*a(n-38) - 11866811282930923146977526452555136*a(n-39) - 2503155504993241601315571986085849*a(n-40)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2016 09:43:45, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 23 2016 09:59:51, revision 5) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1,2,3\}$. An ADJACENT PAIR is a pair of cells
-\[
-\begin{array}{l}
-$(i,j)\text{ and }(i,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j)$ \\
-$(i,j)\text{ and }(i{+}1,j{+}1)$ \\
-$(i,j)\text{ and }(i{+}1,j{-}1)$ \\
-\end{array}
-\]
-both lying inside the array. A pair is a pair of CELLS, so it is counted once and not once from
-each end. Writing $k$ for the number of adjacent pairs whose two entries add up to $3$, the
-entry counts the arrays with $k$ at most one.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be greater than the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-\section{A capped count is a state}
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
 
-No window of the array decides the condition: $k$ is a total over the whole array. But the
-condition distinguishes only $k=0$, $k=1$ and $k\ge2$, so the count may be carried capped at
-two and stays bounded.
+\section{One scan inside a slice, one across}
 
-\begin{lemma}\label{lem:cap}
-Let $k_t$ be the number of qualifying pairs lying inside the first $t$ rows. Then
-\[
-k_{t}\;=\;k_{t-1}+\bigl(\text{pairs inside row } t\bigr)
-+\bigl(\text{pairs joining rows } t-1 \text{ and } t\bigr),
-\]
-and both added terms are determined by rows $t-1$ and $t$ alone.
+Take the array a $row$ at a time, the direction in which it grows.
+
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
 \end{lemma}
 
 \begin{proof}
-Every adjacent pair lies either inside one row or across two consecutive rows, by the list
-above; a pair inside rows $1..t$ that is not inside rows $1..t-1$ must meet row $t$, so it is
-one of the two kinds counted.
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
 \end{proof}
 
-So the state is the pair $(\text{previous row},\min(k,2))$: a step appends a row, adds the
-pairs Lemma~\ref{lem:cap} names and caps the total at two. The end vector accepts the states
-with $k\le1$, so it is not the all-ones vector. With $M$ the adjacency matrix,
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $3+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2105.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=8001,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -107,15 +109,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;118\,a(n-1) - 5041\,a(n-2) + 93278\,a(n-3) - 616456\,a(n-4) - 3048560\,a(n-5) + 60109885\,a(n-6) - 129687930\,a(n-7) - 1739169369\,a(n-8) + 8259890048\,a(n-9) + 20240706091\,a(n-10) - 173579758748\,a(n-11) - 34263378926\,a(n-12) + 1854959811756\,a(n-13) - 1352133363698\,a(n-14) - 11158815731728\,a(n-15) + 13195242387667\,a(n-16) + 40081045519402\,a(n-17) - 56960114535700\,a(n-18) - 88448187207398\,a(n-19) + 137934077935370\,a(n-20) + 119462198991804\,a(n-21) - 202996386004581\,a(n-22) - 94913498792266\,a(n-23) + 187975033925075\,a(n-24) + 38342927037264\,a(n-25) - 110576189373568\,a(n-26) - 1510870946200\,a(n-27) + 40619114535308\,a(n-28) - 5466962964240\,a(n-29) - 8777770697408\,a(n-30) + 2325318442944\,a(n-31) + 946747193728\,a(n-32) - 404404766528\,a(n-33) - 21593127872\,a(n-34) + 28030228480\,a(n-35) - 2948913408\,a(n-36) - 308060672\,a(n-37) + 51977984\,a(n-38) + 752640\,a(n-39) - 230400\,a(n-40)
+a(n)\;=\;272\,a(n-1) - 31764\,a(n-2) + 2014624\,a(n-3) - 69088454\,a(n-4) + 778910928\,a(n-5) + 31158404156\,a(n-6) - 1267886795392\,a(n-7) + 7568304245883\,a(n-8) + 459170585421120\,a(n-9) - 8493119054660880\,a(n-10) - 68158181166590592\,a(n-11) + 2882194670186329464\,a(n-12) - 434900337064212672\,a(n-13) - 586163289244486630032\,a(n-14) + 1898790825438890152704\,a(n-15) + 82752166115136513967374\,a(n-16) - 340208947261205749693728\,a(n-17) - 8456137746336658055611800\,a(n-18) + 29941266611260989839065536\,a(n-19) + 604182097179463818373693020\,a(n-20) - 1443962804669097670887479712\,a(n-21) - 27558258072819754958590448376\,a(n-22) + 49597316331892657873794487296\,a(n-23) + 800900738380853523460217226654\,a(n-24) - 1410520185205164735394945664448\,a(n-25) - 14619284932824012538616408321616\,a(n-26) + 30032762310708396925496838325632\,a(n-27) + 155323866481338545548332622945272\,a(n-28) - 380927016955152797683818721360320\,a(n-29) - 843111924378256788650170383070800\,a(n-30) + 2214952685556416387464974071300352\,a(n-31) + 3149946797940663538162508956744371\,a(n-32) - 6828593820947006571090878565860208\,a(n-33) - 9366982853906801818037179933582068\,a(n-34) + 10348600733423871322942618070594976\,a(n-35) + 19215412772513596951077164880022266\,a(n-36) - 1646133458143195614867081430061232\,a(n-37) - 17923829541926915169913972246046820\,a(n-38) - 11866811282930923146977526452555136\,a(n-39) - 2503155504993241601315571986085849\,a(n-40)
 \]
-for every $n>41$.
+for every $n>40$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $40$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=40+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -123,14 +125,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count the
-adjacent pairs summing to $3$ by running over the array once for each kind of pair, and keep
-the array when that count is at most one. No cap, no state and no transfer matrix are involved, and
-the published terms came back.
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -140,7 +141,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269191.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267971.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

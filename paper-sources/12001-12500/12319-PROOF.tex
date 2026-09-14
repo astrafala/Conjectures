@@ -10,169 +10,107 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A228329}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
+
+\title{The conjectured P-recursive recurrence for OEIS A097332, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228329 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry posts no generating function, so the usual route through a
-functional equation is unavailable. It does post a closed form for $a(n)$, and that is
-enough: the closed form is a sum of finitely many hypergeometric terms, and for such a
-term every shift quotient is a rational function of $n$. The conjectured recurrence
-therefore reduces to one rational-function identity, one for each similarity
-class of terms, and each is decided exactly by cancellation. No expansion is truncated and
-nothing is guessed; the procedure returns a proof or a refutation. Here it returns a proof,
-valid for every $n$ outside an explicitly computed finite set.
+OEIS A097332 carries a conjectured recurrence of order $3$ whose coefficients are polynomials in
+$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
+states its generating function as a fact, and that function is algebraic; the conjecture then
+becomes the vanishing of an explicit element of an algebraic function field, which is settled
+symbolically. The result is an identity, not a run of verified terms: it holds at every index
+at once.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A228329 is ``a(n) = Sum\_\{k=0..n\} (k+1)\^{}2*T(n,k)\^{}2 where T(n,k) is the Catalan triangle A039598''. It has offset $0$ and begins
+OEIS A097332 is ``Expansion of (1/(1-x))(1+2x/(1-x+sqrt(1-2x-3x\^{}2))).''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 8, 98, 1320, 18590, 268736, 3952228, 58837680,\ \dots
+1, 2, 3, 5, 9, 18, 39, 90,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = ((4n)!*(3n+1))/((2n)!\^{}2*(2n+1)) = binomial(4n,2n)*(3n+1)/(2n+1). - \emph{Philippe Deléham}, Nov 25 2013
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}\raggedright\small
+Conjecture D-finite with recurrence: (n+1)*a(n) - 3*n*a(n-1) + (-n+5)*a(n-2) + 3*(n-2)*a(n-3) = 0. - \_R. J. Mathar\_, Nov 26 2012
 \end{quote}
-that is,
-\begin{equation}\label{eq:cf}
-a(n)\;=\;\frac{\left(3 n + 1\right) \left(4 n\right)!}{\left(2 n + 1\right) \left(2 n\right)!^{2}} .
-\end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+As of the ``Last modified'' line on the live entry (Jan 14 2025 23:09:11, revision 39)
+this is still recorded as a conjecture, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} n*(2*n+1)*a(n) + 2*(-26*n\^{}2+25*n-11)*a(n-1) + 20*(4*n-5)*(4*n-7)*a(n-2) = 0. - \emph{R. J. Mathar}, Sep 08 2013
-\end{quote}
-As of the ``Last modified'' line on the live entry (2026-03-13, revision 61) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{The generating function}
 
-Written out, the conjecture is
-\begin{equation}\label{eq:conj}
-n \left(2 n + 1\right)\,a(n) -  2 \left(26 n^{2} - 25 n + 11\right)\,a(n-1) + 20 \left(4 n - 7\right) \left(4 n - 5\right)\,a(n-2)
-\end{equation}
+The entry gives, as a statement of fact and not as a conjecture,
+\[
+A(x)\;=\;\frac{\frac{2 x}{- x + \sqrt{- 3 x^{2} - 2 x + 1} + 1} + 1}{1 - x} .
+\]
+This is an algebraic function. Before it is used for anything it is checked against the entry's
+own data: its Taylor coefficients reproduce every one of the $29$ published terms
+exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
+function an entry states as fact does NOT generate the terms it publishes, and a proof built on
+it would have been a proof from a false premise.
 
-\section{Hypergeometric terms}
+\section{A P-recursive claim is the vanishing of one function}
 
-\begin{definition}
-A nonzero expression $c(n)$ is a \emph{hypergeometric term} in $n$ if the quotient
-$c(n+1)/c(n)$ is a rational function of $n$. Two hypergeometric terms $c$ and $d$ are
-\emph{similar}, written $c\sim d$, if $c(n)/d(n)$ is a rational function of $n$.
-\end{definition}
-
-Similarity is an equivalence relation on hypergeometric terms. Products of factorials,
-binomial coefficients with arguments linear in $n$, exponentials $z^{n}$ and polynomials
-are hypergeometric, and so is any product of these; a sum of them need not be.
-
-\begin{lemma}\label{lem:shift}
-If $c$ is a hypergeometric term then for every integer $i\ge 0$ the shift quotient
-$c(n-i)/c(n)$ is a rational function of $n$, computable from $c(n+1)/c(n)$ by a finite
-number of substitutions and multiplications.
+\begin{lemma}\label{lem:theta}
+Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
+polynomial $p$ and an integer $i\ge0$,
+\[
+\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
+\]
 \end{lemma}
 
 \begin{proof}
-Write $\rho(n)=c(n+1)/c(n)$, a rational function by hypothesis. Then
-$c(n-1)/c(n)=1/\rho(n-1)$, and inductively
-$c(n-i)/c(n)=\prod_{j=1}^{i}\rho(n-j)^{-1}$, a finite product of rational functions.
+Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
+applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
 \end{proof}
 
-The fact that makes the test complete rather than merely sufficient is the linear
-independence of dissimilar terms. It is classical; see Petkov\v{s}ek, Wilf and Zeilberger
-\cite{AB}, Chapter~5.
-
-\begin{lemma}\label{lem:indep}
-Let $c_{1},\dots,c_{m}$ be hypergeometric terms, pairwise dissimilar. If
-$\sum_{j=1}^{m}u_{j}(n)c_{j}(n)=0$ for rational functions $u_{j}$ and all large $n$, then
-every $u_{j}$ is the zero rational function.
-\end{lemma}
-
-\section{The recurrence as a finite set of rational identities}
-
-\begin{proposition}\label{prop:main}
-Let $a(n)=\sum_{j=1}^{m}c_{j}(n)$ with each $c_{j}$ hypergeometric, and let
-$p_{0},\dots,p_{r}$ be polynomials. Group the $c_{j}$ into similarity classes and write
-each class as $g_{\ell}(n)\,f_{\ell,s}(n)$ for a representative $g_{\ell}$ and rational
-functions $f_{\ell,s}$. Put
+Put $b(n)=\sum_{i=0}^{3}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
+$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
 \[
-S_{\ell}(n)\;=\;\sum_{i=0}^{r}\;\sum_{s}\;p_{i}(n)\,f_{\ell,s}(n-i)\,
-\frac{g_{\ell}(n-i)}{g_{\ell}(n)} ,
+B(x)\;=\;\sum_{i=0}^{3}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
 \]
-a rational function of $n$ by Lemma~\ref{lem:shift}. Then
-\[
-\sum_{i=0}^{r}p_{i}(n)\,a(n-i)\;=\;\sum_{\ell}g_{\ell}(n)\,S_{\ell}(n),
-\]
-and the recurrence $\sum_{i}p_{i}(n)a(n-i)=0$ holds for all large $n$ if and only if
-$S_{\ell}=0$ for every $\ell$.
-\end{proposition}
+an explicit element of the algebraic function field generated by $A$. The conjecture asserts
+$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
+polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
 
-\begin{proof}
-The displayed identity is the definition of $S_{\ell}$ rearranged: each $a(n-i)$ is the
-sum of its terms, each term is its class representative times a rational function, and the
-representatives are pulled out. The representatives $g_{\ell}$ are pairwise dissimilar by
-construction, so Lemma~\ref{lem:indep} applies to the right-hand side: it vanishes for all
-large $n$ exactly when every $S_{\ell}$ vanishes identically. Sufficiency is immediate.
-\end{proof}
-
-Proposition~\ref{prop:main} turns the conjecture into a finite computation in
-$\mathbb{Q}(n)$, with no truncation and no search. The only $n$ it says nothing about are
-those where some $S_{\ell}$ has a pole or some $c_{j}(n-i)$ is undefined, and these are
-finite in number and listed below.
-
-\section{The computation for A228329}
-
-The closed form \eqref{eq:cf} splits into one similarity class, with
-representative
-\[
-\frac{\left(4 n\right)!}{2 n \left(2 n\right)!^{2} + \left(2 n\right)!^{2}}
-\]
-Carrying out Proposition~\ref{prop:main} with the coefficients of \eqref{eq:conj} gives
-\[
-S_{1}(n)\;=\;0
-\]
-so every class residual vanishes identically and the conjecture follows.
+\section{The theorem}
 
 \begin{theorem}
-For all $n\ge 2$,
 \[
-n \left(2 n + 1\right)\,a(n) -  2 \left(26 n^{2} - 25 n + 11\right)\,a(n-1) + 20 \left(4 n - 7\right) \left(4 n - 5\right)\,a(n-2)
+\left(n + 1\right)a(n) + \left(- 3 n\right)a(n-1) + \left(5 - n\right)a(n-2) + \left(3 n - 6\right)a(n-3)\;=\;0
 \]
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Proposition~\ref{prop:main} and the computation above, the excluded values
-being those at which a class residual has a pole or a term of \eqref{eq:cf} is undefined.
+$B$ was formed as above and simplified in the function field. Here $B$ is a polynomial of degree $1$. A polynomial contributes only to the coefficients of $x^k$ with $k\le1$, so $b(n)=0$ for every $n>1$. Since $A$ reproduces the
+entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
+follows.
 \end{proof}
 
 \section{Verification}
 
-Two checks were made, and both are independent of the algebra above.
-
-First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
-compared term by term with the entry's DATA; the values agree exactly. A formula that did
-not reproduce the entry's own terms would not have been used.
-
-Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
-exact integer arithmetic at every index where it applies: $18$ instances beginning at
-$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
-would have caught a transcription error in the coefficients.
+First, the generating function reproduces all $29$ published terms exactly. Second,
+the conjectured recurrence was evaluated directly on those terms, with no generating function
+involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
+computed symbolically rather than from a truncated series, and its series expansion was taken
+independently to confirm the coefficients it predicts.
 
 \begin{thebibliography}{9}
-\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-Wellesley MA, 1996.
-\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-entry \href{https://oeis.org/A228329}{A228329}, 2026-03-13.
-\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
-2nd ed., Addison-Wesley, 1994.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A097332.
+\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Algebraic and D-finite generating functions.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

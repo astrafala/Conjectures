@@ -126,4 +126,124 @@ def read(e):
         if not A.has(x):
             continue
         return A
+    # a g.f. whose abbreviation is defined by an algebraic equation rather than in closed form
+    d = [int(v) for v in e['data'].split(',') if v.strip()]
+    off = int(e['offset'].split(',')[0])
+    for L in e['formula'] + e['comment']:
+        t = ' '.join(L.split())
+        if CONJ.search(t):
+            continue
+        m = GF.match(t)
+        if not m:
+            continue
+        body = ATTR.sub('', m.group(1)).strip().rstrip(';').rstrip('.')
+        # NOT the full OUT test here: it rejects anything containing "satisf", which is
+        # precisely the shape this path exists to read
+        if re.search(r'A\d{6}|Sum_|Prod_|Integral|hypergeom', body, re.I):
+            continue
+        A = implicit(body, d, off)
+        if A is not None:
+            return A
     return from_name(e)
+
+
+# ---------------------------------------------------------------------------
+# Two widenings, measured over the 380 P-recursive candidates: 146 of the refusals reference
+# another sequence's generating function by A-number, and 44 carry a g.f. line the reader
+# refuses -- several of those defining an abbreviation IMPLICITLY:
+#
+#     G.f.: z^3*g^2/((1+z+z^2)(1-3z+z^2)), where g=g(z) satisfies g = 1 + zg + z^2*g(g - 1).
+#
+# That g is still algebraic; it is just not written in closed form. Solving for it gives
+# several branches and only one is the generating function, so the branch is chosen by the
+# entry's own published terms -- which is the same check that has to be made anyway before any
+# g.f. is used as a premise, and is what caught A116388.
+
+SATISFIES = re.compile(
+    r',?\s*where\s+([A-Za-z]\w*)\s*(?:=\s*\1\s*\([xz]\)\s*)?\s*satisfies\s*:?\s*(.+?)\s*\.?\s*$',
+    re.I)
+
+# Standard algebraic generating functions, by the A-number the corpus cites. Every one is
+# VERIFIED against that entry's own published terms before use -- a table of constants written
+# from memory is exactly the kind of thing this project has been burned by.
+STANDARD = {
+    'A000108': '(1-sqrt(1-4*x))/(2*x)',            # Catalan
+    'A001006': '(1-x-sqrt(1-2*x-3*x**2))/(2*x**2)',  # Motzkin
+    'A006318': '(1-x-sqrt(1-6*x+x**2))/(2*x)',     # large Schroeder
+    'A001003': '(1+x-sqrt(1-6*x+x**2))/(4*x)',     # little Schroeder
+    'A000045': 'x/(1-x-x**2)',                     # Fibonacci
+    'A001764': None,                               # ternary trees: cubic, left out on purpose
+}
+
+
+def _series_ok(A, data, offset, N=10):
+    try:
+        s = sp.series(A, x, 0, N + offset + 1).removeO()
+        e = sp.expand(s)
+        got = [sp.nsimplify(e.coeff(x, k), rational=True) for k in range(offset, offset + N)]
+    except Exception:
+        return False
+    if len(data) < N:
+        N = len(data)
+        got = got[:N]
+    return all(sp.simplify(got[k] - data[k]) == 0 for k in range(N))
+
+
+def standard(anum):
+    """the standard g.f. for `anum`, verified against that entry's own terms, or None"""
+    s = STANDARD.get(anum)
+    if not s:
+        return None
+    import localentry as _LE
+    e = _LE.get(anum)
+    if not e:
+        return None
+    A = sp.sympify(s, locals={'x': x, 'sqrt': sp.sqrt})
+    d = [int(v) for v in e['data'].split(',') if v.strip()]
+    off = int(e['offset'].split(',')[0])
+    return A if _series_ok(A, d, off) else None
+
+
+def implicit(body, data, offset):
+    """a g.f. whose abbreviation is defined by an algebraic equation, or None.
+
+    The branch is chosen by the entry's published terms; if none of the branches reproduces
+    them, the answer is None rather than a guess.
+    """
+    m = SATISFIES.search(body)
+    if not m:
+        return None
+    sym, eq = m.group(1), m.group(2)
+    main = body[:m.start()].strip().rstrip(',')
+    main = LEAD.sub('', main).strip()
+    if not main or OUT.search(main):
+        return None
+    g = sp.Symbol('_g')
+    var = 'z' if ('z' in eq and 'x' not in eq) else 'x'
+    loc = {var: x, sym: g, 'sqrt': sp.sqrt}
+    if '=' not in eq:
+        return None
+    lhs, rhs = eq.split('=', 1)
+    def prep(t):
+        # the abbreviation juxtaposed with a bracket is MULTIPLICATION, not a function call:
+        # "z^2*g(g - 1)" is z^2 * g * (g-1). sympify reads g(...) as a call and the equation
+        # becomes nonsense, which is why every one of these was refused.
+        return re.sub(r'\b%s\s*(?=\()' % re.escape(sym), sym + '*', _implicit(t))
+
+    try:
+        E = sp.sympify(prep(lhs), locals=loc) - sp.sympify(prep(rhs), locals=loc)
+        M = sp.sympify(prep(main), locals=loc)
+    except Exception:
+        return None
+    try:
+        roots = sp.solve(sp.together(E), g)
+    except Exception:
+        return None
+    for rt in roots:
+        try:
+            A = sp.simplify(M.subs(g, rt))
+        except Exception:
+            continue
+        if _series_ok(A, data, offset):
+            return A
+    return None
