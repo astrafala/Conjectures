@@ -12,99 +12,91 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220757, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A231135, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{4 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220757 counts the distinct arrays obtained by applying a fixed local operation to every cell
-of an array over a bounded alphabet, and carries an empirical recurrence of order $18$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
-counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
-determinising the machine that emits the derived array row by row turns it into one, on
-$S=244$ states, after which the conjectured recurrence is settled by a finite exact
-computation.
+OEIS A231135 counts the black-square subarrays of arrays of width $5$ over $\{0,1,2\}$ in which
+no cell matches a strict majority of its diagonal neighbours. The entry carries an empirical recurrence of order $18$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. A diagonal step changes
+both coordinates by one and so never changes the colour of a cell, which makes the two colours
+of the chessboard independent of one another; the count is then a walk over the cells of one
+colour, on $S=553$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A220757 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, diagonal or antidiagonal neighbors in a random 0..3 nX3 array.''. It has offset $1$ and begins
+OEIS A231135 is ``Number of (n+1)X(4+1) black-square subarrays of 0..2 arrays with no element equal to a strict majority of its diagonal and antidiagonal neighbors, with values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-16, 268, 4328, 68212, 1094438, 17553448, 281649154, 4519836612,\ \dots
+16, 182, 2260, 27171, 336004, 4066129, 50257244, 608468617,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -21*a(n-2) -138*a(n-3) -441*a(n-4) -137*a(n-5) +1764*a(n-6) -1136*a(n-7) +14709*a(n-8) +67123*a(n-9) +121526*a(n-10) -80625*a(n-11) -792044*a(n-12) -1086870*a(n-13) -773840*a(n-14) -232356*a(n-15) -156248*a(n-16) -229216*a(n-17) -86528*a(n-18)
+Empirical: a(n) = 175*a(n-2) -4017*a(n-4) +34311*a(n-6) -146236*a(n-8) +322472*a(n-10) -291040*a(n-12) +116032*a(n-14) -24064*a(n-16) +1024*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:02:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:16:32, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,3\}^{3}$ be the set of rows and let the neighbours of
-a cell be the cells at the offsets
+Colour the cells of the array like a chessboard: $(i,j)$ is black when $i+j$ is odd. The
+condition is stated in terms of the DIAGONAL and ANTIDIAGONAL neighbours of a cell, that is the
+four offsets
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+(-1,-1),\ (1,1),\ (-1,1),\ (1,-1),
 \]
-those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
-minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
+and for a cell $(i,j)$ we write $S(i,j)$ for those of them that land inside the array. The
+condition is that no cell equals a strict majority of its neighbours:
 \[
-a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
+2\cdot\#\{(a,b)\in S(i,j) : x(a,b)=x(i,j)\}\;\le\;|S(i,j)| .
 \]
-the size of an IMAGE. That is the whole difficulty: two different arrays with the same
-minimum-array must be counted once, and a walk count on the arrays would count them twice.
+Strict means more than half, so a tie is allowed and a cell with no neighbours is under no condition.
 
-Because every offset above moves the row index by at most one, row $i$ of
-$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
-or $x$ allowed to be $\bot$ for ``outside''; then
-\[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
-\]
+The entry adds that the values $0..2$ are introduced in reading order: reading the cells of the subarray row by row, a value may appear for the first time only after every smaller value has appeared.
 
-\section{The image is a walk count after determinisation}
-
-For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
-\]
-and let $D_0=\{(\bot,r):r\in R\}$.
-
-\begin{lemma}\label{lem:det}
-For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
-$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
-derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
-\[
-a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the empty sets contributing nothing.
+\begin{lemma}\label{lem:split}
+Each of the four offsets changes $i$ and $j$ each by one, so it changes $i+j$ by $0$ or $\pm2$
+and never changes its parity. Every neighbour of a black cell is therefore black. The condition
+above splits into two systems that share no cell: one on the black cells and one on the white
+cells.
 \end{lemma}
 
-\begin{proof}
-Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
-pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
-$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
-$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
-$D_{n-1}\neq\emptyset$, and then the possible last rows are
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
-are distinct derived arrays, so each is counted once.
-\end{proof}
+So what the entry counts is the assignments of values to the black cells alone that satisfy the
+black system; the white cells never enter. That this is the entry's own reading, and not
+merely a convenient one, is settled by its ``upper left element zero'': for a black subarray the
+first cell in reading order is the cell $(0,1)$ of the array, and it is that cell the
+clause fixes, as the published terms confirm and as Section~5 records.
 
-So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
-several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
-since the derived arrays differ ---
+\section{A walk on one colour}
+
+Take the array one row at a time. In a row of even index the black cells sit at every other
+column starting from column $1$, and in a row of odd index they sit at the columns in
+between; the two shapes alternate, so a state must record which of them the next row has.
+
+All four offsets move exactly one row, so the neighbours of the black cells of a row are the
+black cells of the rows immediately above and below it. A row's conditions are therefore settled
+by three consecutive rows, and the state is the last two of them together with the parity of the
+next.
+The reading-order clause is carried as one more number in the state: how many distinct values
+have been introduced so far. A cell may then take any value already used, or the next one up,
+and nothing else; writing a row updates the count as the row is filled, left to right, so a
+value first used early in a row makes a larger value legal later in the same row.
+
+
+Appending a row completes one such window and settles the row in the middle of it. Because the
+condition looks one row DOWN as well as up, the last row of a finished array has not been tested
+when the walk stops, so the end vector is not all ones: a state is accepted exactly when its
+last row passes with nothing below it. Thus
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=553.
 \]
-There are $S=244$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
-Note that $\tau$ is not the all-ones vector: the last derived row is not a
-step of the walk but a count attached to the state the walk stops in.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -126,7 +118,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 21\,a(n-2) - 138\,a(n-3) - 441\,a(n-4) - 137\,a(n-5) + 1764\,a(n-6) - 1136\,a(n-7) + 14709\,a(n-8) + 67123\,a(n-9) + 121526\,a(n-10) - 80625\,a(n-11) - 792044\,a(n-12) - 1086870\,a(n-13) - 773840\,a(n-14) - 232356\,a(n-15) - 156248\,a(n-16) - 229216\,a(n-17) - 86528\,a(n-18)
+a(n)\;=\;175\,a(n-2) - 4017\,a(n-4) + 34311\,a(n-6) - 146236\,a(n-8) + 322472\,a(n-10) - 291040\,a(n-12) + 116032\,a(n-14) - 24064\,a(n-16) + 1024\,a(n-18)
 \]
 for every $n>18$.
 \end{theorem}
@@ -140,24 +132,25 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
 First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the machine is built by reading the
-entry's English, and a misreading gives different counts.
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: the cells
+of the black colour were listed from $i+j$ directly, every assignment of values to them
+enumerated, and each tested by the entry's own words. No rows, no window, no state and no end
+vector are involved in that computation, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220757.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231135.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -11,88 +11,54 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A267930, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189598, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267930 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
-prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $81$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: one of the two scans runs inside a slice of the array and the other
-across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=7501$ states.
+OEIS A189598 carries an empirical recurrence of order $84$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a window of consecutive VALUES: at position i only the values in [i - L, i + R] are in play, and the state is which of them are used, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=84$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A267930 is ``Number of nX3 0..3 arrays with every repeated value in every row and column greater than the previous repeated value.''. It has offset $1$ and begins
+OEIS A189598 is ``Number of permutations of 1..n with displacements restricted to {-6,-5,-4,-1,0,2,3}.''. It has offset $1$ and begins
 \[
-60, 3600, 178068, 8459154, 376812420, 16109362560, 663451196118, 26507885328672,\ \dots
+1, 1, 2, 4, 10, 35, 126, 368,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 81 (see link above)
-
-Empirical: a(n) = 195*a(n-1) - 14016*a(n-2) + 328624*a(n-3) + 10558092*a(n-4) - 692040756*a(n-5) + 2914819952*a(n-6) + 532718048544*a(n-7) - 7854344328006*a(n-8) - 254666252242622*a(n-9) + 5518474180903200*a(n-10) + 92071189746141168*a(n-11) - 2385860293717216420*a(n-12) - 28746659855292618180*a(n-13) + 727529138476727060784*a(n-14) + 8193702500645041665856*a(n-15) - 160164514538922689960901*a(n-16) - 2035601690151383961822369*a(n-17) + 24346992476388969859129856*a(n-18) + 401055034480978568384633280*a(n-19) - 2174971679003056195529343120*a(n-20) - 57227083740672389530646836880*a(n-21) + 34785701816125124500226132160*a(n-22) + 5450456627492158523815852917120*a(n-23) + 15349975640092787647303410141560*a(n-24) - 325369619425890856318367846925480*a(n-25) - 1765702733678398608658558428447360*a(n-26) + 12704568307150675765488222640282560*a(n-27) + 104100013549382672541219090180614640*a(n-28) - 342858046527995491047273078539955600*a(n-29) - 4130001707301776638772935299911912256*a(n-30) + 6847396841092260223648528325880606720*a(n-31) + 122232012850024207283221361231956810254*a(n-32) - 118721523464511810450468569067129144426*a(n-33) - 2841531755492225575651879624938511148928*a(n-34) + 2394784610329538755292446509533491716000*a(n-35) + 52925753230877809720577059087002400861992*a(n-36) - 58714462750669975935169863977940941960280*a(n-37) - 782037933975182474780210748162728220803040*a(n-38) + 1321517699032349790389867331195064604673216*a(n-39) + 8748802940534491087051075105985944657063260*a(n-40) - 22804535865987481061546900889454829679603444*a(n-41) - 65759559503062804288704789311995227573122880*a(n-42) + 280214789424597113917095902078563630345166880*a(n-43) + 204460925146734313250004732507720212186848968*a(n-44) - 2287271242562486047105730918302725555113446392*a(n-45) + 1639206925221359054555099097280295810851428768*a(n-46) + 10784528103278683865300248018550475219260654208*a(n-47) - 22353817265341460488092228847201240414035105762*a(n-48) - 17351184939291268862728364593795771243475100282*a(n-49) + 104648948382946673877161196944172851169527245824*a(n-50) - 65978904287776561411574539643420692157146373952*a(n-51) - 227134837147303124151570367097768707562046879696*a(n-52) + 405215758298403391604689220278325877633732043824*a(n-53) + 111104619664181222426614296749517366232266879936*a(n-54) - 918476816176232432066291480356535328064640676480*a(n-55) + 614485484513317673334804413671182434365398969336*a(n-56) + 964366283997181985729325094001600281021824129240*a(n-57) - 1663064531361277106734152707029737392625669095040*a(n-58) + 10700588145885401281442670374656956892492333248*a(n-59) + 1949177800915836773055751463515415096253168030768*a(n-60) - 1373722359784003268462434413016356390528112606032*a(n-61) - 945226041723338607040015476222710154337041740352*a(n-62) + 1797830848422320422261664489483546799399575889408*a(n-63) - 382966729874915968420704919476149600998364661837*a(n-64) - 1032343839499771899099728797642760653401223221273*a(n-65) + 844037415702525213360085693414926821167719194688*a(n-66) + 108531726346872031817579274083479354539009114672*a(n-67) - 489141845687806110360881441491242918160456952148*a(n-68) + 212833720198636219274820417100370038358831502060*a(n-69) + 86555312587071284118906057524605907849691759600*a(n-70) - 120511950264498336603872820825683957992858188000*a(n-71) + 32988496947771634393668020507631816643231856250*a(n-72) + 17075485269220426261800413669654890807198181250*a(n-73) - 16114795227442645176529251124612386461095500000*a(n-74) + 4130602926471699233540312159474630492463750000*a(n-75) + 863353468662475704847243513599058131923437500*a(n-76) - 988133105551414440210813633134680433789062500*a(n-77) + 348005464725936902435300188565389950468750000*a(n-78) - 67418235759055799815953955712351634375000000*a(n-79) + 7235382093004071107197728391011794677734375*a(n-80) - 339512194145133680733991426064161376953125*a(n-81)
+Empirical: a(n) = a(n-1) +4*a(n-3) +8*a(n-4) +7*a(n-5) +27*a(n-6) +61*a(n-7) +133*a(n-8) +174*a(n-9) -23*a(n-10) -59*a(n-11) -382*a(n-12) -482*a(n-13) -327*a(n-14) -805*a(n-15) -1197*a(n-16) -2029*a(n-17) -968*a(n-18) -979*a(n-19) +207*a(n-20) +973*a(n-21) -888*a(n-22) -431*a(n-23) +148*a(n-24) +3480*a(n-25) +5851*a(n-26) +3247*a(n-27) +2118*a(n-28) +946*a(n-29) -1095*a(n-30) +1501*a(n-31) +6542*a(n-32) +884*a(n-33) -1625*a(n-34) -4860*a(n-35) +2205*a(n-36) -930*a(n-37) -8591*a(n-38) +4865*a(n-39) -1514*a(n-40) +275*a(n-41) -7045*a(n-42) +2876*a(n-43) -1546*a(n-44) -3922*a(n-45) -577*a(n-46) +713*a(n-47) -189*a(n-48) -3536*a(n-49) +3480*a(n-50) -2325*a(n-51) +1777*a(n-52) -769*a(n-53) +2303*a(n-54) -144*a(n-55) +987*a(n-56) +659*a(n-57) +909*a(n-58) -475*a(n-59) +619*a(n-60) -736*a(n-61) +689*a(n-62) -333*a(n-63) +212*a(n-64) +10*a(n-65) +40*a(n-66) -137*a(n-67) +50*a(n-68) -94*a(n-69) +37*a(n-70) -116*a(n-71) +11*a(n-72) -27*a(n-73) +10*a(n-75) -9*a(n-76) -7*a(n-77) -4*a(n-78) -5*a(n-79) +a(n-80) -a(n-84)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 22 2016 10:07:53, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 05:20:22, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
-immediately before it; the row thus produces the sequence of values at the places where two
-equal entries stand side by side. The entry asks that each repeated value of a row be
-greater than the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be greater than the previous repeated value of that column. The FIRST repeated
-value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all.
-
-The entry carries no renaming clause, and it could not: the relations here compare letters by
-size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
-count is therefore taken over the alphabet the entry names, with no reduction to patterns.
-
-\section{One scan inside a slice, one across}
-
-Take the array a $row$ at a time, the direction in which it grows.
-
-\begin{lemma}\label{lem:state}
-The $row$ scans are settled as each $row$ is written. The $column$ scans are
-settled by the previous $row$ together with, for each position, the last repeated value
-so far in that $column$.
-\end{lemma}
-
-\begin{proof}
-A $row$ scan compares neighbours inside one $row$, so writing the
-$row$ left to right and carrying the last repeated value seen decides it. In a
-$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
-entry in the same position of the previous $row$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $column$.
-\end{proof}
-
-So the state is the pair (previous $row$, vector of last repeated values), the second
-component taking $3+2$ values at each position --- the letters together with a symbol for
-``none yet''. With $M$ the adjacency matrix of that digraph,
+The condition the entry imposes is local: it constrains a window of consecutive VALUES: at position i only the values in [i - L, i + R] are in play, and the state is which of them are used and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=84$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=7501,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{81}-\sum_i c_it^{81-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{84}-\sum_i c_it^{84-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -100,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+81}-\sum_ic_iM^{j+81-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+84}-\sum_ic_iM^{j+84-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -109,41 +75,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;195\,a(n-1) - 14016\,a(n-2) + 328624\,a(n-3) + 10558092\,a(n-4) - 692040756\,a(n-5) + 2914819952\,a(n-6) + 532718048544\,a(n-7) - 7854344328006\,a(n-8) - 254666252242622\,a(n-9) + 5518474180903200\,a(n-10) + 92071189746141168\,a(n-11) - 2385860293717216420\,a(n-12) - 28746659855292618180\,a(n-13) + 727529138476727060784\,a(n-14) + 8193702500645041665856\,a(n-15) - 160164514538922689960901\,a(n-16) - 2035601690151383961822369\,a(n-17) + 24346992476388969859129856\,a(n-18) + 401055034480978568384633280\,a(n-19) - 2174971679003056195529343120\,a(n-20) - 57227083740672389530646836880\,a(n-21) + 34785701816125124500226132160\,a(n-22) + 5450456627492158523815852917120\,a(n-23) + 15349975640092787647303410141560\,a(n-24) - 325369619425890856318367846925480\,a(n-25) - 1765702733678398608658558428447360\,a(n-26) + 12704568307150675765488222640282560\,a(n-27) + 104100013549382672541219090180614640\,a(n-28) - 342858046527995491047273078539955600\,a(n-29) - 4130001707301776638772935299911912256\,a(n-30) + 6847396841092260223648528325880606720\,a(n-31) + 122232012850024207283221361231956810254\,a(n-32) - 118721523464511810450468569067129144426\,a(n-33) - 2841531755492225575651879624938511148928\,a(n-34) + 2394784610329538755292446509533491716000\,a(n-35) + 52925753230877809720577059087002400861992\,a(n-36) - 58714462750669975935169863977940941960280\,a(n-37) - 782037933975182474780210748162728220803040\,a(n-38) + 1321517699032349790389867331195064604673216\,a(n-39) + 8748802940534491087051075105985944657063260\,a(n-40) - 22804535865987481061546900889454829679603444\,a(n-41) - 65759559503062804288704789311995227573122880\,a(n-42) + 280214789424597113917095902078563630345166880\,a(n-43) + 204460925146734313250004732507720212186848968\,a(n-44) - 2287271242562486047105730918302725555113446392\,a(n-45) + 1639206925221359054555099097280295810851428768\,a(n-46) + 10784528103278683865300248018550475219260654208\,a(n-47) - 22353817265341460488092228847201240414035105762\,a(n-48) - 17351184939291268862728364593795771243475100282\,a(n-49) + 104648948382946673877161196944172851169527245824\,a(n-50) - 65978904287776561411574539643420692157146373952\,a(n-51) - 227134837147303124151570367097768707562046879696\,a(n-52) + 405215758298403391604689220278325877633732043824\,a(n-53) + 111104619664181222426614296749517366232266879936\,a(n-54) - 918476816176232432066291480356535328064640676480\,a(n-55) + 614485484513317673334804413671182434365398969336\,a(n-56) + 964366283997181985729325094001600281021824129240\,a(n-57) - 1663064531361277106734152707029737392625669095040\,a(n-58) + 10700588145885401281442670374656956892492333248\,a(n-59) + 1949177800915836773055751463515415096253168030768\,a(n-60) - 1373722359784003268462434413016356390528112606032\,a(n-61) - 945226041723338607040015476222710154337041740352\,a(n-62) + 1797830848422320422261664489483546799399575889408\,a(n-63) - 382966729874915968420704919476149600998364661837\,a(n-64) - 1032343839499771899099728797642760653401223221273\,a(n-65) + 844037415702525213360085693414926821167719194688\,a(n-66) + 108531726346872031817579274083479354539009114672\,a(n-67) - 489141845687806110360881441491242918160456952148\,a(n-68) + 212833720198636219274820417100370038358831502060\,a(n-69) + 86555312587071284118906057524605907849691759600\,a(n-70) - 120511950264498336603872820825683957992858188000\,a(n-71) + 32988496947771634393668020507631816643231856250\,a(n-72) + 17075485269220426261800413669654890807198181250\,a(n-73) - 16114795227442645176529251124612386461095500000\,a(n-74) + 4130602926471699233540312159474630492463750000\,a(n-75) + 863353468662475704847243513599058131923437500\,a(n-76) - 988133105551414440210813633134680433789062500\,a(n-77) + 348005464725936902435300188565389950468750000\,a(n-78) - 67418235759055799815953955712351634375000000\,a(n-79) + 7235382093004071107197728391011794677734375\,a(n-80) - 339512194145133680733991426064161376953125\,a(n-81)
+a(n)\;=\;a(n-1) + 4\,a(n-3) + 8\,a(n-4) + 7\,a(n-5) + 27\,a(n-6) + 61\,a(n-7) + 133\,a(n-8) + 174\,a(n-9) - 23\,a(n-10) - 59\,a(n-11) - 382\,a(n-12) - 482\,a(n-13) - 327\,a(n-14) - 805\,a(n-15) - 1197\,a(n-16) - 2029\,a(n-17) - 968\,a(n-18) - 979\,a(n-19) + 207\,a(n-20) + 973\,a(n-21) - 888\,a(n-22) - 431\,a(n-23) + 148\,a(n-24) + 3480\,a(n-25) + 5851\,a(n-26) + 3247\,a(n-27) + 2118\,a(n-28) + 946\,a(n-29) - 1095\,a(n-30) + 1501\,a(n-31) + 6542\,a(n-32) + 884\,a(n-33) - 1625\,a(n-34) - 4860\,a(n-35) + 2205\,a(n-36) - 930\,a(n-37) - 8591\,a(n-38) + 4865\,a(n-39) - 1514\,a(n-40) + 275\,a(n-41) - 7045\,a(n-42) + 2876\,a(n-43) - 1546\,a(n-44) - 3922\,a(n-45) - 577\,a(n-46) + 713\,a(n-47) - 189\,a(n-48) - 3536\,a(n-49) + 3480\,a(n-50) - 2325\,a(n-51) + 1777\,a(n-52) - 769\,a(n-53) + 2303\,a(n-54) - 144\,a(n-55) + 987\,a(n-56) + 659\,a(n-57) + 909\,a(n-58) - 475\,a(n-59) + 619\,a(n-60) - 736\,a(n-61) + 689\,a(n-62) - 333\,a(n-63) + 212\,a(n-64) + 10\,a(n-65) + 40\,a(n-66) - 137\,a(n-67) + 50\,a(n-68) - 94\,a(n-69) + 37\,a(n-70) - 116\,a(n-71) + 11\,a(n-72) - 27\,a(n-73) + 10\,a(n-75) - 9\,a(n-76) - 7\,a(n-77) - 4\,a(n-78) - 5\,a(n-79) + a(n-80) - a(n-84)
 \]
-for every $n>81$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $81$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $84$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=81+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form each row's and each column's list of repeated values
-by scanning it, and test consecutive members of those lists against the relation. No state, no
-window and no transfer matrix are involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267930.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189598.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

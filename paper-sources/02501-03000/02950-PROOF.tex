@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A207096, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250359, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A207096 carries an empirical recurrence of order $25$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the last few values, or -- when the sum runs over everything read so far -- the running total modulo the entry's own modulus, the sums themselves being unbounded and only their residue being read, so
+OEIS A250359 carries an empirical recurrence of order $25$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=25$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=384$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,21 +31,24 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A207096 is ``Number of 0..4 arrays x(0..n-1) of n elements with each no smaller than the sum of its two previous neighbors modulo 5.''. It has offset $1$ and begins
+OEIS A250359 is ``Number of length n arrays x(i), i=1..n with x(i) in i..i+6 and no value appearing more than 3 times.''. It has offset $1$ and begins
 \[
-5, 15, 45, 140, 441, 1382, 4322, 13511,\ \dots
+7, 49, 343, 2397, 16700, 115963, 803382, 5565230,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +a(n-2) -2*a(n-3) +a(n-5) +2*a(n-8) -a(n-10) +3*a(n-11) -2*a(n-12) +a(n-13) -a(n-14) -2*a(n-15) +a(n-16) -2*a(n-17) +a(n-19) -3*a(n-21) +a(n-25)
+Empirical: a(n) = 7*a(n-1) -8*a(n-4) -40*a(n-5) -265*a(n-6) -1800*a(n-7) +38*a(n-8) +336*a(n-9) +1937*a(n-10) +3833*a(n-11) +6318*a(n-12) +303*a(n-13) -1245*a(n-14) -3056*a(n-15) -1258*a(n-16) +725*a(n-17) +1024*a(n-18) +343*a(n-19) +34*a(n-20) -137*a(n-21) -77*a(n-22) +47*a(n-24) +14*a(n-25)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:28:15, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:20:31, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains the last few values, or -- when the sum runs over everything read so far -- the running total modulo the entry's own modulus, the sums themselves being unbounded and only their residue being read and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=25$ vertices,
+The condition the entry imposes is local: it constrains the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=384$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
@@ -72,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + a(n-2) - 2\,a(n-3) + a(n-5) + 2\,a(n-8) - a(n-10) + 3\,a(n-11) - 2\,a(n-12) + a(n-13) - a(n-14) - 2\,a(n-15) + a(n-16) - 2\,a(n-17) + a(n-19) - 3\,a(n-21) + a(n-25)
+a(n)\;=\;7\,a(n-1) - 8\,a(n-4) - 40\,a(n-5) - 265\,a(n-6) - 1800\,a(n-7) + 38\,a(n-8) + 336\,a(n-9) + 1937\,a(n-10) + 3833\,a(n-11) + 6318\,a(n-12) + 303\,a(n-13) - 1245\,a(n-14) - 3056\,a(n-15) - 1258\,a(n-16) + 725\,a(n-17) + 1024\,a(n-18) + 343\,a(n-19) + 34\,a(n-20) - 137\,a(n-21) - 77\,a(n-22) + 47\,a(n-24) + 14\,a(n-25)
 \]
 for every $n>0$.
 \end{theorem}
@@ -88,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -100,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A207096.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250359.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

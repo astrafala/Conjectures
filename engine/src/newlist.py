@@ -48,7 +48,9 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # the Galebach coordination sequences, certified on the whole lattice
             'galcoord_hits*.json',
             # the claim that names a DEGREE and no coefficients
-            'degree_hits*.json'):
+            'degree_hits*.json',
+            # conjectured P-recursive recurrences, settled from an algebraic generating function
+            'prec_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:

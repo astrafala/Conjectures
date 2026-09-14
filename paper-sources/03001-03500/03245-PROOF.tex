@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A241284, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A211500, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241284 carries an empirical recurrence of order $17$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the two running row sums modulo M and the previous column: the sums look unbounded but every comparison is taken modulo M, so only residues matter, and the north-east comparison is deferred one column, so
+OEIS A211500 carries an empirical recurrence of order $17$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=44$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=79$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,23 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A241284 is ``Number of 2Xn 0..3 arrays with no element equal to one plus the sum of elements to its left or zero plus the sum of the elements above it or one plus the sum of the elements diagonally to its northwest or one plus the sum of the elements antidiagonally to its northeast, modulo 4.''. It has offset $1$ and begins
+OEIS A211500 is ``Number of -3..3 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1), -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having two or three distinct values for every i<=n and j<=n.''. It has offset $1$ and begins
 \[
-4, 3, 5, 13, 17, 35, 90, 141,\ \dots
+48, 130, 298, 660, 1384, 2890, 5850, 11930,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +a(n-2) +7*a(n-3) -8*a(n-4) -7*a(n-5) +9*a(n-7) +10*a(n-8) -24*a(n-9) +5*a(n-10) +29*a(n-11) -18*a(n-12) -10*a(n-13) -10*a(n-14) +16*a(n-15) +12*a(n-16) -12*a(n-17) for n>18
+Empirical: a(n) = 3*a(n-1) +13*a(n-2) -43*a(n-3) -67*a(n-4) +254*a(n-5) +171*a(n-6) -797*a(n-7) -213*a(n-8) +1427*a(n-9) +85*a(n-10) -1458*a(n-11) +60*a(n-12) +810*a(n-13) -58*a(n-14) -224*a(n-15) +12*a(n-16) +24*a(n-17)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 10:03:47, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:12:36, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains the two running row sums modulo M and the previous column: the sums look unbounded but every comparison is taken modulo M, so only residues matter, and the north-east comparison is deferred one column and nothing beyond. Take as
+The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=44$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=79$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -75,23 +75,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + 7\,a(n-3) - 8\,a(n-4) - 7\,a(n-5) + 9\,a(n-7) + 10\,a(n-8) - 24\,a(n-9) + 5\,a(n-10) + 29\,a(n-11) - 18\,a(n-12) - 10\,a(n-13) - 10\,a(n-14) + 16\,a(n-15) + 12\,a(n-16) - 12\,a(n-17)
+a(n)\;=\;3\,a(n-1) + 13\,a(n-2) - 43\,a(n-3) - 67\,a(n-4) + 254\,a(n-5) + 171\,a(n-6) - 797\,a(n-7) - 213\,a(n-8) + 1427\,a(n-9) + 85\,a(n-10) - 1458\,a(n-11) + 60\,a(n-12) + 810\,a(n-13) - 58\,a(n-14) - 224\,a(n-15) + 12\,a(n-16) + 24\,a(n-17)
 \]
-for every $n>18$.
+for every $n>17$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=18$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $33$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241284.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211500.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

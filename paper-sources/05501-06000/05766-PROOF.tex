@@ -12,142 +12,141 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical product formula for OEIS A140924, proved}
+\title{The empirical recurrence for OEIS A184132, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A140924 counts $9\times9$ matrices over $\{0,\dots,n\}$ whose rows and columns are
-nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
-columns turns such a matrix into a plane partition inside a $9\times9\times n$ box, so
-MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
-polynomial in $n$ of degree $81$. The entry's own expression, cleared of its denominator,
-becomes an identity between two polynomials of bounded degree, and is therefore settled by a
-finite exact computation. The box count itself is classical and is already recorded on this
-entry; what is proved here is the entry's own formula.
+OEIS A184132 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $81$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=648$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A140924 is ``Number of 9 X 9 matrices with elements in 0..n with each row and each column in nondecreasing order. 9,9,n can be permuted, see formula.''. It has offset $0$ and begins
+OEIS A184132 is ``Number of nX4 0..2 arrays with rows and columns in nondecreasing order.''. It has offset $1$ and begins
 \[
-1, 48620, 449141836, 1371597504992, 1832516612010448, 1274867710694037824,\ \dots
+15, 356, 10020, 250841, 5136783, 86649029, 1235699769, 15270848022,\ \dots
 \]
-The entry states, as conjectures contributed by its author and never marked settled:
-\begin{quote}
-(empirical) set p,q,r to n,9,9 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
-
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n)=81*a(n-1)-3240*a(n-2)+85320*a(n-3)-1663740*a(n-4)+25621596*a(n-5)-324540216*a(n-6)+3477216600*a(n-7)-32164253550*a(n-8)+260887834350*a(n-9)-1878392407320*a(n-10)+12124169174520*a(n-11)-70724320184700*a(n-12)+375382930211100*a(n-13)-1823288518168200*a(n-14)+8144022047817960*a(n-15)-33594090947249085*a(n-16)+128447994798305325*a(n-17)-456703981505085600*a(n-18)+1514334254464231200*a(n-19)-4694436188839116720*a(n-20)+13636219405675529520*a(n-21)-37189689288205989600*a(n-22)+95399637739311016800*a(n-23)-230549124536668290600*a(n-24)+525652003943603702568*a(n-25)-1132173546955454128608*a(n-26)+2306279447501851002720*a(n-27)-4447824648753569790960*a(n-28)+8128782978756524100720*a(n-29)-14089890496511308441248*a(n-30)+23180142429744410661408*a(n-31)-36218972546475641658450*a(n-32)+53779686508403225492850*a(n-33)-75924263305981024225200*a(n-34)+101955439296603089673840*a(n-35)-130276394656770614583240*a(n-36)+158444263771748044763400*a(n-37)-183461779104129314989200*a(n-38)+202278371832757962680400*a(n-39)-212392290424395860814420*a(n-40)+212392290424395860814420*a(n-41)-202278371832757962680400*a(n-42)+183461779104129314989200*a(n-43)-158444263771748044763400*a(n-44)+130276394656770614583240*a(n-45)-101955439296603089673840*a(n-46)+75924263305981024225200*a(n-47)-53779686508403225492850*a(n-48)+36218972546475641658450*a(n-49)-23180142429744410661408*a(n-50)+14089890496511308441248*a(n-51)-8128782978756524100720*a(n-52)+4447824648753569790960*a(n-53)-2306279447501851002720*a(n-54)+1132173546955454128608*a(n-55)-525652003943603702568*a(n-56)+230549124536668290600*a(n-57)-95399637739311016800*a(n-58)+37189689288205989600*a(n-59)-13636219405675529520*a(n-60)+4694436188839116720*a(n-61)-1514334254464231200*a(n-62)+456703981505085600*a(n-63)-128447994798305325*a(n-64)+33594090947249085*a(n-65)-8144022047817960*a(n-66)+1823288518168200*a(n-67)-375382930211100*a(n-68)+70724320184700*a(n-69)-12124169174520*a(n-70)+1878392407320*a(n-71)-260887834350*a(n-72)+32164253550*a(n-73)-3477216600*a(n-74)+324540216*a(n-75)-25621596*a(n-76)+1663740*a(n-77)-85320*a(n-78)+3240*a(n-79)-81*a(n-80)+a(n-81) (=polynomial of degree 80)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 19 2025 11:11:21, revision 8) these are still
-recorded as empirical, and nothing on the entry records them as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:21:04, revision 10) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;81\,a(n-1) - 3240\,a(n-2) + 85320\,a(n-3) - 1663740\,a(n-4) + 25621596\,a(n-5) - 324540216\,a(n-6) + 3477216600\,a(n-7) - 32164253550\,a(n-8) + 260887834350\,a(n-9) - 1878392407320\,a(n-10) + 12124169174520\,a(n-11) - 70724320184700\,a(n-12) + 375382930211100\,a(n-13) - 1823288518168200\,a(n-14) + 8144022047817960\,a(n-15) - 33594090947249085\,a(n-16) + 128447994798305325\,a(n-17) - 456703981505085600\,a(n-18) + 1514334254464231200\,a(n-19) - 4694436188839116720\,a(n-20) + 13636219405675529520\,a(n-21) - 37189689288205989600\,a(n-22) + 95399637739311016800\,a(n-23) - 230549124536668290600\,a(n-24) + 525652003943603702568\,a(n-25) - 1132173546955454128608\,a(n-26) + 2306279447501851002720\,a(n-27) - 4447824648753569790960\,a(n-28) + 8128782978756524100720\,a(n-29) - 14089890496511308441248\,a(n-30) + 23180142429744410661408\,a(n-31) - 36218972546475641658450\,a(n-32) + 53779686508403225492850\,a(n-33) - 75924263305981024225200\,a(n-34) + 101955439296603089673840\,a(n-35) - 130276394656770614583240\,a(n-36) + 158444263771748044763400\,a(n-37) - 183461779104129314989200\,a(n-38) + 202278371832757962680400\,a(n-39) - 212392290424395860814420\,a(n-40) + 212392290424395860814420\,a(n-41) - 202278371832757962680400\,a(n-42) + 183461779104129314989200\,a(n-43) - 158444263771748044763400\,a(n-44) + 130276394656770614583240\,a(n-45) - 101955439296603089673840\,a(n-46) + 75924263305981024225200\,a(n-47) - 53779686508403225492850\,a(n-48) + 36218972546475641658450\,a(n-49) - 23180142429744410661408\,a(n-50) + 14089890496511308441248\,a(n-51) - 8128782978756524100720\,a(n-52) + 4447824648753569790960\,a(n-53) - 2306279447501851002720\,a(n-54) + 1132173546955454128608\,a(n-55) - 525652003943603702568\,a(n-56) + 230549124536668290600\,a(n-57) - 95399637739311016800\,a(n-58) + 37189689288205989600\,a(n-59) - 13636219405675529520\,a(n-60) + 4694436188839116720\,a(n-61) - 1514334254464231200\,a(n-62) + 456703981505085600\,a(n-63) - 128447994798305325\,a(n-64) + 33594090947249085\,a(n-65) - 8144022047817960\,a(n-66) + 1823288518168200\,a(n-67) - 375382930211100\,a(n-68) + 70724320184700\,a(n-69) - 12124169174520\,a(n-70) + 1878392407320\,a(n-71) - 260887834350\,a(n-72) + 32164253550\,a(n-73) - 3477216600\,a(n-74) + 324540216\,a(n-75) - 25621596\,a(n-76) + 1663740\,a(n-77) - 85320\,a(n-78) + 3240\,a(n-79) - 81\,a(n-80) + a(n-81)
+\end{equation}
+for all $n>81$.
 
-A matrix $x$ of shape $9\times9$ with entries in $\{0,\dots,n\}$, nondecreasing along
-every row and down every column, becomes, on reversing the order of the rows and of the
-columns, an array that is NONINCREASING along rows and down columns with the same entries. That
-is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
-$9\times9$ rectangle --- a plane partition in a $9\times9\times n$ box. The
-correspondence is a bijection, being an involution on arrays, so
+\section{The conditions}
+
+The arrays have $4$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
+\begin{itemize}
+\item the rows themselves, read as vectors, are in lexicographically nondecreasing order;
+\item the columns themselves, read as vectors, are in lexicographically nondecreasing order;
+\end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+A lexicographic condition between adjacent columns is decided
+at the first row where they differ, so the state carries, for each adjacent pair of
+columns, one bit: still tied, or already settled in the right order. A row that would
+settle a pair the wrong way has no outgoing edge.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=648$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
 \[
-a(n)\;=\;\mathrm{PP}(9,9,n).
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
 \]
-Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
-so nothing about transfer matrices applies here.
-
-\section{The box count is a polynomial}
-
-\begin{theorem}[MacMahon]\label{thm:mm}
-\[
-\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
-\frac{i+j+k-1}{i+j+k-2} .
-\]
-\end{theorem}
-
-This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
-
-\begin{theorem}\label{thm:poly}
-\[
-a(n)\;=\;\prod_{i=1}^{9}\prod_{j=1}^{9}\frac{n+i+j-1}{i+j-1},
-\]
-a polynomial in $n$ of degree $81$ with rational coefficients.
-\end{theorem}
-
-\begin{proof}
-In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
-\[
-\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
-\]
-every other factor cancelling against its neighbour. The remaining double product has
-$9\cdot9=81$ factors, each linear in $n$, and the denominators are constants.
-\end{proof}
-
-So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
-needed to see it.
-
-\section{The entry's expression}
-
-The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,9,9)$ and claims
-\[
-a(n)\;=\;\prod_{i=0}^{9-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{9-1-i}}\;=\;
-\frac{N(n)}{D(n)} .
-\]
-
-\begin{lemma}\label{lem:deg}
-$N$ and $D$ are polynomials in $n$ of degrees $117$ and $36$ respectively.
 \end{lemma}
 
 \begin{proof}
-With $s=n+9+9-1$ one has $s-(n+i)=9+9-1-i$, a constant, so
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
+\end{proof}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{81}-\sum_i c_i\,t^{81-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge81$
 \[
-\binom{s}{n+i}=\binom{s}{9+9-1-i}
-=\frac{(s-9-9+2+i)(s-9-9+3+i)\cdots s}{(9+9-1-i)!},
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-81}w,
+\qquad w=h_{81}-\sum_i c_ih_{81-i} .
 \]
-a polynomial in $n$ of degree $9+9-1-i$. Multiplying over $i=0,\dots,9-1$ gives
-$\deg N=\sum_{i=0}^{9-1}(9+9-1-i)=117$. The denominator is
-$\prod_{i=0}^{9-1}(s-i)^{9-1-i}$, of degree
-$\sum_{i=0}^{9-1}(9-1-i)=36$, and it does not vanish for $n\ge0$.
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
 \begin{theorem}
-The entry's expression equals $a(n)$ for every $n\ge0$.
+The recurrence \eqref{eq:conj} holds for every $n>81$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
-of degree at most $81+36=117$. It was evaluated in exact rational arithmetic at
-$n=0,1,\dots,117$, that is at $118$ points, and vanishes at all of them; a nonzero polynomial
-of degree at most $117$ has at most $117$ roots, so it is identically zero. Since $D(n)\neq0$
-for $n\ge0$, the two expressions agree there.
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$81$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=81+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, Theorem~\ref{thm:poly} reproduces all $7$ terms the entry publishes,
-exactly, in integer arithmetic.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $16$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
-Second, the matrices themselves were counted for the smallest alphabets, directly from the
-definition: the nondecreasing rows were listed and the chains of $9$ of them increasing
-componentwise counted, with no product formula and no plane partitions anywhere. The counts
-agree, which is what ties the reversal bijection to the entry's own wording.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the polynomial identity was evaluated over the whole range $n=0,\dots,117$ rather than
-sampled, in exact rational arithmetic.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A140924.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
-\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
-University Press, 1916.
-\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184132.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

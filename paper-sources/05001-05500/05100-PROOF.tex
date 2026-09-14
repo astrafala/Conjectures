@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221567, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184045, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221567 carries an empirical recurrence of order $4$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the last element together with one bit saying whether it is still waiting for a neighbour to satisfy the entry's relation -- the condition cannot be decided where it is written, because the element's right neighbour has not been read yet, so
+OEIS A184045 carries an empirical recurrence of order $4$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive rows, together with the four-value multiset every block of the array must hold -- which any one block fixes for the whole array, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
 arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=4$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
@@ -31,23 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A221567 is ``Number of 0..2 arrays of length n with each element differing from at least one neighbor by something other than 1.''. It has offset $1$ and begins
+OEIS A184045 is ``1/9 the number of (n+1) X 7 0..2 arrays with all 2 X 2 subblocks having the same four values.''. It has offset $1$ and begins
 \[
-0, 5, 9, 25, 57, 141, 345, 853,\ \dots
+153, 159, 169, 189, 225, 297, 433, 705,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -2*a(n-2) +4*a(n-4).
+Empirical: a(n) = 3*a(n-1) - 6*a(n-3) + 4*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:46:32, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Apr 10 2018 12:06:12, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains the last element together with one bit saying whether it is still waiting for a neighbour to satisfy the entry's relation -- the condition cannot be decided where it is written, because the element's right neighbour has not been read yet and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive rows, together with the four-value multiset every block of the array must hold -- which any one block fixes for the whole array and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
 An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=4$ vertices,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\tfrac{1}{9}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -72,15 +72,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 2\,a(n-2) + 4\,a(n-4)
+a(n)\;=\;3\,a(n-1) - 6\,a(n-3) + 4\,a(n-4)
 \]
-for every $n>1$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=1+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -88,7 +88,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $31$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -100,7 +100,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221567.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184045.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

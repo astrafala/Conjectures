@@ -11,111 +11,108 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{Recovering the unwritten recurrences of the table OEIS A234672}
+\title{The empirical degree for OEIS A201350, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234672 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 31].'' and the like --- with the
-coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
-and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
-count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
-order at most that number; Berlekamp--Massey on twice as many exact terms returns the MINIMAL
-one. Where its order equals the order the entry states --- and where the same holds after the
-first few terms are dropped --- any recurrence of that order the line satisfies has a
-characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2.
+OEIS A201350 carries the empirical claim that its terms agree with a polynomial of degree $31$.
+It is true, and it is decidable rather than empirical. The claim names no coefficients, so
+there is no formula to check; but a sequence agrees with a polynomial of degree at most $d$ on
+a range exactly when its $(d+1)$-st finite difference vanishes there, and the degree is exactly
+$d$ exactly when the $d$-th difference does not eventually vanish. Both are linear recurrences,
+and the entry's count is given by an exact model that provably satisfies a monic linear
+recurrence of order $S=612$, so both are settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 11B37.\normalsize
 
-\section{The table and the unwritten conjectures}
+\section{The conjecture}
 
-OEIS A234672 is ``T(n,k) is the number of (n+1) X (k+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 4 (constant-stress 1 X 1 tilings).''. It is read by antidiagonals and begins
+OEIS A201350 is ``Number of nX5 0..1 arrays with rows and columns lexicographically nondecreasing and every element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-492, 3816, 3816, 29568, 28860, 29568, 229272, 217968,\ \dots
+4, 23, 118, 752, 4860, 29540, 164704, 838248,\ \dots
 \]
-The entry carries, among its empirical claims:
-\begin{quote}\small
-k=2: [order 31].
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) is a polynomial of degree 31 for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 20:32:22, revision 6) these are still
-recorded as empirical, and the recurrences themselves are not in the entry text.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:05:06, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Why a line of the table is a walk count}
+\section{The count is a walk count}
 
-Fix the index that the line fixes. The entry defines $T(n,k)$ as a number of arrays of a shape
-determined by $n$ and $k$, subject to a condition local to a bounded window of consecutive
-lines. Substituting the fixed index into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the admissible windows are the
-vertices of a finite digraph and an array is a walk. So the line is a walk count on $S$
-vertices, and by the Cayley--Hamilton theorem it satisfies a monic integer recurrence of order
-at most $S$.
+The entry's defining condition is local: it is a condition on the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may follow
+$u$, which the condition decides by inspection. An admissible array is then exactly a walk, so
+with $M$ the adjacency matrix of that digraph on $S=612$ vertices and $\iota,\tau$ the vectors
+recording which windows may begin and end an array, $a(n)=\iota^{\!\top}M^{\,g(n)}\tau$ for
+the linear function $g$ the entry's shape supplies. In particular $a$ is $C$-finite.
 
-\section{Recovering the recurrences}
+\section{A degree is two recurrences}
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, with its
-minimal recurrence, by its first $2S$ terms; Berlekamp--Massey applied to them returns that
-minimal recurrence exactly.
+\begin{lemma}\label{lem:diff}
+Let $\Delta$ be the forward difference. For integers $N$ and $d\ge0$, $a$ agrees on
+$n\ge N$ with a polynomial of degree at most $d$ if and only if $(\Delta^{d+1}a)(n)=0$ for
+every $n\ge N$; and that polynomial has degree exactly $d$ unless $(\Delta^{d}a)(n)=0$ for
+all large $n$ as well.
 \end{lemma}
 
-\subsection*{Column $k=2$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=512$ vertices. Berlekamp--Massey on $2S=1024$ exact terms
-returns a minimal recurrence of order $31$ --- the order the entry states --- with
-integer coefficients
-\[
-(c_1,\dots,c_{31})=(35,\ -234,\ -5393,\ 83088,\ 72599,\ -7727281,\ 30601466,\ 288437560,\ -2223662740,\ -2827663592,\ 61030210280,\ -68134000167,\ -723492961431,\ 1379135043174,\ 4956504550981,\ -10336340466744,\ -22249573436775,\ 42072453243081,\ 68185197096618,\ -103181037099516,\ -142550751258288,\ 157651414286112,\ 199205608411008,\ -149554834911360,\ -179827747799040,\ 84774205497600,\ 99173800742400,\ -26026116480000,\ -29990476800000,\ 3292047360000,\ 3762339840000).
-\]
-so that $a(m)=\sum_{i=1}^{31}c_i\,a(m-i)$ for every $m$. Removing the first
-$31+4$ terms and repeating gives order $31$ again, which is what the
-identification below needs.
+\begin{proof}
+Standard finite differences. $\Delta^{d+1}$ kills exactly the polynomials of degree at most
+$d$, and on a range where $\Delta^{d+1}a$ vanishes the values of $a$ are determined by
+$d+1$ consecutive ones through the same identity a degree-$d$ polynomial satisfies, so the
+interpolating polynomial through any $d+1$ of them reproduces all of them. Its leading
+coefficient is $(\Delta^{d}a)/d!$, which is the constant the second statement is about.
+\end{proof}
+
+Written out, $\Delta^{d+1}a=0$ is the monic linear recurrence with characteristic polynomial
+$(z-1)^{31+1}$, and $\Delta^{d}a$ constant is the one with $(z-1)^{31}$. Both are
+fixed recurrences, so each is decided by the annihilation test: $M^{S}$ is an integer
+combination of $I,\dots,M^{S-1}$ by Cayley--Hamilton, the residuals therefore obey the monic
+recurrence given by the characteristic polynomial of $M$, and $S$ consecutive zeros force every
+later one.
+
+\section{The theorem}
 
 \begin{theorem}
-For each line above, the displayed recurrence holds for every index, and it is the recurrence
-the entry records.
+$a(n)$ agrees with a polynomial in $n$ of degree exactly $31$ for every $n\ge11$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}. For the identification, the entry asserts that the line
-satisfies SOME recurrence of the stated order, possibly only from some index on. Let $q$ be its
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail. Then
-$q_{\min}\mid q$, and the second Berlekamp--Massey run --- on the line with its first few
-terms removed --- shows $\deg q_{\min}$ equals the stated order, which is $\deg q$. Both are
-monic, so $q=q_{\min}$.
+The residual of $(z-1)^{31+1}$ was formed at each index in exact integer arithmetic from
+the model. It is nonzero at $n=42$ and vanishes from $n=42+1$ onwards, with the run of
+zeros continuing past $S+31+1$, which by the annihilation bound settles every later index at
+once. So $\Delta^{31+1}a$ vanishes on $n\ge42-31=11$, and
+Lemma~\ref{lem:diff} gives the polynomial there.
+
+For the degree: the residual of $(z-1)^{31}$ has no run of $S+31$ zeros anywhere in the
+computed range, so $\Delta^{31}a$ is not eventually zero and the degree is not smaller
+than $31$. The entry claims it for $n>10$, and the threshold above is exactly $10+31+1=42$, so the range proved is the range claimed and neither is slack.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
-
-First, each line's model was compared against the entry's own published values for that line,
-taken from the antidiagonal DATA read in either orientation and from the ``Table starts''
-block, and agrees at every available term. This is the only point at which reading the entry's
-English enters, and a misreading gives different counts.
-
-Second, each recovered recurrence was evaluated directly on the model's values, with no
-Berlekamp--Massey involved, and holds at every index tested.
-
-Third, each order was computed twice by independent routes --- modulo a $61$-bit prime, where
-every intermediate is a machine word, and again in exact rational arithmetic --- and once more
-on the line with its first few terms dropped, which is what the identification requires. All
-agree.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic; this is what ties it to the entry, which is read in English and could be misread.
+Second, both residuals were computed term by term rather than through any closed form. Third,
+the derived bound $S$ was tested on terms it had not been given: the model was evaluated beyond
+the $S$ values that determine it and the annihilator reproduced them.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234672.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A201350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{gkp} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison--Wesley, 1994. (Finite differences.)
 \end{thebibliography}
 
 \end{document}

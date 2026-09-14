@@ -12,106 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233240, proved by carrying a row major clause across
-columns}
+\title{The empirical recurrence for OEIS A224547, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233240 counts $2\times n$ arrays over $\{0,\dots,5\}$ with a forbidden-pair
-condition and a clause on the order in which values first appear, read in ROW MAJOR order, and
-it carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is true.
-The obstacle is that the array grows in $n$, so the walk runs across COLUMNS and does not visit
-the cells in row major order; the running set of ``values seen so far'' that settles the clause
-for a column-fixed entry is simply the wrong set here. What the walk can carry instead is, for
-each value the clause names, the least ROW in which it has yet been seen, together with the
-order in which those least rows were attained. That is enough, and it is bounded, so the count
-is a walk count and the recurrence is settled by a finite exact computation.
+OEIS A224547 counts the $(n+1)\times6$ matrices over $\{0,\dots,1\}$ all of whose
+$2\times2$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
+single row is not a state; the strip of the last $1$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=44$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A233240 is ``Number of 2 X n 0..5 arrays with no element x(i,j) adjacent to value 5-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 3 and 4, and 2 appearing before 3 in row major order.''. It has offset $1$ and begins
+OEIS A224547 is ``Number of (n+1) X 6 0..1 matrices with each 2 X 2 subblock idempotent.''. It has offset $1$ and begins
 \[
-3, 19, 271, 4504, 79201, 1419889,\ \dots
+80, 137, 193, 294, 428, 635, 943, 1420,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) - 81*a(n-2) - 143*a(n-3) + 82*a(n-4) + 120*a(n-5) for n>6.
+Empirical: a(n) = 4*a(n-1) - 5*a(n-2) + a(n-3) + 2*a(n-4) - a(n-5) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 10 2018 15:20:22, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 30 2018 15:03:16, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $2$ rows and $n$ columns. Two cells are adjacent when they differ by one of the
-offsets
+Call a $2\times2$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $2\times6$ matrix a \emph{band} when every one of its $5$ contiguous
+$2\times2$ subblocks is a window. What the entry counts is the matrices of $6$ columns
+whose every $2$ consecutive rows form a band.
+
+Take as states the $1\times6$ strips that occur as the top $1$ rows of a band,
+together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
+when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
+Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-(0,1), (1,-1), (1,1),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-and the entry forbids any adjacent pair $u,v$ with $u+v=5$. It fixes the top left cell to
-zero. Finally it asks that, reading the cells in ROW MAJOR order --- along the first row, then
-along the second, and so on --- the first occurrences of the values $1$, $2$, $3$, $4$ come in a
-prescribed order: $1$ before $2$, $1$ before $3$, $1$ before $4$, $2$ before $3$. A precedence involving a value that never occurs is satisfied
-vacuously; one whose later value occurs while its earlier value does not is broken.
+with $M$ the adjacency matrix on $S=44$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
 
-\section{Why the obvious state does not work}
+There are $(1 + 1)^{6}$ strips of $1$ rows and $6$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $2\times1$ entries, so a band is exactly a walk of $5$ windows in
+the graph that joins a window to those whose first $1$ columns are its last $1$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
 
-Since $n$ grows, the walk must run across the columns: a state is one column, and the
-forbidden-pair condition is settled between two consecutive columns, because every offset above
-moves the column index by at most one.
+\section{The admissible windows}
 
-The clause is the difficulty. For an entry whose WIDTH is fixed the walk runs down the rows and
-therefore visits the cells in row major order, so it is enough to carry the set of named values
-already written and to refuse a column that introduces a value out of turn. Here the walk
-visits the cells in COLUMN major order, and that set is the wrong one: a value first written
-low down in an early column may be written again higher up in a later column, and it is the
-later, higher cell that comes first in row major order.
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $2\times2$ with
+$B^2=B$. There are $2^{4}$ matrices to sift, which is already awkward at $2=2$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
 
-\section{What the walk can carry}
-
-\begin{lemma}\label{lem:key}
-For a value $v$ occurring in the array, let $r_v$ be the least row in which $v$ occurs and
-$c_v$ the least column with $x_{r_v,c_v}=v$. Then the first occurrence of $v$ in row major
-order is the cell $(r_v,c_v)$, and $u$ precedes $v$ in row major order exactly when
-$(r_u,c_u)<(r_v,c_v)$ lexicographically.
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
+\[
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
+\]
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-Row major order is the lexicographic order on $(\text{row},\text{column})$, and the least
-element of the set of cells carrying $v$ under a lexicographic order is obtained by minimising
-the first coordinate and then the second.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-\begin{lemma}\label{lem:tie}
-Two distinct values with the same least row attain it in different columns.
-\end{lemma}
-
-\begin{proof}
-If $r_u=r_v=r$ and $c_u=c_v=c$ then the cell $(r,c)$ carries both $u$ and $v$.
-\end{proof}
-
-So the walk carries, for each named value, the least row in which it has been seen so far ---
-or the fact that it has not been seen --- and, for values sharing a least row, which of them
-attained it first. By Lemma~\ref{lem:tie} those attainments happen in different columns, and
-the walk meets the columns in order, so ``which attained it first'' is decided as the walk
-goes. Nothing else about the past matters: a later column can only LOWER a value's least row,
-and Lemma~\ref{lem:key} says the comparison depends on nothing else.
-
-One thing must not be done, and is not done here. The clause cannot be enforced along the way,
-because a least row can still drop and reorder the first occurrences retroactively. It is a
-property of the finished array, so it is tested in the ACCEPTING states and nowhere else.
-
-The state is therefore a column together with an ordered partition of the named values by least
-row, and there are $S=37$ of them after states with identical futures are merged. Hence
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,
-\]
-and $a$ is $C$-finite.
+Generating from Lemma~\ref{lem:idem} gives $8$ admissible $2\times2$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
@@ -133,7 +141,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 81\,a(n-2) - 143\,a(n-3) + 82\,a(n-4) + 120\,a(n-5)
+a(n)\;=\;4\,a(n-1) - 5\,a(n-2) + a(n-3) + 2\,a(n-4) - a(n-5)
 \]
 for every $n>6$.
 \end{theorem}
@@ -147,31 +155,25 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic, with no shift fitted.
+First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second --- and this is the check the whole paper turns on --- the arrays were enumerated
-directly for the smallest shapes the entry counts, in the orientation the name writes, with the
-cells listed in true row major order and each precedence tested on that list. No transposing
-and no walk. The counts agree. Reading the clause in the walk's own order instead gives
-different numbers for several entries of this family, so this check is what separates the two
-readings.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233240.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224547.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hopcroft} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to
-Automata Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

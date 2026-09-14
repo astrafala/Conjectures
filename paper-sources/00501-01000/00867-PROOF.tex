@@ -12,110 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A cross-alphabet identity for bounded-difference square arrays: OEIS A125531}
+\title{The cross-base identity for OEIS A125489, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125531 carries an empirical identity relating its counts to those of the same problem over an
-alphabet one smaller. It is true, and sharply so: the threshold the entry states is exactly the
-diameter bound of the grid graph, and the identity fails below it. The proof is four lines and
-uses no machinery.
+OEIS A125489 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A125531 is ``Number of n X n arrays with entries in 1..4 in which adjacent entries differ by 1 or less (adjacent means in x or y directions).''. It has offset $0$ and begins
+OEIS A125489 is ``Number of base 32 circular n-digit numbers with adjacent digits differing by 9 or less.''. It has offset $0$ and begins
 \[
-1, 4, 54, 3682, 1209830, 1909172038, 14441437270426, 523308354987531254,\ \dots
+1, 32, 518, 6962, 108578, 1728482, 28149368, 464599244,\ \dots
 \]
-The entry states, as a conjecture contributed by R. H. Hardin and never marked settled:
+The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base+1,n,diff)=a(base,n,diff)+F(n,diff) for base>=2.diff.(n-1) and F(n,diff)= (n=2, A063496(diff+1)) (n=3, A068744(diff+1)) (n=4, A068745(diff+1)) (n=5, A068746(diff+1)) (n=6, A068747(diff+1))
+[Empirical] a(base,n)=a(base-1,n)+F(9) for base>=9.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\textasciicircum{}(2d))\textasciicircum{}n
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 31 2012 12:35:05, revision 6)
-this is still recorded as empirical.
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:41:55, revision 12)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Notation}
-
-For integers $b\ge1$, $d\ge1$ and $n\ge1$ write $T(b,d,n)$ for the number of $n\times n$ arrays
-with entries in $\{1,\dots,b\}$ in which any two orthogonally adjacent entries differ by at
-most $d$. The entry is $T(4,1,n)$, and the conjecture is
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
+the base is $32$ and the permitted difference is $d=9$, so the claim is that
 \[
-T(b+1,d,n)\;=\;T(b,d,n)+F(n,d)\qquad\text{for } b\ \ge\ 2d(n-1),
+a_{32}(n)-a_{31}(n)\;=\;F_{9}(n)
+\qquad\text{for every } n \text{ with } 9\lfloor n/2\rfloor+1\le32,
 \]
-with $F(n,d)$ the quantity the entry tabulates through its reference sequences ($n=2$: OEIS A063496, $n=3$: OEIS A068744, $n=4$: OEIS A068745, $n=5$: OEIS A068746, $n=6$: OEIS A068747).
+that is, for $1\le n\le7$.
 
-\section{The proof}
+\section{What the entry counts}
+
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{9}$
+at base $32$ reproduces all $16$ terms A125489 publishes, and at base $31$ all the
+terms the entry one base smaller publishes.
+
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
+
+\section{The identity}
 
 \begin{theorem}
-For all $n\ge1$, $d\ge1$ and $b\ge 2d(n-1)$,
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 \[
-T(b+1,d,n)-T(b,d,n)\;=\;F(n,d),
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
-where $F(n,d)$ is the number of admissible arrays over $\mathbb{Z}$ whose maximum entry is
-$0$ --- a quantity depending on $n$ and $d$ only.
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{32}(n)-a_{31}(n)=F_{9}(n)$ for $1\le n\le7$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-\emph{Step 1.} An admissible array over $\{1,\dots,b+1\}$ either uses the value $b+1$ or
-does not, and those that do not are exactly the admissible arrays over $\{1,\dots,b\}$. So
-$T(b+1,d,n)-T(b,d,n)$ counts the admissible arrays over $\{1,\dots,b+1\}$ that use $b+1$.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
 
-\emph{Step 2.} Every admissible array satisfies $\max-\min\le 2d(n-1)$. Let $u$ attain the
-maximum and $v$ the minimum. In the grid graph on $n\times n$ cells with orthogonal adjacency
-any two cells are joined by a path of length at most $2(n-1)$ --- move along a row, then along
-a column --- and along a path of length $L$ the entry changes by at most $dL$, since each step
-is between adjacent cells.
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
 
-\emph{Step 3.} An array counted in Step 1 has maximum exactly $b+1$, so by Step 2 all of its
-entries lie in $[\,b+1-2d(n-1),\ b+1\,]$. When $b\ge 2d(n-1)$ that interval is contained in
-$\{1,\dots,b+1\}$, so the constraint ``entries in $\{1,\dots,b+1\}$'' is implied by the
-maximum and the range bound and imposes nothing further. The arrays counted in Step 1 are
-therefore in bijection --- by the translation carrying the maximum to $0$ --- with the
-admissible arrays over $\mathbb{Z}$ of maximum $0$, and that count involves no $b$.
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
+
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
 
 \begin{remark}
-The threshold is sharp, and not merely sufficient. Below it the window no longer fits and the
-identity fails: at $b=5$, $d=3$, $n=3$ the difference $T(6,3,3)-T(5,3,3)$ is $964{,}755$
-while $F(3,3)=1{,}253{,}329$.
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
 \end{remark}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the proof above.
 
-First, the count $T(4,1,n)$ was computed by an independent row-pair dynamic program and
-reproduces the $6$ published terms of A125531 that the computation reaches,
-exactly, in integer arithmetic.
+First, the model reproduces all $16$ terms A125489 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the identity was evaluated directly at the entry's own alphabet size for every $n$ the
-threshold covers, and at one $n$ beyond it, where it fails as the remark says.
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le7$, with both sides computed from the definition and not from the theorem:
 
-Third, $F(n,d)$ as computed here agrees with the entry's own reference sequences. The entry
-writes them as ``$\mathrm{A}\dots(\mathit{diff}+1)$'', and the index is positional --- the
-$(\mathit{diff}+1)$st term as listed. That reading is forced: the sequences do not share an
-offset, and only the positional reading makes $n=2$ and $n=3$ agree simultaneously.
+\begin{center}
+\begin{tabular}{rrrr}
+$n$ & $T_{9}(32,n)$ & $T_{9}(31,n)$ & $F_{9}(n)$ \\ \hline
+1 & 32 & 31 & 1 \\
+2 & 518 & 499 & 19 \\
+3 & 6962 & 6691 & 271 \\
+4 & 108578 & 103999 & 4579 \\
+5 & 1728482 & 1650331 & 78151 \\
+6 & 28149368 & 26785795 & 1363573 \\
+7 & 464599244 & 440527111 & 24072133 \\
+\end{tabular}
+\end{center}
 
-Fourth, the following table was produced by the same program and can be checked by hand at
-small $n$:
-\[
-\begin{array}{rrrr}
-n & T(4+1,1,n) & T(4,1,n) & F(n,1) \\ \hline
-1 & 5 & 4 & 1 \\
-2 & 73 & 54 & 19 \\
-3 & 5347 & 3682 & 1665 \\
-\end{array}
-\]
+\noindent and the difference of the second and third columns is the fourth at every row shown
+and at every row up to $n=7$.
 
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A125531: \url{https://oeis.org/A125531}.
-\end{thebibliography}
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
+
+\section*{References}
+\begin{enumerate}
+\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org/A125489}.
+\end{enumerate}
 
 \end{document}

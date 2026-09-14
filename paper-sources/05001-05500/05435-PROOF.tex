@@ -12,133 +12,146 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A209727}
+\title{The empirical closed form and generating function for OEIS A195002, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A209727 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
-recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
-true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
-vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
-column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the
-columns $k=1$.
+OEIS A195002 counts the lower triangles of a $6\times6$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by exactly $1$, and carries closed form and generating function recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
-\section{The table and the conjectures}
+\section{The conjecture}
 
-OEIS A209727 is ``T(n,k) = 1/4 the number of (n+1) X (k+1) 0..2 arrays with every 2 X 2 subblock having distinct clockwise edge differences.''. It has offset $1$, is
-read by antidiagonals, and begins
+OEIS A195002 is ``Number of lower triangles of a 6 X 6 0..n array with each element differing from all of its horizontal and vertical neighbors by one.''. It has offset $1$ and begins
 \[
-2, 3, 3, 4, 4, 4, 6, 5,\ \dots
+2, 4608, 31042, 81014, 138956, 199988,\ \dots
 \]
-The entry carries the following block:
-\begin{quote}\small
-Empirical for column k:\\
-k=1: a(n) = 2*a(n-2).\\
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
+\begin{quote}
+Empirical: a(n) = 61488*n - 169100 for n>8.
+
+Empirical g.f.: 2*x*(1 + 2302*x + 10914*x\^{}2 + 11769*x\^{}3 + 3985*x\^{}4 + 1545*x\^{}5 + 152*x\^{}6 + 73*x\^{}7 + 2*x\^{}8 + x\^{}9) / (1 - x)\^{}2. - \_Colin Barker\_, May 06 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 27 2020 02:30:41, revision 11) these are still
-recorded as empirical, and nothing on the entry records any of them as settled.
+As of the ``Last modified'' line on the live entry (May 06 2018 10:12:47, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{A column of the table is a walk count}
+\section{What is being counted}
 
-Fix $k$. The entry defines $T(n,k)$ as the number of arrays of a shape in which one dimension
-is $n$ and the other is determined by $k$, subject to a condition imposed on every
-$2\times2$ subblock --- a condition local to two consecutive rows and two consecutive columns.
-Substituting the fixed value of $k$ into the entry's own wording turns the definition into an
-ordinary one-parameter array count, and for such a count the rows are the vertices of a finite
-digraph $G_k$: $r\to s$ is an edge exactly when placing $s$ under $r$ satisfies the condition
-in every column pair. An admissible array is then a walk, so with $M_k$ the adjacency matrix
-of $G_k$,
+The lower triangle of a $6\times6$ array is the set of cells $(i,j)$ with $0\le j\le
+i<6$, so there are $T=21$ of them. Two cells are adjacent when they differ by one of the
+horizontal, vertical offsets, which here gives $30$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-T(n,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n}\mathbf{1}
+|x_u-x_v|=1\qquad\text{for every adjacent pair }u,v .
 \]
-for the constant $c_k$ that the entry's name supplies (a factor such as $\tfrac12$ or
-$\tfrac14$ where the name says so, and $1$ otherwise).
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{r}-\sum_i c_it^{r-i}$ be the characteristic polynomial of a conjectured
-recurrence of order $r$ for column $k$. Then for every $n\ge r$,
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
+
+\section{Translation}
+
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
 \[
-T(n,k)-\sum_i c_i\,T(n-i,k)\;=\;c_k\,\mathbf{1}^{\!\top}M_k^{\,n-r}q(M_k)\mathbf{1},
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
 \]
-so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}=0$ for every $j\ge0$; and by the
-Cayley--Hamilton theorem it is enough to check $j<S_k$, where $S_k$ is the number of vertices
-of $G_k$.
 \end{lemma}
 
 \begin{proof}
-Substitute the walk expression and factor $M_k^{n-r}$ out of $M_k^{n}-\sum_ic_iM_k^{n-i}$;
-the scalar $c_k$ is nonzero. For the bound, $M_k^{S_k}$ is an integer combination of
-$I,M_k,\dots,M_k^{S_k-1}$, so each $\mathbf{1}^{\!\top}M_k^{j}q(M_k)\mathbf{1}$ with
-$j\ge S_k$ repeats that combination of earlier values.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-\section{The computation, column by column}
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot10=10$, where $10$ is the
+diameter of the neighbour graph.
+\end{lemma}
 
-\begin{center}
-\begin{tabular}{ccccc}
-column $k$ & order & vertices $S_k$ & proved for & terms checked \\ \hline
-$1$ & $2$ & $9$ & $n>2$ & $12$ \\
-\end{tabular}
-\end{center}
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $10$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot10$.
+\end{proof}
 
-In each case the vector $w=q(M_k)\mathbf{1}$ was formed by $r$ matrix--vector products in
-exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,\dots$,
-again exactly; every one of those integers vanishes from the stated point onwards and the run
-continued until the working vector was identically zero, which settles all larger $j$ at once.
+\section{The count}
 
-\subsection*{Column $k=1$}
-The sequence is ``1/4 the number of (n+1) X (2) 0..2 arrays with every 2 X 2 subblock having distinct clockwise edge differences.''. Its rows are the vertices of a digraph on
-$S=9$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
+\begin{theorem}\label{thm:line}
 \[
-a(n)\;=\;2\,a(n-2)
+a(n)\;=\;61488\,n-169100\qquad\text{for every }n\ge9,
 \]
-holds for every $n>2$.
+and $\mathcal P$ has exactly $61488$ elements.
+\end{theorem}
+
+\begin{proof}
+For $n\ge10$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(10)$ and
+$a(10+1)$ were computed exactly, giving slope $61488$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=9$ was then read off by
+comparing it with the exact values of $a(n)$ below $10$, each computed the same way.
+\end{proof}
+
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $6+1$ of
+them --- so no array is ever written down.
+
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, each column model was compared against the entry's own published values for that
-column, taken both from the antidiagonal DATA and from the ``Table starts'' block, and agrees
-at every available term. This is what ties a model to the table: substituting $k$ into the
-entry's wording is a reading of English, and a wrong reading gives a different digraph and
-different counts. Across the columns settled here the model reproduces $12$ published
-values, $19$ decimal digits in all, every one of them exactly; a misreading of the entry
-would have to reproduce all of them by accident.
+First, the count reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, each conjectured recurrence was evaluated on those published column values in exact
-integer arithmetic, with no matrices involved, and holds wherever the proved range and the
-data overlap.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $21$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{21}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic rather than on a sampled prefix.
-
-\begin{remark}
-A table row is a column of the transposed table, so the same argument settles the entry's row
-conjectures whenever the transposed shape is itself of the form treated here. Only the columns
-the entry states explicitly, and for which enough published terms exist to run the first check
-above, are claimed.
-\end{remark}
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A209727.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195002.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

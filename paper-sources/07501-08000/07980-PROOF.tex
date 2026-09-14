@@ -12,67 +12,72 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258540, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234191, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258540 counts arrays of width $5$ over $\{0,1\}$ in which every $3\times3$ window has
-constrained SUMS along its rows, its columns and its two diagonals. The entry carries an
-empirical recurrence of order $23$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: a $3\times3$ window lies in $3$ consecutive array rows,
-so the count is a walk count on $S=1057$ states.
+OEIS A234191 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $23$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=3661$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A258540 is ``Number of (n+2)X(3+2) 0..1 arrays with no 3x3 subblock diagonal sum less than the antidiagonal sum or central row sum equal to the central column sum.''. It has offset $1$ and begins
+OEIS A234191 is ``Number of (n+2) X (1+2) 0..3 arrays with no increasing sequence of length 3 horizontally, diagonally downwards or antidiagonally downwards.''. It has offset $1$ and begins
 \[
-2520, 8836, 20736, 57600, 142544, 381924, 956736, 2496400,\ \dots
+193264, 10370036, 552870656, 29472668500, 1570546543232, 83690878669284, 4459602725105968, 237636889981332820,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +9*a(n-2) -51*a(n-3) -20*a(n-4) +275*a(n-5) -65*a(n-6) -820*a(n-7) +465*a(n-8) +1485*a(n-9) -1180*a(n-10) -1685*a(n-11) +1685*a(n-12) +1180*a(n-13) -1485*a(n-14) -465*a(n-15) +820*a(n-16) +65*a(n-17) -275*a(n-18) +20*a(n-19) +51*a(n-20) -9*a(n-21) -4*a(n-22) +a(n-23) for n>26
+Empirical: a(n) = 56*a(n-1) -119*a(n-2) -1308*a(n-3) +23400*a(n-4) -1471264*a(n-5) +2773580*a(n-6) +41183056*a(n-7) -96018000*a(n-8) +164815744*a(n-9) -481311056*a(n-10) -1789740992*a(n-11) +2706969088*a(n-12) -1995040768*a(n-13) +114872384*a(n-14) +1679949056*a(n-15) -1477492736*a(n-16) +3012214784*a(n-17) -415727616*a(n-18) +599916544*a(n-19) -1973420032*a(n-20) +234881024*a(n-21) -167772160*a(n-22) +134217728*a(n-23).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:27:54, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Mar 10 2022 20:45:06, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $5$ cells across, with entries in $\{0,1\}$. A WINDOW is a $3\times3$ block
-of consecutive cells lying inside the array. Every window must satisfy
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-\begin{array}{ll}
-\text{the sum along} & \text{} \\[2pt]
-\text{the main diagonal} & \text{must NOT be less than the sum along the antidiagonal} \\
-\text{the central row} & \text{must NOT be equal to the sum along the central column} \\
+\begin{array}{l}
+\text{along a row} \\
+\text{down an antidiagonal, ne to sw} \\
+\text{down a diagonal, nw to se} \\
 \end{array}
 \]
-where the main diagonal of a window runs from its top left corner to its bottom right, and its
-antidiagonal from top right to bottom left.
+all of them inside the array. The array is counted when no run has its entries strictly increasing.
 
-\section{The walk}
+
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
+
+\section{Every run lies in $3$ consecutive rows}
 
 \begin{lemma}\label{lem:win}
-A $3\times3$ window occupies $3$ consecutive array rows, so every condition above is
-decided by $3$ consecutive rows and by nothing else.
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
-By definition of a window.
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
 \end{proof}
 
 So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$, and a step appends a row and settles every $3\times3$ window that row completes. A
-window needing a row that is $\bot$ does not exist, which is the boundary rule; the walk starts
-at the all-$\bot$ state, so a walk of $R$ steps is an array of $R$ rows. With $M$ the adjacency
-matrix and $\tau=\mathbf{1}$,
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1057.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3661,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -97,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 9\,a(n-2) - 51\,a(n-3) - 20\,a(n-4) + 275\,a(n-5) - 65\,a(n-6) - 820\,a(n-7) + 465\,a(n-8) + 1485\,a(n-9) - 1180\,a(n-10) - 1685\,a(n-11) + 1685\,a(n-12) + 1180\,a(n-13) - 1485\,a(n-14) - 465\,a(n-15) + 820\,a(n-16) + 65\,a(n-17) - 275\,a(n-18) + 20\,a(n-19) + 51\,a(n-20) - 9\,a(n-21) - 4\,a(n-22) + a(n-23)
+a(n)\;=\;56\,a(n-1) - 119\,a(n-2) - 1308\,a(n-3) + 23400\,a(n-4) - 1471264\,a(n-5) + 2773580\,a(n-6) + 41183056\,a(n-7) - 96018000\,a(n-8) + 164815744\,a(n-9) - 481311056\,a(n-10) - 1789740992\,a(n-11) + 2706969088\,a(n-12) - 1995040768\,a(n-13) + 114872384\,a(n-14) + 1679949056\,a(n-15) - 1477492736\,a(n-16) + 3012214784\,a(n-17) - 415727616\,a(n-18) + 599916544\,a(n-19) - 1973420032\,a(n-20) + 234881024\,a(n-21) - 167772160\,a(n-22) + 134217728\,a(n-23)
 \]
-for every $n>26$.
+for every $n>20$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $23$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -113,13 +118,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and test a window as
-soon as its last cell is placed. No state, no transposition and no transfer matrix are
-involved, and the published terms came back.
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -129,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258540.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234191.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

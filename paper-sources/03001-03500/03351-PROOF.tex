@@ -12,104 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204796, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A266013, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204796 counts arrays of width $5$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the determinant---and requiring the resulting derived array to have its rows
-lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
+OEIS A266013 counts arrays of width $3$ in which every entry is equal to the NUMBER of its own
+neighbours, in named directions, that stand in a stated relation to it. The entry carries an
 empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. The row comparison is settled by three consecutive rows of the
-array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=716$
-states.
+decidable rather than empirical. The condition is self-referential but local: a cell's
+neighbours lie in the row above, its own row and the row below, so a window of three
+consecutive rows decides the condition for the middle one, and the count is a walk count on
+$S=881$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A05, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A204796 is ``Number of (n+1)X5 0..1 arrays with rows and columns of determinants of all 2X2 subblocks lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A266013 is ``Number of 3Xn integer arrays with each element equal to the number of horizontal and antidiagonal neighbors equal to itself.''. It has offset $1$ and begins
 \[
-335, 4273, 42214, 422426, 4122638, 40446826, 398104735, 3932835872,\ \dots
+1, 2, 6, 4, 11, 18, 27, 43,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -169*a(n-2) +215*a(n-3) +2942*a(n-4) -13270*a(n-5) +5608*a(n-6) +79132*a(n-7) -156472*a(n-8) -56040*a(n-9) +403184*a(n-10) -196800*a(n-11) -346880*a(n-12) +287744*a(n-13) +89088*a(n-14) -98304*a(n-15) for n>23
+Empirical: a(n) = 3*a(n-3) +2*a(n-4) +2*a(n-5) +a(n-6) -2*a(n-7) -2*a(n-8) -3*a(n-9) +2*a(n-10) +2*a(n-11) +5*a(n-12) -a(n-15) for n>19
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:31:59, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Dec 20 2015 06:59:40, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $5$ columns and a growing number of rows, with entries in $\{0,1\}$. A
-$2\times2$ subblock of such an array is
+The array has $3$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+offsets
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+(-1,0), (-1,1), (1,-1), (1,0),
 \]
-The entry attaches to $B$ the single number
+those that lie inside the array. The condition is that every entry counts its own neighbours
+that are equal to it: writing $v=x(i,j)$,
 \[
-f(B)\;=\;\det B=ps-qr,
-\]
-the determinant. An array with $R$ rows and $5$ columns has $(R-1)\times4$ subblocks, and they
-form a derived array
-\[
-D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<4 .
-\]
-Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
-$u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
-\[
-D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
-\]
-and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
-from left to right,
-\[
-D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v\} .
 \]
 
-\section{A bounded state}
+The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
+neighbours in the named directions, of which there are $4$, so every entry of the array
+lies in $\{0,1,\dots,4\}$ and the count is finite. That bound is used below and
+nothing wider is needed. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the offsets above are already the transposed ones. Each direction is taken with both signs, so transposing cannot lose one.
 
-Grow the array one row at a time. A row of $D$ is built from two consecutive rows of the array,
-so the row condition is decided three array rows at a time and needs no memory beyond the
-derived row just formed. The column condition is different: which of two columns of $D$ is the
-smaller is decided by the first derived row in which they differ, and that row can be
-arbitrarily far down. What is bounded is not the comparison but what remains open about it.
+\section{Three rows decide one}
 
-\begin{lemma}\label{lem:bits}
-Fix $j$ and suppose the derived rows $D_0,\dots,D_i$ have been written. If $D_t(j)=D_t(j+1)$ for
-every $t\le i$, then $D^{j}\;\preceq\;D^{j+1}$ holds for the finished array if and only if,
-at the first later row $t$ with $D_t(j)\neq D_t(j+1)$, the inequality $D_t(j)<D_t(j+1)$
-holds; and if no such row occurs the two columns are equal and the condition holds. If instead
-$D_t(j)\neq D_t(j+1)$ for some $t\le i$, then the comparison is already settled by the earliest
-such $t$ and no later row can change it.
+\begin{lemma}\label{lem:win}
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
+therefore decided by those three rows, an absent row contributing no neighbours.
 \end{lemma}
 
 \begin{proof}
-Immediate from the definition of the lexicographic order: it looks only at the first index at
-which the two sequences differ, and prefixes that agree contribute nothing.
+Immediate from the offsets, together with the rule that a neighbour outside the array is not a
+neighbour.
 \end{proof}
 
-So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $3$ such pairs. The state
-is therefore
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$; a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
+$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
+one step is a one-row array. And the condition for the LAST row is settled by the end vector,
+which asks whether that row satisfies its condition with nothing written below it: the end
+vector is therefore NOT the all-ones vector, and a row that counts correctly only when
+something is written below it does not finish an array. With $M$ the adjacency matrix,
 \[
-\bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 3 bits}\bigr),
-\]
-with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
-of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
-for the row condition, and for each pair still flagged either leaves the flag set (the pair
-agreed again) or clears it after checking the required inequality once. Every state may end an
-array, so $\tau=\mathbf{1}$ and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=716.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=881.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,15 +108,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 169\,a(n-2) + 215\,a(n-3) + 2942\,a(n-4) - 13270\,a(n-5) + 5608\,a(n-6) + 79132\,a(n-7) - 156472\,a(n-8) - 56040\,a(n-9) + 403184\,a(n-10) - 196800\,a(n-11) - 346880\,a(n-12) + 287744\,a(n-13) + 89088\,a(n-14) - 98304\,a(n-15)
+a(n)\;=\;3\,a(n-3) + 2\,a(n-4) + 2\,a(n-5) + a(n-6) - 2\,a(n-7) - 2\,a(n-8) - 3\,a(n-9) + 2\,a(n-10) + 2\,a(n-11) + 5\,a(n-12) - a(n-15)
 \]
-for every $n>23$.
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,14 +124,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $37$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $5$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
-the derived array formed, and its rows and its columns compared as whole words. No state, no
-bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, count each cell's neighbours satisfying the relation, and
+keep the array when every cell equals its own count. No window, no transfer matrix and no
+transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -167,9 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204796.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266013.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

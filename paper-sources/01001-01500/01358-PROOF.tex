@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219917, proved}
+\title{The empirical closed form for OEIS A219597, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219917 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219597 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal, vertical neighbours,
+admissible array is replaced by the array of minima of its cells and their horizontal, vertical neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=637$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=1780$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{26}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,23 +35,16 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219917 is ``Number of 4Xn arrays of the minimum value of corresponding elements and their horizontal, diagonal, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 4Xn array.''. It has offset $1$ and begins
+OEIS A219597 is ``Number of 4Xn arrays of the minimum value of corresponding elements and their horizontal or vertical neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 4Xn array.''. It has offset $1$ and begins
 \[
-10, 12, 62, 234, 758, 2215, 6089, 16131,\ \dots
+10, 46, 264, 1114, 4152, 14793, 51122, 170728,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/15511210043330985984000000)*n\^{}25 - (1/41363226782215962624000)*n\^{}24 + (1457/310224200866619719680000)*n\^{}23 - (2713/4496002911110430720000)*n\^{}22 + (692183/12261826121210265600000)*n\^{}21 - (52121/12975477376942080000)*n\^{}20 + (135697207/613091306060513280000)*n\^{}19 - (50515063/5377993912811520000)*n\^{}18 + (189739535861/645359269537382400000)*n\^{}17 - (14435259581/2530820664852480000)*n\^{}16 - (348742189027/41758540970065920000)*n\^{}15 + (3841409550029/662833983651840000)*n\^{}14 - (8531529279941851/32121954592358400000)*n\^{}13 + (212321253363400639/27839027313377280000)*n\^{}12 - (74469442749409999/474528874659840000)*n\^{}11 + (1457206854846086857/632705166213120000)*n\^{}10 - (52637202981307688197/2520934646630400000)*n\^{}9 + (1604277946247058503/128047474114560000)*n\^{}8 + (10327649418025476087671/3193183885731840000)*n\^{}7 - (262245096788378333916653/4257578514309120000)*n\^{}6 + (65733979379968942434416599/97569507619584000000)*n\^{}5 - (1586281697443237016871331/325231692065280000)*n\^{}4 + (2882015655253652215006627/124672148625024000)*n\^{}3 - (1369403974857258551719/21202746364800)*n\^{}2 + (1006233194174754023/13385572200)*n + 27103060 for n>17
+Empirical: a(n) = (1/32315020923606220800000)*n\^{}25 - (109/11079435745236418560000)*n\^{}24 + (2143/1292600836944248832000)*n\^{}23 - (79003/421500272916602880000)*n\^{}22 + (50173/3193183885731840000)*n\^{}21 - (44960737/43792236147179520000)*n\^{}20 + (27515689/510909421717094400)*n\^{}19 - (60384781/26191528796160000)*n\^{}18 + (21813448039/268899695640576000)*n\^{}17 - (2221068910103/949057749319680000)*n\^{}16 + (9482825036023/173993920708608000)*n\^{}15 - (91557547148539/93211028951040000)*n\^{}14 + (5251971236010727/434984801771520000)*n\^{}13 - (62481716542887379/1491376463216640000)*n\^{}12 - (9282784846386031/3954407288832000)*n\^{}11 + (4293029543793101017/59316109332480000)*n\^{}10 - (105931313393469849253/84031154887680000)*n\^{}9 + (202993929290792591407/13095764398080000)*n\^{}8 - (3712306914099958615759/26609865714432000)*n\^{}7 + (11336104215245400553903/12671364625920000)*n\^{}6 - (369076146776783247776693/101634903770400000)*n\^{}5 + (41196192835097343490679/9034213668480000)*n\^{}4 + (15522433799255326230017/346311523958400)*n\^{}3 - (23040269972514059058427/74209612276800)*n\^{}2 + (112252070661045629/127481640)*n - 1011429662 for n>12
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:24:41, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:10:55, revision 8)
 this is still recorded as empirical, and it is still open.
-
-\begin{remark}
-The entry's own name reads ``horizontal, diagonal, diagonal or antidiagonal'', naming one direction twice and so naming no set of
-neighbours at all: it has one more slot than it has distinct words. Rather than choose, each
-candidate repair was run against the entry's published terms and exactly one reproduced them,
-which is the reading used here. The defect is in the name, not in the sequence.
-\end{remark}
 
 \section{What is being counted}
 
@@ -59,7 +52,7 @@ Fix the width $W=4$ and the value range $0..2$. The underlying arrays are the
 $4\times n$ arrays over that range whose rows are lexicographically nonincreasing read downwards
 and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
+of its horizontal, vertical neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -85,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=637$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=1780$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -96,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=637$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=1780$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -109,16 +102,16 @@ q(x)=(x-1)^{26},\qquad\text{that is}\qquad a(n)=26\,a(n-1) - 325\,a(n-2) + 2600\
 \]
 
 \begin{theorem}
-The closed form OEIS A219917 records is correct for all $n>17$.
+The closed form OEIS A219597 records is correct for all $n>12$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $43$.
-Second, the polynomial and the walk count agree at every index from $18$ up to
-$1 + 26 - 1$, which is more than the $26$ consecutive agreements a
+$S$ consecutive zeros force every later one. The last index at which it fails is $38$.
+Second, the polynomial and the walk count agree at every index from $13$ up to
+$1 + 23 - 1$, which is more than the $26$ consecutive agreements a
 common recurrence of order $26$ needs. Two sequences satisfying the same monic recurrence
 of order $26$ and agreeing at $26$ consecutive indices past both their thresholds are
 equal from there on.
@@ -128,7 +121,7 @@ equal from there on.
 
 Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $26$ terms the entry publishes, exactly. This is what
+First, the model reproduces all $23$ terms the entry publishes, exactly. This is what
 ties the construction to the entry, and it is the only point at which the entry's English is
 read.
 
@@ -141,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219917.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219597.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

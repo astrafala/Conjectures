@@ -12,189 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280474, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A221687, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280474 imposes three things at once: a condition on each cell that reaches one row up and
-one row down; a global budget allowing exactly two cells to
-break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
-says the array is written in canonical form. None of the three is visible to a plain transfer
-matrix over rows. All three are handled: the state is a pair of consecutive rows
-together with the number of offending cells so far, capped at the budget; and the
-canonical-form clause is removed by counting equality patterns instead of arrays, through the
-identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
-numbers. The empirical recurrence of order $6$ contributed by R.~H.~Hardin then follows
-from a finite exact computation on $S=294$ states.
+OEIS A221687 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times2$ grid
+holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
+cell in is restricted by the direction in which another token arrives there. The entry carries
+an empirical recurrence of order $6$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. What is counted is the size of an IMAGE --- two different
+assignments of moves with the same occupancy count once --- so it is not a walk count in the
+obvious graph; determinising the machine that emits the occupancy row by row turns it into
+one, on $S=395$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A280474 is ``Number of n X 2 0..2 arrays with no element unequal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A221687 is ``Number of n X 2 arrays of occupancy after each element stays put or moves to some king-move neighbor, without consecutive moves in the same direction.''. It has offset $1$ and begins
 \[
-1, 6, 30, 158, 846, 4446, 22734, 113310,\ \dots
+3, 35, 396, 4429, 49387, 550264, 6129659, 68277335,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 15*a(n-1) - 87*a(n-2) + 245*a(n-3) - 348*a(n-4) + 240*a(n-5) - 64*a(n-6).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 13*a(n-1) - 18*a(n-2) - 29*a(n-3) - 15*a(n-4) - 12*a(n-5) - 2*a(n-6).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2019 11:19:27, revision 8) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Aug 10 2018 09:17:20, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) - 87\,a(n-2) + 245\,a(n-3) - 348\,a(n-4) + 240\,a(n-5) - 64\,a(n-6)
-\end{equation}
-for all $n>7$.
+\section{What is being counted}
 
-\section{The condition, the budget, and the canonical form}
-
-The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. With the neighbour offsets
+Every cell of an $n\times2$ grid holds one token. Each token moves by one of the offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\}
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,0), (0,1), (1,-1), (1,0), (1,1),
 \]
-as (row shift, column shift), counting only positions inside the array, call a cell
-$(t,u)$ \emph{offending} when
-\[
-2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
-\]
-The entry asks for arrays in which exactly $E=2$ cells offend.
+a move being available only when it lands inside the grid. The offset $(0,0)$ is among them: the entry lets a token stay put. The OCCUPANCY array
+records, for each cell, how many tokens land on it, and the entry counts how many different
+occupancy arrays occur as the assignment of moves runs over all its possibilities.
 
-Since $\mathcal N$ contains offsets of both signs in the row direction, a cell of row
-$t$ is judged by rows $t-1$, $t$ and $t+1$ together, so a state carrying one row is not
-enough; and the number of offending cells is a property of the whole array, so no bounded
-window sees it either. Both are fixed by the same device: states are ordered pairs of
-consecutive rows together with a running count $v\in\{0,1,\dots,2\}$, and a count that
-would exceed $2$ is simply not represented --- an array that passes it can never come back
-under it.
+The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
+cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
+$(d,d')$ when
+\begin{itemize}
+\item $d'=d$, that is, the token arriving at a cell and the token leaving it move in the same direction --- the move goes STRAIGHT THROUGH;
+\end{itemize}
+and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
+zero offset on either side of the pair carries no condition at all.
 
-The condition is stated in equalities between entries, so it is invariant under relabelling
-the values, and so is the number of offending cells. The clause ``new values introduced in
-order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
-the entry counts is admissible equality PATTERNS with at most $K=3$ classes.
+That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
+occupancy must be counted once, and a walk count over the assignments would count them twice.
 
-\begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $2$ offending
-cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
-$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
-\[
-3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
-\]
+\section{One window decides everything}
+
+Write $c_i\in\Delta^{2}$ for the row of offsets chosen by the cells of row $i$, where
+$\Delta$ is the offset set above.
+
+\begin{lemma}\label{lem:win}
+Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
+move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
+absent row is the symbol $\bot$.
 \end{lemma}
 
 \begin{proof}
-A labelled array is a pattern together with an injection of its classes into the alphabet,
-and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
-identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the
-order of summation makes the coefficient of $L_i$ equal to
-$\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which multiplied by $3!$ is
-$\binom{3}{i}D_{3-i}$, an integer.
+Every offset changes the row index by at most one, so a token landing on a cell of row $i$
+started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
+cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
+$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
+Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
+the boundary rule.
 \end{proof}
 
-\section{Each $L_i$ is a walk count}
+Each ordered pair is therefore tested exactly once, from the row of the token that makes the
+first move of the pair; every row plays that part exactly once along the array.
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{2}$, and take the triples $(p,c,v)$ with
-$p,c\in V_i$ and $0\le v\le2$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
-of offending cells in the row $b$ when $a$ lies above it and $x$ below (either may be
-absent, in which case the corresponding neighbours simply do not exist). Declare
+Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
+cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
+assignment $c_1,\dots,c_n$ is
 \[
-(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
+\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
 \]
-an edge whenever the new count is at most $2$. Let $\mathbf{s}_i$ mark the vertices with
-$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
-$v+\mathrm{viol}(c\mid p,\text{--})=2$.
 
-\begin{lemma}\label{lem:walk}
-For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
-adjacency matrix of that digraph.
-\end{lemma}
+\section{The image is a walk count after determinisation}
 
-\begin{proof}
-Consecutive vertices overlap in one row, so a walk of length $L-2$ is exactly a sequence
-of $L$ rows, that is, an array. Along it, the cells of row $t$ for $2\le t\le L-1$ are
-judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
-those of row $1$ are judged by $\mathbf{s}_i$ with no row above, and those of row
-$L$ by $\mathbf{e}_i$ with no row below. Hence the running count is the number of
-offending cells among the rows judged so far, and the walk exists exactly when that total
-never exceeds $2$; since the total only grows, that is implied by the final value being
-$2$, which $\mathbf{e}_i$ imposes.
-\end{proof}
+Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
+\[
+\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
+f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+\]
+and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
+set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
+that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
+occupancy row it admits,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
+\]
+The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
+is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
+$S=395$ reachable sets. In particular $a$ is $C$-finite.
 
-Assembling the $3$ chains block-diagonally into $N$ of size $S=294$ with the weights of
-Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
-$\mathbf{u}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
-\end{equation}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{6}-\sum_i c_i\,t^{6-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge6$
-\[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-6}w,
-\qquad w=h_{6}-\sum_i c_i h_{6-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{6}-\sum_i c_it^{6-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
-makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
-that combination of earlier ones.
+Factor $M^{j}$ out of $M^{j+6}-\sum_ic_iM^{j+6-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>7$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;13\,a(n-1) - 18\,a(n-2) - 29\,a(n-3) - 15\,a(n-4) - 12\,a(n-5) - 2\,a(n-6)
+\]
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definitions above. The vector $w$ was formed by
-$6$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=7+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $6$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being
-$L=n$ from the entry's own name and the offset saying which index the first published
-term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
-Lemma~\ref{lem:inv} would change the counts and be rejected here.
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the count was recomputed for the smallest grids straight from the definition ---
+enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
+pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
+written out from the entry's wording rather than taken from the model. The published terms
+came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280474.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221687.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
+construction, Section 2.3.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220191, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A222381, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220191 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
-$\{0,\dots,2\}$ by marking the cells whose value is equal to at least half of their neighbours, and carries an
+OEIS A222381 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,2\}$ by marking the cells whose value is congruent modulo 3 to the sum of their neighbours, and carries an
 empirical recurrence of order $7$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=13$ states, after which the conjectured
+indicator row by row turns it into one, on $S=15$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,15 +32,15 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220191 is ``Majority value maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to at least half of their king-move neighbors in a random 0..2 n X 2 array.''. It has offset $1$ and begins
+OEIS A222381 is ``Sum of neighbor maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to the sum mod 3 of their horizontal and antidiagonal neighbors in a random 0..2 n X 2 array.''. It has offset $1$ and begins
 \[
-2, 6, 25, 88, 297, 1009, 3464, 11908,\ \dots
+2, 16, 64, 232, 1024, 4096, 16224, 65536,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + 2*a(n-2) + 8*a(n-3) + 2*a(n-4) + 16*a(n-5) + 2*a(n-6) + 6*a(n-7) for n>10.
+Empirical: a(n) = 4*a(n-1) + 8*a(n-3) - 32*a(n-4) - 16*a(n-6) + 64*a(n-7).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 13 2018 11:13:18, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Mar 15 2018 06:46:16, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -48,11 +48,11 @@ recorded as empirical, and nothing on the entry records it as proved.
 Let $R=\{0,\dots,2\}^{2}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
 those falling outside the array being simply absent. For an array
 $A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
-is equal to at least half of its neighbours. The entry counts
+is congruent modulo 3 to the sum of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -112,7 +112,7 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=13$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=15$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
@@ -136,23 +136,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 8\,a(n-3) + 2\,a(n-4) + 16\,a(n-5) + 2\,a(n-6) + 6\,a(n-7)
+a(n)\;=\;4\,a(n-1) + 8\,a(n-3) - 32\,a(n-4) - 16\,a(n-6) + 64\,a(n-7)
 \]
-for every $n>10$.
+for every $n>7$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=10$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=7+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220191.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A222381.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)
