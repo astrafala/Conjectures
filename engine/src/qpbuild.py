@@ -304,11 +304,17 @@ threshold up, and the run of zeros it uses lies entirely above the transient.
     if en == 'galcoord':
         # the sweep's record does not carry the orbit count, so it is recovered from the
         # model rather than left blank -- the paper names it in its first section
+        # The orbit count is not in the sweep's record, so it is recovered from the model --
+        # but through `galfit` alone. Going through `galcoord.build` re-ran the whole-lattice
+        # certificate AND the Ehrhart fit a second time, purely to count a list: three papers
+        # took twenty-five minutes to write.
         classes = h.get('classes')
         if not classes:
             import galcoord as _gc
-            _b = _gc.build(_gc.parse_name(e['name']))
-            classes = len(_b['planes']) if _b else '?'
+            import galfit as _gf
+            _p = _gc.parse_name(e['name'])
+            _d, _why = _gf.data(_p['u'], _p['t'], _p['v'], radius=_gc.RADIUS)
+            classes = _d['classes'] if _d else '?'
         return rf"""
 \section{{The tiling, the lattice, and the distance}}
 

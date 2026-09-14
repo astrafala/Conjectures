@@ -56,7 +56,15 @@ def parse_line(L, bare=False):
                   r'Formula|Offset)\b.*$', '', body, flags=re.I)
     body = re.sub(r'\.\s*\(End\)\s*$', '', body).strip().rstrip('.')
     claimed = None
-    m2 = re.search(r'\bfor\s+n\s*(>=|>)\s*(\d+)\s*$', body)
+    # The range is written two ways and only one was read:
+    #
+    #     a(n) = 16*7^n for n>3          <- read
+    #     a(n) = 19*4^(n-2) - 16*3^(n-3) + 1, n>2      <- not read
+    #
+    # In the second the ", n>2" stayed in the body, sympify returned a TUPLE, and the entry was
+    # refused as "no readable closed form". Eight entries in the name-readable pool are written
+    # that way, every one an exponential closed form on a cellular-automaton engine.
+    m2 = re.search(r'(?:\bfor\s+|,\s*)n\s*(>=|>)\s*(\d+)\s*$', body)
     if m2:
         claimed = int(m2.group(2)) + (0 if m2.group(1) == '>' else -1)
         body = body[:m2.start()].strip().rstrip(',').rstrip('.')
