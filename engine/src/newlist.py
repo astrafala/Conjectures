@@ -39,7 +39,12 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # the cross-base identity on the circular-digit family: its own vein, its own file
             'circbase_hits.json', 'gridbase_hits.json',
             # and the same claim on the linear digit-string family
-            'linbase_hits.json'):
+            'linbase_hits.json',
+            # the conjecture that is not in the entry: the recurrence or polynomial the entry
+            # defers to a linked a-file. Its own sweep, its own files.
+            'linkrec_hits*.json', 'linkpoly_hits.json',
+            # the closed-form pool rebuilt from the clone, after the hand-made one went stale
+            'cfpool_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:
