@@ -82,7 +82,7 @@ def _parse(body):
     return A if A.has(x) else None
 
 
-def read(e):
+def read(e, _depth=0):
     """the g.f. as a sympy expression in x, or None."""
     for L in e['formula'] + e['comment']:
         t = ' '.join(L.split())
@@ -151,6 +151,47 @@ def read(e):
         A = implicit(body, d, off)
         if A is not None:
             return A
+    # a g.f. written in terms of ANOTHER sequence's g.f., cited by A-number
+    if not _depth:
+        for L in e['formula'] + e['comment']:
+            t = ' '.join(L.split())
+            if CONJ.search(t):
+                continue
+            m = GF.match(t)
+            if not m:
+                continue
+            body = ATTR.sub('', m.group(1)).strip().rstrip(';').rstrip('.')
+            sub = cited(body)
+            if not sub:
+                continue
+            main = re.split(r',?\s+where\b|,\s*(?=[A-Za-z]\s*\([xz]\)\s*g\.f\.)',
+                            body, maxsplit=1)[0].strip().rstrip(',')
+            # "6/(...)=1/(1-2*x-x*F(x))": the entry gives two equal forms; the one naming the
+            # cited symbol is the one this path is for
+            for part in reversed(main.split('=')):
+                part = LEAD.sub('', part.strip())
+                if not part or not any(k in part for k in sub):
+                    continue
+                loc = {'x': x, 'z': x, 'sqrt': sp.sqrt}
+                loc.update(sub)
+                # `S(-x)` is COMPOSITION, not a product: the cited g.f. evaluated at -x.
+                # Treating it as multiplication -- which is what the corpus's implicit
+                # notation looks like everywhere else -- silently gives a different function.
+                ss, extra = _apply(_implicit(part), sub)
+                if ss is None:
+                    continue
+                loc = dict(loc)
+                loc.update(extra)
+                if set(re.findall(r'[A-Za-z]\w*', ss)) - set(loc) - {'sqrt'}:
+                    continue
+                try:
+                    A = sp.sympify(ss, locals=loc)
+                except Exception:
+                    continue
+                if A.free_symbols - {x} or not A.has(x):
+                    continue
+                if _series_ok(A, d, off):
+                    return A
     return from_name(e)
 
 
@@ -256,3 +297,101 @@ def implicit(body, data, offset):
         if _series_ok(A, data, offset):
             return A
     return None
+
+
+# ---------------------------------------------------------------------------
+# 146 of the entries this reader refuses cite ANOTHER sequence's generating function:
+#
+#     G.f.: (1-x*S(-x))*x*S(-x), where S(x) is the g.f. of the large Schroeder numbers A006318.
+#     G.f.: c(x)B(x)/(1+x), c(x) g.f. of A000108, B(x) g.f. of A000984.
+#
+# A hand table would reach the common ones and stop. `of` resolves the reference properly: the
+# standard table first, then the cited entry's OWN g.f. read by this same module. Either way
+# the result is verified against the CITED entry's published terms before it is used, so a
+# wrong table row or a misparsed reference cannot become the premise of a proof -- which is
+# the whole lesson of A116388.
+#
+# Depth 1 only. A chain of citations is a chain of opportunities to be wrong, and there is no
+# evidence in this pool that it would pay.
+
+REF = re.compile(
+    r'\b([A-Za-z])\s*(?:\(\s*[xz]\s*\))?\s*(?:=|is)?\s*(?:the\s+)?(?:o\.)?g\.f\.\s*'
+    r'(?:of|for)?\s*(?:the\s+)?(?:[a-z\s]{0,40}?)\b(A\d{6})\b', re.I)
+
+
+def of(anum, _depth=0):
+    """the algebraic g.f. of `anum`, verified against its own published terms, or None"""
+    A = standard(anum)
+    if A is not None:
+        return A
+    if _depth:
+        return None
+    import localentry as _LE
+    e = _LE.get(anum)
+    if not e:
+        return None
+    A = read(e, _depth=1)
+    if A is None:
+        return None
+    d = [int(v) for v in e['data'].split(',') if v.strip()]
+    off = int(e['offset'].split(',')[0])
+    return A if _series_ok(A, d, off) else None
+
+
+def _apply(s, sub):
+    """substitute each cited g.f. where it is APPLIED: S(-x) -> (S with x replaced by -x).
+
+    Returns (string, extra locals). The substituted VALUE is carried out of band, as a fresh
+    placeholder symbol per occurrence -- named gph1, gph2, ... and NOT _c1, because the
+    leftover-name check scans for `[A-Za-z]\\w*` and reads `_c1` as `c1`, which is in no
+    locals table and rejected every line this path produced. It was: round-tripping it back through a string introduced
+    sympy's own constructor names -- Symbol, Add, Rational -- into the expression, and the
+    leftover-name check that keeps foreign functions out then rejected every line this path
+    was built to read.
+    """
+    extra = {}
+    k = 0
+    for name, A in sub.items():
+        while True:
+            m = re.search(r'\b%s\s*\(' % re.escape(name), s)
+            if not m:
+                break
+            i = m.end() - 1
+            depth, j = 0, i
+            while j < len(s):
+                if s[j] == '(':
+                    depth += 1
+                elif s[j] == ')':
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if j >= len(s):
+                return None, None
+            arg = s[m.end():j]
+            try:
+                val = A.subs(x, sp.sympify(arg, locals={'x': x, 'z': x, 'sqrt': sp.sqrt}))
+            except Exception:
+                return None, None
+            k += 1
+            ph = f'gph{k}'
+            extra[ph] = val
+            s = s[:m.start()] + ph + s[j + 1:]
+        # a bare mention with no argument means the g.f. in x
+        if re.search(r'\b%s\b' % re.escape(name), s):
+            k += 1
+            ph = f'gph{k}'
+            extra[ph] = A
+            s = re.sub(r'\b%s\b' % re.escape(name), ph, s)
+    return s, extra
+
+
+def cited(body):
+    """{symbol: expression} for every 'S(x) is the g.f. of A######' in the line, or None"""
+    out = {}
+    for sym, anum in REF.findall(body):
+        A = of(anum)
+        if A is None:
+            return None
+        out[sym] = A
+    return out or None

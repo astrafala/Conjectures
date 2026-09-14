@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A240461, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A240342, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240461 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
+OEIS A240342 counts arrays over $\{0,1,2,3\}$ in which no entry may equal, modulo $4$, a given
 constant plus the SUM of all the entries lying before it along one of several rays. The entry
 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is true, and
 it is decidable rather than empirical. None of those sums is bounded and none is local, but
@@ -31,15 +31,15 @@ count is then a walk count on $S=16$ states.
 
 \section{The conjecture}
 
-OEIS A240461 is ``Number of 2 X n 0..3 arrays with no element equal to one plus the sum of elements to its left or three plus the sum of the elements above it or one plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
+OEIS A240342 is ``Number of n X 2 0..3 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of elements above it or three plus the sum of the elements diagonally to its northwest, modulo 4.''. It has offset $1$ and begins
 \[
-5, 21, 89, 375, 1583, 6685, 28241, 119319,\ \dots
+4, 18, 78, 334, 1418, 6002, 25374, 107230,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 6*a(n-1) - 7*a(n-2) - 4*a(n-3) + 8*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 29 2018 05:03:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 27 2018 08:13:45, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,9 +49,9 @@ rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
 \begin{array}{lll}
 \text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
-\text{west} & (i,j-1),(i,j-2),\dots & 3 \\
+\text{west} & (i,j-1),(i,j-2),\dots & 1 \\
 \text{north} & (i-1,j),(i-2,j),\dots & 1 \\
-\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 1 \\
+\text{northwest} & (i-1,j-1),(i-2,j-2),\dots & 3 \\
 \end{array}
 \]
 Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
@@ -60,35 +60,35 @@ inside the array, the condition is
 x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{4}
 \]
 for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
-zero. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column and the roles of the west and north rays are exchanged. The northwest ray is carried to itself by that exchange.
+zero.
 
 \section{The rays as a bounded state}
 
-Take the array one $column$ at a time, in the direction in which it grows, and index the
-positions of a $column $ by $p$. Let $x$ be the $column$ just written.
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
 
 \begin{lemma}\label{lem:rays}
-Along the $column$s, the 3 ray sums named by this entry satisfy
+Along the $row$s, the 3 ray sums named by this entry satisfy
 \[
 \begin{aligned}
-\Sigma_{\mathrm{north}}\ &\text{is the running total inside the current column},\\
-U'[p]&=U[p]+x[p], &&\text{the west ray, per position},\\
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position},\\
 NW'[p]&=NW[p-1]+x[p-1], && NW'[0]=0 .
 \end{aligned}
 \]
 \end{lemma}
 
 \begin{proof}
-Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $column$
-moves a cell one step along the west ray, one step along the northwest ray together with one
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
 position to the right, and one step along the northeast ray together with one position to the
 left; in each case exactly the cell just left behind is the new term. At the border of the
 array the diagonal rays are empty, which is the stated boundary value.
 \end{proof}
 
 Reduced modulo $4$ these vectors take finitely many values, so they are a state, and one step
-of the walk writes a whole $column$: the position $p$ is filled left to right and the
-running total of the north ray is carried along as it is filled, so every cell is tested
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
 against every ray at the moment it is written. The walk starts at the all-zero state, the empty
 array, and every state may end one, so $\tau=\mathbf{1}$ and
 \[
@@ -149,7 +149,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240461.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A240342.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

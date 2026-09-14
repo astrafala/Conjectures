@@ -11,180 +11,125 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A000180}
+
+\title{The empirical recurrence for OEIS A233152, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{30 August 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A000180 carries a conjectured linear recurrence with polynomial coefficients, of
-order 2. The entry gives no generating function, but it does give the sequence as
-a hypergeometric sum. Creative telescoping produces, from the summand alone, a certificate
-identity that is checked exactly rather than trusted. What it does not produce here is a
-homogeneous recurrence: the summand does not vanish at the ends of the range, and the range
-itself moves with $n$, so summing the certificate leaves boundary and range-correction
-terms. We keep them. They are a finite, explicit expression $h(n)$, and the result is an
-inhomogeneous recurrence $\sum_{i}\sigma_{i}(n)a(n+i)=h(n)$. Since $h$ is a hypergeometric term, the first-order operator $M=N-h(n+1)/h(n)$ annihilates it, and $ML$ annihilates $a$. The conjectured
-operator is then shown to be a left multiple of the resulting annihilator by division in
-the Ore algebra $\mathbb{Q}(n)[N]$.
+OEIS A233152 counts arrays over $\{0,\dots,2\}$ in which no two entries that are neighbours in
+a named set of directions may sum to $2$, together with clauses that pick one array out of
+each class of arrays differing by a renaming. The entry carries an empirical recurrence of
+order $2$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: the clash condition is local to two consecutive rows and the renaming clauses are
+carried by one bounded piece of extra state, so the count is a walk count on $S=3$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A000180 is ``Expansion of E.g.f. exp(-x)/(1-3x)''. It has offset $0$ and begins
+OEIS A233152 is ``Number of n X 5 0..2 arrays with no element x(i,j) adjacent to value 2-x(i,j) horizontally or antidiagonally.''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 2, 13, 116, 1393, 20894, 376093, 7897952,\ \dots
+48, 648, 8856, 121176, 1658232, 22692312, 310536504, 4249585944,\ \dots
 \]
-The entry states, not as a conjecture,
-\begin{quote}\small
-a(n) = Sum\emph{\{k=0..n\} (-1)\^{}(n+k)*binomial(n,k)*k!*3\^{}k. - }Benoit Cloitre\_, Nov 02 2003
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 15*a(n-1) - 18*a(n-2).
 \end{quote}
-so that, writing $F(n,k)$ for the summand,
-\begin{equation}\label{eq:sum}
-a(n)\;=\;\sum_{k=0}^{n}F(n,k),
-\qquad F(n,k)=\left(-1\right)^{k + n} 3^{k} {\binom{n}{k}} k! .
-\end{equation}
-This is the only input the proof takes from the entry, and it was checked against the
-entry's own DATA before use.
+As of the ``Last modified'' line on the live entry (Oct 08 2018 10:20:16, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-The entry separately carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} (n+1)*a(n) -(n+1)*(3*n-1)*a(n-1) -3*(n-1)*(n+1)*a(n-2) = 0. - \emph{R. J. Mathar}, Jul 24 2012
-\end{quote}
-As of the ``Last modified'' line on the live entry (2026-07-11, revision 69) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+\section{What is being counted}
 
-\section{Telescoping over a range that does not cooperate}
-
-Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
-in $k$. Creative telescoping looks for rational functions
-$\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero, and a rational $R(n,k)$ with
-\begin{equation}\label{eq:cert}
-\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
-\end{equation}
-Divided through by $F(n,k)$ this is an identity between rational functions, because the
-quotients $F(n+i,k)/F(n,k)$ and $F(n,k+1)/F(n,k)$ are rational; so a proposed pair
-$(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it. For A000180 such a pair
-exists with $r=1$:
+The array is $5$ cells across with entries $x(i,j)\in\{0,1,2\}$. Call two values $u,v$ CLASHING
+when $u+v=2$. Two cells are neighbours when one is obtained from the other by one of
+the offsets
 \[
-\sigma_{0}(n)=3,\qquad \sigma_{1}(n)=- \frac{1}{n + 1},
-\qquad
-R(n,k)\;=\;\frac{1}{k - n - 1} .
+(0,1), (1,-1),
 \]
+that is, in the horizontal and antidiagonal (ne--sw) directions, and the condition is that no two neighbouring cells carry
+clashing values. The clash relation is symmetric, so an offset and its negative name the
+same pairs and only one of each is listed.
 
-The usual next step sums \eqref{eq:cert} over all $k$ and concludes
-$\sum_{i}\sigma_{i}(n)a(n+i)=0$. That step needs $F(n,k)$ to vanish for every $k$ outside
-the range in \eqref{eq:sum}, and here it does not. Summing over a finite window therefore
-leaves something behind, and the point of this note is that what it leaves behind is
-computable.
+\section{The walk}
 
-\begin{proposition}\label{prop:inhom}
-Let $L_{0}$ and $H_{0}$ be the lower and upper summation limits in \eqref{eq:sum}, each
-non-decreasing in $n$, and put $L=L_{0}(n)$ and $H=H_{0}(n+r)$, so that the window
-$L\le k\le H$ contains the range of every $a(n+i)$, $0\le i\le r$. Write
-$G(n,k)=R(n,k)F(n,k)$ and suppose $G$ is finite at every integer $k$ in $[L,H+1]$. Then
+Every offset above moves the row index by at most one, so a clash is a condition on two
+consecutive array rows and on nothing else.
+
+So a single array row is a state. A step appends a row, which settles every clash between it
+and the row above and every clash inside it. Two states from which, for every remaining length,
+the same number of arrays can be completed contribute identically to the count, so they are
+identified; after that identification there are $S=3$ of them.
+
+With $\iota$ the indicator of the states that may begin an array and $\tau=\mathbf{1}$,
 \[
-\sum_{i=0}^{r}\sigma_{i}(n)\,a(n+i)\;=\;h(n),
-\qquad
-h(n)\;=\;G(n,H+1)-G(n,L)\;-\;\sum_{i=0}^{r}\sigma_{i}(n)\!\!\!
-\sum_{\substack{L\le k\le H\\ k\notin[L_{0}(n+i),\,H_{0}(n+i)]}}\!\!\! F(n+i,k).
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau .
 \]
-\end{proposition}
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
-\begin{proof}
-Sum \eqref{eq:cert} over $k=L,\dots,H$. The right-hand side telescopes to
-$G(n,H+1)-G(n,L)$, every intermediate value being finite by hypothesis. On the left,
-$\sum_{k=L}^{H}F(n+i,k)$ differs from $a(n+i)=\sum_{k=L_{0}(n+i)}^{H_{0}(n+i)}F(n+i,k)$
-exactly by the terms of the window that lie outside that sequence's own range, which is the
-inner sum above. Rearranging gives the statement; both correction ranges are finite because
-$L_{0}$ and $H_{0}$ are non-decreasing and $i\le r$.
-\end{proof}
+\section{The proof}
 
-For A000180 this gives
-\begin{equation}\label{eq:h}
-h(n)\;=\;\frac{\left(-1\right)^{n}}{n + 1} .
-\end{equation}
-
-\section{Clearing the inhomogeneity, and dividing}
-
-The inhomogeneity \eqref{eq:h} is a hypergeometric term: its shift quotient is
-\[
-\frac{h(n+1)}{h(n)}\;=\;\frac{- n - 1}{n + 2},
-\]
-a rational function of $n$. Hence $M=N-h(n+1)/h(n)$ satisfies $M(h)=0$, and writing $L_{0}=\sum_{i}\sigma_{i}(n)N^{i}$ for the telescoped operator, Proposition~\ref{prop:inhom} reads $L_{0}(a)=h$, so
-\[
-L\;=\;ML_{0}\quad\text{satisfies}\quad L(a)=M\bigl(L_{0}(a)\bigr)=M(h)=0 .
-\]
-One extra order buys the homogeneity. Explicitly, $L=\left(\frac{3 n + 3}{n + 2}\right) + \left(\frac{3 n + 5}{n + 2}\right)\,N + \left(- \frac{1}{n + 2}\right)\,N^{2}$.
-
-\begin{lemma}\label{lem:factor}
-If $C=QL$ in $\mathcal{A}=\mathbb{Q}(n)[N]$, where $N\,q(n)=q(n+1)\,N$, and $L(a)=0$, then
-$C(a)=0$ at every $n$ where the coefficients of $Q$ are defined.
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$, and the coefficients of $Q$ are rational functions
-of $n$, so the step is valid away from their poles.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
-Writing the conjectured recurrence as an operator $C$ and dividing by $L$ on the right
-leaves remainder $0$, with quotient
-\[
-Q\;=\;\left(- n^{2} - 5 n - 6\right) .
-\]
-No coefficient of $Q$ has an integer pole, so Lemma~\ref{lem:factor} applies at every index.
-
 \begin{theorem}
-The conjectured recurrence
 \[
-(n + 1)\,a(n) -  \left(n + 1\right) \left(3 n - 1\right)\,a(n-1) -  3 \left(n - 1\right) \left(n + 1\right)\,a(n-2) \;=\;0
+a(n)\;=\;15\,a(n-1) - 18\,a(n-2)
 \]
-holds for every $n\ge2$.
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-Proposition~\ref{prop:inhom} gives the inhomogeneous recurrence, the operator $L$ of the
-previous section annihilates $a$, and Lemma~\ref{lem:factor} applied to $C=QL$ carries that
-to the conjectured operator. No coefficient of $Q$ has an integer pole.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=2+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and four
-independent checks were run.
+Four checks, each independent of the algebra above.
 
-First, the certificate was verified rather than trusted: \eqref{eq:cert} was divided by
-$F(n,k)$ and the difference of the two sides cancelled to $0$ as a rational function of $n$
-and $k$.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second --- and this is the check that matters most here, because the boundary bookkeeping
-is where such an argument goes wrong --- the inhomogeneous recurrence of
-Proposition~\ref{prop:inhom} was evaluated on the entry's own terms: for each $n$ in range
-the left side was formed from the published values and compared against \eqref{eq:h}, and
-the two agreed exactly. An error in the correction terms would not survive this.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and test each clause
+the moment it can be tested. No transfer matrix, no transposition and no state are involved,
+and the published terms came back.
 
-Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
-$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the conjecture itself was evaluated on the published terms, in exact integer
-arithmetic and without reference to any operator: for each $n$ in range the sum
-$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
-all 16 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
-likewise checked term by term against the DATA section before being used.
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A000180.
-\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
-1996.
-\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
-Comput. 11 (1991), 195--204.
-\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
-(1933), 480--508.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233152.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}
