@@ -12,7 +12,7 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A158690 modulo $k$:\\ a proof that the period divides
+\title{The reduction of OEIS A079144 modulo $k$:\\ a proof that the period divides
 $\varphi(k)$}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
@@ -20,7 +20,7 @@ $\varphi(k)$}
 \maketitle
 
 \begin{abstract}
-OEIS A158690 carries a conjecture of P.~Bala that for every positive integer $k$ the
+OEIS A079144 carries a conjecture of P.~Bala that for every positive integer $k$ the
 sequence reduced modulo $k$ is eventually periodic with period dividing $\varphi(k)$.
 It is true. The entry's own exponential generating function becomes, under the
 substitution $t=e^{x}-1$, an ordinary power series with \emph{integer} coefficients;
@@ -36,27 +36,27 @@ prime factorisation of $k$.
 
 \section{The sequence and the conjecture}
 
-OEIS A158690 is ``Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + (1 - exp(-t))*(1 - exp(-3*t))*(1 - exp(-5*t)) + ... as a series in t.''. It has offset $0$ and begins
+OEIS A079144 is ``Number of labeled interval orders on n elements: (2+2)-free posets.''. It has offset $0$ and begins
 \[
-1, 1, 5, 55, 1073, 32671, 1431665, 85363615,\ \dots
+1, 1, 3, 19, 207, 3451, 81663, 2602699,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + ...
+a(n) = Sum\_{k=0..n} k!*Stirling2(n,k)*A138265(k).
 \end{quote}
 that is, writing $A(x)=\sum_{n\ge 0}a(n)x^{n}/n!$,
 \begin{equation}\label{eq:egf}
-A(x)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-e^{-(2k-1)x}\Bigr).
+A(x)\;=\;\sum_{k\ge 0} k!\,S(n,k)\,b(k),\quad b=\text{A138265}.
 \end{equation}
 This is the only input taken from the entry, and it was checked against every one of the
-$15$ terms of the entry's DATA section before use, not against a sample.
+$17$ terms of the entry's DATA section before use, not against a sample.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture} 1) Taking the sequence modulo an integer k gives an eventually periodic sequence with period dividing phi(k). For example, the sequence taken modulo 16 begins [1, 1, 5, 7, 1, 15, 1, 15, 1, 15, 1, 15, ...] with an apparent pre-period of length 4 and a period of length 2. --- \emph{Peter Bala}, Dec 18 2021
+\textbf{Conjecture} 1) Taking the sequence modulo an integer k gives an eventually periodic sequence with period dividing phi(k). For example, the sequence taken modulo 8 begins [1, 1, 3, 3, 7, 3, 7, 3, 7,  ...] and appears to have a pre-period of length 3 and a period of length 2 = (1/2)*phi(8). --- \emph{Peter Bala}, Dec 26 2021
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 05 2022 13:53:39, revision
-46) the statement is still recorded as a conjecture, and nothing on the entry
+As of the ``Last modified'' line on the live entry (May 30 2026 16:40:09, revision
+71) the statement is still recorded as a conjecture, and nothing on the entry
 records it as settled either way.
 
 Written out, the conjecture asserts: for every integer $k\ge 1$ there are $n_0$ and a
@@ -71,12 +71,12 @@ the prime factorisation of $k$.
 
 Set $t=e^{x}-1$. Then $e^{x}=1+t$, and substituting into \eqref{eq:egf},
 \[
-e^{-(2k-1)x}=(1+t)^{-(2k-1)},
+e^{x}-1=t,
 \]
 so that
 \begin{equation}\label{eq:G}
 A(x)\;=\;G\bigl(e^{x}-1\bigr),\qquad
-G(t)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-(1+t)^{-(2k-1)}\Bigr).
+G(t)\;=\;\sum_{k\ge 0} b(k)\,t^{k},\qquad b=\text{A138265}.
 \end{equation}
 
 \begin{lemma}\label{lem:int}
@@ -84,13 +84,13 @@ $G$ is a power series in $t$ with integer coefficients.
 \end{lemma}
 
 \begin{proof}
-$G$ is each factor $1-(1+t)^{-(2k-1)}$ is an integer series with zero constant term, so the $n$-th product is divisible by $t^{n}$ and only finitely many terms of the sum affect any one coefficient.
+$G$ is a power series whose coefficients are the terms of the integer sequence A138265.
 \end{proof}
 
-Write $G(t)=\sum_{j\ge0}c_j t^{j}$, so $c_j\in\mathbb{Z}$; here $c_j = 1, 1, 5, 23, 137, \dots$, and the
+Write $G(t)=\sum_{j\ge0}c_j t^{j}$, so $c_j\in\mathbb{Z}$; here $c_k=b(k)$, the terms of A138265, and the
 first few are
 \[
-c_0,\dots,c_8 \;=\; 1, 1, 2, 7, 33, 197, 1419, 11966, 115575.
+c_0,\dots,c_8 \;=\; 1, 1, 1, 2, 5, 16, 61, 271, 1372.
 \]
 
 \section{The Stirling expansion, and what survives modulo $k$}
@@ -169,7 +169,7 @@ The two congruences and the Chinese remainder theorem give the claim modulo $k=k
 \end{proof}
 
 \begin{theorem}\label{thm:main}
-Let $a(n)$ be OEIS A158690. For every integer $k\ge1$,
+Let $a(n)$ be OEIS A079144. For every integer $k\ge1$,
 \[
 a\bigl(n+\varphi(k)\bigr)\;\equiv\;a(n)\pmod{k}\qquad\text{for all } n\ge v(k),
 \]
@@ -198,7 +198,7 @@ term $i=p$ contributes $p^{n}$, which is not divisible by $p^{e}$ until $n=e=v(k
 Three checks, each independent of the algebra above.
 
 First, the series $G$ of \eqref{eq:G} was expanded and $\sum_j c_j j! S(n,j)$ compared
-against the entry's DATA at every one of the $15$ published indices; the values
+against the entry's DATA at every one of the $17$ published indices; the values
 agree exactly, and every $c_j$ came out an integer. A series that reproduced only some of
 the published terms would not have been used.
 
@@ -214,7 +214,7 @@ In every case the period divides $\varphi(k)$, as Theorem~\ref{thm:main} require
 $k$ & $\varphi(k)$ & period & $k$ & $\varphi(k)$ & period \\ \hline
 $2$ & $1$ & $1$ & $22$ & $10$ & $10$ \\
 $3$ & $2$ & $2$ & $23$ & $22$ & $22$ \\
-$4$ & $2$ & $2$ & $24$ & $8$ & $2$ \\
+$4$ & $2$ & $1$ & $24$ & $8$ & $2$ \\
 $5$ & $4$ & $4$ & $25$ & $20$ & $20$ \\
 $6$ & $2$ & $2$ & $26$ & $12$ & $12$ \\
 $7$ & $6$ & $6$ & $27$ & $18$ & $18$ \\
@@ -241,7 +241,7 @@ for which both indices are published; it holds without exception.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A158690.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A079144.
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.

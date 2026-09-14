@@ -12,84 +12,129 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A225022, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A214145, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225022 counts the $(n+1)\times4$ matrices over $\{0,\dots,2\}$ all of whose
-$2\times2$ contiguous subblocks are of equal permanent, and carries an empirical recurrence of order
-$36$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition ties together $2$ consecutive rows and $2$ consecutive columns at once, so a
-single row is not a state; the strip of the last $1$ rows is, and the admissible strips
-are read off the overlap graph of the admissible windows instead of being enumerated. That
-makes $a(n)$ a walk count on $S=196$ vertices, hence $C$-finite, and whether the conjectured
-recurrence annihilates it is settled by a finite exact computation.
+OEIS A214145 counts the proper colourings of a grid $4\times(n+1)$, wrapped in the growing direction, with at most $5$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $37$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=1487$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
 \section{The conjecture}
 
-OEIS A225022 is ``Number of (n+1)X4 0..2 matrices with each 2X2 permanent equal.''. It has offset $1$ and begins
+OEIS A214145 is ``Number of 0..4 colorings of a 4X(n+1) array circular in the n+1 direction with new values 0..4 introduced in row major order.''. It has offset $1$ and begins
 \[
-759, 12641, 117959, 1930229, 23865033, 356942157, 4807268289, 69047521033,\ \dots
+380, 16388, 3221873, 396246659, 56449101747, 7658621867351, 1056293079317795, 144866445686609006,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -20*a(n-2) -2701*a(n-3) +14290*a(n-4) +96871*a(n-5) -821769*a(n-6) -1334756*a(n-7) +22205174*a(n-8) -2051485*a(n-9) -358415097*a(n-10) +335076413*a(n-11) +3816085706*a(n-12) -5474841848*a(n-13) -28179606956*a(n-14) +49887962008*a(n-15) +147948120520*a(n-16) -299147271265*a(n-17) -556239083509*a(n-18) +1245031259726*a(n-19) +1483266239823*a(n-20) -3658543581308*a(n-21) -2715597972088*a(n-22) +7566683853367*a(n-23) +3153572640112*a(n-24) -10789182805002*a(n-25) -1812615431409*a(n-26) +10165463452563*a(n-27) -275438311116*a(n-28) -5857653280734*a(n-29) +1036380387492*a(n-30) +1787112576576*a(n-31) -499228796880*a(n-32) -216471126240*a(n-33) +72471573504*a(n-34) +3769058304*a(n-35) -1625868288*a(n-36)
+Empirical: a(n) = 98*a(n-1) +7347*a(n-2) -224778*a(n-3) -7728704*a(n-4) +262962206*a(n-5) +1393225336*a(n-6) -119191836900*a(n-7) +903246007088*a(n-8) +15160938917982*a(n-9) -275603342577492*a(n-10) +682387054022690*a(n-11) +15561944299486025*a(n-12) -115827362546126062*a(n-13) -212490962883374739*a(n-14) +4823062494960309260*a(n-15) -7095359819344029228*a(n-16) -99434265775360806832*a(n-17) +328551695701192183392*a(n-18) +1138114424426882557728*a(n-19) -6053645101474951208480*a(n-20) -6708619509298241221600*a(n-21) +65396272713151068067952*a(n-22) +5364285677369375777088*a(n-23) -453472228704354241414400*a(n-24) +214492166017309520360960*a(n-25) +2067855900666101449624832*a(n-26) -1661157783236876092106752*a(n-27) -6139414492176949529923584*a(n-28) +6192595052837124164186112*a(n-29) +11391038825017579755356160*a(n-30) -12973302568874201052119040*a(n-31) -12149182632175329849245696*a(n-32) +14864624252513466776027136*a(n-33) +6334860565035363128573952*a(n-34) -8132689024636326160367616*a(n-35) -1111349824406251383029760*a(n-36) +1495738851120218709688320*a(n-37)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:38:24, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:53:55, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-Call a $2\times2$ matrix over $\{0,\dots,2\}$ a \emph{window} when it is of equal permanent, and
-call a $2\times4$ matrix a \emph{band} when every one of its $3$ contiguous
-$2\times2$ subblocks is a window. What the entry counts is the matrices of $4$ columns
-whose every $2$ consecutive rows form a band.
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
 
-Take as states the $1\times4$ strips that occur as the top $1$ rows of a band,
-together with those that occur as its bottom $1$ rows, and put an edge from $u$ to $v$
-when the band whose first $1$ rows are $u$ and whose last $1$ rows are $v$ exists.
-A band is determined by that pair, so the edge is unique when it exists. Reading a counted
-matrix from the top, its rows $1..1$, then $2..2$, and so on, form a walk, and every
-walk arises from exactly one matrix; a matrix with $n+1$ rows gives a walk of $n$ edges.
-Since the first $1$ rows of a counted matrix with at least $2$ rows are the top of a
-band, and since no further condition falls on where a walk starts or ends,
+The clause ``new values $0..4$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-with $M$ the adjacency matrix on $S=196$ states. In particular $a$ is $C$-finite. The
-alignment was checked against the entry's published terms rather than assumed.
-
-There are $(2 + 1)^{4}$ strips of $1$ rows and $4$ columns, far too
-many to test one by one, and they are not tested one by one. Two consecutive windows of a band
-overlap in $2\times1$ entries, so a band is exactly a walk of $3$ windows in
-the graph that joins a window to those whose first $1$ columns are its last $1$
-columns. Enumerating those walks produces the bands, and with them the states and the edges,
-directly.
-
-\section{The admissible windows}
-
-The entry does not name the common value; it only asks that all the windows of one matrix agree.
-So fix a value $v$ and let $W_v$ be the set of $2\times2$ matrices over
-$\{0,\dots,2\}$ whose permanent, $b_{11}b_{22}+b_{12}b_{21}$, equals $v$. A matrix counted by the entry has all of
-its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
-matrices belonging to different $v$ are disjoint and
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{5}$, so
 \[
-a(n)\;=\;\sum_v a_v(n),
+a\;=\;\sum_{i=1}^{5}w_i\,L_i
 \]
-each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
-$8$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
-all-ones vectors, and the $2\times2$ windows in play number $81$ in total.
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
+
+\section{Each $L_i$ is a walk count}
+
+A column of the array is a proper colouring of the path $P_{4}$ and two consecutive
+columns must differ in every one of the $4$ positions; the wrapping makes the last column
+adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
+in the digraph $T_i$ whose vertices are the proper colourings of $P_{4}$ over $i$ colours
+and whose edges join colourings differing everywhere, so
+\[
+L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
+\]
+A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
+starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
+walks with fixed ends.
+
+\begin{lemma}\label{lem:trace}
+Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
+be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
+$\sigma\in G$, and hence
+\[
+\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
+\]
+one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
+are the equality patterns and the orbit of a colouring using $j$ colours has
+$i(i-1)\cdots(i-j+1)$ members.
+\end{lemma}
+
+\begin{proof}
+$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
+length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
+gives the displayed identity. Permuting colours preserves ``differ in every position'', so
+$S_i$ acts on the colourings of $P_{4}$ preserving $T_i$; two colourings lie in one orbit
+exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
+in $i(i-1)\cdots(i-j+1)$ ways.
+\end{proof}
+
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
+\[
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
+\]
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
+\end{lemma}
+
+\begin{proof}
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+\end{proof}
+
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=1487$ rather than the number of colourings.
+
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,5$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{37}-\sum_i c_it^{37-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -97,7 +142,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+37}-\sum_ic_iM^{j+37-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -106,23 +151,25 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 20\,a(n-2) - 2701\,a(n-3) + 14290\,a(n-4) + 96871\,a(n-5) - 821769\,a(n-6) - 1334756\,a(n-7) + 22205174\,a(n-8) - 2051485\,a(n-9) - 358415097\,a(n-10) + 335076413\,a(n-11) + 3816085706\,a(n-12) - 5474841848\,a(n-13) - 28179606956\,a(n-14) + 49887962008\,a(n-15) + 147948120520\,a(n-16) - 299147271265\,a(n-17) - 556239083509\,a(n-18) + 1245031259726\,a(n-19) + 1483266239823\,a(n-20) - 3658543581308\,a(n-21) - 2715597972088\,a(n-22) + 7566683853367\,a(n-23) + 3153572640112\,a(n-24) - 10789182805002\,a(n-25) - 1812615431409\,a(n-26) + 10165463452563\,a(n-27) - 275438311116\,a(n-28) - 5857653280734\,a(n-29) + 1036380387492\,a(n-30) + 1787112576576\,a(n-31) - 499228796880\,a(n-32) - 216471126240\,a(n-33) + 72471573504\,a(n-34) + 3769058304\,a(n-35) - 1625868288\,a(n-36)
+a(n)\;=\;98\,a(n-1) + 7347\,a(n-2) - 224778\,a(n-3) - 7728704\,a(n-4) + 262962206\,a(n-5) + 1393225336\,a(n-6) - 119191836900\,a(n-7) + 903246007088\,a(n-8) + 15160938917982\,a(n-9) - 275603342577492\,a(n-10) + 682387054022690\,a(n-11) + 15561944299486025\,a(n-12) - 115827362546126062\,a(n-13) - 212490962883374739\,a(n-14) + 4823062494960309260\,a(n-15) - 7095359819344029228\,a(n-16) - 99434265775360806832\,a(n-17) + 328551695701192183392\,a(n-18) + 1138114424426882557728\,a(n-19) - 6053645101474951208480\,a(n-20) - 6708619509298241221600\,a(n-21) + 65396272713151068067952\,a(n-22) + 5364285677369375777088\,a(n-23) - 453472228704354241414400\,a(n-24) + 214492166017309520360960\,a(n-25) + 2067855900666101449624832\,a(n-26) - 1661157783236876092106752\,a(n-27) - 6139414492176949529923584\,a(n-28) + 6192595052837124164186112\,a(n-29) + 11391038825017579755356160\,a(n-30) - 12973302568874201052119040\,a(n-31) - 12149182632175329849245696\,a(n-32) + 14864624252513466776027136\,a(n-33) + 6334860565035363128573952\,a(n-34) - 8132689024636326160367616\,a(n-35) - 1111349824406251383029760\,a(n-36) + 1495738851120218709688320\,a(n-37)
 \]
 for every $n>36$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -134,11 +181,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225022.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214145.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
-1982.
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

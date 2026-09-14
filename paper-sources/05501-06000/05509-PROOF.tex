@@ -12,104 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237304, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A284483, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237304 carries an empirical recurrence of order $87$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=450$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A284483 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A237304 is ``Number of (n+1)X(4+1) 0..2 arrays with the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A284483 is ``Binary representation of the x-axis, from the left edge to the origin, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 961", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-11545, 731603, 36167196, 2009833839, 108105728913, 5924015749908, 323852801203185, 17797884221279895,\ \dots
+1, 0, 111, 1101, 11110, 111101, 1111110, 11111101,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 87 (see link above)
+Conjectures from \_Colin Barker\_, Mar 28 2017: (Start) a(n) = 10*a(n-1) + a(n-2) - 10*a(n-3) for n>5.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:02:41, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:38, revision 15)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The value is a certified growth}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=450$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 3.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 961 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{87}-\sum_i c_it^{87-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+87}-\sum_ic_iM^{j+87-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;86\,a(n-1) + 975\,a(n-2) - 201724\,a(n-3) + 413404\,a(n-4) + 187851766\,a(n-5) - 1158176897\,a(n-6) - 94991628405\,a(n-7) + 811283460639\,a(n-8) + 29466304311922\,a(n-9) - 307572677411991\,a(n-10) - 5962954573982010\,a(n-11) + 73491983545241066\,a(n-12) + 816234507760160370\,a(n-13) - 11899779636995822640\,a(n-14) - 77232245935017961335\,a(n-15) + 1371171378907015075585\,a(n-16) + 5065370109655321922996\,a(n-17) - 116702457609923883029278\,a(n-18) - 221112701741800981264591\,a(n-19) + 7553962350823937107470613\,a(n-20) + 5147979218092924430532598\,a(n-21) - 380492271562480089481168918\,a(n-22) + 63185412384541408256092925\,a(n-23) + 15186161990624697163687382172\,a(n-24) - 11761663653485375521007612339\,a(n-25) - 487165430289073289790726149837\,a(n-26) + 594511029465960704517850064336\,a(n-27) + 12703285683457614836618318115870\,a(n-28) - 19717524527767102565618650754862\,a(n-29) - 271648197751561915676007588764260\,a(n-30) + 489523047215539128242512714665312\,a(n-31) + 4796709694756065242288459539958788\,a(n-32) - 9555224262391769221476827336859812\,a(n-33) - 70311312467947914608823636912211075\,a(n-34) + 150304913531311255760195580790174587\,a(n-35) + 858952289841667146295626695783910868\,a(n-36) - 1932945801253936655306548437664932795\,a(n-37) - 8769910768567988081008350576074463532\,a(n-38) + 20506931573502000241237908298986460406\,a(n-39) + 74970976637642829531087007743615900985\,a(n-40) - 180520695352788339575718280993138372732\,a(n-41) - 537123242329301351575290991344943760985\,a(n-42) + 1323291333580673757554764787390855768868\,a(n-43) + 3225612533289449711356971339176333805768\,a(n-44) - 8093548362563251165121198025632989403914\,a(n-45) - 16228651567691648139069266299146916785288\,a(n-46) + 41330886960239340697978358918819558798592\,a(n-47) + 68326749549070546463918399210007992482365\,a(n-48) - 176156058375396897011042431436655669498062\,a(n-49) - 240327272756938840649738644535191503638414\,a(n-50) + 625806914218245244406612189174880649929467\,a(n-51) + 704642016274375440846288631469632040287814\,a(n-52) - 1849148844448774403457765914201634986774182\,a(n-53) - 1717652811183518663920154124223435211174232\,a(n-54) + 4531238764371422006740739182214039833333230\,a(n-55) + 3470188423166190507895211420480547546631332\,a(n-56) - 9174008605612668437264482718396567048777770\,a(n-57) - 5789667755585217217498236555669760829751932\,a(n-58) + 15276548177748253721608226571217607840417980\,a(n-59) + 7943344572242920953224756742370722105324072\,a(n-60) - 20808924109004326589464932456578089070098000\,a(n-61) - 8916918040636721776711380014055317038851904\,a(n-62) + 23036478067076996606333749634928702261236176\,a(n-63) + 8139714794645696107650919370666544319635808\,a(n-64) - 20567059055641331586091233334852773365974528\,a(n-65) - 5995450595616822719802159488094002789244928\,a(n-66) + 14672625481509598024057776481108404517012992\,a(n-67) + 3528092657386512298009239736635567291019264\,a(n-68) - 8271445990231984267895512142347607349153792\,a(n-69) - 1637427138737620073752177383397798877216768\,a(n-70) + 3634684011286498164076062355376390046384128\,a(n-71) + 589312309993399547318769233975858150113280\,a(n-72) - 1223979953734461157687916922237582443544576\,a(n-73) - 160832055420180425181172797395354622361600\,a(n-74) + 309082963410779529840566096329130272358400\,a(n-75) + 32298572325703968120290434816487328841728\,a(n-76) - 56884050000516453904942350932268497764352\,a(n-77) - 4579120372273297319047765836360140718080\,a(n-78) + 7339797175253497754950332296691328221184\,a(n-79) + 431822639653525332198080107802037059584\,a(n-80) - 628222065491448210883252964588844482560\,a(n-81) - 24685156764270610571101486469376638976\,a(n-82) + 32750096580128838702887727761543135232\,a(n-83) + 719729036627087872195196397929103360\,a(n-84) - 894084387165647024433120780780306432\,a(n-85) - 6778640642173707602161617604706304\,a(n-86) + 8948415524126526409223469709393920\,a(n-87)
+a(n)\;=\;10\,a(n-1) + a(n-2) - 10\,a(n-3)
 \]
-for every $n>87$.
+for every $n>5$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $87$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=5+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237304.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A284483.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}
