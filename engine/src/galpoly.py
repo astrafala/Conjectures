@@ -172,3 +172,44 @@ def subtract(cons, other):
         if not empty(piece):
             out.append(piece)
     return out
+
+
+def polygon(cons, M):
+    """the region intersected with the box [-M, M]^2, as a list of vertices in order.
+
+    `vertices` finds them by trying every pair of constraint lines and testing each candidate
+    against every constraint, which is cubic and takes seconds once there are a hundred
+    constraints -- and the support search in `galhull` needs one of these per short point. This
+    clips a starting box by the constraints one at a time instead: each clip is linear in the
+    current vertex count, and that count stays small because the region is convex. The box must
+    be large enough to contain any answer the caller cares about; `galhull` uses a bound on the
+    gradient of a distance function, which is what makes that safe there.
+
+    Exact throughout: vertices are Fractions and a point is kept when it satisfies a constraint
+    with equality, so a degenerate region collapses to a segment or a point rather than to
+    nothing.
+    """
+    M = Fraction(M)
+    poly = [(-M, -M), (M, -M), (M, M), (-M, M)]
+    for (a, b, c) in cons:
+        if not poly:
+            return []
+        out = []
+        n = len(poly)
+        for i in range(n):
+            p, q = poly[i], poly[(i + 1) % n]
+            sp = a * p[0] + b * p[1] + c
+            sq = a * q[0] + b * q[1] + c
+            if sp >= 0:
+                out.append(p)
+            if (sp > 0 and sq < 0) or (sp < 0 and sq > 0):
+                t = Fraction(sp, sp - sq)
+                out.append((p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])))
+        # drop repeats introduced by clipping exactly through a vertex
+        poly = []
+        for v in out:
+            if not poly or v != poly[-1]:
+                poly.append(v)
+        if len(poly) > 1 and poly[0] == poly[-1]:
+            poly.pop()
+    return poly

@@ -68,7 +68,7 @@ def prune(planes, pts, margin):
     return keep or planes
 
 
-def pieces(pts, tries=400, margin=6):
+def pieces(pts, tries=None, margin=6):
     """(planes, leftovers): the max-of-affine description, and the points it cannot reach.
 
     An empty leftover list means d IS the max over `planes` at every point given -- an exact,
@@ -86,19 +86,12 @@ def pieces(pts, tries=400, margin=6):
     for (m, n, d) in short:
         if val(m, n) == d:
             continue
-        near = sorted(P, key=lambda t: (t[0] - m) ** 2 + (t[1] - n) ** 2)[:tries]
-        best = None
-        for i in range(len(near)):
-            for j in range(i + 1, len(near)):
-                pl = _plane((m, n, d), near[i], near[j])
-                if pl is None:
-                    continue
-                A, B, C = pl
-                if all(A * mm + B * nn + C <= dd for (mm, nn, dd) in P):
-                    best = pl
-                    break
-            if best:
-                break
+        # `support` DECIDES this: either it returns a supporting plane or there provably is
+        # none, at about 9 ms a point. What stood here tried every pair among the 400 nearest
+        # points -- 80,000 candidates, each validated against the whole class -- took seconds
+        # per short point, and when it came back empty that was a search failing rather than a
+        # proof. On one class of Gal.4.31.1 it left 10 of 12 short points unsupported.
+        best = support(P, (m, n, d))
         if best:
             planes.append(best)
     planes = prune(planes, P, margin)
@@ -109,3 +102,59 @@ def pieces(pts, tries=400, margin=6):
     lim = max(d for (_m, _n, d) in P) - margin
     left = [(m, n, d) for (m, n, d) in P if d <= lim and val2(m, n) != d]
     return planes, left
+
+
+def support(pts, p):
+    """a supporting plane of d at p, or None if there provably is none.
+
+    `pieces` looked for one by trying every pair among the 400 nearest points and checking the
+    plane through the three against all the data -- 80,000 candidates each validated against
+    hundreds of points, seconds per short point, and when it found nothing that was a SEARCH
+    failing, not a proof that no support exists. The question is a two-variable feasibility
+    problem and is decided outright:
+
+        a supporting plane at p is (A, B) with
+            A*(q1-p1) + B*(q2-p2) <= d(q) - d(p)     for every q,
+
+    an intersection of half-planes in the (A, B) plane. `galpoly` decides emptiness exactly and
+    returns the vertices, so either there is no support -- a genuine non-convexity of d, which
+    is a fact about the tiling -- or one is produced.
+
+    The vertices are rational. A plane with a fractional gradient is refused rather than
+    rounded: `int()` on a Fraction truncates, and a plane wrong by any amount puts the whole
+    certificate on sand.
+    """
+    import galpoly
+    (p1, p2, dp) = p
+    seen = {}
+    for (q1, q2, dq) in pts:
+        u, v, c = q1 - p1, q2 - p2, dq - dp
+        if (u, v) == (0, 0):
+            continue
+        g = abs(_gcd(u, v))
+        if g > 1 and c % g == 0:
+            u, v, c = u // g, v // g, c // g
+        # only the TIGHTEST constraint in each direction binds; keeping the first one seen
+        # left the rest in and made the clip below do a hundred times the work it needed
+        if (u, v) not in seen or c < seen[(u, v)]:
+            seen[(u, v)] = c
+    cons = [(-u, -v, c) for (u, v), c in seen.items()]
+    M = max(abs(dq - dp) for (_q1, _q2, dq) in pts) + 1
+    poly = galpoly.polygon(cons, M)
+    if not poly:
+        return None
+    for (A, B) in poly:
+        if A.denominator != 1 or B.denominator != 1:
+            continue
+        A, B = int(A), int(B)
+        C = dp - A * p1 - B * p2
+        if all(A * q1 + B * q2 + C <= dq for (q1, q2, dq) in pts):
+            return (Fraction(A), Fraction(B), Fraction(C))
+    return None
+
+
+def _gcd(a, b):
+    a, b = abs(a), abs(b)
+    while b:
+        a, b = b, a % b
+    return a
