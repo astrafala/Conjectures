@@ -1050,3 +1050,44 @@ A253117, A253339 and A253340 have parsable conjectures and are refused only at t
 cap; A253118 and A253341 carry no conjecture at all, so there is nothing there to settle; and
 A253111, A253334 and A253416 are the diagonal `(n+2) X (n+2)` entries, whose board grows in
 both directions at once and which no transfer along one axis reads.
+
+## 14 September 2026 — the same family again, with the state count paid attention to
+
+`transfer88` carried the ROW INDEX in the vertex for every row above the periodic region --
+(row index or phase, previous row, current row) -- which multiplies the vertex set by the
+i0 = 2C-3 distinct rows up there. At width 8 that is the difference between 55,600 states and
+more than 400,000, and it is what refused A253117 at the cap. It was not a mathematical limit
+at all; it was a construction that had never been looked at twice because it worked.
+
+The fix is to walk those rows once WITH WEIGHTS and sum them away: iota becomes the vector
+counting, at each vertex, the boards of i0+1 rows whose last two rows are that pair. Nothing
+is lost, because a board is determined by its rows and two boards agreeing on their last two
+rows admit the same continuations. The vertex is then just (two consecutive rows, phase).
+
+    width 3, slack 2:   225 -> 171          width 6, slack 2:  3403 -> 1301
+    width 4, slack 2:   282 -> 207          width 7, slack 2: 11458 -> 3421
+    width 5, slack 2:   896 -> 552          width 8, slack 2:  refused -> 7657
+
+Every one of the sixteen thresholds came back IDENTICAL, which is the check that matters: the
+model changed, the sequence did not. **A253117 is the seventeenth result**, kept by the live
+re-check. Its conjecture is the order-17 recurrence and the bound is n > 65.
+
+The papers all had to be rebuilt, because a paper must describe the model its numbers came
+from and the model changed. Three things in them changed with it:
+
+  * the vertex set, described as above;
+  * **iota is no longer an incidence vector** and the paper says so explicitly, the way
+    `edgemark`'s does. A paper may not call a weighted vector "the vector recording which
+    states may begin an array";
+  * **the exponent.** `a(n) = iota^T M^(n-k) tau` with k from the offset and the shift is
+    right only when the matrix carries the board from the top. It does not any more: walk
+    step k is the board of i0+k+1 rows, so a(n) = iota^T M^(n+1-i0) tau, and for A253112 that
+    is M^(n-4) rather than M^(n+1). The generic k would have printed a false identity in
+    every paper of the family. Checked numerically as well as derived: iota^T M^0 tau = 4619
+    = a(4).
+
+Roster: 12,899 -> 12,900 papers over 12,873 entries.
+
+Still out of reach: A253339 (width 7, slack 3) and A253340 (width 8, slack 3), where the row
+alphabet is 4^7 and 4^8. They are refused at the cap, not by anything unproved -- the
+certificate covers their widths -- and they are worth one long run, not a redesign.

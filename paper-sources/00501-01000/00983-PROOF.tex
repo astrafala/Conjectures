@@ -10,18 +10,18 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured closed form for OEIS A227161}
+\title{A proof of the conjectured closed form for OEIS A208545}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227161 carries a conjectured closed form. We prove it. The entry states, as fact,
+OEIS A208545 carries a conjectured closed form. We prove it. The entry states, as fact,
 a generating function, and from that a linear recurrence with polynomial coefficients satisfied by
 the sequence is derived exactly. The conjectured closed form is then shown to satisfy the
 same recurrence, and to agree with the sequence at enough consecutive indices. A recurrence
-of order $3$ whose leading coefficient does not vanish, together with $3$
+of order $5$ whose leading coefficient does not vanish, together with $5$
 consecutive values, determines a sequence completely, so the two agree everywhere. Nothing
 is checked numerically and then assumed: the recurrence is derived symbolically, the
 verification is an exact identity, and the finitely many indices where the leading
@@ -32,19 +32,19 @@ coefficient vanishes are computed rather than waved at.
 
 \section{The sequence, what is known, and what is conjectured}
 
-OEIS A227161 is ``Number of n X 2 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 3 binary array having a sum of one or less, with rows and columns of the latter in lexicographically nondecreasing order''. It has offset $0$ and begins
+OEIS A208545 is ``Number of 7-bead necklaces of n colors allowing reversal, with no adjacent beads having the same color''. It has offset $1$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 3, 8, 18, 36, 66, 113, 183,\ \dots
+a(1),\dots,a(8)\;=\;0, 0, 9, 156, 1170, 5580, 19995, 58824,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
--(1-x+x\textasciicircum{}2)\textasciicircum{}2/(x-1)\textasciicircum{}5. - \emph{Alois P. Heinz}, Jul 18 2013
+3*x\textasciicircum{}3*(3 + 28*x + 58*x\textasciicircum{}2 + 28*x\textasciicircum{}3 + 3*x\textasciicircum{}4) / (1 - x)\textasciicircum{}8
 \end{quote}
 and separately carries the comment
 \begin{quote}\small
-a(n) = (1/24)*n\textasciicircum{}4 + (1/12)*n\textasciicircum{}3 + (23/24)*n\textasciicircum{}2 + (11/12)*n + 1.
+a(n) = (1/14)*n\textasciicircum{}7 - (1/2)*n\textasciicircum{}6 + (3/2)*n\textasciicircum{}5 - (5/2)*n\textasciicircum{}4 + (5/2)*n\textasciicircum{}3 - (3/2)*n\textasciicircum{}2 + (3/7)*n.
 \end{quote}
-As of the ``Last modified'' line on the live entry (2017-01-24, revision 23) the second
+As of the ``Last modified'' line on the live entry (2017-11-11, revision 10) the second
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
@@ -53,10 +53,10 @@ formulas or programs.
 The generating function the entry posts is algebraic over $\mathbb{Q}(x)$, hence $D$-finite: it satisfies a linear differential equation with polynomial coefficients, obtained by differentiating its defining equation inside the field it generates and taking a linear dependence among the derivatives. Reading off the coefficient of each power of $x$ turns that differential equation into a recurrence for the coefficients, which is
 
 \begin{equation}\label{eq:rec}
-\left(- n - 1\right)\,a(n) + \left(2 n + 1\right)\,a(n+1) + \left(- 2 n - 7\right)\,a(n+2) + \left(n + 3\right)\,a(n+3) \;=\; 0
+\left(9 n + 9\right)\,a(n) + \left(75 n + 306\right)\,a(n+1) + \left(90 n + 1206\right)\,a(n+2) + \left(936 - 90 n\right)\,a(n+3) + \left(81 - 75 n\right)\,a(n+4) + \left(- 9 n - 18\right)\,a(n+5) \;=\; 0
 \end{equation}
 
-The leading coefficient of \eqref{eq:rec} is $n + 3$. Its only integer zeros are $n\in\{-3\}$, all below the range claimed here.
+The leading coefficient of \eqref{eq:rec} is $- 9 \left(n + 2\right)$. Its only integer zeros are $n\in\{-2\}$, all below the range claimed here.
 
 \section{The conjectured description satisfies it}
 
@@ -78,18 +78,18 @@ is nonzero and may be divided by; both sequences therefore take the same value a
 \end{proof}
 
 \begin{theorem}
-For all $n\ge 1$,
+For all $n\ge 6$,
 \[
-a(n) \;=\; \frac{n^{4}}{24} + \frac{n^{3}}{12} + \frac{23 n^{2}}{24} + \frac{11 n}{12} + 1
+a(n) \;=\; \frac{n^{7}}{14} - \frac{n^{6}}{2} + \frac{3 n^{5}}{2} - \frac{5 n^{4}}{2} + \frac{5 n^{3}}{2} - \frac{3 n^{2}}{2} + \frac{3 n}{7}
 \]
 \end{theorem}
 
 \begin{proof}
 Both sides satisfy \eqref{eq:rec}: the sequence because the recurrence was derived from
 the entry's own a generating function, and the conjectured closed form by the computation of the
-previous section. They agree at the $3$ consecutive indices beginning
-$n=1$, which was checked against the entry's DATA in exact integer arithmetic.
-The leading coefficient has no zero at any integer $n\ge1$, so
+previous section. They agree at the $5$ consecutive indices beginning
+$n=6$, which was checked against the entry's DATA in exact integer arithmetic.
+The leading coefficient has no zero at any integer $n\ge6$, so
 Lemma~\ref{lem:unique} applies.
 \end{proof}
 
@@ -110,7 +110,7 @@ proof, which is symbolic, but it would catch a transcription error in either sta
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A227161.
+\url{https://oeis.org}, 2026. Sequence A208545.
 \bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
 1996.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

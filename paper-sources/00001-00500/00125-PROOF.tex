@@ -22,7 +22,7 @@
 OEIS A253338 carries an empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=4657$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=2689$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -86,11 +86,13 @@ So one distance function serves every board of $5$ rows or more. The heights 2, 
 
 \section{The count is a walk count}
 
-What a transfer needs to know at row $i$ is which pairs of cells within two rows are minimum-path edges, and how far each cell's label is capped by $\min(3,d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by Proposition~\ref{prop:period} both depend on $i$ only through $i\bmod 4$ once $i\ge9$ --- the cap because $d$ rises with $i$ and has passed $3$ there. Below $9$ the row index is carried exactly, so nothing is assumed about the top of the board either.
+What a transfer needs to know at row $i$ is which pairs of cells within two rows are minimum-path edges, and how far each cell's label is capped by $\min(3,d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by Proposition~\ref{prop:period} both depend on $i$ only through $i\bmod 4$ once $i\ge9$ --- the cap because $d$ rises with $i$ and has passed $3$ there.
 
-A knight move never stays inside a row, so no edge joins two cells of one row: the label of a new row is constrained only by the two rows above it, and cell by cell at that. Take as vertices the triples (row index or phase, labelling of the previous row, labelling of the current row); an edge to the next such triple exists when every minimum-path edge closed by the arriving row rises by $0$ or $1$. Merging vertices with identical futures leaves $S=4657$, and with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end a board,
+A knight move never stays inside a row, so no edge joins two cells of one row: the label of a new row is constrained only by the two rows above it, and cell by cell at that. Take as vertices the pairs (labelling of the previous row, labelling of the current row) together with the phase $i\bmod 4$ of the current row; an edge to the next such vertex exists when every minimum-path edge closed by the arriving row rises by $0$ or $1$, which the two rows above it decide. Vertices with identical futures are merged, which changes no count, leaving $S=2689$.
+
+Rows $0,\dots,9$ are ABOVE the periodic region and are not carried by the matrix. They are walked once with weights: $\iota$ is the vector counting, at each vertex, the boards of $10$ rows whose last two rows are that pair. So $\iota$ is not an incidence vector, and the paper may not call it one; $\tau$ is all ones, every vertex being a legitimate last pair. Carrying the row index in the vertex instead, which is the obvious alternative, multiplies the vertex set by the $9$ distinct rows above the region and is what made the wider boards unreachable. Summing the early rows away loses nothing: a board is determined by its rows, and two boards agreeing on their last two rows admit the same continuations. With $M$ the adjacency matrix, for every board of at least $10$ rows,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-8}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.

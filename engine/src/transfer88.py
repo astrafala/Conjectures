@@ -179,6 +179,48 @@ def _certdists(C, R):
             if F[i][j] != kdcert.INF}
 
 
+def _prefix(p, i0, tall, cap):
+    """Walk the board from the top to row i0 with WEIGHTS, and return
+
+        (the weighted map (row i0-1, row i0) -> how many boards of height i0+1 end that way,
+         the height-h count for every h from H0 up to i0+1).
+
+    Carrying the row index in the vertex instead -- which is what this engine did first, and
+    what the phase function still does above i0 -- multiplies the state set by the number of
+    distinct early rows, i0 = 2C-3 of them. At width 8 that is the difference between 55,600
+    states and more than 400,000, which is the difference between a model and a refusal. The
+    early rows are not shared between heights, so nothing is lost by summing them away: a
+    board is determined by its rows, and two boards agreeing on the last two rows have the
+    same continuations.
+    """
+    C, s = p['C'], p['slack']
+    cur = {}
+    for a_ in _rowstates(tall, C, s, 0):
+        for b_ in _rowstates(tall, C, s, 1):
+            if _ok(a_, b_, _edges(tall, 0, 1, C)):
+                cur[(a_, b_)] = cur.get((a_, b_), 0) + 1
+    pre = {}
+    ex = exceptional(C)
+    H0 = (max(ex) + 1) if ex else 2
+    if H0 <= 2:
+        pre[2] = sum(cur.values())
+    for i in range(2, i0 + 1):
+        e1, e2 = _edges(tall, i - 1, i, C), _edges(tall, i - 2, i, C)
+        nxt = {}
+        for (a_, b_), w in cur.items():
+            for r in _rowstates(tall, C, s, i):
+                if not _ok(b_, r, e1) or not _ok(a_, r, e2):
+                    continue
+                k = (b_, r)
+                nxt[k] = nxt.get(k, 0) + w
+        cur = nxt
+        if i + 1 >= H0:
+            pre[i + 1] = sum(cur.values())
+        if len(cur) > cap:
+            return None, None
+    return cur, pre
+
+
 def build(p, cap=200000):
     C, s = p['C'], p['slack']
     i0 = settled(C, s)
@@ -186,20 +228,16 @@ def build(p, cap=200000):
         return None
     tall = _certdists(C, i0 + 4 * PERIOD + 4)
 
-    def phase(i):
-        return i if i < i0 else i0 + (i - i0) % PERIOD
+    start_w, pre = _prefix(p, i0, tall, cap)
+    if start_w is None:
+        return None
 
-    # the phase is a faithful stand-in for the row index: the edge sets and the caps at row i
-    # depend on i only through phase(i), which is what the period measurement establishes
-    rows = {}
+    rows, E1, E2 = {}, {}, {}
 
     def rowstates(ph):
         if ph not in rows:
             rows[ph] = _rowstates(tall, C, s, ph)
         return rows[ph]
-
-    E1 = {}
-    E2 = {}
 
     def e1(ph):
         if ph not in E1:
@@ -221,21 +259,25 @@ def build(p, cap=200000):
             adj.append([])
         return i
 
-    starts = [sid((0, None, r)) for r in rowstates(0)]
-    if not states:
-        return None
-    frontier, seen = list(starts), set(starts)
+    # a vertex is (the two consecutive rows, the phase of the LOWER one); above i0 the phase
+    # is a faithful stand-in for the row index, which is Proposition prop:period
+    startv = {}
+    for (a_, b_), w in start_w.items():
+        startv[sid(((a_, b_), i0 % PERIOD))] = w
+    frontier, seen = list(startv), set(startv)
     while frontier:
         u = frontier.pop()
-        i, prev, cur = states[u]
-        nxt_i = i + 1
-        ph = phase(nxt_i)
-        for r in rowstates(ph):
-            if not _ok(cur, r, e1(ph)):
+        (a_, b_), ph = states[u]
+        nph = (ph + 1) % PERIOD
+        r_next = i0 + ((nph - i0) % PERIOD)
+        if r_next <= i0:
+            r_next += PERIOD
+        for r in rowstates(r_next):
+            if not _ok(b_, r, e1(r_next)):
                 continue
-            if prev is not None and not _ok(prev, r, e2(ph)):
+            if not _ok(a_, r, e2(r_next)):
                 continue
-            v = sid((ph, cur, r))
+            v = sid(((b_, r), nph))
             if len(states) > cap:
                 return None
             adj[u].append(v)
@@ -243,23 +285,35 @@ def build(p, cap=200000):
                 seen.add(v)
                 frontier.append(v)
     S = len(states)
+    if not S:
+        return None
     start = [0] * S
-    for i in set(starts):
-        start[i] = 1
+    for i, w in startv.items():
+        start[i] = w
     end = [1] * S
-    return lumpauto.lump(adj, start, end)
+    adj2, st2, en2, S2 = lumpauto.lump(adj, start, end)
+    return (adj2, st2, en2, S2, i0, pre)
 
 
 def terms_p(p, b, N):
-    """model counts by walk step: step j is a board of j + 1 rows
+    """model counts by walk step: step j is a board of j + 1 rows.
 
-    The matrix is built from distances that are correct for every height except 2, 3 and 4,
-    so those three are recounted here on their own boards. Without that the model would
-    disagree with the entry's first terms, which is how the discrepancy was noticed.
+    The matrix carries the board from height i0+1 on; every smaller height comes from the
+    weighted prefix, and the heights below H0 -- whose own distance field is not the strip's,
+    Proposition prop:height -- are recounted on their own boards. Without that last step the
+    model disagrees with the entry's first terms, which is how the discrepancy was noticed.
     """
-    adj, start, end, S = b
-    out = transfer19.terms(adj, start, end, N)
-    for R in exceptional(p['C']):
+    adj, start, end, S, i0, pre = b
+    walk = transfer19.terms(adj, start, end, N)
+    out = [0] * (N + 1)
+    for h, v in pre.items():                       # heights H0 .. i0+1
+        if h - 1 <= N:
+            out[h - 1] = v
+    for j in range(i0 + 1, N + 1):                 # heights i0+2 on, from the matrix
+        k = j - i0
+        if k < len(walk):
+            out[j] = walk[k]
+    for R in exceptional(p['C']):                  # heights whose own field differs
         j = R - 1
         if 0 <= j <= N:
             out[j] = count_board(R, p['C'], p['slack'])
@@ -267,18 +321,27 @@ def terms_p(p, b, N):
 
 
 def threshold_p(p, b, coeffs, order):
-    """the last walk index at which the conjectured recurrence may fail
+    """the last walk index at which the conjectured recurrence may fail.
 
-    The matrix certifies the recurrence for its own sequence, which is the true one only from
-    a board of five rows on. A residual at index j reads terms j-order..j, so no residual
-    below index (4 - 1) + order is certified by the matrix, and the bound is raised to cover
-    them. Being conservative here can only shrink the range claimed.
+    Two pieces, because the matrix does not produce every term. The annihilation test settles
+    every large index at once; the heights the matrix does not reach -- the weighted prefix
+    and the exceptional boards below H0 -- are checked term by term against the model's own
+    numbers. The bound returned is the later of the two, so nothing is certified on a term
+    the matrix never produced. Being conservative here can only shrink the range claimed.
     """
-    adj, start, end, S = b
-    adj, start, end, S = lumpauto.lump(adj, start, end)
+    adj, start, end, S, i0, pre = b
     t = transfer19.threshold(adj, start, end, coeffs, order, S)
-    ex = exceptional(p['C'])
-    return None if t is None else max(t, (max(ex) if ex else 1) - 1 + order)
+    if t is None:
+        return None
+    # u_j of the annihilation test is the residual at walk index j + order, and walk index k
+    # is the board of height i0 + k + 1, that is term index i0 + k
+    hi = max(t + i0, i0 + order + 5) + 3
+    v = terms_p(p, b, hi + 2)
+    last = 0
+    for j in range(order, hi + 1):
+        if v[j] - sum(c * v[j - i] for i, c in coeffs.items()):
+            last = j
+    return last
 
 
 terms = transfer19.terms

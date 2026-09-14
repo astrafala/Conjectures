@@ -1,6 +1,6 @@
 # Proposed OEIS comments
 
-A proposed comment for each of the **12188** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
+A proposed comment for each of the **12190** settled entries, written to be posted on the OEIS entry it belongs to. They are kept here rather than in the papers: a paper is a proof and stays a proof.
 
 Each section names the entry, **the date the result was obtained**, the paper that proves it, and what the entry still records as unsettled. The date is the point: an OEIS comment is stamped with the day it is posted, so the date here is what shows when the work was actually done.
 
@@ -33,15 +33,15 @@ If a conjecture is settled by somebody else after the date recorded here, nothin
 | [A242429 – A250756](A242429-A250756.md) | 400 |
 | [A250757 – A251469](A250757-A251469.md) | 400 |
 | [A251474 – A252980](A251474-A252980.md) | 400 |
-| [A252987 – A255751](A252987-A255751.md) | 400 |
-| [A255752 – A261375](A255752-A261375.md) | 400 |
-| [A261376 – A265961](A261376-A265961.md) | 400 |
-| [A265967 – A268884](A265967-A268884.md) | 400 |
-| [A268885 – A275566](A268885-A275566.md) | 400 |
-| [A275567 – A281691](A275567-A281691.md) | 400 |
-| [A281694 – A295115](A281694-A295115.md) | 400 |
-| [A295116 – A298142](A295116-A298142.md) | 400 |
-| [A298143 – A301795](A298143-A301795.md) | 400 |
-| [A301796 – A304220](A301796-A304220.md) | 400 |
-| [A304225 – A318064](A304225-A318064.md) | 400 |
-| [A318070 – A397241](A318070-A397241.md) | 72 |
+| [A252987 – A255750](A252987-A255750.md) | 400 |
+| [A255751 – A261374](A255751-A261374.md) | 400 |
+| [A261375 – A265960](A261375-A265960.md) | 400 |
+| [A265961 – A268883](A265961-A268883.md) | 400 |
+| [A268884 – A275563](A268884-A275563.md) | 400 |
+| [A275566 – A281690](A275566-A281690.md) | 400 |
+| [A281691 – A295093](A281691-A295093.md) | 400 |
+| [A295115 – A298141](A295115-A298141.md) | 400 |
+| [A298142 – A301794](A298142-A301794.md) | 400 |
+| [A301795 – A304219](A301795-A304219.md) | 400 |
+| [A304220 – A318063](A304220-A318063.md) | 400 |
+| [A318064 – A397241](A318064-A397241.md) | 73 |

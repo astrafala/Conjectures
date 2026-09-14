@@ -130,17 +130,27 @@ def model_section(p, S, expo):
         rf"$\min({s},d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by "
         rf"Proposition~\ref{{prop:period}} both depend on $i$ only through $i\bmod {P}$ "
         rf"once $i\ge{i0}$ --- the cap because $d$ rises with $i$ and has passed ${s}$ "
-        rf"there. Below ${i0}$ the row index is carried exactly, so nothing is assumed about "
-        rf"the top of the board either.",
+        rf"there.",
         "",
         rf"A knight move never stays inside a row, so no edge joins two cells of one row: the "
         rf"label of a new row is constrained only by the two rows above it, and cell by cell "
-        rf"at that. Take as vertices the triples (row index or phase, labelling of the "
-        rf"previous row, labelling of the current row); an edge to the next such triple exists "
-        rf"when every minimum-path edge closed by the arriving row rises by $0$ or $1$. "
-        rf"Merging vertices with identical futures leaves $S={S}$, and with $M$ the adjacency "
-        rf"matrix and $\iota,\tau$ the vectors recording which states may begin and end a "
-        rf"board,",
+        rf"at that. Take as vertices the pairs (labelling of the previous row, labelling of "
+        rf"the current row) together with the phase $i\bmod {P}$ of the current row; an edge "
+        rf"to the next such vertex exists when every minimum-path edge closed by the arriving "
+        rf"row rises by $0$ or $1$, which the two rows above it decide. Vertices with "
+        rf"identical futures are merged, which changes no count, leaving $S={S}$.",
+        "",
+        rf"Rows $0,\dots,{i0}$ are ABOVE the periodic region and are not carried by the "
+        rf"matrix. They are walked once with weights: $\iota$ is the vector counting, at "
+        rf"each vertex, the boards of ${i0+1}$ rows whose last two rows are that pair. So "
+        rf"$\iota$ is not an incidence vector, and the paper may not call it one; $\tau$ is "
+        rf"all ones, every vertex being a legitimate last pair. Carrying the row index in the "
+        rf"vertex instead, which is the obvious alternative, multiplies the vertex set by the "
+        rf"${i0}$ distinct rows above the region and is what made the wider boards "
+        rf"unreachable. Summing the early rows away loses nothing: a board is determined by "
+        rf"its rows, and two boards agreeing on their last two rows admit the same "
+        rf"continuations. With $M$ the adjacency matrix, for every board of at least "
+        rf"${i0+1}$ rows,",
     ])
 
 
@@ -161,8 +171,13 @@ def build(h):
     conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
     p = transfer88.parse_name(e['name'])
-    kk = off - sh
-    expo = "n" if kk == 0 else ("n-%d" % kk if kk > 0 else "n+%d" % (-kk))
+    # The matrix carries the board only from row i0 on -- the rows above it are summed into
+    # the weighted start vector -- so the exponent is NOT the one the offset and the shift
+    # give on their own. Walk step k is the board of i0+k+1 rows, which is the entry's
+    # a(i0+k-1), so a(n) = iota^T M^(n+1-i0) tau.
+    i0_ = transfer88.settled(p['C'], p['slack'])
+    ee = 1 - i0_
+    expo = "n" if ee == 0 else ("n+%d" % ee if ee > 0 else "n-%d" % (-ee))
     frac = p['frac']
     scale = ""
     if frac != 1:

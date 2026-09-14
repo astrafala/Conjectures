@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A296036, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A296016, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A296036 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A296016 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $55$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A296036 is ``Number of nX5 0..1 arrays with each 1 adjacent to 2 or 4 king-move neighboring 1s.''. It has offset $1$ and begins
+OEIS A296016 is ``Number of nX5 0..1 arrays with each 1 adjacent to 1 or 4 king-move neighboring 1s.''. It has offset $1$ and begins
 \[
-1, 55, 251, 997, 8472, 51941, 285366, 1853852,\ \dots
+6, 69, 280, 1644, 10703, 58506, 341979, 2028843,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +3*a(n-2) +128*a(n-3) -746*a(n-4) -909*a(n-5) -6293*a(n-6) +35992*a(n-7) +63809*a(n-8) +166157*a(n-9) -891020*a(n-10) -1956676*a(n-11) -2686453*a(n-12) +12746724*a(n-13) +31345389*a(n-14) +26894726*a(n-15) -113974303*a(n-16) -281739414*a(n-17) -159264823*a(n-18) +678651173*a(n-19) +1471594058*a(n-20) +509265958*a(n-21) -2717695409*a(n-22) -4589755680*a(n-23) -595020447*a(n-24) +7006602342*a(n-25) +8634960336*a(n-26) -808150288*a(n-27) -11482781948*a(n-28) -10635854486*a(n-29) +2283999533*a(n-30) +11527331115*a(n-31) +8928622654*a(n-32) -1005541095*a(n-33) -7339656323*a(n-34) -6846449601*a(n-35) -2726209070*a(n-36) +1733362716*a(n-37) +4812513079*a(n-38) +4571448221*a(n-39) +899172633*a(n-40) -2356681935*a(n-41) -2570302359*a(n-42) -563881339*a(n-43) +839247925*a(n-44) +582273648*a(n-45) +58080097*a(n-46) -147874991*a(n-47) +43560783*a(n-48) +44608156*a(n-49) -46862788*a(n-50) +5026592*a(n-51) +3110928*a(n-52) -4741248*a(n-53) +431936*a(n-54) -15360*a(n-55)
+Empirical: a(n) = 2*a(n-1) +8*a(n-2) +151*a(n-3) -114*a(n-4) -515*a(n-5) -8244*a(n-6) +1988*a(n-7) +12138*a(n-8) +228736*a(n-9) -4994*a(n-10) -139826*a(n-11) -3736405*a(n-12) -234969*a(n-13) +933715*a(n-14) +38898983*a(n-15) +3338523*a(n-16) -4871068*a(n-17) -269945306*a(n-18) -22694433*a(n-19) +28796552*a(n-20) +1279507004*a(n-21) +100906358*a(n-22) -161008139*a(n-23) -4188737496*a(n-24) -351536978*a(n-25) +610732726*a(n-26) +9503090118*a(n-27) +1028936246*a(n-28) -1402429362*a(n-29) -14952641505*a(n-30) -2328423899*a(n-31) +1855181758*a(n-32) +16382179532*a(n-33) +3616522481*a(n-34) -1263845957*a(n-35) -12675982607*a(n-36) -3564185179*a(n-37) +196252504*a(n-38) +7067486428*a(n-39) +2167429718*a(n-40) +383587332*a(n-41) -2788913588*a(n-42) -831651808*a(n-43) -387878170*a(n-44) +699906992*a(n-45) +191664536*a(n-46) +157176764*a(n-47) -107779300*a(n-48) -35713212*a(n-49) -28734376*a(n-50) +9295024*a(n-51) +9393808*a(n-52) +3707904*a(n-53) -13440*a(n-54) -952896*a(n-55)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 03 2017 07:11:16, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 02 2017 21:49:08, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 3\,a(n-2) + 128\,a(n-3) - 746\,a(n-4) - 909\,a(n-5) - 6293\,a(n-6) + 35992\,a(n-7) + 63809\,a(n-8) + 166157\,a(n-9) - 891020\,a(n-10) - 1956676\,a(n-11) - 2686453\,a(n-12) + 12746724\,a(n-13) + 31345389\,a(n-14) + 26894726\,a(n-15) - 113974303\,a(n-16) - 281739414\,a(n-17) - 159264823\,a(n-18) + 678651173\,a(n-19) + 1471594058\,a(n-20) + 509265958\,a(n-21) - 2717695409\,a(n-22) - 4589755680\,a(n-23) - 595020447\,a(n-24) + 7006602342\,a(n-25) + 8634960336\,a(n-26) - 808150288\,a(n-27) - 11482781948\,a(n-28) - 10635854486\,a(n-29) + 2283999533\,a(n-30) + 11527331115\,a(n-31) + 8928622654\,a(n-32) - 1005541095\,a(n-33) - 7339656323\,a(n-34) - 6846449601\,a(n-35) - 2726209070\,a(n-36) + 1733362716\,a(n-37) + 4812513079\,a(n-38) + 4571448221\,a(n-39) + 899172633\,a(n-40) - 2356681935\,a(n-41) - 2570302359\,a(n-42) - 563881339\,a(n-43) + 839247925\,a(n-44) + 582273648\,a(n-45) + 58080097\,a(n-46) - 147874991\,a(n-47) + 43560783\,a(n-48) + 44608156\,a(n-49) - 46862788\,a(n-50) + 5026592\,a(n-51) + 3110928\,a(n-52) - 4741248\,a(n-53) + 431936\,a(n-54) - 15360\,a(n-55)
+a(n)\;=\;2\,a(n-1) + 8\,a(n-2) + 151\,a(n-3) - 114\,a(n-4) - 515\,a(n-5) - 8244\,a(n-6) + 1988\,a(n-7) + 12138\,a(n-8) + 228736\,a(n-9) - 4994\,a(n-10) - 139826\,a(n-11) - 3736405\,a(n-12) - 234969\,a(n-13) + 933715\,a(n-14) + 38898983\,a(n-15) + 3338523\,a(n-16) - 4871068\,a(n-17) - 269945306\,a(n-18) - 22694433\,a(n-19) + 28796552\,a(n-20) + 1279507004\,a(n-21) + 100906358\,a(n-22) - 161008139\,a(n-23) - 4188737496\,a(n-24) - 351536978\,a(n-25) + 610732726\,a(n-26) + 9503090118\,a(n-27) + 1028936246\,a(n-28) - 1402429362\,a(n-29) - 14952641505\,a(n-30) - 2328423899\,a(n-31) + 1855181758\,a(n-32) + 16382179532\,a(n-33) + 3616522481\,a(n-34) - 1263845957\,a(n-35) - 12675982607\,a(n-36) - 3564185179\,a(n-37) + 196252504\,a(n-38) + 7067486428\,a(n-39) + 2167429718\,a(n-40) + 383587332\,a(n-41) - 2788913588\,a(n-42) - 831651808\,a(n-43) - 387878170\,a(n-44) + 699906992\,a(n-45) + 191664536\,a(n-46) + 157176764\,a(n-47) - 107779300\,a(n-48) - 35713212\,a(n-49) - 28734376\,a(n-50) + 9295024\,a(n-51) + 9393808\,a(n-52) + 3707904\,a(n-53) - 13440\,a(n-54) - 952896\,a(n-55)
 \end{equation}
 for all $n>56$.
 
@@ -61,7 +61,7 @@ row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{2,4\}
+x_{t,u}=1\ \Rightarrow\ \#\{\text{neighbours equal to }1\}\in\{1,4\}
 \end{equation}
 for every cell $(t,u)$.
 
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A296036.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A296016.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

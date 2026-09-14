@@ -12,47 +12,45 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on the multiset of every subblock: OEIS A236273}
+\title{A local condition on an array: OEIS A181211}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236273 carries an empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition on a subblock depends
-only on which values the block holds and how many times, not on where they sit, so it is
-decided by the few consecutive lines the block spans. The admissible windows are the vertices
-of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
-on $S=25$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
-is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
-work.
+OEIS A181211 carries an empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
+walks in it. Hence $a(n)$ is a walk count on $S=25$ vertices and is $C$-finite, and whether the
+conjectured recurrence annihilates it is settled by a finite exact computation, with the
+Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A236273 is ``Number of (n+1)X(3+1) 0..2 arrays with the upper median unequal to the lower median in every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A181211 is ``Number of nX7 binary matrices with no two 1's adjacent diagonally or antidiagonally.''. It has offset $1$ and begins
 \[
-1048, 15434, 232736, 3604782, 56299040, 884625654, 13930389246, 219666732130,\ \dots
+128, 1156, 38936, 652864, 15786848, 315701824, 6985036032, 146719641600,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 23*a(n-1) -16*a(n-2) -2232*a(n-3) +7199*a(n-4) +81562*a(n-5) -305840*a(n-6) -1579897*a(n-7) +5702786*a(n-8) +18527773*a(n-9) -56010227*a(n-10) -138644483*a(n-11) +297115491*a(n-12) +656260628*a(n-13) -774956030*a(n-14) -1816063888*a(n-15) +616468708*a(n-16) +2397532500*a(n-17) +617130944*a(n-18) -763319696*a(n-19) -368062992*a(n-20) +11133168*a(n-21) +22287808*a(n-22) +1286144*a(n-23) -327168*a(n-24) -26624*a(n-25)
+Empirical: a(n)=30*a(n-1)-5664*a(n-3)+28924*a(n-4)+269000*a(n-5)-2020704*a(n-6)-3766112*a(n-7)+50266144*a(n-8)-14668480*a(n-9)-554895616*a(n-10)+703166720*a(n-11)+2841716480*a(n-12)-5523241472*a(n-13)-6148366336*a(n-14)+18197354496*a(n-15)+2156556288*a(n-16)-26980270080*a(n-17)+8757542912*a(n-18)+17095786496*a(n-19)-9858056192*a(n-20)-3497000960*a(n-21)+3006267392*a(n-22)-260046848*a(n-24)+33554432*a(n-25)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:12:19, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:25:06, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $4$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that in every $2\times2$ subblock the two middle order statistics are different: writing the $4$ entries of the block in nondecreasing order $v_1\le\cdots\le v_{4}$, the lower median is $v_{2}$ and the upper median $v_{3}$, and these must be unequal.
+The entry counts arrays with $7$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no two entries equal to $1$ may be adjacent diagonally or antidiagonally.
 
-That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
 
 Merging vertices with identical futures leaves $S=25$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -78,15 +76,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;23\,a(n-1) - 16\,a(n-2) - 2232\,a(n-3) + 7199\,a(n-4) + 81562\,a(n-5) - 305840\,a(n-6) - 1579897\,a(n-7) + 5702786\,a(n-8) + 18527773\,a(n-9) - 56010227\,a(n-10) - 138644483\,a(n-11) + 297115491\,a(n-12) + 656260628\,a(n-13) - 774956030\,a(n-14) - 1816063888\,a(n-15) + 616468708\,a(n-16) + 2397532500\,a(n-17) + 617130944\,a(n-18) - 763319696\,a(n-19) - 368062992\,a(n-20) + 11133168\,a(n-21) + 22287808\,a(n-22) + 1286144\,a(n-23) - 327168\,a(n-24) - 26624\,a(n-25)
+a(n)\;=\;30\,a(n-1) - 5664\,a(n-3) + 28924\,a(n-4) + 269000\,a(n-5) - 2020704\,a(n-6) - 3766112\,a(n-7) + 50266144\,a(n-8) - 14668480\,a(n-9) - 554895616\,a(n-10) + 703166720\,a(n-11) + 2841716480\,a(n-12) - 5523241472\,a(n-13) - 6148366336\,a(n-14) + 18197354496\,a(n-15) + 2156556288\,a(n-16) - 26980270080\,a(n-17) + 8757542912\,a(n-18) + 17095786496\,a(n-19) - 9858056192\,a(n-20) - 3497000960\,a(n-21) + 3006267392\,a(n-22) - 260046848\,a(n-24) + 33554432\,a(n-25)
 \]
-for every $n>24$.
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $25$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -99,9 +97,8 @@ arithmetic. This is what ties the model to the entry: the digraph is built by re
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one, forms each subblock directly and tests the entry's
-condition on it. That program shares no code with the transfer matrix, so an error in one does
-not hide an error in the other.
+every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236273.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A181211.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
