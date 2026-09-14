@@ -135,7 +135,7 @@ for a in sorted(set(CANDS) | ANUMS):
     e = LE.get(a)
     # conjlines understands a "Conjectures from X: (Start) ... (End)" block, whose formula
     # lines carry no conjectural word of their own; MARK alone could not see them
-    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.lines(e)) if r]
+    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.claims(e)) if r]
     if not recs:
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:

@@ -406,3 +406,42 @@ So the object is an HD0L system rather than a substitution, its length sequence 
 reasons that need the theory, and `src/morphlen.py` is left with `IN_SERVICE = False`. Three
 unsound certificates in one day would be carelessness; the reading is done and recorded, and 66
 entries are waiting for someone with the HD0L length theorem rather than more state.
+
+## 14 September 2026 — cusp-form dimensions: three claims lost to a mashed line
+
+Three new results, all `cusp-form-dimension`:
+
+| entry | N | claim proved |
+|---|---|---|
+| A063110 | 42 | `a(n) = 2*a(n-1) - a(n-2)` for n > 3 |
+| A063126 | 58 | `a(n) = a(n-1) + a(n-2) - a(n-3)` for n > 4 |
+| A063157 | 89 | `a(n) = a(n-1) + a(n-2) - a(n-3)` for n > 4 |
+
+All three were in `deep-check/cusp.txt` and had been swept. Every one was refused with
+"no parsable recurrence", because the entry writes three claims on ONE line:
+
+    Conjecture: a(n) = 16*n-12 for n>1. a(n) = 2*a(n-1)-a(n-2) for n>3. G.f.: x*(5+10*x+x^2)/(1-x)^2.
+
+`ratrec.parse_rec` is handed the whole line and sees none of the three. `conjlines.claims`
+now splits a line into its sentences and offers each alone; the three sweeps that build a
+recurrence list read it. In each case the last nonzero residual sits at exactly the index the
+entry itself claims, so the stated bound is tight and not merely sufficient.
+
+Measured before changing anything: sentence-splitting rescues **17 entries pool-wide**, of
+which **3 have a name an engine reads** — these three. The defect is real and it is also
+small; `conjlines` was already splitting `(Start)…(End)` blocks correctly, which is where the
+bulk of it was.
+
+### Nulls recorded the same day
+
+- **Inhomogeneous recurrences with a constant term** (`a(n) = a(n-6) + 14`). These differ
+  once into a homogeneous recurrence of order max(i)+1, so they are free to support. Pool-wide
+  there are **3 entries** whose only readable claim has this shape and **none** has a name an
+  engine reads. Not a vein. (Two more sit on A063081 and A063168 as a *second* conjecture by a
+  different author on an entry already on the roster.)
+- **Shift identities** (`Conjecture: a(n) = A######(n+k)`). **26 pool-wide**; both sides
+  already on the roster in exactly **one** case (A063148 = A063128, where both sides carry the
+  same proved g.f., so the identity is immediate and elementary). Not a vein either.
+- The deeper `relscan` tail past the top-25 shapes is pointer lines ("See A###### for a
+  similar conjecture") and one-off claims relating two independently-defined sequences. No
+  second gridbase-shaped family in it.

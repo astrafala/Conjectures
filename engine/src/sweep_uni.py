@@ -93,7 +93,7 @@ for a in sorted(CANDS):
     # word on its formula lines, and this sweep tested the word for its whole life. The cost
     # here is small only because the candidate list was already filtered with `conjlines';
     # asked of every name instead, the same test refused 170 entries out of 205.
-    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.lines(e)) if r]
+    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.claims(e)) if r]
     if not recs:
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:

@@ -122,7 +122,7 @@ for a in sorted(names):
     # first run of this sweep that refused 170 of 205 entries -- every one of the nineteen
     # lexsub names and every one of the boardwalk names -- as "no parsable recurrence", with
     # the recurrence sitting in plain sight inside a "Conjectures from X: (Start)" block.
-    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.lines(e)) if r]
+    recs = [r for r in (ratrec.parse_rec(L) for L in conjlines.claims(e)) if r]
     if not recs:
         res['no parsable recurrence'] += 1; continue
     if not openness.status(a)[0]:
