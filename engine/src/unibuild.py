@@ -12,6 +12,7 @@ import localentry as LE, phibuild, transferbuild, uniform
 PRE = phibuild.PRE
 esc = phibuild.esc
 rec_tex = transferbuild.rec_tex
+rec_display = transferbuild.rec_display
 
 WINDOW = {
     'modsum': ("the two running row sums modulo M and the previous column: the sums look "
@@ -272,10 +273,7 @@ pins the threshold exactly.
 \end{{proof}}
 
 \begin{{theorem}}
-\[
-a(n)\;=\;{rec_tex(coeffs)}
-\]
-for every $n>{nthr}$.
+{rec_display(coeffs, nthr)}
 \end{{theorem}}
 
 \begin{{proof}}

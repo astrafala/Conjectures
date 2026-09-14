@@ -54,4 +54,30 @@ def line(anum, coeffs=None, e=None):
     for L in cand:
         if re.search(r'a\(n\)\s*=', L):
             return dress(L)
+    # **The conjecture that is not in the entry.** An entry may say only
+    #
+    #     Empirical recurrence of order 42 (see link above).
+    #
+    # and keep the recurrence in a linked a-file. Quoting the sentence alone would print a
+    # paper about a recurrence whose statement appears nowhere in it, so both are quoted: the
+    # entry's own words, and the line the link holds.
+    if head is not None:
+        try:
+            import linkrec
+            if linkrec.points_at_link(head):
+                txt = linkrec.text(anum)
+                if txt:
+                    first = txt.strip().split('\n')[0].strip()
+                    if first:
+                        # The a-files are written without spaces --
+                        # "a(n)=6*a(n-1)-4*a(n-2)-31*a(n-3)..." -- and at order 95 that is one
+                        # unbreakable word several pages wide. TeX has nowhere to break it, so
+                        # the quote ran off the page on every one of these. Spacing the signs
+                        # gives it breakpoints and changes nothing else.
+                        first = re.sub(r'(?<=[\d)])\s*([+-])\s*(?=\d|a\()',
+                                       r' \1 ', first)
+                        first = re.sub(r'\s*=\s*', ' = ', first, count=1)
+                        return head.rstrip() + '\n\n' + first
+        except Exception:
+            pass
     return head

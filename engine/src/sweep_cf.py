@@ -3,9 +3,12 @@ import json
 
 import atomicjson, re, os, sys, collections, importlib, zlib
 from fractions import Fraction
+import sympy
+
+n = sympy.Symbol('n')
 from math import factorial
 import signal
-import localentry as LE, openness, closedform as CF, uniform
+import localentry as LE, openness, closedform as CF, uniform, conjlines
 
 
 class _T(Exception):
@@ -60,6 +63,22 @@ for a in sorted(targets):
         if q:
             got = (q[0], q[1], L.strip()); break
     if not got:
+        # The entry may say only "Empirical polynomial of degree 26 (see link above)" and keep
+        # the polynomial itself in a linked a-file. 36 entries in this pool do, every one with
+        # a name an engine already reads. linkrec holds the fetched file; the clone's copy is
+        # a Git LFS pointer and reading it settles nothing.
+        import linkrec
+        ref = next((L for L in conjlines.claims(e) if linkrec.points_at_link(L)), None)
+        st = linkrec.stated(ref) if ref else None
+        if st and st[0] == 'polynomial':
+            txt = linkrec.text(a)
+            q = CF.parse_line(txt.strip().split('\n')[0]) if txt else None
+            # the entry states a DEGREE; if the fetched polynomial is not of that degree the
+            # two are not the same statement and the pair is refused rather than reconciled
+            if q and sympy.Poly(q[0], n).degree() == st[1]:
+                got = (q[0], q[1], ' '.join(ref.split()) + '  ||  ' +
+                       txt.strip().split('\n')[0])
+    if not got:
         res['no readable closed form'] += 1; done.add(a); continue
     expr, claimed, line = got
     ann = CF.annihilator(expr)
@@ -104,7 +123,19 @@ for a in sorted(targets):
         res['state space > cap'] += 1; done.add(a); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
-    N = off + len(d) + order + 12
+    # The agreement test runs at `order` consecutive indices ABOVE the annihilation threshold,
+    # and the threshold is a property of the model, not of how many terms the entry publishes.
+    # N was computed from the published terms alone, so an entry with 17 terms and a degree-30
+    # polynomial asked for index 131 out of a list of 61 and the IndexError was recorded as
+    # "closed form evaluation failed" -- 13 of the 36 linked-polynomial entries, none of them
+    # a failure of the closed form. The threshold is taken first and N sized from it.
+    try:
+        rawthr = uniform.threshold(eng, p, b, coeffs, order)
+    except Exception:
+        res['threshold failed'] += 1; done.add(a); continue
+    if rawthr is None:
+        res['model does not satisfy the annihilator'] += 1; done.add(a); continue
+    N = max(off + len(d), rawthr + 2 * order) + 12
     try:
         signal.alarm(BUDGET)
         vals, parts = model_values(eng, p, b, N)
@@ -122,13 +153,8 @@ for a in sorted(targets):
             base = s; break
     if base is None:
         res['model does not match DATA'] += 1; done.add(a); continue
-    try:
-        thr = uniform.threshold(eng, p, b, coeffs, order)
-        thr = None if thr is None else thr - base
-    except Exception:
-        res['threshold failed'] += 1; done.add(a); continue
-    if thr is None:
-        res['model does not satisfy the annihilator'] += 1; done.add(a); continue
+    thr = rawthr - base
+
     # both a and f obey the same monic recurrence beyond thr, so agreement on `order`
     # consecutive indices there propagates forever
     lo = max(thr + 1, off)

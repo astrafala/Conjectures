@@ -221,3 +221,37 @@ if __name__ == "__main__":
         os.makedirs(d, exist_ok=True)
         open(f"{d}/p.tex", "w").write(build(h))
     print("wrote", len(hits), "papers")
+
+
+# A recurrence of order 91 whose coefficients run to thirty digits does not fit in a display.
+# Typeset inline it produces a single unbreakable line several pages wide; the entries whose
+# conjecture lives in a linked a-file are all of that size, so the theorem states the shape
+# and tabulates the coefficients instead.
+WIDE = 16
+
+
+def rec_display(coeffs, nthr):
+    """the theorem's body: a display for a short recurrence, a table for a long one."""
+    idx = sorted(int(k) for k in coeffs)
+
+    def c(i):
+        return int(coeffs[str(i)]) if isinstance(coeffs, dict) and str(i) in coeffs \
+            else int(coeffs[i])
+
+    if len(idx) <= WIDE:
+        return ('\\[\na(n)\;=\;' + rec_tex(coeffs) + '\n\\]\nfor every $n>%d$.' % nthr)
+    order = max(idx)
+    rows = []
+    for i in range(1, order + 1):
+        v = c(i) if (i in coeffs or str(i) in coeffs) else 0
+        rows.append('$c_{%d}$ & $=%d$' % (i, v))
+    per = 2
+    body = []
+    for k in range(0, len(rows), per):
+        body.append(' & '.join(rows[k:k + per]) + r' \\')
+    cols = 'r@{\\,}l' + ('@{\\qquad}r@{\\,}l' * (per - 1))
+    return ('\\[\na(n)\;=\;\\sum_{i=1}^{%d}c_i\\,a(n-i)\n\\]\n'
+            'for every $n>%d$, with\n'
+            '\\begin{center}\\footnotesize\n\\begin{tabular}{%s}\n%s\n\\end{tabular}\n'
+            '\\end{center}\n'
+            'and $c_i=0$ for every $i$ not listed.' % (order, nthr, cols, '\n'.join(body)))
