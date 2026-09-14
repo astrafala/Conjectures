@@ -377,3 +377,32 @@ Worth saying plainly: for most of these entries the threshold leaves only n = 1 
 alphabet size, so the identity is not a statement about their published terms. It is a
 statement about the family, each entry carries it, and it is the family statement that is
 proved — the same footing `circbase`'s 223 stand on. Each paper says so in as many words.
+
+## 14 September 2026 — 66 more from section P, the reading pinned and the proof refused
+
+The bucket that produced the 18 grid-base results has another 66 entries in it: "a(n) is the
+number of letters in the n-th iterate of the mapping 00->001, 1->000, starting with 00".
+
+The rule is now pinned, against the entries' own published data rather than assumed: scan left
+to right, take the longest left-hand side that matches, copy any character that matches
+nothing. `00->001, 1->000` then gives 2, 3, 6, 10, 17, 29, 51, 90, 160, 282, 499 and
+`00->001, 1->011` gives 2, 3, 6, 13, 29, 65, 146, 328, 737, 1656, 3721, which are A285665 and
+A286062 term for term.
+
+The model is refused, and the reason is the useful part. The obvious state is (unit being
+rewritten, characters pending before it) -- finite, because the left-hand sides are bounded --
+and measured over nine levels the map (unit, carry) -> (emitted units, carry-out) is a
+FUNCTION: eight states, not one disagreement. That is the check that would normally be run and
+it passes.
+
+Asking instead whether the CHILDREN are determined fails it: the same parent pair emits
+children with different carries depending on what came before, 198 disagreements over eleven
+levels on A285665 and 15 on A289131 -- and 0 on A286062, which is precisely how a partial check
+misleads. A child's carry belongs to the NEXT level's parse rather than to the buffer position
+it came out of, and it chains across parent boundaries; putting the next level's carry into the
+state only introduces the level after that.
+
+So the object is an HD0L system rather than a substitution, its length sequence is C-finite for
+reasons that need the theory, and `src/morphlen.py` is left with `IN_SERVICE = False`. Three
+unsound certificates in one day would be carelessness; the reading is done and recorded, and 66
+entries are waiting for someone with the HD0L length theorem rather than more state.

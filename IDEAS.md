@@ -982,3 +982,45 @@ Only after that: re-measure how many tilings really are exact (the 723 is an ove
 `IN_SERVICE` on, register in the six places STATE.md lists, sweep, install. And run the whole
 path against the 6,536 published coordination sequences first — the terms are already known to
 match `galtile`, so any disagreement is downstream of it.
+
+## V. Section P's other buckets, measured (14 September)
+
+`relscan.py` buckets every entry outside the roster whose conjectural line names another
+A-number: 25,298 carry a conjectural line, 8,202 of those name an A-number, 6,163 are open with
+no parsable recurrence. By the shape of the line:
+
+    ~1,500  Plouffe's Sum_{k>=0} A######(k)/exp(k*Pi) = <constant>   analytic, not this project
+        47  a(n) = A000041(n)^2 - cumulative A000712(...)
+        66  "the number of letters in the n-th iterate of the mapping 00->001, 1->000"
+   ~110     "See A###### for a similar conjecture"                   pointers, not claims
+         9  "Conjecture: partial sums of A######"
+
+**The 18 grid-base entries came out of this bucket and are installed.** Two others were looked
+at and one is written up below.
+
+### V.1 The block-substitution lengths: the rule is pinned, the proof is not
+
+66 entries say a(n) is the number of letters in the n-th iterate of a mapping like
+`00->001, 1->000` from a seed. The rule they mean is settled, by matching the published data:
+scan left to right, take the longest left-hand side that matches, copy any character that
+matches nothing. That gives 2, 3, 6, 10, 17, 29, 51, 90, 160, 282, 499 for `00->001, 1->000`
+and 2, 3, 6, 13, 29, 65, 146, 328, 737, 1656, 3721 for `00->001, 1->011` -- A285665 and
+A286062 term for term. `src/morphlen.py` has it.
+
+The natural model does not work and it is worth recording why, because it looked like it did.
+Take the state to be (unit being rewritten, characters pending before it) -- finite, since the
+left-hand sides are bounded. Measured over nine levels, the map (unit, carry) -> (emitted
+units, carry-out) is a FUNCTION: eight states, never a disagreement. That is the check most
+people would run, and it passes.
+
+**Ask instead whether the CHILDREN are determined, and it fails**: the same parent pair emits
+children with different carries depending on what preceded it -- 198 disagreements over eleven
+levels on A285665, 15 on A289131, and 0 on A286062, which is exactly how a partial check
+misleads. A child's carry belongs to the next level's parse, not to the buffer position it came
+from, and it chains across parent boundaries; adding the next level's carry to the state
+introduces the level after that.
+
+So this is an HD0L system, not a substitution. Its length sequence is C-finite for reasons that
+need the theory rather than a transfer matrix assembled by inspection, and `morphlen` is left
+with `IN_SERVICE = False`. 66 entries, and the reading is done; whoever takes it needs the
+HD0L length theorem, not more state.
