@@ -113,3 +113,16 @@ engine/shardnp_caps_[0-9].json
 # window is milliseconds, but with the standing sweeps writing constantly the stop hook keeps
 # catching one mid-rename and reporting an untracked file. They are never meant to be tracked.
 .tmp-*.json
+
+# Shard files of the linked-a-file sweep and the rebuilt closed-form pool. Every worker
+# rewrites its own every few seconds, so tracking them means the tree is never clean and
+# every commit races the next write. `src/merge_sharded.py` folds them into the merged
+# files, which ARE tracked.
+engine/linkrec_hits_*.json
+engine/linkrec_done_*.json
+engine/linkrec_why*.json
+engine/cfpool_hits_*.json
+engine/cfpool_done_*.json
+engine/cfpool_why*.json
+engine/linkpoly_done.json
+engine/galgood_*.json
