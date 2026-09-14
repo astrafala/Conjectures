@@ -42,3 +42,41 @@ Two things to keep:
   sixty and an `integrate_rest` reading mid-write died on a JSON decode error. Stop the sweep,
   then edit. And stop it with `ps -eo pid,args | awk '$2=="python3" && $3=="src/X.py"'` —
   `pgrep -f` matches the agent's own wrapper shell and kills the command instead.
+
+## 14 September 2026 — where the cap-refusal vein stops, said plainly
+
+IDEAS.md section T proposed one change reaching four engines: merge states on the fly, since
+the cap is hit during exploration and `lumpauto` runs after. Having now looked at all four,
+**that is not what two of them needed, and the other two already do it.** The honest tally:
+
+* `transfer3` — a nested loop over every pair of rows, where the condition is linear and the
+  successors can be solved for. Fixed. **30 results.**
+* `transfer35` — enumerated all A^(K*W) tuples where the condition is local across columns and
+  the valid tuples can be grown one column at a time. Fixed. **22 results.**
+* `transfer17` — **already** grows each pair's successors by column, with a comment saying so
+  and why. What is left is the vertex set itself, all (alpha+1)^(2W) ordered pairs of lines,
+  and that is not padding: a pair of lines carries no condition of its own, since the block
+  spans three. The four pool entries checked are at 268,435,456 pairs (width 7, 0..3) and
+  4,294,967,296 (width 8) — too large to enumerate, let alone trim. Those refusals are real.
+* `transfer19` — **already** falls back to `build_pairfree`, which "applies its own cap to the
+  states it actually reaches", and its guard already covers the triple loop the vertex count
+  does not see.
+
+So the section-T idea was half right. It found two builds that were testing what they could
+have constructed, which is now STATE.md defect 20 and 52 results; it was wrong that the other
+two were waiting for the same fix. Neither is a merge-on-the-fly problem, and writing a
+partition refinement over the frontier would have bought nothing on either.
+
+What would move `transfer17` is a different model, not a faster build of this one: the
+condition on a 3 X 3 block is itself local along the fixed dimension, so the admissible column
+triples are recognised by an automaton scanning that dimension, and the pair of full columns is
+more state than the condition can see. Turning that into a transfer matrix needs a subset
+construction, which is exponential in the wrong place. Recorded as an idea, not as a plan.
+
+Raising `transfer3`'s cap from 400,000 to 2,500,000 reached **8 more** of its 13 remaining
+refusals — A234680, A234736, A234821, A235097, A235185, A235196, A235237, A235278, all kept by
+the live re-check. The build is fast now, so the cost has moved to the annihilation test on a
+model with hundreds of thousands of states, and that is what the sweep's own time limit spends
+itself on. The cap was never the binding constraint once the build stopped being quadratic.
+
+Roster: 12,958 -> 12,966 papers over 12,939 entries.

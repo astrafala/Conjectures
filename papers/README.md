@@ -1,6 +1,6 @@
 # The papers
 
-12958 papers: 12952 proofs and 6 disproofs of conjectures recorded as open in
+12966 papers: 12960 proofs and 6 disproofs of conjectures recorded as open in
 the On-Line Encyclopedia of Integer Sequences.
 
 Author: **Adrian Perez Fontelles**, independent researcher.
@@ -35,18 +35,18 @@ its contributor and date, and gives the range over which it has been settled.
 | [05001-05500](05001-05500/) | 500 | [A206628](https://oeis.org/A206628) |
 | [05501-06000](05501-06000/) | 500 | [A188691](https://oeis.org/A188691) |
 | [06001-06500](06001-06500/) | 500 | [A260926](https://oeis.org/A260926) |
-| [06501-07000](06501-07000/) | 500 | [A189201](https://oeis.org/A189201) |
-| [07001-07500](07001-07500/) | 500 | [A230671](https://oeis.org/A230671) |
-| [07501-08000](07501-08000/) | 500 | [A254582](https://oeis.org/A254582) |
-| [08001-08500](08001-08500/) | 500 | [A208144](https://oeis.org/A208144) |
-| [08501-09000](08501-09000/) | 500 | [A242582](https://oeis.org/A242582) |
-| [09001-09500](09001-09500/) | 500 | [A180753](https://oeis.org/A180753) |
-| [09501-10000](09501-10000/) | 500 | [A230064](https://oeis.org/A230064) |
-| [10001-10500](10001-10500/) | 500 | [A196741](https://oeis.org/A196741) |
-| [10501-11000](10501-11000/) | 500 | [A251106](https://oeis.org/A251106) |
-| [11001-11500](11001-11500/) | 500 | [A207718](https://oeis.org/A207718) |
-| [11501-12000](11501-12000/) | 500 | [A206203](https://oeis.org/A206203) |
-| [12001-12500](12001-12500/) | 500 | [A129149](https://oeis.org/A129149) |
-| [12501-13000](12501-13000/) | 458 | [A279922](https://oeis.org/A279922) |
+| [06501-07000](06501-07000/) | 500 | [A235237](https://oeis.org/A235237) |
+| [07001-07500](07001-07500/) | 500 | [A197800](https://oeis.org/A197800) |
+| [07501-08000](07501-08000/) | 500 | [A197532](https://oeis.org/A197532) |
+| [08001-08500](08001-08500/) | 500 | [A282333](https://oeis.org/A282333) |
+| [08501-09000](08501-09000/) | 500 | [A259889](https://oeis.org/A259889) |
+| [09001-09500](09001-09500/) | 500 | [A250626](https://oeis.org/A250626) |
+| [09501-10000](09501-10000/) | 500 | [A204477](https://oeis.org/A204477) |
+| [10001-10500](10001-10500/) | 500 | [A258892](https://oeis.org/A258892) |
+| [10501-11000](10501-11000/) | 500 | [A220676](https://oeis.org/A220676) |
+| [11001-11500](11001-11500/) | 500 | [A186457](https://oeis.org/A186457) |
+| [11501-12000](11501-12000/) | 500 | [A204753](https://oeis.org/A204753) |
+| [12001-12500](12001-12500/) | 500 | [A108704](https://oeis.org/A108704) |
+| [12501-13000](12501-13000/) | 466 | [A224350](https://oeis.org/A224350) |
 
 `index.csv` lists every paper with its OEIS entry and the kind of argument used.

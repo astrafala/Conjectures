@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A248458, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268322, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A248458 carries an empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is
+OEIS A268322 carries an empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=36$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=40$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A248458 is ``Number of length n+2 0..5 arrays with no three consecutive terms having the sum of any two elements equal to twice the third.''. It has offset $1$ and begins
+OEIS A268322 is ``Number of length-(n+1) 0..3 arrays with new values introduced in sequential order, and with new repeated values introduced in sequential order, both starting with zero.''. It has offset $1$ and begins
 \[
-174, 862, 4272, 21182, 105026, 520788, 2582406, 12805334,\ \dots
+2, 4, 11, 32, 102, 337, 1148, 3984,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +10*a(n-2) +11*a(n-3) -32*a(n-4) -119*a(n-5) -139*a(n-6) -26*a(n-7) +126*a(n-8) +130*a(n-9) +28*a(n-10) -12*a(n-11) -4*a(n-12)
+Empirical: a(n) = 15*a(n-1) -83*a(n-2) +181*a(n-3) +20*a(n-4) -632*a(n-5) +445*a(n-6) +849*a(n-7) -637*a(n-8) -673*a(n-9) +208*a(n-10) +260*a(n-11) +48*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:43:39, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Feb 01 2016 10:22:17, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=36$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=40$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 10\,a(n-2) + 11\,a(n-3) - 32\,a(n-4) - 119\,a(n-5) - 139\,a(n-6) - 26\,a(n-7) + 126\,a(n-8) + 130\,a(n-9) + 28\,a(n-10) - 12\,a(n-11) - 4\,a(n-12)
+a(n)\;=\;15\,a(n-1) - 83\,a(n-2) + 181\,a(n-3) + 20\,a(n-4) - 632\,a(n-5) + 445\,a(n-6) + 849\,a(n-7) - 637\,a(n-8) - 673\,a(n-9) + 208\,a(n-10) + 260\,a(n-11) + 48\,a(n-12)
 \]
-for every $n>-1$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=-1+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A248458.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268322.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
