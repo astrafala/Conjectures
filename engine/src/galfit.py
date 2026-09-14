@@ -21,8 +21,17 @@ import galhull
 import galtile
 
 
-def data(u, t, v, radius=70, margin=6, minpts=40):
-    """(data, None) or (None, reason)"""
+def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
+    """(data, None) or (None, reason)
+
+    `refine` passes to a SUBLATTICE (k1*a, k2*b) of the translation lattice, which splits each
+    vertex class into k1*k2 subclasses. The distance of a periodic graph is a polyhedral norm
+    plus a correction that is periodic, not convex -- measured over the 379 coordination
+    sequences, the fit made on an inner patch EXCEEDS the true distance further out, by up to
+    5, on most tilings, and no patch radius fixes that because the excess is not an artifact of
+    the radius. Refining the lattice absorbs a correction whose period divides the refinement:
+    on each subclass the remaining function can be convex even when it is not on the class.
+    """
     T = galtile.tilings()
     types = T.get((u, t))
     if not types:
@@ -35,6 +44,9 @@ def data(u, t, v, radius=70, margin=6, minpts=40):
     if L is None:
         return None, 'no translation lattice'
     a, b = L
+    k1, k2 = refine
+    a = tuple(k1 * x for x in a)
+    b = tuple(k2 * x for x in b)
     seen = gallat.patch(types, radius, start=start)
     if not seen:
         return None, 'no patch'
@@ -96,4 +108,5 @@ def data(u, t, v, radius=70, margin=6, minpts=40):
                 return None, 'an edge is not expressible in lattice coordinates'
             out.append((ci, j, off))
     return {'planes': planes, 'edges': out, 'classes': len(planes),
-            'start': start, 'u': u, 't': t, 'v': v, 'radius': radius}, None
+            'start': start, 'u': u, 't': t, 'v': v, 'radius': radius,
+            'refine': (k1, k2)}, None

@@ -12,75 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254262, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206681, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254262 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
-statistic that is monotone along named directions of the subblock grid, and carries an
-empirical recurrence of order $41$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so the count is a walk count on $S=1660$ states --- the last two array rows together with the
-subblock row just completed --- and the conjectured recurrence is then settled by a finite
-exact computation.
+OEIS A206681 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
+every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $41$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=5352$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A254262 is ``Number of (3+2)X(n+2) 0..1 arrays with every 3X3 subblock sum of the two maximums of the diagonal and antidiagonal minus the sum of the minimums of the central row and column nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
+OEIS A206681 is ``Number of (n+1) X 5 0..2 arrays with every 2 X 3 or 3 X 2 subblock having an unequal number of clockwise and counterclockwise edge increases.''. It has offset $1$ and begins
 \[
-12616, 59531, 268900, 1420232, 7815717, 43088793, 240716320, 1346708544,\ \dots
+5352, 55836, 645144, 7423464, 84549024, 965476188, 11019153780, 125824938768,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) -17*a(n-2) -84*a(n-3) +260*a(n-4) -164*a(n-5) -564*a(n-6) +2856*a(n-7) +11170*a(n-8) -41228*a(n-9) -72878*a(n-10) +251424*a(n-11) -198452*a(n-12) -328104*a(n-13) +2628780*a(n-14) +4648696*a(n-15) -20786505*a(n-16) -29452526*a(n-17) +74588439*a(n-18) +73057204*a(n-19) -41058408*a(n-20) -209594372*a(n-21) -74206736*a(n-22) +213851488*a(n-23) -212060864*a(n-24) +1110211136*a(n-25) -353377472*a(n-26) -1735241984*a(n-27) +1881662208*a(n-28) -2041185792*a(n-29) +721603584*a(n-30) +3116957696*a(n-31) -3646394368*a(n-32) +2008072192*a(n-33) -474447872*a(n-34) -2278555648*a(n-35) +2827354112*a(n-36) -1106116608*a(n-37) +103284736*a(n-38) +605028352*a(n-39) -788529152*a(n-40) +268435456*a(n-41) for n>47
+Empirical: a(n) = 4*a(n-1) +71*a(n-2) +109*a(n-3) +304*a(n-4) +1749*a(n-5) +6190*a(n-6) +40798*a(n-7) +113760*a(n-8) +156451*a(n-9) +56935*a(n-10) -344927*a(n-11) -3135593*a(n-12) -2982120*a(n-13) -4186941*a(n-14) -4278189*a(n-15) +25395411*a(n-16) +21365207*a(n-17) +23528296*a(n-18) +18470333*a(n-19) +10691226*a(n-20) -158651917*a(n-21) +1474977*a(n-22) -90337878*a(n-23) +67235360*a(n-24) +78673890*a(n-25) +28641537*a(n-26) +12971893*a(n-27) -19013172*a(n-28) -10811757*a(n-29) +317677*a(n-30) +183847*a(n-31) -595959*a(n-32) +788026*a(n-33) +829709*a(n-34) +184148*a(n-35) +6927*a(n-36) -15576*a(n-37) -13017*a(n-38) -3018*a(n-39) -438*a(n-40) -72*a(n-41) for n>42.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:35:37, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Dec 13 2015 21:21:31, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
-antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
-aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
-denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
-and $3$ columns for an $(n+2)\times5$ array over $\{0,\dots,1\}$. The condition is
-\[
-\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
-\]
-whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
+Both a $3\times2$ and a $2\times3$ window have all six of their cells on the
+perimeter, so each carries a $6$-cycle. For
+$\begin{pmatrix}p&q\\r&s\\t&u\end{pmatrix}$ the clockwise cycle is
+$p\to q\to s\to u\to t\to r\to p$; for
+$\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
+$p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
+value, and counterclockwise counts the same cycle traversed the other way. The entry requires
+of every window of either shape that its clockwise and counterclockwise edge increases are unequal in number.
 
-``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
-the reading of every statistic name here, was checked by counting the small arrays directly
-against what the entries publish.
+The readings were pinned by direct enumeration before anything was built: over
+$\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
+$3$ number $150$; over $\{0,\dots,3\}$ the $3\times2$ arrays of count $1$ number $480$;
+and the $2\times3$ arrays over $\{0,1,2\}$ of clockwise count $2$ also number $423$. Those
+are the first terms the corresponding entries publish.
 
 \section{The count is a walk count}
 
-A subblock spans three array rows and the vertical comparison spans four, so the obvious state
-is three consecutive rows. It is larger than it needs to be. What a step actually consults is
-the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
-and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
+A $3\times2$ window spans three consecutive array rows and a $2\times3$
+window two, so take as state the PAIR of consecutive rows. The $2\times3$ windows lie inside a
+single pair, so they decide which pairs are admissible at all; the $3\times2$ windows straddle
+three rows, so they decide which pair may follow which. A step appends one array row, turning
+$(r,s)$ into $(s,t)$ and testing every $3\times2$ window of $r,s,t$ at once. An $(n+1)$-row
+array is a walk of $n-1$ steps and
 \[
-\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
-$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
-there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
-what makes the wider arrays reachable.
+on the $S=5352$ admissible pairs.
 
-The starting vector is therefore weighted rather than all-ones: a state is entered by as many
-first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
-$(n+2)$-row array is a walk of $n-1$ steps and
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
-\]
-on the $S=1660$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
-index with the entry's own $n$ was checked against its published terms rather than assumed.
+At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
+$2\times3$ windows apply; the entry's first term is
+$5352$, which the model reproduces along with every later term.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -102,15 +98,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 17\,a(n-2) - 84\,a(n-3) + 260\,a(n-4) - 164\,a(n-5) - 564\,a(n-6) + 2856\,a(n-7) + 11170\,a(n-8) - 41228\,a(n-9) - 72878\,a(n-10) + 251424\,a(n-11) - 198452\,a(n-12) - 328104\,a(n-13) + 2628780\,a(n-14) + 4648696\,a(n-15) - 20786505\,a(n-16) - 29452526\,a(n-17) + 74588439\,a(n-18) + 73057204\,a(n-19) - 41058408\,a(n-20) - 209594372\,a(n-21) - 74206736\,a(n-22) + 213851488\,a(n-23) - 212060864\,a(n-24) + 1110211136\,a(n-25) - 353377472\,a(n-26) - 1735241984\,a(n-27) + 1881662208\,a(n-28) - 2041185792\,a(n-29) + 721603584\,a(n-30) + 3116957696\,a(n-31) - 3646394368\,a(n-32) + 2008072192\,a(n-33) - 474447872\,a(n-34) - 2278555648\,a(n-35) + 2827354112\,a(n-36) - 1106116608\,a(n-37) + 103284736\,a(n-38) + 605028352\,a(n-39) - 788529152\,a(n-40) + 268435456\,a(n-41)
+a(n)\;=\;4\,a(n-1) + 71\,a(n-2) + 109\,a(n-3) + 304\,a(n-4) + 1749\,a(n-5) + 6190\,a(n-6) + 40798\,a(n-7) + 113760\,a(n-8) + 156451\,a(n-9) + 56935\,a(n-10) - 344927\,a(n-11) - 3135593\,a(n-12) - 2982120\,a(n-13) - 4186941\,a(n-14) - 4278189\,a(n-15) + 25395411\,a(n-16) + 21365207\,a(n-17) + 23528296\,a(n-18) + 18470333\,a(n-19) + 10691226\,a(n-20) - 158651917\,a(n-21) + 1474977\,a(n-22) - 90337878\,a(n-23) + 67235360\,a(n-24) + 78673890\,a(n-25) + 28641537\,a(n-26) + 12971893\,a(n-27) - 19013172\,a(n-28) - 10811757\,a(n-29) + 317677\,a(n-30) + 183847\,a(n-31) - 595959\,a(n-32) + 788026\,a(n-33) + 829709\,a(n-34) + 184148\,a(n-35) + 6927\,a(n-36) - 15576\,a(n-37) - 13017\,a(n-38) - 3018\,a(n-39) - 438\,a(n-40) - 72\,a(n-41)
 \]
-for every $n>47$.
+for every $n>42$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=47+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +114,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,11 +126,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254262.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206681.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
-Order}, 2nd ed., Cambridge University Press, 2002.
+\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
+Press, 2012.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

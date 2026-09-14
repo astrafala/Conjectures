@@ -40,6 +40,7 @@ SHORT = {
     'necklace': "a Burnside sum over the necklace group",
     'multiset': 'an exact polynomial in $n$',
     'cuspdim': 'the classical dimension formula for cusp forms',
+    'galcoord': 'a certified distance function on the tiling, counted by Ehrhart',
     'ca2d': "a certified growth pattern of the automaton's axis word",
     'ecarow': "a certified growth pattern of the automaton's row word",
     'ecacount': "a certified growth pattern of the automaton's row",
@@ -78,6 +79,7 @@ MSC = {
     'triangsq': '11D09, 11B37, 11D45',
     'pellsq': '11D09, 11B37, 11D45',
     'cuspdim': '11F11, 11F72, 05A15',
+    'galcoord': '52C20, 05B45, 52C07, 05A15',
     'ca2d': '68Q80, 11B85, 05A15',
     'ecarow': '68Q80, 11B85, 05A15',
     'ecacount': '68Q80, 11B85, 05A15',
@@ -298,6 +300,96 @@ $0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, 
 $a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{{M}}$
 is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
 threshold up, and the run of zeros it uses lies entirely above the transient.
+"""
+    if en == 'galcoord':
+        # the sweep's record does not carry the orbit count, so it is recovered from the
+        # model rather than left blank -- the paper names it in its first section
+        classes = h.get('classes')
+        if not classes:
+            import galcoord as _gc
+            _b = _gc.build(_gc.parse_name(e['name']))
+            classes = len(_b['planes']) if _b else '?'
+        return rf"""
+\section{{The tiling, the lattice, and the distance}}
+
+There is no array here and no transfer matrix. The entry names a vertex of one of Brian
+Galebach's $k$-uniform tilings, and that tiling is rebuilt exactly: the expanded notation
+fixes, for every vertex type, the angles between its edges and the type and frame of the
+vertex at the far end of each. All angles are multiples of $15^\circ$, so every vertex
+position is a $\mathbb{{Z}}$-combination of $24$th roots of unity and lives in
+$\mathbb{{Z}}[\zeta_{{24}}]=\mathbb{{Z}}^{{8}}$ modulo $x^{{8}}-x^{{4}}+1$. Vertex identity is
+therefore decided by integer equality and not by a tolerance.
+
+Let $L$ be the group of translations of the plane carrying the tiling to itself. Two
+independent generators are found and each is VERIFIED to be a symmetry: for every vertex $w$
+of an inner patch, $w+t$ is a vertex of the same type and the neighbours of $w+t$ are exactly
+the neighbours of $w$ translated. (Preserving a vertex's type and its set of edge directions
+is NOT sufficient, because a vertex figure with a rotational symmetry has several frames with
+the same direction set.) The vertices fall into ${classes}$ orbits under $L$, and a vertex is
+written $(c,m)$ with $c$ its orbit and $m\in\mathbb{{Z}}^2$ its coordinates in a basis of $L$.
+
+Write $D_c(m)$ for the graph distance from the entry's own vertex to $(c,m)$. The claim proved
+below is that on each orbit $D_c$ is a maximum of finitely many affine functions,
+\[
+D_c(m)\;=\;\max_i\bigl(A_{{c,i}}m_1+B_{{c,i}}m_2+C_{{c,i}}\bigr).
+\]
+
+\section{{Why that is the distance, and not merely a fit}}
+
+The affine pieces are obtained from a breadth-first patch, but nothing below rests on that. A
+function $D$ with $D(\text{{base}})=0$ satisfying
+
+\begin{{itemize}}
+\item[(b)] $D_{{c'}}(m+d)\le D_c(m)+1$ for every edge $(c,c',d)$ of the quotient and every $m$;
+\item[(c)] every vertex other than the base has an edge attaining $D_c(m)=D_{{c'}}(m+d)+1$;
+\end{{itemize}}
+
+IS the distance. (b) gives $D\le d$ by induction along a shortest path, and (c) gives $D\ge d$
+by induction on $D$; neither induction cares where $D$ came from. So the fit is a candidate and
+these two conditions are the proof.
+
+Both are decided exactly, and on REGIONS rather than on sampled points. The set where the
+$i$-th piece is the maximum is the polyhedron
+$P_{{c,i}}=\{{m: \ell_{{c,i}}(m)-\ell_{{c,j}}(m)\ge0 \text{{ for all }} j\}}$, so (b) is an
+affine inequality on a polyhedron --- true exactly when it holds at every vertex of that
+polyhedron and its gradient pairs non-negatively with every recession ray. Condition (c) is
+not an affine statement but a disjunction, and it says that $P_{{c,i}}$ is COVERED by the
+regions
+$S_k=\{{m:\ell_{{c,i}}(m)-1-\ell''_{{k,j}}(m+d_k)\ge0\text{{ for all }}j\}}$, one per
+neighbour $k$; that is decided by subtracting the $S_k$ from $P_{{c,i}}$ one at a time and
+asking whether any region is left. Every coefficient is an integer, and since only lattice
+points matter a violated constraint is written $\le-1$, so no strict inequality occurs
+anywhere. A bounded box around the base is checked exhaustively and the four half-planes
+outside it are covered by the region arithmetic.
+
+\section{{The bound}}
+
+The ball of radius $t$ meets orbit $c$ in the lattice points of
+\[
+P_c(t)=\{{m\in\mathbb{{Z}}^2:\;A_{{c,i}}m_1+B_{{c,i}}m_2\le t-C_{{c,i}}\ \text{{ for every }} i\}},
+\]
+a polygon whose facet NORMALS are fixed and whose right-hand sides move linearly with $t$.
+Every candidate vertex of it is the meet of two facets and moves affinely in $t$, so whether a
+given vertex satisfies a given facet flips at most once, at one rational $t$; past the largest
+such value --- computed here, not assumed --- the combinatorial type never changes again. By
+Ehrhart's theorem for such a family the lattice count is then a quasi-polynomial in $t$ of
+degree $2$, whose period divides the lcm of the $2\times2$ determinants of pairs of facet
+normals, since those are the only denominators a vertex can have. Write $q$ for that lcm;
+here $S=2q={S}$.
+
+Summing over orbits, $|B(t)|$ is a degree-$2$ quasi-polynomial of period $q$ past the onset,
+so $a(n)=|B(n)|-|B(n-1)|$ is quasi-LINEAR of period $q$ there, and so is the residual of any
+fixed linear recurrence. A quasi-linear function of period $q$ that vanishes at $2q$
+consecutive indices past the onset vanishes at every later one, which is what makes the check
+below finite and complete rather than a sample. The counting itself is never done through the
+closed form: the lattice points are counted exactly at every radius, and the quasi-polynomial's
+only job is to supply $q$.
+
+The annihilator is therefore $A(z)=(z^{{q}}-1)^2$, of degree $S=2q$ and with $A(0)=1\ne0$, and
+it annihilates $a$ from the onset on rather than everywhere: the indices below it are a
+genuine transient, exactly as $\dim S_0$ and $\dim S_2$ are for the cusp-form family. That
+costs nothing, because the residual below is computed term by term from the exact lattice
+count and the run of zeros the theorem uses lies entirely above the onset.
 """
     if en == 'cuspdim':
         return rf"""

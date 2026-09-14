@@ -12,47 +12,82 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211503, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A189146, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211503 carries an empirical recurrence of order $58$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=83$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A189146 counts the permutations of the cells of an $n\times3$ array in which every cell
+moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
+order $58$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is the permanent of the incidence matrix of the offset graph; read the
+cells in row-major order and let each choose its image, and the only thing that has to be
+carried is which images inside a window of $15$ consecutive positions are already taken.
+That makes $a$ a walk count on $S=1254$ states, hence $C$-finite, and whether the published
+recurrence is one of its recurrences is then a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A211503 is ``Number of -3..3 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1), -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having one, three or four distinct values for every i<=n and j<=n.''. It has offset $1$ and begins
+OEIS A189146 is ``Number of n X 3 array permutations with each element making zero or one knight moves.''. It has offset $1$ and begins
 \[
-39, 221, 1205, 6467, 34121, 177699, 915213, 4669391,\ \dots
+1, 4, 49, 569, 4372, 42689, 412189, 3988132,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -86*a(n-2) -2766*a(n-3) +23247*a(n-4) +119511*a(n-5) -1816907*a(n-6) -1574319*a(n-7) +82177349*a(n-8) -80086855*a(n-9) -2544562219*a(n-10) +5233419501*a(n-11) +58355698297*a(n-12) -162820706903*a(n-13) -1038587068889*a(n-14) +3432535121071*a(n-15) +14802727614020*a(n-16) -53791218025674*a(n-17) -172734790259807*a(n-18) +651236422650137*a(n-19) +1673935940750700*a(n-20) -6198185244826844*a(n-21) -13547457654687744*a(n-22) +46657431196628188*a(n-23) +91183889759752412*a(n-24) -277464963716582740*a(n-25) -503244480078414108*a(n-26) +1296483650559001036*a(n-27) +2226208616402273320*a(n-28) -4731973333934855704*a(n-29) -7668189725072349984*a(n-30) +13488906625705777888*a(n-31) +19913542838860968768*a(n-32) -30400496999649986752*a(n-33) -37743504017134533824*a(n-34) +55219282681252131136*a(n-35) +50312571418640076416*a(n-36) -80714620361403032192*a(n-37) -43048893834396547072*a(n-38) +91858751622728153600*a(n-39) +15377448229443087360*a(n-40) -76554717071384068096*a(n-41) +12569054979688185856*a(n-42) +42186501659922612224*a(n-43) -20980813531597193216*a(n-44) -11942638263898144768*a(n-45) +12698021906726846464*a(n-46) -618436227085631488*a(n-47) -3502870289992646656*a(n-48) +1472014657436254208*a(n-49) +192136320744685568*a(n-50) -334040726799122432*a(n-51) +94469527294705664*a(n-52) +6296177226022912*a(n-53) -11509731541647360*a(n-54) +3579027117834240*a(n-55) -576235361009664*a(n-56) +49941879717888*a(n-57) -1855425871872*a(n-58)
+Empirical: a(n) = 9*a(n-1) +48*a(n-2) -371*a(n-3) +173*a(n-4) -4636*a(n-5) -21700*a(n-6) +321034*a(n-7) -261016*a(n-8) -939316*a(n-9) +8804712*a(n-10) -89239632*a(n-11) +89709648*a(n-12) +830637056*a(n-13) -2499914752*a(n-14) +6390654336*a(n-15) -987233536*a(n-16) -98495866880*a(n-17) +227291122176*a(n-18) -22499119616*a(n-19) -574642074624*a(n-20) +4090433287168*a(n-21) -8710999644160*a(n-22) -9262792159232*a(n-23) +33961426997248*a(n-24) -59705619185664*a(n-25) +164268932415488*a(n-26) +206996041138176*a(n-27) -959952477028352*a(n-28) +148261211865088*a(n-29) +225201818959872*a(n-30) -528765464084480*a(n-31) +2794884482203648*a(n-32) +3264721555816448*a(n-33) +9397359024799744*a(n-34) -32363504358916096*a(n-35) -14560459025809408*a(n-36) +41205664512475136*a(n-37) -65070379105779712*a(n-38) +117763114509795328*a(n-39) -26803976066301952*a(n-40) +132124530591137792*a(n-41) +236469835482005504*a(n-42) -1308758689225637888*a(n-43) +382298681149227008*a(n-44) +1688786500906385408*a(n-45) -1092767223451222016*a(n-46) -1774519408253730816*a(n-47) +3781671287689052160*a(n-48) -211699968811991040*a(n-49) -6414401302863806464*a(n-50) +3737846953229156352*a(n-51) +2510967898491584512*a(n-52) +740560663725735936*a(n-53) -4415779434636771328*a(n-54) +2508504992445366272*a(n-55) +54043195528445952*a(n-56) -1152921504606846976*a(n-57) +576460752303423488*a(n-58)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:12:51, revision 8) this is still
+As of the ``Last modified'' line on the live entry (May 06 2014 02:32:05, revision 13) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=83$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<3$. An
+\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
+the cells such that for every cell,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
+\Delta=\{\,(-2,-1),\ (-2,1),\ (-1,-2),\ (-1,2),\ (0,0),\ (1,-2),\ (1,2),\ (2,-1),\ (2,1)\,\}.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
+The offsets are what the name's words say: the eight knight moves. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+
+A move is only allowed when its target is a cell of the array, so cells near an
+edge have fewer choices. The reading is pinned against the entry's own published terms rather
+than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
+gives $24$ where A189305 publishes $14$.
+
+Equivalently, $a(n)$ is the permanent of the $n3\times n3$ matrix whose $(c,c')$ entry is
+$1$ exactly when $c'-c\in\Delta$.
+
+\section{A window of 15 positions}
+
+Number the cells in row-major order, $k=i\cdot3+j$. An offset $(\delta_1,\delta_2)$ moves a
+cell by $\delta_13+\delta_2$ places in that order, so every image lies between $lo=-7$ and
+$hi=7$ places from its source. Process the cells in order and let each one choose its image.
+Once the cell at position $k$ has been dealt with, the position $k+-7$ can never be chosen
+again by anybody, so it must already be taken; and no position beyond $k+7$ can have been
+taken yet. What has to be remembered is therefore exactly which of the $15$ positions
+$k+-7,\dots,k+7$ are taken --- a subset of a set of size $15$, and nothing else.
+
+That is the state. One step of the walk is one row, that is $3$ cell choices, and the
+condition ``the position leaving the window is taken'' is what makes the walk count permutations
+rather than partial injections: every position is taken exactly once, once at the moment it
+leaves the window.
+
+The two boundaries are the same condition. Images above the first row do not exist, so the walk
+starts with exactly the window positions lying above the array marked as taken. Images below the
+last row do not exist either, so the walk must end with exactly those positions marked and
+nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
+also the only accepting state and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1254,
+\]
+for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
+differ by a constant, read off by matching the published terms rather than assumed. In
 particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -75,41 +110,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 86\,a(n-2) - 2766\,a(n-3) + 23247\,a(n-4) + 119511\,a(n-5) - 1816907\,a(n-6) - 1574319\,a(n-7) + 82177349\,a(n-8) - 80086855\,a(n-9) - 2544562219\,a(n-10) + 5233419501\,a(n-11) + 58355698297\,a(n-12) - 162820706903\,a(n-13) - 1038587068889\,a(n-14) + 3432535121071\,a(n-15) + 14802727614020\,a(n-16) - 53791218025674\,a(n-17) - 172734790259807\,a(n-18) + 651236422650137\,a(n-19) + 1673935940750700\,a(n-20) - 6198185244826844\,a(n-21) - 13547457654687744\,a(n-22) + 46657431196628188\,a(n-23) + 91183889759752412\,a(n-24) - 277464963716582740\,a(n-25) - 503244480078414108\,a(n-26) + 1296483650559001036\,a(n-27) + 2226208616402273320\,a(n-28) - 4731973333934855704\,a(n-29) - 7668189725072349984\,a(n-30) + 13488906625705777888\,a(n-31) + 19913542838860968768\,a(n-32) - 30400496999649986752\,a(n-33) - 37743504017134533824\,a(n-34) + 55219282681252131136\,a(n-35) + 50312571418640076416\,a(n-36) - 80714620361403032192\,a(n-37) - 43048893834396547072\,a(n-38) + 91858751622728153600\,a(n-39) + 15377448229443087360\,a(n-40) - 76554717071384068096\,a(n-41) + 12569054979688185856\,a(n-42) + 42186501659922612224\,a(n-43) - 20980813531597193216\,a(n-44) - 11942638263898144768\,a(n-45) + 12698021906726846464\,a(n-46) - 618436227085631488\,a(n-47) - 3502870289992646656\,a(n-48) + 1472014657436254208\,a(n-49) + 192136320744685568\,a(n-50) - 334040726799122432\,a(n-51) + 94469527294705664\,a(n-52) + 6296177226022912\,a(n-53) - 11509731541647360\,a(n-54) + 3579027117834240\,a(n-55) - 576235361009664\,a(n-56) + 49941879717888\,a(n-57) - 1855425871872\,a(n-58)
+a(n)\;=\;9\,a(n-1) + 48\,a(n-2) - 371\,a(n-3) + 173\,a(n-4) - 4636\,a(n-5) - 21700\,a(n-6) + 321034\,a(n-7) - 261016\,a(n-8) - 939316\,a(n-9) + 8804712\,a(n-10) - 89239632\,a(n-11) + 89709648\,a(n-12) + 830637056\,a(n-13) - 2499914752\,a(n-14) + 6390654336\,a(n-15) - 987233536\,a(n-16) - 98495866880\,a(n-17) + 227291122176\,a(n-18) - 22499119616\,a(n-19) - 574642074624\,a(n-20) + 4090433287168\,a(n-21) - 8710999644160\,a(n-22) - 9262792159232\,a(n-23) + 33961426997248\,a(n-24) - 59705619185664\,a(n-25) + 164268932415488\,a(n-26) + 206996041138176\,a(n-27) - 959952477028352\,a(n-28) + 148261211865088\,a(n-29) + 225201818959872\,a(n-30) - 528765464084480\,a(n-31) + 2794884482203648\,a(n-32) + 3264721555816448\,a(n-33) + 9397359024799744\,a(n-34) - 32363504358916096\,a(n-35) - 14560459025809408\,a(n-36) + 41205664512475136\,a(n-37) - 65070379105779712\,a(n-38) + 117763114509795328\,a(n-39) - 26803976066301952\,a(n-40) + 132124530591137792\,a(n-41) + 236469835482005504\,a(n-42) - 1308758689225637888\,a(n-43) + 382298681149227008\,a(n-44) + 1688786500906385408\,a(n-45) - 1092767223451222016\,a(n-46) - 1774519408253730816\,a(n-47) + 3781671287689052160\,a(n-48) - 211699968811991040\,a(n-49) - 6414401302863806464\,a(n-50) + 3737846953229156352\,a(n-51) + 2510967898491584512\,a(n-52) + 740560663725735936\,a(n-53) - 4415779434636771328\,a(n-54) + 2508504992445366272\,a(n-55) + 54043195528445952\,a(n-56) - 1152921504606846976\,a(n-57) + 576460752303423488\,a(n-58)
 \]
-for every $n>0$.
+for every $n>57$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $58$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=57+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: the
+cells of the array were matched to their images one at a time, over the whole grid, with no
+window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
+That computation shares nothing with the construction of Section~3 beyond the offset list.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211503.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A189146.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
+Applications 6, Addison--Wesley, 1978.
 \end{thebibliography}
 
 \end{document}

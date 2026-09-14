@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203840, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A283278, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203840 counts $n\times2$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A283278 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=88$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=192$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A203840 is ``Number of n X 2 0..3 arrays with every nonzero element less than or equal to at least two horizontal and vertical neighbors.''. It has offset $1$ and begins
+OEIS A283278 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal, vertical and antidiagonal neighbors.''. It has offset $1$ and begins
 \[
-1, 4, 16, 50, 184, 810, 3502, 14751,\ \dots
+16, 176, 1725, 18320, 191025, 1994338, 20834848, 217606715,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) -39*a(n-2) +104*a(n-3) -251*a(n-4) +391*a(n-5) -483*a(n-6) +687*a(n-7) -378*a(n-8) +503*a(n-9) -247*a(n-10) -66*a(n-11) -292*a(n-12) -300*a(n-13) -217*a(n-14) -153*a(n-15) -70*a(n-16) -27*a(n-17) -8*a(n-18) -a(n-19).
+Empirical: a(n) = 8*a(n-1) +22*a(n-2) +46*a(n-3) -91*a(n-4) -37*a(n-5) -135*a(n-6) +1263*a(n-7) -1913*a(n-8) +3501*a(n-9) -10568*a(n-10) +23356*a(n-11) -42719*a(n-12) +63699*a(n-13) -67853*a(n-14) +43395*a(n-15) -21088*a(n-16) +15354*a(n-17) -8233*a(n-18) +1521*a(n-19)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 01 2024 19:25:32, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Mar 04 2017 11:52:00, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -49,26 +49,26 @@ recorded as empirical, and nothing on the entry records it as proved.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{every nonzero }v\text{ has at least 2 neighbours }\ge v,
+\text{every 1 has at most 2 neighbouring 1s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
 fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
 different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
+that would give every cell the full $6$ and change what is being counted. The outside is
 therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,3\}^{2}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
+$\{0,\dots,1\}^{4}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,3\}^{2}\cup\{\varnothing\})\times\{0,\dots,3\}^{2}$,
+$(r,s)\in(\{0,\dots,1\}^{4}\cup\{\varnothing\})\times\{0,\dots,1\}^{4}$,
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$2$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
+$4$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
 settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
@@ -98,7 +98,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) - 39\,a(n-2) + 104\,a(n-3) - 251\,a(n-4) + 391\,a(n-5) - 483\,a(n-6) + 687\,a(n-7) - 378\,a(n-8) + 503\,a(n-9) - 247\,a(n-10) - 66\,a(n-11) - 292\,a(n-12) - 300\,a(n-13) - 217\,a(n-14) - 153\,a(n-15) - 70\,a(n-16) - 27\,a(n-17) - 8\,a(n-18) - a(n-19)
+a(n)\;=\;8\,a(n-1) + 22\,a(n-2) + 46\,a(n-3) - 91\,a(n-4) - 37\,a(n-5) - 135\,a(n-6) + 1263\,a(n-7) - 1913\,a(n-8) + 3501\,a(n-9) - 10568\,a(n-10) + 23356\,a(n-11) - 42719\,a(n-12) + 63699\,a(n-13) - 67853\,a(n-14) + 43395\,a(n-15) - 21088\,a(n-16) + 15354\,a(n-17) - 8233\,a(n-18) + 1521\,a(n-19)
 \]
 for every $n>19$.
 \end{theorem}
@@ -115,7 +115,7 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>19$.
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $23$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -132,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203840.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283278.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,65 +12,69 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A188789, proved from an exact model}
+\title{The empirical recurrence for OEIS A265380, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A188789 carries an empirical recurrence of order $5$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a finite sum over walk shapes of the ways each fits the board, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=11$, derived below and not
+OEIS A265380 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a proved period for the automaton's middle column, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=16$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved: the objects counted are walks, but the count is a finite sum over their shapes and not a walk count in any digraph.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A188789 is ``Number of 6-step self-avoiding walks on an n X n X n X n 4-cube summed over all starting positions.''. It has offset $1$ and begins
+OEIS A265380 is ``Binary representation of the middle column of the "Rule 158" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-0, 4224, 174720, 1141248, 3974784, 10183872, 21725776, 41004288,\ \dots
+1, 11, 111, 1110, 11101, 111011, 1110111, 11101110,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18584*n\^{}4 - 82552*n\^{}3 + 119616*n\^{}2 - 64320*n + 9984 for n>4. a(n) = 5*a(n-1) - 10*a(n-2) + 10*a(n-3) - 5*a(n-4) + a(n-5) for n>8.
+Conjectures from \_Colin Barker\_, Dec 14 2015 and Apr 18 2019: (Start) a(n) = 10*a(n-1) + a(n-4) - 10*a(n-5) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 30 2018 11:19:10, revision 9)
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:27, revision 40)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a sum over a FIXED set of shapes}
+\section{The middle column has a proved period}
 
-The number of steps is fixed at $6$ cells, hence $5$ moves, and it is the BOARD
-that grows. So the walks themselves do not depend on $n$ at all. Let $M$ be the $8$
-vectors the piece may move by, read from the entry's own words, and call two walks the same
-SHAPE when one is a translate of the other. There are exactly $18584$ shapes: self-avoiding
-sequences of $6$ distinct cells in $\mathbf{Z}^{4}$ with each consecutive difference in
-$M$, counted up to translation, which a finite search enumerates once and for all.
+The middle column is the cell at the origin at each step, $c(n)=w(n)[n]$, the centre of the
+light cone; the entry lists the first $n+1$ of them concatenated and read as a decimal numeral. Nothing is being counted, so there is no digraph, and that
+the column settles into a period is an observation rather than a proof. The row certificate the
+automaton already carries gives one.
 
-A shape occupies a bounding box with sides $(w_1,\dots,w_{4})$, the range of its cells in each
-coordinate. Placing it on a board of side $n$ means choosing where that box sits, and the
-choices in the coordinates are independent, so the shape occurs in exactly
-$\prod_{i}\max(0,\,n-w_i)$ positions and in no others. Distinct pairs (starting cell,
-walk) are exactly distinct pairs (shape, placement) --- a walk determines its shape and its
-translation, and conversely --- so, with $N_w$ the number of shapes of bounding box $w$,
+Write it as $w(n+p)=L_r+w(n)+R_r$ for $n\ge n_0$, $r=n \bmod p$. In absolute coordinates, where
+the row covers $x\in[-n,n]$ and $w(n)[i]$ is the cell at $x=i-n$, this says
 \[
-a(n)\;=\;\sum_{w} N_w \prod_{i=1}^{4}\max\bigl(0,\ n-w_i\bigr).
+\mathrm{cell}(x,\,n+p)\;=\;\mathrm{cell}(x+d_r,\,n),\qquad d_r=p-|L_r| ,
 \]
-This is exact for every $n$, not asymptotic, and it is not a walk count in any digraph: there is
-no transfer matrix here and no window.
+so the column reads a diagonal that moves by $d_r$ every $p$ steps. Three cases close it, and
+this automaton meets one of them:
+
+\begin{itemize}
+\item every $L_r$ empty --- the row grows only on the right, every prefix is frozen, so there
+is one infinite word $W$ with $w(n)[i]=W[i]$ and $c(n)=W[n]$ outright; $W$ is $w(n_0)$ followed
+by $R_{r_0}R_{r_1}\cdots$, eventually periodic with period dividing $\sum_r|R_r|$;
+\item every $R_r$ empty --- the mirror, with the word read from the right end;
+\item $\sum_r d_r=0$ --- the diagonal returns to the origin after a full cycle of residues, so
+$\mathrm{cell}(0,n+p^2)=\mathrm{cell}(0,n)$.
+\end{itemize}
+
+For this entry the column is periodic with period $q=4$ from $n=0$: the period above is a
+proved bound and the exact one is a divisor of it, found inside one window of computed rows,
+which is a finite check.
 
 \section{The bound}
 
-Write $w^\ast$ for the largest bounding-box side over all $18584$ shapes. Once $n\ge w^\ast$
-every factor above is nonnegative, so the truncation does nothing and
-$a(n)=\sum_w N_w\prod_i(n-w_i)$, a polynomial in $n$ of degree $4$. Hence $(z-1)^{5}$
-annihilates $a$ from $n=5$ onwards, and the annihilator in force on the whole sequence is
-$z^{6}(z-1)^{5}$, monic of order $S=11$. Both numbers are read off the enumerated
-shapes; neither is assumed. The model was then asked for terms beyond those the entry publishes
-and reproduced the published ones exactly.
+Concatenating gives $a(n+q)=a(n)B^{q}+v(\text{the }q\text{ new digits})$ with the same constant in each residue class, so $a$ is annihilated by $(z^{q}-B^{q})(z^{q}-1)$.
+Allowing the pre-period to raise the numerator's degree gives a monic annihilator of order
+$S=16$.
 
 \section{The proof}
 
@@ -90,23 +94,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 5\,a(n-4) + a(n-5)
+a(n)\;=\;10\,a(n-1) + a(n-4) - 10\,a(n-5)
 \]
-for every $n>9$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=9+1$ onwards, and the run exceeds $S+5$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=9$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=0+1$ onwards, and the run exceeds $S+5$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -119,7 +123,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A188789.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A265380.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

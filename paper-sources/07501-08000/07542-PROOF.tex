@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234985, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235233, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234985 counts $3$-column arrays over $\{0,\dots,5\}$ in which every
+OEIS A235233 counts $3$-column arrays over $\{0,\dots,6\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $2$, and in which no two adjacent entries are equal, and it
+exactly $6$, and in which no two adjacent entries are equal, and it
 carries an empirical recurrence of order $28$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=150$ vertices, which
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=252$ vertices, which
 is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
 the residual is $\mathbf{1}^{\!\top}M^{\,n-28}q(M)\mathbf{1}$, so the recurrence
 holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
@@ -37,21 +37,21 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A234985 is ``Number of (n+1) X (2+1) 0..5 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
+OEIS A235233 is ``Number of (n+1) X (2+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-370, 1490, 6908, 35598, 189200, 1026784, 5628414,\ \dots
+420, 1288, 3688, 11728, 34916, 113940, 348876,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 10*a(n-1) +9*a(n-2) -317*a(n-3) +216*a(n-4) +4392*a(n-5) -4481*a(n-6) -34461*a(n-7) +37067*a(n-8) +168161*a(n-9) -177688*a(n-10) -531245*a(n-11) +547375*a(n-12) +1099678*a(n-13) -1121930*a(n-14) -1478131*a(n-15) +1530027*a(n-16) +1252813*a(n-17) -1355278*a(n-18) -636426*a(n-19) +748324*a(n-20) +180286*a(n-21) -245436*a(n-22) -25096*a(n-23) +44796*a(n-24) +1272*a(n-25) -4080*a(n-26) +144*a(n-28).
+Empirical: a(n) = 6*a(n-1) +47*a(n-2) -331*a(n-3) -846*a(n-4) +7735*a(n-5) +6531*a(n-6) -99876*a(n-7) -4062*a(n-8) +780931*a(n-9) -294777*a(n-10) -3829232*a(n-11) +2187642*a(n-12) +11922251*a(n-13) -7106223*a(n-14) -23840076*a(n-15) +11482195*a(n-16) +31200479*a(n-17) -9197246*a(n-18) -26295345*a(n-19) +2967600*a(n-20) +13895070*a(n-21) +468804*a(n-22) -4403844*a(n-23) -634896*a(n-24) +759672*a(n-25) +171504*a(n-26) -54432*a(n-27) -15552*a(n-28).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 01:45:04, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jun 19 2022 00:04:35, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;10\,a(n-1) + 9\,a(n-2) - 317\,a(n-3) + 216\,a(n-4) + 4392\,a(n-5) - 4481\,a(n-6) - 34461\,a(n-7) + 37067\,a(n-8) + 168161\,a(n-9) - 177688\,a(n-10) - 531245\,a(n-11) + 547375\,a(n-12) + 1099678\,a(n-13) - 1121930\,a(n-14) - 1478131\,a(n-15) + 1530027\,a(n-16) + 1252813\,a(n-17) - 1355278\,a(n-18) - 636426\,a(n-19) + 748324\,a(n-20) + 180286\,a(n-21) - 245436\,a(n-22) - 25096\,a(n-23) + 44796\,a(n-24) + 1272\,a(n-25) - 4080\,a(n-26) + 144\,a(n-28)
+a(n)\;=\;6\,a(n-1) + 47\,a(n-2) - 331\,a(n-3) - 846\,a(n-4) + 7735\,a(n-5) + 6531\,a(n-6) - 99876\,a(n-7) - 4062\,a(n-8) + 780931\,a(n-9) - 294777\,a(n-10) - 3829232\,a(n-11) + 2187642\,a(n-12) + 11922251\,a(n-13) - 7106223\,a(n-14) - 23840076\,a(n-15) + 11482195\,a(n-16) + 31200479\,a(n-17) - 9197246\,a(n-18) - 26295345\,a(n-19) + 2967600\,a(n-20) + 13895070\,a(n-21) + 468804\,a(n-22) - 4403844\,a(n-23) - 634896\,a(n-24) + 759672\,a(n-25) + 171504\,a(n-26) - 54432\,a(n-27) - 15552\,a(n-28)
 \end{equation}
 for all $n>28$, which is every $n$ at which a recurrence of order $28$ can be
 stated.
@@ -62,15 +62,15 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;6.
 \]
 Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
 part, which constrains a single row and so selects the vertex set, and a vertical part,
 which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-Let $V$ consist of those $r\in\{0,\dots,5\}^{3}$ with $r_j\ne r_{j+1}$ for every
-$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=150$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
+Let $V$ consist of those $r\in\{0,\dots,6\}^{3}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=252$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=6$ for every $j$ with
 $1\le j\le3-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
@@ -137,19 +137,19 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $19$ published indices; the values agree exactly. That is what ties the digraph to
+the $21$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model reproducing only some published terms would be the wrong model and
 was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=150$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=252$ consecutive
 zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234985.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235233.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

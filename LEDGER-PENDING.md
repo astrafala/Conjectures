@@ -598,3 +598,52 @@ readers and no new argument:
 | 143 | the closed-form pool, rebuilt from the clone after the hand-made one went stale |
 
 Every one re-checked against the live OEIS. The sweeps for the last two are still running.
+
+## 14 September 2026 — the Galebach coordination sequences: 2 results, and a thin vein measured
+
+A **158th argument**, `tiling-coordination`. The first two results on the family that has been
+open since the tilings were rebuilt:
+
+| entry | tiling | claim proved |
+|---|---|---|
+| A315405 | Gal.3.15.3 | `a(n) = 3a(n-1) - 4a(n-2) + 3a(n-3) - a(n-4)` for n > 4 |
+| A315418 | Gal.3.21.3 | `a(n) = a(n-1) + a(n-5) - a(n-6)` for n > 6 |
+
+In both the last nonzero residual sits at exactly the index the entry claims, so the stated
+bound is tight. The chain: `galtile` rebuilds the tiling exactly in `Z[ζ24]`; `gallat` finds
+the translation lattice **in the caller's own embedding** and verifies each generator is a
+graph automorphism; `galfit` fits the distance per orbit as a max of affine pieces and
+validates it on the patch **rim**; `galcert2` proves it IS the distance by deciding the two
+Bellman conditions on regions via `galpoly`'s exact integer polyhedron arithmetic; `galehr`
+counts the ball exactly and derives the Ehrhart period and onset.
+
+### And the honest measurement: the vein is about 2%, not 379
+
+Over 98 of the 379 entries scanned:
+
+| | |
+|---:|---|
+| 72 | the fit fails on the patch **rim** |
+| 12 | the distance is not a max of affine pieces even on the inner patch |
+| 7 | fit timed out |
+| 4 | the certificate refuses (the fit is exact on the patch and wrong off it) |
+| 2 | **certified** |
+
+The rim failures were measured for direction, which is the thing that decides whether a bigger
+patch would help: of 17 sampled, **13 have the fit EXCEEDING the true distance** (by up to 5)
+and only one is exact. A support fitted inside that exceeds `d` outside means `d` is not
+convex, and then **no** max of affine pieces equals it and no radius fixes that. Refining to a
+sublattice of index up to 4 did not help on the case tested.
+
+So: the max-of-affines premise reaches a small minority of these tilings, and for the rest the
+model would have to be piecewise affine on a subdivision that is not convex. `galcert2` would
+verify such a D unchanged — it never uses convexity, only that the pieces are polyhedra — so
+the open problem is producing the subdivision, not certifying it. The sweep (`galrun.sh`) is in
+`restart_all.sh` and will grind the remaining 281 entries at its own pace.
+
+One off-by-one worth recording: `galcoord.terms` documented these entries as offset 1 and
+`threshold` believed it. They are offset 0 — all 379 of them. On A315405 that reported the
+recurrence failing at n = 5 when it fails at n = 4, which is the difference between
+contradicting the entry's stated range and confirming it. And `S` was returned as the period
+q when the annihilator is `(z^q - 1)^2` of degree 2q, which would have put a run half the
+length it needs behind the theorem.

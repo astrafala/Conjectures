@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281931, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280175, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281931 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A280175 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -35,34 +35,34 @@ from a finite exact computation on $S=195$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A281931 is ``Number of nX3 0..1 arrays with no element equal to more than four of its king-move neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280175 is ``Number of nX3 0..1 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 1, 20, 312, 3573, 31410, 252630, 1925590,\ \dots
+0, 12, 60, 279, 1082, 3931, 13720, 46467,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 15*a(n-1) -63*a(n-2) +23*a(n-3) +3*a(n-4) +1161*a(n-5) +208*a(n-6) -2013*a(n-7) -8424*a(n-8) -6999*a(n-9) +7797*a(n-10) +25689*a(n-11) +44356*a(n-12) +27282*a(n-13) -498*a(n-14) -60721*a(n-15) -115722*a(n-16) -113223*a(n-17) -120471*a(n-18) -77700*a(n-19) -35280*a(n-20) -21952*a(n-21) for n>26
+Empirical: a(n) = 9*a(n-1) -24*a(n-2) -9*a(n-3) +147*a(n-4) -213*a(n-5) -80*a(n-6) +567*a(n-7) -624*a(n-8) -30*a(n-9) +711*a(n-10) -687*a(n-11) +215*a(n-12) +84*a(n-13) +3*a(n-14) -86*a(n-15) +27*a(n-16) +6*a(n-17) -17*a(n-18) -18*a(n-19) -6*a(n-20) -a(n-21) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 02 2017 08:19:36, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 28 2016 06:59:34, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) - 63\,a(n-2) + 23\,a(n-3) + 3\,a(n-4) + 1161\,a(n-5) + 208\,a(n-6) - 2013\,a(n-7) - 8424\,a(n-8) - 6999\,a(n-9) + 7797\,a(n-10) + 25689\,a(n-11) + 44356\,a(n-12) + 27282\,a(n-13) - 498\,a(n-14) - 60721\,a(n-15) - 115722\,a(n-16) - 113223\,a(n-17) - 120471\,a(n-18) - 77700\,a(n-19) - 35280\,a(n-20) - 21952\,a(n-21)
+a(n)\;=\;9\,a(n-1) - 24\,a(n-2) - 9\,a(n-3) + 147\,a(n-4) - 213\,a(n-5) - 80\,a(n-6) + 567\,a(n-7) - 624\,a(n-8) - 30\,a(n-9) + 711\,a(n-10) - 687\,a(n-11) + 215\,a(n-12) + 84\,a(n-13) + 3\,a(n-14) - 86\,a(n-15) + 27\,a(n-16) + 6\,a(n-17) - 17\,a(n-18) - 18\,a(n-19) - 6\,a(n-20) - a(n-21)
 \end{equation}
-for all $n>26$.
+for all $n>28$.
 
 \section{The condition, the budget, and the canonical form}
 
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0),\ (-1,1),\ (1,-1)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>4 .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=2$ cells offend.
 
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>26$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>28$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $21$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=26+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=28+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
-one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $24$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281931.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280175.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

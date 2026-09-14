@@ -18,6 +18,8 @@ import signal
 import sys
 import zlib
 
+import resource
+
 import atomicjson
 import conjlines
 import linkrec
@@ -33,6 +35,13 @@ HITS, DONE = f'linkrec_hits{SFX}.json', f'linkrec_done{SFX}.json'
 WHY = f'linkrec_why{SFX}.json'
 BUDGET = int(os.environ.get('BUDGET', '300'))
 FETCH = os.environ.get('LRFETCH', '') == '1'
+# A state-space cap is a promise about the number of STATES, and uniform.build allocates
+# toward it before it can count them -- defect 22, where the kernel OOM-killed a sweep at
+# 13.9 GB with no message and three handoffs then inferred results that were never there.
+# RLIMIT_AS turns the runaway into a MemoryError the per-entry handler already treats as
+# "build failed". Raise MEMGB with the cap, never the cap alone.
+MEMGB = float(os.environ.get('MEMGB', '6'))
+resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
 
 pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/linkrec.txt')).read().split()
         if a.startswith('A')]

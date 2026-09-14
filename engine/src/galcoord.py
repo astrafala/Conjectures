@@ -33,13 +33,16 @@ import math
 import re
 
 import galcert
+import galcert2
 import galehr
 import gallat
+import galfit
 import galhull
 import galtile
 
 NAME = re.compile(r'Coordination sequence Gal\.(\d+)\.(\d+)\.(\d+)\b', re.I)
-RADIUS = 34                      # patch radius for fitting
+RADIUS = 50                      # patch radius for fitting: at 34 a tiling with eighteen classes
+                                 # gets 64 lattice points per class and fifteen affine pieces
 
 # The premise is now PROVED per tiling rather than assumed, by `galcert`.
 #
@@ -100,7 +103,7 @@ RADIUS = 34                      # patch radius for fitting
 # is a fit picking up the patch rim rather than the tiling. So: a bigger patch, and a prune
 # that tests a plane against the tiling rather than against the rim. The certificate will say
 # when it is right; that was the part that could not be trusted before, and now it can.
-IN_SERVICE = False
+IN_SERVICE = True
 
 
 def parse_name(nm):
@@ -112,73 +115,34 @@ def parse_name(nm):
 
 
 def build(p, cap=400000):
+    """the certified model, or None.
+
+    Every step that could be wrong is somebody else's job now: `galfit` lays out the patch,
+    finds the translation lattice IN THAT EMBEDDING, splits the classes and fits the distance,
+    validating the fit on the patch rim as well as the inside; `galcert2` decides the two
+    Bellman conditions on regions rather than on samples. Both refuse rather than approximate.
+    """
     if not IN_SERVICE:
         return None
-    T = galtile.tilings()
-    types = T.get((p['u'], p['t']))
-    if not types:
+    d, _why = galfit.data(p['u'], p['t'], p['v'], radius=RADIUS)
+    if not d:
         return None
-    letters = sorted(types)
-    if not 1 <= p['v'] <= len(letters):
-        return None
-    start = letters[p['v'] - 1]
-    L = gallat.lattice(types)
-    if L is None:
-        return None
-    a, b = L
-    seen = gallat.patch(types, RADIUS, start=start)
-    if not seen:
-        return None
-
-    reps, cells = [], []
-
-    def _find(pos, l, r, f):
-        s = gallat.sig(types, l, r, f)
-        for ci, (rp, rl, rr, rf) in enumerate(reps):
-            if gallat.sig(types, rl, rr, rf) != s:
-                continue
-            c = gallat.coords(gallat._sub(pos, rp), a, b)
-            if c is not None:
-                return ci, c, rp
-        return None
-
-    for pos, (l, r, f, d) in seen.items():
-        hit = _find(pos, l, r, f)
-        if hit is None:
-            reps.append((pos, l, r, f))
-            cells.append([(0, 0, d)])
-        else:
-            cells[hit[0]].append((hit[1][0], hit[1][1], d))
-
-    def cls_of(q, nl, nr, nf):
-        h = _find(q, nl, nr, nf)
-        return None if h is None else (h[0], h[2])
-
-    planes = []
-    for lst in cells:
-        pts = [(m, n, d) for m, n, d in lst if d <= RADIUS - 6]
-        if len(pts) < 12:
-            return None
-        pl, left = galhull.pieces(pts)
-        if left:
-            return None                      # d is not a max of affine pieces on the patch
-        planes.append([(int(A), int(B), int(C)) for A, B, C in pl])
-
-    el = galcert.edges(types, a, b, reps, cls_of)
-    if el is None:
-        return None
-    ok, _why = galcert.check(planes, el)
+    planes, el = d['planes'], d['edges']
+    ok, _r = galcert2.check(planes, el)
     if not ok:
-        return None                          # the fit does not hold off the patch: refuse
-
+        return None
     fits = [galehr.fit(pl) for pl in planes]
     if any(f is None for f in fits):
         return None
     q = 1
     for (qq, _T, _c) in fits:
         q = q * qq // math.gcd(q, qq)
+    # S is the DEGREE of the annihilator, which the paper's lemma uses as "S consecutive
+    # zeros force the rest". a is quasi-linear of period q past the onset, so the annihilator
+    # is (z^q - 1)^2 and its degree is 2q -- not q, which is what this returned and which
+    # would have put a run half the length it needs behind the theorem.
     return {'planes': planes, 'fits': fits, 'q': q,
-            'T': max(f[1] for f in fits), 'S': q, 'start': start,
+            'T': max(f[1] for f in fits), 'S': 2 * q, 'start': d['start'],
             'u': p['u'], 't': p['t'], 'v': p['v']}
 
 
@@ -201,11 +165,13 @@ def ball(b, t):
 
 
 def terms(b, N):
-    """a(n) for n = 1, 2, ...
+    """the number of vertices at distance 0, 1, 2, ..., N.
 
-    The entries have offset 1 and a(1) = 1: the first term counts the vertex itself, at
-    distance 0. So a(n) is the number of vertices at distance n-1, not n -- an off-by-one that
-    showed up as a "model mismatch" on A310102 and was nothing of the sort.
+    This is indexed by DISTANCE, not by the entry's n, and the caller aligns. These entries
+    have offset 0 -- a(0) = 1 counts the vertex itself -- so a(n) = terms[n]; the docstring
+    here used to say offset 1, and `threshold` believed it. On A315405 that reported the
+    recurrence failing at n = 5 when it fails at n = 4, which is the difference between
+    contradicting the entry's stated range and confirming it.
     """
     out = []
     prev = 0
@@ -216,7 +182,7 @@ def terms(b, N):
     return out
 
 
-def threshold(b, coeffs, order):
+def threshold(b, coeffs, order, off=0):
     """the last n at which the conjectured recurrence may fail -- a finite exact check.
 
     a(n) is quasi-linear with period q from the onset, so the residual of any fixed linear
@@ -227,10 +193,16 @@ def threshold(b, coeffs, order):
     q, T = b['q'], b['T']
     n0 = T + order + 2
     hi = n0 + 4 * q + order + 4
-    t = terms(b, hi + 2)
+    t = terms(b, hi + 2 + off)
     last = 0
-    for n in range(order + 1, hi + 1):
-        if t[n - 1] - sum(c * t[n - 1 - i] for i, c in coeffs.items()):
+    # a(n) = t[n - off]: the model is indexed by distance and the entry by its own offset
+    for n in range(off + order, hi + 1):
+        if t[n - off] - sum(c * t[n - off - i] for i, c in coeffs.items()):
             last = n
-    # everything past n0 + 2q is settled by the two periods already checked
+    # The argument is that the residual is quasi-linear with period q past the onset, so a run
+    # of 2q consecutive zeros there settles every later index. That run only exists if the LAST
+    # failure is below n0 + 2q; the function used to return `last` whatever it was, which would
+    # have claimed a threshold on the strength of a window that had not been cleared.
+    if last > n0 + 2 * q:
+        return None
     return last

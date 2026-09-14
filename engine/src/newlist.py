@@ -44,7 +44,9 @@ for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # defers to a linked a-file. Its own sweep, its own files.
             'linkrec_hits*.json', 'linkpoly_hits.json',
             # the closed-form pool rebuilt from the clone, after the hand-made one went stale
-            'cfpool_hits*.json'):
+            'cfpool_hits*.json',
+            # the Galebach coordination sequences, certified on the whole lattice
+            'galcoord_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
             if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:
