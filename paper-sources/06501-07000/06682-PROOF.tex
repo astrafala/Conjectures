@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235852, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A249706, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235852 carries an empirical recurrence of order $43$ contributed by R. H. Hardin. It is
+OEIS A249706 carries an empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=72$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=512$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A235852 is ``Number of (n+1)X(3+1) 0..3 arrays with the upper median equal to the lower median in every 2X2 subblock.''. It has offset $1$ and begins
+OEIS A249706 is ``Number of length n+3 0..7 arrays with every four consecutive terms having the maximum of some two terms equal to the minimum of the remaining two terms.''. It has offset $1$ and begins
 \[
-4524, 121244, 2848572, 73075844, 1811192156, 45872598284, 1149967012292, 29010506163148,\ \dots
+904, 2864, 8688, 24032, 57912, 156416, 442144, 1235840,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 43 (see link above)
+Empirical: a(n) = 4*a(n-1) -6*a(n-2) +4*a(n-3) +111*a(n-4) -308*a(n-5) +280*a(n-6) -84*a(n-7) -5194*a(n-8) +8288*a(n-9) -3066*a(n-10) +130820*a(n-12) -74128*a(n-13) -10560*a(n-14) -8848*a(n-15) -2004617*a(n-16) -633508*a(n-17) -130504*a(n-18) +130916*a(n-19) +20088708*a(n-20) +21173952*a(n-21) +13092164*a(n-22) +5552064*a(n-23) -132853024*a(n-24) -224564176*a(n-25) -190931472*a(n-26) -114274368*a(n-27) +557555040*a(n-28) +1305213120*a(n-29) +1329331968*a(n-30) +881028864*a(n-31) -1386528192*a(n-32) -4476415104*a(n-33) -5034923712*a(n-34) -3297853440*a(n-35) +1793560320*a(n-36) +8714615040*a(n-37) +10059033600*a(n-38) +5654707200*a(n-39) -1157068800*a(n-40) -7838208000*a(n-41) -7838208000*a(n-42) -2612736000*a(n-43).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:53:43, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jan 01 2024 02:08:04, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=72$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=512$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) + 938\,a(n-2) - 6069\,a(n-3) - 336464\,a(n-4) + 1659902\,a(n-5) + 64617998\,a(n-6) - 264646990\,a(n-7) - 7615657846\,a(n-8) + 26965762802\,a(n-9) + 592898503308\,a(n-10) - 1841818545841\,a(n-11) - 31910038666038\,a(n-12) + 87022824438571\,a(n-13) + 1222535630885288\,a(n-14) - 2910179495235194\,a(n-15) - 33956393252322906\,a(n-16) + 70076545890198185\,a(n-17) + 690723517863448433\,a(n-18) - 1231099569715279265\,a(n-19) - 10328781616587421884\,a(n-20) + 15938066264431869169\,a(n-21) + 113385092806236901886\,a(n-22) - 153102745476693032220\,a(n-23) - 908382500169585923210\,a(n-24) + 1093841149339073577652\,a(n-25) + 5257160127720059582280\,a(n-26) - 5785493956439619168320\,a(n-27) - 21657253726079257045984\,a(n-28) + 22339913267145814161408\,a(n-29) + 62262411558655923269376\,a(n-30) - 61496926819617770929408\,a(n-31) - 121674023542233990980096\,a(n-32) + 116874659806551059243008\,a(n-33) + 155752880704016166418432\,a(n-34) - 147148320803513209237504\,a(n-35) - 123401946070093510852608\,a(n-36) + 115940116231162674020352\,a(n-37) + 55021720302466026176512\,a(n-38) - 52302867029352838594560\,a(n-39) - 11570031502722766733312\,a(n-40) + 11540580293454218657792\,a(n-41) + 809612595653351833600\,a(n-42) - 914248732295089356800\,a(n-43)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) + 111\,a(n-4) - 308\,a(n-5) + 280\,a(n-6) - 84\,a(n-7) - 5194\,a(n-8) + 8288\,a(n-9) - 3066\,a(n-10) + 130820\,a(n-12) - 74128\,a(n-13) - 10560\,a(n-14) - 8848\,a(n-15) - 2004617\,a(n-16) - 633508\,a(n-17) - 130504\,a(n-18) + 130916\,a(n-19) + 20088708\,a(n-20) + 21173952\,a(n-21) + 13092164\,a(n-22) + 5552064\,a(n-23) - 132853024\,a(n-24) - 224564176\,a(n-25) - 190931472\,a(n-26) - 114274368\,a(n-27) + 557555040\,a(n-28) + 1305213120\,a(n-29) + 1329331968\,a(n-30) + 881028864\,a(n-31) - 1386528192\,a(n-32) - 4476415104\,a(n-33) - 5034923712\,a(n-34) - 3297853440\,a(n-35) + 1793560320\,a(n-36) + 8714615040\,a(n-37) + 10059033600\,a(n-38) + 5654707200\,a(n-39) - 1157068800\,a(n-40) - 7838208000\,a(n-41) - 7838208000\,a(n-42) - 2612736000\,a(n-43)
 \]
-for every $n>43$.
+for every $n>45$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235852.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A249706.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -587,13 +587,13 @@ What blocks the vein now is the FIT, not the certificate — and that is a bette
 
 ## 14 September 2026 — running total for the day
 
-Roster **13,000 → 13,210 papers over 13,183 entries**, and 157 → **158 arguments**.
-210 results:
+Roster **13,000 → 13,230 papers over 13,203 entries**, and 157 → **158 arguments**.
+230 results:
 
 | | |
 |---:|---|
 | 144 | the closed-form pool, rebuilt from the clone after the hand-made one went stale |
-| 56 | the recurrence or polynomial the entry defers to a linked a-file |
+| 76 | the recurrence or polynomial the entry defers to a linked a-file |
 | 5 | generating functions lost to an attribution in square brackets |
 | 3 | cusp-form dimensions, from splitting a line that carried three claims |
 | 2 | Galebach coordination sequences — the new argument |

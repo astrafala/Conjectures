@@ -12,47 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on every subblock: the empirical recurrence for OEIS A183831}
+\title{The empirical recurrence for OEIS A186554, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183831 carries an empirical recurrence of order $48$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is a condition on every
-subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=49$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A186554 counts the $(n+1)\times2$ arrays over $\{0,\dots,3\}$ in which
+neighbouring $2\times2$ subblocks do not commute as matrices, and carries an empirical recurrence
+of order $48$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
+a state, the count is a walk count on $S=256$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183831 is ``Number of (n+1)X5 0..2 arrays with each element of every 2X2 subblock being the sum mod 3 of two others.''. It has offset $1$ and begins
+OEIS A186554 is ``Number of (n+1)X2 0..3 arrays with no 2X2 subblock commuting with any of its horizontal and vertical 2X2 subblock neighbors.''. It has offset $1$ and begins
 \[
-2215, 35755, 568635, 9622587, 159806751, 2720843743, 45786104591, 778858637315,\ \dots
+256, 3891, 60074, 927477, 14319230, 221073168, 3413126694, 52694924343,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=26*a(n-1)+119*a(n-2)-7531*a(n-3)+23893*a(n-4)+776328*a(n-5)-4800887*a(n-6)-38493084*a(n-7)+344809441*a(n-8)+974152503*a(n-9)-13700857681*a(n-10)-8860424046*a(n-11)+343796892778*a(n-12)-188488045083*a(n-13)-5790758447607*a(n-14)+7705680434573*a(n-15)+67411241611972*a(n-16)-130462252074517*a(n-17)-547008444286672*a(n-18)+1369020725743551*a(n-19)+3057883963897003*a(n-20)-9730105264936252*a(n-21)-11256522608599090*a(n-22)+48261502644656977*a(n-23)+23529350480053399*a(n-24)-168346984626645115*a(n-25)-6651456546948607*a(n-26)+411059484042250695*a(n-27)-113834780526902520*a(n-28)-692712698150645069*a(n-29)+355001955391504793*a(n-30)+787018119208179512*a(n-31)-551721716293864142*a(n-32)-582856570966236067*a(n-33)+507847622895532706*a(n-34)+268714131704766759*a(n-35)-283831086695189963*a(n-36)-72587648690696584*a(n-37)+94572732685164772*a(n-38)+10756266577149276*a(n-39)-17832645156705282*a(n-40)-931354857086454*a(n-41)+1699966026109906*a(n-42)+80198536429136*a(n-43)-62381373768736*a(n-44)-4501945996360*a(n-45)+231717656880*a(n-46)-2387036672*a(n-47)+897024*a(n-48)
+Empirical: a(n)=4*a(n-1)+104*a(n-2)+797*a(n-3)+3891*a(n-4)+14095*a(n-5)+40200*a(n-6)+92485*a(n-7)+171998*a(n-8)+252349*a(n-9)+268492*a(n-10)+139234*a(n-11)-161414*a(n-12)-521070*a(n-13)-687529*a(n-14)-423636*a(n-15)+253948*a(n-16)+987357*a(n-17)+1330329*a(n-18)+1183644*a(n-19)+932235*a(n-20)+994269*a(n-21)+1201760*a(n-22)+856341*a(n-23)-350728*a(n-24)-1594116*a(n-25)-1551129*a(n-26)-10297*a(n-27)+1532661*a(n-28)+1395959*a(n-29)-294208*a(n-30)-1710585*a(n-31)-1500735*a(n-32)-230622*a(n-33)+624783*a(n-34)+502770*a(n-35)+14161*a(n-36)-185750*a(n-37)-87729*a(n-38)+20841*a(n-39)+32262*a(n-40)+10922*a(n-41)+3426*a(n-42)+3024*a(n-43)+1107*a(n-44)-285*a(n-45)-255*a(n-46)-34*a(n-47)+3*a(n-48) for n>49
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 02:05:18, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:34:58, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The contiguous $2\times2$ subblocks of an $(n+1)\times2$ array form a grid of $n$
+rows and $1$ column. Two subblocks that are neighbours in that
+grid OVERLAP: horizontally they share $2\times1$ entries, vertically
+$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
+the entry requires that every neighbouring pair, horizontal or vertical, do not commute --- that is,
+$AB=BA$ as matrices over $\mathbf{Z}$.
+
+At $n=1$ the array has $2$ rows and the grid is a single row of $1$
+subblock, with no neighbouring pair at all; the entry's first term is
+$256$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and the condition it imposes is that in every $2\times2$ subblock, each of the four entries must be congruent modulo $3$ to the sum of two of the other three.
-
-That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=49$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
+two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
+$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
+array row: that fixes the next subblock row, and the horizontal pairs inside it and the
+vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
+a walk of $n-1$ steps and every walk comes from exactly one array, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on the $S=256$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+
+This state does not compress. What a step needs of the past is the previous subblock row, and
+for $2\ge2$ that row already determines the $2$ array rows it was built from, so nothing
+is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
+size of the construction is therefore $4^{2\cdot2}$ before the condition prunes
+it, which is what puts the wider members of this family out of reach rather than settling them.
 
 \section{The proof}
 
@@ -69,50 +89,44 @@ Factor $M^{j}$ out of $M^{j+48}-\sum_ic_iM^{j+48-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;26\,a(n-1) + 119\,a(n-2) - 7531\,a(n-3) + 23893\,a(n-4) + 776328\,a(n-5) - 4800887\,a(n-6) - 38493084\,a(n-7) + 344809441\,a(n-8) + 974152503\,a(n-9) - 13700857681\,a(n-10) - 8860424046\,a(n-11) + 343796892778\,a(n-12) - 188488045083\,a(n-13) - 5790758447607\,a(n-14) + 7705680434573\,a(n-15) + 67411241611972\,a(n-16) - 130462252074517\,a(n-17) - 547008444286672\,a(n-18) + 1369020725743551\,a(n-19) + 3057883963897003\,a(n-20) - 9730105264936252\,a(n-21) - 11256522608599090\,a(n-22) + 48261502644656977\,a(n-23) + 23529350480053399\,a(n-24) - 168346984626645115\,a(n-25) - 6651456546948607\,a(n-26) + 411059484042250695\,a(n-27) - 113834780526902520\,a(n-28) - 692712698150645069\,a(n-29) + 355001955391504793\,a(n-30) + 787018119208179512\,a(n-31) - 551721716293864142\,a(n-32) - 582856570966236067\,a(n-33) + 507847622895532706\,a(n-34) + 268714131704766759\,a(n-35) - 283831086695189963\,a(n-36) - 72587648690696584\,a(n-37) + 94572732685164772\,a(n-38) + 10756266577149276\,a(n-39) - 17832645156705282\,a(n-40) - 931354857086454\,a(n-41) + 1699966026109906\,a(n-42) + 80198536429136\,a(n-43) - 62381373768736\,a(n-44) - 4501945996360\,a(n-45) + 231717656880\,a(n-46) - 2387036672\,a(n-47) + 897024\,a(n-48)
+a(n)\;=\;4\,a(n-1) + 104\,a(n-2) + 797\,a(n-3) + 3891\,a(n-4) + 14095\,a(n-5) + 40200\,a(n-6) + 92485\,a(n-7) + 171998\,a(n-8) + 252349\,a(n-9) + 268492\,a(n-10) + 139234\,a(n-11) - 161414\,a(n-12) - 521070\,a(n-13) - 687529\,a(n-14) - 423636\,a(n-15) + 253948\,a(n-16) + 987357\,a(n-17) + 1330329\,a(n-18) + 1183644\,a(n-19) + 932235\,a(n-20) + 994269\,a(n-21) + 1201760\,a(n-22) + 856341\,a(n-23) - 350728\,a(n-24) - 1594116\,a(n-25) - 1551129\,a(n-26) - 10297\,a(n-27) + 1532661\,a(n-28) + 1395959\,a(n-29) - 294208\,a(n-30) - 1710585\,a(n-31) - 1500735\,a(n-32) - 230622\,a(n-33) + 624783\,a(n-34) + 502770\,a(n-35) + 14161\,a(n-36) - 185750\,a(n-37) - 87729\,a(n-38) + 20841\,a(n-39) + 32262\,a(n-40) + 10922\,a(n-41) + 3426\,a(n-42) + 3024\,a(n-43) + 1107\,a(n-44) - 285\,a(n-45) - 255\,a(n-46) - 34\,a(n-47) + 3\,a(n-48)
 \]
-for every $n>48$.
+for every $n>49$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $48$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=48+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=49+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
 First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on each subblock
-directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183831.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186554.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
+Academic Press, 1968.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

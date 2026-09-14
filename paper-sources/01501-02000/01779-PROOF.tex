@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A218281, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220213, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A218281 counts the distinct indicator arrays obtained from the $n\times1$ arrays over
-$\{0,\dots,4\}$ by marking the cells whose value is at least as large as every one of their neighbours, and carries an
+OEIS A220213 counts the distinct indicator arrays obtained from the $n\times2$ arrays over
+$\{0,\dots,1\}$ by marking the cells whose value is equal to at least half of their neighbours, and carries an
 empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
 is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=14$ states, after which the conjectured
+indicator row by row turns it into one, on $S=15$ states, after which the conjectured
 recurrence is settled by a finite exact computation.
 \end{abstract}
 
@@ -32,27 +32,27 @@ recurrence is settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A218281 is ``Hilltop maps: number of n X 1 binary arrays indicating the locations of corresponding elements not exceeded by any horizontal or vertical neighbor in a random 0..4 n X 1 array.''. It has offset $1$ and begins
+OEIS A220213 is ``Majority value maps: number of n X 2 binary arrays indicating the locations of corresponding elements equal to at least half of their king-move neighbors in a random 0..1 n X 2 array.''. It has offset $1$ and begins
 \[
-1, 3, 7, 15, 31, 61, 121, 241,\ \dots
+2, 6, 23, 75, 241, 777, 2512, 8132,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5) + a(n-6) + a(n-7) + a(n-8) + a(n-9).
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) + 3*a(n-3) + 7*a(n-4) + 9*a(n-5) + 12*a(n-6) + 11*a(n-7) + 4*a(n-8) + 4*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 24 2018 09:39:05, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 31 2018 07:22:22, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,4\}^{1}$ be the set of rows and let the neighbours of a cell be the
+Let $R=\{0,\dots,1\}^{2}$ be the set of rows and let the neighbours of a cell be the
 cells at the offsets
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times1}$ mark the cells whose value
-is at least as large as every one of its neighbours. The entry counts
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times2}$ mark the cells whose value
+is equal to at least half of its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
@@ -60,7 +60,7 @@ the size of an IMAGE. This is the whole difficulty: two different arrays with th
 must be counted once, and a walk count in a graph on the arrays would count them twice.
 
 Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{1}$ for the marking of the row $c$
+on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{2}$ for the marking of the row $c$
 with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
 Then
 \[
@@ -70,7 +70,7 @@ Then
 
 \section{The image is a walk count after determinisation}
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{1}$ put
+For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{2}$ put
 \[
 \delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
 f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
@@ -88,7 +88,7 @@ with $r_0=\bot$. Consequently, for $n\ge1$,
 \[
 a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
 \]
-the sum over all sequences of rows in $\{0,1\}^{1}$, empty $D$'s contributing nothing.
+the sum over all sequences of rows in $\{0,1\}^{2}$, empty $D$'s contributing nothing.
 \end{lemma}
 
 \begin{proof}
@@ -112,7 +112,7 @@ right, since the markings differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=14$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
+There are $S=15$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
 that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
 count attached to the state the walk stops in.
 
@@ -136,7 +136,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + a(n-2) + a(n-3) + a(n-4) + a(n-5) + a(n-6) + a(n-7) + a(n-8) + a(n-9)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 3\,a(n-3) + 7\,a(n-4) + 9\,a(n-5) + 12\,a(n-6) + 11\,a(n-7) + 4\,a(n-8) + 4\,a(n-9)
 \]
 for every $n>9$.
 \end{theorem}
@@ -152,7 +152,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +164,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A218281.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220213.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

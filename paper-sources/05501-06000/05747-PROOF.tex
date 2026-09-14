@@ -12,21 +12,21 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206887, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A208026, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206887 counts arrays over $\{0,\dots,1\}$ of width $6$ that avoid the patterns
-$(0,1,0)$ along one axis and $(1,0,0)$ along the other, and carries an empirical recurrence of
-order $80$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
+OEIS A208026 counts arrays over $\{0,\dots,1\}$ of width $6$ that avoid the patterns
+$(0,0,0), (0,0,1)$ along one axis and $(0,0,0), (1,0,1)$ along the other, and carries an empirical recurrence of
+order $81$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
 the constraint across the growing direction ties together $3$ consecutive rows: taking a
 window of $2$ consecutive rows as a state makes the array a walk in a finite digraph
-on $S=1369$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
+on $S=676$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-80}q(P)\mathbf{1}$, which vanishes identically
+$\mathbf{1}^{\!\top}P^{\,n-2-81}q(P)\mathbf{1}$, which vanishes identically
 beyond a threshold that the computation pins down exactly. Finite, exact, integer.
 \end{abstract}
 
@@ -34,38 +34,38 @@ beyond a threshold that the computation pins down exactly. Finite, exact, intege
 
 \section{The sequence and the conjecture}
 
-OEIS A206887 is ``Number of nX6 0..1 arrays avoiding 0 1 0 horizontally and 1 0 0 vertically.''. It has offset
+OEIS A208026 is ``Number of nX6 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 0 0 and 1 0 1 vertically.''. It has offset
 $1$ and begins
 \[
-37, 1369, 26564, 467146, 7354488, 111550389, 1648854501,\ \dots
+26, 676, 4374, 26685, 158847, 955073, 5788524,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 31*a(n-1) -118*a(n-2) -4941*a(n-3) +42891*a(n-4) +329013*a(n-5) -4389614*a(n-6) -11015298*a(n-7) +254947573*a(n-8) +116299407*a(n-9) -9970009526*a(n-10) +6232383661*a(n-11) +284319114966*a(n-12) -362600178892*a(n-13) -6192226795039*a(n-14) +10498623298849*a(n-15) +106105206438574*a(n-16) -209916160328134*a(n-17) -1459793440200552*a(n-18) +3173836722972388*a(n-19) +16357600553349234*a(n-20) -37839821954277278*a(n-21) -150817070763207688*a(n-22) +364405728452370378*a(n-23) +1152469111188528535*a(n-24) -2878734270085196821*a(n-25) -7335451766095586044*a(n-26) +18852349988904094689*a(n-27) +39015331773746188307*a(n-28) -103100182767105600743*a(n-29) -173694523502979906970*a(n-30) +473246656562621294770*a(n-31) +647456477812498243313*a(n-32) -1829433889433612022969*a(n-33) -2018598663924048346882*a(n-34) +5968055534223518019193*a(n-35) +5250653334203324152348*a(n-36) -16445675976729504231926*a(n-37) -11346568957997291817631*a(n-38) +38282895921249038405123*a(n-39) +20239152344335058353372*a(n-40) -75233512572445589832520*a(n-41) -29508625835421083634488*a(n-42) +124664601198094769081684*a(n-43) +34630727582619197593176*a(n-44) -173893473205145205056272*a(n-45) -31858243979750136271688*a(n-46) +203787430706487107991312*a(n-47) +21758643701140533849120*a(n-48) -200203336284712265558128*a(n-49) -9433288190584009859840*a(n-50) +164484228170906514760224*a(n-51) +510051340500177508960*a(n-52) -112715519170670359625536*a(n-53) +2965085079974770540160*a(n-54) +64225287712011939025344*a(n-55) -2704934524482554318464*a(n-56) -30311571306479580405760*a(n-57) +1377967132019184123008*a(n-58) +11788023251426120534528*a(n-59) -444471335586219781632*a(n-60) -3750362523431963223808*a(n-61) +77053826239418900224*a(n-62) +966254973498764825344*a(n-63) +3855607098939135488*a(n-64) -198745183825235010560*a(n-65) -6684790903303737344*a(n-66) +31993113846981394432*a(n-67) +2113958102384066560*a(n-68) -3921119712759218176*a(n-69) -388983178932649984*a(n-70) +352086494564515840*a(n-71) +46252720976429056*a(n-72) -21914914871574528*a(n-73) -3542612258586624*a(n-74) +868500304297984*a(n-75) +165236086669312*a(n-76) -18881078886400*a(n-77) -4143301263360*a(n-78) +158645354496*a(n-79) +40802189312*a(n-80)
+Empirical: a(n) = a(n-1) +3*a(n-2) +106*a(n-3) +305*a(n-4) +688*a(n-5) -487*a(n-6) -7636*a(n-7) -22388*a(n-8) -16653*a(n-9) +105705*a(n-10) +368317*a(n-11) +296151*a(n-12) -1322186*a(n-13) -3797589*a(n-14) -461119*a(n-15) +12216056*a(n-16) +16314675*a(n-17) -11652578*a(n-18) -48384768*a(n-19) -31494807*a(n-20) +52484033*a(n-21) +108587927*a(n-22) +37697973*a(n-23) -108118565*a(n-24) -174749969*a(n-25) -53159946*a(n-26) +135111621*a(n-27) +237174429*a(n-28) +96181263*a(n-29) -81439514*a(n-30) -277585453*a(n-31) -182415247*a(n-32) +25256104*a(n-33) +180399360*a(n-34) +347994520*a(n-35) -90243930*a(n-36) +165953626*a(n-37) -662537687*a(n-38) +556623889*a(n-39) -991152494*a(n-40) +1372650960*a(n-41) -1621551426*a(n-42) +1909898571*a(n-43) -2182104283*a(n-44) +2186815242*a(n-45) -2123785604*a(n-46) +2065891574*a(n-47) -1695531591*a(n-48) +1513432468*a(n-49) -1178637615*a(n-50) +918618751*a(n-51) -671511358*a(n-52) +497302975*a(n-53) -324440300*a(n-54) +223677440*a(n-55) -145261693*a(n-56) +84442881*a(n-57) -54971856*a(n-58) +30801717*a(n-59) -17151395*a(n-60) +9895586*a(n-61) -5453123*a(n-62) +2470341*a(n-63) -1537394*a(n-64) +757067*a(n-65) -221697*a(n-66) +233701*a(n-67) -62539*a(n-68) +16901*a(n-69) -29422*a(n-70) +1837*a(n-71) -2160*a(n-72) +2083*a(n-73) +61*a(n-74) +274*a(n-75) -44*a(n-76) +10*a(n-77) -24*a(n-78) -4*a(n-79) +a(n-81) for n>82
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 13:14:23, revision
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:34:55, revision
 9) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;31\,a(n-1) - 118\,a(n-2) - 4941\,a(n-3) + 42891\,a(n-4) + 329013\,a(n-5) - 4389614\,a(n-6) - 11015298\,a(n-7) + 254947573\,a(n-8) + 116299407\,a(n-9) - 9970009526\,a(n-10) + 6232383661\,a(n-11) + 284319114966\,a(n-12) - 362600178892\,a(n-13) - 6192226795039\,a(n-14) + 10498623298849\,a(n-15) + 106105206438574\,a(n-16) - 209916160328134\,a(n-17) - 1459793440200552\,a(n-18) + 3173836722972388\,a(n-19) + 16357600553349234\,a(n-20) - 37839821954277278\,a(n-21) - 150817070763207688\,a(n-22) + 364405728452370378\,a(n-23) + 1152469111188528535\,a(n-24) - 2878734270085196821\,a(n-25) - 7335451766095586044\,a(n-26) + 18852349988904094689\,a(n-27) + 39015331773746188307\,a(n-28) - 103100182767105600743\,a(n-29) - 173694523502979906970\,a(n-30) + 473246656562621294770\,a(n-31) + 647456477812498243313\,a(n-32) - 1829433889433612022969\,a(n-33) - 2018598663924048346882\,a(n-34) + 5968055534223518019193\,a(n-35) + 5250653334203324152348\,a(n-36) - 16445675976729504231926\,a(n-37) - 11346568957997291817631\,a(n-38) + 38282895921249038405123\,a(n-39) + 20239152344335058353372\,a(n-40) - 75233512572445589832520\,a(n-41) - 29508625835421083634488\,a(n-42) + 124664601198094769081684\,a(n-43) + 34630727582619197593176\,a(n-44) - 173893473205145205056272\,a(n-45) - 31858243979750136271688\,a(n-46) + 203787430706487107991312\,a(n-47) + 21758643701140533849120\,a(n-48) - 200203336284712265558128\,a(n-49) - 9433288190584009859840\,a(n-50) + 164484228170906514760224\,a(n-51) + 510051340500177508960\,a(n-52) - 112715519170670359625536\,a(n-53) + 2965085079974770540160\,a(n-54) + 64225287712011939025344\,a(n-55) - 2704934524482554318464\,a(n-56) - 30311571306479580405760\,a(n-57) + 1377967132019184123008\,a(n-58) + 11788023251426120534528\,a(n-59) - 444471335586219781632\,a(n-60) - 3750362523431963223808\,a(n-61) + 77053826239418900224\,a(n-62) + 966254973498764825344\,a(n-63) + 3855607098939135488\,a(n-64) - 198745183825235010560\,a(n-65) - 6684790903303737344\,a(n-66) + 31993113846981394432\,a(n-67) + 2113958102384066560\,a(n-68) - 3921119712759218176\,a(n-69) - 388983178932649984\,a(n-70) + 352086494564515840\,a(n-71) + 46252720976429056\,a(n-72) - 21914914871574528\,a(n-73) - 3542612258586624\,a(n-74) + 868500304297984\,a(n-75) + 165236086669312\,a(n-76) - 18881078886400\,a(n-77) - 4143301263360\,a(n-78) + 158645354496\,a(n-79) + 40802189312\,a(n-80)
+a(n)\;=\;a(n-1) + 3\,a(n-2) + 106\,a(n-3) + 305\,a(n-4) + 688\,a(n-5) - 487\,a(n-6) - 7636\,a(n-7) - 22388\,a(n-8) - 16653\,a(n-9) + 105705\,a(n-10) + 368317\,a(n-11) + 296151\,a(n-12) - 1322186\,a(n-13) - 3797589\,a(n-14) - 461119\,a(n-15) + 12216056\,a(n-16) + 16314675\,a(n-17) - 11652578\,a(n-18) - 48384768\,a(n-19) - 31494807\,a(n-20) + 52484033\,a(n-21) + 108587927\,a(n-22) + 37697973\,a(n-23) - 108118565\,a(n-24) - 174749969\,a(n-25) - 53159946\,a(n-26) + 135111621\,a(n-27) + 237174429\,a(n-28) + 96181263\,a(n-29) - 81439514\,a(n-30) - 277585453\,a(n-31) - 182415247\,a(n-32) + 25256104\,a(n-33) + 180399360\,a(n-34) + 347994520\,a(n-35) - 90243930\,a(n-36) + 165953626\,a(n-37) - 662537687\,a(n-38) + 556623889\,a(n-39) - 991152494\,a(n-40) + 1372650960\,a(n-41) - 1621551426\,a(n-42) + 1909898571\,a(n-43) - 2182104283\,a(n-44) + 2186815242\,a(n-45) - 2123785604\,a(n-46) + 2065891574\,a(n-47) - 1695531591\,a(n-48) + 1513432468\,a(n-49) - 1178637615\,a(n-50) + 918618751\,a(n-51) - 671511358\,a(n-52) + 497302975\,a(n-53) - 324440300\,a(n-54) + 223677440\,a(n-55) - 145261693\,a(n-56) + 84442881\,a(n-57) - 54971856\,a(n-58) + 30801717\,a(n-59) - 17151395\,a(n-60) + 9895586\,a(n-61) - 5453123\,a(n-62) + 2470341\,a(n-63) - 1537394\,a(n-64) + 757067\,a(n-65) - 221697\,a(n-66) + 233701\,a(n-67) - 62539\,a(n-68) + 16901\,a(n-69) - 29422\,a(n-70) + 1837\,a(n-71) - 2160\,a(n-72) + 2083\,a(n-73) + 61\,a(n-74) + 274\,a(n-75) - 44\,a(n-76) + 10\,a(n-77) - 24\,a(n-78) - 4\,a(n-79) + a(n-81)
 \end{equation}
-for all $n>80$. 
+for all $n>81$. 
 
 \section{The array as a walk}
 
 Call a row \emph{admissible} if the word it forms contains none of the patterns
-$(0,1,0)$ as $3$ consecutive entries. There are $37$ admissible rows; that condition
+$(0,0,0), (0,0,1)$ as $3$ consecutive entries. There are $26$ admissible rows; that condition
 involves a single row only.
 
-The remaining patterns $(1,0,0)$ are forbidden along the other axis, so each of them
+The remaining patterns $(0,0,0), (1,0,1)$ are forbidden along the other axis, so each of them
 constrains $3$ consecutive rows at a fixed position of the column. Take as state a
 window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-rows, so $S=1369$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
+rows, so $S=676$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
 dropped and one further admissible row $t$ appended, subject to: for every position
 $j$, the $3$-tuple read down the column $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(1,0,0)$. Let $P$ be the adjacency matrix.
+is none of $(0,0,0), (1,0,1)$. Let $P$ be the adjacency matrix.
 
 \begin{lemma}\label{lem:walk}
 $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
@@ -84,20 +84,20 @@ $\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
 
 \section{The criterion}
 
-Let $q(t)=t^{80}-\sum_i c_i t^{80-i}$ be the characteristic polynomial of
+Let $q(t)=t^{81}-\sum_i c_i t^{81-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-80}$ whenever $n-80\ge2$. Hence
+$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-81}$ whenever $n-81\ge2$. Hence
 \eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-80$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
+$j>t-2-81$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
 characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
 later ones and the last nonzero $u_j$ pins $t$ down exactly.
 \end{lemma}
 
 \begin{proof}
 Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-80}$ gives the identity. The equivalence follows by letting the exponent
+$P^{\,n-2-81}$ gives the identity. The equivalence follows by letting the exponent
 run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
 polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
 degree $S$, it propagates $S$ consecutive zeros forward.
@@ -106,14 +106,14 @@ degree $S$, it propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>80$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>81$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $80$ matrix--vector
+The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $81$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=80+1$ onwards, and the run was continued past $S$ consecutive
+index corresponding to $n=81+1$ onwards, and the run was continued past $S$ consecutive
 zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -122,20 +122,20 @@ zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $15$ published indices; the
-values agree exactly, including the initial count of $37$ admissible rows. That is
+compared against the entry's DATA at every one of the $19$ published indices; the
+values agree exactly, including the initial count of $26$ admissible rows. That is
 what ties the digraph to the sequence, and a model reproducing only part of the published
 data was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1369$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=676$ consecutive
 zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206887.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208026.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

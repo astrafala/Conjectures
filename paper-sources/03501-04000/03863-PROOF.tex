@@ -12,149 +12,123 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A224186, proved}
+\title{The empirical recurrence for OEIS A184607, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224186 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=46$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{9}$, of degree
-$9$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $9$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A184607 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
+every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
+of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The count is a walk count on $S=56$ states and is $C$-finite; whether the
+conjectured recurrence annihilates it is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A224186 is ``Number of n X 4 0..2 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A184607 is ``Half the number of (n+1) X 3 binary arrays with no 2 X 2 subblock sum differing from a horizontal or vertical neighbor subblock sum by more than one.''. It has offset $1$ and begins
 \[
-46, 548, 3526, 15779, 55438, 163746, 424326, 992607,\ \dots
+28, 160, 918, 5430, 32042, 188394, 1107926, 6519094,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (41/4032)*n\^{}8 + (55/336)*n\^{}7 + (179/160)*n\^{}6 + (169/40)*n\^{}5 + (615/64)*n\^{}4 + (215/16)*n\^{}3 + (56759/5040)*n\^{}2 + (2173/420)*n + 1.
+Empirical: a(n) = 5*a(n-1) + 3*a(n-2) + 10*a(n-3) + 29*a(n-4) - 66*a(n-5) - 20*a(n-6) + 8*a(n-7) - 12*a(n-8) + 8*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 29 2018 05:57:53, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{41 n^{8}}{4032} + \frac{55 n^{7}}{336} + \frac{179 n^{6}}{160} + \frac{169 n^{5}}{40} + \frac{615 n^{4}}{64} + \frac{215 n^{3}}{16} + \frac{56759 n^{2}}{5040} + \frac{2173 n}{420} + 1.
-\]
+As of the ``Last modified'' line on the live entry (Apr 14 2018 07:33:43, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
+subblocks of an $(n+1)\times3$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
+and $2$ columns, and $\sigma$ labels that grid. The entry
+requires that no two subblocks that are neighbours horizontally or vertically have values of $\sigma$ differing by more than $1$. The entry counts $1/2$ of that number, and the model divides by $2$ before anything is compared.
 
 \section{The count is a walk count}
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=46$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
+rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
+whose subblock row has just been completed: the horizontal pairs inside that row decide which
+tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
+step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
+on the $S=56$ admissible tuples.
 
-\section{A closed form is a recurrence}
+The state does not compress. What a step needs of the past is the previous subblock row, and
+for $3\ge2$ that row already determines the $2$ array rows it came from, so carrying the
+rows costs nothing and carrying anything smaller loses information. Of the $2^{2\cdot
+3}=64$ tuples of $2$ rows, $S=56$ survive the condition inside a single subblock row;
+the rest could not occur in a counted array at all.
 
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
-\[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
-\]
-\end{lemma}
+Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
+grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
+rows and the grid is a single row of $2$
+subblocks, with only the neighbours inside that row; the entry's first term is
+$28$, which the model reproduces along with every later term, and that is the cheapest
+check that the grid has been read with the right shape.
 
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
-
-Here $q(x)=(x-1)^{9}$, of degree $9$; the closed form is a polynomial in $n$, so this is $(x-1)^{9}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;9\,a(n-1) - 36\,a(n-2) + 84\,a(n-3) - 126\,a(n-4) + 126\,a(n-5) - 84\,a(n-6) + 36\,a(n-7) - 9\,a(n-8) + a(n-9).
-\end{equation}
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+\[
+a(n)\;=\;5\,a(n-1) + 3\,a(n-2) + 10\,a(n-3) + 29\,a(n-4) - 66\,a(n-5) - 20\,a(n-6) + 8\,a(n-7) - 12\,a(n-8) + 8\,a(n-9)
+\]
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $9$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=10$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>9$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $9$ consecutive indices
-$n=10,\dots,18$ and agree at each. A monic recurrence of order $9$
-determines $a(m)$ from $a(m-1),\dots,a(m-9)$, and for every $m\ge19$ both
-$m>9$ and $m-9\ge10$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge10$.
-Below $n=10$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=10$ on. The remaining indices $n=1,\dots,9$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $24$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224186.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184607.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

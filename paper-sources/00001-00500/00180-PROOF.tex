@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Knight-distance labellings of a strip: OEIS A253418}
+\title{Knight-distance labellings of a strip: OEIS A253420}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253418 carries an empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is
+OEIS A253420 carries an empirical recurrence of order $9$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=43$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=123$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A253418 is ``Number of (n+2)X(2+2) nonnegative integer arrays with all values the knight distance from the upper left minus as much as 1, with successive minimum path knight move differences either 0 or +1, and any unreachable value zero.''. It has offset $1$ and begins
+OEIS A253420 is ``Number of (n+2)X(4+2) nonnegative integer arrays with all values the knight distance from the upper left minus as much as 1, with successive minimum path knight move differences either 0 or +1, and any unreachable value zero.''. It has offset $1$ and begins
 \[
-56, 131, 1087, 2827, 10411, 15803, 41139, 52297,\ \dots
+642, 2827, 44729, 316686, 1432500, 3500244, 20832926, 31561966,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +4*a(n-2) -4*a(n-3) -6*a(n-4) +6*a(n-5) +4*a(n-6) -4*a(n-7) -a(n-8) +a(n-9) for n>15.
+Empirical: a(n) = a(n-1) +4*a(n-2) -4*a(n-3) -6*a(n-4) +6*a(n-5) +4*a(n-6) -4*a(n-7) -a(n-8) +a(n-9) for n>21.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 27 2015 17:42:47, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Sep 27 2015 17:43:16, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{From values to a labelling}
@@ -52,7 +52,7 @@ So the entry counts the labellings $w$ that rise along every minimum-path knight
 
 \section{The distance field of the strip}
 
-Everything below rests on two properties of $d$ on the strip $S_{4}=\{(i,j): i\ge 0,\ 0\le j<4\}$, and both are proved here rather than measured. Write $d$ for the knight distance from $(0,0)$ on $S_{4}$ and $d_H$ for the knight distance on the board of exactly $H$ rows.
+Everything below rests on two properties of $d$ on the strip $S_{6}=\{(i,j): i\ge 0,\ 0\le j<6\}$, and both are proved here rather than measured. Write $d$ for the knight distance from $(0,0)$ on $S_{6}$ and $d_H$ for the knight distance on the board of exactly $H$ rows.
 
 \begin{lemma}\label{lem:bellman}
 Fix a width $C$ and let $D:S_C\to\mathbb{N}\cup\{\infty\}$ be any function at all, satisfying
@@ -65,11 +65,11 @@ By (b) and induction on $d(x)$, $D(x)\le d(x)$: the last step of a shortest path
 \end{proof}
 
 \begin{proposition}\label{prop:period}
-$d(i+4,j)=d(i,j)+2$ for every $j$ and every $i\ge3$, and the unreachable cells repeat with the same period.
+$d(i+4,j)=d(i,j)+2$ for every $j$ and every $i\ge7$, and the unreachable cells repeat with the same period.
 \end{proposition}
 
 \begin{proof}
-Take the field on rows $0,\dots,10$ as computed by breadth-first search, and DEFINE $D$ on the rest of the strip by $D(i+4,j)=D(i,j)+2$ for $i\ge3$. Conditions (a), (b) and (c) of Lemma~\ref{lem:bellman} at row $i$ involve only rows $i-2,\dots,i+2$, because a knight move changes the row by $1$ or $2$. Once all five of those rows lie at or above $3$, the definition gives $D(r,j)=D(r-4,j)+2$ for each of them, so the condition at row $i$ is the condition at row $i-4$ with $2$ added to both sides, hence the same condition. Checking rows $0,\dots,23$ therefore settles every row, and those checks were carried out in exact integer arithmetic. By Lemma~\ref{lem:bellman}, $D=d$, which is the claim. (The inequality $\le$ needs no certificate: the moves $(2,1)$ then $(2,-1)$ --- or $(2,-1)$ then $(2,1)$ at the right-hand edge --- drop four rows and return to the same column. It is $\ge$ that the certificate supplies.)
+Take the field on rows $0,\dots,14$ as computed by breadth-first search, and DEFINE $D$ on the rest of the strip by $D(i+4,j)=D(i,j)+2$ for $i\ge7$. Conditions (a), (b) and (c) of Lemma~\ref{lem:bellman} at row $i$ involve only rows $i-2,\dots,i+2$, because a knight move changes the row by $1$ or $2$. Once all five of those rows lie at or above $7$, the definition gives $D(r,j)=D(r-4,j)+2$ for each of them, so the condition at row $i$ is the condition at row $i-4$ with $2$ added to both sides, hence the same condition. Checking rows $0,\dots,27$ therefore settles every row, and those checks were carried out in exact integer arithmetic. By Lemma~\ref{lem:bellman}, $D=d$, which is the claim. (The inequality $\le$ needs no certificate: the moves $(2,1)$ then $(2,-1)$ --- or $(2,-1)$ then $(2,1)$ at the right-hand edge --- drop four rows and return to the same column. It is $\ge$ that the certificate supplies.)
 \end{proof}
 
 \begin{proposition}\label{prop:height}
@@ -86,13 +86,13 @@ So one distance function serves every board of $5$ rows or more. The heights 2, 
 
 \section{The count is a walk count}
 
-What a transfer needs to know at row $i$ is which pairs of cells within two rows are minimum-path edges, and how far each cell's label is capped by $\min(1,d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by Proposition~\ref{prop:period} both depend on $i$ only through $i\bmod 4$ once $i\ge5$ --- the cap because $d$ rises with $i$ and has passed $1$ there.
+What a transfer needs to know at row $i$ is which pairs of cells within two rows are minimum-path edges, and how far each cell's label is capped by $\min(1,d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by Proposition~\ref{prop:period} both depend on $i$ only through $i\bmod 4$ once $i\ge9$ --- the cap because $d$ rises with $i$ and has passed $1$ there.
 
-A knight move never stays inside a row, so no edge joins two cells of one row: the label of a new row is constrained only by the two rows above it, and cell by cell at that. Take as vertices the pairs (labelling of the previous row, labelling of the current row) together with the phase $i\bmod 4$ of the current row; an edge to the next such vertex exists when every minimum-path edge closed by the arriving row rises by $0$ or $1$, which the two rows above it decide. Vertices with identical futures are merged, which changes no count, leaving $S=43$.
+A knight move never stays inside a row, so no edge joins two cells of one row: the label of a new row is constrained only by the two rows above it, and cell by cell at that. Take as vertices the pairs (labelling of the previous row, labelling of the current row) together with the phase $i\bmod 4$ of the current row; an edge to the next such vertex exists when every minimum-path edge closed by the arriving row rises by $0$ or $1$, which the two rows above it decide. Vertices with identical futures are merged, which changes no count, leaving $S=123$.
 
-Rows $0,\dots,5$ are ABOVE the periodic region and are not carried by the matrix. They are walked once with weights: $\iota$ is the vector counting, at each vertex, the boards of $6$ rows whose last two rows are that pair. So $\iota$ is not an incidence vector, and the paper may not call it one; $\tau$ is all ones, every vertex being a legitimate last pair. Carrying the row index in the vertex instead, which is the obvious alternative, multiplies the vertex set by the $5$ distinct rows above the region and is what made the wider boards unreachable. Summing the early rows away loses nothing: a board is determined by its rows, and two boards agreeing on their last two rows admit the same continuations. With $M$ the adjacency matrix, for every board of at least $6$ rows,
+Rows $0,\dots,9$ are ABOVE the periodic region and are not carried by the matrix. They are walked once with weights: $\iota$ is the vector counting, at each vertex, the boards of $10$ rows whose last two rows are that pair. So $\iota$ is not an incidence vector, and the paper may not call it one; $\tau$ is all ones, every vertex being a legitimate last pair. Carrying the row index in the vertex instead, which is the obvious alternative, multiplies the vertex set by the $9$ distinct rows above the region and is what made the wider boards unreachable. Summing the early rows away loses nothing: a board is determined by its rows, and two boards agreeing on their last two rows admit the same continuations. With $M$ the adjacency matrix, for every board of at least $10$ rows,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-4}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-8}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -120,21 +120,21 @@ changes nothing here.
 \[
 a(n)\;=\;a(n-1) + 4\,a(n-2) - 4\,a(n-3) - 6\,a(n-4) + 6\,a(n-5) + 4\,a(n-6) - 4\,a(n-7) - a(n-8) + a(n-9)
 \]
-for every $n>15$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=15$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=21$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -159,7 +159,7 @@ perturbing a single entry of its table by one makes it refuse.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253418.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253420.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
