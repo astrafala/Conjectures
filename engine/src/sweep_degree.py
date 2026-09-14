@@ -37,6 +37,11 @@ SFX = f'{TAG}' if NSHARD == 1 else f'{TAG}_{SHARD}'
 HITS, DONE, WHY = f'degree_hits{SFX}.json', f'degree_done{SFX}.json', f'degree_why{SFX}.json'
 BUDGET = int(os.environ.get('BUDGET', '300'))
 MEMGB = float(os.environ.get('MEMGB', '6'))
+# The per-step alarm must be SHORTER than the runner's own timeout, or the runner kills the
+# process first, the entry is never marked done, and every restart begins on the same one.
+# sweep_degree sat 27 minutes on a degree-127 claim that way, with an alarm of 8*BUDGET =
+# 3200s inside a `timeout 1700`. ALARMCAP bounds it.
+ALARMCAP = int(os.environ.get('ALARMCAP', '900'))
 resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
 
 pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/degree.txt')).read().split()
@@ -109,7 +114,7 @@ for a in sorted(pool):
     if sh is None:
         res['model does not match DATA'] += 1; done.add(a); save(); continue
     try:
-        signal.alarm(BUDGET * 8)
+        signal.alarm(min(BUDGET * 8, ALARMCAP))
         hi = uniform.threshold(en, p, b, degclaim.coeffs(deg), deg + 1)
         lo = uniform.threshold(en, p, b, degclaim.coeffs(deg - 1), deg) if deg else 0
         signal.alarm(0)

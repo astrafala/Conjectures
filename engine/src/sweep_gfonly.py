@@ -29,6 +29,11 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
 BUDGET = int(os.environ.get('BUDGET', '120'))
 CAP = int(os.environ.get('CAP', '20000'))
+# The per-step alarm must be SHORTER than the runner's own timeout, or the runner kills the
+# process before the alarm can fire, the entry is never marked done, and every restart begins
+# on the same one. gfrun.sh runs `timeout 1700`, and 4*BUDGET at the default BUDGET is 480 --
+# safe today, but the guard is here so a raised BUDGET cannot quietly reintroduce it.
+ALARMCAP = int(os.environ.get('ALARMCAP', '900'))
 
 
 class Timeout(Exception):
@@ -102,7 +107,7 @@ for a in sorted(ONLY or pool):
     # for whichever is longer.
     want_terms = max(need, len(d) + off) + off + 6
     try:
-        signal.alarm(BUDGET * 4)
+        signal.alarm(min(BUDGET * 4, ALARMCAP))
         t = uniform.terms(en, p, b, want_terms)
         signal.alarm(0)
     except Exception:
@@ -112,7 +117,7 @@ for a in sorted(ONLY or pool):
     if sh is None:
         res['model does not match DATA'] += 1; done.add(a); continue
     try:
-        signal.alarm(BUDGET * 4)
+        signal.alarm(min(BUDGET * 4, ALARMCAP))
         ser = gfrec_series = None
         import gfrec
         ser = gfrec.series(gl[1], need)

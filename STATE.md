@@ -195,6 +195,16 @@ Recurring defects, all found this way:
     vertices. **Validate a fit on points it was not fitted on; decide a region condition on
     the region, not on samples of it; and check that a claimed symmetry is one.**
 
+25. **a per-step alarm longer than the runner's own timeout is not a timeout.** `sweep_degree`
+    sat 27 minutes on one degree-127 claim: its annihilation alarm was `8*BUDGET` = 3,200s
+    inside a `timeout 1700`, so the runner killed the process first, the entry was never marked
+    done, and every restart began on the same one. The same arithmetic was in `sweep_linkrec`
+    (2,400s inside `timeout 1700`) and latent in `sweep_gfonly`. All three now take `ALARMCAP`
+    (default 900) and use `min(BUDGET*k, ALARMCAP)`. **When you raise a BUDGET, check what the
+    longest alarm derived from it becomes and compare it to the runner's timeout.** And when a
+    sweep is stuck, do not silently mark the entry done -- let the fixed sweep time out and
+    RECORD the reason, or the next person re-derives it from nothing.
+
 ## Where things stand
 
 * **12,624 papers installed** over 12,597 entries and 145 distinct arguments, as of the

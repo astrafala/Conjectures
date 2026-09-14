@@ -46,6 +46,10 @@ FETCH = os.environ.get('LRFETCH', '') == '1'
 # RLIMIT_AS turns the runaway into a MemoryError the per-entry handler already treats as
 # "build failed". Raise MEMGB with the cap, never the cap alone.
 MEMGB = float(os.environ.get('MEMGB', '6'))
+# The per-step alarm must be SHORTER than the runner's own timeout, or the runner kills the
+# process first, the entry is never marked done, and every restart begins on the same one.
+# lrrun.sh runs `timeout 1700` with BUDGET=300, and 8*BUDGET is 2400.
+ALARMCAP = int(os.environ.get('ALARMCAP', '900'))
 resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
 
 pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/linkrec.txt')).read().split()
@@ -136,7 +140,7 @@ for a in sorted(ONLY or pool):
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     try:
-        signal.alarm(BUDGET * 4)
+        signal.alarm(min(BUDGET * 4, ALARMCAP))
         t = uniform.terms(en, p, b, len(d) + off + 5)
         signal.alarm(0)
     except Timeout:
@@ -148,7 +152,7 @@ for a in sorted(ONLY or pool):
     if sh is None:
         res['model does not match DATA'] += 1; done.add(a); save(); continue
     try:
-        signal.alarm(BUDGET * 8)
+        signal.alarm(min(BUDGET * 8, ALARMCAP))
         thr = uniform.threshold(en, p, b, coeffs, order)
         signal.alarm(0)
     except Timeout:

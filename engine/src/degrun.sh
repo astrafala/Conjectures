@@ -4,7 +4,7 @@
 # annihilate and (z-1)^d must not. The big degrees (127, 80) are slow, hence a runner.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8; do
-  ANUMS_FILE=deep-check/degree.txt BUDGET=600 MEMGB=6 \
+  ANUMS_FILE=deep-check/degree.txt BUDGET=150 MEMGB=6 ALARMCAP=900 \
     timeout 1700 python3 src/sweep_degree.py 400000 0 1 >> /tmp/deg.log 2>&1
   sleep 5
 done
