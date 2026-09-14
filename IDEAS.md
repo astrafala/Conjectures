@@ -1312,3 +1312,44 @@ expression; it runs about two entries per seven minutes. The decision does not n
 simplification: B lies in `Q(x)[y]/(y^2 - D)`, so reducing there and asking whether the
 y-coefficient vanishes and the rational part is a polynomial is the same decision in polynomial
 arithmetic. Worth doing before widening the pool, not before finishing the 28.
+
+## AB. Creative telescoping: the machinery is real, the remaining refusals are not notation
+(14 September, night)
+
+`zeil_run`, `zeilb_run` and `hyp_run` implement Zeilberger with the boundary correction, Ore
+right-division, and the hypergeometric-value conversion. 11 installed results. Written in
+August, **run once by hand, never given a runner** — `zeilbrun.sh` fixes that and is in
+`restart_all.sh` (shards 3–5, so `harvest.py`'s existing glob collects them). 309 candidates.
+
+The 19 parse skips in the August files are stale: every one is
+`Conjectured to be D-finite with recurrence: ...`, which `prove_rec.parse_conj` reads today.
+
+### The dominant refusal, read
+
+542 of 761 August verdicts were "no usable hypergeometric sum formula". Of 401 sum lines the
+candidate scan offers, `sumparse` refuses 287, and they break down as:
+
+| | |
+|---:|---|
+| 178 | the summand names ANOTHER sequence (`Stirling1(n+2,k+2)`, `A002426(k)`) |
+| 42 | other — mostly Stirling numbers and elided products |
+| 35 | a double sum, or an index that is not a single k |
+| 29 | an arithmetic function — floor, mod, sigma, phi |
+| 3 | an infinite or elided range |
+
+**This is not the pattern that paid all day.** `sumparse`'s own docstring records that its
+first census found "most of it was notation, not mathematics" — that was true then and it is
+not true now. A summand containing another sequence, a Stirling number, an arithmetic function
+or a second index is genuinely outside single-variable creative telescoping. Widening the
+parser would only move the refusal one step later, to "no telescoper found".
+
+What would actually reach them, in order of honesty about the cost:
+
+1. **Multivariate telescoping** for the 35 double sums — a real algorithm, not a reader.
+2. **Substituting a referenced sequence's own closed form** into the summand, for the subset of
+   the 178 where that sequence has a hypergeometric one. Same shape as `algf.of`, and the same
+   discipline applies: verify the substitution against the referenced entry's own terms.
+3. Stirling numbers have known holonomic representations; a table of them, verified the way
+   `algf.STANDARD` is verified, would reach part of the 42.
+
+None of these is a reader fix, and none should be described as one.
