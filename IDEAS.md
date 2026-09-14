@@ -1084,3 +1084,46 @@ most refuse at "distance is not a max of affine pieces", the fit is not the prob
 whole max-of-affines premise is — and then the model to reach for is a Bellman certificate
 whose D is piecewise affine on a *subdivision that is not convex*, which is a different and
 larger piece of work.
+
+## X. The Galebach vein, measured and in service (14 September, late)
+
+`galcoord` is IN SERVICE and has paid 2 results (A315405, A315418) and a 158th argument. §W.3
+asked for the measurement before any tuning; here it is, over 98 of the 379:
+
+| | |
+|---:|---|
+| 72 | the fit fails on the patch **rim** |
+| 12 | not a max of affine pieces even on the inner patch |
+| 7 | fit timed out |
+| 4 | the certificate refuses |
+| 2 | **certified** |
+
+**The rim failures are OVER, not under.** Of 17 sampled, 13 have the fitted max EXCEEDING the
+true distance, by up to 5; one is exact. That is decisive: a support fitted on inner points
+that exceeds `d` further out means `d` is not convex, so no max of affine pieces equals it and
+no patch radius fixes it. Refining to a sublattice of index up to 4 did not help on the case
+tested (Gal.4.31.1).
+
+### What would reach the other 98%
+
+`galcert2` never uses convexity. It needs only that `D` is affine on each of finitely many
+POLYHEDRA that cover the plane — the max-of-affines form was a convenience, because then the
+pieces are the cells of the normal fan and come for free. So the open problem is producing a
+non-convex piecewise-affine description of `D` from a patch, and verifying it costs nothing
+new.
+
+Two shapes worth trying, in order:
+
+1. **Cone × residue.** `D_c(m) = ψ_c(m) + ε_c(m mod L')` for a sublattice `L'`: fit the
+   polyhedral norm `ψ` from the asymptotics and the correction `ε` as a lookup on `L/L'`.
+   `galfit` already takes a `refine=(k1,k2)` argument that splits the orbits by a sublattice;
+   index 4 was not enough on the one case tested, and the thing to measure is whether the
+   excess `max - d` is constant on residue classes for SOME sublattice, which is a cheap scan
+   over the patch and has not been done.
+2. **Cones from the BFS itself.** Partition the patch by which neighbour realises the minimum
+   in `D(x) = 1 + min D(y)`; the closure of each part is a candidate region, and the affine
+   function on it is read off by least squares in exact arithmetic. This does not assume
+   convexity at any point.
+
+Do not spend on the fit before (1)'s scan, which is an afternoon and settles whether the
+correction is lattice-periodic at all.
