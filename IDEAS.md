@@ -838,3 +838,47 @@ Then the certificate is: for each ordered pair of classes joined by an edge, and
 cones, `d(w) <= d(v) + 1` and the witness condition are affine inequalities in (m, n), each
 decided once for the whole cone pair. Finite, exact, and the periods p and n0 fall out of the
 cone geometry rather than out of a scan over terms.
+
+### U.2 The vein is sized: 723 of 1,248 tilings are provable by a standard theorem
+
+`src/galhull.py` fits d per translation class as max_i(A_i*m + B_i*n + C_i), exactly. The
+gradient scan alone misses thin cones — always underestimating, never over — so the missing
+supports are ADDED by a cubic search run only through the points the scan cannot reach, which
+is a few dozen out of thousands. All Fraction and integer arithmetic, no tolerance anywhere.
+
+**Where the fit is exact, the conjecture follows from Ehrhart's theorem and nothing more.**
+The ball {v : d(v) <= n} meets each translation class in the lattice points of a rational
+polygon dilated by n; Ehrhart gives that count as a quasi-polynomial of degree 2 in n with
+period the lcm of the denominators; and a(n) = |B(n)| - |B(n-1)| is then quasi-linear, whose
+annihilator is (z^p - 1)^2 — exactly the shape the conjectured recurrences have. No new
+mathematics is needed on that half at all.
+
+Scanned over every tiling (interior radius 28, all 1,248):
+
+    exact max-of-affine   723
+    not exact             525
+    no lattice found        0
+    errors                  0
+
+The 723 are listed in `engine/gal_exact.json`. **That is the reachable set today**, and it is
+most of the way to the 378 pool entries — how many of those 378 sit on exact tilings is the
+first thing to measure next, and it is one join.
+
+The other 525 are not a failure and should not be forced. Their d exceeds the hull by exactly
+1 on a sparse set that RECURS with a period — Gal.4.31 at graph distances 9, 10, 17, 18, 25, 26
+(period 8, which is its coordination sequence's own period), Gal.6.110 every 4. Refining the
+translation lattice to index 4 barely moves it (12 leftovers to 8), so it is not a residue
+effect: d is genuinely not convex on those tilings, and the certificate for them needs the
+correction carried explicitly rather than fitted away. Do the 723 first.
+
+### U.3 The order of work
+
+1. Join `gal_exact.json` against the 378 pool entries. That number is the size of the batch.
+2. Ehrhart on the polygons: for each class, the cones give the polygon's facets; the count of
+   lattice points in the n-fold dilate is the quasi-polynomial. `latpoly` already does Ehrhart
+   counting with a DERIVED period bound, and STATE.md defect 11 is the warning about getting
+   that bound wrong — reuse it rather than re-deriving.
+3. a(n) = |B(n)| - |B(n-1)|, compare its annihilator with the conjectured recurrence, and
+   install by the ordinary chain.
+4. Test the whole path against the 6,536 published coordination sequences before installing
+   anything: the terms are already known to match, so any disagreement is in the Ehrhart step.
