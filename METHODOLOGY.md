@@ -209,7 +209,7 @@ hold no conjectures is itself recorded, so that nobody measures it twice.
 
 ## 7. Scope
 
-159 distinct arguments across 13224 entries. The full breakdown is in
+159 distinct arguments across 13226 entries. The full breakdown is in
 [papers/index.csv](papers/index.csv); the largest groups:
 
 | Papers | Argument | What it settles |
