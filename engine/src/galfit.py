@@ -31,7 +31,7 @@ def data(u, t, v, radius=70, margin=6, minpts=40):
     if not 1 <= v <= len(letters):
         return None, 'vertex index out of range'
     start = letters[v - 1]
-    L = gallat.lattice(types)
+    L = gallat.lattice(types, start=start)
     if L is None:
         return None, 'no translation lattice'
     a, b = L

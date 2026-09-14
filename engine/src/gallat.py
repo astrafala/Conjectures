@@ -58,9 +58,49 @@ def _indep(a, b):
     return False
 
 
-def lattice(types, R=22, inner=12):
-    """two shortest independent translations, or None"""
-    seen = patch(types, R)
+def _automorphism(types, seen, v, inner):
+    """does translating by v carry the tiling's EDGES to its edges, not just its signatures?
+
+    The signature is the vertex type and its set of edge directions, and that is NOT enough. A
+    vertex figure with a symmetry (6^3 under 120 degrees) has several frames describing the
+    same direction set, and the polygons sitting between the edges can then differ. On
+    Gal.4.142 the shortest signature-preserving vector fails to be a symmetry at 140 of 700
+    inner vertices, and every class, every edge offset and every distance built on it is wrong.
+    Nothing downstream could see that: `galcert2` caught it as "no predecessor at (-1, 0)",
+    which is a true statement about a function that was never the distance.
+
+    The honest test is the one the word "symmetry" means: w + v is a vertex of the same type
+    for every inner w, and the neighbours of w + v are exactly the neighbours of w translated.
+    """
+    for w, (l, r, f, d) in seen.items():
+        if d > inner:
+            continue
+        u = _add(w, v)
+        if u not in seen:
+            continue
+        if seen[u][0] != l:
+            return False
+        nw = galtile.neighbours(w, l, r, f, types)
+        nu = galtile.neighbours(u, seen[u][0], seen[u][1], seen[u][2], types)
+        if nw is None or nu is None:
+            continue
+        if {_add(q, v) for (q, _a, _b, _c) in nw} != {q for (q, _a, _b, _c) in nu}:
+            return False
+    return True
+
+
+def lattice(types, R=22, inner=12, start=None):
+    """two shortest independent translations, or None.
+
+    `start` MUST be the vertex the caller's own patch was laid out from. The positions this
+    module works in are absolute in Z[zeta_24] and a patch laid out from a different vertex is
+    a different embedding -- rotated, reflected, or both -- so a translation that is a symmetry
+    of one is not a symmetry of the other. `galcoord` built its patch from the entry's own
+    vertex letter and took the lattice from the default one, and on Gal.4.142 the resulting
+    vector was not a symmetry at 140 of 700 inner vertices. Everything downstream -- classes,
+    edge offsets, distances -- was then a function of something that was not the tiling.
+    """
+    seen = patch(types, R, start=start)
     if not seen:
         return None
     S = {v: sig(types, l, r, f) for v, (l, r, f, _d) in seen.items()}
@@ -81,7 +121,7 @@ def lattice(types, R=22, inner=12):
             if u != sw:
                 ok = False
                 break
-        if ok and checked > 25:
+        if ok and checked > 25 and _automorphism(types, seen, v, inner):
             good.append((D[v], v))
     good.sort()
     if not good:
