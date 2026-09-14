@@ -12,71 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203360, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234062, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203360 counts arrays of width $6$ over $\{0,1\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=1777$ states.
+OEIS A234062 counts arrays of width $4$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=50851$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203360 is ``Number of nX6 binary arrays with every 1 immediately preceded by 0 to the left or above.''. It has offset $1$ and begins
+OEIS A234062 is ``Number of (n+2)X(2+2) 0..3 arrays with no increasing sequence of length 3 horizontally or diagonally downwards.''. It has offset $1$ and begins
 \[
-13, 547, 16538, 547897, 17631496, 572818585, 18550312526, 601393482628,\ \dots
+10268904, 2080660489, 421353160493, 85328128508052, 17279764673423169, 3499319084107297293, 708645907915267154424, 143507640770514333002353,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 13*a(n-1) +510*a(n-2) +3549*a(n-3) +10014*a(n-4) +3375*a(n-5) -26874*a(n-6) -1779*a(n-7) +87219*a(n-8) -58872*a(n-9) -14769*a(n-10) +7653*a(n-11) +130*a(n-12) -433*a(n-13) +39*a(n-14)
+Empirical: a(n) = 225*a(n-1) -3940*a(n-2) -138439*a(n-3) +2762487*a(n-4) +16840240*a(n-5) -484621912*a(n-6) +1589928752*a(n-7) +9951132784*a(n-8) -36287398656*a(n-9) -304998736896*a(n-10) +2007494414336*a(n-11) -4224465420288*a(n-12) +3250940870656*a(n-13) -366247673856*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:22:50, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:19:56, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
-immediately above it, those that lie inside the array. A cell in the top left corner has none
-at all, so a clause demanding a predecessor of a given value forbids that value there --- which
-is what makes the first published term what it is. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has at least one predecessor carrying $0$;
-\end{itemize}
-and nothing else.
+A RUN is $3$ consecutive cells taken along one of the directions
+\[
+\begin{array}{l}
+\text{along a row} \\
+\text{down a diagonal, nw to se} \\
+\end{array}
+\]
+all of them inside the array. The array is counted when no run has its entries strictly increasing.
 
-\section{Three rows decide everything}
+
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
+
+\section{Every run lies in $3$ consecutive rows}
 
 \begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
 \end{proof}
 
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
-row is settled as it is written and every state may end an array; the end vector is the
-all-ones vector. With $M$ the
-adjacency matrix of the digraph on those states,
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1777.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=50851,\quad\tau=\mathbf{1} .
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -101,15 +101,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;13\,a(n-1) + 510\,a(n-2) + 3549\,a(n-3) + 10014\,a(n-4) + 3375\,a(n-5) - 26874\,a(n-6) - 1779\,a(n-7) + 87219\,a(n-8) - 58872\,a(n-9) - 14769\,a(n-10) + 7653\,a(n-11) + 130\,a(n-12) - 433\,a(n-13) + 39\,a(n-14)
+a(n)\;=\;225\,a(n-1) - 3940\,a(n-2) - 138439\,a(n-3) + 2762487\,a(n-4) + 16840240\,a(n-5) - 484621912\,a(n-6) + 1589928752\,a(n-7) + 9951132784\,a(n-8) - 36287398656\,a(n-9) - 304998736896\,a(n-10) + 2007494414336\,a(n-11) - 4224465420288\,a(n-12) + 3250940870656\,a(n-13) - 366247673856\,a(n-14)
 \]
-for every $n>14$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -117,13 +117,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203360.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234062.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

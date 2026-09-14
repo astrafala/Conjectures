@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A245948, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A243042, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A245948 carries an empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is
+OEIS A243042 carries an empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=343$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=784$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A245948 is ``Number of length n+3 0..6 arrays with some pair in every consecutive four terms totalling exactly 6.''. It has offset $1$ and begins
+OEIS A243042 is ``Number of length n+3 0..6 arrays with no four elements in a row with pattern abab (with a!=b) and new values 0..6 introduced in 0..6 order.''. It has offset $1$ and begins
 \[
-1435, 7669, 39721, 199141, 1021225, 5208673, 26526337, 135336793,\ \dots
+14, 47, 179, 760, 3544, 17919, 97106, 557629,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +8*a(n-2) +2*a(n-3) -39*a(n-4) -139*a(n-5) -175*a(n-6) -179*a(n-7) +980*a(n-8) +1638*a(n-9) -1266*a(n-10) -210*a(n-11) -352*a(n-12) +123*a(n-13) +24*a(n-14) +19*a(n-15) -5*a(n-16).
+Empirical: a(n) = 17*a(n-1) -95*a(n-2) +154*a(n-3) +222*a(n-4) -448*a(n-5) -773*a(n-6) +213*a(n-7) +1374*a(n-8) +1181*a(n-9) +27*a(n-10) -736*a(n-11) -690*a(n-12) -334*a(n-13) -95*a(n-14) -15*a(n-15) -a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 02 2025 21:54:44, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:19:33, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=343$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=784$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 8\,a(n-2) + 2\,a(n-3) - 39\,a(n-4) - 139\,a(n-5) - 175\,a(n-6) - 179\,a(n-7) + 980\,a(n-8) + 1638\,a(n-9) - 1266\,a(n-10) - 210\,a(n-11) - 352\,a(n-12) + 123\,a(n-13) + 24\,a(n-14) + 19\,a(n-15) - 5\,a(n-16)
+a(n)\;=\;17\,a(n-1) - 95\,a(n-2) + 154\,a(n-3) + 222\,a(n-4) - 448\,a(n-5) - 773\,a(n-6) + 213\,a(n-7) + 1374\,a(n-8) + 1181\,a(n-9) + 27\,a(n-10) - 736\,a(n-11) - 690\,a(n-12) - 334\,a(n-13) - 95\,a(n-14) - 15\,a(n-15) - a(n-16)
 \]
-for every $n>-2$.
+for every $n>18$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=-2+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A245948.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A243042.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

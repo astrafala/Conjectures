@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A248428, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A201975, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A248428 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A201975 carries an empirical recurrence of order $4$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=16$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=18$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,26 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A248428 is ``Number of length n+2 0..3 arrays with every three consecutive terms having the sum of some two elements equal to twice the third.''. It has offset $1$ and begins
+OEIS A201975 is ``Number of n X 2 0..3 arrays with rows and columns lexicographically nondecreasing read forwards and nonincreasing read backwards.''. It has offset $1$ and begins
 \[
-16, 20, 24, 28, 36, 44, 52, 68,\ \dots
+4, 30, 72, 131, 208, 304, 420, 557,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 2*a(n-3) - 2*a(n-4).
+Empirical: a(n) = (1/6)*n\^{}3 + 7*n\^{}2 + (23/6)*n - 7. a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - a(n-4) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 08 2018 06:34:18, revision 8) this is still
+As of the ``Last modified'' line on the live entry (May 25 2018 11:14:01, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+The condition the entry imposes is local: it constrains the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=16$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=18$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-3) - 2\,a(n-4)
+a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $44$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $42$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A248428.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A201975.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

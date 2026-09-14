@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical closed form, generating function and recurrence for OEIS A195237, proved}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{6 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A195237 counts the lower triangles of a $7\times7$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $1$, and carries closed form, generating function and recurrence recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$1$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
+
+\section{The conjecture}
+
+OEIS A195237 is ``Number of lower triangles of a 7 X 7 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by one or less.''. It has offset $1$ and begins
+\[
+268435456, 1663418313, 3601738548, 5618308863, 7640055854, 9661943973,\ \dots
+\]
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
+\begin{quote}
+Empirical: a(n) = 2021888119*n - 2469384741 for n>4.
+
+G.f.: x*(268435456 + 1126547401*x + 543337378*x\^{}2 + 78250080*x\^{}3 + 5176676*x\^{}4 + 141128*x\^{}5) / (1 - x)\^{}2.
+
+a(n) = 2*a(n-1) - a(n-2) for n>6.
+\end{quote}
+As of the ``Last modified'' line on the live entry (May 06 2018 12:18:37, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
+
+\section{What is being counted}
+
+The lower triangle of a $7\times7$ array is the set of cells $(i,j)$ with $0\le j\le
+i<7$, so there are $T=28$ of them. Two cells are adjacent when they differ by one of the
+horizontal, antidiagonal, vertical, diagonal offsets, which here gives $78$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
+\[
+|x_u-x_v|\le 1\qquad\text{for every adjacent pair }u,v .
+\]
+
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
+
+\section{Translation}
+
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
+\[
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
+\end{proof}
+
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 1\cdot6=6$, where $6$ is the
+diameter of the neighbour graph.
+\end{lemma}
+
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $6$
+edges, and each edge changes the value by at most $1$. Hence the largest and the smallest
+entry differ by at most $1\cdot6$.
+\end{proof}
+
+\section{The count}
+
+\begin{theorem}\label{thm:line}
+\[
+a(n)\;=\;2021888119\,n-2469384741\qquad\text{for every }n\ge5,
+\]
+and $\mathcal P$ has exactly $2021888119$ elements.
+\end{theorem}
+
+\begin{proof}
+For $n\ge6$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
+\[
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
+\]
+which is a linear function of $n$. Two values determine it, and $a(6)$ and
+$a(6+1)$ were computed exactly, giving slope $2021888119$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=5$ was then read off by
+comparing it with the exact values of $a(n)$ below $6$, each computed the same way.
+\end{proof}
+
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $7+1$ of
+them --- so no array is ever written down.
+
+Since $a$ agrees with a linear polynomial from a known point on, its generating function is a
+polynomial divided by $(1-x)^2$: multiplying the series by $(1-x)^2$ annihilates the linear
+tail term by term, leaving only finitely many nonzero coefficients, and those coefficients are
+the second differences of the values below the threshold. The conjectured generating function
+is that one, which was checked coefficient by coefficient in exact rational arithmetic.
+
+The conjectured recurrence $a(n)=2a(n-1)-a(n-2)$ is the statement that the second difference
+vanishes, which for a linear function it does; it therefore holds for every $n\ge5+2$.
+
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
+
+\section{Verification}
+
+Three checks, each independent of the argument above.
+
+First, the count reproduces all $18$ terms the entry publishes, exactly, in integer
+arithmetic.
+
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $28$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{28}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
+
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195237.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\end{thebibliography}
+
+\end{document}

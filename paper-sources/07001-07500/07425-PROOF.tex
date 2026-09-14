@@ -12,83 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264275, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253794, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264275 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=5$ columns in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=2$, the matching splits into
-independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
-every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
-partly used. Carrying those as bitmasks makes the count a walk on $S=1048576$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
+OEIS A253794 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+statistic that is monotone along named directions of the subblock grid, and carries an
+empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. Every direction named moves the subblock row by at most one,
+so the count is a walk count on $S=112$ states --- the last two array rows together with the
+subblock row just completed --- and the conjectured recurrence is then settled by a finite
+exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 06A07.\normalsize
 
 \section{The conjecture}
 
-OEIS A264275 is ``Number of (4+1) X (n+1) arrays of permutations of 0..n*5+4 with each element having index change +-(.,.) 0,0 1,0 or 1,2.''. It has offset $1$ and begins
+OEIS A253794 is ``Number of (n+2)X(1+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal median nondecreasing horizontally and vertically.''. It has offset $1$ and begins
 \[
-64, 1800, 50625, 1143000, 25806400, 600090240, 13954224384, 323177889984,\ \dots
+512, 2908, 14096, 66144, 299472, 1303600, 5525648, 23034276,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-1) -467*a(n-3) +625*a(n-4) -5260*a(n-5) -15671*a(n-6) +466107*a(n-7) -420812*a(n-8) +879839*a(n-9) -157761*a(n-10) -732744*a(n-11) +1973397*a(n-12) -2238123*a(n-13) +1652184*a(n-14) -1326213*a(n-15) -1823409*a(n-16) +641268*a(n-17) -3529953*a(n-18) -222939*a(n-19) -250668*a(n-20) -21735*a(n-21) +9153*a(n-22) +2916*a(n-24) +243*a(n-25) for n>27.
+Empirical: a(n) = 8*a(n-1) -19*a(n-2) +13*a(n-3) -8*a(n-4) +27*a(n-5) -79*a(n-6) +156*a(n-7) -217*a(n-8) -235*a(n-9) +964*a(n-10) -1201*a(n-11) +1488*a(n-12) -256*a(n-13) -1064*a(n-14) +994*a(n-15) -1048*a(n-16) +254*a(n-17) -132*a(n-18) +400*a(n-19) -204*a(n-20) -56*a(n-21) +256*a(n-22) -40*a(n-23) +16*a(n-24) -16*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 27 2025 16:40:12, revision 11) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:14:36, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The object is a matching}
+\section{What is being counted}
 
-The grid has $W=5$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
+A $3\times3$ subblock has four distinguished lines of three cells: its diagonal, its
+antidiagonal, its central row and its central column. The entry's statistic is a signed sum of
+aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\sigma(i,j)$
+denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
+and $1$ column for an $(n+2)\times3$ array over $\{0,\dots,1\}$. The condition is
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-2,-1),\ (0,-1),\ (0,0),\ (0,1),\ (2,1)\},
+\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
 \]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+whenever both positions exist.
 
-\section{The matching is a walk}
+``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
+the reading of every statistic name here, was checked by counting the small arrays directly
+against what the entries publish.
 
-Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
-placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
-value with home column at most $i-R$ has been used up, and the only home columns that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home columns are already placed. One step fills
-the cells of one further column, drawing each of its $W$ values from a home column within $R$
-and at an allowed column offset, and the home column that closes at that step must come out
-full. Nonexistent home columns --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
+\section{The count is a walk count}
 
-Hence $a$ is a walk count on $S=1048576$ vertices,
+A subblock spans three array rows and the vertical comparison spans four, so the obvious state
+is three consecutive rows. It is larger than it needs to be. What a step actually consults is
+the last TWO array rows --- enough to build the next subblock row once one more row arrives ---
+and the PREVIOUS SUBBLOCK ROW, to compare against. So take as state the triple
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+\bigl(r_{i+1},\ r_{i+2},\ \sigma\text{-row }i\bigr),
 \]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
+and let a step append an array row $r_{i+3}$: that fixes $\sigma$-row $i+1$ from
+$r_{i+1},r_{i+2},r_{i+3}$, and every comparison between the two $\sigma$-rows is settled
+there. All the third rows that produce the same $\sigma$-row collapse into one state, which is
+what makes the wider arrays reachable.
+
+The starting vector is therefore weighted rather than all-ones: a state is entered by as many
+first rows as produce it, and $\iota$ records that count. With $\tau$ all-ones, an
+$(n+2)$-row array is a walk of $n-1$ steps and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+\]
+on the $S=112$ reachable states. In particular $a$ is $C$-finite. The alignment of the walk
+index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{25}-\sum_i c_it^{25-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+25}-\sum_ic_iM^{j+25-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -97,43 +102,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-1) - 467\,a(n-3) + 625\,a(n-4) - 5260\,a(n-5) - 15671\,a(n-6) + 466107\,a(n-7) - 420812\,a(n-8) + 879839\,a(n-9) - 157761\,a(n-10) - 732744\,a(n-11) + 1973397\,a(n-12) - 2238123\,a(n-13) + 1652184\,a(n-14) - 1326213\,a(n-15) - 1823409\,a(n-16) + 641268\,a(n-17) - 3529953\,a(n-18) - 222939\,a(n-19) - 250668\,a(n-20) - 21735\,a(n-21) + 9153\,a(n-22) + 2916\,a(n-24) + 243\,a(n-25)
+a(n)\;=\;8\,a(n-1) - 19\,a(n-2) + 13\,a(n-3) - 8\,a(n-4) + 27\,a(n-5) - 79\,a(n-6) + 156\,a(n-7) - 217\,a(n-8) - 235\,a(n-9) + 964\,a(n-10) - 1201\,a(n-11) + 1488\,a(n-12) - 256\,a(n-13) - 1064\,a(n-14) + 994\,a(n-15) - 1048\,a(n-16) + 254\,a(n-17) - 132\,a(n-18) + 400\,a(n-19) - 204\,a(n-20) - 56\,a(n-21) + 256\,a(n-22) - 40\,a(n-23) + 16\,a(n-24) - 16\,a(n-26)
 \]
-for every $n>27$.
+for every $n>26$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $25$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+integers vanish from the index corresponding to $n=26+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the transfer model reproduces all $17$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264275.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253794.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
+\bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
+Order}, 2nd ed., Cambridge University Press, 2002.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

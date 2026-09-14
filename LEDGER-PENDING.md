@@ -818,3 +818,25 @@ exceed k-1 however "nonnegative integer" is read; the two halves differ only in 
 bites, and the engine sets A = min(A, k-1) for both.
 
 **8 names read, all 8 reproducing their entries' published data exactly; 6 open and installed.**
+
+## 14 September 2026 — `neighdiff`: an obligation, not a window
+
+    Number of 0..6 arrays of length n with each element differing from at least one neighbor
+      by 1 or less, starting with 0.
+
+33 names read, 19 of them open and proved. "At least one neighbour" cannot be decided where it
+is written: the element's left neighbour is known when it is read and its right neighbour is
+not. One bit carries it — whether the element just read is still waiting for a partner — so the
+vertex is (that element, that bit). Reading the next element either discharges the debt, in
+which case the new element is itself already partnered, or leaves it standing, in which case the
+array is dead if a debt was already outstanding. An array is admissible exactly when it ends
+with no debt. Three relations appear in the names — "1 or less", "something other than 1", "2 or
+more" — and each with and without "starting with 0".
+
+A length-1 array is never admissible, since its one element has no neighbour at all, and every
+entry of the family publishes a(1) = 0. A first version special-cased that index and waived the
+debt, with a paragraph of prose explaining why; the entries' own first term said otherwise at
+all 33 names at once. The walk already gave 0 and the special case was the error.
+
+**33 names read, every one reproducing its entry's published data exactly; 19 open and
+installed.**

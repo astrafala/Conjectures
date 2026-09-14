@@ -108,6 +108,12 @@ WINDOW = {
     'rcintro': ("one counter per column -- how many values that column has introduced so "
                 "far -- the rows themselves being drawn from the fixed finite set that "
                 "satisfies the same condition read along a row"),
+    # not a window test: an element's right neighbour is not yet read when the element is,
+    # so the condition is an obligation and one bit carries it
+    'neighdiff': ("the last element together with one bit saying whether it is still waiting "
+                  "for a neighbour to satisfy the entry's relation -- the condition cannot be "
+                  "decided where it is written, because the element's right neighbour has not "
+                  "been read yet"),
     'transfer3': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer6': "every $2\\times2$ subblock, hence two consecutive lines",
     'transfer8': "a window of two consecutive lines",
