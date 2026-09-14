@@ -14,6 +14,14 @@ import re
 
 import localentry as LE
 import phibuild
+import kdcert
+import os as _os
+
+# the date a paper prints is the day the RESULT was obtained, not the day this builder was
+# drafted. It carried "7 September 2026" hard-coded from the day the engine was written and
+# shelved, which would have stamped every paper in the batch with a date a week before the
+# theorem that makes it true. See STATE.md defect 16 and the note in `unibuild`.
+DATE = _os.environ.get('PAPER_DATE', '14 September 2026')
 import transfer88
 import transferbuild
 
@@ -29,7 +37,12 @@ SETTLED = {3: 4, 4: 4, 5: 6, 6: 8, 7: 10}
 
 def model_section(p, S, expo):
     C, s = p['C'], p['slack']
-    i0 = SETTLED[C]
+    i0 = transfer88.settled(C, s)
+    ex = transfer88.exceptional(C)
+    H0 = max(ex) + 1 if ex in ((), None) or not ex else max(ex) + 1
+    exs = ", ".join(str(x) for x in ex[:-1]) + " and " + str(ex[-1]) if len(ex) > 1 else str(ex[0])
+    cert = kdcert.get(C)
+    j0, P, RI = cert['i0'], kdcert.PERIOD, kdcert.RISE
     return "\n".join([
         r"\section{From values to a labelling}", "",
         rf"Write $d(c)$ for the knight distance from the top left corner of the board and "
@@ -46,22 +59,79 @@ def model_section(p, S, expo):
         r"move, by at most one each time. Cells the knight cannot reach carry the value zero "
         r"and are not labelled; they contribute a factor of one.",
         "",
+        r"\section{The distance field of the strip}", "",
+        rf"Everything below rests on two properties of $d$ on the strip "
+        rf"$S_{{{C}}}=\{{(i,j): i\ge 0,\ 0\le j<{C}\}}$, and both are proved here rather "
+        rf"than measured. Write $d$ for the knight distance from $(0,0)$ on $S_{{{C}}}$ and "
+        rf"$d_H$ for the knight distance on the board of exactly $H$ rows.",
+        "",
+        r"\begin{lemma}\label{lem:bellman}",
+        r"Fix a width $C$ and let $D:S_C\to\mathbb{N}\cup\{\infty\}$ be any function at all, "
+        r"satisfying",
+        r"(a) $D(0,0)=0$; (b) $D(y)\le D(x)+1$ for every knight-adjacent pair $x,y$; and",
+        r"(c) every $x\ne(0,0)$ with $D(x)<\infty$ has a knight neighbour $y$ with "
+        r"$D(x)=D(y)+1$. Then $D=d$.",
+        r"\end{lemma}",
+        "",
+        r"\begin{proof}",
+        r"By (b) and induction on $d(x)$, $D(x)\le d(x)$: the last step of a shortest path "
+        r"to $x$ is an edge from a cell at distance $d(x)-1$. Conversely (c) forces "
+        r"$D(x)\ge1$ for $x\ne(0,0)$, so $D(x)=0$ only at the corner, and induction on "
+        r"$D(x)$ gives $d(x)\le D(y)+1=D(x)$ with $y$ the neighbour (c) supplies. Neither "
+        r"induction uses where $D$ came from.",
+        r"\end{proof}",
+        "",
+        r"\begin{proposition}\label{prop:period}",
+        rf"$d(i+{P},j)=d(i,j)+{RI}$ for every $j$ and every $i\ge{j0}$, and the unreachable "
+        rf"cells repeat with the same period.",
+        r"\end{proposition}",
+        "",
+        r"\begin{proof}",
+        rf"Take the field on rows $0,\dots,{j0+2*P-1}$ as computed by breadth-first search, "
+        rf"and DEFINE $D$ on the rest of the strip by $D(i+{P},j)=D(i,j)+{RI}$ for "
+        rf"$i\ge{j0}$. Conditions (a), (b) and (c) of Lemma~\ref{{lem:bellman}} at row $i$ "
+        rf"involve only rows $i-2,\dots,i+2$, because a knight move changes the row by $1$ "
+        rf"or $2$. Once all five of those rows lie at or above ${j0}$, the definition gives "
+        rf"$D(r,j)=D(r-{P},j)+{RI}$ for each of them, so the condition at row $i$ is the "
+        rf"condition at row $i-{P}$ with ${RI}$ added to both sides, hence the same "
+        rf"condition. Checking rows $0,\dots,{j0+5*P}$ therefore settles every row, and "
+        rf"those checks were carried out in exact integer arithmetic. By "
+        rf"Lemma~\ref{{lem:bellman}}, $D=d$, which is the claim. (The inequality $\le$ "
+        rf"needs no certificate: the moves $(2,1)$ then $(2,-1)$ --- or $(2,-1)$ then "
+        rf"$(2,1)$ at the right-hand edge --- drop four rows and return to the same column. "
+        rf"It is $\ge$ that the certificate supplies.)",
+        r"\end{proof}",
+        "",
+        r"\begin{proposition}\label{prop:height}",
+        rf"$d_H(i,j)=d(i,j)$ for every $H\ge{H0}$ and every $i<H$.",
+        r"\end{proposition}",
+        "",
+        r"\begin{proof}",
+        r"For a cell $x$ let $\rho(x)$ be the least number of rows a board needs for $x$ to "
+        r"sit at distance $d(x)$ on it, so $\rho(0,0)=1$ and, minimising over the "
+        r"minimum-path predecessors $y$ of $x$,",
+        r"\[ \rho(x)\;=\;\min_y\ \max\bigl(\mathrm{row}(x)+1,\ \mathrm{row}(y)+1,"
+        r"\ \rho(y)\bigr). \]",
+        r"A board of $H$ rows realises $d$ on all of its own rows exactly when $H\ge\rho(x)$ "
+        rf"for every $x$ in them. By Proposition~\ref{{prop:period}} the quantity "
+        rf"$\rho(x)-\mathrm{{row}}(x)$ has period ${P}$ in the row index, so the condition "
+        rf"is decided by finitely many rows; it holds for every $H\ge{H0}$ and fails at "
+        rf"$H={H0-1}$.",
+        r"\end{proof}",
+        "",
+        rf"So one distance function serves every board of ${H0}$ rows or more. The heights "
+        rf"{exs} are genuinely different --- on a $3\times3$ board the centre is unreachable, "
+        rf"while on any taller board it is at distance $4$ --- and are counted separately, "
+        rf"each on its own board with its own distances, which needs no theorem at all.",
+        "",
         r"\section{The count is a walk count}", "",
-        rf"Two properties of the board make the labellings the walks of a finite digraph. "
-        rf"Both were measured, not assumed.",
-        "",
-        rf"\emph{{The distances do not depend on how tall the board is.}} On a strip of "
-        rf"${C}$ columns, $d$ computed on a board of $R$ rows agrees with $d$ computed on any "
-        rf"taller board, for every $R$ except $2$, $3$ and $4$. So one distance function "
-        rf"serves every board in the family, and those three heights are counted separately, "
-        rf"each on its own board with its own distances.",
-        "",
-        rf"\emph{{The local structure repeats.}} What a transfer needs to know at row $i$ is "
-        rf"which pairs of cells within two rows are minimum-path edges, and how far each "
-        rf"cell's label is capped by $\min({s},d)$. For ${C}$ columns that data depends on "
-        rf"$i$ only through $i \bmod 4$, once $i\ge{i0}$. Below that it is carried exactly, "
-        rf"by the row index itself, so nothing is assumed about the top of the board either. "
-        rf"Widths $8$ and above show no such period and are refused rather than guessed at.",
+        rf"What a transfer needs to know at row $i$ is which pairs of cells within two rows "
+        rf"are minimum-path edges, and how far each cell's label is capped by "
+        rf"$\min({s},d)$. Both are functions of $d$ on rows $i-2,\dots,i$, so by "
+        rf"Proposition~\ref{{prop:period}} both depend on $i$ only through $i\bmod {P}$ "
+        rf"once $i\ge{i0}$ --- the cap because $d$ rises with $i$ and has passed ${s}$ "
+        rf"there. Below ${i0}$ the row index is carried exactly, so nothing is assumed about "
+        rf"the top of the board either.",
         "",
         rf"A knight move never stays inside a row, so no edge joins two cells of one row: the "
         rf"label of a new row is constrained only by the two rows above it, and cell by cell "
@@ -109,7 +179,7 @@ def build(h):
     return rf"""{PRE}
 \title{{Knight-distance labellings of a strip: OEIS {a}}}
 \author{{Adrian Perez Fontelles\\ \small Independent researcher}}
-\date{{7 September 2026}}
+\date{{{DATE}}}
 \begin{{document}}
 \maketitle
 
@@ -187,14 +257,22 @@ entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
 every labelling of the board one by one, computing the knight distances by breadth-first
-search on that very board and testing each minimum-path edge directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+search on that very board and testing each minimum-path edge directly. That program shares no
+code with the transfer matrix, so an error in one does not hide an error in the other. A
+third, independently written row-pair model, which carries the phase in the vertex rather than
+the row index and merges by a different rule, reproduces the same published terms again.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{{lem:crit}} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
+
+The certificate of Propositions~\ref{{prop:period}} and~\ref{{prop:height}} was itself tested
+on cases with known answers before being trusted: the field it produces agrees cell for cell
+with a direct breadth-first search on every board of width $3$ to $9$ and every height up to
+$59$; the threshold it computes is tight, the height below it genuinely disagreeing; and
+perturbing a single entry of its table by one makes it refuse.
 
 \begin{{thebibliography}}{{9}}
 \bibitem{{oeis}} The OEIS Foundation, \emph{{The On-Line Encyclopedia of Integer

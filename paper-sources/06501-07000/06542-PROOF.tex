@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250497, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250439, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250497 counts arrays over $\{0,1\}$ in which a statistic taken over short runs
+OEIS A250439 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $40$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=512$ states, and the
+window of consecutive rows, so the count is a walk count on $S=3600$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,32 +31,32 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250497 is ``Number of (n+2)X(1+2) 0..1 arrays with nondecreasing medians of every three consecutive values in every row and column.''. It has offset $1$ and begins
+OEIS A250439 is ``Number of (n+1)X(4+1) 0..2 arrays with nondecreasing sum of every two consecutive values in every row and column.''. It has offset $1$ and begins
 \[
-512, 2744, 13824, 68921, 314432, 1367631, 5832000, 24137569,\ \dots
+3600, 60000, 1000000, 8750000, 76562500, 450187500, 2647102500, 11859019200,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -20*a(n-2) +44*a(n-3) -190*a(n-4) +292*a(n-5) -242*a(n-6) +1552*a(n-7) -933*a(n-8) -728*a(n-9) -7846*a(n-10) -2828*a(n-11) +2191*a(n-12) +22952*a(n-13) +13106*a(n-14) -556*a(n-15) -37208*a(n-16) -18168*a(n-17) +6972*a(n-18) +33492*a(n-19) -4164*a(n-20) -5916*a(n-21) -10326*a(n-22) +9744*a(n-23) -1676*a(n-24) +5224*a(n-25) -6310*a(n-26) +2776*a(n-27) -2345*a(n-28) +2396*a(n-29) -1876*a(n-30) +1244*a(n-31) -1086*a(n-32) +704*a(n-33) -410*a(n-34) +212*a(n-35) -109*a(n-36) +40*a(n-37) -14*a(n-38) +4*a(n-39) -a(n-40)
+Empirical: a(n) = 2*a(n-1) +18*a(n-2) -38*a(n-3) -152*a(n-4) +342*a(n-5) +798*a(n-6) -1938*a(n-7) -2907*a(n-8) +7752*a(n-9) +7752*a(n-10) -23256*a(n-11) -15504*a(n-12) +54264*a(n-13) +23256*a(n-14) -100776*a(n-15) -25194*a(n-16) +151164*a(n-17) +16796*a(n-18) -184756*a(n-19) +184756*a(n-21) -16796*a(n-22) -151164*a(n-23) +25194*a(n-24) +100776*a(n-25) -23256*a(n-26) -54264*a(n-27) +15504*a(n-28) +23256*a(n-29) -7752*a(n-30) -7752*a(n-31) +2907*a(n-32) +1938*a(n-33) -798*a(n-34) -342*a(n-35) +152*a(n-36) +38*a(n-37) -18*a(n-38) -2*a(n-39) +a(n-40)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:27:27, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:24:55, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$.
+The array has $5$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
-Fix the statistic $\sigma(v)=\operatorname{med}(v)$ of a run $v$ of $3$ consecutive cells --- in words,
-the median of the $3$ values. Two derived arrays are formed and both must be
+Fix the statistic $\sigma(v)=\sum_{t} v_t$ of a run $v$ of $2$ consecutive cells --- in words,
+the sum of the $2$ values. Two derived arrays are formed and both must be
 nondecreasing in their own direction: reading along a row,
 \[
-\sigma\bigl(x(i,j),\dots,x(i,j{+}2)\bigr)\ \le\
-\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}3)\bigr),
+\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
+\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
 \]
 and reading down a column,
 \[
-\sigma\bigl(x(i,j),\dots,x(i{+}2,j)\bigr)\ \le\
-\sigma\bigl(x(i{+}1,j),\dots,x(i{+}3,j)\bigr).
+\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
+\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
 \]
 The same statistic and the same run length serve both directions, so the condition is
 unchanged by transposing the array.
@@ -69,21 +69,21 @@ available, and the walk is run over the alphabet the entry names.
 
 \begin{lemma}\label{lem:win}
 The row comparisons involve one array row each. A column comparison involves the
-$3+1=4$ consecutive rows $i,\dots,i{+}3$ and no others.
+$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
 \end{lemma}
 
 \begin{proof}
-The two runs compared start at rows $i$ and $i+1$ and have length $3$, so together they
-occupy rows $i$ through $i+3$.
+The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
+occupy rows $i$ through $i+2$.
 \end{proof}
 
-So the window of the last $3$ rows is a state, each row of it already satisfying its own row
+So the window of the last $2$ rows is a state, each row of it already satisfying its own row
 comparisons, and one step appends a row and settles the column comparisons that the new row
 completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=512,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3600,
 \]
-a walk of no steps being an array of exactly $3$ rows.
+a walk of no steps being an array of exactly $2$ rows.
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -108,7 +108,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 20\,a(n-2) + 44\,a(n-3) - 190\,a(n-4) + 292\,a(n-5) - 242\,a(n-6) + 1552\,a(n-7) - 933\,a(n-8) - 728\,a(n-9) - 7846\,a(n-10) - 2828\,a(n-11) + 2191\,a(n-12) + 22952\,a(n-13) + 13106\,a(n-14) - 556\,a(n-15) - 37208\,a(n-16) - 18168\,a(n-17) + 6972\,a(n-18) + 33492\,a(n-19) - 4164\,a(n-20) - 5916\,a(n-21) - 10326\,a(n-22) + 9744\,a(n-23) - 1676\,a(n-24) + 5224\,a(n-25) - 6310\,a(n-26) + 2776\,a(n-27) - 2345\,a(n-28) + 2396\,a(n-29) - 1876\,a(n-30) + 1244\,a(n-31) - 1086\,a(n-32) + 704\,a(n-33) - 410\,a(n-34) + 212\,a(n-35) - 109\,a(n-36) + 40\,a(n-37) - 14\,a(n-38) + 4\,a(n-39) - a(n-40)
+a(n)\;=\;2\,a(n-1) + 18\,a(n-2) - 38\,a(n-3) - 152\,a(n-4) + 342\,a(n-5) + 798\,a(n-6) - 1938\,a(n-7) - 2907\,a(n-8) + 7752\,a(n-9) + 7752\,a(n-10) - 23256\,a(n-11) - 15504\,a(n-12) + 54264\,a(n-13) + 23256\,a(n-14) - 100776\,a(n-15) - 25194\,a(n-16) + 151164\,a(n-17) + 16796\,a(n-18) - 184756\,a(n-19) + 184756\,a(n-21) - 16796\,a(n-22) - 151164\,a(n-23) + 25194\,a(n-24) + 100776\,a(n-25) - 23256\,a(n-26) - 54264\,a(n-27) + 15504\,a(n-28) + 23256\,a(n-29) - 7752\,a(n-30) - 7752\,a(n-31) + 2907\,a(n-32) + 1938\,a(n-33) - 798\,a(n-34) - 342\,a(n-35) + 152\,a(n-36) + 38\,a(n-37) - 18\,a(n-38) - 2\,a(n-39) + a(n-40)
 \]
 for every $n>40$.
 \end{theorem}
@@ -124,7 +124,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -140,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250497.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250439.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

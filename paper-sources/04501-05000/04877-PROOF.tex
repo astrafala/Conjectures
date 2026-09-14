@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A184042, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A211526, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A184042 carries an empirical recurrence of order $4$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive rows, together with the four-value multiset every block of the array must hold -- which any one block fixes for the whole array, so
+OEIS A211526 carries an empirical recurrence of order $4$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=4$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=7$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,23 +31,26 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A184042 is ``1/9 the number of (n+1) X 4 0..2 arrays with all 2 X 2 subblocks having the same four values.''. It has offset $1$ and begins
+OEIS A211526 is ``Number of -1..1 arrays x(i) of n+1 elements i=1..n+1 with set{t,u,v in 0,1}((x[i+t]+x[j+u]+x[k+v])*(-1)\^{}(t+u+v)) having two, four or five distinct values for every i,j,k<=n.''. It has offset $1$ and begins
 \[
-25, 31, 41, 61, 97, 169, 305, 577,\ \dots
+8, 18, 32, 60, 104, 192, 344, 648,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 3*a(n-1) - 6*a(n-3) + 4*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 10 2018 09:18:55, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 18 2018 10:08:31, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive rows, together with the four-value multiset every block of the array must hold -- which any one block fixes for the whole array and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=4$ vertices,
+The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=7$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\tfrac{1}{9}\,\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -100,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A184042.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211526.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

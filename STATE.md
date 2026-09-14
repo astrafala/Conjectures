@@ -79,6 +79,17 @@ Recurring defects, all found this way:
     on 13 September. Before a verified identity is used past the range it was verified on,
     name the induction that carries it and check that the model actually supports it.
 
+18. **a shelved engine is not a dead engine, and the shelf note says what would unshelve
+    it.** `transfer88` was finished weeks ago and deliberately left unregistered because its
+    transfer matrix rested on `d(i+4,j) = d(i,j)+2`, which had only been CHECKED over a few
+    hundred rows. The note in its docstring named the obstruction precisely, and that is what
+    made it a half-hour job to remove: the Bellman conditions turn a guessed distance field
+    into a proved one, and because a knight move spans at most two rows, finitely many rows
+    settle every row. Twenty-one entries. **Re-read the engines that refused themselves.**
+    A second lesson sits beside it: the old engine refused widths 8 and up as "showing no
+    period", which was a limit of its measurement and not of the board. A refusal written
+    from a measurement expires when the measurement is replaced by a theorem.
+
 13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
     `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
     was left alone for another 219 papers. When a defect is found in one place, ask which
@@ -195,6 +206,11 @@ Then `sweep_engine.py <engine>`, `newlist.py`, `livenew.py`, `build_new.py <engi
 
 A vein with its OWN hits file (a claim that is not a recurrence) skips 2, 5 and 6, adds its file
 to `newlist.py`'s glob list, and installs with `install_vein.py <prefix> <file> <label>`.
+
+An engine whose model is exact only past some size supplies `terms_p` and `threshold_p`
+alongside `terms`/`threshold`; `uniform` calls those instead, so the exceptional sizes are
+counted on their own objects and the certified bound is raised to cover them. `transfer88` and
+`denumerant` do this.
 
 ## A new engine is invisible until the candidate cache is rebuilt
 

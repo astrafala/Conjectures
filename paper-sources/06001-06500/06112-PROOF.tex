@@ -12,52 +12,63 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The white squares of a board: OEIS A230704}
+\title{The empirical recurrence for OEIS A237774, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230704 carries an empirical recurrence of order $50$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=166$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A237774 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$50$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=1176$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A230704 is ``Number of (n+3)X(4+3) 0..2 white square subarrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 3, and upper left element zero.''. It has offset $1$ and begins
+OEIS A237774 is ``Number of (n+1)X(3+1) 0..2 arrays with the maximum plus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-102, 800, 16536, 121382, 2382398, 17497342, 342031378, 2508344646,\ \dots
+1176, 7220, 44224, 241036, 1618456, 10751680, 75418228, 465173744,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 185*a(n-2) -6851*a(n-4) +145707*a(n-6) -2849231*a(n-8) +30720183*a(n-10) -36007996*a(n-12) -743385180*a(n-14) +287330815*a(n-16) +8627923017*a(n-18) -12118273932*a(n-20) -29408445279*a(n-22) +45675171837*a(n-24) -13807146112*a(n-26) -2411662568755*a(n-28) +3802259458200*a(n-30) +3456476952882*a(n-32) +4249525502473*a(n-34) -5769431443156*a(n-36) -7037014662528*a(n-38) +2632063276930*a(n-40) +18416679443602*a(n-42) +9430615399362*a(n-44) +259673859628*a(n-46) +64576080600*a(n-48) +325261872*a(n-50)
+Empirical: a(n) = 1890*a(n-4) +11436*a(n-6) -297317*a(n-8) -1964276*a(n-10) +14369445*a(n-12) +101694144*a(n-14) -182013563*a(n-16) -1485295098*a(n-18) +1261787279*a(n-20) +7944769616*a(n-22) -6190719967*a(n-24) -10223487242*a(n-26) +8861140786*a(n-28) +4411410330*a(n-30) -7175325372*a(n-32) +2763746512*a(n-34) +683460326*a(n-36) -1158240208*a(n-38) +99695884*a(n-40) +172729392*a(n-42) -44372896*a(n-44) +3735360*a(n-46) +487680*a(n-48) -9216*a(n-50) for n>55
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 05:57:44, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:26:43, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The white squares are a board of their own}
+\section{What is being counted}
 
-The board has $7$ columns and grows one row at a time, but only the cells with $i+j$ even carry a value, from the alphabet $\{0,1,2\}$. The diagonal and antidiagonal neighbours of such a cell again have $i+j$ even, so the white squares form a board of their own and the entry's condition never refers to anything else: each white cell must have at least one neighbour, diagonally or antidiagonally, holding the value $x+1$ modulo $3$ where $x$ is its own.
+The $2\times2$ subblocks of an $(n+1)\times4$ array form an
+$n\times3$ grid, and each carries the value $\sigma=c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
 
-That looks one row up and one row down, so three consecutive rows settle the condition on the middle one. Carry two rows as the state, judge a row when the row after it arrives, and judge the row with nothing after it by the end vector. A cell at the edge of the board simply has fewer neighbours, and having none of the right value is a failure rather than a special case.
+At $n=1$ the array has two rows, so its subblock grid is a single row of $3$ subblocks with
+no vertical neighbours; the condition there is exactly that consecutive values along that row
+differ by $1$. The entry's first term $1176$ counts those, and the model was made to
+reproduce it along with every later term.
 
-The white cells of a row occupy alternate columns, and which alternate ones depends on the parity of that row, so the two shapes alternate down the board; the state carries that parity in the shape of the row it holds.
+\section{The count is a walk count}
 
-The entry also fixes the top left cell at $0$, which restricts the states an array may begin in and nothing else.
-
-Merging vertices with identical futures leaves $S=166$. An admissible board is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end a board,
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+over the $S=1176$ pairs whose own subblock row already satisfies the condition along itself.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -74,50 +85,44 @@ Factor $M^{j}$ out of $M^{j+50}-\sum_ic_iM^{j+50-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;185\,a(n-2) - 6851\,a(n-4) + 145707\,a(n-6) - 2849231\,a(n-8) + 30720183\,a(n-10) - 36007996\,a(n-12) - 743385180\,a(n-14) + 287330815\,a(n-16) + 8627923017\,a(n-18) - 12118273932\,a(n-20) - 29408445279\,a(n-22) + 45675171837\,a(n-24) - 13807146112\,a(n-26) - 2411662568755\,a(n-28) + 3802259458200\,a(n-30) + 3456476952882\,a(n-32) + 4249525502473\,a(n-34) - 5769431443156\,a(n-36) - 7037014662528\,a(n-38) + 2632063276930\,a(n-40) + 18416679443602\,a(n-42) + 9430615399362\,a(n-44) + 259673859628\,a(n-46) + 64576080600\,a(n-48) + 325261872\,a(n-50)
+a(n)\;=\;1890\,a(n-4) + 11436\,a(n-6) - 297317\,a(n-8) - 1964276\,a(n-10) + 14369445\,a(n-12) + 101694144\,a(n-14) - 182013563\,a(n-16) - 1485295098\,a(n-18) + 1261787279\,a(n-20) + 7944769616\,a(n-22) - 6190719967\,a(n-24) - 10223487242\,a(n-26) + 8861140786\,a(n-28) + 4411410330\,a(n-30) - 7175325372\,a(n-32) + 2763746512\,a(n-34) + 683460326\,a(n-36) - 1158240208\,a(n-38) + 99695884\,a(n-40) + 172729392\,a(n-42) - 44372896\,a(n-44) + 3735360\,a(n-46) + 487680\,a(n-48) - 9216\,a(n-50)
 \]
-for every $n>48$.
+for every $n>55$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=48+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=55+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every filling of the white cells one by one and tests, for each of them, whether some
-diagonal or antidiagonal neighbour holds the required value. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230704.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237774.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

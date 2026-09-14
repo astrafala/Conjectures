@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210409, proved by counting patterns}
+\title{The empirical recurrence for OEIS A210400, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210409 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A210400 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -29,29 +29,29 @@ $4!\,a(n)=\sum_i\binom{4}{i}D_{4-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
 state space down from $1300$ to $S=109$. The entry's empirical recurrence of order
-$31$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
+$32$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A210409 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having three or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A210400 is ``Number of (n+1)X5 0..3 arrays with every 2X2 subblock having one or three distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-9576, 2574592, 677993552, 178971208720, 47230418649056, 12464482425454304, 3289463792785895520, 868112796901730209328,\ \dots
+5167, 668468, 85979301, 11066406572, 1424263182001, 183306323524536, 23591974220786341, 3036345393226822100,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 276*a(n-1) -844*a(n-2) -647137*a(n-3) +5856940*a(n-4) +402216721*a(n-5) -5862695617*a(n-6) -54643074114*a(n-7) +1382343039112*a(n-8) -3102790608576*a(n-9) -89911455972644*a(n-10) +660007977690996*a(n-11) +263588914646272*a(n-12) -18055429128783448*a(n-13) +51374341139205968*a(n-14) +113931146918069408*a(n-15) -752286799961769696*a(n-16) +423125539061919552*a(n-17) +3650072001026978048*a(n-18) -6040761986311450112*a(n-19) -5385080244386082816*a(n-20) +17461611564608397312*a(n-21) -2457130524259205120*a(n-22) -16604319853477298176*a(n-23) +6207057768744222720*a(n-24) +6168586199070932992*a(n-25) -2183260302370406400*a(n-26) -667625816443584512*a(n-27) +191550881093648384*a(n-28) +17950332629811200*a(n-29) -3348386568732672*a(n-30) +49529562857472*a(n-31)
+Empirical: a(n) = 222*a(n-1) -14466*a(n-2) +294924*a(n-3) +4656995*a(n-4) -258980402*a(n-5) +1519478244*a(n-6) +65765309856*a(n-7) -899946571108*a(n-8) -6066410464024*a(n-9) +162105406266400*a(n-10) -88886529769536*a(n-11) -13947758522827904*a(n-12) +56368494845199616*a(n-13) +595808254992314112*a(n-14) -4168954910728206336*a(n-15) -10590192881040593920*a(n-16) +140772489264317126656*a(n-17) -38165648086702518272*a(n-18) -2466112169355411496960*a(n-19) +4370610701672862203904*a(n-20) +22131193152696389959680*a(n-21) -66520641034825424371712*a(n-22) -84130431929983157141504*a(n-23) +444218891805352251097088*a(n-24) -24524753263238930497536*a(n-25) -1357521916200660102021120*a(n-26) +906383329842391263739904*a(n-27) +1679955754896158917394432*a(n-28) -1768503113779591826636800*a(n-29) -469035266983925668380672*a(n-30) +970910637009369175162880*a(n-31) -255356668034757049712640*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:59:12, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:58:18, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;276\,a(n-1) - 844\,a(n-2) - 647137\,a(n-3) + 5856940\,a(n-4) + 402216721\,a(n-5) - 5862695617\,a(n-6) - 54643074114\,a(n-7) + 1382343039112\,a(n-8) - 3102790608576\,a(n-9) - 89911455972644\,a(n-10) + 660007977690996\,a(n-11) + 263588914646272\,a(n-12) - 18055429128783448\,a(n-13) + 51374341139205968\,a(n-14) + 113931146918069408\,a(n-15) - 752286799961769696\,a(n-16) + 423125539061919552\,a(n-17) + 3650072001026978048\,a(n-18) - 6040761986311450112\,a(n-19) - 5385080244386082816\,a(n-20) + 17461611564608397312\,a(n-21) - 2457130524259205120\,a(n-22) - 16604319853477298176\,a(n-23) + 6207057768744222720\,a(n-24) + 6168586199070932992\,a(n-25) - 2183260302370406400\,a(n-26) - 667625816443584512\,a(n-27) + 191550881093648384\,a(n-28) + 17950332629811200\,a(n-29) - 3348386568732672\,a(n-30) + 49529562857472\,a(n-31)
+a(n)\;=\;222\,a(n-1) - 14466\,a(n-2) + 294924\,a(n-3) + 4656995\,a(n-4) - 258980402\,a(n-5) + 1519478244\,a(n-6) + 65765309856\,a(n-7) - 899946571108\,a(n-8) - 6066410464024\,a(n-9) + 162105406266400\,a(n-10) - 88886529769536\,a(n-11) - 13947758522827904\,a(n-12) + 56368494845199616\,a(n-13) + 595808254992314112\,a(n-14) - 4168954910728206336\,a(n-15) - 10590192881040593920\,a(n-16) + 140772489264317126656\,a(n-17) - 38165648086702518272\,a(n-18) - 2466112169355411496960\,a(n-19) + 4370610701672862203904\,a(n-20) + 22131193152696389959680\,a(n-21) - 66520641034825424371712\,a(n-22) - 84130431929983157141504\,a(n-23) + 444218891805352251097088\,a(n-24) - 24524753263238930497536\,a(n-25) - 1357521916200660102021120\,a(n-26) + 906383329842391263739904\,a(n-27) + 1679955754896158917394432\,a(n-28) - 1768503113779591826636800\,a(n-29) - 469035266983925668380672\,a(n-30) + 970910637009369175162880\,a(n-31) - 255356668034757049712640\,a(n-32)
 \end{equation}
-for all $n>31$.
+for all $n>32$.
 
 \section{What the canonical-form clause counts}
 
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{3,4\}.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3\}.
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -163,13 +163,13 @@ The unlumped alphabet had $1300$ rows in all; the lumped chain has $S=109$ state
 
 \section{The criterion, and the computation}
 
-Let $q(t)=t^{31}-\sum_i c_i\,t^{31-i}$ be the characteristic polynomial of
+Let $q(t)=t^{32}-\sum_i c_i\,t^{32-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge31$,
+For every $n$ with $m=n+1-1\ge32$,
 \[
-4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-31}q(N)\mathbf{1} .
+4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-32}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
 $\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
@@ -177,7 +177,7 @@ $j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk} into the left side and factor $N^{m-31}$ out of
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-32}$ out of
 $N^{m}-\sum_i c_iN^{m-i}$. The scalar $4!$ is nonzero, so it does not affect whether
 the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
 $N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
@@ -186,7 +186,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>31$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>32$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -194,10 +194,10 @@ Section~1.
 The lumped transition counts were obtained by enumerating, for one representative row of
 each pattern, all admissible successors and sorting them by pattern --- the successors being
 generated column by column, since the edge condition is a conjunction of one constraint per
-column. The vector $w=q(N)\mathbf{1}$ was then formed by $31$ matrix--vector products
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $32$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=31+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=32+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210409.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210400.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

@@ -604,3 +604,32 @@ TWO rows in its state, and that is D^(2C) -- 729 at C = 3, but 43 million at C =
 runs C = 3..8 for each of D = 3 and D = 4, so a straightforward build reaches perhaps six of the
 eighteen. Worth doing only with a state reduction: t is nondecreasing along every minimum path
 and rises by at most one per step, which ought to collapse the row pairs a long way.
+
+## S. Engines that refused themselves — re-read every one
+
+`transfer88` sat finished and unregistered for weeks because its model rested on a measured
+period, and its docstring said exactly which claim was missing. `kdcert` supplied it in an
+afternoon and the family paid twenty-one entries. That is a pattern, not an incident: an
+engine that refuses itself has already done the expensive half of the work.
+
+The sweep to run is over the engine sources themselves, not over OEIS:
+
+    grep -ln "NOT IN SERVICE\|unregistered\|not proved here\|evidence, not a proof" src/*.py
+
+and for each hit, read what it says is missing and ask whether the two standard devices settle
+it. Both are cheap and both apply widely:
+
+  * **Bellman / optimality certificate.** Any function satisfying the relaxation inequality
+    and the tightness witness IS the distance (or the value function, or the shortest
+    accepting length), whatever its provenance. That turns a guessed table into a proved one.
+  * **Local periodicity.** When the conditions at one index read only a bounded window around
+    it, a period in the window data makes finitely many indices settle every index. This is
+    what makes a "checked over 400 rows" claim into a theorem rather than evidence.
+
+The two together handle any claim of the form "this eventually periodic structure really is
+eventually periodic", which is the commonest reason a geometric engine gets shelved.
+
+Also worth asking of every shelved engine: is its REFUSAL RANGE a theorem or a measurement?
+`transfer88` refused widths 8 and above on the strength of a table that stopped at 7. The
+certificate covers every width up to 14 (i0 = 2C - 3), and three of the twenty-one entries are
+in exactly that range. A refusal written from a measurement expires when the measurement does.

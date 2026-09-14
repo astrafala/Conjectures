@@ -915,3 +915,102 @@ turned **A185526** from settled to open, and A185526 carries Robert Israel's com
 a transfer-matrix argument whose last step happens to read "for n=4". A guard that makes a proof
 look like a check is worse than the gap it closes, so the added phrasing is the narrow one, and
 the wider version is recorded here as the thing not to do.
+
+## 14 September 2026 — the shelved engine, and the theorem that unshelved it
+
+`transfer88` reads the knight-distance family:
+
+    Number of (n+2) X (k+2) nonnegative integer arrays with all values the knight distance
+    from the upper left minus as much as s, with successive minimum path knight move
+    differences either 0 or +1, and any unreachable value zero.
+
+It was written weeks ago, its reading pinned by brute force, its builder finished — and then
+deliberately left OUT OF SERVICE, with the reason written into its own docstring. The transfer
+matrix needs the local structure of the board to repeat down the strip, and that rests on
+
+    d(i+4, j) = d(i, j) + 2                                                       (P)
+
+for every column once i is large enough. The inequality `<=` is immediate: the moves (2,1)
+then (2,-1) drop four rows and return to the same column. The inequality `>=` had only been
+CHECKED, over a few hundred rows. A finite check of an infinite claim is evidence and not a
+proof, so nothing was shipped and the obstruction was written down instead. That was the right
+call, and it is worth recording that it was: the engine sat unregistered for weeks rather than
+ship twenty-one papers resting on a measurement.
+
+**(P) is now a theorem.** The device is the pair of Bellman conditions. For any
+D : S_C -> N u {oo} on the strip,
+
+    (a) D(0,0) = 0,
+    (b) D(y) <= D(x) + 1 for every knight-adjacent pair,
+    (c) every x != (0,0) with D(x) < oo has a knight neighbour y with D(x) = D(y) + 1,
+
+together force D = d. Each half is one induction, and neither cares where D came from — which
+is the whole point. So take the field breadth-first search gives on the first few rows, DEFINE
+it on the rest of the strip by declaring (P), and check (a), (b), (c). A knight move changes
+the row by 1 or 2, so the conditions at row i read only rows i-2..i+2; once all five lie in
+the region where the definition reads D(r,j) = D(r-4,j) + 2, the condition at row i IS the
+condition at row i-4 with 2 added to both sides. Finitely many rows therefore settle every
+row, and the guessed field is the distance.
+
+The same certificate settles the second thing the model needed. The entries count arrays on a
+board of exactly n+2 rows, and the short board's distance is NOT the strip's: on a 3 X 3 board
+the centre is unreachable, while on any taller board it is at distance 4. What decides it is
+whether a cell has a chain of minimum-path predecessors that never needs a row the short board
+lacks, and that is computed by
+
+    rho(x) = min over minimum-path predecessors y of max(row(x)+1, row(y)+1, rho(y)),
+
+whose offset from the row index is period-4 for the same reason the field is. The threshold
+comes out at H0 = 5 for every width: heights 2, 3 and 4 are genuinely exceptional and are
+counted on their own boards, where there is nothing to prove.
+
+`src/kdcert.py` is the certificate. Before it was trusted it was tested on cases whose answers
+were known — defect 8 in STATE.md, an instrument that cannot see what it is asked about returns
+a confident zero:
+
+  * the field it produces agrees cell for cell with a direct breadth-first search for every
+    width 3..9 and every height from H0 to 59;
+  * H0 is tight — at height H0-1 the two genuinely disagree, at every width;
+  * perturbing one entry of its table by one makes the checker REFUSE, at each width tried.
+
+It also reproduces, from the theorem, the hand-made table `transfer88` had measured:
+`{3: 5, 4: 5, 5: 7, 6: 9, 7: 11}` is exactly the certificate's i0 + 2 at every width the old
+table covered. That agreement is the one piece of evidence a proof cannot supply itself. The
+old table stopped at width 7 and the engine refused widths 8 and up as "showing no period";
+the certificate covers every width tried up to 14, i0 = 2C - 3, so those widths are in service
+too — three more entries than the family was thought to have.
+
+A second, independently written model (`src/knightval.py`, a row-pair DP carrying the phase in
+the vertex and merging by a different rule) reproduces every published term of every entry in
+the family. Two engines sharing no code and agreeing on all of it is what the Verification
+section of each paper now cites as its third check.
+
+The sweep, the install and the count are below.
+
+### The batch
+
+`sweep_engine.py transfer88` over every name, with no candidate cache in between:
+**16 PROVED**, 3 refused at `state space > cap` (widths 8 and 9 at slack 2 and 3, where the
+row alphabet is 3^8 and 4^9), 2 with no parsable recurrence (the two diagonal entries
+`(n+2) X (n+2)`, whose board grows in both directions and which this model does not read).
+Every one of the 16 was re-checked against the live OEIS: 16 kept, 0 dropped, 0 flagged.
+
+    A253112 A253113 A253114 A253115 A253116        slack 2, widths 3..7
+    A253335 A253336 A253337 A253338                slack 3, widths 3..6
+    A253417 A253418 A253419 A253420 A253421        slack 1, widths 3..7
+    A253422 A253423                                slack 1, widths 8 and 9 -- the two the old
+                                                   refusal range would have thrown away
+
+Orders 9 to 49, state counts 64 to 11,458, thresholds 15 to 71. Each entry also carries four
+quasi-polynomial formulas, one per residue of n mod 4; those follow from the recurrence whose
+annihilator has the factor $(z^4-1)$, so they are the same conjecture in another notation and
+are NOT counted. **16 results, one per entry.**
+
+Roster: 12,877 -> 12,893 papers over 12,866 entries, 156 arguments.
+
+One thing caught on the way out. `t88build` carried `\date{7 September 2026}` hard-coded from
+the day it was drafted, so the whole batch would have been stamped a week before the theorem
+that makes it true -- the same shape as defect 16, a paper reporting a date that belongs to
+an earlier text. The date now comes from `PAPER_DATE` with today's as the default, as
+`unibuild` has always done, and the sixteen PDFs were rebuilt and reinstalled through
+`papers-old-numbering/` rather than through the ranked copy (defect 14).

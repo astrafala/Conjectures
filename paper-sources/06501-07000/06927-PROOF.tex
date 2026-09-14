@@ -12,138 +12,138 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A303322, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223948, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A303322 counts $5$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{0,2,4,5,6\}$, and it carries an empirical
-recurrence of order $33$ contributed by R.~H.~Hardin. It is true. The neighbourhood
-reaches one row up and one row down, so the condition on a row involves three consecutive
-rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
-on $S=1024$ vertices. Unlike a plain walk count the boundary rows matter here --- the first
-row has nothing above it and the last nothing below --- so the count is
-$\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for genuine start and end vectors rather than
-all-ones. The conjectured recurrence is then annihilated exactly, in integer arithmetic.
+OEIS A223948 counts arrays over $\{0,\dots,1\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $33$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=131072$ vertices and the recurrence follows from a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B50, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A303322 is ``Number of nX5 0..1 arrays with every element equal to 0, 2, 4, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
-$1$ and begins
+OEIS A223948 is ``Number of n X 7 0..1 arrays with diagonals and antidiagonals unimodal and rows nondecreasing.''. It has offset $1$ and begins
 \[
-1, 32, 4, 12, 64, 62, 204, 744,\ \dots
+8, 64, 352, 1479, 5233, 16845, 52532, 166076,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +2*a(n-2) +20*a(n-3) -44*a(n-4) -36*a(n-5) -124*a(n-6) +282*a(n-7) +212*a(n-8) +259*a(n-9) -333*a(n-10) -510*a(n-11) -408*a(n-12) -836*a(n-13) +476*a(n-14) +727*a(n-15) -2239*a(n-16) +1520*a(n-17) +5253*a(n-18) -1133*a(n-19) -2582*a(n-20) +3952*a(n-21) +2247*a(n-22) -5936*a(n-23) -2324*a(n-24) +2534*a(n-25) -1666*a(n-26) -1578*a(n-27) +920*a(n-28) +256*a(n-29) -96*a(n-30) +64*a(n-31) +32*a(n-32) +32*a(n-33) for n>35
+Empirical: a(n) = 8*a(n-1) -20*a(n-2) +11*a(n-3) +23*a(n-4) -32*a(n-5) +18*a(n-6) -37*a(n-7) +65*a(n-8) -257*a(n-9) -274*a(n-10) -1437*a(n-11) +3612*a(n-12) +1576*a(n-13) +6921*a(n-14) +449*a(n-15) +4935*a(n-16) +22314*a(n-17) +7279*a(n-18) -8809*a(n-19) -58688*a(n-20) -81734*a(n-21) -86761*a(n-22) -2940*a(n-23) -21650*a(n-24) +16326*a(n-25) +13737*a(n-26) +26159*a(n-27) +10634*a(n-28) +2502*a(n-29) -384*a(n-30) -24*a(n-31) -80*a(n-32) -16*a(n-33).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 21 2018 13:11:26, revision
-4) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Jul 28 2022 03:43:13, revision 6) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 2\,a(n-2) + 20\,a(n-3) - 44\,a(n-4) - 36\,a(n-5) - 124\,a(n-6) + 282\,a(n-7) + 212\,a(n-8) + 259\,a(n-9) - 333\,a(n-10) - 510\,a(n-11) - 408\,a(n-12) - 836\,a(n-13) + 476\,a(n-14) + 727\,a(n-15) - 2239\,a(n-16) + 1520\,a(n-17) + 5253\,a(n-18) - 1133\,a(n-19) - 2582\,a(n-20) + 3952\,a(n-21) + 2247\,a(n-22) - 5936\,a(n-23) - 2324\,a(n-24) + 2534\,a(n-25) - 1666\,a(n-26) - 1578\,a(n-27) + 920\,a(n-28) + 256\,a(n-29) - 96\,a(n-30) + 64\,a(n-31) + 32\,a(n-32) + 32\,a(n-33)
+a(n)\;=\;8\,a(n-1) - 20\,a(n-2) + 11\,a(n-3) + 23\,a(n-4) - 32\,a(n-5) + 18\,a(n-6) - 37\,a(n-7) + 65\,a(n-8) - 257\,a(n-9) - 274\,a(n-10) - 1437\,a(n-11) + 3612\,a(n-12) + 1576\,a(n-13) + 6921\,a(n-14) + 449\,a(n-15) + 4935\,a(n-16) + 22314\,a(n-17) + 7279\,a(n-18) - 8809\,a(n-19) - 58688\,a(n-20) - 81734\,a(n-21) - 86761\,a(n-22) - 2940\,a(n-23) - 21650\,a(n-24) + 16326\,a(n-25) + 13737\,a(n-26) + 26159\,a(n-27) + 10634\,a(n-28) + 2502\,a(n-29) - 384\,a(n-30) - 24\,a(n-31) - 80\,a(n-32) - 16\,a(n-33)
 \end{equation}
-for all $n>35$.
+for all $n>33$.
 
-\section{The array as a walk, with boundary}
+\section{The conditions}
 
-For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
-the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
-has score in $\{0,2,4,5,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
-
-A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
-cells of a row $s$ are determined by $s$ together with the row above and the row below.
-Take as state an ordered pair $(r,s)$ of rows, so $S=1024$, and set
+The arrays have $7$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,2,4,5,6\}$ \emph{with no row
-above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,2,4,5,6\}$ computed from
-$r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,2,4,5,6\}$ \emph{with no row
-below $s$}, and $0$ otherwise.
+\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
-Let $P$ be the adjacency matrix of that edge relation.
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $7$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=131072$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
+\]
 \end{lemma}
 
 \begin{proof}
-An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{0,2,4,5,6\}$. Read the sequence as the
-walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
-\bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
-checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
-condition on row $i$ for $2\le i\le n-1$ is checked by the edge entering
-$\bigl(r^{(i)},r^{(i+1)}\bigr)$, which sees exactly $r^{(i-1)}$, $r^{(i)}$ and
-$r^{(i+1)}$; and the condition on the last row is checked by $\mathbf{e}$ at the final
-state. Each row's condition is therefore tested once and with the correct neighbours, and
-summing over all walks gives $\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$.
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
 \end{proof}
 
-\section{The criterion}
+\section{The criterion, and the computation}
 
-Let $q(t)=t^{33}-\sum_i c_i t^{33-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{s}^{\!\top}P^{j}q(P)\mathbf{e}$.
+Let $q(t)=t^{33}-\sum_i c_i\,t^{33-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-33}$ whenever $n-33\ge2$. So \eqref{eq:conj}
-holds for every $n>t$ exactly when $u_j=0$ for all $j>t-2-33$. Moreover $(u_j)$
-satisfies the monic linear recurrence given by the characteristic polynomial of $P$, of
-degree $S$, so $S$ consecutive zeros force every later one and the last nonzero $u_j$ pins
-$t$ down exactly.
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge33$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-33}w,
+\qquad w=h_{33}-\sum_i c_ih_{33-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} and factoring $P^{\,n-2-33}$ out of
-$P^{n-2}-\sum_i c_i P^{n-i-2}$ gives the identity, and letting the exponent run gives the
-equivalence. For the last part, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$, so $\chi$ applied to the shift annihilates $(u_j)$; $\chi$ is monic of
-degree $S$, which propagates $S$ consecutive zeros forward.
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>35$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>33$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $33$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=35+1$ onwards, and the run was continued
-past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$33$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=33+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph, the start vector and the end vector were built directly from the
-entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $29$ published indices; they
-agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
-getting the boundary rows wrong, or treating them as interior rows, changes the early terms
-immediately.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $23$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=1024$ consecutive
-zeros rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A303322.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223948.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

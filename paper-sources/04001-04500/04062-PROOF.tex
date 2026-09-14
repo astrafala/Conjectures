@@ -12,42 +12,42 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A255756}
+\title{The empirical column recurrences for the table OEIS A252243}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A255756 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A252243 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=3$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 4$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A255756 is ``T(n,k)=Number of (n+2)X(k+2) 0..1 arrays with every 3X3 subblock sum of the medians of the diagonal and antidiagonal minus the two sums of the central row and column nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$, is
+OEIS A252243 is ``T(n,k)=Number of (n+2)X(k+2) 0..3 arrays with every 3X3 subblock row and column sum not equal to 1 3 4 6 or 7 and every 3X3 diagonal and antidiagonal sum equal to 1 3 4 6 or 7.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-512, 2485, 2485, 8776, 7765, 8776, 30182, 24536,\ \dots
+342, 858, 858, 2174, 3896, 2174, 4708, 16056,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: [linear recurrence of order 36] for n>41\\
-k=2: [order 44] for n>53\\
-k=3: a(n) = 2*a(n-1) -a(n-2) +4*a(n-4) -8*a(n-5) +4*a(n-6) for n>18\\
-k=4: [order 14] for n>26\\
-k=5: a(n) = 2*a(n-1) -a(n-2) +4*a(n-4) -8*a(n-5) +4*a(n-6) for n>18\\
-k=6: [same order 14] for n>28\\
-k=7: a(n) = 2*a(n-1) -a(n-2) +4*a(n-4) -8*a(n-5) +4*a(n-6) for n>20\\
+k=1: a(n) = 18*a(n-3) -32*a(n-6) for n>8\\
+k=2: [order 15] for n>16\\
+k=3: [order 15] for n>16\\
+k=4: a(n) = 260*a(n-3) -1024*a(n-6) for n>7\\
+k=5: [order 15] for n>16\\
+k=6: [order 15] for n>16\\
+k=7: a(n) = 4104*a(n-3) -32768*a(n-6) for n>7\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 15:11:57, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 10:58:32, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -90,7 +90,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=3$ & $6$ & $3564$ & $>18$ & $10$ \\
+column $k$$=1$ & $6$ & $151$ & $>8$ & $8$ \\
+column $k$$=4$ & $6$ & $44889$ & $>7$ & $10$ \\
 \end{tabular}
 \end{center}
 
@@ -99,15 +100,25 @@ exact integer arithmetic and $\mathbf{1}^{\!\top}M_k^{j}w$ evaluated for $j=0,1,
 again exactly; every one of those integers vanishes from the stated point onwards and the run
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
-\subsection*{Column $k$$=3$}
-The sequence is ``Number of (n+2)X5 0..1 arrays with every 3X3 subblock sum of the medians of the diagonal and antidiagonal minus the two sums of the central row and column nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. Its rows are the vertices of a digraph on
-$S=3564$ vertices, edges being the admissible consecutive pairs, and the count is
+\subsection*{Column $k$$=1$}
+The sequence is ``Number of (n+2)X(3) 0..3 arrays with every 3X3 subblock row and column sum not equal to 1 3 4 6 or 7 and every 3X3 diagonal and antidiagonal sum equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
+$S=151$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2) + 4\,a(n-4) - 8\,a(n-5) + 4\,a(n-6)
+a(n)\;=\;18\,a(n-3) - 32\,a(n-6)
 \]
-holds from index $18+1$ on.
+holds from index $8+1$ on.
+
+\subsection*{Column $k$$=4$}
+The sequence is ``Number of (n+2)X(6) 0..3 arrays with every 3X3 subblock row and column sum not equal to 1 3 4 6 or 7 and every 3X3 diagonal and antidiagonal sum equal to 1 3 4 6 or 7.''. Its rows are the vertices of a digraph on
+$S=44889$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;260\,a(n-3) - 1024\,a(n-6)
+\]
+holds from index $7+1$ on.
 
 \section{Verification}
 
@@ -118,7 +129,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $10$ published values, $54$ decimal digits in all, every one of
+model reproduces $18$ published values, $114$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -138,7 +149,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A255756.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252243.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

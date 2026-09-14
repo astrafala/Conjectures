@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A125404, proved}
+\title{The cross-base identity for OEIS A125387, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125404 carries an empirical identity relating its counts to those of the entry one base
+OEIS A125387 carries an empirical identity relating its counts to those of the entry one base
 smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
 names, and that range is sharp. The proof is four steps and needs no computation: the
 difference between consecutive bases counts the admissible cyclic sequences that USE the new
@@ -33,26 +33,26 @@ sequences summing to zero.
 
 \section{The conjecture}
 
-OEIS A125404 is ``Number of base 16 circular n-digit numbers with adjacent digits differing by 6 or less.''. It has offset $0$ and begins
+OEIS A125387 is ``Number of base 24 circular n-digit numbers with adjacent digits differing by 5 or less.''. It has offset $0$ and begins
 \[
-1, 16, 166, 1486, 15202, 158846, 1690522, 18157862,\ \dots
+1, 24, 234, 1854, 17134, 161174, 1552716, 15165944,\ \dots
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+F(6) for base>=6.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\textasciicircum{}(2d))\textasciicircum{}n
+[Empirical] a(base,n)=a(base-1,n)+F(5) for base>=5.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\textasciicircum{}(2d))\textasciicircum{}n.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:06:06, revision 14)
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:31:36, revision 14)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
 stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
 entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
-the base is $16$ and the permitted difference is $d=6$, so the claim is that
+the base is $24$ and the permitted difference is $d=5$, so the claim is that
 \[
-a_{16}(n)-a_{15}(n)\;=\;F_{6}(n)
-\qquad\text{for every } n \text{ with } 6\lfloor n/2\rfloor+1\le16,
+a_{24}(n)-a_{23}(n)\;=\;F_{5}(n)
+\qquad\text{for every } n \text{ with } 5\lfloor n/2\rfloor+1\le24,
 \]
-that is, for $1\le n\le5$.
+that is, for $1\le n\le9$.
 
 \section{What the entry counts}
 
@@ -62,8 +62,8 @@ read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are coun
 $d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
 them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
 $M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
-together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{6}$
-at base $16$ reproduces all $18$ terms A125404 publishes, and at base $15$ all the
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{5}$
+at base $24$ reproduces all $18$ terms A125387 publishes, and at base $23$ all the
 terms the entry one base smaller publishes.
 
 At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
@@ -78,7 +78,7 @@ For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
 where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
-polynomial. In particular $a_{16}(n)-a_{15}(n)=F_{6}(n)$ for $1\le n\le5$, which
+polynomial. In particular $a_{24}(n)-a_{23}(n)=F_{5}(n)$ for $1\le n\le9$, which
 is the entry's claim.
 \end{theorem}
 
@@ -123,26 +123,29 @@ base is in each case exactly one below the entry's own threshold.
 
 Three checks, each independent of the proof above.
 
-First, the model reproduces all $18$ terms A125404 publishes, exactly, in integer
+First, the model reproduces all $18$ terms A125387 publishes, exactly, in integer
 arithmetic; the reading of the entry's English is what is being tested there, since a
 misreading gives different counts.
 
 Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le5$, with both sides computed from the definition and not from the theorem:
+$1\le n\le9$, with both sides computed from the definition and not from the theorem:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & $T_{6}(16,n)$ & $T_{6}(15,n)$ & $F_{6}(n)$ \\ \hline
-1 & 16 & 15 & 1 \\
-2 & 166 & 153 & 13 \\
-3 & 1486 & 1359 & 127 \\
-4 & 15202 & 13733 & 1469 \\
-5 & 158846 & 141695 & 17151 \\
+$n$ & $T_{5}(24,n)$ & $T_{5}(23,n)$ & $F_{5}(n)$ \\ \hline
+1 & 24 & 23 & 1 \\
+2 & 234 & 223 & 11 \\
+3 & 1854 & 1763 & 91 \\
+4 & 17134 & 16243 & 891 \\
+5 & 161174 & 152373 & 8801 \\
+6 & 1552716 & 1463803 & 88913 \\
+7 & 15165944 & 14257189 & 908755 \\
+8 & 149730374 & 140352907 & 9377467 \\
 \end{tabular}
 \end{center}
 
 \noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=5$.
+and at every row up to $n=9$.
 
 Third, the theorem was tested outside the entry's range as well: the identity holds for every
 $b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
@@ -151,7 +154,7 @@ above.
 \section*{References}
 \begin{enumerate}
 \item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A125404}.
+\url{https://oeis.org/A125387}.
 \end{enumerate}
 
 \end{document}

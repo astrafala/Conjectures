@@ -12,131 +12,135 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203780, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183995, proved by splitting on the common sum}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203780 counts arrays of width $2$ over $\{0,1,2,3\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $9$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=32$ states.
+OEIS A183995 counts arrays over $\{0,\dots,2\}$ in which all $2\times2$ subblock sums are
+EQUAL --- the common value not being named --- and carries an empirical recurrence of order
+$9$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
+applying directly, and it costs nothing to remove: an array with at least one $2\times2$
+subblock determines its own common sum, so the count splits as a sum over the $8+1$
+possible values with nothing counted twice, and each summand is an ordinary walk count. On
+the block-diagonal matrix over those values the recurrence is decided by a finite exact
+computation on $S=81$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A203780 is ``Number of (n+1) X 2 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A183995 is ``Number of (n+1) X 2 0..2 arrays with all 2 X 2 subblock sums the same.''. It has offset $1$ and begins
 \[
-90, 565, 3352, 18332, 93578, 452825, 2103364, 9466880,\ \dots
+81, 171, 361, 855, 2025, 5175, 13225, 35535,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 18*a(n-1) -139*a(n-2) +604*a(n-3) -1627*a(n-4) +2818*a(n-5) -3141*a(n-6) +2176*a(n-7) -852*a(n-8) +144*a(n-9).
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 6*a(n-1) - 60*a(n-3) + 85*a(n-4) + 150*a(n-5) - 360*a(n-6) + 396*a(n-8) - 216*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 04 2018 14:17:13, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Apr 09 2018 09:59:28, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{What is being counted}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;6\,a(n-1) - 60\,a(n-3) + 85\,a(n-4) + 150\,a(n-5) - 360\,a(n-6) + 396\,a(n-8) - 216\,a(n-9)
+\end{equation}
+for all $n>9$.
 
-The array $a$ has $2$ cells across, with entries in $\{0,1,2,3\}$. Two derived arrays are formed,
+\section{Splitting on the common sum}
+
+The arrays have $2$ columns and $L=n+1$ rows, entries in
+$\{0,\dots,2\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
+$2\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
+sum is the common value; so each array belongs to exactly one of the classes
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
+\qquad 0\le c\le 8,
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. The bound
+$8=4\cdot2$ is the largest possible subblock sum.
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,1)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
+$V=\{0,\dots,2\}^{2}$ be the possible rows and let $M_c$ be the adjacency
+matrix of the digraph in which $r\to s$ when
+$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 2-1$. Then
+$|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
+sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
+rows and two consecutive columns.
 
+Writing $N=\bigoplus_{c=0}^{8}M_c$, of size $S=81$, and $\mathbf{v}$ for the
+all-ones vector on it,
+\begin{equation}\label{eq:walk}
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
+\end{equation}
 
-\section{Two rows decide it}
+\section{The criterion, and the computation}
 
-\begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
-\end{lemma}
-
-\begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
-\end{proof}
-
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=32.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
+Let $q(t)=t^{9}-\sum_i c_i\,t^{9-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{9}-\sum_i c_it^{9-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+1-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge9$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-9}w,
+\qquad w=h_{9}-\sum_i c_ih_{9-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+9}-\sum_ic_iM^{j+9-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substitute \eqref{eq:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;18\,a(n-1) - 139\,a(n-2) + 604\,a(n-3) - 1627\,a(n-4) + 2818\,a(n-5) - 3141\,a(n-6) + 2176\,a(n-7) - 852\,a(n-8) + 144\,a(n-9)
-\]
-for every $n>8$.
+The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
-until the working vector was identically zero.
+Each $M_c$ was built directly from its defining condition. The vector $w$ was formed by
+$9$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=9+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
+
+\begin{remark}
+The splitting is what makes the argument finite, and it is exact rather than an
+over-count only because every array here has a subblock. For a one-column or one-row
+shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
+sum would count each array $8+1$ times; those shapes are excluded by $L\ge2$ and
+$2\ge2$.
+\end{remark}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the right-hand side of \eqref{eq:walk} was evaluated at every one of the $24$
+published indices and agrees with the entry's DATA exactly, with no shift fitted. A double
+count in the splitting, or a wrong bound on $c$, would show up here immediately.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203780.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183995.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

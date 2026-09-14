@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A220722, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A220592, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220722 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
+OEIS A220592 counts the ways of linking the cells of a grid $4$ cells wide, each cell either to
 itself or to exactly $2$ of its neighbours, the links being reciprocal, and carries an
 empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
 no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
 has degree $0$ or $2$; the edges crossing the boundary between two consecutive rows are a
-state, the count is a walk count on $S=128$ of them, and the conjectured recurrence is then
+state, the count is a walk count on $S=322$ of them, and the conjectured recurrence is then
 settled by a finite exact computation.
 \end{abstract}
 
@@ -33,15 +33,15 @@ settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A220722 is ``Number of ways to reciprocally link elements of an nX5 array either to themselves or to exactly two horizontal, diagonal or antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A220592 is ``Number of ways to reciprocally link elements of an n X 4 array either to themselves or to exactly two king-move neighbors.''. It has offset $1$ and begins
 \[
-1, 68, 1819, 52189, 1485872, 42378036, 1208447287, 34459871148,\ \dots
+1, 155, 6156, 308246, 14637699, 702811381, 33667621356, 1613595307718,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-1) +104*a(n-2) +571*a(n-3) +3582*a(n-4) +7794*a(n-5) +4788*a(n-6) -16926*a(n-7) -90288*a(n-8) -168845*a(n-9) -84443*a(n-10) +109179*a(n-11) +193126*a(n-12) +248993*a(n-13) +425415*a(n-14) +384428*a(n-15) +353459*a(n-16) +31964*a(n-17) -136170*a(n-18) -85703*a(n-19) -29195*a(n-20) +14155*a(n-21) +6903*a(n-22) +243*a(n-23) -252*a(n-24) -25*a(n-25)
+Empirical: a(n) = 40*a(n-1) +395*a(n-2) -769*a(n-3) +2095*a(n-4) -16049*a(n-5) -71697*a(n-6) -119950*a(n-7) +1037497*a(n-8) -139363*a(n-9) -1979661*a(n-10) +1507756*a(n-11) +1041993*a(n-12) -2247051*a(n-13) +1215317*a(n-14) -16637*a(n-15) -311055*a(n-16) +67983*a(n-17) +54951*a(n-18) -4355*a(n-19) -9884*a(n-20) +766*a(n-21) +683*a(n-22) -103*a(n-23) -9*a(n-24) +2*a(n-25).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:00:09, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Feb 13 2026 12:03:16, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -50,11 +50,11 @@ A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. 
 of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
 itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
 \[
-(-1,-1), (-1,1), (0,-1), (0,1), (1,-1), (1,1),
+(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
 \]
 and the condition ``either to themselves or to exactly $2$ neighbours'' says that in that
 graph every cell has degree $0$ or $2$. Hence $a(n)$ counts the spanning subgraphs of the
-grid graph on the offset set above, of $n$ rows and $5$ columns,
+grid graph on the offset set above, of $n$ rows and $4$ columns,
 whose every degree is $0$ or $2$: a disjoint union of cycles, since every vertex of the link graph has degree $0$ or $2$.
 
 One point of the English has to be fixed rather than guessed: whether a cell may spend both of
@@ -76,7 +76,7 @@ condition on the pair of links at a cell, is settled there and never revisited.
 
 Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
 takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
-one configuration. With $M$ the adjacency matrix of the digraph on the $S=128$ reachable
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=322$ reachable
 states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -105,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-1) + 104\,a(n-2) + 571\,a(n-3) + 3582\,a(n-4) + 7794\,a(n-5) + 4788\,a(n-6) - 16926\,a(n-7) - 90288\,a(n-8) - 168845\,a(n-9) - 84443\,a(n-10) + 109179\,a(n-11) + 193126\,a(n-12) + 248993\,a(n-13) + 425415\,a(n-14) + 384428\,a(n-15) + 353459\,a(n-16) + 31964\,a(n-17) - 136170\,a(n-18) - 85703\,a(n-19) - 29195\,a(n-20) + 14155\,a(n-21) + 6903\,a(n-22) + 243\,a(n-23) - 252\,a(n-24) - 25\,a(n-25)
+a(n)\;=\;40\,a(n-1) + 395\,a(n-2) - 769\,a(n-3) + 2095\,a(n-4) - 16049\,a(n-5) - 71697\,a(n-6) - 119950\,a(n-7) + 1037497\,a(n-8) - 139363\,a(n-9) - 1979661\,a(n-10) + 1507756\,a(n-11) + 1041993\,a(n-12) - 2247051\,a(n-13) + 1215317\,a(n-14) - 16637\,a(n-15) - 311055\,a(n-16) + 67983\,a(n-17) + 54951\,a(n-18) - 4355\,a(n-19) - 9884\,a(n-20) + 766\,a(n-21) + 683\,a(n-22) - 103\,a(n-23) - 9\,a(n-24) + 2\,a(n-25)
 \]
 for every $n>24$.
 \end{theorem}
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -133,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220722.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220592.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,

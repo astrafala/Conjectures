@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A125344, proved}
+\title{The cross-base identity for OEIS A125327, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A125344 carries an empirical identity relating its counts to those of the entry one base
+OEIS A125327 carries an empirical identity relating its counts to those of the entry one base
 smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
 names, and that range is sharp. The proof is four steps and needs no computation: the
 difference between consecutive bases counts the admissible cyclic sequences that USE the new
@@ -33,26 +33,26 @@ sequences summing to zero.
 
 \section{The conjecture}
 
-OEIS A125344 is ``Number of base 7 circular n-digit numbers with adjacent digits differing by 4 or less.''. It has offset $0$ and begins
+OEIS A125327 is ``Number of base 17 circular n-digit numbers with adjacent digits differing by 3 or less.''. It has offset $0$ and begins
 \[
-1, 7, 43, 247, 1527, 9497, 59245, 369803,\ \dots
+1, 17, 107, 545, 3235, 19487, 120311, 752895,\ \dots
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A025014(n+1) for base>=4.int(n/2)+1.
+Empirical: a(base,n) = a(base-1,n) + A025012(n+1) for base >= 3*floor(n/2) + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:03:15, revision 16)
+As of the ``Last modified'' line on the live entry (Aug 06 2026 20:13:11, revision 33)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
 Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
 stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
-entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A025014}(n+1)$, the $(n+1)$st term of OEIS A025014; that sequence is the central coefficient of $(1+x+\dots+x^{8})^{n}$ and its published terms agree with $F_{4}(n)$ term by term, which is the identification used here. For this entry
-the base is $7$ and the permitted difference is $d=4$, so the claim is that
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A025012}(n+1)$, the $(n+1)$st term of OEIS A025012; that sequence is the central coefficient of $(1+x+\dots+x^{6})^{n}$ and its published terms agree with $F_{3}(n)$ term by term, which is the identification used here. For this entry
+the base is $17$ and the permitted difference is $d=3$, so the claim is that
 \[
-a_{7}(n)-a_{6}(n)\;=\;F_{4}(n)
-\qquad\text{for every } n \text{ with } 4\lfloor n/2\rfloor+1\le7,
+a_{17}(n)-a_{16}(n)\;=\;F_{3}(n)
+\qquad\text{for every } n \text{ with } 3\lfloor n/2\rfloor+1\le17,
 \]
-that is, for $1\le n\le3$.
+that is, for $1\le n\le11$.
 
 \section{What the entry counts}
 
@@ -62,8 +62,8 @@ read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are coun
 $d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
 them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
 $M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
-together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{4}$
-at base $7$ reproduces all $21$ terms A125344 publishes, and at base $6$ all the
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{3}$
+at base $17$ reproduces all $23$ terms A125327 publishes, and at base $16$ all the
 terms the entry one base smaller publishes.
 
 At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
@@ -78,7 +78,7 @@ For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
 T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
 \]
 where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
-polynomial. In particular $a_{7}(n)-a_{6}(n)=F_{4}(n)$ for $1\le n\le3$, which
+polynomial. In particular $a_{17}(n)-a_{16}(n)=F_{3}(n)$ for $1\le n\le11$, which
 is the entry's claim.
 \end{theorem}
 
@@ -123,24 +123,29 @@ base is in each case exactly one below the entry's own threshold.
 
 Three checks, each independent of the proof above.
 
-First, the model reproduces all $21$ terms A125344 publishes, exactly, in integer
+First, the model reproduces all $23$ terms A125327 publishes, exactly, in integer
 arithmetic; the reading of the entry's English is what is being tested there, since a
 misreading gives different counts.
 
 Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le3$, with both sides computed from the definition and not from the theorem:
+$1\le n\le11$, with both sides computed from the definition and not from the theorem:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & $T_{4}(7,n)$ & $T_{4}(6,n)$ & $F_{4}(n)$ \\ \hline
-1 & 7 & 6 & 1 \\
-2 & 43 & 34 & 9 \\
-3 & 247 & 186 & 61 \\
+$n$ & $T_{3}(17,n)$ & $T_{3}(16,n)$ & $F_{3}(n)$ \\ \hline
+1 & 17 & 16 & 1 \\
+2 & 107 & 100 & 7 \\
+3 & 545 & 508 & 37 \\
+4 & 3235 & 3004 & 231 \\
+5 & 19487 & 18036 & 1451 \\
+6 & 120311 & 110980 & 9331 \\
+7 & 752895 & 692204 & 60691 \\
+8 & 4762851 & 4364284 & 398567 \\
 \end{tabular}
 \end{center}
 
 \noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=3$.
+and at every row up to $n=11$.
 
 Third, the theorem was tested outside the entry's range as well: the identity holds for every
 $b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
@@ -149,7 +154,7 @@ above.
 \section*{References}
 \begin{enumerate}
 \item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A125344}.
+\url{https://oeis.org/A125327}.
 \end{enumerate}
 
 \end{document}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Knight-distance labellings of a strip. NOT IN SERVICE --- see the caveat below.
+"""Knight-distance labellings of a strip.
 
     Number of (n+2) X (1+2) nonnegative integer arrays with all values the knight distance
     from the upper left minus as much as 2, with successive minimum path knight move
@@ -16,37 +16,65 @@ That reading is PINNED: a direct enumeration of those labellings reproduces A253
 published 53, 272, 1342 exactly, and a row-by-row count using each board's own distances
 reproduces every published term of all fifteen reachable entries.
 
-WHY THIS IS NOT IN SERVICE. Turning the row-by-row count into a fixed transfer matrix needs
-the local structure of the board --- which pairs within two rows are minimum-path edges, and
-how far each label is capped --- to repeat down the strip. It does repeat, with period 4, but
-the row from which it repeats is not what a first measurement suggested, and the engine built
-on that measurement produced a model that matched the first six published terms of A253112
-and then undercounted every one after them. The measurement compared the wrong signature: it
-checked the edges within rows i-1, i, i+1 but the transfer also needs the edges between rows
-i-2 and i, and those settle one row later.
+WHAT KEPT THIS OUT OF SERVICE, AND WHAT SETTLED IT. Turning the row-by-row count into a fixed
+transfer matrix needs the local structure of the board --- which pairs within two rows are
+minimum-path edges, and how far each label is capped --- to repeat down the strip. It does
+repeat, with period 4, and it rests on
 
-Repairing the offset is easy. What is not settled is the underlying claim, which is that
-d(i+4, j) = d(i, j) + 2 for every column once i is large enough. The inequality <= is
-immediate --- two knight moves, (2,1) then (2,-1), drop four rows and return to the same
-column --- but >= is not proved here, and a finite check of it over a few hundred rows is
-evidence, not a proof. Until that is proved, any recurrence this engine certified would rest
-on it, so the engine is kept, unregistered, with its reading pinned and its obstruction
-written down rather than shipped.
+    d(i+4, j) = d(i, j) + 2                                                   (P)
+
+for every column once i is large enough. The inequality <= is immediate: the moves (2,1) then
+(2,-1) drop four rows and return to the same column. The inequality >= was for a long time
+only CHECKED, over a few hundred rows, and a finite check of an infinite claim is evidence and
+not a proof, so this engine was kept unregistered with its obstruction written down rather
+than shipped. `kdcert` proves (P): a field satisfying the two Bellman conditions is the
+distance whatever its provenance, those conditions at one row read only the two rows on either
+side, and so the field's period makes finitely many rows settle every row. The same
+certificate proves the second thing the model needs, that one field serves every board height
+from H0 on, and computes H0.
+
+Everything height- and period-related is now READ FROM THAT CERTIFICATE. The first row from
+which the phase stands in for the row index used to be a hand-made table that stopped at width
+7 --- widths 8 and up were refused as showing no period, which was a limit of the measurement
+and not of the board --- and is now derived, so every width the certificate covers is in
+service. The old table {3: 5, 4: 5, 5: 7, 6: 9, 7: 11} agrees with the certificate's i0 + 2 at
+every width it had, which is the one piece of evidence a proof cannot supply itself.
 """
 import re
 from itertools import product
 
+import kdcert
 import lumpauto
 import namecanon
 import transfer19
 
-KN = [(1, 2), (2, 1), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -2), (-2, -1)]
-PERIOD = 4
-SETTLED = {3: 5, 4: 5, 5: 7, 6: 9, 7: 11}      # first row from which the edge sets
-                                               # AND the caps repeat, per width; the
-                                               # earlier table was one row short because
-                                               # it did not check the (i-2, i) edges
-EXCEPTIONAL = (2, 3, 4)                        # heights whose distances differ
+KN = kdcert.KN
+PERIOD = kdcert.PERIOD
+
+
+def settled(C, s):
+    """first row from which the edge sets AND the caps repeat with the period.
+
+    The edge sets at row i read rows i-2 .. i, so they repeat from the certificate's i0 + 2.
+    The cap min(s, d) is constant only once d has passed s, and d rises, so the two are taken
+    together. The old hand-made table was for the edges alone and happened to be right because
+    the caps settle no later at the widths it covered; it is not right in general."""
+    c = kdcert.get(C)
+    if c is None:
+        return None
+    lo = c['i0'] + 2
+    D = kdcert.field(C, lo + 4 * PERIOD + 4)
+    for r in range(lo, lo + PERIOD + 1):
+        if all(D[t][j] == kdcert.INF or D[t][j] >= s
+               for t in range(r, r + PERIOD) for j in range(C)):
+            return r
+    return None
+
+
+def exceptional(C):
+    """the board heights whose own distances are not the strip's"""
+    c = kdcert.get(C)
+    return () if c is None else tuple(range(2, c['H0']))
 
 DIM = r'(?:\((\d+)\+(\d+)\)|(\d+))'
 HEAD = re.compile(
@@ -66,7 +94,7 @@ def parse_name(nm):
     a = int(m.group(1))
     C = int(m.group(4)) if m.group(4) else int(m.group(2)) + int(m.group(3))
     s = int(m.group(5))
-    if C not in SETTLED or not 1 <= s <= 3:
+    if not 3 <= C <= 12 or not 1 <= s <= 4 or settled(C, s) is None:
         return None
     return {'C': C, 'a': a, 'slack': s, 'frac': 1}
 
@@ -144,10 +172,19 @@ def count_board(R, C, s):
     return sum(layer.values())
 
 
+def _certdists(C, R):
+    """the certified field of the strip, in the (i, j) -> d form the rest of the file uses"""
+    F = kdcert.field(C, R)
+    return {(i, j): int(F[i][j]) for i in range(R) for j in range(C)
+            if F[i][j] != kdcert.INF}
+
+
 def build(p, cap=200000):
     C, s = p['C'], p['slack']
-    i0 = SETTLED[C]
-    tall = dists(400, C)
+    i0 = settled(C, s)
+    if i0 is None:
+        return None
+    tall = _certdists(C, i0 + 4 * PERIOD + 4)
 
     def phase(i):
         return i if i < i0 else i0 + (i - i0) % PERIOD
@@ -222,7 +259,7 @@ def terms_p(p, b, N):
     """
     adj, start, end, S = b
     out = transfer19.terms(adj, start, end, N)
-    for R in EXCEPTIONAL:
+    for R in exceptional(p['C']):
         j = R - 1
         if 0 <= j <= N:
             out[j] = count_board(R, p['C'], p['slack'])
@@ -240,7 +277,8 @@ def threshold_p(p, b, coeffs, order):
     adj, start, end, S = b
     adj, start, end, S = lumpauto.lump(adj, start, end)
     t = transfer19.threshold(adj, start, end, coeffs, order, S)
-    return None if t is None else max(t, max(EXCEPTIONAL) - 1 + order)
+    ex = exceptional(p['C'])
+    return None if t is None else max(t, (max(ex) if ex else 1) - 1 + order)
 
 
 terms = transfer19.terms

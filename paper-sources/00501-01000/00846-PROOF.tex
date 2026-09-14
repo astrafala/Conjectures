@@ -12,123 +12,148 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A126372, proved}
+\title{The cross-base identity for OEIS A125486, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A126372 carries an empirical identity, in two clauses, relating its counts to those of the
-entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
-here, with no computation in the argument. The difference between consecutive bases counts the
-admissible strings that USE the new largest digit; those are the translates of the
-translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
-the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
-one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
-is the entry's own $-2$.
+OEIS A125486 carries an empirical identity relating its counts to those of the entry one base
+smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
+names, and that range is sharp. The proof is four steps and needs no computation: the
+difference between consecutive bases counts the admissible cyclic sequences that USE the new
+largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
+once the base is large enough those sequences are a translate of the admissible cyclic
+sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
+sequences summing to zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
 
 \section{The conjecture}
 
-OEIS A126372 is ``Number of base 18 n-digit numbers with adjacent digits differing by one or less.''. It has offset $0$ and begins
+OEIS A125486 is ``Number of base 29 circular n-digit numbers with adjacent digits differing by 9 or less.''. It has offset $0$ and begins
 \[
-1, 18, 52, 152, 446, 1312, 3866, 11406,\ \dots
+1, 29, 461, 6149, 94841, 1494029, 24058649, 392382845,\ \dots
 \]
 The entry states, as an empirical claim and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1) for base>=n; a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1)-2 when base=n-1.
+[Empirical] a(base,n)=a(base-1,n)+F(9) for base>=9.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\textasciicircum{}(2d))\textasciicircum{}n
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:09:27, revision 13)
+As of the ``Last modified'' line on the live entry (Aug 10 2026 17:41:39, revision 12)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-For this entry the base is $18$ and the permitted difference is $d=1$, so the first clause
-claims $a_{18}(n)-a_{17}(n)=3^{\,n-1}$ whenever $(n-1)+1\le18$, that is for
-$1\le n\le18$, and the second claims $a_{18}(n)-a_{17}(n)=3^{\,n-1}-2$ at the single
-$n$ with $(n-1)=18$.
+Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
+stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
+entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. For this entry
+the base is $29$ and the permitted difference is $d=9$, so the claim is that
+\[
+a_{29}(n)-a_{28}(n)\;=\;F_{9}(n)
+\qquad\text{for every } n \text{ with } 9\lfloor n/2\rfloor+1\le29,
+\]
+that is, for $1\le n\le7$.
 
 \section{What the entry counts}
 
-A base-$b$ $n$-digit string in this family's sense is a tuple
-$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
-is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
-$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
-arithmetic, $L_{1}$ at base $18$ reproduces all $25$ terms A126372 publishes.
+A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
+$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
+read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
+$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
+them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
+$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
+together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{9}$
+at base $29$ reproduces all $16$ terms A125486 publishes, and at base $28$ all the
+terms the entry one base smaller publishes.
+
+At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
+That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
+which is the range in which the entry's own data lives beyond its first term.
 
 \section{The identity}
 
 \begin{theorem}
-Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
-\begin{enumerate}
-\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
-\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
-\end{enumerate}
+For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
+\[
+T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
+\]
+where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
+polynomial. In particular $a_{29}(n)-a_{28}(n)=F_{9}(n)$ for $1\le n\le7$, which
+is the entry's claim.
 \end{theorem}
 
 \begin{proof}
-\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
-are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
-number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
+not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
+$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
+$b-1$ occurs.
 
-\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
-$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
-freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
-representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
-which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
-Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
-representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
-$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
+Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
+two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
+$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
+so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
 
-\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
-the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
-of range at most $b-1$ gives exactly one such string. Hence
-\[
-L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
-\]
+\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
+values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
+says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
+felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
+the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
+$\max_i c_i=0$. That set does not depend on $b$.
 
-\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
-giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
-range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
-between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
-must use all $n-1$ of them in the same direction at full size. There are exactly two such step
-vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
+\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
+orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
+Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
+step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
+$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
+tuple, and conversely. Their number is the constant term of
+$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
+the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
+and unimodal.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
+the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
+of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
+base is in each case exactly one below the entry's own threshold.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the proof above.
 
-First, the model reproduces all $25$ terms A126372 publishes, exactly, in integer
-arithmetic; the reading of the entry's English is what is being tested there.
+First, the model reproduces all $16$ terms A125486 publishes, exactly, in integer
+arithmetic; the reading of the entry's English is what is being tested there, since a
+misreading gives different counts.
 
-Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le18$, both sides computed from the definition and not from the theorem:
+Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
+$1\le n\le7$, with both sides computed from the definition and not from the theorem:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & $L_{1}(18,n)$ & $L_{1}(17,n)$ & $3^{\,n-1}$ \\ \hline
-1 & 18 & 17 & 1 \\
-2 & 52 & 49 & 3 \\
-3 & 152 & 143 & 9 \\
-4 & 446 & 419 & 27 \\
-5 & 1312 & 1231 & 81 \\
-6 & 3866 & 3623 & 243 \\
-7 & 11406 & 10677 & 729 \\
-8 & 33684 & 31497 & 2187 \\
+$n$ & $T_{9}(29,n)$ & $T_{9}(28,n)$ & $F_{9}(n)$ \\ \hline
+1 & 29 & 28 & 1 \\
+2 & 461 & 442 & 19 \\
+3 & 6149 & 5878 & 271 \\
+4 & 94841 & 90262 & 4579 \\
+5 & 1494029 & 1415878 & 78151 \\
+6 & 24058649 & 22695076 & 1363573 \\
+7 & 392382845 & 368310712 & 24072133 \\
 \end{tabular}
 \end{center}
 
 \noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=18$.
+and at every row up to $n=7$.
 
-Third, the second clause was evaluated at its own index. For this entry the second clause bites at $n=19$, where $b=18=(n-1)$: there $L_{1}(18,19)-L_{1}(17,19)=387420487$ and $3^{18}-2=387420487$.
+Third, the theorem was tested outside the entry's range as well: the identity holds for every
+$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
+above.
 
 \section*{References}
 \begin{enumerate}
 \item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A126372}.
+\url{https://oeis.org/A125486}.
 \end{enumerate}
 
 \end{document}

@@ -12,71 +12,64 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204835, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237786, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204835 counts arrays over $\{0,\dots,2\}$ under a condition on the permanent of every
-$2\times2$ subblock, and carries an empirical recurrence of order $30$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
-a bounded window of consecutive rows, so the count is a walk count on $S=115$ states and is
-$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
-computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A237786 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
+$30$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=256$
+states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
+a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 62G30.\normalsize
 
 \section{The conjecture}
 
-OEIS A204835 is ``Number of (n+1)X4 0..2 arrays with the permanents of all 2X2 subblocks equal and nonzero.''. It has offset $1$ and begins
+OEIS A237786 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum plus the minimum minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-318, 1616, 7070, 34100, 157872, 752028, 3530808, 16789864,\ \dots
+256, 1902, 14369, 108626, 822482, 6206506, 46951577, 354492388,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +46*a(n-2) -463*a(n-3) -827*a(n-4) +11584*a(n-5) +7209*a(n-6) -167177*a(n-7) -24235*a(n-8) +1555772*a(n-9) -108939*a(n-10) -9844492*a(n-11) +1639028*a(n-12) +43404736*a(n-13) -9040868*a(n-14) -134200436*a(n-15) +30728164*a(n-16) +288648563*a(n-17) -71549296*a(n-18) -422266864*a(n-19) +116364363*a(n-20) +403049929*a(n-21) -126818335*a(n-22) -233198888*a(n-23) +83721106*a(n-24) +71218296*a(n-25) -28108413*a(n-26) -8643432*a(n-27) +3559710*a(n-28) +142560*a(n-29) -78408*a(n-30)
+Empirical: a(n) = 2044*a(n-4) +57712*a(n-6) +627304*a(n-8) +2916648*a(n-10) +5816832*a(n-12) +11824576*a(n-14) +34380288*a(n-16) +53691776*a(n-18) +42450944*a(n-20) +56373760*a(n-22) +52514816*a(n-24) +67936256*a(n-26) +35323904*a(n-28) +5242880*a(n-30)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:32:53, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:28:05, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the permanent of a $2\times2$ subblock
-$\begin{pmatrix}p&q\\r&s\end{pmatrix}$, that is $\sigma=ps+qr$. The subblocks of an
-$(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid of $n$ rows and $3$
-columns, and $\sigma$ colours that grid.
+The $2\times2$ subblocks of an $(n+1)\times2$ array form an
+$n\times1$ grid, and each carries the value $\sigma=a-b+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
+That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
+so it is local to the grid.
 
-The condition is that all the subblocks of one array share a single value of $\sigma$. That
-value is not named, so the count splits by it and the value $0$ is excluded by the entry: for a fixed $v$ let $a_v(n)$ count the
-arrays all of whose subblocks give $\sigma=v$. An array determines its own common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
+A single subblock has no neighbour of either kind, so at $n=1$ the condition is vacuous and
+$a(1)$ must be the number of $2\times2$ arrays over $\{0,\dots,3\}$, namely
+$4^{4}=256$. The entry's first term is $256$.
+That is the cheapest check that the subblock grid has been read with the right shape, and it
+is the first thing the model was made to reproduce.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition again looks at one subblock at a time, so a
-row is a state and rows $r,s$ may follow one another when all $3$ of their subblocks give
-$v$. Taking the disjoint union over $v$ and with $M$ its adjacency matrix,
+A subblock's value is decided by two consecutive rows of the array, and the
+vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, whose own
+neighbouring values must differ by exactly $1$ along it, and which must differ by exactly
+$1$ from the previous subblock row in every position. An $(n+1)$-row array is a walk of
+$n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=115$ states that survive. Rows carrying no edge at all are dropped: such a row could
-only be the whole of a one-row array, which is not among the objects counted.
-
-At $n=1$ the array has two rows and the grid is a single row of $3$
-subblocks, each tested on its own, so $a(1)$ counts the
-$2\times4$ arrays over $\{0,\dots,2\}$ all of whose subblocks pass. The entry's
-first term is $318$, and the model reproduces it along with every later term; that is the
-cheapest check that the grid has been read with the right shape.
-
-Over the alphabet $\{0,\dots,2\}$ the permanent of a $2\times2$ subblock takes values in
-$[0,8]$, so the colouring of the grid it induces has at most $9$ values.
-That bound is what keeps the construction below finite in the only place where the value of
-$\sigma$, rather than a comparison between two of them, has to be carried.
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+over the $S=256$ pairs whose own subblock row already satisfies the condition along itself.
+The alignment of the walk index with the entry's own $n$ was checked against its published
+terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -98,7 +91,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 46\,a(n-2) - 463\,a(n-3) - 827\,a(n-4) + 11584\,a(n-5) + 7209\,a(n-6) - 167177\,a(n-7) - 24235\,a(n-8) + 1555772\,a(n-9) - 108939\,a(n-10) - 9844492\,a(n-11) + 1639028\,a(n-12) + 43404736\,a(n-13) - 9040868\,a(n-14) - 134200436\,a(n-15) + 30728164\,a(n-16) + 288648563\,a(n-17) - 71549296\,a(n-18) - 422266864\,a(n-19) + 116364363\,a(n-20) + 403049929\,a(n-21) - 126818335\,a(n-22) - 233198888\,a(n-23) + 83721106\,a(n-24) + 71218296\,a(n-25) - 28108413\,a(n-26) - 8643432\,a(n-27) + 3559710\,a(n-28) + 142560\,a(n-29) - 78408\,a(n-30)
+a(n)\;=\;2044\,a(n-4) + 57712\,a(n-6) + 627304\,a(n-8) + 2916648\,a(n-10) + 5816832\,a(n-12) + 11824576\,a(n-14) + 34380288\,a(n-16) + 53691776\,a(n-18) + 42450944\,a(n-20) + 56373760\,a(n-22) + 52514816\,a(n-24) + 67936256\,a(n-26) + 35323904\,a(n-28) + 5242880\,a(n-30)
 \]
 for every $n>30$.
 \end{theorem}
@@ -114,7 +107,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -126,10 +119,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204835.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237786.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Addison--Wesley, 1978.
+\bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
+2003.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

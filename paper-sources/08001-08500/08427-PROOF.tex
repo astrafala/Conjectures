@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250696, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250542, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250696 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
+OEIS A250542 counts arrays over $\{0,1,2,3\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $16$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=4096$ states, and the
+window of consecutive rows, so the count is a walk count on $S=16384$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,25 +31,25 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250696 is ``Number of (5+1)X(n+1) 0..3 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A250542 is ``Number of (n+1)X(6+1) 0..3 arrays with nondecreasing x(i,j)-x(i,j-1) in the i direction and nondecreasing x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-53032, 362241, 1848953, 8038566, 31728758, 117793753, 420283865, 1461625340,\ \dots
+905440, 13657024, 117777788, 752602024, 4013192386, 19031828420, 83356429646, 345394150196,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 30*a(n-1) -415*a(n-2) +3514*a(n-3) -20386*a(n-4) +85924*a(n-5) -272198*a(n-6) +661180*a(n-7) -1244717*a(n-8) +1822478*a(n-9) -2068955*a(n-10) +1802474*a(n-11) -1181760*a(n-12) +563888*a(n-13) -184752*a(n-14) +37152*a(n-15) -3456*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:42:31, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:31:35, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
+The array has $7$ cells across and entries $x(i,j)\in\{0,1,2,3\}$.
 
 Two derived arrays are formed. The first reads the horizontal statistic across each
 neighbouring pair of a row,
 \[
-b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+b(i,j)\;=\;\bigl[\,a-b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
 and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
 statistic down each neighbouring pair of a column,
@@ -57,8 +57,8 @@ statistic down each neighbouring pair of a column,
 c(i,j)\;=\;\bigl[\,a-b\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
 \]
 and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the absolute difference of a cell and its left neighbour, and the vertical one is
-the difference of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+is the difference of a cell and its left neighbour, and the vertical one is
+the difference of a cell and the cell above it.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -75,11 +75,11 @@ $b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c
 names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $4^{6}=4096$ rows with
+So a single row is a state. Let $M$ be the matrix on the $4^{7}=16384$ rows with
 $M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
 walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4096.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=16384.
 \]
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250696.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250542.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A258552, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253519, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A258552 counts the arrays over $\{0,\dots,1\}$ whose $2\times2$ subblocks carry a
+OEIS A253519 counts the arrays over $\{0,\dots,2\}$ whose $2\times2$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
 empirical recurrence of order $8$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
-so a pair of consecutive array rows is a state, the count is a walk count on $S=988$ of them,
+so a pair of consecutive array rows is a state, the count is a walk count on $S=2180$ of them,
 and the conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,21 +31,21 @@ and the conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A258552 is ``Number of (n+1) X (6+1) 0..1 arrays with every 2 X 2 subblock ne-sw antidiagonal difference nondecreasing horizontally and nw+se diagonal sum nondecreasing vertically.''. It has offset $1$ and begins
+OEIS A253519 is ``Number of (n+1)X(3+1) 0..2 arrays with every 2X2 subblock diagonal minimum minus antidiagonal minimum nondecreasing horizontally and diagonal maximum minus antidiagonal maximum nondecreasing vertically.''. It has offset $1$ and begins
 \[
-988, 683, 1917, 3314, 6662, 10854, 16942, 24300,\ \dots
+2180, 10706, 30013, 84684, 256914, 791232, 2419612, 7338525,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) - 6*a(n-2) + 4*a(n-3) - 4*a(n-5) + 6*a(n-6) - 4*a(n-7) + a(n-8) for n>14.
+Empirical: a(n) = 12*a(n-1) -61*a(n-2) +172*a(n-3) -295*a(n-4) +316*a(n-5) -207*a(n-6) +76*a(n-7) -12*a(n-8) for n>16
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 22 2018 07:29:10, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:05:15, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times7$ array over $\{0,\dots,1\}$ form a grid
-of $n$ rows and $6$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
+The $2\times2$ subblocks of an $(n+1)\times4$ array over $\{0,\dots,2\}$ form a grid
+of $n$ rows and $3$ columns; write $\sigma(i,j)$ for the value the entry's statistic takes on
 the subblock in position $(i,j)$, a function of its four entries
 $\begin{pmatrix}p&q\\r&s\end{pmatrix}$ alone. The condition is
 \[
@@ -71,7 +71,7 @@ and every walk comes from exactly one array, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=\tau=(1,\dots,1)^{\!\top},
 \]
-on the $S=988$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
+on the $S=2180$ admissible pairs. In particular $a$ is $C$-finite. The alignment of the walk
 index with the entry's own $n$ was checked against its published terms rather than assumed.
 
 \section{The proof}
@@ -94,23 +94,23 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - 4\,a(n-5) + 6\,a(n-6) - 4\,a(n-7) + a(n-8)
+a(n)\;=\;12\,a(n-1) - 61\,a(n-2) + 172\,a(n-3) - 295\,a(n-4) + 316\,a(n-5) - 207\,a(n-6) + 76\,a(n-7) - 12\,a(n-8)
 \]
-for every $n>14$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=14$ the recurrence fails on the entry's own published terms, so no larger range holds.
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=16$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $32$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A258552.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253519.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and
