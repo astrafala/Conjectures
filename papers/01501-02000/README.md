@@ -1,6 +1,6 @@
 # Papers 01501-02000
 
-Ranks 1501 to 2000 of 12893, hardest first.
+Ranks 1501 to 2000 of 12899, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -465,42 +465,42 @@ Ranks 1501 to 2000 of 12893, hardest first.
 | 1959 | [A229753](https://oeis.org/A229753) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01959-PROOF.pdf](01959-PROOF.pdf) |
 | 1960 | [A280438](https://oeis.org/A280438) | Proof | a cell condition with an exception budget, counted up to relabelling | [01960-PROOF.pdf](01960-PROOF.pdf) |
 | 1961 | [A281210](https://oeis.org/A281210) | Proof | a cell condition with an exception budget, counted up to relabelling | [01961-PROOF.pdf](01961-PROOF.pdf) |
-| 1962 | [A229390](https://oeis.org/A229390) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01962-PROOF.pdf](01962-PROOF.pdf) |
-| 1963 | [A280897](https://oeis.org/A280897) | Proof | a cell condition with an exception budget, counted up to relabelling | [01963-PROOF.pdf](01963-PROOF.pdf) |
-| 1964 | [A280437](https://oeis.org/A280437) | Proof | a cell condition with an exception budget, counted up to relabelling | [01964-PROOF.pdf](01964-PROOF.pdf) |
-| 1965 | [A281209](https://oeis.org/A281209) | Proof | a cell condition with an exception budget, counted up to relabelling | [01965-PROOF.pdf](01965-PROOF.pdf) |
-| 1966 | [A229584](https://oeis.org/A229584) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01966-PROOF.pdf](01966-PROOF.pdf) |
-| 1967 | [A279575](https://oeis.org/A279575) | Proof | a cell condition with an exception budget, counted up to relabelling | [01967-PROOF.pdf](01967-PROOF.pdf) |
-| 1968 | [A279852](https://oeis.org/A279852) | Proof | a cell condition with an exception budget, counted up to relabelling | [01968-PROOF.pdf](01968-PROOF.pdf) |
-| 1969 | [A280393](https://oeis.org/A280393) | Proof | a cell condition with an exception budget, counted up to relabelling | [01969-PROOF.pdf](01969-PROOF.pdf) |
-| 1970 | [A264281](https://oeis.org/A264281) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01970-PROOF.pdf](01970-PROOF.pdf) |
-| 1971 | [A264332](https://oeis.org/A264332) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01971-PROOF.pdf](01971-PROOF.pdf) |
-| 1972 | [A264360](https://oeis.org/A264360) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01972-PROOF.pdf](01972-PROOF.pdf) |
-| 1973 | [A264502](https://oeis.org/A264502) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01973-PROOF.pdf](01973-PROOF.pdf) |
-| 1974 | [A264565](https://oeis.org/A264565) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01974-PROOF.pdf](01974-PROOF.pdf) |
-| 1975 | [A264579](https://oeis.org/A264579) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01975-PROOF.pdf](01975-PROOF.pdf) |
-| 1976 | [A220036](https://oeis.org/A220036) | Proof |  | [01976-PROOF.pdf](01976-PROOF.pdf) |
-| 1977 | [A280436](https://oeis.org/A280436) | Proof | a cell condition with an exception budget, counted up to relabelling | [01977-PROOF.pdf](01977-PROOF.pdf) |
-| 1978 | [A281208](https://oeis.org/A281208) | Proof | a cell condition with an exception budget, counted up to relabelling | [01978-PROOF.pdf](01978-PROOF.pdf) |
-| 1979 | [A221687](https://oeis.org/A221687) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01979-PROOF.pdf](01979-PROOF.pdf) |
-| 1980 | [A221189](https://oeis.org/A221189) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01980-PROOF.pdf](01980-PROOF.pdf) |
-| 1981 | [A229667](https://oeis.org/A229667) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01981-PROOF.pdf](01981-PROOF.pdf) |
-| 1982 | [A229633](https://oeis.org/A229633) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01982-PROOF.pdf](01982-PROOF.pdf) |
-| 1983 | [A279651](https://oeis.org/A279651) | Proof | a cell condition with an exception budget, counted up to relabelling | [01983-PROOF.pdf](01983-PROOF.pdf) |
-| 1984 | [A280474](https://oeis.org/A280474) | Proof | a cell condition with an exception budget, counted up to relabelling | [01984-PROOF.pdf](01984-PROOF.pdf) |
-| 1985 | [A280896](https://oeis.org/A280896) | Proof | a cell condition with an exception budget, counted up to relabelling | [01985-PROOF.pdf](01985-PROOF.pdf) |
-| 1986 | [A282185](https://oeis.org/A282185) | Proof | a cell condition with an exception budget, counted up to relabelling | [01986-PROOF.pdf](01986-PROOF.pdf) |
-| 1987 | [A264000](https://oeis.org/A264000) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01987-PROOF.pdf](01987-PROOF.pdf) |
-| 1988 | [A264166](https://oeis.org/A264166) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01988-PROOF.pdf](01988-PROOF.pdf) |
-| 1989 | [A264218](https://oeis.org/A264218) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01989-PROOF.pdf](01989-PROOF.pdf) |
-| 1990 | [A264239](https://oeis.org/A264239) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01990-PROOF.pdf](01990-PROOF.pdf) |
-| 1991 | [A264245](https://oeis.org/A264245) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01991-PROOF.pdf](01991-PROOF.pdf) |
-| 1992 | [A264359](https://oeis.org/A264359) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01992-PROOF.pdf](01992-PROOF.pdf) |
-| 1993 | [A221110](https://oeis.org/A221110) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01993-PROOF.pdf](01993-PROOF.pdf) |
-| 1994 | [A229388](https://oeis.org/A229388) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01994-PROOF.pdf](01994-PROOF.pdf) |
-| 1995 | [A219500](https://oeis.org/A219500) | Proof |  | [01995-PROOF.pdf](01995-PROOF.pdf) |
-| 1996 | [A229455](https://oeis.org/A229455) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01996-PROOF.pdf](01996-PROOF.pdf) |
-| 1997 | [A229589](https://oeis.org/A229589) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01997-PROOF.pdf](01997-PROOF.pdf) |
-| 1998 | [A280118](https://oeis.org/A280118) | Proof | a cell condition with an exception budget, counted up to relabelling | [01998-PROOF.pdf](01998-PROOF.pdf) |
-| 1999 | [A281124](https://oeis.org/A281124) | Proof | a cell condition with an exception budget, counted up to relabelling | [01999-PROOF.pdf](01999-PROOF.pdf) |
-| 2000 | [A219940](https://oeis.org/A219940) | Proof |  | [02000-PROOF.pdf](02000-PROOF.pdf) |
+| 1962 | [A165382](https://oeis.org/A165382) | Proof |  | [01962-PROOF.pdf](01962-PROOF.pdf) |
+| 1963 | [A229390](https://oeis.org/A229390) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01963-PROOF.pdf](01963-PROOF.pdf) |
+| 1964 | [A280897](https://oeis.org/A280897) | Proof | a cell condition with an exception budget, counted up to relabelling | [01964-PROOF.pdf](01964-PROOF.pdf) |
+| 1965 | [A280437](https://oeis.org/A280437) | Proof | a cell condition with an exception budget, counted up to relabelling | [01965-PROOF.pdf](01965-PROOF.pdf) |
+| 1966 | [A281209](https://oeis.org/A281209) | Proof | a cell condition with an exception budget, counted up to relabelling | [01966-PROOF.pdf](01966-PROOF.pdf) |
+| 1967 | [A229584](https://oeis.org/A229584) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01967-PROOF.pdf](01967-PROOF.pdf) |
+| 1968 | [A279575](https://oeis.org/A279575) | Proof | a cell condition with an exception budget, counted up to relabelling | [01968-PROOF.pdf](01968-PROOF.pdf) |
+| 1969 | [A279852](https://oeis.org/A279852) | Proof | a cell condition with an exception budget, counted up to relabelling | [01969-PROOF.pdf](01969-PROOF.pdf) |
+| 1970 | [A280393](https://oeis.org/A280393) | Proof | a cell condition with an exception budget, counted up to relabelling | [01970-PROOF.pdf](01970-PROOF.pdf) |
+| 1971 | [A264281](https://oeis.org/A264281) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01971-PROOF.pdf](01971-PROOF.pdf) |
+| 1972 | [A264332](https://oeis.org/A264332) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01972-PROOF.pdf](01972-PROOF.pdf) |
+| 1973 | [A264360](https://oeis.org/A264360) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01973-PROOF.pdf](01973-PROOF.pdf) |
+| 1974 | [A264502](https://oeis.org/A264502) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01974-PROOF.pdf](01974-PROOF.pdf) |
+| 1975 | [A264565](https://oeis.org/A264565) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01975-PROOF.pdf](01975-PROOF.pdf) |
+| 1976 | [A264579](https://oeis.org/A264579) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01976-PROOF.pdf](01976-PROOF.pdf) |
+| 1977 | [A220036](https://oeis.org/A220036) | Proof |  | [01977-PROOF.pdf](01977-PROOF.pdf) |
+| 1978 | [A280436](https://oeis.org/A280436) | Proof | a cell condition with an exception budget, counted up to relabelling | [01978-PROOF.pdf](01978-PROOF.pdf) |
+| 1979 | [A281208](https://oeis.org/A281208) | Proof | a cell condition with an exception budget, counted up to relabelling | [01979-PROOF.pdf](01979-PROOF.pdf) |
+| 1980 | [A221687](https://oeis.org/A221687) | Proof | occupancy arrays of a grid of tokens each moving one step, with the turn a token makes on arrival constrained | [01980-PROOF.pdf](01980-PROOF.pdf) |
+| 1981 | [A221189](https://oeis.org/A221189) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01981-PROOF.pdf](01981-PROOF.pdf) |
+| 1982 | [A229667](https://oeis.org/A229667) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01982-PROOF.pdf](01982-PROOF.pdf) |
+| 1983 | [A229633](https://oeis.org/A229633) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01983-PROOF.pdf](01983-PROOF.pdf) |
+| 1984 | [A279651](https://oeis.org/A279651) | Proof | a cell condition with an exception budget, counted up to relabelling | [01984-PROOF.pdf](01984-PROOF.pdf) |
+| 1985 | [A280474](https://oeis.org/A280474) | Proof | a cell condition with an exception budget, counted up to relabelling | [01985-PROOF.pdf](01985-PROOF.pdf) |
+| 1986 | [A280896](https://oeis.org/A280896) | Proof | a cell condition with an exception budget, counted up to relabelling | [01986-PROOF.pdf](01986-PROOF.pdf) |
+| 1987 | [A282185](https://oeis.org/A282185) | Proof | a cell condition with an exception budget, counted up to relabelling | [01987-PROOF.pdf](01987-PROOF.pdf) |
+| 1988 | [A264000](https://oeis.org/A264000) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01988-PROOF.pdf](01988-PROOF.pdf) |
+| 1989 | [A264166](https://oeis.org/A264166) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01989-PROOF.pdf](01989-PROOF.pdf) |
+| 1990 | [A264218](https://oeis.org/A264218) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01990-PROOF.pdf](01990-PROOF.pdf) |
+| 1991 | [A264239](https://oeis.org/A264239) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01991-PROOF.pdf](01991-PROOF.pdf) |
+| 1992 | [A264245](https://oeis.org/A264245) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01992-PROOF.pdf](01992-PROOF.pdf) |
+| 1993 | [A264359](https://oeis.org/A264359) | Proof | grid permutations with a bounded index change, as a matching turned into a walk | [01993-PROOF.pdf](01993-PROOF.pdf) |
+| 1994 | [A221110](https://oeis.org/A221110) | Proof | occupancy patterns reachable when every unit moves to a neighbouring cell or stays put: counted by determinisi... | [01994-PROOF.pdf](01994-PROOF.pdf) |
+| 1995 | [A229388](https://oeis.org/A229388) | Proof | the number of distinct indicator arrays a cell condition produces: an image count, made a walk count by determ... | [01995-PROOF.pdf](01995-PROOF.pdf) |
+| 1996 | [A219500](https://oeis.org/A219500) | Proof |  | [01996-PROOF.pdf](01996-PROOF.pdf) |
+| 1997 | [A229455](https://oeis.org/A229455) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01997-PROOF.pdf](01997-PROOF.pdf) |
+| 1998 | [A229589](https://oeis.org/A229589) | Proof | defective colourings: a budget of monochromatic pairs carried in the state, counted up to relabelling | [01998-PROOF.pdf](01998-PROOF.pdf) |
+| 1999 | [A280118](https://oeis.org/A280118) | Proof | a cell condition with an exception budget, counted up to relabelling | [01999-PROOF.pdf](01999-PROOF.pdf) |
+| 2000 | [A281124](https://oeis.org/A281124) | Proof | a cell condition with an exception budget, counted up to relabelling | [02000-PROOF.pdf](02000-PROOF.pdf) |

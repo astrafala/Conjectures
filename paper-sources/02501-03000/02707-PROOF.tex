@@ -12,56 +12,88 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Arrays counted up to renaming: the empirical recurrence for OEIS A206173}
+\title{The empirical recurrence for OEIS A239189, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206173 carries an empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry imposes two conditions of different
-kinds: a condition on every subblock, which is local, and ``new values introduced in row major
-order'', which is not --- it makes the count a count of colourings up to renaming. The first is
-handled by a window of consecutive rows; the second by one extra integer, the number of values
-introduced so far, which is an exact summary of everything the whole prefix contributes. With
-both in the state the arrays are exactly the walks in a digraph on $S=76$ vertices, so $a(n)$
-is $C$-finite and whether the conjectured recurrence annihilates it is settled by a finite
-exact computation.
+OEIS A239189 counts arrays over $\{0,1,\dots,4\}$ in which no entry may equal, modulo $5$, a given
+constant plus the SUM of all the entries lying before it along one of several rays. The entry
+carries an empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is true, and
+it is decidable rather than empirical. None of those sums is bounded and none is local, but
+each is built one term at a time, so its residue modulo $5$ is carried in the state; the
+count is then a walk count on $S=125$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A206173 is ``Number of 5X(n+1) 0..3 arrays with every 2X2 subblock in a row having an equal number of equal diagonal or equal antidiagonal elements, adjacent rows differing in this number, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A239189 is ``Number of nX3 0..4 arrays with no element equal to the sum of elements to its left or the sum of elements above it, modulo 5.''. It has offset $1$ and begins
 \[
-7566, 238182, 10599630, 526154358, 26687737998, 1361622567126, 69556988274126, 3554493803008374,\ \dots
+40, 1276, 43648, 1436268, 47885992, 1588084496, 52771184780, 1752250223616,\ \dots
 \]
-Because of the relabelling condition each array is counted once for the whole class of arrays that differ from it only by renaming the values, so these are colourings counted up to permutation of the colours.
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 56*a(n-1) +456*a(n-2) -39352*a(n-3) -34802*a(n-4) +11171648*a(n-5) -13122200*a(n-6) -1683933432*a(n-7) +3150972781*a(n-8) +150157165048*a(n-9) -306037231512*a(n-10) -8315004801408*a(n-11) +16418689080408*a(n-12) +290940321892032*a(n-13) -530173145158992*a(n-14) -6430873844504880*a(n-15) +10691431333128297*a(n-16) +89212552369342056*a(n-17) -137284826957648712*a(n-18) -772840127333187576*a(n-19) +1119417831060679350*a(n-20) +4169317975104649536*a(n-21) -5734329723412512984*a(n-22) -14005155678216709464*a(n-23) +18392800450061228427*a(n-24) +28975458499899160680*a(n-25) -36522779580082867752*a(n-26) -35550691451531386704*a(n-27) +43238482722793040004*a(n-28) +23504910388393904064*a(n-29) -27737731642915897344*a(n-30) -6398289766745501184*a(n-31) +7365473103579123456*a(n-32)
+Empirical: a(n) = 20*a(n-1) +609*a(n-2) -3844*a(n-3) -78166*a(n-4) +509936*a(n-5) +4176515*a(n-6) -38652038*a(n-7) -63188831*a(n-8) +1459689976*a(n-9) -2568978052*a(n-10) -22520157031*a(n-11) +98699770039*a(n-12) +28345550437*a(n-13) -841671958032*a(n-14) +926865397947*a(n-15) +2231140185591*a(n-16) +707652733371*a(n-17) -15915790759160*a(n-18) -19798980156226*a(n-19) +105982465124316*a(n-20) +43073468973888*a(n-21) -266109188058980*a(n-22) -158868787983268*a(n-23) -52293160322104*a(n-24) +1331074976293600*a(n-25) +864182907177600*a(n-26) -3590559475955792*a(n-27) -469514072024064*a(n-28) +3671096466576704*a(n-29) -1775507453437696*a(n-30) +436223558752000*a(n-31) +10686328656896*a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:45:04, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:24:24, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays of 5 columns over the alphabet $\{0,1,2,3\}$, and asks two different kinds of thing of them at once.
-
-\textbf{The subblock condition is local.} It says that every $2\times2$ subblock scores the number of its equal diagonal pairs plus the number of its equal antidiagonal pairs, all subblocks lying in one band must score the same, and consecutive bands must score differently. A $ 2\times2$ subblock spans $2$ consecutive rows, so a window of $2$ consecutive rows decides every subblock it closes, and nothing outside that window is consulted.
-
-What is compared \emph{across} windows is carried too: the state holds the single number the last band scored, since a band is constant and only that one number is compared with the next. With $4$ subblocks to a band that is a bounded amount of bookkeeping and no more.
-
-\textbf{The relabelling condition is not local.} ``New values introduced in row major order'' says that, reading the array one row at a time and each row left to right, a value may appear for the first time only once every smaller value already has. Whether a given entry is allowed here therefore depends on the whole prefix of the array, not on any bounded window of it, and no amount of widening the window captures it. What saves it is that the prefix matters only through one number: let $m$ be how many values have been introduced so far. A row $r_1r_2\cdots r_5$ may follow precisely when each $r_i\le m$ at the moment it is read and each $r_i=m$ raises $m$ by one. So $m$, an integer in $\{0,1,\dots,4\}$, is an exact summary of everything the condition needs, and it joins the state.
-
-The vertices of the digraph are therefore the triples (the last $1$ row, the count $m$, what the last band scored), an edge $u\to v$ meaning that $v$'s new row may follow $u$. Of the $1024$ possible rows only those admissible from the current $m$ appear, and states with identical futures are merged, which leaves $S=76$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The array has $3$ cells across one way, entries $x(i,j)\in\{0,1,\dots,4\}$, and the entry names these
+rays out of a cell $(i,j)$, with the constant it attaches to each:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\begin{array}{lll}
+\text{ray} & \text{the cells on it} & \text{constant} \\[2pt]
+\text{west} & (i,j-1),(i,j-2),\dots & 0 \\
+\text{north} & (i-1,j),(i-2,j),\dots & 0 \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Writing $\Sigma_r(i,j)$ for the sum of the entries on ray $r$ out of $(i,j)$, all of them
+inside the array, the condition is
+\[
+x(i,j)\;\not\equiv\;c_r+\Sigma_r(i,j) \pmod{5}
+\]
+for every ray $r$ named. A ray that leaves the array at once contributes the empty sum,
+zero, and a ray the entry names without a constant carries the constant $0$.
+
+\section{The rays as a bounded state}
+
+Take the array one $row$ at a time, in the direction in which it grows, and index the
+positions of a $row $ by $p$. Let $x$ be the $row$ just written.
+
+\begin{lemma}\label{lem:rays}
+Along the $row$s, the 2 ray sums named by this entry satisfy
+\[
+\begin{aligned}
+\Sigma_{\mathrm{west}}\ &\text{is the running total inside the current row},\\
+U'[p]&=U[p]+x[p], &&\text{the north ray, per position} .
+\end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Each ray is a set of cells at a fixed step from $(i,j)$ repeated. Advancing one $row$
+moves a cell one step along the north ray, one step along the northwest ray together with one
+position to the right, and one step along the northeast ray together with one position to the
+left; in each case exactly the cell just left behind is the new term. At the border of the
+array the diagonal rays are empty, which is the stated boundary value.
+\end{proof}
+
+Reduced modulo $5$ these vectors take finitely many values, so they are a state, and one step
+of the walk writes a whole $row$: the position $p$ is filled left to right and the
+running total of the west ray is carried along as it is filled, so every cell is tested
+against every ray at the moment it is written. The walk starts at the all-zero state, the empty
+array, and every state may end one, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=125.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -83,15 +115,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;56\,a(n-1) + 456\,a(n-2) - 39352\,a(n-3) - 34802\,a(n-4) + 11171648\,a(n-5) - 13122200\,a(n-6) - 1683933432\,a(n-7) + 3150972781\,a(n-8) + 150157165048\,a(n-9) - 306037231512\,a(n-10) - 8315004801408\,a(n-11) + 16418689080408\,a(n-12) + 290940321892032\,a(n-13) - 530173145158992\,a(n-14) - 6430873844504880\,a(n-15) + 10691431333128297\,a(n-16) + 89212552369342056\,a(n-17) - 137284826957648712\,a(n-18) - 772840127333187576\,a(n-19) + 1119417831060679350\,a(n-20) + 4169317975104649536\,a(n-21) - 5734329723412512984\,a(n-22) - 14005155678216709464\,a(n-23) + 18392800450061228427\,a(n-24) + 28975458499899160680\,a(n-25) - 36522779580082867752\,a(n-26) - 35550691451531386704\,a(n-27) + 43238482722793040004\,a(n-28) + 23504910388393904064\,a(n-29) - 27737731642915897344\,a(n-30) - 6398289766745501184\,a(n-31) + 7365473103579123456\,a(n-32)
+a(n)\;=\;20\,a(n-1) + 609\,a(n-2) - 3844\,a(n-3) - 78166\,a(n-4) + 509936\,a(n-5) + 4176515\,a(n-6) - 38652038\,a(n-7) - 63188831\,a(n-8) + 1459689976\,a(n-9) - 2568978052\,a(n-10) - 22520157031\,a(n-11) + 98699770039\,a(n-12) + 28345550437\,a(n-13) - 841671958032\,a(n-14) + 926865397947\,a(n-15) + 2231140185591\,a(n-16) + 707652733371\,a(n-17) - 15915790759160\,a(n-18) - 19798980156226\,a(n-19) + 105982465124316\,a(n-20) + 43073468973888\,a(n-21) - 266109188058980\,a(n-22) - 158868787983268\,a(n-23) - 52293160322104\,a(n-24) + 1331074976293600\,a(n-25) + 864182907177600\,a(n-26) - 3590559475955792\,a(n-27) - 469514072024064\,a(n-28) + 3671096466576704\,a(n-29) - 1775507453437696\,a(n-30) + 436223558752000\,a(n-31) + 10686328656896\,a(n-32)
 \]
-for every $n>32$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -99,17 +131,15 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-the arrays one by one from the entry's own words --- generating every array over the
-alphabet, discarding those that fail the relabelling condition, then testing each subblock
-directly --- and compares the count with the published terms. That program shares no code
-with the transfer matrix, so an error in one does not hide an error in the other.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time in the orientation the entry's own name writes and, for each candidate
+value, walk each ray to the edge of the array and add the entries up. No residue, no state and
+no recurrence of Lemma~\ref{lem:rays} is involved, and the published terms came back.
 
-Third, the conjectured recurrence was evaluated directly on those published terms, with no
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
 Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
@@ -117,11 +147,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206173.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A239189.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

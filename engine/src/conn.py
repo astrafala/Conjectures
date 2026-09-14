@@ -71,7 +71,9 @@ def parse_name(nm):
         rest = rest[:mm.start()] + rest[mm.end():]
     if re.sub(r'[,\s]|and|with', '', rest):
         return None                       # an unread clause: refuse rather than ignore it
-    if not 1 <= k <= 4 or not 2 <= A <= 4 or (A ** k) * 20 > 40000:
+    # the width bound was what had been tried; the cost is decided by the term beside it,
+    # which is a real state-space estimate. See the note in `coverzero.parse_name`.
+    if not 1 <= k <= 6 or not 2 <= A <= 4 or (A ** k) * 20 > 40000:
         return None
     return {'engine': 'conn', 'k': k, 'A': A, 'need_all': need_all, 'corners': corners,
             'maxsame': maxsame, 'slant': slant, 'frac': 1}

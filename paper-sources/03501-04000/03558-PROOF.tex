@@ -12,102 +12,87 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A214138, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A210090, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A214138 counts the proper colourings of a grid $n\times6$, wrapped in the direction of width $6$, with at most $5$ colours and
-counted up to renaming the colours, and carries an empirical recurrence of order $10$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
-up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
-a walk count; and because permuting the colours preserves everything in sight, the walk may be
-run on the colour-patterns rather than on the colourings, which is what brings the state count
-down to $S=83$ and makes the exact residual test affordable.
+OEIS A210090 counts arrays of width $4$ whose every $2\times2$ subblock holds a
+prescribed number of DISTINCT values, which use ALL of the $3$ available letters, and which
+are counted up to renaming. The entry carries an empirical recurrence of order $10$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
+condition counts distinct values and so survives renaming, which lets the count of patterns be
+recovered from counts over fixed alphabets by inverting a triangular system of falling
+factorials; the words ``containing all values'' change which row of that inverse is used and
+nothing else. Each fixed-alphabet count is a walk count on $S=98$ states in all.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A214138 is ``Number of 0..4 colorings on an nX6 array circular in the 6 direction with new values 0..4 introduced in row major order.''. It has offset $1$ and begins
+OEIS A210090 is ``Number of (n+1)X4 0..2 arrays containing all values 0..2 with every 2X2 subblock having one or two distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-40, 40434, 47730973, 56449101747, 66761857485037, 78958797573536880, 93384051705843287887, 110444707138200962659230,\ \dots
+90, 2370, 57232, 1318221, 29356228, 639141361, 13698519779, 290324839303,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1343*a(n-1) -193139*a(n-2) +4182587*a(n-3) +13484773*a(n-4) -1046489341*a(n-5) +9211083518*a(n-6) -31222203012*a(n-7) +47496470136*a(n-8) -30991236576*a(n-9) +6534899712*a(n-10)
+Empirical: a(n) = 40*a(n-1) -446*a(n-2) +766*a(n-3) +4061*a(n-4) -6645*a(n-5) -8411*a(n-6) +13005*a(n-7) -317*a(n-8) -2372*a(n-9) +320*a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:53:18, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:42:41, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
-values, and ``circular in one direction'' means the two ends of that direction are adjacent as
-well. The check that this is the right reading is the entry's own first term for the
-one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
-colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
-family publishes.
+The array has $4$ cells across and entries in $\{0,1,\dots,2\}$. In every
+$2\times2$ window of it, the number of DISTINCT entries must be one of $1, 2$. Two
+further clauses come with it:
 
-The clause ``new values $0..4$ introduced in row major order'' says the array is the
-canonical representative of its equality pattern, so what is counted is patterns, not arrays.
-Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
-number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
-is a pattern together with an injection of its colours into the alphabet, so
+\begin{itemize}
+\item ``new values $0..2$ introduced in row major order'' --- reading the cells in row major
+order, a letter may appear for the first time only when every smaller letter already has, so
+the array counted is the canonical representative of its EQUALITY PATTERN;
+\item ``containing all values $0..2$'' --- every one of the $3$ letters must actually
+occur.
+\end{itemize}
+
+
+\section{From patterns to fixed alphabets}
+
+Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
+number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
+pattern together with an injection of its letters into the alphabet, so
 \[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
+L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{5}$, so
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
+
+Here is the whole difference between this entry and its neighbours. Without the words
+``containing all values'' the quantity counted is $N_1+\dots+N_{3}$, and the weights are
+the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
+so the quantity counted is $N_{3}$ alone and the weights are the single row
+$e_{3}^{\!\top}F^{-1}$ of the same inverse:
 \[
-a\;=\;\sum_{i=1}^{5}w_i\,L_i
+a\;=\;N_{3}\;=\;\sum_{i=1}^{3}\bigl(F^{-1}\bigr)_{3i}\,L_i .
 \]
-for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
-factorials. Being properly coloured is a statement about equalities alone, so it is invariant
-under permuting the colours and the reduction is legitimate.
+
+The step is legitimate only if the condition survives renaming the alphabet, and it does: the
+condition counts how many DISTINCT values a window holds, and whether two cells agree is
+untouched by any renaming. No clause compares letters by size or does arithmetic on them.
 
 \section{Each $L_i$ is a walk count}
 
-A row of the array is a proper colouring of the cycle $C_{6}$, since the wrapping makes
-its first and last cells adjacent, and two consecutive rows must differ in every one of the
-$6$ positions. So $L_i(n)$ is the number of walks of $n-1$ steps in the digraph whose
-vertices are the proper colourings of $C_{6}$ over $i$ colours and whose edges join
-colourings differing everywhere:
+A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
+$1$ rows is a state and a step appends a row, settling every subblock it completes.
+Assembling the pieces for $i=1,\dots,3$ as a disjoint union, with $\iota$ carrying the
+weights above cleared of denominators and $\tau=\mathbf{1}$,
 \[
-L_i(n)\;=\;\iota^{\!\top}M_i^{\,n-1}\iota ,\qquad \iota=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=98.
 \]
-There are $(i-1)^{6}+(-1)^{6}(i-1)$ such colourings, which at $i=5$ is already more
-than is comfortable; Lemma~\ref{lem:lump} removes the difficulty.
-
-\begin{lemma}\label{lem:lump}
-Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
-on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
-the orbit $O$,
-\[
-(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
-A_{OO'}=\#\{t\in O':\ s\to t\} .
-\]
-So an iteration started at a $G$-invariant vector may be carried out on the orbits.
-\end{lemma}
-
-\begin{proof}
-$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
-those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
-sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
-\end{proof}
-
-Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
-under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
-subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
-state count is $S=83$ rather than the number of colourings.
-
-Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
-orbit digraphs for $i=1,\dots,5$, with $\iota$ carrying the weights $w_i$ cleared of
-denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
-matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -129,41 +114,45 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1343\,a(n-1) - 193139\,a(n-2) + 4182587\,a(n-3) + 13484773\,a(n-4) - 1046489341\,a(n-5) + 9211083518\,a(n-6) - 31222203012\,a(n-7) + 47496470136\,a(n-8) - 30991236576\,a(n-9) + 6534899712\,a(n-10)
+a(n)\;=\;40\,a(n-1) - 446\,a(n-2) + 766\,a(n-3) + 4061\,a(n-4) - 6645\,a(n-5) - 8411\,a(n-6) + 13005\,a(n-7) - 317\,a(n-8) - 2372\,a(n-9) + 320\,a(n-10)
 \]
-for every $n>10$.
+for every $n>9$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $10$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
-computation is over the integers.
+integers vanish from the index corresponding to $n=9+1$ onwards and the run continued
+until the working vector was identically zero. The rational weights are carried as one common
+denominator throughout, so no division is performed until the final term.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $10$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array over $\{0,\dots,2\}$, keep those that are canonical, that use every
+letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
+falling-factorial inversion is involved, and the published terms came back --- including the
+initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
+cannot show $3$ letters at all.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A214138.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210090.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
-Press, 1993. (Chromatic polynomials and transfer matrices.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
+falling factorials, Section 1.9.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

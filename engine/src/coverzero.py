@@ -43,10 +43,15 @@ def parse_name(nm):
     if not m:
         return None
     lo, hi = int(m.group(1)), int(m.group(2))
-    if lo != -hi or not 1 <= hi <= 5:
+    # These two bounds were what had been TRIED, not what the model can do: nothing in the
+    # construction below cares how large the alphabet or the subsequence length is, and the
+    # state-space cap in `build` is what decides cost. `transfer88` refused widths 8 and up on
+    # exactly such a bound and lost three entries by it. Widened; the cap still refuses what
+    # is genuinely too big.
+    if lo != -hi or not 1 <= hi <= 9:
         return None
     L = sorted({int(v) for v in re.findall(r'\d+', m.group(3))})
-    if not L or max(L) > 5 or min(L) < 1:
+    if not L or max(L) > 9 or min(L) < 1:
         return None
     return {'engine': 'coverzero', 'kind': 'cover', 'A': hi, 'L': tuple(L), 'frac': 1}
 

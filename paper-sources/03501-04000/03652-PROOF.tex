@@ -12,42 +12,42 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275187, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A275133, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275187 counts arrays in which no entry may equal the entries at a short list of fixed offsets
+OEIS A275133 counts arrays in which no entry may equal the entries at a short list of fixed offsets
 from it, the arrays being counted up to renaming the letters. The entry carries an empirical
 recurrence of order $9$ contributed by R.~H.~Hardin. It is true, and it is decidable
 rather than empirical. The condition tests only whether two cells are equal, so it survives
 renaming; the count of classes is recovered from counts over fixed alphabets by inverting a
 triangular system of falling factorials, and each of those is a walk count on a window of
-$1$ consecutive columns, $S=197$ states in all.
+$2$ consecutive columns, $S=247$ states in all.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A275187 is ``Number of 7 X n 0..2 arrays with no element equal to any value at offset (-2,-1) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A275133 is ``Number of 4 X n 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-32, 65, 389, 2386, 14643, 90793, 561044, 3472521,\ \dots
+4, 36, 129, 568, 2545, 11092, 48451, 212897,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-1) + 20*a(n-2) + 43*a(n-3) - 20*a(n-4) - 92*a(n-5) - 176*a(n-6) - 16*a(n-7) - 16*a(n-8) + 64*a(n-9) for n>10.
+Empirical: a(n) = a(n-1) + 8*a(n-2) + 22*a(n-3) + 36*a(n-4) + 7*a(n-5) - 48*a(n-6) - 4*a(n-7) + 15*a(n-8) - 18*a(n-9) for n>11.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 01 2019 11:55:28, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jan 31 2019 19:36:36, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 Entries lie in $\{0,1,\dots,2\}$ and the condition is that
 \[
-x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-1), (-1,0), (-1,1)\}
+x(i,j)\ \ne\ x(i+d_1,\,j+d_2)\qquad\text{for each offset }(d_1,d_2)\in\{(-2,-2), (-1,0), (-1,1)\}
 \]
 whenever the second cell lies inside the array. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time and an offset is read with its two coordinates exchanged. The closing clause ``new values
 introduced in order $0..2$'' says the array is the canonical representative of its equality
@@ -83,13 +83,13 @@ matrix of falling factorials.
 Equality is symmetric, so an offset and its negative forbid exactly the same pairs; replacing
 each offset by whichever of the two points BACKWARDS along the direction in which the array
 grows makes every pair tested once, from the later of its two cells. After that replacement no
-offset reaches more than $1$ columns back, so the window of the last $1$
+offset reaches more than $2$ columns back, so the window of the last $2$
 columns is a state and one step appends a column. A column not yet written is
 carried as a symbol, so the walk starts at the empty array and a walk of $t$ steps is an array
 of $t$ columns. Assembling $i=1,\dots,3$ as a disjoint union with $\iota$ carrying the
 weights cleared of denominators and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=197.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=247.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -114,15 +114,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 20\,a(n-2) + 43\,a(n-3) - 20\,a(n-4) - 92\,a(n-5) - 176\,a(n-6) - 16\,a(n-7) - 16\,a(n-8) + 64\,a(n-9)
+a(n)\;=\;a(n-1) + 8\,a(n-2) + 22\,a(n-3) + 36\,a(n-4) + 7\,a(n-5) - 48\,a(n-6) - 4\,a(n-7) + 15\,a(n-8) - 18\,a(n-9)
 \]
-for every $n>10$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $9$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
 until the working vector was identically zero. The rational weights are carried as one common
 denominator, so no division is performed until the final term.
 \end{proof}
@@ -131,7 +131,7 @@ denominator, so no division is performed until the final term.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -148,7 +148,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275187.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A275133.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling factorials,
 Section 1.9.)

@@ -12,141 +12,108 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235296, proved by transfer matrix}
+\title{A condition on the multiset of every subblock: OEIS A183588}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235296 counts $7$-column arrays over $\{0,\dots,3\}$ in which every
-$2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $3$, and it
-carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true,
-and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
-so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=16384$ vertices, which
-is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
-the residual is $\mathbf{1}^{\!\top}M^{\,n-10}q(M)\mathbf{1}$, so the recurrence
-holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
-of those values obeys the monic recurrence given by the characteristic polynomial of $M$,
-$S$ consecutive zeros settle every later one. The whole test is finite and exact.
+OEIS A183588 carries an empirical recurrence of order $11$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition on a subblock depends
+only on which values the block holds and how many times, not on where they sit, so it is
+decided by the few consecutive lines the block spans. The admissible windows are the vertices
+of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
+on $S=11$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
+is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
+work. The entry does not count the arrays themselves but $1/24$ of them, so every count below is divided by $24$.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A235296 is ``Number of (n+1) X (6+1) 0..3 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3 (constant-stress 1 X 1 tilings).''. It has offset
-$1$ and begins
+OEIS A183588 is ``1/24 the number of (n+1)X4 0..3 arrays with every 2X2 subblock containing exactly three distinct values.''. It has offset $1$ and begins
 \[
-5232, 6532, 8336, 12328, 18624, 32992, 58688,\ \dots
+520, 27380, 1427084, 74491726, 3887550226, 202888369698, 10588548225946, 552606468835138,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 3*a(n-1) +17*a(n-2) -57*a(n-3) -86*a(n-4) +372*a(n-5) +76*a(n-6) -972*a(n-7) +360*a(n-8) +864*a(n-9) -576*a(n-10).
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n)=51*a(n-1)+274*a(n-2)-10688*a(n-3)-31344*a(n-4)+590588*a(n-5)+1621408*a(n-6)-5825824*a(n-7)-7929216*a(n-8)+17443840*a(n-9)+6201344*a(n-10)-11993088*a(n-11)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 18 2022 23:38:46, revision 7) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Sep 16 2025 13:42:31, revision 10) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;3\,a(n-1) + 17\,a(n-2) - 57\,a(n-3) - 86\,a(n-4) + 372\,a(n-5) + 76\,a(n-6) - 972\,a(n-7) + 360\,a(n-8) + 864\,a(n-9) - 576\,a(n-10)
-\end{equation}
-for all $n>10$, which is every $n$ at which a recurrence of order $10$ can be
-stated.
+\section{The count is a walk count}
 
-\section{The rows form a digraph}
+The entry counts arrays with $4$ columns over the alphabet $\{0,1,2,3\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $3$ distinct values.
 
-In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+1})$ the
-diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
-condition on that subblock reads
+That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+
+The entry counts not the arrays themselves but $1/24$ of them, so every count below is divided by $24$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
+
+Merging vertices with identical futures leaves $S=11$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;3.
+a(n)\;=\;\tfrac{1}{24}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
-Every such condition involves two consecutive rows only.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-Let $V$ consist of all of $\{0,\dots,3\}^{7}$, and put $S=|V|=16384$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=3$ for every $j$ with
-$1\le j\le7-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
-the all-ones vector.
-
-\begin{lemma}\label{lem:walk}
-The arrays counted by the entry with $n+1$ rows are exactly the walks
-$r^{(0)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph, so
-$a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
-\end{lemma}
-
-\begin{proof}
-An array with $n+1$ rows and $7$ columns is a sequence $r^{(0)},\dots,r^{(n)}$ of
-rows. Each of its $2\times2$ subblocks lies in two vertically adjacent rows
-$r^{(i)},r^{(i+1)}$ and two horizontally adjacent columns $j,j+1$, so the array satisfies
-the entry's condition on all subblocks precisely when every consecutive pair of rows is an
-edge; and the row-internal condition, where present, is exactly membership of $V$. Summing
-the walk counts $\bigl(M^{n}\bigr)_{r,s}$ over all $r$ and $s$ gives
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$.
-\end{proof}
-
-\section{The criterion}
-
-Let $q(t)=t^{10}-\sum_i c_i t^{10-i}$ be the characteristic polynomial of
-\eqref{eq:conj}.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-For $n\ge10$,
-$a(n)-\sum_i c_i a(n-i)=\mathbf{1}^{\!\top}M^{\,n-10}q(M)\mathbf{1}$. Writing
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$, the recurrence therefore holds for every
-$n>t$ exactly when $u_j=0$ for every $j>t-10$. Moreover $(u_j)_{j\ge0}$ satisfies the
-monic linear recurrence whose characteristic polynomial is that of $M$, of degree $S$; so
-if $u_j$ vanishes for $S$ consecutive indices it vanishes for every larger index, and the
-last nonzero $u_j$ determines $t$ exactly.
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
-$a(n)-\sum_i c_i a(n-i)
-=\mathbf{1}^{\!\top}M^{\,n-10}\bigl(M^{10}-\sum_i c_i M^{10-i}\bigr)
-\mathbf{1}$, which is the identity. Putting $j=n-10$ gives the equivalence. For the
-last claim, let $\chi$ be the characteristic polynomial of $M$; by Cayley--Hamilton
-$\chi(M)=0$, so applying $\chi$ to the shift operator annihilates $(u_j)$, and $\chi$ is
-monic of degree $S$, which is exactly the statement that $S$ consecutive zeros propagate
-forward.
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>10$. This is the statement of
-Section~1.
+\[
+a(n)\;=\;51\,a(n-1) + 274\,a(n-2) - 10688\,a(n-3) - 31344\,a(n-4) + 590588\,a(n-5) + 1621408\,a(n-6) - 5825824\,a(n-7) - 7929216\,a(n-8) + 17443840\,a(n-9) + 6201344\,a(n-10) - 11993088\,a(n-11)
+\]
+for every $n>10$.
 \end{theorem}
 
 \begin{proof}
-The vector $q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $10$ matrix--vector
-products in exact integer arithmetic and the values $u_j$ evaluated for
-$j=0,1,\dots$. They vanish from $j=10-10+1$ onwards, and the run was continued past
-$S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger $j$. Hence the
-recurrence holds for every $n>10$.
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=10+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated condition and the walk counts
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $24$ published indices; the values agree exactly. That is what ties the digraph to
-the sequence: a model reproducing only some published terms would be the wrong model and
-was rejected wherever it occurred.
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one, forms each subblock directly and tests the entry's
+condition on it. That program shares no code with the transfer matrix, so an error in one does
+not hide an error in the other.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=16384$ consecutive
-zeros rather than to a sampled prefix, in exact integer arithmetic.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235296.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183588.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

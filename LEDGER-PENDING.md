@@ -1014,3 +1014,39 @@ that makes it true -- the same shape as defect 16, a paper reporting a date that
 an earlier text. The date now comes from `PAPER_DATE` with today's as the default, as
 `unibuild` has always done, and the sixteen PDFs were rebuilt and reinstalled through
 `papers-old-numbering/` rather than through the ranked copy (defect 14).
+
+## 14 September 2026 — the same question asked of every engine's refusal range
+
+`transfer88` refused widths 8 and up because its measurement stopped at 7. That is a kind of
+defect, not an incident, so the question was put to every engine at once: which of these
+bounds is a statement about the MODEL, and which is only a record of what had been tried?
+
+A state-space cap is the first kind — `(A+1)^k > 20000` is about the machine and is honest.
+A bare range — `1 <= hi <= 5`, `1 <= k <= 4`, `hi <= 9`, `cells <= 12` — is the second. Eleven
+of those were widened in a scratch copy and re-asked of all 399,027 names, counting only
+entries outside the roster whose conjecture is parsable and still open:
+
+    covwin 0   binwin 0   denumerant 0   circdigit 0   edgemark 0   boardwalk 0
+    arrlex 0   arrline 0   conn2 24 parsed, 0 with a conjecture
+    coverzero 6 parsed, 4 with an open conjecture
+    conn      16 parsed, 2 with an open conjecture
+
+**So nine of the eleven bounds are tight, and this is mostly a null.** Said plainly: the
+`transfer88` case was not the tip of anything. Two were not tight, and the six entries behind
+them are now proved and installed:
+
+    A193646 A193647 A193700 A193701   coverzero, alphabets -6..6 and -7..7 (the bound was 5)
+    A165374 A165382                   conn, slanted n X 5 arrays (the bound was 4)
+
+Neither widened bound weakens anything: in both engines the construction is indifferent to the
+size of the alphabet and the width, and the cost is decided by the state-space cap that sits
+beside the bound in the same line. The comment now says so, so the next person to read it does
+not have to re-derive the distinction.
+
+Roster: 12,893 -> 12,899 papers over 12,872 entries.
+
+Still open in the knight family, and worth saying plainly rather than leaving implied:
+A253117, A253339 and A253340 have parsable conjectures and are refused only at the state-space
+cap; A253118 and A253341 carry no conjecture at all, so there is nothing there to settle; and
+A253111, A253334 and A253416 are the diagonal `(n+2) X (n+2)` entries, whose board grows in
+both directions at once and which no transfer along one axis reads.
