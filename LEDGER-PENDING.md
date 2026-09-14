@@ -535,3 +535,52 @@ outright, and whose name an engine already reads, were not in it — 5 were. Nin
 found in this project, and they all hide the same way: the sweep runs, reports a small clean
 number, and is never asked about the rest. Pool rebuilt from the clone at 406;
 `cfpoolrun.sh` is in `restart_all.sh`.
+
+## 14 September 2026 — the closed-form pool, rebuilt
+
+**88 results**, every one `walk-closed-form`, from the 274 entries the stale pool had never
+been offered. Degrees run to 19 and the engines are the ones already here (transfer14 mostly,
+then transfer52, lexsub, …). All 88 re-checked against the live OEIS.
+
+The bug that had been hiding inside the sweep itself: `sweep_cf` sized its term list as
+`off + len(DATA) + order + 12`, from the number of terms the ENTRY publishes. The agreement
+test runs at `order` consecutive indices above the annihilation threshold, and the threshold is
+a property of the model, not of the entry. An entry with 17 published terms and a degree-30
+polynomial asked for index 131 of a list of 61; the IndexError was caught and recorded as
+"closed form evaluation failed", 13 times out of 36. The threshold is taken first now and the
+list sized from it.
+
+## 14 September 2026 — the Galebach certificate, decided rather than sampled
+
+No results yet; the part that was unsound is now sound, and it is not the part that blocks.
+
+`galcert` decided the two Bellman conditions by sampling three points per cone. Wrong twice:
+`_cone_points` could not tell whether its three points lay in the cone (it returned `None` and
+the cone was skipped in silence), and condition (c) is a **disjunction** — three points may
+each have a different predecessor while no single one serves the whole cone. It certified
+A310511, which diverges from its model at term 35.
+
+`galpoly.py` does exact integer region arithmetic in the plane: vertices, recession rays,
+emptiness, "affine ≥ 0 on a region", and subtraction of one region from another. Validated
+against brute force on 1,494 random regions, no false claim. Only lattice points matter, so a
+violated constraint is written `≤ -1` and there is no strict inequality in the file.
+
+`galcert2.py` uses it: the region where affine piece *i* is the maximum is a polyhedron, so (b)
+is an affine inequality on it, and (c) says that polyhedron is **covered** by the neighbours'
+equality regions — decided by subtracting them one at a time. Results:
+
+| | galcert | galcert2 |
+|---|---|---|
+| A310511 (diverges at term 35) | certifies | **refuses** |
+| A310102 (diverges at term 30) | refuses | refuses |
+| Gal.1.1.1 honeycomb | certifies | **certifies** |
+| Gal.1.2.1 | — | **certifies** |
+
+`galfit.py` is now the one place that turns (tiling, vertex) into planes and edges, and it
+makes a check `galhull` does not: the fit is made on the inner patch and **validated on the
+whole patch, rim included**. `galhull.pieces` reports "no leftovers" when its max reaches every
+point it was *given*, and its supports were only ever validated against those same points — at
+radius 110 one fit had no leftovers and still exceeded the true distance by one at 35 rim
+points. The rim check says so in half a second instead of leaving it to the certificate.
+
+What blocks the vein now is the FIT, not the certificate — and that is a better place to be.
