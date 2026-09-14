@@ -726,13 +726,37 @@ Computing terms is not proving the conjecture. Each of the 378 entries carries a
 recurrence conjectured by Chai Wah Wu (Dec 2018) and a g.f. whose denominator is of the shape
 (x-1)^2 (x^2+1)^2 ..., i.e. quasi-linear growth. The chain to a proof:
 
-1. **Certify the distance field.** The graph is periodic under a rank-2 lattice L. Claim:
-   d(v + lambda) = d(v) + c(lambda) for every v outside a bounded region, for each generator.
-   Verify with the two Bellman conditions exactly as `kdcert` does for the knight distance —
-   d(origin) = 0; d(w) <= d(v) + 1 on every edge; and every v != origin has a neighbour with
-   d(v) = d(neighbour) + 1. Periodicity makes finitely many vertices settle all of them. This
-   is the same device, on a rank-2 lattice instead of a strip, and it is the reason to do this
-   vein now rather than earlier: the device was built and validated this week.
+1. **Certify the distance field — and NOT the way this section first said.** The first
+   version of this plan said: claim d(v + lambda) = d(v) + c(lambda) outside a bounded region
+   and verify it with `kdcert`'s Bellman conditions. **That claim is false**, and it was worth
+   ten minutes to find out rather than a turn. Measured on the reconstructed graphs, the
+   difference d(v + lambda) - d(v) takes many values, not one:
+
+       Gal.1.1 (honeycomb)   -2, 0, +2
+       Gal.1.2 (4.8.8)       -3, -1, +1, +3
+       Gal.4.31              seventeen distinct values from -9 to +9
+
+   Of course it does. The knight strip had ONE unbounded direction, so a single translation
+   claim closed the induction. A tiling is unbounded in two, d is asymptotically a polyhedral
+   NORM, and the difference along a fixed lambda depends on which direction v lies in — it is
+   +|lambda| out one side and -|lambda| out the other. `kdcert` is the right IDEA and the
+   wrong CLAIM.
+
+   The true structure is piecewise affine: finitely many cones, and on each cone d is an
+   affine function of the lattice coordinates plus a periodic correction per vertex class.
+   The certificate is then the same two Bellman conditions checked REGION BY REGION — for
+   each cone and each edge type, d(w) <= d(v) + 1 and the witness condition become affine
+   inequalities in the lattice coordinates, each decided once for the whole cone. That is
+   finite and rigorous, and the work is in fitting the cones, which is the limit shape of the
+   graph metric.
+
+   Be aware of what this is: "coordination sequences of crystals are of quasi-polynomial
+   type" is a 2021 research theorem (Nakamura, Sakamoto, Mase, Nakagawa), not a lemma. The
+   route above is an independent finite certificate for each individual tiling, which is a
+   much easier thing than the general theorem — but it is still the largest single piece of
+   mathematics this project has attempted, and it should be started with that expectation
+   rather than as an afternoon's port of `kdcert`.
+
 2. **Count.** With d certified lattice-linear outside a finite region, {v : d(v) = n} is for
    large n a lattice-point count in a dilating rational polygon, so a(n) is an Ehrhart
    quasi-polynomial of degree 1 with a computable period. `latpoly` already does Ehrhart

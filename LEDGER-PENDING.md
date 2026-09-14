@@ -166,9 +166,27 @@ polynomial exactly (z^6 - 1)(z^7 - 1), period lcm(6,7) = 42. They agree.
 
 **Zero results are claimed from this.** Those p and n0 are MEASURED over 201 terms, which is
 the `transfer88` situation exactly: a finite check of an infinite claim is evidence, not a
-proof. What would make them theorems is the certificate — d(v + lambda) = d(v) + c(lambda)
-outside a bounded region, verified by the two Bellman conditions on a rank-2 lattice instead
-of a strip, with p and n0 falling out of the lattice rather than out of a scan. `kdcert` is
-the template and it was written and validated three days' work ago. Until that is done this
-vein has a validated graph, a pinned shape, and nothing to install — which is a good place to
-stop for the turn and a bad place to claim anything from.
+proof. What would make them theorems is a certificate, and the obvious one does not work. The first
+version of the plan — claim d(v + lambda) = d(v) + c(lambda) outside a bounded region and
+verify it the way `kdcert` verifies the knight distance — is **false**, and measuring it took
+ten minutes where believing it would have cost a turn:
+
+    Gal.1.1 (honeycomb)   d(v + lambda) - d(v) takes the values -2, 0, +2
+    Gal.1.2 (4.8.8)       -3, -1, +1, +3
+    Gal.4.31              seventeen distinct values from -9 to +9
+
+Of course it does. The knight strip had ONE unbounded direction, so a single translation claim
+closed the induction. A tiling is unbounded in two, d is asymptotically a polyhedral norm, and
+the difference along a fixed lambda is +|lambda| out one side and -|lambda| out the other.
+`kdcert` is the right idea and the wrong claim, and the handoff note that said otherwise has
+been corrected in IDEAS section U before it could cost anything.
+
+The true structure is piecewise affine over finitely many cones, with the same two Bellman
+conditions checked region by region — affine inequalities, each decided once per cone. That is
+finite and rigorous, and the work is fitting the cones, which is the limit shape of the graph
+metric. It is worth saying plainly that "coordination sequences of crystals are of
+quasi-polynomial type" is a 2021 research theorem and not a lemma; a per-tiling certificate is
+much easier than the general result, but this is still the largest piece of mathematics the
+project has taken on, and it should be started with that expectation.
+
+Until it is done this vein has a validated graph, a pinned shape, and nothing to install.
