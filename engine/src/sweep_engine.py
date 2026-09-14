@@ -18,6 +18,7 @@ import collections
 import json
 import os
 import re
+import resource
 import signal
 import sys
 
@@ -35,6 +36,20 @@ class Timeout(Exception):
 signal.signal(signal.SIGALRM, lambda *a: (_ for _ in ()).throw(Timeout()))
 BUDGET = int(os.environ.get('BUDGET', '600'))
 CAP = int(os.environ.get('CAP', '400000'))
+
+# A state-space cap is a promise about the number of STATES, and several engines allocate
+# toward it before they can count them -- `uniform.build` in particular. Twice today this
+# sweep was killed outright by the kernel at 13.9 GB, at the same entry both times, and a
+# process that dies takes its tally and its place in the list with it. An address-space limit
+# turns that into a MemoryError, which the per-entry `except Exception` below already treats
+# as "build failed": the entry is skipped and the sweep goes on. STATE.md records the same
+# kill happening to `sweep_shard` at the standing cap; this is the general guard for it.
+MEMGB = float(os.environ.get('MEMGB', '6'))
+try:
+    _lim = int(MEMGB * (1 << 30))
+    resource.setrlimit(resource.RLIMIT_AS, (_lim, _lim))
+except (ValueError, OSError):
+    pass
 P = ('/tmp/claude-0/-home-user-Conjectures/'
      'a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/')
 names = json.load(open(P + 'all_names.json'))

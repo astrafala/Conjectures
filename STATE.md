@@ -122,6 +122,18 @@ Recurring defects, all found this way:
     and restart them after.** Stop them by killing the runner shells in /tmp first, or they
     respawn their workers.
 
+22. **a sweep that is killed is not a sweep that found nothing.** `sweep_engine` died twice
+    at the same entry with no message and no tally: the kernel OOM-killed it at 13.9 GB,
+    because a state-space cap is a promise about the number of STATES and `uniform.build`
+    allocates toward it before it can count them. Three separate handoff notes said "there
+    are more results in these engines, the sweep was cut off by its own time limit" -- and
+    that was inferred from a truncated run, not measured. `sweep_engine` now sets
+    RLIMIT_AS (MEMGB, default 6), which turns the runaway into a MemoryError that the
+    per-entry handler already treats as "build failed", so the entry is skipped and the sweep
+    continues. On the first complete run the answer was a clean null. **When a long run ends
+    without its summary line, find out whether it was killed before believing anything about
+    what it did not find.**
+
 13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
     `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
     was left alone for another 219 papers. When a defect is found in one place, ask which

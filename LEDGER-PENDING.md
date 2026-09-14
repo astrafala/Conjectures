@@ -190,3 +190,30 @@ much easier than the general result, but this is still the largest piece of math
 project has taken on, and it should be started with that expectation.
 
 Until it is done this vein has a validated graph, a pinned shape, and nothing to install.
+
+## 14 September 2026 — the sweep that kept "running out of time" was being OOM-killed
+
+`sweep_engine` over transfer35/transfer23/transfer6/transfer21/transfer3 had been stopping
+without its summary line, at the same entry every time. Three handoff notes in a row recorded
+the same inference — "cut off by its own time limit, so there are more results in these
+engines" — and it was an inference, never a measurement.
+
+It was being killed by the kernel: `Memory cgroup out of memory: Killed process (python3)
+total-vm:14086164kB, anon-rss:13927820kB`. A state-space cap is a promise about the number of
+STATES, and `uniform.build` allocates toward it before it can count them, so one entry past
+A210331 takes 14 GB and the process dies with its tally and its place in the list.
+
+`sweep_engine` now sets `RLIMIT_AS` (`MEMGB`, default 6 GB) at start. That turns the runaway
+allocation into a `MemoryError`, which the per-entry `except Exception` already treats as
+"build failed" — the entry is skipped and the sweep goes on. Verified in isolation that the
+limit does raise a catchable `MemoryError` rather than killing the interpreter.
+
+**The first complete run of that sweep:**
+
+    788 asked: 682 no parsable recurrence, 88 state space > cap, 18 not open, 0 PROVED
+
+So those four engines are exhausted, and this is the first time that has actually been
+established rather than assumed. The three notes claiming more were left behind by a process
+that could not report its own death. STATE.md defect 22: **a sweep that is killed is not a
+sweep that found nothing** — when a long run ends without its summary line, find out whether
+it was killed before believing anything about what it did not find.
