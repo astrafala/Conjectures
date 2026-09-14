@@ -584,3 +584,17 @@ radius 110 one fit had no leftovers and still exceeded the true distance by one 
 points. The rim check says so in half a second instead of leaving it to the certificate.
 
 What blocks the vein now is the FIT, not the certificate — and that is a better place to be.
+
+## 14 September 2026 — running total for the day
+
+Roster **13,000 → 13,198 papers over 13,171 entries**, 157 arguments. 198 results, from four
+readers and no new argument:
+
+| | |
+|---:|---|
+| 3 | cusp-form dimensions, from splitting a line that carried three claims |
+| 5 | generating functions lost to an attribution in square brackets |
+| 47 | the recurrence or polynomial the entry defers to a linked a-file |
+| 143 | the closed-form pool, rebuilt from the clone after the hand-made one went stale |
+
+Every one re-checked against the live OEIS. The sweeps for the last two are still running.
