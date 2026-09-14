@@ -172,6 +172,29 @@ Recurring defects, all found this way:
     the same block, which is the same conjecture in another notation. **A premise may only be
     taken from `factlines.facts(e)`** — never from a word test on the line.
 
+23. **a claim the entry does not contain is still a claim.** 192 entries say only `Empirical
+    recurrence of order 42 (see link above)` and 36 say `Empirical polynomial of degree 26`;
+    the statement is in a linked a-file. Every reader here looks at the entry's own text, so
+    all 228 were refused with "no parsable recurrence" -- and every one has a name an engine
+    already reads. The local clone *does* carry those files, as **Git LFS pointers**: opening
+    one yields `version https://git-lfs.github.com/spec/v1` and looks like a file that simply
+    is not a recurrence. Fetched from oeis.org they parse with `ratrec.parse_rec` unchanged.
+    **When a refusal says a claim is unreadable, look at what the entry is pointing AT.**
+
+24. **a fit checked where it was fitted certifies nothing, and a certificate that samples
+    is not a certificate.** Three separate failures of the same shape, all in the Galebach
+    chain. `galhull` fits the distance on a patch and reports "no leftovers" when its max
+    reaches every point it was GIVEN -- and its supports were only validated against those
+    same points; at radius 110 one such fit exceeded the true distance by one at 35 rim
+    points. `galcert` then checked the whole-lattice conditions by sampling three points per
+    cone: it could not tell whether the three lay in the cone (it returned None and the cone
+    was skipped in silence), and condition (c) is a DISJUNCTION, which three points cannot
+    settle. It certified A310511, which diverges at term 35. And `gallat.lattice` accepted a
+    translation on the strength of signatures alone, in an embedding that was not the
+    caller's: on Gal.4.142 the vector it returned is not a symmetry at 140 of 700 inner
+    vertices. **Validate a fit on points it was not fitted on; decide a region condition on
+    the region, not on samples of it; and check that a claimed symmetry is one.**
+
 ## Where things stand
 
 * **12,624 papers installed** over 12,597 entries and 145 distinct arguments, as of the

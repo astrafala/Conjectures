@@ -1024,3 +1024,63 @@ So this is an HD0L system, not a substitution. Its length sequence is C-finite f
 need the theory rather than a transfer matrix assembled by inspection, and `morphlen` is left
 with `IN_SERVICE = False`. 66 entries, and the reading is done; whoever takes it needs the
 HD0L length theorem, not more state.
+
+## W. The refusal census, and what it says to do next (14 September, late)
+
+One pass over the whole clone, classifying every open entry outside the roster that states a
+conjecture by **which reader refuses it**:
+
+| count | |
+|---:|---|
+| 360,774 | no conjectural line |
+| 16,368 | neither name nor claim read |
+| 12,976 | on the roster |
+| 4,976 | not open |
+| 2,211 | **claim read, name NOT read** — an engine is missing |
+| 1,164 | both read — sweep territory |
+| 558 | **name read, claim NOT read** — a *reader* is missing |
+
+`engine/census_namereadable.json` and `engine/census_claimreadable.json` hold the two lists.
+
+### W.1 The 558 are cheap and are now being worked
+
+228 of them defer their conjecture to a linked a-file (`linkrec`, done — the files are in
+`afiles/`). 274 more state a closed form the `closedform` module reads outright and were
+simply not in the closed-form sweep's hand-made pool (`cfpool`, done). Between them they have
+paid 154 results today and the sweeps are still running. What is left of the 558 after those
+two is about 50 entries of miscellaneous shapes, several of them one-offs.
+
+### W.2 The 2,211 are 379 Galebach plus a long tail
+
+379 are `Coordination sequence Gal.u.t.v` — the single biggest family in the pool and the one
+worth real work. See §U and below. The next largest shape is 25 entries and then it is a tail
+of ones and twos: **there is no second Galebach.** Anything further in this bucket is one
+engine per few entries, which is the worst ratio in the project.
+
+### W.3 Where the Galebach chain actually stands
+
+The certificate is no longer the weak link. `galpoly` does exact integer region arithmetic in
+the plane and `galcert2` decides both Bellman conditions on regions rather than on samples;
+it refuses A310511 (which the old one certified and which diverges at term 35) and certifies
+Gal.1.1.1 and Gal.1.2.1 outright. `galfit` is the single place that builds planes and edges,
+and it validates the fit on the patch **rim**, which `galhull` never did.
+
+Two soundness bugs fell out of that, both recorded as defect 24: `gallat.lattice` was accepting
+a translation on signatures alone, and `galcoord` was computing the lattice in a *different
+embedding* from the patch it then used it on.
+
+What blocks the vein now is the **fit**:
+
+* `galhull.pieces` is cubic in the fallback and takes minutes per class at radius 70;
+* its plane count grows with the radius (15 at 34, 21 at 70) — a fit picking up the patch rim
+  rather than the tiling;
+* for many tilings the distance is genuinely **not** a max of affine pieces, and those are
+  honest refusals, not a gap to close.
+
+The measurement to make next is the simple one: over the 379, how many reach the certificate
+at all, and of those how many pass. `scratchpad/galscan.py` does exactly that and its shards
+write `galgood_*.json`. **Do not tune the fit before reading that.** If the answer is that
+most refuse at "distance is not a max of affine pieces", the fit is not the problem and the
+whole max-of-affines premise is — and then the model to reach for is a Bellman certificate
+whose D is piecewise affine on a *subdivision that is not convex*, which is a different and
+larger piece of work.
