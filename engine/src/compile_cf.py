@@ -1,8 +1,11 @@
 import json, os, subprocess
-jobs=[h['anum'] for h in json.load(open('cf_hits.json')) if not h.get('FAILS')]
+# A run on a different hits file must build into its own directory, or two pools write
+# their papers over each other under one name.
+PREFIX = os.environ.get('CFPREFIX', 'cf')
+jobs=[h['anum'] for h in json.load(open(os.environ.get('HITS', 'cf_hits.json'))) if not h.get('FAILS')]
 ok=bad=0
 for a in jobs:
-    dd=f"build/cf{a}"
+    dd=f"build/{PREFIX}{a}"
     if os.path.exists(f"{dd}/p.pdf") and os.path.getsize(f"{dd}/p.pdf")>50000: ok+=1; continue
     try:
         for _ in range(2):

@@ -76,8 +76,12 @@ for a in sorted(targets):
             # the entry states a DEGREE; if the fetched polynomial is not of that degree the
             # two are not the same statement and the pair is refused rather than reconciled
             if q and sympy.Poly(q[0], n).degree() == st[1]:
-                got = (q[0], q[1], ' '.join(ref.split()) + '  ||  ' +
-                       txt.strip().split('\n')[0])
+                # both the entry's own sentence and the line the link holds, and the
+                # linked line spaced at its signs: the a-files are written without spaces,
+                # and a degree-30 polynomial as one unbreakable word runs off the page
+                lk = re.sub(r'(?<=[\d)])\s*([+-])\s*(?=[\d(])', r' \1 ',
+                            txt.strip().split('\n')[0])
+                got = (q[0], q[1], ' '.join(ref.split()) + '\n\n' + lk)
     if not got:
         res['no readable closed form'] += 1; done.add(a); continue
     expr, claimed, line = got

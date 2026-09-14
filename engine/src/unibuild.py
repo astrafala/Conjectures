@@ -189,6 +189,10 @@ def build(h):
     mod, rev = e["modified"], e["revision"]
     conj = conj_line(a, h.get("coeffs"))
     coeffs = {int(k): int(v) for k, v in h["coeffs"].items()}
+    _q = esc(conj) if conj else '(the empirical recurrence quoted in the entry)'
+    # see cfbuild: a quoted order-95 recurrence is unbreakable and unhyphenatable
+    quoteblock = ('\\begin{quote}\\raggedright\\small\n' + _q + '\n\\end{quote}'
+                  if len(_q) > 400 else '\\begin{quote}\n' + _q + '\n\\end{quote}')
     win = WINDOW.get(h["engine"], "a bounded window of consecutive lines")
     objisawalk = OBJECT.get(h["engine"], DEFOBJ)
     # a name reading "1/16 the number of ..." counts a QUOTIENT, and the paper may not print
@@ -238,9 +242,7 @@ OEIS {a} is ``{esc(e['name'].strip())}''. It has offset ${off}$ and begins
 {", ".join(str(x) for x in d[:8])},\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{{quote}}
-{esc(conj) if conj else '(the empirical recurrence quoted in the entry)'}
-\end{{quote}}
+{quoteblock}
 As of the ``Last modified'' line on the live entry ({mod}, revision {rev}) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 

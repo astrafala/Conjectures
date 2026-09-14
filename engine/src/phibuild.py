@@ -65,6 +65,10 @@ PRE = r"""\documentclass[11pt,a4paper]{article}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 """
 
 

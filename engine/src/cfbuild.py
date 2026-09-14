@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """One paper per entry whose conjecture is an explicit closed form."""
 import os, json, re
+import re as _re
 import sympy
 import localentry as LE, phibuild, closedform as CF
 
@@ -52,7 +53,24 @@ def build(h):
     coeffs = {int(k): int(v) for k, v in h['coeffs'].items()}
     order, thr, first, off, S = h['order'], h['thr'], h['first'], h['offset'], h['S']
     mod, rev = e['modified'], e['revision']
+    # A hundred-term formula whose terms are thirty-digit numbers has no hyphenation points
+    # and no short lines; justified, it runs past the margin whatever the stretch. Set ragged
+    # right for a long quote and the overflow disappears.
+    _q = esc(h['line'])
+    quoteblock = ('\\begin{quote}\\raggedright\\small\n' + _q + '\n\\end{quote}'
+                  if len(_q) > 400 else '\\begin{quote}\n' + _q + '\n\\end{quote}')
     ftex = sympy.latex(expr)
+    # A degree-30 polynomial with thirty-digit rational coefficients is one display equation
+    # several pages wide, and a display cannot break. Split it at its own signs into a
+    # multline*, which can. Short closed forms are untouched.
+    if len(ftex) > 220:
+        parts = _re.split(r'\s(?=[+-]\s)', ftex)
+        per = max(1, 2)
+        rows = [' '.join(parts[k:k + per]) for k in range(0, len(parts), per)]
+        ftex_display = ('\\begin{multline*}\nf(n)\\;=\\;' +
+                        ' \\\\\n'.join(rows) + '.\n\\end{multline*}')
+    else:
+        ftex_display = '\\[\nf(n)\\;=\\;' + ftex + '.\n\\]'
     kinds = ("a polynomial in $n$" if list(mult) == [1] else
              "a sum of exponentials with polynomial coefficients")
     deg1 = "; the closed form is %s, so this is $(x-1)^{%d}$" % (kinds, order) \
@@ -100,14 +118,10 @@ OEIS {a} is ``{esc(e['name'].strip())}''. It has offset ${off}$ and begins
 {", ".join(str(x) for x in d[:8])},\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{{quote}}
-{esc(h['line'])}
-\end{{quote}}
+{quoteblock}
 As of the ``Last modified'' line on the live entry ({mod}, revision {rev}) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;{ftex}.
-\]
+{ftex_display}
 
 \section{{The count is a walk count}}
 
