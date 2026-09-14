@@ -293,3 +293,41 @@ that had been recorded as "model mismatch" were nothing of the kind once the cou
 exact.
 
 Roster unchanged. Nothing installed from this vein, which is the correct outcome.
+
+## 14 September 2026 — the growing-alphabet pool measured, and it is 96 per cent one refusal
+
+Having taken `galcoord` out of service twice, the question was whether this vein deserves
+another turn at all, so the alternatives were measured rather than guessed at.
+
+**The fixed-length growing-alphabet shape** (`0..n` or `-n..n` in the name), re-measured on the
+whole clone because IDEAS section L's figures date from before the roster grew by 350:
+
+    names of that shape                                  6,947
+    open, not in roster, with a parsable conjecture        282
+      of those, read by NO engine                          139
+      of those, read by an engine and still unproved       143
+
+The 139 unread are a **long tail**, not a cluster: the largest single name shape is 6 entries,
+then a run of 4s and 3s. IDEAS section L's "31 N-bead necklaces" is 6 once the open-and-parsable
+filter is applied. There is no parser here that pays for itself.
+
+The 143 that ARE read were asked one by one, and the answer is almost perfectly uniform:
+
+    state space > cap    124
+    PROVABLE               3
+    annihilation timed out 2
+
+    behind the cap refusals: latpoly 98, transfer22 16, ordpoly 10
+
+**96 per cent of them refuse at the cap in `latpoly`.** That is not a nested loop or an
+enumeration that could have been a construction — the alphabet grows with n, so the arrangement
+`latpoly` works over grows with it too. Defect 20's question ("is the build testing candidates
+it could have constructed?") has an answer here and the answer is no.
+
+The three that were provable are installed: **A248538** (latpoly), **A263594** and **A263751**
+(permdisp), all kept by the live re-check. Roster 12,979 -> 12,982.
+
+So the honest position on what is left in the pool: the coordination sequences are 378 entries
+behind a certificate that has now failed twice; the growing-alphabet block is 282 entries of
+which 124 are structurally past the cap and 139 are a fragmented tail. Neither is a vein with a
+cheap opening. That is worth knowing before another turn is spent looking for one.

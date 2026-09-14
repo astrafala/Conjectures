@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235730, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235511, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235730 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+OEIS A235511 counts arrays of width $3$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
 single number---here the largest entry plus the smallest---and requiring the resulting derived array to have its rows
-lexicographically nonincreasing and its columns lexicographically nondecreasing. The entry carries an
+lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=34$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=36$
 states.
 \end{abstract}
 
@@ -33,15 +33,15 @@ states.
 
 \section{The conjecture}
 
-OEIS A235730 is ``Number of (n+1)X(2+1) 0..1 arrays with the sum of each 2X2 subblock maximum and minimum lexicographically nondecreasing columnwise and nonincreasing rowwise.''. It has offset $1$ and begins
+OEIS A235511 is ``Number of (n+1)X(2+1) 0..1 arrays with the sum of each 2X2 subblock maximum and minimum lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
 \[
-58, 380, 2481, 15963, 102683, 659235, 4232565, 27168327,\ \dots
+58, 382, 2501, 16117, 103736, 666171, 4277473, 27457539,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -11*a(n-2) -56*a(n-3) +133*a(n-4) +13*a(n-5) -220*a(n-6) +73*a(n-7) +147*a(n-8) -64*a(n-9) -45*a(n-10) +19*a(n-11) +5*a(n-12) -2*a(n-13)
+Empirical: a(n) = 8*a(n-1) -2*a(n-2) -66*a(n-3) +70*a(n-4) +142*a(n-5) -152*a(n-6) -166*a(n-7) +114*a(n-8) +110*a(n-9) -22*a(n-10) -26*a(n-11) +a(n-12) +2*a(n-13)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:44:32, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:35:16, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -64,9 +64,9 @@ D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{p
 \]
 Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
 $u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
-rows of $D$, read left to right and compared in this order, are nonincreasing from top to bottom,
+rows of $D$, read left to right and compared in this order, are nondecreasing from top to bottom,
 \[
-D_{i}\;\succeq\;D_{i+1}\qquad\text{for every } i,
+D_{i}\;\preceq\;D_{i+1}\qquad\text{for every } i,
 \]
 and that the columns of $D$, read top to bottom and compared in the same order, are nondecreasing
 from left to right,
@@ -109,7 +109,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=34.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=36.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,7 +134,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - 11\,a(n-2) - 56\,a(n-3) + 133\,a(n-4) + 13\,a(n-5) - 220\,a(n-6) + 73\,a(n-7) + 147\,a(n-8) - 64\,a(n-9) - 45\,a(n-10) + 19\,a(n-11) + 5\,a(n-12) - 2\,a(n-13)
+a(n)\;=\;8\,a(n-1) - 2\,a(n-2) - 66\,a(n-3) + 70\,a(n-4) + 142\,a(n-5) - 152\,a(n-6) - 166\,a(n-7) + 114\,a(n-8) + 110\,a(n-9) - 22\,a(n-10) - 26\,a(n-11) + a(n-12) + 2\,a(n-13)
 \]
 for every $n>11$.
 \end{theorem}
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235730.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235511.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
