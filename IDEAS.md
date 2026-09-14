@@ -789,3 +789,52 @@ sat for weeks.
 Also worth recording: **6,070 OEIS entries** name a Galebach vertex, not 378. The 378 is what
 is in the pool — the rest are already in the roster or carry no parsable conjecture. If the
 certificate works, the reachable set is much larger than the cluster that pointed at it.
+
+### U.1 What the distance function actually looks like (measured, 14 September)
+
+`src/gallat.py` finds the translation lattice and splits a tiling into translation classes.
+Two things had to be right and one of them cost a false start:
+
+  * a translation is a symmetry when it carries every vertex to one with the same type AND the
+    same SET OF EDGE DIRECTIONS. Comparing the raw frame finds **zero** translations, because
+    the frame carried by `galtile` is finer than the tiling's own symmetry: a vertex figure
+    with a rotational symmetry (6^3 under 120 degrees) has several frames describing the same
+    vertex;
+  * lattice coordinates are solved exactly over Z^8 and then verified in every coordinate, so
+    an accidental agreement in one 2x2 minor cannot pass.
+
+    Gal.1.1 (honeycomb)  2 classes      Gal.1.11 (triangular)  1 class
+    Gal.1.2 (4.8.8)      4 classes      Gal.4.31  30 classes     Gal.4.34  25 classes
+
+With d written in lattice coordinates per class, its structure is:
+
+    d(m, n) = max_i ( alpha_i * m + beta_i * n + gamma_i )
+
+— a polyhedral norm, finitely many cones. **For the 1-uniform tilings this is EXACT, with no
+exceptional region at all**: Gal.1.1 and Gal.1.11 need 6 cones, Gal.1.2 needs 10, and the
+formula reproduces d at every one of the 1,786 / 2,107 / 1,588 interior points including the
+origin.
+
+For the k-uniform tilings it is exact except at a handful of points:
+
+    Gal.4.31   28 of 5,839 interior points     Gal.6.110   52 of 5,301
+    Gal.4.34  438 of 7,346
+
+and **every miss is in the same direction**: the fitted max is 1 too small (a few are 2), never
+too large. So the cones found are genuine and the fit is missing thin ones — cones occupying so
+few lattice points that a scan over gradients does not see them. Refining the classes by a
+sublattice makes it worse (each piece loses the points the fit needs), and lowering the
+gradient-count threshold barely helps, so the scan is the wrong instrument.
+
+**The right instrument is a lower convex hull.** If d is convex in (m, n) then the facets of
+the epigraph's lower hull ARE the affine pieces, all of them, thin ones included — a 3-D convex
+hull on the points (m, n, d) per class, which is exact integer arithmetic and needs no
+threshold. That is the next thing to write. Whether d is exactly convex is the question it will
+answer: if some point lies strictly above the hull, the deviation is bounded and becomes the
+exceptional region the certificate carries explicitly, exactly as `kdcert` carries heights
+below H0.
+
+Then the certificate is: for each ordered pair of classes joined by an edge, and each pair of
+cones, `d(w) <= d(v) + 1` and the witness condition are affine inequalities in (m, n), each
+decided once for the whole cone pair. Finite, exact, and the periods p and n0 fall out of the
+cone geometry rather than out of a scan over terms.
