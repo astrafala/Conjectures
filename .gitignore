@@ -130,9 +130,13 @@ engine/shardgal_hits_*.json
 engine/shardgal_done_*.json
 engine/shardgal2_hits_*.json
 engine/shardgal2_done_*.json
-engine/linkreccap_hits_*.json
-engine/linkreccap_done_*.json
-engine/linkreccap_why*.json
+# sweep_linkrec's TAG goes after the stem, so a TAG=cap run writes linkrec_hitscap_0.json
+# and linkrec_donecap_0.json -- NOT linkreccap_hits_0.json, which is what was ignored first
+# and matched nothing. Note that merge_sharded's 'linkrec' stem globs linkrec_hits_*.json and
+# so does NOT pick these up: a high-cap run's hits are merged deliberately, not by default.
+engine/linkrec_hits[a-z]*_*.json
+engine/linkrec_done[a-z]*_*.json
+engine/linkrec_why[a-z]*_*.json
 engine/linkrec_whyent*.json
 engine/degree_hits_*.json
 engine/degree_done_*.json
