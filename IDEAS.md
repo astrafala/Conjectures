@@ -741,6 +741,27 @@ recurrence conjectured by Chai Wah Wu (Dec 2018) and a g.f. whose denominator is
 3. **Compare** the resulting exact annihilator with the conjectured recurrence, as every other
    engine does.
 
-Step 1 is the interesting one and is where to start. Step 2 has a shortcut worth trying first:
-if the certified field gives a(n+p) = a(n) + c directly for the counts, the annihilator is
-(z-1)(z^p-1) and no Ehrhart argument is needed at all.
+Step 1 is the interesting one and is where to start.
+
+**Step 2 is simpler than feared, and the shape is now pinned.** The counts are eventually
+QUASI-LINEAR with a period: measured over 201 terms,
+
+    A310007  Gal.4.31.1   a(n+2p) - 2a(n+p) + a(n) = 0 for n >= 3   with p = 8
+    A310025  Gal.4.31.2   the same, p = 8, from n = 3
+    A310018  Gal.4.34.1   the same, p = 42, from n = 11
+
+and A310018's conjectured recurrence is a(n) = a(n-6) + a(n-7) - a(n-13), whose characteristic
+polynomial is exactly (z^6 - 1)(z^7 - 1) — period lcm(6,7) = 42. The two agree. So the
+annihilator to derive is (z^p - 1)^2, no Ehrhart machinery is needed, and the whole problem
+reduces to producing p and n0 FROM THE CERTIFICATE rather than from a scan.
+
+**Those (p, n0) above are MEASURED, not proved — that is precisely the `transfer88` situation
+and must not be shipped as it stands.** What makes them theorems is step 1: certify
+d(v + lambda) = d(v) + c(lambda) outside a bounded region by the Bellman conditions, and p
+and n0 fall out of the lattice and the region. Until that is written, this vein has a
+validated graph and a pinned shape and zero results, which is exactly where `transfer88`
+sat for weeks.
+
+Also worth recording: **6,070 OEIS entries** name a Galebach vertex, not 378. The 378 is what
+is in the pool — the rest are already in the roster or carry no parsable conjecture. If the
+certificate works, the reachable set is much larger than the cluster that pointed at it.

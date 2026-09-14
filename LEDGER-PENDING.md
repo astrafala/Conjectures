@@ -127,3 +127,48 @@ A number worth writing down while restarting the standing sweeps: `restart_all.s
 and are the project's background discovery, but it is the reason a foreground measurement taken
 alongside them means nothing, and it is worth someone deciding deliberately whether
 seventeen-fold oversubscription is the right setting rather than inheriting it.
+
+## 14 September 2026 — the coordination sequences: the graphs are rebuilt, and nothing is proved yet
+
+The single biggest cluster in the pool is 378 entries reading "Coordination sequence Gal.u.t.v
+where Gal.u.t.v denotes the coordination sequence for a vertex of type v in tiling number t in
+the Galebach list of u-uniform tilings". Nothing had ever been attempted on them, for the good
+reason that the tilings were missing: the local oeisdata mirror keeps the auxiliary file
+`a250120.html` only as a git-LFS pointer, 132 bytes of metadata.
+
+Fetched from oeis.org, it turns out to carry all 1,248 tilings in a notation that determines
+each one completely — `Gal.1.1.1: A: 6^3; A 60; A 60; A 60`, meaning vertex type A sits in a
+6.6.6 corner and along each of its three edges one reaches a type-A vertex whose frame is
+rotated 60 degrees, a primed angle meaning the neighbour's frame is also reflected.
+
+`src/galtile.py` turns that into a graph with no geometry input. The configuration fixes the
+angles between a vertex's own edges (between edge j and edge j+1 sits a regular q-gon
+contributing 180 - 360/q); the notation fixes each neighbour's frame; edges are unit length.
+Only multiples of 15 degrees occur, so a position is a Z-combination of 24th roots of unity,
+and working in Z[zeta_24] = Z^8 modulo x^8 - x^4 + 1 makes vertex identity EXACT. That is not
+fastidiousness. A coordination sequence counts vertices at a distance; a floating-point
+near-miss would merge or split vertices and give a plausible wrong answer that matched the
+first several terms.
+
+**Validated on the file's own answer key: 6,536 of 6,536 coordination sequences reproduced
+exactly, 0 mismatches, 0 errors, 71 seconds.** And 6,070 OEIS entries name a Galebach vertex,
+not 378 — the 378 is only what sits in the pool.
+
+The shape of the answer is now pinned too. The counts are eventually quasi-linear with a
+period, so the annihilator is (z^p - 1)^2 and no Ehrhart argument is needed:
+
+    A310007  Gal.4.31.1   a(n+2p) - 2a(n+p) + a(n) = 0 from n = 3,   p = 8
+    A310025  Gal.4.31.2   the same, p = 8 from n = 3
+    A310018  Gal.4.34.1   the same, p = 42 from n = 11
+
+and A310018's conjectured recurrence a(n) = a(n-6) + a(n-7) - a(n-13) has characteristic
+polynomial exactly (z^6 - 1)(z^7 - 1), period lcm(6,7) = 42. They agree.
+
+**Zero results are claimed from this.** Those p and n0 are MEASURED over 201 terms, which is
+the `transfer88` situation exactly: a finite check of an infinite claim is evidence, not a
+proof. What would make them theorems is the certificate — d(v + lambda) = d(v) + c(lambda)
+outside a bounded region, verified by the two Bellman conditions on a rank-2 lattice instead
+of a strip, with p and n0 falling out of the lattice rather than out of a scan. `kdcert` is
+the template and it was written and validated three days' work ago. Until that is done this
+vein has a validated graph, a pinned shape, and nothing to install — which is a good place to
+stop for the turn and a bad place to claim anything from.
