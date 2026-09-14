@@ -720,3 +720,45 @@ generating function is checked against the entry's own terms *before* it is allo
 premise of a proof. Without that check the sweep would have proved a recurrence from a false
 premise and never known. `algf` now prefers the name's expression when the formula section has
 none, for the same reason.
+
+## 14 September 2026 — the telescoping machinery was run once in August and never given a runner
+
+`zeil_run`, `zeilb_run` and `hyp_run` implement creative telescoping with the boundary
+correction, Ore right-division, and the hypergeometric-value conversion. They have produced
+11 installed results. Their result files are dated **29–30 August** and there is no runner for
+any of them in `restart_all.sh`: the machinery was run once, by hand, and nothing has asked it
+anything in over two weeks.
+
+Reading what those August runs refused, across 761 recorded verdicts:
+
+| | |
+|---:|---|
+| 542 | no usable hypergeometric sum formula |
+| 65 | summand does not vanish outside the stated range |
+| 28 | boundary correction not computable for this range |
+| 21 | **PROVED** |
+| 19 | no telescoper found up to the order tried |
+| 19 | **skipped: the conjecture line would not parse** |
+| 16 | timeout |
+
+The 19 parse skips are **stale**. Every one reads `Conjectured to be D-finite with
+recurrence: ...` or `Conjecture: D-finite with recurrence ...`, and `prove_rec.parse_conj`
+handles all of them today — it was fixed at some point after that run and nobody re-asked.
+`zeilbrun.sh` is now in `restart_all.sh`, writing shards 3–5 so `harvest.py`'s existing
+`zeilb-[0-9].json` glob picks the results up and the August files' own done sets do not
+suppress the re-ask. 309 candidates.
+
+### Three results held back for the right reason
+
+The August runs proved 14 distinct entries; 11 are installed and **3 are not** — A010845,
+A160906, A183204. Each looked like a free result sitting uninstalled, which is the shape of
+the gfonly vein that had 241 results held and invisible. They are not. All three are flagged
+**not open**, and the entries themselves say why:
+
+* A010845 — "Mathar's recurrence above follows easily from this" (an e.g.f. differential equation);
+* A160906 — "R. J. Mathar's conjecture verified using differential equation …";
+* A183204 — "The conjectured D-finite recurrence can be proved by Zeilberger's algorithm."
+
+Someone else settled each of them on the entry. Verified by hand that the summand reproduces
+every published term and the recurrence holds on the data — the mathematics is fine; the
+conjectures are simply not open, so they are not results. `openness` did its job.

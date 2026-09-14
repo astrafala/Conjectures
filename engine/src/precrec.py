@@ -26,7 +26,7 @@ SHIFT = re.compile(r'a\(\s*n\s*([-+])\s*(\d+)\s*\)')
 PLAIN = re.compile(r'a\(\s*n\s*\)')
 # `[^:]*` here ate the whole line when there was no colon at all -- "Conjecture D-finite with
 # recurrence n*a(n) + ... = 0." has none, and the marker stripper removed the recurrence with it
-MARK = re.compile(r'^\s*(?:Conjecture[ds]?|Empirical)\s*:?\s*', re.I)
+MARK = re.compile(r'^\s*(?:Conjectur\w*(?:\s+to\s+be)?|Empirical)\s*:?\s*', re.I)
 DFIN = re.compile(r'^\s*D-?finite\s+with\s+recurrence\s*:?\s*', re.I)
 ATTR = re.compile(r'\s*[-—]\s*_[^_]+_,.*$')
 
@@ -80,9 +80,15 @@ def read(line, maxorder=40):
     loc = {'n': n}
     loc.update({f'_A{i}': v for i, v in syms.items()})
     try:
-        e = sp.expand(sp.sympify(s, locals=loc))
+        e = sp.sympify(s, locals=loc)
     except Exception:
         return None
+    # A range qualifier the stripper did not catch leaves a comparison in the string, and
+    # sympify then returns a RELATIONAL -- StrictGreaterThan has no .coeff and the caller
+    # dies on it rather than being told the line is unreadable.
+    if not isinstance(e, sp.Expr) or e.is_Relational:
+        return None
+    e = sp.expand(e)
     r = max(syms)
     ps = []
     for i in range(r + 1):
