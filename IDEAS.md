@@ -1127,3 +1127,37 @@ Two shapes worth trying, in order:
 
 Do not spend on the fit before (1)'s scan, which is an afternoon and settles whether the
 correction is lattice-periodic at all.
+
+### X.1 The rim refusals were the FIT'S FAULT, not the tiling's (same evening)
+
+`galhull.scan` takes `C = min(d - A*m - B*n)` over the points it is **given**, so every plane
+it returns is a support at those points and only those. `galfit` was handing it the inner
+patch (`d <= R - 6`) and then checking the rim — where a plane fitted inside can of course
+exceed `d`. That is what 72 of 98 entries were refusing on, and it is a statement about which
+points the fit had been shown, not about the tiling. Given the WHOLE patch:
+
+| entry | inner fit | full-patch fit |
+|---|---|---|
+| A310031 Gal.5.39.1 | 319 planes, 0 leftovers, rim fails | 341 planes, **0 leftovers**, exact |
+| A310027 Gal.5.41.2 | 680 planes, 0 leftovers, rim fails | 662 planes, **0 leftovers**, exact |
+| A310007 Gal.4.31.1 | 12 leftovers | 12 leftovers (genuine non-convexity) |
+
+`galfit` now fits on the whole patch. Whether the planes are right OUTSIDE the patch is not
+decided there and must not be — that is `galcert2`'s job, and it still refuses both of the
+above: the failure point moves outward with the radius ((4,4) at 60, (5,5) at 80), which is
+the signature of a facet whose region lies beyond the patch and that no bounded patch can see.
+
+So the premise is in better shape than §X said and the obstacle has moved: it is not that `d`
+fails to be a max of affine pieces, it is that **enumerating the facets from a bounded patch
+does not converge**. The thing to try is to get the facet GRADIENTS from the asymptotic shape
+(the limit of `d(t·u)/t` over directions `u`, which a modest patch pins down) and only then
+fit the constants, rather than discovering gradients from local differences.
+
+### X.2 The correction is not lattice-periodic — shape (1) is dead
+
+Measured on Gal.5.39.1: the excess `max - d` is 0 at 3,632 of 3,664 patch points, and the 32
+exceptions do **not** become constant on residue classes under any refinement tried — at
+modulus (6,6), 32 of 648 classes still carry more than one value, i.e. refining never separates
+a bad point from a good one. The exceptional points also sit on the rim at every radius
+(max |m| = 5, 8, 11 at R = 30, 50, 70) rather than in a fixed finite region, so they cannot be
+tabulated the way `kdcert` tabulates the boards below H0 either.

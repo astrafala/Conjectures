@@ -76,17 +76,22 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
 
     planes = []
     for lst in cells:
-        inner = [(m, n, d) for m, n, d in lst if d <= radius - margin]
-        if len(inner) < minpts:
+        if len(lst) < minpts:
             return None, 'a class has too few patch points'
-        pl, left = galhull.pieces(inner)
+        # Fitted on the WHOLE patch, not on the inside of it. `galhull.scan` takes
+        # C = min(d - A*m - B*n) over the points it is GIVEN, so every plane it returns is a
+        # support at those points and only those; fitting on d <= R - margin and then looking
+        # at the rim found the fit exceeding the true distance on 72 of 98 entries. That was a
+        # statement about which points the fit had been shown, not about the tiling: given the
+        # whole patch the same two tilings fit with no leftovers at all. Whether the planes are
+        # right OUTSIDE the patch is not decided here and must not be -- `galcert2` decides it.
+        pl, left = galhull.pieces(lst)
         if left:
             return None, 'distance is not a max of affine pieces'
         P = [(int(A), int(B), int(C)) for A, B, C in pl]
-        # validated on the WHOLE patch, rim included -- see the module docstring
         for (m, n, d) in lst:
             if max(A * m + B * n + C for A, B, C in P) != d:
-                return None, 'the fit fails on the patch rim'
+                return None, 'the fit fails on the patch'
         planes.append(P)
 
     def cls_of(q, nl, nr, nf):
