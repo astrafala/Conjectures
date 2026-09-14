@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The Gauss congruences for OEIS A158690,\\ for the sequence and all of its shifts}
+\title{The Gauss congruences for OEIS A079144,\\ for the sequence and all of its shifts}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A158690 carries a conjecture of P.~Bala that for every shift $i\ge0$ the sequence
+OEIS A079144 carries a conjecture of P.~Bala that for every shift $i\ge0$ the sequence
 $a_i(n)=a(n+i)$ satisfies the Gauss congruences
 $a_i(np^{r})\equiv a_i(np^{r-1})\pmod{p^{r}}$ for every prime $p$ and all $n,r\ge1$.
 It is true. Under the substitution $t=e^{x}-1$ the entry's own exponential generating
@@ -34,28 +34,28 @@ $x^{p^{r}}\equiv x^{p^{r-1}}\pmod{p^{r}}$ for every integer $x$, applied to $x=m
 
 \section{The sequence and the conjecture}
 
-OEIS A158690 is ``Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + (1 - exp(-t))*(1 - exp(-3*t))*(1 - exp(-5*t)) + ... as a series in t.''. It has offset $0$ and begins
+OEIS A079144 is ``Number of labeled interval orders on n elements: (2+2)-free posets.''. It has offset $0$ and begins
 \[
-1, 1, 5, 55, 1073, 32671, 1431665,\ \dots
+1, 1, 3, 19, 207, 3451, 81663,\ \dots
 \]
 The entry states, not as a conjecture,
 \begin{quote}\small
-Expansion of the basic hypergeometric series 1 + (1 - exp(-t)) + (1 - exp(-t))*(1 - exp(-3*t)) + ...
+a(n) = Sum\_{k=0..n} k!*Stirling2(n,k)*A138265(k).
 \end{quote}
 that is, writing $A(x)=\sum_{n\ge0}a(n)x^{n}/n!$,
 \begin{equation}\label{eq:egf}
-A(x)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-e^{-(2k-1)x}\Bigr).
+A(x)\;=\;\sum_{k\ge 0} k!\,S(n,k)\,b(k),\quad b=\text{A138265}.
 \end{equation}
 This is the only input taken from the entry, and it was checked against every one of the
-$15$ terms of the entry's DATA section before use, not against a sample.
+$17$ terms of the entry's DATA section before use, not against a sample.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-2) Let i >= 0 and define a\_i(n) = a(n+i). Then for each i the Gauss congruences a\_i(n*p\^{}k) == a\_i(n*p\^{}(k-1)) ( mod p\^{}k ) hold for all prime p and positive integers n and k. --- \emph{Peter Bala}, Dec 18 2021
+2) Let i >= 0 and define a\_i(n) = a(n+i). Then for each i the Gauss congruences a\_i(n*p\^{}k) == a\_i(n*p\^{}(k-1)) ( mod p\^{}k ) hold for all prime p and positive integers n and k. If true, then for each i the expansion of exp( Sum\_{n >= 1} a\_i(n)*x\^{}n/n ) has integer coefficients. --- \emph{Peter Bala}, Dec 26 2021
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 05 2022 13:53:39, revision
-46) the statement is still recorded as a conjecture, and nothing on the entry
-records it as settled either way. The entry carries a second conjecture of the same contributor, on the period of the sequence modulo $k$; it is not the statement treated here.
+As of the ``Last modified'' line on the live entry (May 30 2026 16:40:09, revision
+71) the statement is still recorded as a conjecture, and nothing on the entry
+records it as settled either way. The entry carries a second conjecture of the same contributor, on the period of the sequence modulo $k$, and a third, on a continued fraction for the ordinary generating function; the latter is recorded on the entry as proved. Neither is the statement treated here.
 
 Written out, the conjecture asserts: for every integer $i\ge0$, every prime $p$ and all
 integers $n,r\ge1$,
@@ -67,11 +67,11 @@ a\bigl(np^{r}+i\bigr)\;\equiv\;a\bigl(np^{r-1}+i\bigr)\pmod{p^{r}} .
 
 Set $t=e^{x}-1$, so $e^{x}=1+t$. Substituting into \eqref{eq:egf},
 \[
-e^{-(2k-1)x}=(1+t)^{-(2k-1)},
+e^{x}-1=t,
 \]
 so that
 \begin{equation}\label{eq:G}
-A(x)\;=\;G\bigl(e^{x}-1\bigr),\qquad G(t)\;=\;\sum_{n\ge 0}\ \prod_{k=1}^{n}\Bigl(1-(1+t)^{-(2k-1)}\Bigr).
+A(x)\;=\;G\bigl(e^{x}-1\bigr),\qquad G(t)\;=\;\sum_{k\ge 0} b(k)\,t^{k},\qquad b=\text{A138265}.
 \end{equation}
 
 \begin{lemma}\label{lem:int}
@@ -79,12 +79,12 @@ $G$ is a power series in $t$ with integer coefficients.
 \end{lemma}
 
 \begin{proof}
-$G$ is each factor $1-(1+t)^{-(2k-1)}$ is an integer series with zero constant term, so the $n$-th product is divisible by $t^{n}$ and only finitely many terms of the sum affect any one coefficient.
+$G$ is a power series whose coefficients are the terms of the integer sequence A138265.
 \end{proof}
 
-Write $G(t)=\sum_{j\ge0}c_j t^{j}$ with $c_j\in\mathbb{Z}$; here $c_j = 1, 1, 5, 23, 137, \dots$, and
+Write $G(t)=\sum_{j\ge0}c_j t^{j}$ with $c_j\in\mathbb{Z}$; here $c_k=b(k)$, the terms of A138265, and
 \[
-c_0,\dots,c_6\;=\;1, 1, 2, 7, 33, 197, 1419.
+c_0,\dots,c_6\;=\;1, 1, 1, 2, 5, 16, 61.
 \]
 
 \section{Every shift stays in the same family}
@@ -164,7 +164,7 @@ $x^{p^{r}}\equiv x^{p^{r-1}}\pmod{p^{r}}$.
 \end{proof}
 
 \begin{theorem}\label{thm:main}
-Let $a(n)$ be OEIS A158690 and $a_i(n)=a(n+i)$. For every $i\ge0$, every prime $p$ and all
+Let $a(n)$ be OEIS A079144 and $a_i(n)=a(n+i)$. For every $i\ge0$, every prime $p$ and all
 integers $n,r\ge1$,
 \[
 a_i\bigl(np^{r}\bigr)\;\equiv\;a_i\bigl(np^{r-1}\bigr)\pmod{p^{r}} .
@@ -204,7 +204,7 @@ supplies the hypothesis for $b=a_i$.
 Three checks, each independent of the algebra above.
 
 First, the series $G$ of \eqref{eq:G} was expanded and $\sum_j c_j\,j!\,S(n,j)$ compared
-against the entry's DATA at every one of the $15$ published indices; the values
+against the entry's DATA at every one of the $17$ published indices; the values
 agree exactly, and every $c_j$ came out an integer. A series that reproduced only some of
 the published terms would not have been used.
 
@@ -219,7 +219,7 @@ identity $\sum_n a(n+i)x^{n}/n! = (D^{i}G)(e^{x}-1)$ checked coefficientwise.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A158690.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A079144.
 \bibitem{zarelua} A.~V.~Zarelua, On congruences for the traces of powers of some
 matrices, \emph{Proc. Steklov Inst. Math.} \textbf{263} (2008), 78--98.
 \bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.

@@ -12,90 +12,55 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183716, proved by transfer matrix}
+\title{A condition on the multiset of every subblock: OEIS A184203}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183716 counts arrays of width $7$ over $\{0,1,2,3,4\}$ subject to a condition read round the
-perimeter of every $2\times2$ subblock: every subblock turns strictly one way with a single decrease. The entry carries an empirical recurrence of
-order $35$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: the condition is settled inside a bounded window of consecutive rows, so the
-count is a walk count on a finite digraph with $S=78126$ vertices, and whether a linear
-recurrence holds for such a count is a finite computation.
+OEIS A184203 carries an empirical recurrence of order $36$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition on a subblock depends
+only on which values the block holds and how many times, not on where they sit, so it is
+decided by the few consecutive lines the block spans. The admissible windows are the vertices
+of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
+on $S=36$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
+is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
+work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A183716 is ``1/20 of the number of (n+1) X 7 0..4 arrays with every 2 X 2 subblock strictly increasing clockwise or counterclockwise with one decrease.''. It has offset $1$ and begins
+OEIS A184203 is ``Number of (n+1) X 6 binary arrays with no 2 X 2 subblock containing fewer than two 1's.''. It has offset $1$ and begins
 \[
-169, 1797, 16964, 169560, 1683197, 16823812, 168070828, 1680902120,\ \dots
+1049, 29593, 721939, 18588589, 471487297, 12021784217, 306055720601, 7795714368919,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=12*a(n-1)+41*a(n-2)-731*a(n-3)-236*a(n-4)+17377*a(n-5)-11599*a(n-6)-210068*a(n-7)+239143*a(n-8)+1435333*a(n-9)-2045028*a(n-10)-5829087*a(n-11)+9632462*a(n-12)+14361840*a(n-13)-27309714*a(n-14)-21401634*a(n-15)+48701640*a(n-16)+18436650*a(n-17)-56085498*a(n-18)-7403128*a(n-19)+42308694*a(n-20)-1027934*a(n-21)-20976128*a(n-22)+2642614*a(n-23)+6772235*a(n-24)-1305140*a(n-25)-1387863*a(n-26)+326941*a(n-27)+171884*a(n-28)-44771*a(n-29)-11807*a(n-30)+3188*a(n-31)+387*a(n-32)-103*a(n-33)-4*a(n-34)+a(n-35).
+Empirical: a(n) = 26*a(n-1)+103*a(n-2)-3175*a(n-3)+843*a(n-4)+124668*a(n-5)-241004*a(n-6)-1741528*a(n-7)+4512428*a(n-8)+11666399*a(n-9)-36429185*a(n-10)-41916935*a(n-11)+161955426*a(n-12)+79119202*a(n-13)-435611222*a(n-14)-51541960*a(n-15)+738522868*a(n-16)-83869087*a(n-17)-800207178*a(n-18)+216307031*a(n-19)+552396475*a(n-20)-212199576*a(n-21)-239220431*a(n-22)+114209818*a(n-23)+63085385*a(n-24)-36259721*a(n-25)-9488703*a(n-26)+6873528*a(n-27)+671231*a(n-28)-762566*a(n-29)+22*a(n-30)+47026*a(n-31)-2787*a(n-32)-1453*a(n-33)+139*a(n-34)+17*a(n-35)-2*a(n-36).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2015 21:59:20, revision 6) this is still
+As of the ``Last modified'' line on the live entry (May 08 2022 22:55:20, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The arrays have $7$ columns and a growing number of rows, with entries in $\{0,1,2,3,4\}$. A
-$2\times2$ subblock is a set of four cells
+The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that every $2\times2$ subblock holds at least $2$ entries equal to $1$.
+
+That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
+
+Merging vertices with identical futures leaves $S=36$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
-\qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-Its perimeter is a cycle of four cells, walked clockwise as $p\to q\to s\to r\to p$ and
-counterclockwise as $p\to r\to s\to q\to p$. Write
-\[
-\mathrm{cw}(B)=[p<q]+[q<s]+[s<r]+[r<p],\qquad
-\mathrm{ccw}(B)=[p<r]+[r<s]+[s<q]+[q<p]
-\]
-for the number of steps at which the value rises, going each way round.
-
-\begin{lemma}\label{lem:sum}
-$\mathrm{cw}(B)+\mathrm{ccw}(B)=4-\#\{\text{edges of the cycle with equal ends}\}$.
-\end{lemma}
-
-\begin{proof}
-Each of the four edges of the square is walked once by each cycle, and in opposite directions.
-An edge with distinct ends therefore contributes exactly one rise, to one of the two counts;
-an edge with equal ends contributes to neither.
-\end{proof}
-
-The condition the entry imposes is this: every subblock $B$ has its four corners pairwise unequal along the cycle ($p\ne q$, $q\ne s$, $s\ne r$, $r\ne p$) and
-\[
-\mathrm{cw}(B)\in\{1,3\}.
-\]
-Going round clockwise there are then four strict steps, of which either three rise and one falls ($\mathrm{cw}(B)=3$: strictly increasing clockwise with one decrease) or one rises and three fall ($\mathrm{cw}(B)=1$, which is the same statement read counterclockwise). Call the subblock \emph{clockwise} in the first case and \emph{counterclockwise} in the second; this is its increasing direction. The entry publishes $1/20$ of that count; the division is by the constant 20 and changes nothing about the recurrence.
-
-\section{A bounded window}
-
-Two consecutive rows decide every subblock lying between them, and the condition of Section 2 is a condition on single subblocks only. So the state is the row just written, and nothing else.
-
-One step of the walk writes a whole row. The row is filled left to right, and the subblock
-closed by positions $j-1,j$ is tested the moment position $j$ is written, so a partial row that
-cannot be completed is abandoned rather than enumerated. The walk starts at the state standing
-for the empty array, so that a walk of $n$ steps is an array of $n$ rows.
-
-The end vector is all ones: an array may stop after any row. Thus
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=78126,
-\]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite, and every question about linear recurrences it satisfies is
-decidable.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{35}-\sum_i c_it^{35-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{36}-\sum_i c_it^{36-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -103,22 +68,23 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+35}-\sum_ic_iM^{j+35-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+36}-\sum_ic_iM^{j+36-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
+changes nothing here.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;12\,a(n-1) + 41\,a(n-2) - 731\,a(n-3) - 236\,a(n-4) + 17377\,a(n-5) - 11599\,a(n-6) - 210068\,a(n-7) + 239143\,a(n-8) + 1435333\,a(n-9) - 2045028\,a(n-10) - 5829087\,a(n-11) + 9632462\,a(n-12) + 14361840\,a(n-13) - 27309714\,a(n-14) - 21401634\,a(n-15) + 48701640\,a(n-16) + 18436650\,a(n-17) - 56085498\,a(n-18) - 7403128\,a(n-19) + 42308694\,a(n-20) - 1027934\,a(n-21) - 20976128\,a(n-22) + 2642614\,a(n-23) + 6772235\,a(n-24) - 1305140\,a(n-25) - 1387863\,a(n-26) + 326941\,a(n-27) + 171884\,a(n-28) - 44771\,a(n-29) - 11807\,a(n-30) + 3188\,a(n-31) + 387\,a(n-32) - 103\,a(n-33) - 4\,a(n-34) + a(n-35)
+a(n)\;=\;26\,a(n-1) + 103\,a(n-2) - 3175\,a(n-3) + 843\,a(n-4) + 124668\,a(n-5) - 241004\,a(n-6) - 1741528\,a(n-7) + 4512428\,a(n-8) + 11666399\,a(n-9) - 36429185\,a(n-10) - 41916935\,a(n-11) + 161955426\,a(n-12) + 79119202\,a(n-13) - 435611222\,a(n-14) - 51541960\,a(n-15) + 738522868\,a(n-16) - 83869087\,a(n-17) - 800207178\,a(n-18) + 216307031\,a(n-19) + 552396475\,a(n-20) - 212199576\,a(n-21) - 239220431\,a(n-22) + 114209818\,a(n-23) + 63085385\,a(n-24) - 36259721\,a(n-25) - 9488703\,a(n-26) + 6873528\,a(n-27) + 671231\,a(n-28) - 762566\,a(n-29) + 22\,a(n-30) + 47026\,a(n-31) - 2787\,a(n-32) - 1453\,a(n-33) + 139\,a(n-34) + 17\,a(n-35) - 2\,a(n-36)
 \]
 for every $n>35$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $35$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $36$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=35+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -128,14 +94,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of the stated width and a few rows was written out cell by cell over $\{0,1,2,3,4\}$, each of
-its $2\times2$ subblocks was read round its perimeter, and the condition of Section 2 was
-applied as stated. No window, no state and no recurrence is involved in that computation, and
-the published terms came back.
+Second, the reading was pinned before the digraph was written, by a program that enumerates
+every array of the given shape one by one, forms each subblock directly and tests the entry's
+condition on it. That program shares no code with the transfer matrix, so an error in one does
+not hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -145,9 +111,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183716.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184203.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

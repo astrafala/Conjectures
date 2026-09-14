@@ -12,18 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on each element and its neighbours: OEIS A295047}
+\title{An element and the cells around it: OEIS A277768}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A295047 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
-three consecutive lines; the
+OEIS A277768 carries an empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=20$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=23$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -32,24 +31,26 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A295047 is ``Number of n X 4 0..1 arrays with each 1 horizontally or vertically adjacent to 0 or 2 1's.''. It has offset $1$ and begins
+OEIS A277768 is ``Number of 3Xn 0..2 arrays with every element equal to some element at offset (-1,-1) (-1,0) (-1,1) (0,-1) (0,1) or (1,0) both plus 1 mod 3 and minus 1 mod 3, with new values introduced in order 0..2.''. It has offset $1$ and begins
 \[
-8, 48, 270, 1569, 9045, 52199, 301306, 1739181,\ \dots
+0, 2, 17, 204, 1989, 21141, 220549, 2292380,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) +6*a(n-2) -4*a(n-3) -25*a(n-4) -13*a(n-5) -31*a(n-6) -19*a(n-7) -56*a(n-8) +83*a(n-9) +39*a(n-10) +23*a(n-11) +53*a(n-12) +14*a(n-13) +15*a(n-14) +2*a(n-15) -4*a(n-16) -a(n-17) -a(n-18).
+Empirical: a(n) = 11*a(n-1) -a(n-2) +10*a(n-3) -648*a(n-4) -323*a(n-5) +2443*a(n-6) +9234*a(n-7) -2121*a(n-8) +1974*a(n-9) -6288*a(n-10) +2781*a(n-11) -4959*a(n-12) +757*a(n-13) -898*a(n-14) +2180*a(n-15) +116*a(n-16) +44*a(n-17) -288*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 24 2026 09:56:34, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 29 2016 07:31:30, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time. Its condition is that every entry equal to $1$ must have exactly $0$ or $2$ of its horizontal and vertical neighbours equal to $1$.
+The entry counts arrays with $3$ rows over the alphabet $\{0,1,2\}$, growing one column at a time, and asks that every element $x$ must have, among the cells at the offsets $(-1,-1)$, $(-1,0)$, $(-1,1)$, $(0,-1)$, $(0,1)$, $(1,0)$, one equal to $x+1$ and one equal to $x-1$, both modulo $3$.
 
-Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
+The furthest that condition reaches is $1$ column, so a window of $3$ consecutive columns decides it for the column in the middle. Carry $2$ columns as the state; a column is judged when the column $1$ beyond it arrives, and the last $1$ column --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
 
-Vertices with identical futures are merged, which leaves $S=20$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
+
+Merging vertices with identical futures leaves $S=23$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
@@ -77,7 +78,7 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) + 6\,a(n-2) - 4\,a(n-3) - 25\,a(n-4) - 13\,a(n-5) - 31\,a(n-6) - 19\,a(n-7) - 56\,a(n-8) + 83\,a(n-9) + 39\,a(n-10) + 23\,a(n-11) + 53\,a(n-12) + 14\,a(n-13) + 15\,a(n-14) + 2\,a(n-15) - 4\,a(n-16) - a(n-17) - a(n-18)
+a(n)\;=\;11\,a(n-1) - a(n-2) + 10\,a(n-3) - 648\,a(n-4) - 323\,a(n-5) + 2443\,a(n-6) + 9234\,a(n-7) - 2121\,a(n-8) + 1974\,a(n-9) - 6288\,a(n-10) + 2781\,a(n-11) - 4959\,a(n-12) + 757\,a(n-13) - 898\,a(n-14) + 2180\,a(n-15) + 116\,a(n-16) + 44\,a(n-17) - 288\,a(n-18)
 \]
 for every $n>18$.
 \end{theorem}
@@ -93,7 +94,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -110,7 +111,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A295047.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A277768.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

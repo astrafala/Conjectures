@@ -12,149 +12,147 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A124701, proved}
+\title{A bisection identity between OEIS A111403 and OEIS A002716}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A124701 carries an empirical identity relating its counts to those of the entry one base
-smaller, contributed by R. H. Hardin. It is true, it is true in the exact range the entry
-names, and that range is sharp. The proof is four steps and needs no computation: the
-difference between consecutive bases counts the admissible cyclic sequences that USE the new
-largest digit, every admissible cyclic sequence has range at most $d\lfloor n/2\rfloor$, so
-once the base is large enough those sequences are a translate of the admissible cyclic
-sequences over $\mathbf{Z}$ with maximum $0$, and those are in bijection with the step
-sequences summing to zero.
+OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
+the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
+recurrence A002716 states as fact splits into two closed forms, one for each parity of the
+index, and a short induction proves both at once: the odd-indexed terms are exactly the
+Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
+which is one more than the defining expression for A111403.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 05C38.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
 
-\section{The conjecture}
+\section{The two sequences and the conjecture}
 
-OEIS A124701 is ``Number of base 8 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
+OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
 \[
-1, 8, 22, 50, 130, 338, 904, 2444,\ \dots
+2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
 \]
-The entry states, as an empirical claim and never marked settled:
-\begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1
+OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
+\[
+3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
+\]
+
+The entry A111403 carries the following comment:
+\begin{quote}\small
+Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:00:20, revision 20)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
+statement is still recorded as unproved, and nothing on either entry records it as settled
+either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
 
-Read as the entry writes it, $a(\mathrm{base},n)$ is the count this family assigns to the
-stated base, ``$\mathrm{int}(n/2)$'' is $\lfloor n/2\rfloor$, and $F(d)$ is defined on the
-entry itself as the largest coefficient of $(1+x+\dots+x^{2d})^{n}$. The entry writes that summand as $\mathrm{A002426}(n+1)$, the $(n+1)$st term of OEIS A002426; that sequence is the central coefficient of $(1+x+\dots+x^{2})^{n}$ and its published terms agree with $F_{1}(n)$ term by term, which is the identification used here. For this entry
-the base is $8$ and the permitted difference is $d=1$, so the claim is that
+Write $f(m)=2^{m}$. The name of A111403 defines
+\begin{equation}\label{eq:a}
+a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
+\end{equation}
+and the statement to be proved is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
+\end{equation}
+where $b$ is A002716.
+
+\section{What A002716 states as fact}
+
+A002716 states, not as a conjecture,
+\begin{quote}\small
+a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
+a(0) = 3, a(1) = 5.
+\end{quote}
+that is, with $b$ for the sequence,
+\begin{equation}\label{eq:rec}
+b(0)=3,\quad b(1)=5,\qquad
+b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
+b(2n+1)=b(2n)+b(2n-1)-1
+\end{equation}
+for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
+entry; it was checked against all $13$ of its published terms before use.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:cf}
+For every $n\ge0$,
 \[
-a_{8}(n)-a_{7}(n)\;=\;F_{1}(n)
-\qquad\text{for every } n \text{ with } \lfloor n/2\rfloor+1\le8,
+b(2n+1)\;=\;2^{2^{n+1}}+1 ,
 \]
-that is, for $1\le n\le15$.
+and for every $n\ge1$,
+\[
+b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
+\]
+\end{lemma}
 
-\section{What the entry counts}
+\begin{proof}
+Induction on $n$, proving the odd-index statement and using it to get the next
+even-index one.
 
-A base-$b$ circular $n$-digit number, in this family's sense, is a tuple
-$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for every $i$, indices
-read modulo $n$ so that the pair $(d_n,d_1)$ is included. Leading zeros are counted: requiring
-$d_1\ne0$ gives $4,11,25$ where A124698 gives $5,13,29$. Write $T_d(b,n)$ for the number of
-them. Equivalently $T_d(b,n)=\operatorname{tr}M^{n}$ with $M$ the $b\times b$ matrix that has
-$M_{uv}=1$ exactly when $|u-v|\le d$, since a cyclic tuple is a closed walk in that graph
-together with a choice of where it starts. Evaluated exactly in integer arithmetic, $T_{1}$
-at base $8$ reproduces all $26$ terms A124701 publishes, and at base $7$ all the
-terms the entry one base smaller publishes.
+For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
+\eqref{eq:rec}.
 
-At $n=0$ these entries write $a(0)=1$ while the count of empty tuples read as a trace is $b$.
-That is a convention at a single index; the identity below is stated and proved for $n\ge1$,
-which is the range in which the entry's own data lives beyond its first term.
-
-\section{The identity}
+Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
+$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
+\[
+b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
+=2^{2^{n+1}}-2^{2^{n}}+1,
+\]
+which is the second claim at $n$. Then, again by \eqref{eq:rec},
+\[
+b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
+=2^{2^{n+1}}+1,
+\]
+which is the first claim at $n$. The induction is complete.
+\end{proof}
 
 \begin{theorem}
-For every $d\ge1$, every $n\ge1$ and every $b\ge d\lfloor n/2\rfloor+1$,
-\[
-T_d(b,n)-T_d(b-1,n)\;=\;F_d(n),
-\]
-where $F_d(n)=[x^{dn}](1+x+\dots+x^{2d})^{n}$ is the largest coefficient of that
-polynomial. In particular $a_{8}(n)-a_{7}(n)=F_{1}(n)$ for $1\le n\le15$, which
-is the entry's claim.
+For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
+A002716. This is the statement of Section~1.
 \end{theorem}
 
 \begin{proof}
-\emph{Step 1.} An admissible tuple over $\{0,\dots,b-1\}$ either uses the value $b-1$ or does
-not, and those that do not are exactly the admissible tuples over $\{0,\dots,b-2\}$. Hence
-$T_d(b,n)-T_d(b-1,n)$ is the number of admissible tuples over $\{0,\dots,b-1\}$ in which
-$b-1$ occurs.
+For $n\ge1$, Lemma~\ref{lem:cf} gives
+$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
 
-\emph{Step 2.} Every admissible tuple satisfies $\max_i d_i-\min_i d_i\le d\lfloor n/2\rfloor$.
-Fix a position $i$ where the maximum is attained and a position $j$ where the minimum is. The
-two arcs of the cycle joining $i$ to $j$ have lengths summing to $n$, so one of them has length
-$L\le\lfloor n/2\rfloor$; along an arc of length $L$ each step changes the value by at most $d$,
-so the two values differ by at most $dL\le d\lfloor n/2\rfloor$.
-
-\emph{Step 3.} A tuple counted in Step 1 has maximum exactly $b-1$, so by Step 2 all of its
-values lie in $[\,b-1-d\lfloor n/2\rfloor,\ b-1\,]$. The hypothesis $b\ge d\lfloor n/2\rfloor+1$
-says precisely that this window lies inside $\{0,\dots,b-1\}$, so no constraint of the base is
-felt: subtracting $b-1$ from every entry is a bijection between the tuples counted in Step 1 and
-the tuples $(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$ cyclically and
-$\max_i c_i=0$. That set does not depend on $b$.
-
-\emph{Step 4.} Translation acts freely on the admissible tuples over $\mathbf{Z}$, and each
-orbit contains exactly one tuple with maximum $0$ and exactly one with $c_1=0$. So the tuples of
-Step 3 are in bijection with the admissible tuples having $c_1=0$, which are determined by their
-step vector $(s_1,\dots,s_n)$, $s_i=c_{i+1}-c_i$ read cyclically: any
-$(s_1,\dots,s_n)\in\{-d,\dots,d\}^{n}$ with $s_1+\dots+s_n=0$ arises from exactly one such
-tuple, and conversely. Their number is the constant term of
-$(x^{-d}+\dots+x^{d})^{n}$, that is $[x^{dn}](1+x+\dots+x^{2d})^{n}=F_d(n)$, which is
-the largest coefficient of that polynomial because the coefficients are symmetric about $x^{dn}$
-and unimodal.
+For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
+$a(0)=2^{2}-2^{1}=2$. The two agree.
 \end{proof}
 
-\begin{remark}
-The threshold is sharp. At $b=d\lfloor n/2\rfloor$ the window of Step 3 no longer fits inside
-the alphabet, the tuples of maximum $b-1$ are cut off from below, and the difference falls short
-of $F_d(n)$; this was checked directly for $d=1,2,3$ and every $n\le8$, and the first failing
-base is in each case exactly one below the entry's own threshold.
-\end{remark}
+\begin{corollary}
+The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
+$F_m=2^{2^{m}}+1$.
+\end{corollary}
+
+\begin{proof}
+This is the first statement of Lemma~\ref{lem:cf}.
+\end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the proof above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $26$ terms A124701 publishes, exactly, in integer
-arithmetic; the reading of the entry's English is what is being tested there, since a
-misreading gives different counts.
+First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
+one of the $8$ published terms of A111403; the values agree exactly.
 
-Second, the identity was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le15$, with both sides computed from the definition and not from the theorem:
+Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
+compared against every one of the $13$ published terms of A002716; the values agree
+exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
+matched against the same terms at every index of each parity.
 
-\begin{center}
-\begin{tabular}{rrrr}
-$n$ & $T_{1}(8,n)$ & $T_{1}(7,n)$ & $F_{1}(n)$ \\ \hline
-1 & 8 & 7 & 1 \\
-2 & 22 & 19 & 3 \\
-3 & 50 & 43 & 7 \\
-4 & 130 & 111 & 19 \\
-5 & 338 & 287 & 51 \\
-6 & 904 & 763 & 141 \\
-7 & 2444 & 2051 & 393 \\
-8 & 6682 & 5575 & 1107 \\
-\end{tabular}
-\end{center}
+Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
+any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
+$b(2n)$ are published --- the two integers agree.
 
-\noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=15$.
-
-Third, the theorem was tested outside the entry's range as well: the identity holds for every
-$b\ge d\lfloor n/2\rfloor+1$ tried and fails immediately below, which is the sharpness recorded
-above.
-
-\section*{References}
-\begin{enumerate}
-\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A124701}.
-\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026.
+\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
+Numbers}, 6th ed., Oxford University Press, 2008.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\end{thebibliography}
 
 \end{document}

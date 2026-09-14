@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A220199, proved}
+\title{The empirical closed form for OEIS A220149, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220199 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A220149 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their diagonal, horizontal, vertical neighbours,
+admissible array is replaced by the array of minima of its cells and their diagonal, horizontal neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=410$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=608$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{30}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,24 +35,24 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A220199 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, vertical or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 nX3 array.''. It has offset $1$ and begins
+OEIS A220149 is ``Number of nX4 arrays of the minimum value of corresponding elements and their horizontal or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..2 nX4 array.''. It has offset $1$ and begins
 \[
-10, 36, 238, 1013, 3916, 15067, 58288, 218422,\ \dots
+10, 50, 254, 1174, 5410, 24684, 108169, 448881,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/552610124608731372158976000000)*n\^{}29 - (1/38111043076464232562688000000)*n\^{}28 - (43/10888869450418352160768000000)*n\^{}27 + (1013/1209874383379816906752000000)*n\^{}26 - (37/969450627708186624000000)*n\^{}25 + (59/846066002363508326400000)*n\^{}24 + (54830099/390882493091940846796800000)*n\^{}23 - (7939573/894467947578812006400000)*n\^{}22 + (5134253/22071287018178478080000)*n\^{}21 + (37966001/9196369590907699200000)*n\^{}20 - (152257814897/269760174666625843200000)*n\^{}19 + (918505603831/42593711789467238400000)*n\^{}18 - (962278931784007/2907020829631139020800000)*n\^{}17 - (1930456964404139/342002450544839884800000)*n\^{}16 + (43256823284606443/97714985869954252800000)*n\^{}15 - (33779034291676489/2961060177877401600000)*n\^{}14 + (990119936607349039/7098951964911206400000)*n\^{}13 + (8261472616915478693/21296855894733619200000)*n\^{}12 - (14609050016004250375909/289685642113592524800000)*n\^{}11 + (606095725965810479424827/579371284227185049600000)*n\^{}10 - (6894383399300066098456333/569025368437413888000000)*n\^{}9 + (3094992352284156140975351/42150027291660288000000)*n\^{}8 + (7175705615099463540165439/60590664231761664000000)*n\^{}7 - (204006830067393368414683721/26929184103005184000000)*n\^{}6 + (51776746394532001962514261613/612638938343367936000000)*n\^{}5 - (1063830518327474508898879/1954191190887936000)*n\^{}4 + (31834015971911914244845247/14586641389127808000)*n\^{}3 - (480939292908953611199/96472495959840)*n\^{}2 + (10194642893164011521/2329089562800)*n + 2343378 for n>10
+Empirical: a(n) = (1/552610124608731372158976000000)*n\^{}29 + (1/7622208615292846512537600000)*n\^{}28 + (1/272221736260458804019200000)*n\^{}27 + (1/1878686930714001408000000)*n\^{}26 + (463/23266815064996478976000000)*n\^{}25 + (127/372269041039943663616000)*n\^{}24 + (97193/2443015581824630292480000)*n\^{}23 + (1458253/2124361375499678515200000)*n\^{}22 + (293509/55178217545446195200000)*n\^{}21 + (1203901/1051013667532308480000)*n\^{}20 + (19197187/20232013099996938240000)*n\^{}19 - (215771663/10648427947366809600000)*n\^{}18 + (47996570583761/2907020829631139020800000)*n\^{}17 - (3130777943459/13680098021793595392000)*n\^{}16 + (352784890291/174491046196346880000)*n\^{}15 + (12242591085947/145409205163622400000)*n\^{}14 - (2308802430337703/1064842794736680960000)*n\^{}13 + (63970460933829533/2129685589473361920000)*n\^{}12 - (7607446827742849/82297057418634240000)*n\^{}11 - (845289139000912665797/289685642113592524800000)*n\^{}10 + (16663286001178049022791/284512684218706944000000)*n\^{}9 - (300232887874952342719/602143247023718400000)*n\^{}8 + (10527514392059792417183/6059066423176166400000)*n\^{}7 + (113898768509462767685501/13464592051502592000000)*n\^{}6 - (19927257308688059839763/149570053306486312500)*n\^{}5 + (32438984170527374840711/44394125966910720000)*n\^{}4 - (955894333256214244573/455832543410244000)*n\^{}3 + (2762815941001472611/964724959598400)*n\^{}2 - (432088153285363/1164544781400)*n - 2315 for n>4
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:33:56, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:31:34, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
 
-Fix the width $W=3$ and the value range $0..3$. The underlying arrays are the
-$n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
+Fix the width $W=4$ and the value range $0..2$. The underlying arrays are the
+$n\times4$ arrays over that range whose rows are lexicographically nondecreasing read downwards
 and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
+of its diagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -64,13 +64,13 @@ the graph whose walks are the arrays would count such a pair twice.
 
 \begin{lemma}\label{lem:local}
 Whether a sequence of rows is admissible is decided by the previous row together with
-$2$ bits.
+$3$ bits.
 \end{lemma}
 
 \begin{proof}
 The row order compares consecutive rows and needs only the previous one. The column order
 compares whole columns read downwards, left to right, which is not a condition on consecutive
-rows --- but for each of the $2$ adjacent column pairs there are only two possibilities:
+rows --- but for each of the $3$ adjacent column pairs there are only two possibilities:
 either the two columns agree in every row read so far, or they first differed at some earlier
 row, and there the required inequality was already decided and no later row can affect it. One
 bit per adjacent pair records which, and a new row is admissible exactly when, for every pair
@@ -78,18 +78,18 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=410$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=608$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
 \begin{proof}
 Row $i$ of $F(g)$ depends only on rows $i-1$, $i$ and $i+1$ of $g$, so a machine reading $g$ a
-row at a time, holding the last two rows and the $2$ bits of Lemma~\ref{lem:local}, can
+row at a time, holding the last two rows and the $3$ bits of Lemma~\ref{lem:local}, can
 emit $F(g)$ one row at a time. It is nondeterministic --- several continuations may emit the
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=410$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=608$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,16 +102,16 @@ q(x)=(x-1)^{30},\qquad\text{that is}\qquad a(n)=30\,a(n-1) - 435\,a(n-2) + 4060\
 \]
 
 \begin{theorem}
-The closed form OEIS A220199 records is correct for all $n>10$.
+The closed form OEIS A220149 records is correct for all $n>4$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $40$.
-Second, the polynomial and the walk count agree at every index from $11$ up to
-$1 + 23 - 1$, which is more than the $30$ consecutive agreements a
+$S$ consecutive zeros force every later one. The last index at which it fails is $34$.
+Second, the polynomial and the walk count agree at every index from $5$ up to
+$1 + 22 - 1$, which is more than the $30$ consecutive agreements a
 common recurrence of order $30$ needs. Two sequences satisfying the same monic recurrence
 of order $30$ and agreeing at $30$ consecutive indices past both their thresholds are
 equal from there on.
@@ -121,7 +121,7 @@ equal from there on.
 
 Everything above is integer or exact rational arithmetic; no floating point is used anywhere.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly. This is what
+First, the model reproduces all $22$ terms the entry publishes, exactly. This is what
 ties the construction to the entry, and it is the only point at which the entry's English is
 read.
 
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220199.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220149.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

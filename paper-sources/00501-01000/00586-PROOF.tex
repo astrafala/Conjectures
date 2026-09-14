@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A267881, proved from an exact model}
+\title{The empirical recurrence for OEIS A267879, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A267881 carries an empirical recurrence of order $2$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+OEIS A267879 carries an empirical recurrence of order $2$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a proved period for the automaton's middle column, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=11$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,51 +31,50 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A267881 is ``Number of ON (black) cells in the n-th iteration of the "Rule 233" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+OEIS A267879 is ``Binary representation of the middle column of the "Rule 233" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-1, 0, 3, 6, 9, 11, 13, 15,\ \dots
+1, 10, 101, 1010, 10101, 101011, 1010111, 10101111,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Colin Barker\_, Jan 22 2016 and Apr 20 2019: (Start) a(n) = 2*a(n-1)-a(n-2) for n>2.
+Conjectures from \_Colin Barker\_, Jan 22 2016 and Apr 20 2019: (Start) a(n) = 11*a(n-1)-10*a(n-2) for n>4.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:30, revision 17)
+As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:30, revision 20)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The middle column has a proved period}
 
-The entry counts the ON (black) cells at stage $n$ of the automaton. Nothing is being enumerated over a window, so there is
-no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
-the row grows only at its two ends. Writing
-$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
+The middle column is the cell at the origin at each step, $c(n)=w(n)[n]$, the centre of the
+light cone; the entry lists the first $n+1$ of them concatenated and read as a decimal numeral. Nothing is being counted, so there is no digraph, and that
+the column settles into a period is an observation rather than a proof. The row certificate the
+automaton already carries gives one.
+
+Write it as $w(n+p)=L_r+w(n)+R_r$ for $n\ge n_0$, $r=n \bmod p$. In absolute coordinates, where
+the row covers $x\in[-n,n]$ and $w(n)[i]$ is the cell at $x=i-n$, this says
 \[
-w(n+p)\;=\;L_r + w(n) + R_r
+\mathrm{cell}(x,\,n+p)\;=\;\mathrm{cell}(x+d_r,\,n),\qquad d_r=p-|L_r| ,
 \]
-was verified for every available $n$ past a
-pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
-both sides gives
-\[
-\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
-\]
-a first-order difference along each class.
+so the column reads a diagonal that moves by $d_r$ every $p$ steps. Three cases close it, and
+this automaton meets one of them:
 
-The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
-radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
-window at both boundaries, and induction carries it to every later $n$.
+\begin{itemize}
+\item every $L_r$ empty --- the row grows only on the right, every prefix is frozen, so there
+is one infinite word $W$ with $w(n)[i]=W[i]$ and $c(n)=W[n]$ outright; $W$ is $w(n_0)$ followed
+by $R_{r_0}R_{r_1}\cdots$, eventually periodic with period dividing $\sum_r|R_r|$;
+\item every $R_r$ empty --- the mirror, with the word read from the right end;
+\item $\sum_r d_r=0$ --- the diagonal returns to the origin after a full cycle of residues, so
+$\mathrm{cell}(0,n+p^2)=\mathrm{cell}(0,n)$.
+\end{itemize}
 
-For this entry the automaton is rule 233, the period is $p=1$ and the pre-period is $n_0=4$.
-The certificate is
-\begin{gather*}
-r=0:\quad w(n+p) = \varepsilon \cdot w(n) \cdot \texttt{11}
-\end{gather*}
+For this entry the column is periodic with period $q=1$ from $n=4$: the period above is a
+proved bound and the exact one is a divisor of it, found inside one window of computed rows,
+which is a finite check.
 
 \section{The bound}
 
-So
-$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
-the same polynomial, since the width is linear in $n$; a running total contributes one further
-factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
-annihilator of order $S=9$ used below.
+Concatenating gives $a(n+q)=a(n)B^{q}+v(\text{the }q\text{ new digits})$ with the same constant in each residue class, so $a$ is annihilated by $(z^{q}-B^{q})(z^{q}-1)$.
+Allowing the pre-period to raise the numerator's degree gives a monic annihilator of order
+$S=11$.
 
 \section{The proof}
 
@@ -95,23 +94,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) - a(n-2)
+a(n)\;=\;11\,a(n-1) - 10\,a(n-2)
 \]
-for every $n>5$.
+for every $n>4$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=5+1$ onwards, and the run exceeds $S+2$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=5$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=4+1$ onwards, and the run exceeds $S+2$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $63$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -124,7 +123,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A267881.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267879.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

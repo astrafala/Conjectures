@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A236949}
+\title{Recovering the unwritten recurrences of the table OEIS A236809}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236949 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+OEIS A236809 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
 its lines, given only as an ORDER --- ``k=2: [order 10]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
@@ -28,23 +28,25 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+that polynomial. This note settles column 2, column 3, column 4, column 5.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A236949 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
+OEIS A236809 is ``T(n,k)=Number of (n+1)X(k+1) 0..2 arrays with the maximum plus the lower median minus the upper median minus the minimum of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-256, 2796, 2796, 30698, 112888, 30698, 357316, 4301002,\ \dots
+81, 277, 277, 1033, 1435, 1033, 4183, 8825,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
 k=2: [order 10]\\
-k=3: [order 13]
+k=3: [order 11]\\
+k=4: [order 13]\\
+k=5: [order 13]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:41:45, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:34:47, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -67,13 +69,13 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=100$ vertices. Berlekamp--Massey on $2S=200$ exact terms
+count, a walk on $S=81$ vertices. Berlekamp--Massey on $2S=162$ exact terms
 returns a minimal recurrence of order $10$ --- the order the entry states --- with
 integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $50$ & $c_{4}$ & $120364$ & $c_{7}$ & $7902410$ & $c_{10}$ & $8125920$ \\
-$c_{2}$ & $99$ & $c_{5}$ & $1009876$ & $c_{8}$ & $19309801$ &  &  \\
-$c_{3}$ & $-21884$ & $c_{6}$ & $-7817815$ & $c_{9}$ & $-28628820$ &  &  \\
+$c_{1}$ & $12$ & $c_{4}$ & $2434$ & $c_{7}$ & $24192$ & $c_{10}$ & $23328$ \\
+$c_{2}$ & $15$ & $c_{5}$ & $864$ & $c_{8}$ & $14472$ &  &  \\
+$c_{3}$ & $-672$ & $c_{6}$ & $-17988$ & $c_{9}$ & $-46656$ &  &  \\
 \end{tabular}\end{center}
 so that $a(m)=\sum_{i=1}^{10}c_i\,a(m-i)$ for every $m$. Removing the first
 $10+4$ terms and repeating gives order $10$ again, which is what the
@@ -81,14 +83,43 @@ identification below needs.
 
 \subsection*{Column $k=3$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=354$ vertices. Berlekamp--Massey on $2S=708$ exact terms
+count, a walk on $S=235$ vertices. Berlekamp--Massey on $2S=470$ exact terms
+returns a minimal recurrence of order $11$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $24$ & $c_{4}$ & $26568$ & $c_{7}$ & $644112$ & $c_{10}$ & $1612416$ \\
+$c_{2}$ & $-55$ & $c_{5}$ & $-71616$ & $c_{8}$ & $-762032$ & $c_{11}$ & $-783360$ \\
+$c_{3}$ & $-2772$ & $c_{6}$ & $-74996$ & $c_{9}$ & $-588288$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{11}c_i\,a(m-i)$ for every $m$. Removing the first
+$11+4$ terms and repeating gives order $11$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=4$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=675$ vertices. Berlekamp--Massey on $2S=1350$ exact terms
 returns a minimal recurrence of order $13$ --- the order the entry states --- with
 integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $120$ & $c_{5}$ & $451376496$ & $c_{9}$ & $5225099461632$ & $c_{13}$ & $26005292974080$ \\
-$c_{2}$ & $6357$ & $c_{6}$ & $4848440936$ & $c_{10}$ & $18051212537856$ &  &  \\
-$c_{3}$ & $-535534$ & $c_{7}$ & $-103326877056$ & $c_{11}$ & $-16735126487040$ &  &  \\
-$c_{4}$ & $-9438006$ & $c_{8}$ & $-603997054080$ & $c_{12}$ & $-31844444405760$ &  &  \\
+$c_{1}$ & $36$ & $c_{5}$ & $2245440$ & $c_{9}$ & $-974576448$ & $c_{13}$ & $1330255872$ \\
+$c_{2}$ & $213$ & $c_{6}$ & $-34534356$ & $c_{10}$ & $1350053568$ &  &  \\
+$c_{3}$ & $-20688$ & $c_{7}$ & $121902336$ & $c_{11}$ & $778781952$ &  &  \\
+$c_{4}$ & $159340$ & $c_{8}$ & $49292928$ & $c_{12}$ & $-2623560192$ &  &  \\
+\end{tabular}\end{center}
+so that $a(m)=\sum_{i=1}^{13}c_i\,a(m-i)$ for every $m$. Removing the first
+$13+4$ terms and repeating gives order $13$ again, which is what the
+identification below needs.
+
+\subsection*{Column $k=5$}
+Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
+count, a walk on $S=1923$ vertices. Berlekamp--Massey on $2S=3846$ exact terms
+returns a minimal recurrence of order $13$ --- the order the entry states --- with
+integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $6$ & $c_{5}$ & $7631304$ & $c_{9}$ & $9534803520$ & $c_{13}$ & $-16293888000$ \\
+$c_{2}$ & $2037$ & $c_{6}$ & $222376028$ & $c_{10}$ & $-17365107200$ &  &  \\
+$c_{3}$ & $-12282$ & $c_{7}$ & $-1410692088$ & $c_{11}$ & $-5340748800$ &  &  \\
+$c_{4}$ & $-1251404$ & $c_{8}$ & $774758880$ & $c_{12}$ & $29872128000$ &  &  \\
 \end{tabular}\end{center}
 so that $a(m)=\sum_{i=1}^{13}c_i\,a(m-i)$ for every $m$. Removing the first
 $13+4$ terms and repeating gives order $13$ again, which is what the
@@ -127,7 +158,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236949.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236809.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

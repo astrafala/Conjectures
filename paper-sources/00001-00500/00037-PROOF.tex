@@ -11,74 +11,126 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A063165, proved from an exact model}
+\title{The empirical recurrence for OEIS A315418, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A063165 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by the classical dimension formula for cusp forms, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=8$, derived below and not
+OEIS A315418 carries an empirical recurrence of order $6$ contributed by Chai Wah Wu. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified distance function on the tiling, counted by Ehrhart, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=10$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11F11, 11F72, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 52C20, 05B45, 52C07, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A063165 is ``Dimension of the space of weight 2n cusp forms for Gamma\_0( 97 ).''. It has offset $1$ and begins
+OEIS A315418 is ``Coordination sequence Gal.3.21.3 where Gal.u.t.v denotes the coordination sequence for a vertex of type v in tiling number t in the Galebach list of u-uniform tilings.''. It has offset $0$ and begins
 \[
-7, 24, 40, 56, 72, 90, 104, 122,\ \dots
+1, 6, 11, 15, 20, 26, 32, 37,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjecture: a(n) = a(n-2)+a(n-3)-a(n-5) for n>6. x*(7 +24*x +33*x\^{}2 +25*x\^{}3 +8*x\^{}4 +x\^{}5)/((1 -x)\^{}2*(1 +x)*(1 +x +x\^{}2)). [\_Colin Barker\_, Sep 27 2012]
+Conjectures from \_Chai Wah Wu\_, Jul 10 2025: (Start) a(n) = a(n-1) + a(n-5) - a(n-6) for n > 6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 22 2019 12:18:12, revision 9)
+As of the ``Last modified'' line on the live entry (Jul 11 2025 08:49:12, revision 10)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The dimension is given in closed form}
+\section{The tiling, the lattice, and the distance}
 
-There is no array here and no transfer matrix. For even $k\ge4$ the dimension of the space of
-cusp forms is given exactly by Diamond and Shurman, Theorem 3.5.1,
+There is no array here and no transfer matrix. The entry names a vertex of one of Brian
+Galebach's $k$-uniform tilings, and that tiling is rebuilt exactly: the expanded notation
+fixes, for every vertex type, the angles between its edges and the type and frame of the
+vertex at the far end of each. All angles are multiples of $15^\circ$, so every vertex
+position is a $\mathbb{Z}$-combination of $24$th roots of unity and lives in
+$\mathbb{Z}[\zeta_{24}]=\mathbb{Z}^{8}$ modulo $x^{8}-x^{4}+1$. Vertex identity is
+therefore decided by integer equality and not by a tolerance.
+
+Let $L$ be the group of translations of the plane carrying the tiling to itself. Two
+independent generators are found and each is VERIFIED to be a symmetry: for every vertex $w$
+of an inner patch, $w+t$ is a vertex of the same type and the neighbours of $w+t$ are exactly
+the neighbours of $w$ translated. (Preserving a vertex's type and its set of edge directions
+is NOT sufficient, because a vertex figure with a rotational symmetry has several frames with
+the same direction set.) The vertices fall into $5$ orbits under $L$, and a vertex is
+written $(c,m)$ with $c$ its orbit and $m\in\mathbb{Z}^2$ its coordinates in a basis of $L$.
+
+Write $D_c(m)$ for the graph distance from the entry's own vertex to $(c,m)$. The claim proved
+below is that on each orbit $D_c$ is a maximum of finitely many affine functions,
 \[
-\dim S_k(\Gamma_0(N))=(k-1)(g-1)+\left(\tfrac{k}{2}-1\right)\varepsilon_\infty
-+\left\lfloor\tfrac{k}{4}\right\rfloor\varepsilon_2
-+\left\lfloor\tfrac{k}{3}\right\rfloor\varepsilon_3 ,
+D_c(m)\;=\;\max_i\bigl(A_{c,i}m_1+B_{c,i}m_2+C_{c,i}\bigr).
 \]
-with $\dim S_2=g$ and $\dim S_0=0$. Every quantity on the right is elementary integer
-arithmetic in $N$: the index $\mu=N\prod_{p\mid N}(1+1/p)$; the elliptic counts
-$\varepsilon_2,\varepsilon_3$, which vanish when $4\mid N$ and $9\mid N$ respectively and are
-otherwise products of $1+\left(\frac{-1}{p}\right)$ and $1+\left(\frac{-3}{p}\right)$
-over the primes dividing $N$; the cusp count
-$\varepsilon_\infty=\sum_{d\mid N}\varphi(\gcd(d,N/d))$; and the genus
-$g=1+\mu/12-\varepsilon_2/4-\varepsilon_3/3-\varepsilon_\infty/2$.
+
+\section{Why that is the distance, and not merely a fit}
+
+The affine pieces are obtained from a breadth-first patch, but nothing below rests on that. A
+function $D$ with $D(\text{base})=0$ satisfying
+
+\begin{itemize}
+\item[(b)] $D_{c'}(m+d)\le D_c(m)+1$ for every edge $(c,c',d)$ of the quotient and every $m$;
+\item[(c)] every vertex other than the base has an edge attaining $D_c(m)=D_{c'}(m+d)+1$;
+\end{itemize}
+
+IS the distance. (b) gives $D\le d$ by induction along a shortest path, and (c) gives $D\ge d$
+by induction on $D$; neither induction cares where $D$ came from. So the fit is a candidate and
+these two conditions are the proof.
+
+Both are decided exactly, and on REGIONS rather than on sampled points. The set where the
+$i$-th piece is the maximum is the polyhedron
+$P_{c,i}=\{m: \ell_{c,i}(m)-\ell_{c,j}(m)\ge0 \text{ for all } j\}$, so (b) is an
+affine inequality on a polyhedron --- true exactly when it holds at every vertex of that
+polyhedron and its gradient pairs non-negatively with every recession ray. Condition (c) is
+not an affine statement but a disjunction, and it says that $P_{c,i}$ is COVERED by the
+regions
+$S_k=\{m:\ell_{c,i}(m)-1-\ell''_{k,j}(m+d_k)\ge0\text{ for all }j\}$, one per
+neighbour $k$; that is decided by subtracting the $S_k$ from $P_{c,i}$ one at a time and
+asking whether any region is left. Every coefficient is an integer, and since only lattice
+points matter a violated constraint is written $\le-1$, so no strict inequality occurs
+anywhere. A bounded box around the base is checked exhaustively and the four half-planes
+outside it are covered by the region arithmetic.
 
 \section{The bound}
 
-With $k=2n$ the right-hand side is linear in $n$ apart from $\lfloor n/2\rfloor$ and
-$\lfloor 2n/3\rfloor$, so for $n\ge2$ --- that is, for the even weights $k\ge4$ the formula
-covers --- $a$ is a quasi-polynomial of period $6$ and degree $1$ satisfying
-$a(n+6)=a(n)+6A+3\varepsilon_2+4\varepsilon_3$ exactly. That difference equation is annihilated
-by $(z^6-1)(z-1)$, and $S=8$ is at least its degree.
+The ball of radius $t$ meets orbit $c$ in the lattice points of
+\[
+P_c(t)=\{m\in\mathbb{Z}^2:\;A_{c,i}m_1+B_{c,i}m_2\le t-C_{c,i}\ \text{ for every } i\},
+\]
+a polygon whose facet NORMALS are fixed and whose right-hand sides move linearly with $t$.
+Every candidate vertex of it is the meet of two facets and moves affinely in $t$, so whether a
+given vertex satisfies a given facet flips at most once, at one rational $t$; past the largest
+such value --- computed here, not assumed --- the combinatorial type never changes again. By
+Ehrhart's theorem for such a family the lattice count is then a quasi-polynomial in $t$ of
+degree $2$, whose period divides the lcm of the $2\times2$ determinants of pairs of facet
+normals, since those are the only denominators a vertex can have. Write $q$ for that lcm;
+here $S=2q=10$.
 
-The two remaining indices are genuinely outside it: $\dim S_0=0$ and $\dim S_2=g$ are separate
-cases of the theorem, not values of the same expression, and the annihilator does not reach
-them --- on every one of these entries the residual of $(z^6-1)(z-1)$ is nonzero at $n=0$ and
-$n=1$ and vanishes from $n=2$ on. That costs nothing here: $a(n+2)$ is annihilated everywhere,
-the residual below is computed term by term from the closed form rather than through $A$, and
-the run of zeros the theorem uses lies entirely above the transient.
+Summing over orbits, $|B(t)|$ is a degree-$2$ quasi-polynomial of period $q$ past the onset,
+so $a(n)=|B(n)|-|B(n-1)|$ is quasi-LINEAR of period $q$ there, and so is the residual of any
+fixed linear recurrence. A quasi-linear function of period $q$ that vanishes at $2q$
+consecutive indices past the onset vanishes at every later one, which is what makes the check
+below finite and complete rather than a sample. The counting itself is never done through the
+closed form: the lattice points are counted exactly at every radius, and the quasi-polynomial's
+only job is to supply $q$.
+
+The annihilator is therefore $A(z)=(z^{q}-1)^2$, of degree $S=2q$ and with $A(0)=1\ne0$, and
+it annihilates $a$ from the onset on rather than everywhere: the indices below it are a
+genuine transient, exactly as $\dim S_0$ and $\dim S_2$ are for the cusp-form family. That
+costs nothing, because the residual below is computed term by term from the exact lattice
+count and the run of zeros the theorem uses lies entirely above the onset.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{6}-\sum_ic_iz^{6-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -92,7 +144,7 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-2) + a(n-3) - a(n-5)
+a(n)\;=\;a(n-1) + a(n-5) - a(n-6)
 \]
 for every $n>6$.
 \end{theorem}
@@ -100,7 +152,7 @@ for every $n>6$.
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=6+1$ onwards, and the run exceeds $S+5$, which by
+vanish from $n=6+1$ onwards, and the run exceeds $S+6$, which by
 Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
@@ -121,7 +173,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A063165.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A315418.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
