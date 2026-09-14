@@ -689,3 +689,58 @@ reachable set and only then merges. `transfer88` at width 7 built 20,384 states 
 3,421, so more than four fifths of the exploration was redundant. An engine that merges on the
 fly — a partition refinement over the frontier rather than over the finished graph — would move
 the cap by roughly that factor, and that is one change reaching four engines and ~240 entries.
+
+## U. The coordination sequences are unblocked: the tilings are rebuilt (14 September)
+
+378 pool entries are coordination sequences of Brian Galebach's k-uniform tilings — the single
+biggest cluster in the pool, and nothing had been attempted because the tilings were missing.
+They are not missing. The OEIS auxiliary file `a250120.html` (the local oeisdata mirror keeps
+it only as a git-LFS pointer; fetch it from oeis.org) carries all 1,248 tilings in an expanded
+notation that determines each one completely:
+
+    Gal.1.1.1: A: 6^3 ; A 60; A 60; A 60
+
+— vertex type A sits in a 6.6.6 corner, and along each of its three edges in cyclic order one
+reaches a type-A vertex whose frame is rotated 60 degrees. A primed angle means the neighbour's
+frame is also reflected.
+
+`src/galtile.py` turns that into a graph with no geometry input:
+
+  * the configuration fixes the angles BETWEEN a vertex's edges — between edge j and edge j+1
+    sits a regular q-gon contributing 180 - 360/q — so the edge directions in a vertex's own
+    frame are the partial sums;
+  * the notation fixes each neighbour's frame, so its own directions are known once placed;
+  * edges are unit length, so a position is a sum of unit vectors.
+
+Only multiples of 15 degrees occur, so every position is a Z-combination of 24th roots of
+unity, and working in Z[zeta_24] = Z^8 modulo x^8 - x^4 + 1 makes vertex identity **exact**.
+That is not fastidiousness: a coordination sequence counts vertices at a distance, and a
+floating-point near-miss would merge or split vertices and produce a plausible wrong answer.
+
+**Validated: 6,536 of the 6,536 sequences the file itself lists are reproduced exactly, 0
+mismatches, 0 errors, 71 seconds.** The parsed tilings are stored in `engine/galebach.json`.
+
+### What remains, and it is the whole proof
+
+Computing terms is not proving the conjecture. Each of the 378 entries carries a linear
+recurrence conjectured by Chai Wah Wu (Dec 2018) and a g.f. whose denominator is of the shape
+(x-1)^2 (x^2+1)^2 ..., i.e. quasi-linear growth. The chain to a proof:
+
+1. **Certify the distance field.** The graph is periodic under a rank-2 lattice L. Claim:
+   d(v + lambda) = d(v) + c(lambda) for every v outside a bounded region, for each generator.
+   Verify with the two Bellman conditions exactly as `kdcert` does for the knight distance —
+   d(origin) = 0; d(w) <= d(v) + 1 on every edge; and every v != origin has a neighbour with
+   d(v) = d(neighbour) + 1. Periodicity makes finitely many vertices settle all of them. This
+   is the same device, on a rank-2 lattice instead of a strip, and it is the reason to do this
+   vein now rather than earlier: the device was built and validated this week.
+2. **Count.** With d certified lattice-linear outside a finite region, {v : d(v) = n} is for
+   large n a lattice-point count in a dilating rational polygon, so a(n) is an Ehrhart
+   quasi-polynomial of degree 1 with a computable period. `latpoly` already does Ehrhart
+   counting with a DERIVED period bound — and STATE.md defect 11 is precisely the warning
+   about getting that bound wrong, so reuse its machinery rather than re-deriving.
+3. **Compare** the resulting exact annihilator with the conjectured recurrence, as every other
+   engine does.
+
+Step 1 is the interesting one and is where to start. Step 2 has a shortcut worth trying first:
+if the certified field gives a(n+p) = a(n) + c directly for the counts, the annihilator is
+(z-1)(z^p-1) and no Ehrhart argument is needed at all.
