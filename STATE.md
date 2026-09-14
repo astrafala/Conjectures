@@ -100,6 +100,17 @@ Recurring defects, all found this way:
     exponent stopped being the one the offset and the shift give -- `a(n) = iota^T M^(n-k)
     tau` is right only while the matrix carries the object from the very start.
 
+20. **an engine that enumerates what it could generate.** Two builds in one day refused
+    entries for cost, and neither cost was necessary. `transfer3` compared every row with
+    every other row when the block condition is LINEAR and the successors can be solved for
+    (six billion comparisons to twelve seconds, 30 entries). `transfer35` walked all
+    A^(K*W) K-tuples of rows when the condition is local across columns and the valid tuples
+    can be grown a column at a time (7,625,597,484,987 tuples to 29,303 valid ones, four
+    seconds, 18 entries). **Ask of every build: is it testing candidates it could have
+    constructed?** And test the rewrite against the old build on every parameter set the old
+    one can still do -- both of these were verified identical as labelled graphs before they
+    were used for anything.
+
 13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
     `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
     was left alone for another 219 papers. When a defect is found in one place, ask which
