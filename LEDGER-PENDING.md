@@ -1132,3 +1132,38 @@ had been costing thirty entries for as long as it had existed.
 
 The same question is now owed to the other engines behind the cap refusals -- transfer17,
 transfer23, transfer35 and transfer19 -- which is where section T points next.
+
+## 14 September 2026 — the same question of transfer35, and 24 more
+
+`transfer3` was a nested loop. `transfer35` is the other shape the same question can take: its
+states are K-tuples of rows, and its build walked **all** A^(K*W) of them, refusing outright
+above two million. The comment above that line had already been argued over once --- an earlier
+edit had made the refusal slower without making it rarer --- and nobody had asked whether the
+enumeration was necessary at all.
+
+It is not. The self-condition relates consecutive K X K subblocks, which overlap in K-1
+columns, so it is local ACROSS COLUMNS and the valid tuples can be grown one column at a time
+with no invalid tuple ever built. The gap between what was enumerated and what is valid:
+
+    A186562  K=3 W=5 alphabet 0..2       14,348,907 tuples        2,917 valid
+    A186470  K=2 W=8 alphabet 0..2       43,046,721 tuples        3,078 valid
+    A186566  K=3 W=9 alphabet 0..2    7,625,597,484,987 tuples   29,303 valid
+
+Seven trillion to twenty-nine thousand, and the column walk finds them in four seconds. The one
+case where the two counts agree is nb = 1 --- a single subblock, no condition to prune with,
+A186601 at 33,554,432 both ways --- and there the cap refuses honestly.
+
+Checked against the old build on every parameter set where the old build succeeds (33 of them,
+K = 2 and 3, widths K..K+2, alphabets 0..1 and 0..2, both senses of the condition, with and
+without the determinant clause): the digraphs are identical as labelled graphs. The one set
+where they differ is the one the old build refused.
+
+**24 results installed**: 18 from `transfer35` (A186469-A186481, A186562-A186567, A186874-A186878)
+and 6 from `transfer23`, which needed no change at all and had simply never been asked --- its
+entries were not in the candidate cache. All 24 kept by the live re-check, 0 dropped, 0 flagged.
+
+Roster: 12,930 -> 12,954 papers over 12,927 entries.
+
+Both sweeps were cut off by their own time limit rather than finishing, so there is more here:
+`transfer35` was still working through its list, and `transfer23`/`transfer6`/`transfer21` were
+never swept to the end. Neither number below is final.

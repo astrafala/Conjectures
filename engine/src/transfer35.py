@@ -58,30 +58,55 @@ def _comm(A, B, K):
 
 def build(p, cap=40000):
     K, W, A, every, det = p['K'], p['W'], p['alpha'] + 1, p['every'], p['det']
-    # A ** (K * W) is exactly right and I briefly replaced it with something worse. The
-    # states are K-tuples of rows -- `product(rows, repeat=K)' below -- so there are
-    # (A^W)^K = A^(K*W) of them, not A^W. Reading the refusal as though the rows were the
-    # states turned a fast refusal into a slow one: the loop still walks the whole product
-    # and only gives up once `len(states) > cap' fires, after minutes rather than instantly.
-    if A ** (K * W) > 2_000_000:
-        return None
-    rows = list(product(range(A), repeat=W))
     nb = W - K + 1                                  # subblocks across
 
     def blocks(t):
         return [tuple(tuple(t[i][j + c] for c in range(K)) for i in range(K))
                 for j in range(nb)]
 
-    def okself(t):
-        B = blocks(t)
-        if det:
-            for M in B:
-                if M[0][0] * M[1][1] - M[0][1] * M[1][0] == 0:
+    def okdet(M):
+        return not (det and M[0][0] * M[1][1] - M[0][1] * M[1][0] == 0)
+
+    def _comm_ok(x, y):
+        return _comm(x, y, K) == every
+
+    # The states are K-tuples of rows, and the old build walked ALL A^(K*W) of them and
+    # refused outright above two million. That number is almost all waste: the self-condition
+    # relates consecutive K x K subblocks, which overlap in K-1 columns, so it is local ACROSS
+    # COLUMNS and the valid tuples can be grown one column at a time with no invalid tuple
+    # ever built. The gap is not marginal --- at K=3, W=9, alphabet 0..2 there are
+    # 7,625,597,484,987 tuples and 29,303 valid ones, and the column walk finds them in four
+    # seconds. Only when nb = 1 is there no condition to prune with, and then the two counts
+    # agree and the cap refuses honestly.
+    colset = list(product(range(A), repeat=K))
+
+    def _block_of(cols, j):
+        return tuple(tuple(cols[j + c][i] for c in range(K)) for i in range(K))
+
+    cur = []
+    for pre in product(colset, repeat=K):
+        if det and not okdet(_block_of(pre, 0)):
+            continue
+        cur.append(pre)
+        if len(cur) > cap:
+            return None
+    for _ in range(K, W):
+        nxt = []
+        for pre in cur:
+            B1 = _block_of(pre, len(pre) - K)
+            for c in colset:
+                new = pre + (c,)
+                B2 = _block_of(new, len(new) - K)
+                if det and not okdet(B2):
+                    continue
+                if not _comm_ok(B1, B2):
+                    continue
+                nxt.append(new)
+                if len(nxt) > cap:
                     return None
-        for j in range(nb - 1):
-            if _comm(B[j], B[j + 1], K) != every:
-                return None
-        return B
+        cur = nxt
+        if not cur:
+            return None
 
     states, index, adj, blk = [], {}, [], []
 
@@ -92,14 +117,10 @@ def build(p, cap=40000):
             states.append(t); adj.append(None); blk.append(None)
         return i
 
-    for t in product(rows, repeat=K):
-        B = okself(t)
-        if B is None:
-            continue
+    for cols in cur:
+        t = tuple(tuple(cols[j][i] for j in range(W)) for i in range(K))
         i = sid(t)
-        blk[i] = B
-        if len(states) > cap:
-            return None
+        blk[i] = blocks(t)
     if not states:
         return None
     bysuffix = {}
