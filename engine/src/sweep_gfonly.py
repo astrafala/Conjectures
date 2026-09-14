@@ -53,8 +53,16 @@ def save():
 import atexit
 atexit.register(save)
 
-for a in sorted(pool):
-    if a in done or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
+# A reader that has just been widened must be able to ask about entries an earlier, narrower
+# reader already marked done -- otherwise the widening is invisible and the sweep reports the
+# same refusals for ever. ONLY names those entries and bypasses `done` for them alone.
+ONLY = {a for a in open(os.environ['GFONLY']).read().split() if a.startswith('A')} \
+    if os.environ.get('GFONLY') else set()
+
+for a in sorted(ONLY or pool):
+    if ONLY and a not in ONLY:
+        continue
+    if (a in done and not ONLY) or a in roster or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     save()
     e = LE.get(a)

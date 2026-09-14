@@ -445,3 +445,53 @@ bulk of it was.
 - The deeper `relscan` tail past the top-25 shapes is pointer lines ("See A###### for a
   similar conjecture") and one-off claims relating two independently-defined sequences. No
   second gridbase-shaped family in it.
+
+## 14 September 2026 — a generating function lost to a square bracket
+
+`gfrec.ATTR` strips an attribution written `- _Name_, date` and nothing else. The older OEIS
+house style puts it in square brackets:
+
+    Empirical g.f.: x*(x^5+5*x^4+...) / ((x-1)^2*(x+1)*(x^2+x+1)). [_Colin Barker_, Feb 07 2013]
+
+so the bracket reached sympy and the whole line was refused. **82 entries pool-wide** carry a
+conjectured generating function written this way and nothing had ever read one of them; 5 have
+a name an engine reads and are not on the roster. All five proved:
+
+| entry | engine | claim |
+|---|---|---|
+| A063129 | cuspdim | `x*(x^5+5x^4+16x^3+21x^2+15x+4)/((x-1)^2(x+1)(x^2+x+1))` |
+| A187588 | boardwalk | `2x^3(53+130x+34x^2-15x^3)/(1-x)^3` |
+| A207021 | transfer48 | `13x(1+8x-7x^2+2x^3)/(1-x)^5` |
+| A207022 | transfer48 | `18x(1+13x-5x^2+2x^3)/(1-x)^5` |
+| A207023 | transfer48 | `25x(1+19x-14x^2+7x^3-2x^4)/(1-x)^6` |
+
+`sweep_gfonly` also gained a `GFONLY` override: a reader that has just been widened has to be
+able to ask about entries the narrower reader already marked done, or the widening is
+invisible and the sweep reports the same refusals for ever.
+
+## 14 September 2026 — the refusal census
+
+One pass over the whole clone, classifying every open entry outside the roster that states a
+conjecture by WHICH reader refuses it:
+
+| count | |
+|---:|---|
+| 360,774 | no conjectural line |
+| 16,368 | neither name nor claim read |
+| 12,976 | on the roster |
+| 4,976 | not open |
+| 2,211 | **claim read, name NOT read** — an engine is missing |
+| 1,164 | both read — sweep territory |
+| 558 | **name read, claim NOT read** — a *reader* is missing |
+
+The 558 is the cheap bucket: the engine already exists and the model already works, and only
+the wording of the claim defeats the parsers. Bucketed by shape, it is dominated by two:
+
+- **192** `Empirical recurrence of order k (see link above)` — the recurrence is not in the
+  entry at all, it is in a linked a-file. The local clone has those files, but as **Git LFS
+  pointers**, so opening one yields `version https://git-lfs.github.com/spec/v1` and settles
+  nothing. Fetched from oeis.org they parse with `ratrec.parse_rec` unchanged.
+- **36** `Empirical polynomial of degree d (see link above)` — same, one level down.
+
+Orders run 37 to 96, on engines that already exist (transfer20 21, transfer56 16,
+transfer22 15, transfer57 14, transfer9 13, window 11, ...).
