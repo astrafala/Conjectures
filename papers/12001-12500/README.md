@@ -1,6 +1,6 @@
 # Papers 12001-12500
 
-Ranks 12001 to 12500 of 13271, hardest first.
+Ranks 12001 to 12500 of 13276, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -321,186 +321,186 @@ Ranks 12001 to 12500 of 13271, hardest first.
 | 12315 | [A182899](https://oeis.org/A182899) | Proof | a posted closed form against a derived holonomic recurrence | [12315-PROOF.pdf](12315-PROOF.pdf) |
 | 12316 | [A273905](https://oeis.org/A273905) | Proof | a posted closed form against a derived holonomic recurrence | [12316-PROOF.pdf](12316-PROOF.pdf) |
 | 12317 | [A186828](https://oeis.org/A186828) | Proof | a posted closed form against a derived holonomic recurrence | [12317-PROOF.pdf](12317-PROOF.pdf) |
-| 12318 | [A162479](https://oeis.org/A162479) | Proof | a posted closed form against a derived holonomic recurrence | [12318-PROOF.pdf](12318-PROOF.pdf) |
-| 12319 | [A166697](https://oeis.org/A166697) | Proof | a posted closed form against a derived holonomic recurrence | [12319-PROOF.pdf](12319-PROOF.pdf) |
-| 12320 | [A242781](https://oeis.org/A242781) | Proof | a posted closed form against a derived holonomic recurrence | [12320-PROOF.pdf](12320-PROOF.pdf) |
-| 12321 | [A247173](https://oeis.org/A247173) | Proof | a posted closed form against a derived holonomic recurrence | [12321-PROOF.pdf](12321-PROOF.pdf) |
-| 12322 | [A276068](https://oeis.org/A276068) | Proof | a posted closed form against a derived holonomic recurrence | [12322-PROOF.pdf](12322-PROOF.pdf) |
-| 12323 | [A006231](https://oeis.org/A006231) | Proof | a posted closed form against a derived holonomic recurrence | [12323-PROOF.pdf](12323-PROOF.pdf) |
-| 12324 | [A174016](https://oeis.org/A174016) | Proof | a posted closed form against a derived holonomic recurrence | [12324-PROOF.pdf](12324-PROOF.pdf) |
-| 12325 | [A213203](https://oeis.org/A213203) | Proof | a posted closed form compared against the posted generating function | [12325-PROOF.pdf](12325-PROOF.pdf) |
-| 12326 | [A242429](https://oeis.org/A242429) | Proof | a posted closed form compared against the posted generating function | [12326-PROOF.pdf](12326-PROOF.pdf) |
-| 12327 | [A247102](https://oeis.org/A247102) | Proof | a posted closed form against a derived holonomic recurrence | [12327-PROOF.pdf](12327-PROOF.pdf) |
-| 12328 | [A250307](https://oeis.org/A250307) | Proof | a posted closed form against a derived holonomic recurrence | [12328-PROOF.pdf](12328-PROOF.pdf) |
-| 12329 | [A026018](https://oeis.org/A026018) | Proof | a posted closed form compared against the posted generating function | [12329-PROOF.pdf](12329-PROOF.pdf) |
-| 12330 | [A092634](https://oeis.org/A092634) | Proof | a posted closed form compared against the posted generating function | [12330-PROOF.pdf](12330-PROOF.pdf) |
-| 12331 | [A097332](https://oeis.org/A097332) | Proof | a posted closed form against a derived holonomic recurrence | [12331-PROOF.pdf](12331-PROOF.pdf) |
-| 12332 | [A166228](https://oeis.org/A166228) | Proof | a posted closed form against a derived holonomic recurrence | [12332-PROOF.pdf](12332-PROOF.pdf) |
-| 12333 | [A239201](https://oeis.org/A239201) | Proof | a posted closed form against a derived holonomic recurrence | [12333-PROOF.pdf](12333-PROOF.pdf) |
-| 12334 | [A244884](https://oeis.org/A244884) | Proof | a posted closed form against a derived holonomic recurrence | [12334-PROOF.pdf](12334-PROOF.pdf) |
-| 12335 | [A026026](https://oeis.org/A026026) | Proof | a posted closed form compared against the posted generating function | [12335-PROOF.pdf](12335-PROOF.pdf) |
-| 12336 | [A052227](https://oeis.org/A052227) | Proof | a posted closed form compared against the posted generating function | [12336-PROOF.pdf](12336-PROOF.pdf) |
-| 12337 | [A228329](https://oeis.org/A228329) | Proof | a posted closed form compared against the posted generating function | [12337-PROOF.pdf](12337-PROOF.pdf) |
-| 12338 | [A259457](https://oeis.org/A259457) | Proof | a posted closed form compared against the posted generating function | [12338-PROOF.pdf](12338-PROOF.pdf) |
-| 12339 | [A268554](https://oeis.org/A268554) | Proof | a posted closed form compared against the posted generating function | [12339-PROOF.pdf](12339-PROOF.pdf) |
-| 12340 | [A214907](https://oeis.org/A214907) | Proof | the recurrence follows from a generating function the entry records as fact | [12340-PROOF.pdf](12340-PROOF.pdf) |
-| 12341 | [A163020](https://oeis.org/A163020) | Proof | the recurrence follows from a generating function the entry records as fact | [12341-PROOF.pdf](12341-PROOF.pdf) |
-| 12342 | [A220640](https://oeis.org/A220640) | Proof | the recurrence follows from a generating function the entry records as fact | [12342-PROOF.pdf](12342-PROOF.pdf) |
-| 12343 | [A262482](https://oeis.org/A262482) | Proof | the recurrence follows from a generating function the entry records as fact | [12343-PROOF.pdf](12343-PROOF.pdf) |
-| 12344 | [A220639](https://oeis.org/A220639) | Proof | the recurrence follows from a generating function the entry records as fact | [12344-PROOF.pdf](12344-PROOF.pdf) |
-| 12345 | [A102319](https://oeis.org/A102319) | Proof | several independent square roots | [12345-PROOF.pdf](12345-PROOF.pdf) |
-| 12346 | [A115256](https://oeis.org/A115256) | Proof | several independent square roots | [12346-PROOF.pdf](12346-PROOF.pdf) |
-| 12347 | [A157125](https://oeis.org/A157125) | Proof | several independent square roots | [12347-PROOF.pdf](12347-PROOF.pdf) |
-| 12348 | [A102318](https://oeis.org/A102318) | Proof | several independent square roots | [12348-PROOF.pdf](12348-PROOF.pdf) |
-| 12349 | [A107587](https://oeis.org/A107587) | Proof | several independent square roots | [12349-PROOF.pdf](12349-PROOF.pdf) |
-| 12350 | [A218185](https://oeis.org/A218185) | Proof | several independent square roots | [12350-PROOF.pdf](12350-PROOF.pdf) |
-| 12351 | [A025567](https://oeis.org/A025567) | Proof | several independent square roots | [12351-PROOF.pdf](12351-PROOF.pdf) |
-| 12352 | [A071684](https://oeis.org/A071684) | Proof | several independent square roots | [12352-PROOF.pdf](12352-PROOF.pdf) |
-| 12353 | [A179648](https://oeis.org/A179648) | Proof | several independent square roots | [12353-PROOF.pdf](12353-PROOF.pdf) |
-| 12354 | [A184120](https://oeis.org/A184120) | Proof | several independent square roots | [12354-PROOF.pdf](12354-PROOF.pdf) |
-| 12355 | [A026163](https://oeis.org/A026163) | Proof | several independent square roots | [12355-PROOF.pdf](12355-PROOF.pdf) |
-| 12356 | [A102318](https://oeis.org/A102318) | Proof | several independent square roots | [12356-PROOF.pdf](12356-PROOF.pdf) |
-| 12357 | [A101500](https://oeis.org/A101500) | Proof | several independent square roots | [12357-PROOF.pdf](12357-PROOF.pdf) |
-| 12358 | [A102319](https://oeis.org/A102319) | Proof | several independent square roots | [12358-PROOF.pdf](12358-PROOF.pdf) |
-| 12359 | [A107587](https://oeis.org/A107587) | Proof | several independent square roots | [12359-PROOF.pdf](12359-PROOF.pdf) |
-| 12360 | [A263690](https://oeis.org/A263690) | Proof | the recurrence follows from a generating function the entry records as fact | [12360-PROOF.pdf](12360-PROOF.pdf) |
-| 12361 | [A072100](https://oeis.org/A072100) | Proof | several independent square roots | [12361-PROOF.pdf](12361-PROOF.pdf) |
-| 12362 | [A211525](https://oeis.org/A211525) | Proof | the recurrence follows from a generating function the entry records as fact | [12362-PROOF.pdf](12362-PROOF.pdf) |
-| 12363 | [A189604](https://oeis.org/A189604) | Proof | the recurrence follows from a generating function the entry records as fact | [12363-PROOF.pdf](12363-PROOF.pdf) |
-| 12364 | [A025567](https://oeis.org/A025567) | Proof | several independent square roots | [12364-PROOF.pdf](12364-PROOF.pdf) |
-| 12365 | [A189274](https://oeis.org/A189274) | Proof | the recurrence follows from a generating function the entry records as fact | [12365-PROOF.pdf](12365-PROOF.pdf) |
-| 12366 | [A110320](https://oeis.org/A110320) | Proof | an identity between different entries | [12366-PROOF.pdf](12366-PROOF.pdf) |
-| 12367 | [A346370](https://oeis.org/A346370) | Proof | an identity between different entries | [12367-PROOF.pdf](12367-PROOF.pdf) |
-| 12368 | [A233679](https://oeis.org/A233679) | Proof |  | [12368-PROOF.pdf](12368-PROOF.pdf) |
-| 12369 | [A298144](https://oeis.org/A298144) | Proof |  | [12369-PROOF.pdf](12369-PROOF.pdf) |
-| 12370 | [A301845](https://oeis.org/A301845) | Proof |  | [12370-PROOF.pdf](12370-PROOF.pdf) |
-| 12371 | [A251227](https://oeis.org/A251227) | Proof |  | [12371-PROOF.pdf](12371-PROOF.pdf) |
-| 12372 | [A297990](https://oeis.org/A297990) | Proof |  | [12372-PROOF.pdf](12372-PROOF.pdf) |
-| 12373 | [A281342](https://oeis.org/A281342) | Proof |  | [12373-PROOF.pdf](12373-PROOF.pdf) |
-| 12374 | [A281031](https://oeis.org/A281031) | Proof |  | [12374-PROOF.pdf](12374-PROOF.pdf) |
-| 12375 | [A251041](https://oeis.org/A251041) | Proof |  | [12375-PROOF.pdf](12375-PROOF.pdf) |
-| 12376 | [A305243](https://oeis.org/A305243) | Proof |  | [12376-PROOF.pdf](12376-PROOF.pdf) |
-| 12377 | [A297821](https://oeis.org/A297821) | Proof |  | [12377-PROOF.pdf](12377-PROOF.pdf) |
-| 12378 | [A252062](https://oeis.org/A252062) | Proof |  | [12378-PROOF.pdf](12378-PROOF.pdf) |
-| 12379 | [A278278](https://oeis.org/A278278) | Proof |  | [12379-PROOF.pdf](12379-PROOF.pdf) |
-| 12380 | [A277769](https://oeis.org/A277769) | Proof |  | [12380-PROOF.pdf](12380-PROOF.pdf) |
-| 12381 | [A317740](https://oeis.org/A317740) | Proof |  | [12381-PROOF.pdf](12381-PROOF.pdf) |
-| 12382 | [A281834](https://oeis.org/A281834) | Proof |  | [12382-PROOF.pdf](12382-PROOF.pdf) |
-| 12383 | [A301441](https://oeis.org/A301441) | Proof |  | [12383-PROOF.pdf](12383-PROOF.pdf) |
-| 12384 | [A305086](https://oeis.org/A305086) | Proof |  | [12384-PROOF.pdf](12384-PROOF.pdf) |
-| 12385 | [A305486](https://oeis.org/A305486) | Proof |  | [12385-PROOF.pdf](12385-PROOF.pdf) |
-| 12386 | [A300877](https://oeis.org/A300877) | Proof |  | [12386-PROOF.pdf](12386-PROOF.pdf) |
-| 12387 | [A283639](https://oeis.org/A283639) | Proof |  | [12387-PROOF.pdf](12387-PROOF.pdf) |
-| 12388 | [A264269](https://oeis.org/A264269) | Proof |  | [12388-PROOF.pdf](12388-PROOF.pdf) |
-| 12389 | [A283200](https://oeis.org/A283200) | Proof |  | [12389-PROOF.pdf](12389-PROOF.pdf) |
-| 12390 | [A252141](https://oeis.org/A252141) | Proof |  | [12390-PROOF.pdf](12390-PROOF.pdf) |
-| 12391 | [A252845](https://oeis.org/A252845) | Proof |  | [12391-PROOF.pdf](12391-PROOF.pdf) |
-| 12392 | [A259999](https://oeis.org/A259999) | Proof |  | [12392-PROOF.pdf](12392-PROOF.pdf) |
-| 12393 | [A304924](https://oeis.org/A304924) | Proof |  | [12393-PROOF.pdf](12393-PROOF.pdf) |
-| 12394 | [A254087](https://oeis.org/A254087) | Proof |  | [12394-PROOF.pdf](12394-PROOF.pdf) |
-| 12395 | [A297611](https://oeis.org/A297611) | Proof |  | [12395-PROOF.pdf](12395-PROOF.pdf) |
-| 12396 | [A240419](https://oeis.org/A240419) | Proof |  | [12396-PROOF.pdf](12396-PROOF.pdf) |
-| 12397 | [A300884](https://oeis.org/A300884) | Proof |  | [12397-PROOF.pdf](12397-PROOF.pdf) |
-| 12398 | [A241075](https://oeis.org/A241075) | Proof |  | [12398-PROOF.pdf](12398-PROOF.pdf) |
-| 12399 | [A316279](https://oeis.org/A316279) | Proof |  | [12399-PROOF.pdf](12399-PROOF.pdf) |
-| 12400 | [A232035](https://oeis.org/A232035) | Proof |  | [12400-PROOF.pdf](12400-PROOF.pdf) |
-| 12401 | [A297799](https://oeis.org/A297799) | Proof |  | [12401-PROOF.pdf](12401-PROOF.pdf) |
-| 12402 | [A300933](https://oeis.org/A300933) | Proof |  | [12402-PROOF.pdf](12402-PROOF.pdf) |
-| 12403 | [A230815](https://oeis.org/A230815) | Proof |  | [12403-PROOF.pdf](12403-PROOF.pdf) |
-| 12404 | [A297587](https://oeis.org/A297587) | Proof |  | [12404-PROOF.pdf](12404-PROOF.pdf) |
-| 12405 | [A236060](https://oeis.org/A236060) | Proof |  | [12405-PROOF.pdf](12405-PROOF.pdf) |
-| 12406 | [A240787](https://oeis.org/A240787) | Proof |  | [12406-PROOF.pdf](12406-PROOF.pdf) |
-| 12407 | [A232157](https://oeis.org/A232157) | Proof |  | [12407-PROOF.pdf](12407-PROOF.pdf) |
-| 12408 | [A258520](https://oeis.org/A258520) | Proof |  | [12408-PROOF.pdf](12408-PROOF.pdf) |
-| 12409 | [A317820](https://oeis.org/A317820) | Proof |  | [12409-PROOF.pdf](12409-PROOF.pdf) |
-| 12410 | [A266057](https://oeis.org/A266057) | Proof |  | [12410-PROOF.pdf](12410-PROOF.pdf) |
-| 12411 | [A266020](https://oeis.org/A266020) | Proof |  | [12411-PROOF.pdf](12411-PROOF.pdf) |
-| 12412 | [A267641](https://oeis.org/A267641) | Proof |  | [12412-PROOF.pdf](12412-PROOF.pdf) |
-| 12413 | [A282590](https://oeis.org/A282590) | Proof |  | [12413-PROOF.pdf](12413-PROOF.pdf) |
-| 12414 | [A237137](https://oeis.org/A237137) | Proof |  | [12414-PROOF.pdf](12414-PROOF.pdf) |
-| 12415 | [A267790](https://oeis.org/A267790) | Proof |  | [12415-PROOF.pdf](12415-PROOF.pdf) |
-| 12416 | [A250711](https://oeis.org/A250711) | Proof |  | [12416-PROOF.pdf](12416-PROOF.pdf) |
-| 12417 | [A230187](https://oeis.org/A230187) | Proof |  | [12417-PROOF.pdf](12417-PROOF.pdf) |
-| 12418 | [A303687](https://oeis.org/A303687) | Proof |  | [12418-PROOF.pdf](12418-PROOF.pdf) |
-| 12419 | [A316737](https://oeis.org/A316737) | Proof |  | [12419-PROOF.pdf](12419-PROOF.pdf) |
-| 12420 | [A304146](https://oeis.org/A304146) | Proof |  | [12420-PROOF.pdf](12420-PROOF.pdf) |
-| 12421 | [A303466](https://oeis.org/A303466) | Proof |  | [12421-PROOF.pdf](12421-PROOF.pdf) |
-| 12422 | [A300502](https://oeis.org/A300502) | Proof |  | [12422-PROOF.pdf](12422-PROOF.pdf) |
-| 12423 | [A295916](https://oeis.org/A295916) | Proof |  | [12423-PROOF.pdf](12423-PROOF.pdf) |
-| 12424 | [A264208](https://oeis.org/A264208) | Proof |  | [12424-PROOF.pdf](12424-PROOF.pdf) |
-| 12425 | [A236030](https://oeis.org/A236030) | Proof |  | [12425-PROOF.pdf](12425-PROOF.pdf) |
-| 12426 | [A253988](https://oeis.org/A253988) | Proof |  | [12426-PROOF.pdf](12426-PROOF.pdf) |
-| 12427 | [A304602](https://oeis.org/A304602) | Proof |  | [12427-PROOF.pdf](12427-PROOF.pdf) |
-| 12428 | [A229540](https://oeis.org/A229540) | Proof |  | [12428-PROOF.pdf](12428-PROOF.pdf) |
-| 12429 | [A269041](https://oeis.org/A269041) | Proof |  | [12429-PROOF.pdf](12429-PROOF.pdf) |
-| 12430 | [A269058](https://oeis.org/A269058) | Proof |  | [12430-PROOF.pdf](12430-PROOF.pdf) |
-| 12431 | [A302221](https://oeis.org/A302221) | Proof |  | [12431-PROOF.pdf](12431-PROOF.pdf) |
-| 12432 | [A303893](https://oeis.org/A303893) | Proof |  | [12432-PROOF.pdf](12432-PROOF.pdf) |
-| 12433 | [A260839](https://oeis.org/A260839) | Proof |  | [12433-PROOF.pdf](12433-PROOF.pdf) |
-| 12434 | [A296383](https://oeis.org/A296383) | Proof |  | [12434-PROOF.pdf](12434-PROOF.pdf) |
-| 12435 | [A298277](https://oeis.org/A298277) | Proof |  | [12435-PROOF.pdf](12435-PROOF.pdf) |
-| 12436 | [A302083](https://oeis.org/A302083) | Proof |  | [12436-PROOF.pdf](12436-PROOF.pdf) |
-| 12437 | [A299726](https://oeis.org/A299726) | Proof |  | [12437-PROOF.pdf](12437-PROOF.pdf) |
-| 12438 | [A295780](https://oeis.org/A295780) | Proof |  | [12438-PROOF.pdf](12438-PROOF.pdf) |
-| 12439 | [A254548](https://oeis.org/A254548) | Proof |  | [12439-PROOF.pdf](12439-PROOF.pdf) |
-| 12440 | [A305514](https://oeis.org/A305514) | Proof |  | [12440-PROOF.pdf](12440-PROOF.pdf) |
-| 12441 | [A239408](https://oeis.org/A239408) | Proof |  | [12441-PROOF.pdf](12441-PROOF.pdf) |
-| 12442 | [A239652](https://oeis.org/A239652) | Proof |  | [12442-PROOF.pdf](12442-PROOF.pdf) |
-| 12443 | [A260542](https://oeis.org/A260542) | Proof |  | [12443-PROOF.pdf](12443-PROOF.pdf) |
-| 12444 | [A304138](https://oeis.org/A304138) | Proof |  | [12444-PROOF.pdf](12444-PROOF.pdf) |
-| 12445 | [A295037](https://oeis.org/A295037) | Proof |  | [12445-PROOF.pdf](12445-PROOF.pdf) |
-| 12446 | [A282836](https://oeis.org/A282836) | Proof |  | [12446-PROOF.pdf](12446-PROOF.pdf) |
-| 12447 | [A283947](https://oeis.org/A283947) | Proof |  | [12447-PROOF.pdf](12447-PROOF.pdf) |
-| 12448 | [A238724](https://oeis.org/A238724) | Proof |  | [12448-PROOF.pdf](12448-PROOF.pdf) |
-| 12449 | [A239028](https://oeis.org/A239028) | Proof |  | [12449-PROOF.pdf](12449-PROOF.pdf) |
-| 12450 | [A231995](https://oeis.org/A231995) | Proof |  | [12450-PROOF.pdf](12450-PROOF.pdf) |
-| 12451 | [A304424](https://oeis.org/A304424) | Proof |  | [12451-PROOF.pdf](12451-PROOF.pdf) |
-| 12452 | [A302805](https://oeis.org/A302805) | Proof |  | [12452-PROOF.pdf](12452-PROOF.pdf) |
-| 12453 | [A253483](https://oeis.org/A253483) | Proof |  | [12453-PROOF.pdf](12453-PROOF.pdf) |
-| 12454 | [A303099](https://oeis.org/A303099) | Proof |  | [12454-PROOF.pdf](12454-PROOF.pdf) |
-| 12455 | [A299652](https://oeis.org/A299652) | Proof |  | [12455-PROOF.pdf](12455-PROOF.pdf) |
-| 12456 | [A299658](https://oeis.org/A299658) | Proof |  | [12456-PROOF.pdf](12456-PROOF.pdf) |
-| 12457 | [A263220](https://oeis.org/A263220) | Proof |  | [12457-PROOF.pdf](12457-PROOF.pdf) |
-| 12458 | [A230907](https://oeis.org/A230907) | Proof |  | [12458-PROOF.pdf](12458-PROOF.pdf) |
-| 12459 | [A316929](https://oeis.org/A316929) | Proof |  | [12459-PROOF.pdf](12459-PROOF.pdf) |
-| 12460 | [A301487](https://oeis.org/A301487) | Proof |  | [12460-PROOF.pdf](12460-PROOF.pdf) |
-| 12461 | [A252286](https://oeis.org/A252286) | Proof |  | [12461-PROOF.pdf](12461-PROOF.pdf) |
-| 12462 | [A278154](https://oeis.org/A278154) | Proof |  | [12462-PROOF.pdf](12462-PROOF.pdf) |
-| 12463 | [A250948](https://oeis.org/A250948) | Proof |  | [12463-PROOF.pdf](12463-PROOF.pdf) |
-| 12464 | [A282438](https://oeis.org/A282438) | Proof |  | [12464-PROOF.pdf](12464-PROOF.pdf) |
-| 12465 | [A279131](https://oeis.org/A279131) | Proof |  | [12465-PROOF.pdf](12465-PROOF.pdf) |
-| 12466 | [A237725](https://oeis.org/A237725) | Proof |  | [12466-PROOF.pdf](12466-PROOF.pdf) |
-| 12467 | [A224308](https://oeis.org/A224308) | Proof |  | [12467-PROOF.pdf](12467-PROOF.pdf) |
-| 12468 | [A257421](https://oeis.org/A257421) | Proof |  | [12468-PROOF.pdf](12468-PROOF.pdf) |
-| 12469 | [A251447](https://oeis.org/A251447) | Proof |  | [12469-PROOF.pdf](12469-PROOF.pdf) |
-| 12470 | [A237220](https://oeis.org/A237220) | Proof |  | [12470-PROOF.pdf](12470-PROOF.pdf) |
-| 12471 | [A237483](https://oeis.org/A237483) | Proof |  | [12471-PROOF.pdf](12471-PROOF.pdf) |
-| 12472 | [A263435](https://oeis.org/A263435) | Proof |  | [12472-PROOF.pdf](12472-PROOF.pdf) |
-| 12473 | [A260498](https://oeis.org/A260498) | Proof |  | [12473-PROOF.pdf](12473-PROOF.pdf) |
-| 12474 | [A236038](https://oeis.org/A236038) | Proof |  | [12474-PROOF.pdf](12474-PROOF.pdf) |
-| 12475 | [A280067](https://oeis.org/A280067) | Proof |  | [12475-PROOF.pdf](12475-PROOF.pdf) |
-| 12476 | [A297717](https://oeis.org/A297717) | Proof |  | [12476-PROOF.pdf](12476-PROOF.pdf) |
-| 12477 | [A297523](https://oeis.org/A297523) | Proof |  | [12477-PROOF.pdf](12477-PROOF.pdf) |
-| 12478 | [A317700](https://oeis.org/A317700) | Proof |  | [12478-PROOF.pdf](12478-PROOF.pdf) |
-| 12479 | [A231742](https://oeis.org/A231742) | Proof |  | [12479-PROOF.pdf](12479-PROOF.pdf) |
-| 12480 | [A268027](https://oeis.org/A268027) | Proof |  | [12480-PROOF.pdf](12480-PROOF.pdf) |
-| 12481 | [A282882](https://oeis.org/A282882) | Proof |  | [12481-PROOF.pdf](12481-PROOF.pdf) |
-| 12482 | [A253874](https://oeis.org/A253874) | Proof |  | [12482-PROOF.pdf](12482-PROOF.pdf) |
-| 12483 | [A253540](https://oeis.org/A253540) | Proof |  | [12483-PROOF.pdf](12483-PROOF.pdf) |
-| 12484 | [A278091](https://oeis.org/A278091) | Proof |  | [12484-PROOF.pdf](12484-PROOF.pdf) |
-| 12485 | [A297886](https://oeis.org/A297886) | Proof |  | [12485-PROOF.pdf](12485-PROOF.pdf) |
-| 12486 | [A260245](https://oeis.org/A260245) | Proof |  | [12486-PROOF.pdf](12486-PROOF.pdf) |
-| 12487 | [A232960](https://oeis.org/A232960) | Proof |  | [12487-PROOF.pdf](12487-PROOF.pdf) |
-| 12488 | [A233688](https://oeis.org/A233688) | Proof |  | [12488-PROOF.pdf](12488-PROOF.pdf) |
-| 12489 | [A295203](https://oeis.org/A295203) | Proof |  | [12489-PROOF.pdf](12489-PROOF.pdf) |
-| 12490 | [A296318](https://oeis.org/A296318) | Proof |  | [12490-PROOF.pdf](12490-PROOF.pdf) |
-| 12491 | [A282860](https://oeis.org/A282860) | Proof |  | [12491-PROOF.pdf](12491-PROOF.pdf) |
-| 12492 | [A300802](https://oeis.org/A300802) | Proof |  | [12492-PROOF.pdf](12492-PROOF.pdf) |
-| 12493 | [A306050](https://oeis.org/A306050) | Proof |  | [12493-PROOF.pdf](12493-PROOF.pdf) |
-| 12494 | [A316286](https://oeis.org/A316286) | Proof |  | [12494-PROOF.pdf](12494-PROOF.pdf) |
-| 12495 | [A302152](https://oeis.org/A302152) | Proof |  | [12495-PROOF.pdf](12495-PROOF.pdf) |
-| 12496 | [A264479](https://oeis.org/A264479) | Proof |  | [12496-PROOF.pdf](12496-PROOF.pdf) |
-| 12497 | [A264503](https://oeis.org/A264503) | Proof |  | [12497-PROOF.pdf](12497-PROOF.pdf) |
-| 12498 | [A264547](https://oeis.org/A264547) | Proof |  | [12498-PROOF.pdf](12498-PROOF.pdf) |
-| 12499 | [A264566](https://oeis.org/A264566) | Proof |  | [12499-PROOF.pdf](12499-PROOF.pdf) |
-| 12500 | [A264580](https://oeis.org/A264580) | Proof |  | [12500-PROOF.pdf](12500-PROOF.pdf) |
+| 12318 | [A026571](https://oeis.org/A026571) | Proof | a posted closed form against a derived holonomic recurrence | [12318-PROOF.pdf](12318-PROOF.pdf) |
+| 12319 | [A162479](https://oeis.org/A162479) | Proof | a posted closed form against a derived holonomic recurrence | [12319-PROOF.pdf](12319-PROOF.pdf) |
+| 12320 | [A162533](https://oeis.org/A162533) | Proof | a posted closed form against a derived holonomic recurrence | [12320-PROOF.pdf](12320-PROOF.pdf) |
+| 12321 | [A166697](https://oeis.org/A166697) | Proof | a posted closed form against a derived holonomic recurrence | [12321-PROOF.pdf](12321-PROOF.pdf) |
+| 12322 | [A242781](https://oeis.org/A242781) | Proof | a posted closed form against a derived holonomic recurrence | [12322-PROOF.pdf](12322-PROOF.pdf) |
+| 12323 | [A247173](https://oeis.org/A247173) | Proof | a posted closed form against a derived holonomic recurrence | [12323-PROOF.pdf](12323-PROOF.pdf) |
+| 12324 | [A276068](https://oeis.org/A276068) | Proof | a posted closed form against a derived holonomic recurrence | [12324-PROOF.pdf](12324-PROOF.pdf) |
+| 12325 | [A006231](https://oeis.org/A006231) | Proof | a posted closed form against a derived holonomic recurrence | [12325-PROOF.pdf](12325-PROOF.pdf) |
+| 12326 | [A125267](https://oeis.org/A125267) | Proof | a posted closed form against a derived holonomic recurrence | [12326-PROOF.pdf](12326-PROOF.pdf) |
+| 12327 | [A174016](https://oeis.org/A174016) | Proof | a posted closed form against a derived holonomic recurrence | [12327-PROOF.pdf](12327-PROOF.pdf) |
+| 12328 | [A213203](https://oeis.org/A213203) | Proof | a posted closed form compared against the posted generating function | [12328-PROOF.pdf](12328-PROOF.pdf) |
+| 12329 | [A242429](https://oeis.org/A242429) | Proof | a posted closed form compared against the posted generating function | [12329-PROOF.pdf](12329-PROOF.pdf) |
+| 12330 | [A247102](https://oeis.org/A247102) | Proof | a posted closed form against a derived holonomic recurrence | [12330-PROOF.pdf](12330-PROOF.pdf) |
+| 12331 | [A250307](https://oeis.org/A250307) | Proof | a posted closed form against a derived holonomic recurrence | [12331-PROOF.pdf](12331-PROOF.pdf) |
+| 12332 | [A026018](https://oeis.org/A026018) | Proof | a posted closed form compared against the posted generating function | [12332-PROOF.pdf](12332-PROOF.pdf) |
+| 12333 | [A092634](https://oeis.org/A092634) | Proof | a posted closed form compared against the posted generating function | [12333-PROOF.pdf](12333-PROOF.pdf) |
+| 12334 | [A097332](https://oeis.org/A097332) | Proof | a posted closed form against a derived holonomic recurrence | [12334-PROOF.pdf](12334-PROOF.pdf) |
+| 12335 | [A104624](https://oeis.org/A104624) | Proof | a posted closed form against a derived holonomic recurrence | [12335-PROOF.pdf](12335-PROOF.pdf) |
+| 12336 | [A166228](https://oeis.org/A166228) | Proof | a posted closed form against a derived holonomic recurrence | [12336-PROOF.pdf](12336-PROOF.pdf) |
+| 12337 | [A182122](https://oeis.org/A182122) | Proof | a posted closed form against a derived holonomic recurrence | [12337-PROOF.pdf](12337-PROOF.pdf) |
+| 12338 | [A239201](https://oeis.org/A239201) | Proof | a posted closed form against a derived holonomic recurrence | [12338-PROOF.pdf](12338-PROOF.pdf) |
+| 12339 | [A244884](https://oeis.org/A244884) | Proof | a posted closed form against a derived holonomic recurrence | [12339-PROOF.pdf](12339-PROOF.pdf) |
+| 12340 | [A026026](https://oeis.org/A026026) | Proof | a posted closed form compared against the posted generating function | [12340-PROOF.pdf](12340-PROOF.pdf) |
+| 12341 | [A052227](https://oeis.org/A052227) | Proof | a posted closed form compared against the posted generating function | [12341-PROOF.pdf](12341-PROOF.pdf) |
+| 12342 | [A228329](https://oeis.org/A228329) | Proof | a posted closed form compared against the posted generating function | [12342-PROOF.pdf](12342-PROOF.pdf) |
+| 12343 | [A259457](https://oeis.org/A259457) | Proof | a posted closed form compared against the posted generating function | [12343-PROOF.pdf](12343-PROOF.pdf) |
+| 12344 | [A268554](https://oeis.org/A268554) | Proof | a posted closed form compared against the posted generating function | [12344-PROOF.pdf](12344-PROOF.pdf) |
+| 12345 | [A214907](https://oeis.org/A214907) | Proof | the recurrence follows from a generating function the entry records as fact | [12345-PROOF.pdf](12345-PROOF.pdf) |
+| 12346 | [A163020](https://oeis.org/A163020) | Proof | the recurrence follows from a generating function the entry records as fact | [12346-PROOF.pdf](12346-PROOF.pdf) |
+| 12347 | [A220640](https://oeis.org/A220640) | Proof | the recurrence follows from a generating function the entry records as fact | [12347-PROOF.pdf](12347-PROOF.pdf) |
+| 12348 | [A262482](https://oeis.org/A262482) | Proof | the recurrence follows from a generating function the entry records as fact | [12348-PROOF.pdf](12348-PROOF.pdf) |
+| 12349 | [A220639](https://oeis.org/A220639) | Proof | the recurrence follows from a generating function the entry records as fact | [12349-PROOF.pdf](12349-PROOF.pdf) |
+| 12350 | [A102319](https://oeis.org/A102319) | Proof | several independent square roots | [12350-PROOF.pdf](12350-PROOF.pdf) |
+| 12351 | [A115256](https://oeis.org/A115256) | Proof | several independent square roots | [12351-PROOF.pdf](12351-PROOF.pdf) |
+| 12352 | [A157125](https://oeis.org/A157125) | Proof | several independent square roots | [12352-PROOF.pdf](12352-PROOF.pdf) |
+| 12353 | [A102318](https://oeis.org/A102318) | Proof | several independent square roots | [12353-PROOF.pdf](12353-PROOF.pdf) |
+| 12354 | [A107587](https://oeis.org/A107587) | Proof | several independent square roots | [12354-PROOF.pdf](12354-PROOF.pdf) |
+| 12355 | [A218185](https://oeis.org/A218185) | Proof | several independent square roots | [12355-PROOF.pdf](12355-PROOF.pdf) |
+| 12356 | [A025567](https://oeis.org/A025567) | Proof | several independent square roots | [12356-PROOF.pdf](12356-PROOF.pdf) |
+| 12357 | [A071684](https://oeis.org/A071684) | Proof | several independent square roots | [12357-PROOF.pdf](12357-PROOF.pdf) |
+| 12358 | [A179648](https://oeis.org/A179648) | Proof | several independent square roots | [12358-PROOF.pdf](12358-PROOF.pdf) |
+| 12359 | [A184120](https://oeis.org/A184120) | Proof | several independent square roots | [12359-PROOF.pdf](12359-PROOF.pdf) |
+| 12360 | [A026163](https://oeis.org/A026163) | Proof | several independent square roots | [12360-PROOF.pdf](12360-PROOF.pdf) |
+| 12361 | [A102318](https://oeis.org/A102318) | Proof | several independent square roots | [12361-PROOF.pdf](12361-PROOF.pdf) |
+| 12362 | [A101500](https://oeis.org/A101500) | Proof | several independent square roots | [12362-PROOF.pdf](12362-PROOF.pdf) |
+| 12363 | [A102319](https://oeis.org/A102319) | Proof | several independent square roots | [12363-PROOF.pdf](12363-PROOF.pdf) |
+| 12364 | [A107587](https://oeis.org/A107587) | Proof | several independent square roots | [12364-PROOF.pdf](12364-PROOF.pdf) |
+| 12365 | [A263690](https://oeis.org/A263690) | Proof | the recurrence follows from a generating function the entry records as fact | [12365-PROOF.pdf](12365-PROOF.pdf) |
+| 12366 | [A072100](https://oeis.org/A072100) | Proof | several independent square roots | [12366-PROOF.pdf](12366-PROOF.pdf) |
+| 12367 | [A211525](https://oeis.org/A211525) | Proof | the recurrence follows from a generating function the entry records as fact | [12367-PROOF.pdf](12367-PROOF.pdf) |
+| 12368 | [A189604](https://oeis.org/A189604) | Proof | the recurrence follows from a generating function the entry records as fact | [12368-PROOF.pdf](12368-PROOF.pdf) |
+| 12369 | [A025567](https://oeis.org/A025567) | Proof | several independent square roots | [12369-PROOF.pdf](12369-PROOF.pdf) |
+| 12370 | [A189274](https://oeis.org/A189274) | Proof | the recurrence follows from a generating function the entry records as fact | [12370-PROOF.pdf](12370-PROOF.pdf) |
+| 12371 | [A110320](https://oeis.org/A110320) | Proof | an identity between different entries | [12371-PROOF.pdf](12371-PROOF.pdf) |
+| 12372 | [A346370](https://oeis.org/A346370) | Proof | an identity between different entries | [12372-PROOF.pdf](12372-PROOF.pdf) |
+| 12373 | [A233679](https://oeis.org/A233679) | Proof |  | [12373-PROOF.pdf](12373-PROOF.pdf) |
+| 12374 | [A298144](https://oeis.org/A298144) | Proof |  | [12374-PROOF.pdf](12374-PROOF.pdf) |
+| 12375 | [A301845](https://oeis.org/A301845) | Proof |  | [12375-PROOF.pdf](12375-PROOF.pdf) |
+| 12376 | [A251227](https://oeis.org/A251227) | Proof |  | [12376-PROOF.pdf](12376-PROOF.pdf) |
+| 12377 | [A297990](https://oeis.org/A297990) | Proof |  | [12377-PROOF.pdf](12377-PROOF.pdf) |
+| 12378 | [A281342](https://oeis.org/A281342) | Proof |  | [12378-PROOF.pdf](12378-PROOF.pdf) |
+| 12379 | [A281031](https://oeis.org/A281031) | Proof |  | [12379-PROOF.pdf](12379-PROOF.pdf) |
+| 12380 | [A251041](https://oeis.org/A251041) | Proof |  | [12380-PROOF.pdf](12380-PROOF.pdf) |
+| 12381 | [A305243](https://oeis.org/A305243) | Proof |  | [12381-PROOF.pdf](12381-PROOF.pdf) |
+| 12382 | [A297821](https://oeis.org/A297821) | Proof |  | [12382-PROOF.pdf](12382-PROOF.pdf) |
+| 12383 | [A252062](https://oeis.org/A252062) | Proof |  | [12383-PROOF.pdf](12383-PROOF.pdf) |
+| 12384 | [A278278](https://oeis.org/A278278) | Proof |  | [12384-PROOF.pdf](12384-PROOF.pdf) |
+| 12385 | [A277769](https://oeis.org/A277769) | Proof |  | [12385-PROOF.pdf](12385-PROOF.pdf) |
+| 12386 | [A317740](https://oeis.org/A317740) | Proof |  | [12386-PROOF.pdf](12386-PROOF.pdf) |
+| 12387 | [A281834](https://oeis.org/A281834) | Proof |  | [12387-PROOF.pdf](12387-PROOF.pdf) |
+| 12388 | [A301441](https://oeis.org/A301441) | Proof |  | [12388-PROOF.pdf](12388-PROOF.pdf) |
+| 12389 | [A305086](https://oeis.org/A305086) | Proof |  | [12389-PROOF.pdf](12389-PROOF.pdf) |
+| 12390 | [A305486](https://oeis.org/A305486) | Proof |  | [12390-PROOF.pdf](12390-PROOF.pdf) |
+| 12391 | [A300877](https://oeis.org/A300877) | Proof |  | [12391-PROOF.pdf](12391-PROOF.pdf) |
+| 12392 | [A283639](https://oeis.org/A283639) | Proof |  | [12392-PROOF.pdf](12392-PROOF.pdf) |
+| 12393 | [A264269](https://oeis.org/A264269) | Proof |  | [12393-PROOF.pdf](12393-PROOF.pdf) |
+| 12394 | [A283200](https://oeis.org/A283200) | Proof |  | [12394-PROOF.pdf](12394-PROOF.pdf) |
+| 12395 | [A252141](https://oeis.org/A252141) | Proof |  | [12395-PROOF.pdf](12395-PROOF.pdf) |
+| 12396 | [A252845](https://oeis.org/A252845) | Proof |  | [12396-PROOF.pdf](12396-PROOF.pdf) |
+| 12397 | [A259999](https://oeis.org/A259999) | Proof |  | [12397-PROOF.pdf](12397-PROOF.pdf) |
+| 12398 | [A304924](https://oeis.org/A304924) | Proof |  | [12398-PROOF.pdf](12398-PROOF.pdf) |
+| 12399 | [A254087](https://oeis.org/A254087) | Proof |  | [12399-PROOF.pdf](12399-PROOF.pdf) |
+| 12400 | [A297611](https://oeis.org/A297611) | Proof |  | [12400-PROOF.pdf](12400-PROOF.pdf) |
+| 12401 | [A240419](https://oeis.org/A240419) | Proof |  | [12401-PROOF.pdf](12401-PROOF.pdf) |
+| 12402 | [A300884](https://oeis.org/A300884) | Proof |  | [12402-PROOF.pdf](12402-PROOF.pdf) |
+| 12403 | [A241075](https://oeis.org/A241075) | Proof |  | [12403-PROOF.pdf](12403-PROOF.pdf) |
+| 12404 | [A316279](https://oeis.org/A316279) | Proof |  | [12404-PROOF.pdf](12404-PROOF.pdf) |
+| 12405 | [A232035](https://oeis.org/A232035) | Proof |  | [12405-PROOF.pdf](12405-PROOF.pdf) |
+| 12406 | [A297799](https://oeis.org/A297799) | Proof |  | [12406-PROOF.pdf](12406-PROOF.pdf) |
+| 12407 | [A300933](https://oeis.org/A300933) | Proof |  | [12407-PROOF.pdf](12407-PROOF.pdf) |
+| 12408 | [A230815](https://oeis.org/A230815) | Proof |  | [12408-PROOF.pdf](12408-PROOF.pdf) |
+| 12409 | [A297587](https://oeis.org/A297587) | Proof |  | [12409-PROOF.pdf](12409-PROOF.pdf) |
+| 12410 | [A236060](https://oeis.org/A236060) | Proof |  | [12410-PROOF.pdf](12410-PROOF.pdf) |
+| 12411 | [A240787](https://oeis.org/A240787) | Proof |  | [12411-PROOF.pdf](12411-PROOF.pdf) |
+| 12412 | [A232157](https://oeis.org/A232157) | Proof |  | [12412-PROOF.pdf](12412-PROOF.pdf) |
+| 12413 | [A258520](https://oeis.org/A258520) | Proof |  | [12413-PROOF.pdf](12413-PROOF.pdf) |
+| 12414 | [A317820](https://oeis.org/A317820) | Proof |  | [12414-PROOF.pdf](12414-PROOF.pdf) |
+| 12415 | [A266057](https://oeis.org/A266057) | Proof |  | [12415-PROOF.pdf](12415-PROOF.pdf) |
+| 12416 | [A266020](https://oeis.org/A266020) | Proof |  | [12416-PROOF.pdf](12416-PROOF.pdf) |
+| 12417 | [A267641](https://oeis.org/A267641) | Proof |  | [12417-PROOF.pdf](12417-PROOF.pdf) |
+| 12418 | [A282590](https://oeis.org/A282590) | Proof |  | [12418-PROOF.pdf](12418-PROOF.pdf) |
+| 12419 | [A237137](https://oeis.org/A237137) | Proof |  | [12419-PROOF.pdf](12419-PROOF.pdf) |
+| 12420 | [A267790](https://oeis.org/A267790) | Proof |  | [12420-PROOF.pdf](12420-PROOF.pdf) |
+| 12421 | [A250711](https://oeis.org/A250711) | Proof |  | [12421-PROOF.pdf](12421-PROOF.pdf) |
+| 12422 | [A230187](https://oeis.org/A230187) | Proof |  | [12422-PROOF.pdf](12422-PROOF.pdf) |
+| 12423 | [A303687](https://oeis.org/A303687) | Proof |  | [12423-PROOF.pdf](12423-PROOF.pdf) |
+| 12424 | [A316737](https://oeis.org/A316737) | Proof |  | [12424-PROOF.pdf](12424-PROOF.pdf) |
+| 12425 | [A304146](https://oeis.org/A304146) | Proof |  | [12425-PROOF.pdf](12425-PROOF.pdf) |
+| 12426 | [A303466](https://oeis.org/A303466) | Proof |  | [12426-PROOF.pdf](12426-PROOF.pdf) |
+| 12427 | [A300502](https://oeis.org/A300502) | Proof |  | [12427-PROOF.pdf](12427-PROOF.pdf) |
+| 12428 | [A295916](https://oeis.org/A295916) | Proof |  | [12428-PROOF.pdf](12428-PROOF.pdf) |
+| 12429 | [A264208](https://oeis.org/A264208) | Proof |  | [12429-PROOF.pdf](12429-PROOF.pdf) |
+| 12430 | [A236030](https://oeis.org/A236030) | Proof |  | [12430-PROOF.pdf](12430-PROOF.pdf) |
+| 12431 | [A253988](https://oeis.org/A253988) | Proof |  | [12431-PROOF.pdf](12431-PROOF.pdf) |
+| 12432 | [A304602](https://oeis.org/A304602) | Proof |  | [12432-PROOF.pdf](12432-PROOF.pdf) |
+| 12433 | [A229540](https://oeis.org/A229540) | Proof |  | [12433-PROOF.pdf](12433-PROOF.pdf) |
+| 12434 | [A269041](https://oeis.org/A269041) | Proof |  | [12434-PROOF.pdf](12434-PROOF.pdf) |
+| 12435 | [A269058](https://oeis.org/A269058) | Proof |  | [12435-PROOF.pdf](12435-PROOF.pdf) |
+| 12436 | [A302221](https://oeis.org/A302221) | Proof |  | [12436-PROOF.pdf](12436-PROOF.pdf) |
+| 12437 | [A303893](https://oeis.org/A303893) | Proof |  | [12437-PROOF.pdf](12437-PROOF.pdf) |
+| 12438 | [A260839](https://oeis.org/A260839) | Proof |  | [12438-PROOF.pdf](12438-PROOF.pdf) |
+| 12439 | [A296383](https://oeis.org/A296383) | Proof |  | [12439-PROOF.pdf](12439-PROOF.pdf) |
+| 12440 | [A298277](https://oeis.org/A298277) | Proof |  | [12440-PROOF.pdf](12440-PROOF.pdf) |
+| 12441 | [A302083](https://oeis.org/A302083) | Proof |  | [12441-PROOF.pdf](12441-PROOF.pdf) |
+| 12442 | [A299726](https://oeis.org/A299726) | Proof |  | [12442-PROOF.pdf](12442-PROOF.pdf) |
+| 12443 | [A295780](https://oeis.org/A295780) | Proof |  | [12443-PROOF.pdf](12443-PROOF.pdf) |
+| 12444 | [A254548](https://oeis.org/A254548) | Proof |  | [12444-PROOF.pdf](12444-PROOF.pdf) |
+| 12445 | [A305514](https://oeis.org/A305514) | Proof |  | [12445-PROOF.pdf](12445-PROOF.pdf) |
+| 12446 | [A239408](https://oeis.org/A239408) | Proof |  | [12446-PROOF.pdf](12446-PROOF.pdf) |
+| 12447 | [A239652](https://oeis.org/A239652) | Proof |  | [12447-PROOF.pdf](12447-PROOF.pdf) |
+| 12448 | [A260542](https://oeis.org/A260542) | Proof |  | [12448-PROOF.pdf](12448-PROOF.pdf) |
+| 12449 | [A304138](https://oeis.org/A304138) | Proof |  | [12449-PROOF.pdf](12449-PROOF.pdf) |
+| 12450 | [A295037](https://oeis.org/A295037) | Proof |  | [12450-PROOF.pdf](12450-PROOF.pdf) |
+| 12451 | [A282836](https://oeis.org/A282836) | Proof |  | [12451-PROOF.pdf](12451-PROOF.pdf) |
+| 12452 | [A283947](https://oeis.org/A283947) | Proof |  | [12452-PROOF.pdf](12452-PROOF.pdf) |
+| 12453 | [A238724](https://oeis.org/A238724) | Proof |  | [12453-PROOF.pdf](12453-PROOF.pdf) |
+| 12454 | [A239028](https://oeis.org/A239028) | Proof |  | [12454-PROOF.pdf](12454-PROOF.pdf) |
+| 12455 | [A231995](https://oeis.org/A231995) | Proof |  | [12455-PROOF.pdf](12455-PROOF.pdf) |
+| 12456 | [A304424](https://oeis.org/A304424) | Proof |  | [12456-PROOF.pdf](12456-PROOF.pdf) |
+| 12457 | [A302805](https://oeis.org/A302805) | Proof |  | [12457-PROOF.pdf](12457-PROOF.pdf) |
+| 12458 | [A253483](https://oeis.org/A253483) | Proof |  | [12458-PROOF.pdf](12458-PROOF.pdf) |
+| 12459 | [A303099](https://oeis.org/A303099) | Proof |  | [12459-PROOF.pdf](12459-PROOF.pdf) |
+| 12460 | [A299652](https://oeis.org/A299652) | Proof |  | [12460-PROOF.pdf](12460-PROOF.pdf) |
+| 12461 | [A299658](https://oeis.org/A299658) | Proof |  | [12461-PROOF.pdf](12461-PROOF.pdf) |
+| 12462 | [A263220](https://oeis.org/A263220) | Proof |  | [12462-PROOF.pdf](12462-PROOF.pdf) |
+| 12463 | [A230907](https://oeis.org/A230907) | Proof |  | [12463-PROOF.pdf](12463-PROOF.pdf) |
+| 12464 | [A316929](https://oeis.org/A316929) | Proof |  | [12464-PROOF.pdf](12464-PROOF.pdf) |
+| 12465 | [A301487](https://oeis.org/A301487) | Proof |  | [12465-PROOF.pdf](12465-PROOF.pdf) |
+| 12466 | [A252286](https://oeis.org/A252286) | Proof |  | [12466-PROOF.pdf](12466-PROOF.pdf) |
+| 12467 | [A278154](https://oeis.org/A278154) | Proof |  | [12467-PROOF.pdf](12467-PROOF.pdf) |
+| 12468 | [A250948](https://oeis.org/A250948) | Proof |  | [12468-PROOF.pdf](12468-PROOF.pdf) |
+| 12469 | [A282438](https://oeis.org/A282438) | Proof |  | [12469-PROOF.pdf](12469-PROOF.pdf) |
+| 12470 | [A279131](https://oeis.org/A279131) | Proof |  | [12470-PROOF.pdf](12470-PROOF.pdf) |
+| 12471 | [A237725](https://oeis.org/A237725) | Proof |  | [12471-PROOF.pdf](12471-PROOF.pdf) |
+| 12472 | [A224308](https://oeis.org/A224308) | Proof |  | [12472-PROOF.pdf](12472-PROOF.pdf) |
+| 12473 | [A257421](https://oeis.org/A257421) | Proof |  | [12473-PROOF.pdf](12473-PROOF.pdf) |
+| 12474 | [A251447](https://oeis.org/A251447) | Proof |  | [12474-PROOF.pdf](12474-PROOF.pdf) |
+| 12475 | [A237220](https://oeis.org/A237220) | Proof |  | [12475-PROOF.pdf](12475-PROOF.pdf) |
+| 12476 | [A237483](https://oeis.org/A237483) | Proof |  | [12476-PROOF.pdf](12476-PROOF.pdf) |
+| 12477 | [A263435](https://oeis.org/A263435) | Proof |  | [12477-PROOF.pdf](12477-PROOF.pdf) |
+| 12478 | [A260498](https://oeis.org/A260498) | Proof |  | [12478-PROOF.pdf](12478-PROOF.pdf) |
+| 12479 | [A236038](https://oeis.org/A236038) | Proof |  | [12479-PROOF.pdf](12479-PROOF.pdf) |
+| 12480 | [A280067](https://oeis.org/A280067) | Proof |  | [12480-PROOF.pdf](12480-PROOF.pdf) |
+| 12481 | [A297717](https://oeis.org/A297717) | Proof |  | [12481-PROOF.pdf](12481-PROOF.pdf) |
+| 12482 | [A297523](https://oeis.org/A297523) | Proof |  | [12482-PROOF.pdf](12482-PROOF.pdf) |
+| 12483 | [A317700](https://oeis.org/A317700) | Proof |  | [12483-PROOF.pdf](12483-PROOF.pdf) |
+| 12484 | [A231742](https://oeis.org/A231742) | Proof |  | [12484-PROOF.pdf](12484-PROOF.pdf) |
+| 12485 | [A268027](https://oeis.org/A268027) | Proof |  | [12485-PROOF.pdf](12485-PROOF.pdf) |
+| 12486 | [A282882](https://oeis.org/A282882) | Proof |  | [12486-PROOF.pdf](12486-PROOF.pdf) |
+| 12487 | [A253874](https://oeis.org/A253874) | Proof |  | [12487-PROOF.pdf](12487-PROOF.pdf) |
+| 12488 | [A253540](https://oeis.org/A253540) | Proof |  | [12488-PROOF.pdf](12488-PROOF.pdf) |
+| 12489 | [A278091](https://oeis.org/A278091) | Proof |  | [12489-PROOF.pdf](12489-PROOF.pdf) |
+| 12490 | [A297886](https://oeis.org/A297886) | Proof |  | [12490-PROOF.pdf](12490-PROOF.pdf) |
+| 12491 | [A260245](https://oeis.org/A260245) | Proof |  | [12491-PROOF.pdf](12491-PROOF.pdf) |
+| 12492 | [A232960](https://oeis.org/A232960) | Proof |  | [12492-PROOF.pdf](12492-PROOF.pdf) |
+| 12493 | [A233688](https://oeis.org/A233688) | Proof |  | [12493-PROOF.pdf](12493-PROOF.pdf) |
+| 12494 | [A295203](https://oeis.org/A295203) | Proof |  | [12494-PROOF.pdf](12494-PROOF.pdf) |
+| 12495 | [A296318](https://oeis.org/A296318) | Proof |  | [12495-PROOF.pdf](12495-PROOF.pdf) |
+| 12496 | [A282860](https://oeis.org/A282860) | Proof |  | [12496-PROOF.pdf](12496-PROOF.pdf) |
+| 12497 | [A300802](https://oeis.org/A300802) | Proof |  | [12497-PROOF.pdf](12497-PROOF.pdf) |
+| 12498 | [A306050](https://oeis.org/A306050) | Proof |  | [12498-PROOF.pdf](12498-PROOF.pdf) |
+| 12499 | [A316286](https://oeis.org/A316286) | Proof |  | [12499-PROOF.pdf](12499-PROOF.pdf) |
+| 12500 | [A302152](https://oeis.org/A302152) | Proof |  | [12500-PROOF.pdf](12500-PROOF.pdf) |

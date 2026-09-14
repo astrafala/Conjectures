@@ -96,11 +96,18 @@ def read(e, _depth=0):
             continue
         # a trailing "where Q = ..." defines an abbreviation; substitute it
         subs = {}
-        mm = re.search(r',?\s*where\s+(.*)$', body, re.I)
+        # "with p(x) = sqrt(...)" is the same clause as "where ...", and only `where` was
+        # recognised. That mattered once the body was split on `=`: with the clause still
+        # attached, the split offered `sqrt((1-x-4*x^2)/(1-x))` -- the DEFINITION of p -- as
+        # the generating function, and on A026571 it was accepted as one. The data check
+        # caught it, but the clause must be removed before the split, not after.
+        mm = re.search(r',?\s*(?:where|with)\s+(.*)$', body, re.I)
         if mm:
             body = body[:mm.start()].strip().rstrip(',')
             for part in re.split(r',\s*(?=[A-Za-z]\w*\s*=)', mm.group(1)):
-                q = re.match(r'\s*([A-Za-z]\w*)\s*=\s*(.*?)\s*\.?\s*$', part)
+                # the abbreviation is often written as a function: "with p(x) = sqrt(...)"
+                q = re.match(r'\s*([A-Za-z]\w*)\s*(?:\(\s*[xz]\s*\))?\s*=\s*(.*?)\s*\.?\s*$',
+                             part)
                 if q:
                     subs[q.group(1)] = q.group(2)
         body = LEAD.sub('', body).strip()
@@ -113,15 +120,31 @@ def read(e, _depth=0):
         except Exception:
             continue
         loc.update(sub_exprs)
-        s = _implicit(body)
-        # after substitution nothing alphabetic may remain but the variable and the names
-        known = set(loc) | {'sqrt'}
-        names = set(re.findall(r'[A-Za-z]\w*', s))
-        if names - known:
-            continue
-        try:
-            A = sp.sympify(s, locals=loc)
-        except Exception:
+        # An entry often gives two equal forms on one line:
+        #     G.f.: A(x) = (1 - 4*x)^(-1/2) = 1F0(1/2;;4x).
+        # The first is exactly what is wanted and the second is hypergeometric notation this
+        # module does not read, and rejecting the LINE threw the first away with the second.
+        # A000984 is cited three times by other entries and was unreachable for that reason.
+        A = None
+        for piece in body.split('='):
+            piece = piece.strip()
+            if not piece:
+                continue
+            # an abbreviation defined as p(x) appears in the body as p(x) too, which is an
+            # application and not a product
+            s = _implicit(piece)
+            for nm_ in sub_exprs:
+                s = re.sub(r'\b%s\s*\(\s*[xz]\s*\)' % re.escape(nm_), nm_, s)
+            known = set(loc) | {'sqrt'}
+            if set(re.findall(r'[A-Za-z]\w*', s)) - known:
+                continue
+            try:
+                A = sp.sympify(s, locals=loc)
+            except Exception:
+                A = None
+                continue
+            break
+        if A is None:
             continue
         # A `where' definition can be SELF-REFERENTIAL -- "where g = 1 + x*g^6" -- and
         # substituting it once leaves g free. The name check above passes because g is a key
