@@ -40,6 +40,15 @@ roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
+# A shard's `done` is its own file, so a run at a different NSHARD repartitions the pool and
+# asks the same entries again -- two of the first six proofs were computed twice that way, at
+# several minutes each. What any shard has already settled is settled.
+import glob as _glob
+for _f in _glob.glob('linkrec_hits_*.json') + ['linkrec_hits.json']:
+    try:
+        done |= {h['anum'] for h in json.load(open(_f)) if isinstance(h, dict) and h.get('anum')}
+    except Exception:
+        pass
 res = collections.Counter()
 
 

@@ -495,3 +495,43 @@ the wording of the claim defeats the parsers. Bucketed by shape, it is dominated
 
 Orders run 37 to 96, on engines that already exist (transfer20 21, transfer56 16,
 transfer22 15, transfer57 14, transfer9 13, window 11, ...).
+
+## 14 September 2026 — the conjecture that is not in the entry
+
+**23 results**, first of a vein of 228 candidates.
+
+192 entries outside the roster state their conjecture as
+
+    Empirical recurrence of order 42 (see link above).
+
+and 36 more as `Empirical polynomial of degree 26 (see link above)`. The statement itself is
+in a linked a-file. Every reader in this repository looks only at the entry's own text, so all
+228 were refused with "no parsable recurrence" — and **every one of them has a name an engine
+here already reads**. Not a missing engine: a missing fetch.
+
+The local clone does carry these files, at `oeisdata/files/A279/a279654.txt`. They are **Git
+LFS pointers**:
+
+    version https://git-lfs.github.com/spec/v1
+    oid sha256:dda0b1751a5304cc44ea590739d4db64f5dea0a9dbc1056ded6dd060
+
+so opening the clone's copy settles nothing, and — worse — looks like a file that is simply
+not a recurrence. All 228 fetched once into `afiles/`. `ratrec.parse_rec` reads the fetched
+line unchanged, at order 96 as readily as at order 2.
+
+Installed so far: 4 by `sweep_linkrec` (orders 91, 95, 98, …) and 19 by `sweep_cf` through
+the linked polynomial (degrees to 31). The sweeps continue; the models are large — one is a
+digraph on 114,688 vertices — so this is hours of arithmetic, not minutes.
+
+One refusal is deliberate: the entry's sentence states an ORDER and the linked file states a
+recurrence, and those are two statements. If the file's order is not the entry's order the
+pair is **refused**, not reconciled.
+
+### The same day's other stale filter
+
+`polyclosed_cands.json`, the closed-form sweep's pool, held 137 entries chosen by hand on
+1 September. 274 entries whose only readable claim is a closed form `closedform` reads
+outright, and whose name an engine already reads, were not in it — 5 were. Ninth stale filter
+found in this project, and they all hide the same way: the sweep runs, reports a small clean
+number, and is never asked about the rest. Pool rebuilt from the clone at 406;
+`cfpoolrun.sh` is in `restart_all.sh`.
