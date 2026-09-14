@@ -80,3 +80,42 @@ model with hundreds of thousands of states, and that is what the sweep's own tim
 itself on. The cap was never the binding constraint once the build stopped being quadratic.
 
 Roster: 12,958 -> 12,966 papers over 12,939 entries.
+
+## 14 September 2026 — the threshold was not the bottleneck; the machine was
+
+Last turn ended by saying the cost in `transfer3` had "moved to the annihilation test". That
+was inferred from wall-clock, not measured, and it was **wrong**. Two findings, one real and
+one a correction.
+
+**Real: `transfer3`'s threshold was never lumped.** `uniform.threshold` sent it to
+`T2.threshold` with the RAW state count, and that test runs until S+1 consecutive residuals
+vanish — up to 3S+order+8 matrix-vector products on S states. Every other engine of this shape
+is lumped first; `transfer3` was simply never added to that branch. The merge factor is not
+marginal:
+
+    A234225   78,125 states -> 17   (4,596x)     threshold 0s
+    A234562   78,125 states -> 16   (4,883x)
+    A234226  390,625 states -> 17   (22,978x)    build 135s, lump 4s, threshold 0s
+
+Checked against the unlumped test on 576 threshold calls across widths 2..5, alphabets 1..3,
+c = 0..3, both senses of the adjacency clause and random coefficient sets: **identical every
+time**. The fix is correct and is kept. It is also, honestly, not what was blocking anything.
+
+**The correction: `annihilation timed out` is 1 case in 122 in the pool sample and 0 in both
+engine sweeps.** The threshold was never the binding constraint. What was slow was the
+machine. `restart_all.sh` brings back about thirty background workers and the load average was
+**35 on four cores**, so every targeted run today was getting roughly an eighth of one core.
+With the standing sweeps paused the same sweep asked 100 names in two minutes where it had
+managed 125 in twenty.
+
+That is now STATE.md defect 21, and it is the more useful of the two: **a measurement taken
+through thirty competing processes is not a measurement.** Every "this build is stuck"
+judgement today was made through that fog, and one of them became a written conclusion that
+was simply false.
+
+With the machine to itself the sweep found **12 more** `transfer35` results before the
+container restarted under it: A186879, A188103, A188104, A190029-A190032, A206340-A206342,
+A207147, A207148. All twelve survived the restart because the sweep writes after every entry,
+and all twelve were kept by the live re-check.
+
+Roster: 12,966 -> 12,978 papers over 12,951 entries.

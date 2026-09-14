@@ -12,127 +12,152 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283410, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251368, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283410 counts $n\times3$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
-order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
-matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=69$ vertices, which is $C$-finite. Whether the
-conjectured recurrence annihilates it is then decided by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A251368 counts $4$-column arrays over $\{0,\dots,2\}$ in which every
+$2\times2$ subblock sums to one of $\{1, 2, 3, 4, 5, 6, 7\}$, and carries an empirical
+recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is not an
+empirical matter at all: the rows of such an array are the vertices of a finite digraph in
+which the admissible row-to-row steps are the edges, so $a(n)=\mathbf{1}^{\!\top}M^{n}
+\mathbf{1}$ for the adjacency matrix $M$ of that digraph, on $S=81$ vertices. Writing
+$q$ for the characteristic polynomial of the conjectured recurrence, the recurrence holds
+for every $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all
+$j\ge0$, and the Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite
+computation in exact integer arithmetic, and it comes out zero.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A283410 is ``Number of n X 3 0..1 arrays with no 1 equal to more than three of its horizontal, vertical and antidiagonal neighbors.''. It has offset $1$ and begins
+OEIS A251368 is ``Number of (n+1) X (3+1) 0..2 arrays with every 2 X 2 subblock summing to 1 2 3 4 5 6 or 7.''. It has offset $1$
+and begins
 \[
-8, 61, 416, 2944, 20744, 146228, 1030788, 7266120,\ \dots
+6113, 464393, 35257505, 2676962017, 203249994369, 15431888950873, 1171676222709377, 88960280954218353,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 5*a(n-1) + 13*a(n-2) + 10*a(n-3) + a(n-4) + 2*a(n-5) for n>7.
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 66*a(n-1) + 746*a(n-2) + 660*a(n-3) - 6281*a(n-4) + 3690*a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 21 2019 08:19:11, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 29 2018 10:37:10, revision 8) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{Cells, not blocks}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;66\,a(n-1) + 746\,a(n-2) + 660\,a(n-3) - 6281\,a(n-4) + 3690\,a(n-5)
+\end{equation}
+for all $n>4$, which is every $n$ at which a recurrence of order $5$ can be
+stated.
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+\section{The rows form a digraph}
+
+Let $V=\{0,1,\dots,2\}^{4}$, the set of possible rows, so $|V|=S=81$. For
+$r,s\in V$ declare $r\to s$ an edge when, for every $j$ with $1\le j\le 4-1$,
+\begin{itemize}
+\item $r_j+r_{j+1}+s_j+s_{j+1}\in\{1, 2, 3, 4, 5, 6, 7\}$;
+
+\end{itemize}
+that is, when placing the row $s$ directly under the row $r$ satisfies the entry's
+condition on every $2\times2$ subblock formed by those two rows. Let $M\in\{0,1\}^{S\times
+S}$ be the adjacency matrix of this digraph and $\mathbf{1}$ the all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $n+1$ rows are exactly the walks
+$r^{(0)}\to r^{(1)}\to\cdots\to r^{(n)}$ of length $n$ in this digraph. Consequently
 \[
-\text{every 1 has at most 3 neighbouring 1s},
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \]
-and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $6$ and change what is being counted. The outside is
-therefore carried
-explicitly, as a sentinel row above the first and below the last and as a sentinel column
-either side, and a neighbour that falls outside is simply absent from both counts.
-
-Write an array as a sequence of rows $u_1,\dots,u_L$, each in
-$\{0,\dots,1\}^{3}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
-$u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,1\}^{3}\cup\{\varnothing\})\times\{0,\dots,1\}^{3}$,
-and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
-$3$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
-$L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. Hence,
-with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
-\[
-a(n)\;=\;\,\iota^{\!\top}M^{\,n-1}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{5}-\sum_i c_it^{5-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the
-recurrence holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all
-large $j$; and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+5}-\sum_ic_iM^{j+5-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ satisfy the monic linear recurrence given by the
-characteristic polynomial of $M$; $S$ consecutive zeros force every later one, and the last
-nonzero $u_j$ pins the threshold exactly.
+An array with $n+1$ rows and $4$ columns is precisely a sequence
+$r^{(0)},\dots,r^{(n)}$ of elements of $V$. Every $2\times2$ subblock of the array lies
+in two vertically adjacent rows $r^{(i)},r^{(i+1)}$ and in two horizontally adjacent
+columns $j,j+1$; so the array satisfies the entry's condition on all of its $2\times2$
+subblocks if and only if each consecutive pair $\bigl(r^{(i)},r^{(i+1)}\bigr)$ satisfies
+it on all column pairs, which is exactly the edge relation. Counting walks of length $n$ by
+summing over all starting and ending vertices gives
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$, since
+$\bigl(M^{n}\bigr)_{r,s}$ is the number of walks of length $n$ from $r$ to $s$.
 \end{proof}
 
-\begin{theorem}
+\section{The criterion}
+
+Let $q(t)=t^{5}-\sum_{i}c_i\,t^{5-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n\ge5$,
 \[
-a(n)\;=\;5\,a(n-1) + 13\,a(n-2) + 10\,a(n-3) + a(n-4) + 2\,a(n-5)
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n-5}\,q(M)\,\mathbf{1} .
 \]
-for every $n>7$.
+Hence \eqref{eq:conj} holds for every $n\ge5$ if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to
+check $j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{n-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{n}-\sum_i c_i M^{n-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,n-5}\Bigl(M^{5}-\sum_i c_i M^{5-i}\Bigr)\mathbf{1},
+\]
+which is the stated identity. The equivalence follows by letting $n-5=j$ run over
+$\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the Cayley--Hamilton theorem
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the
+earlier values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>4$. This is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=7+1$ onwards, and the run was
-continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>7$. The bound is exact: at $n=7$ the recurrence fails on the entry's own published terms, so no larger range holds.
+The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $5$ matrix--vector
+products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was evaluated for
+$j=0,1,\dots$ in exact integer arithmetic. Every one of those integers is $0$ from
+$j=4-5+1$ onwards, and the run was continued past $S$ consecutive zeros, which by
+Lemma~\ref{lem:crit} settles every larger $j$ as well. Hence the recurrence holds for
+every $n>4$.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $19$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
+the $12$ published indices; the values agree exactly. That is what ties the digraph to
+the sequence: a model that reproduced only some of the published terms would be the wrong
+model, and would have been rejected.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was run to the full Cayley--Hamilton
+bound $j<S=81$ rather than to a sampled prefix, in exact integer arithmetic, and returned
+zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283410.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251368.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

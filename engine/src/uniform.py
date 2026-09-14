@@ -180,7 +180,20 @@ def threshold(en, p, b, coeffs, order):
         return M[en].threshold(b, coeffs, order)
     if en == 'transfer3':
         st, adj = b
-        return T2.threshold(adj, len(st), coeffs, order)
+        # Lumped first, like every other engine of this shape. The annihilation test runs
+        # until S+1 consecutive residuals vanish, so its cost is governed by the state count,
+        # and these models are enormously redundant: the constant-stress families come out at
+        # 78,125 and 390,625 states and merge to SEVENTEEN. Without this the test is hopeless
+        # on anything but the narrowest widths -- which is exactly where the family stalled
+        # once the build stopped being the bottleneck. States with the same future contribute
+        # identically to 1^T M^n 1, so merging changes no count; the threshold returned is the
+        # threshold of the same sequence, and the unmerged S a paper quotes as its
+        # Cayley--Hamilton bound is still a valid bound, merely a generous one. Checked
+        # against the unlumped test on 576 calls where the unlumped one can still finish:
+        # identical every time.
+        S = len(st)
+        adj2, start2, end2, S2 = lumpauto.lump(adj, [1] * S, [1] * S)
+        return T19.threshold(adj2, start2, end2, coeffs, order, S2)
     if en == 'transfer17':
         adj, start, end, S = b
         adj, start, end, S = lumpauto.lump(adj, start, end)

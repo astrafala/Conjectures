@@ -111,6 +111,17 @@ Recurring defects, all found this way:
     one can still do -- both of these were verified identical as labelled graphs before they
     were used for anything.
 
+21. **thirty standing sweeps on four cores, and every measurement taken through them.**
+    `restart_all.sh` brings back about thirty background workers. They are useful, but the
+    load average sat at **35 on 4 cores**, so a targeted sweep run alongside them gets about
+    an eighth of one core. Every "stuck" build today was that: a run that asked 125 names in
+    twenty minutes asked 100 in two once the standing sweeps were paused. Worse, it produced a
+    WRONG DIAGNOSIS -- slow wall-clock was read as "the cost has moved to the annihilation
+    test", and the measurement says otherwise: `annihilation timed out` is 1 case in 122 in
+    the pool and 0 in both engine sweeps. **Pause the standing sweeps before timing anything,
+    and restart them after.** Stop them by killing the runner shells in /tmp first, or they
+    respawn their workers.
+
 13. **a fix applied to one builder and not to its twin.** `qpbuild` was written because
     `unibuild` called every model a walk on a digraph; `gfonlybuild` says the same thing and
     was left alone for another 219 papers. When a defect is found in one place, ask which
