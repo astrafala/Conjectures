@@ -1755,3 +1755,47 @@ closed-form pool I wrote its results to `cfnew_hits.json`, **a filename that alr
 destroying sixteen records — which `PROVED` reads, which is how it was noticed. Recovered from
 git and merged. A new hits file needs a name nothing else has; the glob that finds it will find
 the collision too.
+
+
+## AJ. The second-conjecture vein, and 235 papers withdrawn the day they went in
+
+§AI built the plumbing the vein never had. Installing it produced **235 papers, and all 235
+were withdrawn within the hour.** The record of how is the useful part.
+
+The vein settles a FURTHER conjecture on an entry already proved. It already excluded a
+generating function that merely restates the proved recurrence in other notation — 383 of them
+per shard — which is the obvious duplicate. It did not exclude a claim IDENTICAL to the one the
+entry's existing paper was built from. On those entries the "second result" was the first
+result stated again: padding, and the rule it breaks is the first one in STATE.md.
+
+**The first test was too weak, and that matters more than the fact that there was one.**
+Comparing each settled line against the lines other hits files record caught 118 of the 235 —
+it can only catch a duplicate when the entry's paper came from a vein that stores the line it
+used. The authoritative comparison is with the PAPER, which quotes the conjecture it settles and
+whose TeX is in `paper-sources/`. On that test **all 235 were duplicates**, including all 117
+the first test had cleared. A test that clears half of what a better test rejects is not a
+weaker version of the right test; it is a different and wrong one.
+
+Over the whole roster, with the paper-text test inside the sweep:
+
+| | |
+|---:|---|
+| 1,436+ | the claim the entry already has a paper for |
+| 1,532 | a generating function that only restates the proved recurrence |
+| 1,849 | too few terms past the threshold to confirm the premise |
+| 1,152+ | nothing further follows from the proved recurrence |
+| 318 | no recurrence available as a premise |
+| **203** | **a genuinely further conjecture** |
+
+So the vein is **203**, not 971 and not 235. A sample read by hand: on each of five the existing
+paper proves a RECURRENCE and the new claim is a CLOSED FORM, contributed separately. Those are
+two conjectures and two results.
+
+One more guard the same episode forced: 368 installed papers have **no stored source**, so for
+those the duplicate test cannot run at all. It now refuses rather than assumes — assuming would
+put the first result back on the roster as a second one for every one of them.
+
+### The rule
+
+A vein that can produce a second paper on an entry must be able to say what the first one
+proved, and must read it from the paper rather than from any file that happens to be nearby.

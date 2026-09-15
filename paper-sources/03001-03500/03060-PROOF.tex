@@ -12,151 +12,168 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A223990, proved}
+\title{The empirical recurrence for OEIS A224582, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223990 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1792$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{31}$, of degree
-$31$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $31$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A224582 counts the $(n+6)\times8$ matrices over $\{0,\dots,1\}$ all of whose
+$7\times7$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$29$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $7$ consecutive rows and $7$ consecutive columns at once, so a
+single row is not a state; the strip of the last $6$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=208746$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A223990 is ``Number of 5Xn 0..3 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A224582 is ``Number of (n+6)X8 0..1 matrices with each 7X7 subblock idempotent.''. It has offset $1$ and begins
 \[
-56, 3136, 99634, 2086196, 31831914, 378122264, 3661410444, 29889154034,\ \dots
+164935, 26918, 22928, 24643, 26542, 27611, 28629, 29006,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical polynomial of degree 30 (see link above)
-
-Empirical: a(n) = (1/7353420799762759680000000)*n\^{}30 + (13/490228053317517312000000)*n\^{}29 + (1787413/659931481843536494592000000)*n\^{}28 + (523777/2856846241746911232000000)*n\^{}27 + (36467381767/4032914611266056355840000000)*n\^{}26 + (1418850019/4136322678221596262400000)*n\^{}25 + (55224658519/5318129157713480908800000)*n\^{}24 + (3195876850889/12408968034664788787200000)*n\^{}23 + (43151840501093/8092805239998775296000000)*n\^{}22 + (269404184843/2885135557931827200000)*n\^{}21 + (68470171382881/49047304484841062400000)*n\^{}20 + (293216145660553/16349101494947020800000)*n\^{}19 + (5884606572181/29581020758016000000)*n\^{}18 + (4934186275981861/2581437078149529600000)*n\^{}17 + (148366700781473701/9306189130471833600000)*n\^{}16 + (2509137249704430971/21714441304434278400000)*n\^{}15 + (20986725057214719643/28839492357451776000000)*n\^{}14 + (4705830351060354823/1183158660818534400000)*n\^{}13 + (815972824689457410401/43354313785707724800000)*n\^{}12 + (11038552383644372519/143693274857932800000)*n\^{}11 + (46389978525580705826513/172431929829519360000000)*n\^{}10 + (4614822960261861794737/5747730994317312000000)*n\^{}9 + (275354863997978840863/136005980318208000000)*n\^{}8 + (10448353961312528488691/2448107645727744000000)*n\^{}7 + (35671549722138690560953/4808782875536640000000)*n\^{}6 + (22924327332841510297/2200096740441600000)*n\^{}5 + (280140372934030499503/24311068981879680000)*n\^{}4 + (197117936454903073/20259224151566400)*n\^{}3 + (3670903703130173/587752601436000)*n\^{}2 + (4877294953/2218180536)*n + 1
+Empirical: a(n) = 3*a(n-1) -5*a(n-2) +7*a(n-3) -9*a(n-4) +11*a(n-5) -12*a(n-6) +13*a(n-7) -13*a(n-8) +12*a(n-9) -10*a(n-10) +7*a(n-11) -4*a(n-12) +3*a(n-14) -6*a(n-15) +8*a(n-16) -10*a(n-17) +11*a(n-18) -11*a(n-19) +11*a(n-20) -10*a(n-21) +9*a(n-22) -7*a(n-23) +6*a(n-24) -5*a(n-25) +4*a(n-26) -3*a(n-27) +2*a(n-28) -a(n-29) for n>39
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:09:04, revision 10) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{n^{30}}{7353420799762759680000000} + \frac{13 n^{29}}{490228053317517312000000} + \frac{1787413 n^{28}}{659931481843536494592000000} + \frac{523777 n^{27}}{2856846241746911232000000} + \frac{36467381767 n^{26}}{4032914611266056355840000000} + \frac{1418850019 n^{25}}{4136322678221596262400000} + \frac{55224658519 n^{24}}{5318129157713480908800000} + \frac{3195876850889 n^{23}}{12408968034664788787200000} + \frac{43151840501093 n^{22}}{8092805239998775296000000} + \frac{269404184843 n^{21}}{2885135557931827200000} + \frac{68470171382881 n^{20}}{49047304484841062400000} + \frac{293216145660553 n^{19}}{16349101494947020800000} + \frac{5884606572181 n^{18}}{29581020758016000000} + \frac{4934186275981861 n^{17}}{2581437078149529600000} + \frac{148366700781473701 n^{16}}{9306189130471833600000} + \frac{2509137249704430971 n^{15}}{21714441304434278400000} + \frac{20986725057214719643 n^{14}}{28839492357451776000000} + \frac{4705830351060354823 n^{13}}{1183158660818534400000} + \frac{815972824689457410401 n^{12}}{43354313785707724800000} + \frac{11038552383644372519 n^{11}}{143693274857932800000} + \frac{46389978525580705826513 n^{10}}{172431929829519360000000} + \frac{4614822960261861794737 n^{9}}{5747730994317312000000} + \frac{275354863997978840863 n^{8}}{136005980318208000000} + \frac{10448353961312528488691 n^{7}}{2448107645727744000000} + \frac{35671549722138690560953 n^{6}}{4808782875536640000000} + \frac{22924327332841510297 n^{5}}{2200096740441600000} + \frac{280140372934030499503 n^{4}}{24311068981879680000} + \frac{197117936454903073 n^{3}}{20259224151566400} + \frac{3670903703130173 n^{2}}{587752601436000} + \frac{4877294953 n}{2218180536} + 1.
-\]
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:29:09, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1792$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
-\[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
-\]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
+Call a $7\times7$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $7\times8$ matrix a \emph{band} when every one of its $2$ contiguous
+$7\times7$ subblocks is a window. What the entry counts is the matrices of $8$ columns
+whose every $7$ consecutive rows form a band.
 
-\section{A closed form is a recurrence}
-
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+Take as states the $6\times8$ strips that occur as the top $6$ rows of a band,
+together with those that occur as its bottom $6$ rows, and put an edge from $u$ to $v$
+when the band whose first $6$ rows are $u$ and whose last $6$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..6$, then $2..7$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+6$ rows gives a walk of $n$ edges.
+Since the first $6$ rows of a counted matrix with at least $7$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
+with $M$ the adjacency matrix on $S=208746$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{48}$ strips of $6$ rows and $8$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $7\times6$ entries, so a band is exactly a walk of $2$ windows in
+the graph that joins a window to those whose first $6$ columns are its last $6$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $7\times7$ with
+$B^2=B$. There are $2^{49}$ matrices to sift, which is already awkward at $7=7$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
+\[
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
+\]
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-Here $q(x)=(x-1)^{31}$, of degree $31$; the closed form is a polynomial in $n$, so this is $(x-1)^{31}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;31\,a(n-1) - 465\,a(n-2) + 4495\,a(n-3) - 31465\,a(n-4) + 169911\,a(n-5) - 736281\,a(n-6) + 2629575\,a(n-7) - 7888725\,a(n-8) + 20160075\,a(n-9) - 44352165\,a(n-10) + 84672315\,a(n-11) - 141120525\,a(n-12) + 206253075\,a(n-13) - 265182525\,a(n-14) + 300540195\,a(n-15) - 300540195\,a(n-16) + 265182525\,a(n-17) - 206253075\,a(n-18) + 141120525\,a(n-19) - 84672315\,a(n-20) + 44352165\,a(n-21) - 20160075\,a(n-22) + 7888725\,a(n-23) - 2629575\,a(n-24) + 736281\,a(n-25) - 169911\,a(n-26) + 31465\,a(n-27) - 4495\,a(n-28) + 465\,a(n-29) - 31\,a(n-30) + a(n-31).
-\end{equation}
+Generating from Lemma~\ref{lem:idem} gives $2185738$ admissible $7\times7$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
+Let $q(t)=t^{29}-\sum_i c_it^{29-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
+Factor $M^{j}$ out of $M^{j+29}-\sum_ic_iM^{j+29-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+\[
+a(n)\;=\;3\,a(n-1) - 5\,a(n-2) + 7\,a(n-3) - 9\,a(n-4) + 11\,a(n-5) - 12\,a(n-6) + 13\,a(n-7) - 13\,a(n-8) + 12\,a(n-9) - 10\,a(n-10) + 7\,a(n-11) - 4\,a(n-12) + 3\,a(n-14) - 6\,a(n-15) + 8\,a(n-16) - 10\,a(n-17) + 11\,a(n-18) - 11\,a(n-19) + 11\,a(n-20) - 10\,a(n-21) + 9\,a(n-22) - 7\,a(n-23) + 6\,a(n-24) - 5\,a(n-25) + 4\,a(n-26) - 3\,a(n-27) + 2\,a(n-28) - a(n-29)
+\]
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $31$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=32$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>31$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $31$ consecutive indices
-$n=32,\dots,62$ and agree at each. A monic recurrence of order $31$
-determines $a(m)$ from $a(m-1),\dots,a(m-31)$, and for every $m\ge63$ both
-$m>31$ and $m-31\ge32$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge32$.
-Below $n=32$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=32$ on. The remaining indices $n=1,\dots,31$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
+The vector $w=q(M)\tau$ was formed by $29$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
-
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $17$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223990.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224582.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

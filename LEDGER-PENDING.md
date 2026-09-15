@@ -996,3 +996,27 @@ Every one of the 235 passes the window check added this round (§AI.1), and ever
 re-confirmed against the live OEIS before installation. The paper states the window explicitly:
 for a closed form, `q | p` plus agreement at D consecutive indices past the point where the
 sequence provably satisfies `p`.
+
+### The second-conjecture vein: 235 installed, 235 withdrawn, 203 installed (IDEAS §AJ)
+
+**Net 203 papers; roster 13,545 over 13,315 entries; 163 arguments.**
+
+The vein settles a further conjecture on an entry already proved, and it had no builder. Built
+it, installed 235 — and withdrew all 235 the same day. They were the entry's OWN conjecture,
+already settled by its existing paper: the first result stated again. The sweep excluded a
+generating function that restates the proved recurrence in other notation but not a closed form
+identical to what the entry's paper already proves.
+
+**The first duplicate test caught 118 of the 235 and cleared the rest**, because it compared
+against the lines other hits files record and could only see a duplicate when the entry's paper
+came from a vein that stored its line. The authoritative comparison is with the PAPER, whose TeX
+is in `paper-sources/`; on that test all 235 were duplicates, including all 117 the first test
+had cleared. That test is now inside the sweep.
+
+Re-asked over the whole roster with it: 203 genuinely further conjectures out of 13,315 entries,
+against 1,436 "the claim the entry already has a paper for", 1,532 restatements, 1,849 with too
+few terms to confirm the premise. Five read by hand: in each the existing paper proves a
+recurrence and the new claim is a separately contributed closed form. Installed.
+
+Also: 368 installed papers have no stored source, so the duplicate test cannot run on them. It
+refuses rather than assumes.

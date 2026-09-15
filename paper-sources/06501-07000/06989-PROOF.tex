@@ -12,86 +12,79 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250827, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A232063, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250827 counts arrays over $\{0,1,\dots,4\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=625$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A232063 counts arrays of width $6$ over $\{0,1,2\}$ in which every cell carrying one stated
+value must have a neighbour carrying another. The entry carries an empirical recurrence of
+order $42$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: a cell's neighbours lie in three consecutive rows, so the count is a walk count on
+$S=6874$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A250827 is ``Number of (n+1) X (1+1) 0..4 arrays with nondecreasing maximum of every two consecutive values in every row and column.''. It has offset $1$ and begins
+OEIS A232063 is ``Number of nX6 0..2 arrays with every 0 next to a 1 and every 1 next to a 2 horizontally or vertically, with no adjacent values equal.''. It has offset $1$ and begins
 \[
-625, 9025, 119025, 1301881, 13249600, 123432100, 1093360356, 9211008676,\ \dots
+16, 146, 1194, 9310, 75462, 612364, 4990482, 40661766,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -131*a(n-2) -1640*a(n-3) +18390*a(n-4) +21098*a(n-5) -898470*a(n-6) +1449922*a(n-7) +24694534*a(n-8) -79516250*a(n-9) -434645314*a(n-10) +2047722714*a(n-11) +5089991904*a(n-12) -34226422260*a(n-13) -38156724072*a(n-14) +408656777334*a(n-15) +135544762362*a(n-16) -3642984222786*a(n-17) +617119999350*a(n-18) +24824013529854*a(n-19) -12730359567798*a(n-20) -130913966160894*a(n-21) +99434785174074*a(n-22) +536966717354382*a(n-23) -506800917819311*a(n-24) -1711043806972261*a(n-25) +1860942904207067*a(n-26) +4205369792214218*a(n-27) -5077623195486408*a(n-28) -7857653764349072*a(n-29) +10363496522828544*a(n-30) +10886386212129920*a(n-31) -15702146764127296*a(n-32) -10709517444774016*a(n-33) +17300139976238080*a(n-34) +6875247016863744*a(n-35) -13349858541944832*a(n-36) -2292305035198464*a(n-37) +6755782674087936*a(n-38) -60736730038272*a(n-39) -1977484673286144*a(n-40) +300046960558080*a(n-41) +246128402497536*a(n-42) -63403380965376*a(n-43).
+Empirical: a(n) = 8*a(n-1) +8*a(n-2) -48*a(n-3) -14*a(n-4) -398*a(n-5) +433*a(n-6) -478*a(n-7) +2797*a(n-8) -2080*a(n-9) +3344*a(n-10) -10791*a(n-11) +6352*a(n-12) -11493*a(n-13) +26807*a(n-14) -11133*a(n-15) +26275*a(n-16) -39528*a(n-17) +11642*a(n-18) -40057*a(n-19) +29717*a(n-20) -9677*a(n-21) +35669*a(n-22) -5207*a(n-23) +10008*a(n-24) -12233*a(n-25) -8213*a(n-26) -10936*a(n-27) -6439*a(n-28) +6651*a(n-29) +8825*a(n-30) +7963*a(n-31) -2212*a(n-32) -4693*a(n-33) -2951*a(n-34) +362*a(n-35) +1560*a(n-36) +417*a(n-37) -25*a(n-38) -294*a(n-39) -9*a(n-40) +24*a(n-42)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 15 2023 20:03:21, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:51:14, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $2$ cells across and entries $x(i,j)\in\{0,1,\dots,4\}$.
-
-Fix the statistic $\sigma(v)=\max_t v_t$ of a run $v$ of $2$ consecutive cells --- in words,
-the maximum of the $2$ values. Two derived arrays are formed and both must be
-nondecreasing in their own direction: reading along a row,
+The array has $6$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+cells reached from it by the offsets
 \[
-\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
-\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
+(-1,0), (0,-1), (0,1), (1,0),
 \]
-and reading down a column,
-\[
-\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
-\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
-\]
-The same statistic and the same run length serve both directions, so the condition is
-unchanged by transposing the array.
+those lying inside the array. The entry asks that
+\begin{itemize}
+\item every cell carrying $0$ has at least one neighbour carrying $1$;
+\item every cell carrying $1$ has at least one neighbour carrying $2$;
+\item no two neighbouring cells carry equal values.
+\end{itemize}
+A cell whose value is not named on the left of any clause is unconstrained.
 
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
-
-\section{A bounded window}
+\section{Three rows decide one}
 
 \begin{lemma}\label{lem:win}
-The row comparisons involve one array row each. A column comparison involves the
-$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
+decided by those three rows.
 \end{lemma}
 
 \begin{proof}
-The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
-occupy rows $i$ through $i+2$.
+Immediate from the offsets listed, together with the rule that a neighbour outside the array is
+not a neighbour.
 \end{proof}
 
-So the window of the last $2$ rows is a state, each row of it already satisfying its own row
-comparisons, and one step appends a row and settles the column comparisons that the new row
-completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$, and a step appends a row and settles the condition for the middle row of the window it
+completes. The condition for the LAST row is settled by the end vector, with nothing below it:
+the end vector is therefore not the all-ones vector, and a row whose cells find what they need
+only because a further row is written below them does not finish an array. With $M$ the
+adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=625,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6874.
 \]
-a walk of no steps being an array of exactly $2$ rows.
-
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{42}-\sum_i c_it^{42-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -99,7 +92,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+43}-\sum_ic_iM^{j+43-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+42}-\sum_ic_iM^{j+42-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -108,29 +101,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 131\,a(n-2) - 1640\,a(n-3) + 18390\,a(n-4) + 21098\,a(n-5) - 898470\,a(n-6) + 1449922\,a(n-7) + 24694534\,a(n-8) - 79516250\,a(n-9) - 434645314\,a(n-10) + 2047722714\,a(n-11) + 5089991904\,a(n-12) - 34226422260\,a(n-13) - 38156724072\,a(n-14) + 408656777334\,a(n-15) + 135544762362\,a(n-16) - 3642984222786\,a(n-17) + 617119999350\,a(n-18) + 24824013529854\,a(n-19) - 12730359567798\,a(n-20) - 130913966160894\,a(n-21) + 99434785174074\,a(n-22) + 536966717354382\,a(n-23) - 506800917819311\,a(n-24) - 1711043806972261\,a(n-25) + 1860942904207067\,a(n-26) + 4205369792214218\,a(n-27) - 5077623195486408\,a(n-28) - 7857653764349072\,a(n-29) + 10363496522828544\,a(n-30) + 10886386212129920\,a(n-31) - 15702146764127296\,a(n-32) - 10709517444774016\,a(n-33) + 17300139976238080\,a(n-34) + 6875247016863744\,a(n-35) - 13349858541944832\,a(n-36) - 2292305035198464\,a(n-37) + 6755782674087936\,a(n-38) - 60736730038272\,a(n-39) - 1977484673286144\,a(n-40) + 300046960558080\,a(n-41) + 246128402497536\,a(n-42) - 63403380965376\,a(n-43)
+a(n)\;=\;8\,a(n-1) + 8\,a(n-2) - 48\,a(n-3) - 14\,a(n-4) - 398\,a(n-5) + 433\,a(n-6) - 478\,a(n-7) + 2797\,a(n-8) - 2080\,a(n-9) + 3344\,a(n-10) - 10791\,a(n-11) + 6352\,a(n-12) - 11493\,a(n-13) + 26807\,a(n-14) - 11133\,a(n-15) + 26275\,a(n-16) - 39528\,a(n-17) + 11642\,a(n-18) - 40057\,a(n-19) + 29717\,a(n-20) - 9677\,a(n-21) + 35669\,a(n-22) - 5207\,a(n-23) + 10008\,a(n-24) - 12233\,a(n-25) - 8213\,a(n-26) - 10936\,a(n-27) - 6439\,a(n-28) + 6651\,a(n-29) + 8825\,a(n-30) + 7963\,a(n-31) - 2212\,a(n-32) - 4693\,a(n-33) - 2951\,a(n-34) + 362\,a(n-35) + 1560\,a(n-36) + 417\,a(n-37) - 25\,a(n-38) - 294\,a(n-39) - 9\,a(n-40) + 24\,a(n-42)
 \]
-for every $n>43$.
+for every $n>42$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $42$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=42+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+cell against its neighbours directly. No window, no state and no transposition are involved,
+and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -140,7 +133,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250827.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A232063.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

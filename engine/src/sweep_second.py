@@ -40,6 +40,7 @@ import conjlines
 import factlines
 import gfrec
 import localentry as LE
+import repopaths
 import openness
 import ratrec
 
@@ -67,6 +68,56 @@ res = collections.Counter()
 # refused with "no proved recurrence on record" when the proof is on file under a different
 # sweep's name -- the tables, the min-filter images, the one-dimensional words, the cusp-form
 # dimensions and the cellular automaton rows all keep their own.
+# A "further" conjecture that is the conjecture the entry's EXISTING paper already settles is
+# the first result stated again, not a second one. 235 papers were installed and withdrawn the
+# same day for exactly that, and the withdrawal happened in two stages because the first test
+# was too weak: comparing against the lines other hits files record catches a duplicate only
+# when the entry's paper came from a vein that stores the line it used, and it found 118 of the
+# 235. The authoritative comparison is with the PAPER, which quotes the conjecture it settles --
+# `paper-sources/` holds the TeX -- and on that test all 235 were duplicates.
+#
+# So the paper is what is read here. The claim's distinctive core (the formula, with the
+# "Empirical:" opening and the attribution stripped) is looked for in the TeX of every paper
+# already installed on the entry.
+import glob as _g2
+import os as _os
+import re as _re
+
+_SRC = {_os.path.basename(_p): _p
+        for _p in _g2.glob(repopaths.ROOT + '/paper-sources/*/*.tex')}
+PAPERS = {}
+try:
+    for _r in json.load(open('rank-map.json')):
+        _b = _os.path.basename(_r['path']).replace('.pdf', '.tex')
+        _p = _SRC.get(_b)
+        if not _p:
+            continue
+        try:
+            PAPERS.setdefault(_r['anum'], []).append(
+                _re.sub(r'[\\${}]', '', _re.sub(r'\s+', ' ', open(_p, errors='replace').read())))
+        except Exception:
+            pass
+except Exception:
+    pass
+
+
+def already_proved(anum, line):
+    """is this claim the one the entry's own paper already settles?"""
+    t = _re.sub(r'[\\${}]', '', _re.sub(r'\s+', ' ', line))
+    core = _re.sub(r'^\s*(Empirical|Conjectur\w*)\s*[:.]?\s*', '', t, flags=_re.I)
+    core = _re.sub(r'\s*-\s*_.*$', '', core).strip()[:60]
+    if not core:
+        return True
+    bodies = PAPERS.get(anum, ())
+    if not bodies:
+        # no stored source for the entry's existing paper, so this claim CANNOT be compared
+        # against what that paper already settles. Refuse rather than assume it is different:
+        # 368 installed papers have no stored source, and assuming would put the first result
+        # back on the roster as a second one for every one of them.
+        return True
+    return any(core in body for body in bodies)
+
+
 PROVED = {}
 import glob as _glob
 # A hand-written list of hits files is a stale filter like any other: every vein added since
@@ -155,6 +206,9 @@ for a in targets:
         if t in seen:
             continue
         seen.add(t)
+        if already_proved(a, t):
+            res['already this entry\'s paper, or no source to compare with'] += 1
+            continue
         # (a) another recurrence
         r = ratrec.parse_rec(L)
         if r:

@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A254692, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236251, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A254692 carries an empirical recurrence of order $49$ contributed by R.~H.~Hardin. It is
+OEIS A236251 carries an empirical recurrence of order $48$ contributed by R. H. Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=81$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=256$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A254692 is ``Number of length n+4 0..2 arrays with every five consecutive terms having the maximum of some two terms equal to the minimum of the remaining three terms.''. It has offset $1$ and begins
+OEIS A236251 is ``Number of (n+1)X(1+1) 0..3 arrays colored with the maximum plus the upper median plus the lower median of every 2X2 subblock.''. It has offset $1$ and begins
 \[
-133, 267, 552, 1140, 2310, 4542, 9106, 18498,\ \dots
+256, 3208, 40120, 505708, 6373768, 80221804, 1009767552, 12713539468,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) -3*a(n-2) +4*a(n-3) -6*a(n-4) +26*a(n-5) -43*a(n-6) +21*a(n-7) -55*a(n-8) +59*a(n-9) -217*a(n-10) +185*a(n-11) -38*a(n-12) +350*a(n-13) -150*a(n-14) +899*a(n-15) -152*a(n-16) +101*a(n-17) -1001*a(n-18) -108*a(n-19) -2159*a(n-20) -958*a(n-21) -492*a(n-22) +1151*a(n-23) +783*a(n-24) +3028*a(n-25) +2869*a(n-26) +1191*a(n-27) -124*a(n-28) -1084*a(n-29) -2384*a(n-30) -3108*a(n-31) -1346*a(n-32) -484*a(n-33) +650*a(n-34) +1038*a(n-35) +1603*a(n-36) +792*a(n-37) +200*a(n-38) -166*a(n-39) -262*a(n-40) -472*a(n-41) -236*a(n-42) +8*a(n-43) -64*a(n-44) +64*a(n-45) +64*a(n-46) +48*a(n-47) +32*a(n-49)
+Empirical recurrence of order 48 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:52:22, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:11:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=81$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=256$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
@@ -58,7 +58,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{49}-\sum_i c_it^{49-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{48}-\sum_i c_it^{48-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +66,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+49}-\sum_ic_iM^{j+49-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+48}-\sum_ic_iM^{j+48-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + 4\,a(n-3) - 6\,a(n-4) + 26\,a(n-5) - 43\,a(n-6) + 21\,a(n-7) - 55\,a(n-8) + 59\,a(n-9) - 217\,a(n-10) + 185\,a(n-11) - 38\,a(n-12) + 350\,a(n-13) - 150\,a(n-14) + 899\,a(n-15) - 152\,a(n-16) + 101\,a(n-17) - 1001\,a(n-18) - 108\,a(n-19) - 2159\,a(n-20) - 958\,a(n-21) - 492\,a(n-22) + 1151\,a(n-23) + 783\,a(n-24) + 3028\,a(n-25) + 2869\,a(n-26) + 1191\,a(n-27) - 124\,a(n-28) - 1084\,a(n-29) - 2384\,a(n-30) - 3108\,a(n-31) - 1346\,a(n-32) - 484\,a(n-33) + 650\,a(n-34) + 1038\,a(n-35) + 1603\,a(n-36) + 792\,a(n-37) + 200\,a(n-38) - 166\,a(n-39) - 262\,a(n-40) - 472\,a(n-41) - 236\,a(n-42) + 8\,a(n-43) - 64\,a(n-44) + 64\,a(n-45) + 64\,a(n-46) + 48\,a(n-47) + 32\,a(n-49)
+a(n)\;=\;-0\,a(n-1) - 0\,a(n-2) + 648\,a(n-3) + 8588\,a(n-4) + 61956\,a(n-5) + 413472\,a(n-6) + 1618600\,a(n-7) + 2985994\,a(n-8) - 8807068\,a(n-9) - 152834984\,a(n-10) - 731801304\,a(n-11) - 1777355964\,a(n-12) - 454480468\,a(n-13) + 30032164944\,a(n-14) + 146956703544\,a(n-15) + 275553530575\,a(n-16) - 127098485012\,a(n-17) - 4157472558888\,a(n-18) - 16080822776528\,a(n-19) - 12132998766584\,a(n-20) + 70656575378176\,a(n-21) + 328798681828032\,a(n-22) + 721049343054848\,a(n-23) - 780825278839184\,a(n-24) - 6836762201243840\,a(n-25) - 8759409963771520\,a(n-26) + 7753322470999296\,a(n-27) + 58955369738388224\,a(n-28) + 143390617243062272\,a(n-29) - 79655839461775360\,a(n-30) - 852154519853305856\,a(n-31) - 437136524533874688\,a(n-32) + 2117718546837151744\,a(n-33) + 1990656124107014144\,a(n-34) - 2093883288551718912\,a(n-35) - 2821335050330570752\,a(n-36) - 1294990554891550720\,a(n-37) - 546168790711009280\,a(n-38) + 4995302197192818688\,a(n-39) + 5847986080031178752\,a(n-40) - 3454522909857415168\,a(n-41) - 5260080579017179136\,a(n-42) - 811648764904210432\,a(n-43) - 114133195619827712\,a(n-44) + 1591624484392009728\,a(n-45) + 1891602448515072000\,a(n-46) - 319310675060981760\,a(n-47) - 493965391303802880\,a(n-48)
 \]
-for every $n>52$.
+for every $n>48$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $49$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $48$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=52+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=48+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A254692.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236251.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

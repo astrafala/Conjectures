@@ -12,74 +12,89 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A186844, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267669, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A186844 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $22$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=162$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A267669 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=1122$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A186844 is ``Number of (n+1)X4 binary arrays with no 2X2 subblock diagonal sum less antidiagonal sum equal to any horizontal or vertical neighbor 2X2 subblock diagonal sum less antidiagonal sum.''. It has offset $1$ and begins
+OEIS A267669 is ``Number of 4Xn 0..1 arrays with every repeated value in every row unequal to the previous repeated value, and in every column equal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
 \[
-162, 970, 6138, 36988, 224714, 1371258, 8335676, 50707346,\ \dots
+7, 98, 453, 3143, 10933, 60401, 188301, 951113,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=2*a(n-1)+11*a(n-2)+63*a(n-3)+112*a(n-4)+120*a(n-5)+110*a(n-6)-849*a(n-7)-1709*a(n-8)-1167*a(n-9)+1006*a(n-10)+3341*a(n-11)+2742*a(n-12)+2484*a(n-13)-161*a(n-14)+363*a(n-15)-1203*a(n-16)+126*a(n-17)-1692*a(n-18)+806*a(n-19)-426*a(n-20)+204*a(n-21)+32*a(n-22) for n>23
+Empirical: a(n) = 5*a(n-1) +46*a(n-2) -255*a(n-3) -804*a(n-4) +5287*a(n-5) +6393*a(n-6) -57990*a(n-7) -17379*a(n-8) +368289*a(n-9) -70362*a(n-10) -1394997*a(n-11) +645844*a(n-12) +3138583*a(n-13) -1858369*a(n-14) -4077534*a(n-15) +2440404*a(n-16) +2940332*a(n-17) -1387260*a(n-18) -1138872*a(n-19) +275184*a(n-20) +183456*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:44:30, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jan 19 2016 08:10:24, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for its diagonal sum minus its antidiagonal sum, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $3$ columns, and $\sigma$ labels that grid. The entry
-requires that no two subblocks that are neighbours horizontally or vertically carry the same value of $\sigma$.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+different from the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be equal to the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all. The entry writes the array with $n$ as the number of COLUMNS, so the array grows one COLUMN at a time: the column scan is the one that runs inside a slice and the row scan is the one that runs across slices.
 
-\section{The count is a walk count}
-
-The condition is on a PAIR of neighbouring subblocks, so nothing beyond the
-rows themselves has to be remembered. Take as state the $2$-tuple of consecutive array rows
-whose subblock row has just been completed: the horizontal pairs inside that row decide which
-tuples are admissible at all, and the vertical pairs decide which tuple may follow which. A
-step appends one array row. An array of $n+1$ rows is a walk of $n-1$ steps and
+The entry closes with ``new values introduced in row-major sequential order'', so what is
+counted is arrays up to renaming the letters. Both relations here are built from equality
+alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
+classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
+L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
+a=N_1+\dots+N_{2}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
 \]
-on the $S=162$ admissible tuples.
+An entry of this family whose relation compares letters by size, or does arithmetic on them,
+carries no such clause and is counted over its own alphabet instead; the two cases are not
+mixed.
 
-The state does not compress. What a step needs of the past is the previous subblock row, and
-for $4\ge2$ that row already determines the $2$ array rows it came from, so carrying the
-rows costs nothing and carrying anything smaller loses information. Of the $2^{2\cdot
-4}=256$ tuples of $2$ rows, $S=162$ survive the condition inside a single subblock row;
-the rest could not occur in a counted array at all.
+\section{One scan inside a slice, one across}
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[-2,2]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $3$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$162$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+Take the array a $column$ at a time, the direction in which it grows.
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+\begin{lemma}\label{lem:state}
+The $column$ scans are settled as each $column$ is written. The $row$ scans are
+settled by the previous $column$ together with, for each position, the last repeated value
+so far in that $row$.
+\end{lemma}
+
+\begin{proof}
+A $column$ scan compares neighbours inside one $column$, so writing the
+$column$ left to right and carrying the last repeated value seen decides it. In a
+$row$ scan a repeat happens at the new $column$ exactly when the new entry equals the
+entry in the same position of the previous $column$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $row$.
+\end{proof}
+
+So the state is the pair (previous $column$, vector of last repeated values), the second
+component taking $1+2$ values at each position --- the letters together with a symbol for
+``none yet''. Assembling the pieces for $i=1,\dots,2$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=1122,\quad\tau=\mathbf{1} .
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{22}-\sum_i c_it^{22-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{21}-\sum_i c_it^{21-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +102,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+22}-\sum_ic_iM^{j+22-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+21}-\sum_ic_iM^{j+21-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,39 +111,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-1) + 11\,a(n-2) + 63\,a(n-3) + 112\,a(n-4) + 120\,a(n-5) + 110\,a(n-6) - 849\,a(n-7) - 1709\,a(n-8) - 1167\,a(n-9) + 1006\,a(n-10) + 3341\,a(n-11) + 2742\,a(n-12) + 2484\,a(n-13) - 161\,a(n-14) + 363\,a(n-15) - 1203\,a(n-16) + 126\,a(n-17) - 1692\,a(n-18) + 806\,a(n-19) - 426\,a(n-20) + 204\,a(n-21) + 32\,a(n-22)
+a(n)\;=\;5\,a(n-1) + 46\,a(n-2) - 255\,a(n-3) - 804\,a(n-4) + 5287\,a(n-5) + 6393\,a(n-6) - 57990\,a(n-7) - 17379\,a(n-8) + 368289\,a(n-9) - 70362\,a(n-10) - 1394997\,a(n-11) + 645844\,a(n-12) + 3138583\,a(n-13) - 1858369\,a(n-14) - 4077534\,a(n-15) + 2440404\,a(n-16) + 2940332\,a(n-17) - 1387260\,a(n-18) - 1138872\,a(n-19) + 275184\,a(n-20) + 183456\,a(n-21)
 \]
-for every $n>23$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=23+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A186844.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267669.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -11,24 +11,28 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A185475, proved}
+\title{The empirical closed form for OEIS A223722, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185475 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A223722 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1685124$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=88064$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{22}$, of degree
-$22$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{21}$, of degree
+$21$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $22$ consecutive indices past that
+computation, and that the two sequences agree at $21$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,26 +41,36 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A185475 is ``Number of (n+2)X9 0..2 arrays with each 3X3 subblock having rows and columns in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A223722 is ``Number of nX5 0..2 arrays with rows, antidiagonals and columns unimodal.''. It has offset $1$ and begins
 \[
-336690, 3212372, 20411234, 100908633, 416227164, 1497314456, 4845252741, 14425457557,\ \dots
+86, 7396, 273562, 5537147, 74140718, 733129227, 5733691150, 37151436091,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = (1/25519951134720000)*n\^{}21 + (1/127919554560000)*n\^{}20 + (1877/2551995113472000)*n\^{}19 + (101861/2328135892992000)*n\^{}18 + (10763959/5820339732480000)*n\^{}17 + (24725641/418455797760000)*n\^{}16 + (836589317/564915326976000)*n\^{}15 + (22655691343/753220435968000)*n\^{}14 + (5887296211331/11298306539520000)*n\^{}13 + (436620904451/52672757760000)*n\^{}12 + (3650470717199/28970016768000)*n\^{}11 + (2036750095277/1170505728000)*n\^{}10 + (1572848084986607/79009136640000)*n\^{}9 + (1160407108626427/6584094720000)*n\^{}8 + (2296534278781759/1975228416000)*n\^{}7 + (525799308273622787/94152554496000)*n\^{}6 + (25696337451699745273/1333827855360000)*n\^{}5 + (2682952836795541619/55576160640000)*n\^{}4 + (124299364108443341/1407929402880)*n\^{}3 + (73695052155737/701719200)*n\^{}2 + (1503827501467/23279256)*n + 4299
+\begin{quote}\raggedright\small
+Empirical: a(n) = (63370093/405483668029440000)*n\^{}20 + (332923627/121645100408832000)*n\^{}19 + (35260507/365849926041600)*n\^{}18 + (11581079/8208171417600)*n\^{}17 + (1549596019/89669099520000)*n\^{}16 + (13415418209/62768369664000)*n\^{}15 + (11281922929/8369115955200)*n\^{}14 + (42712449023/3766102179840)*n\^{}13 + (170811516793/3762339840000)*n\^{}12 + (464597326061/877879296000)*n\^{}11 - (328969296617/78829977600)*n\^{}10 + (13832782422227/241416806400)*n\^{}9 - (125724812428752281/313841848320000)*n\^{}8 + (25263722436660997/11769069312000)*n\^{}7 - (2160123866746163/269007298560)*n\^{}6 + (37001904714133/1676505600)*n\^{}5 - (815520542725887227/15878903040000)*n\^{}4 + (13936490795992651/102918816000)*n\^{}3 - (17701274883426919/53330659200)*n\^{}2 + (9337885696189/21162960)*n - 143729 for n>5
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:00:44, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 22:14:31, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{n^{21}}{25519951134720000} + \frac{n^{20}}{127919554560000} + \frac{1877 n^{19}}{2551995113472000} + \frac{101861 n^{18}}{2328135892992000} + \frac{10763959 n^{17}}{5820339732480000} + \frac{24725641 n^{16}}{418455797760000} + \frac{836589317 n^{15}}{564915326976000} + \frac{22655691343 n^{14}}{753220435968000} + \frac{5887296211331 n^{13}}{11298306539520000} + \frac{436620904451 n^{12}}{52672757760000} + \frac{3650470717199 n^{11}}{28970016768000} + \frac{2036750095277 n^{10}}{1170505728000} + \frac{1572848084986607 n^{9}}{79009136640000} + \frac{1160407108626427 n^{8}}{6584094720000} + \frac{2296534278781759 n^{7}}{1975228416000} + \frac{525799308273622787 n^{6}}{94152554496000} + \frac{25696337451699745273 n^{5}}{1333827855360000} + \frac{2682952836795541619 n^{4}}{55576160640000} + \frac{124299364108443341 n^{3}}{1407929402880} + \frac{73695052155737 n^{2}}{701719200} + \frac{1503827501467 n}{23279256} + 4299.
-\]
+\begin{multline*}
+f(n)\;=\;\frac{63370093 n^{20}}{405483668029440000} + \frac{332923627 n^{19}}{121645100408832000} \\
++ \frac{35260507 n^{18}}{365849926041600} + \frac{11581079 n^{17}}{8208171417600} \\
++ \frac{1549596019 n^{16}}{89669099520000} + \frac{13415418209 n^{15}}{62768369664000} \\
++ \frac{11281922929 n^{14}}{8369115955200} + \frac{42712449023 n^{13}}{3766102179840} \\
++ \frac{170811516793 n^{12}}{3762339840000} + \frac{464597326061 n^{11}}{877879296000} \\
+- \frac{328969296617 n^{10}}{78829977600} + \frac{13832782422227 n^{9}}{241416806400} \\
+- \frac{125724812428752281 n^{8}}{313841848320000} + \frac{25263722436660997 n^{7}}{11769069312000} \\
+- \frac{2160123866746163 n^{6}}{269007298560} + \frac{37001904714133 n^{5}}{1676505600} \\
+- \frac{815520542725887227 n^{4}}{15878903040000} + \frac{13936490795992651 n^{3}}{102918816000} \\
+- \frac{17701274883426919 n^{2}}{53330659200} + \frac{9337885696189 n}{21162960} \\
+- 143729.
+\end{multline*}
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1685124$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=88064$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +97,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{22}$, of degree $22$; the closed form is a polynomial in $n$, so this is $(x-1)^{22}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{21}$, of degree $21$; the closed form is a polynomial in $n$, so this is $(x-1)^{21}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;22\,a(n-1) - 231\,a(n-2) + 1540\,a(n-3) - 7315\,a(n-4) + 26334\,a(n-5) - 74613\,a(n-6) + 170544\,a(n-7) - 319770\,a(n-8) + 497420\,a(n-9) - 646646\,a(n-10) + 705432\,a(n-11) - 646646\,a(n-12) + 497420\,a(n-13) - 319770\,a(n-14) + 170544\,a(n-15) - 74613\,a(n-16) + 26334\,a(n-17) - 7315\,a(n-18) + 1540\,a(n-19) - 231\,a(n-20) + 22\,a(n-21) - a(n-22).
+a(n)\;=\;21\,a(n-1) - 210\,a(n-2) + 1330\,a(n-3) - 5985\,a(n-4) + 20349\,a(n-5) - 54264\,a(n-6) + 116280\,a(n-7) - 203490\,a(n-8) + 293930\,a(n-9) - 352716\,a(n-10) + 352716\,a(n-11) - 293930\,a(n-12) + 203490\,a(n-13) - 116280\,a(n-14) + 54264\,a(n-15) - 20349\,a(n-16) + 5985\,a(n-17) - 1330\,a(n-18) + 210\,a(n-19) - 21\,a(n-20) + a(n-21).
 \end{equation}
 
 \section{The proof}
@@ -105,27 +119,27 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+$a(n)=f(n)$ for every $n\ge6$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $22$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $21$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=23$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=27$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>22$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $22$ consecutive indices
-$n=23,\dots,44$ and agree at each. A monic recurrence of order $22$
-determines $a(m)$ from $a(m-1),\dots,a(m-22)$, and for every $m\ge45$ both
-$m>22$ and $m-22\ge23$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge23$.
-Below $n=23$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=23$ on. The remaining indices $n=1,\dots,22$ were
+\eqref{eq:rec} for every $n>26$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $21$ consecutive indices
+$n=27,\dots,47$ and agree at each. A monic recurrence of order $21$
+determines $a(m)$ from $a(m-1),\dots,a(m-21)$, and for every $m\ge48$ both
+$m>26$ and $m-21\ge27$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge27$.
+Below $n=27$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=27$ on. The remaining indices $n=6,\dots,26$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
+The range is tight in the sense that was checked: at $n=5$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
@@ -137,11 +151,11 @@ by reading the entry's English, and a misreading gives a different digraph and d
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=6$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
+$n=6$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +163,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185475.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223722.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)
