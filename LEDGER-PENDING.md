@@ -228,3 +228,14 @@ and wrote the file at the end, so the two entries it had already proved — skip
 as "already on the roster" — were dropped from the record. Harmless, because both were installed
 papers, but it is defect 30's shape in new code. The sweep now loads the file before appending,
 and the two records are restored.
+
+### The `=`-chain fix, measured corpus-wide: one entry
+
+The regression for that fix ran over `cfnew_cands.json` — a pool built with the OLD reader,
+which by construction cannot contain an entry the old reader refused. **The same blindness as
+measuring a `gfrec` widening over `gfdef.txt`**, and worth naming because it is the third time
+this shape has come up: *a pool built by the thing you are measuring cannot measure it.*
+
+Asked of the clone instead: **12 entries off the roster become readable and none is lost.** One
+is A228464, now installed. The other eleven: 8 have no engine for the name, 3 are not open, 1 has
+no integer annihilator. **Zero further results.** The fix is right and it is worth one paper.
