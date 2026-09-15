@@ -938,3 +938,29 @@ a finite range is not a fact and neither is a heuristic one. Both now rejected, 
 "probably" (130 in the clone), "presumably" (71), "checked/verified up to n = ...".
 **Audited: zero installed papers rest on a line the widened test rejects.** Caught by reading
 the three results by hand before installing them, which is the rule that keeps paying.
+
+### The second-conjecture vein, audited before installing (IDEAS §AI)
+
+**No papers installed from it yet, deliberately.** `sweep_second` holds 244 proved records and
+has no builder — `install_vein` skips an entry already on the roster, and a second paper on the
+same entry is what this vein produces. Before writing that plumbing the argument was read, and
+it did not close:
+
+for another RECURRENCE, `q | p` is the whole proof; for a **closed form** it is not. `q | p`
+shows `a` and `f` satisfy the same recurrence and says nothing about which solution each is. The
+window check — agreement at D consecutive indices, past where `a` provably satisfies `p` — was
+missing. Added. Re-asking all 244: **one is refused by it outright**, and the other 243 were
+being asserted on an argument that did not close.
+
+Also: `PROVED`, the premise store, read a hand-written list of eleven hits files; it now reads
+all of them. 44 entries still drop because their proof is a generating function rather than a
+recurrence and so carries no coefficients — deriving the premise from a proved g.f.'s
+denominator is the next widening and is not yet done.
+
+**My own defect:** the rebuilt closed-form results were written to `cfnew_hits.json`, a filename
+that already existed, destroying sixteen records. Recovered from git and merged. Noticed only
+because `PROVED` reads that file.
+
+Sweeping the 1,460 roster entries added since the pool was built gives 21 further settled
+conjectures, all of which pass the new window check. They are held, not installed, until the
+builder exists.

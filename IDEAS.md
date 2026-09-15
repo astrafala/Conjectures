@@ -1710,3 +1710,48 @@ the time.
 This is the third distinct hole found in one day in what counts as a PREMISE — a conjectural
 block (§AG.2), a range qualifier, and a heuristic. They share a shape: the entry is perfectly
 clear about its own uncertainty, in English, and the filter was looking for one word.
+
+## AI. The second-conjecture vein: 265 results, no builder, and an incomplete argument
+
+`sweep_second` settles the OTHER conjectures on entries this project has already proved
+C-finite. Its pool of 13,139 is fully asked and it holds **244 proved records**. It has **no
+builder and no installer**, because `install_vein` skips an entry already on the roster — and a
+second paper on the same entry is exactly what this vein produces. (27 entries already carry
+more than one paper, so the pattern is accepted; only the plumbing is missing.)
+
+Two things were found before any of it was installed, and both matter more than the papers.
+
+### AI.1 The argument was incomplete for a CLOSED FORM
+
+With `q` the characteristic polynomial of the proved recurrence and `p` that of the claim:
+
+* another RECURRENCE — the claim IS "a satisfies p", and `q | p` settles it outright. Correct.
+* a CLOSED FORM — the claim is "a(n) = f(n)". `q | p` shows only that `a` and `f` satisfy the
+  SAME recurrence. **It says nothing about which solution each one is.** Two solutions of a
+  recurrence of order D coincide exactly when they agree at D consecutive indices, and that
+  check was absent. The vein was proving "f satisfies the right recurrence" and reporting it as
+  "a(n) = f(n)".
+
+Now checked, on a window past the index from which `a` provably satisfies `p` and inside the
+published terms. Re-asking all 244: **one is refused by it outright** — a closed form that
+satisfies the recurrence and is a different solution of it. One in 244 is a small rate and it is
+not the point; the point is that the other 243 were being asserted on an argument that did not
+close, and nobody would have known from the output.
+
+### AI.2 The premise list was stale, and I destroyed a hits file
+
+`PROVED` was assembled from a hand-written list of eleven hits files plus two globs. Every vein
+added since is invisible, so an entry whose recurrence this project proved is refused as "no
+recurrence available as a premise". It now reads every `*_hits*.json` — only records carrying
+explicit `coeffs` and no `FAILS` are used, so a file of another shape contributes nothing.
+
+44 of the 45 entries that still drop are of one kind: their proof is a **generating function**,
+not a recurrence, so they carry no `coeffs` at all. The reciprocal of a proved g.f.'s denominator
+IS the characteristic polynomial, so deriving the premise from it is the obvious widening and is
+not yet done. **That is the next thing to build in this vein.**
+
+And a defect of mine, recorded because it is the second of its kind: installing the rebuilt
+closed-form pool I wrote its results to `cfnew_hits.json`, **a filename that already existed**,
+destroying sixteen records — which `PROVED` reads, which is how it was noticed. Recovered from
+git and merged. A new hits file needs a name nothing else has; the glob that finds it will find
+the collision too.

@@ -33,6 +33,8 @@ import zlib
 
 import sympy
 
+nsym = sympy.Symbol('n')
+
 import closedform as CF
 import conjlines
 import factlines
@@ -67,10 +69,13 @@ res = collections.Counter()
 # dimensions and the cellular automaton rows all keep their own.
 PROVED = {}
 import glob as _glob
-_files = ['uniall_hits.json', 'gfdef_hits.json', 'gf_hits.json', 'ordwhole_hits.json',
-          'cfnew_hits.json', 'lexcf_hits.json', 'mfcf_hits.json', 'wordcf_hits.json',
-          'cuspcf_hits.json', 'ecacf_hits.json', 'fcf_hits.json']
-_files += _glob.glob('shard_hits_*.json') + _glob.glob('tabnew_hits*.json')
+# A hand-written list of hits files is a stale filter like any other: every vein added since
+# it was written is invisible, and an entry whose recurrence this project proved in one of them
+# is refused here as "no recurrence available as a premise". 44 of the 244 entries this sweep
+# had already settled were refused on re-ask for exactly that reason. Read every hits file --
+# only records carrying explicit `coeffs` and no FAILS are used, so a file of a different shape
+# contributes nothing rather than something wrong.
+_files = sorted(set(_glob.glob('*_hits*.json')) | {'uniall_hits.json'})
 for f in _files:
     try:
         for h in json.load(open(f)):
@@ -143,6 +148,7 @@ for a in targets:
     if len(d) - holds_from < qorder + 2:
         res['too few terms past the threshold to confirm the premise'] += 1
         done.add(a); save(); continue
+    off = int(e['offset'].split(',')[0])
     settled, seen = [], set()
     for L in conjlines.lines(e):
         t = L.strip()
@@ -223,6 +229,31 @@ for a in targets:
                 signal.alarm(0)
                 continue
             if sympy.simplify(rem) == 0:
+                # q | p says a and f satisfy the SAME recurrence. It does NOT say they are the
+                # same solution of it, and for a CLOSED FORM that is the whole claim. Two
+                # solutions of a recurrence of order D coincide exactly when they agree at D
+                # consecutive indices, so the window has to be checked -- past the index from
+                # which `a` provably satisfies p, and inside the published terms. Without this
+                # the vein proves "f satisfies the right recurrence" and reports it as
+                # "a(n) = f(n)". (For another RECURRENCE the claim IS "a satisfies p", and
+                # q | p settles it outright; that branch needs no window.)
+                lo = holds_from + max(0, aorder - qorder)
+                hi = lo + aorder
+                if hi > len(d):
+                    res['closed form: too few terms to pin the solution'] += 1
+                    continue
+                try:
+                    signal.alarm(BUDGET)
+                    vals = [int(sympy.nsimplify(cf[0].subs(nsym, off + k)))
+                            for k in range(lo, hi)]
+                    signal.alarm(0)
+                except Exception:
+                    signal.alarm(0)
+                    res['closed form could not be evaluated on the window'] += 1
+                    continue
+                if vals != d[lo:hi]:
+                    res['closed form satisfies the recurrence but is a DIFFERENT solution'] += 1
+                    continue
                 settled.append(('closed form', t[:200]))
     # only claims that say something the proved recurrence does not are counted
     fresh = [c for c in settled if not c[0].endswith('(restates the proved recurrence)')]
