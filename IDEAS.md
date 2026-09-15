@@ -1824,3 +1824,52 @@ whole roster it now proves **376** further conjectures, all installed.
 same shape — comparing a claim against a text chosen too loosely — and the first one hid the
 second, because a test that says "duplicate" about everything agrees with the truth wherever the
 truth is "duplicate".
+
+## AK. Where an uninstalled "PROVED" is not a result (15 September)
+
+189 A-numbers sat in `*_hits*.json` files with no paper. Read one by one, almost none was a held
+result:
+
+* several of those files are **census output, not proofs** — `brack_hits.json` (82),
+  `residual_hits.json` (38), `extr_hits.json` (18), `inhom_hits.json` (3) carry no proof data at
+  all and match the `*_hits*` glob only by their names. That is defect 30 in a milder form: a
+  file named like a hits file is read like one;
+* 19 were withdrawn and 18 are no longer open;
+* `known_hits.json` (14 PROVED, 7 uninstalled) and `uni_hits.json` (9 PROVED, 2 uninstalled) are
+  genuine, and **eight of those nine entries are marked settled on the live OEIS** — each names
+  the person who proved it, two of them in 2026 arXiv preprints, one by an e.g.f. ODE the entry
+  itself gives. That file's "PROVED" means this project's machinery closed it, **not that the
+  conjecture was open**, and installing on that basis would claim other people's work.
+
+One entry of the 189 was open and uninstalled: A034267, and it became §AK.1.
+
+### AK.1 `hypergeometric-ratio` — one entry, and a reader that hid it
+
+A034267 states `a(n) = binomial(2n, n+1)(n^2+n+1)/(n+2)` as a FACT and conjectures a second-order
+P-recursive recurrence. The closed form is hypergeometric: `a(n)/a(n-1)` is a rational function
+of n, so the sequence satisfies an exact first-order recurrence with polynomial coefficients, and
+any conjectured recurrence of higher order is decided by reducing it with that ratio. Here the
+reduction is identically zero in `Q(n)`.
+
+**No generating function is required**, and that is why the route was worth building: 228 entries
+in the P-recursive pool state none, which is what every other route there needs.
+
+Measured over the whole 989-entry pool it is **one entry**. The first measurement said zero, and
+the reason is the pattern of the whole day: `closedform.parse_line` refuses `binomial(...)`
+outright, so a census built on it is blind to precisely the shape that makes the argument work.
+`src/hyperrec.py` carries its own deliberately narrow reader instead of widening `closedform`,
+whose annihilator machinery assumes polynomial-exponential shapes and would not survive it.
+
+### AK.2 The eighth self-inflicted disproof
+
+A060774 states `a(n) = 6*binomial(3n,n) - 6*binomial(2n,n)`. At n = 0 that is 0 where the entry
+has 1 — the empty path — and it matches every term after. Requiring agreement from the offset
+made it "the stated closed form does not generate the DATA": an accusation against a correct
+entry, the eighth of its kind this month. A closed form is routinely stated for n past the first
+index or two. What is required is agreement from SOME index on, with enough terms after it to
+mean anything, and the conjecture is then proved from that index rather than from the offset.
+
+A060774 now refuses for the real reason: a SUM of two hypergeometric terms has no rational ratio.
+
+**Eight for eight.** Not one apparent disproof in this project has turned out to be a false
+conjecture in the OEIS.
