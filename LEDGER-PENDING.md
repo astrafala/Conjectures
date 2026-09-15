@@ -239,3 +239,39 @@ this shape has come up: *a pool built by the thing you are measuring cannot meas
 Asked of the clone instead: **12 entries off the roster become readable and none is lost.** One
 is A228464, now installed. The other eleven: 8 have no engine for the name, 3 are not open, 1 has
 no integer annihilator. **Zero further results.** The fix is right and it is worth one paper.
+
+## 15 September 2026 — the capped refusal list: a stale REFUSAL, and two defects in the sweep
+
+`deep-check/capped.txt` holds 811 entries `sweep_shard` refused as "state space > cap", and it
+has never been re-asked since the engines changed. STATE.md's standing note says a 6,000,000
+trial proved nothing and that re-asking at the standing cap "was killed by the kernel for
+memory", so do not brute-force it. That note is still right about the memory and **wrong about
+the list being settled**.
+
+Asked properly — one entry per process under a hard address-space limit, so a blowup dies alone
+— of the first 30, **23 build fine**, with state counts of 3, 3, 5, 5, 6, 8, 9, 16, 20, 28
+against a cap of 2,000,000. The refusals were recorded by engines that no longer apply.
+
+And the names **cluster**, which is the thing §W.2 said did not happen twice: 219 shapes over
+811 entries, the largest 96, then 82, 40, 34, 23, 23, 20 — and every cluster already has an
+engine (`transfer17` 83, `transfer35` 68, `transfer9` 66, `transfer26` 51, ...). The obstacle
+was never a missing engine.
+
+**Two defects in the sweep that has produced more results than any other:**
+
+* **no memory limit.** `uniform.build` allocates toward the cap before it can refuse, so the
+  KERNEL decided what a runaway build cost and killed the whole shard. Four shards over the
+  capped list died three times running. `sweep_shard` now sets `RLIMIT_AS` the way `sweep_prec`
+  has since the day it was written — the allocation raises `MemoryError`, the build's own
+  `except` records a refusal, and the sweep goes on to the next entry.
+* **counters printed once, after the loop.** A shard that dies mid-way reported *nothing* about
+  the entries it had finished: four empty logs and no idea what 74 refusals had been. That is
+  defect 31 again. They are now written beside the hits, every entry.
+
+Even with the limit, four concurrent shards plus the two dozen standing runners exceed the
+container and the kernel still picks victims. `src/caprun.sh` runs **one** shard at 1.5 GB and is
+in the rotation.
+
+**So far it has proved nothing.** 135 of 688 asked: 88 still capped, 22 not open, and no proof.
+The list is genuinely stale and the vein behind it may still be empty; both will be known when
+the runner finishes.

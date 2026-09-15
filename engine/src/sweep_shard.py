@@ -26,7 +26,18 @@ terms are, so one conversion serves them all.
 """
 import json
 
-import atomicjson, re, os, sys, collections, signal, zlib
+import atomicjson, re, os, sys, collections, resource, signal, zlib
+
+# Without an address-space limit the KERNEL decides what a runaway build costs, and it kills the
+# whole shard rather than the one entry. STATE.md records that re-asking `deep-check/capped.txt`
+# at the standing cap "was killed by the kernel for memory" -- and it still is: a run over the
+# 688 off-roster capped entries died at 106 with empty logs. `uniform.build` allocates toward
+# the cap before it can refuse, so the refusal has to be made enforceable from outside. With a
+# limit the allocation raises MemoryError, which the build's own try/except records as a refusal
+# and the sweep carries on to the next entry. `sweep_prec` has had this since the day it was
+# written; this sweep never did.
+MEMGB = float(os.environ.get('MEMGB', '6'))
+resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
 import conjlines
 import localentry as LE, ratrec, openness, uniform
 
@@ -67,6 +78,7 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 # into "563 refused at the cap", a claim nothing had measured. Only an actual refusal for
 # size is recorded here now.
 CAPS = f'shard{TAG}_caps_{SHARD}.json'
+WHY = f'shard{TAG}_why_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 res = collections.Counter()
 
@@ -75,6 +87,13 @@ def save():
     atomicjson.dump(hits, HITS, indent=1)
     atomicjson.dump(sorted(done), DONE)
     atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
+    # The counters were printed ONCE, after the loop, so a shard that is still running or that
+    # dies mid-way reports nothing at all about why it refused anything -- and these shards do
+    # die: four launched over the capped list, three gone, four empty logs and no idea what the
+    # 74 finished entries had said. That is defect 31 again (a measurement that reports only at
+    # the end can be lost whole), here in the sweep that has produced more results than any
+    # other. Written every entry, beside the hits.
+    atomicjson.dump(dict(res), WHY, indent=1, sort_keys=True)
 
 
 # asking eighteen parsers about 29k names costs ten seconds, which is most of a chunk when
