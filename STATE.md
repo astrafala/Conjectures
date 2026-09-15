@@ -214,7 +214,7 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **13,718 papers installed** over 13,315 entries and **163 distinct arguments**, as of the
+* **13,739 papers installed** over 13,335 entries and **163 distinct arguments**, as of the
   morning of 15 September 2026. 235 were withdrawn that day and 109 of those reinstated once the
   duplicate test was corrected (defect 29); 122 stay withdrawn as genuine duplicates. The 15 September round: 11 from six notation defects in
   `algf` (IDEAS §Z, §AC), 21 from rebuilding two candidate pools (§AE), 2 from a new argument
@@ -345,6 +345,21 @@ That buys the room; it does not remove the limit. What the limit actually costs 
 github.com truncates a directory LISTING at 1,000 entries — a browsing cosmetic, not a broken
 clone — so the invasive move is not worth doing ahead of need. Watch the count; the growth is
 almost entirely scratch, and scratch is now ignored.
+
+### defect 33 — a pool built by the reader you are measuring cannot measure it
+
+Three times now a widening has been regression-tested against a pool that the OLD reader built,
+which by construction cannot contain an entry the old reader refused:
+
+* `gfrec`'s implicit multiplication, measured over `deep-check/gfdef.txt` — 12 gained there, 5
+  over the clone, and the pool number meant nothing;
+* `closedform`'s `=`-chain, measured over `cfnew_cands.json` — 0 gained there, 12 over the clone;
+* and the first census of the 2,211, which used `algf`'s own line-level conjectural test to
+  decide what counted as a fact.
+
+**Measure a reader widening against the CLONE, never against a pool.** The regression over the
+pool is still worth running -- it is what proves nothing was LOST -- but it cannot say what was
+gained.
 
 ## When you create a new sharded sweep
 
