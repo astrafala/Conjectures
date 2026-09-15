@@ -2000,3 +2000,60 @@ The four that §AF withheld are among the nine, and they are worth a sentence of
 order-type formula gave them the RIGHT polynomial by an argument that did not hold. Reproducing
 thirty published terms is the standard of evidence the conjecture already had; what was missing
 was the reason, and it is the reason that has now been supplied.
+
+## AO. The state-space cap is the ceiling, and it is engineering (15 September)
+
+Two questions were asked of the largest standing refusal and they have different answers.
+
+### AO.1 `deep-check/capped.txt` is a stale refusal list
+
+811 entries recorded as "state space > cap". Asked one entry per process under a hard
+address-space limit, **23 of the first 30 build**, with 3, 3, 5, 5, 6, 8, 9, 16, 20, 28 states
+against a cap of two million. The engines changed and the list did not. The names cluster too —
+219 shapes, the largest 96, then 82, 40, 34 — and every cluster has an engine.
+
+Generalised as **defect 34: a refusal list goes stale exactly like a candidate pool.** Eleven
+candidate pools were rebuilt on that reasoning (§AL) and no refusal list ever was. The ones
+worth re-asking are those whose reason is about the MACHINE — a cap, a budget, a timeout — not
+about the mathematics.
+
+It is being re-asked by `src/caprun.sh`, one shard at 1.5 GB. **At 148 of 688 it has proved
+nothing.** Stale and empty are different claims; the first is established, the second is not yet.
+
+### AO.2 Today's caps are real, and they are the ceiling
+
+The same probe put to the caps `sweep_shard` recorded this morning on the rebuilt name-readable
+pool: **0 of 25 build** — 15 refused outright, 10 timed out or were killed. So the separation is
+clean, and only the old list was worth re-asking.
+
+**The rebuilt name-readable pool is 77 per cent state space**: 1,660 asked, 25 proved, 1,281
+capped. The pool that looked like the round's biggest find is, once the engines reach it, mostly
+a wall. Across every shard run this project has made, **1,835 distinct off-roster entries are
+capped**, each with an engine that reads its name:
+
+| | |
+|---:|---|
+| 226 | `galcoord` |
+| 138 | `transfer40` |
+| 102 | `ca2dcount` |
+| 96 | `latpoly` |
+| 90 | `ca2d` |
+| 80 | `transfer17` |
+
+Raising the cap does not work and is already recorded as not working: 6,000,000 built two models
+in five minutes and proved neither. **What moves this is building a SMALLER automaton, not
+affording a bigger one.** `transfer17` has a `build_pairfree` construction whose own comment says
+it "merges before the states exist and is both smaller and faster"; no other engine has one, and
+`lumpauto` only lumps a machine that already exists, which is no help to a build that never
+finishes.
+
+So the next real piece of work is a pair-free or lumped-at-construction build for the engines
+that dominate the capped population — 1,835 entries behind it, and the largest single target in
+the project now that the pools are all rebuilt.
+
+### What this says about the round
+
+Every candidate pool is rebuilt, every reader defect found today paid 0–1, and the last large
+population is blocked by a limit that is about memory rather than mathematics. **The project is
+at an engineering ceiling, not a mathematical one**, and saying so is more useful than another
+reader fix.
