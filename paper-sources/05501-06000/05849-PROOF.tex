@@ -12,132 +12,127 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203105, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A283507, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203105 counts arrays of width $5$ over $\{0,1\}$ under local conditions relating each cell
-to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
-order $78$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=356$ states.
+OEIS A283507 carries an empirical recurrence of order $3$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A203105 is ``Number of n X 5 binary arrays with every 1 immediately preceded by 0 0 to the left or above.''. It has offset $1$ and begins
+OEIS A283507 is ``Decimal representation of the x-axis, from the origin to the right edge, of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 641", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-4, 16, 296, 3229, 27930, 290787, 3058275, 30467160,\ \dots
+1, 0, 5, 3, 23, 15, 95, 63,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +528*a(n-3) +1008*a(n-4) +5399*a(n-5) -30310*a(n-6) -171877*a(n-7) -492494*a(n-8) +316605*a(n-9) +8088522*a(n-10) +28873116*a(n-11) +11544754*a(n-12) -224866007*a(n-13) -905663009*a(n-14) -712286999*a(n-15) +5883198984*a(n-16) +16927349820*a(n-17) +1421413768*a(n-18) -81539737483*a(n-19) -182397771216*a(n-20) +33940434358*a(n-21) +895964982825*a(n-22) +1216040206684*a(n-23) -1426518346236*a(n-24) -5121954807024*a(n-25) -2944167488611*a(n-26) +6700908694455*a(n-27) +16102231377327*a(n-28) +10936757305499*a(n-29) -17933646854214*a(n-30) -45352557185904*a(n-31) -31059248689732*a(n-32) +21304888913333*a(n-33) +85334914702098*a(n-34) +111492872459110*a(n-35) +14481000838988*a(n-36) -117065311988323*a(n-37) -215626839857378*a(n-38) -199569375901153*a(n-39) +33353760221455*a(n-40) +276340283673958*a(n-41) +411172043630551*a(n-42) +279167797694380*a(n-43) -61848772590528*a(n-44) -381089712467205*a(n-45) -484726723465464*a(n-46) -274749831276677*a(n-47) -26351665118898*a(n-48) +269608712974592*a(n-49) +222532377116605*a(n-50) +169975619694392*a(n-51) +37940330275815*a(n-52) -68318527994786*a(n-53) +19257263716479*a(n-54) -23387175959950*a(n-55) +28960042422343*a(n-56) +46744986053231*a(n-57) -60889017245194*a(n-58) +71517355640696*a(n-59) -91283645953698*a(n-60) +75467815567960*a(n-61) -56997101702762*a(n-62) +48113948186692*a(n-63) -24306960226884*a(n-64) +17936231882740*a(n-65) -7046263039284*a(n-66) +4391881784952*a(n-67) -877494304288*a(n-68) +654039079448*a(n-69) +26697188752*a(n-70) -55733192624*a(n-71) -3908828800*a(n-72) -36373646656*a(n-73) +583282816*a(n-74) -1583406592*a(n-75) +838948864*a(n-76) +154722304*a(n-77) +28499968*a(n-78).
+Conjectures from \_Colin Barker\_, Mar 10 2017: (Start) a(n) = a(n-1) + 4*a(n-2) - 4*a(n-3) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 26 2025 14:37:24, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:37, revision 11)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The value is a certified growth}
 
-The array has $5$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
-cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
-immediately above it, those that lie inside the array. A cell in the top left corner has none
-at all, so a clause demanding a predecessor of a given value forbids that value there --- which
-is what makes the first published term what it is. The entry asks that
-\begin{itemize}
-\item every cell carrying $1$ has the two cells to its left, or the two above it, reading $0$ then $0$ in that order;
-\end{itemize}
-and nothing else.
-
-\section{Three rows decide everything}
-
-\begin{lemma}\label{lem:win}
-Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
-of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
-rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
-\end{lemma}
-
-\begin{proof}
-The neighbours of a cell lie one step away in each of the four directions, and the predecessors
-one step to the left or one step up; a clause naming two cells in a row or column reaches two
-steps, never more.
-\end{proof}
-
-So the state is the pair (row above, current row), with a row not yet written carried as
-$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
-because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
-row is settled as it is written and every state may end an array; the end vector is the
-all-ones vector. With $M$ the
-adjacency matrix of the digraph on those states,
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=356.
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 2.
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 641 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{78}-\sum_i c_it^{78-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+78}-\sum_ic_iM^{j+78-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 528\,a(n-3) + 1008\,a(n-4) + 5399\,a(n-5) - 30310\,a(n-6) - 171877\,a(n-7) - 492494\,a(n-8) + 316605\,a(n-9) + 8088522\,a(n-10) + 28873116\,a(n-11) + 11544754\,a(n-12) - 224866007\,a(n-13) - 905663009\,a(n-14) - 712286999\,a(n-15) + 5883198984\,a(n-16) + 16927349820\,a(n-17) + 1421413768\,a(n-18) - 81539737483\,a(n-19) - 182397771216\,a(n-20) + 33940434358\,a(n-21) + 895964982825\,a(n-22) + 1216040206684\,a(n-23) - 1426518346236\,a(n-24) - 5121954807024\,a(n-25) - 2944167488611\,a(n-26) + 6700908694455\,a(n-27) + 16102231377327\,a(n-28) + 10936757305499\,a(n-29) - 17933646854214\,a(n-30) - 45352557185904\,a(n-31) - 31059248689732\,a(n-32) + 21304888913333\,a(n-33) + 85334914702098\,a(n-34) + 111492872459110\,a(n-35) + 14481000838988\,a(n-36) - 117065311988323\,a(n-37) - 215626839857378\,a(n-38) - 199569375901153\,a(n-39) + 33353760221455\,a(n-40) + 276340283673958\,a(n-41) + 411172043630551\,a(n-42) + 279167797694380\,a(n-43) - 61848772590528\,a(n-44) - 381089712467205\,a(n-45) - 484726723465464\,a(n-46) - 274749831276677\,a(n-47) - 26351665118898\,a(n-48) + 269608712974592\,a(n-49) + 222532377116605\,a(n-50) + 169975619694392\,a(n-51) + 37940330275815\,a(n-52) - 68318527994786\,a(n-53) + 19257263716479\,a(n-54) - 23387175959950\,a(n-55) + 28960042422343\,a(n-56) + 46744986053231\,a(n-57) - 60889017245194\,a(n-58) + 71517355640696\,a(n-59) - 91283645953698\,a(n-60) + 75467815567960\,a(n-61) - 56997101702762\,a(n-62) + 48113948186692\,a(n-63) - 24306960226884\,a(n-64) + 17936231882740\,a(n-65) - 7046263039284\,a(n-66) + 4391881784952\,a(n-67) - 877494304288\,a(n-68) + 654039079448\,a(n-69) + 26697188752\,a(n-70) - 55733192624\,a(n-71) - 3908828800\,a(n-72) - 36373646656\,a(n-73) + 583282816\,a(n-74) - 1583406592\,a(n-75) + 838948864\,a(n-76) + 154722304\,a(n-77) + 28499968\,a(n-78)
+a(n)\;=\;a(n-1) + 4\,a(n-2) - 4\,a(n-3)
 \]
-for every $n>77$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $78$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=77+1$ onwards and the run continued
-until the working vector was identically zero.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $34$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes and test each
-clause on each cell directly. No window, no state and no transfer matrix are involved, and the
-published terms came back.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203105.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A283507.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

@@ -11,106 +11,102 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The conjectured P-recursive recurrence for OEIS A026125, proved}
+\title{The empirical recurrence for OEIS A235883, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026125 carries a conjectured recurrence of order $4$ whose coefficients are polynomials in
-$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
-states its generating function as a fact, and that function is algebraic; the conjecture then
-becomes the vanishing of an explicit element of an algebraic function field, which is settled
-symbolically. The result is an identity, not a run of verified terms: it holds at every index
-at once.
+OEIS A235883 carries an empirical recurrence of order $3$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive rows, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=3$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A026125 is ``a(n) = number of (s(0),s(1),...,s(n)) such that every s(i) is a nonnegative integer, s(0) = 1, s(n) = 4, |s(1) - s(0)| = 1, |s(i) - s(i-1)| <= 1 for i >= 2. Also a(n) = T(n,n-3), where T is the array in A026120.''. It has offset $3$ and begins
+OEIS A235883 is ``Number of (n+1) X (7+1) 0..2 arrays with the minimum plus the upper median equal to the lower median plus the maximum in every 2 X 2 subblock.''. It has offset $1$ and begins
 \[
-1, 3, 11, 35, 110, 336, 1013, 3021,\ \dots
+7329, 8871, 11973, 18231, 30909, 56751, 109893, 220551,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Conjecture: -(n+7)*(n-3)*a(n) +(4*n+17)*(n-3)*a(n-1) +(-2*n\^{}2+13*n+27)*a(n-2) -(4*n+5)*(n-3)*a(n-3) +3*(n-3)*(n-4)*a(n-4)=0. - \_R. J. Mathar\_, Jun 23 2013
+\begin{quote}
+Empirical: a(n) = 6*a(n-1) - 11*a(n-2) + 6*a(n-3).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 23 2013 11:02:01, revision 6)
-this is still recorded as a conjecture, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 19 2018 09:28:05, revision 7) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The generating function}
+\section{The count is a walk count}
 
-The entry gives, as a statement of fact and not as a conjecture,
+The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive rows and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=3$ vertices,
 \[
-A(x)\;=\;\frac{\left(1 - x\right)^{2} \left(- x - \sqrt{- 3 x^{2} - 2 x + 1} + 1\right)^{5}}{32 x^{7}} .
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-This is an algebraic function. Before it is used for anything it is checked against the entry's
-own data: its Taylor coefficients reproduce every one of the $27$ published terms
-exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
-function an entry states as fact does NOT generate the terms it publishes, and a proof built on
-it would have been a proof from a false premise.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
-\section{A P-recursive claim is the vanishing of one function}
+\section{The proof}
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
-polynomial $p$ and an integer $i\ge0$,
-\[
-\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
-\]
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
-applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
+Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-Put $b(n)=\sum_{i=0}^{4}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
-$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
-\[
-B(x)\;=\;\sum_{i=0}^{4}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
-\]
-an explicit element of the algebraic function field generated by $A$. The conjecture asserts
-$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
-polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
-
-\section{The theorem}
 
 \begin{theorem}
 \[
-\left(- n^{2} - 4 n + 21\right)a(n) + \left(4 n^{2} + 5 n - 51\right)a(n-1) + \left(- 2 n^{2} + 13 n + 27\right)a(n-2) + \left(- 4 n^{2} + 7 n + 15\right)a(n-3) + \left(3 n^{2} - 21 n + 36\right)a(n-4)\;=\;0
+a(n)\;=\;6\,a(n-1) - 11\,a(n-2) + 6\,a(n-3)
 \]
-for every $n\ge4$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
-$B$ was formed as above and simplified in the function field. Here $B$ is identically zero, so the recurrence holds for EVERY $n$ at which its indices are defined. Since $A$ reproduces the
-entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
-follows.
+The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-First, the generating function reproduces all $27$ published terms exactly. Second,
-the conjectured recurrence was evaluated directly on those terms, with no generating function
-involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
-computed symbolically rather than from a truncated series, and its series expansion was taken
-independently to confirm the coefficients it predicts.
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026125.
-\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Algebraic and D-finite generating functions.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235883.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

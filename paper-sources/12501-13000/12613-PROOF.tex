@@ -11,169 +11,106 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A300376, recovered from its tail}
+\title{The conjectured P-recursive recurrence for OEIS A026110, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A300376 records ``Empirical recurrence of order $80$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=96$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=3$, so the recurrence is proved for every $n\ge83$.
-Its last coefficient is $c_{80}=-1\neq0$, so no further tail satisfies anything
-shorter; any order-$80$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A026110 carries a conjectured recurrence of order $4$ whose coefficients are polynomials in
+$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
+states its generating function as a fact, and that function is algebraic; the conjecture then
+becomes the vanishing of an explicit element of an algebraic function field, which is settled
+symbolically. The result is an identity, not a run of verified terms: it holds at every index
+at once.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The conjecture}
 
-OEIS A300376 is ``Number of nX4 0..1 arrays with every element equal to 0, 2 or 3 horizontally, vertically or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A026110 is ``a(n) = number of (s(0), s(1), ..., s(n)) such that every s(i) is a nonnegative integer, s(0) = 0, s(1) = 1, s(n) = 4, |s(i) - s(i-1)| <= 1 for i >= 2. Also a(n) = T(n,n-4), where T is the array defined in A026105.''. It has offset $4$ and begins
 \[
-1, 10, 11, 26, 80, 237, 692, 2548,\ \dots
+1, 4, 15, 50, 160, 496, 1509, 4530,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 80 (see link above)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}\raggedright\small
+Conjecture: -(n+6)*(n-4)*a(n) +(4*n\^{}2-n-51)*a(n-1) +(-2*n\^{}2+11*n+18)*a(n-2) -(4*n-1)*(n-3)*a(n-3) +3*(n-3)*(n-4)*a(n-4)=0. - \_R. J. Mathar\_, Jun 23 2013
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 04 2018 09:17:26, revision 4)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+As of the ``Last modified'' line on the live entry (Aug 27 2022 03:11:12, revision 14)
+this is still recorded as a conjecture, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The generating function}
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
+The entry gives, as a statement of fact and not as a conjecture,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
+A(x)\;=\;\frac{\left(1 - x\right) \left(- x - \sqrt{- 3 x^{2} - 2 x + 1} + 1\right)^{5}}{32 x^{6}} .
 \]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=96$ states remain, and it is that bound every computation below uses.
+This is an algebraic function. Before it is used for anything it is checked against the entry's
+own data: its Taylor coefficients reproduce every one of the $26$ published terms
+exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
+function an entry states as fact does NOT generate the terms it publishes, and a proof built on
+it would have been a proof from a false premise.
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=96$.
+\section{A P-recursive claim is the vanishing of one function}
+
+\begin{lemma}\label{lem:theta}
+Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
+polynomial $p$ and an integer $i\ge0$,
+\[
+\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
+\]
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
+applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
-
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $80$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=3$ is the first whose minimal order is exactly the stated $80$.
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
-\end{lemma}
-
-Applied to $2S'=192$ exact terms from $n=3$ on, it returns order $80$ --- the
-order the entry states --- with integer coefficients:
+Put $b(n)=\sum_{i=0}^{4}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
+$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
 \[
-a(n)\;=\;\sum_{i=1}^{80}c_i\,a(n-i),
+B(x)\;=\;\sum_{i=0}^{4}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $0$ & $c_{21}$ & $11947$ & $c_{41}$ & $-690148$ & $c_{61}$ & $25507$ \\
-$c_{2}$ & $8$ & $c_{22}$ & $9092$ & $c_{42}$ & $665874$ & $c_{62}$ & $-26118$ \\
-$c_{3}$ & $16$ & $c_{23}$ & $-32355$ & $c_{43}$ & $365210$ & $c_{63}$ & $12229$ \\
-$c_{4}$ & $8$ & $c_{24}$ & $-33021$ & $c_{44}$ & $-1303531$ & $c_{64}$ & $-3204$ \\
-$c_{5}$ & $-29$ & $c_{25}$ & $-11148$ & $c_{45}$ & $613455$ & $c_{65}$ & $-781$ \\
-$c_{6}$ & $-80$ & $c_{26}$ & $-59213$ & $c_{46}$ & $-450321$ & $c_{66}$ & $3818$ \\
-$c_{7}$ & $-145$ & $c_{27}$ & $22871$ & $c_{47}$ & $-340901$ & $c_{67}$ & $-2011$ \\
-$c_{8}$ & $-428$ & $c_{28}$ & $2224$ & $c_{48}$ & $776556$ & $c_{68}$ & $341$ \\
-$c_{9}$ & $-464$ & $c_{29}$ & $129117$ & $c_{49}$ & $-277184$ & $c_{69}$ & $565$ \\
-$c_{10}$ & $781$ & $c_{30}$ & $307030$ & $c_{50}$ & $107976$ & $c_{70}$ & $-545$ \\
-$c_{11}$ & $1410$ & $c_{31}$ & $97366$ & $c_{51}$ & $302160$ & $c_{71}$ & $-95$ \\
-$c_{12}$ & $1785$ & $c_{32}$ & $353177$ & $c_{52}$ & $-453987$ & $c_{72}$ & $160$ \\
-$c_{13}$ & $3857$ & $c_{33}$ & $-270666$ & $c_{53}$ & $191154$ & $c_{73}$ & $32$ \\
-$c_{14}$ & $2025$ & $c_{34}$ & $-266444$ & $c_{54}$ & $-50777$ & $c_{74}$ & $-85$ \\
-$c_{15}$ & $-76$ & $c_{35}$ & $-4731$ & $c_{55}$ & $-145758$ & $c_{75}$ & $41$ \\
-$c_{16}$ & $-464$ & $c_{36}$ & $-1056011$ & $c_{56}$ & $179687$ & $c_{76}$ & $12$ \\
-$c_{17}$ & $-10012$ & $c_{37}$ & $408214$ & $c_{57}$ & $-81065$ & $c_{77}$ & $-23$ \\
-$c_{18}$ & $-13743$ & $c_{38}$ & $-267400$ & $c_{58}$ & $29533$ & $c_{78}$ & $5$ \\
-$c_{19}$ & $-6735$ & $c_{39}$ & $-226438$ & $c_{59}$ & $28767$ & $c_{79}$ & $3$ \\
-$c_{20}$ & $-2892$ & $c_{40}$ & $1479340$ & $c_{60}$ & $-37710$ & $c_{80}$ & $-1$ \\
-\end{tabular}
-\end{center}
+an explicit element of the algebraic function field generated by $A$. The conjecture asserts
+$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
+polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
 
-\section{The recurrence, and the identification}
+\section{The theorem}
 
 \begin{theorem}
-The recurrence above holds for every $n\ge83$, and it is the recurrence OEIS A300376 records.
+\[
+\left(- n^{2} - 2 n + 24\right)a(n) + \left(4 n^{2} - n - 51\right)a(n-1) + \left(- 2 n^{2} + 11 n + 18\right)a(n-2) + \left(- 4 n^{2} + 13 n - 3\right)a(n-3) + \left(3 n^{2} - 21 n + 36\right)a(n-4)\;=\;0
+\]
+for every $n\ge4$.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=3$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{80}-c_1x^{80-1}-\dots-c_{80}$. Its constant term is
-$-c_{80}=1$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $80$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $80$, so $\deg q=80$, and it is monic. It holds from some
-index $t$ on. From $\max(t,3)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $80$, so $q=q_{\min}$.
+$B$ was formed as above and simplified in the function field. Here $B$ is identically zero, so the recurrence holds for EVERY $n$ at which its indices are defined. Since $A$ reproduces the
+entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
+follows.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
-
-First, the walk model reproduces all $26$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
-
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $80$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
-
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
-
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $-1$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$80$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+First, the generating function reproduces all $26$ published terms exactly. Second,
+the conjectured recurrence was evaluated directly on those terms, with no generating function
+involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
+computed symbolically rather than from a truncated series, and its series expansion was taken
+independently to confirm the coefficients it predicts.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A300376.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A026110.
+\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Algebraic and D-finite generating functions.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

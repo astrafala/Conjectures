@@ -22,6 +22,7 @@ import sys
 import refused
 
 prefix, source, engname = sys.argv[1], sys.argv[2], sys.argv[3]
+ALLOW_SECOND = os.environ.get('ALLOW_SECOND') == '1'
 if ':' in source:
     f, key = source.split(':', 1)
     recs = json.load(open(f))[key]
@@ -38,7 +39,14 @@ for h in sorted(recs, key=lambda x: x.get('anum', '')):
     a = h.get('anum')
     # a withdrawal blocks the ARGUMENT, not the entry: another engine settling the same
     # open conjecture is a new result, not the withdrawn one returning
-    if not a or h.get('FAILS') or a in have or withdrawnset.blocked(a, engname):
+    # ALLOW_SECOND is for the one vein that produces a SECOND paper on an entry that already
+    # has one: `sweep_second' settles a DIFFERENT conjecture on an entry already proved, and
+    # the roster skip below -- right for every other vein -- is exactly wrong for it. It is an
+    # explicit opt-in per run, never a default, and the record must name the conjecture it
+    # settles, which is what makes the second paper a second RESULT.
+    if not a or h.get('FAILS') or withdrawnset.blocked(a, engname):
+        continue
+    if a in have and not (ALLOW_SECOND and h.get('settled')):
         continue
     if not refused.ok(h.get('engine')):
         norefuse.append(a)

@@ -12,102 +12,149 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A236898, proved by transfer matrix}
+\title{The empirical closed form for OEIS A203979, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A236898 carries an empirical recurrence of order $86$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=465$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A203979 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+consecutive terms but an explicit formula. It is true, and it is decidable rather than
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
+vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
+$S=98$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+monic linear recurrence whose characteristic polynomial is
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-9)$, of degree
+$1$. Two things are then checked exactly: that the walk count satisfies the same
+recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
+computation, and that the two sequences agree at $1$ consecutive indices past that
+point. A monic recurrence determines every later term from its predecessors, so agreement
+there is agreement for good.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A236898 is ``Number of (n+1)X(4+1) 0..2 arrays with the maximum plus the upper median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A203979 is ``Number of (n+1)X4 0..2 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-6545, 337861, 13845208, 715994489, 35006442815, 1767780514348, 88420063405403, 4442899040820873,\ \dots
+96, 864, 7776, 69984, 629856, 5668704, 51018336, 459165024,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 86 (see link above)
+Empirical: a(n) = 96*9\^{}(n-1)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 09:39:35, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:55:44, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved. Write
+\[
+f(n)\;=\;96 \cdot 9^{n - 1}.
+\]
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=465$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
+follow $u$, which the condition decides by inspection. An admissible array is then exactly a
+walk, so with $M$ the adjacency matrix of that digraph on $S=98$ vertices, and $u,w$ the
+vectors recording which windows may start and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;u^{\!\top}M^{\,g(n)}w
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+for the linear function $g$ that the entry's shape supplies. In particular $a$ is
+$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
+one.
+
+\section{A closed form is a recurrence}
+
+\begin{lemma}\label{lem:ann}
+Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
+polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
+operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
+\[
+f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
+\]
+\end{lemma}
+
+\begin{proof}
+The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
+$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
+$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
+$\lambda^{m}p(m)$, and the factors of $q$ commute.
+\end{proof}
+
+Here $q(x)=(x-9)$, of degree $1$, and the recurrence it encodes is
+\begin{equation}\label{eq:rec}
+a(n)\;=\;9\,a(n-1).
+\end{equation}
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{86}-\sum_i c_it^{86-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
+$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+86}-\sum_ic_iM^{j+86-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
+$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
+$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
+$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
+$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
+threshold exactly.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;73\,a(n-1) - 77\,a(n-2) - 81775\,a(n-3) + 985926\,a(n-4) + 35901474\,a(n-5) - 645839894\,a(n-6) - 7863156887\,a(n-7) + 200464514037\,a(n-8) + 848648780450\,a(n-9) - 37077510976621\,a(n-10) - 16627417621963\,a(n-11) + 4528352453656820\,a(n-12) - 7825975928710845\,a(n-13) - 388239608280621424\,a(n-14) + 1225032854300446672\,a(n-15) + 24342818427261924926\,a(n-16) - 102296329813947324093\,a(n-17) - 1149159411990632719418\,a(n-18) + 5813937557680945027573\,a(n-19) + 41719461851781929593258\,a(n-20) - 243796164618304604118856\,a(n-21) - 1182809358012050815910448\,a(n-22) + 7861764114554653299710997\,a(n-23) + 26460816568911828397260101\,a(n-24) - 200100866808425288438264648\,a(n-25) - 469527542300916294588581489\,a(n-26) + 4093772117112906693549269047\,a(n-27) + 6598237900786439061054302612\,a(n-28) - 68238598350203806326364989641\,a(n-29) - 72487863772881012204267724568\,a(n-30) + 936478081940283534395430235642\,a(n-31) + 598495476724848691492767165593\,a(n-32) - 10667578290493323584992460509426\,a(n-33) - 3256417720260063955849614313003\,a(n-34) + 101509125205262344943858379568414\,a(n-35) + 3698455503963602840398741859872\,a(n-36) - 810882554070627982288747659946188\,a(n-37) + 149249356500952684548651893947294\,a(n-38) + 5458013554117973190013766805417016\,a(n-39) - 2008565635085255608336729785621968\,a(n-40) - 31036906827801000494089242844886468\,a(n-41) + 16263201986608714725677474146542800\,a(n-42) + 149351983303895132990484958167968096\,a(n-43) - 98347302497683369700007946085044248\,a(n-44) - 608640657586578401609792342344340824\,a(n-45) + 472615984396288707317449159931622384\,a(n-46) + 2100289830971248852783530408835649136\,a(n-47) - 1852654598959234117090953715691154176\,a(n-48) - 6131136060511647790830015615849052800\,a(n-49) + 6000395019339456031062839911686710208\,a(n-50) + 15112414066539731742124241097829612352\,a(n-51) - 16160421192889080427798943806633215616\,a(n-52) - 31363964340456026935351541706759170944\,a(n-53) + 36291890036749582152682139667488747520\,a(n-54) + 54593954263455580378947416728810645504\,a(n-55) - 67980324495788430657661460478093936640\,a(n-56) - 79296751654269655341977090807965456384\,a(n-57) + 106045722355355510589304643945615433728\,a(n-58) + 95478904841735160173422402241030004736\,a(n-59) - 137328675852934868299592568739131949056\,a(n-60) - 94503980242135784528267688073513009152\,a(n-61) + 146943914104697231041853611806104879104\,a(n-62) + 76066591101071137445224178032723755008\,a(n-63) - 129110626854621447544334975283865059328\,a(n-64) - 49091653306202970929811536472973508608\,a(n-65) + 92422540615877849562686455346970492928\,a(n-66) + 24922404988357214727428192760621957120\,a(n-67) - 53381597038272828448602138968544247808\,a(n-68) - 9682193981090941252308188692989607936\,a(n-69) + 24585423902532687903966936724949434368\,a(n-70) + 2753211625233540702188824621632978944\,a(n-71) - 8900271691843854524702664988616032256\,a(n-72) - 524182787161873089269874655074713600\,a(n-73) + 2488390364728059581002767958567550976\,a(n-74) + 49955223645337316318958667375312896\,a(n-75) - 525551020081203146732271442059067392\,a(n-76) + 3234147625791139890588705148108800\,a(n-77) + 81451028948676944242792562279055360\,a(n-78) - 1734014598851896583967508191510528\,a(n-79) - 8893520664715038407508894815354880\,a(n-80) + 238072909216858074910000850927616\,a(n-81) + 642083529226894363348673381793792\,a(n-82) - 15438310383687952854549528576000\,a(n-83) - 27300842672970885572190825086976\,a(n-84) + 398728985212192795452348825600\,a(n-85) + 514221933647208162160363438080\,a(n-86)
-\]
-for every $n>86$.
+$a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $86$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=86+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The vector $w'=q(M)w$ was formed by $1$ matrix--vector products in exact integer
+arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
+vanish from the point corresponding to $n=2$ onwards, and the run was continued until the
+working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
+\eqref{eq:rec} for every $n>1$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $1$ consecutive indices
+$n=2,\dots,2$ and agree at each. A monic recurrence of order $1$
+determines $a(m)$ from $a(m-1),\dots,a(m-1)$, and for every $m\ge3$ both
+$m>1$ and $m-1\ge2$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge2$.
+Below $n=2$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=2$ on. The remaining indices $n=1,\dots,1$ were
+therefore checked one at a time, directly against the walk count in exact integer arithmetic,
+and agree.
 \end{proof}
+
+The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the walk model reproduces every one of the $17$ terms the entry publishes,
+exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
+by reading the entry's English, and a misreading gives a different digraph and different
+counts.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
+at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
+and the closed form were then compared directly at sixty consecutive indices beyond
+$n=1$, far past where the proof already settles the matter.
+
+Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
+$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
+that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A236898.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203979.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
+Section 4.1.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+(Closed forms and linear recurrences with constant coefficients.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -11,135 +11,70 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A230895, proved by transfer matrix}
+\title{A further conjecture on OEIS A277800,\\ \large settled by the proof already in hand}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230895 counts arrays of width $4$ over $\{0,1,2,3\}$ in which every cell must see, among its
-neighbours in named directions, a stated number carrying the value one MORE than its own
-modulo $4$, and in some of the family a stated number carrying the value one less. The entry
-carries an empirical recurrence of order $44$ contributed by R.~H.~Hardin. It is true, and
-it is decidable rather than empirical: a cell's neighbours lie in three consecutive rows, so
-the count is a walk count on $S=5073$ states.
+OEIS A277800 carries more than one conjecture. One of them has a proof; this paper settles a
+DIFFERENT one, and it needs no new model and no new engine -- only the linear recurrence already
+established for the sequence. A claim about a C-finite sequence whose own characteristic
+polynomial is a multiple of the established one is decided by polynomial divisibility, and where
+the claim is an identity rather than a recurrence, by divisibility together with a finite window
+of agreement.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15.\normalsize
 
-\section{The conjecture}
+\section{The premise}
 
-OEIS A230895 is ``Number of nX4 0..3 arrays x(i,j) with each element horizontally or vertically next to at least one element with value (x(i,j)+1) mod 4 and at least one element with value (x(i,j)-1) mod 4, no adjacent elements equal, and upper left element zero.''. It has offset $1$ and begins
+The entry's first terms are $1, 0, 4, 3, 16, 15, 64, 63,\dots$, with offset $0$. The sequence satisfies
 \[
-0, 10, 34, 388, 2722, 23884, 190364, 1588552,\ \dots
+  a(n)=5\,a(n-2) - 4\,a(n-4) ,
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 16*a(n-1) -62*a(n-2) -163*a(n-3) +1419*a(n-4) -597*a(n-5) -11402*a(n-6) +11509*a(n-7) +75373*a(n-8) -147277*a(n-9) -221783*a(n-10) +844791*a(n-11) -133903*a(n-12) -2328995*a(n-13) +2875761*a(n-14) +1867001*a(n-15) -7723572*a(n-16) +6157837*a(n-17) +4250299*a(n-18) -13856555*a(n-19) +11158502*a(n-20) +4066028*a(n-21) -17487812*a(n-22) +14075079*a(n-23) +3335956*a(n-24) -15535829*a(n-25) +10341667*a(n-26) +3227748*a(n-27) -9121594*a(n-28) +4301747*a(n-29) +2167024*a(n-30) -3620400*a(n-31) +1567341*a(n-32) +177244*a(n-33) -599284*a(n-34) +509560*a(n-35) -360030*a(n-36) +168518*a(n-37) -7893*a(n-38) -40976*a(n-39) +18013*a(n-40) +964*a(n-41) -1823*a(n-42) +30*a(n-43) +84*a(n-44) for n>45
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:04:28, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-The array has $4$ cells across, with entries in $\{0,1,2,3\}$. The NEIGHBOURS of a cell are the
-cells reached from it by the offsets
+a linear recurrence of order $4$ with characteristic polynomial
 \[
-(-1,0), (0,-1), (0,1), (1,0),
+  q(x)=x^{4} - 5 x^{2} + 4 .
 \]
-those lying inside the array. Writing $v$ for the value of a cell, the condition is that among
-its neighbours there be at least $1$ carrying $v+1 \bmod 4$ and at least $1$ carrying $v-1 \bmod 4$. The entry also forbids two neighbouring cells from carrying equal values. The top left
-cell is fixed at $0$.
+This recurrence is proved in this project; it is the premise of everything below and nothing else is assumed.
+It was confirmed against every term the entry publishes from the index where it begins to hold,
+with at least $4+2$ further terms after that index.
 
-Note that the values and the modulus agree: the alphabet has $4$ letters and the arithmetic
-is modulo $4$, so ``one more than $v$'' wraps from $3$ round to $0$.
+\section{The further conjecture}
 
-\section{Three rows decide one}
+Separately from the conjecture already settled, the entry records
 
-\begin{lemma}\label{lem:win}
-Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
-of row $i$ lie in rows $i-1$, $i$ and $i+1$, and the condition for the whole of row $i$ is
-decided by those three rows. A neighbour outside the array is not a neighbour and contributes
-nothing to any of the counts.
-\end{lemma}
+\begin{quote}\raggedright a(n) = (-2+(-2)\^{}n+2*(-1)\^{}n+3*2\^{}n)/4. (End)\end{quote}
 
-\begin{proof}
-Immediate from the offsets listed.
-\end{proof}
-
-So the state is the pair (row above, current row), the row above allowed to be the symbol
-$\bot$, and a step appends a row and settles the condition for the middle row of the window it
-completes. Two boundaries are decided rather than assumed. The rows that may BEGIN an array are
-exactly those whose first entry is $0$, which is the top-left clause. And the condition for the
-LAST row is settled by the end vector, with nothing below it: the end vector is therefore not
-the all-ones vector, and a row that sees enough neighbours only when a further row is written
-below it does not finish an array. With $M$ the adjacency matrix,
+The further claim is a CLOSED FORM, and for that the divisibility is not the whole argument. It
+gives that $a$ and the closed form $f$ satisfy the same linear recurrence; it does not say they
+are the same solution of it. Write $p$ for the annihilator of $f$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=5073.
+  p(x)=x^{4} - 5 x^{2} + 4 ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{44}-\sum_i c_it^{44-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+44}-\sum_ic_iM^{j+44-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+of order $D=4$. Since $q\mid p$ and $a$ satisfies the recurrence of $q$, $a$ satisfies that of
+$p$ as well; $f$ satisfies it by construction. Two solutions of a linear recurrence of order $D$
+with nonzero leading coefficient agree everywhere as soon as they agree at $D$ consecutive
+indices, and $a$ and $f$ were checked to agree at $n=4,\dots,7$,
+which lies inside the terms the entry publishes and past the index from which $a$ provably
+satisfies $p$. Hence $a(n)=f(n)$ for every $n$ in the claimed range.
 
 \begin{theorem}
-\[
-a(n)\;=\;16\,a(n-1) - 62\,a(n-2) - 163\,a(n-3) + 1419\,a(n-4) - 597\,a(n-5) - 11402\,a(n-6) + 11509\,a(n-7) + 75373\,a(n-8) - 147277\,a(n-9) - 221783\,a(n-10) + 844791\,a(n-11) - 133903\,a(n-12) - 2328995\,a(n-13) + 2875761\,a(n-14) + 1867001\,a(n-15) - 7723572\,a(n-16) + 6157837\,a(n-17) + 4250299\,a(n-18) - 13856555\,a(n-19) + 11158502\,a(n-20) + 4066028\,a(n-21) - 17487812\,a(n-22) + 14075079\,a(n-23) + 3335956\,a(n-24) - 15535829\,a(n-25) + 10341667\,a(n-26) + 3227748\,a(n-27) - 9121594\,a(n-28) + 4301747\,a(n-29) + 2167024\,a(n-30) - 3620400\,a(n-31) + 1567341\,a(n-32) + 177244\,a(n-33) - 599284\,a(n-34) + 509560\,a(n-35) - 360030\,a(n-36) + 168518\,a(n-37) - 7893\,a(n-38) - 40976\,a(n-39) + 18013\,a(n-40) + 964\,a(n-41) - 1823\,a(n-42) + 30\,a(n-43) + 84\,a(n-44)
-\]
-for every $n>45$.
+The conjecture displayed above is true.
 \end{theorem}
 
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $44$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
-\end{proof}
+\section{What is and is not claimed here}
 
-\section{Verification}
-
-Four checks, each independent of the algebra above.
-
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. The leading zeros the entry publishes are a sharp test of the boundary: a small
-array has too few neighbours for any cell to see what the condition demands.
-
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size in the orientation the entry's own name writes, count each
-cell's neighbours of each kind, and keep the array when every cell is satisfied. No window, no
-transfer matrix and no transposition are involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230895.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+This is a second result on an entry that already has one, and it is a second result only because
+it is a DIFFERENT statement. A generating function whose denominator's reciprocal is exactly $q$
+says precisely what the proved recurrence says, in another notation; such restatements are
+identified and are not counted. The conjecture settled here is not of that kind.
 
 \end{document}

@@ -11,154 +11,70 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A227255, proved}
+\title{A further conjecture on OEIS A252999,\\ \large settled by the proof already in hand}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227255 carries an empirical closed form for $a(n)$ --- not a recurrence relating
-consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
-vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=1247$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
-monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{48}$, of degree
-$48$. Two things are then checked exactly: that the walk count satisfies the same
-recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $48$ consecutive indices past that
-point. A monic recurrence determines every later term from its predecessors, so agreement
-there is agreement for good.
+OEIS A252999 carries more than one conjecture. One of them has a proof; this paper settles a
+DIFFERENT one, and it needs no new model and no new engine -- only the linear recurrence already
+established for the sequence. A claim about a C-finite sequence whose own characteristic
+polynomial is a multiple of the established one is decided by polynomial divisibility, and where
+the claim is an identity rather than a recurrence, by divisibility together with a finite window
+of agreement.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15.\normalsize
 
-\section{The conjecture}
+\section{The premise}
 
-OEIS A227255 is ``Number of n X 5 binary arrays indicating whether each 2 X 2 subblock of a larger binary array has lexicographically nondecreasing rows and columns, for some larger (n+1) X 6 binary array with rows and columns of the latter in lexicographically nondecreasing order.''. It has offset $1$ and begins
+The entry's first terms are $0, 0, 0, 1, 34, 279, 1028, 2601,\dots$, with offset $1$. The sequence satisfies
 \[
-11, 53, 450, 4578, 44379, 385212, 2925969, 19641271,\ \dots
+  a(n)=4\,a(n-1) - 6\,a(n-2) + 4\,a(n-3) - 1\,a(n-4) ,
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical polynomial of degree 47 (see link above).
-
-Empirical: a(n) = (1/1010247037153000705636579512318796796754678251520000000000)*n\^{}47 - (1/2686827226470746557544094447656374459453931520000000000)*n\^{}46 + (1/7026681206853864812145392475073878939402240000000000)*n\^{}45 - (127/3664896472594368705942498820332650584080384000000000)*n\^{}44 + (72329/9439884853652161818336739385705312110510080000000000)*n\^{}43 - (81539/59872419790605677494736190607010436218880000000000)*n\^{}42 + (429055931/1975789853089987357326294290031344395223040000000000)*n\^{}41 - (16964821/566941134315634822762207830712007000064000000000)*n\^{}40 + (1827234659/491734657314581223824363934801230561280000000000)*n\^{}39 - (507972146243/1235640933764845126533017066936425512960000000000)*n\^{}38 + (1640156111807/39742837050916071321237391041814855680000000000)*n\^{}37 - (90602840371/24167941449881394722374089147049574400000000)*n\^{}36 + (6896619141543191/22177640389302926921707987687880785920000000000)*n\^{}35 - (386228642185150949/16392168983397815550827643073651015680000000000)*n\^{}34 + (472091170064351179/288021303757180869113090749193256960000000000)*n\^{}33 - (426965885290472681/4073028537980335522811384332025856000000000)*n\^{}32 + (47100747825947143625251/7616563366023227427657288700888350720000000000)*n\^{}31 - (41401107169380409667033/122847796226181087542859495175618560000000000)*n\^{}30 + (714437425832081190815995163/42013946309353931939657947350061547520000000000)*n\^{}29 - (589442711942561863039637/741052055901824357344703189876736000000000)*n\^{}28 + (4138300597776596584700524127/119821988437358893268404827806760960000000000)*n\^{}27 - (569185815975965973657984885269/408623704158172636017893387135877120000000000)*n\^{}26 + (163544534518752339012529560528817/3132781731879323542803849301375057920000000000)*n\^{}25 - (200994974625869228586313218455477/110568767007505536804841740048531456000000000)*n\^{}24 + (21290867886418332771208338997711489/362189192322016654652223684052254720000000000)*n\^{}23 - (232276730736190008644249112631866701/131705160844369692600808612382638080000000000)*n\^{}22 + (79265259917337030447380680303974383/1616916037151860065411712875233280000000000)*n\^{}21 - (60857585913006825102371224281427606751/48291892309602220620296491206967296000000000)*n\^{}20 + (2250002445476983293023101885534802801/75274384942512921288516847534080000000000)*n\^{}19 - (15024586569408678096426533515266502089541/23033961792408953914286155345428480000000000)*n\^{}18 + (1064011077877873794147065038577437650966911/81535442607731348976867601793679360000000000)*n\^{}17 - (26425325228994326799914489489167889830135313/110888201946514634608539938439403929600000000)*n\^{}16 + (831175224890362291169424698077063846965271259/210390561728878212984953008199761920000000000)*n\^{}15 - (247729484242257766360628691978964700287651283/4195823168382186583745501588029440000000000)*n\^{}14 + (112736477575864215276229064569328805498044789/143039426194847269900414826864640000000000)*n\^{}13 - (27426320212410665458099601016474314382917/2956199874857986926046445568000000000)*n\^{}12 + (13720116479138178578504440093160196340240816328873/145248590666078799957765678079549440000000000)*n\^{}11 - (1443427524169251064911674070485645151658026586043/1793192477358997530342786149130240000000000)*n\^{}10 + (325130524317293549697070523931430545850702704281/60671925925680367567989005045760000000000)*n\^{}9 - (157215426146907042983743454699228680841534721719/7032127362192147177814847643648000000000)*n\^{}8 - (57730612875783149128815834452990004774547179474761/2021824518222269715461491383144345600000000)*n\^{}7 + (1531260273681289171755604278348670505406567629149/976726820397231746599754291374080000000)*n\^{}6 - (11492431235654045096559324539290390817365777925329/689987732409187283847969281549260800000)*n\^{}5 + (1237685571728360417241018342162175103490344421103/10952186228717258473777290183321600000)*n\^{}4 - (12040107032687443295289959544247851472622437/22272823053760375542617851680000)*n\^{}3 + (4107286385195229860769185766558085320773/2292483225343906906575264000)*n\^{}2 - (413702984217720271054500548227873/110680160865928453800)*n + 3725941823309 for n>18
-\end{quote}
-As of the ``Last modified'' line on the live entry (Sep 10 2023 21:01:11, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved. Write
+a linear recurrence of order $4$ with characteristic polynomial
 \[
-f(n)\;=\;\frac{n^{47}}{1010247037153000705636579512318796796754678251520000000000} - \frac{n^{46}}{2686827226470746557544094447656374459453931520000000000} + \frac{n^{45}}{7026681206853864812145392475073878939402240000000000} - \frac{127 n^{44}}{3664896472594368705942498820332650584080384000000000} + \frac{72329 n^{43}}{9439884853652161818336739385705312110510080000000000} - \frac{81539 n^{42}}{59872419790605677494736190607010436218880000000000} + \frac{429055931 n^{41}}{1975789853089987357326294290031344395223040000000000} - \frac{16964821 n^{40}}{566941134315634822762207830712007000064000000000} + \frac{1827234659 n^{39}}{491734657314581223824363934801230561280000000000} - \frac{507972146243 n^{38}}{1235640933764845126533017066936425512960000000000} + \frac{1640156111807 n^{37}}{39742837050916071321237391041814855680000000000} - \frac{90602840371 n^{36}}{24167941449881394722374089147049574400000000} + \frac{6896619141543191 n^{35}}{22177640389302926921707987687880785920000000000} - \frac{386228642185150949 n^{34}}{16392168983397815550827643073651015680000000000} + \frac{472091170064351179 n^{33}}{288021303757180869113090749193256960000000000} - \frac{426965885290472681 n^{32}}{4073028537980335522811384332025856000000000} + \frac{47100747825947143625251 n^{31}}{7616563366023227427657288700888350720000000000} - \frac{41401107169380409667033 n^{30}}{122847796226181087542859495175618560000000000} + \frac{714437425832081190815995163 n^{29}}{42013946309353931939657947350061547520000000000} - \frac{589442711942561863039637 n^{28}}{741052055901824357344703189876736000000000} + \frac{4138300597776596584700524127 n^{27}}{119821988437358893268404827806760960000000000} - \frac{569185815975965973657984885269 n^{26}}{408623704158172636017893387135877120000000000} + \frac{163544534518752339012529560528817 n^{25}}{3132781731879323542803849301375057920000000000} - \frac{200994974625869228586313218455477 n^{24}}{110568767007505536804841740048531456000000000} + \frac{21290867886418332771208338997711489 n^{23}}{362189192322016654652223684052254720000000000} - \frac{232276730736190008644249112631866701 n^{22}}{131705160844369692600808612382638080000000000} + \frac{79265259917337030447380680303974383 n^{21}}{1616916037151860065411712875233280000000000} - \frac{60857585913006825102371224281427606751 n^{20}}{48291892309602220620296491206967296000000000} + \frac{2250002445476983293023101885534802801 n^{19}}{75274384942512921288516847534080000000000} - \frac{15024586569408678096426533515266502089541 n^{18}}{23033961792408953914286155345428480000000000} + \frac{1064011077877873794147065038577437650966911 n^{17}}{81535442607731348976867601793679360000000000} - \frac{26425325228994326799914489489167889830135313 n^{16}}{110888201946514634608539938439403929600000000} + \frac{831175224890362291169424698077063846965271259 n^{15}}{210390561728878212984953008199761920000000000} - \frac{247729484242257766360628691978964700287651283 n^{14}}{4195823168382186583745501588029440000000000} + \frac{112736477575864215276229064569328805498044789 n^{13}}{143039426194847269900414826864640000000000} - \frac{27426320212410665458099601016474314382917 n^{12}}{2956199874857986926046445568000000000} + \frac{13720116479138178578504440093160196340240816328873 n^{11}}{145248590666078799957765678079549440000000000} - \frac{1443427524169251064911674070485645151658026586043 n^{10}}{1793192477358997530342786149130240000000000} + \frac{325130524317293549697070523931430545850702704281 n^{9}}{60671925925680367567989005045760000000000} - \frac{157215426146907042983743454699228680841534721719 n^{8}}{7032127362192147177814847643648000000000} - \frac{57730612875783149128815834452990004774547179474761 n^{7}}{2021824518222269715461491383144345600000000} + \frac{1531260273681289171755604278348670505406567629149 n^{6}}{976726820397231746599754291374080000000} - \frac{11492431235654045096559324539290390817365777925329 n^{5}}{689987732409187283847969281549260800000} + \frac{1237685571728360417241018342162175103490344421103 n^{4}}{10952186228717258473777290183321600000} - \frac{12040107032687443295289959544247851472622437 n^{3}}{22272823053760375542617851680000} + \frac{4107286385195229860769185766558085320773 n^{2}}{2292483225343906906575264000} - \frac{413702984217720271054500548227873 n}{110680160865928453800} + 3725941823309.
+  q(x)=x^{4} - 4 x^{3} + 6 x^{2} - 4 x + 1 .
 \]
+This recurrence is proved in this project; it is the premise of everything below and nothing else is assumed.
+It was confirmed against every term the entry publishes from the index where it begins to hold,
+with at least $4+2$ further terms after that index.
 
-\section{The count is a walk count}
+\section{The further conjecture}
 
-The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
-admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
-follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=1247$ vertices, and $u,w$ the
-vectors recording which windows may start and end an array,
+Separately from the conjecture already settled, the entry records
+
+\begin{quote}\raggedright Empirical: a(n) = (160/3)*n\^{}3 - 708*n\^{}2 + (9539/3)*n - 4831 for n>4.\end{quote}
+
+The further claim is a CLOSED FORM, and for that the divisibility is not the whole argument. It
+gives that $a$ and the closed form $f$ satisfy the same linear recurrence; it does not say they
+are the same solution of it. Write $p$ for the annihilator of $f$,
 \[
-a(n)\;=\;u^{\!\top}M^{\,g(n)}w
+  p(x)=x^{4} - 4 x^{3} + 6 x^{2} - 4 x + 1 ,
 \]
-for the linear function $g$ that the entry's shape supplies. In particular $a$ is
-$C$-finite: it satisfies some monic integer linear recurrence, though not necessarily a short
-one.
-
-\section{A closed form is a recurrence}
-
-\begin{lemma}\label{lem:ann}
-Let $f(m)=\sum_{j}p_j(m)\lambda_j^{\,m}$ with the $\lambda_j$ distinct and the $p_j$
-polynomials, and put $q(x)=\prod_j(x-\lambda_j)^{\deg p_j+1}$. Then $q$ applied to the shift
-operator annihilates $f$: writing $q(x)=x^{r}-\sum_{i=1}^{r}c_ix^{r-i}$,
-\[
-f(m)\;=\;\sum_{i=1}^{r}c_i\,f(m-i)\qquad\text{for every }m.
-\]
-\end{lemma}
-
-\begin{proof}
-The shift operator $E$ acts on $m\mapsto\lambda^{m}p(m)$ as
-$(E-\lambda)\bigl(\lambda^{m}p(m)\bigr)=\lambda^{m+1}\bigl(p(m+1)-p(m)\bigr)$, and
-$p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
-$\lambda^{m}p(m)$, and the factors of $q$ commute.
-\end{proof}
-
-Here $q(x)=(x-1)^{48}$, of degree $48$; the closed form is a polynomial in $n$, so this is $(x-1)^{48}$, and the recurrence it encodes is
-\begin{equation}\label{eq:rec}
-a(n)\;=\;48\,a(n-1) - 1128\,a(n-2) + 17296\,a(n-3) - 194580\,a(n-4) + 1712304\,a(n-5) - 12271512\,a(n-6) + 73629072\,a(n-7) - 377348994\,a(n-8) + 1677106640\,a(n-9) - 6540715896\,a(n-10) + 22595200368\,a(n-11) - 69668534468\,a(n-12) + 192928249296\,a(n-13) - 482320623240\,a(n-14) + 1093260079344\,a(n-15) - 2254848913647\,a(n-16) + 4244421484512\,a(n-17) - 7309837001104\,a(n-18) + 11541847896480\,a(n-19) - 16735679449896\,a(n-20) + 22314239266528\,a(n-21) - 27385657281648\,a(n-22) + 30957699535776\,a(n-23) - 32247603683100\,a(n-24) + 30957699535776\,a(n-25) - 27385657281648\,a(n-26) + 22314239266528\,a(n-27) - 16735679449896\,a(n-28) + 11541847896480\,a(n-29) - 7309837001104\,a(n-30) + 4244421484512\,a(n-31) - 2254848913647\,a(n-32) + 1093260079344\,a(n-33) - 482320623240\,a(n-34) + 192928249296\,a(n-35) - 69668534468\,a(n-36) + 22595200368\,a(n-37) - 6540715896\,a(n-38) + 1677106640\,a(n-39) - 377348994\,a(n-40) + 73629072\,a(n-41) - 12271512\,a(n-42) + 1712304\,a(n-43) - 194580\,a(n-44) + 17296\,a(n-45) - 1128\,a(n-46) + 48\,a(n-47) - a(n-48).
-\end{equation}
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-With $q$ as above, $a$ satisfies \eqref{eq:rec} for all large $n$ if and only if
-$u^{\!\top}M^{\,j}q(M)w=0$ for every $j\ge0$, and it is enough to check $j<S$.
-\end{lemma}
-
-\begin{proof}
-Substituting the walk expression, the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$u^{\!\top}M^{\,g(n)-r}q(M)w$ up to the fixed linear reparametrisation $g$. For the bound,
-$M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the values
-$u^{\!\top}M^{j}q(M)w$ satisfy the monic recurrence given by the characteristic polynomial of
-$M$; $S$ consecutive zeros therefore force all later ones, and the last nonzero value pins the
-threshold exactly.
-\end{proof}
+of order $D=4$. Since $q\mid p$ and $a$ satisfies the recurrence of $q$, $a$ satisfies that of
+$p$ as well; $f$ satisfies it by construction. Two solutions of a linear recurrence of order $D$
+with nonzero leading coefficient agree everywhere as soon as they agree at $D$ consecutive
+indices, and $a$ and $f$ were checked to agree at $n=9,\dots,12$,
+which lies inside the terms the entry publishes and past the index from which $a$ provably
+satisfies $p$. Hence $a(n)=f(n)$ for every $n$ in the claimed range.
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge19$.
+The conjecture displayed above is true.
 \end{theorem}
 
-\begin{proof}
-The vector $w'=q(M)w$ was formed by $48$ matrix--vector products in exact integer
-arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=67$ onwards, and the run was continued until the
-working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>66$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $48$ consecutive indices
-$n=67,\dots,114$ and agree at each. A monic recurrence of order $48$
-determines $a(m)$ from $a(m-1),\dots,a(m-48)$, and for every $m\ge115$ both
-$m>66$ and $m-48\ge67$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge67$.
-Below $n=67$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=67$ on. The remaining indices $n=19,\dots,66$ were
-therefore checked one at a time, directly against the walk count in exact integer arithmetic,
-and agree.
-\end{proof}
+\section{What is and is not claimed here}
 
-The range is tight in the sense that was checked: at $n=18$ the closed form and the sequence differ, so no larger range is available.
-
-\section{Verification}
-
-Four checks, each independent of the algebra above.
-
-First, the walk model reproduces every one of the $19$ terms the entry publishes,
-exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
-by reading the entry's English, and a misreading gives a different digraph and different
-counts.
-
-Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=19$ on, and agrees with the entry's own DATA at each.
-
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
-and the closed form were then compared directly at sixty consecutive indices beyond
-$n=19$, far past where the proof already settles the matter.
-
-Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
-$n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
-that anything would pass.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A227255.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
-Section 4.1.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(Closed forms and linear recurrences with constant coefficients.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+This is a second result on an entry that already has one, and it is a second result only because
+it is a DIFFERENT statement. A generating function whose denominator's reciprocal is exactly $q$
+says precisely what the proved recurrence says, in another notation; such restatements are
+identified and are not counted. The conjecture settled here is not of that kind.
 
 \end{document}

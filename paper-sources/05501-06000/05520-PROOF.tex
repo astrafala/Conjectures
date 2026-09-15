@@ -11,24 +11,28 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A203821, proved}
+\title{The empirical closed form for OEIS A187305, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203821 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A187305 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
-empirical. The entry counts arrays subject to a condition on every $2\times2$ subblock, hence on two consecutive lines, so the lines of an array are the
+empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=256$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=22$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-49)$, of degree
-$1$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{3}$, of degree
+$3$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $1$ consecutive indices past that
+computation, and that the two sequences agree at $3$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,26 +41,26 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A203821 is ``Number of (n+1)X4 0..3 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements.''. It has offset $1$ and begins
+OEIS A187305 is ``Number of 10-step one space leftwards or up, two space rightwards or down asymmetric rook's tours on an n X n board summed over all starting positions.''. It has offset $1$ and begins
 \[
-11664, 571536, 28005264, 1372257936, 67240638864, 3294791304336, 161444773912464, 7910793921710736,\ \dots
+0, 0, 0, 3096, 44824, 187924, 505878, 1044900,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 11664*49\^{}(n-1)
+Empirical: a(n) = 124248*n\^{}2 - 1238146*n + 2807812 for n>17
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:44:38, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 03:54:00, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;11664 \cdot 49^{n - 1}.
+f(n)\;=\;124248 n^{2} - 1238146 n + 2807812.
 \]
 
 \section{The count is a walk count}
 
-The entry's defining condition is local: it is a condition on every $2\times2$ subblock, hence on two consecutive lines. Take as vertices the
+The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=256$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=22$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +87,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-49)$, of degree $1$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{3}$, of degree $3$; the closed form is a polynomial in $n$, so this is $(x-1)^{3}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;49\,a(n-1).
+a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3).
 \end{equation}
 
 \section{The proof}
@@ -105,43 +109,43 @@ threshold exactly.
 \end{proof}
 
 \begin{theorem}
-$a(n)=f(n)$ for every $n\ge1$.
+$a(n)=f(n)$ for every $n\ge18$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $1$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $3$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=2$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=21$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>1$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $1$ consecutive indices
-$n=2,\dots,2$ and agree at each. A monic recurrence of order $1$
-determines $a(m)$ from $a(m-1),\dots,a(m-1)$, and for every $m\ge3$ both
-$m>1$ and $m-1\ge2$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge2$.
-Below $n=2$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=2$ on. The remaining indices $n=1,\dots,1$ were
+\eqref{eq:rec} for every $n>20$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $3$ consecutive indices
+$n=21,\dots,23$ and agree at each. A monic recurrence of order $3$
+determines $a(m)$ from $a(m-1),\dots,a(m-3)$, and for every $m\ge24$ both
+$m>20$ and $m-3\ge21$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge21$.
+Below $n=21$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=21$ on. The remaining indices $n=18,\dots,20$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
 
-The range is tight in the sense that was checked: the closed form holds from the entry's first term onwards.
+The range is tight in the sense that was checked: at $n=17$ the closed form and the sequence differ, so no larger range is available.
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $12$ terms the entry publishes,
+First, the walk model reproduces every one of the $28$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
 
 Second, the closed form was evaluated in exact rational arithmetic --- not floating point ---
-at every published term from $n=1$ on, and agrees with the entry's own DATA at each.
+at every published term from $n=18$ on, and agrees with the entry's own DATA at each.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out exactly, and the model
 and the closed form were then compared directly at sixty consecutive indices beyond
-$n=1$, far past where the proof already settles the matter.
+$n=18$, far past where the proof already settles the matter.
 
 Fourth, the closed form was deliberately perturbed --- by a constant and by a term linear in
 $n$ --- and each perturbed form was rejected by the same comparison, so the test is not one
@@ -149,7 +153,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203821.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A187305.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

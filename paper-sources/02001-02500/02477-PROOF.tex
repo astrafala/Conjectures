@@ -16,144 +16,65 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A268047, proved by transfer matrix}
+\title{A further conjecture on OEIS A184546,\\ \large settled by the proof already in hand}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268047 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
-prescribed relation to one another in the order they occur. The entry carries an empirical
-recurrence of order $78$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical: one of the two scans runs inside a slice of the array and the other
-across slices, and the second needs only the previous slice together with the last repeated
-value so far in each column of the scan, so the count is a walk count on $S=9189$ states.
+OEIS A184546 carries more than one conjecture. One of them has a proof; this paper settles a
+DIFFERENT one, and it needs no new model and no new engine -- only the linear recurrence already
+established for the sequence. A claim about a C-finite sequence whose own characteristic
+polynomial is a multiple of the established one is decided by polynomial divisibility, and where
+the claim is an identity rather than a recurrence, by divisibility together with a finite window
+of agreement.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15.\normalsize
 
-\section{The conjecture}
+\section{The premise}
 
-OEIS A268047 is ``Number of nX3 0..3 arrays with every repeated value in every row unequal to, and in every column equal to, the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
+The entry's first terms are $539, 1513, 3461, 7307, 14767, 28844, 54543, 99872,\dots$, with offset $1$. The sequence satisfies
 \[
-4, 159, 9054, 467899, 22309009, 999810316, 42764566838, 1764109373799,\ \dots
+  a(n)=10\,a(n-1) - 45\,a(n-2) + 120\,a(n-3) - 210\,a(n-4) + 252\,a(n-5) - 210\,a(n-6) + 120\,a(n-7) - 45\,a(n-8) + 10\,a(n-9) - 1\,a(n-10) ,
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical recurrence of order 78 (see link above)
-
-Empirical: a(n) = 173*a(n-1) - 11209*a(n-2) + 281593*a(n-3) + 1682819*a(n-4) - 211937705*a(n-5) + 1973296801*a(n-6) + 60997642353*a(n-7) - 921367617653*a(n-8) - 10273040537881*a(n-9) + 180308924132704*a(n-10) + 1146643621791394*a(n-11) - 18824606965474337*a(n-12) - 70594357266463127*a(n-13) + 1243703972592670370*a(n-14) + 1954397489445153712*a(n-15) - 54558022171050330390*a(n-16) + 16323430024289124274*a(n-17) + 1565571304111793078159*a(n-18) - 2991853753128816502437*a(n-19) - 27914706633585522469234*a(n-20) + 99515347114943897182468*a(n-21) + 273081636739214216638497*a(n-22) - 1761924433091186848955305*a(n-23) - 533343433045550604867650*a(n-24) + 18796477238661097210762384*a(n-25) - 21645470863558403931200644*a(n-26) - 119235468113398001906839232*a(n-27) + 306469055033935795399741662*a(n-28) + 351019960348988701461717058*a(n-29) - 2097184704039738702909647342*a(n-30) + 730557549149363723039335190*a(n-31) + 8189740497001102221828450246*a(n-32) - 11510578992214906487197903714*a(n-33) - 15900500895341274018732909804*a(n-34) + 49920866872997623932951121120*a(n-35) - 4205211385658639931928383814*a(n-36) - 113324646043238233728165009114*a(n-37) + 103211166211278746323839564108*a(n-38) + 126593768863293928319888018464*a(n-39) - 260595572354792594635062085720*a(n-40) - 1777852697300219596019351440*a(n-41) + 332013092139939544472031568282*a(n-42) - 196422221063880568916961300446*a(n-43) - 223323576808747115943460494228*a(n-44) + 290079812740532531660740255848*a(n-45) + 38644831122037479121203754814*a(n-46) - 222779350561276398165298135726*a(n-47) + 67463527613875627314762529783*a(n-48) + 100207989019784954650950134817*a(n-49) - 69985976524947031187740379353*a(n-50) - 22018650722595404089059545751*a(n-51) + 35191679820699684777914731971*a(n-52) - 2303853699048138900294050873*a(n-53) - 10731457470287927632271638911*a(n-54) + 3420509441623766836880365849*a(n-55) + 1921291527357048606958066343*a(n-56) - 1215499603660516885496339325*a(n-57) - 125302160903692783709411548*a(n-58) + 241349738480646308559103414*a(n-59) - 26864110593299215229779305*a(n-60) - 28043029247020136348286287*a(n-61) + 8018874346092243711454506*a(n-62) + 1564475927473280564774856*a(n-63) - 943162820936816227154778*a(n-64) + 20076762408703614517526*a(n-65) + 55909708497802785686871*a(n-66) - 7987589560440561249309*a(n-67) - 1426379625619946930674*a(n-68) + 408936701064011574924*a(n-69) + 2302488144043112457*a(n-70) - 8716604633423097057*a(n-71) + 526665267995722524*a(n-72) + 76559009375259234*a(n-73) - 8011012412786418*a(n-74) - 178807688927802*a(n-75) + 34331981132196*a(n-76) + 34971967080*a(n-77) - 46749093300*a(n-78)
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jan 25 2016 10:51:20, revision 5) this is still
-recorded as empirical, and nothing on the entry records it as proved.
-
-\section{What is being counted}
-
-Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
-immediately before it; the row thus produces the sequence of values at the places where two
-equal entries stand side by side. The entry asks that each repeated value of a row be
-different from the previous repeated value of that row, and that each repeated value of a column,
-read downwards, be equal to the previous repeated value of that column. The FIRST repeated
-value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
-imposes nothing at all.
-
-The entry closes with ``new values introduced in row-major sequential order'', so what is
-counted is arrays up to renaming the letters. Both relations here are built from equality
-alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
-classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
+a linear recurrence of order $10$ with characteristic polynomial
 \[
-L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
-a=N_1+\dots+N_{4}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
+  q(x)=x^{10} - 10 x^{9} + 45 x^{8} - 120 x^{7} + 210 x^{6} - 252 x^{5} + 210 x^{4} - 120 x^{3} + 45 x^{2} - 10 x + 1 .
 \]
-An entry of this family whose relation compares letters by size, or does arithmetic on them,
-carries no such clause and is counted over its own alphabet instead; the two cases are not
-mixed.
+This recurrence is proved in this project; it is the premise of everything below and nothing else is assumed.
+It was confirmed against every term the entry publishes from the index where it begins to hold,
+with at least $10+2$ further terms after that index.
 
-\section{One scan inside a slice, one across}
+\section{The further conjecture}
 
-Take the array a $row$ at a time, the direction in which it grows.
+Separately from the conjecture already settled, the entry records
 
-\begin{lemma}\label{lem:state}
-The $row$ scans are settled as each $row$ is written. The $column$ scans are
-settled by the previous $row$ together with, for each position, the last repeated value
-so far in that $column$.
-\end{lemma}
+\begin{quote}\raggedright Empirical: a(n) = (1/362880)*n\^{}9 + (1/5760)*n\^{}8 + (289/60480)*n\^{}7 + (217/2880)*n\^{}6 + (12949/17280)*n\^{}5 + (28049/5760)*n\^{}4 + (468401/22680)*n\^{}3 + (210319/1440)*n\^{}2 + (145955/504)*n + 77.\end{quote}
 
-\begin{proof}
-A $row$ scan compares neighbours inside one $row$, so writing the
-$row$ left to right and carrying the last repeated value seen decides it. In a
-$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
-entry in the same position of the previous $row$, and the only thing the relation needs
-besides that entry is the previous repeated value of that $column$.
-\end{proof}
-
-So the state is the pair (previous $row$, vector of last repeated values), the second
-component taking $3+2$ values at each position --- the letters together with a symbol for
-``none yet''. Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
+The further claim is a CLOSED FORM, and for that the divisibility is not the whole argument. It
+gives that $a$ and the closed form $f$ satisfy the same linear recurrence; it does not say they
+are the same solution of it. Write $p$ for the annihilator of $f$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=9189,\quad\tau=\mathbf{1} .
+  p(x)=x^{10} - 10 x^{9} + 45 x^{8} - 120 x^{7} + 210 x^{6} - 252 x^{5} + 210 x^{4} - 120 x^{3} + 45 x^{2} - 10 x + 1 ,
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{78}-\sum_i c_it^{78-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+78}-\sum_ic_iM^{j+78-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+of order $D=10$. Since $q\mid p$ and $a$ satisfies the recurrence of $q$, $a$ satisfies that of
+$p$ as well; $f$ satisfies it by construction. Two solutions of a linear recurrence of order $D$
+with nonzero leading coefficient agree everywhere as soon as they agree at $D$ consecutive
+indices, and $a$ and $f$ were checked to agree at $n=11,\dots,20$,
+which lies inside the terms the entry publishes and past the index from which $a$ provably
+satisfies $p$. Hence $a(n)=f(n)$ for every $n$ in the claimed range.
 
 \begin{theorem}
-\[
-a(n)\;=\;173\,a(n-1) - 11209\,a(n-2) + 281593\,a(n-3) + 1682819\,a(n-4) - 211937705\,a(n-5) + 1973296801\,a(n-6) + 60997642353\,a(n-7) - 921367617653\,a(n-8) - 10273040537881\,a(n-9) + 180308924132704\,a(n-10) + 1146643621791394\,a(n-11) - 18824606965474337\,a(n-12) - 70594357266463127\,a(n-13) + 1243703972592670370\,a(n-14) + 1954397489445153712\,a(n-15) - 54558022171050330390\,a(n-16) + 16323430024289124274\,a(n-17) + 1565571304111793078159\,a(n-18) - 2991853753128816502437\,a(n-19) - 27914706633585522469234\,a(n-20) + 99515347114943897182468\,a(n-21) + 273081636739214216638497\,a(n-22) - 1761924433091186848955305\,a(n-23) - 533343433045550604867650\,a(n-24) + 18796477238661097210762384\,a(n-25) - 21645470863558403931200644\,a(n-26) - 119235468113398001906839232\,a(n-27) + 306469055033935795399741662\,a(n-28) + 351019960348988701461717058\,a(n-29) - 2097184704039738702909647342\,a(n-30) + 730557549149363723039335190\,a(n-31) + 8189740497001102221828450246\,a(n-32) - 11510578992214906487197903714\,a(n-33) - 15900500895341274018732909804\,a(n-34) + 49920866872997623932951121120\,a(n-35) - 4205211385658639931928383814\,a(n-36) - 113324646043238233728165009114\,a(n-37) + 103211166211278746323839564108\,a(n-38) + 126593768863293928319888018464\,a(n-39) - 260595572354792594635062085720\,a(n-40) - 1777852697300219596019351440\,a(n-41) + 332013092139939544472031568282\,a(n-42) - 196422221063880568916961300446\,a(n-43) - 223323576808747115943460494228\,a(n-44) + 290079812740532531660740255848\,a(n-45) + 38644831122037479121203754814\,a(n-46) - 222779350561276398165298135726\,a(n-47) + 67463527613875627314762529783\,a(n-48) + 100207989019784954650950134817\,a(n-49) - 69985976524947031187740379353\,a(n-50) - 22018650722595404089059545751\,a(n-51) + 35191679820699684777914731971\,a(n-52) - 2303853699048138900294050873\,a(n-53) - 10731457470287927632271638911\,a(n-54) + 3420509441623766836880365849\,a(n-55) + 1921291527357048606958066343\,a(n-56) - 1215499603660516885496339325\,a(n-57) - 125302160903692783709411548\,a(n-58) + 241349738480646308559103414\,a(n-59) - 26864110593299215229779305\,a(n-60) - 28043029247020136348286287\,a(n-61) + 8018874346092243711454506\,a(n-62) + 1564475927473280564774856\,a(n-63) - 943162820936816227154778\,a(n-64) + 20076762408703614517526\,a(n-65) + 55909708497802785686871\,a(n-66) - 7987589560440561249309\,a(n-67) - 1426379625619946930674\,a(n-68) + 408936701064011574924\,a(n-69) + 2302488144043112457\,a(n-70) - 8716604633423097057\,a(n-71) + 526665267995722524\,a(n-72) + 76559009375259234\,a(n-73) - 8011012412786418\,a(n-74) - 178807688927802\,a(n-75) + 34331981132196\,a(n-76) + 34971967080\,a(n-77) - 46749093300\,a(n-78)
-\]
-for every $n>78$.
+The conjecture displayed above is true.
 \end{theorem}
 
-\begin{proof}
-The vector $w=q(M)\tau$ was formed by $78$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=78+1$ onwards and the run continued
-until the working vector was identically zero.
-\end{proof}
+\section{What is and is not claimed here}
 
-\section{Verification}
-
-Four checks, each independent of the algebra above.
-
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic.
-
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form each row's and each column's list of repeated values
-by scanning it, and test consecutive members of those lists against the relation. No state, no
-window and no transfer matrix are involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268047.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
+This is a second result on an entry that already has one, and it is a second result only because
+it is a DIFFERENT statement. A generating function whose denominator's reciprocal is exactly $q$
+says precisely what the proved recurrence says, in another notation; such restatements are
+identified and are not counted. The conjecture settled here is not of that kind.
 
 \end{document}

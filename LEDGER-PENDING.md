@@ -975,3 +975,24 @@ One more glob defect on the way: every TAGGED run of `sweep_shard` writes
 untagged run. A sweep over a rebuilt pool was invisible to the installer for the sake of one
 pattern — the same shape as the eleven stale filters, in the file names rather than in a pool.
 The pattern is now `shard*_hits*.json`, which covers every tag at once.
+
+### The second-conjecture vein installed: 235 papers (IDEAS §AI)
+
+**235 papers; roster 13,577 over 13,315 entries; 163 arguments.** These are SECOND papers on
+entries that already carry one, and they are second RESULTS because each settles a different
+conjecture — 234 closed forms and one further recurrence, none of them a restatement of the
+proved recurrence in other notation (those are identified by the sweep and excluded; there were
+145 of them).
+
+Three pieces of plumbing that did not exist:
+
+* `src/sndbuild.py` and `src/build_second.py` — the vein had 244 proved records and no builder.
+* `install_vein.py` gained `ALLOW_SECOND`, an explicit per-run opt-in that lets a second paper
+  onto an entry already on the roster, and only when the record NAMES the conjecture it settles.
+  262 entries now carry more than one paper, up from 27.
+* the engine `second-conjecture` in `rank.py`'s TIER.
+
+Every one of the 235 passes the window check added this round (§AI.1), and every one was
+re-confirmed against the live OEIS before installation. The paper states the window explicitly:
+for a closed form, `q | p` plus agreement at D consecutive indices past the point where the
+sequence provably satisfies `p`.

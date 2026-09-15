@@ -254,7 +254,8 @@ for a in targets:
                 if vals != d[lo:hi]:
                     res['closed form satisfies the recurrence but is a DIFFERENT solution'] += 1
                     continue
-                settled.append(('closed form', t[:200]))
+                settled.append(('closed form', t[:200], {'D': aorder, 'lo': off + lo,
+                                                         'hi': off + hi - 1}))
     # only claims that say something the proved recurrence does not are counted
     fresh = [c for c in settled if not c[0].endswith('(restates the proved recurrence)')]
     if settled:
