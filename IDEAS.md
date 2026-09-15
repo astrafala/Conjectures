@@ -1920,3 +1920,52 @@ none proved, but the widening stands for the pool the sweep runs on every hour.
 
 **Rebuild a sweep's pool from the clone before running it again.** One sharded scan. Wrong eight
 times out of eleven.
+
+
+## AM. Two measured nulls and a directory that would not have listed (15 September)
+
+### AM.1 The column generating functions — null
+
+108 table entries refuse as "no explicit column recurrence" and state a **generating function
+for column k** instead. Substituting a particular k gives a rational g.f. for that column, so
+`gfrec`'s argument applies per column, and it looked like the natural next widening. Measured
+first, over the 202 entries in the rebuilt table pool that state such a line:
+
+| | |
+|---:|---|
+| 191 | conjecture **nothing at all** |
+| 6 | conjecture something that is not about a column |
+| 5 | conjecture something about a column |
+
+Of the five: two conjecture the column g.f. itself with nothing factual to prove it from, one is
+an asymptotic, one a supercongruence, one a combinatorial identity. **Nothing to build.** A g.f.
+for column k is usually the whole content of such an entry rather than a premise sitting beside
+a conjecture — which is the same shape as §AG.3 and §AD, and the third time today that measuring
+before building saved the build.
+
+### AM.2 `sweep_second` is the one vein that grows with the project
+
+Its premise is the roster, so every paper installed gives it something new. Ten entries joined
+after the 376-paper pass; re-asking just those gives one more. **Re-ask it after any batch** —
+it costs seconds and it is the only sweep here whose pool is this project's own output.
+
+### AM.3 The `engine/src` split, and how not to find dead code
+
+913 tracked files against GitHub's 1,000-entry listing cap. 525 Python files were referenced by
+no import, no runner and no document, and are now in `engine/attic/`; `src/` is at 470 and
+nothing was deleted.
+
+**Two static scans were wrong before one was right, and both mistakes were the same kind.**
+`^\s*(?:import|from)\s+([a-z_0-9]+)` captures only the first name of
+`import entry, phispec, phitex, phimeta`. And `uniform.py` loads its 133 engines through
+`importlib.import_module` over a list, so they appear in no import statement at all. 82 files had
+to be brought back.
+
+The check that settled it reads every file's imports with `ast` and resolves each name against
+`src/` or an installed package. **It must not be done by importing**: a sweep module RUNS when
+imported, so an import-based smoke test starts the whole engine — which is what happened, and is
+worth recording as its own small lesson about testing a directory full of scripts.
+
+`engine/` itself is now the largest tracked directory at 714 and grows with every sweep, because
+the hits and done files live there and every script opens them by bare name from `cwd=engine`.
+That is a real refactor rather than a `git mv`, and defect 32 says to do it before 1,000.
