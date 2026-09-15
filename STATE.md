@@ -214,8 +214,9 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **13,545 papers installed** over 13,315 entries and **163 distinct arguments**, as of the
-  morning of 15 September 2026, with **235 withdrawn the same day** (defect 29). The 15 September round: 11 from six notation defects in
+* **13,718 papers installed** over 13,315 entries and **163 distinct arguments**, as of the
+  morning of 15 September 2026. 235 were withdrawn that day and 109 of those reinstated once the
+  duplicate test was corrected (defect 29); 122 stay withdrawn as genuine duplicates. The 15 September round: 11 from six notation defects in
   `algf` (IDEAS §Z, §AC), 21 from rebuilding two candidate pools (§AE), 2 from a new argument
   for windowed maxima over a growing alphabet (§AF), 2 from reading a g.f. stated as a periodic
   continued fraction (`src/cfrac.py`, §AC). Two reader widenings were measured and are **null**
@@ -281,10 +282,17 @@ IDENTICAL to the one the entry's existing paper was built from. 235 papers were 
 all 235 withdrawn the same day: the second result was the first stated again.
 
 The test that matters is with the PAPER, whose TeX is in `paper-sources/` and which quotes the
-conjecture it settles. A first attempt compared instead against the lines other hits files
-record; it caught 118 of the 235 and cleared 117 that were duplicates too, because it can only
-see a duplicate when the entry's paper came from a vein that stored the line it used. **A test
-that clears half of what a better test rejects is not a weaker version of the right test.**
+conjecture it settles — **and with the entry's OTHER papers, never with this vein's own.** Both
+attempts got that wrong in opposite directions. The first compared against the lines other hits
+files record and caught only 118, because it can only see a duplicate when the entry's paper came
+from a vein that stored the line it used. The second compared against every paper on the entry,
+including the second-conjecture paper that states the very claim being tested, so every record
+was a duplicate of itself and all 235 were withdrawn. Re-run correctly: 122 genuine duplicates,
+4 uncheckable, **109 withdrawn for nothing** and since reinstated. The vein settles at 376.
+
+**A test that rejects more is not thereby a better test**, and the loose one hid the wrong one:
+a test that says "duplicate" about everything agrees with the truth wherever the truth is
+"duplicate".
 
 And 368 installed papers have no stored source, so the comparison cannot run on them at all.
 Refuse, do not assume: assuming would put the first result back as a second one for every one.
