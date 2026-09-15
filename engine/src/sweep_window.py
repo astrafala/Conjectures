@@ -21,9 +21,13 @@ import localentry as LE
 import openness
 import window
 
+# The corpus writes the length before the alphabet or after it -- A228464 is "of some 0..n
+# array of length 9" where its eleven siblings are "of some length 9 0..n array". One entry
+# hung on the word order.
 NAME = re.compile(
     r'Number of arrays of (?:the )?(maxima|minima) of '
-    r'(two|three|four|five|six) adjacent elements of some length[- ](\d+) 0\.\.n array\.?\s*$',
+    r'(two|three|four|five|six) adjacent elements of some '
+    r'(?:length[- ](?P<k1>\d+) 0\.\.n array|0\.\.n array of length (?P<k2>\d+))\.?\s*$',
     re.I)
 WORD = {'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6}
 STAT = {'maxima': 'max', 'minima': 'min'}
@@ -32,7 +36,13 @@ pool = [a for a in open(os.environ.get('ANUMS_FILE', 'deep-check/window.txt')).r
         if a.startswith('A')]
 roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
-hits, res = [], collections.Counter()
+# Starting from an empty list and writing the file at the end DESTROYS every record already
+# there -- the entries this sweep proved on an earlier run are skipped as "already on the
+# roster" and then dropped from the file. That is defect 30 in miniature, and it cost the two
+# records this vein began with. Load first.
+HITSFILE = os.environ.get('HITS', 'window_hits.json')
+hits = json.load(open(HITSFILE)) if os.path.exists(HITSFILE) else []
+res = collections.Counter()
 n = window.n
 cache = {}
 
@@ -50,7 +60,8 @@ for a in sorted(pool):
     cl = [L for L in conjlines.claims(e) if CF.parse_line(L)]
     if not cl:
         res['no readable closed form'] += 1; continue
-    stat, w, k = STAT[m.group(1).lower()], WORD[m.group(2).lower()], int(m.group(3))
+    stat, w = STAT[m.group(1).lower()], WORD[m.group(2).lower()]
+    k = int(m.group('k1') or m.group('k2'))
     if k - w + 1 > 8:
         res['image length over 8: the order-type census is too large'] += 1; continue
     key = (k, w, stat)
@@ -79,7 +90,7 @@ for a in sorted(pool):
                  'nterms': len(d), 'offset': off, 'agrees': bool(same),
                  'line': ' '.join(cl[0].split())})
 
-json.dump(hits, open(os.environ.get('HITS', 'window_hits.json'), 'w'), indent=1)
+json.dump(hits, open(HITSFILE, 'w'), indent=1)
 json.dump(dict(res), open('window_why.json', 'w'), indent=1, sort_keys=True)
 for k_, v in res.most_common():
     print(f'{v:5}  {k_}')

@@ -202,3 +202,29 @@ A229013–A229017 with the source array required to have no two adjacent entries
 Worth saying plainly: the withheld four had the RIGHT answer all along from an argument that did
 not hold. Reproducing thirty published terms was the standard of evidence the conjecture already
 had; what was missing was the reason, and that is what has been supplied.
+
+## 15 September 2026 — the growing-alphabet window family, complete at 12
+
+**1 paper; roster 13,739 over 13,335 entries.** A228464 finishes the family: the whole corpus
+holds **twelve** entries counting the image of a sliding-window statistic over `{0..n}`, and all
+twelve are now proved — 3 by the order-type argument for a maximum, 9 by the gap-aware census
+for a median.
+
+The twelfth hung on **word order**. Its eleven siblings read "of some length 9 0..n array"; it
+reads "of some 0..n array of length 9". One entry, one regex.
+
+And on a second reader defect behind it. `closedform.LINE` captured the body as `([^=]+)$` — no
+second `=` anywhere — so a line giving two equal forms of the same closed form,
+
+    Empirical: a(n) = (4/315)*n^7 + ... + 1 = (n+1)*(n+2)*(32*n^5 + ...)/2520.
+
+never matched at all, and the entry was refused as "no readable closed form". `algf` learned the
+same lesson on generating functions weeks ago. The body now takes the first piece of the chain;
+regression over the 728-entry closed-form pool: **564 identical, 0 gained, 0 lost, 0 different**,
+so the change is exactly the one entry it was made for.
+
+**A defect of my own, in code written yesterday.** `sweep_window` started from an empty hits list
+and wrote the file at the end, so the two entries it had already proved — skipped on the re-run
+as "already on the roster" — were dropped from the record. Harmless, because both were installed
+papers, but it is defect 30's shape in new code. The sweep now loads the file before appending,
+and the two records are restored.

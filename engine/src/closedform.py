@@ -21,14 +21,16 @@ import sympy
 n = sympy.Symbol('n')
 x = sympy.Symbol('x')
 
-LINE = re.compile(r'^(?:Conjecture|Empirical)[^:]*:\s*a\(n\)\s*=\s*([^=]+)$', re.I)
+# `([^=]+)$' forbade a second `=' anywhere in the body, so a line giving two equal forms
+# of the same closed form never matched at all and the split below never ran.
+LINE = re.compile(r'^(?:Conjecture|Empirical)[^:]*:\s*a\(n\)\s*=\s*(.+)$', re.I)
 
 
 # A closed form stated as FACT carries no conjectural prefix -- "a(n) = 2^n - n - 2." -- and
 # LINE demands one, because this module was written to read CONJECTURED closed forms. Asking
 # it whether an entry states a closed form as fact therefore always answered no, and a scan
 # of 8,148 entries built on that question returned a confident, meaningless zero.
-BARE = re.compile(r'^a\(n\)\s*=\s*([^=]+)$', re.I)
+BARE = re.compile(r'^a\(n\)\s*=\s*(.+)$', re.I)
 
 
 def parse_line(L, bare=False):
@@ -74,6 +76,18 @@ def parse_line(L, bare=False):
     # ``A000788(n-1)'' through, which then blew up inside the annihilator
     if re.search(r'[A-Za-z]', re.sub(r'\bn\b', '', body)):
         return None
+    # An entry often gives two equal forms of the same closed form on one line:
+    #
+    #   Empirical: a(n) = (4/315)*n^7 + ... + 1 = (n+1)*(n+2)*(32*n^5 + 408*n^4 + ...)/...
+    #
+    # The first is exactly what is wanted; the `=' made sympify fail and the whole line was
+    # refused as "no readable closed form". `algf` learned the same lesson on generating
+    # functions. Only the first piece is taken -- the second is the entry's own restatement,
+    # and reading it instead would change nothing but could fail for its own reasons.
+    if '=' in body:
+        body = body.split('=', 1)[0].strip().rstrip(',').rstrip('.')
+        if not body:
+            return None
     body = body.replace('^', '**')
     try:
         expr = sympy.sympify(body, locals={'n': n}, rational=True)

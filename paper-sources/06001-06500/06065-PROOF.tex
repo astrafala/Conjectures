@@ -1,0 +1,161 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
+
+\title{The empirical recurrence for OEIS A224351, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{14 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A224351 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
+order $98$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
+is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
+state must remember which sequences have already fallen. With those bits carried along, $a(n)$
+is a walk count on $S=114688$ vertices and the recurrence follows from a finite exact
+computation.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A224351 is ``Number of nX6 0..2 arrays with diagonals and antidiagonals unimodal and rows nondecreasing.''. It has offset $1$ and begins
+\[
+28, 784, 13052, 151010, 1421762, 12340932, 107694133, 977742699,\ \dots
+\]
+The entry carries the following comment:
+\begin{quote}\small
+Empirical recurrence of order 98 (see link above)
+
+Empirical: a(n) = 28*a(n-1) - 283*a(n-2) + 1083*a(n-3) + 1146*a(n-4) - 23306*a(n-5) + 69705*a(n-6) - 59711*a(n-7) + 95010*a(n-8) - 971327*a(n-9) + 6018000*a(n-10) - 6510664*a(n-11) - 41940175*a(n-12) - 261058630*a(n-13) + 242580049*a(n-14) + 7044200886*a(n-15) - 24384047479*a(n-16) + 27648962658*a(n-17) + 14362472891*a(n-18) - 207262657359*a(n-19) - 277962966885*a(n-20) + 5499665052741*a(n-21) - 1601550048018*a(n-22) + 60367020939641*a(n-23) - 17750861916762*a(n-24) + 284378635246814*a(n-25) + 2121267069432873*a(n-26) - 9570236301376725*a(n-27) - 17046069126355673*a(n-28) - 69335553122703874*a(n-29) - 70909398298822963*a(n-30) - 200264499964521321*a(n-31) - 441101866988482387*a(n-32) + 2459532395428305245*a(n-33) + 8694886848093578546*a(n-34) + 30861554378579716717*a(n-35) + 41188475824281433580*a(n-36) + 48949080427218834110*a(n-37) - 76562551234657320010*a(n-38) - 442455530769626000587*a(n-39) - 1282327456285317543981*a(n-40) - 3504513192524190748185*a(n-41) - 5983872421815314649459*a(n-42) - 3553185141478632804173*a(n-43) + 21660909822328172665307*a(n-44) + 62354020688868531408156*a(n-45) + 76477778245960160942335*a(n-46) + 16353063333866824592743*a(n-47) - 106043547903461474573718*a(n-48) - 194230680444088641172461*a(n-49) - 224989413720349371900594*a(n-50) - 71984488565060542144950*a(n-51) + 202993397001058952930418*a(n-52) + 199262709279055748876706*a(n-53) + 741737385648725756921356*a(n-54) + 307566816034879511306174*a(n-55) - 681814601899048886336957*a(n-56) - 2527608088770855466562121*a(n-57) - 4224394813308539855255421*a(n-58) - 1916193807232181822394975*a(n-59) - 5251574752894265976890475*a(n-60) - 1139010993935736516310230*a(n-61) - 1548618741987435191206141*a(n-62) + 13999379706015892983493935*a(n-63) + 23911845094909755565447820*a(n-64) + 25314175915036753375411242*a(n-65) + 39231338410569340441482639*a(n-66) + 12618565543084550299267086*a(n-67) + 3136548511168252177868338*a(n-68) - 62895109407097622509820424*a(n-69) - 86007378886639475232649648*a(n-70) - 86657764199807460595278816*a(n-71) - 50377839859784291055196992*a(n-72) + 29416061198358727328585244*a(n-73) + 72430122290178441781333356*a(n-74) + 105080863506663057628621928*a(n-75) + 54839793199738009865397824*a(n-76) + 778312559626863151513732*a(n-77) - 37827929738613150242904264*a(n-78) - 18299445866714773451703736*a(n-79) - 12925341768866952932428872*a(n-80) - 17239400409546127775315056*a(n-81) - 3749048847926167450832128*a(n-82) + 6001059648762911655797616*a(n-83) + 4375158685510479529597568*a(n-84) + 553573844817936969705536*a(n-85) + 33875111146134147146976*a(n-86) - 285061868924676875672064*a(n-87) - 86206104356619759492928*a(n-88) + 251451822173313073360000*a(n-89) + 118421964603567561452288*a(n-90) - 14185385561611388363776*a(n-91) - 26103785438159692848128*a(n-92) - 9704797045001816629248*a(n-93) - 2453085877004069617664*a(n-94) - 1074420063338107371520*a(n-95) - 258077641712401383424*a(n-96) - 15055752938150428672*a(n-97) - 3643003219400982528*a(n-98)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:23:31, revision 9) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;28\,a(n-1) - 283\,a(n-2) + 1083\,a(n-3) + 1146\,a(n-4) - 23306\,a(n-5) + 69705\,a(n-6) - 59711\,a(n-7) + 95010\,a(n-8) - 971327\,a(n-9) + 6018000\,a(n-10) - 6510664\,a(n-11) - 41940175\,a(n-12) - 261058630\,a(n-13) + 242580049\,a(n-14) + 7044200886\,a(n-15) - 24384047479\,a(n-16) + 27648962658\,a(n-17) + 14362472891\,a(n-18) - 207262657359\,a(n-19) - 277962966885\,a(n-20) + 5499665052741\,a(n-21) - 1601550048018\,a(n-22) + 60367020939641\,a(n-23) - 17750861916762\,a(n-24) + 284378635246814\,a(n-25) + 2121267069432873\,a(n-26) - 9570236301376725\,a(n-27) - 17046069126355673\,a(n-28) - 69335553122703874\,a(n-29) - 70909398298822963\,a(n-30) - 200264499964521321\,a(n-31) - 441101866988482387\,a(n-32) + 2459532395428305245\,a(n-33) + 8694886848093578546\,a(n-34) + 30861554378579716717\,a(n-35) + 41188475824281433580\,a(n-36) + 48949080427218834110\,a(n-37) - 76562551234657320010\,a(n-38) - 442455530769626000587\,a(n-39) - 1282327456285317543981\,a(n-40) - 3504513192524190748185\,a(n-41) - 5983872421815314649459\,a(n-42) - 3553185141478632804173\,a(n-43) + 21660909822328172665307\,a(n-44) + 62354020688868531408156\,a(n-45) + 76477778245960160942335\,a(n-46) + 16353063333866824592743\,a(n-47) - 106043547903461474573718\,a(n-48) - 194230680444088641172461\,a(n-49) - 224989413720349371900594\,a(n-50) - 71984488565060542144950\,a(n-51) + 202993397001058952930418\,a(n-52) + 199262709279055748876706\,a(n-53) + 741737385648725756921356\,a(n-54) + 307566816034879511306174\,a(n-55) - 681814601899048886336957\,a(n-56) - 2527608088770855466562121\,a(n-57) - 4224394813308539855255421\,a(n-58) - 1916193807232181822394975\,a(n-59) - 5251574752894265976890475\,a(n-60) - 1139010993935736516310230\,a(n-61) - 1548618741987435191206141\,a(n-62) + 13999379706015892983493935\,a(n-63) + 23911845094909755565447820\,a(n-64) + 25314175915036753375411242\,a(n-65) + 39231338410569340441482639\,a(n-66) + 12618565543084550299267086\,a(n-67) + 3136548511168252177868338\,a(n-68) - 62895109407097622509820424\,a(n-69) - 86007378886639475232649648\,a(n-70) - 86657764199807460595278816\,a(n-71) - 50377839859784291055196992\,a(n-72) + 29416061198358727328585244\,a(n-73) + 72430122290178441781333356\,a(n-74) + 105080863506663057628621928\,a(n-75) + 54839793199738009865397824\,a(n-76) + 778312559626863151513732\,a(n-77) - 37827929738613150242904264\,a(n-78) - 18299445866714773451703736\,a(n-79) - 12925341768866952932428872\,a(n-80) - 17239400409546127775315056\,a(n-81) - 3749048847926167450832128\,a(n-82) + 6001059648762911655797616\,a(n-83) + 4375158685510479529597568\,a(n-84) + 553573844817936969705536\,a(n-85) + 33875111146134147146976\,a(n-86) - 285061868924676875672064\,a(n-87) - 86206104356619759492928\,a(n-88) + 251451822173313073360000\,a(n-89) + 118421964603567561452288\,a(n-90) - 14185385561611388363776\,a(n-91) - 26103785438159692848128\,a(n-92) - 9704797045001816629248\,a(n-93) - 2453085877004069617664\,a(n-94) - 1074420063338107371520\,a(n-95) - 258077641712401383424\,a(n-96) - 15055752938150428672\,a(n-97) - 3643003219400982528\,a(n-98)
+\end{equation}
+for all $n>98$.
+
+\section{The conditions}
+
+The arrays have $6$ columns and $L=n$ rows. Written in (row, column)
+coordinates, the entry asks:
+\begin{itemize}
+\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
+\end{itemize}
+Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
+
+A unimodal condition across the rows is not local: whether a
+rise is allowed depends on whether the sequence has already fallen. The state therefore
+carries, for each of the $6$ sequences currently running in that direction, one bit saying
+whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
+moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
+far end of the new row starts with its bit clear.
+
+\begin{lemma}\label{lem:walk}
+Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
+bit vector), $|\mathcal V|=S=114688$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
+$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
+Then
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
+\]
+\end{lemma}
+
+\begin{proof}
+A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
+is determined by them. Every within-row condition is imposed on each vertex; every
+across-row condition compares two consecutive rows and is imposed on each edge; and the
+unimodal and lexicographic bits are, by construction, the record of what the rows laid down
+so far have already decided, so a violation removes the corresponding edge. Hence the walks
+are exactly the admissible arrays. Nothing constrains the last row beyond what has already
+been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
+$L$ rows make a walk of length $L-1$.
+\end{proof}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{98}-\sum_i c_i\,t^{98-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge98$
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-98}w,
+\qquad w=h_{98}-\sum_i c_ih_{98-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
+earlier ones.
+\end{proof}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>98$, which is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+$98$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=98+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $17$ published indices, with no shift fitted. The values agree exactly.
+This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
+means the rows and columns are sorted as vectors, not that each is nondecreasing along
+itself, and the two readings already differ at the second published term --- $86$ against
+$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224351.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

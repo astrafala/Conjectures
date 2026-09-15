@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251097, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250970, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251097 counts $(n+1)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A250970 counts $(n+1)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $31$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251097 is ``Number of (n+1)X(5+1) 0..1 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
+OEIS A250970 is ``Number of (n+1)X(5+1) 0..1 arrays with no 2X2 subblock having the sum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
 \[
-1278, 30517, 713769, 16697127, 391088995, 9160138107, 214512524583, 5023196973684,\ \dots
+2121, 77537, 2833397, 103684186, 3794909318, 138900769559, 5084110136919, 186091438754901,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 64*a(n-1) -1764*a(n-2) +29700*a(n-3) -350488*a(n-4) +3107079*a(n-5) -21536824*a(n-6) +119757642*a(n-7) -543940823*a(n-8) +2045999565*a(n-9) -6444601609*a(n-10) +17157130467*a(n-11) -38908214534*a(n-12) +75659291228*a(n-13) -126869529554*a(n-14) +184336056227*a(n-15) -233006780681*a(n-16) +257060876816*a(n-17) -248098761256*a(n-18) +209731219435*a(n-19) -155260530399*a(n-20) +100445433948*a(n-21) -56541615273*a(n-22) +27492563839*a(n-23) -11423056137*a(n-24) +3995023081*a(n-25) -1152174020*a(n-26) +266437832*a(n-27) -47464016*a(n-28) +6119568*a(n-29) -509760*a(n-30) +20736*a(n-31)
+Empirical: a(n) = 64*a(n-1) -1446*a(n-2) +21783*a(n-3) -257090*a(n-4) +2364533*a(n-5) -17301630*a(n-6) +102437299*a(n-7) -484439145*a(n-8) +1808535109*a(n-9) -5311996643*a(n-10) +12229385847*a(n-11) -21849236431*a(n-12) +29285048520*a(n-13) -26153502129*a(n-14) +7239648236*a(n-15) +20967448076*a(n-16) -41791947829*a(n-17) +41249669536*a(n-18) -19653544893*a(n-19) -9216125179*a(n-20) +29489025257*a(n-21) -33624035531*a(n-22) +25340528985*a(n-23) -13860558578*a(n-24) +5642370770*a(n-25) -1727464741*a(n-26) +397748431*a(n-27) -68146076*a(n-28) +8635216*a(n-29) -707328*a(n-30) +35280*a(n-31)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:03:56, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:55:30, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;64\,a(n-1) - 1764\,a(n-2) + 29700\,a(n-3) - 350488\,a(n-4) + 3107079\,a(n-5) - 21536824\,a(n-6) + 119757642\,a(n-7) - 543940823\,a(n-8) + 2045999565\,a(n-9) - 6444601609\,a(n-10) + 17157130467\,a(n-11) - 38908214534\,a(n-12) + 75659291228\,a(n-13) - 126869529554\,a(n-14) + 184336056227\,a(n-15) - 233006780681\,a(n-16) + 257060876816\,a(n-17) - 248098761256\,a(n-18) + 209731219435\,a(n-19) - 155260530399\,a(n-20) + 100445433948\,a(n-21) - 56541615273\,a(n-22) + 27492563839\,a(n-23) - 11423056137\,a(n-24) + 3995023081\,a(n-25) - 1152174020\,a(n-26) + 266437832\,a(n-27) - 47464016\,a(n-28) + 6119568\,a(n-29) - 509760\,a(n-30) + 20736\,a(n-31)
+a(n)\;=\;64\,a(n-1) - 1446\,a(n-2) + 21783\,a(n-3) - 257090\,a(n-4) + 2364533\,a(n-5) - 17301630\,a(n-6) + 102437299\,a(n-7) - 484439145\,a(n-8) + 1808535109\,a(n-9) - 5311996643\,a(n-10) + 12229385847\,a(n-11) - 21849236431\,a(n-12) + 29285048520\,a(n-13) - 26153502129\,a(n-14) + 7239648236\,a(n-15) + 20967448076\,a(n-16) - 41791947829\,a(n-17) + 41249669536\,a(n-18) - 19653544893\,a(n-19) - 9216125179\,a(n-20) + 29489025257\,a(n-21) - 33624035531\,a(n-22) + 25340528985\,a(n-23) - 13860558578\,a(n-24) + 5642370770\,a(n-25) - 1727464741\,a(n-26) + 397748431\,a(n-27) - 68146076\,a(n-28) + 8635216\,a(n-29) - 707328\,a(n-30) + 35280\,a(n-31)
 \end{equation}
 for all $n>31$.
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\min(\alpha,\delta)<\min(\beta,\gamma)\bigr),
+\text{not }\bigl((\alpha+\delta)<|\beta-\gamma|\bigr),
 \end{equation}
 a condition on the four entries alone.
 
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251097.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250970.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
