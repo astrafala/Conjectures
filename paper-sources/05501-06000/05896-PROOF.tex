@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A230945, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A264552, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230945 carries an empirical recurrence of order $70$ contributed by R. H. Hardin. It is
+OEIS A264552 carries an empirical recurrence of order $70$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=217$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A230945 is ``Number of (n+3)X(4+3) 0..3 white square subarrays x(i,j) with each element diagonally or antidiagonally next to at least one element with value (x(i,j)+1) mod 4, and upper left element zero.''. It has offset $1$ and begins
+OEIS A264552 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having directed index change -1,1 -1,2 1,0 or 0,-1.''. It has offset $1$ and begins
 \[
-314, 1994, 85196, 606224, 22328204, 161835904, 6209914254, 44707108238,\ \dots
+0, 5, 16, 36, 172, 764, 2728, 9880,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 70 (see link above)
+Empirical: a(n) = 3*a(n-1) +a(n-2) +4*a(n-3) +41*a(n-4) -104*a(n-5) +14*a(n-6) +167*a(n-7) -715*a(n-8) +1169*a(n-9) -1018*a(n-10) -3680*a(n-11) +8691*a(n-12) -10335*a(n-13) +2525*a(n-14) +35277*a(n-15) -50582*a(n-16) +64373*a(n-17) +11060*a(n-18) -207508*a(n-19) +200293*a(n-20) -204582*a(n-21) -124748*a(n-22) +704108*a(n-23) -499827*a(n-24) +365700*a(n-25) +473743*a(n-26) -1541579*a(n-27) +729138*a(n-28) -331526*a(n-29) -929717*a(n-30) +2313138*a(n-31) -591289*a(n-32) +10149*a(n-33) +1058138*a(n-34) -2448606*a(n-35) +225766*a(n-36) +341725*a(n-37) -740229*a(n-38) +1867654*a(n-39) -9921*a(n-40) -441602*a(n-41) +343946*a(n-42) -1047499*a(n-43) -9489*a(n-44) +322880*a(n-45) -125643*a(n-46) +431100*a(n-47) -8968*a(n-48) -160742*a(n-49) +44437*a(n-50) -124400*a(n-51) +6980*a(n-52) +54449*a(n-53) -13758*a(n-54) +23185*a(n-55) -1859*a(n-56) -11695*a(n-57) +2887*a(n-58) -2532*a(n-59) +298*a(n-60) +1457*a(n-61) -383*a(n-62) +155*a(n-63) -26*a(n-64) -100*a(n-65) +29*a(n-66) -4*a(n-67) +a(n-68) +3*a(n-69) -a(n-70)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 06:08:05, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Nov 17 2015 15:38:55, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,10 +47,10 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=217$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65536$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;-0\,a(n-1) + 228\,a(n-2) - 0\,a(n-3) + 15195\,a(n-4) - 0\,a(n-5) - 470965\,a(n-6) - 0\,a(n-7) - 57209721\,a(n-8) - 0\,a(n-9) - 86482160\,a(n-10) - 0\,a(n-11) + 58067909911\,a(n-12) - 0\,a(n-13) + 129138938491\,a(n-14) - 0\,a(n-15) - 35888636878668\,a(n-16) - 0\,a(n-17) + 437014504261008\,a(n-18) - 0\,a(n-19) + 2642403779905870\,a(n-20) - 0\,a(n-21) - 107393060687303994\,a(n-22) - 0\,a(n-23) + 1110541214823141222\,a(n-24) - 0\,a(n-25) - 5429362449768976624\,a(n-26) - 0\,a(n-27) + 3491676509271492542\,a(n-28) - 0\,a(n-29) + 120279040553959802238\,a(n-30) - 0\,a(n-31) - 707019741140065896977\,a(n-32) - 0\,a(n-33) + 2453968786421516659780\,a(n-34) - 0\,a(n-35) - 9254367374777255219481\,a(n-36) - 0\,a(n-37) + 2917379659294469072447\,a(n-38) - 0\,a(n-39) + 121931685971456506340899\,a(n-40) - 0\,a(n-41) - 371771072105454726920288\,a(n-42) - 0\,a(n-43) + 559594933927764117661291\,a(n-44) - 0\,a(n-45) - 979087846024262868843129\,a(n-46) - 0\,a(n-47) + 3824924461187357095585390\,a(n-48) - 0\,a(n-49) - 3523763854072349017327224\,a(n-50) - 0\,a(n-51) - 15280573148652030513646032\,a(n-52) - 0\,a(n-53) - 18434115456325236148071120\,a(n-54) - 0\,a(n-55) - 25387095396596522150457120\,a(n-56) - 0\,a(n-57) + 18909789077185433187626496\,a(n-58) - 0\,a(n-59) - 10124323959189455644491008\,a(n-60) - 0\,a(n-61) - 11200567708598692426860544\,a(n-62) - 0\,a(n-63) + 16279719398409908896094208\,a(n-64) - 0\,a(n-65) - 8515434453937930202480640\,a(n-66) - 0\,a(n-67) - 4912375157027558772195328\,a(n-68) - 0\,a(n-69) + 897838965494625064124416\,a(n-70)
+a(n)\;=\;3\,a(n-1) + a(n-2) + 4\,a(n-3) + 41\,a(n-4) - 104\,a(n-5) + 14\,a(n-6) + 167\,a(n-7) - 715\,a(n-8) + 1169\,a(n-9) - 1018\,a(n-10) - 3680\,a(n-11) + 8691\,a(n-12) - 10335\,a(n-13) + 2525\,a(n-14) + 35277\,a(n-15) - 50582\,a(n-16) + 64373\,a(n-17) + 11060\,a(n-18) - 207508\,a(n-19) + 200293\,a(n-20) - 204582\,a(n-21) - 124748\,a(n-22) + 704108\,a(n-23) - 499827\,a(n-24) + 365700\,a(n-25) + 473743\,a(n-26) - 1541579\,a(n-27) + 729138\,a(n-28) - 331526\,a(n-29) - 929717\,a(n-30) + 2313138\,a(n-31) - 591289\,a(n-32) + 10149\,a(n-33) + 1058138\,a(n-34) - 2448606\,a(n-35) + 225766\,a(n-36) + 341725\,a(n-37) - 740229\,a(n-38) + 1867654\,a(n-39) - 9921\,a(n-40) - 441602\,a(n-41) + 343946\,a(n-42) - 1047499\,a(n-43) - 9489\,a(n-44) + 322880\,a(n-45) - 125643\,a(n-46) + 431100\,a(n-47) - 8968\,a(n-48) - 160742\,a(n-49) + 44437\,a(n-50) - 124400\,a(n-51) + 6980\,a(n-52) + 54449\,a(n-53) - 13758\,a(n-54) + 23185\,a(n-55) - 1859\,a(n-56) - 11695\,a(n-57) + 2887\,a(n-58) - 2532\,a(n-59) + 298\,a(n-60) + 1457\,a(n-61) - 383\,a(n-62) + 155\,a(n-63) - 26\,a(n-64) - 100\,a(n-65) + 29\,a(n-66) - 4\,a(n-67) + a(n-68) + 3\,a(n-69) - a(n-70)
 \]
 for every $n>70$.
 \end{theorem}
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230945.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264552.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -1478,3 +1478,43 @@ conjecture — 744 of 756 in one case, and in the other a corpus where contribut
 write the `*`. The pattern's yield is not in the size of the refusal; it is in the overlap
 between the refusal and the entries that state a claim. The Motzkin family this morning had that
 overlap (16 of 41) and paid; these two do not and paid nothing.
+
+## AE. Every hand-built pool is a snapshot (15 September)
+
+The reader-defect move stopped paying (§AD). The move that replaced it is blunter and paid
+more: **rebuild each sweep's candidate pool from the clone and see how much it was never asked
+about.** Nine stale filters had already been found one at a time; this was the first pass that
+went looking for them deliberately.
+
+| pool | held | corpus-wide | never asked | off roster | proved |
+|---|---:|---:|---:|---:|---:|
+| `deep-check/prec.txt` (P-recursive) | 380 | **989** | 609 | 123 | **3** |
+| `cfpool_cands.json` (closed form) | 416 | **728** | 564 | 564 | **18** |
+| `deep-check/linkrec.txt` (linked a-file) | 192 | 888 | 696 | 35 | 0 |
+| `deep-check/degree.txt` (polynomial degree) | 7 | 8 | 1 | 0 | 0 |
+
+Two of the four were badly stale and paid 21 results between them. Two were not, and the reason
+each was not is worth keeping:
+
+* **degree** — the phrasing `a(n) is a polynomial of degree d` occurs 8 times in the whole
+  database. A pool of 7 was essentially complete. Rarity, not staleness.
+* **linkrec** — 888 entries defer a recurrence to a linked a-file, but the sweep needs an ENGINE
+  for the name (it tests annihilation against a model, not against published terms), and 30 of
+  the 35 off-roster candidates have no engine. The old pool of 192 was not a stale snapshot; it
+  was correctly filtered by engine coverage. One real defect did surface: the sweep reads only
+  CACHED a-files and reports an uncached one as "a-file absent", so all 35 were refused for a
+  fetch I had not done. Fetched (all 35 present on oeis.org), re-run, and the refusal became the
+  honest one.
+
+The closed-form rebuild is the clearest case. Its 564 new candidates refuse as: **388 no engine
+reads the name**, 85 state space over the cap, 32 not open, 29 no readable closed form, 4 no
+integer annihilator, 1 model does not satisfy the annihilator — and **18 PROVED, zero failures**.
+So the boundary of that vein is engine coverage, exactly where the refusal census said the mass
+was, and the 18 are what was sitting inside the boundary all along, unasked.
+
+### The rule this gives
+
+A pool file in `deep-check/` is a claim about the database made on the day it was written. None
+of them is rebuilt by anything. Before running a sweep again, rebuild its pool from the clone
+and diff — it costs one sharded scan and it has now been wrong nine plus two times out of
+however many have been checked.

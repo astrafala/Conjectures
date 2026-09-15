@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237245, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236994, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237245 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A236994 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $16$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=6496$
+The condition is local to two consecutive rows, so the count is a walk count on $S=32400$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,28 +31,28 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237245 is ``Number of (n+1) X (4+1) 0..2 arrays with the maximum plus the upper median minus the lower median minus the minimum of every 2 X 2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A236994 is ``Number of (n+1)X(5+1) 0..2 arrays with the maximum plus the lower median minus the upper median minus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-6496, 78420, 974864, 12987512, 163330432, 2059810392, 26060799904, 355097523776,\ \dots
+32400, 699840, 14963200, 363916800, 8552563200, 192222720000, 4279521280000, 109212364800000,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 80692*a(n-4) -2102571080*a(n-8) +17424111539232*a(n-12) -28895609836800*a(n-16) for n>20.
+Empirical: a(n) = 1115200*a(n-4) -430632960000*a(n-8) +66962587648000000*a(n-12) -3428940827852800000000*a(n-16)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 17 2022 22:06:16, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:44:05, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times5$ array form an
-$n\times4$ grid, and each carries the value $\sigma=-a-b+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+The $2\times2$ subblocks of an $(n+1)\times6$ array form an
+$n\times5$ grid, and each carries the value $\sigma=-a+b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
 subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
 That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
 so it is local to the grid.
 
-At $n=1$ the array has two rows, so its subblock grid is a single row of $4$ subblocks with
+At $n=1$ the array has two rows, so its subblock grid is a single row of $5$ subblocks with
 no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $6496$ counts those, and the model was made to
+differ by $1$. The entry's first term $32400$ counts those, and the model was made to
 reproduce it along with every later term.
 
 \section{The count is a walk count}
@@ -66,7 +66,7 @@ $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=6496$ pairs whose own subblock row already satisfies the condition along itself.
+over the $S=32400$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -90,15 +90,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;80692\,a(n-4) - 2102571080\,a(n-8) + 17424111539232\,a(n-12) - 28895609836800\,a(n-16)
+a(n)\;=\;1115200\,a(n-4) - 430632960000\,a(n-8) + 66962587648000000\,a(n-12) - 3428940827852800000000\,a(n-16)
 \]
-for every $n>20$.
+for every $n>16$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $16$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=16+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237245.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236994.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

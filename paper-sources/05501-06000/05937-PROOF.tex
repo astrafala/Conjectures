@@ -16,85 +16,89 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A264143, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233620, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264143 counts the arrangements of $0,1,\dots,LW-1$ in a grid of $W=4$ columns in which
-every value moves from its home cell by an index change on a short list, and it carries an
-empirical recurrence of order $67$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Such an arrangement is a perfect matching between cells and
-values, and because a value's row moves by at most $R=2$, the matching splits into
-independent decisions column by column: after the cells of columns $0,\dots,i$ are filled,
-every value whose home column is at most $i-R$ has been used, and only $2R$ home columns are
-partly used. Carrying those as bitmasks makes the count a walk on $S=65536$ vertices, so it is
-$C$-finite and the conjectured recurrence is decided by a finite exact computation.
-\end{abstract}
+OEIS A233620 counts arrays of width $4$ over $\{0,1,2\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $68$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=6643$ states.
+ Throughout, \emph{row} means a line of the array in the direction the walk grows: this entry fixes the first dimension and grows the second, so the array is read transposed, and a step appends what the entry's own name writes as a column.\end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A264143 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having index change +-(.,.) 0,0 1,-2 or 1,1.''. It has offset $1$ and begins
+OEIS A233620 is ``Number of (2+2)X(n+2) 0..2 arrays with no increasing sequence of length 3 horizontally or diagonally downwards.''. It has offset $1$ and begins
 \[
-8, 125, 1440, 15488, 168948, 1903336, 20768650, 228712964,\ \dots
+430608, 27826929, 1777375908, 113340508656, 7222554443566, 460194589763836, 29320690351065445, 1868112829445921314,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 67 (see link above)
+Empirical recurrence of order 68 (see link above)
 
-Empirical: a(n) = 11*a(n-1) - a(n-2) + 108*a(n-3) - 1068*a(n-4) + 97*a(n-5) - 12971*a(n-6) + 131041*a(n-7) - 11904*a(n-8) + 1730640*a(n-9) - 17608560*a(n-10) + 1599696*a(n-11) + 5214000*a(n-12) - 249317520*a(n-13) + 22810656*a(n-14) - 205012940*a(n-15) - 482136380*a(n-16) + 45904276*a(n-17) - 513011760*a(n-18) + 134616240*a(n-19) - 8064724*a(n-20) - 25856117380*a(n-21) + 285385058060*a(n-22) - 25944829344*a(n-23) - 30120235920*a(n-24) + 3444702116400*a(n-25) - 315513358704*a(n-26) + 3131136458640*a(n-27) + 3419101999440*a(n-28) - 339510487104*a(n-29) + 3681045920442*a(n-30) + 249753327618*a(n-31) - 53569437702*a(n-32) + 642833252424*a(n-33) - 642833252424*a(n-34) + 53569437702*a(n-35) - 249753327618*a(n-36) - 3681045920442*a(n-37) + 339510487104*a(n-38) - 3419101999440*a(n-39) - 3131136458640*a(n-40) + 315513358704*a(n-41) - 3444702116400*a(n-42) + 30120235920*a(n-43) + 25944829344*a(n-44) - 285385058060*a(n-45) + 25856117380*a(n-46) + 8064724*a(n-47) - 134616240*a(n-48) + 513011760*a(n-49) - 45904276*a(n-50) + 482136380*a(n-51) + 205012940*a(n-52) - 22810656*a(n-53) + 249317520*a(n-54) - 5214000*a(n-55) - 1599696*a(n-56) + 17608560*a(n-57) - 1730640*a(n-58) + 11904*a(n-59) - 131041*a(n-60) + 12971*a(n-61) - 97*a(n-62) + 1068*a(n-63) - 108*a(n-64) + a(n-65) - 11*a(n-66) + a(n-67)
+Empirical: a(n) = 78*a(n-1) - 234*a(n-2) - 51844*a(n-3) + 367977*a(n-4) + 14226694*a(n-5) - 107162723*a(n-6) - 2058590883*a(n-7) + 14245169702*a(n-8) + 166850830601*a(n-9) - 1006522155710*a(n-10) - 7705612288607*a(n-11) + 41742029532952*a(n-12) + 224178262145763*a(n-13) - 1117135706465069*a(n-14) - 4432691211165410*a(n-15) + 20614240005494274*a(n-16) + 62538652868703498*a(n-17) - 273860843124418175*a(n-18) - 648624786200303292*a(n-19) + 2692512356078627392*a(n-20) + 5030941296219548542*a(n-21) - 19920980073167801034*a(n-22) - 29421781424500467014*a(n-23) + 111901842534836226859*a(n-24) + 129940242928625276061*a(n-25) - 478648989222923058240*a(n-26) - 432032846450905336578*a(n-27) + 1556871771824961527184*a(n-28) + 1075290642349862467282*a(n-29) - 3835989284955950430237*a(n-30) - 1993419911070741060429*a(n-31) + 7133520058817141306429*a(n-32) + 2752192782196085648447*a(n-33) - 10010143200461873707530*a(n-34) - 2850031694840912727487*a(n-35) + 10653341981028939089343*a(n-36) + 2237306838293672561239*a(n-37) - 8669055168975544431574*a(n-38) - 1344810876350142753928*a(n-39) + 5438572582878463592631*a(n-40) + 623294425944545086565*a(n-41) - 2647317893533182049909*a(n-42) - 223380392780838930930*a(n-43) + 1003321113825970315629*a(n-44) + 61787295202194182549*a(n-45) - 296035972064257500351*a(n-46) - 13099235661806084050*a(n-47) + 67718125251587003177*a(n-48) + 2102420535402354027*a(n-49) - 11902839260661902107*a(n-50) - 250860988208440654*a(n-51) + 1584324118158827169*a(n-52) + 21727207565065182*a(n-53) - 156279332999084303*a(n-54) - 1328513806559874*a(n-55) + 11084056047152363*a(n-56) + 55910412332260*a(n-57) - 543227737584804*a(n-58) - 1596333995574*a(n-59) + 17568605766252*a(n-60) + 30221533209*a(n-61) - 359729286568*a(n-62) - 347623271*a(n-63) + 4430212480*a(n-64) + 2101680*a(n-65) - 29714112*a(n-66) - 5184*a(n-67) + 82944*a(n-68)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 11:16:55, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:07:50, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The object is a matching}
+\section{What is being counted}
 
-The grid has $W=4$ columns across and holds each of $0,1,\dots,LW-1$ exactly once. The value
-$v$ has a HOME cell, namely its place in the plain row-major filling, and putting $v$ in cell
-$(i,j)$ changes its index by $(i-h_i,\,j-h_j)$ where $(h_i,h_j)$ is that home cell. The entry
-allows the index changes
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-(i-h_i,\,j-h_j)\;\in\;\{(-2,1),\ (-1,-1),\ (0,0),\ (1,1),\ (2,-1)\},
+\begin{array}{l}
+\text{down a column} \\
+\text{down a diagonal, nw to se} \\
+\end{array}
 \]
-the list being the entry's own, read with the sign convention its wording uses. An admissible
-arrangement is therefore exactly a perfect matching in the bipartite graph joining each cell to
-the values it may hold.
+all of them inside the array. The array is counted when no run has its entries strictly increasing. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the directions above are already the transposed ones.
 
-\section{The matching is a walk}
 
-Let $R=2$ be the largest $|i-h_i|$ on the list. A value whose home column is $h$ can only be
-placed in columns $h-R,\dots,h+R$. So once the cells of columns $0,\dots,i$ are filled, every
-value with home column at most $i-R$ has been used up, and the only home columns that can be
-partly used are $i-R+1,\dots,i+R$ --- exactly $2R$ of them. Take as the state the tuple of
-$2R$ bitmasks recording which values of those home columns are already placed. One step fills
-the cells of one further column, drawing each of its $W$ values from a home column within $R$
-and at an allowed column offset, and the home column that closes at that step must come out
-full. Nonexistent home columns --- before the first and after the last --- are carried as
-full, which makes the starting and accepting states the same one.
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
 
-Hence $a$ is a walk count on $S=65536$ vertices,
+\section{Every run lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643,\quad\tau=\mathbf{1} .
 \]
-the exponent fixed by the entry's own shape and checked against its published terms; in
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{67}-\sum_i c_it^{67-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{68}-\sum_i c_it^{68-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$;
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
 and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+67}-\sum_ic_iM^{j+67-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+68}-\sum_ic_iM^{j+68-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -103,43 +107,41 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;11\,a(n-1) - a(n-2) + 108\,a(n-3) - 1068\,a(n-4) + 97\,a(n-5) - 12971\,a(n-6) + 131041\,a(n-7) - 11904\,a(n-8) + 1730640\,a(n-9) - 17608560\,a(n-10) + 1599696\,a(n-11) + 5214000\,a(n-12) - 249317520\,a(n-13) + 22810656\,a(n-14) - 205012940\,a(n-15) - 482136380\,a(n-16) + 45904276\,a(n-17) - 513011760\,a(n-18) + 134616240\,a(n-19) - 8064724\,a(n-20) - 25856117380\,a(n-21) + 285385058060\,a(n-22) - 25944829344\,a(n-23) - 30120235920\,a(n-24) + 3444702116400\,a(n-25) - 315513358704\,a(n-26) + 3131136458640\,a(n-27) + 3419101999440\,a(n-28) - 339510487104\,a(n-29) + 3681045920442\,a(n-30) + 249753327618\,a(n-31) - 53569437702\,a(n-32) + 642833252424\,a(n-33) - 642833252424\,a(n-34) + 53569437702\,a(n-35) - 249753327618\,a(n-36) - 3681045920442\,a(n-37) + 339510487104\,a(n-38) - 3419101999440\,a(n-39) - 3131136458640\,a(n-40) + 315513358704\,a(n-41) - 3444702116400\,a(n-42) + 30120235920\,a(n-43) + 25944829344\,a(n-44) - 285385058060\,a(n-45) + 25856117380\,a(n-46) + 8064724\,a(n-47) - 134616240\,a(n-48) + 513011760\,a(n-49) - 45904276\,a(n-50) + 482136380\,a(n-51) + 205012940\,a(n-52) - 22810656\,a(n-53) + 249317520\,a(n-54) - 5214000\,a(n-55) - 1599696\,a(n-56) + 17608560\,a(n-57) - 1730640\,a(n-58) + 11904\,a(n-59) - 131041\,a(n-60) + 12971\,a(n-61) - 97\,a(n-62) + 1068\,a(n-63) - 108\,a(n-64) + a(n-65) - 11\,a(n-66) + a(n-67)
+a(n)\;=\;78\,a(n-1) - 234\,a(n-2) - 51844\,a(n-3) + 367977\,a(n-4) + 14226694\,a(n-5) - 107162723\,a(n-6) - 2058590883\,a(n-7) + 14245169702\,a(n-8) + 166850830601\,a(n-9) - 1006522155710\,a(n-10) - 7705612288607\,a(n-11) + 41742029532952\,a(n-12) + 224178262145763\,a(n-13) - 1117135706465069\,a(n-14) - 4432691211165410\,a(n-15) + 20614240005494274\,a(n-16) + 62538652868703498\,a(n-17) - 273860843124418175\,a(n-18) - 648624786200303292\,a(n-19) + 2692512356078627392\,a(n-20) + 5030941296219548542\,a(n-21) - 19920980073167801034\,a(n-22) - 29421781424500467014\,a(n-23) + 111901842534836226859\,a(n-24) + 129940242928625276061\,a(n-25) - 478648989222923058240\,a(n-26) - 432032846450905336578\,a(n-27) + 1556871771824961527184\,a(n-28) + 1075290642349862467282\,a(n-29) - 3835989284955950430237\,a(n-30) - 1993419911070741060429\,a(n-31) + 7133520058817141306429\,a(n-32) + 2752192782196085648447\,a(n-33) - 10010143200461873707530\,a(n-34) - 2850031694840912727487\,a(n-35) + 10653341981028939089343\,a(n-36) + 2237306838293672561239\,a(n-37) - 8669055168975544431574\,a(n-38) - 1344810876350142753928\,a(n-39) + 5438572582878463592631\,a(n-40) + 623294425944545086565\,a(n-41) - 2647317893533182049909\,a(n-42) - 223380392780838930930\,a(n-43) + 1003321113825970315629\,a(n-44) + 61787295202194182549\,a(n-45) - 296035972064257500351\,a(n-46) - 13099235661806084050\,a(n-47) + 67718125251587003177\,a(n-48) + 2102420535402354027\,a(n-49) - 11902839260661902107\,a(n-50) - 250860988208440654\,a(n-51) + 1584324118158827169\,a(n-52) + 21727207565065182\,a(n-53) - 156279332999084303\,a(n-54) - 1328513806559874\,a(n-55) + 11084056047152363\,a(n-56) + 55910412332260\,a(n-57) - 543227737584804\,a(n-58) - 1596333995574\,a(n-59) + 17568605766252\,a(n-60) + 30221533209\,a(n-61) - 359729286568\,a(n-62) - 347623271\,a(n-63) + 4430212480\,a(n-64) + 2101680\,a(n-65) - 29714112\,a(n-66) - 5184\,a(n-67) + 82944\,a(n-68)
 \]
 for every $n>65$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $67$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $68$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
-until the working vector was identically zero, settling every larger $j$ at once.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the reading of the entry's wording was tested against the entries themselves by brute
-force before any of this was built, and separately for each of the three sign conventions the
-family uses: ``$(\pm,\pm)$ $a,b$'' signs each coordinate independently, ``$\pm(.,.)$ $a,b$''
-signs the PAIR and may write the second coordinate negative, and ``directed $a,b$'' is taken
-literally. Enumerating all $720$ arrangements of a $2\times3$ grid reproduces the first term
-of an entry of each convention. Testing only one of them would have proved only that one:
-reading the second convention as the first silently drops displacements, and thirty-eight
-entries disagreed with their own published data until the conventions were separated.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the transfer model reproduces all $17$ terms this entry publishes, exactly, in
-integer arithmetic.
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264143.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233620.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{lp} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

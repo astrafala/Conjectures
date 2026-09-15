@@ -849,3 +849,25 @@ its own text that the g.f. implies the recurrence. **Zero results.**
 
 Both fixes are correct and stay. Neither is a vein. The yield of a reader fix is not the size of
 the refusal — it is the overlap between the refusal and the entries that state a claim.
+
+### Rebuilding the pools (IDEAS §AE) — 21 more papers
+
+**21 further papers; roster 13,291 → 13,312 over 13,285 entries.** Every candidate pool in
+`deep-check/` is a snapshot made on the day it was written and nothing rebuilds them. Rebuilt
+four from the clone:
+
+| pool | held | corpus-wide | never asked | off roster | proved |
+|---|---:|---:|---:|---:|---:|
+| P-recursive | 380 | 989 | 609 | 123 | **3** |
+| closed form | 416 | 728 | 564 | 564 | **18** |
+| linked a-file | 192 | 888 | 696 | 35 | 0 |
+| polynomial degree | 7 | 8 | 1 | 0 | 0 |
+
+The closed-form 18 are all R. H. Hardin board-and-array counts with an empirical polynomial;
+none failed. The three P-recursive are A239204, A141344 and A186338 — the last of these reads
+its generating function as a periodic continued fraction, so `cfrac` paid a third result.
+
+Degree was not stale: that phrasing occurs 8 times in the whole database. linkrec was not stale
+either — the sweep needs an engine for the NAME, and 30 of its 35 new candidates have none — but
+it did hide a defect of mine: it reads only CACHED a-files and reports an uncached one as
+"a-file absent". All 35 were on oeis.org; fetched and re-run, and the refusal became honest.
