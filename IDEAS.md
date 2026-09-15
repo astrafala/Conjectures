@@ -1873,3 +1873,50 @@ A060774 now refuses for the real reason: a SUM of two hypergeometric terms has n
 
 **Eight for eight.** Not one apparent disproof in this project has turned out to be a false
 conjecture in the OEIS.
+
+
+## AL. The pool-rebuild campaign, finished (15 September)
+
+All eleven candidate pools in `deep-check/` rebuilt from the clone. **424 papers, and eight of
+the eleven were stale.**
+
+| pool | held | in the clone | never asked | proved |
+|---|---:|---:|---:|---:|
+| `second.txt` | 13,139 | 13,315 | 1,460 | **376** |
+| `namepool.txt` | 1,446 | 1,727 | 866 | **25** so far |
+| `cfpool_cands.json` | 416 | 728 | 564 | **18** |
+| `prec.txt` | 380 | 989 | 609 | **3** |
+| `gfpool.txt` | 2,893 | 2,767 | 624 | **2** |
+| `tabpool.txt` | 1,729 | 1,851 | 296 | 0 |
+| `linkrec.txt` | 192 | 888 | 696 | 0 |
+| `rowpool.txt` | 444 | 573 | 26 | 0 |
+| `gfdef.txt`, `recgf.txt`, `degree.txt` | — | — | 13 | 0 |
+
+### What the zeros say
+
+* `degree` was not stale: `a(n) is a polynomial of degree d` occurs **eight times in the whole
+  database**. Rarity, not a snapshot.
+* `recgf` and `gfdef` were not stale either: their criterion is narrow enough — a conjecture of
+  one kind plus a FACT of the other — that the original scan caught nearly everything. Three and
+  ten entries respectively.
+* `linkrec` and `tabpool` were stale by **hundreds** and still paid nothing, and for the same
+  reason: both need an ENGINE for the name, and the entries the rebuild added do not have one.
+  That is the §W.2 boundary reached from a third direction.
+
+So a stale pool is worth rebuilding only where the vein's other premises are already met. The
+rebuild is cheap enough that this is not a reason to guess in advance — but it is the reason the
+same move paid 376 in one pool and 0 in another twice its size.
+
+### Two defects found doing it
+
+`sweep_table` skipped every name not beginning `T(n,k)` and **recorded nothing** — defect 3,
+276 of 296 candidates gone without a counter. And the corpus writes the same table a dozen ways
+("Triangle read by rows: T(n,k) is ...", "Array read by descending antidiagonals: A(n, k) = ..."):
+the wrapper says how the table is LAID OUT, which matters to the reader of the data and not at
+all to the name of column k. `tablecol.PREFIX` strips it; 115 of the 296 became rewritable and
+none proved, but the widening stands for the pool the sweep runs on every hour.
+
+### The rule
+
+**Rebuild a sweep's pool from the clone before running it again.** One sharded scan. Wrong eight
+times out of eleven.
