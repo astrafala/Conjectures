@@ -236,13 +236,15 @@ Recurring defects, all found this way:
   Everything held under it has been purged, and `WITHDRAWN.md` records what was taken back.
 * Held: 85 generating-function results being re-derived under the corrected automaton bound,
   plus whatever the standing sweeps are finding now.
-* `sweep_shard` with `TAG=np` over `deep-check/namepool.txt`: 1,446 entries with a readable
-  conjecture AND a readable name that the cached candidate list had never heard of. 1,017
-  asked, about 190 proved. **811 are refused with `state space > cap` at CAP = 2,000,000**
-  (`deep-check/capped.txt`); a trial at 6,000,000 built two models in five minutes and proved
-  neither, and re-asking them at the standing cap was **killed by the kernel for memory** --
-  `uniform.build` allocates toward the cap before it can refuse. Do not brute-force them; they
-  are marked done deliberately. The 429 still unasked are worth asking.
+* `sweep_shard` with `TAG=np` over `deep-check/namepool.txt`: that pool is now exhausted and
+  rebuilt (§AE, `namepool2.txt`, 1,727 entries). **`deep-check/capped.txt`, the 811 refused as
+  `state space > cap`, is a STALE REFUSAL** -- asked one entry per process under a hard
+  address-space limit, 23 of the first 30 build fine with 3 to 28 states against a cap of two
+  million. The engines changed and the list did not. It is being re-asked by `src/caprun.sh`,
+  one shard at 1.5 GB, and has proved nothing yet.
+  The old note said "do not brute-force them", and the memory half of it is still true: even
+  under `RLIMIT_AS`, four shards plus the standing runners exceed the container and the kernel
+  picks victims. One shard at a time.
 * **Every engine's degree bound S must be derived, not assumed.** `ca2dcount` set S = 24 from
   nothing and could certify nothing; it now refuses. `ca2d`'s bound was the one-dimensional
   figure and was too small; it is computed from the certificate's roots.
@@ -360,6 +362,19 @@ which by construction cannot contain an entry the old reader refused:
 **Measure a reader widening against the CLONE, never against a pool.** The regression over the
 pool is still worth running -- it is what proves nothing was LOST -- but it cannot say what was
 gained.
+
+### defect 34 — a REFUSAL list goes stale exactly like a candidate pool
+
+Eleven candidate pools were rebuilt because a pool is a claim about the database made on the day
+it was written (defect 1). A list of REFUSALS is the same kind of claim and was never treated as
+one. `deep-check/capped.txt` records 811 entries as too big for the engines of the day; most of
+them now build in milliseconds.
+
+**Re-ask a refusal list when the thing that refused has changed.** The refusals worth re-asking
+are the ones whose reason is about the MACHINE -- a cap, a budget, a timeout -- rather than about
+the mathematics; "no engine reads the name" only changes when an engine is added, and the sweep
+already re-asks that. And record the reason: a sweep that marks an entry done without saying why
+leaves nothing to re-ask.
 
 ## When you create a new sharded sweep
 
