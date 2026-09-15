@@ -11,24 +11,28 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A185471, proved}
+\title{The empirical closed form for OEIS A224191, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A185471 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224191 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=2066$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=240$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
-$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{14}$, of degree
-$14$. Two things are then checked exactly: that the walk count satisfies the same
+$\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{17}$, of degree
+$17$. Two things are then checked exactly: that the walk count satisfies the same
 recurrence from some index on, which the Cayley--Hamilton theorem reduces to a finite
-computation, and that the two sequences agree at $14$ consecutive indices past that
+computation, and that the two sequences agree at $17$ consecutive indices past that
 point. A monic recurrence determines every later term from its predecessors, so agreement
 there is agreement for good.
 \end{abstract}
@@ -37,26 +41,34 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A185471 is ``Number of (n+2)X5 0..2 arrays with each 3X3 subblock having rows and columns in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A224191 is ``Number of 4Xn 0..2 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-13659, 76309, 308692, 1043186, 3097348, 8297059, 20411234, 46732687,\ \dots
+15, 225, 2205, 15779, 89380, 422488, 1727738, 6272940,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = (1/444787200)*n\^{}13 + (107/479001600)*n\^{}12 + (11/1088640)*n\^{}11 + (3623/6220800)*n\^{}10 + (78227/3628800)*n\^{}9 + (6420917/14515200)*n\^{}8 + (148481/27216)*n\^{}7 + (1861160843/43545600)*n\^{}6 + (4966108109/21772800)*n\^{}5 + (1448539279/1555200)*n\^{}4 + (3663351401/1330560)*n\^{}3 + (2013261953/415800)*n\^{}2 + (15650889/3640)*n + 556
+\begin{quote}\raggedright\small
+Empirical: a(n) = (1/106748928000)*n\^{}16 + (1/1482624000)*n\^{}15 + (7/266872320)*n\^{}14 + (127/197683200)*n\^{}13 + (311999/28740096000)*n\^{}12 + (212351/1596672000)*n\^{}11 + (31937/26127360)*n\^{}10 + (83129/9676800)*n\^{}9 + (34840531/746496000)*n\^{}8 + (9481183/48384000)*n\^{}7 + (90994151/143700480)*n\^{}6 + (123257231/79833600)*n\^{}5 + (43399375531/15567552000)*n\^{}4 + (2360326763/648648000)*n\^{}3 + (218135/61776)*n\^{}2 + (581099/360360)*n + 1
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 03:00:21, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:18:17, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\[
-f(n)\;=\;\frac{n^{13}}{444787200} + \frac{107 n^{12}}{479001600} + \frac{11 n^{11}}{1088640} + \frac{3623 n^{10}}{6220800} + \frac{78227 n^{9}}{3628800} + \frac{6420917 n^{8}}{14515200} + \frac{148481 n^{7}}{27216} + \frac{1861160843 n^{6}}{43545600} + \frac{4966108109 n^{5}}{21772800} + \frac{1448539279 n^{4}}{1555200} + \frac{3663351401 n^{3}}{1330560} + \frac{2013261953 n^{2}}{415800} + \frac{15650889 n}{3640} + 556.
-\]
+\begin{multline*}
+f(n)\;=\;\frac{n^{16}}{106748928000} + \frac{n^{15}}{1482624000} \\
++ \frac{7 n^{14}}{266872320} + \frac{127 n^{13}}{197683200} \\
++ \frac{311999 n^{12}}{28740096000} + \frac{212351 n^{11}}{1596672000} \\
++ \frac{31937 n^{10}}{26127360} + \frac{83129 n^{9}}{9676800} \\
++ \frac{34840531 n^{8}}{746496000} + \frac{9481183 n^{7}}{48384000} \\
++ \frac{90994151 n^{6}}{143700480} + \frac{123257231 n^{5}}{79833600} \\
++ \frac{43399375531 n^{4}}{15567552000} + \frac{2360326763 n^{3}}{648648000} \\
++ \frac{218135 n^{2}}{61776} + \frac{581099 n}{360360} \\
++ 1.
+\end{multline*}
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=2066$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=240$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -83,9 +95,9 @@ $p(m+1)-p(m)$ has degree one less than $p$. So $(E-\lambda)^{\deg p+1}$ kills
 $\lambda^{m}p(m)$, and the factors of $q$ commute.
 \end{proof}
 
-Here $q(x)=(x-1)^{14}$, of degree $14$; the closed form is a polynomial in $n$, so this is $(x-1)^{14}$, and the recurrence it encodes is
+Here $q(x)=(x-1)^{17}$, of degree $17$; the closed form is a polynomial in $n$, so this is $(x-1)^{17}$, and the recurrence it encodes is
 \begin{equation}\label{eq:rec}
-a(n)\;=\;14\,a(n-1) - 91\,a(n-2) + 364\,a(n-3) - 1001\,a(n-4) + 2002\,a(n-5) - 3003\,a(n-6) + 3432\,a(n-7) - 3003\,a(n-8) + 2002\,a(n-9) - 1001\,a(n-10) + 364\,a(n-11) - 91\,a(n-12) + 14\,a(n-13) - a(n-14).
+a(n)\;=\;17\,a(n-1) - 136\,a(n-2) + 680\,a(n-3) - 2380\,a(n-4) + 6188\,a(n-5) - 12376\,a(n-6) + 19448\,a(n-7) - 24310\,a(n-8) + 24310\,a(n-9) - 19448\,a(n-10) + 12376\,a(n-11) - 6188\,a(n-12) + 2380\,a(n-13) - 680\,a(n-14) + 136\,a(n-15) - 17\,a(n-16) + a(n-17).
 \end{equation}
 
 \section{The proof}
@@ -109,18 +121,18 @@ $a(n)=f(n)$ for every $n\ge1$.
 \end{theorem}
 
 \begin{proof}
-The vector $w'=q(M)w$ was formed by $14$ matrix--vector products in exact integer
+The vector $w'=q(M)w$ was formed by $17$ matrix--vector products in exact integer
 arithmetic, and $u^{\!\top}M^{j}w'$ evaluated for $j=0,1,\dots$, again exactly. Those integers
-vanish from the point corresponding to $n=15$ onwards, and the run was continued until the
+vanish from the point corresponding to $n=18$ onwards, and the run was continued until the
 working vector was identically zero, which settles every larger $j$ at once. So $a$ satisfies
-\eqref{eq:rec} for every $n>14$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
-identically. Both were then evaluated in exact arithmetic at the $14$ consecutive indices
-$n=15,\dots,28$ and agree at each. A monic recurrence of order $14$
-determines $a(m)$ from $a(m-1),\dots,a(m-14)$, and for every $m\ge29$ both
-$m>14$ and $m-14\ge15$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
-$m\ge15$.
-Below $n=15$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
-established for $a$ from $n=15$ on. The remaining indices $n=1,\dots,14$ were
+\eqref{eq:rec} for every $n>17$. By Lemma~\ref{lem:ann} $f$ satisfies \eqref{eq:rec}
+identically. Both were then evaluated in exact arithmetic at the $17$ consecutive indices
+$n=18,\dots,34$ and agree at each. A monic recurrence of order $17$
+determines $a(m)$ from $a(m-1),\dots,a(m-17)$, and for every $m\ge35$ both
+$m>17$ and $m-17\ge18$ hold, so induction on $m$ gives $a(m)=f(m)$ for every
+$m\ge18$.
+Below $n=18$ the recurrence argument gives nothing, since \eqref{eq:rec} is only
+established for $a$ from $n=18$ on. The remaining indices $n=1,\dots,17$ were
 therefore checked one at a time, directly against the walk count in exact integer arithmetic,
 and agree.
 \end{proof}
@@ -149,7 +161,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A185471.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224191.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

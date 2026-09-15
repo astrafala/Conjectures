@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250385, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235237, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250385 carries an empirical recurrence of order $38$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A235237 carries an empirical recurrence of order $41$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=343$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=326592$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A250385 is ``Number of length n+3 0..6 arrays with no four consecutive terms having the maximum of any two terms equal to the minimum of the remaining two terms.''. It has offset $1$ and begins
+OEIS A235237 is ``Number of (n+1) X (6+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-1806, 10206, 58114, 331128, 1886948, 10755158, 61304844, 349446100,\ \dots
+52468, 113940, 241456, 580668, 1355796, 3512000, 8787924, 24042932,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) +15*a(n-2) -21*a(n-3) +139*a(n-4) +312*a(n-5) -1832*a(n-6) -664*a(n-7) +2628*a(n-8) -29790*a(n-9) +11956*a(n-10) +169567*a(n-11) -139200*a(n-12) +40466*a(n-13) +1341516*a(n-14) -2063152*a(n-15) -3461814*a(n-16) +7379053*a(n-17) -5556788*a(n-18) -18198303*a(n-19) +33327062*a(n-20) +4535061*a(n-21) -47630248*a(n-22) +81165409*a(n-23) +7944117*a(n-24) -129618610*a(n-25) +92674078*a(n-26) +25970247*a(n-27) -160762841*a(n-28) +54830754*a(n-29) +77231443*a(n-30) -20533632*a(n-31) +32684440*a(n-32) -4271920*a(n-33) -28113280*a(n-34) +1315200*a(n-35) -748800*a(n-36) +1728000*a(n-38)
+Empirical: a(n) = 7*a(n-1) +69*a(n-2) -574*a(n-3) -1978*a(n-4) +21370*a(n-5) +27951*a(n-6) -478485*a(n-7) -113003*a(n-8) +7195152*a(n-9) -2958344*a(n-10) -76861940*a(n-11) +65204416*a(n-12) +601876824*a(n-13) -702665742*a(n-14) -3516184990*a(n-15) +4973786477*a(n-16) +15464027179*a(n-17) -24964585223*a(n-18) -51381565162*a(n-19) +91429360722*a(n-20) +129074199158*a(n-21) -246783610545*a(n-22) -245370073973*a(n-23) +491176690303*a(n-24) +354658110454*a(n-25) -717262274054*a(n-26) -393919013804*a(n-27) +761914551864*a(n-28) +340116859488*a(n-29) -581525075904*a(n-30) -227924908368*a(n-31) +312863061744*a(n-32) +115489716768*a(n-33) -114941096928*a(n-34) -42030498240*a(n-35) +27265994496*a(n-36) +10170800640*a(n-37) -3740567040*a(n-38) -1442479104*a(n-39) +223948800*a(n-40) +89579520*a(n-41).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:22:29, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 19 2022 00:00:40, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=343$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=326592$ vertices,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -58,7 +55,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{38}-\sum_i c_it^{38-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{41}-\sum_i c_it^{41-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -66,7 +63,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+38}-\sum_ic_iM^{j+38-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+41}-\sum_ic_iM^{j+41-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -75,13 +72,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + 15\,a(n-2) - 21\,a(n-3) + 139\,a(n-4) + 312\,a(n-5) - 1832\,a(n-6) - 664\,a(n-7) + 2628\,a(n-8) - 29790\,a(n-9) + 11956\,a(n-10) + 169567\,a(n-11) - 139200\,a(n-12) + 40466\,a(n-13) + 1341516\,a(n-14) - 2063152\,a(n-15) - 3461814\,a(n-16) + 7379053\,a(n-17) - 5556788\,a(n-18) - 18198303\,a(n-19) + 33327062\,a(n-20) + 4535061\,a(n-21) - 47630248\,a(n-22) + 81165409\,a(n-23) + 7944117\,a(n-24) - 129618610\,a(n-25) + 92674078\,a(n-26) + 25970247\,a(n-27) - 160762841\,a(n-28) + 54830754\,a(n-29) + 77231443\,a(n-30) - 20533632\,a(n-31) + 32684440\,a(n-32) - 4271920\,a(n-33) - 28113280\,a(n-34) + 1315200\,a(n-35) - 748800\,a(n-36) + 1728000\,a(n-38)
+a(n)\;=\;7\,a(n-1) + 69\,a(n-2) - 574\,a(n-3) - 1978\,a(n-4) + 21370\,a(n-5) + 27951\,a(n-6) - 478485\,a(n-7) - 113003\,a(n-8) + 7195152\,a(n-9) - 2958344\,a(n-10) - 76861940\,a(n-11) + 65204416\,a(n-12) + 601876824\,a(n-13) - 702665742\,a(n-14) - 3516184990\,a(n-15) + 4973786477\,a(n-16) + 15464027179\,a(n-17) - 24964585223\,a(n-18) - 51381565162\,a(n-19) + 91429360722\,a(n-20) + 129074199158\,a(n-21) - 246783610545\,a(n-22) - 245370073973\,a(n-23) + 491176690303\,a(n-24) + 354658110454\,a(n-25) - 717262274054\,a(n-26) - 393919013804\,a(n-27) + 761914551864\,a(n-28) + 340116859488\,a(n-29) - 581525075904\,a(n-30) - 227924908368\,a(n-31) + 312863061744\,a(n-32) + 115489716768\,a(n-33) - 114941096928\,a(n-34) - 42030498240\,a(n-35) + 27265994496\,a(n-36) + 10170800640\,a(n-37) - 3740567040\,a(n-38) - 1442479104\,a(n-39) + 223948800\,a(n-40) + 89579520\,a(n-41)
 \]
 for every $n>41$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $38$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $41$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -91,7 +88,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +100,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250385.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235237.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

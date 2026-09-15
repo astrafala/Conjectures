@@ -11,106 +11,128 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The conjectured P-recursive recurrence for OEIS A026122, proved}
+\title{The empirical recurrence for OEIS A206144, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A026122 carries a conjectured recurrence of order $3$ whose coefficients are polynomials in
-$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
-states its generating function as a fact, and that function is algebraic; the conjecture then
-becomes the vanishing of an explicit element of an algebraic function field, which is settled
-symbolically. The result is an identity, not a run of verified terms: it holds at every index
-at once.
+OEIS A206144 counts arrays over $\{0,\dots,2\}$ under a condition on the perimeter cycle of
+every $2\times3$ and $3\times2$ subblock, and carries an empirical recurrence of order $2$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. The condition is local to
+a bounded window of consecutive rows, so the count is a walk count on $S=60$ states and is
+$C$-finite; whether the conjectured recurrence annihilates it is then settled by a finite exact
+computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A026122 is ``a(n) is the number of (s(0),s(1),...,s(n)) such that every s(i) is a nonnegative integer, s(0) = 1, s(n) = 1, |s(1) - s(0)| = 1, |s(i) - s(i-1)| <= 1 for i >= 2. Also a(n) = T(n,n), where T is the array in A026120.''. It has offset $2$ and begins
+OEIS A206144 is ``Number of (n+1) X 3 0..2 arrays with every 2 X 3 or 3 X 2 subblock having exactly three counterclockwise and three clockwise edge increases.''. It has offset $1$ and begins
 \[
-2, 4, 11, 28, 74, 196, 525, 1416,\ \dots
+60, 246, 1122, 5118, 23346, 106494, 485778, 2215902,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Conjecture: (n+4)*a(n) +(-3*n-5)*a(n-1) +(-n-6)*a(n-2) +3*(n-3)*a(n-3)=0. - \_R. J. Mathar\_, Jun 23 2013
+\begin{quote}
+Empirical: a(n) = 5*a(n-1) - 2*a(n-2) for n > 3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 26 2022 08:54:16, revision 16)
-this is still recorded as a conjecture, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 04 2018 06:41:04, revision 11) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The generating function}
+\section{What is being counted}
 
-The entry gives, as a statement of fact and not as a conjecture,
+Both a $3\times2$ and a $2\times3$ window have all six of their cells on the
+perimeter, so each carries a $6$-cycle. For
+$\begin{pmatrix}p&q\\r&s\\t&u\end{pmatrix}$ the clockwise cycle is
+$p\to q\to s\to u\to t\to r\to p$; for
+$\begin{pmatrix}p&q&t\\r&s&u\end{pmatrix}$ it is
+$p\to q\to t\to u\to s\to r\to p$. An edge increase is a step of the cycle that goes up in
+value, and counterclockwise counts the same cycle traversed the other way. The entry requires
+of every window of either shape that it has exactly $3$ counterclockwise and $3$ clockwise edge increases.
+
+The readings were pinned by direct enumeration before anything was built: over
+$\{0,1,2\}$ the $3\times2$ arrays of clockwise count $2$ number $423$ and those of count
+$3$ number $150$; over $\{0,\dots,3\}$ the $3\times2$ arrays of count $1$ number $480$;
+and the $2\times3$ arrays over $\{0,1,2\}$ of clockwise count $2$ also number $423$. Those
+are the first terms the corresponding entries publish.
+
+\section{The count is a walk count}
+
+A $3\times2$ window spans three consecutive array rows and a $2\times3$
+window two, so take as state the PAIR of consecutive rows. The $2\times3$ windows lie inside a
+single pair, so they decide which pairs are admissible at all; the $3\times2$ windows straddle
+three rows, so they decide which pair may follow which. A step appends one array row, turning
+$(r,s)$ into $(s,t)$ and testing every $3\times2$ window of $r,s,t$ at once. An $(n+1)$-row
+array is a walk of $n-1$ steps and
 \[
-A(x)\;=\;-1 + \frac{\left(1 - x\right)^{2} \left(- x - \sqrt{- 3 x^{2} - 2 x + 1} + 1\right)^{2}}{4 x^{4}} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-This is an algebraic function. Before it is used for anything it is checked against the entry's
-own data: its Taylor coefficients reproduce every one of the $28$ published terms
-exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
-function an entry states as fact does NOT generate the terms it publishes, and a proof built on
-it would have been a proof from a false premise.
+on the $S=60$ admissible pairs.
 
-\section{A P-recursive claim is the vanishing of one function}
+At $n=1$ the array has two rows, so no $3\times2$ window fits and only the
+$2\times3$ windows apply; the entry's first term is
+$60$, which the model reproduces along with every later term.
+In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
-polynomial $p$ and an integer $i\ge0$,
-\[
-\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
-\]
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{2}-\sum_i c_it^{2-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
-applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
+Factor $M^{j}$ out of $M^{j+2}-\sum_ic_iM^{j+2-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
-
-Put $b(n)=\sum_{i=0}^{3}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
-$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
-\[
-B(x)\;=\;\sum_{i=0}^{3}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
-\]
-an explicit element of the algebraic function field generated by $A$. The conjecture asserts
-$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
-polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
-
-\section{The theorem}
 
 \begin{theorem}
 \[
-\left(n + 4\right)a(n) + \left(- 3 n - 5\right)a(n-1) + \left(- n - 6\right)a(n-2) + \left(3 n - 9\right)a(n-3)\;=\;0
+a(n)\;=\;5\,a(n-1) - 2\,a(n-2)
 \]
-for every $n>2$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-$B$ was formed as above and simplified in the function field. Here $B$ is a polynomial of degree $2$. A polynomial contributes only to the coefficients of $x^k$ with $k\le2$, so $b(n)=0$ for every $n>2$. Since $A$ reproduces the
-entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
-follows.
+The vector $w=q(M)\tau$ was formed by $2$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
-First, the generating function reproduces all $28$ published terms exactly. Second,
-the conjectured recurrence was evaluated directly on those terms, with no generating function
-involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
-computed symbolically rather than from a truncated series, and its series expansion was taken
-independently to confirm the coefficients it predicts.
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A026122.
-\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Algebraic and D-finite generating functions.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206144.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{bona} M.~B\'ona, \emph{Combinatorics of Permutations}, 2nd ed., CRC
+Press, 2012.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}

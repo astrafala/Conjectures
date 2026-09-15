@@ -11,154 +11,128 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A247531, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A290661, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A247531 carries an empirical recurrence of order $82$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=343$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A290661 carries an empirical recurrence of order $3$ contributed by Chai Wah Wu. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's axis word, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
 \section{The conjecture}
 
-OEIS A247531 is ``Number of length n+3 0..6 arrays with some disjoint pairs in every consecutive four terms having the same sum.''. It has offset $1$ and begins
+OEIS A290661 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 899", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-553, 1033, 2009, 3997, 8051, 16683, 34695, 72269,\ \dots
+1, 11, 101, 1111, 10111, 111111, 1011111, 11111111,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 82 (see link above)
-
-Empirical: a(n) = a(n-1) + 9*a(n-2) - 8*a(n-3) + 25*a(n-4) - 32*a(n-5) - 437*a(n-6) + 396*a(n-7) + 331*a(n-8) + 41*a(n-9) + 8038*a(n-10) - 7569*a(n-11) - 17097*a(n-12) + 9173*a(n-13) - 73740*a(n-14) + 75303*a(n-15) + 246305*a(n-16) - 154260*a(n-17) + 333612*a(n-18) - 421742*a(n-19) - 1900641*a(n-20) + 1249336*a(n-21) - 248047*a(n-22) + 1229901*a(n-23) + 8873963*a(n-24) - 5972984*a(n-25) - 5378341*a(n-26) - 614078*a(n-27) - 25376987*a(n-28) + 17560024*a(n-29) + 31232156*a(n-30) - 8313226*a(n-31) + 40132150*a(n-32) - 30271274*a(n-33) - 85937022*a(n-34) + 29792498*a(n-35) - 15706927*a(n-36) + 23541377*a(n-37) + 128014969*a(n-38) - 44409820*a(n-39) - 58961932*a(n-40) + 8300991*a(n-41) - 82032720*a(n-42) + 22382514*a(n-43) + 101008432*a(n-44) - 25915107*a(n-45) - 26974507*a(n-46) + 15140923*a(n-47) - 38360166*a(n-48) + 5203468*a(n-49) + 62835312*a(n-50) - 16575814*a(n-51) - 37448644*a(n-52) + 10935375*a(n-53) - 8128234*a(n-54) - 2715673*a(n-55) + 26635164*a(n-56) - 1839648*a(n-57) - 18875365*a(n-58) + 3384669*a(n-59) + 6570464*a(n-60) - 2309770*a(n-61) + 1882048*a(n-62) + 1032499*a(n-63) - 4291964*a(n-64) - 369976*a(n-65) + 2911511*a(n-66) + 60782*a(n-67) - 1338381*a(n-68) - 3312*a(n-69) + 435200*a(n-70) - 7754*a(n-71) - 75320*a(n-72) + 3472*a(n-73) - 82*a(n-74) - 888*a(n-75) + 10146*a(n-76) + 192*a(n-77) - 4168*a(n-78) + 1080*a(n-80) - 192*a(n-82) for n>84
+\begin{quote}
+Conjectures from \_Chai Wah Wu\_, Aug 03 2020: (Start) a(n) = a(n-1) + 100*a(n-2) - 100*a(n-3) for n > 3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:35:43, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:40, revision 14)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The value is a certified growth}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=343$ vertices,
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 1.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
+
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 899 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
+
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=5$.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{82}-\sum_i c_it^{82-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+82}-\sum_ic_iM^{j+82-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;\sum_{i=1}^{82}c_i\,a(n-i)
+a(n)\;=\;a(n-1) + 100\,a(n-2) - 100\,a(n-3)
 \]
-for every $n>87$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=1$ & $c_{2}$ & $=9$ \\
-$c_{3}$ & $=-8$ & $c_{4}$ & $=25$ \\
-$c_{5}$ & $=-32$ & $c_{6}$ & $=-437$ \\
-$c_{7}$ & $=396$ & $c_{8}$ & $=331$ \\
-$c_{9}$ & $=41$ & $c_{10}$ & $=8038$ \\
-$c_{11}$ & $=-7569$ & $c_{12}$ & $=-17097$ \\
-$c_{13}$ & $=9173$ & $c_{14}$ & $=-73740$ \\
-$c_{15}$ & $=75303$ & $c_{16}$ & $=246305$ \\
-$c_{17}$ & $=-154260$ & $c_{18}$ & $=333612$ \\
-$c_{19}$ & $=-421742$ & $c_{20}$ & $=-1900641$ \\
-$c_{21}$ & $=1249336$ & $c_{22}$ & $=-248047$ \\
-$c_{23}$ & $=1229901$ & $c_{24}$ & $=8873963$ \\
-$c_{25}$ & $=-5972984$ & $c_{26}$ & $=-5378341$ \\
-$c_{27}$ & $=-614078$ & $c_{28}$ & $=-25376987$ \\
-$c_{29}$ & $=17560024$ & $c_{30}$ & $=31232156$ \\
-$c_{31}$ & $=-8313226$ & $c_{32}$ & $=40132150$ \\
-$c_{33}$ & $=-30271274$ & $c_{34}$ & $=-85937022$ \\
-$c_{35}$ & $=29792498$ & $c_{36}$ & $=-15706927$ \\
-$c_{37}$ & $=23541377$ & $c_{38}$ & $=128014969$ \\
-$c_{39}$ & $=-44409820$ & $c_{40}$ & $=-58961932$ \\
-$c_{41}$ & $=8300991$ & $c_{42}$ & $=-82032720$ \\
-$c_{43}$ & $=22382514$ & $c_{44}$ & $=101008432$ \\
-$c_{45}$ & $=-25915107$ & $c_{46}$ & $=-26974507$ \\
-$c_{47}$ & $=15140923$ & $c_{48}$ & $=-38360166$ \\
-$c_{49}$ & $=5203468$ & $c_{50}$ & $=62835312$ \\
-$c_{51}$ & $=-16575814$ & $c_{52}$ & $=-37448644$ \\
-$c_{53}$ & $=10935375$ & $c_{54}$ & $=-8128234$ \\
-$c_{55}$ & $=-2715673$ & $c_{56}$ & $=26635164$ \\
-$c_{57}$ & $=-1839648$ & $c_{58}$ & $=-18875365$ \\
-$c_{59}$ & $=3384669$ & $c_{60}$ & $=6570464$ \\
-$c_{61}$ & $=-2309770$ & $c_{62}$ & $=1882048$ \\
-$c_{63}$ & $=1032499$ & $c_{64}$ & $=-4291964$ \\
-$c_{65}$ & $=-369976$ & $c_{66}$ & $=2911511$ \\
-$c_{67}$ & $=60782$ & $c_{68}$ & $=-1338381$ \\
-$c_{69}$ & $=-3312$ & $c_{70}$ & $=435200$ \\
-$c_{71}$ & $=-7754$ & $c_{72}$ & $=-75320$ \\
-$c_{73}$ & $=3472$ & $c_{74}$ & $=-82$ \\
-$c_{75}$ & $=-888$ & $c_{76}$ & $=10146$ \\
-$c_{77}$ & $=192$ & $c_{78}$ & $=-4168$ \\
-$c_{79}$ & $=0$ & $c_{80}$ & $=1080$ \\
-$c_{81}$ & $=0$ & $c_{82}$ & $=-192$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $82$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
 Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+model involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A247531.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A290661.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
 \end{thebibliography}
 
 \end{document}

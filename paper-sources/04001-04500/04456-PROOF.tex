@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262421, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A262918, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262421 counts arrays of width $3$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are not divisible by $3$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $7$ contributed by
+OEIS A262918 counts arrays of width $5$ over $\{0,1\}$ whose rows, read as base-$2$
+numbers, are divisible by $7$ and whose columns, read the same way, are divisible by
+$3$. The entry carries an empirical recurrence of order $8$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
 every row of the array, so the condition is not local; but its RESIDUE is built one row at a
 time by Horner's rule, and the vector of column residues is a state of bounded size. The count
@@ -32,30 +32,30 @@ is then a walk count on $S=27$ states.
 
 \section{The conjecture}
 
-OEIS A262421 is ``Number of (2+1) X (n+1) 0..1 arrays with each row divisible by 3 and column not divisible by 3, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A262918 is ``Number of (4+1) X (n+1) 0..1 arrays with each row divisible by 3 and each column divisible by 7, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
 \[
-5, 4, 45, 114, 709, 2892, 15293, 72370,\ \dots
+5, 9, 53, 137, 853, 2953, 17333, 71721,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) + 12*a(n-2) - 60*a(n-3) - 39*a(n-4) + 195*a(n-5) + 28*a(n-6) - 140*a(n-7).
+Empirical: a(n) = 7*a(n-1) + 11*a(n-2) - 147*a(n-3) + 99*a(n-4) + 777*a(n-5) - 1019*a(n-6) - 637*a(n-7) + 910*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 31 2018 11:27:10, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jan 01 2019 08:43:55, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
+The array has $5$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
 base $2$. Row $i$ of an array with $R$ rows is the number
 \[
-\rho_i\;=\;\sum_{j=1}^{3}x(i,j)\,2^{3-j} ,
+\rho_i\;=\;\sum_{j=1}^{5}x(i,j)\,2^{5-j} ,
 \]
 the LEFT digit being the most significant, and column $j$ is
 \[
 \gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be not divisible by
-$3$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
+the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
+$7$ and every $\gamma_j$ be divisible by $3$. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the row condition with the column condition; both readings put the FIRST digit in the most significant place, so nothing else changes under that exchange.
 
 
 \section{Column residues by Horner's rule}
@@ -80,8 +80,8 @@ multiplication by $2$, and puts the new digit in the units place. Reduction modu
 $3$ commutes with both operations.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{3}\bmod
-3\bigr)$ is a state: at most $3^{3}$ of them, and each array row
+So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{5}\bmod
+3\bigr)$ is a state: at most $3^{5}$ of them, and each array row
 that satisfies the row condition carries one such vector to another. The walk starts at the
 all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
 which every entry is divisible by $3$ --- so the end vector is not the all-ones
@@ -96,7 +96,7 @@ published terms rather than assumed. In particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{7}-\sum_i c_it^{7-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{8}-\sum_i c_it^{8-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -104,7 +104,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+7}-\sum_ic_iM^{j+7-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+8}-\sum_ic_iM^{j+8-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) + 12\,a(n-2) - 60\,a(n-3) - 39\,a(n-4) + 195\,a(n-5) + 28\,a(n-6) - 140\,a(n-7)
+a(n)\;=\;7\,a(n-1) + 11\,a(n-2) - 147\,a(n-3) + 99\,a(n-4) + 777\,a(n-5) - 1019\,a(n-6) - 637\,a(n-7) + 910\,a(n-8)
 \]
-for every $n>5$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $7$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=6+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -145,7 +145,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262421.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A262918.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,

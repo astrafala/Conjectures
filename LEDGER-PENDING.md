@@ -1020,3 +1020,26 @@ recurrence and the new claim is a separately contributed closed form. Installed.
 
 Also: 368 installed papers have no stored source, so the duplicate test cannot run on them. It
 refuses rather than assumes.
+
+### The second-conjecture vein, settled: 376 papers (IDEAS §AJ.1)
+
+**Roster 13,718 over 13,315 entries; 163 arguments.** The vein went in at 235, out at 0, and
+back in at 376, and the path is the record:
+
+* 235 installed. All withdrawn: the sweep excluded a generating function that restates the
+  proved recurrence but not a closed form identical to the entry's own settled conjecture.
+* The test that withdrew them compared each claim against every paper on the entry, **including
+  the second-conjecture paper that states that claim**. Every record was a duplicate of itself.
+  Re-run excluding this vein's own papers: 122 genuine duplicates, 4 uncheckable, **109 wrongly
+  withdrawn**. The 109 are reinstated and their rows struck from WITHDRAWN.md.
+* With the corrected test inside the sweep and the premise also derived from a proved generating
+  function's denominator (318 entries had a proof that carried no coefficients), the whole
+  roster gives **376** further conjectures. All live-checked, all installed.
+
+Each is a second paper on an entry that already has one, and a second result because it settles
+a different conjecture — typically the entry's closed form where the existing paper proves its
+recurrence. 1,741 claims were refused as the entry's own already-settled conjecture and 332 more
+as restatements of the proved recurrence in another notation.
+
+**A test that rejects more is not thereby a better test.** Both errors here had the same shape,
+and the first hid the second.

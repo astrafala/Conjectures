@@ -1799,3 +1799,28 @@ put the first result back on the roster as a second one for every one of them.
 
 A vein that can produce a second paper on an entry must be able to say what the first one
 proved, and must read it from the paper rather than from any file that happens to be nearby.
+
+
+### AJ.1 The correction to the correction
+
+The withdrawal above was right about 122 papers and wrong about 109, and the reason is worth
+more than either number. The test that withdrew the second batch compared each claim against the
+TeX of **every** paper on the entry — including the `second-conjecture` paper that states that
+very claim. Every record was a duplicate of itself, and the test could not have returned
+anything else. It looked like a stronger test than the one before it because it rejected more.
+
+Re-run against the entry's papers EXCLUDING this vein's own:
+
+| | |
+|---:|---|
+| 122 | genuine duplicates — the entry's own conjecture, stated again |
+| 109 | good second results, wrongly withdrawn |
+| 4 | no comparable source; stay withdrawn on the refuse-rather-than-assume rule |
+
+The 109 are reinstated and `sweep_second` excludes its own papers from the comparison. Over the
+whole roster it now proves **376** further conjectures, all installed.
+
+**A test that rejects more is not thereby a better test.** Both failures in this episode had the
+same shape — comparing a claim against a text chosen too loosely — and the first one hid the
+second, because a test that says "duplicate" about everything agrees with the truth wherever the
+truth is "duplicate".

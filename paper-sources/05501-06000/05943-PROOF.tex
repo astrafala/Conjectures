@@ -11,154 +11,131 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A235967, proved by transfer matrix}
+\title{The conjectured generating function for OEIS A252870, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235967 carries an empirical recurrence of order $88$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=13194$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A252870 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=15$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $27$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A235967 is ``Number of (n+1)X(3+1) 0..3 arrays colored with the upper median value of each 2X2 subblock.''. It has offset $1$ and begins
+OEIS A252870 is ``Number of n X 2 nonnegative integer arrays with upper left 0 and lower right n+2-4 and value increasing by 0 or 1 with every step right or down.''. It has offset $1$ and begins
 \[
-13194, 119770, 872370, 7116040, 60649470, 512448944, 4326517048, 36654517336,\ \dots
+0, 1, 8, 26, 61, 120,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 88 (see link above)
-
-Empirical: a(n) = 2*a(n-3) + 4482*a(n-4) + 2124*a(n-5) + 81866*a(n-6) + 60728*a(n-7) - 3524410*a(n-8) - 1579756*a(n-9) - 73313673*a(n-10) - 26950048*a(n-11) + 1406876456*a(n-12) + 217289948*a(n-13) + 17191923161*a(n-14) + 2626544174*a(n-15) - 340208447816*a(n-16) - 8597195352*a(n-17) - 1731910677640*a(n-18) - 1242043590092*a(n-19) + 35681762062544*a(n-20) - 7960321583494*a(n-21) + 134347884520062*a(n-22) + 158228649950026*a(n-23) - 1795909714243639*a(n-24) + 1497929935145636*a(n-25) - 6192277286031865*a(n-26) - 5508692648891398*a(n-27) + 51286858057793408*a(n-28) - 68355946303772088*a(n-29) + 147640965101238385*a(n-30) + 135198139295134898*a(n-31) - 745577567717681705*a(n-32) + 1671469750823966146*a(n-33) - 1866353494210827483*a(n-34) - 2226103541827831620*a(n-35) + 6915764834716554048*a(n-36) - 13402872947759996002*a(n-37) + 9897993822323551187*a(n-38) + 20384762604231999098*a(n-39) - 45894394005424493413*a(n-40) - 2504711781989083718*a(n-41) - 20185613761322438608*a(n-42) - 73813576627111987900*a(n-43) + 87290582866904745865*a(n-44) + 280767186978331732908*a(n-45) - 626694697401342383414*a(n-46) - 762800041503004416562*a(n-47) - 591895680538771902817*a(n-48) - 243475304895341158216*a(n-49) + 331794421779786667283*a(n-50) + 3033583819644656394410*a(n-51) - 2699451516153347365453*a(n-52) - 7779141841821437196912*a(n-53) + 13868234205285368373566*a(n-54) - 4814394968607021274670*a(n-55) - 11704061515702157476653*a(n-56) + 30620232128608322835560*a(n-57) - 29066130127518788727158*a(n-58) - 21108646114534258462440*a(n-59) + 27589952464739145732468*a(n-60) - 18434729754924979716604*a(n-61) + 35522602033993383860178*a(n-62) + 2149264316626938646084*a(n-63) - 59535804723020580660320*a(n-64) + 7600347917465889168064*a(n-65) + 755764835574549246476*a(n-66) - 7211081326456917634192*a(n-67) + 11113673260391636805816*a(n-68) + 1986145747001007184160*a(n-69) - 8522899270664427270952*a(n-70) - 5880069232707222031712*a(n-71) + 4478890850779748649096*a(n-72) + 1848803425756284706272*a(n-73) - 404105393232337525272*a(n-74) - 551911198892104251776*a(n-75) - 12472300932069334624*a(n-76) - 17593135543557850304*a(n-77) + 54865231613880074592*a(n-78) - 16292137421238203968*a(n-79) - 8173206748267891072*a(n-80) + 522721186544126592*a(n-81) - 1327608064047552*a(n-82) - 62113543344558336*a(n-83) - 6328939863786624*a(n-84) - 1592515648512000*a(n-85) - 103243701952512*a(n-86) - 8558574649344*a(n-87) - 298168418304*a(n-88) for n>95
+The entry states, as a conjecture contributed by a reader and never marked settled:
+\begin{quote}
+Empirical: G.f.: -x\^{}2*(1+3*x-4*x\^{}2+x\^{}3) / (x-1)\^{}5. - \_R. J. Mathar\_, Nov 21 2015
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:58:02, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 22 2015 13:19:33, revision 9) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=13194$ vertices,
+Every condition the entry names is decided inside a bounded number of consecutive rows: it
+compares a cell with cells a bounded distance from it, and no comparison reaches further than
+that. So a strip of that many consecutive rows is a state of a finite automaton, an array is
+read off row by row, and appending one more row is one step, legal exactly when the row it
+completes satisfies every condition that becomes testable.
+
+Taking those strips as the vertices of a digraph $G$ with adjacency matrix $M$, and writing
+$\iota$ for the indicator of the states an array may begin in and $\tau$ for those it may end
+in,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1+0}\tau ,
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+and there are $S=15$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $41$ terms the entry publishes, exactly, in integer arithmetic --- a
+misreading of the condition gives a different digraph and different counts, so this ties the
+model to the entry and not merely to the arithmetic.
 
-\section{The proof}
+The family this entry belongs to is read by one model, described by its author as: ``Monotone height arrays: values rising by 0 or 1 with every step, pinned to a distance.''
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{88}-\sum_i c_it^{88-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+
+\section{Its generating function is rational, with bounded degree}
+
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)=\det(I-xM)$ has degree at most
+$S$ and $D_1(0)=1$, and $\deg N_1<S+1$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+88}-\sum_ic_iM^{j+88-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Summing the geometric series of matrices, $\sum_{j\ge0}M^jx^j=(I-xM)^{-1}$ as a formal
+power series, so $A(x)$ is $x^{c}\,\iota^{\!\top}(I-xM)^{-1}\tau$ for the constant $c$
+relating the walk index to the entry's own $n$. By Cramer's rule every entry of
+$(I-xM)^{-1}$ is a polynomial of degree less than $S$ divided by $\det(I-xM)$, and
+$\det(I-xM)$ is a polynomial of degree at most $S$ with constant term $\det I=1$.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;\sum_{i=1}^{88}c_i\,a(n-i)
-\]
-for every $n>95$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=0$ & $c_{2}$ & $=0$ \\
-$c_{3}$ & $=2$ & $c_{4}$ & $=4482$ \\
-$c_{5}$ & $=2124$ & $c_{6}$ & $=81866$ \\
-$c_{7}$ & $=60728$ & $c_{8}$ & $=-3524410$ \\
-$c_{9}$ & $=-1579756$ & $c_{10}$ & $=-73313673$ \\
-$c_{11}$ & $=-26950048$ & $c_{12}$ & $=1406876456$ \\
-$c_{13}$ & $=217289948$ & $c_{14}$ & $=17191923161$ \\
-$c_{15}$ & $=2626544174$ & $c_{16}$ & $=-340208447816$ \\
-$c_{17}$ & $=-8597195352$ & $c_{18}$ & $=-1731910677640$ \\
-$c_{19}$ & $=-1242043590092$ & $c_{20}$ & $=35681762062544$ \\
-$c_{21}$ & $=-7960321583494$ & $c_{22}$ & $=134347884520062$ \\
-$c_{23}$ & $=158228649950026$ & $c_{24}$ & $=-1795909714243639$ \\
-$c_{25}$ & $=1497929935145636$ & $c_{26}$ & $=-6192277286031865$ \\
-$c_{27}$ & $=-5508692648891398$ & $c_{28}$ & $=51286858057793408$ \\
-$c_{29}$ & $=-68355946303772088$ & $c_{30}$ & $=147640965101238385$ \\
-$c_{31}$ & $=135198139295134898$ & $c_{32}$ & $=-745577567717681705$ \\
-$c_{33}$ & $=1671469750823966146$ & $c_{34}$ & $=-1866353494210827483$ \\
-$c_{35}$ & $=-2226103541827831620$ & $c_{36}$ & $=6915764834716554048$ \\
-$c_{37}$ & $=-13402872947759996002$ & $c_{38}$ & $=9897993822323551187$ \\
-$c_{39}$ & $=20384762604231999098$ & $c_{40}$ & $=-45894394005424493413$ \\
-$c_{41}$ & $=-2504711781989083718$ & $c_{42}$ & $=-20185613761322438608$ \\
-$c_{43}$ & $=-73813576627111987900$ & $c_{44}$ & $=87290582866904745865$ \\
-$c_{45}$ & $=280767186978331732908$ & $c_{46}$ & $=-626694697401342383414$ \\
-$c_{47}$ & $=-762800041503004416562$ & $c_{48}$ & $=-591895680538771902817$ \\
-$c_{49}$ & $=-243475304895341158216$ & $c_{50}$ & $=331794421779786667283$ \\
-$c_{51}$ & $=3033583819644656394410$ & $c_{52}$ & $=-2699451516153347365453$ \\
-$c_{53}$ & $=-7779141841821437196912$ & $c_{54}$ & $=13868234205285368373566$ \\
-$c_{55}$ & $=-4814394968607021274670$ & $c_{56}$ & $=-11704061515702157476653$ \\
-$c_{57}$ & $=30620232128608322835560$ & $c_{58}$ & $=-29066130127518788727158$ \\
-$c_{59}$ & $=-21108646114534258462440$ & $c_{60}$ & $=27589952464739145732468$ \\
-$c_{61}$ & $=-18434729754924979716604$ & $c_{62}$ & $=35522602033993383860178$ \\
-$c_{63}$ & $=2149264316626938646084$ & $c_{64}$ & $=-59535804723020580660320$ \\
-$c_{65}$ & $=7600347917465889168064$ & $c_{66}$ & $=755764835574549246476$ \\
-$c_{67}$ & $=-7211081326456917634192$ & $c_{68}$ & $=11113673260391636805816$ \\
-$c_{69}$ & $=1986145747001007184160$ & $c_{70}$ & $=-8522899270664427270952$ \\
-$c_{71}$ & $=-5880069232707222031712$ & $c_{72}$ & $=4478890850779748649096$ \\
-$c_{73}$ & $=1848803425756284706272$ & $c_{74}$ & $=-404105393232337525272$ \\
-$c_{75}$ & $=-551911198892104251776$ & $c_{76}$ & $=-12472300932069334624$ \\
-$c_{77}$ & $=-17593135543557850304$ & $c_{78}$ & $=54865231613880074592$ \\
-$c_{79}$ & $=-16292137421238203968$ & $c_{80}$ & $=-8173206748267891072$ \\
-$c_{81}$ & $=522721186544126592$ & $c_{82}$ & $=-1327608064047552$ \\
-$c_{83}$ & $=-62113543344558336$ & $c_{84}$ & $=-6328939863786624$ \\
-$c_{85}$ & $=-1592515648512000$ & $c_{86}$ & $=-103243701952512$ \\
-$c_{87}$ & $=-8558574649344$ & $c_{88}$ & $=-298168418304$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $88$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=95+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Write the conjecture as $N_2/D_2$ with $\deg N_2=5$ and $\deg D_2=5$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
+\[
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+\]
+a polynomial of degree at most $20$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{20}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
+
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $27$
+of them --- more than the $20+1$ the argument requires --- agree.
 \end{proof}
+
+\section{A recurrence the entry does not state}
+
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
+\[
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>5,
+\]
+a constant-coefficient linear recurrence of order $5$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{5}$ read off $D_2$, the first few being $5,\ -10,\ 10,\ -5,\ 1$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces every one of the $41$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235967.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252870.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.

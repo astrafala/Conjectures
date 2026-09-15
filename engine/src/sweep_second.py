@@ -85,9 +85,15 @@ import re as _re
 
 _SRC = {_os.path.basename(_p): _p
         for _p in _g2.glob(repopaths.ROOT + '/paper-sources/*/*.tex')}
+# ...and NOT against a paper this vein itself wrote. Comparing a claim with the paper that
+# states that very claim makes every record a duplicate of itself: it is how 109 papers were
+# withdrawn that were perfectly good second results. The comparison is with what the entry was
+# proved for BEFORE this vein ran.
 PAPERS = {}
 try:
     for _r in json.load(open('rank-map.json')):
+        if _r.get('engine') == 'second-conjecture':
+            continue
         _b = _os.path.basename(_r['path']).replace('.pdf', '.tex')
         _p = _SRC.get(_b)
         if not _p:
@@ -139,6 +145,50 @@ try:
         PROVED.setdefault(h['anum'], h['coeffs'])
 except Exception:
     pass
+
+# A vein that proves a GENERATING FUNCTION records no coefficients, so 318 entries this project
+# has settled were refused here as "no recurrence available as a premise". They have one: if the
+# proved g.f. is N/D with D(0) = 1 and
+#
+#     D(x) = 1 - c_1 x - ... - c_r x^r,     then     a(n) = sum_i c_i a(n-i)
+#
+# for every n past deg N. The denominator IS the recurrence, so read it off rather than refusing.
+# Only exact integer coefficients are taken; anything else is left alone.
+for _f in _glob.glob('*_hits*.json'):
+    if _f.startswith('snd'):
+        continue
+    try:
+        _d = json.load(open(_f))
+    except Exception:
+        continue
+    if not isinstance(_d, list):
+        continue
+    for _h in _d:
+        if not (isinstance(_h, dict) and _h.get('anum')) or _h.get('FAILS'):
+            continue
+        if _h['anum'] in PROVED or _h.get('coeffs'):
+            continue
+        for _k in ('line', 'gfline'):
+            if not _h.get(_k):
+                continue
+            try:
+                _g = gfrec.parse_gf(' '.join(str(_h[_k]).split()))
+                if _g is None:
+                    continue
+                _num, _den = sympy.fraction(sympy.together(_g))
+                _dp = sympy.Poly(sympy.expand(_den), x)
+                _c = _dp.all_coeffs()[::-1]          # constant term first
+                if not _c or _c[0] == 0:
+                    continue
+                _c = [sympy.nsimplify(v / _c[0]) for v in _c]
+                if any(not v.is_Integer for v in _c):
+                    continue
+                _co = {str(i): str(-int(_c[i])) for i in range(1, len(_c)) if _c[i] != 0}
+                if _co:
+                    PROVED.setdefault(_h['anum'], _co)
+            except Exception:
+                pass
+            break
 
 
 def save():

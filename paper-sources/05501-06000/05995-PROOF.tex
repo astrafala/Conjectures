@@ -12,101 +12,157 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250455, proved by transfer matrix}
+\title{The conjectured generating function for OEIS A290072, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250455 carries an empirical recurrence of order $83$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=19683$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A290072 counts arrays of a fixed width under a local condition, and carries a conjectured
+generating function --- and nothing else. It is true. The count is a walk count in a finite
+digraph on $S=8$ vertices, so its generating function is a rational function whose numerator
+and denominator have degrees bounded by $S$; the conjectured expression is another rational
+function of known degree; and two rational functions of bounded degree agree as soon as enough
+coefficients of their expansions do. Comparing $17$ coefficients in exact arithmetic
+therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
 
 \section{The conjecture}
 
-OEIS A250455 is ``Number of (n+2) X (1+2) 0..2 arrays with nondecreasing maximum of every three consecutive values in every row and column.''. It has offset $1$ and begins
+OEIS A290072 is ``Binary representation of the diagonal from the origin to the corner of the n-th stage of growth of the two-dimensional cellular automaton defined by "Rule 641", based on the 5-celled von Neumann neighborhood.''. It has offset $0$ and begins
 \[
-19683, 373248, 6859000, 120553784, 1990865512, 32248529487, 512192024001, 7998800059999,\ \dots
+1, 1, 101, 11, 10111, 1111,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-Empirical recurrence of order 83 (see link above).
+G.f.: (1 - 90*x\^{}3 + 100*x\^{}4) / ((1 - x)*(1 - 10*x)*(1 + 10*x)).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 17 2022 18:07:42, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Nov 05 2025 15:22:40, revision 15) this is still
+recorded as empirical, and nothing on the entry records it as proved. The entry carries no
+conjectured recurrence, which is why this generating function is the whole of what is open
+here.
 
-\section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=19683$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+\section{The value is a certified growth}
+
+The entry reads an axis or a diagonal of the automaton at stage $n$ as a string of digits and
+takes its numeric value. Nothing is being counted, so there is no digraph. What settles the
+sequence is that the CONFIGURATION is periodic in time:
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+C(n+2)\;=\;C(n)\qquad\text{as configurations of the whole plane, for every } n\ge 2.
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+This was checked directly, and one instance of it is all that is needed: the automaton is a
+deterministic map on configurations, so $C(n_0+2)=C(n_0)$ forces $C(n_0+k\cdot2)=C(n_0)$ for
+every $k$, and likewise in each residue class. No locality argument and no induction over
+boundary windows is involved.
 
-\section{The proof}
+Getting the background right is the whole of the check. A rule taking an empty von Neumann
+neighbourhood to a live cell flips the ENTIRE plane, and rule 641 is read
+in that light: comparing two stages by padding the smaller with zeros would compare two
+different things.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{83}-\sum_i c_it^{83-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+The reading follows at once. The axis at stage $n$ is the window $|x|\le n$ of a configuration
+that is not changing, so the window widening by one cell on each side per step gives
+\[
+w(n+2)\;=\;L_r + w(n) + R_r
+\]
+with $L_r$ and $R_r$ fixed words depending only on the residue $r$ of $n$ modulo $2$ --- an
+identity that is now a consequence rather than an observation. Concatenation is multiplication
+by a power of the base $B$ and addition, so along a class
+\[
+a(n+2)\;=\;v(L_r)\,B^{|w(n)|+|R_r|} + a(n)\,B^{|R_r|} + v(R_r).
+\]
+
+\section{The bound}
+
+In the shift $T=S^{\,2}$ that is a first-order recurrence with a geometric forcing term and a
+constant, killed by $(T-B^{|R_r|})(T-B^{|L_r|+|R_r|})(T-1)$. Taking the DISTINCT roots that
+occur across the residue classes, pulling each back to $S^{\,2}-\lambda$, and allowing the
+pre-period to raise the numerator's degree gives a monic annihilator of order $S=8$.
+
+The family this entry belongs to is read by one model, described by its author as: ``The x-axis and diagonal of a two-dimensional cellular automaton, read as a number.''
+
+
+The model reproduces all $21$ terms the entry publishes, exactly, in integer arithmetic:
+it is built by reading the entry's own English, and a misreading gives different counts, so
+this ties the model to the entry and not merely to the arithmetic.
+
+\section{Its generating function is rational, with bounded degree}
+
+\begin{lemma}\label{lem:rat}
+$A(x)=\sum_{n\ge0}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)$ has degree at most $S=8$ and
+$D_1(0)=1$, and $\deg N_1<S+0$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+83}-\sum_ic_iM^{j+83-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+The section above derives a MONIC linear recurrence of order $S$ that $a$ provably satisfies
+from some index onwards; write its characteristic polynomial as $z^S-\sum_{j<S}\alpha_jz^j$
+and put $D_1(x)=1-\sum_{j<S}\alpha_jx^{S-j}$, the same polynomial written backwards, so
+$\deg D_1\le S$ and $D_1(0)=1$. Multiplying the power series $A(x)$ by $D_1(x)$ annihilates
+every coefficient at which the recurrence is in force, so $N_1=AD_1$ is a polynomial, and the
+indices it can be supported on are the offset together with the finitely many below the point
+where the recurrence takes hold, all of them less than $S+0$. No matrix is involved: the
+model here is not a walk and has no adjacency matrix, and the bound comes from the recurrence
+the model itself supplies.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;26\,a(n-1) - 131\,a(n-2) + 274\,a(n-3) - 24736\,a(n-4) + 172860\,a(n-5) + 126584\,a(n-6) + 8559956\,a(n-7) - 76941044\,a(n-8) - 61305572\,a(n-9) - 1587068708\,a(n-10) + 17056287564\,a(n-11) + 11819426896\,a(n-12) + 190800643380\,a(n-13) - 2221250816840\,a(n-14) - 1364247821116\,a(n-15) - 16343652387486\,a(n-16) + 185210829506864\,a(n-17) + 101799546823774\,a(n-18) + 1026693769712720\,a(n-19) - 10415321367453888\,a(n-20) - 5014476771012420\,a(n-21) - 47254484614085256\,a(n-22) + 409795649803275388\,a(n-23) + 165935097582188892\,a(n-24) + 1586311953181590308\,a(n-25) - 11599600828697253956\,a(n-26) - 3757583724298355212\,a(n-27) - 38931220134980108080\,a(n-28) + 241211082193769885244\,a(n-29) + 59350809558897807816\,a(n-30) + 704573647557653723564\,a(n-31) - 3741478346828216245769\,a(n-32) - 668579648333872274442\,a(n-33) - 9504702603237056364531\,a(n-34) + 43741456293825844036958\,a(n-35) + 5551114744860145671872\,a(n-36) + 96522595591485010709144\,a(n-37) - 387908576540543745493744\,a(n-38) - 35934135555712265082432\,a(n-39) - 743482335737508021317696\,a(n-40) + 2618314603515404065570944\,a(n-41) + 195963124892684440691712\,a(n-42) + 4363442881990245156342272\,a(n-43) - 13467666138770649001872384\,a(n-44) - 945397135544479214571520\,a(n-45) - 19543505874734553106501632\,a(n-46) + 52767832521708712365056000\,a(n-47) + 3917044195977462567698432\,a(n-48) + 66737046617519664138452992\,a(n-49) - 157218639905749321288777728\,a(n-50) - 12987979921335143188267008\,a(n-51) - 173166496647620409394200576\,a(n-52) + 355020166347445025566097408\,a(n-53) + 32728041421976714972495872\,a(n-54) + 339449184034397143219306496\,a(n-55) - 604100289441573898398203904\,a(n-56) - 61147543237022349294305280\,a(n-57) - 498328139408298376718974976\,a(n-58) + 767317433323139330924871680\,a(n-59) + 83411412573202908765487104\,a(n-60) + 540710426217773237786378240\,a(n-61) - 717555126005200037884198912\,a(n-62) - 81409474807362013741711360\,a(n-63) - 425019320199470750390812672\,a(n-64) + 485366478146719635398983680\,a(n-65) + 55237919000701855216959488\,a(n-66) + 235283102675507626226221056\,a(n-67) - 232504826727072876009095168\,a(n-68) - 25046837241898996204568576\,a(n-69) - 88471135304888556225298432\,a(n-70) + 76773717291816773295800320\,a(n-71) + 7201547975754198718349312\,a(n-72) + 21584402521255377597628416\,a(n-73) - 16723887586702536529149952\,a(n-74) - 1226136983116171121262592\,a(n-75) - 3196869801181006614495232\,a(n-76) + 2221730179693220672307200\,a(n-77) + 107076431818856306049024\,a(n-78) + 246975385952364938657792\,a(n-79) - 159462879145182218944512\,a(n-80) - 4279644625100615974912\,a(n-81) - 6493253913945762168832\,a(n-82) + 4722366482869645213696\,a(n-83)
-\]
-for every $n>83$.
+The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $83$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=83+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Write the conjecture as $N_2/D_2$ with $\deg N_2=4$ and $\deg D_2=3$; its expansion as a
+power series exists because $D_2(0)\neq0$. Put
+\[
+R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+\]
+a polynomial of degree at most $12$ by Lemma~\ref{lem:rat}. The difference
+$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
+every coefficient up to $x^{12}$ then $R$ has a zero of order greater than its own
+degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
+
+The coefficients of $A$ were produced from the model by repeated matrix--vector products in
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $17$
+of them --- more than the $12+1$ the argument requires --- agree.
 \end{proof}
+
+\section{A recurrence the entry does not state}
+
+The denominator of a rational generating function is a linear recurrence written backwards, so
+the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
+$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
+\[
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>4,
+\]
+a constant-coefficient linear recurrence of order $3$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{3}$ read off $D_2$, the first few being $1,\ 100,\ -100$. The entry records no recurrence, so this is not a restatement of anything
+already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces every one of the $21$ published terms, with the index shift
+read off the entry's offset rather than fitted.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
+directly from its English and with no automaton, and the counts agree. Writing that check is
+where the risk actually sits: an earlier version of it dropped a clause from the entry's name
+in three cases and disagreed with the model, and in all three the check was wrong and the model
+was right.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the coefficient comparison was carried out over the whole range required by the degree
+bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250455.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A290072.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.

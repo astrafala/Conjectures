@@ -1,506 +1,506 @@
 # Papers 05501-06000
 
-Ranks 5501 to 6000 of 13545, hardest first.
+Ranks 5501 to 6000 of 13718, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
-| 5501 | [A234796](https://oeis.org/A234796) | Proof | a table's column recurrences, each column being a fixed-width array count | [05501-PROOF.pdf](05501-PROOF.pdf) |
-| 5502 | [A187177](https://oeis.org/A187177) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05502-PROOF.pdf](05502-PROOF.pdf) |
-| 5503 | [A234140](https://oeis.org/A234140) | Proof | a table's column recurrences, each column being a fixed-width array count | [05503-PROOF.pdf](05503-PROOF.pdf) |
-| 5504 | [A235289](https://oeis.org/A235289) | Proof | a table's column recurrences, each column being a fixed-width array count | [05504-PROOF.pdf](05504-PROOF.pdf) |
-| 5505 | [A250657](https://oeis.org/A250657) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05505-PROOF.pdf](05505-PROOF.pdf) |
-| 5506 | [A250764](https://oeis.org/A250764) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05506-PROOF.pdf](05506-PROOF.pdf) |
-| 5507 | [A250870](https://oeis.org/A250870) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05507-PROOF.pdf](05507-PROOF.pdf) |
-| 5508 | [A251300](https://oeis.org/A251300) | Proof | a table's column recurrences, each column being a fixed-width array count | [05508-PROOF.pdf](05508-PROOF.pdf) |
-| 5509 | [A251343](https://oeis.org/A251343) | Proof | a table's column recurrences, each column being a fixed-width array count | [05509-PROOF.pdf](05509-PROOF.pdf) |
-| 5510 | [A251524](https://oeis.org/A251524) | Proof | a table's column recurrences, each column being a fixed-width array count | [05510-PROOF.pdf](05510-PROOF.pdf) |
-| 5511 | [A299067](https://oeis.org/A299067) | Proof | a table's column recurrences, each column being a fixed-width array count | [05511-PROOF.pdf](05511-PROOF.pdf) |
-| 5512 | [A299081](https://oeis.org/A299081) | Proof | a table's column recurrences, each column being a fixed-width array count | [05512-PROOF.pdf](05512-PROOF.pdf) |
-| 5513 | [A299142](https://oeis.org/A299142) | Proof | a table's column recurrences, each column being a fixed-width array count | [05513-PROOF.pdf](05513-PROOF.pdf) |
-| 5514 | [A302820](https://oeis.org/A302820) | Proof | a table's column recurrences, each column being a fixed-width array count | [05514-PROOF.pdf](05514-PROOF.pdf) |
-| 5515 | [A198710](https://oeis.org/A198710) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05515-PROOF.pdf](05515-PROOF.pdf) |
-| 5516 | [A187176](https://oeis.org/A187176) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05516-PROOF.pdf](05516-PROOF.pdf) |
-| 5517 | [A233155](https://oeis.org/A233155) | Proof | a table's column recurrences, each column being a fixed-width array count | [05517-PROOF.pdf](05517-PROOF.pdf) |
-| 5518 | [A187593](https://oeis.org/A187593) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05518-PROOF.pdf](05518-PROOF.pdf) |
-| 5519 | [A193643](https://oeis.org/A193643) | Proof |  | [05519-PROOF.pdf](05519-PROOF.pdf) |
-| 5520 | [A205312](https://oeis.org/A205312) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05520-PROOF.pdf](05520-PROOF.pdf) |
-| 5521 | [A267946](https://oeis.org/A267946) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05521-PROOF.pdf](05521-PROOF.pdf) |
-| 5522 | [A268093](https://oeis.org/A268093) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05522-PROOF.pdf](05522-PROOF.pdf) |
-| 5523 | [A187030](https://oeis.org/A187030) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05523-PROOF.pdf](05523-PROOF.pdf) |
-| 5524 | [A187175](https://oeis.org/A187175) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05524-PROOF.pdf](05524-PROOF.pdf) |
-| 5525 | [A203175](https://oeis.org/A203175) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05525-PROOF.pdf](05525-PROOF.pdf) |
-| 5526 | [A187513](https://oeis.org/A187513) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05526-PROOF.pdf](05526-PROOF.pdf) |
-| 5527 | [A187048](https://oeis.org/A187048) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05527-PROOF.pdf](05527-PROOF.pdf) |
-| 5528 | [A187174](https://oeis.org/A187174) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05528-PROOF.pdf](05528-PROOF.pdf) |
-| 5529 | [A189179](https://oeis.org/A189179) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05529-PROOF.pdf](05529-PROOF.pdf) |
-| 5530 | [A189247](https://oeis.org/A189247) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05530-PROOF.pdf](05530-PROOF.pdf) |
-| 5531 | [A204070](https://oeis.org/A204070) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05531-PROOF.pdf](05531-PROOF.pdf) |
-| 5532 | [A208317](https://oeis.org/A208317) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05532-PROOF.pdf](05532-PROOF.pdf) |
-| 5533 | [A209095](https://oeis.org/A209095) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05533-PROOF.pdf](05533-PROOF.pdf) |
-| 5534 | [A209891](https://oeis.org/A209891) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05534-PROOF.pdf](05534-PROOF.pdf) |
-| 5535 | [A210101](https://oeis.org/A210101) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05535-PROOF.pdf](05535-PROOF.pdf) |
-| 5536 | [A193642](https://oeis.org/A193642) | Proof |  | [05536-PROOF.pdf](05536-PROOF.pdf) |
-| 5537 | [A198900](https://oeis.org/A198900) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05537-PROOF.pdf](05537-PROOF.pdf) |
-| 5538 | [A208633](https://oeis.org/A208633) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05538-PROOF.pdf](05538-PROOF.pdf) |
-| 5539 | [A234266](https://oeis.org/A234266) | Proof | a table's column recurrences, each column being a fixed-width array count | [05539-PROOF.pdf](05539-PROOF.pdf) |
-| 5540 | [A250756](https://oeis.org/A250756) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05540-PROOF.pdf](05540-PROOF.pdf) |
-| 5541 | [A251351](https://oeis.org/A251351) | Proof | a table's column recurrences, each column being a fixed-width array count | [05541-PROOF.pdf](05541-PROOF.pdf) |
-| 5542 | [A251390](https://oeis.org/A251390) | Proof | a table's column recurrences, each column being a fixed-width array count | [05542-PROOF.pdf](05542-PROOF.pdf) |
-| 5543 | [A259216](https://oeis.org/A259216) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05543-PROOF.pdf](05543-PROOF.pdf) |
-| 5544 | [A262414](https://oeis.org/A262414) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [05544-PROOF.pdf](05544-PROOF.pdf) |
-| 5545 | [A187028](https://oeis.org/A187028) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05545-PROOF.pdf](05545-PROOF.pdf) |
-| 5546 | [A187047](https://oeis.org/A187047) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05546-PROOF.pdf](05546-PROOF.pdf) |
-| 5547 | [A187173](https://oeis.org/A187173) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05547-PROOF.pdf](05547-PROOF.pdf) |
-| 5548 | [A187379](https://oeis.org/A187379) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05548-PROOF.pdf](05548-PROOF.pdf) |
-| 5549 | [A187510](https://oeis.org/A187510) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05549-PROOF.pdf](05549-PROOF.pdf) |
-| 5550 | [A187588](https://oeis.org/A187588) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05550-PROOF.pdf](05550-PROOF.pdf) |
-| 5551 | [A233153](https://oeis.org/A233153) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05551-PROOF.pdf](05551-PROOF.pdf) |
-| 5552 | [A250770](https://oeis.org/A250770) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05552-PROOF.pdf](05552-PROOF.pdf) |
-| 5553 | [A187378](https://oeis.org/A187378) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05553-PROOF.pdf](05553-PROOF.pdf) |
-| 5554 | [A187509](https://oeis.org/A187509) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05554-PROOF.pdf](05554-PROOF.pdf) |
-| 5555 | [A187587](https://oeis.org/A187587) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05555-PROOF.pdf](05555-PROOF.pdf) |
-| 5556 | [A204565](https://oeis.org/A204565) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05556-PROOF.pdf](05556-PROOF.pdf) |
-| 5557 | [A208402](https://oeis.org/A208402) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05557-PROOF.pdf](05557-PROOF.pdf) |
-| 5558 | [A208858](https://oeis.org/A208858) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05558-PROOF.pdf](05558-PROOF.pdf) |
-| 5559 | [A210118](https://oeis.org/A210118) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05559-PROOF.pdf](05559-PROOF.pdf) |
-| 5560 | [A210127](https://oeis.org/A210127) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05560-PROOF.pdf](05560-PROOF.pdf) |
-| 5561 | [A210397](https://oeis.org/A210397) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05561-PROOF.pdf](05561-PROOF.pdf) |
-| 5562 | [A224404](https://oeis.org/A224404) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [05562-PROOF.pdf](05562-PROOF.pdf) |
-| 5563 | [A263551](https://oeis.org/A263551) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [05563-PROOF.pdf](05563-PROOF.pdf) |
-| 5564 | [A263558](https://oeis.org/A263558) | Proof | a table's column recurrences, each column being a fixed-width array count | [05564-PROOF.pdf](05564-PROOF.pdf) |
-| 5565 | [A187287](https://oeis.org/A187287) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05565-PROOF.pdf](05565-PROOF.pdf) |
-| 5566 | [A187508](https://oeis.org/A187508) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05566-PROOF.pdf](05566-PROOF.pdf) |
-| 5567 | [A195000](https://oeis.org/A195000) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05567-PROOF.pdf](05567-PROOF.pdf) |
-| 5568 | [A195237](https://oeis.org/A195237) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05568-PROOF.pdf](05568-PROOF.pdf) |
-| 5569 | [A263053](https://oeis.org/A263053) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05569-PROOF.pdf](05569-PROOF.pdf) |
-| 5570 | [A193641](https://oeis.org/A193641) | Proof |  | [05570-PROOF.pdf](05570-PROOF.pdf) |
-| 5571 | [A195236](https://oeis.org/A195236) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05571-PROOF.pdf](05571-PROOF.pdf) |
-| 5572 | [A204644](https://oeis.org/A204644) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [05572-PROOF.pdf](05572-PROOF.pdf) |
-| 5573 | [A208264](https://oeis.org/A208264) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05573-PROOF.pdf](05573-PROOF.pdf) |
-| 5574 | [A209822](https://oeis.org/A209822) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05574-PROOF.pdf](05574-PROOF.pdf) |
-| 5575 | [A210100](https://oeis.org/A210100) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05575-PROOF.pdf](05575-PROOF.pdf) |
-| 5576 | [A222444](https://oeis.org/A222444) | Proof | a table's column recurrences, each column being a fixed-width array count | [05576-PROOF.pdf](05576-PROOF.pdf) |
-| 5577 | [A239249](https://oeis.org/A239249) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05577-PROOF.pdf](05577-PROOF.pdf) |
-| 5578 | [A195235](https://oeis.org/A195235) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05578-PROOF.pdf](05578-PROOF.pdf) |
-| 5579 | [A195249](https://oeis.org/A195249) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05579-PROOF.pdf](05579-PROOF.pdf) |
-| 5580 | [A211479](https://oeis.org/A211479) | Proof |  | [05580-PROOF.pdf](05580-PROOF.pdf) |
-| 5581 | [A221677](https://oeis.org/A221677) | Proof |  | [05581-PROOF.pdf](05581-PROOF.pdf) |
-| 5582 | [A238768](https://oeis.org/A238768) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05582-PROOF.pdf](05582-PROOF.pdf) |
-| 5583 | [A239812](https://oeis.org/A239812) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05583-PROOF.pdf](05583-PROOF.pdf) |
-| 5584 | [A239851](https://oeis.org/A239851) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05584-PROOF.pdf](05584-PROOF.pdf) |
-| 5585 | [A195234](https://oeis.org/A195234) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05585-PROOF.pdf](05585-PROOF.pdf) |
-| 5586 | [A212925](https://oeis.org/A212925) | Proof | the entry forbids any column from sitting above the one before it in EVERY row, which no bounded window decide... | [05586-PROOF.pdf](05586-PROOF.pdf) |
-| 5587 | [A212938](https://oeis.org/A212938) | Proof | the entry forbids any column from sitting above the one before it in EVERY row, which no bounded window decide... | [05587-PROOF.pdf](05587-PROOF.pdf) |
-| 5588 | [A233129](https://oeis.org/A233129) | Proof | a table's column recurrences, each column being a fixed-width array count | [05588-PROOF.pdf](05588-PROOF.pdf) |
-| 5589 | [A195233](https://oeis.org/A195233) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05589-PROOF.pdf](05589-PROOF.pdf) |
-| 5590 | [A129833](https://oeis.org/A129833) | Proof | creative telescoping with the boundary and range corrections carried through | [05590-PROOF.pdf](05590-PROOF.pdf) |
-| 5591 | [A222869](https://oeis.org/A222869) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05591-PROOF.pdf](05591-PROOF.pdf) |
-| 5592 | [A228259](https://oeis.org/A228259) | Proof |  | [05592-PROOF.pdf](05592-PROOF.pdf) |
-| 5593 | [A209533](https://oeis.org/A209533) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05593-PROOF.pdf](05593-PROOF.pdf) |
-| 5594 | [A231104](https://oeis.org/A231104) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05594-PROOF.pdf](05594-PROOF.pdf) |
-| 5595 | [A228258](https://oeis.org/A228258) | Proof |  | [05595-PROOF.pdf](05595-PROOF.pdf) |
-| 5596 | [A223477](https://oeis.org/A223477) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05596-PROOF.pdf](05596-PROOF.pdf) |
-| 5597 | [A223354](https://oeis.org/A223354) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05597-PROOF.pdf](05597-PROOF.pdf) |
-| 5598 | [A223323](https://oeis.org/A223323) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05598-PROOF.pdf](05598-PROOF.pdf) |
-| 5599 | [A223481](https://oeis.org/A223481) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05599-PROOF.pdf](05599-PROOF.pdf) |
-| 5600 | [A275138](https://oeis.org/A275138) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05600-PROOF.pdf](05600-PROOF.pdf) |
-| 5601 | [A264071](https://oeis.org/A264071) | Proof | a table's column recurrences, each column being a fixed-width array count | [05601-PROOF.pdf](05601-PROOF.pdf) |
-| 5602 | [A228257](https://oeis.org/A228257) | Proof |  | [05602-PROOF.pdf](05602-PROOF.pdf) |
-| 5603 | [A233078](https://oeis.org/A233078) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05603-PROOF.pdf](05603-PROOF.pdf) |
-| 5604 | [A222940](https://oeis.org/A222940) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05604-PROOF.pdf](05604-PROOF.pdf) |
-| 5605 | [A253435](https://oeis.org/A253435) | Proof | a table's column recurrences, each column being a fixed-width array count | [05605-PROOF.pdf](05605-PROOF.pdf) |
-| 5606 | [A231103](https://oeis.org/A231103) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05606-PROOF.pdf](05606-PROOF.pdf) |
-| 5607 | [A269285](https://oeis.org/A269285) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05607-PROOF.pdf](05607-PROOF.pdf) |
-| 5608 | [A222462](https://oeis.org/A222462) | Proof | a table's column recurrences, each column being a fixed-width array count | [05608-PROOF.pdf](05608-PROOF.pdf) |
-| 5609 | [A269272](https://oeis.org/A269272) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05609-PROOF.pdf](05609-PROOF.pdf) |
-| 5610 | [A228217](https://oeis.org/A228217) | Proof |  | [05610-PROOF.pdf](05610-PROOF.pdf) |
-| 5611 | [A280668](https://oeis.org/A280668) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05611-PROOF.pdf](05611-PROOF.pdf) |
-| 5612 | [A223265](https://oeis.org/A223265) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05612-PROOF.pdf](05612-PROOF.pdf) |
-| 5613 | [A203873](https://oeis.org/A203873) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05613-PROOF.pdf](05613-PROOF.pdf) |
-| 5614 | [A208044](https://oeis.org/A208044) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05614-PROOF.pdf](05614-PROOF.pdf) |
-| 5615 | [A223328](https://oeis.org/A223328) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05615-PROOF.pdf](05615-PROOF.pdf) |
-| 5616 | [A214108](https://oeis.org/A214108) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05616-PROOF.pdf](05616-PROOF.pdf) |
-| 5617 | [A228256](https://oeis.org/A228256) | Proof |  | [05617-PROOF.pdf](05617-PROOF.pdf) |
-| 5618 | [A188865](https://oeis.org/A188865) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05618-PROOF.pdf](05618-PROOF.pdf) |
-| 5619 | [A250655](https://oeis.org/A250655) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05619-PROOF.pdf](05619-PROOF.pdf) |
-| 5620 | [A250741](https://oeis.org/A250741) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05620-PROOF.pdf](05620-PROOF.pdf) |
-| 5621 | [A264534](https://oeis.org/A264534) | Proof | a table's column recurrences, each column being a fixed-width array count | [05621-PROOF.pdf](05621-PROOF.pdf) |
-| 5622 | [A228216](https://oeis.org/A228216) | Proof |  | [05622-PROOF.pdf](05622-PROOF.pdf) |
-| 5623 | [A223358](https://oeis.org/A223358) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05623-PROOF.pdf](05623-PROOF.pdf) |
-| 5624 | [A208088](https://oeis.org/A208088) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05624-PROOF.pdf](05624-PROOF.pdf) |
-| 5625 | [A229510](https://oeis.org/A229510) | Proof | a table's column recurrences, each column being a fixed-width array count | [05625-PROOF.pdf](05625-PROOF.pdf) |
-| 5626 | [A233077](https://oeis.org/A233077) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05626-PROOF.pdf](05626-PROOF.pdf) |
-| 5627 | [A268900](https://oeis.org/A268900) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05627-PROOF.pdf](05627-PROOF.pdf) |
-| 5628 | [A268967](https://oeis.org/A268967) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05628-PROOF.pdf](05628-PROOF.pdf) |
-| 5629 | [A269284](https://oeis.org/A269284) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05629-PROOF.pdf](05629-PROOF.pdf) |
-| 5630 | [A223283](https://oeis.org/A223283) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05630-PROOF.pdf](05630-PROOF.pdf) |
-| 5631 | [A233083](https://oeis.org/A233083) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05631-PROOF.pdf](05631-PROOF.pdf) |
-| 5632 | [A188864](https://oeis.org/A188864) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05632-PROOF.pdf](05632-PROOF.pdf) |
-| 5633 | [A206687](https://oeis.org/A206687) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05633-PROOF.pdf](05633-PROOF.pdf) |
-| 5634 | [A250654](https://oeis.org/A250654) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05634-PROOF.pdf](05634-PROOF.pdf) |
-| 5635 | [A250740](https://oeis.org/A250740) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05635-PROOF.pdf](05635-PROOF.pdf) |
-| 5636 | [A269271](https://oeis.org/A269271) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05636-PROOF.pdf](05636-PROOF.pdf) |
-| 5637 | [A270112](https://oeis.org/A270112) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05637-PROOF.pdf](05637-PROOF.pdf) |
-| 5638 | [A208393](https://oeis.org/A208393) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05638-PROOF.pdf](05638-PROOF.pdf) |
-| 5639 | [A228215](https://oeis.org/A228215) | Proof |  | [05639-PROOF.pdf](05639-PROOF.pdf) |
-| 5640 | [A203872](https://oeis.org/A203872) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05640-PROOF.pdf](05640-PROOF.pdf) |
-| 5641 | [A269896](https://oeis.org/A269896) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05641-PROOF.pdf](05641-PROOF.pdf) |
-| 5642 | [A209101](https://oeis.org/A209101) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05642-PROOF.pdf](05642-PROOF.pdf) |
-| 5643 | [A214135](https://oeis.org/A214135) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05643-PROOF.pdf](05643-PROOF.pdf) |
-| 5644 | [A228255](https://oeis.org/A228255) | Proof |  | [05644-PROOF.pdf](05644-PROOF.pdf) |
-| 5645 | [A253029](https://oeis.org/A253029) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [05645-PROOF.pdf](05645-PROOF.pdf) |
-| 5646 | [A269761](https://oeis.org/A269761) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05646-PROOF.pdf](05646-PROOF.pdf) |
-| 5647 | [A185561](https://oeis.org/A185561) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [05647-PROOF.pdf](05647-PROOF.pdf) |
-| 5648 | [A188863](https://oeis.org/A188863) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05648-PROOF.pdf](05648-PROOF.pdf) |
-| 5649 | [A250739](https://oeis.org/A250739) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05649-PROOF.pdf](05649-PROOF.pdf) |
-| 5650 | [A268899](https://oeis.org/A268899) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05650-PROOF.pdf](05650-PROOF.pdf) |
-| 5651 | [A268966](https://oeis.org/A268966) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05651-PROOF.pdf](05651-PROOF.pdf) |
-| 5652 | [A270052](https://oeis.org/A270052) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05652-PROOF.pdf](05652-PROOF.pdf) |
-| 5653 | [A269290](https://oeis.org/A269290) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05653-PROOF.pdf](05653-PROOF.pdf) |
-| 5654 | [A269103](https://oeis.org/A269103) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05654-PROOF.pdf](05654-PROOF.pdf) |
-| 5655 | [A188862](https://oeis.org/A188862) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05655-PROOF.pdf](05655-PROOF.pdf) |
-| 5656 | [A223557](https://oeis.org/A223557) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05656-PROOF.pdf](05656-PROOF.pdf) |
-| 5657 | [A250738](https://oeis.org/A250738) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05657-PROOF.pdf](05657-PROOF.pdf) |
-| 5658 | [A269091](https://oeis.org/A269091) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05658-PROOF.pdf](05658-PROOF.pdf) |
-| 5659 | [A269270](https://oeis.org/A269270) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05659-PROOF.pdf](05659-PROOF.pdf) |
-| 5660 | [A269277](https://oeis.org/A269277) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05660-PROOF.pdf](05660-PROOF.pdf) |
-| 5661 | [A263660](https://oeis.org/A263660) | Proof |  | [05661-PROOF.pdf](05661-PROOF.pdf) |
-| 5662 | [A233156](https://oeis.org/A233156) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05662-PROOF.pdf](05662-PROOF.pdf) |
-| 5663 | [A268622](https://oeis.org/A268622) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05663-PROOF.pdf](05663-PROOF.pdf) |
-| 5664 | [A198474](https://oeis.org/A198474) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05664-PROOF.pdf](05664-PROOF.pdf) |
-| 5665 | [A198638](https://oeis.org/A198638) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05665-PROOF.pdf](05665-PROOF.pdf) |
-| 5666 | [A208388](https://oeis.org/A208388) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05666-PROOF.pdf](05666-PROOF.pdf) |
-| 5667 | [A253698](https://oeis.org/A253698) | Proof | a table's column recurrences, each column being a fixed-width array count | [05667-PROOF.pdf](05667-PROOF.pdf) |
-| 5668 | [A238929](https://oeis.org/A238929) | Proof | a table's column recurrences, each column being a fixed-width array count | [05668-PROOF.pdf](05668-PROOF.pdf) |
-| 5669 | [A228254](https://oeis.org/A228254) | Proof |  | [05669-PROOF.pdf](05669-PROOF.pdf) |
-| 5670 | [A268633](https://oeis.org/A268633) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05670-PROOF.pdf](05670-PROOF.pdf) |
-| 5671 | [A268898](https://oeis.org/A268898) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05671-PROOF.pdf](05671-PROOF.pdf) |
-| 5672 | [A268905](https://oeis.org/A268905) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05672-PROOF.pdf](05672-PROOF.pdf) |
-| 5673 | [A268965](https://oeis.org/A268965) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05673-PROOF.pdf](05673-PROOF.pdf) |
-| 5674 | [A268972](https://oeis.org/A268972) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05674-PROOF.pdf](05674-PROOF.pdf) |
-| 5675 | [A208085](https://oeis.org/A208085) | Proof | a table's column recurrences, each column being a fixed-width array count | [05675-PROOF.pdf](05675-PROOF.pdf) |
-| 5676 | [A188861](https://oeis.org/A188861) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05676-PROOF.pdf](05676-PROOF.pdf) |
-| 5677 | [A250737](https://oeis.org/A250737) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05677-PROOF.pdf](05677-PROOF.pdf) |
-| 5678 | [A251283](https://oeis.org/A251283) | Proof | a table's column recurrences, each column being a fixed-width array count | [05678-PROOF.pdf](05678-PROOF.pdf) |
-| 5679 | [A251491](https://oeis.org/A251491) | Proof | a table's column recurrences, each column being a fixed-width array count | [05679-PROOF.pdf](05679-PROOF.pdf) |
-| 5680 | [A263973](https://oeis.org/A263973) | Proof | a table's column recurrences, each column being a fixed-width array count | [05680-PROOF.pdf](05680-PROOF.pdf) |
-| 5681 | [A270111](https://oeis.org/A270111) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05681-PROOF.pdf](05681-PROOF.pdf) |
-| 5682 | [A208403](https://oeis.org/A208403) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05682-PROOF.pdf](05682-PROOF.pdf) |
-| 5683 | [A269895](https://oeis.org/A269895) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05683-PROOF.pdf](05683-PROOF.pdf) |
-| 5684 | [A195003](https://oeis.org/A195003) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05684-PROOF.pdf](05684-PROOF.pdf) |
-| 5685 | [A269760](https://oeis.org/A269760) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05685-PROOF.pdf](05685-PROOF.pdf) |
-| 5686 | [A221684](https://oeis.org/A221684) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05686-PROOF.pdf](05686-PROOF.pdf) |
-| 5687 | [A194935](https://oeis.org/A194935) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05687-PROOF.pdf](05687-PROOF.pdf) |
-| 5688 | [A195002](https://oeis.org/A195002) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05688-PROOF.pdf](05688-PROOF.pdf) |
-| 5689 | [A204624](https://oeis.org/A204624) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05689-PROOF.pdf](05689-PROOF.pdf) |
-| 5690 | [A208253](https://oeis.org/A208253) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05690-PROOF.pdf](05690-PROOF.pdf) |
-| 5691 | [A269822](https://oeis.org/A269822) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05691-PROOF.pdf](05691-PROOF.pdf) |
-| 5692 | [A208705](https://oeis.org/A208705) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05692-PROOF.pdf](05692-PROOF.pdf) |
-| 5693 | [A209727](https://oeis.org/A209727) | Proof | a table's column recurrences, each column being a fixed-width array count | [05693-PROOF.pdf](05693-PROOF.pdf) |
-| 5694 | [A251249](https://oeis.org/A251249) | Proof | a table's column recurrences, each column being a fixed-width array count | [05694-PROOF.pdf](05694-PROOF.pdf) |
-| 5695 | [A188707](https://oeis.org/A188707) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05695-PROOF.pdf](05695-PROOF.pdf) |
-| 5696 | [A194934](https://oeis.org/A194934) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05696-PROOF.pdf](05696-PROOF.pdf) |
-| 5697 | [A195001](https://oeis.org/A195001) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05697-PROOF.pdf](05697-PROOF.pdf) |
-| 5698 | [A205248](https://oeis.org/A205248) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05698-PROOF.pdf](05698-PROOF.pdf) |
-| 5699 | [A250777](https://oeis.org/A250777) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05699-PROOF.pdf](05699-PROOF.pdf) |
-| 5700 | [A205163](https://oeis.org/A205163) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05700-PROOF.pdf](05700-PROOF.pdf) |
-| 5701 | [A210406](https://oeis.org/A210406) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05701-PROOF.pdf](05701-PROOF.pdf) |
-| 5702 | [A194933](https://oeis.org/A194933) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05702-PROOF.pdf](05702-PROOF.pdf) |
-| 5703 | [A200249](https://oeis.org/A200249) | Proof |  | [05703-PROOF.pdf](05703-PROOF.pdf) |
-| 5704 | [A223211](https://oeis.org/A223211) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05704-PROOF.pdf](05704-PROOF.pdf) |
-| 5705 | [A205328](https://oeis.org/A205328) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05705-PROOF.pdf](05705-PROOF.pdf) |
-| 5706 | [A208309](https://oeis.org/A208309) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05706-PROOF.pdf](05706-PROOF.pdf) |
-| 5707 | [A208316](https://oeis.org/A208316) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05707-PROOF.pdf](05707-PROOF.pdf) |
-| 5708 | [A208561](https://oeis.org/A208561) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05708-PROOF.pdf](05708-PROOF.pdf) |
-| 5709 | [A209094](https://oeis.org/A209094) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05709-PROOF.pdf](05709-PROOF.pdf) |
-| 5710 | [A209890](https://oeis.org/A209890) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05710-PROOF.pdf](05710-PROOF.pdf) |
-| 5711 | [A194932](https://oeis.org/A194932) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05711-PROOF.pdf](05711-PROOF.pdf) |
-| 5712 | [A194999](https://oeis.org/A194999) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05712-PROOF.pdf](05712-PROOF.pdf) |
-| 5713 | [A205220](https://oeis.org/A205220) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05713-PROOF.pdf](05713-PROOF.pdf) |
-| 5714 | [A205329](https://oeis.org/A205329) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05714-PROOF.pdf](05714-PROOF.pdf) |
-| 5715 | [A205354](https://oeis.org/A205354) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05715-PROOF.pdf](05715-PROOF.pdf) |
-| 5716 | [A205219](https://oeis.org/A205219) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05716-PROOF.pdf](05716-PROOF.pdf) |
-| 5717 | [A223381](https://oeis.org/A223381) | Proof |  | [05717-PROOF.pdf](05717-PROOF.pdf) |
-| 5718 | [A233152](https://oeis.org/A233152) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05718-PROOF.pdf](05718-PROOF.pdf) |
-| 5719 | [A000180](https://oeis.org/A000180) | Proof | creative telescoping with the boundary and range corrections carried through | [05719-PROOF.pdf](05719-PROOF.pdf) |
-| 5720 | [A222941](https://oeis.org/A222941) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05720-PROOF.pdf](05720-PROOF.pdf) |
-| 5721 | [A263989](https://oeis.org/A263989) | Proof | a table's column recurrences, each column being a fixed-width array count | [05721-PROOF.pdf](05721-PROOF.pdf) |
-| 5722 | [A209539](https://oeis.org/A209539) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05722-PROOF.pdf](05722-PROOF.pdf) |
-| 5723 | [A203821](https://oeis.org/A203821) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05723-PROOF.pdf](05723-PROOF.pdf) |
-| 5724 | [A264017](https://oeis.org/A264017) | Proof | a table's column recurrences, each column being a fixed-width array count | [05724-PROOF.pdf](05724-PROOF.pdf) |
-| 5725 | [A264059](https://oeis.org/A264059) | Proof | a table's column recurrences, each column being a fixed-width array count | [05725-PROOF.pdf](05725-PROOF.pdf) |
-| 5726 | [A264128](https://oeis.org/A264128) | Proof | a table's column recurrences, each column being a fixed-width array count | [05726-PROOF.pdf](05726-PROOF.pdf) |
-| 5727 | [A264190](https://oeis.org/A264190) | Proof | a table's column recurrences, each column being a fixed-width array count | [05727-PROOF.pdf](05727-PROOF.pdf) |
-| 5728 | [A264195](https://oeis.org/A264195) | Proof | a table's column recurrences, each column being a fixed-width array count | [05728-PROOF.pdf](05728-PROOF.pdf) |
-| 5729 | [A264490](https://oeis.org/A264490) | Proof | a table's column recurrences, each column being a fixed-width array count | [05729-PROOF.pdf](05729-PROOF.pdf) |
-| 5730 | [A203979](https://oeis.org/A203979) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05730-PROOF.pdf](05730-PROOF.pdf) |
-| 5731 | [A203820](https://oeis.org/A203820) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05731-PROOF.pdf](05731-PROOF.pdf) |
-| 5732 | [A223186](https://oeis.org/A223186) | Proof | a table's column recurrences, each column being a fixed-width array count | [05732-PROOF.pdf](05732-PROOF.pdf) |
-| 5733 | [A203880](https://oeis.org/A203880) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05733-PROOF.pdf](05733-PROOF.pdf) |
-| 5734 | [A203927](https://oeis.org/A203927) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05734-PROOF.pdf](05734-PROOF.pdf) |
-| 5735 | [A203789](https://oeis.org/A203789) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05735-PROOF.pdf](05735-PROOF.pdf) |
-| 5736 | [A203819](https://oeis.org/A203819) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05736-PROOF.pdf](05736-PROOF.pdf) |
-| 5737 | [A263303](https://oeis.org/A263303) | Proof | a table's column recurrences, each column being a fixed-width array count | [05737-PROOF.pdf](05737-PROOF.pdf) |
-| 5738 | [A194936](https://oeis.org/A194936) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05738-PROOF.pdf](05738-PROOF.pdf) |
-| 5739 | [A195253](https://oeis.org/A195253) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05739-PROOF.pdf](05739-PROOF.pdf) |
-| 5740 | [A263288](https://oeis.org/A263288) | Proof | a table's column recurrences, each column being a fixed-width array count | [05740-PROOF.pdf](05740-PROOF.pdf) |
-| 5741 | [A195252](https://oeis.org/A195252) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05741-PROOF.pdf](05741-PROOF.pdf) |
-| 5742 | [A208387](https://oeis.org/A208387) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05742-PROOF.pdf](05742-PROOF.pdf) |
-| 5743 | [A195251](https://oeis.org/A195251) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05743-PROOF.pdf](05743-PROOF.pdf) |
-| 5744 | [A195250](https://oeis.org/A195250) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05744-PROOF.pdf](05744-PROOF.pdf) |
-| 5745 | [A204623](https://oeis.org/A204623) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05745-PROOF.pdf](05745-PROOF.pdf) |
-| 5746 | [A208704](https://oeis.org/A208704) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05746-PROOF.pdf](05746-PROOF.pdf) |
-| 5747 | [A262795](https://oeis.org/A262795) | Proof | a table's column recurrences, each column being a fixed-width array count | [05747-PROOF.pdf](05747-PROOF.pdf) |
-| 5748 | [A250883](https://oeis.org/A250883) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05748-PROOF.pdf](05748-PROOF.pdf) |
-| 5749 | [A221394](https://oeis.org/A221394) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05749-PROOF.pdf](05749-PROOF.pdf) |
-| 5750 | [A252927](https://oeis.org/A252927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05750-PROOF.pdf](05750-PROOF.pdf) |
-| 5751 | [A242545](https://oeis.org/A242545) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05751-PROOF.pdf](05751-PROOF.pdf) |
-| 5752 | [A252874](https://oeis.org/A252874) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05752-PROOF.pdf](05752-PROOF.pdf) |
-| 5753 | [A252926](https://oeis.org/A252926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05753-PROOF.pdf](05753-PROOF.pdf) |
-| 5754 | [A252873](https://oeis.org/A252873) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05754-PROOF.pdf](05754-PROOF.pdf) |
-| 5755 | [A242544](https://oeis.org/A242544) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05755-PROOF.pdf](05755-PROOF.pdf) |
-| 5756 | [A252925](https://oeis.org/A252925) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05756-PROOF.pdf](05756-PROOF.pdf) |
-| 5757 | [A252872](https://oeis.org/A252872) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05757-PROOF.pdf](05757-PROOF.pdf) |
-| 5758 | [A252971](https://oeis.org/A252971) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05758-PROOF.pdf](05758-PROOF.pdf) |
-| 5759 | [A242543](https://oeis.org/A242543) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05759-PROOF.pdf](05759-PROOF.pdf) |
-| 5760 | [A252871](https://oeis.org/A252871) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05760-PROOF.pdf](05760-PROOF.pdf) |
-| 5761 | [A252924](https://oeis.org/A252924) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05761-PROOF.pdf](05761-PROOF.pdf) |
-| 5762 | [A270934](https://oeis.org/A270934) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05762-PROOF.pdf](05762-PROOF.pdf) |
-| 5763 | [A273334](https://oeis.org/A273334) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05763-PROOF.pdf](05763-PROOF.pdf) |
-| 5764 | [A273447](https://oeis.org/A273447) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05764-PROOF.pdf](05764-PROOF.pdf) |
-| 5765 | [A273781](https://oeis.org/A273781) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05765-PROOF.pdf](05765-PROOF.pdf) |
-| 5766 | [A252970](https://oeis.org/A252970) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05766-PROOF.pdf](05766-PROOF.pdf) |
-| 5767 | [A208995](https://oeis.org/A208995) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05767-PROOF.pdf](05767-PROOF.pdf) |
-| 5768 | [A250846](https://oeis.org/A250846) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05768-PROOF.pdf](05768-PROOF.pdf) |
-| 5769 | [A289763](https://oeis.org/A289763) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05769-PROOF.pdf](05769-PROOF.pdf) |
-| 5770 | [A252870](https://oeis.org/A252870) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05770-PROOF.pdf](05770-PROOF.pdf) |
-| 5771 | [A287130](https://oeis.org/A287130) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05771-PROOF.pdf](05771-PROOF.pdf) |
-| 5772 | [A287132](https://oeis.org/A287132) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05772-PROOF.pdf](05772-PROOF.pdf) |
-| 5773 | [A278757](https://oeis.org/A278757) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05773-PROOF.pdf](05773-PROOF.pdf) |
-| 5774 | [A278758](https://oeis.org/A278758) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05774-PROOF.pdf](05774-PROOF.pdf) |
-| 5775 | [A278759](https://oeis.org/A278759) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05775-PROOF.pdf](05775-PROOF.pdf) |
-| 5776 | [A278760](https://oeis.org/A278760) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05776-PROOF.pdf](05776-PROOF.pdf) |
-| 5777 | [A285648](https://oeis.org/A285648) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05777-PROOF.pdf](05777-PROOF.pdf) |
-| 5778 | [A285650](https://oeis.org/A285650) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05778-PROOF.pdf](05778-PROOF.pdf) |
-| 5779 | [A285776](https://oeis.org/A285776) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05779-PROOF.pdf](05779-PROOF.pdf) |
-| 5780 | [A288828](https://oeis.org/A288828) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05780-PROOF.pdf](05780-PROOF.pdf) |
-| 5781 | [A279959](https://oeis.org/A279959) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05781-PROOF.pdf](05781-PROOF.pdf) |
-| 5782 | [A279960](https://oeis.org/A279960) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05782-PROOF.pdf](05782-PROOF.pdf) |
-| 5783 | [A279961](https://oeis.org/A279961) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05783-PROOF.pdf](05783-PROOF.pdf) |
-| 5784 | [A279962](https://oeis.org/A279962) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05784-PROOF.pdf](05784-PROOF.pdf) |
-| 5785 | [A283649](https://oeis.org/A283649) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05785-PROOF.pdf](05785-PROOF.pdf) |
-| 5786 | [A283650](https://oeis.org/A283650) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05786-PROOF.pdf](05786-PROOF.pdf) |
-| 5787 | [A283651](https://oeis.org/A283651) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05787-PROOF.pdf](05787-PROOF.pdf) |
-| 5788 | [A284483](https://oeis.org/A284483) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05788-PROOF.pdf](05788-PROOF.pdf) |
-| 5789 | [A284484](https://oeis.org/A284484) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05789-PROOF.pdf](05789-PROOF.pdf) |
-| 5790 | [A284485](https://oeis.org/A284485) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05790-PROOF.pdf](05790-PROOF.pdf) |
-| 5791 | [A286771](https://oeis.org/A286771) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05791-PROOF.pdf](05791-PROOF.pdf) |
-| 5792 | [A286773](https://oeis.org/A286773) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05792-PROOF.pdf](05792-PROOF.pdf) |
-| 5793 | [A287191](https://oeis.org/A287191) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05793-PROOF.pdf](05793-PROOF.pdf) |
-| 5794 | [A287193](https://oeis.org/A287193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05794-PROOF.pdf](05794-PROOF.pdf) |
-| 5795 | [A289097](https://oeis.org/A289097) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05795-PROOF.pdf](05795-PROOF.pdf) |
-| 5796 | [A290193](https://oeis.org/A290193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05796-PROOF.pdf](05796-PROOF.pdf) |
-| 5797 | [A290195](https://oeis.org/A290195) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05797-PROOF.pdf](05797-PROOF.pdf) |
-| 5798 | [A063081](https://oeis.org/A063081) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05798-PROOF.pdf](05798-PROOF.pdf) |
-| 5799 | [A063168](https://oeis.org/A063168) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05799-PROOF.pdf](05799-PROOF.pdf) |
-| 5800 | [A277797](https://oeis.org/A277797) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05800-PROOF.pdf](05800-PROOF.pdf) |
-| 5801 | [A277798](https://oeis.org/A277798) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05801-PROOF.pdf](05801-PROOF.pdf) |
-| 5802 | [A277799](https://oeis.org/A277799) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05802-PROOF.pdf](05802-PROOF.pdf) |
-| 5803 | [A277800](https://oeis.org/A277800) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05803-PROOF.pdf](05803-PROOF.pdf) |
-| 5804 | [A277864](https://oeis.org/A277864) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05804-PROOF.pdf](05804-PROOF.pdf) |
-| 5805 | [A277866](https://oeis.org/A277866) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05805-PROOF.pdf](05805-PROOF.pdf) |
-| 5806 | [A277926](https://oeis.org/A277926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05806-PROOF.pdf](05806-PROOF.pdf) |
-| 5807 | [A277927](https://oeis.org/A277927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05807-PROOF.pdf](05807-PROOF.pdf) |
-| 5808 | [A277928](https://oeis.org/A277928) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05808-PROOF.pdf](05808-PROOF.pdf) |
-| 5809 | [A277929](https://oeis.org/A277929) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05809-PROOF.pdf](05809-PROOF.pdf) |
-| 5810 | [A280367](https://oeis.org/A280367) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05810-PROOF.pdf](05810-PROOF.pdf) |
-| 5811 | [A280368](https://oeis.org/A280368) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05811-PROOF.pdf](05811-PROOF.pdf) |
-| 5812 | [A280369](https://oeis.org/A280369) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05812-PROOF.pdf](05812-PROOF.pdf) |
-| 5813 | [A280370](https://oeis.org/A280370) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05813-PROOF.pdf](05813-PROOF.pdf) |
-| 5814 | [A283504](https://oeis.org/A283504) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05814-PROOF.pdf](05814-PROOF.pdf) |
-| 5815 | [A283505](https://oeis.org/A283505) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05815-PROOF.pdf](05815-PROOF.pdf) |
-| 5816 | [A283506](https://oeis.org/A283506) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05816-PROOF.pdf](05816-PROOF.pdf) |
-| 5817 | [A283507](https://oeis.org/A283507) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05817-PROOF.pdf](05817-PROOF.pdf) |
-| 5818 | [A284351](https://oeis.org/A284351) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05818-PROOF.pdf](05818-PROOF.pdf) |
-| 5819 | [A284353](https://oeis.org/A284353) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05819-PROOF.pdf](05819-PROOF.pdf) |
-| 5820 | [A285541](https://oeis.org/A285541) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05820-PROOF.pdf](05820-PROOF.pdf) |
-| 5821 | [A287199](https://oeis.org/A287199) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05821-PROOF.pdf](05821-PROOF.pdf) |
-| 5822 | [A290072](https://oeis.org/A290072) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05822-PROOF.pdf](05822-PROOF.pdf) |
-| 5823 | [A290835](https://oeis.org/A290835) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05823-PROOF.pdf](05823-PROOF.pdf) |
-| 5824 | [A290837](https://oeis.org/A290837) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05824-PROOF.pdf](05824-PROOF.pdf) |
-| 5825 | [A277560](https://oeis.org/A277560) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05825-PROOF.pdf](05825-PROOF.pdf) |
-| 5826 | [A277936](https://oeis.org/A277936) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05826-PROOF.pdf](05826-PROOF.pdf) |
-| 5827 | [A282002](https://oeis.org/A282002) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05827-PROOF.pdf](05827-PROOF.pdf) |
-| 5828 | [A282003](https://oeis.org/A282003) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05828-PROOF.pdf](05828-PROOF.pdf) |
-| 5829 | [A282005](https://oeis.org/A282005) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05829-PROOF.pdf](05829-PROOF.pdf) |
-| 5830 | [A283523](https://oeis.org/A283523) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05830-PROOF.pdf](05830-PROOF.pdf) |
-| 5831 | [A284403](https://oeis.org/A284403) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05831-PROOF.pdf](05831-PROOF.pdf) |
-| 5832 | [A284404](https://oeis.org/A284404) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05832-PROOF.pdf](05832-PROOF.pdf) |
-| 5833 | [A284405](https://oeis.org/A284405) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05833-PROOF.pdf](05833-PROOF.pdf) |
-| 5834 | [A290661](https://oeis.org/A290661) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05834-PROOF.pdf](05834-PROOF.pdf) |
-| 5835 | [A290662](https://oeis.org/A290662) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05835-PROOF.pdf](05835-PROOF.pdf) |
-| 5836 | [A290681](https://oeis.org/A290681) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05836-PROOF.pdf](05836-PROOF.pdf) |
-| 5837 | [A290683](https://oeis.org/A290683) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05837-PROOF.pdf](05837-PROOF.pdf) |
-| 5838 | [A277865](https://oeis.org/A277865) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05838-PROOF.pdf](05838-PROOF.pdf) |
-| 5839 | [A277867](https://oeis.org/A277867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05839-PROOF.pdf](05839-PROOF.pdf) |
-| 5840 | [A280410](https://oeis.org/A280410) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05840-PROOF.pdf](05840-PROOF.pdf) |
-| 5841 | [A280411](https://oeis.org/A280411) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05841-PROOF.pdf](05841-PROOF.pdf) |
-| 5842 | [A280412](https://oeis.org/A280412) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05842-PROOF.pdf](05842-PROOF.pdf) |
-| 5843 | [A283589](https://oeis.org/A283589) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05843-PROOF.pdf](05843-PROOF.pdf) |
-| 5844 | [A283590](https://oeis.org/A283590) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05844-PROOF.pdf](05844-PROOF.pdf) |
-| 5845 | [A283592](https://oeis.org/A283592) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05845-PROOF.pdf](05845-PROOF.pdf) |
-| 5846 | [A284352](https://oeis.org/A284352) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05846-PROOF.pdf](05846-PROOF.pdf) |
-| 5847 | [A284354](https://oeis.org/A284354) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05847-PROOF.pdf](05847-PROOF.pdf) |
-| 5848 | [A285474](https://oeis.org/A285474) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05848-PROOF.pdf](05848-PROOF.pdf) |
-| 5849 | [A286519](https://oeis.org/A286519) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05849-PROOF.pdf](05849-PROOF.pdf) |
-| 5850 | [A286521](https://oeis.org/A286521) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05850-PROOF.pdf](05850-PROOF.pdf) |
-| 5851 | [A267867](https://oeis.org/A267867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05851-PROOF.pdf](05851-PROOF.pdf) |
-| 5852 | [A283508](https://oeis.org/A283508) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05852-PROOF.pdf](05852-PROOF.pdf) |
-| 5853 | [A259427](https://oeis.org/A259427) | Proof | a table's column recurrences, each column being a fixed-width array count | [05853-PROOF.pdf](05853-PROOF.pdf) |
-| 5854 | [A259515](https://oeis.org/A259515) | Proof | a table's column recurrences, each column being a fixed-width array count | [05854-PROOF.pdf](05854-PROOF.pdf) |
-| 5855 | [A262274](https://oeis.org/A262274) | Proof | a table's column recurrences, each column being a fixed-width array count | [05855-PROOF.pdf](05855-PROOF.pdf) |
-| 5856 | [A262319](https://oeis.org/A262319) | Proof | a table's column recurrences, each column being a fixed-width array count | [05856-PROOF.pdf](05856-PROOF.pdf) |
-| 5857 | [A262759](https://oeis.org/A262759) | Proof | a table's column recurrences, each column being a fixed-width array count | [05857-PROOF.pdf](05857-PROOF.pdf) |
-| 5858 | [A262849](https://oeis.org/A262849) | Proof | a table's column recurrences, each column being a fixed-width array count | [05858-PROOF.pdf](05858-PROOF.pdf) |
-| 5859 | [A263224](https://oeis.org/A263224) | Proof | a table's column recurrences, each column being a fixed-width array count | [05859-PROOF.pdf](05859-PROOF.pdf) |
-| 5860 | [A263337](https://oeis.org/A263337) | Proof | a table's column recurrences, each column being a fixed-width array count | [05860-PROOF.pdf](05860-PROOF.pdf) |
-| 5861 | [A263873](https://oeis.org/A263873) | Proof | a table's column recurrences, each column being a fixed-width array count | [05861-PROOF.pdf](05861-PROOF.pdf) |
-| 5862 | [A265960](https://oeis.org/A265960) | Proof | a table's column recurrences, each column being a fixed-width array count | [05862-PROOF.pdf](05862-PROOF.pdf) |
-| 5863 | [A295918](https://oeis.org/A295918) | Proof | a table's column recurrences, each column being a fixed-width array count | [05863-PROOF.pdf](05863-PROOF.pdf) |
-| 5864 | [A296739](https://oeis.org/A296739) | Proof | a table's column recurrences, each column being a fixed-width array count | [05864-PROOF.pdf](05864-PROOF.pdf) |
-| 5865 | [A298508](https://oeis.org/A298508) | Proof | a table's column recurrences, each column being a fixed-width array count | [05865-PROOF.pdf](05865-PROOF.pdf) |
-| 5866 | [A298917](https://oeis.org/A298917) | Proof | a table's column recurrences, each column being a fixed-width array count | [05866-PROOF.pdf](05866-PROOF.pdf) |
-| 5867 | [A303800](https://oeis.org/A303800) | Proof | a table's column recurrences, each column being a fixed-width array count | [05867-PROOF.pdf](05867-PROOF.pdf) |
-| 5868 | [A305911](https://oeis.org/A305911) | Proof | a table's column recurrences, each column being a fixed-width array count | [05868-PROOF.pdf](05868-PROOF.pdf) |
-| 5869 | [A326165](https://oeis.org/A326165) | Proof | a table's column recurrences, each column being a fixed-width array count | [05869-PROOF.pdf](05869-PROOF.pdf) |
-| 5870 | [A140943](https://oeis.org/A140943) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05870-PROOF.pdf](05870-PROOF.pdf) |
-| 5871 | [A140942](https://oeis.org/A140942) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05871-PROOF.pdf](05871-PROOF.pdf) |
-| 5872 | [A140933](https://oeis.org/A140933) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05872-PROOF.pdf](05872-PROOF.pdf) |
-| 5873 | [A207927](https://oeis.org/A207927) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05873-PROOF.pdf](05873-PROOF.pdf) |
-| 5874 | [A188563](https://oeis.org/A188563) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05874-PROOF.pdf](05874-PROOF.pdf) |
-| 5875 | [A250451](https://oeis.org/A250451) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05875-PROOF.pdf](05875-PROOF.pdf) |
-| 5876 | [A237310](https://oeis.org/A237310) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05876-PROOF.pdf](05876-PROOF.pdf) |
-| 5877 | [A140941](https://oeis.org/A140941) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05877-PROOF.pdf](05877-PROOF.pdf) |
-| 5878 | [A224351](https://oeis.org/A224351) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05878-PROOF.pdf](05878-PROOF.pdf) |
-| 5879 | [A205092](https://oeis.org/A205092) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [05879-PROOF.pdf](05879-PROOF.pdf) |
-| 5880 | [A237857](https://oeis.org/A237857) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05880-PROOF.pdf](05880-PROOF.pdf) |
-| 5881 | [A250053](https://oeis.org/A250053) | Proof |  | [05881-PROOF.pdf](05881-PROOF.pdf) |
-| 5882 | [A205200](https://oeis.org/A205200) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [05882-PROOF.pdf](05882-PROOF.pdf) |
-| 5883 | [A207965](https://oeis.org/A207965) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05883-PROOF.pdf](05883-PROOF.pdf) |
-| 5884 | [A207274](https://oeis.org/A207274) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05884-PROOF.pdf](05884-PROOF.pdf) |
-| 5885 | [A206729](https://oeis.org/A206729) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05885-PROOF.pdf](05885-PROOF.pdf) |
-| 5886 | [A206507](https://oeis.org/A206507) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [05886-PROOF.pdf](05886-PROOF.pdf) |
-| 5887 | [A237205](https://oeis.org/A237205) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05887-PROOF.pdf](05887-PROOF.pdf) |
-| 5888 | [A237393](https://oeis.org/A237393) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05888-PROOF.pdf](05888-PROOF.pdf) |
-| 5889 | [A205213](https://oeis.org/A205213) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05889-PROOF.pdf](05889-PROOF.pdf) |
-| 5890 | [A279975](https://oeis.org/A279975) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05890-PROOF.pdf](05890-PROOF.pdf) |
-| 5891 | [A234110](https://oeis.org/A234110) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05891-PROOF.pdf](05891-PROOF.pdf) |
-| 5892 | [A207844](https://oeis.org/A207844) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05892-PROOF.pdf](05892-PROOF.pdf) |
-| 5893 | [A208038](https://oeis.org/A208038) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05893-PROOF.pdf](05893-PROOF.pdf) |
-| 5894 | [A207185](https://oeis.org/A207185) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05894-PROOF.pdf](05894-PROOF.pdf) |
-| 5895 | [A207441](https://oeis.org/A207441) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05895-PROOF.pdf](05895-PROOF.pdf) |
-| 5896 | [A250075](https://oeis.org/A250075) | Proof |  | [05896-PROOF.pdf](05896-PROOF.pdf) |
-| 5897 | [A236870](https://oeis.org/A236870) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05897-PROOF.pdf](05897-PROOF.pdf) |
-| 5898 | [A264140](https://oeis.org/A264140) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05898-PROOF.pdf](05898-PROOF.pdf) |
-| 5899 | [A234033](https://oeis.org/A234033) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05899-PROOF.pdf](05899-PROOF.pdf) |
-| 5900 | [A197066](https://oeis.org/A197066) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05900-PROOF.pdf](05900-PROOF.pdf) |
-| 5901 | [A196714](https://oeis.org/A196714) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05901-PROOF.pdf](05901-PROOF.pdf) |
-| 5902 | [A205734](https://oeis.org/A205734) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05902-PROOF.pdf](05902-PROOF.pdf) |
-| 5903 | [A234417](https://oeis.org/A234417) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05903-PROOF.pdf](05903-PROOF.pdf) |
-| 5904 | [A195966](https://oeis.org/A195966) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05904-PROOF.pdf](05904-PROOF.pdf) |
-| 5905 | [A230691](https://oeis.org/A230691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05905-PROOF.pdf](05905-PROOF.pdf) |
-| 5906 | [A207247](https://oeis.org/A207247) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05906-PROOF.pdf](05906-PROOF.pdf) |
-| 5907 | [A204871](https://oeis.org/A204871) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [05907-PROOF.pdf](05907-PROOF.pdf) |
-| 5908 | [A237923](https://oeis.org/A237923) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05908-PROOF.pdf](05908-PROOF.pdf) |
-| 5909 | [A206538](https://oeis.org/A206538) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [05909-PROOF.pdf](05909-PROOF.pdf) |
-| 5910 | [A206938](https://oeis.org/A206938) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05910-PROOF.pdf](05910-PROOF.pdf) |
-| 5911 | [A207445](https://oeis.org/A207445) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05911-PROOF.pdf](05911-PROOF.pdf) |
-| 5912 | [A205661](https://oeis.org/A205661) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [05912-PROOF.pdf](05912-PROOF.pdf) |
-| 5913 | [A205516](https://oeis.org/A205516) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [05913-PROOF.pdf](05913-PROOF.pdf) |
-| 5914 | [A208419](https://oeis.org/A208419) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05914-PROOF.pdf](05914-PROOF.pdf) |
-| 5915 | [A196963](https://oeis.org/A196963) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05915-PROOF.pdf](05915-PROOF.pdf) |
-| 5916 | [A237370](https://oeis.org/A237370) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [05916-PROOF.pdf](05916-PROOF.pdf) |
-| 5917 | [A234829](https://oeis.org/A234829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05917-PROOF.pdf](05917-PROOF.pdf) |
-| 5918 | [A236981](https://oeis.org/A236981) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05918-PROOF.pdf](05918-PROOF.pdf) |
-| 5919 | [A249524](https://oeis.org/A249524) | Proof |  | [05919-PROOF.pdf](05919-PROOF.pdf) |
-| 5920 | [A207239](https://oeis.org/A207239) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05920-PROOF.pdf](05920-PROOF.pdf) |
-| 5921 | [A223973](https://oeis.org/A223973) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05921-PROOF.pdf](05921-PROOF.pdf) |
-| 5922 | [A202315](https://oeis.org/A202315) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05922-PROOF.pdf](05922-PROOF.pdf) |
-| 5923 | [A207856](https://oeis.org/A207856) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05923-PROOF.pdf](05923-PROOF.pdf) |
-| 5924 | [A206313](https://oeis.org/A206313) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [05924-PROOF.pdf](05924-PROOF.pdf) |
-| 5925 | [A207464](https://oeis.org/A207464) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05925-PROOF.pdf](05925-PROOF.pdf) |
-| 5926 | [A252645](https://oeis.org/A252645) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [05926-PROOF.pdf](05926-PROOF.pdf) |
-| 5927 | [A206411](https://oeis.org/A206411) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05927-PROOF.pdf](05927-PROOF.pdf) |
-| 5928 | [A237553](https://oeis.org/A237553) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [05928-PROOF.pdf](05928-PROOF.pdf) |
-| 5929 | [A231129](https://oeis.org/A231129) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05929-PROOF.pdf](05929-PROOF.pdf) |
-| 5930 | [A231136](https://oeis.org/A231136) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05930-PROOF.pdf](05930-PROOF.pdf) |
-| 5931 | [A189614](https://oeis.org/A189614) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05931-PROOF.pdf](05931-PROOF.pdf) |
-| 5932 | [A264517](https://oeis.org/A264517) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05932-PROOF.pdf](05932-PROOF.pdf) |
-| 5933 | [A196946](https://oeis.org/A196946) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05933-PROOF.pdf](05933-PROOF.pdf) |
-| 5934 | [A206998](https://oeis.org/A206998) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05934-PROOF.pdf](05934-PROOF.pdf) |
-| 5935 | [A202588](https://oeis.org/A202588) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05935-PROOF.pdf](05935-PROOF.pdf) |
-| 5936 | [A208499](https://oeis.org/A208499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05936-PROOF.pdf](05936-PROOF.pdf) |
-| 5937 | [A220723](https://oeis.org/A220723) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [05937-PROOF.pdf](05937-PROOF.pdf) |
-| 5938 | [A140932](https://oeis.org/A140932) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05938-PROOF.pdf](05938-PROOF.pdf) |
-| 5939 | [A196852](https://oeis.org/A196852) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05939-PROOF.pdf](05939-PROOF.pdf) |
-| 5940 | [A203369](https://oeis.org/A203369) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [05940-PROOF.pdf](05940-PROOF.pdf) |
-| 5941 | [A196425](https://oeis.org/A196425) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05941-PROOF.pdf](05941-PROOF.pdf) |
-| 5942 | [A205654](https://oeis.org/A205654) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [05942-PROOF.pdf](05942-PROOF.pdf) |
-| 5943 | [A235967](https://oeis.org/A235967) | Proof | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ | [05943-PROOF.pdf](05943-PROOF.pdf) |
-| 5944 | [A196319](https://oeis.org/A196319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05944-PROOF.pdf](05944-PROOF.pdf) |
-| 5945 | [A233706](https://oeis.org/A233706) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [05945-PROOF.pdf](05945-PROOF.pdf) |
-| 5946 | [A197043](https://oeis.org/A197043) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05946-PROOF.pdf](05946-PROOF.pdf) |
-| 5947 | [A203089](https://oeis.org/A203089) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05947-PROOF.pdf](05947-PROOF.pdf) |
-| 5948 | [A235769](https://oeis.org/A235769) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05948-PROOF.pdf](05948-PROOF.pdf) |
-| 5949 | [A207487](https://oeis.org/A207487) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05949-PROOF.pdf](05949-PROOF.pdf) |
-| 5950 | [A253478](https://oeis.org/A253478) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05950-PROOF.pdf](05950-PROOF.pdf) |
-| 5951 | [A140940](https://oeis.org/A140940) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [05951-PROOF.pdf](05951-PROOF.pdf) |
-| 5952 | [A204038](https://oeis.org/A204038) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [05952-PROOF.pdf](05952-PROOF.pdf) |
-| 5953 | [A253332](https://oeis.org/A253332) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05953-PROOF.pdf](05953-PROOF.pdf) |
-| 5954 | [A203841](https://oeis.org/A203841) | Proof | a condition on every cell over the neighbour set the entry names | [05954-PROOF.pdf](05954-PROOF.pdf) |
-| 5955 | [A235677](https://oeis.org/A235677) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05955-PROOF.pdf](05955-PROOF.pdf) |
-| 5956 | [A225023](https://oeis.org/A225023) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05956-PROOF.pdf](05956-PROOF.pdf) |
-| 5957 | [A237304](https://oeis.org/A237304) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05957-PROOF.pdf](05957-PROOF.pdf) |
-| 5958 | [A249287](https://oeis.org/A249287) | Proof |  | [05958-PROOF.pdf](05958-PROOF.pdf) |
-| 5959 | [A237804](https://oeis.org/A237804) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05959-PROOF.pdf](05959-PROOF.pdf) |
-| 5960 | [A236814](https://oeis.org/A236814) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05960-PROOF.pdf](05960-PROOF.pdf) |
-| 5961 | [A206986](https://oeis.org/A206986) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05961-PROOF.pdf](05961-PROOF.pdf) |
-| 5962 | [A209957](https://oeis.org/A209957) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05962-PROOF.pdf](05962-PROOF.pdf) |
-| 5963 | [A236742](https://oeis.org/A236742) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05963-PROOF.pdf](05963-PROOF.pdf) |
-| 5964 | [A235732](https://oeis.org/A235732) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05964-PROOF.pdf](05964-PROOF.pdf) |
-| 5965 | [A236898](https://oeis.org/A236898) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05965-PROOF.pdf](05965-PROOF.pdf) |
-| 5966 | [A207794](https://oeis.org/A207794) | Proof | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up | [05966-PROOF.pdf](05966-PROOF.pdf) |
-| 5967 | [A196340](https://oeis.org/A196340) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05967-PROOF.pdf](05967-PROOF.pdf) |
-| 5968 | [A196693](https://oeis.org/A196693) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05968-PROOF.pdf](05968-PROOF.pdf) |
-| 5969 | [A207552](https://oeis.org/A207552) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [05969-PROOF.pdf](05969-PROOF.pdf) |
-| 5970 | [A206104](https://oeis.org/A206104) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [05970-PROOF.pdf](05970-PROOF.pdf) |
-| 5971 | [A196703](https://oeis.org/A196703) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05971-PROOF.pdf](05971-PROOF.pdf) |
-| 5972 | [A188691](https://oeis.org/A188691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05972-PROOF.pdf](05972-PROOF.pdf) |
-| 5973 | [A207499](https://oeis.org/A207499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05973-PROOF.pdf](05973-PROOF.pdf) |
-| 5974 | [A207664](https://oeis.org/A207664) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05974-PROOF.pdf](05974-PROOF.pdf) |
-| 5975 | [A207127](https://oeis.org/A207127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05975-PROOF.pdf](05975-PROOF.pdf) |
-| 5976 | [A241960](https://oeis.org/A241960) | Proof |  | [05976-PROOF.pdf](05976-PROOF.pdf) |
-| 5977 | [A197095](https://oeis.org/A197095) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05977-PROOF.pdf](05977-PROOF.pdf) |
-| 5978 | [A204615](https://oeis.org/A204615) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05978-PROOF.pdf](05978-PROOF.pdf) |
-| 5979 | [A253349](https://oeis.org/A253349) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [05979-PROOF.pdf](05979-PROOF.pdf) |
-| 5980 | [A253356](https://oeis.org/A253356) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [05980-PROOF.pdf](05980-PROOF.pdf) |
-| 5981 | [A264159](https://oeis.org/A264159) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05981-PROOF.pdf](05981-PROOF.pdf) |
-| 5982 | [A264333](https://oeis.org/A264333) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05982-PROOF.pdf](05982-PROOF.pdf) |
-| 5983 | [A236114](https://oeis.org/A236114) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05983-PROOF.pdf](05983-PROOF.pdf) |
-| 5984 | [A198151](https://oeis.org/A198151) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05984-PROOF.pdf](05984-PROOF.pdf) |
-| 5985 | [A196481](https://oeis.org/A196481) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05985-PROOF.pdf](05985-PROOF.pdf) |
-| 5986 | [A207907](https://oeis.org/A207907) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05986-PROOF.pdf](05986-PROOF.pdf) |
-| 5987 | [A237154](https://oeis.org/A237154) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05987-PROOF.pdf](05987-PROOF.pdf) |
-| 5988 | [A203179](https://oeis.org/A203179) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [05988-PROOF.pdf](05988-PROOF.pdf) |
-| 5989 | [A238177](https://oeis.org/A238177) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05989-PROOF.pdf](05989-PROOF.pdf) |
-| 5990 | [A205287](https://oeis.org/A205287) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [05990-PROOF.pdf](05990-PROOF.pdf) |
-| 5991 | [A235834](https://oeis.org/A235834) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05991-PROOF.pdf](05991-PROOF.pdf) |
-| 5992 | [A235829](https://oeis.org/A235829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05992-PROOF.pdf](05992-PROOF.pdf) |
-| 5993 | [A236823](https://oeis.org/A236823) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05993-PROOF.pdf](05993-PROOF.pdf) |
-| 5994 | [A263797](https://oeis.org/A263797) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05994-PROOF.pdf](05994-PROOF.pdf) |
-| 5995 | [A250455](https://oeis.org/A250455) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05995-PROOF.pdf](05995-PROOF.pdf) |
-| 5996 | [A197231](https://oeis.org/A197231) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05996-PROOF.pdf](05996-PROOF.pdf) |
-| 5997 | [A231399](https://oeis.org/A231399) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05997-PROOF.pdf](05997-PROOF.pdf) |
-| 5998 | [A207002](https://oeis.org/A207002) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [05998-PROOF.pdf](05998-PROOF.pdf) |
-| 5999 | [A220715](https://oeis.org/A220715) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [05999-PROOF.pdf](05999-PROOF.pdf) |
-| 6000 | [A254693](https://oeis.org/A254693) | Proof |  | [06000-PROOF.pdf](06000-PROOF.pdf) |
+| 5501 | [A184032](https://oeis.org/A184032) | Proof |  | [05501-PROOF.pdf](05501-PROOF.pdf) |
+| 5502 | [A184033](https://oeis.org/A184033) | Proof |  | [05502-PROOF.pdf](05502-PROOF.pdf) |
+| 5503 | [A184034](https://oeis.org/A184034) | Proof |  | [05503-PROOF.pdf](05503-PROOF.pdf) |
+| 5504 | [A184035](https://oeis.org/A184035) | Proof |  | [05504-PROOF.pdf](05504-PROOF.pdf) |
+| 5505 | [A184036](https://oeis.org/A184036) | Proof |  | [05505-PROOF.pdf](05505-PROOF.pdf) |
+| 5506 | [A184037](https://oeis.org/A184037) | Proof |  | [05506-PROOF.pdf](05506-PROOF.pdf) |
+| 5507 | [A184038](https://oeis.org/A184038) | Proof |  | [05507-PROOF.pdf](05507-PROOF.pdf) |
+| 5508 | [A184041](https://oeis.org/A184041) | Proof |  | [05508-PROOF.pdf](05508-PROOF.pdf) |
+| 5509 | [A184042](https://oeis.org/A184042) | Proof |  | [05509-PROOF.pdf](05509-PROOF.pdf) |
+| 5510 | [A184043](https://oeis.org/A184043) | Proof |  | [05510-PROOF.pdf](05510-PROOF.pdf) |
+| 5511 | [A184044](https://oeis.org/A184044) | Proof |  | [05511-PROOF.pdf](05511-PROOF.pdf) |
+| 5512 | [A184045](https://oeis.org/A184045) | Proof |  | [05512-PROOF.pdf](05512-PROOF.pdf) |
+| 5513 | [A184046](https://oeis.org/A184046) | Proof |  | [05513-PROOF.pdf](05513-PROOF.pdf) |
+| 5514 | [A184047](https://oeis.org/A184047) | Proof |  | [05514-PROOF.pdf](05514-PROOF.pdf) |
+| 5515 | [A221536](https://oeis.org/A221536) | Proof |  | [05515-PROOF.pdf](05515-PROOF.pdf) |
+| 5516 | [A221537](https://oeis.org/A221537) | Proof |  | [05516-PROOF.pdf](05516-PROOF.pdf) |
+| 5517 | [A221567](https://oeis.org/A221567) | Proof |  | [05517-PROOF.pdf](05517-PROOF.pdf) |
+| 5518 | [A221678](https://oeis.org/A221678) | Proof |  | [05518-PROOF.pdf](05518-PROOF.pdf) |
+| 5519 | [A235981](https://oeis.org/A235981) | Proof | a table's column recurrences, each column being a fixed-width array count | [05519-PROOF.pdf](05519-PROOF.pdf) |
+| 5520 | [A236278](https://oeis.org/A236278) | Proof | a table's column recurrences, each column being a fixed-width array count | [05520-PROOF.pdf](05520-PROOF.pdf) |
+| 5521 | [A295051](https://oeis.org/A295051) | Proof | a table's column recurrences, each column being a fixed-width array count | [05521-PROOF.pdf](05521-PROOF.pdf) |
+| 5522 | [A306948](https://oeis.org/A306948) | Proof | creative telescoping with the boundary and range corrections carried through | [05522-PROOF.pdf](05522-PROOF.pdf) |
+| 5523 | [A222778](https://oeis.org/A222778) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05523-PROOF.pdf](05523-PROOF.pdf) |
+| 5524 | [A204417](https://oeis.org/A204417) | Proof | a table's column recurrences, each column being a fixed-width array count | [05524-PROOF.pdf](05524-PROOF.pdf) |
+| 5525 | [A206213](https://oeis.org/A206213) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05525-PROOF.pdf](05525-PROOF.pdf) |
+| 5526 | [A222942](https://oeis.org/A222942) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05526-PROOF.pdf](05526-PROOF.pdf) |
+| 5527 | [A206212](https://oeis.org/A206212) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05527-PROOF.pdf](05527-PROOF.pdf) |
+| 5528 | [A275139](https://oeis.org/A275139) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05528-PROOF.pdf](05528-PROOF.pdf) |
+| 5529 | [A275505](https://oeis.org/A275505) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05529-PROOF.pdf](05529-PROOF.pdf) |
+| 5530 | [A253495](https://oeis.org/A253495) | Proof | a table's column recurrences, each column being a fixed-width array count | [05530-PROOF.pdf](05530-PROOF.pdf) |
+| 5531 | [A232584](https://oeis.org/A232584) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05531-PROOF.pdf](05531-PROOF.pdf) |
+| 5532 | [A250754](https://oeis.org/A250754) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05532-PROOF.pdf](05532-PROOF.pdf) |
+| 5533 | [A250762](https://oeis.org/A250762) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05533-PROOF.pdf](05533-PROOF.pdf) |
+| 5534 | [A250811](https://oeis.org/A250811) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05534-PROOF.pdf](05534-PROOF.pdf) |
+| 5535 | [A223355](https://oeis.org/A223355) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05535-PROOF.pdf](05535-PROOF.pdf) |
+| 5536 | [A223478](https://oeis.org/A223478) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05536-PROOF.pdf](05536-PROOF.pdf) |
+| 5537 | [A222944](https://oeis.org/A222944) | Proof | a table's column recurrences, each column being a fixed-width array count | [05537-PROOF.pdf](05537-PROOF.pdf) |
+| 5538 | [A203732](https://oeis.org/A203732) | Proof | a table's column recurrences, each column being a fixed-width array count | [05538-PROOF.pdf](05538-PROOF.pdf) |
+| 5539 | [A204750](https://oeis.org/A204750) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [05539-PROOF.pdf](05539-PROOF.pdf) |
+| 5540 | [A206211](https://oeis.org/A206211) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05540-PROOF.pdf](05540-PROOF.pdf) |
+| 5541 | [A206391](https://oeis.org/A206391) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05541-PROOF.pdf](05541-PROOF.pdf) |
+| 5542 | [A233079](https://oeis.org/A233079) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05542-PROOF.pdf](05542-PROOF.pdf) |
+| 5543 | [A233253](https://oeis.org/A233253) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05543-PROOF.pdf](05543-PROOF.pdf) |
+| 5544 | [A222834](https://oeis.org/A222834) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05544-PROOF.pdf](05544-PROOF.pdf) |
+| 5545 | [A203887](https://oeis.org/A203887) | Proof | a table's column recurrences, each column being a fixed-width array count | [05545-PROOF.pdf](05545-PROOF.pdf) |
+| 5546 | [A250753](https://oeis.org/A250753) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05546-PROOF.pdf](05546-PROOF.pdf) |
+| 5547 | [A250761](https://oeis.org/A250761) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05547-PROOF.pdf](05547-PROOF.pdf) |
+| 5548 | [A250810](https://oeis.org/A250810) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05548-PROOF.pdf](05548-PROOF.pdf) |
+| 5549 | [A231045](https://oeis.org/A231045) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05549-PROOF.pdf](05549-PROOF.pdf) |
+| 5550 | [A233084](https://oeis.org/A233084) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05550-PROOF.pdf](05550-PROOF.pdf) |
+| 5551 | [A222868](https://oeis.org/A222868) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05551-PROOF.pdf](05551-PROOF.pdf) |
+| 5552 | [A223229](https://oeis.org/A223229) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05552-PROOF.pdf](05552-PROOF.pdf) |
+| 5553 | [A233197](https://oeis.org/A233197) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05553-PROOF.pdf](05553-PROOF.pdf) |
+| 5554 | [A223359](https://oeis.org/A223359) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05554-PROOF.pdf](05554-PROOF.pdf) |
+| 5555 | [A203934](https://oeis.org/A203934) | Proof | a table's column recurrences, each column being a fixed-width array count | [05555-PROOF.pdf](05555-PROOF.pdf) |
+| 5556 | [A198279](https://oeis.org/A198279) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05556-PROOF.pdf](05556-PROOF.pdf) |
+| 5557 | [A274745](https://oeis.org/A274745) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05557-PROOF.pdf](05557-PROOF.pdf) |
+| 5558 | [A206210](https://oeis.org/A206210) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05558-PROOF.pdf](05558-PROOF.pdf) |
+| 5559 | [A204749](https://oeis.org/A204749) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [05559-PROOF.pdf](05559-PROOF.pdf) |
+| 5560 | [A264131](https://oeis.org/A264131) | Proof | a table's column recurrences, each column being a fixed-width array count | [05560-PROOF.pdf](05560-PROOF.pdf) |
+| 5561 | [A223329](https://oeis.org/A223329) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05561-PROOF.pdf](05561-PROOF.pdf) |
+| 5562 | [A223284](https://oeis.org/A223284) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05562-PROOF.pdf](05562-PROOF.pdf) |
+| 5563 | [A241103](https://oeis.org/A241103) | Proof | a cell condition stated through equality alone, counted up to renaming the letters | [05563-PROOF.pdf](05563-PROOF.pdf) |
+| 5564 | [A233170](https://oeis.org/A233170) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05564-PROOF.pdf](05564-PROOF.pdf) |
+| 5565 | [A233094](https://oeis.org/A233094) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05565-PROOF.pdf](05565-PROOF.pdf) |
+| 5566 | [A250752](https://oeis.org/A250752) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05566-PROOF.pdf](05566-PROOF.pdf) |
+| 5567 | [A250760](https://oeis.org/A250760) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05567-PROOF.pdf](05567-PROOF.pdf) |
+| 5568 | [A250809](https://oeis.org/A250809) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05568-PROOF.pdf](05568-PROOF.pdf) |
+| 5569 | [A208377](https://oeis.org/A208377) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05569-PROOF.pdf](05569-PROOF.pdf) |
+| 5570 | [A231850](https://oeis.org/A231850) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [05570-PROOF.pdf](05570-PROOF.pdf) |
+| 5571 | [A232131](https://oeis.org/A232131) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05571-PROOF.pdf](05571-PROOF.pdf) |
+| 5572 | [A223205](https://oeis.org/A223205) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05572-PROOF.pdf](05572-PROOF.pdf) |
+| 5573 | [A223553](https://oeis.org/A223553) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05573-PROOF.pdf](05573-PROOF.pdf) |
+| 5574 | [A206343](https://oeis.org/A206343) | Proof | a table's column recurrences, each column being a fixed-width array count | [05574-PROOF.pdf](05574-PROOF.pdf) |
+| 5575 | [A206353](https://oeis.org/A206353) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05575-PROOF.pdf](05575-PROOF.pdf) |
+| 5576 | [A223198](https://oeis.org/A223198) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05576-PROOF.pdf](05576-PROOF.pdf) |
+| 5577 | [A229685](https://oeis.org/A229685) | Proof | a table's column recurrences, each column being a fixed-width array count | [05577-PROOF.pdf](05577-PROOF.pdf) |
+| 5578 | [A208376](https://oeis.org/A208376) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05578-PROOF.pdf](05578-PROOF.pdf) |
+| 5579 | [A188823](https://oeis.org/A188823) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05579-PROOF.pdf](05579-PROOF.pdf) |
+| 5580 | [A250661](https://oeis.org/A250661) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05580-PROOF.pdf](05580-PROOF.pdf) |
+| 5581 | [A250768](https://oeis.org/A250768) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05581-PROOF.pdf](05581-PROOF.pdf) |
+| 5582 | [A264090](https://oeis.org/A264090) | Proof | a table's column recurrences, each column being a fixed-width array count | [05582-PROOF.pdf](05582-PROOF.pdf) |
+| 5583 | [A264655](https://oeis.org/A264655) | Proof | a table's column recurrences, each column being a fixed-width array count | [05583-PROOF.pdf](05583-PROOF.pdf) |
+| 5584 | [A250751](https://oeis.org/A250751) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05584-PROOF.pdf](05584-PROOF.pdf) |
+| 5585 | [A250759](https://oeis.org/A250759) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05585-PROOF.pdf](05585-PROOF.pdf) |
+| 5586 | [A250808](https://oeis.org/A250808) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05586-PROOF.pdf](05586-PROOF.pdf) |
+| 5587 | [A233013](https://oeis.org/A233013) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05587-PROOF.pdf](05587-PROOF.pdf) |
+| 5588 | [A233093](https://oeis.org/A233093) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05588-PROOF.pdf](05588-PROOF.pdf) |
+| 5589 | [A223271](https://oeis.org/A223271) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05589-PROOF.pdf](05589-PROOF.pdf) |
+| 5590 | [A207149](https://oeis.org/A207149) | Proof | a table's column recurrences, each column being a fixed-width array count | [05590-PROOF.pdf](05590-PROOF.pdf) |
+| 5591 | [A238523](https://oeis.org/A238523) | Proof | a table's column recurrences, each column being a fixed-width array count | [05591-PROOF.pdf](05591-PROOF.pdf) |
+| 5592 | [A274798](https://oeis.org/A274798) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05592-PROOF.pdf](05592-PROOF.pdf) |
+| 5593 | [A274853](https://oeis.org/A274853) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05593-PROOF.pdf](05593-PROOF.pdf) |
+| 5594 | [A275143](https://oeis.org/A275143) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05594-PROOF.pdf](05594-PROOF.pdf) |
+| 5595 | [A233099](https://oeis.org/A233099) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05595-PROOF.pdf](05595-PROOF.pdf) |
+| 5596 | [A230800](https://oeis.org/A230800) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05596-PROOF.pdf](05596-PROOF.pdf) |
+| 5597 | [A250660](https://oeis.org/A250660) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05597-PROOF.pdf](05597-PROOF.pdf) |
+| 5598 | [A250767](https://oeis.org/A250767) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05598-PROOF.pdf](05598-PROOF.pdf) |
+| 5599 | [A183712](https://oeis.org/A183712) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05599-PROOF.pdf](05599-PROOF.pdf) |
+| 5600 | [A214099](https://oeis.org/A214099) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05600-PROOF.pdf](05600-PROOF.pdf) |
+| 5601 | [A231390](https://oeis.org/A231390) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05601-PROOF.pdf](05601-PROOF.pdf) |
+| 5602 | [A208375](https://oeis.org/A208375) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05602-PROOF.pdf](05602-PROOF.pdf) |
+| 5603 | [A231317](https://oeis.org/A231317) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05603-PROOF.pdf](05603-PROOF.pdf) |
+| 5604 | [A231324](https://oeis.org/A231324) | Proof | a table's column recurrences, each column being a fixed-width array count | [05604-PROOF.pdf](05604-PROOF.pdf) |
+| 5605 | [A214107](https://oeis.org/A214107) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05605-PROOF.pdf](05605-PROOF.pdf) |
+| 5606 | [A206628](https://oeis.org/A206628) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05606-PROOF.pdf](05606-PROOF.pdf) |
+| 5607 | [A231057](https://oeis.org/A231057) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05607-PROOF.pdf](05607-PROOF.pdf) |
+| 5608 | [A253482](https://oeis.org/A253482) | Proof | a table's column recurrences, each column being a fixed-width array count | [05608-PROOF.pdf](05608-PROOF.pdf) |
+| 5609 | [A232582](https://oeis.org/A232582) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05609-PROOF.pdf](05609-PROOF.pdf) |
+| 5610 | [A203835](https://oeis.org/A203835) | Proof | a table's column recurrences, each column being a fixed-width array count | [05610-PROOF.pdf](05610-PROOF.pdf) |
+| 5611 | [A233157](https://oeis.org/A233157) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05611-PROOF.pdf](05611-PROOF.pdf) |
+| 5612 | [A250750](https://oeis.org/A250750) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05612-PROOF.pdf](05612-PROOF.pdf) |
+| 5613 | [A250758](https://oeis.org/A250758) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05613-PROOF.pdf](05613-PROOF.pdf) |
+| 5614 | [A250807](https://oeis.org/A250807) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05614-PROOF.pdf](05614-PROOF.pdf) |
+| 5615 | [A253456](https://oeis.org/A253456) | Proof | a table's column recurrences, each column being a fixed-width array count | [05615-PROOF.pdf](05615-PROOF.pdf) |
+| 5616 | [A230893](https://oeis.org/A230893) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05616-PROOF.pdf](05616-PROOF.pdf) |
+| 5617 | [A230904](https://oeis.org/A230904) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05617-PROOF.pdf](05617-PROOF.pdf) |
+| 5618 | [A222939](https://oeis.org/A222939) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05618-PROOF.pdf](05618-PROOF.pdf) |
+| 5619 | [A280955](https://oeis.org/A280955) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05619-PROOF.pdf](05619-PROOF.pdf) |
+| 5620 | [A188821](https://oeis.org/A188821) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05620-PROOF.pdf](05620-PROOF.pdf) |
+| 5621 | [A250659](https://oeis.org/A250659) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05621-PROOF.pdf](05621-PROOF.pdf) |
+| 5622 | [A250766](https://oeis.org/A250766) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05622-PROOF.pdf](05622-PROOF.pdf) |
+| 5623 | [A264313](https://oeis.org/A264313) | Proof | a table's column recurrences, each column being a fixed-width array count | [05623-PROOF.pdf](05623-PROOF.pdf) |
+| 5624 | [A241371](https://oeis.org/A241371) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05624-PROOF.pdf](05624-PROOF.pdf) |
+| 5625 | [A208389](https://oeis.org/A208389) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05625-PROOF.pdf](05625-PROOF.pdf) |
+| 5626 | [A275185](https://oeis.org/A275185) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [05626-PROOF.pdf](05626-PROOF.pdf) |
+| 5627 | [A253018](https://oeis.org/A253018) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [05627-PROOF.pdf](05627-PROOF.pdf) |
+| 5628 | [A238906](https://oeis.org/A238906) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05628-PROOF.pdf](05628-PROOF.pdf) |
+| 5629 | [A238912](https://oeis.org/A238912) | Proof | a table's column recurrences, each column being a fixed-width array count | [05629-PROOF.pdf](05629-PROOF.pdf) |
+| 5630 | [A253231](https://oeis.org/A253231) | Proof | a table's column recurrences, each column being a fixed-width array count | [05630-PROOF.pdf](05630-PROOF.pdf) |
+| 5631 | [A229694](https://oeis.org/A229694) | Proof | a table's column recurrences, each column being a fixed-width array count | [05631-PROOF.pdf](05631-PROOF.pdf) |
+| 5632 | [A275267](https://oeis.org/A275267) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [05632-PROOF.pdf](05632-PROOF.pdf) |
+| 5633 | [A198205](https://oeis.org/A198205) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05633-PROOF.pdf](05633-PROOF.pdf) |
+| 5634 | [A198287](https://oeis.org/A198287) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05634-PROOF.pdf](05634-PROOF.pdf) |
+| 5635 | [A198482](https://oeis.org/A198482) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05635-PROOF.pdf](05635-PROOF.pdf) |
+| 5636 | [A234786](https://oeis.org/A234786) | Proof | a table's column recurrences, each column being a fixed-width array count | [05636-PROOF.pdf](05636-PROOF.pdf) |
+| 5637 | [A279704](https://oeis.org/A279704) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05637-PROOF.pdf](05637-PROOF.pdf) |
+| 5638 | [A208638](https://oeis.org/A208638) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05638-PROOF.pdf](05638-PROOF.pdf) |
+| 5639 | [A223505](https://oeis.org/A223505) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05639-PROOF.pdf](05639-PROOF.pdf) |
+| 5640 | [A224128](https://oeis.org/A224128) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [05640-PROOF.pdf](05640-PROOF.pdf) |
+| 5641 | [A250658](https://oeis.org/A250658) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05641-PROOF.pdf](05641-PROOF.pdf) |
+| 5642 | [A250765](https://oeis.org/A250765) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05642-PROOF.pdf](05642-PROOF.pdf) |
+| 5643 | [A281710](https://oeis.org/A281710) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05643-PROOF.pdf](05643-PROOF.pdf) |
+| 5644 | [A193647](https://oeis.org/A193647) | Proof |  | [05644-PROOF.pdf](05644-PROOF.pdf) |
+| 5645 | [A275184](https://oeis.org/A275184) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [05645-PROOF.pdf](05645-PROOF.pdf) |
+| 5646 | [A232922](https://oeis.org/A232922) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05646-PROOF.pdf](05646-PROOF.pdf) |
+| 5647 | [A250749](https://oeis.org/A250749) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05647-PROOF.pdf](05647-PROOF.pdf) |
+| 5648 | [A250757](https://oeis.org/A250757) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05648-PROOF.pdf](05648-PROOF.pdf) |
+| 5649 | [A250806](https://oeis.org/A250806) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05649-PROOF.pdf](05649-PROOF.pdf) |
+| 5650 | [A250913](https://oeis.org/A250913) | Proof | a table's column recurrences, each column being a fixed-width array count | [05650-PROOF.pdf](05650-PROOF.pdf) |
+| 5651 | [A251373](https://oeis.org/A251373) | Proof | a table's column recurrences, each column being a fixed-width array count | [05651-PROOF.pdf](05651-PROOF.pdf) |
+| 5652 | [A262332](https://oeis.org/A262332) | Proof | a table's column recurrences, each column being a fixed-width array count | [05652-PROOF.pdf](05652-PROOF.pdf) |
+| 5653 | [A262420](https://oeis.org/A262420) | Proof | a table's column recurrences, each column being a fixed-width array count | [05653-PROOF.pdf](05653-PROOF.pdf) |
+| 5654 | [A214137](https://oeis.org/A214137) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05654-PROOF.pdf](05654-PROOF.pdf) |
+| 5655 | [A193646](https://oeis.org/A193646) | Proof |  | [05655-PROOF.pdf](05655-PROOF.pdf) |
+| 5656 | [A275402](https://oeis.org/A275402) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [05656-PROOF.pdf](05656-PROOF.pdf) |
+| 5657 | [A198447](https://oeis.org/A198447) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05657-PROOF.pdf](05657-PROOF.pdf) |
+| 5658 | [A204625](https://oeis.org/A204625) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05658-PROOF.pdf](05658-PROOF.pdf) |
+| 5659 | [A267912](https://oeis.org/A267912) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05659-PROOF.pdf](05659-PROOF.pdf) |
+| 5660 | [A276293](https://oeis.org/A276293) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05660-PROOF.pdf](05660-PROOF.pdf) |
+| 5661 | [A187305](https://oeis.org/A187305) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05661-PROOF.pdf](05661-PROOF.pdf) |
+| 5662 | [A281831](https://oeis.org/A281831) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05662-PROOF.pdf](05662-PROOF.pdf) |
+| 5663 | [A281949](https://oeis.org/A281949) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05663-PROOF.pdf](05663-PROOF.pdf) |
+| 5664 | [A193645](https://oeis.org/A193645) | Proof |  | [05664-PROOF.pdf](05664-PROOF.pdf) |
+| 5665 | [A202789](https://oeis.org/A202789) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [05665-PROOF.pdf](05665-PROOF.pdf) |
+| 5666 | [A202796](https://oeis.org/A202796) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [05666-PROOF.pdf](05666-PROOF.pdf) |
+| 5667 | [A268164](https://oeis.org/A268164) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05667-PROOF.pdf](05667-PROOF.pdf) |
+| 5668 | [A187304](https://oeis.org/A187304) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05668-PROOF.pdf](05668-PROOF.pdf) |
+| 5669 | [A231227](https://oeis.org/A231227) | Proof | a table's column recurrences, each column being a fixed-width array count | [05669-PROOF.pdf](05669-PROOF.pdf) |
+| 5670 | [A187178](https://oeis.org/A187178) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05670-PROOF.pdf](05670-PROOF.pdf) |
+| 5671 | [A193644](https://oeis.org/A193644) | Proof |  | [05671-PROOF.pdf](05671-PROOF.pdf) |
+| 5672 | [A208634](https://oeis.org/A208634) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05672-PROOF.pdf](05672-PROOF.pdf) |
+| 5673 | [A208706](https://oeis.org/A208706) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05673-PROOF.pdf](05673-PROOF.pdf) |
+| 5674 | [A234796](https://oeis.org/A234796) | Proof | a table's column recurrences, each column being a fixed-width array count | [05674-PROOF.pdf](05674-PROOF.pdf) |
+| 5675 | [A187177](https://oeis.org/A187177) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05675-PROOF.pdf](05675-PROOF.pdf) |
+| 5676 | [A234140](https://oeis.org/A234140) | Proof | a table's column recurrences, each column being a fixed-width array count | [05676-PROOF.pdf](05676-PROOF.pdf) |
+| 5677 | [A235289](https://oeis.org/A235289) | Proof | a table's column recurrences, each column being a fixed-width array count | [05677-PROOF.pdf](05677-PROOF.pdf) |
+| 5678 | [A250657](https://oeis.org/A250657) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05678-PROOF.pdf](05678-PROOF.pdf) |
+| 5679 | [A250764](https://oeis.org/A250764) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05679-PROOF.pdf](05679-PROOF.pdf) |
+| 5680 | [A250870](https://oeis.org/A250870) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05680-PROOF.pdf](05680-PROOF.pdf) |
+| 5681 | [A251300](https://oeis.org/A251300) | Proof | a table's column recurrences, each column being a fixed-width array count | [05681-PROOF.pdf](05681-PROOF.pdf) |
+| 5682 | [A251343](https://oeis.org/A251343) | Proof | a table's column recurrences, each column being a fixed-width array count | [05682-PROOF.pdf](05682-PROOF.pdf) |
+| 5683 | [A251524](https://oeis.org/A251524) | Proof | a table's column recurrences, each column being a fixed-width array count | [05683-PROOF.pdf](05683-PROOF.pdf) |
+| 5684 | [A299067](https://oeis.org/A299067) | Proof | a table's column recurrences, each column being a fixed-width array count | [05684-PROOF.pdf](05684-PROOF.pdf) |
+| 5685 | [A299081](https://oeis.org/A299081) | Proof | a table's column recurrences, each column being a fixed-width array count | [05685-PROOF.pdf](05685-PROOF.pdf) |
+| 5686 | [A299142](https://oeis.org/A299142) | Proof | a table's column recurrences, each column being a fixed-width array count | [05686-PROOF.pdf](05686-PROOF.pdf) |
+| 5687 | [A302820](https://oeis.org/A302820) | Proof | a table's column recurrences, each column being a fixed-width array count | [05687-PROOF.pdf](05687-PROOF.pdf) |
+| 5688 | [A198710](https://oeis.org/A198710) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05688-PROOF.pdf](05688-PROOF.pdf) |
+| 5689 | [A187176](https://oeis.org/A187176) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05689-PROOF.pdf](05689-PROOF.pdf) |
+| 5690 | [A233155](https://oeis.org/A233155) | Proof | a table's column recurrences, each column being a fixed-width array count | [05690-PROOF.pdf](05690-PROOF.pdf) |
+| 5691 | [A187593](https://oeis.org/A187593) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05691-PROOF.pdf](05691-PROOF.pdf) |
+| 5692 | [A193643](https://oeis.org/A193643) | Proof |  | [05692-PROOF.pdf](05692-PROOF.pdf) |
+| 5693 | [A205312](https://oeis.org/A205312) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05693-PROOF.pdf](05693-PROOF.pdf) |
+| 5694 | [A267946](https://oeis.org/A267946) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05694-PROOF.pdf](05694-PROOF.pdf) |
+| 5695 | [A268093](https://oeis.org/A268093) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [05695-PROOF.pdf](05695-PROOF.pdf) |
+| 5696 | [A187030](https://oeis.org/A187030) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05696-PROOF.pdf](05696-PROOF.pdf) |
+| 5697 | [A187175](https://oeis.org/A187175) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05697-PROOF.pdf](05697-PROOF.pdf) |
+| 5698 | [A203175](https://oeis.org/A203175) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05698-PROOF.pdf](05698-PROOF.pdf) |
+| 5699 | [A187513](https://oeis.org/A187513) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05699-PROOF.pdf](05699-PROOF.pdf) |
+| 5700 | [A187048](https://oeis.org/A187048) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05700-PROOF.pdf](05700-PROOF.pdf) |
+| 5701 | [A187174](https://oeis.org/A187174) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05701-PROOF.pdf](05701-PROOF.pdf) |
+| 5702 | [A189179](https://oeis.org/A189179) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05702-PROOF.pdf](05702-PROOF.pdf) |
+| 5703 | [A189247](https://oeis.org/A189247) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05703-PROOF.pdf](05703-PROOF.pdf) |
+| 5704 | [A204070](https://oeis.org/A204070) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05704-PROOF.pdf](05704-PROOF.pdf) |
+| 5705 | [A208317](https://oeis.org/A208317) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05705-PROOF.pdf](05705-PROOF.pdf) |
+| 5706 | [A209095](https://oeis.org/A209095) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05706-PROOF.pdf](05706-PROOF.pdf) |
+| 5707 | [A209891](https://oeis.org/A209891) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05707-PROOF.pdf](05707-PROOF.pdf) |
+| 5708 | [A210101](https://oeis.org/A210101) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05708-PROOF.pdf](05708-PROOF.pdf) |
+| 5709 | [A193642](https://oeis.org/A193642) | Proof |  | [05709-PROOF.pdf](05709-PROOF.pdf) |
+| 5710 | [A198900](https://oeis.org/A198900) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05710-PROOF.pdf](05710-PROOF.pdf) |
+| 5711 | [A208633](https://oeis.org/A208633) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05711-PROOF.pdf](05711-PROOF.pdf) |
+| 5712 | [A234266](https://oeis.org/A234266) | Proof | a table's column recurrences, each column being a fixed-width array count | [05712-PROOF.pdf](05712-PROOF.pdf) |
+| 5713 | [A250756](https://oeis.org/A250756) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05713-PROOF.pdf](05713-PROOF.pdf) |
+| 5714 | [A251351](https://oeis.org/A251351) | Proof | a table's column recurrences, each column being a fixed-width array count | [05714-PROOF.pdf](05714-PROOF.pdf) |
+| 5715 | [A251390](https://oeis.org/A251390) | Proof | a table's column recurrences, each column being a fixed-width array count | [05715-PROOF.pdf](05715-PROOF.pdf) |
+| 5716 | [A259216](https://oeis.org/A259216) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05716-PROOF.pdf](05716-PROOF.pdf) |
+| 5717 | [A262414](https://oeis.org/A262414) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [05717-PROOF.pdf](05717-PROOF.pdf) |
+| 5718 | [A187028](https://oeis.org/A187028) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05718-PROOF.pdf](05718-PROOF.pdf) |
+| 5719 | [A187047](https://oeis.org/A187047) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05719-PROOF.pdf](05719-PROOF.pdf) |
+| 5720 | [A187173](https://oeis.org/A187173) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05720-PROOF.pdf](05720-PROOF.pdf) |
+| 5721 | [A187379](https://oeis.org/A187379) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05721-PROOF.pdf](05721-PROOF.pdf) |
+| 5722 | [A187510](https://oeis.org/A187510) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05722-PROOF.pdf](05722-PROOF.pdf) |
+| 5723 | [A187588](https://oeis.org/A187588) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05723-PROOF.pdf](05723-PROOF.pdf) |
+| 5724 | [A233153](https://oeis.org/A233153) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05724-PROOF.pdf](05724-PROOF.pdf) |
+| 5725 | [A250770](https://oeis.org/A250770) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05725-PROOF.pdf](05725-PROOF.pdf) |
+| 5726 | [A187378](https://oeis.org/A187378) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05726-PROOF.pdf](05726-PROOF.pdf) |
+| 5727 | [A187509](https://oeis.org/A187509) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05727-PROOF.pdf](05727-PROOF.pdf) |
+| 5728 | [A187587](https://oeis.org/A187587) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05728-PROOF.pdf](05728-PROOF.pdf) |
+| 5729 | [A204565](https://oeis.org/A204565) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05729-PROOF.pdf](05729-PROOF.pdf) |
+| 5730 | [A208402](https://oeis.org/A208402) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05730-PROOF.pdf](05730-PROOF.pdf) |
+| 5731 | [A208858](https://oeis.org/A208858) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05731-PROOF.pdf](05731-PROOF.pdf) |
+| 5732 | [A210118](https://oeis.org/A210118) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05732-PROOF.pdf](05732-PROOF.pdf) |
+| 5733 | [A210127](https://oeis.org/A210127) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05733-PROOF.pdf](05733-PROOF.pdf) |
+| 5734 | [A210397](https://oeis.org/A210397) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05734-PROOF.pdf](05734-PROOF.pdf) |
+| 5735 | [A224404](https://oeis.org/A224404) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [05735-PROOF.pdf](05735-PROOF.pdf) |
+| 5736 | [A263551](https://oeis.org/A263551) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [05736-PROOF.pdf](05736-PROOF.pdf) |
+| 5737 | [A263558](https://oeis.org/A263558) | Proof | a table's column recurrences, each column being a fixed-width array count | [05737-PROOF.pdf](05737-PROOF.pdf) |
+| 5738 | [A187287](https://oeis.org/A187287) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05738-PROOF.pdf](05738-PROOF.pdf) |
+| 5739 | [A187508](https://oeis.org/A187508) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05739-PROOF.pdf](05739-PROOF.pdf) |
+| 5740 | [A195000](https://oeis.org/A195000) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05740-PROOF.pdf](05740-PROOF.pdf) |
+| 5741 | [A195237](https://oeis.org/A195237) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05741-PROOF.pdf](05741-PROOF.pdf) |
+| 5742 | [A263053](https://oeis.org/A263053) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05742-PROOF.pdf](05742-PROOF.pdf) |
+| 5743 | [A193641](https://oeis.org/A193641) | Proof |  | [05743-PROOF.pdf](05743-PROOF.pdf) |
+| 5744 | [A195236](https://oeis.org/A195236) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05744-PROOF.pdf](05744-PROOF.pdf) |
+| 5745 | [A204644](https://oeis.org/A204644) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [05745-PROOF.pdf](05745-PROOF.pdf) |
+| 5746 | [A208264](https://oeis.org/A208264) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05746-PROOF.pdf](05746-PROOF.pdf) |
+| 5747 | [A209822](https://oeis.org/A209822) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05747-PROOF.pdf](05747-PROOF.pdf) |
+| 5748 | [A210100](https://oeis.org/A210100) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05748-PROOF.pdf](05748-PROOF.pdf) |
+| 5749 | [A222444](https://oeis.org/A222444) | Proof | a table's column recurrences, each column being a fixed-width array count | [05749-PROOF.pdf](05749-PROOF.pdf) |
+| 5750 | [A239249](https://oeis.org/A239249) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05750-PROOF.pdf](05750-PROOF.pdf) |
+| 5751 | [A195235](https://oeis.org/A195235) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05751-PROOF.pdf](05751-PROOF.pdf) |
+| 5752 | [A195249](https://oeis.org/A195249) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05752-PROOF.pdf](05752-PROOF.pdf) |
+| 5753 | [A211479](https://oeis.org/A211479) | Proof |  | [05753-PROOF.pdf](05753-PROOF.pdf) |
+| 5754 | [A221677](https://oeis.org/A221677) | Proof |  | [05754-PROOF.pdf](05754-PROOF.pdf) |
+| 5755 | [A238768](https://oeis.org/A238768) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05755-PROOF.pdf](05755-PROOF.pdf) |
+| 5756 | [A239812](https://oeis.org/A239812) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05756-PROOF.pdf](05756-PROOF.pdf) |
+| 5757 | [A239851](https://oeis.org/A239851) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [05757-PROOF.pdf](05757-PROOF.pdf) |
+| 5758 | [A195234](https://oeis.org/A195234) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05758-PROOF.pdf](05758-PROOF.pdf) |
+| 5759 | [A212925](https://oeis.org/A212925) | Proof | the entry forbids any column from sitting above the one before it in EVERY row, which no bounded window decide... | [05759-PROOF.pdf](05759-PROOF.pdf) |
+| 5760 | [A212938](https://oeis.org/A212938) | Proof | the entry forbids any column from sitting above the one before it in EVERY row, which no bounded window decide... | [05760-PROOF.pdf](05760-PROOF.pdf) |
+| 5761 | [A233129](https://oeis.org/A233129) | Proof | a table's column recurrences, each column being a fixed-width array count | [05761-PROOF.pdf](05761-PROOF.pdf) |
+| 5762 | [A195233](https://oeis.org/A195233) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05762-PROOF.pdf](05762-PROOF.pdf) |
+| 5763 | [A129833](https://oeis.org/A129833) | Proof | creative telescoping with the boundary and range corrections carried through | [05763-PROOF.pdf](05763-PROOF.pdf) |
+| 5764 | [A222869](https://oeis.org/A222869) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05764-PROOF.pdf](05764-PROOF.pdf) |
+| 5765 | [A228259](https://oeis.org/A228259) | Proof |  | [05765-PROOF.pdf](05765-PROOF.pdf) |
+| 5766 | [A209533](https://oeis.org/A209533) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05766-PROOF.pdf](05766-PROOF.pdf) |
+| 5767 | [A231104](https://oeis.org/A231104) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05767-PROOF.pdf](05767-PROOF.pdf) |
+| 5768 | [A228258](https://oeis.org/A228258) | Proof |  | [05768-PROOF.pdf](05768-PROOF.pdf) |
+| 5769 | [A223477](https://oeis.org/A223477) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05769-PROOF.pdf](05769-PROOF.pdf) |
+| 5770 | [A223354](https://oeis.org/A223354) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05770-PROOF.pdf](05770-PROOF.pdf) |
+| 5771 | [A223323](https://oeis.org/A223323) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05771-PROOF.pdf](05771-PROOF.pdf) |
+| 5772 | [A223481](https://oeis.org/A223481) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05772-PROOF.pdf](05772-PROOF.pdf) |
+| 5773 | [A275138](https://oeis.org/A275138) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05773-PROOF.pdf](05773-PROOF.pdf) |
+| 5774 | [A264071](https://oeis.org/A264071) | Proof | a table's column recurrences, each column being a fixed-width array count | [05774-PROOF.pdf](05774-PROOF.pdf) |
+| 5775 | [A228257](https://oeis.org/A228257) | Proof |  | [05775-PROOF.pdf](05775-PROOF.pdf) |
+| 5776 | [A233078](https://oeis.org/A233078) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05776-PROOF.pdf](05776-PROOF.pdf) |
+| 5777 | [A222940](https://oeis.org/A222940) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05777-PROOF.pdf](05777-PROOF.pdf) |
+| 5778 | [A253435](https://oeis.org/A253435) | Proof | a table's column recurrences, each column being a fixed-width array count | [05778-PROOF.pdf](05778-PROOF.pdf) |
+| 5779 | [A231103](https://oeis.org/A231103) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [05779-PROOF.pdf](05779-PROOF.pdf) |
+| 5780 | [A269285](https://oeis.org/A269285) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05780-PROOF.pdf](05780-PROOF.pdf) |
+| 5781 | [A222462](https://oeis.org/A222462) | Proof | a table's column recurrences, each column being a fixed-width array count | [05781-PROOF.pdf](05781-PROOF.pdf) |
+| 5782 | [A269272](https://oeis.org/A269272) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05782-PROOF.pdf](05782-PROOF.pdf) |
+| 5783 | [A228217](https://oeis.org/A228217) | Proof |  | [05783-PROOF.pdf](05783-PROOF.pdf) |
+| 5784 | [A280668](https://oeis.org/A280668) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05784-PROOF.pdf](05784-PROOF.pdf) |
+| 5785 | [A223265](https://oeis.org/A223265) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05785-PROOF.pdf](05785-PROOF.pdf) |
+| 5786 | [A203873](https://oeis.org/A203873) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05786-PROOF.pdf](05786-PROOF.pdf) |
+| 5787 | [A208044](https://oeis.org/A208044) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05787-PROOF.pdf](05787-PROOF.pdf) |
+| 5788 | [A223328](https://oeis.org/A223328) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05788-PROOF.pdf](05788-PROOF.pdf) |
+| 5789 | [A214108](https://oeis.org/A214108) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05789-PROOF.pdf](05789-PROOF.pdf) |
+| 5790 | [A228256](https://oeis.org/A228256) | Proof |  | [05790-PROOF.pdf](05790-PROOF.pdf) |
+| 5791 | [A188865](https://oeis.org/A188865) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05791-PROOF.pdf](05791-PROOF.pdf) |
+| 5792 | [A250655](https://oeis.org/A250655) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05792-PROOF.pdf](05792-PROOF.pdf) |
+| 5793 | [A250741](https://oeis.org/A250741) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05793-PROOF.pdf](05793-PROOF.pdf) |
+| 5794 | [A264534](https://oeis.org/A264534) | Proof | a table's column recurrences, each column being a fixed-width array count | [05794-PROOF.pdf](05794-PROOF.pdf) |
+| 5795 | [A228216](https://oeis.org/A228216) | Proof |  | [05795-PROOF.pdf](05795-PROOF.pdf) |
+| 5796 | [A223358](https://oeis.org/A223358) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05796-PROOF.pdf](05796-PROOF.pdf) |
+| 5797 | [A208088](https://oeis.org/A208088) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [05797-PROOF.pdf](05797-PROOF.pdf) |
+| 5798 | [A229510](https://oeis.org/A229510) | Proof | a table's column recurrences, each column being a fixed-width array count | [05798-PROOF.pdf](05798-PROOF.pdf) |
+| 5799 | [A233077](https://oeis.org/A233077) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05799-PROOF.pdf](05799-PROOF.pdf) |
+| 5800 | [A268900](https://oeis.org/A268900) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05800-PROOF.pdf](05800-PROOF.pdf) |
+| 5801 | [A268967](https://oeis.org/A268967) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05801-PROOF.pdf](05801-PROOF.pdf) |
+| 5802 | [A269284](https://oeis.org/A269284) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05802-PROOF.pdf](05802-PROOF.pdf) |
+| 5803 | [A223283](https://oeis.org/A223283) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05803-PROOF.pdf](05803-PROOF.pdf) |
+| 5804 | [A233083](https://oeis.org/A233083) | Proof | a neighbour condition plus a first-occurrence ordering clause carried as a flag in the state | [05804-PROOF.pdf](05804-PROOF.pdf) |
+| 5805 | [A188864](https://oeis.org/A188864) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05805-PROOF.pdf](05805-PROOF.pdf) |
+| 5806 | [A206687](https://oeis.org/A206687) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05806-PROOF.pdf](05806-PROOF.pdf) |
+| 5807 | [A250654](https://oeis.org/A250654) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05807-PROOF.pdf](05807-PROOF.pdf) |
+| 5808 | [A250740](https://oeis.org/A250740) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05808-PROOF.pdf](05808-PROOF.pdf) |
+| 5809 | [A269271](https://oeis.org/A269271) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05809-PROOF.pdf](05809-PROOF.pdf) |
+| 5810 | [A270112](https://oeis.org/A270112) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05810-PROOF.pdf](05810-PROOF.pdf) |
+| 5811 | [A208393](https://oeis.org/A208393) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05811-PROOF.pdf](05811-PROOF.pdf) |
+| 5812 | [A228215](https://oeis.org/A228215) | Proof |  | [05812-PROOF.pdf](05812-PROOF.pdf) |
+| 5813 | [A203872](https://oeis.org/A203872) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05813-PROOF.pdf](05813-PROOF.pdf) |
+| 5814 | [A269896](https://oeis.org/A269896) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05814-PROOF.pdf](05814-PROOF.pdf) |
+| 5815 | [A209101](https://oeis.org/A209101) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [05815-PROOF.pdf](05815-PROOF.pdf) |
+| 5816 | [A214135](https://oeis.org/A214135) | Proof | proper colourings of a grid circular in one direction, counted up to renaming the colours | [05816-PROOF.pdf](05816-PROOF.pdf) |
+| 5817 | [A228255](https://oeis.org/A228255) | Proof |  | [05817-PROOF.pdf](05817-PROOF.pdf) |
+| 5818 | [A253029](https://oeis.org/A253029) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [05818-PROOF.pdf](05818-PROOF.pdf) |
+| 5819 | [A269761](https://oeis.org/A269761) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05819-PROOF.pdf](05819-PROOF.pdf) |
+| 5820 | [A185561](https://oeis.org/A185561) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [05820-PROOF.pdf](05820-PROOF.pdf) |
+| 5821 | [A188863](https://oeis.org/A188863) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05821-PROOF.pdf](05821-PROOF.pdf) |
+| 5822 | [A250739](https://oeis.org/A250739) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05822-PROOF.pdf](05822-PROOF.pdf) |
+| 5823 | [A268899](https://oeis.org/A268899) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05823-PROOF.pdf](05823-PROOF.pdf) |
+| 5824 | [A268966](https://oeis.org/A268966) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05824-PROOF.pdf](05824-PROOF.pdf) |
+| 5825 | [A270052](https://oeis.org/A270052) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05825-PROOF.pdf](05825-PROOF.pdf) |
+| 5826 | [A269290](https://oeis.org/A269290) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05826-PROOF.pdf](05826-PROOF.pdf) |
+| 5827 | [A269103](https://oeis.org/A269103) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05827-PROOF.pdf](05827-PROOF.pdf) |
+| 5828 | [A188862](https://oeis.org/A188862) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05828-PROOF.pdf](05828-PROOF.pdf) |
+| 5829 | [A223557](https://oeis.org/A223557) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [05829-PROOF.pdf](05829-PROOF.pdf) |
+| 5830 | [A250738](https://oeis.org/A250738) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05830-PROOF.pdf](05830-PROOF.pdf) |
+| 5831 | [A269091](https://oeis.org/A269091) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05831-PROOF.pdf](05831-PROOF.pdf) |
+| 5832 | [A269270](https://oeis.org/A269270) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05832-PROOF.pdf](05832-PROOF.pdf) |
+| 5833 | [A269277](https://oeis.org/A269277) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05833-PROOF.pdf](05833-PROOF.pdf) |
+| 5834 | [A263660](https://oeis.org/A263660) | Proof |  | [05834-PROOF.pdf](05834-PROOF.pdf) |
+| 5835 | [A233156](https://oeis.org/A233156) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05835-PROOF.pdf](05835-PROOF.pdf) |
+| 5836 | [A268622](https://oeis.org/A268622) | Proof | a global count of adjacent pairs summing to a value, carried in the state by capping it | [05836-PROOF.pdf](05836-PROOF.pdf) |
+| 5837 | [A198474](https://oeis.org/A198474) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05837-PROOF.pdf](05837-PROOF.pdf) |
+| 5838 | [A198638](https://oeis.org/A198638) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05838-PROOF.pdf](05838-PROOF.pdf) |
+| 5839 | [A208388](https://oeis.org/A208388) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05839-PROOF.pdf](05839-PROOF.pdf) |
+| 5840 | [A253698](https://oeis.org/A253698) | Proof | a table's column recurrences, each column being a fixed-width array count | [05840-PROOF.pdf](05840-PROOF.pdf) |
+| 5841 | [A238929](https://oeis.org/A238929) | Proof | a table's column recurrences, each column being a fixed-width array count | [05841-PROOF.pdf](05841-PROOF.pdf) |
+| 5842 | [A228254](https://oeis.org/A228254) | Proof |  | [05842-PROOF.pdf](05842-PROOF.pdf) |
+| 5843 | [A268633](https://oeis.org/A268633) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05843-PROOF.pdf](05843-PROOF.pdf) |
+| 5844 | [A268898](https://oeis.org/A268898) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05844-PROOF.pdf](05844-PROOF.pdf) |
+| 5845 | [A268905](https://oeis.org/A268905) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05845-PROOF.pdf](05845-PROOF.pdf) |
+| 5846 | [A268965](https://oeis.org/A268965) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05846-PROOF.pdf](05846-PROOF.pdf) |
+| 5847 | [A268972](https://oeis.org/A268972) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05847-PROOF.pdf](05847-PROOF.pdf) |
+| 5848 | [A208085](https://oeis.org/A208085) | Proof | a table's column recurrences, each column being a fixed-width array count | [05848-PROOF.pdf](05848-PROOF.pdf) |
+| 5849 | [A188861](https://oeis.org/A188861) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05849-PROOF.pdf](05849-PROOF.pdf) |
+| 5850 | [A250737](https://oeis.org/A250737) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05850-PROOF.pdf](05850-PROOF.pdf) |
+| 5851 | [A251283](https://oeis.org/A251283) | Proof | a table's column recurrences, each column being a fixed-width array count | [05851-PROOF.pdf](05851-PROOF.pdf) |
+| 5852 | [A251491](https://oeis.org/A251491) | Proof | a table's column recurrences, each column being a fixed-width array count | [05852-PROOF.pdf](05852-PROOF.pdf) |
+| 5853 | [A263973](https://oeis.org/A263973) | Proof | a table's column recurrences, each column being a fixed-width array count | [05853-PROOF.pdf](05853-PROOF.pdf) |
+| 5854 | [A270111](https://oeis.org/A270111) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05854-PROOF.pdf](05854-PROOF.pdf) |
+| 5855 | [A208403](https://oeis.org/A208403) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05855-PROOF.pdf](05855-PROOF.pdf) |
+| 5856 | [A269895](https://oeis.org/A269895) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05856-PROOF.pdf](05856-PROOF.pdf) |
+| 5857 | [A195003](https://oeis.org/A195003) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05857-PROOF.pdf](05857-PROOF.pdf) |
+| 5858 | [A269760](https://oeis.org/A269760) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05858-PROOF.pdf](05858-PROOF.pdf) |
+| 5859 | [A221684](https://oeis.org/A221684) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05859-PROOF.pdf](05859-PROOF.pdf) |
+| 5860 | [A194935](https://oeis.org/A194935) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05860-PROOF.pdf](05860-PROOF.pdf) |
+| 5861 | [A195002](https://oeis.org/A195002) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05861-PROOF.pdf](05861-PROOF.pdf) |
+| 5862 | [A204624](https://oeis.org/A204624) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05862-PROOF.pdf](05862-PROOF.pdf) |
+| 5863 | [A208253](https://oeis.org/A208253) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05863-PROOF.pdf](05863-PROOF.pdf) |
+| 5864 | [A269822](https://oeis.org/A269822) | Proof | a global count of marked adjacent pairs carried in the state, then a walk count | [05864-PROOF.pdf](05864-PROOF.pdf) |
+| 5865 | [A208705](https://oeis.org/A208705) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05865-PROOF.pdf](05865-PROOF.pdf) |
+| 5866 | [A209727](https://oeis.org/A209727) | Proof | a table's column recurrences, each column being a fixed-width array count | [05866-PROOF.pdf](05866-PROOF.pdf) |
+| 5867 | [A251249](https://oeis.org/A251249) | Proof | a table's column recurrences, each column being a fixed-width array count | [05867-PROOF.pdf](05867-PROOF.pdf) |
+| 5868 | [A188707](https://oeis.org/A188707) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05868-PROOF.pdf](05868-PROOF.pdf) |
+| 5869 | [A194934](https://oeis.org/A194934) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05869-PROOF.pdf](05869-PROOF.pdf) |
+| 5870 | [A195001](https://oeis.org/A195001) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05870-PROOF.pdf](05870-PROOF.pdf) |
+| 5871 | [A205248](https://oeis.org/A205248) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05871-PROOF.pdf](05871-PROOF.pdf) |
+| 5872 | [A250777](https://oeis.org/A250777) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05872-PROOF.pdf](05872-PROOF.pdf) |
+| 5873 | [A205163](https://oeis.org/A205163) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05873-PROOF.pdf](05873-PROOF.pdf) |
+| 5874 | [A210406](https://oeis.org/A210406) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05874-PROOF.pdf](05874-PROOF.pdf) |
+| 5875 | [A194933](https://oeis.org/A194933) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05875-PROOF.pdf](05875-PROOF.pdf) |
+| 5876 | [A200249](https://oeis.org/A200249) | Proof |  | [05876-PROOF.pdf](05876-PROOF.pdf) |
+| 5877 | [A223211](https://oeis.org/A223211) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05877-PROOF.pdf](05877-PROOF.pdf) |
+| 5878 | [A205328](https://oeis.org/A205328) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05878-PROOF.pdf](05878-PROOF.pdf) |
+| 5879 | [A208309](https://oeis.org/A208309) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05879-PROOF.pdf](05879-PROOF.pdf) |
+| 5880 | [A208316](https://oeis.org/A208316) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05880-PROOF.pdf](05880-PROOF.pdf) |
+| 5881 | [A208561](https://oeis.org/A208561) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05881-PROOF.pdf](05881-PROOF.pdf) |
+| 5882 | [A209094](https://oeis.org/A209094) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05882-PROOF.pdf](05882-PROOF.pdf) |
+| 5883 | [A209890](https://oeis.org/A209890) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05883-PROOF.pdf](05883-PROOF.pdf) |
+| 5884 | [A194932](https://oeis.org/A194932) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05884-PROOF.pdf](05884-PROOF.pdf) |
+| 5885 | [A194999](https://oeis.org/A194999) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05885-PROOF.pdf](05885-PROOF.pdf) |
+| 5886 | [A205220](https://oeis.org/A205220) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05886-PROOF.pdf](05886-PROOF.pdf) |
+| 5887 | [A205329](https://oeis.org/A205329) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05887-PROOF.pdf](05887-PROOF.pdf) |
+| 5888 | [A205354](https://oeis.org/A205354) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05888-PROOF.pdf](05888-PROOF.pdf) |
+| 5889 | [A205219](https://oeis.org/A205219) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [05889-PROOF.pdf](05889-PROOF.pdf) |
+| 5890 | [A223381](https://oeis.org/A223381) | Proof |  | [05890-PROOF.pdf](05890-PROOF.pdf) |
+| 5891 | [A233152](https://oeis.org/A233152) | Proof | neighbouring cells forbidden to carry values summing to m, with the renaming clauses that pick one array per c... | [05891-PROOF.pdf](05891-PROOF.pdf) |
+| 5892 | [A000180](https://oeis.org/A000180) | Proof | creative telescoping with the boundary and range corrections carried through | [05892-PROOF.pdf](05892-PROOF.pdf) |
+| 5893 | [A222941](https://oeis.org/A222941) | Proof | no two cells within a stated distance may agree, counted up to renaming | [05893-PROOF.pdf](05893-PROOF.pdf) |
+| 5894 | [A263989](https://oeis.org/A263989) | Proof | a table's column recurrences, each column being a fixed-width array count | [05894-PROOF.pdf](05894-PROOF.pdf) |
+| 5895 | [A209539](https://oeis.org/A209539) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [05895-PROOF.pdf](05895-PROOF.pdf) |
+| 5896 | [A203821](https://oeis.org/A203821) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05896-PROOF.pdf](05896-PROOF.pdf) |
+| 5897 | [A264017](https://oeis.org/A264017) | Proof | a table's column recurrences, each column being a fixed-width array count | [05897-PROOF.pdf](05897-PROOF.pdf) |
+| 5898 | [A264059](https://oeis.org/A264059) | Proof | a table's column recurrences, each column being a fixed-width array count | [05898-PROOF.pdf](05898-PROOF.pdf) |
+| 5899 | [A264128](https://oeis.org/A264128) | Proof | a table's column recurrences, each column being a fixed-width array count | [05899-PROOF.pdf](05899-PROOF.pdf) |
+| 5900 | [A264190](https://oeis.org/A264190) | Proof | a table's column recurrences, each column being a fixed-width array count | [05900-PROOF.pdf](05900-PROOF.pdf) |
+| 5901 | [A264195](https://oeis.org/A264195) | Proof | a table's column recurrences, each column being a fixed-width array count | [05901-PROOF.pdf](05901-PROOF.pdf) |
+| 5902 | [A264490](https://oeis.org/A264490) | Proof | a table's column recurrences, each column being a fixed-width array count | [05902-PROOF.pdf](05902-PROOF.pdf) |
+| 5903 | [A203979](https://oeis.org/A203979) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05903-PROOF.pdf](05903-PROOF.pdf) |
+| 5904 | [A203820](https://oeis.org/A203820) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05904-PROOF.pdf](05904-PROOF.pdf) |
+| 5905 | [A223186](https://oeis.org/A223186) | Proof | a table's column recurrences, each column being a fixed-width array count | [05905-PROOF.pdf](05905-PROOF.pdf) |
+| 5906 | [A203880](https://oeis.org/A203880) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05906-PROOF.pdf](05906-PROOF.pdf) |
+| 5907 | [A203927](https://oeis.org/A203927) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05907-PROOF.pdf](05907-PROOF.pdf) |
+| 5908 | [A203789](https://oeis.org/A203789) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05908-PROOF.pdf](05908-PROOF.pdf) |
+| 5909 | [A203819](https://oeis.org/A203819) | Proof | an explicit closed form, turned into the recurrence it satisfies | [05909-PROOF.pdf](05909-PROOF.pdf) |
+| 5910 | [A263303](https://oeis.org/A263303) | Proof | a table's column recurrences, each column being a fixed-width array count | [05910-PROOF.pdf](05910-PROOF.pdf) |
+| 5911 | [A194936](https://oeis.org/A194936) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05911-PROOF.pdf](05911-PROOF.pdf) |
+| 5912 | [A195253](https://oeis.org/A195253) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05912-PROOF.pdf](05912-PROOF.pdf) |
+| 5913 | [A263288](https://oeis.org/A263288) | Proof | a table's column recurrences, each column being a fixed-width array count | [05913-PROOF.pdf](05913-PROOF.pdf) |
+| 5914 | [A195252](https://oeis.org/A195252) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05914-PROOF.pdf](05914-PROOF.pdf) |
+| 5915 | [A208387](https://oeis.org/A208387) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05915-PROOF.pdf](05915-PROOF.pdf) |
+| 5916 | [A195251](https://oeis.org/A195251) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05916-PROOF.pdf](05916-PROOF.pdf) |
+| 5917 | [A195250](https://oeis.org/A195250) | Proof | a fixed triangle over 0..n whose condition constrains differences only: translation splits the arrays into fin... | [05917-PROOF.pdf](05917-PROOF.pdf) |
+| 5918 | [A204623](https://oeis.org/A204623) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05918-PROOF.pdf](05918-PROOF.pdf) |
+| 5919 | [A208704](https://oeis.org/A208704) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [05919-PROOF.pdf](05919-PROOF.pdf) |
+| 5920 | [A262795](https://oeis.org/A262795) | Proof | a table's column recurrences, each column being a fixed-width array count | [05920-PROOF.pdf](05920-PROOF.pdf) |
+| 5921 | [A250883](https://oeis.org/A250883) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05921-PROOF.pdf](05921-PROOF.pdf) |
+| 5922 | [A221394](https://oeis.org/A221394) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05922-PROOF.pdf](05922-PROOF.pdf) |
+| 5923 | [A252927](https://oeis.org/A252927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05923-PROOF.pdf](05923-PROOF.pdf) |
+| 5924 | [A242545](https://oeis.org/A242545) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05924-PROOF.pdf](05924-PROOF.pdf) |
+| 5925 | [A252874](https://oeis.org/A252874) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05925-PROOF.pdf](05925-PROOF.pdf) |
+| 5926 | [A252926](https://oeis.org/A252926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05926-PROOF.pdf](05926-PROOF.pdf) |
+| 5927 | [A252873](https://oeis.org/A252873) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05927-PROOF.pdf](05927-PROOF.pdf) |
+| 5928 | [A242544](https://oeis.org/A242544) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05928-PROOF.pdf](05928-PROOF.pdf) |
+| 5929 | [A252925](https://oeis.org/A252925) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05929-PROOF.pdf](05929-PROOF.pdf) |
+| 5930 | [A252872](https://oeis.org/A252872) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05930-PROOF.pdf](05930-PROOF.pdf) |
+| 5931 | [A252971](https://oeis.org/A252971) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05931-PROOF.pdf](05931-PROOF.pdf) |
+| 5932 | [A242543](https://oeis.org/A242543) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05932-PROOF.pdf](05932-PROOF.pdf) |
+| 5933 | [A252871](https://oeis.org/A252871) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05933-PROOF.pdf](05933-PROOF.pdf) |
+| 5934 | [A252924](https://oeis.org/A252924) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05934-PROOF.pdf](05934-PROOF.pdf) |
+| 5935 | [A270934](https://oeis.org/A270934) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05935-PROOF.pdf](05935-PROOF.pdf) |
+| 5936 | [A273334](https://oeis.org/A273334) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05936-PROOF.pdf](05936-PROOF.pdf) |
+| 5937 | [A273447](https://oeis.org/A273447) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05937-PROOF.pdf](05937-PROOF.pdf) |
+| 5938 | [A273781](https://oeis.org/A273781) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05938-PROOF.pdf](05938-PROOF.pdf) |
+| 5939 | [A252970](https://oeis.org/A252970) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05939-PROOF.pdf](05939-PROOF.pdf) |
+| 5940 | [A208995](https://oeis.org/A208995) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05940-PROOF.pdf](05940-PROOF.pdf) |
+| 5941 | [A250846](https://oeis.org/A250846) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05941-PROOF.pdf](05941-PROOF.pdf) |
+| 5942 | [A289763](https://oeis.org/A289763) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05942-PROOF.pdf](05942-PROOF.pdf) |
+| 5943 | [A252870](https://oeis.org/A252870) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05943-PROOF.pdf](05943-PROOF.pdf) |
+| 5944 | [A287130](https://oeis.org/A287130) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05944-PROOF.pdf](05944-PROOF.pdf) |
+| 5945 | [A287132](https://oeis.org/A287132) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05945-PROOF.pdf](05945-PROOF.pdf) |
+| 5946 | [A278757](https://oeis.org/A278757) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05946-PROOF.pdf](05946-PROOF.pdf) |
+| 5947 | [A278758](https://oeis.org/A278758) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05947-PROOF.pdf](05947-PROOF.pdf) |
+| 5948 | [A278759](https://oeis.org/A278759) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05948-PROOF.pdf](05948-PROOF.pdf) |
+| 5949 | [A278760](https://oeis.org/A278760) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05949-PROOF.pdf](05949-PROOF.pdf) |
+| 5950 | [A285648](https://oeis.org/A285648) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05950-PROOF.pdf](05950-PROOF.pdf) |
+| 5951 | [A285650](https://oeis.org/A285650) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05951-PROOF.pdf](05951-PROOF.pdf) |
+| 5952 | [A285776](https://oeis.org/A285776) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05952-PROOF.pdf](05952-PROOF.pdf) |
+| 5953 | [A288828](https://oeis.org/A288828) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05953-PROOF.pdf](05953-PROOF.pdf) |
+| 5954 | [A279959](https://oeis.org/A279959) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05954-PROOF.pdf](05954-PROOF.pdf) |
+| 5955 | [A279960](https://oeis.org/A279960) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05955-PROOF.pdf](05955-PROOF.pdf) |
+| 5956 | [A279961](https://oeis.org/A279961) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05956-PROOF.pdf](05956-PROOF.pdf) |
+| 5957 | [A279962](https://oeis.org/A279962) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05957-PROOF.pdf](05957-PROOF.pdf) |
+| 5958 | [A283649](https://oeis.org/A283649) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05958-PROOF.pdf](05958-PROOF.pdf) |
+| 5959 | [A283650](https://oeis.org/A283650) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05959-PROOF.pdf](05959-PROOF.pdf) |
+| 5960 | [A283651](https://oeis.org/A283651) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05960-PROOF.pdf](05960-PROOF.pdf) |
+| 5961 | [A284483](https://oeis.org/A284483) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05961-PROOF.pdf](05961-PROOF.pdf) |
+| 5962 | [A284484](https://oeis.org/A284484) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05962-PROOF.pdf](05962-PROOF.pdf) |
+| 5963 | [A284485](https://oeis.org/A284485) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05963-PROOF.pdf](05963-PROOF.pdf) |
+| 5964 | [A286771](https://oeis.org/A286771) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05964-PROOF.pdf](05964-PROOF.pdf) |
+| 5965 | [A286773](https://oeis.org/A286773) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05965-PROOF.pdf](05965-PROOF.pdf) |
+| 5966 | [A287191](https://oeis.org/A287191) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05966-PROOF.pdf](05966-PROOF.pdf) |
+| 5967 | [A287193](https://oeis.org/A287193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05967-PROOF.pdf](05967-PROOF.pdf) |
+| 5968 | [A289097](https://oeis.org/A289097) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05968-PROOF.pdf](05968-PROOF.pdf) |
+| 5969 | [A290193](https://oeis.org/A290193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05969-PROOF.pdf](05969-PROOF.pdf) |
+| 5970 | [A290195](https://oeis.org/A290195) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05970-PROOF.pdf](05970-PROOF.pdf) |
+| 5971 | [A063081](https://oeis.org/A063081) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05971-PROOF.pdf](05971-PROOF.pdf) |
+| 5972 | [A063168](https://oeis.org/A063168) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05972-PROOF.pdf](05972-PROOF.pdf) |
+| 5973 | [A277797](https://oeis.org/A277797) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05973-PROOF.pdf](05973-PROOF.pdf) |
+| 5974 | [A277798](https://oeis.org/A277798) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05974-PROOF.pdf](05974-PROOF.pdf) |
+| 5975 | [A277799](https://oeis.org/A277799) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05975-PROOF.pdf](05975-PROOF.pdf) |
+| 5976 | [A277800](https://oeis.org/A277800) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05976-PROOF.pdf](05976-PROOF.pdf) |
+| 5977 | [A277864](https://oeis.org/A277864) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05977-PROOF.pdf](05977-PROOF.pdf) |
+| 5978 | [A277866](https://oeis.org/A277866) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05978-PROOF.pdf](05978-PROOF.pdf) |
+| 5979 | [A277926](https://oeis.org/A277926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05979-PROOF.pdf](05979-PROOF.pdf) |
+| 5980 | [A277927](https://oeis.org/A277927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05980-PROOF.pdf](05980-PROOF.pdf) |
+| 5981 | [A277928](https://oeis.org/A277928) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05981-PROOF.pdf](05981-PROOF.pdf) |
+| 5982 | [A277929](https://oeis.org/A277929) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05982-PROOF.pdf](05982-PROOF.pdf) |
+| 5983 | [A280367](https://oeis.org/A280367) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05983-PROOF.pdf](05983-PROOF.pdf) |
+| 5984 | [A280368](https://oeis.org/A280368) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05984-PROOF.pdf](05984-PROOF.pdf) |
+| 5985 | [A280369](https://oeis.org/A280369) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05985-PROOF.pdf](05985-PROOF.pdf) |
+| 5986 | [A280370](https://oeis.org/A280370) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05986-PROOF.pdf](05986-PROOF.pdf) |
+| 5987 | [A283504](https://oeis.org/A283504) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05987-PROOF.pdf](05987-PROOF.pdf) |
+| 5988 | [A283505](https://oeis.org/A283505) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05988-PROOF.pdf](05988-PROOF.pdf) |
+| 5989 | [A283506](https://oeis.org/A283506) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05989-PROOF.pdf](05989-PROOF.pdf) |
+| 5990 | [A283507](https://oeis.org/A283507) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05990-PROOF.pdf](05990-PROOF.pdf) |
+| 5991 | [A284351](https://oeis.org/A284351) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05991-PROOF.pdf](05991-PROOF.pdf) |
+| 5992 | [A284353](https://oeis.org/A284353) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05992-PROOF.pdf](05992-PROOF.pdf) |
+| 5993 | [A285541](https://oeis.org/A285541) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05993-PROOF.pdf](05993-PROOF.pdf) |
+| 5994 | [A287199](https://oeis.org/A287199) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05994-PROOF.pdf](05994-PROOF.pdf) |
+| 5995 | [A290072](https://oeis.org/A290072) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05995-PROOF.pdf](05995-PROOF.pdf) |
+| 5996 | [A290835](https://oeis.org/A290835) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05996-PROOF.pdf](05996-PROOF.pdf) |
+| 5997 | [A290837](https://oeis.org/A290837) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05997-PROOF.pdf](05997-PROOF.pdf) |
+| 5998 | [A277560](https://oeis.org/A277560) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05998-PROOF.pdf](05998-PROOF.pdf) |
+| 5999 | [A277936](https://oeis.org/A277936) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [05999-PROOF.pdf](05999-PROOF.pdf) |
+| 6000 | [A282002](https://oeis.org/A282002) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06000-PROOF.pdf](06000-PROOF.pdf) |

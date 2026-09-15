@@ -11,143 +11,106 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A284078: recovering a conjecture that is not written down}
+\title{The conjectured P-recursive recurrence for OEIS A239201, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A284078 records ``Empirical recurrence of order $84$'', with the recurrence itself in a
-linked file rather than in the entry. The conjecture can nevertheless be settled, and the
-recurrence recovered, without reading that file. The entry counts arrays under a condition
-local to a bounded window of lines, so the count is a walk count on a finite digraph and
-satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=155$; Berlekamp--Massey applied to $2S'$ exact
-terms therefore returns the MINIMAL such recurrence. Its order is exactly $84$, the order
-the entry states, and the same is true of every tail of the sequence. Any recurrence of order
-$84$ that the sequence satisfies from any point on must then have a characteristic
-polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
-the entry's recurrence is the one displayed here, whatever its file contains, and it is
-proved.
+OEIS A239201 carries a conjectured recurrence of order $3$ whose coefficients are polynomials in
+$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
+states its generating function as a fact, and that function is algebraic; the conjecture then
+becomes the vanishing of an explicit element of an algebraic function field, which is settled
+symbolically. The result is an identity, not a run of verified terms: it holds at every index
+at once.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
 
-\section{A conjecture one cannot read}
+\section{The conjecture}
 
-OEIS A284078 is ``Number of 4Xn 0..1 arrays with no 1 equal to more than three of its horizontal, diagonal and antidiagonal neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
+OEIS A239201 is ``Expansion of -(x * sqrt(5*x\^{}2 -6*x +1) -2*x\^{}3 +3*x\^{}2 -x) / ((3*x\^{}2 -4*x +1) * sqrt(5*x\^{}2 -6*x +1) +5*x\^{}3 -11*x\^{}2 +7*x -1).''. It has offset $1$ and begins
 \[
-0, 0, 314, 7302, 147864, 2696970, 45973823, 754541156,\ \dots
+2, 5, 17, 68, 293, 1310, 5984, 27725,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 84 (see link above)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}\raggedright\small
+Conjecture D-finite with recurrence: (-n+1)*a(n) +(7*n-11)*a(n-1) +(-11*n+25)*a(n-2) +5*(n-3)*a(n-3)=0. - \_R. J. Mathar\_, Oct 07 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 19 2017 20:15:19, revision 4) this is still
-recorded as empirical. The recurrence's coefficients are not in the entry text.
+As of the ``Last modified'' line on the live entry (Nov 19 2021 09:26:03, revision 22)
+this is still recorded as a conjecture, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{The generating function}
 
-The entry's condition is local: it constrains a bounded window of consecutive lines of the
-array and nothing further. The admissible configurations of one such window are the vertices
-of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=784$ vertices,
-$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=155$ of the $784$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
-integer combination of $I,M,\dots,M^{S-1}$, so:
-
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=155$.
-\end{lemma}
-
-\section{Recovering the recurrence}
-
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
-with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
-that minimal recurrence exactly.
-\end{lemma}
-
-Running it on $2S'=310$ exact terms of the model returns order $84$ --- the order the
-entry states --- with the integer coefficients
+The entry gives, as a statement of fact and not as a conjecture,
 \[
-a(n)\;=\;\sum_{i=1}^{84}c_i\,a(n-i),
+A(x)\;=\;\frac{2 x^{3} - 3 x^{2} - x \sqrt{5 x^{2} - 6 x + 1} + x}{5 x^{3} - 11 x^{2} + 7 x + \left(3 x^{2} - 4 x + 1\right) \sqrt{5 x^{2} - 6 x + 1} - 1} .
 \]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $24$ & $c_{22}$ & $-109371647487468$ & $c_{43}$ & $-1107831694181973$ & $c_{64}$ & $987632300118$ \\
-$c_{2}$ & $-108$ & $c_{23}$ & $-115212841813737$ & $c_{44}$ & $-108418539068160$ & $c_{65}$ & $242053539477$ \\
-$c_{3}$ & $266$ & $c_{24}$ & $-48973397770969$ & $c_{45}$ & $904148714268408$ & $c_{66}$ & $-270081330917$ \\
-$c_{4}$ & $-13386$ & $c_{25}$ & $28373603984769$ & $c_{46}$ & $191281864556589$ & $c_{67}$ & $-73555117038$ \\
-$c_{5}$ & $6735$ & $c_{26}$ & $6396693814260$ & $c_{47}$ & $-620701415943828$ & $c_{68}$ & $86964353589$ \\
-$c_{6}$ & $136975$ & $c_{27}$ & $-18360581477376$ & $c_{48}$ & $-286383117981061$ & $c_{69}$ & $15052325218$ \\
-$c_{7}$ & $4000098$ & $c_{28}$ & $197240932089249$ & $c_{49}$ & $293955763887582$ & $c_{70}$ & $-23528436714$ \\
-$c_{8}$ & $20064858$ & $c_{29}$ & $384529051643970$ & $c_{50}$ & $270968719452561$ & $c_{71}$ & $-11360440557$ \\
-$c_{9}$ & $70026219$ & $c_{30}$ & $-50481694180025$ & $c_{51}$ & $-36603522364334$ & $c_{72}$ & $-3300293650$ \\
-$c_{10}$ & $-2876313$ & $c_{31}$ & $-559306244282487$ & $c_{52}$ & $-153710579099955$ & $c_{73}$ & $2667485565$ \\
-$c_{11}$ & $-1204425303$ & $c_{32}$ & $4612235499534$ & $c_{53}$ & $-60606573729051$ & $c_{74}$ & $1766110878$ \\
-$c_{12}$ & $-6599082382$ & $c_{33}$ & $735707632979772$ & $c_{54}$ & $53940582943284$ & $c_{75}$ & $-1030308054$ \\
-$c_{13}$ & $-18865689483$ & $c_{34}$ & $-63011591517810$ & $c_{55}$ & $52236972030567$ & $c_{76}$ & $-528775854$ \\
-$c_{14}$ & $-15549937707$ & $c_{35}$ & $-987123334111422$ & $c_{56}$ & $-10200584138448$ & $c_{77}$ & $427372656$ \\
-$c_{15}$ & $124217517823$ & $c_{36}$ & $153300208431597$ & $c_{57}$ & $-24496416562017$ & $c_{78}$ & $120103057$ \\
-$c_{16}$ & $684765813357$ & $c_{37}$ & $1329720263838465$ & $c_{58}$ & $-669484476015$ & $c_{79}$ & $-99449802$ \\
-$c_{17}$ & $1854143559936$ & $c_{38}$ & $-83720235415329$ & $c_{59}$ & $8247756112512$ & $c_{80}$ & $-2682114$ \\
-$c_{18}$ & $2439654524857$ & $c_{39}$ & $-1500980106910264$ & $c_{60}$ & $1309924124056$ & $c_{81}$ & $9030337$ \\
-$c_{19}$ & $-2654398474644$ & $c_{40}$ & $-105727706952228$ & $c_{61}$ & $-2418032421795$ & $c_{82}$ & $-1650306$ \\
-$c_{20}$ & $-22899796858998$ & $c_{41}$ & $1319683171434912$ & $c_{62}$ & $-1556932948992$ & $c_{83}$ & $113484$ \\
-$c_{21}$ & $-63782634487787$ & $c_{42}$ & $121063554229267$ & $c_{63}$ & $272209269725$ & $c_{84}$ & $-2744$ \\
-\end{tabular}
-\end{center}
+This is an algebraic function. Before it is used for anything it is checked against the entry's
+own data: its Taylor coefficients reproduce every one of the $28$ published terms
+exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
+function an entry states as fact does NOT generate the terms it publishes, and a proof built on
+it would have been a proof from a false premise.
+
+\section{A P-recursive claim is the vanishing of one function}
+
+\begin{lemma}\label{lem:theta}
+Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
+polynomial $p$ and an integer $i\ge0$,
+\[
+\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
+\]
+\end{lemma}
+
+\begin{proof}
+Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
+applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
+\end{proof}
+
+Put $b(n)=\sum_{i=0}^{3}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
+$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
+\[
+B(x)\;=\;\sum_{i=0}^{3}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
+\]
+an explicit element of the algebraic function field generated by $A$. The conjecture asserts
+$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
+polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
+
+\section{The theorem}
 
 \begin{theorem}
-The recurrence above holds for every $n$, and it is the recurrence the entry records.
+\[
+\left(1 - n\right)a(n) + \left(7 n - 11\right)a(n-1) + \left(25 - 11 n\right)a(n-2) + \left(5 n - 15\right)a(n-3)\;=\;0
+\]
+for every $n>2$.
 \end{theorem}
 
 \begin{proof}
-It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
-first term. For the identification: the entry asserts that the sequence satisfies SOME
-recurrence of order $84$, possibly only from some index on. Let $q$ be that recurrence's
-characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
-Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $84+4$ terms
-removed returns order $84$ as well, so $\deg q_{\min}=84=\deg q$; both are monic, so
-$q=q_{\min}$, which is the polynomial computed above.
+$B$ was formed as above and simplified in the function field. Here $B$ is a polynomial of degree $2$. A polynomial contributes only to the coefficients of $x^k$ with $k\le2$, so $b(n)=0$ for every $n>2$. Since $A$ reproduces the
+entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
+follows.
 \end{proof}
 
 \section{Verification}
 
-Three checks.
-
-First, the walk model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry, and it is the only place where reading
-the entry's English enters.
-
-Second, the recovered recurrence was evaluated directly on those published terms, with no
-matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
-enough earlier terms to test it.
-
-Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once in exact rational arithmetic; and once more on
-the sequence with its first $84+4$ terms removed, which is what the identification above
-requires. All three agree.
-
-\begin{remark}
-What is unusual here is that the conjecture's statement was never read. The entry pins it down
-to a one-parameter family --- the recurrences of order $84$ that this sequence satisfies
---- and that family turns out to have exactly one member.
-\end{remark}
+First, the generating function reproduces all $28$ published terms exactly. Second,
+the conjectured recurrence was evaluated directly on those terms, with no generating function
+involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
+computed symbolically rather than from a truncated series, and its series expansion was taken
+independently to confirm the coefficients it predicts.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A284078.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A239201.
+\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Algebraic and D-finite generating functions.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}

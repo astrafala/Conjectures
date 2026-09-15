@@ -7,178 +7,164 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-
-\title{The empirical recurrence for OEIS A278278, recovered from its tail}
+\title{A proof of the conjectured recurrence for OEIS A026005}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{26 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A278278 records ``Empirical recurrence of order $98$'' and keeps the recurrence itself in
-a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
-It can still be settled. The entry counts arrays under a condition local to a bounded window of
-lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=141$ of states with distinct futures. Berlekamp--Massey on
-enough exact terms therefore returns the minimal such recurrence, and on the tail beginning at $n=4$, so the recurrence is proved for every $n\ge102$.
-Its last coefficient is $c_{98}=455493888\neq0$, so no further tail satisfies anything
-shorter; any order-$98$ recurrence the sequence satisfies from any point on must then have
-the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
-its linked file contains, and it is proved.
+OEIS A026005 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry gives no generating function, but it does give the sequence as
+a single hypergeometric sum. We prove the conjecture without assuming any generating
+function: creative telescoping produces, from the summand alone, an operator of order
+1 that annihilates the sequence, together with a rational certificate that is
+checked as an exact identity rather than trusted. The conjectured operator is then shown
+to be a left multiple of it by division in the Ore algebra $\mathbb{Q}(n)[N]$. That last
+step is what the conjecture needs: the conjectured recurrence has order $2$ while the summand only needs order $1$, so it is not itself a telescoper and cannot be produced directly.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 68W30.\normalsize
 
-\section{A conjecture that is not written down}
+\section{The sequence and the conjecture}
 
-OEIS A278278 is ``Number of nX6 0..1 arrays with every element both equal and not equal to some elements at offset (-1,-1) (-1,0) (-1,1) (0,-1) (0,1) or (1,0), with upper left element zero.''. It has offset $1$ and begins
+OEIS A026005 is ``a(n) = T(4*n,n), where T = Catalan triangle (A008315)''. It has offset $0$ and begins
 \[
-0, 109, 3723, 172091, 7466627, 329985827, 14526103064, 640011857446,\ \dots
+a(0),\dots,a(7)\;=\;1, 4, 27, 208, 1700, 14364, 123970, 1085760,\ \dots
 \]
-The entry states:
-\begin{quote}
-Empirical recurrence of order 98 (see link above)
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = Sum\emph{\{k=0..n\}((n+k+1)*binomial(n+k,k)*binomial(3*n-k,n-k))/(2*n+1). - }Vladimir Kruchinin\_, Dec 02 2016
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 16 2016 12:08:59, revision 4)
-this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
-entry text: what is conjectured is only that a recurrence of that order exists.
+so that, writing $F(n,k)$ for the summand,
+\begin{equation}\label{eq:sum}
+a(n)\;=\;\sum_{k=0}^{n}F(n,k),
+\qquad F(n,k)=\frac{\left(k + n + 1\right) {\binom{- k + 3 n}{- k + n}} {\binom{k + n}{k}}}{2 n + 1} .
+\end{equation}
+This is the only input the proof takes from the entry, and it was checked against the
+entry's own DATA before use.
 
-\section{The count is a walk count}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} 9*n*(3*n+2)*(3*n+1)*a(n) +12*(-55*n\^{}3-59*n\^{}2+65*n-11)*a(n-1) -32*(4*n-5)*(4*n-3)*(2*n-3)*a(n-2)=0. - \emph{R. J. Mathar}, May 22 2013
+\end{quote}
+As of the ``Last modified'' line on the live entry (2017-05-24, revision 28) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The entry's condition is local. It constrains a bounded window of consecutive lines of the
-array and nothing beyond it, so the admissible configurations of one window are the vertices of
-a finite digraph, an edge joins $u$ to $v$ when $v$ may follow $u$, and an admissible array is
-exactly a walk. Writing $M$ for the adjacency matrix and $\iota,\tau$ for the indicator vectors
-of the admissible first and last windows,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
-\]
-for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
-contribute identically to that product and may be merged without changing any count; after
-merging $S'=141$ states remain, and it is that bound every computation below uses.
+\section{Telescoping the summand}
 
-\begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=141$.
+Let $N$ denote the shift in $n$, $(Nf)(n)=f(n+1)$, and $\Delta_{k}$ the forward difference
+in $k$, $(\Delta_{k}g)(k)=g(k+1)-g(k)$.
+
+\begin{lemma}\label{lem:tel}
+Suppose there are rational functions $\sigma_{0},\dots,\sigma_{r}$ of $n$, not all zero,
+and a rational function $R(n,k)$ such that
+\begin{equation}\label{eq:cert}
+\sum_{i=0}^{r}\sigma_{i}(n)\,F(n+i,k)\;=\;\Delta_{k}\bigl[R(n,k)F(n,k)\bigr].
+\end{equation}
+Suppose further that $F(n,k)=0$ for every $k$ outside the range of summation in
+\eqref{eq:sum}. Then $\sum_{i}\sigma_{i}(n)a(n+i)=0$.
 \end{lemma}
 
 \begin{proof}
-By the Cayley--Hamilton theorem $M^{S'}$ is an integer combination of $I,M,\dots,M^{S'-1}$,
-and multiplying that relation on the left by $\iota^{\!\top}M^{\,j}$ and on the right by
-$\tau$ turns it into a relation among $S'+1$ consecutive values of $a$.
+Because $F(n,k)$ vanishes off the stated range, the sum in \eqref{eq:sum} may be taken
+over all $k\in\mathbb{Z}$ without changing it, and the same holds for each $F(n+i,k)$.
+Summing \eqref{eq:cert} over all $k$, the left side becomes
+$\sum_{i}\sigma_{i}(n)a(n+i)$ and the right side telescopes: the partial sums of a forward
+difference collapse to the boundary values, which are $0$ because $R(n,k)F(n,k)$ vanishes
+for $|k|$ large. Hence the left side is $0$.
 \end{proof}
 
-\section{Why the question has to be asked of a tail}
+The point of Lemma~\ref{lem:tel} is that \eqref{eq:cert} is an identity between rational
+functions once both sides are divided by $F(n,k)$: the quotients $F(n+i,k)/F(n,k)$ and
+$F(n,k+1)/F(n,k)$ are rational because $F$ is hypergeometric in both variables. So a
+proposed $(\sigma,R)$ can be \emph{checked}, exactly, whatever produced it.
 
-Running Berlekamp--Massey on the sequence from its first term returns an order LARGER than $98$: the opening terms do not satisfy the recurrence, and a recurrence that holds only eventually always looks longer when the exceptional terms are included. That is not evidence against the entry. An OEIS empirical recurrence is asserted for $n$ beyond some index, not from the first term, so the question has to be asked of the tails. It was asked of each tail in turn, and the tail beginning at $n=4$ is the first whose minimal order is exactly the stated $98$.
+For A026005 such a pair exists with $r=1$:
+\[
+\sigma_{0}(n)=\frac{- 256 n^{4} - 1152 n^{3} - 1776 n^{2} - 1112 n - 240}{9 n^{3} + 30 n^{2} + 33 n + 12},\qquad \sigma_{1}(n)=3 n + 5
+\]
+and certificate
+\[
+R(n,k)\;=\;\frac{9 k^{5} n + 12 k^{5} - 96 k^{4} n^{2} - 192 k^{4} n - 84 k^{4} + 346 k^{3} n^{3} + 856 k^{3} n^{2} + 583 k^{3} n + 84 k^{3} - 712 k^{2} n^{4} - 2496 k^{2} n^{3} - 3138 k^{2} n^{2} - 1688 k^{2} n - 324 k^{2} + 885 k n^{5} + 4252 k n^{4} + 7715 k n^{3} + 6428 k n^{2} + 2368 k n + 312 k}{36 k n^{4} + 174 k n^{3} + 312 k n^{2} + 246 k n + 72 k - 36 n^{5} - 210 n^{4} - 486 n^{3} - 558 n^{2} - 318 n - 72} .
+\]
+Dividing \eqref{eq:cert} by $F(n,k)$ and cancelling gives $0$ identically, so
+Lemma~\ref{lem:tel} applies and
+\begin{equation}\label{eq:L}
+L\;=\;\sum_{i=0}^{1}\sigma_{i}(n)N^{i}
+\end{equation}
+annihilates $a$.
 
-\begin{lemma}\label{lem:bm}
-A sequence known to satisfy some linear recurrence of order at most $S'$ is determined,
-together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp--Massey applied
-to them returns that minimal recurrence exactly.
+\section{From the derived recurrence to the conjectured one}
+
+The operator \eqref{eq:L} is not the conjectured one. It has order $1$, below the conjectured order $2$: the conjecture is a consequence of a shorter relation, not the shortest relation itself. The two are connected by
+division in the Ore algebra $\mathcal{A}=\mathbb{Q}(n)[N]$, where multiplication obeys
+$N\,q(n)=q(n+1)\,N$.
+
+\begin{lemma}\label{lem:factor}
+If $C=QL$ in $\mathcal{A}$ and $L(a)=0$, then $C(a)=0$ at every $n$ where the coefficients
+of $Q$ are defined.
 \end{lemma}
 
-Applied to $2S'=282$ exact terms from $n=4$ on, it returns order $98$ --- the
-order the entry states --- with integer coefficients:
-\[
-a(n)\;=\;\sum_{i=1}^{98}c_i\,a(n-i),
-\]
-\begin{center}\small
-\begin{tabular}{cccccccc}
-$c_{1}$ & $36$ & $c_{26}$ & $-161071123849182705$ & $c_{51}$ & $-88174042223680702509$ & $c_{76}$ & $32094992645381954293$ \\
-$c_{2}$ & $528$ & $c_{27}$ & $-7197239532238301$ & $c_{52}$ & $3614472005876887085674$ & $c_{77}$ & $-24472548579055966350$ \\
-$c_{3}$ & $-6347$ & $c_{28}$ & $578540247069874155$ & $c_{53}$ & $-3037266048257484857343$ & $c_{78}$ & $10650767408529647373$ \\
-$c_{4}$ & $-68394$ & $c_{29}$ & $-2420264558877085389$ & $c_{54}$ & $-26461955689442254023$ & $c_{79}$ & $-2331794341849308323$ \\
-$c_{5}$ & $434782$ & $c_{30}$ & $5217821986871333417$ & $c_{55}$ & $2104063785509436184260$ & $c_{80}$ & $-3791070571711394$ \\
-$c_{6}$ & $3868992$ & $c_{31}$ & $-5539583469602835545$ & $c_{56}$ & $-2931793430096096267992$ & $c_{81}$ & $511792095808151980$ \\
-$c_{7}$ & $-16543278$ & $c_{32}$ & $836059708732631758$ & $c_{57}$ & $-23043951580802181897$ & $c_{82}$ & $-428649928078580508$ \\
-$c_{8}$ & $-92002400$ & $c_{33}$ & $18184110749459979067$ & $c_{58}$ & $3427063120648421695833$ & $c_{83}$ & $132575442054380180$ \\
-$c_{9}$ & $380363476$ & $c_{34}$ & $-46838800433477597284$ & $c_{59}$ & $-3134179816059787841900$ & $c_{84}$ & $-33436958924579115$ \\
-$c_{10}$ & $17271240$ & $c_{35}$ & $51866785861580827278$ & $c_{60}$ & $880994506258257129292$ & $c_{85}$ & $-258902296793324$ \\
-$c_{11}$ & $-3467436397$ & $c_{36}$ & $-45696065731021838713$ & $c_{61}$ & $1885087206680018807597$ & $c_{86}$ & $18632536426276414$ \\
-$c_{12}$ & $40812995780$ & $c_{37}$ & $-5716691094004726757$ & $c_{62}$ & $-3972380424003215282921$ & $c_{87}$ & $-7046421367960766$ \\
-$c_{13}$ & $-109799432916$ & $c_{38}$ & $120571263640397406460$ & $c_{63}$ & $3409104965871551960374$ & $c_{88}$ & $89373650931580$ \\
-$c_{14}$ & $-434707071211$ & $c_{39}$ & $-134333367735602047159$ & $c_{64}$ & $-1249217402090822157830$ & $c_{89}$ & $223339315011104$ \\
-$c_{15}$ & $3069250395770$ & $c_{40}$ & $214769944137090408063$ & $c_{65}$ & $-944202240303141415077$ & $c_{90}$ & $43049145914220$ \\
-$c_{16}$ & $-6252521473991$ & $c_{41}$ & $-285713545380445405587$ & $c_{66}$ & $2181027297728892990100$ & $c_{91}$ & $-24505381269120$ \\
-$c_{17}$ & $-5355575762190$ & $c_{42}$ & $-10367452684779942327$ & $c_{67}$ & $-1953984455952266410693$ & $c_{92}$ & $-3245187308368$ \\
-$c_{18}$ & $74720773706885$ & $c_{43}$ & $139678041888306318896$ & $c_{68}$ & $1033128179992428113185$ & $c_{93}$ & $-1439082319864$ \\
-$c_{19}$ & $-349021173205035$ & $c_{44}$ & $-215711673043094078780$ & $c_{69}$ & $-213927091942262374044$ & $c_{94}$ & $1811241204384$ \\
-$c_{20}$ & $700235676469641$ & $c_{45}$ & $238429498673645302989$ & $c_{70}$ & $-281352918708053933017$ & $c_{95}$ & $-554044837392$ \\
-$c_{21}$ & $-289977451908487$ & $c_{46}$ & $726427671049092320215$ & $c_{71}$ & $446551916789177751783$ & $c_{96}$ & $70918415232$ \\
-$c_{22}$ & $-2769077361076201$ & $c_{47}$ & $-1021337050269824973400$ & $c_{72}$ & $-352012461659383964476$ & $c_{97}$ & $-5540250528$ \\
-$c_{23}$ & $17223891637510176$ & $c_{48}$ & $-343962514201332248690$ & $c_{73}$ & $168799692523860983035$ & $c_{98}$ & $455493888$ \\
-$c_{24}$ & $-46445878258058931$ & $c_{49}$ & $1033431261218133528760$ & $c_{74}$ & $-42437504378919108656$ &  &  \\
-$c_{25}$ & $103919897210511825$ & $c_{50}$ & $-1305039345328678420518$ & $c_{75}$ & $-15623252594429297254$ &  &  \\
-\end{tabular}
-\end{center}
+\begin{proof}
+$C(a)=(QL)(a)=Q\bigl(L(a)\bigr)=Q(0)=0$. The coefficients of $Q$ are rational functions of
+$n$, so the step is valid away from their poles.
+\end{proof}
 
-\section{The recurrence, and the identification}
+Writing the conjectured recurrence as an operator $C$ and dividing by $L$ leaves remainder
+$0$, with quotient
+\[
+Q\;=\;\left(\frac{36 n^{3} + 120 n^{2} + 132 n + 48}{n + 2}\right) + \left(27 n^{2} + 117 n + 126\right)\,N .
+\]
+The coefficients of $Q$ are rational functions of $n$; their only integer poles are $n\in\{-2\}$, below the range claimed here.
 
 \begin{theorem}
-The recurrence above holds for every $n\ge102$, and it is the recurrence OEIS A278278 records.
+The conjectured recurrence
+\[
+9 n \left(3 n + 1\right) \left(3 n + 2\right)\,a(n) -  12 \left(55 n^{3} + 59 n^{2} - 65 n + 11\right)\,a(n-1) -  32 \left(2 n - 3\right) \left(4 n - 5\right) \left(4 n - 3\right)\,a(n-2) \;=\;0
+\]
+holds for every $n\ge2$.
 \end{theorem}
 
 \begin{proof}
-That it holds is Lemma~\ref{lem:bm} applied to the tail from $n=4$, whose minimal
-recurrence it is.
-
-For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
-recurrence, $x^{98}-c_1x^{98-1}-\dots-c_{98}$. Its constant term is
-$-c_{98}=-455493888$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
-root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
-$n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
-components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
-component of $a$ dies out, and the minimal recurrence of every further tail is again
-$q_{\min}$ --- the order cannot drop below $98$ at any later starting point.
-
-Now let $q$ be the characteristic polynomial of whatever recurrence the entry asserts. The
-entry asserts it has order $98$, so $\deg q=98$, and it is monic. It holds from some
-index $t$ on. From $\max(t,4)$ on, the sequence satisfies both $q$ and $q_{\min}$, and
-the minimal polynomial of that tail is $q_{\min}$ by the previous paragraph; therefore
-$q_{\min}\mid q$. Both are monic of degree $98$, so $q=q_{\min}$.
+By Lemma~\ref{lem:tel} the operator \eqref{eq:L} annihilates $a$, and by
+Lemma~\ref{lem:factor} applied to $C=QL$ so does the conjectured operator. The integer poles of $Q$ all lie below $n=2$.
 \end{proof}
 
 \section{Verification}
 
-Four checks, all in exact integer or rational arithmetic.
+Every number above is an output of a script written separately from this note, and four
+independent checks were run.
 
-First, the walk model reproduces all $15$ terms the entry publishes, exactly. This is
-what ties the model to the entry, and it is the only place where reading the entry's English
-enters the argument.
+First, the certificate was verified, not trusted: \eqref{eq:cert} was divided by $F(n,k)$
+and the difference of the two sides cancelled to $0$ as a rational function of $n$ and
+$k$.
 
-Second, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
-every intermediate is a machine word, and once over $\mathbb{Q}$ in exact rational arithmetic.
-Both return $98$, and the exact run additionally confirms every coefficient is an integer
---- had any been a proper fraction the recurrence would not be the entry's.
+Second, the vanishing of $F(n,k)$ off the range of summation --- the hypothesis
+Lemma~\ref{lem:tel} needs, and the one that is easy to assume without looking --- was
+checked directly, on concrete integers on both sides of the range.
 
-Third, the recovered recurrence was evaluated directly on the entry's own published terms, with
-no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indices where
-the entry publishes enough earlier terms to test it.
+Third, the factorisation was confirmed by multiplying back: $QL$ was expanded in
+$\mathcal{A}$ and its coefficients cancelled against those of $C$ to zero.
 
-Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $455493888$.
-
-\begin{remark}
-The conjecture's own statement was never read. The entry pins it down to the family of
-order-$98$ recurrences this sequence satisfies from some point on, and that family turns
-out to have exactly one member.
-\end{remark}
+Fourth, the conjecture itself was evaluated on the published terms, in exact integer
+arithmetic and without reference to any operator: for each $n$ in range the sum
+$\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to vanish, for
+all 17 values of $n$ from $n=2$ upward. The formula \eqref{eq:sum} was
+likewise checked term by term against the DATA section before being used.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A278278.
-\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
-Trans. Inform. Theory} \textbf{15} (1969), 122--127.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
-(C-finite sequences and their closure properties.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A026005.
+\bibitem{aeqb} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+1996.
+\bibitem{zeil} D.~Zeilberger, \emph{The method of creative telescoping}, J. Symbolic
+Comput. 11 (1991), 195--204.
+\bibitem{ore} O.~Ore, \emph{Theory of non-commutative polynomials}, Ann. of Math. 34
+(1933), 480--508.
 \end{thebibliography}
-
 \end{document}
