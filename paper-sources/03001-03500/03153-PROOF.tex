@@ -12,86 +12,114 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A262331, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A224570, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A262331 counts arrays of width $8$ over $\{0,1\}$ whose rows, read as base-$2$
-numbers, are divisible by $3$ and whose columns, read the same way, are divisible by
-$3$. The entry carries an empirical recurrence of order $19$ contributed by
-R.~H.~Hardin. It is true, and it is decidable rather than empirical. A column's value depends on
-every row of the array, so the condition is not local; but its RESIDUE is built one row at a
-time by Horner's rule, and the vector of column residues is a state of bounded size. The count
-is then a walk count on $S=2187$ states.
+OEIS A224570 counts the $(n+5)\times6$ matrices over $\{0,\dots,1\}$ all of whose
+$6\times6$ contiguous subblocks are idempotent, and carries an empirical recurrence of order
+$19$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $6$ consecutive rows and $6$ consecutive columns at once, so a
+single row is not a state; the strip of the last $5$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=104865$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11A63, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A262331 is ``Number of (n+1)X(7+1) 0..1 arrays with each row and column divisible by 3, read as a binary number with top and left being the most significant bits.''. It has offset $1$ and begins
+OEIS A224570 is ``Number of (n+5)X6 0..1 matrices with each 6X6 subblock idempotent.''. It has offset $1$ and begins
 \[
-86, 783, 65610, 2767631, 237172426, 16940254423, 1456404454010, 119519290640511,\ \dots
+96608, 18044, 16696, 18868, 22096, 25769, 28708, 33705,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 86*a(n-1) +3252*a(n-2) -279672*a(n-3) -3329646*a(n-4) +286349556*a(n-5) +1544583660*a(n-6) -132834194760*a(n-7) -365579378025*a(n-8) +31439826510150*a(n-9) +46337467429704*a(n-10) -3985022198954544*a(n-11) -3102790005466128*a(n-12) +266839940470087008*a(n-13) +99548995158787584*a(n-14) -8561213583655732224*a(n-15) -1170690303846912000*a(n-16) +100679366130834432000*a(n-17) +3277061542543360000*a(n-18) -281827292658728960000*a(n-19)
+Empirical: a(n) = 2*a(n-1) -2*a(n-2) +2*a(n-3) -a(n-4) +2*a(n-6) -3*a(n-7) +4*a(n-8) -4*a(n-9) +3*a(n-10) -2*a(n-11) -2*a(n-14) +2*a(n-15) -2*a(n-16) +2*a(n-17) -a(n-18) +a(n-19) for n>30
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 18 2015 07:36:32, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:28:16, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $8$ cells across and entries $x(i,j)\in\{0,1\}$, the digits of
-base $2$. Row $i$ of an array with $R$ rows is the number
+Call a $6\times6$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is idempotent, and
+call a $6\times6$ matrix a \emph{band} when every one of its $1$ contiguous
+$6\times6$ subblocks is a window. What the entry counts is the matrices of $6$ columns
+whose every $6$ consecutive rows form a band.
+
+Take as states the $5\times6$ strips that occur as the top $5$ rows of a band,
+together with those that occur as its bottom $5$ rows, and put an edge from $u$ to $v$
+when the band whose first $5$ rows are $u$ and whose last $5$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..5$, then $2..6$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+5$ rows gives a walk of $n$ edges.
+Since the first $5$ rows of a counted matrix with at least $6$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\rho_i\;=\;\sum_{j=1}^{8}x(i,j)\,2^{8-j} ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-the LEFT digit being the most significant, and column $j$ is
+with $M$ the adjacency matrix on $S=104865$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{30}$ strips of $5$ rows and $6$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $6\times5$ entries, so a band is exactly a walk of $1$ windows in
+the graph that joins a window to those whose first $5$ columns are its last $5$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The vertices of the overlap graph are the $0/1$ matrices $B$ of size $6\times6$ with
+$B^2=B$. There are $2^{36}$ matrices to sift, which is already awkward at $6=6$ and
+hopeless a little beyond it, so they are not sifted; they are generated from the following
+description, which also makes the count itself transparent.
+
+\begin{lemma}\label{lem:idem}
+Let $B$ be a $k\times k$ matrix with entries in $\{0,1\}$, let $r_i$ denote its $i$th row and
+$S_i=\{j:B_{ij}=1\}$ the support of that row. Then $B^2=B$ if and only if
 \[
-\gamma_j\;=\;\sum_{i=1}^{R}x(i,j)\,2^{R-i} ,
+r_i=\sum_{t\in S_i}r_t \qquad (1\le i\le k),
 \]
-the TOP digit being the most significant. The entry asks that every $\rho_i$ be divisible by
-$3$ and every $\gamma_j$ be divisible by $3$.
-
-
-\section{Column residues by Horner's rule}
-
-The row condition is a condition on one row and is imposed as each row is chosen. The column
-condition is not local: $\gamma_j$ depends on every row. What is local is its residue.
-
-\begin{lemma}\label{lem:horner}
-Let $\gamma_j^{(i)}$ be the value of column $j$ of the first $i$ rows, read the same way.
-Then $\gamma_j^{(0)}=0$ and
-\[
-\gamma_j^{(i)}\;=\;2\,\gamma_j^{(i-1)}+x(i,j),
-\qquad\text{hence}\qquad
-\gamma_j^{(i)}\bmod 3\;=\;
-\bigl(2\,(\gamma_j^{(i-1)}\bmod 3)+x(i,j)\bigr)\bmod 3 .
-\]
+the rows on the right necessarily having pairwise disjoint supports. Writing
+$Z=\{i:r_i=0\}$ and $U=\{1,\dots,k\}\setminus Z$, and calling $i\in U$ \emph{primitive}
+when $S_i\cap U=\{i\}$, the idempotent $0/1$ matrices are exactly those obtained as follows:
+choose $Z$; choose the set $B^{\ast}\subseteq U$ of primitive indices and for each
+$b\in B^{\ast}$ a set $Z_b\subseteq Z$, putting $r_b=e_b+\sum_{j\in Z_b}e_j$; and for each
+$i\in U\setminus B^{\ast}$ choose a nonempty $B_i\subseteq B^{\ast}$ whose rows have
+pairwise disjoint supports, putting $r_i=\sum_{b\in B_i}r_b$. Distinct data give distinct
+matrices.
 \end{lemma}
 
 \begin{proof}
-Adding a row at the BOTTOM shifts every earlier digit one place up in significance, which is
-multiplication by $2$, and puts the new digit in the units place. Reduction modulo
-$3$ commutes with both operations.
+The $i$th row of $B^2$ is $\sum_t B_{it}r_t=\sum_{t\in S_i}r_t$, so $B^2=B$ is precisely the
+displayed system. Its entries lie in $\{0,1\}$, so for each $i$ the supports $S_t$,
+$t\in S_i$, are pairwise disjoint with union $S_i$.
+
+Assume $B^2=B$. Rows indexed by $Z$ vanish, so for $i\in U$ we may write
+$r_i=\sum_{t\in S_i\cap U}r_t$ with $S_i\cap U\neq\emptyset$. If $i$ is primitive this says
+$S_i\subseteq\{i\}\cup Z$, which is the stated shape with $Z_i=S_i\cap Z$. For the rest argue
+by induction on $|S_i|$. The supports $S_t$, $t\in S_i\cap U$, are disjoint, nonempty and
+cover $S_i$; if one of them has $|S_t|=|S_i|$ it is the only one, whence $r_t=r_i$,
+$S_t\cap U=S_i\cap U=\{t\}$ and $t$ is primitive. Otherwise every such $t$ has
+$|S_t|<|S_i|$, and each $r_t$ is by induction a sum of primitive rows with disjoint supports.
+Either way $r_i=\sum_{b\in B_i}r_b$ with $B_i\subseteq B^{\ast}$, and intersecting
+$S_i=\bigsqcup_{b\in B_i}(\{b\}\cup Z_b)$ with $U$ returns $B_i$, so the data is recovered
+from $B$ and distinct data give distinct matrices.
+
+Conversely, given data of the stated shape, the disjointness makes every entry $0$ or $1$, and
+$\sum_{t\in S_i}r_t$ equals $0$, $r_b$, $\sum_{b\in B_i}r_b$ in the three cases, which is
+$r_i$ each time. Hence $B^2=B$.
 \end{proof}
 
-So the vector $\bigl(\gamma_1\bmod 3,\dots,\gamma_{8}\bmod
-3\bigr)$ is a state: at most $3^{8}$ of them, and each array row
-that satisfies the row condition carries one such vector to another. The walk starts at the
-all-zero vector, which is the empty array, and the END vector picks out the residue vectors in
-which every entry is divisible by $3$ --- so the end vector is not the all-ones
-vector, and the column condition is imposed once, at the end, exactly as the entry states it.
-With $M$ the adjacency matrix,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2187.
-\]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+Generating from Lemma~\ref{lem:idem} gives $96608$ admissible $6\times6$ windows. For
+$k=2,3,4$ the same generation gives $8$, $50$ and $452$, which agree with exhaustion over all
+$2^{k^2}$ matrices; that is the check that the description above is neither too wide nor too
+narrow.
 
 \section{The proof}
 
@@ -113,43 +141,39 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;86\,a(n-1) + 3252\,a(n-2) - 279672\,a(n-3) - 3329646\,a(n-4) + 286349556\,a(n-5) + 1544583660\,a(n-6) - 132834194760\,a(n-7) - 365579378025\,a(n-8) + 31439826510150\,a(n-9) + 46337467429704\,a(n-10) - 3985022198954544\,a(n-11) - 3102790005466128\,a(n-12) + 266839940470087008\,a(n-13) + 99548995158787584\,a(n-14) - 8561213583655732224\,a(n-15) - 1170690303846912000\,a(n-16) + 100679366130834432000\,a(n-17) + 3277061542543360000\,a(n-18) - 281827292658728960000\,a(n-19)
+a(n)\;=\;2\,a(n-1) - 2\,a(n-2) + 2\,a(n-3) - a(n-4) + 2\,a(n-6) - 3\,a(n-7) + 4\,a(n-8) - 4\,a(n-9) + 3\,a(n-10) - 2\,a(n-11) - 2\,a(n-14) + 2\,a(n-15) - 2\,a(n-16) + 2\,a(n-17) - a(n-18) + a(n-19)
 \]
-for every $n>17$.
+for every $n>30$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $19$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=17+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, turn each row and each column into a base-$2$ number with
-the first digit most significant, and test the divisibility directly. Neither Horner's rule nor
-any residue state is involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A262331.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224570.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{knuth} D.~E.~Knuth, \emph{The Art of Computer Programming}, Volume 2, 3rd ed.,
-Addison--Wesley, 1997. (Evaluation of polynomials, Section 4.6.4.)
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

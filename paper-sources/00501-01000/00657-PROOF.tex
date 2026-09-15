@@ -11,66 +11,126 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The conjectured generating function of OEIS A056328\\ \large is the one the entry already
-states}
+\title{The empirical recurrence for OEIS A267884, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{15 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A056328 states one generating function as a fact and carries a second as an empirical
-conjecture. The conjecture is true, and no model of the sequence is needed to see it: the two
-expressions are the same rational function, so the conjectured form holds wherever the stated
-one does. The identity is exact, not a comparison of finitely many coefficients.
+OEIS A267884 carries an empirical recurrence of order $1$ contributed by Colin Barker. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=9$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
+the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
 
-\section{The two statements}
+\section{The conjecture}
 
-The entry's first terms are $0, 0, 0, 1, 6, 37, 183, 877,\dots$. It states, as a fact and not as a conjecture,
+OEIS A267884 is ``Total number of OFF (white) cells after n iterations of the "Rule 233" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
 \[
-  F(x)=\frac{x^{4} \left(3 x^{3} + x^{2} - 2 x + 1\right)}{- 144 x^{7} + 228 x^{6} - 12 x^{5} - 121 x^{4} + 44 x^{3} + 12 x^{2} - 8 x + 1} ,
+0, 3, 5, 6, 6, 6, 6, 6,\ \dots
 \]
-and separately records the conjecture
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Conjectures from \_Colin Barker\_, Jan 24 2016 and Apr 20 2019: (Start) a(n) = a(n-1) for n>3.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jun 24 2025 12:30:54, revision 22)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\begin{quote}\raggedright Empirical g.f.: -x\^{}4*(3*x\^{}3 + x\^{}2 - 2*x + 1) / ((x-1)*(2*x-1)*(2*x+1)*(3*x-1)*(4*x-1)*(3*x\^{}2-1)). - \_Colin Barker\_, Nov 25 2012\end{quote}
+\section{What is being counted}
 
-\noindent which is
+The entry counts the running total of its OFF (white) cells over the first $n$ iterations of the automaton. Nothing is being enumerated over a window, so there is
+no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
+the row grows only at its two ends. Writing
+$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
 \[
-  G(x)=- \frac{x^{4} \left(3 x^{3} + x^{2} - 2 x + 1\right)}{\left(x - 1\right) \left(2 x - 1\right) \left(2 x + 1\right) \left(3 x - 1\right) \left(4 x - 1\right) \left(3 x^{2} - 1\right)} .
+w(n+p)\;=\;L_r + w(n) + R_r
 \]
-
-\section{They are the same function}
-
-Both $F$ and $G$ are rational. Writing each over a common denominator and cancelling,
+was verified for every available $n$ past a
+pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
+both sides gives
 \[
-  F(x)=\frac{- 3 x^{7} - x^{6} + 2 x^{5} - x^{4}}{144 x^{7} - 228 x^{6} + 12 x^{5} + 121 x^{4} - 44 x^{3} - 12 x^{2} + 8 x - 1}=G(x) ,
+\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
 \]
-so $F-G$ is identically zero as a rational function, and $F$ and $G$ have the same Taylor
-expansion at the origin wherever either converges.
+a first-order difference along each class.
+
+The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
+radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
+window at both boundaries, and induction carries it to every later $n$.
+
+For this entry the automaton is rule 233, the period is $p=1$ and the pre-period is $n_0=4$.
+The certificate is
+\begin{gather*}
+r=0:\quad w(n+p) = \varepsilon \cdot w(n) \cdot \texttt{11}
+\end{gather*}
+
+\section{The bound}
+
+So
+$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
+the same polynomial, since the width is linear in $n$; a running total contributes one further
+factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
+annihilator of order $S=9$ used below.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{1}-\sum_ic_iz^{1-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
 
 \begin{theorem}
-The conjectured generating function of OEIS A056328 is correct.
+\[
+a(n)\;=\;a(n-1)
+\]
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
-The entry asserts that $F$ is the generating function of the sequence. By the identity above
-$G=F$, so $G$ is that generating function as well.
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=3+1$ onwards, and the run exceeds $S+1$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
-\section{What this rests on}
+\section{Verification}
 
-It rests on the entry's own asserted generating function and on nothing else. That assertion is
-not taken on trust: $F$ was expanded and its first 25 coefficients agree with every
-term the entry publishes, from offset $1$ onward. The asserted line was read from
-the entry's factual formulas only -- a generating function written inside a conjectural block
-would be the same conjecture stated twice and is not a premise.
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $86$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
+
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267884.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
+\end{thebibliography}
 
 \end{document}

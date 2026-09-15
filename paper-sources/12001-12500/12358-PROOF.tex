@@ -10,107 +10,166 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
-
-\title{The conjectured P-recursive recurrence for OEIS A242781, proved}
+\title{A proof of the conjectured recurrence for OEIS A005558}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{30 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A242781 carries a conjectured recurrence of order $5$ whose coefficients are polynomials in
-$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
-states its generating function as a fact, and that function is algebraic; the conjecture then
-becomes the vanishing of an explicit element of an algebraic function field, which is settled
-symbolically. The result is an identity, not a run of verified terms: it holds at every index
-at once.
+OEIS A005558 carries a conjectured linear recurrence with polynomial coefficients, of
+order 2. The entry posts no generating function, and the closed form it does post
+is not a hypergeometric term in $n$: it contains a floor, so its shift quotients are not
+rational and the usual argument does not start. Splitting on the parity of $n$ repairs
+this. Writing $a(2m)=e_{0}(m)$ and $a(2m+1)=e_{1}(m)$, both halves are ordinary
+hypergeometric expressions in $m$, and the recurrence becomes two identities in $m$, since
+each shifted term $a(n-i)$ lands in whichever half the parity of $n-i$ selects. Both are
+then decided exactly, by grouping into similarity classes and cancelling. The procedure
+returns a proof or a refutation; both halves must hold, and here both do.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A242781 is ``Expansion of (1 - 2*x - sqrt(1-4*x))/(4*x\^{}2 + sqrt(1-4*x)*(3*x+1) - 5*x + 1).''. It has offset $0$ and begins
+OEIS A005558 is ``a(n) is the number of n-step walks on square lattice such that 0 <= y <= x at each step''. It has offset $0$ and begins
 \[
-0, 0, 1, 4, 15, 57, 217, 828,\ \dots
+a(0),\dots,a(7)\;=\;1, 1, 3, 6, 20, 50, 175, 490,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Conjecture D-finite with recurrence: 3*(n+1)*a(n) -18*n*a(n-1) +2*(11*n-13)*a(n-2) +6*(n-7)*a(n-3) +(7*n-9)*a(n-4) +2*(2*n-7)*a(n-5)=0. - \_R. J. Mathar\_, Jan 25 2020
+The entry states, not as a conjecture,
+\begin{quote}\small
+a(n) = C(n+1, ceiling(n/2))*C(n, floor(n/2)) - C(n+1, ceiling((n-1)/2))*C(n, floor((n-1)/2)). - \emph{Paul D. Hanna}, Apr 16 2004
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 09 2024 04:41:35, revision 42)
-this is still recorded as a conjecture, and nothing on the entry records it as proved.
+that is,
+\begin{equation}\label{eq:cf}
+a(n)\;=\;{\binom{n}{\left\lfloor{\frac{n}{2}}\right\rfloor}} {\binom{n + 1}{\left\lceil{\frac{n}{2}}\right\rceil}} - {\binom{n}{\left\lfloor{\frac{n}{2} - \frac{1}{2}}\right\rfloor}} {\binom{n + 1}{\left\lceil{\frac{n}{2} - \frac{1}{2}}\right\rceil}} .
+\end{equation}
+This is the only input the proof takes from the entry. It was checked against the entry's
+own DATA before use, and the index alignment was determined from that check rather than
+assumed: the formula is stated in the entry's own indexing.
 
-\section{The generating function}
+The entry separately carries the following comment:
+\begin{quote}\small
+\textbf{Conjecture:} (2*n+1)*(n+3)*(n+2)*a(n) - 4*(2*n\^{}2+4*n+3)*a(n-1) - 16*n*(2*n+3)*(n-1)*a(n-2) = 0. - \emph{R. J. Mathar}, Apr 02 2017
+\end{quote}
+As of the ``Last modified'' line on the live entry (2025-11-10, revision 172) the
+statement is still recorded as a conjecture, and no proof appears among the entry's links,
+formulas or programs.
 
-The entry gives, as a statement of fact and not as a conjecture,
-\[
-A(x)\;=\;\frac{- 2 x - \sqrt{1 - 4 x} + 1}{4 x^{2} - 5 x + \sqrt{1 - 4 x} \left(3 x + 1\right) + 1} .
-\]
-This is an algebraic function. Before it is used for anything it is checked against the entry's
-own data: its Taylor coefficients reproduce every one of the $28$ published terms
-exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
-function an entry states as fact does NOT generate the terms it publishes, and a proof built on
-it would have been a proof from a false premise.
+Written out, the conjecture is
+\begin{equation}\label{eq:conj}
+\left(n + 2\right) \left(n + 3\right) \left(2 n + 1\right)\,a(n) -  4 \left(2 n^{2} + 4 n + 3\right)\,a(n-1) -  16 n \left(n - 1\right) \left(2 n + 3\right)\,a(n-2)
+\end{equation}
 
-\section{A P-recursive claim is the vanishing of one function}
+\section{Hypergeometric terms, and why the closed form is not one}
 
-\begin{lemma}\label{lem:theta}
-Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
-polynomial $p$ and an integer $i\ge0$,
-\[
-\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
-\]
+\begin{definition}
+A nonzero expression $c(m)$ is a \emph{hypergeometric term} in $m$ if $c(m+1)/c(m)$ is a
+rational function of $m$. Two such terms $c,d$ are \emph{similar}, $c\sim d$, if $c/d$ is a
+rational function of $m$.
+\end{definition}
+
+Products of factorials, binomial coefficients with arguments linear in the variable,
+exponentials and polynomials are hypergeometric. A floor is not: $\lfloor n/2\rfloor$ takes
+the same value at $n$ and $n+1$ for even $n$ and jumps at odd $n$, so the quotient
+$c(n+1)/c(n)$ is not a rational function of $n$, and \eqref{eq:cf} is therefore outside the
+reach of the direct argument.
+
+Parity removes the floor. For integer $m$,
+$\lfloor 2m/2\rfloor=m$ and $\lfloor (2m+1)/2\rfloor=m$, and similarly for the ceiling, so
+substituting $n=2m$ and $n=2m+1$ into \eqref{eq:cf} and simplifying gives two expressions
+free of rounding:
+\begin{equation}\label{eq:halves}
+a(2m)\;=\;e_{0}(m)\;=\;\frac{{\binom{2 m}{m}} \left(2 m + 1\right)!}{\left(m + 1\right)!^{2}},
+\qquad
+a(2m+1)\;=\;e_{1}(m)\;=\;\frac{2 {\binom{2 m + 1}{m}} \left(2 m + 1\right)!}{m! \left(m + 2\right)!},
+\end{equation}
+and each of $e_{0},e_{1}$ is a sum of finitely many hypergeometric terms in $m$.
+
+\begin{lemma}\label{lem:indep}
+Hypergeometric terms that are pairwise dissimilar are linearly independent over the field
+of rational functions: if $\sum_{j}u_{j}(m)c_{j}(m)=0$ for rational $u_{j}$ and all large
+$m$, then every $u_{j}$ is zero. See Petkov\v{s}ek, Wilf and Zeilberger \cite{AB},
+Chapter~5.
 \end{lemma}
 
+\section{The recurrence, one residue class at a time}
+
+Fix the conjectured coefficients $p_{0},\dots,p_{r}$ and consider
+$T(n)=\sum_{i=0}^{r}p_{i}(n)a(n-i)$. Each term reaches a half of \eqref{eq:halves} chosen
+by the parity of $n-i$:
+
+\begin{proposition}\label{prop:split}
+With $a(2j)=e_{0}(j)$ and $a(2j+1)=e_{1}(j)$,
+\[
+T(2m)=\sum_{i \text{ even}}p_{i}(2m)\,e_{0}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m)\,e_{1}\!\left(m-\tfrac{i+1}{2}\right),
+\]
+\[
+T(2m+1)=\sum_{i \text{ even}}p_{i}(2m+1)\,e_{1}\!\left(m-\tfrac{i}{2}\right)
+      +\sum_{i \text{ odd}}p_{i}(2m+1)\,e_{0}\!\left(m-\tfrac{i-1}{2}\right).
+\]
+Both right-hand sides are finite sums of hypergeometric terms in $m$. The recurrence
+$T(n)=0$ holds for all large $n$ if and only if both vanish identically, and by
+Lemma~\ref{lem:indep} each vanishes identically if and only if, after grouping its
+summands into similarity classes, every class contributes the zero rational function.
+\end{proposition}
+
 \begin{proof}
-Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
-applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
+The two displays are the definition of $T$ with $n-i$ written in the form $2j$ or $2j+1$:
+for $n=2m$ the index $n-i$ is even exactly when $i$ is, and for $n=2m+1$ exactly when $i$
+is odd. Every $e_{\epsilon}(m-s)$ is a sum of hypergeometric terms in $m$, and
+$p_{i}(2m)$, $p_{i}(2m+1)$ are polynomials in $m$, so each display is a finite sum of
+hypergeometric terms. Within a similarity class every summand is the class representative
+times a rational function, so the class contributes the representative times the sum of
+those rational functions; the classes are pairwise dissimilar by construction, and
+Lemma~\ref{lem:indep} applies. Finally $n$ ranges over both parities, so $T(n)=0$ for all
+large $n$ is exactly the conjunction of the two.
 \end{proof}
 
-Put $b(n)=\sum_{i=0}^{5}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
-$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
-\[
-B(x)\;=\;\sum_{i=0}^{5}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
-\]
-an explicit element of the algebraic function field generated by $A$. The conjecture asserts
-$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
-polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
+\section{The computation for A005558}
 
-\section{The theorem}
+Carrying out Proposition~\ref{prop:split} with the coefficients of \eqref{eq:conj} and the
+two halves \eqref{eq:halves}, every similarity class of $T(2m)$ contributes zero, and so
+does every similarity class of $T(2m+1)$. The even half splits into one class
+and the odd half into one class.
 
 \begin{theorem}
+For all $n\ge 2$,
 \[
-\left(3 n + 3\right)a(n) + \left(- 18 n\right)a(n-1) + \left(22 n - 26\right)a(n-2) + \left(6 n - 42\right)a(n-3) + \left(7 n - 9\right)a(n-4) + \left(4 n - 14\right)a(n-5)\;=\;0
+\left(n + 2\right) \left(n + 3\right) \left(2 n + 1\right)\,a(n) -  4 \left(2 n^{2} + 4 n + 3\right)\,a(n-1) -  16 n \left(n - 1\right) \left(2 n + 3\right)\,a(n-2)
 \]
-for every $n>4$.
 \end{theorem}
 
 \begin{proof}
-$B$ was formed as above and simplified in the function field. Here $B$ is a polynomial of degree $4$. A polynomial contributes only to the coefficients of $x^k$ with $k\le4$, so $b(n)=0$ for every $n>4$. Since $A$ reproduces the
-entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
-follows.
+Both residue classes vanish identically by the computation above, and every integer $n$
+lies in one of them. The excluded values are those at which a class residual has a pole or
+a term of \eqref{eq:cf} is undefined.
 \end{proof}
 
 \section{Verification}
 
-First, the generating function reproduces all $28$ published terms exactly. Second,
-the conjectured recurrence was evaluated directly on those terms, with no generating function
-involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
-computed symbolically rather than from a truncated series, and its series expansion was taken
-independently to confirm the coefficients it predicts.
+Two checks were made, and both are independent of the algebra above.
+
+First, the closed form \eqref{eq:cf} was evaluated at the first $13$ indices and
+compared term by term with the entry's DATA; the values agree exactly, on both parities. A
+formula that did not reproduce the entry's own terms would not have been used, and the
+alignment was fixed by that comparison rather than assumed.
+
+Second, the conjectured recurrence \eqref{eq:conj} was evaluated on the published terms in
+exact integer arithmetic at every index where it applies: $26$ instances beginning at
+$n=2$, all of them zero. This is not part of the proof, which is symbolic, but it
+would have caught a transcription error in the coefficients.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A242781.
-\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999. (Algebraic and D-finite generating functions.)
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{AB} M.~Petkov\v{s}ek, H.~S.~Wilf and D.~Zeilberger, \emph{A=B}, A K Peters,
+Wellesley MA, 1996.
+\bibitem{OEIS} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
+entry \href{https://oeis.org/A005558}{A005558}, 2025-11-10.
+\bibitem{GKP} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison-Wesley, 1994.
 \end{thebibliography}
 
 \end{document}

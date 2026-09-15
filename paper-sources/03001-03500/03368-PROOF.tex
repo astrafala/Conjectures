@@ -12,82 +12,70 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223784, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A184024, proved by splitting on the common sum}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223784 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
-antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
-order $15$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
-is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
-state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=1408$ vertices and the recurrence follows from a finite exact
-computation.
+OEIS A184024 counts arrays over $\{0,\dots,3\}$ in which all $2\times2$ subblock sums are
+EQUAL --- the common value not being named --- and carries an empirical recurrence of order
+$15$ contributed by R.~H.~Hardin. The unnamed value is what stops a transfer matrix from
+applying directly, and it costs nothing to remove: an array with at least one $2\times2$
+subblock determines its own common sum, so the count splits as a sum over the $12+1$
+possible values with nothing counted twice, and each summand is an ordinary walk count. On
+the block-diagonal matrix over those values the recurrence is decided by a finite exact
+computation on $S=13312$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A223784 is ``Number of n X 3 0..2 arrays with rows, diagonals and antidiagonals unimodal.''. It has offset $1$ and begins
+OEIS A184024 is ``1/8 the number of (n+1)X5 0..3 arrays with all 2X2 subblock sums the same.''. It has offset $1$ and begins
 \[
-22, 484, 8635, 151580, 2703137, 48302789, 862007289, 15379566078,\ \dots
+748, 1347, 2597, 5802, 13603, 35256, 94469, 271176,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 18*a(n-1) -24*a(n-2) +364*a(n-3) +605*a(n-4) -5879*a(n-5) -3267*a(n-6) -28514*a(n-7) -68422*a(n-8) +215872*a(n-9) +381625*a(n-10) +110428*a(n-11) +62650*a(n-12) -42873*a(n-13) -108576*a(n-14) -28080*a(n-15).
+Empirical: a(n)=8*a(n-1)+16*a(n-2)-268*a(n-3)+189*a(n-4)+3388*a(n-5)-5824*a(n-6)-20048*a(n-7)+49756*a(n-8)+52752*a(n-9)-196896*a(n-10)-24192*a(n-11)+369216*a(n-12)-131328*a(n-13)-262656*a(n-14)+165888*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 20 2024 17:03:16, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:15:23, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;18\,a(n-1) - 24\,a(n-2) + 364\,a(n-3) + 605\,a(n-4) - 5879\,a(n-5) - 3267\,a(n-6) - 28514\,a(n-7) - 68422\,a(n-8) + 215872\,a(n-9) + 381625\,a(n-10) + 110428\,a(n-11) + 62650\,a(n-12) - 42873\,a(n-13) - 108576\,a(n-14) - 28080\,a(n-15)
+a(n)\;=\;8\,a(n-1) + 16\,a(n-2) - 268\,a(n-3) + 189\,a(n-4) + 3388\,a(n-5) - 5824\,a(n-6) - 20048\,a(n-7) + 49756\,a(n-8) + 52752\,a(n-9) - 196896\,a(n-10) - 24192\,a(n-11) + 369216\,a(n-12) - 131328\,a(n-13) - 262656\,a(n-14) + 165888\,a(n-15)
 \end{equation}
 for all $n>15$.
 
-\section{The conditions}
+\section{Splitting on the common sum}
 
-The arrays have $3$ columns and $L=n$ rows. Written in (row, column)
-coordinates, the entry asks:
-\begin{itemize}
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
-\end{itemize}
-Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
-
-A unimodal condition across the rows is not local: whether a
-rise is allowed depends on whether the sequence has already fallen. The state therefore
-carries, for each of the $3$ sequences currently running in that direction, one bit saying
-whether it has fallen. Those bits travel with their sequences --- the bit at column $u$
-moves to column $u+d_2$ when the next row is laid down, and a sequence beginning at the
-far end of the new row starts with its bit clear.
-
-\begin{lemma}\label{lem:walk}
-Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=1408$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
-breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
-$\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
-Then
+The arrays have $5$ columns and $L=n+1$ rows, entries in
+$\{0,\dots,3\}$, and every $2\times2$ subblock has the same sum. Since $L\ge2$ and
+$5\ge2$, every such array contains at least one $2\times2$ subblock, and that subblock's
+sum is the common value; so each array belongs to exactly one of the classes
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n.
+A_c=\{\text{arrays all of whose }2\times2\text{ subblock sums equal }c\},
+\qquad 0\le c\le 12,
 \]
-\end{lemma}
+and $\#\{\text{admissible arrays}\}=\sum_c |A_c|$ with no array counted twice. The bound
+$12=4\cdot3$ is the largest possible subblock sum.
 
-\begin{proof}
-A walk of length $L-1$ is a sequence of $L$ rows, that is, an array, and its bit component
-is determined by them. Every within-row condition is imposed on each vertex; every
-across-row condition compares two consecutive rows and is imposed on each edge; and the
-unimodal and lexicographic bits are, by construction, the record of what the rows laid down
-so far have already decided, so a violation removes the corresponding edge. Hence the walks
-are exactly the admissible arrays. Nothing constrains the last row beyond what has already
-been imposed, so the walk may end anywhere. The state carries a row, not a boundary, so
-$L$ rows make a walk of length $L-1$.
-\end{proof}
+For a fixed $c$ the condition is local, so $|A_c|$ is a walk count. Let
+$V=\{0,\dots,3\}^{5}$ be the possible rows and let $M_c$ be the adjacency
+matrix of the digraph in which $r\to s$ when
+$r_j+r_{j+1}+s_j+s_{j+1}=c$ for every $j$ with $1\le j\le 5-1$. Then
+$|A_c|=\mathbf{1}^{\!\top}M_c^{\,L-1}\mathbf{1}$, since an array of $L$ rows is a
+sequence of $L$ elements of $V$ and each of its $2\times2$ subblocks lies in two consecutive
+rows and two consecutive columns.
+
+Writing $N=\bigoplus_{c=0}^{12}M_c$, of size $S=13312$, and $\mathbf{v}$ for the
+all-ones vector on it,
+\begin{equation}\label{eq:walk}
+a(n)\;=\;\tfrac1{8}\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{1},\qquad L=n+1.
+\end{equation}
 
 \section{The criterion, and the computation}
 
@@ -95,10 +83,10 @@ Let $q(t)=t^{15}-\sum_i c_i\,t^{15-i}$ be the characteristic polynomial of
 \eqref{eq:conj} and $G=N$.
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+1-1$ and
 $h_j=G^{j}N^{o}\mathbf{1}$, we have for $j\ge15$
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-15}w,
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\tfrac1{8}\,\mathbf{v}^{\!\top}G^{\,j-15}w,
 \qquad w=h_{15}-\sum_i c_ih_{15-i} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
@@ -106,7 +94,7 @@ $\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
+Substitute \eqref{eq:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
 combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of
 earlier ones.
 \end{proof}
@@ -117,23 +105,28 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the conditions listed above. The vector $w$ was formed by
+Each $M_c$ was built directly from its defining condition. The vector $w$ was formed by
 $15$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
 index corresponding to $n=15+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
+\begin{remark}
+The splitting is what makes the argument finite, and it is exact rather than an
+over-count only because every array here has a subblock. For a one-column or one-row
+shape there is no subblock at all, every value of $c$ would be vacuously admissible, and the
+sum would count each array $12+1$ times; those shapes are excluded by $L\ge2$ and
+$5\ge2$.
+\end{remark}
+
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $16$ published indices, with no shift fitted. The values agree exactly.
-This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
-means the rows and columns are sorted as vectors, not that each is nondecreasing along
-itself, and the two readings already differ at the second published term --- $86$ against
-$50$ for $2\times2$ arrays over $\{0,1,2,3\}$. The DATA decides it.
+First, the right-hand side of \eqref{eq:walk} was evaluated at every one of the $22$
+published indices and agrees with the entry's DATA exactly, with no shift fitted. A double
+count in the splitting, or a wrong bound on $c$, would show up here immediately.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
@@ -143,7 +136,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223784.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A184024.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

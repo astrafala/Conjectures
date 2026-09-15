@@ -23,7 +23,11 @@ def L(f):
 
 roster = {v['anum'] for v in (L('paper-engines.json') or {}).values()}
 new = set()
-for pat in ('shard_hits_*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabnew_hits_*.json',
+# Every TAGGED run of sweep_shard writes `shard<TAG>_hits_<i>.json', which `shard_hits_*.json'
+# does not match: a run on a rebuilt pool is invisible to the installer for the sake of one
+# glob. That is the same shape as the eleven stale filters, in the file names rather than in a
+# pool, so the pattern covers every tag at once.
+for pat in ('shard*_hits*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabnew_hits_*.json',
             'rownew_hits.json', 'rownew_hits_*.json', 'cfnew_hits.json', 'shardt94_hits_*.json',
             'lexcf_hits.json', 'lexcf_hits_*.json', 'mfcf_hits_*.json', 'wordcf_hits*.json', 'cuspcf_hits*.json',
             'ecacf_hits*.json', 'gf_hits.json',

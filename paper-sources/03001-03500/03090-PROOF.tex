@@ -12,72 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A203657, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A266019, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A203657 counts arrays of width $2$ over $\{0,1,\dots,7\}$ through two derived arrays of PAIR SUMS ---
-each cell added to its left neighbour, and each cell added to the one above it --- on which the
-entry imposes an order condition. The entry carries an empirical recurrence of order $21$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
-a walk count on $S=128$ states.
+OEIS A266019 counts arrays of width $2$ in which every entry is equal to the NUMBER of its own
+neighbours, in named directions, that stand in a stated relation to it. The entry carries an
+empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. The condition is self-referential but local: a cell's
+neighbours lie in the row above, its own row and the row below, so a window of three
+consecutive rows decides the condition for the middle one, and the count is a walk count on
+$S=402$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A203657 is ``Number of (n+1)X2 0..7 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A266019 is ``Number of nX2 integer arrays with each element equal to the number of horizontal, vertical and antidiagonal neighbors exactly one smaller than itself.''. It has offset $1$ and begins
 \[
-1212, 27966, 557544, 9592248, 146861704, 2050339423, 26569429480, 323824032048,\ \dots
+3, 7, 14, 42, 99, 259, 719, 1784,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 70*a(n-1) -2275*a(n-2) +45612*a(n-3) -632289*a(n-4) +6438138*a(n-5) -49938467*a(n-6) +302065016*a(n-7) -1446908771*a(n-8) +5543625850*a(n-9) -17090839633*a(n-10) +42516502924*a(n-11) -85337511267*a(n-12) +137796276966*a(n-13) -177910179993*a(n-14) +181835622416*a(n-15) -144879499352*a(n-16) +87918207776*a(n-17) -39188297232*a(n-18) +12080293632*a(n-19) -2298481920*a(n-20) +203212800*a(n-21)
+Empirical: a(n) = a(n-1) +2*a(n-2) +6*a(n-3) -a(n-4) +20*a(n-5) -25*a(n-6) -37*a(n-7) -53*a(n-8) -52*a(n-9) +47*a(n-10) +74*a(n-11) +77*a(n-12) +30*a(n-13) -29*a(n-14) -34*a(n-15) -34*a(n-16) -a(n-17) -6*a(n-18) +11*a(n-19) +a(n-20) +a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 10:38:06, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Dec 20 2015 07:08:37, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array $a$ has $2$ cells across, with entries in $\{0,1,\dots,7\}$. Two derived arrays are formed,
+The array has $2$ cells across. The NEIGHBOURS of a cell are the cells reached from it by the
+offsets
 \[
-b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
+(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
 \]
-so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
-entry asks
+those that lie inside the array. The condition is that every entry counts its own neighbours
+that are exactly one smaller than it: writing $v=x(i,j)$,
+\[
+v\;=\;\#\{\text{neighbours } y \text{ of } (i,j)\ :\ y=v-1\} .
+\]
 
-that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
-is $\bigl(b(i,1),\dots,b(i,1)\bigr)$ and column $j$ of $c$ is
-$\bigl(c(1,j),c(2,j),\dots\bigr)$.
+The entry says ``integer arrays'' and names no alphabet, but one is forced. An entry counts
+neighbours in the named directions, of which there are $6$, so every entry of the array
+lies in $\{0,1,\dots,6\}$ and the count is finite. That bound is used below and
+nothing wider is needed.
 
-
-\section{Two rows decide it}
+\section{Three rows decide one}
 
 \begin{lemma}\label{lem:win}
-The row comparison is a condition on two consecutive rows of $a$. The column comparison is
-settled by the FIRST row in which the two columns of $c$ differ.
+Every offset above changes the row index by $-1$, $0$ or $+1$, so all the neighbours of a cell
+of row $i$ lie in rows $i-1$, $i$ and $i+1$. The condition for the whole of row $i$ is
+therefore decided by those three rows, an absent row contributing no neighbours.
 \end{lemma}
 
 \begin{proof}
-Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
-rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
-difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
-the array downwards reveals the entries of every column of $c$ in order.
+Immediate from the offsets, together with the rule that a neighbour outside the array is not a
+neighbour.
 \end{proof}
 
-So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
-recording whether that pair of columns of $c$ has been equal in every row so far. A row that
-would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
-in order, equality being allowed.
-
-With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
-starting state and $\tau=\mathbf{1}$,
+So the state is the pair (row above, current row), the row above allowed to be the symbol
+$\bot$; a step appends a row and settles the condition for the middle row of the window it
+completes. Two boundaries have to be right and neither is assumed. The walk starts at the state
+$(\bot,\bot)$, which stands for the empty array, so a walk of no steps is the empty array and
+one step is a one-row array. And the condition for the LAST row is settled by the end vector,
+which asks whether that row satisfies its condition with nothing written below it: the end
+vector is therefore NOT the all-ones vector, and a row that counts correctly only when
+something is written below it does not finish an array. With $M$ the adjacency matrix,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=128.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=402.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -102,29 +108,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;70\,a(n-1) - 2275\,a(n-2) + 45612\,a(n-3) - 632289\,a(n-4) + 6438138\,a(n-5) - 49938467\,a(n-6) + 302065016\,a(n-7) - 1446908771\,a(n-8) + 5543625850\,a(n-9) - 17090839633\,a(n-10) + 42516502924\,a(n-11) - 85337511267\,a(n-12) + 137796276966\,a(n-13) - 177910179993\,a(n-14) + 181835622416\,a(n-15) - 144879499352\,a(n-16) + 87918207776\,a(n-17) - 39188297232\,a(n-18) + 12080293632\,a(n-19) - 2298481920\,a(n-20) + 203212800\,a(n-21)
+a(n)\;=\;a(n-1) + 2\,a(n-2) + 6\,a(n-3) - a(n-4) + 20\,a(n-5) - 25\,a(n-6) - 37\,a(n-7) - 53\,a(n-8) - 52\,a(n-9) + 47\,a(n-10) + 74\,a(n-11) + 77\,a(n-12) + 30\,a(n-13) - 29\,a(n-14) - 34\,a(n-15) - 34\,a(n-16) - a(n-17) - 6\,a(n-18) + 11\,a(n-19) + a(n-20) + a(n-21)
 \]
-for every $n>20$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
-until the working vector was identically zero.
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array of that size, form the two derived arrays in full, and test the condition
-on them directly. No window, no state and no incremental bookkeeping are involved, and the
-published terms came back.
+enumerate every array of that size, count each cell's neighbours satisfying the relation, and
+keep the array when every cell equals its own count. No window, no transfer matrix and no
+transposition are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,9 +140,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A203657.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A266019.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

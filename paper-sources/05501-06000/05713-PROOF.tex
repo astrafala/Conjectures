@@ -11,22 +11,18 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A237553, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237370, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237553 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A237370 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
-$90$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=4752$
+$92$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition is local to two consecutive rows, so the count is a walk count on $S=1024$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -35,30 +31,28 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237553 is ``Number of (n+1)X(4+1) 0..2 arrays with the maximum minus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A237370 is ``Number of (n+1)X(3+1) 0..2 arrays with the maximum plus the upper median plus the lower median plus the minimum of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-4752, 44668, 343356, 3207808, 31949604, 343405228, 3451915208, 35706407872,\ \dots
+1024, 4760, 22676, 116880, 597492, 3049632, 15573476, 80201408,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 90 (see link above)
-
-Empirical: a(n) = 14*a(n-3) + 11937*a(n-4) + 5826*a(n-5) + 11411*a(n-6) + 206068*a(n-7) - 14548265*a(n-8) - 3349844*a(n-9) - 7590957*a(n-10) - 203698940*a(n-11) + 7331730245*a(n-12) - 510932822*a(n-13) + 1660058839*a(n-14) + 71628310824*a(n-15) - 1895731111136*a(n-16) + 661306572412*a(n-17) - 160966905405*a(n-18) - 11228365216486*a(n-19) + 268127725586032*a(n-20) - 146696418415846*a(n-21) - 236120605549*a(n-22) + 782770185103572*a(n-23) - 20870021403398926*a(n-24) + 13384673454401978*a(n-25) + 2654046238235716*a(n-26) - 19740014944850856*a(n-27) + 880899365761056474*a(n-28) - 581280621707548092*a(n-29) - 248647752088190353*a(n-30) - 230692120423829900*a(n-31) - 19287561776540027458*a(n-32) + 12483529626353332424*a(n-33) + 7225362435289412793*a(n-34) + 21382605378221715102*a(n-35) + 203275478534163491976*a(n-36) - 137247894598447600666*a(n-37) - 86618879354180847963*a(n-38) - 331697818306817339030*a(n-39) - 1010748068653658165625*a(n-40) + 791295379774267902408*a(n-41) + 573039942858204706831*a(n-42) + 1823926072259321545996*a(n-43) + 2576762305430580521956*a(n-44) - 2529691313292945309318*a(n-45) - 2054099402911887922780*a(n-46) - 4833305285832546171228*a(n-47) - 3376003511933624551977*a(n-48) + 4522690166233265825552*a(n-49) + 3971967098971868108427*a(n-50) + 6641030152109824870006*a(n-51) + 2091024004448395022751*a(n-52) - 4281784837361741786628*a(n-53) - 3920089947833884993752*a(n-54) - 4754443449239767571344*a(n-55) - 584513518488370872704*a(n-56) + 1897407974457710788974*a(n-57) + 1784967736332486755278*a(n-58) + 1840349616126927595128*a(n-59) + 144549141030356802196*a(n-60) - 275377715441295148348*a(n-61) - 443647779790394036348*a(n-62) - 346093589592388118376*a(n-63) - 22347828827810954330*a(n-64) - 4604193893457242960*a(n-65) + 62932616609780649535*a(n-66) + 25633047030132833316*a(n-67) + 2476833540349634228*a(n-68) + 3677999448888718542*a(n-69) - 4524275239685251480*a(n-70) - 132164904818421142*a(n-71) - 358859432061972383*a(n-72) - 165427747680664868*a(n-73) + 125474539380642555*a(n-74) - 40086294882421516*a(n-75) + 18175404208433870*a(n-76) - 1592409565288128*a(n-77) + 365537124626908*a(n-78) + 186683261236124*a(n-79) - 9110749543250*a(n-80) + 12634624106434*a(n-81) + 56625602891*a(n-82) + 65483677396*a(n-83) + 115749974118*a(n-84) + 9065213666*a(n-85) - 650433704*a(n-86) + 166227704*a(n-87) - 4742560*a(n-88) - 35016*a(n-89) - 144*a(n-90) for n>94
+Empirical: a(n) = 1564*a(n-4) -747073*a(n-8) +111088396*a(n-12) -8474399747*a(n-16) +395014705516*a(n-20) -12200813483051*a(n-24) +260237478196460*a(n-28) -3910838038088336*a(n-32) +41692053218771904*a(n-36) -314601993651065152*a(n-40) +1666350374235368704*a(n-44) -6122043810041542656*a(n-48) +15393880291002724352*a(n-52) -26078740876304560128*a(n-56) +29011441580998115328*a(n-60) -20170260434720194560*a(n-64) +7882073405327409152*a(n-68) -1264135601955799040*a(n-72) -77945556453818368*a(n-76) +37076376167120896*a(n-80) -1030466538831872*a(n-84) -153055186124800*a(n-88) +7219840024576*a(n-92) for n>94
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:17:16, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:07:03, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The $2\times2$ subblocks of an $(n+1)\times5$ array form an
-$n\times4$ grid, and each carries the value $\sigma=-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+The $2\times2$ subblocks of an $(n+1)\times4$ array form an
+$n\times3$ grid, and each carries the value $\sigma=a+b+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
 subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
 That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
 so it is local to the grid.
 
-At $n=1$ the array has two rows, so its subblock grid is a single row of $4$ subblocks with
+At $n=1$ the array has two rows, so its subblock grid is a single row of $3$ subblocks with
 no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $4752$ counts those, and the model was made to
+differ by $1$. The entry's first term $1024$ counts those, and the model was made to
 reproduce it along with every later term.
 
 \section{The count is a walk count}
@@ -72,14 +66,14 @@ $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=4752$ pairs whose own subblock row already satisfies the condition along itself.
+over the $S=1024$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{90}-\sum_i c_it^{90-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{92}-\sum_i c_it^{92-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -87,7 +81,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+90}-\sum_ic_iM^{j+90-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+92}-\sum_ic_iM^{j+92-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -96,13 +90,13 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-3) + 11937\,a(n-4) + 5826\,a(n-5) + 11411\,a(n-6) + 206068\,a(n-7) - 14548265\,a(n-8) - 3349844\,a(n-9) - 7590957\,a(n-10) - 203698940\,a(n-11) + 7331730245\,a(n-12) - 510932822\,a(n-13) + 1660058839\,a(n-14) + 71628310824\,a(n-15) - 1895731111136\,a(n-16) + 661306572412\,a(n-17) - 160966905405\,a(n-18) - 11228365216486\,a(n-19) + 268127725586032\,a(n-20) - 146696418415846\,a(n-21) - 236120605549\,a(n-22) + 782770185103572\,a(n-23) - 20870021403398926\,a(n-24) + 13384673454401978\,a(n-25) + 2654046238235716\,a(n-26) - 19740014944850856\,a(n-27) + 880899365761056474\,a(n-28) - 581280621707548092\,a(n-29) - 248647752088190353\,a(n-30) - 230692120423829900\,a(n-31) - 19287561776540027458\,a(n-32) + 12483529626353332424\,a(n-33) + 7225362435289412793\,a(n-34) + 21382605378221715102\,a(n-35) + 203275478534163491976\,a(n-36) - 137247894598447600666\,a(n-37) - 86618879354180847963\,a(n-38) - 331697818306817339030\,a(n-39) - 1010748068653658165625\,a(n-40) + 791295379774267902408\,a(n-41) + 573039942858204706831\,a(n-42) + 1823926072259321545996\,a(n-43) + 2576762305430580521956\,a(n-44) - 2529691313292945309318\,a(n-45) - 2054099402911887922780\,a(n-46) - 4833305285832546171228\,a(n-47) - 3376003511933624551977\,a(n-48) + 4522690166233265825552\,a(n-49) + 3971967098971868108427\,a(n-50) + 6641030152109824870006\,a(n-51) + 2091024004448395022751\,a(n-52) - 4281784837361741786628\,a(n-53) - 3920089947833884993752\,a(n-54) - 4754443449239767571344\,a(n-55) - 584513518488370872704\,a(n-56) + 1897407974457710788974\,a(n-57) + 1784967736332486755278\,a(n-58) + 1840349616126927595128\,a(n-59) + 144549141030356802196\,a(n-60) - 275377715441295148348\,a(n-61) - 443647779790394036348\,a(n-62) - 346093589592388118376\,a(n-63) - 22347828827810954330\,a(n-64) - 4604193893457242960\,a(n-65) + 62932616609780649535\,a(n-66) + 25633047030132833316\,a(n-67) + 2476833540349634228\,a(n-68) + 3677999448888718542\,a(n-69) - 4524275239685251480\,a(n-70) - 132164904818421142\,a(n-71) - 358859432061972383\,a(n-72) - 165427747680664868\,a(n-73) + 125474539380642555\,a(n-74) - 40086294882421516\,a(n-75) + 18175404208433870\,a(n-76) - 1592409565288128\,a(n-77) + 365537124626908\,a(n-78) + 186683261236124\,a(n-79) - 9110749543250\,a(n-80) + 12634624106434\,a(n-81) + 56625602891\,a(n-82) + 65483677396\,a(n-83) + 115749974118\,a(n-84) + 9065213666\,a(n-85) - 650433704\,a(n-86) + 166227704\,a(n-87) - 4742560\,a(n-88) - 35016\,a(n-89) - 144\,a(n-90)
+a(n)\;=\;1564\,a(n-4) - 747073\,a(n-8) + 111088396\,a(n-12) - 8474399747\,a(n-16) + 395014705516\,a(n-20) - 12200813483051\,a(n-24) + 260237478196460\,a(n-28) - 3910838038088336\,a(n-32) + 41692053218771904\,a(n-36) - 314601993651065152\,a(n-40) + 1666350374235368704\,a(n-44) - 6122043810041542656\,a(n-48) + 15393880291002724352\,a(n-52) - 26078740876304560128\,a(n-56) + 29011441580998115328\,a(n-60) - 20170260434720194560\,a(n-64) + 7882073405327409152\,a(n-68) - 1264135601955799040\,a(n-72) - 77945556453818368\,a(n-76) + 37076376167120896\,a(n-80) - 1030466538831872\,a(n-84) - 153055186124800\,a(n-88) + 7219840024576\,a(n-92)
 \]
 for every $n>94$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $90$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $92$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=94+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
@@ -112,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -124,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237553.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237370.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

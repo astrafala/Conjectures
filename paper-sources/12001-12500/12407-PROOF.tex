@@ -7,180 +7,110 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A071684}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
+
+\title{The conjectured P-recursive recurrence for OEIS A152601, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{25 August 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A071684 carries a conjectured linear recurrence with polynomial coefficients, of
-order 4, contributed by R.~J.~Mathar. We prove it. The generating function of the
-entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
-differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
-$b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
-$B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
-when $B$ is a polynomial of degree $d$. Since $A$ lies in a multiquadratic extension of
-$\mathbb{Q}(x)$, which is closed under $\theta$, the residual $B$ can be computed in
-closed form. Here it equals $6 x^{2} - 54 x$, a polynomial of degree $2$, which proves
-the recurrence for every $n>2$.
+OEIS A152601 carries a conjectured recurrence of order $2$ whose coefficients are polynomials in
+$n$ rather than constants. It is true, and it is decidable rather than empirical. The entry
+states its generating function as a fact, and that function is algebraic; the conjecture then
+becomes the vanishing of an explicit element of an algebraic function field, which is settled
+symbolically. The result is an identity, not a run of verified terms: it holds at every index
+at once.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 33F10, 11B37.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A071684 is ``Number of plane trees with n edges and having an odd number of leaves''. It has offset $1$ and begins
+OEIS A152601 is ``a(n) = Sum\_{k=0..n} C(n+k,2k)*A000108(k)*3\^{}k*2\^{}(n-k).''. It has offset $0$ and begins
 \[
-a(1),\dots,a(8)\;=\;1, 1, 2, 7, 22, 66, 212, 715,\ \dots
+1, 5, 40, 395, 4360, 51530, 637840, 8163095,\ \dots
 \]
-The entry gives the generating function
-\begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 1} a(n)\,x^{n}\;=\;\frac{- 2 x - \sqrt{1 - 4 x} + \sqrt{4 x^{2} + 1}}{4 x} ,
-\end{equation}
-and it carries the following comment:
-\begin{quote}\small
-\textbf{Conjecture:} n*(n+1)*(10*n-37)*a(n) + 2*n*(5*n\^{}2-42*n+91)*a(n-1) + 4*(-40*n\^{}3+270*n\^{}2-560*n+357)*a(n-2) + 8*(n-3)*(5*n\^{}2-42*n+91)*a(n-3) - 16*(n-4)*(25*n-51)*(2*n-7)*a(n-4) = 0. - \emph{R. J. Mathar}, Jul 05 2018
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}\raggedright\small
+Conjecture: (n+1)*a(n) +8*(-2*n+1)*a(n-1) +4*(n-2)*a(n-2)=0. - \_R. J. Mathar\_, Nov 24 2012
 \end{quote}
-As of the ``Last modified'' line on the live entry (2025-12-19, revision 45) the
-statement is still recorded as a conjecture, and no proof appears among the entry's links,
-formulas or programs.
+As of the ``Last modified'' line on the live entry (Jan 29 2023 15:05:23, revision 21)
+this is still recorded as a conjecture, and nothing on the entry records it as proved.
 
-Writing the conjectured relation in the form $\sum_{i=0}^{4}p_{i}(n)\,a(n-i)=0$,
-the coefficient polynomials are
+\section{The generating function}
+
+The entry gives, as a statement of fact and not as a conjecture,
 \[
-p_{0}(n)=n \left(n + 1\right) \left(10 n - 37\right),\qquad p_{1}(n)=2 n \left(5 n^{2} - 42 n + 91\right),\qquad p_{2}(n)=- 4 \left(40 n^{3} - 270 n^{2} + 560 n - 357\right),\qquad p_{3}(n)=8 \left(n - 3\right) \left(5 n^{2} - 42 n + 91\right),\qquad p_{4}(n)=- 16 \left(n - 4\right) \left(2 n - 7\right) \left(25 n - 51\right)
+A(x)\;=\;\frac{2}{- 2 x + \sqrt{4 x^{2} - 16 x + 1} + 1} .
 \]
+This is an algebraic function. Before it is used for anything it is checked against the entry's
+own data: its Taylor coefficients reproduce every one of the $18$ published terms
+exactly, in exact arithmetic. That check is not a formality --- on A116388 the generating
+function an entry states as fact does NOT generate the terms it publishes, and a proof built on
+it would have been a proof from a false premise.
 
-\section{Recurrences as differential operators}
+\section{A P-recursive claim is the vanishing of one function}
 
-Let $A(x)=\sum_{n\ge0}a(n)x^{n}$ be the generating function of a sequence, and let
-$\theta=x\,\dfrac{d}{dx}$, so that $\theta$ acts on $x^{m}$ as multiplication by $m$. For a
-polynomial $p$ we write $p(\theta)$ for the corresponding differential operator, so that
-$p(\theta)A=\sum_{m}p(m)a(m)x^{m}$.
-
-\begin{lemma}\label{lem:transfer}
-Let $p_{0},\dots,p_{r}$ be polynomials and put $b(n)=\sum_{i=0}^{r}p_{i}(n)\,a(n-i)$, with
-the convention $a(m)=0$ for $m<0$. Then
+\begin{lemma}\label{lem:theta}
+Let $\theta=x\,\frac{d}{dx}$, so $\theta$ acts on $x^m$ as multiplication by $m$. For a
+polynomial $p$ and an integer $i\ge0$,
 \[
-B(x):=\sum_{n\ge0}b(n)x^{n}=\sum_{i=0}^{r}x^{i}\,\bigl(p_{i}(\theta+i)A\bigr)(x).
-\]
-\end{lemma}
-
-\begin{proof}
-Fix $i$ and substitute $m=n-i$:
-\[
-\sum_{n\ge0}p_{i}(n)a(n-i)x^{n}=\sum_{m\ge0}p_{i}(m+i)a(m)x^{m+i}
-=x^{i}\sum_{m\ge0}p_{i}(m+i)a(m)x^{m}=x^{i}\bigl(p_{i}(\theta+i)A\bigr)(x),
-\]
-the last step because $p_{i}(\theta+i)$ multiplies the coefficient of $x^{m}$ by
-$p_{i}(m+i)$. Summing over $i$ gives the claim.
-\end{proof}
-
-\begin{corollary}\label{cor:criterion}
-With the notation of Lemma~\ref{lem:transfer}, the recurrence
-$\sum_{i}p_{i}(n)a(n-i)=0$ holds for every $n>d$ if and only if $B$ is a polynomial of
-degree at most $d$.
-\end{corollary}
-
-\begin{proof}
-$b(n)$ is the coefficient of $x^{n}$ in $B$, so $b(n)=0$ for all $n>d$ says exactly that
-$B$ has no terms above $x^{d}$.
-\end{proof}
-
-This turns the conjecture into a closed-form identity. The point is that it can then be
-decided exactly, with no truncation: $A$ is algebraic, so $B$ lies in the same field as
-$A$, and one only has to recognise it.
-
-\begin{lemma}\label{lem:field}
-Let $D_{1},\dots,D_{k}\in\mathbb{Q}(x)$ and let
-$K=\mathbb{Q}(x)\bigl[\sqrt{D_{1}},\dots,\sqrt{D_{k}}\bigr]$. For a subset
-$S\subseteq\{1,\dots,k\}$ write $e_{S}=\prod_{i\in S}\sqrt{D_{i}}$, so that the $e_{S}$
-span $K$ over $\mathbb{Q}(x)$. Then $K$ is closed under $\theta$, and $\theta$ is diagonal
-in this spanning set:
-\[
-\theta\bigl(c\,e_{S}\bigr)=\Bigl(x\,c'+c\sum_{i\in S}\frac{x\,D_{i}'}{2D_{i}}\Bigr)e_{S},
-\qquad c\in\mathbb{Q}(x).
+\sum_{n} p(n)\,a(n-i)\,x^{n}\;=\;x^{i}\,\bigl(p(\theta+i)A\bigr)(x).
 \]
 \end{lemma}
 
 \begin{proof}
-For each $i$, $(\sqrt{D_{i}})'=D_{i}'/(2\sqrt{D_{i}})=\bigl(D_{i}'/(2D_{i})\bigr)\sqrt{D_{i}}$.
-Applying the Leibniz rule to the product $e_{S}=\prod_{i\in S}\sqrt{D_{i}}$ therefore
-returns $e_{S}$ itself multiplied by $\sum_{i\in S}D_{i}'/(2D_{i})$, a rational function.
-Differentiating $c\,e_{S}$ and multiplying by $x$ gives the stated formula. No basis
-element other than $e_{S}$ occurs, which is the diagonality claim.
+Write $m=n-i$. Then $\sum_m p(m+i)a(m)x^{m+i}=x^i\sum_m p(m+i)a(m)x^m$, and $p(\theta+i)$
+applied to $A=\sum_m a(m)x^m$ multiplies the $m$-th coefficient by $p(m+i)$.
 \end{proof}
 
-Consequently, if $A\in K$ then every $p_{i}(\theta+i)A$ is in $K$, and so is $B$. Writing
-$B=\sum_{S}c_{S}\,e_{S}$ with $c_{S}\in\mathbb{Q}(x)$, the test of
-Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $c_{S}=0$ for
-every $S\neq\emptyset$ and $c_{\emptyset}$ has constant denominator. Both are decided by
-exact cancellation of rational functions.
-
-\section{The computation for A071684}
-
-The generating function \eqref{eq:gf} lies in $K=\mathbb{Q}(x)\bigl[\sqrt{D_{1}},\dots,\sqrt{D_{2}}\bigr]$ with
+Put $b(n)=\sum_{i=0}^{2}p_i(n)\,a(n-i)$, the left-hand side of the conjecture, and
+$B(x)=\sum_n b(n)x^n$. By Lemma~\ref{lem:theta},
 \[
-D_{1} \;=\; 4 x^{2} + 1,\quad D_{2} \;=\; 1 - 4 x .
+B(x)\;=\;\sum_{i=0}^{2}x^{i}\,\bigl(p_i(\theta+i)A\bigr)(x),
 \]
-Applying Lemma~\ref{lem:transfer} to the coefficient polynomials of Section~1 and reducing
-in $K$ by Lemma~\ref{lem:field}, every component $c_{S}$ of $B$ with $S\neq\emptyset$
-cancels identically and the remaining rational part collapses to
-\[
-B(x)\;=\;6 x^{2} - 54 x ,
-\]
-a polynomial of degree $2$.
+an explicit element of the algebraic function field generated by $A$. The conjecture asserts
+$b(n)=0$; so it holds for all $n$ exactly when $B=0$, and for all $n>d$ exactly when $B$ is a
+polynomial of degree $d$. Both are decided symbolically, with no truncation and no numerics.
+
+\section{The theorem}
 
 \begin{theorem}
-The conjectured recurrence
 \[
-n \left(n + 1\right) \left(10 n - 37\right)\,a(n) + 2 n \left(5 n^{2} - 42 n + 91\right)\,a(n-1) -  4 \left(40 n^{3} - 270 n^{2} + 560 n - 357\right)\,a(n-2) + 8 \left(n - 3\right) \left(5 n^{2} - 42 n + 91\right)\,a(n-3) -  16 \left(n - 4\right) \left(2 n - 7\right) \left(25 n - 51\right)\,a(n-4) \;=\;0
+\left(n + 1\right)a(n) + \left(8 - 16 n\right)a(n-1) + \left(4 n - 8\right)a(n-2)\;=\;0
 \]
-holds for every $n>2$.
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
-Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
+$B$ was formed as above and simplified in the function field. Here $B$ is a polynomial of degree $1$. A polynomial contributes only to the coefficients of $x^k$ with $k\le1$, so $b(n)=0$ for every $n>1$. Since $A$ reproduces the
+entry's published terms, $b$ is the sequence the entry's conjecture is about, and the statement
+follows.
 \end{proof}
-
-\begin{remark}
-The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
-and $B$ collects exactly those contributions. Above that range the relation is exact.
-\end{remark}
 
 \section{Verification}
 
-Every number above is an output of a script written separately from this note, and two
-independent checks were run.
-
-First, the generating function was checked against the entry rather than assumed: the
-Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A071684, agreeing on all 13 terms compared.
-
-Second, the recurrence itself was evaluated directly on the published terms, in exact
-integer arithmetic and without reference to the generating function: for each $n$ in range
-the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 24 values of $n$ from $n=5$ upward. This is what
-Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
-different computation from the symbolic one: it never forms $B$, never differentiates, and
-uses only integers.
-
-The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=6 x^{2} - 54 x$ is an
-identity of functions and the theorem holds for all $n>2$ simultaneously.
+First, the generating function reproduces all $18$ published terms exactly. Second,
+the conjectured recurrence was evaluated directly on those terms, with no generating function
+involved, and holds wherever the proved range and the data overlap. Third, the residual $B$ was
+computed symbolically rather than from a truncated series, and its series expansion was taken
+independently to confirm the coefficients it predicts.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A071684.
-\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
-Chapter 7 (holonomic closure properties and the translation between recurrences and
-differential equations).
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
-University Press, 1999, Chapter 6 (algebraic and D-finite generating functions).
+\url{https://oeis.org}, 2026. Sequence A152601.
+\bibitem{stanley2} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Algebraic and D-finite generating functions.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
+
 \end{document}

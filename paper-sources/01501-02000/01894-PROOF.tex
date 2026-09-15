@@ -12,16 +12,16 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269610, proved from an exact model}
+\title{The empirical recurrence for OEIS A208948, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269610 carries an empirical recurrence of order $8$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$ past a computed transient, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=30$, derived below and not
+OEIS A208948 carries an empirical recurrence of order $8$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=49$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
 annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
 the count is not a walk.
@@ -31,55 +31,50 @@ the count is not a walk.
 
 \section{The conjecture}
 
-OEIS A269610 is ``Number of length-7 0..n arrays with no repeated value differing from the previous repeated value by one or less.''. It has offset $1$ and begins
+OEIS A208948 is ``Number of 6-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero with no three beads in a row equal.''. It has offset $1$ and begins
 \[
-14, 902, 10192, 58280, 229754, 714874, 1886252, 4405772,\ \dots
+20, 264, 1464, 5238, 14430, 33468, 68722, 128844,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = n\^{}7 + 7*n\^{}6 + 16*n\^{}5 - 12*n\^{}4 - 5*n\^{}3 + 18*n\^{}2 - 15*n + 4. a(n) = 8*a(n-1) - 28*a(n-2) + 56*a(n-3) - 70*a(n-4) + 56*a(n-5) - 28*a(n-6) + 8*a(n-7) - a(n-8) for n>8.
+Empirical: a(n) = 5*a(n-1) - 10*a(n-2) + 11*a(n-3) - 10*a(n-4) + 11*a(n-5) - 10*a(n-6) + 5*a(n-7) - a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 25 2019 06:37:59, revision 8)
+As of the ``Last modified'' line on the live entry (Jul 07 2018 08:51:10, revision 12)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial past a computed transient}
+\section{The count is a Burnside sum}
 
-A REPEATED VALUE is a term equal to the one before it, and its value is that term; the entry's
-condition relates each repeated value to the previous one. The length is fixed at $7$ and the
-alphabet $0..n$ grows, so nothing here is a walk on a finite digraph --- the state that
-remembers the previous repeated value has as many values as the alphabet. The count is taken
-exactly instead. Writing $A[p][v]$ for the number of prefixes ending in $v$ whose previous
-repeated value is $p$, appending a term $t$ gives
+The entry counts $6$-bead necklaces labelled from $-n..n$ with sum zero under a further
+condition on consecutive beads, the beads identified under the cyclic group of rotations, written $G$. Nothing is a
+walk here: the bead count is fixed and the ALPHABET grows.
+
+By Burnside's lemma the number of orbits is $\frac{1}{|G|}\sum_{g\in G}|\mathrm{Fix}(g)|$.
+A labelling fixed by $g$ is constant on the orbits of $g$, so it is a choice of one value per
+orbit. For a rotation by $d$ with $c=\gcd(6,d)$ the fixed labellings are exactly the
+$c$-periodic words, the whole sum is $(6/c)$ times the sum of one period, and the condition on
+the $6$-periodic extension is the condition on the length-$c$ cyclic word; for a reflection
+they are the palindromes, determined by $\lceil(6+1)/2\rceil$ values, and the condition is
+again local in those. Every term is therefore a count of integer points of
 \[
-A'[p][t] \mathrel{+}= \Big(\sum_v A[p][v]\Big) - A[p][t],
-\qquad
-A'[t][t] \mathrel{+}= A[p][t]\ \text{when the condition allows},
+\sum_i w_i y_i = 0, \qquad -n \le y_i \le n,
 \]
-the first for a $t$ differing from the last term and the second for a $t$ equal to it. Every
-term the model produces is an exact integer.
+$w_i$ the orbit sizes, under a condition on consecutive beads. The forbidden windows the entry
+names are defined by EQUALITIES between bead values, with fixed offsets, so inclusion-exclusion
+over them turns each term into a count under a set of affine identifications --- one
+convolution each --- and nothing is enumerated over the alphabet.
 
 \section{The bound}
 
-Let $k$ be the point past which the condition stops caring: the predicate depends on the
-difference of the two repeated values only through its sign and its magnitude up to $k$, and is
-constant beyond that in each direction. Here $k=1$, read off the predicate rather than
-assumed. An array is determined by its weak ordering --- the ordered set partition of the
-$7$ positions into $m$ blocks of equal value, listed in increasing value --- together with
-the base value $g_0\ge0$ and the gaps $g_1,\dots,g_{m-1}\ge1$ between consecutive distinct
-values, subject to $g_0+\sum g_i\le n$. Each constraint is on a difference of two values, which
-is a signed sum of consecutive gaps; since the predicate is constant past $k$, each constraint
-splits into finitely many cases, and in every case it either fixes that gap-sum to one of at
-most $2k+1$ values or pushes it beyond $k$. Within a case the count is the number of integer
-points of a system (fixed amounts) plus (free gaps) $\le n$, a polynomial in $n$ of degree at
-most $7$, valid as soon as $n$ exceeds the total forced amount. That total is at most
-$(m-1)+(\text{constrained pairs})(k+1)\le L+L(k+1)$, so with
-\[
-n_0 \;=\; L + L(k+1) \;=\; 21
-\]
-the sequence agrees with a polynomial of degree at most $7$ for every $n\ge n_0$. It is
-therefore annihilated by $(z-1)^{7+1}$ from that point, and by $z^{n_0+1}(z-1)^{7+1}$
-everywhere, a monic recurrence of order $S=30$. The annihilator was then asked for terms the
-model had not supplied and reproduced them, which is what a bound one short fails.
+Each term is a lattice-point count over a union of relatively open rational cones in the orbit
+variables, hence a quasi-polynomial in $n$; a Burnside average of quasi-polynomials is one. The
+period is read off the arrangement: every ray of every cell is cut out by as many independent
+hyperplanes as there are variables, so by Cramer its primitive generator has its $n$-coordinate
+dividing the determinant of their $y$-parts, and a ray leaving the box or the sum-zero plane
+bounds no cell and is dropped. The multiplicity of each cyclotomic factor is bounded by the
+number of distinct rays whose height it divides, and by the dimension of the cone. Taking the
+maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
+$S=49$, which includes the pre-period $n_0=0$ the conditions with an offset need. The
+annihilator was then asked for terms the model had not supplied and reproduced them.
 
 \section{The proof}
 
@@ -99,15 +94,15 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 70\,a(n-4) + 56\,a(n-5) - 28\,a(n-6) + 8\,a(n-7) - a(n-8)
+a(n)\;=\;5\,a(n-1) - 10\,a(n-2) + 11\,a(n-3) - 10\,a(n-4) + 11\,a(n-5) - 10\,a(n-6) + 5\,a(n-7) - a(n-8)
 \]
-for every $n>8$.
+for every $n>0$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=8+1$ onwards, and the run exceeds $S+8$, which by
+vanish from $n=0+1$ onwards, and the run exceeds $S+8$, which by
 Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
@@ -115,7 +110,7 @@ Lemma~\ref{lem:crit} settles every larger index at once.
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $28$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -128,7 +123,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269610.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208948.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

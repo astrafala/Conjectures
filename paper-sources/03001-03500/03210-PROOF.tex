@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269824, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A269050, proved by a counting transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269824 counts arrays over $\{0,\dots,4\}$ subject to a condition on the array as a
+OEIS A269050 counts arrays over $\{0,\dots,2\}$ subject to a condition on the array as a
 whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-exactly one. A transfer matrix still applies once the running count is carried in the state; and
+at most one. A transfer matrix still applies once the running count is carried in the state; and
 because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=250$ vertices,
+which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=1458$ vertices,
 and the empirical recurrence of order $18$ contributed by R.~H.~Hardin then follows from
 a finite exact computation.
 \end{abstract}
@@ -32,49 +32,49 @@ a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A269824 is ``Number of nX3 0..4 arrays with some element plus some horizontally, diagonally, antidiagonally or vertically adjacent neighbor totalling four exactly once.''. It has offset $1$ and begins
+OEIS A269050 is ``Number of n X 6 0..2 arrays with some element plus some horizontally, diagonally or antidiagonally adjacent neighbor totalling two not more than once.''. It has offset $1$ and begins
 \[
-40, 3096, 103296, 3200604, 90748696, 2472983556, 65284613232, 1686961414812,\ \dots
+336, 3288, 58752, 971844, 15547380, 242861616, 3726221592, 56376679620,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 34*a(n-1) +37*a(n-2) -7276*a(n-3) +2525*a(n-4) +294806*a(n-5) -785545*a(n-6) -1242552*a(n-7) +4983512*a(n-8) +814900*a(n-9) -9636844*a(n-10) +1645224*a(n-11) +5010412*a(n-12) -1220112*a(n-13) -975664*a(n-14) +242688*a(n-15) +70464*a(n-16) -11520*a(n-17) -2304*a(n-18) for n>19
+Empirical: a(n) = 36*a(n-1) -436*a(n-2) +1854*a(n-3) +340*a(n-4) -19128*a(n-5) +23849*a(n-6) +56184*a(n-7) -108224*a(n-8) -40816*a(n-9) +160400*a(n-10) -34136*a(n-11) -83203*a(n-12) +42628*a(n-13) +6468*a(n-14) -6334*a(n-15) +204*a(n-16) +240*a(n-17) -25*a(n-18) for n>19.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 05 2016 19:23:39, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Dec 29 2023 10:31:44, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;34\,a(n-1) + 37\,a(n-2) - 7276\,a(n-3) + 2525\,a(n-4) + 294806\,a(n-5) - 785545\,a(n-6) - 1242552\,a(n-7) + 4983512\,a(n-8) + 814900\,a(n-9) - 9636844\,a(n-10) + 1645224\,a(n-11) + 5010412\,a(n-12) - 1220112\,a(n-13) - 975664\,a(n-14) + 242688\,a(n-15) + 70464\,a(n-16) - 11520\,a(n-17) - 2304\,a(n-18)
+a(n)\;=\;36\,a(n-1) - 436\,a(n-2) + 1854\,a(n-3) + 340\,a(n-4) - 19128\,a(n-5) + 23849\,a(n-6) + 56184\,a(n-7) - 108224\,a(n-8) - 40816\,a(n-9) + 160400\,a(n-10) - 34136\,a(n-11) - 83203\,a(n-12) + 42628\,a(n-13) + 6468\,a(n-14) - 6334\,a(n-15) + 204\,a(n-16) + 240\,a(n-17) - 25\,a(n-18)
 \end{equation}
 for all $n>19$.
 
 \section{A global count, and how to carry it}
 
-The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
+The arrays have $6$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
 offsets
 \[
-\mathcal N=\{(0,1),\ (1,1),\ (1,-1),\ (1,0)\},
+\mathcal N=\{(0,1),\ (1,1),\ (1,-1)\},
 \]
 written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
 \emph{marked} when
 \[
-x_{p}+x_{q}=4 .
+x_{p}+x_{q}=2 .
 \]
 Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
 shift, so every pair is named once and only once: the pairs inside a row are seen when
 that row is laid down, and the pairs joining two rows when the later of the two is. The
 entry's requirement is
 \begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;=1.
+\#\{\text{marked pairs in the whole array}\}\;\le1.
 \end{equation}
 
 This is not a condition on any bounded window, so no transfer matrix over rows alone can
 express it. It becomes one as soon as the running total is part of the state. Let
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,4\}^{3},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=250,
+\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,2\}^{6},\ c\in\{0,1\}\bigr\},
+\qquad |\mathcal V|=S=1458,
 \]
 and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
 number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
@@ -84,12 +84,12 @@ $c+\beta(r,s)\le1$, and no edge otherwise.
 Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
 can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
 them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(4+1)^{2\cdot3}$ edges instead of the sparse set used here.
+the digraph dense, with $(2+1)^{2\cdot6}$ edges instead of the sparse set used here.
 \end{remark}
 
 \begin{lemma}\label{lem:walk}
 Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
+inside $r$ alone, and $\mathbf{u}$ the vertices with $c\le1$. Then for $L\ge1$ the arrays
 of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
 vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
 \[
@@ -169,7 +169,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269824.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269050.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

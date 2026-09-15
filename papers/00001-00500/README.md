@@ -1,6 +1,6 @@
 # Papers 00001-00500
 
-Ranks 1 to 500 of 13326, hardest first.
+Ranks 1 to 500 of 13342, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -502,5 +502,5 @@ Ranks 1 to 500 of 13326, hardest first.
 | 496 | [A187291](https://oeis.org/A187291) | Proof |  | [00496-PROOF.pdf](00496-PROOF.pdf) |
 | 497 | [A187301](https://oeis.org/A187301) | Proof |  | [00497-PROOF.pdf](00497-PROOF.pdf) |
 | 498 | [A187610](https://oeis.org/A187610) | Proof |  | [00498-PROOF.pdf](00498-PROOF.pdf) |
-| 499 | [A187861](https://oeis.org/A187861) | Proof |  | [00499-PROOF.pdf](00499-PROOF.pdf) |
-| 500 | [A266612](https://oeis.org/A266612) | Proof |  | [00500-PROOF.pdf](00500-PROOF.pdf) |
+| 499 | [A187854](https://oeis.org/A187854) | Proof |  | [00499-PROOF.pdf](00499-PROOF.pdf) |
+| 500 | [A187861](https://oeis.org/A187861) | Proof |  | [00500-PROOF.pdf](00500-PROOF.pdf) |

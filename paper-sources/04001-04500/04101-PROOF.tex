@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211463, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A211569, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211463 carries an empirical recurrence of order $8$ contributed by R. H. Hardin. It is
+OEIS A211569 carries an empirical recurrence of order $8$ contributed by R. H. Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=8$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=16$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,15 +31,15 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A211463 is ``Number of -2..2 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1), -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having three or four distinct values for every i<=n and j<=n.''. It has offset $1$ and begins
+OEIS A211569 is ``Number of -2..2 arrays x(i) of n+1 elements i=1..n+1 with set{t,u,v in 0,1}((x[i+t]+x[j+u]+x[k+v])*(-1)\^{}(t+u+v)) having two, four or five distinct values for every i,j,k<=n.''. It has offset $1$ and begins
 \[
-20, 80, 304, 1144, 4232, 15536, 56616, 205400,\ \dots
+24, 52, 94, 174, 304, 552, 980, 1802,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) + 9*a(n-2) - 57*a(n-3) - 36*a(n-4) + 196*a(n-5) + 96*a(n-6) - 124*a(n-7) + 24*a(n-8).
+Empirical: a(n) = 4*a(n-1) + a(n-2) - 21*a(n-3) + 16*a(n-4) + 29*a(n-5) - 34*a(n-6) - 6*a(n-7) + 12*a(n-8).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 17 2018 15:44:51, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 19 2018 08:23:01, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
@@ -47,7 +47,7 @@ recorded as empirical, and nothing on the entry records it as proved.
 The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=8$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=16$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -75,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) + 9\,a(n-2) - 57\,a(n-3) - 36\,a(n-4) + 196\,a(n-5) + 96\,a(n-6) - 124\,a(n-7) + 24\,a(n-8)
+a(n)\;=\;4\,a(n-1) + a(n-2) - 21\,a(n-3) + 16\,a(n-4) + 29\,a(n-5) - 34\,a(n-6) - 6\,a(n-7) + 12\,a(n-8)
 \]
-for every $n>0$.
+for every $n>8$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $8$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=8+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211463.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211569.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

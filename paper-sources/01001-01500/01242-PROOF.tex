@@ -11,134 +11,130 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A268077, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251469: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268077 carries an empirical recurrence of order $45$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to one counter per column -- how many values that column has introduced so far -- the rows themselves being drawn from the fixed finite set that satisfies the same condition read along a row, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=92$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A251469 records ``Empirical recurrence of order $45$'', with the recurrence itself in a
+linked file rather than in the entry. The conjecture can nevertheless be settled, and the
+recurrence recovered, without reading that file. The entry counts arrays under a condition
+local to a bounded window of lines, so the count is a walk count on $S=216$ vertices and
+satisfies some monic recurrence of order at most $S$; Berlekamp--Massey applied to $2S$ exact
+terms therefore returns the MINIMAL such recurrence. Its order is exactly $45$, the order
+the entry states, and the same is true of every tail of the sequence. Any recurrence of order
+$45$ that the sequence satisfies from any point on must then have a characteristic
+polynomial that is a multiple of the minimal one and of the same degree, hence equal to it. So
+the entry's recurrence is the one displayed here, whatever its file contains, and it is
+proved.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
-\section{The conjecture}
+\section{A conjecture one cannot read}
 
-OEIS A268077 is ``Number of nX6 nonnegative integer arrays with new values introduced in each row and column in sequential order starting with zero.''. It has offset $1$ and begins
+OEIS A251469 is ``Number of (n+1)X(2+1) 0..5 arrays with every 2X2 subblock summing to a prime.''. It has offset $1$ and begins
 \[
-1, 32, 2094, 216734, 29309170, 4617638834, 795460720710, 144635795908942,\ \dots
+5896, 167554, 4789458, 137223466, 3932396176, 112715450380, 3230677312514, 92604214969034,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
+The entry states:
+\begin{quote}
 Empirical recurrence of order 45 (see link above)
-
-Empirical: a(n) = 2895*a(n-1) - 4037187*a(n-2) + 3613689287*a(n-3) - 2334125124537*a(n-4) + 1159631062296105*a(n-5) - 461257005407905109*a(n-6) + 150968778600598075089*a(n-7) - 41471328971145605009088*a(n-8) + 9704783871436952838678030*a(n-9) - 1957022022700287700731489726*a(n-10) + 343177793873894182742702292966*a(n-11) - 52712365070825519901142101907714*a(n-12) + 7133906263908005447204898152156370*a(n-13) - 854746526270133308701639829077101258*a(n-14) + 91018149269229552258839566552097059138*a(n-15) - 8640984139957208303204736096219075826545*a(n-16) + 733219179255414218536269669342554124010875*a(n-17) - 55717813552258124604545260808571740027490415*a(n-18) + 3797420365706442370814114939231201445311114115*a(n-19) - 232366104388087963567255336110246609584683993269*a(n-20) + 12773977516508797675676021947157702416853897044405*a(n-21) - 631048469760538332060303042919089504565374018967953*a(n-22) + 28011476937328945319288369832302755484248675194514653*a(n-23) - 1116711142421095493191731058620602637829642680580764958*a(n-24) + 39949519132697483194578469935461429183446008876811680120*a(n-25) - 1280903732180806105953927481197307263853146872749218898656*a(n-26) + 36749275025465356340570520413983538495082702161014692708576*a(n-27) - 941483384012815857748447442948608849704333538476502096986432*a(n-28) + 21483487399546073313078492302234302882456205201919900229605120*a(n-29) - 435300527597013962472484341543843841142564488264833077520107264*a(n-30) + 7803051988590637476780556013159799099337528658853379464214689024*a(n-31) - 123202845657058849933844648445717095793641982508734173229516320256*a(n-32) + 1704443195553926734578271277434785101715673176763039287303051438080*a(n-33) - 20532100016045422078011817234804215995914845157604295311632187154432*a(n-34) + 213753487940783053779888065765881275521232266909373654579699652657152*a(n-35) - 1905799134103083628834482359599671116038059211074586138290729218867200*a(n-36) + 14391139035168383156005796784876620191251019767930017528019136217088000*a(n-37) - 90773625287353864022658981729348913362696546278153301146871822286848000*a(n-38) + 469936965953307172519451754669930954303259085215050285022339478323200000*a(n-39) - 1951488296087302518127193284672302985946101712806383169749180953395200000*a(n-40) + 6300950390550971742817259385020074359061283444232611991062279356416000000*a(n-41) - 15127221247485094184965073145207040345170651089567102823061121925120000000*a(n-42) + 25189111347951059883278915886934600869505152826344567183808187596800000000*a(n-43) - 25685641007654886230766568834993603405496162152345097917534568448000000000*a(n-44) + 11916800781538347336877472262471972075126632747701936893607280640000000000*a(n-45)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 25 2016 21:22:06, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:24:00, revision 6) this is still
+recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains one counter per column -- how many values that column has introduced so far -- the rows themselves being drawn from the fixed finite set that satisfies the same condition read along a row and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=92$ vertices,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
-\]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+The entry's condition is local: it constrains a bounded window of consecutive lines of the
+array and nothing further. The admissible configurations of one such window are the vertices
+of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=216$ vertices,
+$a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
+and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
+integer combination of $I,M,\dots,M^{S-1}$, so:
 
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{45}-\sum_i c_it^{45-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:cf}
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S=216$.
 \end{lemma}
 
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+45}-\sum_ic_iM^{j+45-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+\section{Recovering the recurrence}
 
-\begin{theorem}
+\begin{lemma}\label{lem:bm}
+A sequence known to satisfy some linear recurrence of order at most $S$ is determined, together
+with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied to them returns
+that minimal recurrence exactly.
+\end{lemma}
+
+Running it on $2S=432$ exact terms of the model returns order $45$ --- the order the
+entry states --- with the integer coefficients
 \[
-a(n)\;=\;\sum_{i=1}^{45}c_i\,a(n-i)
+a(n)\;=\;\sum_{i=1}^{45}c_i\,a(n-i),
 \]
-for every $n>45$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=2895$ & $c_{2}$ & $=-4037187$ \\
-$c_{3}$ & $=3613689287$ & $c_{4}$ & $=-2334125124537$ \\
-$c_{5}$ & $=1159631062296105$ & $c_{6}$ & $=-461257005407905109$ \\
-$c_{7}$ & $=150968778600598075089$ & $c_{8}$ & $=-41471328971145605009088$ \\
-$c_{9}$ & $=9704783871436952838678030$ & $c_{10}$ & $=-1957022022700287700731489726$ \\
-$c_{11}$ & $=343177793873894182742702292966$ & $c_{12}$ & $=-52712365070825519901142101907714$ \\
-$c_{13}$ & $=7133906263908005447204898152156370$ & $c_{14}$ & $=-854746526270133308701639829077101258$ \\
-$c_{15}$ & $=91018149269229552258839566552097059138$ & $c_{16}$ & $=-8640984139957208303204736096219075826545$ \\
-$c_{17}$ & $=733219179255414218536269669342554124010875$ & $c_{18}$ & $=-55717813552258124604545260808571740027490415$ \\
-$c_{19}$ & $=3797420365706442370814114939231201445311114115$ & $c_{20}$ & $=-232366104388087963567255336110246609584683993269$ \\
-$c_{21}$ & $=12773977516508797675676021947157702416853897044405$ & $c_{22}$ & $=-631048469760538332060303042919089504565374018967953$ \\
-$c_{23}$ & $=28011476937328945319288369832302755484248675194514653$ & $c_{24}$ & $=-1116711142421095493191731058620602637829642680580764958$ \\
-$c_{25}$ & $=39949519132697483194578469935461429183446008876811680120$ & $c_{26}$ & $=-1280903732180806105953927481197307263853146872749218898656$ \\
-$c_{27}$ & $=36749275025465356340570520413983538495082702161014692708576$ & $c_{28}$ & $=-941483384012815857748447442948608849704333538476502096986432$ \\
-$c_{29}$ & $=21483487399546073313078492302234302882456205201919900229605120$ & $c_{30}$ & $=-435300527597013962472484341543843841142564488264833077520107264$ \\
-$c_{31}$ & $=7803051988590637476780556013159799099337528658853379464214689024$ & $c_{32}$ & $=-123202845657058849933844648445717095793641982508734173229516320256$ \\
-$c_{33}$ & $=1704443195553926734578271277434785101715673176763039287303051438080$ & $c_{34}$ & $=-20532100016045422078011817234804215995914845157604295311632187154432$ \\
-$c_{35}$ & $=213753487940783053779888065765881275521232266909373654579699652657152$ & $c_{36}$ & $=-1905799134103083628834482359599671116038059211074586138290729218867200$ \\
-$c_{37}$ & $=14391139035168383156005796784876620191251019767930017528019136217088000$ & $c_{38}$ & $=-90773625287353864022658981729348913362696546278153301146871822286848000$ \\
-$c_{39}$ & $=469936965953307172519451754669930954303259085215050285022339478323200000$ & $c_{40}$ & $=-1951488296087302518127193284672302985946101712806383169749180953395200000$ \\
-$c_{41}$ & $=6300950390550971742817259385020074359061283444232611991062279356416000000$ & $c_{42}$ & $=-15127221247485094184965073145207040345170651089567102823061121925120000000$ \\
-$c_{43}$ & $=25189111347951059883278915886934600869505152826344567183808187596800000000$ & $c_{44}$ & $=-25685641007654886230766568834993603405496162152345097917534568448000000000$ \\
-$c_{45}$ & $=11916800781538347336877472262471972075126632747701936893607280640000000000$ \\
+\begin{center}\small
+\begin{tabular}{cccccccc}
+$c_{1}$ & $41$ & $c_{13}$ & $8637637539734420$ & $c_{25}$ & $-7974966053985984329079168$ & $c_{37}$ & $-17503574248952392940588630016$ \\
+$c_{2}$ & $1054$ & $c_{14}$ & $-139910208986057894$ & $c_{26}$ & $-20544159658413755386265664$ & $c_{38}$ & $9273894833513476259126968320$ \\
+$c_{3}$ & $-59105$ & $c_{15}$ & $-298430999518499143$ & $c_{27}$ & $88894732145049297971453568$ & $c_{39}$ & $8291110358127954283481530368$ \\
+$c_{4}$ & $-183871$ & $c_{16}$ & $7990267032020741713$ & $c_{28}$ & $115014037994331406236856320$ & $c_{40}$ & $-4168606592073128180705132544$ \\
+$c_{5}$ & $31070076$ & $c_{17}$ & $1958452066854399215$ & $c_{29}$ & $-655297402368294738812292096$ & $c_{41}$ & $-1629068660480419944160296960$ \\
+$c_{6}$ & $-107056232$ & $c_{18}$ & $-317034067051659428992$ & $c_{30}$ & $-340589391297815734534969344$ & $c_{42}$ & $553882581761298841605242880$ \\
+$c_{7}$ & $-8502540303$ & $c_{19}$ & $327032320337975193798$ & $c_{31}$ & $3150856829740329670110806016$ & $c_{43}$ & $141889153325415984739123200$ \\
+$c_{8}$ & $57803958218$ & $c_{20}$ & $8819262064447134500652$ & $c_{32}$ & $110762516821436893146710016$ & $c_{44}$ & $-21649086662426645181235200$ \\
+$c_{9}$ & $1377355175580$ & $c_{21}$ & $-17397525422748358409932$ & $c_{33}$ & $-9585764171027910303645892608$ & $c_{45}$ & $-4543715546604414959616000$ \\
+$c_{10}$ & $-12810017103288$ & $c_{22}$ & $-171538453752832737783576$ & $c_{34}$ & $2574168282062062639888859136$ &  &  \\
+$c_{11}$ & $-138703908331999$ & $c_{23}$ & $470358385745411409613688$ & $c_{35}$ & $17495830277063615756930383872$ &  &  \\
+$c_{12}$ & $1662861205752937$ & $c_{24}$ & $2298035081464283442680304$ & $c_{36}$ & $-7847072846053159094452224000$ &  &  \\
 \end{tabular}
 \end{center}
-and $c_i=0$ for every $i$ not listed.
+
+\begin{theorem}
+The recurrence above holds for every $n$, and it is the recurrence the entry records.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $45$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+It holds by Lemma~\ref{lem:bm}, which returns a recurrence the sequence satisfies from its
+first term. For the identification: the entry asserts that the sequence satisfies SOME
+recurrence of order $45$, possibly only from some index on. Let $q$ be that recurrence's
+characteristic polynomial and $q_{\min}$ the minimal polynomial of the tail of the sequence.
+Then $q_{\min}\mid q$. Berlekamp--Massey run on the sequence with its first $45+4$ terms
+removed returns order $45$ as well, so $\deg q_{\min}=45=\deg q$; both are monic, so
+$q=q_{\min}$, which is the polynomial computed above.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the walk model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry, and it is the only place where reading
+the entry's English enters.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recovered recurrence was evaluated directly on those published terms, with no
+matrices and no Berlekamp--Massey involved, and holds at every index where the entry gives
+enough earlier terms to test it.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the order was computed twice by independent routes: once modulo a $61$-bit prime, where
+every intermediate is a machine word, and once in exact rational arithmetic; and once more on
+the sequence with its first $45+4$ terms removed, which is what the identification above
+requires. All three agree.
+
+\begin{remark}
+What is unusual here is that the conjecture's statement was never read. The entry pins it down
+to a one-parameter family --- the recurrences of order $45$ that this sequence satisfies
+--- and that family turns out to have exactly one member.
+\end{remark}
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268077.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251469.
+\bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
+Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

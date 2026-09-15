@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A219516, proved}
+\title{The empirical closed form for OEIS A219770, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219516 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A219770 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, diagonal, horizontal neighbours,
+admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=954$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=1107$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{18}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,15 +35,15 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A219516 is ``Number of nX5 arrays of the minimum value of corresponding elements and their horizontal, diagonal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..1 nX5 array.''. It has offset $1$ and begins
+OEIS A219770 is ``Number of nX5 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and columns, 0..1 nX5 array.''. It has offset $1$ and begins
 \[
-5, 6, 43, 166, 620, 2125, 6994, 22202,\ \dots
+5, 12, 65, 291, 1229, 4795, 17186, 57060,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/4940103168000)*n\^{}17 - (37/1743565824000)*n\^{}16 + (19/16345929600)*n\^{}15 - (677/29059430400)*n\^{}14 - (222319/186810624000)*n\^{}13 + (1173203/9580032000)*n\^{}12 - (987673/182891520)*n\^{}11 + (88318147/609638400)*n\^{}10 - (39519658793/18289152000)*n\^{}9 - (945150721/451584000)*n\^{}8 + (1475988735499/1437004800)*n\^{}7 - (7043508241541/239500800)*n\^{}6 + (162618282063021361/326918592000)*n\^{}5 - (207747522262358461/36324288000)*n\^{}4 + (27523316250561749/605404800)*n\^{}3 - (2026176077973587/8408400)*n\^{}2 + (7656884230336/9945)*n - 1124898508 for n>14
+Empirical: a(n) = (1/11115232128000)*n\^{}17 - (1/326918592000)*n\^{}16 + (1/40864824000)*n\^{}15 + (493/65383718400)*n\^{}14 - (9683/23351328000)*n\^{}13 + (89521/7185024000)*n\^{}12 - (4429/25872000)*n\^{}11 - (1645507/914457600)*n\^{}10 + (728164123/4572288000)*n\^{}9 - (20102513087/4572288000)*n\^{}8 + (17194555969/224532000)*n\^{}7 - (1333369888691/1437004800)*n\^{}6 + (2585848906270391/326918592000)*n\^{}5 - (2492152164682039/54486432000)*n\^{}4 + (1458815480632777/9081072000)*n\^{}3 - (33613023582311/151351200)*n\^{}2 - (38919626189/85085)*n + 1608736 for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:07:29, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:16:09, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ Fix the width $W=5$ and the value range $0..1$. The underlying arrays are the
 $n\times5$ arrays over that range whose rows are lexicographically nondecreasing read downwards
 and whose columns are lexicographically nondecreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, diagonal, horizontal neighbours that lie inside the array. The entry counts
+of its antidiagonal, horizontal neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=954$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=1107$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=954$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=1107$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,15 +102,15 @@ q(x)=(x-1)^{18},\qquad\text{that is}\qquad a(n)=18\,a(n-1) - 153\,a(n-2) + 816\,
 \]
 
 \begin{theorem}
-The closed form OEIS A219516 records is correct for all $n>14$.
+The closed form OEIS A219770 records is correct for all $n>10$.
 \end{theorem}
 
 \begin{proof}
 Two exact computations. First, the walk count of Lemma~\ref{lem:det} satisfies $q$: the
 residual $u_j=\iota^{\!\top}M^{\,j}q(M)\tau$ vanishes for $S$ consecutive indices, and
 since the residual vector lives in the $S$-dimensional space spanned by the iterates of $M$,
-$S$ consecutive zeros force every later one. The last index at which it fails is $32$.
-Second, the polynomial and the walk count agree at every index from $15$ up to
+$S$ consecutive zeros force every later one. The last index at which it fails is $28$.
+Second, the polynomial and the walk count agree at every index from $11$ up to
 $1 + 26 - 1$, which is more than the $18$ consecutive agreements a
 common recurrence of order $18$ needs. Two sequences satisfying the same monic recurrence
 of order $18$ and agreeing at $18$ consecutive indices past both their thresholds are
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219516.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A219770.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

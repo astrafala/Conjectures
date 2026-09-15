@@ -964,3 +964,14 @@ because `PROVED` reads that file.
 Sweeping the 1,460 roster entries added since the pool was built gives 21 further settled
 conjectures, all of which pass the new window check. They are held, not installed, until the
 builder exists.
+
+### The rebuilt name-readable pool starts paying (IDEAS §AE)
+
+**16 more papers; roster 13,342 over 13,315 entries.** The first 439 of the rebuilt 1,727
+name-readable candidates give 16 proofs and no failures; the sweep is still running on the rest.
+
+One more glob defect on the way: every TAGGED run of `sweep_shard` writes
+`shard<TAG>_hits_<i>.json`, and `newlist.py` globbed `shard_hits_*.json`, which matches only the
+untagged run. A sweep over a rebuilt pool was invisible to the installer for the sake of one
+pattern — the same shape as the eleven stale filters, in the file names rather than in a pool.
+The pattern is now `shard*_hits*.json`, which covers every tag at once.

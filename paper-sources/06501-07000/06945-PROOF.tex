@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250614, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250941, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250614 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+OEIS A250941 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $39$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=484$ states, and the
+window of consecutive rows, so the count is a walk count on $S=6561$ states, and the
 conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
@@ -31,35 +31,34 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250614 is ``Number of (n+1)X(2+1) 0..2 arrays with nondecreasing maximum of every two consecutive values in every row and column.''. It has offset $1$ and begins
+OEIS A250941 is ``Number of (n+1)X(7+1) 0..2 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
 \[
-484, 6166, 71610, 712806, 6676967, 58739370, 498574034, 4101893438,\ \dots
+103093, 1188599, 9865706, 72722706, 475951361, 2839711239, 15686582837, 81197881457,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 20*a(n-1) -58*a(n-2) -1211*a(n-3) +7469*a(n-4) +29122*a(n-5) -286876*a(n-6) -311695*a(n-7) +6140380*a(n-8) -7690*a(n-9) -85918626*a(n-10) +44759888*a(n-11) +844728807*a(n-12) -655827274*a(n-13) -6063710214*a(n-14) +5375423069*a(n-15) +32445046521*a(n-16) -29581330770*a(n-17) -130679364110*a(n-18) +116147189109*a(n-19) +397073668236*a(n-20) -334338976080*a(n-21) -906794930412*a(n-22) +714243886032*a(n-23) +1542177478836*a(n-24) -1135140360464*a(n-25) -1924004585304*a(n-26) +1333380426408*a(n-27) +1721585725960*a(n-28) -1138046392224*a(n-29) -1068613653344*a(n-30) +684393855872*a(n-31) +437511683328*a(n-32) -275803776512*a(n-33) -109021933056*a(n-34) +68686921728*a(n-35) +14320318464*a(n-36) -9177366528*a(n-37) -700416000*a(n-38) +471859200*a(n-39)
+Empirical: a(n) = 56*a(n-1) -1522*a(n-2) +26750*a(n-3) -341788*a(n-4) +3383870*a(n-5) -27019370*a(n-6) +178816330*a(n-7) -1000398245*a(n-8) +4801705370*a(n-9) -19999827232*a(n-10) +72938367572*a(n-11) -234575011664*a(n-12) +669091458700*a(n-13) -1700431069076*a(n-14) +3864487952276*a(n-15) -7876529587291*a(n-16) +14429295594092*a(n-17) -23796815540850*a(n-18) +35368238093958*a(n-19) -47398136192484*a(n-20) +57276494053174*a(n-21) -62381329826018*a(n-22) +61173951385090*a(n-23) -53931666825727*a(n-24) +42653735964962*a(n-25) -30177492913372*a(n-26) +19030922520904*a(n-27) -10649333267120*a(n-28) +5257938886816*a(n-29) -2274410125504*a(n-30) +854313663104*a(n-31) -275508944128*a(n-32) +75166819840*a(n-33) -17011807232*a(n-34) +3107903488*a(n-35) -440373248*a(n-36) +45408256*a(n-37) -3031040*a(n-38) +98304*a(n-39) for n>53
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:36:04, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:53:04, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $3$ cells across and entries $x(i,j)\in\{0,1,2\}$.
+The array has $8$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 
-Fix the statistic $\sigma(v)=\max_t v_t$ of a run $v$ of $2$ consecutive cells --- in words,
-the maximum of the $2$ values. Two derived arrays are formed and both must be
-nondecreasing in their own direction: reading along a row,
+Two derived arrays are formed. The first reads the horizontal statistic across each
+neighbouring pair of a row,
 \[
-\sigma\bigl(x(i,j),\dots,x(i,j{+}1)\bigr)\ \le\
-\sigma\bigl(x(i,j{+}1),\dots,x(i,j{+}2)\bigr),
+b(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
-and reading down a column,
+and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
+statistic down each neighbouring pair of a column,
 \[
-\sigma\bigl(x(i,j),\dots,x(i{+}1,j)\bigr)\ \le\
-\sigma\bigl(x(i{+}1,j),\dots,x(i{+}2,j)\bigr).
+c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
 \]
-The same statistic and the same run length serve both directions, so the condition is
-unchanged by transposing the array.
+and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
+is the sum of a cell and its left neighbour, and the vertical one is
+the absolute difference of a cell and the cell above it.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -68,22 +67,20 @@ available, and the walk is run over the alphabet the entry names.
 \section{A bounded window}
 
 \begin{lemma}\label{lem:win}
-The row comparisons involve one array row each. A column comparison involves the
-$2+1=3$ consecutive rows $i,\dots,i{+}2$ and no others.
+Both conditions are conditions on TWO consecutive array rows and nothing more.
 \end{lemma}
 
 \begin{proof}
-The two runs compared start at rows $i$ and $i+1$ and have length $2$, so together they
-occupy rows $i$ through $i+2$.
+$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
+names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
 \end{proof}
 
-So the window of the last $2$ rows is a state, each row of it already satisfying its own row
-comparisons, and one step appends a row and settles the column comparisons that the new row
-completes. With $M$ the adjacency matrix of that digraph and $\iota=\tau=\mathbf{1}$,
+So a single row is a state. Let $M$ be the matrix on the $3^{8}=6561$ rows with
+$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
+walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=484,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6561.
 \]
-a walk of no steps being an array of exactly $2$ rows.
 
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -108,15 +105,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;20\,a(n-1) - 58\,a(n-2) - 1211\,a(n-3) + 7469\,a(n-4) + 29122\,a(n-5) - 286876\,a(n-6) - 311695\,a(n-7) + 6140380\,a(n-8) - 7690\,a(n-9) - 85918626\,a(n-10) + 44759888\,a(n-11) + 844728807\,a(n-12) - 655827274\,a(n-13) - 6063710214\,a(n-14) + 5375423069\,a(n-15) + 32445046521\,a(n-16) - 29581330770\,a(n-17) - 130679364110\,a(n-18) + 116147189109\,a(n-19) + 397073668236\,a(n-20) - 334338976080\,a(n-21) - 906794930412\,a(n-22) + 714243886032\,a(n-23) + 1542177478836\,a(n-24) - 1135140360464\,a(n-25) - 1924004585304\,a(n-26) + 1333380426408\,a(n-27) + 1721585725960\,a(n-28) - 1138046392224\,a(n-29) - 1068613653344\,a(n-30) + 684393855872\,a(n-31) + 437511683328\,a(n-32) - 275803776512\,a(n-33) - 109021933056\,a(n-34) + 68686921728\,a(n-35) + 14320318464\,a(n-36) - 9177366528\,a(n-37) - 700416000\,a(n-38) + 471859200\,a(n-39)
+a(n)\;=\;56\,a(n-1) - 1522\,a(n-2) + 26750\,a(n-3) - 341788\,a(n-4) + 3383870\,a(n-5) - 27019370\,a(n-6) + 178816330\,a(n-7) - 1000398245\,a(n-8) + 4801705370\,a(n-9) - 19999827232\,a(n-10) + 72938367572\,a(n-11) - 234575011664\,a(n-12) + 669091458700\,a(n-13) - 1700431069076\,a(n-14) + 3864487952276\,a(n-15) - 7876529587291\,a(n-16) + 14429295594092\,a(n-17) - 23796815540850\,a(n-18) + 35368238093958\,a(n-19) - 47398136192484\,a(n-20) + 57276494053174\,a(n-21) - 62381329826018\,a(n-22) + 61173951385090\,a(n-23) - 53931666825727\,a(n-24) + 42653735964962\,a(n-25) - 30177492913372\,a(n-26) + 19030922520904\,a(n-27) - 10649333267120\,a(n-28) + 5257938886816\,a(n-29) - 2274410125504\,a(n-30) + 854313663104\,a(n-31) - 275508944128\,a(n-32) + 75166819840\,a(n-33) - 17011807232\,a(n-34) + 3107903488\,a(n-35) - 440373248\,a(n-36) + 45408256\,a(n-37) - 3031040\,a(n-38) + 98304\,a(n-39)
 \]
-for every $n>39$.
+for every $n>53$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -124,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -140,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250614.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250941.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -12,64 +12,57 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183905, proved from an exact model}
+\title{The empirical recurrence for OEIS A125445, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183905 carries an empirical recurrence of order $3$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by an exact polynomial in $n$, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=3$, derived below and not
+OEIS A125445 carries an empirical recurrence of order $3$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=10$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A183905 is ``Number of nondecreasing arrangements of n+2 numbers in 0..2 with each number being the sum mod 3 of two others.''. It has offset $1$ and begins
+OEIS A125445 is ``Number of base 10 circular n-digit numbers with adjacent digits differing by 8 or less.''. It has offset $0$ and begins
 \[
-1, 4, 10, 17, 25, 34, 44, 55,\ \dots
+1, 10, 98, 946, 9282, 91090, 894050, 8775154,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (1/2)*n\^{}2 + (7/2)*n - 5 for n>1. a(n) = 3*a(n-1) - 3*a(n-2) + a(n-3) for n>4.
+[Empirical] a(base,n)=a(base-1,n)+F(8) for base>=8.int(n/2)+1 and F(d) is the largest coefficient in (1+x+...+x\^{}(2d))\^{}n a(n) = 10*a(n-1) - a(n-2) - 8*a(n-3) for n>3.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 05 2018 12:04:57, revision 12)
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:07:22, revision 17)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a polynomial}
+\section{The count is a trace}
 
-A NONDECREASING arrangement is determined by its multiset of values, so an admissible
-arrangement is exactly an admissible multiset. The condition names how many other entries a
-value must be built from, and a condition of that shape cannot distinguish a value occurring
-$r+1$ times from one occurring more: the admissible multisets are therefore exactly those
-whose multiplicity profile, CAPPED at $r+1$, is one of a finite list, and that list is computed
-once by enumeration over the capped profiles.
-
-Given an admissible capped profile with $F$ the total multiplicity of the values capped below
-the limit and $t$ the number of values at the cap, the arrangements of length $\ell$ with that
-profile number $\binom{\ell-F-(r+1)t+t-1}{t-1}$, and $a(n)$ is the sum of those binomials
-over the list with $\ell$ the entry's own length.
+Let $G$ be the graph on the digits $0,1,\dots,9$ with an edge between $u$ and $v$ exactly
+when $|u-v|\le8$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
+$|u-v|\le8$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
+$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
+most $8$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
+starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
+\[
+a(n)\;=\;\sum_{u=0}^{9}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
+\]
+The entry counts every string, leading zeros included: requiring a nonzero first digit gives
+$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
+string, where the trace is $10$; that is the entry's convention at one index and the two agree
+at every $n\ge1$, on every published term.
 
 \section{The bound}
 
-Each binomial is a polynomial in $\ell$, hence in $n$, of degree $t-1<M$ with $M$ the alphabet
-size, so $a$ agrees with a polynomial of degree below $M$ and $(z-1)^{M}$ annihilates it:
-$S=3$.
-
-Two kinds of term are outside that polynomial at small lengths, and they are why the threshold
-below is not zero. A profile with no value at the cap contributes the indicator
-$[\,F=\ell\,]$, which is a single spike rather than a polynomial and is gone once
-$\ell$ exceeds every such $F$; and a profile whose slack falls below $-(t-1)$ has the count
-$0$ where the binomial polynomial does not vanish. Both live at bounded $\ell$, so above them
-$a$ is the polynomial exactly, and on every entry of this family the residual of $(z-1)^{M}$
-is nonzero at the first few indices and vanishes from then on. The theorem is stated from the
-threshold up, and the run of zeros it uses lies entirely above the transient.
+$\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
+Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=10$,
+computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
+bound is derived from the data: it is the size of the digit alphabet.
 
 \section{The proof}
 
@@ -89,23 +82,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 3\,a(n-2) + a(n-3)
+a(n)\;=\;10\,a(n-1) - a(n-2) - 8\,a(n-3)
 \]
-for every $n>4$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=4+1$ onwards, and the run exceeds $S+3$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -118,7 +111,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183905.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A125445.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

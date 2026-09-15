@@ -12,38 +12,38 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A233818}
+\title{The empirical column recurrences for the table OEIS A239178}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233818 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A239178 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$ and the rows $n=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A233818 is ``T(n,k)=Number of (n+1)X(k+1) 0..5 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 11 (11 maximizes T(1,1)).''. It has offset $1$, is
+OEIS A239178 is ``T(n,k) = number of (n+1) X (k+1) 0..2 arrays with no element greater than all horizontal neighbors or equal to all vertical neighbors.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-96, 428, 428, 1824, 2216, 1824, 8136, 10972,\ \dots
+6, 26, 12, 98, 82, 36, 378, 514,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
 Empirical for column k:\\
-k=1: a(n) = 30*a(n-2) -220*a(n-4) +240*a(n-6)\\
-k=2: [order 18]\\
-k=3: [order 78]\\
+k=1: a(n) = 2*a(n-1) +2*a(n-2)\\
+k=2: [order 19]\\
+k=3: [order 67]\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 09:01:24, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Apr 13 2025 08:19:22, revision 15) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,7 +86,8 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $6$ & $36$ & $>6$ & $8$ \\
+column $k$$=1$ & $2$ & $12$ & $>2$ & $8$ \\
+row $n$$=1$ & $6$ & $42$ & $>6$ & $8$ \\
 \end{tabular}
 \end{center}
 
@@ -96,14 +97,60 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1)X2 0..5 arrays with every 2X2 subblock having the sum of the squares of all six edge and diagonal differences equal to 11.''. Its rows are the vertices of a digraph on
-$S=36$ vertices, edges being the admissible consecutive pairs, and the count is
+The sequence is ``Number of (n+1) X (2) 0..2 arrays with no element greater than all horizontal neighbors or equal to all vertical neighbors.''. Its rows are the vertices of a digraph on
+$S=12$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;30\,a(n-2) - 220\,a(n-4) + 240\,a(n-6)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2)
+\]
+holds from index $2+1$ on.
+
+\subsection*{Row $n$$=1$}
+The sequence is ``Number of (2) X (n+1) 0..2 arrays with no element greater than all horizontal neighbors or equal to all vertical neighbors.''. Its rows are the vertices of a digraph on
+$S=42$ vertices, edges being the admissible consecutive pairs, and the count is
+$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
+The conjectured recurrence
+\[
+a(n)\;=\;4\,a(n-1) - a(n-2) + 3\,a(n-3) + 3\,a(n-4) - 4\,a(n-5) + a(n-6)
 \]
 holds from index $6+1$ on.
+
+
+\section{Lines whose recurrence the entry does not print}
+
+For the lines below the entry records only an order, the coefficients being in a linked file.
+They can still be settled, and the recurrences recovered. A line is a walk count on $S$
+vertices, so it satisfies some monic recurrence of order at most $S$ and Berlekamp--Massey on
+$2S$ exact terms returns the MINIMAL one. Where that order equals the stated order --- and
+where the same holds after the first few terms are dropped, since the entry's recurrence may
+begin only partway along --- any recurrence of that order the line satisfies has a
+characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
+that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
+
+\subsection*{Column $k=2$, recovered}
+The entry gives only the order for this line: ``k=2: [order 19]''. Its model is a walk on
+$S=90$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=180$ exact terms returns the minimal one, of order
+$19$ --- the stated order --- with integer coefficients
+\begin{center}\small\begin{tabular}{cccccccc}
+$c_{1}$ & $0$ & $c_{6}$ & $-742$ & $c_{11}$ & $-921$ & $c_{16}$ & $-662$ \\
+$c_{2}$ & $15$ & $c_{7}$ & $-1302$ & $c_{12}$ & $278$ & $c_{17}$ & $626$ \\
+$c_{3}$ & $149$ & $c_{8}$ & $296$ & $c_{13}$ & $747$ & $c_{18}$ & $-360$ \\
+$c_{4}$ & $319$ & $c_{9}$ & $279$ & $c_{14}$ & $-508$ & $c_{19}$ & $80$ \\
+$c_{5}$ & $372$ & $c_{10}$ & $1010$ & $c_{15}$ & $361$ &  &  \\
+\end{tabular}\end{center}
+Repeating with the first $19+4$ terms removed gives order $19$ again.
+
+\subsection*{Row $n=2$, recovered}
+The entry gives only the order for this line: ``n=2: [order 31]''. Its model is a walk on
+$S=156$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=312$ exact terms returns the minimal one, of order
+$31$ --- the stated order --- with integer coefficients
+\[
+(c_1,\dots,c_{31})=(9,\ -30,\ 86,\ 25,\ 182,\ 437,\ 536,\ 1051,\ -5283,\ -3524,\ -4115,\ -8861,\ 28896,\ 22724,\ -27014,\ -3080,\ -931,\ -15313,\ 16851,\ 3650,\ -10094,\ 3499,\ 1512,\ -867,\ 322,\ -565,\ -199,\ 54,\ -40,\ 15,\ -2).
+\]
+Repeating with the first $31+4$ terms removed gives order $31$ again.
 
 \section{Verification}
 
@@ -114,7 +161,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $8$ published values, $37$ decimal digits in all, every one of
+model reproduces $16$ published values, $47$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -134,7 +181,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233818.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A239178.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

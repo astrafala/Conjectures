@@ -12,179 +12,183 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A221830, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A270512, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221830 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token, each token moves to a neighbouring cell, and the direction a token leaves a
-cell in is restricted by the direction in which another token arrives there. The entry carries
-an empirical recurrence of order $17$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the size of an IMAGE --- two different
-assignments of moves with the same occupancy count once --- so it is not a walk count in the
-obvious graph; determinising the machine that emits the occupancy row by row turns it into
-one, on $S=676$ states, after which the conjectured recurrence is settled by a finite exact
-computation.
+OEIS A270512 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+empirical recurrence of order $18$ contributed by R.~H.~Hardin. It is true. The array
+family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
+count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
+digraph to walk. Inclusion--exclusion over the adjacent pairs, together with the observation
+that a set of pairs forces the values along each of its connected components to alternate,
+gives $a(n)$ in closed form as a quasi-polynomial of period $2$, exactly and for every $n$.
+The recurrence, and the entry's two branch formulas with it, then follow by polynomial
+division.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A221830 is ``Number of 3Xn arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, without 2-loops or left turns.''. It has offset $1$ and begins
+OEIS A270512 is ``Number of 4X4X4 triangular 0..n arrays with some element plus some adjacent element totalling n+1 exactly once.''. It has offset $1$ and begins
 \[
-0, 14, 202, 2879, 40983, 583419, 8304016, 118195328,\ \dots
+126, 5406, 132474, 1522068, 12034134, 65046258,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 17*a(n-1) -39*a(n-2) -14*a(n-3) +134*a(n-4) -161*a(n-5) +50*a(n-6) -147*a(n-7) +129*a(n-8) +215*a(n-9) -131*a(n-10) +53*a(n-11) -92*a(n-12) -97*a(n-13) +31*a(n-14) -27*a(n-15) +16*a(n-16) +6*a(n-17) for n>18
+Empirical: a(n) = 2*a(n-1) +7*a(n-2) -16*a(n-3) -20*a(n-4) +56*a(n-5) +28*a(n-6) -112*a(n-7) -14*a(n-8) +140*a(n-9) -14*a(n-10) -112*a(n-11) +28*a(n-12) +56*a(n-13) -20*a(n-14) -16*a(n-15) +7*a(n-16) +2*a(n-17) -a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 20:02:25, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 18 2016 08:08:08, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
+The array is the triangle with $4$ rows: cells $(i,j)$ for $0\le i<4$ and $0\le j\le i$,
+so $T=10$ of them. Two cells are adjacent when they are neighbours in that triangle --- side
+by side in a row, or one directly below the other on either side --- and there are
+$3\binom{4}{2}=18$ adjacent pairs. Each cell carries a value in
+$\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
+$\{u,v\}$ has $x_u+x_v=n+1$.
+
+Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
+a walk in a finite digraph, and nothing about transfer matrices applies.
+
+\section{A set of pairs forces the values along its components}
+
+Write $E$ for the set of adjacent pairs, $t=n+1$ for the target, and for $S\subseteq E$ let
+$N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
+others.
+
+\begin{lemma}\label{lem:comp}
+Let $S\subseteq E$ and let the graph $(V,S)$ have $c_b$ bipartite and $c_o$ non-bipartite
+components among the cells it touches, $v(S)$ cells being touched. Then
 \[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
+N(S)\;=\;(n+1)^{\,T-v(S)}\;B^{\,c_b}\;F^{\,c_o},
 \]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The entry writes the array with $n$ as the number of COLUMNS. Transposing it exchanges the two coordinates of every offset, which is done once so that the walk always runs down the rows; a transposition is a reflection and reverses the sense of a turn, so the left-hand test is negated in the transposed frame rather than being applied in the wrong one. The OCCUPANCY array
-records, for each cell, how many tokens land on it, and the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities.
-
-The moves are not free of one another. Suppose the token at a cell $A$ moves by $d$ to the
-cell $B$, and the token standing at $B$ moves by $d'$. The entry forbids the ordered pair
-$(d,d')$ when
-\begin{itemize}
-\item $d\wedge d'>0$, that is, the outgoing direction lies to the LEFT of the incoming one, the wedge being the cross product of the two offsets read as plane vectors;
-\item $d'=-d$, that is, the two tokens exchange places --- a $2$-LOOP;
-\end{itemize}
-and imposes nothing else. A token that stays put neither arrives anywhere nor leaves, so a
-zero offset on either side of the pair carries no condition at all.
-
-The sense of ``left'' is fixed once and for all. Rows are numbered downwards, so the offset
-$(d_1,d_2)$ is the plane vector $(d_2,-d_1)$, and $d\wedge d'$ denotes
-$d_2(-d'_1)-(-d_1)d'_2$. A positive value says $d'$ is obtained from $d$ by a rotation through
-an angle strictly between $0$ and $\pi$ counterclockwise, which is what a turn to the left is.
-The condition is not a $90^\circ$ test: for a neighbour set containing diagonal offsets the
-turns of $45^\circ$ and $135^\circ$ are left turns too, and the entry's data distinguishes the
-two readings.
-
-That the count is the size of an IMAGE is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
-
-\section{One window decides everything}
-
-Write $c_i\in\Delta^{3}$ for the row of offsets chosen by the cells of row $i$, where
-$\Delta$ is the offset set above.
-
-\begin{lemma}\label{lem:win}
-Both the occupancy of row $i$ and every instance of the forbidden pair whose FIRST member is a
-move made in row $i$ are determined by $c_{i-1},c_i,c_{i+1}$, with the convention that an
-absent row is the symbol $\bot$.
+where $B=\#\{c: 0\le c\le n,\ 0\le t-c\le n\}$ and $F=1$ if $t$ is even with $0\le t/2\le n$,
+and $F=0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Every offset changes the row index by at most one, so a token landing on a cell of row $i$
-started in row $i-1$, $i$ or $i+1$; that is the occupancy. For the pairs, a move made by the
-cell $(i,j)$ with offset $d$ lands on the cell $(i+d_1,j+d_2)$, whose row is $i-1$, $i$ or
-$i+1$, so the offset $d'$ of that cell is a coordinate of $c_{i-1}$, $c_i$ or $c_{i+1}$.
-Reading a row of the array as $\bot$ makes ``up'' or ``down'' unavailable, which is exactly
-the boundary rule.
+A pair in $S$ forces $x_v=t-x_u$, so within one connected component of $(V,S)$ the value of any
+one cell determines every other: cells at even distance from a chosen root carry the root's
+value $c$, cells at odd distance carry $t-c$. That assignment is consistent exactly when no
+cycle of the component has odd length; if some cycle does, following it around forces $c=t-c$,
+so $2c=t$, and the component admits one value when $t$ is even and $t/2$ lies in the alphabet,
+and none otherwise. A bipartite component is therefore free to choose $c$ subject only to
+$c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched by no pair
+of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-Each ordered pair is therefore tested exactly once, from the row of the token that makes the
-first move of the pair; every row plays that part exactly once along the array.
+Here $B=n$ and $F=1$ precisely when $n$ is odd.
 
-Let $\beta(p,c,x)$ be the occupancy row of $c$ in the context $(p,x)$, undefined when some
-cell of $c$ has no room to move or when some forbidden pair occurs. The occupancy array of an
-assignment $c_1,\dots,c_n$ is
+\section{The count}
+
+\begin{theorem}\label{thm:quasi}
+For every $n\ge0$,
 \[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr).
+a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
+A(n)=18n^{9} - 162n^{8} + \tfrac{1917}{2}n^{7} - 3615n^{6} + 9846n^{5} - 18969n^{4} + 25683n^{3} - 22851n^{2} + 11829n - \tfrac{5181}{2},
 \]
-
-\section{The image is a walk count after determinisation}
-
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
 \[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
+C(n)=- \tfrac{27}{2}n^{7} + 153n^{6} - 870n^{5} + 2985n^{4} - 6672n^{3} + 9372n^{2} - 7524n + \tfrac{5181}{2}.
 \]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-The last row is counted by $f$ and not by an edge: it is emitted with nothing below it, so it
-is a property of the state the walk stops in and $\tau$ is not the all-ones vector. There are
-$S=676$ reachable sets. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{17}-\sum_i c_it^{17-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+17}-\sum_ic_iM^{j+17-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+For an array $x$ let $\sigma(x)$ be its number of satisfied pairs. Then
+\[
+\sum_{S\subseteq E}w^{|S|}\,\#\{x:\ S\subseteq\text{satisfied pairs of }x\}
+=\sum_x (1+w)^{\sigma(x)},
+\]
+and differentiating in $w$ at $w=-1$ picks out exactly the arrays with $\sigma(x)=1$:
+\[
+a(n)\;=\;\sum_{\emptyset\neq S\subseteq E}(-1)^{|S|-1}\,|S|\;N(S).
+\]
+Each $N(S)$ is given by Lemma~\ref{lem:comp}. The exponents $T-v(S)$, $c_b$ and $c_o$ do not
+involve $n$, so the sum was formed once by running over all $2^{18}$ subsets and
+recording those three numbers. Every term is a polynomial in $n$ multiplied by $F^{c_o}$, and
+$F$ depends only on the parity of $n$; collecting the two parities gives a polynomial identity
+in $n$ on each, and the displayed $A$ and $C$ are their half-sum and half-difference. The
+identity holds for every $n\ge0$, with no threshold: Lemma~\ref{lem:comp} is exact at every
+$n$.
 \end{proof}
+
+The degree of $A$ is $9$ and that of $C$ is $7$. Both are at most $T-1$,
+because a set $S$ with a single pair leaves $T-2$ cells free and contributes one bipartite
+component.
+
+\section{The two branch formulas}
+
+The entry also records, as separate empirical observations:
+\begin{quote}
+Empirical for n mod 2 = 0: a(n) = 18*n\^{}9 - 162*n\^{}8 + 945*n\^{}7 - 3462*n\^{}6 + 8976*n\^{}5 - 15984*n\^{}4 + 19011*n\^{}3 - 13479*n\^{}2 + 4305*n
+
+Empirical for n mod 2 = 1: a(n) = 18*n\^{}9 - 162*n\^{}8 + 972*n\^{}7 - 3768*n\^{}6 + 10716*n\^{}5 - 21954*n\^{}4 + 32355*n\^{}3 - 32223*n\^{}2 + 19353*n - 5181
+\end{quote}
+These follow at once, and are exact: putting $n$ even and $n$ odd into
+Theorem~\ref{thm:quasi},
+\[
+a(n)=\begin{cases}
+18n^{9} - 162n^{8} + 945n^{7} - 3462n^{6} + 8976n^{5} - 15984n^{4} + 19011n^{3} - 13479n^{2} + 4305n, & n\ \text{even},\\[2pt]
+18n^{9} - 162n^{8} + 972n^{7} - 3768n^{6} + 10716n^{5} - 21954n^{4} + 32355n^{3} - 32223n^{2} + 19353n - 5181, & n\ \text{odd},
+\end{cases}
+\]
+which is what the entry states.
+
+\section{The recurrence}
 
 \begin{theorem}
 \[
-a(n)\;=\;17\,a(n-1) - 39\,a(n-2) - 14\,a(n-3) + 134\,a(n-4) - 161\,a(n-5) + 50\,a(n-6) - 147\,a(n-7) + 129\,a(n-8) + 215\,a(n-9) - 131\,a(n-10) + 53\,a(n-11) - 92\,a(n-12) - 97\,a(n-13) + 31\,a(n-14) - 27\,a(n-15) + 16\,a(n-16) + 6\,a(n-17)
+a(n)\;=\;2\,a(n-1) + 7\,a(n-2) - 16\,a(n-3) - 20\,a(n-4) + 56\,a(n-5) + 28\,a(n-6) - 112\,a(n-7) - 14\,a(n-8) + 140\,a(n-9) - 14\,a(n-10) - 112\,a(n-11) + 28\,a(n-12) + 56\,a(n-13) - 20\,a(n-14) - 16\,a(n-15) + 7\,a(n-16) + 2\,a(n-17) - a(n-18)
 \]
 for every $n>18$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $17$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=18+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Write $E$ for the shift operator, $(Ea)(n)=a(n+1)$. A polynomial of degree $d$ is annihilated
+by $(E-1)^{d+1}$ and by nothing smaller, and $(-1)^n$ times a polynomial of degree $d$ is
+annihilated by $(E+1)^{d+1}$ and by nothing smaller. By Theorem~\ref{thm:quasi} the
+sequence is therefore annihilated by
+\[
+(E-1)^{10}(E+1)^{8},
+\]
+a monic operator of order $18$, and by no proper divisor of it, since the two
+factors act on the two parts independently and neither part is annihilated by less. The
+characteristic polynomial of the conjectured recurrence is
+$t^{18}-\sum_i c_it^{18-i}$; dividing it by the operator above in
+$\mathbb{Z}[t]$ leaves no remainder, so the conjectured recurrence is a consequence of
+Theorem~\ref{thm:quasi} and holds wherever every index it names is at least the offset.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the closed form reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest grids straight from the definition ---
-enumerate every assignment of offsets to cells, discard the assignments containing a forbidden
-pair, form the occupancy array, and count the distinct arrays --- with the forbidden-pair test
-written out from the entry's wording rather than taken from the model. The published terms
-came back.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $10$ cells written out and its satisfied pairs counted, with no
+inclusion--exclusion and no closed form --- and the counts agree. A wrong reading of the cell
+set, of the adjacency, or of the target would show here and nowhere else.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the conjectured recurrence was applied directly to the closed form's own values over a
+long range, in exact integer arithmetic, and holds throughout; this is independent of the
+divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221830.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270512.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
+\bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
+Springer, 2015.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
 \end{thebibliography}
 
 \end{document}

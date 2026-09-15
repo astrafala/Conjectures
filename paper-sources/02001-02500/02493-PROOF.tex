@@ -12,88 +12,80 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A189431, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203960, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A189431 counts the permutations of the cells of an $n\times5$ array in which every cell
-moves by one of a fixed short list of offsets. The entry carries an empirical recurrence of
-order $66$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is the permanent of the incidence matrix of the offset graph; read the
-cells in row-major order and let each choose its image, and the only thing that has to be
-carried is which images inside a window of $12$ consecutive positions are already taken.
-That makes $a$ a walk count on $S=231$ states, hence $C$-finite, and whether the published
-recurrence is one of its recurrences is then a finite exact computation.
+OEIS A203960 counts arrays of width $4$ over $\{0,1,2\}$ through two derived arrays of PAIR SUMS ---
+each cell added to its left neighbour, and each cell added to the one above it --- on which the
+entry imposes an order condition. The entry carries an empirical recurrence of order $70$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: the count is
+a walk count on $S=504$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A05, 05A15, 15A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 06A07, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A189431 is ``Number of nX5 array permutations with each element not moving, or moving one space N, SW or SE.''. It has offset $1$ and begins
+OEIS A203960 is ``Number of (n+1)X4 0..2 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) such that rows of b(i,j) and columns of c(i,j) are lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-1, 8, 65, 571, 5680, 52241, 493941, 4681376,\ \dots
+447, 6586, 144184, 2774984, 45390107, 632607409, 7690733410, 83135996535,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 9*a(n-1) -a(n-2) +88*a(n-3) -133*a(n-4) -1241*a(n-5) -6173*a(n-6) +1260*a(n-7) -35412*a(n-8) +81872*a(n-9) +143920*a(n-10) -260064*a(n-11) +2649517*a(n-12) -4380197*a(n-13) -10792671*a(n-14) +17380340*a(n-15) +17309201*a(n-16) +82171225*a(n-17) -34858151*a(n-18) -315791376*a(n-19) +66797872*a(n-20) -231978696*a(n-21) +734413152*a(n-22) +760013432*a(n-23) -1058202998*a(n-24) -2085612850*a(n-25) -7191772318*a(n-26) +7045350632*a(n-27) +3638845930*a(n-28) +3481732186*a(n-29) +8643493314*a(n-30) -7150172088*a(n-31) +12002114312*a(n-32) -17160930824*a(n-33) -1460727184*a(n-34) +58198351544*a(n-35) -1772883650*a(n-36) -13721600534*a(n-37) +7148283886*a(n-38) -31542922592*a(n-39) -28065877170*a(n-40) -27375326650*a(n-41) -29235699066*a(n-42) -15582339728*a(n-43) -48617808*a(n-44) +4434566056*a(n-45) -693712320*a(n-46) +2141282408*a(n-47) +2851911223*a(n-48) +1535350953*a(n-49) -85925633*a(n-50) -94378304*a(n-51) +529827963*a(n-52) -125838145*a(n-53) -233700005*a(n-54) -61208340*a(n-55) +22857068*a(n-56) +42821976*a(n-57) +4528704*a(n-58) -1484088*a(n-59) +1003221*a(n-60) -1054917*a(n-61) -305775*a(n-62) -6804*a(n-63) -63423*a(n-64) +6561*a(n-65) +6561*a(n-66)
+Empirical: a(n) = 70*a(n-1) -2390*a(n-2) +53026*a(n-3) -859280*a(n-4) +10837486*a(n-5) -110689678*a(n-6) +940467534*a(n-7) -6775582821*a(n-8) +41975896416*a(n-9) -225945601128*a(n-10) +1064739771036*a(n-11) -4415619896328*a(n-12) +16165513660116*a(n-13) -52288711297332*a(n-14) +149160295747764*a(n-15) -373162375580709*a(n-16) +809119940631882*a(n-17) -1484223951053770*a(n-18) +2178963883075318*a(n-19) -2146560280535480*a(n-20) -39085438231766*a(n-21) +6024585300469078*a(n-22) -16111370788098326*a(n-23) +26799852258923207*a(n-24) -29210326010513316*a(n-25) +11504776740632844*a(n-26) +32600593598129128*a(n-27) -92110560248711488*a(n-28) +133407867113598392*a(n-29) -112515294835778680*a(n-30) +6161615044794680*a(n-31) +156112517978995805*a(n-32) -288784683826825574*a(n-33) +293693764907358870*a(n-34) -130895641732610322*a(n-35) -134974860855522688*a(n-36) +358965293492784994*a(n-37) -405877274016750338*a(n-38) +243936796446407746*a(n-39) +30720051124321969*a(n-40) -259761347702652728*a(n-41) +328048339099510784*a(n-42) -229573881432089796*a(n-43) +52077364009364856*a(n-44) +95462224098943732*a(n-45) -151426903228240084*a(n-46) +121968628140188372*a(n-47) -54270113113921399*a(n-48) -4686638262187882*a(n-49) +32942542265444042*a(n-50) -33614401931263814*a(n-51) +21094772073143112*a(n-52) -8016780378010938*a(n-53) +41021215954938*a(n-54) +2818476851537094*a(n-55) -2765176161007827*a(n-56) +1790718345039036*a(n-57) -910785954481380*a(n-58) +383581455732864*a(n-59) -136587085998000*a(n-60) +41434143634752*a(n-61) -10708969866816*a(n-62) +2345491881472*a(n-63) -430737604864*a(n-64) +65228628992*a(n-65) -7943769088*a(n-66) +748765184*a(n-67) -51318784*a(n-68) +2277376*a(n-69) -49152*a(n-70) for n>83
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 05:13:03, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:54:15, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write the cells of the array as pairs $(i,j)$ with $0\le i<n$ and $0\le j<5$. An
-\emph{array permutation} of the kind the entry counts is a bijection $\pi$ from the cells to
-the cells such that for every cell,
+The array $a$ has $4$ cells across, with entries in $\{0,1,2\}$. Two derived arrays are formed,
 \[
-\pi(i,j)-(i,j)\;\in\;\Delta,\qquad
-\Delta=\{\,(-1,0),\ (0,0),\ (1,-1),\ (1,1)\,\}.
+b(i,j)=a(i,j)+a(i,j-1)\quad(j\ge1),\qquad c(i,j)=a(i,j)+a(i-1,j)\quad(i\ge1),
 \]
-The offsets are what the name's words say: one step southeast, southwest or north. A cell is allowed to stay where it is, and $(0,0)$ is one of the offsets.
+so $b$ adds each cell to its LEFT neighbour and $c$ adds each cell to the one ABOVE it. The
+entry asks
 
-A move is only allowed when its target is a cell of the array, so cells near an
-edge have fewer choices. The reading is pinned against the entry's own published terms rather
-than assumed: taking ``diagonally, horizontally or vertically'' to mean all eight king moves
-gives $24$ where A189305 publishes $14$.
+that the ROWS of $b$ and the COLUMNS of $c$ are each in lexicographic nondecreasing order. Row $i$ of $b$
+is $\bigl(b(i,1),\dots,b(i,3)\bigr)$ and column $j$ of $c$ is
+$\bigl(c(1,j),c(2,j),\dots\bigr)$.
 
-Equivalently, $a(n)$ is the permanent of the $n5\times n5$ matrix whose $(c,c')$ entry is
-$1$ exactly when $c'-c\in\Delta$.
 
-\section{A window of 12 positions}
+\section{Two rows decide it}
 
-Number the cells in row-major order, $k=i\cdot5+j$. An offset $(\delta_1,\delta_2)$ moves a
-cell by $\delta_15+\delta_2$ places in that order, so every image lies between $lo=-5$ and
-$hi=6$ places from its source. Process the cells in order and let each one choose its image.
-Once the cell at position $k$ has been dealt with, the position $k+-5$ can never be chosen
-again by anybody, so it must already be taken; and no position beyond $k+6$ can have been
-taken yet. What has to be remembered is therefore exactly which of the $12$ positions
-$k+-5,\dots,k+6$ are taken --- a subset of a set of size $12$, and nothing else.
+\begin{lemma}\label{lem:win}
+The row comparison is a condition on two consecutive rows of $a$. The column comparison is
+settled by the FIRST row in which the two columns of $c$ differ.
+\end{lemma}
 
-That is the state. One step of the walk is one row, that is $5$ cell choices, and the
-condition ``the position leaving the window is taken'' is what makes the walk count permutations
-rather than partial injections: every position is taken exactly once, once at the moment it
-leaves the window.
+\begin{proof}
+Row $i$ of $b$ is built from row $i$ of $a$ alone, so comparing rows $i$ and $i+1$ of $b$ reads
+rows $i$ and $i+1$ of $a$. Two sequences are compared lexicographically by their first
+difference; entry $i$ of column $j$ of $c$ is built from rows $i-1$ and $i$ of $a$, so scanning
+the array downwards reveals the entries of every column of $c$ in order.
+\end{proof}
 
-The two boundaries are the same condition. Images above the first row do not exist, so the walk
-starts with exactly the window positions lying above the array marked as taken. Images below the
-last row do not exist either, so the walk must end with exactly those positions marked and
-nothing beyond. In the window's own coordinates those two masks are equal, so the start state is
-also the only accepting state and
+So the state is the last row of $a$ together with one bit for each adjacent pair of columns,
+recording whether that pair of columns of $c$ has been equal in every row so far. A row that
+would put a pair in the wrong order is rejected at once, and a pair still equal at the end is
+in order, equality being allowed.
+
+With $M$ the adjacency matrix of the digraph on those states, $\iota$ the indicator of the
+starting state and $\tau=\mathbf{1}$,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=231,
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=504.
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{66}-\sum_i c_it^{66-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{70}-\sum_i c_it^{70-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -101,7 +93,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+66}-\sum_ic_iM^{j+66-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+70}-\sum_ic_iM^{j+70-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -110,29 +102,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-1) - a(n-2) + 88\,a(n-3) - 133\,a(n-4) - 1241\,a(n-5) - 6173\,a(n-6) + 1260\,a(n-7) - 35412\,a(n-8) + 81872\,a(n-9) + 143920\,a(n-10) - 260064\,a(n-11) + 2649517\,a(n-12) - 4380197\,a(n-13) - 10792671\,a(n-14) + 17380340\,a(n-15) + 17309201\,a(n-16) + 82171225\,a(n-17) - 34858151\,a(n-18) - 315791376\,a(n-19) + 66797872\,a(n-20) - 231978696\,a(n-21) + 734413152\,a(n-22) + 760013432\,a(n-23) - 1058202998\,a(n-24) - 2085612850\,a(n-25) - 7191772318\,a(n-26) + 7045350632\,a(n-27) + 3638845930\,a(n-28) + 3481732186\,a(n-29) + 8643493314\,a(n-30) - 7150172088\,a(n-31) + 12002114312\,a(n-32) - 17160930824\,a(n-33) - 1460727184\,a(n-34) + 58198351544\,a(n-35) - 1772883650\,a(n-36) - 13721600534\,a(n-37) + 7148283886\,a(n-38) - 31542922592\,a(n-39) - 28065877170\,a(n-40) - 27375326650\,a(n-41) - 29235699066\,a(n-42) - 15582339728\,a(n-43) - 48617808\,a(n-44) + 4434566056\,a(n-45) - 693712320\,a(n-46) + 2141282408\,a(n-47) + 2851911223\,a(n-48) + 1535350953\,a(n-49) - 85925633\,a(n-50) - 94378304\,a(n-51) + 529827963\,a(n-52) - 125838145\,a(n-53) - 233700005\,a(n-54) - 61208340\,a(n-55) + 22857068\,a(n-56) + 42821976\,a(n-57) + 4528704\,a(n-58) - 1484088\,a(n-59) + 1003221\,a(n-60) - 1054917\,a(n-61) - 305775\,a(n-62) - 6804\,a(n-63) - 63423\,a(n-64) + 6561\,a(n-65) + 6561\,a(n-66)
+a(n)\;=\;70\,a(n-1) - 2390\,a(n-2) + 53026\,a(n-3) - 859280\,a(n-4) + 10837486\,a(n-5) - 110689678\,a(n-6) + 940467534\,a(n-7) - 6775582821\,a(n-8) + 41975896416\,a(n-9) - 225945601128\,a(n-10) + 1064739771036\,a(n-11) - 4415619896328\,a(n-12) + 16165513660116\,a(n-13) - 52288711297332\,a(n-14) + 149160295747764\,a(n-15) - 373162375580709\,a(n-16) + 809119940631882\,a(n-17) - 1484223951053770\,a(n-18) + 2178963883075318\,a(n-19) - 2146560280535480\,a(n-20) - 39085438231766\,a(n-21) + 6024585300469078\,a(n-22) - 16111370788098326\,a(n-23) + 26799852258923207\,a(n-24) - 29210326010513316\,a(n-25) + 11504776740632844\,a(n-26) + 32600593598129128\,a(n-27) - 92110560248711488\,a(n-28) + 133407867113598392\,a(n-29) - 112515294835778680\,a(n-30) + 6161615044794680\,a(n-31) + 156112517978995805\,a(n-32) - 288784683826825574\,a(n-33) + 293693764907358870\,a(n-34) - 130895641732610322\,a(n-35) - 134974860855522688\,a(n-36) + 358965293492784994\,a(n-37) - 405877274016750338\,a(n-38) + 243936796446407746\,a(n-39) + 30720051124321969\,a(n-40) - 259761347702652728\,a(n-41) + 328048339099510784\,a(n-42) - 229573881432089796\,a(n-43) + 52077364009364856\,a(n-44) + 95462224098943732\,a(n-45) - 151426903228240084\,a(n-46) + 121968628140188372\,a(n-47) - 54270113113921399\,a(n-48) - 4686638262187882\,a(n-49) + 32942542265444042\,a(n-50) - 33614401931263814\,a(n-51) + 21094772073143112\,a(n-52) - 8016780378010938\,a(n-53) + 41021215954938\,a(n-54) + 2818476851537094\,a(n-55) - 2765176161007827\,a(n-56) + 1790718345039036\,a(n-57) - 910785954481380\,a(n-58) + 383581455732864\,a(n-59) - 136587085998000\,a(n-60) + 41434143634752\,a(n-61) - 10708969866816\,a(n-62) + 2345491881472\,a(n-63) - 430737604864\,a(n-64) + 65228628992\,a(n-65) - 7943769088\,a(n-66) + 748765184\,a(n-67) - 51318784\,a(n-68) + 2277376\,a(n-69) - 49152\,a(n-70)
 \]
-for every $n>65$.
+for every $n>83$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $66$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $70$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=83+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: the
-cells of the array were matched to their images one at a time, over the whole grid, with no
-window, no mask over a sliding frame and no transfer matrix, and the published terms came back.
-That computation shares nothing with the construction of Section~3 beyond the offset list.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form the two derived arrays in full, and test the condition
+on them directly. No window, no state and no incremental bookkeeping are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -142,11 +134,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A189431.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203960.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{minc} H.~Minc, \emph{Permanents}, Encyclopedia of Mathematics and its
-Applications 6, Addison--Wesley, 1978.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
 \end{thebibliography}
 
 \end{document}
