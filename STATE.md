@@ -53,7 +53,14 @@ built and hidden by how a sweep chose what to look at — never by mathematics.
 
 Recurring defects, all found this way:
 
-1. a pool built from a stale snapshot (seven times, 40–1,718 entries each)
+1. a pool built from a stale snapshot (**eleven times now**, 40–1,718 entries each). On
+   15 September this stopped being found one at a time and became a deliberate pass: rebuild
+   every sweep's pool from the clone and diff. `deep-check/prec.txt` held 380 where the clone
+   has **989**; `cfpool_cands.json` held 416 where it has **728**. Those two paid 21 papers
+   between them. Two others (degree, linkrec) were NOT stale, and why is worth knowing —
+   degree's phrasing occurs 8 times in the whole database, and linkrec's pool was correctly
+   filtered by ENGINE coverage rather than frozen. **Before running any sweep again, rebuild
+   its pool and diff.** IDEAS §AE.
 2. requiring the conjectural word ON the line, so block conjectures are invisible — found in
    the pool filter, in every sweep, and in the live re-check, where it was destroying results
 3. skipping an entry without recording the skip, so every run re-reads the same early index
@@ -207,8 +214,21 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **12,624 papers installed** over 12,597 entries and 145 distinct arguments, as of the
-  evening of 13 September 2026 (counts are re-derived by `src/sync_counts.py`, never typed by
+* **13,315 papers installed** over 13,288 entries and **160 distinct arguments**, as of the
+  early morning of 15 September 2026. The 15 September round: 11 from six notation defects in
+  `algf` (IDEAS §Z, §AC), 21 from rebuilding two candidate pools (§AE), 2 from a new argument
+  for windowed maxima over a growing alphabet (§AF), 2 from reading a g.f. stated as a periodic
+  continued fraction (`src/cfrac.py`, §AC). Two reader widenings were measured and are **null**
+  and stay null (§AD): `from_name`'s "in powers of x", and `gfrec`'s implicit multiplication on
+  the largest pool in the project. A reader fix pays only where the refusal OVERLAPS entries
+  that state a claim.
+* **Six apparent disproofs, six defects of mine, zero false conjectures.** The newest is
+  A118447: `.../8R^5` means division by `8R^5`, and reading it left to right multiplies by
+  `R^5`. The sweep recorded "the stated g.f. does not generate the DATA" against an entry whose
+  own published terms the correct reading reproduces exactly. **A "the entry is wrong" verdict
+  is a claim about the reader until it has been checked by hand.**
+* Earlier count, kept for the record: 12,624 papers over 12,597 entries and 145 arguments on the
+  evening of 13 September 2026. (Counts are re-derived by `src/sync_counts.py`, never typed by
   hand). 8 September: 1,353 withdrawn. 13 September: 184 withdrawn for the two-dimensional
   certificate, and 377 installed across seven new veins.
 * **The generating-function-as-fact vein is null**, not 2,151. Asked correctly it proves 2.
@@ -227,6 +247,31 @@ Recurring defects, all found this way:
   figure and was too small; it is computed from the certificate's roots.
 * **19,097 OEIS entries carry a conjectured recurrence with no linked proof.** 32,629 carry a
   conjecture of any recognised kind. That is the ceiling this project works against.
+
+### defect 26 — a juxtaposed product after a division sign is the whole denominator
+
+`(R-1)^2(R+1)(R+3)/8R^5` means division by `8R^5`. Writing the multiplication signs in left to
+right gives `.../8*R**5`, which multiplies. This produced the sixth self-inflicted disproof
+(above). `algf._denominator_run` parenthesises a juxtaposed run following `/`; only
+juxtaposition with NO space is absorbed, so an explicit `*` keeps its usual meaning and
+`x/2 - 1` is untouched. Regression over the rebuilt 989-entry pool: 988 unchanged, nothing
+lost, and the one entry that motivated it the only difference.
+
+### defect 27 — a sweep that reads only a CACHE reports a missing fetch as an entry's fault
+
+`sweep_linkrec` reads a-files from `afiles/` and never fetches. Thirty-five new candidates were
+all refused as "a-file absent or unparsed"; all thirty-five are on oeis.org and fetched without
+trouble. A sweep whose premise lives outside the clone must say whether it looked.
+
+### defect 28 — an order-type argument is not automatically gap-blind
+
+`window` counts the image of a sliding-window statistic by classifying candidates by ORDER TYPE.
+That is exact for max and min, whose greedy witness uses only the candidate's own values. It is
+NOT exact for the median, whose witness can need a value strictly BETWEEN two of them: whether an
+integer sits in that open interval is a fact about the gaps, which the order type does not
+record. The four median entries whose published terms the (wrong) formula happened to reproduce
+are withheld. **Reproducing thirty published terms is the standard of evidence the conjecture
+already has; it is not a proof.**
 
 ## When you create a new sharded sweep
 
