@@ -254,3 +254,151 @@ def build(p, cap=40000):
 matvec = transfer19.matvec
 terms = transfer19.terms
 threshold = transfer19.threshold
+
+
+# ---------------------------------------------------------------------------
+# The MERGED build: the same automaton with the predecessor rows quotiented away.
+#
+# `build` keeps K consecutive rows as the state, so it refuses on the bound A^(K*W) > 8*cap
+# without building anything -- 138 entries off the roster are capped that way. But the future of
+# a state (t, f) depends on t only through
+#
+#     t[1:]    the last K-1 rows, which the next window must overlap, and
+#     vals(t)  the subblock statistics, which the next window is compared against,
+#
+# and on f. Two K-tuples sharing those have IDENTICAL futures: the successors u are those with
+# u[:K-1] == t[1:], the comparison reads vals(t) and vals(u), and the tally update reads the
+# same. So merging them is exact, not an approximation, and it removes a whole factor of A^W --
+# a square root of the state count at K = 2.
+#
+# This is `transfer17.build_pairfree`'s trick in another engine: replace the history by its
+# effect on the future, and merge before the states exist rather than lumping a machine that was
+# too big to build. The start weight of a merged state is the NUMBER of K-tuples that fold into
+# it, exactly as `startw` counts there.
+
+def build_merged(p, cap=40000):
+    K, W, A, kind = p['K'], p['W'], p['alpha'] + 1, p['kind']
+    nb = W - K + 1
+    if A ** ((K - 1) * W) > 8 * cap:
+        return None
+    hor = [dj for (di, dj) in OFF[p['nb']] if di == 0]
+    ver = [dj for (di, dj) in OFF[p['nb']] if di == 1]
+    rows = list(product(range(A), repeat=W))
+    flagged = kind in ('some', 'count')
+    cap3 = 3
+
+    def vals(t):
+        return tuple(_stat(p['stat'], [[t[i][j + c] for c in range(K)] for i in range(K)], K)
+                     for j in range(nb))
+
+    def selftally(v):
+        out = []
+        for j in range(nb):
+            c = 0
+            for dj in hor:
+                for s in (dj, -dj):
+                    k = j + s
+                    if 0 <= k < nb and v[j] == v[k]:
+                        c += 1
+            out.append(min(c, cap3))
+        return tuple(out)
+
+    def selfok(v):
+        # This is `build`'s filter and must stay identical to it. Written as the `none` test
+        # alone it read as if equality were the only way a row could be inadmissible, and for
+        # kind `maxdiff` that is wrong twice over: equal neighbouring sums differ by 0 and are
+        # always allowed, while a pair differing by more than the bound is what has to go. The
+        # two errors pull opposite ways, which is why the counts came out both above and below
+        # the original's and not simply above.
+        for j in range(nb):
+            for dj in hor:
+                for s in (dj, -dj):
+                    k = j + s
+                    if 0 <= k < nb:
+                        if kind == 'none' and v[j] == v[k]:
+                            return False
+                        if kind == 'maxdiff' and abs(v[j] - v[k]) > p['lim']:
+                            return False
+        return True
+
+    # the seeds, folded to (suffix, stats) as they are made
+    startw, byprefix = {}, {}
+    for t in product(rows, repeat=K):
+        v = vals(t)
+        if not flagged and not selfok(v):
+            continue
+        key = (t[1:], v, selftally(v)) if flagged else (t[1:], v)
+        startw[key] = startw.get(key, 0) + 1
+        byprefix.setdefault(t[:K - 1], []).append((t[1:], v))
+        if len(startw) > cap:
+            return None
+
+    index, states, adj = {}, [], []
+
+    def sid(s):
+        i = index.get(s)
+        if i is None:
+            i = index[s] = len(states)
+            states.append(s)
+            adj.append(None)
+        return i
+
+    for k in startw:
+        sid(k)
+    qi = 0
+    while qi < len(states):
+        st = states[qi]
+        if flagged:
+            suf, v, f = st
+        else:
+            suf, v = st
+            f = None
+        row = []
+        for nsuf, w in byprefix.get(suf, ()):
+            good = True
+            match = [0] * nb
+            for j in range(nb):
+                for dj in ver:
+                    k = j + dj
+                    if 0 <= k < nb:
+                        eq = (v[j] == w[k])
+                        if kind == 'none' and eq:
+                            good = False
+                        if kind == 'maxdiff' and abs(v[j] - w[k]) > p['lim']:
+                            good = False
+                        if eq:
+                            match[j] += 1
+            if not good:
+                continue
+            if not flagged:
+                row.append(sid((nsuf, w)))
+            else:
+                ok = True
+                newf = list(selftally(w))
+                for j in range(nb):
+                    tot = min(f[j] + match[j], cap3)
+                    if kind == 'some' and tot == 0:
+                        ok = False
+                        break
+                    if kind == 'count' and tot not in (1, 2):
+                        ok = False
+                        break
+                    for dj in ver:
+                        k = j + dj
+                        if 0 <= k < nb and v[j] == w[k]:
+                            newf[k] = min(newf[k] + 1, cap3)
+                if not ok:
+                    continue
+                row.append(sid((nsuf, w, tuple(newf))))
+            if len(states) > cap:
+                return None
+        adj[qi] = row
+        qi += 1
+    S = len(states)
+    start = [startw.get(s, 0) for s in states]
+    if flagged:
+        end = [1 if all((x > 0) if kind == 'some' else (x in (1, 2)) for x in s[2]) else 0
+               for s in states]
+    else:
+        end = [1] * S
+    return adj, start, end, S

@@ -376,6 +376,29 @@ the mathematics; "no engine reads the name" only changes when an engine is added
 already re-asks that. And record the reason: a sweep that marks an entry done without saying why
 leaves nothing to re-ask.
 
+### defect 35 — a second copy of a filter is a second chance to get it wrong
+
+`transfer40.build_merged` is `transfer17.build_pairfree`'s trick in another engine: merge the
+predecessor rows into their effect on the future before the states exist, so a build that
+refuses on `A^(K*W) > 8*cap` refuses only on `A^((K-1)*W)`. The merge itself is exact. What was
+not exact was the seed filter copied alongside it: `build`'s `selfok` tests `kind == 'none'`
+for equality and `kind == 'maxdiff'` for exceeding the bound, and the copy tested equality for
+EVERY kind. For `maxdiff` that is wrong twice -- equal neighbouring sums differ by 0 and are
+always allowed, while a pair over the bound is what has to go -- so the counts came out both
+above and below the original's, 11 of the first 25 entries wrong.
+
+The two errors pulling opposite ways is what made it hard to see: a single dropped filter would
+have made every count larger, which reads as a missing condition. Both directions reads as a
+broken merge, which is where I looked first and where nothing was wrong.
+
+**When a new build is meant to count what an old build counts, test it against the old build
+over the PARAMETER SPACE, not over the entries that happen to exist.** The entry-driven check
+reached only `K=2` and three of the four kinds; the shapes that were never asked are the shapes
+a copied filter can be wrong in. And the signal, when it came, was in the parameters and not in
+the mathematics: every mismatch was `kind=maxdiff` with `nb > 1`, and every `maxdiff` entry with
+`nb = 1` -- where the horizontal filter is vacuous -- agreed. A defect that sorts cleanly by a
+parameter is a defect in the code that reads that parameter.
+
 ## When you create a new sharded sweep
 
 Add its shard files to `.gitignore` **at the moment you create it**, and add its stem to
