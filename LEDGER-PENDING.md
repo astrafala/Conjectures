@@ -74,3 +74,32 @@ became rewritable. None proved, but the widening applies to the standing pool to
 The 108 "no explicit column recurrence" are honest: they state a **generating function** for
 column k (`G.f. for column k: (1-x)^2*x^k/(...)`) rather than a recurrence, which is a different
 argument — `gfrec` per column, with the conjecture still to be found. Noted, not built.
+
+## 15 September 2026 — the pool-rebuild campaign, finished and tallied
+
+Every candidate pool in `deep-check/` is a claim about the database made on the day it was
+written, and nothing rebuilds them. All of them are now rebuilt from the clone:
+
+| pool | held | in the clone | never asked | proved |
+|---|---:|---:|---:|---:|
+| `second.txt` (further conjectures on proved entries) | 13,139 | 13,315 | 1,460 | **376** |
+| `namepool.txt` (readable claim + readable name) | 1,446 | 1,727 | 866 | **25** so far |
+| `cfpool_cands.json` (closed form) | 416 | 728 | 564 | **18** |
+| `prec.txt` (P-recursive) | 380 | 989 | 609 | **3** |
+| `gfpool.txt` (conjectured g.f.) | 2,893 | 2,767 | 624 | **2** |
+| `tabpool.txt` (table columns) | 1,729 | 1,851 | 296 | 0 |
+| `linkrec.txt` (linked a-file) | 192 | 888 | 696 | 0 |
+| `rowpool.txt` (table rows) | 444 | 573 | 26 | 0 |
+| `gfdef.txt` (conjectured rec + factual g.f.) | 2,817 | — | 10 | 0 |
+| `recgf.txt` (conjectured g.f. + factual rec) | 1,048 | — | 3 | 0 |
+| `degree.txt` (polynomial degree) | 7 | 8 | 0 | 0 |
+
+**424 papers from eleven rebuilds**, and the zeros are as informative as the numbers. Three
+pools were not stale at all — `degree` because the phrasing occurs eight times in the whole
+database, `recgf` and `gfdef` because their criterion is narrow enough that the original scan
+caught nearly everything. `linkrec` and `tabpool` were stale by hundreds and still paid nothing,
+because both need an ENGINE for the name and the rebuilt entries do not have one; that boundary
+is the same one the refusal census found from the other direction.
+
+**The rule, now with eleven measurements behind it: rebuild a sweep's pool from the clone before
+running it again.** It costs one sharded scan. It was wrong eight times out of eleven.
