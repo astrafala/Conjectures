@@ -214,8 +214,8 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **13,315 papers installed** over 13,288 entries and **160 distinct arguments**, as of the
-  early morning of 15 September 2026. The 15 September round: 11 from six notation defects in
+* **13,545 papers installed** over 13,315 entries and **163 distinct arguments**, as of the
+  morning of 15 September 2026, with **235 withdrawn the same day** (defect 29). The 15 September round: 11 from six notation defects in
   `algf` (IDEAS §Z, §AC), 21 from rebuilding two candidate pools (§AE), 2 from a new argument
   for windowed maxima over a growing alphabet (§AF), 2 from reading a g.f. stated as a periodic
   continued fraction (`src/cfrac.py`, §AC). Two reader widenings were measured and are **null**
@@ -272,6 +272,35 @@ integer sits in that open interval is a fact about the gaps, which the order typ
 record. The four median entries whose published terms the (wrong) formula happened to reproduce
 are withheld. **Reproducing thirty published terms is the standard of evidence the conjecture
 already has; it is not a proof.**
+
+### defect 29 — a vein that writes a SECOND paper must read the first one
+
+`sweep_second` settles a further conjecture on an entry already proved. It excluded a generating
+function that restates the proved recurrence in other notation and did not exclude a claim
+IDENTICAL to the one the entry's existing paper was built from. 235 papers were installed and
+all 235 withdrawn the same day: the second result was the first stated again.
+
+The test that matters is with the PAPER, whose TeX is in `paper-sources/` and which quotes the
+conjecture it settles. A first attempt compared instead against the lines other hits files
+record; it caught 118 of the 235 and cleared 117 that were duplicates too, because it can only
+see a duplicate when the entry's paper came from a vein that stored the line it used. **A test
+that clears half of what a better test rejects is not a weaker version of the right test.**
+
+And 368 installed papers have no stored source, so the comparison cannot run on them at all.
+Refuse, do not assume: assuming would put the first result back as a second one for every one.
+
+### defect 30 — a new hits file must have a name nothing else has
+
+Installing the rebuilt closed-form pool, its results were written to `cfnew_hits.json`, a
+filename that already existed, destroying sixteen records. It was noticed only because
+`sweep_second` reads that file to find proved recurrences. Recovered from git and merged. The
+glob that will later find a new hits file will find the collision too.
+
+### defect 31 — a measurement that reports only at the end can be lost whole
+
+The first census of the 2,211 printed its counts after the last entry, ran into its
+ninety-minute timeout and produced nothing at all from ninety minutes of CPU. Write results
+incrementally, to one file per shard, from the first entry.
 
 ## When you create a new sharded sweep
 
