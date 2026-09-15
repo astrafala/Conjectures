@@ -12,110 +12,76 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252954, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A267783, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252954 counts arrays of width $3$ over an alphabet of $5$ letters in which every three
-consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
-DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
-empirical recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. Nothing in the condition compares letters by size, so the
-count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
-system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
-the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=198$.
+OEIS A267783 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $12$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=217$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A252954 is ``Number of (n+2)X(1+2) 0..4 arrays with every consecutive three elements in every row and diagonal having exactly two distinct values, and in every column and antidiagonal not having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A267783 is ``Number of n X 3 0..1 arrays with every repeated value in every row greater than or equal to, and in every column greater than, the previous repeated value.''. It has offset $1$ and begins
 \[
-60, 140, 297, 711, 1543, 3461, 7637, 16689,\ \dots
+8, 64, 216, 729, 1728, 4096, 8000, 15625,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 6*a(n-1) -10*a(n-2) +10*a(n-3) -61*a(n-4) +124*a(n-5) +45*a(n-6) -182*a(n-7) -54*a(n-8) -570*a(n-9) +2205*a(n-10) -2268*a(n-11) +756*a(n-12) for n>15
+Empirical: a(n) = 2*a(n-1) + 4*a(n-2) - 10*a(n-3) - 5*a(n-4) + 20*a(n-5) - 20*a(n-7) + 5*a(n-8) + 10*a(n-9) - 4*a(n-10) - 2*a(n-11) + a(n-12).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:47:59, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jan 11 2019 11:48:03, revision 11) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has width $3$ and entries in $\{0,1,\dots,4\}$. Four families of triples
-run through it, and each carries its own condition on how many distinct values the three
-entries may hold:
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+greater than or equal to the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be greater than the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
+
+The entry carries no renaming clause, and it could not: the relations here compare letters by
+size or do arithmetic on them, so they are not invariant under permuting the alphabet. The
+count is therefore taken over the alphabet the entry names, with no reduction to patterns.
+
+\section{One scan inside a slice, one across}
+
+Take the array a $row$ at a time, the direction in which it grows.
+
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
+\end{lemma}
+
+\begin{proof}
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
+\end{proof}
+
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $1+2$ values at each position --- the letters together with a symbol for
+``none yet''. With $M$ the adjacency matrix of that digraph,
 \[
-\begin{array}{lll}
-\text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $2$ \\
-\text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $1, 3$ \\
-\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $2$ \\
-\text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $1, 3$ \\
-\end{array}
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=217,\quad\tau=\mathbf{1} .
 \]
-A triple counts only when all three of its cells lie inside the array.
-
-The clause ``new values $0$ upwards introduced in row major order'' says the array is the
-canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
-letter may appear for the first time only if every smaller letter already has. So what the
-entry counts is patterns, not arrays.
-
-\section{From patterns to fixed alphabets}
-
-Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
-number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
-pattern together with an injection of its letters into the alphabet, so
-\[
-L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
-\]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
-$a=N_1+\dots+N_{5}$, so
-\[
-a\;=\;\sum_{i=1}^{5}w_i\,L_i ,\qquad w=\mathbf{1}^{\!\top}F^{-1},
-\]
-$F$ being the matrix of falling factorials.
-
-This step is legitimate only if the condition is invariant under permuting the alphabet, and
-here it is: every clause counts how many DISTINCT values a triple holds, and whether two cells
-agree is untouched by any renaming. No clause compares letters by size and none does arithmetic
-on them, so the reduction applies with nothing left over.
-
-\section{Each $L_i$ is a walk count, on orbits}
-
-Every triple lies inside three consecutive rows, so with $c_1,\dots,c_R$ the rows of the array
-the condition is a conjunction of tests on the windows $(c_{t},c_{t+1},c_{t+2})$ together
-with the row test on each $c_t$ separately. A pair of consecutive admissible rows is therefore
-a state, and $L_i$ counts walks in the digraph on those pairs, one edge $(c_t,c_{t+1})\to
-(c_{t+1},c_{t+2})$ for each admissible window.
-
-That digraph has up to $i^{2\cdot3}$ vertices, which is more than can be written down for
-the wider arrays. The symmetry is used again to cut it. Let $G=S_i$ act on states by renaming
-letters. Every test is invariant, so the adjacency matrix $M$ commutes with the action, and the
-all-ones vector $\tau$ is invariant; hence $M^{t}\tau$ is invariant, that is, constant on
-orbits. Writing $\bar M[O,O']$ for the number of edges from one fixed representative of $O$ to
-states of $O'$ --- a number independent of the representative, again by invariance --- gives
-$\overline{M^{t}\tau}=\bar M^{t}\bar\tau$, and therefore
-\[
-L_i(R)\;=\;\sum_{s}(M^{R-2}\tau)(s)\;=\;\sum_{O}|O|\,(\bar M^{R-2}\bar\tau)(O),
-\]
-the sum being over the orbits of admissible pairs. An orbit is exactly the PATTERN of the pair,
-and if that pattern uses $p$ letters its orbit has $i(i-1)\cdots(i-p+1)$ members, since a state
-is fixed only by permutations fixing every letter it shows. So the start vector is the falling
-factorial and the end vector is all ones.
-
-Assembling the $i=1,\dots,5$ pieces as a disjoint union, with $\iota$ carrying the weights
-$w_i$ cleared of denominators,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
-\]
-with $S=198$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
-read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -137,32 +103,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 10\,a(n-2) + 10\,a(n-3) - 61\,a(n-4) + 124\,a(n-5) + 45\,a(n-6) - 182\,a(n-7) - 54\,a(n-8) - 570\,a(n-9) + 2205\,a(n-10) - 2268\,a(n-11) + 756\,a(n-12)
+a(n)\;=\;2\,a(n-1) + 4\,a(n-2) - 10\,a(n-3) - 5\,a(n-4) + 20\,a(n-5) - 20\,a(n-7) + 5\,a(n-8) + 10\,a(n-9) - 4\,a(n-10) - 2\,a(n-11) + a(n-12)
 \]
-for every $n>15$.
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The
-rational weights $w_i$ are carried as one common denominator throughout, so no division is
-performed until the final term.
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $27$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, allow a cell to introduce a new letter only when every smaller letter
-is already present, and reject a partial array as soon as a triple all of whose cells are
-placed violates its condition. This uses neither the transfer matrix, nor the orbit reduction,
-nor the falling-factorial inversion, and it returns the published terms.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -172,12 +135,9 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252954.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A267783.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
-1976. (Lumping a chain along a partition preserved by the transition rule, Section 6.3.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

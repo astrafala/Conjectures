@@ -124,3 +124,31 @@ exists, every path named in the documentation exists, `restart_all.sh` brings up
 `engine/` itself is now the largest tracked directory at 714 and grows with every sweep, because
 the hits and done files live there and every script opens them by bare name from `cwd=engine`.
 Moving those is a real refactor, not a `git mv`. Recorded as defect 32 so it is done before 1,000.
+
+## 15 September 2026 — the column generating functions: measured, and null
+
+108 table entries refused as "no explicit column recurrence" state a **generating function for
+column k** instead — `G.f. for column k: (1-x)^2*x^k/(...)`. Substituting a particular k gives a
+rational g.f. for that column, so `gfrec`'s argument would apply per column. Measured before
+building anything: of the **202** entries in the rebuilt table pool that state such a line,
+
+| | |
+|---:|---|
+| 191 | conjecture **nothing at all** |
+| 6 | conjecture something that is not about a column |
+| 5 | conjecture something about a column |
+
+and of the five, two are conjectured column g.f.s with no factual premise to prove them from,
+one is an asymptotic, one a supercongruence, one a combinatorial identity. **Nothing to build.**
+A g.f. for column k is usually the whole content of such an entry, not a premise sitting beside
+a conjecture.
+
+## 15 September 2026 — `sweep_second` re-asked as the roster grows
+
+The vein's premise store is the roster itself, so every paper installed gives it something new
+to work with. Ten entries joined the roster after the 376-paper pass; re-asking just those gives
+**one** further conjecture, A222892 — its existing paper proves a fourth-order recurrence, and
+the new claim is a closed form contributed separately. Live-checked and installed.
+
+**Roster 13,729 over 13,325 entries, 164 arguments.** Re-ask this sweep after any batch; it
+costs seconds for ten entries and it is the one vein that grows with the project's own output.

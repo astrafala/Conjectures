@@ -16,17 +16,17 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A229010, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250350, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A229010 carries an empirical recurrence of order $95$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified, so
+OEIS A250350 carries an empirical recurrence of order $96$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=114$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=750$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -35,23 +35,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A229010 is ``Number of arrays of median of three adjacent elements of some length n+2 0..6 array, with no adjacent equal elements in the latter.''. It has offset $1$ and begins
+OEIS A250350 is ``Number of length n arrays x(i), i=1..n with x(i) in i..i+7 and no value appearing more than 2 times.''. It has offset $1$ and begins
 \[
-7, 47, 307, 1527, 6635, 27379, 111311, 456029,\ \dots
+8, 64, 506, 3935, 30072, 226247, 1681860, 12411486,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}\raggedright\small
-Empirical recurrence of order 95 (see link above).
+Empirical recurrence of order 96 (see link above)
 
-Empirical: a(n) = 6*a(n-1) - 4*a(n-2) - 31*a(n-3) + 48*a(n-4) + 160*a(n-5) - 386*a(n-6) - 74*a(n-7) + 1415*a(n-8) - 845*a(n-9) - 2959*a(n-10) + 6134*a(n-11) + 2817*a(n-12) - 17901*a(n-13) + 12677*a(n-14) + 26000*a(n-15) - 48309*a(n-16) - 3069*a(n-17) + 87896*a(n-18) - 99368*a(n-19) - 42782*a(n-20) + 223171*a(n-21) - 256849*a(n-22) - 27166*a(n-23) + 462463*a(n-24) - 664287*a(n-25) + 186062*a(n-26) + 872398*a(n-27) - 1545431*a(n-28) + 715211*a(n-29) + 1718878*a(n-30) - 3519013*a(n-31) + 2215694*a(n-32) + 2949804*a(n-33) - 7734338*a(n-34) + 7038324*a(n-35) + 2206791*a(n-36) - 13839312*a(n-37) + 18135366*a(n-38) - 6528750*a(n-39) - 15933697*a(n-40) + 33800772*a(n-41) - 28455673*a(n-42) - 3291180*a(n-43) + 42523592*a(n-44) - 58061105*a(n-45) + 29791450*a(n-46) + 28526835*a(n-47) - 76114394*a(n-48) + 71766845*a(n-49) - 12146389*a(n-50) - 62838670*a(n-51) + 96143957*a(n-52) - 60814579*a(n-53) - 18214431*a(n-54) + 82952628*a(n-55) - 86723054*a(n-56) + 31754725*a(n-57) + 38729026*a(n-58) - 74274653*a(n-59) + 56205313*a(n-60) - 6144552*a(n-61) - 37321715*a(n-62) + 47427096*a(n-63) - 26164354*a(n-64) - 4442758*a(n-65) + 23067951*a(n-66) - 22113693*a(n-67) + 8680365*a(n-68) + 4506112*a(n-69) - 9895230*a(n-70) + 7572984*a(n-71) - 2020357*a(n-72) - 2060999*a(n-73) + 3012200*a(n-74) - 1885405*a(n-75) + 320597*a(n-76) + 583240*a(n-77) - 647532*a(n-78) + 332282*a(n-79) - 32734*a(n-80) - 105807*a(n-81) + 95584*a(n-82) - 39561*a(n-83) + 1913*a(n-84) + 11831*a(n-85) - 9139*a(n-86) + 2952*a(n-87) - 48*a(n-88) - 733*a(n-89) + 504*a(n-90) - 121*a(n-91) + 19*a(n-93) - 12*a(n-94) + 2*a(n-95) for n>97
+Empirical: a(n) = 8*a(n-1) - 18*a(n-3) - 64*a(n-4) - 144*a(n-5) - 1023*a(n-6) - 7462*a(n-7) - 50254*a(n-8) + 51730*a(n-9) + 230522*a(n-10) + 462386*a(n-11) + 606496*a(n-12) + 2314556*a(n-13) + 6492534*a(n-14) + 3015246*a(n-15) - 32686969*a(n-16) - 56156648*a(n-17) - 22222255*a(n-18) + 37778062*a(n-19) - 133500032*a(n-20) - 423997068*a(n-21) + 37330474*a(n-22) + 1234597870*a(n-23) + 2096244076*a(n-24) + 1137179130*a(n-25) - 63638234*a(n-26) + 1509454388*a(n-27) + 7609560278*a(n-28) + 1566140772*a(n-29) - 17385536276*a(n-30) - 23375927730*a(n-31) - 7560879946*a(n-32) - 400693934*a(n-33) - 31315634874*a(n-34) - 52304209876*a(n-35) + 13556270205*a(n-36) + 64286008726*a(n-37) + 40562030384*a(n-38) + 7552957976*a(n-39) + 4268720644*a(n-40) + 38846285608*a(n-41) + 20691716482*a(n-42) - 35082852790*a(n-43) - 40387707510*a(n-44) + 18250266798*a(n-45) - 2447243584*a(n-46) - 39120362402*a(n-47) - 21117298662*a(n-48) - 3971586208*a(n-49) + 17179443921*a(n-50) + 7596278750*a(n-51) - 8284863470*a(n-52) - 4158670904*a(n-53) + 5207757517*a(n-54) - 2273930870*a(n-55) - 2831633930*a(n-56) + 784990010*a(n-57) - 1075365198*a(n-58) - 88842932*a(n-59) - 698132977*a(n-60) - 1420507426*a(n-61) + 198429399*a(n-62) + 1047540094*a(n-63) + 98749007*a(n-64) - 478937730*a(n-65) - 51431411*a(n-66) + 120261302*a(n-67) + 227130666*a(n-68) + 80514422*a(n-69) - 111494481*a(n-70) - 55853740*a(n-71) + 28129177*a(n-72) + 54334330*a(n-73) + 21041308*a(n-74) - 16573778*a(n-75) - 14560632*a(n-76) + 2104312*a(n-77) + 3508436*a(n-78) + 1423450*a(n-79) - 710759*a(n-80) - 1067782*a(n-81) - 310466*a(n-82) + 23772*a(n-83) + 225040*a(n-84) + 10324*a(n-85) - 15769*a(n-86) + 3164*a(n-87) - 5148*a(n-88) + 106*a(n-89) - 573*a(n-90) + 298*a(n-91) - 8*a(n-93) - 7*a(n-94) - a(n-96)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 11 2014 22:45:53, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:20:03, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts distinct IMAGES and not the objects that produce them, so the vertices are not single configurations but sets of them: a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified. The set a word leaves the model in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing, so distinct output words and walks from the initial vertex are the same thing. The condition itself is decided within the model by inspection of a state and the symbol read.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=114$ vertices,
+The condition the entry imposes is local: it constrains the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=750$ vertices,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
@@ -61,7 +61,7 @@ particular $a$ is $C$-finite.
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
-Let $q(t)=t^{95}-\sum_i c_it^{95-i}$ be the characteristic polynomial of the
+Let $q(t)=t^{96}-\sum_i c_it^{96-i}$ be the characteristic polynomial of the
 conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
 $\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
 holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
@@ -69,7 +69,7 @@ and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+95}-\sum_ic_iM^{j+95-i}$. For the bound, $M^{S}$
+Factor $M^{j}$ out of $M^{j+96}-\sum_ic_iM^{j+96-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
@@ -78,68 +78,68 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;\sum_{i=1}^{95}c_i\,a(n-i)
+a(n)\;=\;\sum_{i=1}^{96}c_i\,a(n-i)
 \]
-for every $n>97$, with
+for every $n>0$, with
 \begin{center}\footnotesize
 \begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=6$ & $c_{2}$ & $=-4$ \\
-$c_{3}$ & $=-31$ & $c_{4}$ & $=48$ \\
-$c_{5}$ & $=160$ & $c_{6}$ & $=-386$ \\
-$c_{7}$ & $=-74$ & $c_{8}$ & $=1415$ \\
-$c_{9}$ & $=-845$ & $c_{10}$ & $=-2959$ \\
-$c_{11}$ & $=6134$ & $c_{12}$ & $=2817$ \\
-$c_{13}$ & $=-17901$ & $c_{14}$ & $=12677$ \\
-$c_{15}$ & $=26000$ & $c_{16}$ & $=-48309$ \\
-$c_{17}$ & $=-3069$ & $c_{18}$ & $=87896$ \\
-$c_{19}$ & $=-99368$ & $c_{20}$ & $=-42782$ \\
-$c_{21}$ & $=223171$ & $c_{22}$ & $=-256849$ \\
-$c_{23}$ & $=-27166$ & $c_{24}$ & $=462463$ \\
-$c_{25}$ & $=-664287$ & $c_{26}$ & $=186062$ \\
-$c_{27}$ & $=872398$ & $c_{28}$ & $=-1545431$ \\
-$c_{29}$ & $=715211$ & $c_{30}$ & $=1718878$ \\
-$c_{31}$ & $=-3519013$ & $c_{32}$ & $=2215694$ \\
-$c_{33}$ & $=2949804$ & $c_{34}$ & $=-7734338$ \\
-$c_{35}$ & $=7038324$ & $c_{36}$ & $=2206791$ \\
-$c_{37}$ & $=-13839312$ & $c_{38}$ & $=18135366$ \\
-$c_{39}$ & $=-6528750$ & $c_{40}$ & $=-15933697$ \\
-$c_{41}$ & $=33800772$ & $c_{42}$ & $=-28455673$ \\
-$c_{43}$ & $=-3291180$ & $c_{44}$ & $=42523592$ \\
-$c_{45}$ & $=-58061105$ & $c_{46}$ & $=29791450$ \\
-$c_{47}$ & $=28526835$ & $c_{48}$ & $=-76114394$ \\
-$c_{49}$ & $=71766845$ & $c_{50}$ & $=-12146389$ \\
-$c_{51}$ & $=-62838670$ & $c_{52}$ & $=96143957$ \\
-$c_{53}$ & $=-60814579$ & $c_{54}$ & $=-18214431$ \\
-$c_{55}$ & $=82952628$ & $c_{56}$ & $=-86723054$ \\
-$c_{57}$ & $=31754725$ & $c_{58}$ & $=38729026$ \\
-$c_{59}$ & $=-74274653$ & $c_{60}$ & $=56205313$ \\
-$c_{61}$ & $=-6144552$ & $c_{62}$ & $=-37321715$ \\
-$c_{63}$ & $=47427096$ & $c_{64}$ & $=-26164354$ \\
-$c_{65}$ & $=-4442758$ & $c_{66}$ & $=23067951$ \\
-$c_{67}$ & $=-22113693$ & $c_{68}$ & $=8680365$ \\
-$c_{69}$ & $=4506112$ & $c_{70}$ & $=-9895230$ \\
-$c_{71}$ & $=7572984$ & $c_{72}$ & $=-2020357$ \\
-$c_{73}$ & $=-2060999$ & $c_{74}$ & $=3012200$ \\
-$c_{75}$ & $=-1885405$ & $c_{76}$ & $=320597$ \\
-$c_{77}$ & $=583240$ & $c_{78}$ & $=-647532$ \\
-$c_{79}$ & $=332282$ & $c_{80}$ & $=-32734$ \\
-$c_{81}$ & $=-105807$ & $c_{82}$ & $=95584$ \\
-$c_{83}$ & $=-39561$ & $c_{84}$ & $=1913$ \\
-$c_{85}$ & $=11831$ & $c_{86}$ & $=-9139$ \\
-$c_{87}$ & $=2952$ & $c_{88}$ & $=-48$ \\
-$c_{89}$ & $=-733$ & $c_{90}$ & $=504$ \\
-$c_{91}$ & $=-121$ & $c_{92}$ & $=0$ \\
-$c_{93}$ & $=19$ & $c_{94}$ & $=-12$ \\
-$c_{95}$ & $=2$ \\
+$c_{1}$ & $=8$ & $c_{2}$ & $=0$ \\
+$c_{3}$ & $=-18$ & $c_{4}$ & $=-64$ \\
+$c_{5}$ & $=-144$ & $c_{6}$ & $=-1023$ \\
+$c_{7}$ & $=-7462$ & $c_{8}$ & $=-50254$ \\
+$c_{9}$ & $=51730$ & $c_{10}$ & $=230522$ \\
+$c_{11}$ & $=462386$ & $c_{12}$ & $=606496$ \\
+$c_{13}$ & $=2314556$ & $c_{14}$ & $=6492534$ \\
+$c_{15}$ & $=3015246$ & $c_{16}$ & $=-32686969$ \\
+$c_{17}$ & $=-56156648$ & $c_{18}$ & $=-22222255$ \\
+$c_{19}$ & $=37778062$ & $c_{20}$ & $=-133500032$ \\
+$c_{21}$ & $=-423997068$ & $c_{22}$ & $=37330474$ \\
+$c_{23}$ & $=1234597870$ & $c_{24}$ & $=2096244076$ \\
+$c_{25}$ & $=1137179130$ & $c_{26}$ & $=-63638234$ \\
+$c_{27}$ & $=1509454388$ & $c_{28}$ & $=7609560278$ \\
+$c_{29}$ & $=1566140772$ & $c_{30}$ & $=-17385536276$ \\
+$c_{31}$ & $=-23375927730$ & $c_{32}$ & $=-7560879946$ \\
+$c_{33}$ & $=-400693934$ & $c_{34}$ & $=-31315634874$ \\
+$c_{35}$ & $=-52304209876$ & $c_{36}$ & $=13556270205$ \\
+$c_{37}$ & $=64286008726$ & $c_{38}$ & $=40562030384$ \\
+$c_{39}$ & $=7552957976$ & $c_{40}$ & $=4268720644$ \\
+$c_{41}$ & $=38846285608$ & $c_{42}$ & $=20691716482$ \\
+$c_{43}$ & $=-35082852790$ & $c_{44}$ & $=-40387707510$ \\
+$c_{45}$ & $=18250266798$ & $c_{46}$ & $=-2447243584$ \\
+$c_{47}$ & $=-39120362402$ & $c_{48}$ & $=-21117298662$ \\
+$c_{49}$ & $=-3971586208$ & $c_{50}$ & $=17179443921$ \\
+$c_{51}$ & $=7596278750$ & $c_{52}$ & $=-8284863470$ \\
+$c_{53}$ & $=-4158670904$ & $c_{54}$ & $=5207757517$ \\
+$c_{55}$ & $=-2273930870$ & $c_{56}$ & $=-2831633930$ \\
+$c_{57}$ & $=784990010$ & $c_{58}$ & $=-1075365198$ \\
+$c_{59}$ & $=-88842932$ & $c_{60}$ & $=-698132977$ \\
+$c_{61}$ & $=-1420507426$ & $c_{62}$ & $=198429399$ \\
+$c_{63}$ & $=1047540094$ & $c_{64}$ & $=98749007$ \\
+$c_{65}$ & $=-478937730$ & $c_{66}$ & $=-51431411$ \\
+$c_{67}$ & $=120261302$ & $c_{68}$ & $=227130666$ \\
+$c_{69}$ & $=80514422$ & $c_{70}$ & $=-111494481$ \\
+$c_{71}$ & $=-55853740$ & $c_{72}$ & $=28129177$ \\
+$c_{73}$ & $=54334330$ & $c_{74}$ & $=21041308$ \\
+$c_{75}$ & $=-16573778$ & $c_{76}$ & $=-14560632$ \\
+$c_{77}$ & $=2104312$ & $c_{78}$ & $=3508436$ \\
+$c_{79}$ & $=1423450$ & $c_{80}$ & $=-710759$ \\
+$c_{81}$ & $=-1067782$ & $c_{82}$ & $=-310466$ \\
+$c_{83}$ & $=23772$ & $c_{84}$ & $=225040$ \\
+$c_{85}$ & $=10324$ & $c_{86}$ & $=-15769$ \\
+$c_{87}$ & $=3164$ & $c_{88}$ & $=-5148$ \\
+$c_{89}$ & $=106$ & $c_{90}$ & $=-573$ \\
+$c_{91}$ & $=298$ & $c_{92}$ & $=0$ \\
+$c_{93}$ & $=-8$ & $c_{94}$ & $=-7$ \\
+$c_{95}$ & $=0$ & $c_{96}$ & $=-1$ \\
 \end{tabular}
 \end{center}
 and $c_i=0$ for every $i$ not listed.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $95$ matrix--vector products in exact integer
+The vector $w=q(M)\tau$ was formed by $96$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=97+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -147,7 +147,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -159,7 +159,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A229010.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

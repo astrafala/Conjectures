@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A211502, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250348, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211502 carries an empirical recurrence of order $24$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
+OEIS A250348 carries an empirical recurrence of order $24$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=27$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=96$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,23 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A211502 is ``Number of -3..3 arrays x(i) of n+1 elements i=1..n+1 with x(i)+x(j), x(i+1)+x(j+1), -(x(i)+x(j+1)), and -(x(i+1)+x(j)) having three or four distinct values for every i<=n and j<=n.''. It has offset $1$ and begins
+OEIS A250348 is ``Number of length n arrays x(i), i=1..n with x(i) in i..i+5 and no value appearing more than 2 times.''. It has offset $1$ and begins
 \[
-38, 208, 1104, 5816, 30248, 155984, 798008, 4055448,\ \dots
+6, 36, 212, 1221, 6900, 38543, 214716, 1193739,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 10*a(n-1) +37*a(n-2) -550*a(n-3) -649*a(n-4) +13442*a(n-5) +11131*a(n-6) -183874*a(n-7) -197258*a(n-8) +1418860*a(n-9) +2192568*a(n-10) -5278112*a(n-11) -11467160*a(n-12) +5231288*a(n-13) +19433444*a(n-14) -4017688*a(n-15) -17551936*a(n-16) +5387696*a(n-17) +8469936*a(n-18) -4963520*a(n-19) -969600*a(n-20) +1662208*a(n-21) -604416*a(n-22) +97792*a(n-23) -6144*a(n-24)
+Empirical: a(n) = 6*a(n-1) -8*a(n-3) -12*a(n-4) -66*a(n-5) -332*a(n-6) +132*a(n-7) +447*a(n-8) +294*a(n-9) +630*a(n-10) +396*a(n-11) -484*a(n-12) -222*a(n-13) +192*a(n-14) -188*a(n-15) -144*a(n-16) +114*a(n-17) +50*a(n-18) -12*a(n-19) +21*a(n-20) +16*a(n-21) -a(n-24)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 16:12:44, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:19:50, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
+The condition the entry imposes is local: it constrains the k+1 values still in play -- those the remaining indices can still take -- and how often each has been used so far and nothing beyond. Take as
 vertices the admissible configurations of one such window and put an edge from $u$ to $v$
 whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=27$ vertices
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=96$ vertices
 and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
@@ -75,7 +75,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;10\,a(n-1) + 37\,a(n-2) - 550\,a(n-3) - 649\,a(n-4) + 13442\,a(n-5) + 11131\,a(n-6) - 183874\,a(n-7) - 197258\,a(n-8) + 1418860\,a(n-9) + 2192568\,a(n-10) - 5278112\,a(n-11) - 11467160\,a(n-12) + 5231288\,a(n-13) + 19433444\,a(n-14) - 4017688\,a(n-15) - 17551936\,a(n-16) + 5387696\,a(n-17) + 8469936\,a(n-18) - 4963520\,a(n-19) - 969600\,a(n-20) + 1662208\,a(n-21) - 604416\,a(n-22) + 97792\,a(n-23) - 6144\,a(n-24)
+a(n)\;=\;6\,a(n-1) - 8\,a(n-3) - 12\,a(n-4) - 66\,a(n-5) - 332\,a(n-6) + 132\,a(n-7) + 447\,a(n-8) + 294\,a(n-9) + 630\,a(n-10) + 396\,a(n-11) - 484\,a(n-12) - 222\,a(n-13) + 192\,a(n-14) - 188\,a(n-15) - 144\,a(n-16) + 114\,a(n-17) + 50\,a(n-18) - 12\,a(n-19) + 21\,a(n-20) + 16\,a(n-21) - a(n-24)
 \]
 for every $n>0$.
 \end{theorem}
@@ -103,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211502.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250348.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
