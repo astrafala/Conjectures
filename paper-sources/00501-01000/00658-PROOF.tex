@@ -16,61 +16,70 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{The conjectured generating function of OEIS A056328\\ \large is the one the entry already
-states}
+\title{The conjectured recurrence of OEIS A034267,\\ \large from the closed form the entry states}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A056328 states one generating function as a fact and carries a second as an empirical
-conjecture. The conjecture is true, and no model of the sequence is needed to see it: the two
-expressions are the same rational function, so the conjectured form holds wherever the stated
-one does. The identity is exact, not a comparison of finitely many coefficients.
+OEIS A034267 states a closed form as a fact and conjectures a P-recursive recurrence. The closed
+form is hypergeometric -- the ratio of consecutive terms is a rational function of $n$ -- so the
+sequence satisfies an exact first-order recurrence with polynomial coefficients, and the
+conjectured recurrence is decided by reducing it with that ratio. What comes out is an identity
+in $\mathbb{Q}(n)$, not an agreement of finitely many terms, and no generating function is
+needed: this entry states none.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 33F10, 11B37, 05A10.\normalsize
 
-\section{The two statements}
+\section{What the entry says}
 
-The entry's first terms are $0, 0, 0, 1, 6, 37, 183, 877,\dots$. It states, as a fact and not as a conjecture,
+The first terms are $0, 1, 7, 39, 196, 930, 4257, 19019,\dots$, with offset $0$. The entry states, as a fact and
+not as a conjecture,
+
+\begin{quote}\raggedright a(n) = binomial(2*n, n+1)*(n\^{}2+n+1)/(n+2);\end{quote}
+
+\noindent that is, $a(n)=\frac{\left(n^{2} + n + 1\right) {\binom{2 n}{n + 1}}}{n + 2}$, and separately records
+
+\begin{quote}\raggedright Conjecture D-finite with recurrence -(n+2)*(11*n-7)*a(n) + 2*(23*n\^{}2+44*n+30)*a(n-1) - 4*(n+5)*(2*n-3)*a(n-2) = 0. - \_R. J. Mathar\_, Feb 10 2025\end{quote}
+
+\section{The closed form is hypergeometric}
+
+Directly from the expression,
 \[
-  F(x)=\frac{x^{4} \left(3 x^{3} + x^{2} - 2 x + 1\right)}{- 144 x^{7} + 228 x^{6} - 12 x^{5} - 121 x^{4} + 44 x^{3} + 12 x^{2} - 8 x + 1} ,
+  \frac{a(n)}{a(n-1)}=\frac{2 n \left(2 n - 1\right) \left(n^{2} + n + 1\right)}{\left(n - 1\right) \left(n + 2\right) \left(n^{2} - n + 1\right)} ,
 \]
-and separately records the conjecture
-
-\begin{quote}\raggedright Empirical g.f.: -x\^{}4*(3*x\^{}3 + x\^{}2 - 2*x + 1) / ((x-1)*(2*x-1)*(2*x+1)*(3*x-1)*(4*x-1)*(3*x\^{}2-1)). - \_Colin Barker\_, Nov 25 2012\end{quote}
-
-\noindent which is
+a rational function of $n$. Equivalently $a$ satisfies the exact first-order recurrence
 \[
-  G(x)=- \frac{x^{4} \left(3 x^{3} + x^{2} - 2 x + 1\right)}{\left(x - 1\right) \left(2 x - 1\right) \left(2 x + 1\right) \left(3 x - 1\right) \left(4 x - 1\right) \left(3 x^{2} - 1\right)} .
+  \left(n^{4} - 2 n^{2} + 3 n - 2\right)a(n)
+  =\left(4 n^{4} + 2 n^{3} + 2 n^{2} - 2 n\right)a(n-1) ,
 \]
+whose leading coefficient is a nonzero polynomial, so it determines every term past the finitely
+many zeros of that polynomial from the one before it.
 
-\section{They are the same function}
+\section{The conjectured recurrence follows}
 
-Both $F$ and $G$ are rational. Writing each over a common denominator and cancelling,
-\[
-  F(x)=\frac{- 3 x^{7} - x^{6} + 2 x^{5} - x^{4}}{144 x^{7} - 228 x^{6} + 12 x^{5} + 121 x^{4} - 44 x^{3} - 12 x^{2} + 8 x - 1}=G(x) ,
-\]
-so $F-G$ is identically zero as a rational function, and $F$ and $G$ have the same Taylor
-expansion at the origin wherever either converges.
+Substituting $a(n)=r(n)a(n-1)$ and $a(n-1)=r(n-1)a(n-2)$ into the conjectured relation and
+dividing through by $a(n-2)$ leaves a rational function of $n$ alone. That function
+\textbf{simplifies to zero identically}, so the conjectured relation holds wherever the terms
+it names are defined -- at every index, not merely at those checked.
 
 \begin{theorem}
-The conjectured generating function of OEIS A056328 is correct.
+The conjecture recorded in OEIS A034267 is true.
 \end{theorem}
 
 \begin{proof}
-The entry asserts that $F$ is the generating function of the sequence. By the identity above
-$G=F$, so $G$ is that generating function as well.
+The displayed reduction is an identity in $\mathbb{Q}(n)$ between the left-hand side of the
+conjecture divided by $a(n-2)$ and zero. Since $a(n-2)\ne0$ for the indices concerned, the
+conjecture itself holds there.
 \end{proof}
 
 \section{What this rests on}
 
-It rests on the entry's own asserted generating function and on nothing else. That assertion is
-not taken on trust: $F$ was expanded and its first 25 coefficients agree with every
-term the entry publishes, from offset $1$ onward. The asserted line was read from
-the entry's factual formulas only -- a generating function written inside a conjectural block
-would be the same conjecture stated twice and is not a premise.
+On the entry's own closed form and nothing else. That statement is not taken on trust: the
+expression was evaluated and agrees with all 26 terms the entry publishes. It was read
+from the entry's factual formulas only -- a closed form inside a conjectural block, or one
+qualified by a finite range, is itself a conjecture and is not a premise.
 
 \end{document}

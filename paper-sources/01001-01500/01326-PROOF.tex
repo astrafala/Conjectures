@@ -11,135 +11,108 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A221305, proved by transfer matrix}
+\title{The empirical degree for OEIS A201350, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A221305 counts the distinct OCCUPANCY arrays obtained when every cell of an $n\times3$ grid
-holds one token and each token moves to a neighbouring cell, and carries an empirical
-recurrence of order $32$ contributed by R.~H.~Hardin. It is true, and it is decidable
-rather than empirical. What is counted is the size of an IMAGE --- two different assignments of
-moves with the same occupancy count once --- so it is not a walk count in the obvious graph;
-determinising the machine that emits the occupancy row by row turns it into one, on $S=554$
-states, after which the conjectured recurrence is settled by a finite exact computation.
+OEIS A201350 carries the empirical claim that its terms agree with a polynomial of degree $31$.
+It is true, and it is decidable rather than empirical. The claim names no coefficients, so
+there is no formula to check; but a sequence agrees with a polynomial of degree at most $d$ on
+a range exactly when its $(d+1)$-st finite difference vanishes there, and the degree is exactly
+$d$ exactly when the $d$-th difference does not eventually vanish. Both are linear recurrences,
+and the entry's count is given by an exact model that provably satisfies a monic linear
+recurrence of order $S=612$, so both are settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 60C05.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A16, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A221305 is ``Number of nX3 arrays of occupancy after each element moves to some horizontal, vertical or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
+OEIS A201350 is ``Number of nX5 0..1 arrays with rows and columns lexicographically nondecreasing and every element equal to at least one horizontal or vertical neighbor.''. It has offset $1$ and begins
 \[
-0, 10, 0, 312, 0, 10042, 0, 319226,\ \dots
+4, 23, 118, 752, 4860, 29540, 164704, 838248,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 33*a(n-2) -2*a(n-4) -1074*a(n-6) -4389*a(n-8) -8373*a(n-10) -9016*a(n-12) -5198*a(n-14) -28*a(n-16) +3296*a(n-18) +3856*a(n-20) +2610*a(n-22) +1148*a(n-24) +302*a(n-26) +8*a(n-28) -28*a(n-30) -8*a(n-32) for n>34
+Empirical: a(n) is a polynomial of degree 31 for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 19:29:32, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 09:05:06, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-Every cell of an $n\times3$ grid holds one token. Each token moves by one of the offsets
-\[
-(-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0),
-\]
-a move being available only when it lands inside the grid. The offset $(0,0)$ is NOT among them: every token must move. The OCCUPANCY array
-records, for each cell, how many tokens land on it; the entry counts how many different
-occupancy arrays occur as the assignment of moves runs over all its possibilities. The entry also asks that every occupancy be $0 or 2$.
+The entry's defining condition is local: it is a condition on the previous row together with, for each adjacent pair of columns, whether they still agree and which way their latest difference went, and, for each position, whether its obligation to equal a neighbour is still outstanding. Take as vertices the
+admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may follow
+$u$, which the condition decides by inspection. An admissible array is then exactly a walk, so
+with $M$ the adjacency matrix of that digraph on $S=612$ vertices and $\iota,\tau$ the vectors
+recording which windows may begin and end an array, $a(n)=\iota^{\!\top}M^{\,g(n)}\tau$ for
+the linear function $g$ the entry's shape supplies. In particular $a$ is $C$-finite.
 
-That is the size of an IMAGE, and it is the whole difficulty: two assignments with the same
-occupancy must be counted once, and a walk count over the assignments would count them twice.
+\section{A degree is two recurrences}
 
-\section{The image is a walk count after determinisation}
-
-Every offset moves the row index by at most one, so the occupancy of row $i$ is decided by the
-moves chosen in rows $i-1$, $i$ and $i+1$. Writing $\beta(p,c,x)$ for that occupancy row, with
-$p$ or $x$ allowed to be the symbol $\bot$ for ``outside'', the whole occupancy array is
-\[
-\bigl(\beta(\bot,c_1,c_2),\ \beta(c_1,c_2,c_3),\ \dots,\ \beta(c_{n-1},c_n,\bot)\bigr)
-\]
-for an assignment $c_1,\dots,c_n$ of move-rows. The symbol $\bot$ is not decoration: whether
-``up'' or ``down'' is a legal move for a cell depends on it, and $\beta$ returns nothing at all
-when the row it is given cannot occur in that position.
-
-Determinise. For a set $D$ of pairs $(p,c)$ and an occupancy row $b$ put
-\[
-\delta(D,b)=\{(c,x):(p,c)\in D,\ \beta(p,c,x)=b\},\qquad
-f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D,\ \beta(p,c,\bot)\ \text{defined}\}\bigr| ,
-\]
-and let $D_0=\{(\bot,c):c\}$. An induction on the number of rows shows $D_t$ is exactly the
-set of pairs of consecutive move-rows completing a prefix with the emitted occupancy rows, so
-that with $M$ the adjacency matrix of the digraph on the reachable nonempty sets, one edge per
-occupancy row it admits,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
-\]
-There are $S=554$ reachable sets. In particular $a$ is $C$-finite.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{32}-\sum_i c_it^{32-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+\begin{lemma}\label{lem:diff}
+Let $\Delta$ be the forward difference. For integers $N$ and $d\ge0$, $a$ agrees on
+$n\ge N$ with a polynomial of degree at most $d$ if and only if $(\Delta^{d+1}a)(n)=0$ for
+every $n\ge N$; and that polynomial has degree exactly $d$ unless $(\Delta^{d}a)(n)=0$ for
+all large $n$ as well.
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+Standard finite differences. $\Delta^{d+1}$ kills exactly the polynomials of degree at most
+$d$, and on a range where $\Delta^{d+1}a$ vanishes the values of $a$ are determined by
+$d+1$ consecutive ones through the same identity a degree-$d$ polynomial satisfies, so the
+interpolating polynomial through any $d+1$ of them reproduces all of them. Its leading
+coefficient is $(\Delta^{d}a)/d!$, which is the constant the second statement is about.
 \end{proof}
 
+Written out, $\Delta^{d+1}a=0$ is the monic linear recurrence with characteristic polynomial
+$(z-1)^{31+1}$, and $\Delta^{d}a$ constant is the one with $(z-1)^{31}$. Both are
+fixed recurrences, so each is decided by the annihilation test: $M^{S}$ is an integer
+combination of $I,\dots,M^{S-1}$ by Cayley--Hamilton, the residuals therefore obey the monic
+recurrence given by the characteristic polynomial of $M$, and $S$ consecutive zeros force every
+later one.
+
+\section{The theorem}
+
 \begin{theorem}
-\[
-a(n)\;=\;33\,a(n-2) - 2\,a(n-4) - 1074\,a(n-6) - 4389\,a(n-8) - 8373\,a(n-10) - 9016\,a(n-12) - 5198\,a(n-14) - 28\,a(n-16) + 3296\,a(n-18) + 3856\,a(n-20) + 2610\,a(n-22) + 1148\,a(n-24) + 302\,a(n-26) + 8\,a(n-28) - 28\,a(n-30) - 8\,a(n-32)
-\]
-for every $n>34$.
+$a(n)$ agrees with a polynomial in $n$ of degree exactly $31$ for every $n\ge11$.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=34+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The residual of $(z-1)^{31+1}$ was formed at each index in exact integer arithmetic from
+the model. It is nonzero at $n=42$ and vanishes from $n=42+1$ onwards, with the run of
+zeros continuing past $S+31+1$, which by the annihilation bound settles every later index at
+once. So $\Delta^{31+1}a$ vanishes on $n\ge42-31=11$, and
+Lemma~\ref{lem:diff} gives the polynomial there.
+
+For the degree: the residual of $(z-1)^{31}$ has no run of $S+31$ zeros anywhere in the
+computed range, so $\Delta^{31}a$ is not eventually zero and the degree is not smaller
+than $31$. The entry claims it for $n>10$, and the threshold above is exactly $10+31+1=42$, so the range proved is the range claimed and neither is slack.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
-
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
-arithmetic. The entry's first term is $0$, and it is a sharp test of the boundary: a
-one-row grid offers only the moves that stay within one row, so a neighbour set with no
-horizontal offset gives no legal assignment at all and the count is zero, which is what the
-entries of that shape publish.
-
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic; this is what ties it to the entry, which is read in English and could be misread.
+Second, both residuals were computed term by term rather than through any closed form. Third,
+the derived bound $S$ was tested on terms it had not been given: the model was evaluated beyond
+the $S$ values that determine it and the annihilator reproduced them.
 
 \begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A221305.
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
-construction, Section 2.3.)
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A201350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{gkp} R.~L.~Graham, D.~E.~Knuth and O.~Patashnik, \emph{Concrete Mathematics},
+2nd ed., Addison--Wesley, 1994. (Finite differences.)
 \end{thebibliography}
 
 \end{document}

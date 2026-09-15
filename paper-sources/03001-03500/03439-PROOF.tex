@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A228460, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A211596, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228460 carries an empirical recurrence of order $22$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified, so
+OEIS A211596 carries an empirical recurrence of order $22$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to the last value together with the set of adjacent pairs still compatible with every pair the array has already used, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=22$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=39$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,21 +31,24 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A228460 is ``Number of arrays of maxima of three adjacent elements of some length n+2 0..7 array.''. It has offset $1$ and begins
+OEIS A211596 is ``Number of -2..2 arrays x(i) of n+1 elements i=1..n+1 with set{t,u,v in 0,1}((x[i+t]+x[j+u]+x[k+v])*(-1)\^{}(t+u+v)) having two, four, six, seven or eight distinct values for every i,j,k<=n.''. It has offset $1$ and begins
 \[
-8, 64, 372, 1716, 6812, 25096, 92430, 357510,\ \dots
+24, 76, 216, 580, 1528, 4004, 10420, 27296,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) -28*a(n-2) +56*a(n-3) -42*a(n-4) +168*a(n-6) -48*a(n-7) +195*a(n-8) +340*a(n-9) +154*a(n-10) +408*a(n-11) +432*a(n-12) +276*a(n-13) +338*a(n-14) +268*a(n-15) +149*a(n-16) +118*a(n-17) +71*a(n-18) +28*a(n-19) +14*a(n-20) +6*a(n-21) +a(n-22)
+Empirical: a(n) = 6*a(n-1) +9*a(n-2) -113*a(n-3) +45*a(n-4) +877*a(n-5) -925*a(n-6) -3715*a(n-7) +5272*a(n-8) +9518*a(n-9) -15967*a(n-10) -15379*a(n-11) +29010*a(n-12) +15821*a(n-13) -32561*a(n-14) -10205*a(n-15) +22254*a(n-16) +3946*a(n-17) -8792*a(n-18) -828*a(n-19) +1800*a(n-20) +72*a(n-21) -144*a(n-22)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 04 2025 00:03:33, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:16:20, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts distinct IMAGES and not the objects that produce them, so the vertices are not single configurations but sets of them: a set of input windows -- those consistent with the output word so far -- states with the same future behaviour being identified. The set a word leaves the model in is determined by the word, and an edge from $u$ to $v$ carries the symbol emitted in passing, so distinct output words and walks from the initial vertex are the same thing. The condition itself is decided within the model by inspection of a state and the symbol read.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=22$ vertices,
+The condition the entry imposes is local: it constrains the last value together with the set of adjacent pairs still compatible with every pair the array has already used and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=39$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
@@ -72,15 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 28\,a(n-2) + 56\,a(n-3) - 42\,a(n-4) + 168\,a(n-6) - 48\,a(n-7) + 195\,a(n-8) + 340\,a(n-9) + 154\,a(n-10) + 408\,a(n-11) + 432\,a(n-12) + 276\,a(n-13) + 338\,a(n-14) + 268\,a(n-15) + 149\,a(n-16) + 118\,a(n-17) + 71\,a(n-18) + 28\,a(n-19) + 14\,a(n-20) + 6\,a(n-21) + a(n-22)
+a(n)\;=\;6\,a(n-1) + 9\,a(n-2) - 113\,a(n-3) + 45\,a(n-4) + 877\,a(n-5) - 925\,a(n-6) - 3715\,a(n-7) + 5272\,a(n-8) + 9518\,a(n-9) - 15967\,a(n-10) - 15379\,a(n-11) + 29010\,a(n-12) + 15821\,a(n-13) - 32561\,a(n-14) - 10205\,a(n-15) + 22254\,a(n-16) + 3946\,a(n-17) - 8792\,a(n-18) - 828\,a(n-19) + 1800\,a(n-20) + 72\,a(n-21) - 144\,a(n-22)
 \]
-for every $n>0$.
+for every $n>22$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $22$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=0+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=22+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -88,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -100,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A228460.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A211596.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

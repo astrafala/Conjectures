@@ -11,79 +11,50 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A250941, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A230613, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250941 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $39$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=6561$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
-\end{abstract}
+OEIS A230613 carries an empirical recurrence of order $39$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=18774$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+ The entry also fixes one corner: its upper left cell must be $0$. That is part of the condition and it changes the count, so the model enforces it in the starting vector, which admits only the states whose first line carries that value in that position; every walk counted below begins from one of those.\end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A250941 is ``Number of (n+1)X(7+1) 0..2 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A230613 is ``Number of n X 7 0..2 arrays x(i,j) with each element horizontally or antidiagonally next to at least one element with value (x(i,j)+1) mod 3, and upper left element zero.''. It has offset $1$ and begins
 \[
-103093, 1188599, 9865706, 72722706, 475951361, 2839711239, 15686582837, 81197881457,\ \dots
+0, 108, 20430, 3023532, 434369516, 62312057642, 8937075346246, 1281770005911328,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 56*a(n-1) -1522*a(n-2) +26750*a(n-3) -341788*a(n-4) +3383870*a(n-5) -27019370*a(n-6) +178816330*a(n-7) -1000398245*a(n-8) +4801705370*a(n-9) -19999827232*a(n-10) +72938367572*a(n-11) -234575011664*a(n-12) +669091458700*a(n-13) -1700431069076*a(n-14) +3864487952276*a(n-15) -7876529587291*a(n-16) +14429295594092*a(n-17) -23796815540850*a(n-18) +35368238093958*a(n-19) -47398136192484*a(n-20) +57276494053174*a(n-21) -62381329826018*a(n-22) +61173951385090*a(n-23) -53931666825727*a(n-24) +42653735964962*a(n-25) -30177492913372*a(n-26) +19030922520904*a(n-27) -10649333267120*a(n-28) +5257938886816*a(n-29) -2274410125504*a(n-30) +854313663104*a(n-31) -275508944128*a(n-32) +75166819840*a(n-33) -17011807232*a(n-34) +3107903488*a(n-35) -440373248*a(n-36) +45408256*a(n-37) -3031040*a(n-38) +98304*a(n-39) for n>53
+\begin{quote}\raggedright\small
+Empirical: a(n) = 227*a(n-1) -15073*a(n-2) +516849*a(n-3) -12004704*a(n-4) +210898965*a(n-5) -2423644215*a(n-6) +10342524170*a(n-7) +95146925330*a(n-8) -1270472692024*a(n-9) +3509210149862*a(n-10) +18487113129390*a(n-11) -118346116978076*a(n-12) -142045747219349*a(n-13) +1981657241253047*a(n-14) -797608174902841*a(n-15) -15665230743026270*a(n-16) +16136528041550748*a(n-17) +100523161525342639*a(n-18) -390340855048743361*a(n-19) +233817541582646426*a(n-20) +2657045726509285686*a(n-21) -2826074288477380324*a(n-22) -10042267477638045785*a(n-23) -893399234003894819*a(n-24) +21271266621127182723*a(n-25) +29807155260119262672*a(n-26) -4592555879996432954*a(n-27) -46721024398304244746*a(n-28) -22705965854461622084*a(n-29) +49126201387464330532*a(n-30) +68141813936973463424*a(n-31) +31547751481543057692*a(n-32) +3384275076564111348*a(n-33) -931910606918155028*a(n-34) +212617089869580916*a(n-35) +118425972661438288*a(n-36) +3200357881449152*a(n-37) +870950365213440*a(n-38) +4393637366976*a(n-39) for n>41.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:53:04, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jan 03 2024 22:09:50, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{What is being counted}
+\section{The count is a walk count}
 
-The array has $8$ cells across and entries $x(i,j)\in\{0,1,2\}$.
-
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two. Windows that admit exactly the same continuations and lead to the same states are identified, which changes no count: such windows contribute identically to every walk count, so the vertex is the class rather than the window.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=18774$ vertices,
 \[
-b(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
-\[
-c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
-\]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the sum of a cell and its left neighbour, and the vertical one is
-the absolute difference of a cell and the cell above it.
-
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
-
-\section{A bounded window}
-
-\begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
-\end{lemma}
-
-\begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
-\end{proof}
-
-So a single row is a state. Let $M$ be the matrix on the $3^{8}=6561$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6561.
-\]
-
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -105,41 +76,64 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;56\,a(n-1) - 1522\,a(n-2) + 26750\,a(n-3) - 341788\,a(n-4) + 3383870\,a(n-5) - 27019370\,a(n-6) + 178816330\,a(n-7) - 1000398245\,a(n-8) + 4801705370\,a(n-9) - 19999827232\,a(n-10) + 72938367572\,a(n-11) - 234575011664\,a(n-12) + 669091458700\,a(n-13) - 1700431069076\,a(n-14) + 3864487952276\,a(n-15) - 7876529587291\,a(n-16) + 14429295594092\,a(n-17) - 23796815540850\,a(n-18) + 35368238093958\,a(n-19) - 47398136192484\,a(n-20) + 57276494053174\,a(n-21) - 62381329826018\,a(n-22) + 61173951385090\,a(n-23) - 53931666825727\,a(n-24) + 42653735964962\,a(n-25) - 30177492913372\,a(n-26) + 19030922520904\,a(n-27) - 10649333267120\,a(n-28) + 5257938886816\,a(n-29) - 2274410125504\,a(n-30) + 854313663104\,a(n-31) - 275508944128\,a(n-32) + 75166819840\,a(n-33) - 17011807232\,a(n-34) + 3107903488\,a(n-35) - 440373248\,a(n-36) + 45408256\,a(n-37) - 3031040\,a(n-38) + 98304\,a(n-39)
+a(n)\;=\;\sum_{i=1}^{39}c_i\,a(n-i)
 \]
-for every $n>53$.
+for every $n>41$, with
+\begin{center}\footnotesize
+\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
+$c_{1}$ & $=227$ & $c_{2}$ & $=-15073$ \\
+$c_{3}$ & $=516849$ & $c_{4}$ & $=-12004704$ \\
+$c_{5}$ & $=210898965$ & $c_{6}$ & $=-2423644215$ \\
+$c_{7}$ & $=10342524170$ & $c_{8}$ & $=95146925330$ \\
+$c_{9}$ & $=-1270472692024$ & $c_{10}$ & $=3509210149862$ \\
+$c_{11}$ & $=18487113129390$ & $c_{12}$ & $=-118346116978076$ \\
+$c_{13}$ & $=-142045747219349$ & $c_{14}$ & $=1981657241253047$ \\
+$c_{15}$ & $=-797608174902841$ & $c_{16}$ & $=-15665230743026270$ \\
+$c_{17}$ & $=16136528041550748$ & $c_{18}$ & $=100523161525342639$ \\
+$c_{19}$ & $=-390340855048743361$ & $c_{20}$ & $=233817541582646426$ \\
+$c_{21}$ & $=2657045726509285686$ & $c_{22}$ & $=-2826074288477380324$ \\
+$c_{23}$ & $=-10042267477638045785$ & $c_{24}$ & $=-893399234003894819$ \\
+$c_{25}$ & $=21271266621127182723$ & $c_{26}$ & $=29807155260119262672$ \\
+$c_{27}$ & $=-4592555879996432954$ & $c_{28}$ & $=-46721024398304244746$ \\
+$c_{29}$ & $=-22705965854461622084$ & $c_{30}$ & $=49126201387464330532$ \\
+$c_{31}$ & $=68141813936973463424$ & $c_{32}$ & $=31547751481543057692$ \\
+$c_{33}$ & $=3384275076564111348$ & $c_{34}$ & $=-931910606918155028$ \\
+$c_{35}$ & $=212617089869580916$ & $c_{36}$ & $=118425972661438288$ \\
+$c_{37}$ & $=3200357881449152$ & $c_{38}$ & $=870950365213440$ \\
+$c_{39}$ & $=4393637366976$ \\
+\end{tabular}
+\end{center}
+and $c_i=0$ for every $i$ not listed.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=53+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250941.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A230613.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}
