@@ -45,3 +45,32 @@ conjecture is then proved from that index. A060774 now refuses honestly and for 
 reason: a SUM of two hypergeometric terms has no rational ratio.
 
 **Eight for eight.** Every apparent disproof this project has produced has been my reader.
+
+## 15 September 2026 — the table-column pool rebuilt: 296 new candidates, no results
+
+`deep-check/tabpool.txt` held 1,729 entries; rebuilt from the clone on the same criterion (an
+entry stating a per-column recurrence, off the roster) it is 1,851, so **296 were never asked**.
+Swept: **zero results**, and the refusals are worth more than the zero.
+
+| | |
+|---:|---|
+| 181 | the name is not a `T(n,k)` table |
+| 108 | no explicit column recurrence |
+| 5 | nothing proved on this table |
+| 2 | not open |
+
+Two defects found on the way, both fixed:
+
+**The 276 that vanished without a counter.** `sweep_table` skipped every name not beginning
+`T(n,k)` and recorded nothing — defect 3, the one STATE.md has carried since the beginning. The
+skip is now counted, which is how the 181 above is known at all.
+
+**The layout wrapper.** The corpus writes the same table a dozen ways — "Triangle read by rows:
+T(n,k) is ...", "Array read by descending antidiagonals: A(n, k) = ...", "Triangular array read
+by rows: ..." — and the wrapper says how the table is LAID OUT, which matters to the reader of
+the data and not at all to the name of column k. `tablecol.PREFIX` strips it, and 115 of the 296
+became rewritable. None proved, but the widening applies to the standing pool too.
+
+The 108 "no explicit column recurrence" are honest: they state a **generating function** for
+column k (`G.f. for column k: (1-x)^2*x^k/(...)`) rather than a recurrence, which is a different
+argument — `gfrec` per column, with the conjecture still to be found. Noted, not built.

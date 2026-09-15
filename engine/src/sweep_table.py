@@ -109,7 +109,13 @@ for a in targets:
     if zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     nm = names.get(a, '')
-    if not nm.strip().startswith(('T(n,k)', 'T(n,m)')):
+    # The name may open with the table's LAYOUT -- "Triangle read by rows:", "Array read by
+    # descending antidiagonals:" -- which says nothing about column k and which this test used
+    # to reject. And it rejected SILENTLY: 276 of 296 new candidates vanished without a counter,
+    # which is defect 3. `tablecol.PREFIX` strips the wrapper and the skip is now recorded.
+    stripped = tablecol.PREFIX.sub('', ' '.join(nm.split()), count=1)
+    if not stripped.startswith(('T(n,k)', 'T(n,m)', 'A(n,k)', 'A(n, k)', 'T(n, k)')):
+        res['name is not a T(n,k) table'] += 1
         done.add(a)
         continue
     e = LE.get(a)

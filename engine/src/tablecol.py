@@ -12,12 +12,22 @@ substitution and knowing which column a given conjecture line is about.
 """
 import re
 
-HEAD = re.compile(r'^\s*T\(n\s*,\s*k\)\s*=?\s*', re.I)
+# The corpus writes the same table a dozen ways, and the sweep that uses this module skipped
+# -- silently, which is defect 3 -- every name not beginning with `T(n,k)'. 276 of 296 new
+# candidates were discarded that way, and they are tables: "Triangle read by rows: T(n,k) is
+# ...", "Array read by descending antidiagonals: A(n, k) = ...", and so on. The wrapper says how
+# the table is LAID OUT, which matters to the reader of the DATA and not at all to the name of
+# column k, so it is stripped here and the layout is left to be decided by the data check.
+PREFIX = re.compile(
+    r'^\s*(?:Triangle|Triangular\s+array|Triangular\s+matrix|Square\s+array|Rectangular\s+array'
+    r'|Array|Table)\b[^:]{0,80}:\s*', re.I)
+HEAD = re.compile(r'^\s*[TA]\(\s*n\s*,\s*k\s*\)\s*=?\s*', re.I)
 
 
 def rewrite(name, k):
     """T(n,k) name -> the ordinary name for column k, or None."""
     s = re.sub(r'\s+', ' ', name).strip()
+    s = PREFIX.sub('', s, count=1)
     m = HEAD.match(s)
     if not m:
         return None
