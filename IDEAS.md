@@ -1512,12 +1512,31 @@ integer annihilator, 1 model does not satisfy the annihilator — and **18 PROVE
 So the boundary of that vein is engine coverage, exactly where the refusal census said the mass
 was, and the 18 are what was sitting inside the boundary all along, unasked.
 
+### The one that matters most: `namepool`
+
+`deep-check/namepool.txt` feeds `sweep_shard` with `TAG=np`, the highest-yielding sweep in the
+project — about 190 proved from 1,017 asked. It holds **1,446** entries, and STATE.md recorded
+"429 still unasked are worth asking". Those 429 are now 219 and **every one is already on the
+roster**: that TODO is closed, and the pool is spent.
+
+Rebuilt from the clone on the same criterion — off the roster, a readable recurrence or closed
+form, and a NAME `uniform.read` models — it is **1,727 entries**, of which 866 were never in the
+old file at all. The first 196 asked give **10 proofs and no failures**, so the vein is roughly
+where it always was. This is the largest stale pool found in the project, on the sweep where the
+cost of not rebuilding was highest.
+
+The rebuild also says what the ceiling is, from the same scan: 12,681 entries carry a
+conjectural line this project cannot read as a recurrence or closed form, 11,967 are already on
+the roster, and **1,675 have a readable claim whose NAME no engine models** — the §W.2 boundary
+again, from a completely different direction, and the same answer.
+
 ### The rule this gives
 
 A pool file in `deep-check/` is a claim about the database made on the day it was written. None
 of them is rebuilt by anything. Before running a sweep again, rebuild its pool from the clone
-and diff — it costs one sharded scan and it has now been wrong nine plus two times out of
-however many have been checked.
+and diff — it costs one sharded scan, and of the five checked on 15 September **four were
+stale**. Still to do: `second.txt` (13,139), `tabpool.txt`, `rowpool.txt`, `recgf.txt`,
+`pool-rec.txt`, `pool-order.txt`.
 
 ## AF. Sliding-window image counts — the second large family (15 September)
 
