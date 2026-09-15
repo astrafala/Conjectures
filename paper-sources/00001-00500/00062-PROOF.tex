@@ -11,126 +11,81 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A315405, proved from an exact model}
+\title{The empirical recurrence for OEIS A154151, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A315405 carries an empirical recurrence of order $4$ contributed by Chai Wah Wu. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified distance function on the tiling, counted by Ehrhart, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=12$, derived below and not
+OEIS A154151 carries an empirical recurrence of order $5$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by the solutions of a Pell equation, in their finitely many orbits, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and the count is not a walk.
+annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved: the sequence is the ordered list of solutions of a Pell equation, and what makes it $C$-finite is the automorph of the quadratic form.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 52C20, 05B45, 52C07, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11D09, 11B37, 11D45.\normalsize
 
 \section{The conjecture}
 
-OEIS A315405 is ``Coordination sequence Gal.3.15.3 where Gal.u.t.v denotes the coordination sequence for a vertex of type v in tiling number t in the Galebach list of u-uniform tilings.''. It has offset $0$ and begins
+OEIS A154151 is ``Indices k such that 25 plus the k-th triangular number is a perfect square.''. It has offset $1$ and begins
 \[
-1, 6, 11, 15, 19, 24, 30, 36,\ \dots
+0, 18, 21, 111, 128, 650, 749, 3791,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Conjectures from \_Chai Wah Wu\_, Sep 02 2025: (Start) a(n) = 3*a(n-1) - 4*a(n-2) + 3*a(n-3) - a(n-4) for n > 4.
+Conjectures: (Start) a(n)= +a(n-1) +6*a(n-2) -6*a(n-3) -a(n-4) +a(n-5).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 03 2025 04:20:56, revision 7)
+As of the ``Last modified'' line on the live entry (Jun 30 2026 23:45:33, revision 27)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The tiling, the lattice, and the distance}
+\section{The count is a Pell equation}
 
-There is no array here and no transfer matrix. The entry names a vertex of one of Brian
-Galebach's $k$-uniform tilings, and that tiling is rebuilt exactly: the expanded notation
-fixes, for every vertex type, the angles between its edges and the type and frame of the
-vertex at the far end of each. All angles are multiples of $15^\circ$, so every vertex
-position is a $\mathbb{Z}$-combination of $24$th roots of unity and lives in
-$\mathbb{Z}[\zeta_{24}]=\mathbb{Z}^{8}$ modulo $x^{8}-x^{4}+1$. Vertex identity is
-therefore decided by integer equality and not by a tolerance.
-
-Let $L$ be the group of translations of the plane carrying the tiling to itself. Two
-independent generators are found and each is VERIFIED to be a symmetry: for every vertex $w$
-of an inner patch, $w+t$ is a vertex of the same type and the neighbours of $w+t$ are exactly
-the neighbours of $w$ translated. (Preserving a vertex's type and its set of edge directions
-is NOT sufficient, because a vertex figure with a rotational symmetry has several frames with
-the same direction set.) The vertices fall into $6$ orbits under $L$, and a vertex is
-written $(c,m)$ with $c$ its orbit and $m\in\mathbb{Z}^2$ its coordinates in a basis of $L$.
-
-Write $D_c(m)$ for the graph distance from the entry's own vertex to $(c,m)$. The claim proved
-below is that on each orbit $D_c$ is a maximum of finitely many affine functions,
+$k(k+1)/2 + 25$ is a perfect square exactly when $8$ times it is, and completing the square
+turns that into
 \[
-D_c(m)\;=\;\max_i\bigl(A_{c,i}m_1+B_{c,i}m_2+C_{c,i}\bigr).
+(2k+1)^2-2(2m)^2\;=\;1-8\cdot25\;=\;-199,
 \]
+so writing $X=2k+1$ and $Y=2m$ the admissible $k$ are exactly the solutions of $X^2-2Y^2=-199$
+with $X$ odd and positive and $Y$ even and nonnegative. The entry's sequence is that solution
+set, listed by increasing $k$.
 
-\section{Why that is the distance, and not merely a fit}
-
-The affine pieces are obtained from a breadth-first patch, but nothing below rests on that. A
-function $D$ with $D(\text{base})=0$ satisfying
-
-\begin{itemize}
-\item[(b)] $D_{c'}(m+d)\le D_c(m)+1$ for every edge $(c,c',d)$ of the quotient and every $m$;
-\item[(c)] every vertex other than the base has an edge attaining $D_c(m)=D_{c'}(m+d)+1$;
-\end{itemize}
-
-IS the distance. (b) gives $D\le d$ by induction along a shortest path, and (c) gives $D\ge d$
-by induction on $D$; neither induction cares where $D$ came from. So the fit is a candidate and
-these two conditions are the proof.
-
-Both are decided exactly, and on REGIONS rather than on sampled points. The set where the
-$i$-th piece is the maximum is the polyhedron
-$P_{c,i}=\{m: \ell_{c,i}(m)-\ell_{c,j}(m)\ge0 \text{ for all } j\}$, so (b) is an
-affine inequality on a polyhedron --- true exactly when it holds at every vertex of that
-polyhedron and its gradient pairs non-negatively with every recession ray. Condition (c) is
-not an affine statement but a disjunction, and it says that $P_{c,i}$ is COVERED by the
-regions
-$S_k=\{m:\ell_{c,i}(m)-1-\ell''_{k,j}(m+d_k)\ge0\text{ for all }j\}$, one per
-neighbour $k$; that is decided by subtracting the $S_k$ from $P_{c,i}$ one at a time and
-asking whether any region is left. Every coefficient is an integer, and since only lattice
-points matter a violated constraint is written $\le-1$, so no strict inequality occurs
-anywhere. A bounded box around the base is checked exhaustively and the four half-planes
-outside it are covered by the region arithmetic.
+The form $x^2-2y^2$ has the automorph coming from the unit $3+2\sqrt2$,
+\[
+T(X,Y)=(3X+4Y,\;2X+3Y),
+\]
+which carries solutions to solutions; and every solution is $T^{j}$ of a FUNDAMENTAL one,
+meaning one whose preimage $T^{-1}(X,Y)=(3X-4Y,-2X+3Y)$ leaves the region. A finite search
+finds them -- there are $2$ here -- and the search is checked rather than bounded by a quoted
+theorem: it is run to a limit and then re-run to four times that limit, and the engine refuses
+unless the two agree.
 
 \section{The bound}
 
-The ball of radius $t$ meets orbit $c$ in the lattice points of
+On the region $X\ge1$, $Y\ge0$ one has $Y=\sqrt{(X^2--199)/2}$, an increasing function of $X$,
+so $T(X)=3X+4Y$ is strictly increasing: $T$ PRESERVES THE ORDER of solutions. Hence if the
+sorted list of solutions has its $(n+2)$-th entry equal to $T$ of its $n$-th for $2$
+consecutive $n$, it does so for every later $n$ -- the $2$ orbits interleave in a fixed cyclic
+order from there on. That happens from index $n_0=0$, checked directly.
+
+Within one orbit $X_{j+2}=6X_{j+1}-X_j$, since $3+2\sqrt2$ and $3-2\sqrt2$ are the roots of
+$t^2-6t+1$; in terms of $k=(X-1)/2$ that reads $k_{j+2}=6k_{j+1}-k_j+2$. Combining with the
+interleaving,
 \[
-P_c(t)=\{m\in\mathbb{Z}^2:\;A_{c,i}m_1+B_{c,i}m_2\le t-C_{c,i}\ \text{ for every } i\},
+a(n+2\cdot2)\;=\;6\,a(n+2)-a(n)+2 \qquad (n\ge n_0),
 \]
-a polygon whose facet NORMALS are fixed and whose right-hand sides move linearly with $t$.
-Every candidate vertex of it is the meet of two facets and moves affinely in $t$, so whether a
-given vertex satisfies a given facet flips at most once, at one rational $t$; past the largest
-such value --- computed here, not assumed --- the combinatorial type never changes again. By
-Ehrhart's theorem for such a family the lattice count is then a quasi-polynomial in $t$ of
-degree $2$, whose period divides the lcm of the $2\times2$ determinants of pairs of facet
-normals, since those are the only denominators a vertex can have. Write $q$ for that lcm;
-here $S=2q=12$.
-
-Summing over orbits, $|B(t)|$ is a degree-$2$ quasi-polynomial of period $q$ past the onset,
-so $a(n)=|B(n)|-|B(n-1)|$ is quasi-LINEAR of period $q$ there, and so is the residual of any
-fixed linear recurrence. A quasi-linear function of period $q$ that vanishes at $2q$
-consecutive indices past the onset vanishes at every later one, which is what makes the check
-below finite and complete rather than a sample. The counting itself is never done through the
-closed form: the lattice points are counted exactly at every radius, and the quasi-polynomial's
-only job is to supply $q$.
-
-The annihilator is therefore $A(z)=(z^{q}-1)^2$, of degree $S=2q$ and with $A(0)=1\ne0$, and
-it annihilates $a$ from the onset on rather than everywhere: the indices below it are a
-genuine transient, exactly as $\dim S_0$ and $\dim S_2$ are for the cusp-form family. That
-costs nothing, because the residual below is computed term by term from the exact lattice
-count and the run of zeros the theorem uses lies entirely above the onset.
+so $(z-1)(z^{2\cdot2}-6z^{2}+1)$ annihilates $a$, monic of order $S=6$ once the
+transient is allowed for. Nothing in that bound is estimated: $2$ is the number of fundamental
+solutions and $n_0$ is where the interleaving is observed to settle, which the order-preservation
+of $T$ then makes permanent.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{4}-\sum_ic_iz^{4-i}$ the characteristic polynomial of the conjectured
+$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
 recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
 so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
 directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
@@ -144,23 +99,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) - 4\,a(n-2) + 3\,a(n-3) - a(n-4)
+a(n)\;=\;a(n-1) + 6\,a(n-2) - 6\,a(n-3) - a(n-4) + a(n-5)
 \]
-for every $n>4$.
+for every $n>1$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=4+1$ onwards, and the run exceeds $S+4$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=4$ the recurrence fails on the entry's own published terms, so no larger range holds.
+vanish from $n=1+1$ onwards, and the run exceeds $S+5$, which by
+Lemma~\ref{lem:crit} settles every larger index at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $50$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -173,7 +128,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A315405.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A154151.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

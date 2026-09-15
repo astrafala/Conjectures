@@ -762,3 +762,76 @@ the gfonly vein that had 241 results held and invisible. They are not. All three
 Someone else settled each of them on the entry. Verified by hand that the summand reproduces
 every published term and the recurrence holds on the data — the mathematics is fine; the
 conjectures are simply not open, so they are not results. `openness` did its job.
+
+## 15 September 2026 — the reader defects behind a "null", and continued fractions
+
+**11 new papers, roster 13,280 → 13,291 over 13,264 entries. One null withdrawn as mine.**
+
+### The null that was mine (IDEAS §Z, corrected in place)
+
+§Z recorded, as a measured fact, that all 40 entries of the `(s(0), s(1), ..., s(n))` lattice-
+path family "carry no readable claim of any kind, because nobody conjectures a linear recurrence
+on a Motzkin number". That was measured with readers that could not read a P-recursive
+recurrence — the exact shape a Motzkin-like sequence takes. Re-measured: **16 of the 41 carry a
+readable claim, every one P-recursive.** The family looked empty because of the reader.
+
+What the re-measurement found instead is a real refusal: of the 14 off the roster, 13 state no
+generating function at all — a claim with nothing to prove it against — and closing those needs
+the g.f. derived from the walk, which is a new argument, not a better reader.
+
+### Five defects in `algf`, each one entry's refusal blamed on the entry
+
+Found by asking why the fourteenth of those, A026110, was refused:
+
+1. `with M the g.f. of the Motzkin numbers (A001006)` — the citation regex could not cross the
+   opening parenthesis before the A-number. One character.
+2. The clause splitter recognised `where` but not `with`, so the clause stayed in the body.
+3. `G.f.=...` — the separator can be `=`, not only `:`, and `O.g.f.` is the same line as `G.f.`.
+   A171853's body began with an equals sign and could not be parsed at all.
+4. `[...]` and `{...}` are GROUPING in this corpus. sympy read A171853's denominator as a list.
+5. An entry may state its g.f. at a different index origin from its own offset (A026110 is
+   three below). The shift is not guessed: it is the one reproducing the whole published run.
+
+And one **soundness** gap, which is the more important of the two kinds: `CONJ` caught
+"conjectural" and "empirical" but not **"seems to be"**, so A075045's openly hedged g.f. would
+have been used as a premise the moment the clause parser could read it. Proving one conjecture
+from another is not a proof. Now caught.
+
+Regression over the whole 375-entry P-recursive pool, old reader against new: **10 gained, 0
+lost, 0 changed.** Three entries became slow rather than instantly refused; the implicit-clause
+degree is now capped at 2, which costs no result (`holonomic.quadratic` refuses degree 3
+anyway) and removes the hang.
+
+### Papers installed
+
+| | |
+|---:|---|
+| 7 | P-recursive, unlocked by the `algf` fixes — A026110, A026122, A026125, A026126, A026270, A026672, A228178 |
+| 2 | P-recursive, from the earlier SLOW pass — A054109, A103138 |
+| 2 | P-recursive, g.f. read as a periodic continued fraction — A152601, A292461 |
+
+### Continued fractions (IDEAS §AC) — machinery kept, vein small
+
+`algf.OUT` rejects any line containing the words "continued fraction", written when nothing
+could read one. 1,509 entries state their g.f. that way. A periodic continued fraction is a
+composition of Möbius maps whose tail is a fixed point, hence **algebraic of degree exactly 2,
+always** — the field `holonomic.quadratic` already decides in. `src/cfrac.py`, no new solver.
+
+The yield was **two results**, and the 1,509 should not be quoted as a vein: 1,015 are level-
+indexed and genuinely not algebraic, 88 not open, 435 carry no conjecture, and 35 of the
+remaining 42 were already on the roster. Seven entries were actually at stake. The size of a
+grep is not the size of a vein.
+
+### Defect recorded (the fifth of its kind)
+
+A084261's continued fraction drifts `x^2, x^2, 2x^2, 2x^2, 3x^2, ...`. Read with two repeats as
+evidence of a period, it produced a g.f. that failed the data check, and the sweep recorded
+"the stated g.f. does not generate the DATA" — an accusation against the entry for a defect of
+mine. Caught and reverted before it counted. Two repeats now suffice only when the period starts
+at the top; three are required once a prefix is allowed.
+
+### Telescoping
+
+`zeilbrun.sh` merged: 175 records, 6 PROVED, **0 new** — all six are on entries already on the
+roster except A010845, which the entry itself records as following from its own ODE. Correctly
+withheld.

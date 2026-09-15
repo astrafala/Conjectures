@@ -12,168 +12,133 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A269148, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A224645, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A269148 counts arrays over $\{0,\dots,3\}$ subject to a condition on the array as a
-whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-exactly one. A transfer matrix still applies once the running count is carried in the state; and
-because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=512$ vertices,
-and the empirical recurrence of order $20$ contributed by R.~H.~Hardin then follows from
-a finite exact computation.
+OEIS A224645 counts the $(n+2)\times4$ matrices over $\{0,\dots,1\}$ all of whose
+$3\times3$ contiguous subblocks are of equal population, and carries an empirical recurrence of order
+$20$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
+The condition ties together $3$ consecutive rows and $3$ consecutive columns at once, so a
+single row is not a state; the strip of the last $2$ rows is, and the admissible strips
+are read off the overlap graph of the admissible windows instead of being enumerated. That
+makes $a(n)$ a walk count on $S=768$ vertices, hence $C$-finite, and whether the conjectured
+recurrence annihilates it is settled by a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A269148 is ``Number of nX4 0..3 arrays with some element plus some horizontally, antidiagonally or vertically adjacent neighbor totalling three exactly once.''. It has offset $1$ and begins
+OEIS A224645 is ``Number of (n+2)X4 0..1 matrices with each 3X3 subblock having the same population.''. It has offset $1$ and begins
 \[
-108, 6224, 220968, 7002040, 208984848, 6004186984, 167970539096, 4607603633440,\ \dots
+1280, 2688, 5696, 12320, 31232, 80160, 209216, 587424,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 58*a(n-1) -1093*a(n-2) +7680*a(n-3) -27078*a(n-4) +58958*a(n-5) -88914*a(n-6) +82212*a(n-7) -35159*a(n-8) -20796*a(n-9) +39556*a(n-10) -11364*a(n-11) -13593*a(n-12) +9618*a(n-13) +429*a(n-14) -2060*a(n-15) +434*a(n-16) +166*a(n-17) -92*a(n-18) +16*a(n-19) -a(n-20) for n>22
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 4*a(n-1) -3*a(n-2) +36*a(n-3) -144*a(n-4) +108*a(n-5) -503*a(n-6) +2012*a(n-7) -1509*a(n-8) +3480*a(n-9) -13920*a(n-10) +10440*a(n-11) -12564*a(n-12) +50256*a(n-13) -37692*a(n-14) +22464*a(n-15) -89856*a(n-16) +67392*a(n-17) -15552*a(n-18) +62208*a(n-19) -46656*a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 20 2016 07:16:41, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:33:32, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;58\,a(n-1) - 1093\,a(n-2) + 7680\,a(n-3) - 27078\,a(n-4) + 58958\,a(n-5) - 88914\,a(n-6) + 82212\,a(n-7) - 35159\,a(n-8) - 20796\,a(n-9) + 39556\,a(n-10) - 11364\,a(n-11) - 13593\,a(n-12) + 9618\,a(n-13) + 429\,a(n-14) - 2060\,a(n-15) + 434\,a(n-16) + 166\,a(n-17) - 92\,a(n-18) + 16\,a(n-19) - a(n-20)
-\end{equation}
-for all $n>22$.
+\section{The count is a walk count}
 
-\section{A global count, and how to carry it}
+Call a $3\times3$ matrix over $\{0,\dots,1\}$ a \emph{window} when it is of equal population, and
+call a $3\times4$ matrix a \emph{band} when every one of its $2$ contiguous
+$3\times3$ subblocks is a window. What the entry counts is the matrices of $4$ columns
+whose every $3$ consecutive rows form a band.
 
-The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. Call two cells \emph{adjacent} when they differ by one of the
-offsets
+Take as states the $2\times4$ strips that occur as the top $2$ rows of a band,
+together with those that occur as its bottom $2$ rows, and put an edge from $u$ to $v$
+when the band whose first $2$ rows are $u$ and whose last $2$ rows are $v$ exists.
+A band is determined by that pair, so the edge is unique when it exists. Reading a counted
+matrix from the top, its rows $1..2$, then $2..3$, and so on, form a walk, and every
+walk arises from exactly one matrix; a matrix with $n+2$ rows gives a walk of $n$ edges.
+Since the first $2$ rows of a counted matrix with at least $3$ rows are the top of a
+band, and since no further condition falls on where a walk starts or ends,
 \[
-\mathcal N=\{(0,1),\ (1,-1),\ (1,0)\},
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,\qquad \iota=\tau=(1,1,\dots,1)^{\!\top},
 \]
-written as (row shift, column shift), and call an adjacent pair $\{p,q\}$
-\emph{marked} when
+with $M$ the adjacency matrix on $S=768$ states. In particular $a$ is $C$-finite. The
+alignment was checked against the entry's published terms rather than assumed.
+
+There are $(1 + 1)^{8}$ strips of $2$ rows and $4$ columns, far too
+many to test one by one, and they are not tested one by one. Two consecutive windows of a band
+overlap in $3\times2$ entries, so a band is exactly a walk of $2$ windows in
+the graph that joins a window to those whose first $2$ columns are its last $2$
+columns. Enumerating those walks produces the bands, and with them the states and the edges,
+directly.
+
+\section{The admissible windows}
+
+The entry does not name the common value; it only asks that all the windows of one matrix agree.
+So fix a value $v$ and let $W_v$ be the set of $3\times3$ matrices over
+$\{0,\dots,1\}$ whose population, the number of its entries equal to $1$, equals $v$. A matrix counted by the entry has all of
+its windows in a single $W_v$, and the value of $v$ is determined by the matrix, so the sets of
+matrices belonging to different $v$ are disjoint and
 \[
-x_{p}+x_{q}=3 .
+a(n)\;=\;\sum_v a_v(n),
 \]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative row
-shift, so every pair is named once and only once: the pairs inside a row are seen when
-that row is laid down, and the pairs joining two rows when the later of the two is. The
-entry's requirement is
-\begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;=1.
-\end{equation}
+each $a_v$ being the walk count of Section~2 built from $W_v$ alone. A disjoint union of the
+$10$ digraphs, one per value of $v$, therefore counts the whole of $a(n)$ with the same
+all-ones vectors, and the $3\times3$ windows in play number $512$ in total.
 
-This is not a condition on any bounded window, so no transfer matrix over rows alone can
-express it. It becomes one as soon as the running total is part of the state. Let
-\[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,3\}^{4},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=512,
-\]
-and for rows $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
-number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
-$c+\beta(r,s)\le1$, and no edge otherwise.
-
-\begin{remark}
-Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
-can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of rows an edge and
-the digraph dense, with $(3+1)^{2\cdot4}$ edges instead of the sparse set used here.
-\end{remark}
-
-\begin{lemma}\label{lem:walk}
-Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
-of $L$ rows satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
-vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
-\[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
-\]
-\end{lemma}
-
-\begin{proof}
-A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
-$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
-starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ rows: it holds at $t=1$ by the
-definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-rows $t$ and $t+1$ together with those inside row $t+1$, which are precisely the marked
-pairs of the first $t+1$ rows not already counted --- each unordered pair being named by
-exactly one offset. The walk exists (no edge is missing) if and only if the running total
-never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
-$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-row, so $L$ rows correspond to a walk of length $L-1$.
-\end{proof}
-
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{20}-\sum_i c_i\,t^{20-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
-$o=1n_0+0-1$,
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-20}w,
-\qquad w=h_{20}-\sum_i c_i h_{20-i},
-\]
-for $j\ge20$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+Let $q(t)=t^{20}-\sum_i c_it^{20-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
-ones.
+Factor $M^{j}$ out of $M^{j+20}-\sum_ic_iM^{j+20-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>22$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;4\,a(n-1) - 3\,a(n-2) + 36\,a(n-3) - 144\,a(n-4) + 108\,a(n-5) - 503\,a(n-6) + 2012\,a(n-7) - 1509\,a(n-8) + 3480\,a(n-9) - 13920\,a(n-10) + 10440\,a(n-11) - 12564\,a(n-12) + 50256\,a(n-13) - 37692\,a(n-14) + 22464\,a(n-15) - 89856\,a(n-16) + 67392\,a(n-17) - 15552\,a(n-18) + 62208\,a(n-19) - 46656\,a(n-20)
+\]
+for every $n>19$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $20$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=22+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
-settles every larger $m$.
+The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $15$ published indices, with no shift fitted: the number of rows is
-$L=n$, read off the entry's own name, and the offset says which index the first
-published term carries. The values agree exactly. This is where an error in the pair
-bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first row, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a row, not a
-boundary --- and every value came out one index late, which the DATA comparison rejected.
+First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A269148.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224645.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{kim} K.~H.~Kim, \emph{Boolean Matrix Theory and Applications}, Marcel Dekker,
+1982.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

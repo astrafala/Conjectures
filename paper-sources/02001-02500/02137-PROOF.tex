@@ -12,66 +12,57 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208827, proved from an exact model}
+\title{The empirical recurrence for OEIS A124699, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208827 carries an empirical recurrence of order $6$. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a Burnside sum over the necklace group, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=43$, derived below and not
+OEIS A124699 carries an empirical recurrence of order $6$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=6$, derived below and not
 assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-OEIS A208827 is ``Number of 6-bead necklaces labeled with numbers -n..n allowing reversal, with sum zero.''. It has offset $1$ and begins
+OEIS A124699 is ``Number of base 6 circular n-digit numbers with adjacent digits differing by 1 or less.''. It has offset $0$ and begins
 \[
-18, 167, 828, 2821, 7582, 17339, 35288, 65769,\ \dots
+1, 6, 16, 36, 92, 236, 622, 1658,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (22/15)*n\^{}5 + (11/3)*n\^{}4 + (14/3)*n\^{}3 + (13/3)*n\^{}2 + (43/15)*n + 1. a(n) = 6*a(n-1) - 15*a(n-2) + 20*a(n-3) - 15*a(n-4) + 6*a(n-5) - a(n-6) for n>6.
+[Empirical] a(base,n)=a(base-1,n)+A002426(n+1) for base>=1.int(n/2)+1 a(n) = 6*a(n-1) - 10*a(n-2) + 9*a(n-4) - 2*a(n-5) - a(n-6) for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 07 2018 06:15:43, revision 13)
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:00:09, revision 20)
 this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a Burnside sum}
+\section{The count is a trace}
 
-A necklace is an orbit of labellings under the rotation group, a bracelet an orbit under the
-dihedral group, so by Burnside's lemma $a(n)$ is the average over the group of the number of
-labellings a single element fixes. A labelling fixed by $g$ is constant on each orbit of $g$,
-so writing $x_j$ for the common value on the $j$-th orbit and $w_j$ for its size, the fixed
-labellings with sum zero are the integer solutions of
+Let $G$ be the graph on the digits $0,1,\dots,5$ with an edge between $u$ and $v$ exactly
+when $|u-v|\le1$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
+$|u-v|\le1$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
+$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
+most $1$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
+starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
 \[
-\sum_j w_jx_j = 0,\qquad |x_j|\le n,
+a(n)\;=\;\sum_{u=0}^{5}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
 \]
-counted exactly by convolution. Summing over the group and dividing by its order gives $a(n)$.
+The entry counts every string, leading zeros included: requiring a nonzero first digit gives
+$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
+string, where the trace is $6$; that is the entry's convention at one index and the two agree
+at every $n\ge1$, on every published term.
 
 \section{The bound}
 
-Each term counts the integer points at height $n$ of the cone
-$\{|x_j|\le t,\ \sum_j w_jx_j=0\}$, whose rays are cut out by $m$ of the defining
-hyperplanes; by Cramer the height of a primitive generator divides the determinant of their
-$x$-parts, which is $1$ or one of the $w_j$. With at most $m+1$ rays in a simplicial cone,
-$\prod_{d\mid w_j\ \text{some}\ j}\Phi_d(z)^{m+1}$ annihilates that term, and the product
-over the group's elements annihilates $a$. One more is added to the order, because the origin
-is a cell of that arrangement with no ray at all: its series is the constant $1$, which over
-the common denominator has numerator degree equal to the denominator's rather than below it.
-So $S=43$.
-
-A rotation has all its orbits of one size, so its equation reduces to $\sum_jx_j=0$ and every
-determinant is $1$. A reflection of an odd bracelet fixes one bead and pairs the rest, giving
-weights $1$ and $2$, and forces $x_0=-2(x_1+\cdots)$ to be even; that term has period two, not
-one. An earlier version of this bound took $S$ to be the number of beads for both, which is
-right for the necklaces and false for the bracelets --- the fifth difference of A208826 is
-$-36, 48, -60, \dots$ and never vanishes. The bound above is computed from the orbit sizes.
+$\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
+Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=6$,
+computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
+bound is derived from the data: it is the size of the digit alphabet.
 
 \section{The proof}
 
@@ -91,23 +82,23 @@ and each from the $S$ after it, so a run of $S$ zeros propagates.
 
 \begin{theorem}
 \[
-a(n)\;=\;6\,a(n-1) - 15\,a(n-2) + 20\,a(n-3) - 15\,a(n-4) + 6\,a(n-5) - a(n-6)
+a(n)\;=\;6\,a(n-1) - 10\,a(n-2) + 9\,a(n-4) - 2\,a(n-5) - a(n-6)
 \]
-for every $n>0$.
+for every $n>6$.
 \end{theorem}
 
 \begin{proof}
 The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
 $A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=0+1$ onwards, and the run exceeds $S+6$, which by
-Lemma~\ref{lem:crit} settles every larger index at once.
+vanish from $n=6+1$ onwards, and the run exceeds $S+6$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=6$ the recurrence fails on the entry's own published terms, so no larger range holds.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: it is built by reading the entry's
 English, and a misreading gives different counts.
 
@@ -120,7 +111,7 @@ too small fails this test, which is why it is run.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208827.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A124699.
 \bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
 2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

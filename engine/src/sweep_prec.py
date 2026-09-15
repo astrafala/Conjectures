@@ -32,6 +32,7 @@ import sympy as sp
 
 import algf
 import atomicjson
+import cfrac
 import conjlines
 import holonomic
 import localentry as LE
@@ -97,6 +98,15 @@ for a in sorted(pool):
         signal.alarm(0)
     except Exception:
         signal.alarm(0); A = None
+    if A is None:
+        # a g.f. stated as a PERIODIC continued fraction is algebraic of degree 2 (`cfrac`),
+        # and `algf` refuses it on sight because OUT rejects the words themselves
+        try:
+            signal.alarm(ALARM)
+            A = cfrac.read(e)
+            signal.alarm(0)
+        except Exception:
+            signal.alarm(0); A = None
     if A is None:
         res['no factual algebraic generating function'] += 1; done.add(a); save(); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]

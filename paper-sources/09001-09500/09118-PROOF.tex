@@ -12,109 +12,156 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A local condition on an array: OEIS A181210}
+\title{The empirical product formula for OEIS A140901, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A181210 carries an empirical recurrence of order $15$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=15$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A140901 counts $3\times5$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $3\times5\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $15$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula, and the generating function conjectured for it.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A181210 is ``Number of nX6 binary matrices with no two 1's adjacent diagonally or antidiagonally.''. It has offset $1$ and begins
+OEIS A140901 is ``Number of 3 X 5 matrices with elements in 0..n with each row and each column in nondecreasing order. 3,5,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-64, 441, 9025, 104976, 1630729, 21836929, 315701824, 4388400025,\ \dots
+1, 56, 1176, 14112, 116424, 731808,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=15*a(n-1)+52*a(n-2)-1045*a(n-3)+803*a(n-4)+17330*a(n-5)-30225*a(n-6)-98253*a(n-7)+228176*a(n-8)+160607*a(n-9)-559589*a(n-10)+6282*a(n-11)+499824*a(n-12)-154008*a(n-13)-117936*a(n-14)+46656*a(n-15)
+(Empirical) Set p,q,r to n,5,3 (in any order) in s=p+q+r-1; a(n) = Product\_{i=0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1)).
+
+(Conjecture) G.f.: (1 + 40*x + 400*x\^{}2 + 1456*x\^{}3 + 2212*x\^{}4 + 1456*x\^{}5 + 400*x\^{}6 + 40*x\^{}7 + x\^{}8)/(1-x)\^{}16. - \_Bruno Berselli\_, May 08 2012
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 01:24:59, revision 7) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 17 2025 09:27:57, revision 38) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The entry counts arrays with $6$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no two entries equal to $1$ may be adjacent diagonally or antidiagonally.
-
-Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
-
-Merging vertices with identical futures leaves $S=15$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+A matrix $x$ of shape $3\times5$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$3\times5$ rectangle --- a plane partition in a $3\times5\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\mathrm{PP}(3,5,n).
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-\section{The proof}
+\section{The box count is a polynomial}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{15}-\sum_i c_it^{15-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+15}-\sum_ic_iM^{j+15-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;15\,a(n-1) + 52\,a(n-2) - 1045\,a(n-3) + 803\,a(n-4) + 17330\,a(n-5) - 30225\,a(n-6) - 98253\,a(n-7) + 228176\,a(n-8) + 160607\,a(n-9) - 559589\,a(n-10) + 6282\,a(n-11) + 499824\,a(n-12) - 154008\,a(n-13) - 117936\,a(n-14) + 46656\,a(n-15)
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-for every $n>15$.
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{3}\prod_{j=1}^{5}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $15$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $15$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=15+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$3\cdot5=15$ factors, each linear in $n$, and the denominators are constants.
 \end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,5,3)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{3-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{3-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $18$ and $3$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+5+3-1$ one has $s-(n+i)=5+3-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{5+3-1-i}
+=\frac{(s-5-3+2+i)(s-5-3+3+i)\cdots s}{(5+3-1-i)!},
+\]
+a polynomial in $n$ of degree $5+3-1-i$. Multiplying over $i=0,\dots,3-1$ gives
+$\deg N=\sum_{i=0}^{3-1}(5+3-1-i)=18$. The denominator is
+$\prod_{i=0}^{3-1}(s-i)^{3-1-i}$, of degree
+$\sum_{i=0}^{3-1}(3-1-i)=3$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $15+3=18$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,18$, that is at $19$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $18$ has at most $18$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
+\end{proof}
+
+\section{The generating function}
+
+By Theorem~\ref{thm:poly} the sequence is a polynomial in $n$ of degree $15$, and a sequence
+that is a polynomial of degree $D$ in its index has generating function $N(x)/(1-x)^{D+1}$
+with $\deg N\le D$; the coefficients of $N$ are the $(D+1)$-fold finite differences of the
+first $D+1$ terms, so $N$ is determined by them and by nothing else. Carrying that out in exact
+integer arithmetic gives
+\[
+\sum_{n\ge0}a(n)x^n\;=\;\frac{1 + 40x + 400x^{2} + 1456x^{3} + 2212x^{4} + 1456x^{5} + 400x^{6} + 40x^{7} + x^{8}}{(1-x)^{16}},
+\]
+which is the generating function conjectured on the entry.
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $23$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $3$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,18$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A181210.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140901.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

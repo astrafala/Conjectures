@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Recovering the unwritten recurrences of the table OEIS A251308}
+\title{Recovering the unwritten recurrences of the table OEIS A237175}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251308 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
-its lines, given only as an ORDER --- ``k=2: [order 24]'' and the like --- with the
+OEIS A237175 is a two-dimensional table $T(n,k)$ whose empirical recurrences are, for several of
+its lines, given only as an ORDER --- ``k=2: [order 75]'' and the like --- with the
 coefficients in a linked file rather than in the entry. Those conjectures can still be settled,
 and the recurrences recovered. A line of the table is a fixed-width or fixed-height array
 count, hence a walk count on finitely many vertices, hence satisfies some monic recurrence of
@@ -28,23 +28,22 @@ order at most that number; Berlekamp--Massey on twice as many exact terms return
 one. Where its order equals the order the entry states --- and where the same holds after the
 first few terms are dropped --- any recurrence of that order the line satisfies has a
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
-that polynomial. This note settles column 2, column 3.
+that polynomial. This note settles column 2.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15A18.\normalsize
 
 \section{The table and the unwritten conjectures}
 
-OEIS A251308 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no 2X2 subblock having the sum of its diagonal elements less than the maximum of its antidiagonal elements.''. It is read by antidiagonals and begins
+OEIS A237175 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with the maximum minus the lower median of every 2X2 subblock equal.''. It is read by antidiagonals and begins
 \[
-196, 2292, 2292, 26664, 82241, 26664, 310224, 2986712,\ \dots
+256, 1696, 1696, 11242, 25384, 11242, 79688, 370670,\ \dots
 \]
 The entry carries, among its empirical claims:
 \begin{quote}\small
-k=2: [order 24]\\
-k=3: [order 74]
+k=2: [order 75]
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:15:44, revision 8) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:56:16, revision 6) these are still
 recorded as empirical, and the recurrences themselves are not in the entry text.
 
 \section{Why a line of the table is a walk count}
@@ -67,31 +66,14 @@ minimal recurrence exactly.
 
 \subsection*{Column $k=2$}
 Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=64$ vertices. Berlekamp--Massey on $2S=128$ exact terms
-returns a minimal recurrence of order $24$ --- the order the entry states --- with
-integer coefficients
-\begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $64$ & $c_{7}$ & $5855414$ & $c_{13}$ & $1755813$ & $c_{19}$ & $-416396$ \\
-$c_{2}$ & $-1368$ & $c_{8}$ & $-11858513$ & $c_{14}$ & $4675665$ & $c_{20}$ & $108775$ \\
-$c_{3}$ & $16182$ & $c_{9}$ & $18538655$ & $c_{15}$ & $-6317173$ & $c_{21}$ & $-22066$ \\
-$c_{4}$ & $-121510$ & $c_{10}$ & $-22247279$ & $c_{16}$ & $4895605$ & $c_{22}$ & $3421$ \\
-$c_{5}$ & $614295$ & $c_{11}$ & $19763776$ & $c_{17}$ & $-2772914$ & $c_{23}$ & $-352$ \\
-$c_{6}$ & $-2203422$ & $c_{12}$ & $-11486424$ & $c_{18}$ & $1220806$ & $c_{24}$ & $14$ \\
-\end{tabular}\end{center}
-so that $a(m)=\sum_{i=1}^{24}c_i\,a(m-i)$ for every $m$. Removing the first
-$24+4$ terms and repeating gives order $24$ again, which is what the
-identification below needs.
-
-\subsection*{Column $k=3$}
-Substituting the fixed index into the entry's wording gives an ordinary one-parameter array
-count, a walk on $S=256$ vertices. Berlekamp--Massey on $2S=512$ exact terms
-returns a minimal recurrence of order $74$ --- the order the entry states --- with
+count, a walk on $S=202$ vertices. Berlekamp--Massey on $2S=404$ exact terms
+returns a minimal recurrence of order $75$ --- the order the entry states --- with
 integer coefficients
 \[
-(c_1,\dots,c_{74})=(256,\ -26144,\ 1575540,\ -64761744,\ 1952967343,\ -45213070411,\ 830385074306,\ -12410160135135,\ 153985283434668,\ -1611717099014634,\ 14408460930596911,\ -111068719410042897,\ 743260191194836862,\ -4334450625181659912,\ 22032872302186456158,\ -97113165310562463559,\ 365469534782398966667,\ -1128534874470967886729,\ 2526330148266551925781,\ -1624381487764333131310,\ -21330343704181934899656,\ 152234645329439415952181,\ -688831423167013736902987,\ 2503997047310398344437616,\ -7812941780666987481862919,\ 21526441349010957225170355,\ -53161168037704885942054331,\ 118732157637511758243213127,\ -241248983487441468705133711,\ 447888261331487819382009882,\ -762530446234745726339180460,\ 1194803308183557573199263689,\ -1730409072208624490122300004,\ 2329754724855807296851869590,\ -2939526224890263899429669474,\ 3514079495371866907727376637,\ -4034569698567256448713298608,\ 4511214506520915143613591508,\ -4962852762382873821648554142,\ 5384196299089519902671861011,\ -5723178342689379453514437053,\ 5887772858603652942267346764,\ -5783513202354730987536497641,\ 5361915021261073018896453447,\ -4651558874315655577049683839,\ 3753958478572672917684289055,\ -2807691613770239783399672656,\ 1941437122917365742292755024,\ -1239069876071235098109905405,\ 728951238310253366951697119,\ -394784226461891695763365918,\ 196510736316572357523027241,\ -89715786559511139008079936,\ 37463561110610569948256320,\ -14258349756342691345100854,\ 4924655579151111427010039,\ -1536189304064347689284834,\ 430893800956454907153229,\ -108487077633429353509810,\ 24657694548102613588224,\ -5173740737633373855359,\ 1051057884182219556308,\ -218713205593899465560,\ 46943558298798292306,\ -9706272695218289961,\ 1763922947236978140,\ -262262535080431960,\ 30277213948595424,\ -2580352910014080,\ 150699096164736,\ -5157475734528,\ 55453261824,\ 1754431488,\ -23887872).
+(c_1,\dots,c_{75})=(42,\ -200,\ -13865,\ 178231,\ 1582899,\ -36847314,\ -30022430,\ 3930027822,\ -10796333296,\ -254160338775,\ 1351226532795,\ 10423480254120,\ -85854647426135,\ -256266292535981,\ 3562189924627891,\ 2181601254733383,\ -104444678293908555,\ 96643291574413178,\ 2236393294416712573,\ -4821647012167932615,\ -35230672810770863020,\ 119815925611797339580,\ 399302765019585986967,\ -2034763208847077077320,\ -2952981664132399365163,\ 25557714831009194351010,\ 7597196816489732891319,\ -244421424272298925917771,\ 133423378126754223121142,\ 1792797617824200067535664,\ -2285976172502440423434913,\ -9977303805235283369948651,\ 20469029382758672005780330,\ 40437055890040082135829545,\ -127693695090293973040308166,\ -104040805612161854388749529,\ 593392715973637567424597362,\ 49460050876741302982881651,\ -2091156696388820069165086299,\ 986150282278397970470985215,\ 5550957861367845992587119606,\ -5465127455770288417999745966,\ -10711476514584112231842228080,\ 17224727992861766578089894636,\ 13454189450330305517181041764,\ -37581411171840085624805802584,\ -5779357774683243988393019520,\ 59049871099596272036424832608,\ -16596664039327904452543332384,\ -66087286624193446947493541376,\ 44218230907086633175529522368,\ 49355354191342837407697083776,\ -57773689016050705899461247488,\ -19076059128455746505837351424,\ 47908113689601352879978061824,\ -3860759762679173282170552320,\ -25656404994628140323801157632,\ 9912358933854910371979370496,\ 8082984399737224234436460544,\ -6057437882095035177278210048,\ -911882703554153817390645248,\ 1905089366380530442491527168,\ -275682488441407650461122560,\ -297705684318409825173635072,\ 110544100184095301080973312,\ 13606945677734603130929152,\ -13208598734144929976549376,\ 1270874474326660638310400,\ 487357397477307958951936,\ -95251143522904361140224,\ -5164613546983336968192,\ 2024241162587908079616,\ -31052517093704466432,\ -13902362804150599680,\ 562082713624903680).
 \]
-so that $a(m)=\sum_{i=1}^{74}c_i\,a(m-i)$ for every $m$. Removing the first
-$74+4$ terms and repeating gives order $74$ again, which is what the
+so that $a(m)=\sum_{i=1}^{75}c_i\,a(m-i)$ for every $m$. Removing the first
+$75+4$ terms and repeating gives order $75$ again, which is what the
 identification below needs.
 
 \begin{theorem}
@@ -127,7 +109,7 @@ agree.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251308.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237175.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

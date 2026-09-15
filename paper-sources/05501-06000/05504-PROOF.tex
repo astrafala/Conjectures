@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The conjectured generating function for OEIS A252926, proved}
+\title{The conjectured generating function for OEIS A221394, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252926 counts arrays of a fixed width under a local condition, and carries a conjectured
+OEIS A221394 counts arrays of a fixed width under a local condition, and carries a conjectured
 generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=140$ vertices, so its generating function is a rational function whose numerator
+digraph on $S=348$ vertices, so its generating function is a rational function whose numerator
 and denominator have degrees bounded by $S$; the conjectured expression is another rational
 function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $175$ coefficients in exact arithmetic
+coefficients of their expansions do. Comparing $374$ coefficients in exact arithmetic
 therefore settles the conjecture, rather than testing it.
 \end{abstract}
 
@@ -32,15 +32,15 @@ therefore settles the conjecture, rather than testing it.
 
 \section{The conjecture}
 
-OEIS A252926 is ``Number of n X 4 nonnegative integer arrays with upper left 0 and lower right n+4-6 and value increasing by 0 or 1 with every step right or down.''. It has offset $1$ and begins
+OEIS A221394 is ``Number of n X 3 arrays of occupancy after each element stays put or moves to some horizontal, vertical or antidiagonal neighbor, with every occupancy equal to zero or two.''. It has offset $1$ and begins
 \[
-0, 1, 33, 615, 6997, 53950,\ \dots
+0, 18, 0, 631, 0, 23188,\ \dots
 \]
 The entry states, as a conjecture contributed by a reader and never marked settled:
 \begin{quote}
-Empirical: G.f.: x\^{}2*(-1 -16*x -190*x\^{}2 -350*x\^{}3 +1419*x\^{}4 -3792*x\^{}5 +7860*x\^{}6 -11238*x\^{}7 +11247*x\^{}8 -8133*x\^{}9 +4280*x\^{}10 -1600*x\^{}11 +401*x\^{}12 -60*x\^{}13+4*x\^{}14) / (x-1)\^{}17. - \_R. J. Mathar\_, Nov 23 2015
+Empirical g.f.: x\^{}2*(18 - 233*x\^{}2 + 820*x\^{}4 - 1050*x\^{}6 + 412*x\^{}8 + 46*x\^{}10) / ((1 - x)*(1 + x)*(1 - 47*x\^{}2 + 393*x\^{}4 - 605*x\^{}6 + 268*x\^{}8 + 16*x\^{}10)). - \_Colin Barker\_, Aug 05 2018
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 25 2024 21:53:34, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Aug 05 2018 08:21:21, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved. The entry carries no
 conjectured recurrence, which is why this generating function is the whole of what is open
 here.
@@ -59,12 +59,12 @@ in,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1+0}\tau ,
 \]
-and there are $S=140$ states. The digraph is built by reading the entry's own English, and the
-model reproduces all $22$ terms the entry publishes, exactly, in integer arithmetic --- a
+and there are $S=348$ states. The digraph is built by reading the entry's own English, and the
+model reproduces all $29$ terms the entry publishes, exactly, in integer arithmetic --- a
 misreading of the condition gives a different digraph and different counts, so this ties the
 model to the entry and not merely to the arithmetic.
 
-The family this entry belongs to is read by one model, described by its author as: ``Monotone height arrays: values rising by 0 or 1 with every step, pinned to a distance.''
+The family this entry belongs to is read by one model, described by its author as: ```Number of n X W arrays of OCCUPANCY after each element moves to some <neighbour>.'''
 
 
 \section{Its generating function is rational, with bounded degree}
@@ -87,19 +87,19 @@ The conjectured generating function is $A(x)$.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=16$ and $\deg D_2=17$; its expansion as a
+Write the conjecture as $N_2/D_2$ with $\deg N_2=12$ and $\deg D_2=12$; its expansion as a
 power series exists because $D_2(0)\neq0$. Put
 \[
 R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
 \]
-a polynomial of degree at most $156$ by Lemma~\ref{lem:rat}. The difference
+a polynomial of degree at most $360$ by Lemma~\ref{lem:rat}. The difference
 $A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{156}$ then $R$ has a zero of order greater than its own
+every coefficient up to $x^{360}$ then $R$ has a zero of order greater than its own
 degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
 
 The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $175$
-of them --- more than the $156+1$ the argument requires --- agree.
+exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $374$
+of them --- more than the $360+1$ the argument requires --- agree.
 \end{proof}
 
 \section{A recurrence the entry does not state}
@@ -108,17 +108,17 @@ The denominator of a rational generating function is a linear recurrence written
 the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
 $D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
 \[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>16,
+a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>12,
 \]
-a constant-coefficient linear recurrence of order $17$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{17}$ read off $D_2$, the first few being $17,\ -136,\ 680,\ -2380,\ 6188,\ -12376$. The entry records no recurrence, so this is not a restatement of anything
+a constant-coefficient linear recurrence of order $12$, valid past the degree of the
+numerator. Its coefficients are the integers $c_1,\dots,c_{12}$ read off $D_2$, the first few being $0,\ 48,\ 0,\ -440,\ 0,\ 998$. The entry records no recurrence, so this is not a restatement of anything
 already there.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces every one of the $22$ published terms, with the index shift
+First, the model reproduces every one of the $29$ published terms, with the index shift
 read off the entry's offset rather than fitted.
 
 Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
@@ -132,7 +132,7 @@ bound rather than on a prefix, in exact arithmetic throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252926.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221394.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

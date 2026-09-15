@@ -12,109 +12,99 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A219399, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A218062, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A219399 counts the distinct indicator arrays obtained from the $n\times4$ arrays over
-$\{0,\dots,1\}$ by marking the cells whose value is equal to every one of their neighbours, and carries an
-empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical. What is counted is the IMAGE of a map, not its domain, so it
-is not a walk count in the obvious graph; the determinisation of the machine that emits the
-indicator row by row turns it into one, on $S=47$ states, after which the conjectured
-recurrence is settled by a finite exact computation.
+OEIS A218062 counts the distinct arrays obtained by applying a fixed local operation to every cell
+of an array over a bounded alphabet, and carries an empirical recurrence of order $20$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is
+counted is the IMAGE of a map, not its domain, so it is not a walk count in the obvious graph;
+determinising the machine that emits the derived array row by row turns it into one, on
+$S=535$ states, after which the conjectured recurrence is settled by a finite exact
+computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68Q45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A219399 is ``Unchanging value maps: number of nX4 binary arrays indicating the locations of corresponding elements unequal to no king-move neighbor in a random 0..1 nX4 array.''. It has offset $1$ and begins
+OEIS A218062 is ``Number of nX6 arrays of the minimum value of corresponding elements and their horizontal or antidiagonal neighbors in a random 0..1 nX6 array.''. It has offset $1$ and begins
 \[
-7, 7, 43, 165, 649, 2527, 10011, 39787,\ \dots
+16, 268, 3974, 60804, 925904, 14096488, 214514380, 3263893360,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 5*a(n-1) -7*a(n-2) +8*a(n-3) +19*a(n-4) -19*a(n-5) -17*a(n-6) +26*a(n-7) -13*a(n-8) -41*a(n-9) -11*a(n-10) -14*a(n-11) +18*a(n-12) +45*a(n-13) -11*a(n-14) -36*a(n-15) +8*a(n-16) +17*a(n-17) -5*a(n-18) -5*a(n-19) +2*a(n-20) for n>21
+Empirical: a(n) = 26*a(n-1) -199*a(n-2) +527*a(n-3) +257*a(n-4) -3086*a(n-5) +918*a(n-6) +11050*a(n-7) -6781*a(n-8) -25737*a(n-9) +23534*a(n-10) +29646*a(n-11) -36015*a(n-12) -15207*a(n-13) +25338*a(n-14) +2853*a(n-15) -8912*a(n-16) +2728*a(n-17) -200*a(n-18) +36*a(n-19) -16*a(n-20) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:01:31, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 17:32:42, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $R=\{0,\dots,1\}^{4}$ be the set of rows and let the neighbours of a cell be the
-cells at the offsets
+Let $R=\{0,\dots,1\}^{6}$ be the set of rows and let the neighbours of
+a cell be the cells at the offsets
 \[
-(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1),
+(-1,1), (0,-1), (0,1), (1,-1),
 \]
 those falling outside the array being simply absent. For an array
-$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)\in\{0,1\}^{n\times4}$ mark the cells whose value
-is equal to every one of its neighbours. The entry counts
+$A=(r_1,\dots,r_n)\in R^n$ let $\Phi(A)$ be the array whose cell $(i,j)$ carries the
+minimum of $A(i,j)$ and of the values at its neighbours. The entry counts
 \[
 a(n)\;=\;\bigl|\{\Phi(A):A\in R^n\}\bigr| ,
 \]
-the size of an IMAGE. This is the whole difficulty: two different arrays with the same marking
-must be counted once, and a walk count in a graph on the arrays would count them twice.
+the size of an IMAGE. That is the whole difficulty: two different arrays with the same
+minimum-array must be counted once, and a walk count on the arrays would count them twice.
 
-Because every offset above moves the row index by at most one, the marked row $i$ depends only
-on rows $i-1,i,i+1$. Write $\beta(p,c,x)\in\{0,1\}^{4}$ for the marking of the row $c$
-with $p$ above and $x$ below, allowing $p$ or $x$ to be the symbol $\bot$ for ``outside''.
-Then
+Because every offset above moves the row index by at most one, row $i$ of
+$\Phi(A)$ depends only on rows $i-1,i,i+1$ of $A$. Write $\beta(p,c,x)$ for that row, with $p$
+or $x$ allowed to be $\bot$ for ``outside''; then
 \[
-\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \beta(r_1,r_2,r_3),\ \dots,\
-\beta(r_{n-1},r_n,\bot)\bigr).
+\Phi(r_1,\dots,r_n)=\bigl(\beta(\bot,r_1,r_2),\ \dots,\ \beta(r_{n-1},r_n,\bot)\bigr).
 \]
 
 \section{The image is a walk count after determinisation}
 
-For a set $D\subseteq(R\cup\{\bot\})\times R$ of pairs and a row $b\in\{0,1\}^{4}$ put
+For a set $D$ of pairs $(p,c)$ and a derived row $b$ put
 \[
-\delta(D,b)=\{(c,x)\ :\ (p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
+\delta(D,b)=\{(c,x):(p,c)\in D,\ x\in R,\ \beta(p,c,x)=b\},\qquad
 f(D)=\bigl|\{\beta(p,c,\bot):(p,c)\in D\}\bigr| ,
 \]
 and let $D_0=\{(\bot,r):r\in R\}$.
 
 \begin{lemma}\label{lem:det}
-For every $t\ge0$ and every $b_1,\dots,b_t$, the set
-$D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly
+For every $t\ge0$, $D_t=\delta(\dots\delta(D_0,b_1)\dots,b_t)$ is exactly the set of pairs
+$(r_t,r_{t+1})$ of consecutive rows completing a prefix $r_1,\dots,r_{t+1}$ whose first $t$
+derived rows are $b_1,\dots,b_t$. Consequently, for $n\ge1$,
 \[
-\{(r_t,r_{t+1})\ :\ (r_1,\dots,r_{t+1})\in R^{t+1},\ \beta(\bot,r_1,r_2)=b_1,\ \dots,\
-\beta(r_{t-1},r_t,r_{t+1})=b_t\} ,
+a(n)=\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
 \]
-with $r_0=\bot$. Consequently, for $n\ge1$,
-\[
-a(n)\;=\;\sum_{b_1,\dots,b_{n-1}}f(D_{n-1}),
-\]
-the sum over all sequences of rows in $\{0,1\}^{4}$, empty $D$'s contributing nothing.
+the empty sets contributing nothing.
 \end{lemma}
 
 \begin{proof}
-Induction on $t$. For $t=0$ the set is $\{(\bot,r_1)\}$, which is $D_0$. If the description
-holds for $D_t$, then $\delta(D_t,b)$ collects the pairs $(r_{t+1},r_{t+2})$ for which
-$(r_t,r_{t+1})$ already extends a consistent prefix and
-$\beta(r_t,r_{t+1},r_{t+2})=b$, which is the description for $t+1$.
-
-An element of the image is a full marking $(b_1,\dots,b_n)$. By the description, a prefix
-$(b_1,\dots,b_{n-1})$ is realised by some $r_1,\dots,r_n$ exactly when $D_{n-1}\neq
-\emptyset$, and then the possible last rows are precisely
-$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct
-sequences $(b_1,\dots,b_n)$ are distinct markings, so summing $f$ over the prefixes counts the
-image exactly once each.
+Induction on $t$: $D_0$ is the set of pairs $(\bot,r_1)$, and $\delta(D_t,b)$ collects the
+pairs $(r_{t+1},r_{t+2})$ extending a consistent prefix with
+$\beta(r_t,r_{t+1},r_{t+2})=b$. An element of the image is a full derived array
+$(b_1,\dots,b_n)$; its prefix $(b_1,\dots,b_{n-1})$ is realisable exactly when
+$D_{n-1}\neq\emptyset$, and then the possible last rows are
+$\{\beta(p,c,\bot):(p,c)\in D_{n-1}\}$, of which there are $f(D_{n-1})$. Distinct sequences
+are distinct derived arrays, so each is counted once.
 \end{proof}
 
 So with $M$ the adjacency matrix of the digraph whose vertices are the reachable nonempty sets
-$D$ and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$
---- several $b$ may lead to the same set, and then the edge is repeated, which is exactly
-right, since the markings differ ---
+and which carries one edge $D\to\delta(D,b)$ for each $b$ with $\delta(D,b)\neq\emptyset$ ---
+several $b$ may lead to the same set, and then the edge is repeated, which is exactly right,
+since the derived arrays differ ---
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad \iota=e_{D_0},\quad \tau=f .
 \]
-There are $S=47$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite. Note
-that $\tau$ is not the all-ones vector: the last marked row is not a step of the walk but a
-count attached to the state the walk stops in.
+There are $S=535$ reachable sets, generated from $D_0$ outward, and $a$ is $C$-finite.
+Note that $\tau$ is not the all-ones vector: the last derived row is not a
+step of the walk but a count attached to the state the walk stops in.
 
 \section{The proof}
 
@@ -136,7 +126,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;5\,a(n-1) - 7\,a(n-2) + 8\,a(n-3) + 19\,a(n-4) - 19\,a(n-5) - 17\,a(n-6) + 26\,a(n-7) - 13\,a(n-8) - 41\,a(n-9) - 11\,a(n-10) - 14\,a(n-11) + 18\,a(n-12) + 45\,a(n-13) - 11\,a(n-14) - 36\,a(n-15) + 8\,a(n-16) + 17\,a(n-17) - 5\,a(n-18) - 5\,a(n-19) + 2\,a(n-20)
+a(n)\;=\;26\,a(n-1) - 199\,a(n-2) + 527\,a(n-3) + 257\,a(n-4) - 3086\,a(n-5) + 918\,a(n-6) + 11050\,a(n-7) - 6781\,a(n-8) - 25737\,a(n-9) + 23534\,a(n-10) + 29646\,a(n-11) - 36015\,a(n-12) - 15207\,a(n-13) + 25338\,a(n-14) + 2853\,a(n-15) - 8912\,a(n-16) + 2728\,a(n-17) - 200\,a(n-18) + 36\,a(n-19) - 16\,a(n-20)
 \]
 for every $n>21$.
 \end{theorem}
@@ -145,14 +135,14 @@ for every $n>21$.
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once. The bound is exact: at $n=21$ the recurrence fails on the entry's own published terms, so no larger range holds.
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the machine is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -164,7 +154,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A219399.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A218062.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

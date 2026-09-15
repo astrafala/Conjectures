@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283228, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A282477, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283228 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
+OEIS A282477 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+every CELL through its king-move neighbourhood, and it carries an empirical recurrence of
 order $51$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=721$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=816$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,33 +33,29 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283228 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal and vertical neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
+OEIS A282477 is ``Number of n X 4 0..1 arrays with no 1 equal to more than three of its king-move neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
 \[
-0, 6, 395, 8592, 163860, 2875836, 47531178, 753320466,\ \dots
+0, 18, 483, 8208, 127603, 1905024, 27253740, 376888612,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 27*a(n-1) -165*a(n-2) -234*a(n-3) -3129*a(n-4) +22416*a(n-5) +159152*a(n-6) +1030014*a(n-7) +3401490*a(n-8) +9668304*a(n-9) +14625564*a(n-10) +12014199*a(n-11) -37229470*a(n-12) -103402119*a(n-13) -171763266*a(n-14) +8354570*a(n-15) +254906391*a(n-16) +384743559*a(n-17) -123324128*a(n-18) -421598184*a(n-19) +628179321*a(n-20) +221724497*a(n-21) -1083423084*a(n-22) +249815562*a(n-23) +858637588*a(n-24) -920514603*a(n-25) -506962308*a(n-26) +883018391*a(n-27) -119359263*a(n-28) -648783024*a(n-29) +364210256*a(n-30) +278523843*a(n-31) -341026164*a(n-32) -28626721*a(n-33) +212356545*a(n-34) -50258766*a(n-35) -85509859*a(n-36) +52041366*a(n-37) +22638720*a(n-38) -29260115*a(n-39) -2214948*a(n-40) +11531682*a(n-41) -1415738*a(n-42) -3657156*a(n-43) +711432*a(n-44) +897796*a(n-45) -137640*a(n-46) -146136*a(n-47) +12088*a(n-48) +13344*a(n-49) -384*a(n-50) -512*a(n-51)
+Empirical: a(n) = 24*a(n-1) -120*a(n-2) -175*a(n-3) -5313*a(n-4) +33897*a(n-5) +91170*a(n-6) +922785*a(n-7) -871155*a(n-8) +1386209*a(n-9) -39326478*a(n-10) +16348518*a(n-11) -242662286*a(n-12) +719750574*a(n-13) -915843852*a(n-14) +5389420575*a(n-15) -6402065955*a(n-16) +18558713265*a(n-17) -36291677607*a(n-18) +36658882509*a(n-19) -111803026233*a(n-20) +37820290264*a(n-21) -186653499243*a(n-22) -24253558107*a(n-23) -154719330612*a(n-24) -151447086027*a(n-25) -39597513456*a(n-26) -193806180272*a(n-27) +1483880016*a(n-28) -80914984128*a(n-29) -24673015303*a(n-30) +13449544203*a(n-31) -17431182387*a(n-32) +29437381292*a(n-33) +2087742873*a(n-34) +10703374140*a(n-35) +6598456364*a(n-36) +688357758*a(n-37) +2294637003*a(n-38) -1308463352*a(n-39) -423398529*a(n-40) -656524233*a(n-41) -341786628*a(n-42) -80245032*a(n-43) -26199516*a(n-44) +22890515*a(n-45) +15362349*a(n-46) +7989024*a(n-47) +3600463*a(n-48) +901782*a(n-49) +232356*a(n-50) +39304*a(n-51).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 03 2017 09:04:32, revision 4) this is still
+As of the ``Last modified'' line on the live entry (May 24 2024 14:04:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
 
-The entry names the neighbours it means --- horizontal is left and right, vertical is up and
-down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
-all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
-the condition
+The king-move neighbours of a cell are the (at most) eight cells surrounding it. Every cell
+carries the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every }1\text{ has at most }3\text{ neighbouring }1\text{s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
-fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
-different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
-therefore carried
+over: a corner cell has three neighbours, an edge cell five, an interior cell eight, and a
+condition such as ``a strict majority of its neighbours'' means different things at each. In
+particular one cannot pad the array with a border of zeros --- that would give boundary cells
+eight neighbours and change what is being counted. The outside is therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
 
@@ -100,7 +96,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;27\,a(n-1) - 165\,a(n-2) - 234\,a(n-3) - 3129\,a(n-4) + 22416\,a(n-5) + 159152\,a(n-6) + 1030014\,a(n-7) + 3401490\,a(n-8) + 9668304\,a(n-9) + 14625564\,a(n-10) + 12014199\,a(n-11) - 37229470\,a(n-12) - 103402119\,a(n-13) - 171763266\,a(n-14) + 8354570\,a(n-15) + 254906391\,a(n-16) + 384743559\,a(n-17) - 123324128\,a(n-18) - 421598184\,a(n-19) + 628179321\,a(n-20) + 221724497\,a(n-21) - 1083423084\,a(n-22) + 249815562\,a(n-23) + 858637588\,a(n-24) - 920514603\,a(n-25) - 506962308\,a(n-26) + 883018391\,a(n-27) - 119359263\,a(n-28) - 648783024\,a(n-29) + 364210256\,a(n-30) + 278523843\,a(n-31) - 341026164\,a(n-32) - 28626721\,a(n-33) + 212356545\,a(n-34) - 50258766\,a(n-35) - 85509859\,a(n-36) + 52041366\,a(n-37) + 22638720\,a(n-38) - 29260115\,a(n-39) - 2214948\,a(n-40) + 11531682\,a(n-41) - 1415738\,a(n-42) - 3657156\,a(n-43) + 711432\,a(n-44) + 897796\,a(n-45) - 137640\,a(n-46) - 146136\,a(n-47) + 12088\,a(n-48) + 13344\,a(n-49) - 384\,a(n-50) - 512\,a(n-51)
+a(n)\;=\;24\,a(n-1) - 120\,a(n-2) - 175\,a(n-3) - 5313\,a(n-4) + 33897\,a(n-5) + 91170\,a(n-6) + 922785\,a(n-7) - 871155\,a(n-8) + 1386209\,a(n-9) - 39326478\,a(n-10) + 16348518\,a(n-11) - 242662286\,a(n-12) + 719750574\,a(n-13) - 915843852\,a(n-14) + 5389420575\,a(n-15) - 6402065955\,a(n-16) + 18558713265\,a(n-17) - 36291677607\,a(n-18) + 36658882509\,a(n-19) - 111803026233\,a(n-20) + 37820290264\,a(n-21) - 186653499243\,a(n-22) - 24253558107\,a(n-23) - 154719330612\,a(n-24) - 151447086027\,a(n-25) - 39597513456\,a(n-26) - 193806180272\,a(n-27) + 1483880016\,a(n-28) - 80914984128\,a(n-29) - 24673015303\,a(n-30) + 13449544203\,a(n-31) - 17431182387\,a(n-32) + 29437381292\,a(n-33) + 2087742873\,a(n-34) + 10703374140\,a(n-35) + 6598456364\,a(n-36) + 688357758\,a(n-37) + 2294637003\,a(n-38) - 1308463352\,a(n-39) - 423398529\,a(n-40) - 656524233\,a(n-41) - 341786628\,a(n-42) - 80245032\,a(n-43) - 26199516\,a(n-44) + 22890515\,a(n-45) + 15362349\,a(n-46) + 7989024\,a(n-47) + 3600463\,a(n-48) + 901782\,a(n-49) + 232356\,a(n-50) + 39304\,a(n-51)
 \]
 for every $n>51$.
 \end{theorem}
@@ -118,13 +114,12 @@ By Lemma~\ref{lem:crit} the recurrence holds for every $n>51$.
 Three checks, each independent of the algebra above.
 
 First, the transfer model reproduces all $17$ terms the entry publishes, exactly, in
-integer arithmetic. That check earned its place here. The neighbour offsets are named in the
-array's own frame --- horizontal means along a row --- but when the entry fixes the first
-dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
-offset swap. Sets such as king-move, or horizontal together with vertical, are unchanged by
-that swap and hide the error completely; a set such as horizontal, diagonal and antidiagonal
-is not, and the counts came out as those of a different member of the same family until the
-offsets were transposed.
+integer arithmetic. That check earned its place here. An early version of the construction
+tested whether a neighbour lay in the current row by comparing the row objects rather
+than their positions; when the row above happened to be identical to the current one, the
+cell directly above was then skipped as though it were the cell itself. The counts agreed with
+the entry for arrays of up to three rows and diverged at four, which is exactly the sort of
+error that a check on a handful of small cases would have missed.
 
 Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
 with no matrices involved, and holds wherever the proved range and the data overlap.
@@ -134,7 +129,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283228.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A282477.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

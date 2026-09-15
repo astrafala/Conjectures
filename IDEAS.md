@@ -1240,13 +1240,28 @@ So the question is whether those 1,422 names cluster.
 Sun's `x^2+y^2+z^2+w^2` representation counts, 13 `number of (s(0), ..., s(n)) such that ...`,
 9 "arrangements of n balls in n boxes", and then it is ones and twos.
 
-And the most walk-shaped of those is a null on inspection. The `(s(0), …, s(n))` family is
-**40 entries** pool-wide — lattice paths with `|s(i) - s(i-1)| <= 1` and `s(i) >= 0` — which
-looks exactly like transfer-matrix territory until you notice the state is UNBOUNDED: these
-are Catalan- and Motzkin-like, P-recursive and not C-finite. Checked rather than assumed:
-**all 40 carry no readable claim of any kind**, because nobody conjectures a linear recurrence
-on a Motzkin number. The shape that looked most promising in the whole block is empty for a
-reason that is mathematical, not instrumental.
+And the most walk-shaped of those looked like a null on inspection. The `(s(0), …, s(n))`
+family is **41 entries** pool-wide — lattice paths with `|s(i) - s(i-1)| <= 1` and `s(i) >= 0`
+— which looks exactly like transfer-matrix territory until you notice the state is UNBOUNDED:
+these are Catalan- and Motzkin-like, P-recursive and not C-finite.
+
+**The null was mine, and it is withdrawn.** When this was written the sentence read "all 40
+carry no readable claim of any kind, because nobody conjectures a linear recurrence on a
+Motzkin number". That was measured with readers that could not read a P-RECURSIVE recurrence
+at all — the very shape a Motzkin-like sequence takes. Re-measured with `precrec`: **16 of the
+41 carry a readable claim**, every one of them P-recursive, and one of them (A026013) is now
+proved and on the roster. The reason the family looked empty was the reader, not the
+mathematics, which is the same mistake §X.3 exists to warn about.
+
+What the re-measurement then found is a DIFFERENT refusal, and this one is real. Of the 14 off
+the roster, 13 carry no generating function at all — the claim is stated, the premise is
+missing — and the fourteenth, A026110, states `z(1-z)M^5` with M the Motzkin g.f., at an index
+origin three below its own offset. That last one was a defect of mine too (`algf` could not
+read `with M the g.f. of ... (A001006)`, and would not tolerate a stated shift); it is fixed
+and the entry now reads. The 13 stand as a genuine null for the holonomic argument: a
+conjectured P-recursive recurrence with no stated g.f. is a claim with nothing to prove it
+against, and closing them needs the g.f. DERIVED from the walk, which is a new argument, not
+a better reader.
 
 ### What this says
 
@@ -1353,3 +1368,67 @@ What would actually reach them, in order of honesty about the cost:
    `algf.STANDARD` is verified, would reach part of the 42.
 
 None of these is a reader fix, and none should be described as one.
+
+## AC. The generating function stated as a CONTINUED FRACTION (15 September)
+
+`algf.OUT` rejects any line containing the words "continued fraction". That was written when
+nothing here could read one, and it stayed after `implicit` and `quadratic` made reading one
+cheap. **1,509 entries state their g.f. that way** — a pool the size of the largest veins found
+so far, invisible because of three words in a refusal list.
+
+It splits cleanly, and the split is mathematics:
+
+| | |
+|---:|---|
+| 1,015 | a LEVEL-INDEXED fraction — `Q(k) = 1 + (4k+1)x(1+2x)/(k+1 - ...)` |
+| 565 | written with an ellipsis and no index |
+
+The first group is **not algebraic** and stays refused: the level map changes with k, so there
+is no equation to solve. That refusal is honest and permanent.
+
+The second group is, and the reason is worth keeping because it is why this cost an afternoon
+rather than a week. Each level of a continued fraction
+
+    g_i = b_i + s_i * n_i / g_{i+1}
+
+is a Möbius transformation of the level below, matrix `[[b_i, s_i n_i], [1, 0]]`. Composing the
+p levels of one period multiplies p such matrices, and the periodic tail is the FIXED POINT of
+the composite map: `g = (ag+b)/(cg+d)`, a quadratic. Prefix levels and the head of the line are
+further Möbius maps applied to that fixed point and cannot raise the degree. So **a periodic
+continued fraction is a quadratic surd, always — never degree 3, never higher** — which is
+exactly the field `holonomic.quadratic` decides claims in. `src/cfrac.py`, ~120 lines, no new
+solver.
+
+Of the 565: 88 are not open, 435 are open but carry no readable claim of any kind (a continued
+fraction is usually the whole content of such an entry), and **42 are open with a claim** — all
+42 P-recursive, none C-finite.
+
+### The defect this vein produced, recorded because it is the recurring one
+
+A084261's levels drift: `x^2, x^2, 2x^2, 2x^2, 3x^2, ...`. With two repeats accepted as
+evidence of a period, `2x^2, 2x^2` reads as prefix 2, period 1; the g.f. that came out did not
+generate the entry's terms, and the sweep recorded **"the stated g.f. does not generate the
+DATA"** — an accusation against the entry for a defect of mine. That is the fifth time. The
+rule now: two repeats suffice only when the period starts at the top (a drifting fraction never
+repeats its FIRST level), and three are required once a prefix is allowed. A084261 also spells
+its general level out as `[(n+1)/2]*x^2`, which says in the line itself that it is not periodic
+— so the level-index guard was widened from `k` to `k or n`.
+
+### What it actually paid, plainly
+
+**Two results** — A152601 and A292461. Not a large vein, and the 1,509 should not be quoted as
+if it were one: 1,015 are the level-indexed shape and permanently out of reach, 88 are not
+open, 435 carry no conjecture to settle, and of the 42 that do, **35 were already on the roster
+from other veins**. What was left was seven entries, of which two proved, two came back
+"residual is not a polynomial" (the claim is simply not established by this route) and three
+could not be read as periodic at all.
+
+So the honest summary is: a pool that looked like the largest one left was, after every filter
+that matters, seven entries. The machinery is worth keeping — `cfrac` is now a g.f. source for
+every sweep and costs nothing when it refuses — but the size of a grep is not the size of a
+vein, and this is the clearest example of that so far.
+
+One thing the two results do show: A292461's NAME already gives its g.f. in closed form
+(`Expansion of (1 - x - x^2 + sqrt((1 - x - x^2)^2 - 4*x^3))/2`), and `algf.from_name` refused
+it. The continued fraction was the second route to a function the first route should have read.
+That is a `from_name` defect worth a census of its own, and it is the next thing to measure.

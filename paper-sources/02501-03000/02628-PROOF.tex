@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A235512, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A204737, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235512 counts arrays of width $4$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
-single number---here the largest entry plus the smallest---and requiring the resulting derived array to have its rows
+OEIS A204737 counts arrays of width $6$ over $\{0,1\}$ by reducing every $2\times2$ subblock to a
+single number---here the permanent---and requiring the resulting derived array to have its rows
 lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $43$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=142$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=452$
 states.
 \end{abstract}
 
@@ -33,34 +33,34 @@ states.
 
 \section{The conjecture}
 
-OEIS A235512 is ``Number of (n+1)X(3+1) 0..1 arrays with the sum of each 2X2 subblock maximum and minimum lexicographically nondecreasing rowwise and columnwise.''. It has offset $1$ and begins
+OEIS A204737 is ``Number of (n+1)X6 0..1 arrays with rows and columns of permanents of all 2X2 subblocks lexicographically nondecreasing, and all 2X2 permanents nonzero.''. It has offset $1$ and begins
 \[
-209, 2501, 29533, 343063, 3977050, 45985647, 531586422, 6142770286,\ \dots
+127, 787, 4658, 26680, 150132, 825967, 4484324, 24023995,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -35*a(n-2) -800*a(n-3) +3598*a(n-4) +11518*a(n-5) -86177*a(n-6) -43426*a(n-7) +1030208*a(n-8) -551932*a(n-9) -7523343*a(n-10) +8359408*a(n-11) +36977209*a(n-12) -55765580*a(n-13) -129333424*a(n-14) +236161174*a(n-15) +333558074*a(n-16) -701926806*a(n-17) -650276140*a(n-18) +1531081970*a(n-19) +977200374*a(n-20) -2507610186*a(n-21) -1152187728*a(n-22) +3118788662*a(n-23) +1084336743*a(n-24) -2956454312*a(n-25) -826149717*a(n-26) +2130992178*a(n-27) +511775800*a(n-28) -1158609216*a(n-29) -254345475*a(n-30) +468586344*a(n-31) +98077210*a(n-32) -138111794*a(n-33) -27921777*a(n-34) +28847250*a(n-35) +5513265*a(n-36) -4114646*a(n-37) -697128*a(n-38) +380368*a(n-39) +50000*a(n-40) -20704*a(n-41) -1536*a(n-42) +512*a(n-43)
+Empirical: a(n) = 4*a(n-1) +59*a(n-2) -214*a(n-3) -1614*a(n-4) +5352*a(n-5) +27270*a(n-6) -83252*a(n-7) -319643*a(n-8) +903956*a(n-9) +2766553*a(n-10) -7287642*a(n-11) -18367828*a(n-12) +45294280*a(n-13) +95901032*a(n-14) -222401824*a(n-15) -400383351*a(n-16) +876926316*a(n-17) +1351505325*a(n-18) -2806673354*a(n-19) -3713824862*a(n-20) +7339834328*a(n-21) +8336015566*a(n-22) -15733261092*a(n-23) -15287824573*a(n-24) +27644978428*a(n-25) +22842819983*a(n-26) -39697481254*a(n-27) -27634483104*a(n-28) +46287363960*a(n-29) +26787286500*a(n-30) -43363058120*a(n-31) -20476685072*a(n-32) +32117613056*a(n-33) +12050735440*a(n-34) -18358384416*a(n-35) -5261146752*a(n-36) +7802213760*a(n-37) +1602873792*a(n-38) -2318827392*a(n-39) -303851520*a(n-40) +429649920*a(n-41) +26956800*a(n-42) -37324800*a(n-43)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:35:23, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 11:27:39, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1\}$. A
+The arrays have $6$ columns and a growing number of rows, with entries in $\{0,1\}$. A
 $2\times2$ subblock of such an array is
 \[
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
 \qquad p=x(i,j),\; q=x(i,j+1),\; r=x(i+1,j),\; s=x(i+1,j+1).
 \]
-Write $v_1\le v_2\le v_3\le v_4$ for the four entries of $B$ sorted into order. The entry attaches to $B$ the single number
+The entry attaches to $B$ the single number
 \[
-f(B)\;=\;v_4+v_1,
+f(B)\;=\;\operatorname{per}B=ps+qr,
 \]
-the largest entry plus the smallest. An array with $R$ rows and $4$ columns has $(R-1)\times3$ subblocks, and they
+the permanent. An array with $R$ rows and $6$ columns has $(R-1)\times5$ subblocks, and they
 form a derived array
 \[
 D(i,j)=f\!\left(\begin{pmatrix} x(i,j) & x(i,j+1) \\ x(i+1,j) & x(i+1,j+1)\end{pmatrix}
-\right),\qquad 0\le i<R-1,\;\; 0\le j<3 .
+\right),\qquad 0\le i<R-1,\;\; 0\le j<5 .
 \]
 Write $\preceq$ for the lexicographic order on finite sequences of integers: $u\preceq w$ when
 $u=w$, or when $u_k<w_k$ at the first index $k$ where they differ. The condition is that the
@@ -73,6 +73,9 @@ from left to right,
 \[
 D^{j}\;\preceq\;D^{j+1}\qquad\text{for every } j .
 \]
+
+The entry asks in addition that no subblock statistic be zero, which is a condition on one subblock at a time.
+
 
 \section{A bounded state}
 
@@ -97,11 +100,11 @@ which the two sequences differ, and prefixes that agree contribute nothing.
 \end{proof}
 
 So a single bit per adjacent pair of columns---``this pair has agreed in every derived row so
-far''---carries everything the future needs to know, and there are $2$ such pairs. The state
+far''---carries everything the future needs to know, and there are $4$ such pairs. The state
 is therefore
 \[
 \bigl(\text{the array row just written},\; \text{the derived row just formed},\;
-\text{the 2 bits}\bigr),
+\text{the 4 bits}\bigr),
 \]
 with a distinguished start standing for the empty array, so that a walk of $n$ steps is an array
 of $n$ rows. A step appends a row, forms the new derived row, checks it against the previous one
@@ -109,7 +112,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=142.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=452.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,15 +137,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 35\,a(n-2) - 800\,a(n-3) + 3598\,a(n-4) + 11518\,a(n-5) - 86177\,a(n-6) - 43426\,a(n-7) + 1030208\,a(n-8) - 551932\,a(n-9) - 7523343\,a(n-10) + 8359408\,a(n-11) + 36977209\,a(n-12) - 55765580\,a(n-13) - 129333424\,a(n-14) + 236161174\,a(n-15) + 333558074\,a(n-16) - 701926806\,a(n-17) - 650276140\,a(n-18) + 1531081970\,a(n-19) + 977200374\,a(n-20) - 2507610186\,a(n-21) - 1152187728\,a(n-22) + 3118788662\,a(n-23) + 1084336743\,a(n-24) - 2956454312\,a(n-25) - 826149717\,a(n-26) + 2130992178\,a(n-27) + 511775800\,a(n-28) - 1158609216\,a(n-29) - 254345475\,a(n-30) + 468586344\,a(n-31) + 98077210\,a(n-32) - 138111794\,a(n-33) - 27921777\,a(n-34) + 28847250\,a(n-35) + 5513265\,a(n-36) - 4114646\,a(n-37) - 697128\,a(n-38) + 380368\,a(n-39) + 50000\,a(n-40) - 20704\,a(n-41) - 1536\,a(n-42) + 512\,a(n-43)
+a(n)\;=\;4\,a(n-1) + 59\,a(n-2) - 214\,a(n-3) - 1614\,a(n-4) + 5352\,a(n-5) + 27270\,a(n-6) - 83252\,a(n-7) - 319643\,a(n-8) + 903956\,a(n-9) + 2766553\,a(n-10) - 7287642\,a(n-11) - 18367828\,a(n-12) + 45294280\,a(n-13) + 95901032\,a(n-14) - 222401824\,a(n-15) - 400383351\,a(n-16) + 876926316\,a(n-17) + 1351505325\,a(n-18) - 2806673354\,a(n-19) - 3713824862\,a(n-20) + 7339834328\,a(n-21) + 8336015566\,a(n-22) - 15733261092\,a(n-23) - 15287824573\,a(n-24) + 27644978428\,a(n-25) + 22842819983\,a(n-26) - 39697481254\,a(n-27) - 27634483104\,a(n-28) + 46287363960\,a(n-29) + 26787286500\,a(n-30) - 43363058120\,a(n-31) - 20476685072\,a(n-32) + 32117613056\,a(n-33) + 12050735440\,a(n-34) - 18358384416\,a(n-35) - 5261146752\,a(n-36) + 7802213760\,a(n-37) + 1602873792\,a(n-38) - 2318827392\,a(n-39) - 303851520\,a(n-40) + 429649920\,a(n-41) + 26956800\,a(n-42) - 37324800\,a(n-43)
 \]
-for every $n>41$.
+for every $n>43$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $43$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=43+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,11 +153,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $4$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
+array of width $6$ over $\{0,1\}$ with two and with three rows was written out cell by cell,
 the derived array formed, and its rows and its columns compared as whole words. No state, no
 bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
 published terms came back.
@@ -167,7 +170,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235512.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A204737.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
