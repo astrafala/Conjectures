@@ -152,3 +152,27 @@ the new claim is a closed form contributed separately. Live-checked and installe
 
 **Roster 13,729 over 13,325 entries, 164 arguments.** Re-ask this sweep after any batch; it
 costs seconds for ten entries and it is the one vein that grows with the project's own output.
+
+## 15 September 2026 — the engine root: measured, thinned of scratch, and NOT refactored
+
+`engine/` reached 716 tracked files against GitHub's 1,000-entry listing cap, growing by 101 in
+one day. Measured before acting:
+
+* **all 682 root JSON files are read by some current code path** — literal `open()`, a glob, or a
+  name assembled at run time — so the directory cannot be thinned by deleting dead data;
+* they are tracked on purpose: a container restart wipes the engine, so a sweep's state survives
+  only in git;
+* they are opened by bare name from `cwd=engine` in **105 source files**, many with names built
+  at run time, so moving them is a real refactor and not a `git mv`.
+
+What it CAN be thinned of is scratch. **92 of the 101 files added today were one-off runs** — a
+rebuilt pool asked once, an experiment, a measurement — and every proved record in them was
+already in the canonical file beside them. Checked before removing: exactly two records existed
+nowhere else, A020745 and A048580, and both are the deliberately refused ones whose premise is
+hedged. Untracked; the root is at 624 and `engine/scratch/` is in `.gitignore` for the next one.
+
+**And the refactor is not being done.** What the cap costs is a truncated directory LISTING on
+github.com — a browsing cosmetic, not a broken clone — and the growth was almost entirely scratch,
+which is now ignored. Doing an invasive move of 682 files across 105 call sites to fix a display
+limit would be the wrong trade. Recorded in STATE.md under defect 32 with the measurement, so the
+next round decides from numbers rather than from the alarm.

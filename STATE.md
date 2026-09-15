@@ -329,10 +329,22 @@ with `ast` and resolves each name against `src/` or an installed package — and
 done by importing, because a sweep module RUNS when imported and an import-based smoke test
 starts the whole engine.
 
-`engine/` itself is now the largest tracked directory at 714, and it grows with every sweep
-because the hits and done files live there. Every script opens them by bare name from
-`cwd=engine`, so moving them is a real refactor rather than a `git mv`. Do it before 1,000, not
-at 999.
+`engine/` itself is the largest tracked directory. It is tracked on purpose -- a container
+restart wipes it, so a sweep's state only survives in git -- and every script opens those files
+by bare name from `cwd=engine`, in 105 source files and with names assembled at run time, so
+moving them is a real refactor and not a `git mv`.
+
+Measured rather than assumed: **all 682 root JSON files are read by some current code path**, so
+the directory cannot be thinned by deleting dead data. What it can be thinned of is SCRATCH:
+**92 of the 101 files added on 15 September were one-off runs** -- a rebuilt pool asked once, an
+experiment, a measurement -- whose every proved record was already in the canonical file beside
+them. Untracked, taking the root from 716 to 624, and `engine/scratch/` is now in `.gitignore`
+for the next one. **Only a STANDING sweep's state belongs in git.**
+
+That buys the room; it does not remove the limit. What the limit actually costs is that
+github.com truncates a directory LISTING at 1,000 entries — a browsing cosmetic, not a broken
+clone — so the invasive move is not worth doing ahead of need. Watch the count; the growth is
+almost entirely scratch, and scratch is now ignored.
 
 ## When you create a new sharded sweep
 
