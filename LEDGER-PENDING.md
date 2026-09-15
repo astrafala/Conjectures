@@ -871,3 +871,29 @@ Degree was not stale: that phrasing occurs 8 times in the whole database. linkre
 either — the sweep needs an engine for the NAME, and 30 of its 35 new candidates have none — but
 it did hide a defect of mine: it reads only CACHED a-files and reports an uncached one as
 "a-file absent". All 35 were on oeis.org; fetched and re-run, and the refusal became honest.
+
+### A new argument and a sixth self-inflicted disproof (IDEAS §AF)
+
+**4 more papers; roster 13,315 over 13,288 entries; 159 → 160 arguments.**
+
+`window-image-alphabet` (new, `src/window.py`): entries counting the arrays obtainable as the
+windowed MAXIMA of a length-k array over `{0..n}`. Every engine here models a fixed alphabet
+with n as the length; these invert it — the length is constant and the ALPHABET grows. The
+greedy witness `a_i = min{b_j : window j covers i}` is exact and uses only b's own values, so
+membership in the image depends solely on b's order type, and the count is
+`sum_m A_m * C(n+1, m)` with `A_m` the achievable order types on m values. Exact, no fitting.
+**A228462 and A228463.**
+
+The median variants are NOT settled and are left refused: a median witness can need a value
+strictly between two entries of b, and whether an integer sits there is a fact about the GAPS,
+which the order type does not record. Four entries whose published terms my formula happened to
+reproduce are therefore withheld — matching 30 terms is the standard of evidence the conjecture
+already has.
+
+Also **A171853**, P-recursive, readable after the algf fixes.
+
+**The sixth self-inflicted disproof.** A118447's `.../8R^5` means division by `8R^5`; read left
+to right it multiplies by `R^5`, and the sweep recorded "the stated g.f. does not generate the
+DATA" against a correct entry. Fixed (`_denominator_run`), record deleted, regression over the
+989-entry pool: 988 unchanged, 0 lost, A118447 the only difference. Six for six: every apparent
+disproof this project has produced has been my reader, never a false conjecture.

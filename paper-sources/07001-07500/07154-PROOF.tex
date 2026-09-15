@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A234186, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235242, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A234186 counts $3$-column arrays over $\{0,\dots,6\}$ in which every
+OEIS A235242 counts $3$-column arrays over $\{0,\dots,7\}$ in which every
 $2\times2$ subblock has its diagonal sum differing from its antidiagonal sum by
-exactly $2$, and it
+exactly $6$, and in which no two adjacent entries are equal, and it
 carries an empirical recurrence of order $35$ contributed by R.~H.~Hardin. It is true,
 and it is not an empirical matter: the condition constrains only consecutive pairs of rows,
 so the rows are the vertices of a finite digraph and an $(n+1)$-row array is a walk of
-length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=343$ vertices, which
+length $n$. Hence $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ on $S=392$ vertices, which
 is $C$-finite. Writing $q$ for the characteristic polynomial of the conjectured recurrence,
 the residual is $\mathbf{1}^{\!\top}M^{\,n-35}q(M)\mathbf{1}$, so the recurrence
 holds beyond a threshold exactly when that vanishes from then on --- and since the sequence
@@ -37,21 +37,21 @@ $S$ consecutive zeros settle every later one. The whole test is finite and exact
 
 \section{The sequence and the conjecture}
 
-OEIS A234186 is ``Number of (n+1) X (2+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 2 (constant-stress 1 X 1 tilings).''. It has offset
+OEIS A235242 is ``Number of (n+1) X (2+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 6, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset
 $1$ and begins
 \[
-3710, 44826, 549448, 6788640, 83845322, 1039633348, 12874230598,\ \dots
+906, 3146, 10866, 41246, 152178, 599342, 2282514,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 35*a(n-1) +77*a(n-2) -15290*a(n-3) +107332*a(n-4) +2296310*a(n-5) -27496928*a(n-6) -129857668*a(n-7) +2709179565*a(n-8) +391078819*a(n-9) -135239185825*a(n-10) +266375054090*a(n-11) +3713789361020*a(n-12) -12460625596968*a(n-13) -56580508651576*a(n-14) +270946287990468*a(n-15) +430387300568260*a(n-16) -3285582832195460*a(n-17) -625640021406580*a(n-18) +23032403778290512*a(n-19) -13906330678694208*a(n-20) -92444778106408560*a(n-21) +104815576682548656*a(n-22) +206598724089786048*a(n-23) -335917036867402368*a(n-24) -235981789165139328*a(n-25) +576403492940640000*a(n-26) +84728859623294976*a(n-27) -554012779297904640*a(n-28) +82836671758755840*a(n-29) +287793157283389440*a(n-30) -93776254720819200*a(n-31) -69280227459072000*a(n-32) +30100904460288000*a(n-33) +4361304342528000*a(n-34) -2076811591680000*a(n-35).
+Empirical: a(n) = 10*a(n-1) +74*a(n-2) -1028*a(n-3) -1552*a(n-4) +46036*a(n-5) -24442*a(n-6) -1177460*a(n-7) +1943623*a(n-8) +18929582*a(n-9) -46678364*a(n-10) -197883208*a(n-11) +641672504*a(n-12) +1336005112*a(n-13) -5669843140*a(n-14) -5468829608*a(n-15) +33406180141*a(n-16) +10415153798*a(n-17) -132321704558*a(n-18) +11352730700*a(n-19) +350059155896*a(n-20) -111967629644*a(n-21) -608429901490*a(n-22) +262134791548*a(n-23) +679376121053*a(n-24) -292943901086*a(n-25) -478176518752*a(n-26) +156339289216*a(n-27) +209957565216*a(n-28) -34929735168*a(n-29) -53104170864*a(n-30) +1188145056*a(n-31) +6857059248*a(n-32) +568465632*a(n-33) -342553536*a(n-34) -52700544*a(n-35).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 19 2022 01:55:17, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jun 18 2022 23:55:27, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;35\,a(n-1) + 77\,a(n-2) - 15290\,a(n-3) + 107332\,a(n-4) + 2296310\,a(n-5) - 27496928\,a(n-6) - 129857668\,a(n-7) + 2709179565\,a(n-8) + 391078819\,a(n-9) - 135239185825\,a(n-10) + 266375054090\,a(n-11) + 3713789361020\,a(n-12) - 12460625596968\,a(n-13) - 56580508651576\,a(n-14) + 270946287990468\,a(n-15) + 430387300568260\,a(n-16) - 3285582832195460\,a(n-17) - 625640021406580\,a(n-18) + 23032403778290512\,a(n-19) - 13906330678694208\,a(n-20) - 92444778106408560\,a(n-21) + 104815576682548656\,a(n-22) + 206598724089786048\,a(n-23) - 335917036867402368\,a(n-24) - 235981789165139328\,a(n-25) + 576403492940640000\,a(n-26) + 84728859623294976\,a(n-27) - 554012779297904640\,a(n-28) + 82836671758755840\,a(n-29) + 287793157283389440\,a(n-30) - 93776254720819200\,a(n-31) - 69280227459072000\,a(n-32) + 30100904460288000\,a(n-33) + 4361304342528000\,a(n-34) - 2076811591680000\,a(n-35)
+a(n)\;=\;10\,a(n-1) + 74\,a(n-2) - 1028\,a(n-3) - 1552\,a(n-4) + 46036\,a(n-5) - 24442\,a(n-6) - 1177460\,a(n-7) + 1943623\,a(n-8) + 18929582\,a(n-9) - 46678364\,a(n-10) - 197883208\,a(n-11) + 641672504\,a(n-12) + 1336005112\,a(n-13) - 5669843140\,a(n-14) - 5468829608\,a(n-15) + 33406180141\,a(n-16) + 10415153798\,a(n-17) - 132321704558\,a(n-18) + 11352730700\,a(n-19) + 350059155896\,a(n-20) - 111967629644\,a(n-21) - 608429901490\,a(n-22) + 262134791548\,a(n-23) + 679376121053\,a(n-24) - 292943901086\,a(n-25) - 478176518752\,a(n-26) + 156339289216\,a(n-27) + 209957565216\,a(n-28) - 34929735168\,a(n-29) - 53104170864\,a(n-30) + 1188145056\,a(n-31) + 6857059248\,a(n-32) + 568465632\,a(n-33) - 342553536\,a(n-34) - 52700544\,a(n-35)
 \end{equation}
 for all $n>35$, which is every $n$ at which a recurrence of order $35$ can be
 stated.
@@ -62,13 +62,16 @@ In a $2\times2$ subblock with top row $(r_j,r_{j+1})$ and bottom row $(s_j,s_{j+
 diagonal sum is $r_j+s_{j+1}$ and the antidiagonal sum is $r_{j+1}+s_j$, so the entry's
 condition on that subblock reads
 \[
-\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;2.
+\bigl|\,r_j+s_{j+1}-r_{j+1}-s_j\,\bigr|\;=\;6.
 \]
-Every such condition involves two consecutive rows only.
+Every such condition involves two consecutive rows only. The condition ``no adjacent elements equal'' splits into a horizontal
+part, which constrains a single row and so selects the vertex set, and a vertical part,
+which constrains a consecutive pair of rows and so belongs to the edge relation.
 
-Let $V$ consist of all of $\{0,\dots,6\}^{3}$, and put $S=|V|=343$. For $r,s\in V$ declare $r\to s$ an edge
-when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=2$ for every $j$ with
-$1\le j\le3-1$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
+Let $V$ consist of those $r\in\{0,\dots,7\}^{3}$ with $r_j\ne r_{j+1}$ for every
+$j$ --- the rows in which no two horizontally adjacent entries are equal, and put $S=|V|=392$. For $r,s\in V$ declare $r\to s$ an edge
+when $\bigl|r_j+s_{j+1}-r_{j+1}-s_j\bigr|=6$ for every $j$ with
+$1\le j\le3-1$, and $r_j\ne s_j$ for every $j$. Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix and $\mathbf{1}$
 the all-ones vector.
 
 \begin{lemma}\label{lem:walk}
@@ -134,19 +137,19 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $15$ published indices; the values agree exactly. That is what ties the digraph to
+the $20$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model reproducing only some published terms would be the wrong model and
 was rejected wherever it occurred.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
 integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=343$ consecutive
+Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=392$ consecutive
 zeros rather than to a sampled prefix, in exact integer arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A234186.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235242.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

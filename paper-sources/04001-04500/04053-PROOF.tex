@@ -11,19 +11,23 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A225009, proved}
+\title{The empirical closed form for OEIS A269498, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A225009 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A269498 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=29$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=30$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{8}$, of degree
 $8$. Two things are then checked exactly: that the walk count satisfies the same
@@ -37,18 +41,18 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A225009 is ``Number of n X 7 0..1 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A269498 is ``Number of length-7 0..n arrays with no repeated value differing from the previous repeated value by one.''. It has offset $1$ and begins
 \[
-29, 239, 1163, 4166, 12174, 30738, 69498, 144111,\ \dots
+66, 1609, 13946, 71115, 263794, 791381, 2039274, 4686391,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = (4/315)*n\^{}7 + (1/5)*n\^{}6 + (58/45)*n\^{}5 + (35/8)*n\^{}4 + (1507/180)*n\^{}3 + (357/40)*n\^{}2 + (2027/420)*n + 1.
+Empirical: a(n) = n\^{}7 + 7*n\^{}6 + 21*n\^{}5 + 15*n\^{}4 + 7*n\^{}3 + 17*n\^{}2 - n - 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Sep 05 2018 06:13:32, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Mar 03 2016 03:50:52, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
 \[
-f(n)\;=\;\frac{4 n^{7}}{315} + \frac{n^{6}}{5} + \frac{58 n^{5}}{45} + \frac{35 n^{4}}{8} + \frac{1507 n^{3}}{180} + \frac{357 n^{2}}{40} + \frac{2027 n}{420} + 1.
+f(n)\;=\;n^{7} + 7 n^{6} + 21 n^{5} + 15 n^{4} + 7 n^{3} + 17 n^{2} - n - 1.
 \]
 
 \section{The count is a walk count}
@@ -56,7 +60,7 @@ f(n)\;=\;\frac{4 n^{7}}{315} + \frac{n^{6}}{5} + \frac{58 n^{5}}{45} + \frac{35 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=29$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=30$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -131,7 +135,7 @@ The range is tight in the sense that was checked: the closed form holds from the
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $27$ terms the entry publishes,
+First, the walk model reproduces every one of the $23$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -149,7 +153,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A225009.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A269498.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

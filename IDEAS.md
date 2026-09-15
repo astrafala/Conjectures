@@ -1518,3 +1518,81 @@ A pool file in `deep-check/` is a claim about the database made on the day it wa
 of them is rebuilt by anything. Before running a sweep again, rebuild its pool from the clone
 and diff — it costs one sharded scan and it has now been wrong nine plus two times out of
 however many have been checked.
+
+## AF. Sliding-window image counts — the second large family (15 September)
+
+**The 149 in the first draft of this section was my own error and is withdrawn.** It came from
+grouping the refused names by their first seven words, which merges shapes that are not the same
+problem: regrouped on the full name there are **76 distinct shapes over 162 entries**, in
+clusters of three to seven. §W.2's "there is no second Galebach" survives that correction. What
+follows is a real family and a real argument, but it is **11 entries**, not 149, and the number
+is stated here rather than in a summary because over-counting a vein is the failure this
+project's rules exist to prevent.
+
+The family sits among the entries whose closed-form claim `closedform` reads outright and whose
+NAME no engine models — 388 of the 564 new candidates from §AE refuse that way — and it is:
+
+    A228462  Number of arrays of maxima of three adjacent elements of some length 7 0..n array.
+             Empirical: a(n) = (2/15)n^5 + (7/6)n^4 + (25/6)n^3 + (19/3)n^2 + (21/5)n + 1.
+    A228741  Number of arrays of the median of three adjacent elements of some length-6 0..n array.
+    A229013  ... with no adjacent equal elements in the latter array.
+
+Every existing engine here models a FIXED alphabet with n as the length. These invert that: the
+length is a small constant and **the alphabet 0..n grows with n**. No transfer matrix applies,
+which is why every one of them is invisible.
+
+### The argument, which is exact and cheap
+
+Let the window map be `b_i = f(a_i, ..., a_{i+w-1})` with f a max, min or median, on
+`a` of fixed length k over the alphabet {0..n}, so `b` has fixed length L = k-w+1. The question
+is the SIZE OF THE IMAGE.
+
+**Whether a given b is in the image depends only on b's ORDER TYPE** — the weak ordering of its
+entries — and not on n or on the actual values. For the max window: the componentwise-largest
+candidate witness is `a_i = min{ b_j : window j contains i }`, and b is achievable exactly when
+that witness reproduces it; both the construction and the test are comparisons among b's
+entries alone. No value is ever needed above max(b) or below 0, so the bounds play no part.
+(The same holds for min by symmetry, and for median the witness search is over the finitely many
+order types of a, which is again comparisons only.)
+
+Therefore, writing `A_m` for the number of achievable order types of L entries using exactly m
+distinct values,
+
+    a(n)  =  sum_m  A_m * C(n+1, m),
+
+because the number of tuples in {0..n}^L with a prescribed order type using m distinct values is
+exactly C(n+1, m). **That is a polynomial in n of degree at most L, exactly, with no fitting and
+no asymptotics** — the entry's conjecture is then either equal to it or it is not, and the
+comparison is polynomial identity in Q[n].
+
+The cost is the enumeration of weak orderings of L elements: the ordered Bell numbers, 4,683 for
+L = 6, 47,293 for L = 7, 545,835 for L = 8. Each is tested by one witness construction. That is
+seconds to minutes per entry, which is the same order as every other sweep here.
+
+### Why an 11-entry family is still worth the build
+
+It is ONE argument for the whole family, and it is not specific to max or median: any window statistic decided by comparisons has the same order-
+type invariance, so "no adjacent equal elements", min, and the range statistics in the same
+family come along at no extra cost. The build is `src/window.py` (order types, witness,
+polynomial assembly) plus a sweep; no new solver, and the verification is the usual one — the
+polynomial it derives must reproduce every published term before it is used.
+
+### The defect this build produced, and it is the sixth
+
+A118447 states `O.g.f.: (R-1)^2(R+1)(R+3)/8R^5, where R=sqrt(1-4x)`. In this corpus a juxtaposed
+product written straight after a division sign is the whole DENOMINATOR — the line means
+division by `8R^5`. Inserting multiplication signs left to right gives `.../8*R**5`, which
+MULTIPLIES by `R^5`; the series that came out was 4, −38, 104, … against a published
+4, 42, 304, … and the sweep recorded **"the stated g.f. does not generate the DATA"** against an
+entry that is entirely correct. Read as written it reproduces every published term.
+
+That is the sixth time a refusal has blamed an entry for a limitation of the reader, and it has
+the clearest signature of any of them: the entry's own terms are the disproof of the disproof.
+`_denominator_run` now parenthesises a juxtaposed run following `/`; only juxtaposition with no
+space is absorbed, so an explicit `*` keeps its left-to-right meaning and `x/2 - 1` is untouched.
+Regression over the rebuilt 989-entry pool: **988 unchanged, 0 lost, 0 gained, and A118447 the
+single difference** — exactly the intended change and nothing else.
+
+**The standing lesson, now with six instances: a "the entry is wrong" verdict is a claim about
+MY reader until it has been checked by hand.** Every one of the six was mine. Not one apparent
+disproof in this project has ever turned out to be a false conjecture in the OEIS.

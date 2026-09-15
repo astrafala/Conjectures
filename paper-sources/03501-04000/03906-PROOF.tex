@@ -12,201 +12,220 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A275260, proved by counting patterns}
+\title{The empirical recurrence for OEIS A210102, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275260 counts arrays in which no entry may repeat a value found at any of three stated
-offsets, and which are moreover written in canonical form (``new values introduced in order
-$0..2$''). The canonical-form clause is not local and no transfer matrix over the
-alphabet sees it; but the condition is stated in equalities, so what is counted is equality
-patterns, and the pattern counts are recovered from the counts $L_i$ over an $i$-letter
-alphabet by inverting a falling factorial:
-$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers.
-Some of the offsets reach two rows back, so each $L_i$ is a walk count whose states are
-ordered pairs of consecutive rows; relabelling-invariance makes that chain lumpable,
-cutting $98$ pairs to $S=23$ states. The entry's empirical recurrence of order $9$,
-contributed by R.~H.~Hardin, then follows from a finite exact computation.
+OEIS A210102 counts arrays subject to a local condition \emph{and} to the clause ``new values
+$0..2$ introduced in row major order'', which says the array is written in canonical
+form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
+does not have to: what is being counted is not arrays but equality patterns, and the number
+of patterns is recovered from the numbers $L_i$ of arrays over an $i$-letter alphabet by
+inverting a falling factorial. The result is the clean identity
+$3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers,
+and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
+lumpable over the patterns, because the condition is relabelling-invariant --- brings the
+state space down from $98$ to $S=23$. The entry's empirical recurrence of order
+$9$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A275260 is ``Number of n X 2 0..2 arrays with no element equal to any value at offset (-2,-1) (-2,1) or (-1,-1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A210102 is ``Number of (n+1) X 4 0..2 arrays with every 2 X 2 subblock having one or three distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-2, 9, 24, 64, 172, 476, 1320, 3672,\ \dots
+135, 1690, 20687, 254314, 3125615, 38420586, 472285295, 5805666474,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) - 2*a(n-2) - 6*a(n-3) + 6*a(n-4) + 4*a(n-5) - 16*a(n-6) + 12*a(n-7) + 8*a(n-8) - 8*a(n-9) for n>10.
+Empirical: a(n) = 17*a(n-1) -46*a(n-2) -190*a(n-3) +523*a(n-4) +341*a(n-5) -1220*a(n-6) +184*a(n-7) +488*a(n-8) -96*a(n-9).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 02 2019 11:33:17, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Apr 17 2022 21:28:38, revision 13) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) - 2\,a(n-2) - 6\,a(n-3) + 6\,a(n-4) + 4\,a(n-5) - 16\,a(n-6) + 12\,a(n-7) + 8\,a(n-8) - 8\,a(n-9)
+a(n)\;=\;17\,a(n-1) - 46\,a(n-2) - 190\,a(n-3) + 523\,a(n-4) + 341\,a(n-5) - 1220\,a(n-6) + 184\,a(n-7) + 488\,a(n-8) - 96\,a(n-9)
 \end{equation}
-for all $n>10$.
+for all $n>8$.
 
-\section{The condition, and what the canonical-form clause counts}
+\section{What the canonical-form clause counts}
 
-The arrays have $2$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. With
+Fix the shape: $4$ columns and $L=n+1$ rows, so $L\cdot4$ cells. Call a
+partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
+determines a pattern, two cells lying in the same class exactly when they carry the same
+value.
+
+Every $2\times2$ subblock of the array occupies two consecutive
+rows and two consecutive columns; writing those two rows as $r$ and $s$ the
+subblock is
 \[
-\mathcal N=\{(-2,-1),\ (-2,1),\ (-1,-1)\}
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
 \]
-(offsets as (row shift, column shift)), the entry's requirement is
+and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-x_{t+d_1,\,u+d_2}\ne x_{t,u}\quad\text{for every }(d_1,d_2)\in\mathcal N\text{ inside the array}.
+\#\{\alpha,\beta,\gamma,\delta\}\in\{1,3\}.
 \end{equation}
-Every offset has a nonpositive row shift, so the condition at a cell of row $t$ is
-settled by rows $t-2$, $t-1$ and $t$; but some shift is $-2$, so one previous row is not
-enough state.
 
-The condition is stated purely in equalities, so it is unchanged by any relabelling of the
-values and is a property of the \emph{equality pattern} of the array --- the partition of
-the cells into classes of equal entries. The clause ``new values introduced in order
-$0..2$'' keeps exactly one array from each relabelling class, so with $K=3$ values
-available the entry counts admissible patterns with at most $K$ classes.
+The condition is stated purely in terms of equalities between entries, so it is invariant
+under any relabelling of the values and is therefore a property of the pattern alone. Call a
+pattern \emph{admissible} when it has the property.
+
+The clause ``new values $0..2$ introduced in row major order'' selects, from each class
+of arrays that differ only by a relabelling, exactly one representative: reading the cells in
+row major order, the first occurrence of the value $v$ must precede the first occurrence of
+$v+1$. Every pattern with at most $K=3$ classes has exactly one such representative, and
+every array in canonical form is the representative of its own pattern. Hence, writing
+$N_j(n)$ for the number of admissible patterns with exactly $j$ classes,
+\begin{equation}\label{eq:apat}
+a(n)\;=\;\sum_{j=0}^{3}N_j(n).
+\end{equation}
 
 \begin{lemma}\label{lem:inv}
-Let $L_i(n)$ count the arrays over an alphabet of $i$ letters satisfying \eqref{eq:loc},
-with no canonical-form clause, and $N_j(n)$ the admissible patterns with exactly $j$ classes.
-Then $L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+Let $L_i(n)$ be the number of arrays over an alphabet of $i$ letters satisfying the local
+condition, with no canonical-form clause. Then
 \[
-3!\,\sum_{j\le 3}N_j(n)\;=\;\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
-\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+L_i(n)=\sum_j N_j(n)\,i(i-1)\cdots(i-j+1),
+\qquad
+3!\,\sum_{j=0}^{3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}\,L_i(n),
 \]
+where $D_m=m!\sum_{t=0}^{m}(-1)^t/t!$ is the number of derangements of $m$ letters.
 \end{lemma}
 
 \begin{proof}
-A labelled array satisfying the condition is a pattern together with an injection of its
-classes into the alphabet, and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ such
-injections; that is the first identity. Writing the falling factorial as $j!\binom{i}{j}$
-gives $L_i=\sum_j(j!N_j)\binom{i}{j}$, so binomial inversion yields
-$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$. Summing over $j\le3$ and exchanging the
-order of summation, the coefficient of $L_i$ is $\sum_{t\le3-i}(-1)^t/(i!\,t!)$, which on
-multiplying by $3!$ becomes
-$\binom{3}{i}(3-i)!\sum_{t\le3-i}(-1)^t/t!=\binom{3}{i}D_{3-i}$, an
-integer.
+An array over $i$ letters satisfying the condition determines an admissible pattern together
+with an injection of its classes into the alphabet, and conversely; a pattern with $j$
+classes admits $i(i-1)\cdots(i-j+1)$ injections. That is the first identity. Writing
+$i(i-1)\cdots(i-j+1)=j!\binom{i}{j}$ it reads $L_i=\sum_j (j!N_j)\binom{i}{j}$, so by
+binomial inversion $j!N_j=\sum_{i}(-1)^{j-i}\binom{j}{i}L_i$. Summing over
+$j\le 3$ and exchanging the order of summation,
+\[
+\sum_{j=0}^{3}N_j=\sum_{i=0}^{3}L_i\sum_{j=i}^{3}\frac{(-1)^{j-i}}{i!\,(j-i)!}
+=\sum_{i=0}^{3}\frac{L_i}{i!}\sum_{t=0}^{3-i}\frac{(-1)^t}{t!} ,
+\]
+and multiplying by $3!$ turns the coefficient of $L_i$ into
+$\frac{3!}{i!}\sum_{t\le 3-i}(-1)^t/t!=\binom{3}{i}(3-i)!\sum_{t\le 3-i}(-1)^t/t!
+=\binom{3}{i}D_{3-i}$, an integer.
 \end{proof}
 
-\section{Each $L_i$ is a walk count on pairs of rows}
+\section{Each $L_i$ is a walk count, and the chain lumps}
 
-Fix $i$, let $V_i=\{0,\dots,i-1\}^{2}$ and take $\mathcal V=V_i\times V_i$ as vertices.
-Declare $(p,c)\to(c,x)$ an edge when every cell of the NEW row $x$ satisfies
-\eqref{eq:loc}, reading $c$ as the row one step back and $p$ as the row two steps
-back. Let $P_i$ be the adjacency matrix and $\mathbf{s}_i$ the indicator of the pairs
-$(p,c)$ in which $p$ satisfies \eqref{eq:loc} with no row before it and $c$ satisfies it
-with only $p$ before it.
-
-\begin{lemma}\label{lem:walk}
-For $L\ge2$ the arrays of $L$ rows satisfying \eqref{eq:loc} are exactly the walks
-$(r^{(1)},r^{(2)})\to\cdots\to(r^{(L-1)},r^{(L)})$ of length $L-2$ starting at a
-vertex marked by $\mathbf{s}_i$, so
-$L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{1}$.
-\end{lemma}
-
-\begin{proof}
-Consecutive vertices overlap in one row, so such a walk is precisely a sequence
-$r^{(1)},\dots,r^{(L)}$ of rows. The condition at the cells of row $t$ for $t\ge3$
-is tested exactly once, at the step arriving at $(r^{(t-1)},r^{(t)})$, and with the
-correct earlier rows; the cells of rows $1$ and $2$ are tested by $\mathbf{s}_i$, with
-the rows that would lie before them absent, which is how the array behaves at its top. No
-further condition constrains the end of the array, so the walk may finish anywhere.
-\end{proof}
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{4}$ be the possible rows. For $r,s\in V_i$
+declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
+every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
+rows, and its condition is exactly the conjunction of the edge conditions along that
+sequence, so
+\[
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+\]
+Because the condition involves no row before the first, every
+row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
 
 \begin{lemma}\label{lem:lump}
-Two vertices with the same equality pattern have, for each target pattern, the same number of
-successors carrying it, and the same value of $\mathbf{s}_i$. Hence the chain is strongly
-lumpable over patterns, and $L_i$ may be computed on the quotient, whose states are the set
-partitions of the $2\cdot2$ cells of a pair into at most $i$ classes.
+Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
+$\pi(r)=\pi(r')$ and every pattern $Q$,
+\[
+\#\{s:\ r\to s,\ \pi(s)=Q\}\;=\;\#\{s:\ r'\to s,\ \pi(s)=Q\}\, .
+\]
+Consequently the numbers $\widehat M_i[P][Q]$ obtained by taking any representative of $P$
+are well defined, and with $e_P=i(i-1)\cdots(i-|P|+1)$ the number of rows of pattern $P$,
+\[
+\mathbf{s}_i^{\!\top}M_i^{\,m}\mathbf{1}\;=\;\sum_P \varepsilon_P\,f_m(P),
+\qquad f_0\equiv1,\quad f_{m+1}(P)=\sum_Q\widehat M_i[P][Q]f_m(Q),
+\]
+where $\varepsilon_P=e_P$ if rows of pattern $P$ may start a walk and $0$ otherwise.
 \end{lemma}
 
 \begin{proof}
-Equal patterns means $(p',c')=(\sigma(p),\sigma(c))$ for a permutation $\sigma$ of the
-alphabet. Condition \eqref{eq:loc} is a statement about equalities between entries, so it is
-invariant under $\sigma$; therefore $x\mapsto\sigma(x)$ is a bijection between the successor
-sets which preserves patterns, and $\mathbf{s}_i$ agrees on the two vertices. The number of
-pairs with pattern $P$ is $e_P=i(i-1)\cdots(i-|P|+1)$, which supplies the weights.
+If $\pi(r)=\pi(r')$ then the map sending the value of $r$ at a column to the value of $r'$
+at that column is a well-defined injection between the letters used, and extends to a
+permutation $\sigma$ of the alphabet with $r'=\sigma(r)$. The edge condition is a statement
+about equalities among entries, so $r\to s$ if and only if $\sigma(r)\to\sigma(s)$; and
+$\pi(\sigma(s))=\pi(s)$. Hence $s\mapsto\sigma(s)$ is a bijection between the two successor
+sets preserving patterns, which is the first claim. It says the chain is strongly lumpable
+over $\pi$, so $\bigl(M_i^{m}\mathbf{1}\bigr)(r)$ depends on $r$ only through $\pi(r)$;
+calling that value $f_m(\pi(r))$ gives the recursion, and summing over $r$ in each class
+gives the displayed identity, the number of rows of pattern $P$ being the number of
+injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $3$ lumped chains block-diagonally into $N$ of size $S=23$, with the
-weights of Lemma~\ref{lem:inv} folded into the start vector $\mathbf{v}$,
-\begin{equation}\label{eq:walk2}
-3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{1},\qquad L=n .
+Assembling the $3$ lumped chains into one block-diagonal matrix $N$ of size $S=23$ and
+putting the weights of Lemma~\ref{lem:inv} into the start vector,
+$\mathbf{v}=\bigl(\binom{3}{i}D_{3-i}\varepsilon_P\bigr)_{i,P}$, gives
+\begin{equation}\label{eq:walk}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
 \end{equation}
+The unlumped alphabet had $98$ rows in all; the lumped chain has $S=23$ states.
 
 \section{The criterion, and the computation}
 
 Let $q(t)=t^{9}-\sum_i c_i\,t^{9-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+\eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{1}$,
-$o=1n_0+0-2$, we have for $j\ge9$
+For every $n$ with $m=n+1-1\ge9$,
 \[
-3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)
-=\mathbf{v}^{\!\top}G^{\,j-9}w,\qquad
-w=h_{9}-\sum_i c_i h_{9-i} .
+3!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-9}q(N)\mathbf{1} .
 \]
 Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+$\mathbf{v}^{\!\top}N^{j}q(N)\mathbf{1}=0$ for every $j\ge0$, and it is enough to check
+$j=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substitute \eqref{eq:walk2} and factor; the nonzero scalar $3!$ does not affect
-vanishing. By Cayley--Hamilton $G^{S}$ is an integer combination of $I,G,\dots,G^{S-1}$,
-so each $\mathbf{v}^{\!\top}G^{m}w$ with $m\ge S$ is the corresponding combination of
-earlier values.
+Substitute \eqref{eq:walk} into the left side and factor $N^{m-9}$ out of
+$N^{m}-\sum_i c_iN^{m-i}$. The scalar $3!$ is nonzero, so it does not affect whether
+the left side vanishes. For the last clause put $w=q(N)\mathbf{1}$: by Cayley--Hamilton
+$N^{S}$ is an integer combination of $I,N,\dots,N^{S-1}$, so each
+$\mathbf{v}^{\!\top}N^{j}w$ with $j\ge S$ is the corresponding combination of earlier
+values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>10$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>8$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The lumped transition counts were built by taking one representative pair for each pattern,
-enumerating every row $x$ over the alphabet, testing \eqref{eq:loc} on $x$, and sorting
-the survivors by the pattern of the new pair. The vector $w$ was formed by $9$
-applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
-evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=10+1$ onwards, and the run continued until $S+1$ consecutive
-zeros had been seen.
+The lumped transition counts were obtained by enumerating, for one representative row of
+each pattern, all admissible successors and sorting them by pattern --- the successors being
+generated column by column, since the edge condition is a conjunction of one constraint per
+column. The vector $w=q(N)\mathbf{1}$ was then formed by $9$ matrix--vector products
+in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
+$j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
+corresponding to $n=8+1$ onwards, and the run continued until $w$ was the zero vector,
+which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $26$ published indices and agrees with the entry's DATA exactly, the quotient
-coming out an integer each time; no shift was fitted, the number of rows being read off the
-entry's own name as $L=n$ and the entry's offset saying which index the first published
-term carries. A misreading of the offsets, of the inversion, or of the treatment of the first
-two rows would show up here.
+First, the whole construction was compared against the entry's DATA: the right-hand side of
+\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $16$
+published indices and agrees exactly. This is a strong test of the modelling and not only of
+the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
+condition, and the alignment of the entry's index with the number of rows would each
+show up as a mismatch, and the quotient by $3!$ came out an integer at every index.
 
-Second, the lumped chain was checked against the unlumped one on the small shapes of this
-family, the walk counts over the full alphabet agreeing with the weighted sum over patterns
-term by term.
+Second, the lumped chain was checked against the unlumped one: for the small shapes the walk
+counts $\mathbf{s}_i^{\!\top}M_i^{m}\mathbf{1}$ were computed directly over the full
+alphabet as well and agree with $\sum_P\varepsilon_Pf_m(P)$ term by term.
 
 Third, the recurrence \eqref{eq:conj} was evaluated on the published terms in exact integer
 arithmetic with no matrices involved, and the annihilation test of Lemma~\ref{lem:crit} was
-carried to the full Cayley--Hamilton bound rather than to a sampled prefix.
+run until the working vector was identically zero rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275260.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A210102.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
-inversion, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
+falling-factorial inversion, Section 1.9.)
 \bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer,
 1976. (Strong lumpability, Section 6.3.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

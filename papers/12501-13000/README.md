@@ -1,506 +1,506 @@
 # Papers 12501-13000
 
-Ranks 12501 to 13000 of 13312, hardest first.
+Ranks 12501 to 13000 of 13314, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
-| 12501 | [A301487](https://oeis.org/A301487) | Proof |  | [12501-PROOF.pdf](12501-PROOF.pdf) |
-| 12502 | [A252286](https://oeis.org/A252286) | Proof |  | [12502-PROOF.pdf](12502-PROOF.pdf) |
-| 12503 | [A278154](https://oeis.org/A278154) | Proof |  | [12503-PROOF.pdf](12503-PROOF.pdf) |
-| 12504 | [A250948](https://oeis.org/A250948) | Proof |  | [12504-PROOF.pdf](12504-PROOF.pdf) |
-| 12505 | [A282438](https://oeis.org/A282438) | Proof |  | [12505-PROOF.pdf](12505-PROOF.pdf) |
-| 12506 | [A279131](https://oeis.org/A279131) | Proof |  | [12506-PROOF.pdf](12506-PROOF.pdf) |
-| 12507 | [A237725](https://oeis.org/A237725) | Proof |  | [12507-PROOF.pdf](12507-PROOF.pdf) |
-| 12508 | [A224308](https://oeis.org/A224308) | Proof |  | [12508-PROOF.pdf](12508-PROOF.pdf) |
-| 12509 | [A257421](https://oeis.org/A257421) | Proof |  | [12509-PROOF.pdf](12509-PROOF.pdf) |
-| 12510 | [A251447](https://oeis.org/A251447) | Proof |  | [12510-PROOF.pdf](12510-PROOF.pdf) |
-| 12511 | [A237220](https://oeis.org/A237220) | Proof |  | [12511-PROOF.pdf](12511-PROOF.pdf) |
-| 12512 | [A237483](https://oeis.org/A237483) | Proof |  | [12512-PROOF.pdf](12512-PROOF.pdf) |
-| 12513 | [A263435](https://oeis.org/A263435) | Proof |  | [12513-PROOF.pdf](12513-PROOF.pdf) |
-| 12514 | [A260498](https://oeis.org/A260498) | Proof |  | [12514-PROOF.pdf](12514-PROOF.pdf) |
-| 12515 | [A236038](https://oeis.org/A236038) | Proof |  | [12515-PROOF.pdf](12515-PROOF.pdf) |
-| 12516 | [A280067](https://oeis.org/A280067) | Proof |  | [12516-PROOF.pdf](12516-PROOF.pdf) |
-| 12517 | [A297717](https://oeis.org/A297717) | Proof |  | [12517-PROOF.pdf](12517-PROOF.pdf) |
-| 12518 | [A297523](https://oeis.org/A297523) | Proof |  | [12518-PROOF.pdf](12518-PROOF.pdf) |
-| 12519 | [A317700](https://oeis.org/A317700) | Proof |  | [12519-PROOF.pdf](12519-PROOF.pdf) |
-| 12520 | [A231742](https://oeis.org/A231742) | Proof |  | [12520-PROOF.pdf](12520-PROOF.pdf) |
-| 12521 | [A268027](https://oeis.org/A268027) | Proof |  | [12521-PROOF.pdf](12521-PROOF.pdf) |
-| 12522 | [A282882](https://oeis.org/A282882) | Proof |  | [12522-PROOF.pdf](12522-PROOF.pdf) |
-| 12523 | [A253874](https://oeis.org/A253874) | Proof |  | [12523-PROOF.pdf](12523-PROOF.pdf) |
-| 12524 | [A253540](https://oeis.org/A253540) | Proof |  | [12524-PROOF.pdf](12524-PROOF.pdf) |
-| 12525 | [A278091](https://oeis.org/A278091) | Proof |  | [12525-PROOF.pdf](12525-PROOF.pdf) |
-| 12526 | [A297886](https://oeis.org/A297886) | Proof |  | [12526-PROOF.pdf](12526-PROOF.pdf) |
-| 12527 | [A260245](https://oeis.org/A260245) | Proof |  | [12527-PROOF.pdf](12527-PROOF.pdf) |
-| 12528 | [A232960](https://oeis.org/A232960) | Proof |  | [12528-PROOF.pdf](12528-PROOF.pdf) |
-| 12529 | [A233688](https://oeis.org/A233688) | Proof |  | [12529-PROOF.pdf](12529-PROOF.pdf) |
-| 12530 | [A295203](https://oeis.org/A295203) | Proof |  | [12530-PROOF.pdf](12530-PROOF.pdf) |
-| 12531 | [A296318](https://oeis.org/A296318) | Proof |  | [12531-PROOF.pdf](12531-PROOF.pdf) |
-| 12532 | [A282860](https://oeis.org/A282860) | Proof |  | [12532-PROOF.pdf](12532-PROOF.pdf) |
-| 12533 | [A300802](https://oeis.org/A300802) | Proof |  | [12533-PROOF.pdf](12533-PROOF.pdf) |
-| 12534 | [A306050](https://oeis.org/A306050) | Proof |  | [12534-PROOF.pdf](12534-PROOF.pdf) |
-| 12535 | [A316286](https://oeis.org/A316286) | Proof |  | [12535-PROOF.pdf](12535-PROOF.pdf) |
-| 12536 | [A302152](https://oeis.org/A302152) | Proof |  | [12536-PROOF.pdf](12536-PROOF.pdf) |
-| 12537 | [A264479](https://oeis.org/A264479) | Proof |  | [12537-PROOF.pdf](12537-PROOF.pdf) |
-| 12538 | [A264503](https://oeis.org/A264503) | Proof |  | [12538-PROOF.pdf](12538-PROOF.pdf) |
-| 12539 | [A264547](https://oeis.org/A264547) | Proof |  | [12539-PROOF.pdf](12539-PROOF.pdf) |
-| 12540 | [A264566](https://oeis.org/A264566) | Proof |  | [12540-PROOF.pdf](12540-PROOF.pdf) |
-| 12541 | [A264580](https://oeis.org/A264580) | Proof |  | [12541-PROOF.pdf](12541-PROOF.pdf) |
-| 12542 | [A275092](https://oeis.org/A275092) | Proof |  | [12542-PROOF.pdf](12542-PROOF.pdf) |
-| 12543 | [A284078](https://oeis.org/A284078) | Proof |  | [12543-PROOF.pdf](12543-PROOF.pdf) |
-| 12544 | [A283662](https://oeis.org/A283662) | Proof |  | [12544-PROOF.pdf](12544-PROOF.pdf) |
-| 12545 | [A279164](https://oeis.org/A279164) | Proof |  | [12545-PROOF.pdf](12545-PROOF.pdf) |
-| 12546 | [A303186](https://oeis.org/A303186) | Proof |  | [12546-PROOF.pdf](12546-PROOF.pdf) |
-| 12547 | [A297378](https://oeis.org/A297378) | Proof |  | [12547-PROOF.pdf](12547-PROOF.pdf) |
-| 12548 | [A317227](https://oeis.org/A317227) | Proof |  | [12548-PROOF.pdf](12548-PROOF.pdf) |
-| 12549 | [A304469](https://oeis.org/A304469) | Proof |  | [12549-PROOF.pdf](12549-PROOF.pdf) |
-| 12550 | [A259892](https://oeis.org/A259892) | Proof |  | [12550-PROOF.pdf](12550-PROOF.pdf) |
-| 12551 | [A259721](https://oeis.org/A259721) | Proof |  | [12551-PROOF.pdf](12551-PROOF.pdf) |
-| 12552 | [A302378](https://oeis.org/A302378) | Proof |  | [12552-PROOF.pdf](12552-PROOF.pdf) |
-| 12553 | [A297594](https://oeis.org/A297594) | Proof |  | [12553-PROOF.pdf](12553-PROOF.pdf) |
-| 12554 | [A296325](https://oeis.org/A296325) | Proof |  | [12554-PROOF.pdf](12554-PROOF.pdf) |
-| 12555 | [A283689](https://oeis.org/A283689) | Proof |  | [12555-PROOF.pdf](12555-PROOF.pdf) |
-| 12556 | [A252029](https://oeis.org/A252029) | Proof |  | [12556-PROOF.pdf](12556-PROOF.pdf) |
-| 12557 | [A255098](https://oeis.org/A255098) | Proof |  | [12557-PROOF.pdf](12557-PROOF.pdf) |
-| 12558 | [A299718](https://oeis.org/A299718) | Proof |  | [12558-PROOF.pdf](12558-PROOF.pdf) |
-| 12559 | [A320405](https://oeis.org/A320405) | Proof |  | [12559-PROOF.pdf](12559-PROOF.pdf) |
-| 12560 | [A300494](https://oeis.org/A300494) | Proof |  | [12560-PROOF.pdf](12560-PROOF.pdf) |
-| 12561 | [A317867](https://oeis.org/A317867) | Proof |  | [12561-PROOF.pdf](12561-PROOF.pdf) |
-| 12562 | [A253040](https://oeis.org/A253040) | Proof |  | [12562-PROOF.pdf](12562-PROOF.pdf) |
-| 12563 | [A237960](https://oeis.org/A237960) | Proof |  | [12563-PROOF.pdf](12563-PROOF.pdf) |
-| 12564 | [A297342](https://oeis.org/A297342) | Proof |  | [12564-PROOF.pdf](12564-PROOF.pdf) |
-| 12565 | [A300678](https://oeis.org/A300678) | Proof |  | [12565-PROOF.pdf](12565-PROOF.pdf) |
-| 12566 | [A297430](https://oeis.org/A297430) | Proof |  | [12566-PROOF.pdf](12566-PROOF.pdf) |
-| 12567 | [A283632](https://oeis.org/A283632) | Proof |  | [12567-PROOF.pdf](12567-PROOF.pdf) |
-| 12568 | [A238250](https://oeis.org/A238250) | Proof |  | [12568-PROOF.pdf](12568-PROOF.pdf) |
-| 12569 | [A302639](https://oeis.org/A302639) | Proof |  | [12569-PROOF.pdf](12569-PROOF.pdf) |
-| 12570 | [A231905](https://oeis.org/A231905) | Proof |  | [12570-PROOF.pdf](12570-PROOF.pdf) |
-| 12571 | [A317732](https://oeis.org/A317732) | Proof |  | [12571-PROOF.pdf](12571-PROOF.pdf) |
-| 12572 | [A230172](https://oeis.org/A230172) | Proof |  | [12572-PROOF.pdf](12572-PROOF.pdf) |
-| 12573 | [A232340](https://oeis.org/A232340) | Proof |  | [12573-PROOF.pdf](12573-PROOF.pdf) |
-| 12574 | [A267663](https://oeis.org/A267663) | Proof |  | [12574-PROOF.pdf](12574-PROOF.pdf) |
-| 12575 | [A253867](https://oeis.org/A253867) | Proof |  | [12575-PROOF.pdf](12575-PROOF.pdf) |
-| 12576 | [A302169](https://oeis.org/A302169) | Proof |  | [12576-PROOF.pdf](12576-PROOF.pdf) |
-| 12577 | [A240366](https://oeis.org/A240366) | Proof |  | [12577-PROOF.pdf](12577-PROOF.pdf) |
-| 12578 | [A302962](https://oeis.org/A302962) | Proof |  | [12578-PROOF.pdf](12578-PROOF.pdf) |
-| 12579 | [A240297](https://oeis.org/A240297) | Proof |  | [12579-PROOF.pdf](12579-PROOF.pdf) |
-| 12580 | [A260206](https://oeis.org/A260206) | Proof |  | [12580-PROOF.pdf](12580-PROOF.pdf) |
-| 12581 | [A297737](https://oeis.org/A297737) | Proof |  | [12581-PROOF.pdf](12581-PROOF.pdf) |
-| 12582 | [A253616](https://oeis.org/A253616) | Proof |  | [12582-PROOF.pdf](12582-PROOF.pdf) |
-| 12583 | [A300376](https://oeis.org/A300376) | Proof |  | [12583-PROOF.pdf](12583-PROOF.pdf) |
-| 12584 | [A231781](https://oeis.org/A231781) | Proof |  | [12584-PROOF.pdf](12584-PROOF.pdf) |
-| 12585 | [A263871](https://oeis.org/A263871) | Proof |  | [12585-PROOF.pdf](12585-PROOF.pdf) |
-| 12586 | [A299737](https://oeis.org/A299737) | Proof |  | [12586-PROOF.pdf](12586-PROOF.pdf) |
-| 12587 | [A250639](https://oeis.org/A250639) | Proof |  | [12587-PROOF.pdf](12587-PROOF.pdf) |
-| 12588 | [A250591](https://oeis.org/A250591) | Proof |  | [12588-PROOF.pdf](12588-PROOF.pdf) |
-| 12589 | [A304132](https://oeis.org/A304132) | Proof |  | [12589-PROOF.pdf](12589-PROOF.pdf) |
-| 12590 | [A257149](https://oeis.org/A257149) | Proof |  | [12590-PROOF.pdf](12590-PROOF.pdf) |
-| 12591 | [A302419](https://oeis.org/A302419) | Proof |  | [12591-PROOF.pdf](12591-PROOF.pdf) |
-| 12592 | [A255157](https://oeis.org/A255157) | Proof |  | [12592-PROOF.pdf](12592-PROOF.pdf) |
-| 12593 | [A266063](https://oeis.org/A266063) | Proof |  | [12593-PROOF.pdf](12593-PROOF.pdf) |
-| 12594 | [A295118](https://oeis.org/A295118) | Proof |  | [12594-PROOF.pdf](12594-PROOF.pdf) |
-| 12595 | [A295273](https://oeis.org/A295273) | Proof |  | [12595-PROOF.pdf](12595-PROOF.pdf) |
-| 12596 | [A295414](https://oeis.org/A295414) | Proof |  | [12596-PROOF.pdf](12596-PROOF.pdf) |
-| 12597 | [A253039](https://oeis.org/A253039) | Proof |  | [12597-PROOF.pdf](12597-PROOF.pdf) |
-| 12598 | [A256731](https://oeis.org/A256731) | Proof |  | [12598-PROOF.pdf](12598-PROOF.pdf) |
-| 12599 | [A232051](https://oeis.org/A232051) | Proof |  | [12599-PROOF.pdf](12599-PROOF.pdf) |
-| 12600 | [A232320](https://oeis.org/A232320) | Proof |  | [12600-PROOF.pdf](12600-PROOF.pdf) |
-| 12601 | [A255778](https://oeis.org/A255778) | Proof |  | [12601-PROOF.pdf](12601-PROOF.pdf) |
-| 12602 | [A297759](https://oeis.org/A297759) | Proof |  | [12602-PROOF.pdf](12602-PROOF.pdf) |
-| 12603 | [A295210](https://oeis.org/A295210) | Proof |  | [12603-PROOF.pdf](12603-PROOF.pdf) |
-| 12604 | [A266133](https://oeis.org/A266133) | Proof |  | [12604-PROOF.pdf](12604-PROOF.pdf) |
-| 12605 | [A297746](https://oeis.org/A297746) | Proof |  | [12605-PROOF.pdf](12605-PROOF.pdf) |
-| 12606 | [A301494](https://oeis.org/A301494) | Proof |  | [12606-PROOF.pdf](12606-PROOF.pdf) |
-| 12607 | [A256026](https://oeis.org/A256026) | Proof |  | [12607-PROOF.pdf](12607-PROOF.pdf) |
-| 12608 | [A316951](https://oeis.org/A316951) | Proof |  | [12608-PROOF.pdf](12608-PROOF.pdf) |
-| 12609 | [A255145](https://oeis.org/A255145) | Proof |  | [12609-PROOF.pdf](12609-PROOF.pdf) |
-| 12610 | [A253656](https://oeis.org/A253656) | Proof |  | [12610-PROOF.pdf](12610-PROOF.pdf) |
-| 12611 | [A299331](https://oeis.org/A299331) | Proof |  | [12611-PROOF.pdf](12611-PROOF.pdf) |
-| 12612 | [A295713](https://oeis.org/A295713) | Proof |  | [12612-PROOF.pdf](12612-PROOF.pdf) |
-| 12613 | [A254776](https://oeis.org/A254776) | Proof |  | [12613-PROOF.pdf](12613-PROOF.pdf) |
-| 12614 | [A254722](https://oeis.org/A254722) | Proof |  | [12614-PROOF.pdf](12614-PROOF.pdf) |
-| 12615 | [A260283](https://oeis.org/A260283) | Proof |  | [12615-PROOF.pdf](12615-PROOF.pdf) |
-| 12616 | [A252600](https://oeis.org/A252600) | Proof |  | [12616-PROOF.pdf](12616-PROOF.pdf) |
-| 12617 | [A229517](https://oeis.org/A229517) | Proof |  | [12617-PROOF.pdf](12617-PROOF.pdf) |
-| 12618 | [A300535](https://oeis.org/A300535) | Proof |  | [12618-PROOF.pdf](12618-PROOF.pdf) |
-| 12619 | [A300962](https://oeis.org/A300962) | Proof |  | [12619-PROOF.pdf](12619-PROOF.pdf) |
-| 12620 | [A283861](https://oeis.org/A283861) | Proof |  | [12620-PROOF.pdf](12620-PROOF.pdf) |
-| 12621 | [A283491](https://oeis.org/A283491) | Proof |  | [12621-PROOF.pdf](12621-PROOF.pdf) |
-| 12622 | [A316180](https://oeis.org/A316180) | Proof |  | [12622-PROOF.pdf](12622-PROOF.pdf) |
-| 12623 | [A296639](https://oeis.org/A296639) | Proof |  | [12623-PROOF.pdf](12623-PROOF.pdf) |
-| 12624 | [A241116](https://oeis.org/A241116) | Proof |  | [12624-PROOF.pdf](12624-PROOF.pdf) |
-| 12625 | [A295845](https://oeis.org/A295845) | Proof |  | [12625-PROOF.pdf](12625-PROOF.pdf) |
-| 12626 | [A262468](https://oeis.org/A262468) | Proof |  | [12626-PROOF.pdf](12626-PROOF.pdf) |
-| 12627 | [A236091](https://oeis.org/A236091) | Proof |  | [12627-PROOF.pdf](12627-PROOF.pdf) |
-| 12628 | [A254452](https://oeis.org/A254452) | Proof |  | [12628-PROOF.pdf](12628-PROOF.pdf) |
-| 12629 | [A254170](https://oeis.org/A254170) | Proof |  | [12629-PROOF.pdf](12629-PROOF.pdf) |
-| 12630 | [A302956](https://oeis.org/A302956) | Proof |  | [12630-PROOF.pdf](12630-PROOF.pdf) |
-| 12631 | [A297462](https://oeis.org/A297462) | Proof |  | [12631-PROOF.pdf](12631-PROOF.pdf) |
-| 12632 | [A281799](https://oeis.org/A281799) | Proof |  | [12632-PROOF.pdf](12632-PROOF.pdf) |
-| 12633 | [A236636](https://oeis.org/A236636) | Proof |  | [12633-PROOF.pdf](12633-PROOF.pdf) |
-| 12634 | [A281718](https://oeis.org/A281718) | Proof |  | [12634-PROOF.pdf](12634-PROOF.pdf) |
-| 12635 | [A283413](https://oeis.org/A283413) | Proof |  | [12635-PROOF.pdf](12635-PROOF.pdf) |
-| 12636 | [A259296](https://oeis.org/A259296) | Proof |  | [12636-PROOF.pdf](12636-PROOF.pdf) |
-| 12637 | [A302524](https://oeis.org/A302524) | Proof |  | [12637-PROOF.pdf](12637-PROOF.pdf) |
-| 12638 | [A231582](https://oeis.org/A231582) | Proof |  | [12638-PROOF.pdf](12638-PROOF.pdf) |
-| 12639 | [A252073](https://oeis.org/A252073) | Proof |  | [12639-PROOF.pdf](12639-PROOF.pdf) |
-| 12640 | [A318041](https://oeis.org/A318041) | Proof |  | [12640-PROOF.pdf](12640-PROOF.pdf) |
-| 12641 | [A300608](https://oeis.org/A300608) | Proof |  | [12641-PROOF.pdf](12641-PROOF.pdf) |
-| 12642 | [A301350](https://oeis.org/A301350) | Proof |  | [12642-PROOF.pdf](12642-PROOF.pdf) |
-| 12643 | [A318094](https://oeis.org/A318094) | Proof |  | [12643-PROOF.pdf](12643-PROOF.pdf) |
-| 12644 | [A298550](https://oeis.org/A298550) | Proof |  | [12644-PROOF.pdf](12644-PROOF.pdf) |
-| 12645 | [A299245](https://oeis.org/A299245) | Proof |  | [12645-PROOF.pdf](12645-PROOF.pdf) |
-| 12646 | [A299557](https://oeis.org/A299557) | Proof |  | [12646-PROOF.pdf](12646-PROOF.pdf) |
-| 12647 | [A302274](https://oeis.org/A302274) | Proof |  | [12647-PROOF.pdf](12647-PROOF.pdf) |
-| 12648 | [A298059](https://oeis.org/A298059) | Proof |  | [12648-PROOF.pdf](12648-PROOF.pdf) |
-| 12649 | [A252267](https://oeis.org/A252267) | Proof |  | [12649-PROOF.pdf](12649-PROOF.pdf) |
-| 12650 | [A252367](https://oeis.org/A252367) | Proof |  | [12650-PROOF.pdf](12650-PROOF.pdf) |
-| 12651 | [A259522](https://oeis.org/A259522) | Proof |  | [12651-PROOF.pdf](12651-PROOF.pdf) |
-| 12652 | [A259960](https://oeis.org/A259960) | Proof |  | [12652-PROOF.pdf](12652-PROOF.pdf) |
-| 12653 | [A252341](https://oeis.org/A252341) | Proof |  | [12653-PROOF.pdf](12653-PROOF.pdf) |
-| 12654 | [A255025](https://oeis.org/A255025) | Proof |  | [12654-PROOF.pdf](12654-PROOF.pdf) |
-| 12655 | [A298316](https://oeis.org/A298316) | Proof |  | [12655-PROOF.pdf](12655-PROOF.pdf) |
-| 12656 | [A298378](https://oeis.org/A298378) | Proof |  | [12656-PROOF.pdf](12656-PROOF.pdf) |
-| 12657 | [A300092](https://oeis.org/A300092) | Proof |  | [12657-PROOF.pdf](12657-PROOF.pdf) |
-| 12658 | [A302462](https://oeis.org/A302462) | Proof |  | [12658-PROOF.pdf](12658-PROOF.pdf) |
-| 12659 | [A303411](https://oeis.org/A303411) | Proof |  | [12659-PROOF.pdf](12659-PROOF.pdf) |
-| 12660 | [A306132](https://oeis.org/A306132) | Proof |  | [12660-PROOF.pdf](12660-PROOF.pdf) |
-| 12661 | [A253858](https://oeis.org/A253858) | Proof |  | [12661-PROOF.pdf](12661-PROOF.pdf) |
-| 12662 | [A254493](https://oeis.org/A254493) | Proof |  | [12662-PROOF.pdf](12662-PROOF.pdf) |
-| 12663 | [A280158](https://oeis.org/A280158) | Proof |  | [12663-PROOF.pdf](12663-PROOF.pdf) |
-| 12664 | [A298708](https://oeis.org/A298708) | Proof |  | [12664-PROOF.pdf](12664-PROOF.pdf) |
-| 12665 | [A320369](https://oeis.org/A320369) | Proof |  | [12665-PROOF.pdf](12665-PROOF.pdf) |
-| 12666 | [A237845](https://oeis.org/A237845) | Proof |  | [12666-PROOF.pdf](12666-PROOF.pdf) |
-| 12667 | [A277941](https://oeis.org/A277941) | Proof |  | [12667-PROOF.pdf](12667-PROOF.pdf) |
-| 12668 | [A302262](https://oeis.org/A302262) | Proof |  | [12668-PROOF.pdf](12668-PROOF.pdf) |
-| 12669 | [A231520](https://oeis.org/A231520) | Proof |  | [12669-PROOF.pdf](12669-PROOF.pdf) |
-| 12670 | [A234862](https://oeis.org/A234862) | Proof |  | [12670-PROOF.pdf](12670-PROOF.pdf) |
-| 12671 | [A299454](https://oeis.org/A299454) | Proof |  | [12671-PROOF.pdf](12671-PROOF.pdf) |
-| 12672 | [A304547](https://oeis.org/A304547) | Proof |  | [12672-PROOF.pdf](12672-PROOF.pdf) |
-| 12673 | [A304672](https://oeis.org/A304672) | Proof |  | [12673-PROOF.pdf](12673-PROOF.pdf) |
-| 12674 | [A316119](https://oeis.org/A316119) | Proof |  | [12674-PROOF.pdf](12674-PROOF.pdf) |
-| 12675 | [A295376](https://oeis.org/A295376) | Proof |  | [12675-PROOF.pdf](12675-PROOF.pdf) |
-| 12676 | [A297400](https://oeis.org/A297400) | Proof |  | [12676-PROOF.pdf](12676-PROOF.pdf) |
-| 12677 | [A283548](https://oeis.org/A283548) | Proof |  | [12677-PROOF.pdf](12677-PROOF.pdf) |
-| 12678 | [A254771](https://oeis.org/A254771) | Proof |  | [12678-PROOF.pdf](12678-PROOF.pdf) |
-| 12679 | [A282994](https://oeis.org/A282994) | Proof |  | [12679-PROOF.pdf](12679-PROOF.pdf) |
-| 12680 | [A281952](https://oeis.org/A281952) | Proof |  | [12680-PROOF.pdf](12680-PROOF.pdf) |
-| 12681 | [A281932](https://oeis.org/A281932) | Proof |  | [12681-PROOF.pdf](12681-PROOF.pdf) |
-| 12682 | [A283787](https://oeis.org/A283787) | Proof |  | [12682-PROOF.pdf](12682-PROOF.pdf) |
-| 12683 | [A283279](https://oeis.org/A283279) | Proof |  | [12683-PROOF.pdf](12683-PROOF.pdf) |
-| 12684 | [A229642](https://oeis.org/A229642) | Proof |  | [12684-PROOF.pdf](12684-PROOF.pdf) |
-| 12685 | [A252453](https://oeis.org/A252453) | Proof |  | [12685-PROOF.pdf](12685-PROOF.pdf) |
-| 12686 | [A252084](https://oeis.org/A252084) | Proof |  | [12686-PROOF.pdf](12686-PROOF.pdf) |
-| 12687 | [A295603](https://oeis.org/A295603) | Proof |  | [12687-PROOF.pdf](12687-PROOF.pdf) |
-| 12688 | [A298385](https://oeis.org/A298385) | Proof |  | [12688-PROOF.pdf](12688-PROOF.pdf) |
-| 12689 | [A299190](https://oeis.org/A299190) | Proof |  | [12689-PROOF.pdf](12689-PROOF.pdf) |
-| 12690 | [A299461](https://oeis.org/A299461) | Proof |  | [12690-PROOF.pdf](12690-PROOF.pdf) |
-| 12691 | [A305011](https://oeis.org/A305011) | Proof |  | [12691-PROOF.pdf](12691-PROOF.pdf) |
-| 12692 | [A316644](https://oeis.org/A316644) | Proof |  | [12692-PROOF.pdf](12692-PROOF.pdf) |
-| 12693 | [A304693](https://oeis.org/A304693) | Proof |  | [12693-PROOF.pdf](12693-PROOF.pdf) |
-| 12694 | [A305907](https://oeis.org/A305907) | Proof |  | [12694-PROOF.pdf](12694-PROOF.pdf) |
-| 12695 | [A316444](https://oeis.org/A316444) | Proof |  | [12695-PROOF.pdf](12695-PROOF.pdf) |
-| 12696 | [A316637](https://oeis.org/A316637) | Proof |  | [12696-PROOF.pdf](12696-PROOF.pdf) |
-| 12697 | [A317149](https://oeis.org/A317149) | Proof |  | [12697-PROOF.pdf](12697-PROOF.pdf) |
-| 12698 | [A230802](https://oeis.org/A230802) | Proof |  | [12698-PROOF.pdf](12698-PROOF.pdf) |
-| 12699 | [A231215](https://oeis.org/A231215) | Proof |  | [12699-PROOF.pdf](12699-PROOF.pdf) |
-| 12700 | [A253980](https://oeis.org/A253980) | Proof |  | [12700-PROOF.pdf](12700-PROOF.pdf) |
-| 12701 | [A282526](https://oeis.org/A282526) | Proof |  | [12701-PROOF.pdf](12701-PROOF.pdf) |
-| 12702 | [A268797](https://oeis.org/A268797) | Proof |  | [12702-PROOF.pdf](12702-PROOF.pdf) |
-| 12703 | [A268808](https://oeis.org/A268808) | Proof |  | [12703-PROOF.pdf](12703-PROOF.pdf) |
-| 12704 | [A279980](https://oeis.org/A279980) | Proof |  | [12704-PROOF.pdf](12704-PROOF.pdf) |
-| 12705 | [A238651](https://oeis.org/A238651) | Proof |  | [12705-PROOF.pdf](12705-PROOF.pdf) |
-| 12706 | [A251316](https://oeis.org/A251316) | Proof |  | [12706-PROOF.pdf](12706-PROOF.pdf) |
-| 12707 | [A268788](https://oeis.org/A268788) | Proof |  | [12707-PROOF.pdf](12707-PROOF.pdf) |
-| 12708 | [A268892](https://oeis.org/A268892) | Proof |  | [12708-PROOF.pdf](12708-PROOF.pdf) |
-| 12709 | [A269001](https://oeis.org/A269001) | Proof |  | [12709-PROOF.pdf](12709-PROOF.pdf) |
-| 12710 | [A269088](https://oeis.org/A269088) | Proof |  | [12710-PROOF.pdf](12710-PROOF.pdf) |
-| 12711 | [A254392](https://oeis.org/A254392) | Proof |  | [12711-PROOF.pdf](12711-PROOF.pdf) |
-| 12712 | [A303459](https://oeis.org/A303459) | Proof |  | [12712-PROOF.pdf](12712-PROOF.pdf) |
-| 12713 | [A297634](https://oeis.org/A297634) | Proof |  | [12713-PROOF.pdf](12713-PROOF.pdf) |
-| 12714 | [A299836](https://oeis.org/A299836) | Proof |  | [12714-PROOF.pdf](12714-PROOF.pdf) |
-| 12715 | [A256897](https://oeis.org/A256897) | Proof |  | [12715-PROOF.pdf](12715-PROOF.pdf) |
-| 12716 | [A298392](https://oeis.org/A298392) | Proof |  | [12716-PROOF.pdf](12716-PROOF.pdf) |
-| 12717 | [A299303](https://oeis.org/A299303) | Proof |  | [12717-PROOF.pdf](12717-PROOF.pdf) |
-| 12718 | [A299510](https://oeis.org/A299510) | Proof |  | [12718-PROOF.pdf](12718-PROOF.pdf) |
-| 12719 | [A302530](https://oeis.org/A302530) | Proof |  | [12719-PROOF.pdf](12719-PROOF.pdf) |
-| 12720 | [A299093](https://oeis.org/A299093) | Proof |  | [12720-PROOF.pdf](12720-PROOF.pdf) |
-| 12721 | [A317432](https://oeis.org/A317432) | Proof |  | [12721-PROOF.pdf](12721-PROOF.pdf) |
-| 12722 | [A301612](https://oeis.org/A301612) | Proof |  | [12722-PROOF.pdf](12722-PROOF.pdf) |
-| 12723 | [A262476](https://oeis.org/A262476) | Proof |  | [12723-PROOF.pdf](12723-PROOF.pdf) |
-| 12724 | [A251001](https://oeis.org/A251001) | Proof |  | [12724-PROOF.pdf](12724-PROOF.pdf) |
-| 12725 | [A295982](https://oeis.org/A295982) | Proof |  | [12725-PROOF.pdf](12725-PROOF.pdf) |
-| 12726 | [A296671](https://oeis.org/A296671) | Proof |  | [12726-PROOF.pdf](12726-PROOF.pdf) |
-| 12727 | [A237237](https://oeis.org/A237237) | Proof |  | [12727-PROOF.pdf](12727-PROOF.pdf) |
-| 12728 | [A237679](https://oeis.org/A237679) | Proof |  | [12728-PROOF.pdf](12728-PROOF.pdf) |
-| 12729 | [A252127](https://oeis.org/A252127) | Proof |  | [12729-PROOF.pdf](12729-PROOF.pdf) |
-| 12730 | [A259950](https://oeis.org/A259950) | Proof |  | [12730-PROOF.pdf](12730-PROOF.pdf) |
-| 12731 | [A298324](https://oeis.org/A298324) | Proof |  | [12731-PROOF.pdf](12731-PROOF.pdf) |
-| 12732 | [A299563](https://oeis.org/A299563) | Proof |  | [12732-PROOF.pdf](12732-PROOF.pdf) |
-| 12733 | [A300104](https://oeis.org/A300104) | Proof |  | [12733-PROOF.pdf](12733-PROOF.pdf) |
-| 12734 | [A303086](https://oeis.org/A303086) | Proof |  | [12734-PROOF.pdf](12734-PROOF.pdf) |
-| 12735 | [A303244](https://oeis.org/A303244) | Proof |  | [12735-PROOF.pdf](12735-PROOF.pdf) |
-| 12736 | [A304700](https://oeis.org/A304700) | Proof |  | [12736-PROOF.pdf](12736-PROOF.pdf) |
-| 12737 | [A316451](https://oeis.org/A316451) | Proof |  | [12737-PROOF.pdf](12737-PROOF.pdf) |
-| 12738 | [A317262](https://oeis.org/A317262) | Proof |  | [12738-PROOF.pdf](12738-PROOF.pdf) |
-| 12739 | [A299875](https://oeis.org/A299875) | Proof |  | [12739-PROOF.pdf](12739-PROOF.pdf) |
-| 12740 | [A316126](https://oeis.org/A316126) | Proof |  | [12740-PROOF.pdf](12740-PROOF.pdf) |
-| 12741 | [A302822](https://oeis.org/A302822) | Proof |  | [12741-PROOF.pdf](12741-PROOF.pdf) |
-| 12742 | [A254486](https://oeis.org/A254486) | Proof |  | [12742-PROOF.pdf](12742-PROOF.pdf) |
-| 12743 | [A282646](https://oeis.org/A282646) | Proof |  | [12743-PROOF.pdf](12743-PROOF.pdf) |
-| 12744 | [A254163](https://oeis.org/A254163) | Proof |  | [12744-PROOF.pdf](12744-PROOF.pdf) |
-| 12745 | [A254356](https://oeis.org/A254356) | Proof |  | [12745-PROOF.pdf](12745-PROOF.pdf) |
-| 12746 | [A254588](https://oeis.org/A254588) | Proof |  | [12746-PROOF.pdf](12746-PROOF.pdf) |
-| 12747 | [A301825](https://oeis.org/A301825) | Proof |  | [12747-PROOF.pdf](12747-PROOF.pdf) |
-| 12748 | [A300339](https://oeis.org/A300339) | Proof |  | [12748-PROOF.pdf](12748-PROOF.pdf) |
-| 12749 | [A300172](https://oeis.org/A300172) | Proof |  | [12749-PROOF.pdf](12749-PROOF.pdf) |
-| 12750 | [A299011](https://oeis.org/A299011) | Proof |  | [12750-PROOF.pdf](12750-PROOF.pdf) |
-| 12751 | [A299217](https://oeis.org/A299217) | Proof |  | [12751-PROOF.pdf](12751-PROOF.pdf) |
-| 12752 | [A299802](https://oeis.org/A299802) | Proof |  | [12752-PROOF.pdf](12752-PROOF.pdf) |
-| 12753 | [A298150](https://oeis.org/A298150) | Proof |  | [12753-PROOF.pdf](12753-PROOF.pdf) |
-| 12754 | [A299124](https://oeis.org/A299124) | Proof |  | [12754-PROOF.pdf](12754-PROOF.pdf) |
-| 12755 | [A299882](https://oeis.org/A299882) | Proof |  | [12755-PROOF.pdf](12755-PROOF.pdf) |
-| 12756 | [A305914](https://oeis.org/A305914) | Proof |  | [12756-PROOF.pdf](12756-PROOF.pdf) |
-| 12757 | [A317156](https://oeis.org/A317156) | Proof |  | [12757-PROOF.pdf](12757-PROOF.pdf) |
-| 12758 | [A305171](https://oeis.org/A305171) | Proof |  | [12758-PROOF.pdf](12758-PROOF.pdf) |
-| 12759 | [A262920](https://oeis.org/A262920) | Proof |  | [12759-PROOF.pdf](12759-PROOF.pdf) |
-| 12760 | [A253331](https://oeis.org/A253331) | Proof |  | [12760-PROOF.pdf](12760-PROOF.pdf) |
-| 12761 | [A260474](https://oeis.org/A260474) | Proof |  | [12761-PROOF.pdf](12761-PROOF.pdf) |
-| 12762 | [A250710](https://oeis.org/A250710) | Proof |  | [12762-PROOF.pdf](12762-PROOF.pdf) |
-| 12763 | [A250531](https://oeis.org/A250531) | Proof |  | [12763-PROOF.pdf](12763-PROOF.pdf) |
-| 12764 | [A251831](https://oeis.org/A251831) | Proof |  | [12764-PROOF.pdf](12764-PROOF.pdf) |
-| 12765 | [A231936](https://oeis.org/A231936) | Proof |  | [12765-PROOF.pdf](12765-PROOF.pdf) |
-| 12766 | [A299004](https://oeis.org/A299004) | Proof |  | [12766-PROOF.pdf](12766-PROOF.pdf) |
-| 12767 | [A299671](https://oeis.org/A299671) | Proof |  | [12767-PROOF.pdf](12767-PROOF.pdf) |
-| 12768 | [A299749](https://oeis.org/A299749) | Proof |  | [12768-PROOF.pdf](12768-PROOF.pdf) |
-| 12769 | [A283577](https://oeis.org/A283577) | Proof |  | [12769-PROOF.pdf](12769-PROOF.pdf) |
-| 12770 | [A232373](https://oeis.org/A232373) | Proof |  | [12770-PROOF.pdf](12770-PROOF.pdf) |
-| 12771 | [A252913](https://oeis.org/A252913) | Proof |  | [12771-PROOF.pdf](12771-PROOF.pdf) |
-| 12772 | [A237062](https://oeis.org/A237062) | Proof |  | [12772-PROOF.pdf](12772-PROOF.pdf) |
-| 12773 | [A254094](https://oeis.org/A254094) | Proof |  | [12773-PROOF.pdf](12773-PROOF.pdf) |
-| 12774 | [A302744](https://oeis.org/A302744) | Proof |  | [12774-PROOF.pdf](12774-PROOF.pdf) |
-| 12775 | [A300927](https://oeis.org/A300927) | Proof |  | [12775-PROOF.pdf](12775-PROOF.pdf) |
-| 12776 | [A230678](https://oeis.org/A230678) | Proof |  | [12776-PROOF.pdf](12776-PROOF.pdf) |
-| 12777 | [A229377](https://oeis.org/A229377) | Proof |  | [12777-PROOF.pdf](12777-PROOF.pdf) |
-| 12778 | [A316172](https://oeis.org/A316172) | Proof |  | [12778-PROOF.pdf](12778-PROOF.pdf) |
-| 12779 | [A299584](https://oeis.org/A299584) | Proof |  | [12779-PROOF.pdf](12779-PROOF.pdf) |
-| 12780 | [A317454](https://oeis.org/A317454) | Proof |  | [12780-PROOF.pdf](12780-PROOF.pdf) |
-| 12781 | [A300263](https://oeis.org/A300263) | Proof |  | [12781-PROOF.pdf](12781-PROOF.pdf) |
-| 12782 | [A239042](https://oeis.org/A239042) | Proof |  | [12782-PROOF.pdf](12782-PROOF.pdf) |
-| 12783 | [A239335](https://oeis.org/A239335) | Proof |  | [12783-PROOF.pdf](12783-PROOF.pdf) |
-| 12784 | [A239400](https://oeis.org/A239400) | Proof |  | [12784-PROOF.pdf](12784-PROOF.pdf) |
-| 12785 | [A239821](https://oeis.org/A239821) | Proof |  | [12785-PROOF.pdf](12785-PROOF.pdf) |
-| 12786 | [A278017](https://oeis.org/A278017) | Proof |  | [12786-PROOF.pdf](12786-PROOF.pdf) |
-| 12787 | [A283638](https://oeis.org/A283638) | Proof |  | [12787-PROOF.pdf](12787-PROOF.pdf) |
-| 12788 | [A283631](https://oeis.org/A283631) | Proof |  | [12788-PROOF.pdf](12788-PROOF.pdf) |
-| 12789 | [A296685](https://oeis.org/A296685) | Proof |  | [12789-PROOF.pdf](12789-PROOF.pdf) |
-| 12790 | [A282835](https://oeis.org/A282835) | Proof |  | [12790-PROOF.pdf](12790-PROOF.pdf) |
-| 12791 | [A254918](https://oeis.org/A254918) | Proof |  | [12791-PROOF.pdf](12791-PROOF.pdf) |
-| 12792 | [A253330](https://oeis.org/A253330) | Proof |  | [12792-PROOF.pdf](12792-PROOF.pdf) |
-| 12793 | [A258533](https://oeis.org/A258533) | Proof |  | [12793-PROOF.pdf](12793-PROOF.pdf) |
-| 12794 | [A223958](https://oeis.org/A223958) | Proof |  | [12794-PROOF.pdf](12794-PROOF.pdf) |
-| 12795 | [A252771](https://oeis.org/A252771) | Proof |  | [12795-PROOF.pdf](12795-PROOF.pdf) |
-| 12796 | [A252905](https://oeis.org/A252905) | Proof |  | [12796-PROOF.pdf](12796-PROOF.pdf) |
-| 12797 | [A302370](https://oeis.org/A302370) | Proof |  | [12797-PROOF.pdf](12797-PROOF.pdf) |
-| 12798 | [A302474](https://oeis.org/A302474) | Proof |  | [12798-PROOF.pdf](12798-PROOF.pdf) |
-| 12799 | [A303515](https://oeis.org/A303515) | Proof |  | [12799-PROOF.pdf](12799-PROOF.pdf) |
-| 12800 | [A254919](https://oeis.org/A254919) | Proof |  | [12800-PROOF.pdf](12800-PROOF.pdf) |
-| 12801 | [A282557](https://oeis.org/A282557) | Proof |  | [12801-PROOF.pdf](12801-PROOF.pdf) |
-| 12802 | [A253310](https://oeis.org/A253310) | Proof |  | [12802-PROOF.pdf](12802-PROOF.pdf) |
-| 12803 | [A237071](https://oeis.org/A237071) | Proof |  | [12803-PROOF.pdf](12803-PROOF.pdf) |
-| 12804 | [A231250](https://oeis.org/A231250) | Proof |  | [12804-PROOF.pdf](12804-PROOF.pdf) |
-| 12805 | [A259425](https://oeis.org/A259425) | Proof |  | [12805-PROOF.pdf](12805-PROOF.pdf) |
-| 12806 | [A316812](https://oeis.org/A316812) | Proof |  | [12806-PROOF.pdf](12806-PROOF.pdf) |
-| 12807 | [A317562](https://oeis.org/A317562) | Proof |  | [12807-PROOF.pdf](12807-PROOF.pdf) |
-| 12808 | [A299064](https://oeis.org/A299064) | Proof |  | [12808-PROOF.pdf](12808-PROOF.pdf) |
-| 12809 | [A258534](https://oeis.org/A258534) | Proof |  | [12809-PROOF.pdf](12809-PROOF.pdf) |
-| 12810 | [A224307](https://oeis.org/A224307) | Proof |  | [12810-PROOF.pdf](12810-PROOF.pdf) |
-| 12811 | [A317462](https://oeis.org/A317462) | Proof |  | [12811-PROOF.pdf](12811-PROOF.pdf) |
-| 12812 | [A267962](https://oeis.org/A267962) | Proof |  | [12812-PROOF.pdf](12812-PROOF.pdf) |
-| 12813 | [A282789](https://oeis.org/A282789) | Proof |  | [12813-PROOF.pdf](12813-PROOF.pdf) |
-| 12814 | [A232379](https://oeis.org/A232379) | Proof |  | [12814-PROOF.pdf](12814-PROOF.pdf) |
-| 12815 | [A297651](https://oeis.org/A297651) | Proof |  | [12815-PROOF.pdf](12815-PROOF.pdf) |
-| 12816 | [A297698](https://oeis.org/A297698) | Proof |  | [12816-PROOF.pdf](12816-PROOF.pdf) |
-| 12817 | [A316806](https://oeis.org/A316806) | Proof |  | [12817-PROOF.pdf](12817-PROOF.pdf) |
-| 12818 | [A317523](https://oeis.org/A317523) | Proof |  | [12818-PROOF.pdf](12818-PROOF.pdf) |
-| 12819 | [A276304](https://oeis.org/A276304) | Proof |  | [12819-PROOF.pdf](12819-PROOF.pdf) |
-| 12820 | [A283542](https://oeis.org/A283542) | Proof |  | [12820-PROOF.pdf](12820-PROOF.pdf) |
-| 12821 | [A237163](https://oeis.org/A237163) | Proof |  | [12821-PROOF.pdf](12821-PROOF.pdf) |
-| 12822 | [A236706](https://oeis.org/A236706) | Proof |  | [12822-PROOF.pdf](12822-PROOF.pdf) |
-| 12823 | [A230616](https://oeis.org/A230616) | Proof |  | [12823-PROOF.pdf](12823-PROOF.pdf) |
-| 12824 | [A251032](https://oeis.org/A251032) | Proof |  | [12824-PROOF.pdf](12824-PROOF.pdf) |
-| 12825 | [A297510](https://oeis.org/A297510) | Proof |  | [12825-PROOF.pdf](12825-PROOF.pdf) |
-| 12826 | [A303420](https://oeis.org/A303420) | Proof |  | [12826-PROOF.pdf](12826-PROOF.pdf) |
-| 12827 | [A232152](https://oeis.org/A232152) | Proof |  | [12827-PROOF.pdf](12827-PROOF.pdf) |
-| 12828 | [A296648](https://oeis.org/A296648) | Proof |  | [12828-PROOF.pdf](12828-PROOF.pdf) |
-| 12829 | [A237386](https://oeis.org/A237386) | Proof |  | [12829-PROOF.pdf](12829-PROOF.pdf) |
-| 12830 | [A250590](https://oeis.org/A250590) | Proof |  | [12830-PROOF.pdf](12830-PROOF.pdf) |
-| 12831 | [A250679](https://oeis.org/A250679) | Proof |  | [12831-PROOF.pdf](12831-PROOF.pdf) |
-| 12832 | [A251290](https://oeis.org/A251290) | Proof |  | [12832-PROOF.pdf](12832-PROOF.pdf) |
-| 12833 | [A233071](https://oeis.org/A233071) | Proof |  | [12833-PROOF.pdf](12833-PROOF.pdf) |
-| 12834 | [A305520](https://oeis.org/A305520) | Proof |  | [12834-PROOF.pdf](12834-PROOF.pdf) |
-| 12835 | [A316957](https://oeis.org/A316957) | Proof |  | [12835-PROOF.pdf](12835-PROOF.pdf) |
-| 12836 | [A297680](https://oeis.org/A297680) | Proof |  | [12836-PROOF.pdf](12836-PROOF.pdf) |
-| 12837 | [A282313](https://oeis.org/A282313) | Proof |  | [12837-PROOF.pdf](12837-PROOF.pdf) |
-| 12838 | [A250638](https://oeis.org/A250638) | Proof |  | [12838-PROOF.pdf](12838-PROOF.pdf) |
-| 12839 | [A229636](https://oeis.org/A229636) | Proof |  | [12839-PROOF.pdf](12839-PROOF.pdf) |
-| 12840 | [A254737](https://oeis.org/A254737) | Proof |  | [12840-PROOF.pdf](12840-PROOF.pdf) |
-| 12841 | [A257155](https://oeis.org/A257155) | Proof |  | [12841-PROOF.pdf](12841-PROOF.pdf) |
-| 12842 | [A283382](https://oeis.org/A283382) | Proof |  | [12842-PROOF.pdf](12842-PROOF.pdf) |
-| 12843 | [A230472](https://oeis.org/A230472) | Proof |  | [12843-PROOF.pdf](12843-PROOF.pdf) |
-| 12844 | [A250971](https://oeis.org/A250971) | Proof |  | [12844-PROOF.pdf](12844-PROOF.pdf) |
-| 12845 | [A251098](https://oeis.org/A251098) | Proof |  | [12845-PROOF.pdf](12845-PROOF.pdf) |
-| 12846 | [A232946](https://oeis.org/A232946) | Proof |  | [12846-PROOF.pdf](12846-PROOF.pdf) |
-| 12847 | [A224350](https://oeis.org/A224350) | Proof |  | [12847-PROOF.pdf](12847-PROOF.pdf) |
-| 12848 | [A267953](https://oeis.org/A267953) | Proof |  | [12848-PROOF.pdf](12848-PROOF.pdf) |
-| 12849 | [A238149](https://oeis.org/A238149) | Proof |  | [12849-PROOF.pdf](12849-PROOF.pdf) |
-| 12850 | [A237916](https://oeis.org/A237916) | Proof |  | [12850-PROOF.pdf](12850-PROOF.pdf) |
-| 12851 | [A283695](https://oeis.org/A283695) | Proof |  | [12851-PROOF.pdf](12851-PROOF.pdf) |
-| 12852 | [A251200](https://oeis.org/A251200) | Proof |  | [12852-PROOF.pdf](12852-PROOF.pdf) |
-| 12853 | [A259513](https://oeis.org/A259513) | Proof |  | [12853-PROOF.pdf](12853-PROOF.pdf) |
-| 12854 | [A265930](https://oeis.org/A265930) | Proof |  | [12854-PROOF.pdf](12854-PROOF.pdf) |
-| 12855 | [A279922](https://oeis.org/A279922) | Proof |  | [12855-PROOF.pdf](12855-PROOF.pdf) |
-| 12856 | [A283570](https://oeis.org/A283570) | Proof |  | [12856-PROOF.pdf](12856-PROOF.pdf) |
-| 12857 | [A267907](https://oeis.org/A267907) | Proof |  | [12857-PROOF.pdf](12857-PROOF.pdf) |
-| 12858 | [A282373](https://oeis.org/A282373) | Proof |  | [12858-PROOF.pdf](12858-PROOF.pdf) |
-| 12859 | [A229592](https://oeis.org/A229592) | Proof |  | [12859-PROOF.pdf](12859-PROOF.pdf) |
-| 12860 | [A268910](https://oeis.org/A268910) | Proof |  | [12860-PROOF.pdf](12860-PROOF.pdf) |
-| 12861 | [A268977](https://oeis.org/A268977) | Proof |  | [12861-PROOF.pdf](12861-PROOF.pdf) |
-| 12862 | [A237941](https://oeis.org/A237941) | Proof |  | [12862-PROOF.pdf](12862-PROOF.pdf) |
-| 12863 | [A259249](https://oeis.org/A259249) | Proof |  | [12863-PROOF.pdf](12863-PROOF.pdf) |
-| 12864 | [A223998](https://oeis.org/A223998) | Proof |  | [12864-PROOF.pdf](12864-PROOF.pdf) |
-| 12865 | [A251226](https://oeis.org/A251226) | Proof |  | [12865-PROOF.pdf](12865-PROOF.pdf) |
-| 12866 | [A302068](https://oeis.org/A302068) | Proof |  | [12866-PROOF.pdf](12866-PROOF.pdf) |
-| 12867 | [A254265](https://oeis.org/A254265) | Proof |  | [12867-PROOF.pdf](12867-PROOF.pdf) |
-| 12868 | [A301840](https://oeis.org/A301840) | Proof |  | [12868-PROOF.pdf](12868-PROOF.pdf) |
-| 12869 | [A237294](https://oeis.org/A237294) | Proof |  | [12869-PROOF.pdf](12869-PROOF.pdf) |
-| 12870 | [A251804](https://oeis.org/A251804) | Proof |  | [12870-PROOF.pdf](12870-PROOF.pdf) |
-| 12871 | [A302080](https://oeis.org/A302080) | Proof |  | [12871-PROOF.pdf](12871-PROOF.pdf) |
-| 12872 | [A301883](https://oeis.org/A301883) | Proof |  | [12872-PROOF.pdf](12872-PROOF.pdf) |
-| 12873 | [A224277](https://oeis.org/A224277) | Proof |  | [12873-PROOF.pdf](12873-PROOF.pdf) |
-| 12874 | [A269205](https://oeis.org/A269205) | Proof |  | [12874-PROOF.pdf](12874-PROOF.pdf) |
-| 12875 | [A269218](https://oeis.org/A269218) | Proof |  | [12875-PROOF.pdf](12875-PROOF.pdf) |
-| 12876 | [A264205](https://oeis.org/A264205) | Proof |  | [12876-PROOF.pdf](12876-PROOF.pdf) |
-| 12877 | [A279302](https://oeis.org/A279302) | Proof |  | [12877-PROOF.pdf](12877-PROOF.pdf) |
-| 12878 | [A279659](https://oeis.org/A279659) | Proof |  | [12878-PROOF.pdf](12878-PROOF.pdf) |
-| 12879 | [A251246](https://oeis.org/A251246) | Proof |  | [12879-PROOF.pdf](12879-PROOF.pdf) |
-| 12880 | [A302149](https://oeis.org/A302149) | Proof |  | [12880-PROOF.pdf](12880-PROOF.pdf) |
-| 12881 | [A254385](https://oeis.org/A254385) | Proof |  | [12881-PROOF.pdf](12881-PROOF.pdf) |
-| 12882 | [A250514](https://oeis.org/A250514) | Proof |  | [12882-PROOF.pdf](12882-PROOF.pdf) |
-| 12883 | [A250450](https://oeis.org/A250450) | Proof |  | [12883-PROOF.pdf](12883-PROOF.pdf) |
-| 12884 | [A229369](https://oeis.org/A229369) | Proof |  | [12884-PROOF.pdf](12884-PROOF.pdf) |
-| 12885 | [A233024](https://oeis.org/A233024) | Proof |  | [12885-PROOF.pdf](12885-PROOF.pdf) |
-| 12886 | [A269825](https://oeis.org/A269825) | Proof |  | [12886-PROOF.pdf](12886-PROOF.pdf) |
-| 12887 | [A277784](https://oeis.org/A277784) | Proof |  | [12887-PROOF.pdf](12887-PROOF.pdf) |
-| 12888 | [A224387](https://oeis.org/A224387) | Proof |  | [12888-PROOF.pdf](12888-PROOF.pdf) |
-| 12889 | [A250672](https://oeis.org/A250672) | Proof |  | [12889-PROOF.pdf](12889-PROOF.pdf) |
-| 12890 | [A263552](https://oeis.org/A263552) | Proof |  | [12890-PROOF.pdf](12890-PROOF.pdf) |
-| 12891 | [A301783](https://oeis.org/A301783) | Proof |  | [12891-PROOF.pdf](12891-PROOF.pdf) |
-| 12892 | [A229605](https://oeis.org/A229605) | Proof |  | [12892-PROOF.pdf](12892-PROOF.pdf) |
-| 12893 | [A229684](https://oeis.org/A229684) | Proof |  | [12893-PROOF.pdf](12893-PROOF.pdf) |
-| 12894 | [A301406](https://oeis.org/A301406) | Proof |  | [12894-PROOF.pdf](12894-PROOF.pdf) |
-| 12895 | [A303425](https://oeis.org/A303425) | Proof |  | [12895-PROOF.pdf](12895-PROOF.pdf) |
-| 12896 | [A223972](https://oeis.org/A223972) | Proof |  | [12896-PROOF.pdf](12896-PROOF.pdf) |
-| 12897 | [A253348](https://oeis.org/A253348) | Proof |  | [12897-PROOF.pdf](12897-PROOF.pdf) |
-| 12898 | [A253355](https://oeis.org/A253355) | Proof |  | [12898-PROOF.pdf](12898-PROOF.pdf) |
-| 12899 | [A269212](https://oeis.org/A269212) | Proof |  | [12899-PROOF.pdf](12899-PROOF.pdf) |
-| 12900 | [A224203](https://oeis.org/A224203) | Proof |  | [12900-PROOF.pdf](12900-PROOF.pdf) |
-| 12901 | [A233017](https://oeis.org/A233017) | Proof |  | [12901-PROOF.pdf](12901-PROOF.pdf) |
-| 12902 | [A176126](https://oeis.org/A176126) | Proof | the residual test over one square root, or none | [12902-PROOF.pdf](12902-PROOF.pdf) |
-| 12903 | [A191625](https://oeis.org/A191625) | Proof | the residual test over one square root, or none | [12903-PROOF.pdf](12903-PROOF.pdf) |
-| 12904 | [A186341](https://oeis.org/A186341) | Proof | the residual test over one square root, or none | [12904-PROOF.pdf](12904-PROOF.pdf) |
-| 12905 | [A026743](https://oeis.org/A026743) | Proof | the residual test over one square root, or none | [12905-PROOF.pdf](12905-PROOF.pdf) |
-| 12906 | [A191786](https://oeis.org/A191786) | Proof | the residual test over one square root, or none | [12906-PROOF.pdf](12906-PROOF.pdf) |
-| 12907 | [A210496](https://oeis.org/A210496) | Proof | the residual test over one square root, or none | [12907-PROOF.pdf](12907-PROOF.pdf) |
-| 12908 | [A182892](https://oeis.org/A182892) | Proof | the residual test over one square root, or none | [12908-PROOF.pdf](12908-PROOF.pdf) |
-| 12909 | [A270724](https://oeis.org/A270724) | Proof | the residual test over one square root, or none | [12909-PROOF.pdf](12909-PROOF.pdf) |
-| 12910 | [A190171](https://oeis.org/A190171) | Proof | the residual test over one square root, or none | [12910-PROOF.pdf](12910-PROOF.pdf) |
-| 12911 | [A257515](https://oeis.org/A257515) | Proof | the residual test over one square root, or none | [12911-PROOF.pdf](12911-PROOF.pdf) |
-| 12912 | [A190788](https://oeis.org/A190788) | Proof | the residual test over one square root, or none | [12912-PROOF.pdf](12912-PROOF.pdf) |
-| 12913 | [A095981](https://oeis.org/A095981) | Proof | the residual test over one square root, or none | [12913-PROOF.pdf](12913-PROOF.pdf) |
-| 12914 | [A212205](https://oeis.org/A212205) | Proof | the residual test over one square root, or none | [12914-PROOF.pdf](12914-PROOF.pdf) |
-| 12915 | [A270661](https://oeis.org/A270661) | Proof | the residual test over one square root, or none | [12915-PROOF.pdf](12915-PROOF.pdf) |
-| 12916 | [A157021](https://oeis.org/A157021) | Proof | the residual test over one square root, or none | [12916-PROOF.pdf](12916-PROOF.pdf) |
-| 12917 | [A165537](https://oeis.org/A165537) | Proof | the residual test over one square root, or none | [12917-PROOF.pdf](12917-PROOF.pdf) |
-| 12918 | [A166287](https://oeis.org/A166287) | Proof | the residual test over one square root, or none | [12918-PROOF.pdf](12918-PROOF.pdf) |
-| 12919 | [A174013](https://oeis.org/A174013) | Proof | the residual test over one square root, or none | [12919-PROOF.pdf](12919-PROOF.pdf) |
-| 12920 | [A178072](https://oeis.org/A178072) | Proof | the residual test over one square root, or none | [12920-PROOF.pdf](12920-PROOF.pdf) |
-| 12921 | [A182894](https://oeis.org/A182894) | Proof | the residual test over one square root, or none | [12921-PROOF.pdf](12921-PROOF.pdf) |
-| 12922 | [A114584](https://oeis.org/A114584) | Proof | the residual test over one square root, or none | [12922-PROOF.pdf](12922-PROOF.pdf) |
-| 12923 | [A164586](https://oeis.org/A164586) | Proof | the residual test over one square root, or none | [12923-PROOF.pdf](12923-PROOF.pdf) |
-| 12924 | [A189053](https://oeis.org/A189053) | Proof | the residual test over one square root, or none | [12924-PROOF.pdf](12924-PROOF.pdf) |
-| 12925 | [A182904](https://oeis.org/A182904) | Proof | the residual test over one square root, or none | [12925-PROOF.pdf](12925-PROOF.pdf) |
-| 12926 | [A274295](https://oeis.org/A274295) | Proof | the residual test over one square root, or none | [12926-PROOF.pdf](12926-PROOF.pdf) |
-| 12927 | [A226434](https://oeis.org/A226434) | Proof | the residual test over one square root, or none | [12927-PROOF.pdf](12927-PROOF.pdf) |
-| 12928 | [A257104](https://oeis.org/A257104) | Proof | the residual test over one square root, or none | [12928-PROOF.pdf](12928-PROOF.pdf) |
-| 12929 | [A108600](https://oeis.org/A108600) | Proof | the residual test over one square root, or none | [12929-PROOF.pdf](12929-PROOF.pdf) |
-| 12930 | [A114851](https://oeis.org/A114851) | Proof | the residual test over one square root, or none | [12930-PROOF.pdf](12930-PROOF.pdf) |
-| 12931 | [A125306](https://oeis.org/A125306) | Proof | the residual test over one square root, or none | [12931-PROOF.pdf](12931-PROOF.pdf) |
-| 12932 | [A166290](https://oeis.org/A166290) | Proof | the residual test over one square root, or none | [12932-PROOF.pdf](12932-PROOF.pdf) |
-| 12933 | [A228770](https://oeis.org/A228770) | Proof | the residual test over one square root, or none | [12933-PROOF.pdf](12933-PROOF.pdf) |
-| 12934 | [A257300](https://oeis.org/A257300) | Proof | the residual test over one square root, or none | [12934-PROOF.pdf](12934-PROOF.pdf) |
-| 12935 | [A089324](https://oeis.org/A089324) | Proof | the residual test over one square root, or none | [12935-PROOF.pdf](12935-PROOF.pdf) |
-| 12936 | [A104625](https://oeis.org/A104625) | Proof | the residual test over one square root, or none | [12936-PROOF.pdf](12936-PROOF.pdf) |
-| 12937 | [A113956](https://oeis.org/A113956) | Proof | the residual test over one square root, or none | [12937-PROOF.pdf](12937-PROOF.pdf) |
-| 12938 | [A116383](https://oeis.org/A116383) | Proof | the residual test over one square root, or none | [12938-PROOF.pdf](12938-PROOF.pdf) |
-| 12939 | [A162548](https://oeis.org/A162548) | Proof | the residual test over one square root, or none | [12939-PROOF.pdf](12939-PROOF.pdf) |
-| 12940 | [A173993](https://oeis.org/A173993) | Proof | the residual test over one square root, or none | [12940-PROOF.pdf](12940-PROOF.pdf) |
-| 12941 | [A244886](https://oeis.org/A244886) | Proof | the residual test over one square root, or none | [12941-PROOF.pdf](12941-PROOF.pdf) |
-| 12942 | [A157003](https://oeis.org/A157003) | Proof | the residual test over one square root, or none | [12942-PROOF.pdf](12942-PROOF.pdf) |
-| 12943 | [A162482](https://oeis.org/A162482) | Proof | the residual test over one square root, or none | [12943-PROOF.pdf](12943-PROOF.pdf) |
-| 12944 | [A163493](https://oeis.org/A163493) | Proof | the residual test over one square root, or none | [12944-PROOF.pdf](12944-PROOF.pdf) |
-| 12945 | [A191398](https://oeis.org/A191398) | Proof | the residual test over one square root, or none | [12945-PROOF.pdf](12945-PROOF.pdf) |
-| 12946 | [A135582](https://oeis.org/A135582) | Proof | the residual test over one square root, or none | [12946-PROOF.pdf](12946-PROOF.pdf) |
-| 12947 | [A139376](https://oeis.org/A139376) | Proof | the residual test over one square root, or none | [12947-PROOF.pdf](12947-PROOF.pdf) |
-| 12948 | [A346074](https://oeis.org/A346074) | Proof | the residual test over one square root, or none | [12948-PROOF.pdf](12948-PROOF.pdf) |
-| 12949 | [A190166](https://oeis.org/A190166) | Proof | the residual test over one square root, or none | [12949-PROOF.pdf](12949-PROOF.pdf) |
-| 12950 | [A025251](https://oeis.org/A025251) | Proof | the residual test over one square root, or none | [12950-PROOF.pdf](12950-PROOF.pdf) |
-| 12951 | [A228771](https://oeis.org/A228771) | Proof | the residual test over one square root, or none | [12951-PROOF.pdf](12951-PROOF.pdf) |
-| 12952 | [A025268](https://oeis.org/A025268) | Proof | the residual test over one square root, or none | [12952-PROOF.pdf](12952-PROOF.pdf) |
-| 12953 | [A025272](https://oeis.org/A025272) | Proof | the residual test over one square root, or none | [12953-PROOF.pdf](12953-PROOF.pdf) |
-| 12954 | [A162475](https://oeis.org/A162475) | Proof | the residual test over one square root, or none | [12954-PROOF.pdf](12954-PROOF.pdf) |
-| 12955 | [A385252](https://oeis.org/A385252) | Proof | the residual test over one square root, or none | [12955-PROOF.pdf](12955-PROOF.pdf) |
-| 12956 | [A114464](https://oeis.org/A114464) | Proof | the residual test over one square root, or none | [12956-PROOF.pdf](12956-PROOF.pdf) |
-| 12957 | [A127154](https://oeis.org/A127154) | Proof | the residual test over one square root, or none | [12957-PROOF.pdf](12957-PROOF.pdf) |
-| 12958 | [A135335](https://oeis.org/A135335) | Proof | the residual test over one square root, or none | [12958-PROOF.pdf](12958-PROOF.pdf) |
-| 12959 | [A165540](https://oeis.org/A165540) | Proof | the residual test over one square root, or none | [12959-PROOF.pdf](12959-PROOF.pdf) |
-| 12960 | [A171416](https://oeis.org/A171416) | Proof | the residual test over one square root, or none | [12960-PROOF.pdf](12960-PROOF.pdf) |
-| 12961 | [A188314](https://oeis.org/A188314) | Proof | the residual test over one square root, or none | [12961-PROOF.pdf](12961-PROOF.pdf) |
-| 12962 | [A247170](https://oeis.org/A247170) | Proof | the residual test over one square root, or none | [12962-PROOF.pdf](12962-PROOF.pdf) |
-| 12963 | [A254314](https://oeis.org/A254314) | Proof | the residual test over one square root, or none | [12963-PROOF.pdf](12963-PROOF.pdf) |
-| 12964 | [A270661](https://oeis.org/A270661) | Proof | the residual test over one square root, or none | [12964-PROOF.pdf](12964-PROOF.pdf) |
-| 12965 | [A003440](https://oeis.org/A003440) | Proof | the residual test over one square root, or none | [12965-PROOF.pdf](12965-PROOF.pdf) |
-| 12966 | [A110521](https://oeis.org/A110521) | Proof | the residual test over one square root, or none | [12966-PROOF.pdf](12966-PROOF.pdf) |
-| 12967 | [A114190](https://oeis.org/A114190) | Proof | the residual test over one square root, or none | [12967-PROOF.pdf](12967-PROOF.pdf) |
-| 12968 | [A116387](https://oeis.org/A116387) | Proof | the residual test over one square root, or none | [12968-PROOF.pdf](12968-PROOF.pdf) |
-| 12969 | [A128096](https://oeis.org/A128096) | Proof | the residual test over one square root, or none | [12969-PROOF.pdf](12969-PROOF.pdf) |
-| 12970 | [A135052](https://oeis.org/A135052) | Proof | the residual test over one square root, or none | [12970-PROOF.pdf](12970-PROOF.pdf) |
-| 12971 | [A157021](https://oeis.org/A157021) | Proof | the residual test over one square root, or none | [12971-PROOF.pdf](12971-PROOF.pdf) |
-| 12972 | [A160823](https://oeis.org/A160823) | Proof | the residual test over one square root, or none | [12972-PROOF.pdf](12972-PROOF.pdf) |
-| 12973 | [A166287](https://oeis.org/A166287) | Proof | the residual test over one square root, or none | [12973-PROOF.pdf](12973-PROOF.pdf) |
-| 12974 | [A174808](https://oeis.org/A174808) | Proof | the residual test over one square root, or none | [12974-PROOF.pdf](12974-PROOF.pdf) |
-| 12975 | [A185089](https://oeis.org/A185089) | Proof | the residual test over one square root, or none | [12975-PROOF.pdf](12975-PROOF.pdf) |
-| 12976 | [A186940](https://oeis.org/A186940) | Proof | the residual test over one square root, or none | [12976-PROOF.pdf](12976-PROOF.pdf) |
-| 12977 | [A190736](https://oeis.org/A190736) | Proof | the residual test over one square root, or none | [12977-PROOF.pdf](12977-PROOF.pdf) |
-| 12978 | [A219314](https://oeis.org/A219314) | Proof | the residual test over one square root, or none | [12978-PROOF.pdf](12978-PROOF.pdf) |
-| 12979 | [A100095](https://oeis.org/A100095) | Proof | the residual test over one square root, or none | [12979-PROOF.pdf](12979-PROOF.pdf) |
-| 12980 | [A100097](https://oeis.org/A100097) | Proof | the residual test over one square root, or none | [12980-PROOF.pdf](12980-PROOF.pdf) |
-| 12981 | [A191313](https://oeis.org/A191313) | Proof | the residual test over one square root, or none | [12981-PROOF.pdf](12981-PROOF.pdf) |
-| 12982 | [A191790](https://oeis.org/A191790) | Proof | the residual test over one square root, or none | [12982-PROOF.pdf](12982-PROOF.pdf) |
-| 12983 | [A273351](https://oeis.org/A273351) | Proof | the residual test over one square root, or none | [12983-PROOF.pdf](12983-PROOF.pdf) |
-| 12984 | [A278472](https://oeis.org/A278472) | Proof | the residual test over one square root, or none | [12984-PROOF.pdf](12984-PROOF.pdf) |
-| 12985 | [A108296](https://oeis.org/A108296) | Proof | the residual test over one square root, or none | [12985-PROOF.pdf](12985-PROOF.pdf) |
-| 12986 | [A116391](https://oeis.org/A116391) | Proof | the residual test over one square root, or none | [12986-PROOF.pdf](12986-PROOF.pdf) |
-| 12987 | [A110198](https://oeis.org/A110198) | Proof | the residual test over one square root, or none | [12987-PROOF.pdf](12987-PROOF.pdf) |
-| 12988 | [A182879](https://oeis.org/A182879) | Proof | the residual test over one square root, or none | [12988-PROOF.pdf](12988-PROOF.pdf) |
-| 12989 | [A182887](https://oeis.org/A182887) | Proof | the residual test over one square root, or none | [12989-PROOF.pdf](12989-PROOF.pdf) |
-| 12990 | [A135925](https://oeis.org/A135925) | Proof | the residual test over one square root, or none | [12990-PROOF.pdf](12990-PROOF.pdf) |
-| 12991 | [A007901](https://oeis.org/A007901) | Proof | the residual test over one square root, or none | [12991-PROOF.pdf](12991-PROOF.pdf) |
-| 12992 | [A025256](https://oeis.org/A025256) | Proof | the residual test over one square root, or none | [12992-PROOF.pdf](12992-PROOF.pdf) |
-| 12993 | [A025258](https://oeis.org/A025258) | Proof | the residual test over one square root, or none | [12993-PROOF.pdf](12993-PROOF.pdf) |
-| 12994 | [A000781](https://oeis.org/A000781) | Proof | the residual test over one square root, or none | [12994-PROOF.pdf](12994-PROOF.pdf) |
-| 12995 | [A025245](https://oeis.org/A025245) | Proof | the residual test over one square root, or none | [12995-PROOF.pdf](12995-PROOF.pdf) |
-| 12996 | [A025257](https://oeis.org/A025257) | Proof | the residual test over one square root, or none | [12996-PROOF.pdf](12996-PROOF.pdf) |
-| 12997 | [A025269](https://oeis.org/A025269) | Proof | the residual test over one square root, or none | [12997-PROOF.pdf](12997-PROOF.pdf) |
-| 12998 | [A025270](https://oeis.org/A025270) | Proof | the residual test over one square root, or none | [12998-PROOF.pdf](12998-PROOF.pdf) |
-| 12999 | [A025275](https://oeis.org/A025275) | Proof | the residual test over one square root, or none | [12999-PROOF.pdf](12999-PROOF.pdf) |
-| 13000 | [A102880](https://oeis.org/A102880) | Proof | the residual test over one square root, or none | [13000-PROOF.pdf](13000-PROOF.pdf) |
+| 12501 | [A230907](https://oeis.org/A230907) | Proof |  | [12501-PROOF.pdf](12501-PROOF.pdf) |
+| 12502 | [A316929](https://oeis.org/A316929) | Proof |  | [12502-PROOF.pdf](12502-PROOF.pdf) |
+| 12503 | [A301487](https://oeis.org/A301487) | Proof |  | [12503-PROOF.pdf](12503-PROOF.pdf) |
+| 12504 | [A252286](https://oeis.org/A252286) | Proof |  | [12504-PROOF.pdf](12504-PROOF.pdf) |
+| 12505 | [A278154](https://oeis.org/A278154) | Proof |  | [12505-PROOF.pdf](12505-PROOF.pdf) |
+| 12506 | [A250948](https://oeis.org/A250948) | Proof |  | [12506-PROOF.pdf](12506-PROOF.pdf) |
+| 12507 | [A282438](https://oeis.org/A282438) | Proof |  | [12507-PROOF.pdf](12507-PROOF.pdf) |
+| 12508 | [A279131](https://oeis.org/A279131) | Proof |  | [12508-PROOF.pdf](12508-PROOF.pdf) |
+| 12509 | [A237725](https://oeis.org/A237725) | Proof |  | [12509-PROOF.pdf](12509-PROOF.pdf) |
+| 12510 | [A224308](https://oeis.org/A224308) | Proof |  | [12510-PROOF.pdf](12510-PROOF.pdf) |
+| 12511 | [A257421](https://oeis.org/A257421) | Proof |  | [12511-PROOF.pdf](12511-PROOF.pdf) |
+| 12512 | [A251447](https://oeis.org/A251447) | Proof |  | [12512-PROOF.pdf](12512-PROOF.pdf) |
+| 12513 | [A237220](https://oeis.org/A237220) | Proof |  | [12513-PROOF.pdf](12513-PROOF.pdf) |
+| 12514 | [A237483](https://oeis.org/A237483) | Proof |  | [12514-PROOF.pdf](12514-PROOF.pdf) |
+| 12515 | [A263435](https://oeis.org/A263435) | Proof |  | [12515-PROOF.pdf](12515-PROOF.pdf) |
+| 12516 | [A260498](https://oeis.org/A260498) | Proof |  | [12516-PROOF.pdf](12516-PROOF.pdf) |
+| 12517 | [A236038](https://oeis.org/A236038) | Proof |  | [12517-PROOF.pdf](12517-PROOF.pdf) |
+| 12518 | [A280067](https://oeis.org/A280067) | Proof |  | [12518-PROOF.pdf](12518-PROOF.pdf) |
+| 12519 | [A297717](https://oeis.org/A297717) | Proof |  | [12519-PROOF.pdf](12519-PROOF.pdf) |
+| 12520 | [A297523](https://oeis.org/A297523) | Proof |  | [12520-PROOF.pdf](12520-PROOF.pdf) |
+| 12521 | [A317700](https://oeis.org/A317700) | Proof |  | [12521-PROOF.pdf](12521-PROOF.pdf) |
+| 12522 | [A231742](https://oeis.org/A231742) | Proof |  | [12522-PROOF.pdf](12522-PROOF.pdf) |
+| 12523 | [A268027](https://oeis.org/A268027) | Proof |  | [12523-PROOF.pdf](12523-PROOF.pdf) |
+| 12524 | [A282882](https://oeis.org/A282882) | Proof |  | [12524-PROOF.pdf](12524-PROOF.pdf) |
+| 12525 | [A253874](https://oeis.org/A253874) | Proof |  | [12525-PROOF.pdf](12525-PROOF.pdf) |
+| 12526 | [A253540](https://oeis.org/A253540) | Proof |  | [12526-PROOF.pdf](12526-PROOF.pdf) |
+| 12527 | [A278091](https://oeis.org/A278091) | Proof |  | [12527-PROOF.pdf](12527-PROOF.pdf) |
+| 12528 | [A297886](https://oeis.org/A297886) | Proof |  | [12528-PROOF.pdf](12528-PROOF.pdf) |
+| 12529 | [A260245](https://oeis.org/A260245) | Proof |  | [12529-PROOF.pdf](12529-PROOF.pdf) |
+| 12530 | [A232960](https://oeis.org/A232960) | Proof |  | [12530-PROOF.pdf](12530-PROOF.pdf) |
+| 12531 | [A233688](https://oeis.org/A233688) | Proof |  | [12531-PROOF.pdf](12531-PROOF.pdf) |
+| 12532 | [A295203](https://oeis.org/A295203) | Proof |  | [12532-PROOF.pdf](12532-PROOF.pdf) |
+| 12533 | [A296318](https://oeis.org/A296318) | Proof |  | [12533-PROOF.pdf](12533-PROOF.pdf) |
+| 12534 | [A282860](https://oeis.org/A282860) | Proof |  | [12534-PROOF.pdf](12534-PROOF.pdf) |
+| 12535 | [A300802](https://oeis.org/A300802) | Proof |  | [12535-PROOF.pdf](12535-PROOF.pdf) |
+| 12536 | [A306050](https://oeis.org/A306050) | Proof |  | [12536-PROOF.pdf](12536-PROOF.pdf) |
+| 12537 | [A316286](https://oeis.org/A316286) | Proof |  | [12537-PROOF.pdf](12537-PROOF.pdf) |
+| 12538 | [A302152](https://oeis.org/A302152) | Proof |  | [12538-PROOF.pdf](12538-PROOF.pdf) |
+| 12539 | [A264479](https://oeis.org/A264479) | Proof |  | [12539-PROOF.pdf](12539-PROOF.pdf) |
+| 12540 | [A264503](https://oeis.org/A264503) | Proof |  | [12540-PROOF.pdf](12540-PROOF.pdf) |
+| 12541 | [A264547](https://oeis.org/A264547) | Proof |  | [12541-PROOF.pdf](12541-PROOF.pdf) |
+| 12542 | [A264566](https://oeis.org/A264566) | Proof |  | [12542-PROOF.pdf](12542-PROOF.pdf) |
+| 12543 | [A264580](https://oeis.org/A264580) | Proof |  | [12543-PROOF.pdf](12543-PROOF.pdf) |
+| 12544 | [A275092](https://oeis.org/A275092) | Proof |  | [12544-PROOF.pdf](12544-PROOF.pdf) |
+| 12545 | [A284078](https://oeis.org/A284078) | Proof |  | [12545-PROOF.pdf](12545-PROOF.pdf) |
+| 12546 | [A283662](https://oeis.org/A283662) | Proof |  | [12546-PROOF.pdf](12546-PROOF.pdf) |
+| 12547 | [A279164](https://oeis.org/A279164) | Proof |  | [12547-PROOF.pdf](12547-PROOF.pdf) |
+| 12548 | [A303186](https://oeis.org/A303186) | Proof |  | [12548-PROOF.pdf](12548-PROOF.pdf) |
+| 12549 | [A297378](https://oeis.org/A297378) | Proof |  | [12549-PROOF.pdf](12549-PROOF.pdf) |
+| 12550 | [A317227](https://oeis.org/A317227) | Proof |  | [12550-PROOF.pdf](12550-PROOF.pdf) |
+| 12551 | [A304469](https://oeis.org/A304469) | Proof |  | [12551-PROOF.pdf](12551-PROOF.pdf) |
+| 12552 | [A259892](https://oeis.org/A259892) | Proof |  | [12552-PROOF.pdf](12552-PROOF.pdf) |
+| 12553 | [A259721](https://oeis.org/A259721) | Proof |  | [12553-PROOF.pdf](12553-PROOF.pdf) |
+| 12554 | [A302378](https://oeis.org/A302378) | Proof |  | [12554-PROOF.pdf](12554-PROOF.pdf) |
+| 12555 | [A297594](https://oeis.org/A297594) | Proof |  | [12555-PROOF.pdf](12555-PROOF.pdf) |
+| 12556 | [A296325](https://oeis.org/A296325) | Proof |  | [12556-PROOF.pdf](12556-PROOF.pdf) |
+| 12557 | [A283689](https://oeis.org/A283689) | Proof |  | [12557-PROOF.pdf](12557-PROOF.pdf) |
+| 12558 | [A252029](https://oeis.org/A252029) | Proof |  | [12558-PROOF.pdf](12558-PROOF.pdf) |
+| 12559 | [A255098](https://oeis.org/A255098) | Proof |  | [12559-PROOF.pdf](12559-PROOF.pdf) |
+| 12560 | [A299718](https://oeis.org/A299718) | Proof |  | [12560-PROOF.pdf](12560-PROOF.pdf) |
+| 12561 | [A320405](https://oeis.org/A320405) | Proof |  | [12561-PROOF.pdf](12561-PROOF.pdf) |
+| 12562 | [A300494](https://oeis.org/A300494) | Proof |  | [12562-PROOF.pdf](12562-PROOF.pdf) |
+| 12563 | [A317867](https://oeis.org/A317867) | Proof |  | [12563-PROOF.pdf](12563-PROOF.pdf) |
+| 12564 | [A253040](https://oeis.org/A253040) | Proof |  | [12564-PROOF.pdf](12564-PROOF.pdf) |
+| 12565 | [A237960](https://oeis.org/A237960) | Proof |  | [12565-PROOF.pdf](12565-PROOF.pdf) |
+| 12566 | [A297342](https://oeis.org/A297342) | Proof |  | [12566-PROOF.pdf](12566-PROOF.pdf) |
+| 12567 | [A300678](https://oeis.org/A300678) | Proof |  | [12567-PROOF.pdf](12567-PROOF.pdf) |
+| 12568 | [A297430](https://oeis.org/A297430) | Proof |  | [12568-PROOF.pdf](12568-PROOF.pdf) |
+| 12569 | [A283632](https://oeis.org/A283632) | Proof |  | [12569-PROOF.pdf](12569-PROOF.pdf) |
+| 12570 | [A238250](https://oeis.org/A238250) | Proof |  | [12570-PROOF.pdf](12570-PROOF.pdf) |
+| 12571 | [A302639](https://oeis.org/A302639) | Proof |  | [12571-PROOF.pdf](12571-PROOF.pdf) |
+| 12572 | [A231905](https://oeis.org/A231905) | Proof |  | [12572-PROOF.pdf](12572-PROOF.pdf) |
+| 12573 | [A317732](https://oeis.org/A317732) | Proof |  | [12573-PROOF.pdf](12573-PROOF.pdf) |
+| 12574 | [A230172](https://oeis.org/A230172) | Proof |  | [12574-PROOF.pdf](12574-PROOF.pdf) |
+| 12575 | [A232340](https://oeis.org/A232340) | Proof |  | [12575-PROOF.pdf](12575-PROOF.pdf) |
+| 12576 | [A267663](https://oeis.org/A267663) | Proof |  | [12576-PROOF.pdf](12576-PROOF.pdf) |
+| 12577 | [A253867](https://oeis.org/A253867) | Proof |  | [12577-PROOF.pdf](12577-PROOF.pdf) |
+| 12578 | [A302169](https://oeis.org/A302169) | Proof |  | [12578-PROOF.pdf](12578-PROOF.pdf) |
+| 12579 | [A240366](https://oeis.org/A240366) | Proof |  | [12579-PROOF.pdf](12579-PROOF.pdf) |
+| 12580 | [A302962](https://oeis.org/A302962) | Proof |  | [12580-PROOF.pdf](12580-PROOF.pdf) |
+| 12581 | [A240297](https://oeis.org/A240297) | Proof |  | [12581-PROOF.pdf](12581-PROOF.pdf) |
+| 12582 | [A260206](https://oeis.org/A260206) | Proof |  | [12582-PROOF.pdf](12582-PROOF.pdf) |
+| 12583 | [A297737](https://oeis.org/A297737) | Proof |  | [12583-PROOF.pdf](12583-PROOF.pdf) |
+| 12584 | [A253616](https://oeis.org/A253616) | Proof |  | [12584-PROOF.pdf](12584-PROOF.pdf) |
+| 12585 | [A300376](https://oeis.org/A300376) | Proof |  | [12585-PROOF.pdf](12585-PROOF.pdf) |
+| 12586 | [A231781](https://oeis.org/A231781) | Proof |  | [12586-PROOF.pdf](12586-PROOF.pdf) |
+| 12587 | [A263871](https://oeis.org/A263871) | Proof |  | [12587-PROOF.pdf](12587-PROOF.pdf) |
+| 12588 | [A299737](https://oeis.org/A299737) | Proof |  | [12588-PROOF.pdf](12588-PROOF.pdf) |
+| 12589 | [A250639](https://oeis.org/A250639) | Proof |  | [12589-PROOF.pdf](12589-PROOF.pdf) |
+| 12590 | [A250591](https://oeis.org/A250591) | Proof |  | [12590-PROOF.pdf](12590-PROOF.pdf) |
+| 12591 | [A304132](https://oeis.org/A304132) | Proof |  | [12591-PROOF.pdf](12591-PROOF.pdf) |
+| 12592 | [A257149](https://oeis.org/A257149) | Proof |  | [12592-PROOF.pdf](12592-PROOF.pdf) |
+| 12593 | [A302419](https://oeis.org/A302419) | Proof |  | [12593-PROOF.pdf](12593-PROOF.pdf) |
+| 12594 | [A255157](https://oeis.org/A255157) | Proof |  | [12594-PROOF.pdf](12594-PROOF.pdf) |
+| 12595 | [A266063](https://oeis.org/A266063) | Proof |  | [12595-PROOF.pdf](12595-PROOF.pdf) |
+| 12596 | [A295118](https://oeis.org/A295118) | Proof |  | [12596-PROOF.pdf](12596-PROOF.pdf) |
+| 12597 | [A295273](https://oeis.org/A295273) | Proof |  | [12597-PROOF.pdf](12597-PROOF.pdf) |
+| 12598 | [A295414](https://oeis.org/A295414) | Proof |  | [12598-PROOF.pdf](12598-PROOF.pdf) |
+| 12599 | [A253039](https://oeis.org/A253039) | Proof |  | [12599-PROOF.pdf](12599-PROOF.pdf) |
+| 12600 | [A256731](https://oeis.org/A256731) | Proof |  | [12600-PROOF.pdf](12600-PROOF.pdf) |
+| 12601 | [A232051](https://oeis.org/A232051) | Proof |  | [12601-PROOF.pdf](12601-PROOF.pdf) |
+| 12602 | [A232320](https://oeis.org/A232320) | Proof |  | [12602-PROOF.pdf](12602-PROOF.pdf) |
+| 12603 | [A255778](https://oeis.org/A255778) | Proof |  | [12603-PROOF.pdf](12603-PROOF.pdf) |
+| 12604 | [A297759](https://oeis.org/A297759) | Proof |  | [12604-PROOF.pdf](12604-PROOF.pdf) |
+| 12605 | [A295210](https://oeis.org/A295210) | Proof |  | [12605-PROOF.pdf](12605-PROOF.pdf) |
+| 12606 | [A266133](https://oeis.org/A266133) | Proof |  | [12606-PROOF.pdf](12606-PROOF.pdf) |
+| 12607 | [A297746](https://oeis.org/A297746) | Proof |  | [12607-PROOF.pdf](12607-PROOF.pdf) |
+| 12608 | [A301494](https://oeis.org/A301494) | Proof |  | [12608-PROOF.pdf](12608-PROOF.pdf) |
+| 12609 | [A256026](https://oeis.org/A256026) | Proof |  | [12609-PROOF.pdf](12609-PROOF.pdf) |
+| 12610 | [A316951](https://oeis.org/A316951) | Proof |  | [12610-PROOF.pdf](12610-PROOF.pdf) |
+| 12611 | [A255145](https://oeis.org/A255145) | Proof |  | [12611-PROOF.pdf](12611-PROOF.pdf) |
+| 12612 | [A253656](https://oeis.org/A253656) | Proof |  | [12612-PROOF.pdf](12612-PROOF.pdf) |
+| 12613 | [A299331](https://oeis.org/A299331) | Proof |  | [12613-PROOF.pdf](12613-PROOF.pdf) |
+| 12614 | [A295713](https://oeis.org/A295713) | Proof |  | [12614-PROOF.pdf](12614-PROOF.pdf) |
+| 12615 | [A254776](https://oeis.org/A254776) | Proof |  | [12615-PROOF.pdf](12615-PROOF.pdf) |
+| 12616 | [A254722](https://oeis.org/A254722) | Proof |  | [12616-PROOF.pdf](12616-PROOF.pdf) |
+| 12617 | [A260283](https://oeis.org/A260283) | Proof |  | [12617-PROOF.pdf](12617-PROOF.pdf) |
+| 12618 | [A252600](https://oeis.org/A252600) | Proof |  | [12618-PROOF.pdf](12618-PROOF.pdf) |
+| 12619 | [A229517](https://oeis.org/A229517) | Proof |  | [12619-PROOF.pdf](12619-PROOF.pdf) |
+| 12620 | [A300535](https://oeis.org/A300535) | Proof |  | [12620-PROOF.pdf](12620-PROOF.pdf) |
+| 12621 | [A300962](https://oeis.org/A300962) | Proof |  | [12621-PROOF.pdf](12621-PROOF.pdf) |
+| 12622 | [A283861](https://oeis.org/A283861) | Proof |  | [12622-PROOF.pdf](12622-PROOF.pdf) |
+| 12623 | [A283491](https://oeis.org/A283491) | Proof |  | [12623-PROOF.pdf](12623-PROOF.pdf) |
+| 12624 | [A316180](https://oeis.org/A316180) | Proof |  | [12624-PROOF.pdf](12624-PROOF.pdf) |
+| 12625 | [A296639](https://oeis.org/A296639) | Proof |  | [12625-PROOF.pdf](12625-PROOF.pdf) |
+| 12626 | [A241116](https://oeis.org/A241116) | Proof |  | [12626-PROOF.pdf](12626-PROOF.pdf) |
+| 12627 | [A295845](https://oeis.org/A295845) | Proof |  | [12627-PROOF.pdf](12627-PROOF.pdf) |
+| 12628 | [A262468](https://oeis.org/A262468) | Proof |  | [12628-PROOF.pdf](12628-PROOF.pdf) |
+| 12629 | [A236091](https://oeis.org/A236091) | Proof |  | [12629-PROOF.pdf](12629-PROOF.pdf) |
+| 12630 | [A254452](https://oeis.org/A254452) | Proof |  | [12630-PROOF.pdf](12630-PROOF.pdf) |
+| 12631 | [A254170](https://oeis.org/A254170) | Proof |  | [12631-PROOF.pdf](12631-PROOF.pdf) |
+| 12632 | [A302956](https://oeis.org/A302956) | Proof |  | [12632-PROOF.pdf](12632-PROOF.pdf) |
+| 12633 | [A297462](https://oeis.org/A297462) | Proof |  | [12633-PROOF.pdf](12633-PROOF.pdf) |
+| 12634 | [A281799](https://oeis.org/A281799) | Proof |  | [12634-PROOF.pdf](12634-PROOF.pdf) |
+| 12635 | [A236636](https://oeis.org/A236636) | Proof |  | [12635-PROOF.pdf](12635-PROOF.pdf) |
+| 12636 | [A281718](https://oeis.org/A281718) | Proof |  | [12636-PROOF.pdf](12636-PROOF.pdf) |
+| 12637 | [A283413](https://oeis.org/A283413) | Proof |  | [12637-PROOF.pdf](12637-PROOF.pdf) |
+| 12638 | [A259296](https://oeis.org/A259296) | Proof |  | [12638-PROOF.pdf](12638-PROOF.pdf) |
+| 12639 | [A302524](https://oeis.org/A302524) | Proof |  | [12639-PROOF.pdf](12639-PROOF.pdf) |
+| 12640 | [A231582](https://oeis.org/A231582) | Proof |  | [12640-PROOF.pdf](12640-PROOF.pdf) |
+| 12641 | [A252073](https://oeis.org/A252073) | Proof |  | [12641-PROOF.pdf](12641-PROOF.pdf) |
+| 12642 | [A318041](https://oeis.org/A318041) | Proof |  | [12642-PROOF.pdf](12642-PROOF.pdf) |
+| 12643 | [A300608](https://oeis.org/A300608) | Proof |  | [12643-PROOF.pdf](12643-PROOF.pdf) |
+| 12644 | [A301350](https://oeis.org/A301350) | Proof |  | [12644-PROOF.pdf](12644-PROOF.pdf) |
+| 12645 | [A318094](https://oeis.org/A318094) | Proof |  | [12645-PROOF.pdf](12645-PROOF.pdf) |
+| 12646 | [A298550](https://oeis.org/A298550) | Proof |  | [12646-PROOF.pdf](12646-PROOF.pdf) |
+| 12647 | [A299245](https://oeis.org/A299245) | Proof |  | [12647-PROOF.pdf](12647-PROOF.pdf) |
+| 12648 | [A299557](https://oeis.org/A299557) | Proof |  | [12648-PROOF.pdf](12648-PROOF.pdf) |
+| 12649 | [A302274](https://oeis.org/A302274) | Proof |  | [12649-PROOF.pdf](12649-PROOF.pdf) |
+| 12650 | [A298059](https://oeis.org/A298059) | Proof |  | [12650-PROOF.pdf](12650-PROOF.pdf) |
+| 12651 | [A252267](https://oeis.org/A252267) | Proof |  | [12651-PROOF.pdf](12651-PROOF.pdf) |
+| 12652 | [A252367](https://oeis.org/A252367) | Proof |  | [12652-PROOF.pdf](12652-PROOF.pdf) |
+| 12653 | [A259522](https://oeis.org/A259522) | Proof |  | [12653-PROOF.pdf](12653-PROOF.pdf) |
+| 12654 | [A259960](https://oeis.org/A259960) | Proof |  | [12654-PROOF.pdf](12654-PROOF.pdf) |
+| 12655 | [A252341](https://oeis.org/A252341) | Proof |  | [12655-PROOF.pdf](12655-PROOF.pdf) |
+| 12656 | [A255025](https://oeis.org/A255025) | Proof |  | [12656-PROOF.pdf](12656-PROOF.pdf) |
+| 12657 | [A298316](https://oeis.org/A298316) | Proof |  | [12657-PROOF.pdf](12657-PROOF.pdf) |
+| 12658 | [A298378](https://oeis.org/A298378) | Proof |  | [12658-PROOF.pdf](12658-PROOF.pdf) |
+| 12659 | [A300092](https://oeis.org/A300092) | Proof |  | [12659-PROOF.pdf](12659-PROOF.pdf) |
+| 12660 | [A302462](https://oeis.org/A302462) | Proof |  | [12660-PROOF.pdf](12660-PROOF.pdf) |
+| 12661 | [A303411](https://oeis.org/A303411) | Proof |  | [12661-PROOF.pdf](12661-PROOF.pdf) |
+| 12662 | [A306132](https://oeis.org/A306132) | Proof |  | [12662-PROOF.pdf](12662-PROOF.pdf) |
+| 12663 | [A253858](https://oeis.org/A253858) | Proof |  | [12663-PROOF.pdf](12663-PROOF.pdf) |
+| 12664 | [A254493](https://oeis.org/A254493) | Proof |  | [12664-PROOF.pdf](12664-PROOF.pdf) |
+| 12665 | [A280158](https://oeis.org/A280158) | Proof |  | [12665-PROOF.pdf](12665-PROOF.pdf) |
+| 12666 | [A298708](https://oeis.org/A298708) | Proof |  | [12666-PROOF.pdf](12666-PROOF.pdf) |
+| 12667 | [A320369](https://oeis.org/A320369) | Proof |  | [12667-PROOF.pdf](12667-PROOF.pdf) |
+| 12668 | [A237845](https://oeis.org/A237845) | Proof |  | [12668-PROOF.pdf](12668-PROOF.pdf) |
+| 12669 | [A277941](https://oeis.org/A277941) | Proof |  | [12669-PROOF.pdf](12669-PROOF.pdf) |
+| 12670 | [A302262](https://oeis.org/A302262) | Proof |  | [12670-PROOF.pdf](12670-PROOF.pdf) |
+| 12671 | [A231520](https://oeis.org/A231520) | Proof |  | [12671-PROOF.pdf](12671-PROOF.pdf) |
+| 12672 | [A234862](https://oeis.org/A234862) | Proof |  | [12672-PROOF.pdf](12672-PROOF.pdf) |
+| 12673 | [A299454](https://oeis.org/A299454) | Proof |  | [12673-PROOF.pdf](12673-PROOF.pdf) |
+| 12674 | [A304547](https://oeis.org/A304547) | Proof |  | [12674-PROOF.pdf](12674-PROOF.pdf) |
+| 12675 | [A304672](https://oeis.org/A304672) | Proof |  | [12675-PROOF.pdf](12675-PROOF.pdf) |
+| 12676 | [A316119](https://oeis.org/A316119) | Proof |  | [12676-PROOF.pdf](12676-PROOF.pdf) |
+| 12677 | [A295376](https://oeis.org/A295376) | Proof |  | [12677-PROOF.pdf](12677-PROOF.pdf) |
+| 12678 | [A297400](https://oeis.org/A297400) | Proof |  | [12678-PROOF.pdf](12678-PROOF.pdf) |
+| 12679 | [A283548](https://oeis.org/A283548) | Proof |  | [12679-PROOF.pdf](12679-PROOF.pdf) |
+| 12680 | [A254771](https://oeis.org/A254771) | Proof |  | [12680-PROOF.pdf](12680-PROOF.pdf) |
+| 12681 | [A282994](https://oeis.org/A282994) | Proof |  | [12681-PROOF.pdf](12681-PROOF.pdf) |
+| 12682 | [A281952](https://oeis.org/A281952) | Proof |  | [12682-PROOF.pdf](12682-PROOF.pdf) |
+| 12683 | [A281932](https://oeis.org/A281932) | Proof |  | [12683-PROOF.pdf](12683-PROOF.pdf) |
+| 12684 | [A283787](https://oeis.org/A283787) | Proof |  | [12684-PROOF.pdf](12684-PROOF.pdf) |
+| 12685 | [A283279](https://oeis.org/A283279) | Proof |  | [12685-PROOF.pdf](12685-PROOF.pdf) |
+| 12686 | [A229642](https://oeis.org/A229642) | Proof |  | [12686-PROOF.pdf](12686-PROOF.pdf) |
+| 12687 | [A252453](https://oeis.org/A252453) | Proof |  | [12687-PROOF.pdf](12687-PROOF.pdf) |
+| 12688 | [A252084](https://oeis.org/A252084) | Proof |  | [12688-PROOF.pdf](12688-PROOF.pdf) |
+| 12689 | [A295603](https://oeis.org/A295603) | Proof |  | [12689-PROOF.pdf](12689-PROOF.pdf) |
+| 12690 | [A298385](https://oeis.org/A298385) | Proof |  | [12690-PROOF.pdf](12690-PROOF.pdf) |
+| 12691 | [A299190](https://oeis.org/A299190) | Proof |  | [12691-PROOF.pdf](12691-PROOF.pdf) |
+| 12692 | [A299461](https://oeis.org/A299461) | Proof |  | [12692-PROOF.pdf](12692-PROOF.pdf) |
+| 12693 | [A305011](https://oeis.org/A305011) | Proof |  | [12693-PROOF.pdf](12693-PROOF.pdf) |
+| 12694 | [A316644](https://oeis.org/A316644) | Proof |  | [12694-PROOF.pdf](12694-PROOF.pdf) |
+| 12695 | [A304693](https://oeis.org/A304693) | Proof |  | [12695-PROOF.pdf](12695-PROOF.pdf) |
+| 12696 | [A305907](https://oeis.org/A305907) | Proof |  | [12696-PROOF.pdf](12696-PROOF.pdf) |
+| 12697 | [A316444](https://oeis.org/A316444) | Proof |  | [12697-PROOF.pdf](12697-PROOF.pdf) |
+| 12698 | [A316637](https://oeis.org/A316637) | Proof |  | [12698-PROOF.pdf](12698-PROOF.pdf) |
+| 12699 | [A317149](https://oeis.org/A317149) | Proof |  | [12699-PROOF.pdf](12699-PROOF.pdf) |
+| 12700 | [A230802](https://oeis.org/A230802) | Proof |  | [12700-PROOF.pdf](12700-PROOF.pdf) |
+| 12701 | [A231215](https://oeis.org/A231215) | Proof |  | [12701-PROOF.pdf](12701-PROOF.pdf) |
+| 12702 | [A253980](https://oeis.org/A253980) | Proof |  | [12702-PROOF.pdf](12702-PROOF.pdf) |
+| 12703 | [A282526](https://oeis.org/A282526) | Proof |  | [12703-PROOF.pdf](12703-PROOF.pdf) |
+| 12704 | [A268797](https://oeis.org/A268797) | Proof |  | [12704-PROOF.pdf](12704-PROOF.pdf) |
+| 12705 | [A268808](https://oeis.org/A268808) | Proof |  | [12705-PROOF.pdf](12705-PROOF.pdf) |
+| 12706 | [A279980](https://oeis.org/A279980) | Proof |  | [12706-PROOF.pdf](12706-PROOF.pdf) |
+| 12707 | [A238651](https://oeis.org/A238651) | Proof |  | [12707-PROOF.pdf](12707-PROOF.pdf) |
+| 12708 | [A251316](https://oeis.org/A251316) | Proof |  | [12708-PROOF.pdf](12708-PROOF.pdf) |
+| 12709 | [A268788](https://oeis.org/A268788) | Proof |  | [12709-PROOF.pdf](12709-PROOF.pdf) |
+| 12710 | [A268892](https://oeis.org/A268892) | Proof |  | [12710-PROOF.pdf](12710-PROOF.pdf) |
+| 12711 | [A269001](https://oeis.org/A269001) | Proof |  | [12711-PROOF.pdf](12711-PROOF.pdf) |
+| 12712 | [A269088](https://oeis.org/A269088) | Proof |  | [12712-PROOF.pdf](12712-PROOF.pdf) |
+| 12713 | [A254392](https://oeis.org/A254392) | Proof |  | [12713-PROOF.pdf](12713-PROOF.pdf) |
+| 12714 | [A303459](https://oeis.org/A303459) | Proof |  | [12714-PROOF.pdf](12714-PROOF.pdf) |
+| 12715 | [A297634](https://oeis.org/A297634) | Proof |  | [12715-PROOF.pdf](12715-PROOF.pdf) |
+| 12716 | [A299836](https://oeis.org/A299836) | Proof |  | [12716-PROOF.pdf](12716-PROOF.pdf) |
+| 12717 | [A256897](https://oeis.org/A256897) | Proof |  | [12717-PROOF.pdf](12717-PROOF.pdf) |
+| 12718 | [A298392](https://oeis.org/A298392) | Proof |  | [12718-PROOF.pdf](12718-PROOF.pdf) |
+| 12719 | [A299303](https://oeis.org/A299303) | Proof |  | [12719-PROOF.pdf](12719-PROOF.pdf) |
+| 12720 | [A299510](https://oeis.org/A299510) | Proof |  | [12720-PROOF.pdf](12720-PROOF.pdf) |
+| 12721 | [A302530](https://oeis.org/A302530) | Proof |  | [12721-PROOF.pdf](12721-PROOF.pdf) |
+| 12722 | [A299093](https://oeis.org/A299093) | Proof |  | [12722-PROOF.pdf](12722-PROOF.pdf) |
+| 12723 | [A317432](https://oeis.org/A317432) | Proof |  | [12723-PROOF.pdf](12723-PROOF.pdf) |
+| 12724 | [A301612](https://oeis.org/A301612) | Proof |  | [12724-PROOF.pdf](12724-PROOF.pdf) |
+| 12725 | [A262476](https://oeis.org/A262476) | Proof |  | [12725-PROOF.pdf](12725-PROOF.pdf) |
+| 12726 | [A251001](https://oeis.org/A251001) | Proof |  | [12726-PROOF.pdf](12726-PROOF.pdf) |
+| 12727 | [A295982](https://oeis.org/A295982) | Proof |  | [12727-PROOF.pdf](12727-PROOF.pdf) |
+| 12728 | [A296671](https://oeis.org/A296671) | Proof |  | [12728-PROOF.pdf](12728-PROOF.pdf) |
+| 12729 | [A237237](https://oeis.org/A237237) | Proof |  | [12729-PROOF.pdf](12729-PROOF.pdf) |
+| 12730 | [A237679](https://oeis.org/A237679) | Proof |  | [12730-PROOF.pdf](12730-PROOF.pdf) |
+| 12731 | [A252127](https://oeis.org/A252127) | Proof |  | [12731-PROOF.pdf](12731-PROOF.pdf) |
+| 12732 | [A259950](https://oeis.org/A259950) | Proof |  | [12732-PROOF.pdf](12732-PROOF.pdf) |
+| 12733 | [A298324](https://oeis.org/A298324) | Proof |  | [12733-PROOF.pdf](12733-PROOF.pdf) |
+| 12734 | [A299563](https://oeis.org/A299563) | Proof |  | [12734-PROOF.pdf](12734-PROOF.pdf) |
+| 12735 | [A300104](https://oeis.org/A300104) | Proof |  | [12735-PROOF.pdf](12735-PROOF.pdf) |
+| 12736 | [A303086](https://oeis.org/A303086) | Proof |  | [12736-PROOF.pdf](12736-PROOF.pdf) |
+| 12737 | [A303244](https://oeis.org/A303244) | Proof |  | [12737-PROOF.pdf](12737-PROOF.pdf) |
+| 12738 | [A304700](https://oeis.org/A304700) | Proof |  | [12738-PROOF.pdf](12738-PROOF.pdf) |
+| 12739 | [A316451](https://oeis.org/A316451) | Proof |  | [12739-PROOF.pdf](12739-PROOF.pdf) |
+| 12740 | [A317262](https://oeis.org/A317262) | Proof |  | [12740-PROOF.pdf](12740-PROOF.pdf) |
+| 12741 | [A299875](https://oeis.org/A299875) | Proof |  | [12741-PROOF.pdf](12741-PROOF.pdf) |
+| 12742 | [A316126](https://oeis.org/A316126) | Proof |  | [12742-PROOF.pdf](12742-PROOF.pdf) |
+| 12743 | [A302822](https://oeis.org/A302822) | Proof |  | [12743-PROOF.pdf](12743-PROOF.pdf) |
+| 12744 | [A254486](https://oeis.org/A254486) | Proof |  | [12744-PROOF.pdf](12744-PROOF.pdf) |
+| 12745 | [A282646](https://oeis.org/A282646) | Proof |  | [12745-PROOF.pdf](12745-PROOF.pdf) |
+| 12746 | [A254163](https://oeis.org/A254163) | Proof |  | [12746-PROOF.pdf](12746-PROOF.pdf) |
+| 12747 | [A254356](https://oeis.org/A254356) | Proof |  | [12747-PROOF.pdf](12747-PROOF.pdf) |
+| 12748 | [A254588](https://oeis.org/A254588) | Proof |  | [12748-PROOF.pdf](12748-PROOF.pdf) |
+| 12749 | [A301825](https://oeis.org/A301825) | Proof |  | [12749-PROOF.pdf](12749-PROOF.pdf) |
+| 12750 | [A300339](https://oeis.org/A300339) | Proof |  | [12750-PROOF.pdf](12750-PROOF.pdf) |
+| 12751 | [A300172](https://oeis.org/A300172) | Proof |  | [12751-PROOF.pdf](12751-PROOF.pdf) |
+| 12752 | [A299011](https://oeis.org/A299011) | Proof |  | [12752-PROOF.pdf](12752-PROOF.pdf) |
+| 12753 | [A299217](https://oeis.org/A299217) | Proof |  | [12753-PROOF.pdf](12753-PROOF.pdf) |
+| 12754 | [A299802](https://oeis.org/A299802) | Proof |  | [12754-PROOF.pdf](12754-PROOF.pdf) |
+| 12755 | [A298150](https://oeis.org/A298150) | Proof |  | [12755-PROOF.pdf](12755-PROOF.pdf) |
+| 12756 | [A299124](https://oeis.org/A299124) | Proof |  | [12756-PROOF.pdf](12756-PROOF.pdf) |
+| 12757 | [A299882](https://oeis.org/A299882) | Proof |  | [12757-PROOF.pdf](12757-PROOF.pdf) |
+| 12758 | [A305914](https://oeis.org/A305914) | Proof |  | [12758-PROOF.pdf](12758-PROOF.pdf) |
+| 12759 | [A317156](https://oeis.org/A317156) | Proof |  | [12759-PROOF.pdf](12759-PROOF.pdf) |
+| 12760 | [A305171](https://oeis.org/A305171) | Proof |  | [12760-PROOF.pdf](12760-PROOF.pdf) |
+| 12761 | [A262920](https://oeis.org/A262920) | Proof |  | [12761-PROOF.pdf](12761-PROOF.pdf) |
+| 12762 | [A253331](https://oeis.org/A253331) | Proof |  | [12762-PROOF.pdf](12762-PROOF.pdf) |
+| 12763 | [A260474](https://oeis.org/A260474) | Proof |  | [12763-PROOF.pdf](12763-PROOF.pdf) |
+| 12764 | [A250710](https://oeis.org/A250710) | Proof |  | [12764-PROOF.pdf](12764-PROOF.pdf) |
+| 12765 | [A250531](https://oeis.org/A250531) | Proof |  | [12765-PROOF.pdf](12765-PROOF.pdf) |
+| 12766 | [A251831](https://oeis.org/A251831) | Proof |  | [12766-PROOF.pdf](12766-PROOF.pdf) |
+| 12767 | [A231936](https://oeis.org/A231936) | Proof |  | [12767-PROOF.pdf](12767-PROOF.pdf) |
+| 12768 | [A299004](https://oeis.org/A299004) | Proof |  | [12768-PROOF.pdf](12768-PROOF.pdf) |
+| 12769 | [A299671](https://oeis.org/A299671) | Proof |  | [12769-PROOF.pdf](12769-PROOF.pdf) |
+| 12770 | [A299749](https://oeis.org/A299749) | Proof |  | [12770-PROOF.pdf](12770-PROOF.pdf) |
+| 12771 | [A283577](https://oeis.org/A283577) | Proof |  | [12771-PROOF.pdf](12771-PROOF.pdf) |
+| 12772 | [A232373](https://oeis.org/A232373) | Proof |  | [12772-PROOF.pdf](12772-PROOF.pdf) |
+| 12773 | [A252913](https://oeis.org/A252913) | Proof |  | [12773-PROOF.pdf](12773-PROOF.pdf) |
+| 12774 | [A237062](https://oeis.org/A237062) | Proof |  | [12774-PROOF.pdf](12774-PROOF.pdf) |
+| 12775 | [A254094](https://oeis.org/A254094) | Proof |  | [12775-PROOF.pdf](12775-PROOF.pdf) |
+| 12776 | [A302744](https://oeis.org/A302744) | Proof |  | [12776-PROOF.pdf](12776-PROOF.pdf) |
+| 12777 | [A300927](https://oeis.org/A300927) | Proof |  | [12777-PROOF.pdf](12777-PROOF.pdf) |
+| 12778 | [A230678](https://oeis.org/A230678) | Proof |  | [12778-PROOF.pdf](12778-PROOF.pdf) |
+| 12779 | [A229377](https://oeis.org/A229377) | Proof |  | [12779-PROOF.pdf](12779-PROOF.pdf) |
+| 12780 | [A316172](https://oeis.org/A316172) | Proof |  | [12780-PROOF.pdf](12780-PROOF.pdf) |
+| 12781 | [A299584](https://oeis.org/A299584) | Proof |  | [12781-PROOF.pdf](12781-PROOF.pdf) |
+| 12782 | [A317454](https://oeis.org/A317454) | Proof |  | [12782-PROOF.pdf](12782-PROOF.pdf) |
+| 12783 | [A300263](https://oeis.org/A300263) | Proof |  | [12783-PROOF.pdf](12783-PROOF.pdf) |
+| 12784 | [A239042](https://oeis.org/A239042) | Proof |  | [12784-PROOF.pdf](12784-PROOF.pdf) |
+| 12785 | [A239335](https://oeis.org/A239335) | Proof |  | [12785-PROOF.pdf](12785-PROOF.pdf) |
+| 12786 | [A239400](https://oeis.org/A239400) | Proof |  | [12786-PROOF.pdf](12786-PROOF.pdf) |
+| 12787 | [A239821](https://oeis.org/A239821) | Proof |  | [12787-PROOF.pdf](12787-PROOF.pdf) |
+| 12788 | [A278017](https://oeis.org/A278017) | Proof |  | [12788-PROOF.pdf](12788-PROOF.pdf) |
+| 12789 | [A283638](https://oeis.org/A283638) | Proof |  | [12789-PROOF.pdf](12789-PROOF.pdf) |
+| 12790 | [A283631](https://oeis.org/A283631) | Proof |  | [12790-PROOF.pdf](12790-PROOF.pdf) |
+| 12791 | [A296685](https://oeis.org/A296685) | Proof |  | [12791-PROOF.pdf](12791-PROOF.pdf) |
+| 12792 | [A282835](https://oeis.org/A282835) | Proof |  | [12792-PROOF.pdf](12792-PROOF.pdf) |
+| 12793 | [A254918](https://oeis.org/A254918) | Proof |  | [12793-PROOF.pdf](12793-PROOF.pdf) |
+| 12794 | [A253330](https://oeis.org/A253330) | Proof |  | [12794-PROOF.pdf](12794-PROOF.pdf) |
+| 12795 | [A258533](https://oeis.org/A258533) | Proof |  | [12795-PROOF.pdf](12795-PROOF.pdf) |
+| 12796 | [A223958](https://oeis.org/A223958) | Proof |  | [12796-PROOF.pdf](12796-PROOF.pdf) |
+| 12797 | [A252771](https://oeis.org/A252771) | Proof |  | [12797-PROOF.pdf](12797-PROOF.pdf) |
+| 12798 | [A252905](https://oeis.org/A252905) | Proof |  | [12798-PROOF.pdf](12798-PROOF.pdf) |
+| 12799 | [A302370](https://oeis.org/A302370) | Proof |  | [12799-PROOF.pdf](12799-PROOF.pdf) |
+| 12800 | [A302474](https://oeis.org/A302474) | Proof |  | [12800-PROOF.pdf](12800-PROOF.pdf) |
+| 12801 | [A303515](https://oeis.org/A303515) | Proof |  | [12801-PROOF.pdf](12801-PROOF.pdf) |
+| 12802 | [A254919](https://oeis.org/A254919) | Proof |  | [12802-PROOF.pdf](12802-PROOF.pdf) |
+| 12803 | [A282557](https://oeis.org/A282557) | Proof |  | [12803-PROOF.pdf](12803-PROOF.pdf) |
+| 12804 | [A253310](https://oeis.org/A253310) | Proof |  | [12804-PROOF.pdf](12804-PROOF.pdf) |
+| 12805 | [A237071](https://oeis.org/A237071) | Proof |  | [12805-PROOF.pdf](12805-PROOF.pdf) |
+| 12806 | [A231250](https://oeis.org/A231250) | Proof |  | [12806-PROOF.pdf](12806-PROOF.pdf) |
+| 12807 | [A259425](https://oeis.org/A259425) | Proof |  | [12807-PROOF.pdf](12807-PROOF.pdf) |
+| 12808 | [A316812](https://oeis.org/A316812) | Proof |  | [12808-PROOF.pdf](12808-PROOF.pdf) |
+| 12809 | [A317562](https://oeis.org/A317562) | Proof |  | [12809-PROOF.pdf](12809-PROOF.pdf) |
+| 12810 | [A299064](https://oeis.org/A299064) | Proof |  | [12810-PROOF.pdf](12810-PROOF.pdf) |
+| 12811 | [A258534](https://oeis.org/A258534) | Proof |  | [12811-PROOF.pdf](12811-PROOF.pdf) |
+| 12812 | [A224307](https://oeis.org/A224307) | Proof |  | [12812-PROOF.pdf](12812-PROOF.pdf) |
+| 12813 | [A317462](https://oeis.org/A317462) | Proof |  | [12813-PROOF.pdf](12813-PROOF.pdf) |
+| 12814 | [A267962](https://oeis.org/A267962) | Proof |  | [12814-PROOF.pdf](12814-PROOF.pdf) |
+| 12815 | [A282789](https://oeis.org/A282789) | Proof |  | [12815-PROOF.pdf](12815-PROOF.pdf) |
+| 12816 | [A232379](https://oeis.org/A232379) | Proof |  | [12816-PROOF.pdf](12816-PROOF.pdf) |
+| 12817 | [A297651](https://oeis.org/A297651) | Proof |  | [12817-PROOF.pdf](12817-PROOF.pdf) |
+| 12818 | [A297698](https://oeis.org/A297698) | Proof |  | [12818-PROOF.pdf](12818-PROOF.pdf) |
+| 12819 | [A316806](https://oeis.org/A316806) | Proof |  | [12819-PROOF.pdf](12819-PROOF.pdf) |
+| 12820 | [A317523](https://oeis.org/A317523) | Proof |  | [12820-PROOF.pdf](12820-PROOF.pdf) |
+| 12821 | [A276304](https://oeis.org/A276304) | Proof |  | [12821-PROOF.pdf](12821-PROOF.pdf) |
+| 12822 | [A283542](https://oeis.org/A283542) | Proof |  | [12822-PROOF.pdf](12822-PROOF.pdf) |
+| 12823 | [A237163](https://oeis.org/A237163) | Proof |  | [12823-PROOF.pdf](12823-PROOF.pdf) |
+| 12824 | [A236706](https://oeis.org/A236706) | Proof |  | [12824-PROOF.pdf](12824-PROOF.pdf) |
+| 12825 | [A230616](https://oeis.org/A230616) | Proof |  | [12825-PROOF.pdf](12825-PROOF.pdf) |
+| 12826 | [A251032](https://oeis.org/A251032) | Proof |  | [12826-PROOF.pdf](12826-PROOF.pdf) |
+| 12827 | [A297510](https://oeis.org/A297510) | Proof |  | [12827-PROOF.pdf](12827-PROOF.pdf) |
+| 12828 | [A303420](https://oeis.org/A303420) | Proof |  | [12828-PROOF.pdf](12828-PROOF.pdf) |
+| 12829 | [A232152](https://oeis.org/A232152) | Proof |  | [12829-PROOF.pdf](12829-PROOF.pdf) |
+| 12830 | [A296648](https://oeis.org/A296648) | Proof |  | [12830-PROOF.pdf](12830-PROOF.pdf) |
+| 12831 | [A237386](https://oeis.org/A237386) | Proof |  | [12831-PROOF.pdf](12831-PROOF.pdf) |
+| 12832 | [A250590](https://oeis.org/A250590) | Proof |  | [12832-PROOF.pdf](12832-PROOF.pdf) |
+| 12833 | [A250679](https://oeis.org/A250679) | Proof |  | [12833-PROOF.pdf](12833-PROOF.pdf) |
+| 12834 | [A251290](https://oeis.org/A251290) | Proof |  | [12834-PROOF.pdf](12834-PROOF.pdf) |
+| 12835 | [A233071](https://oeis.org/A233071) | Proof |  | [12835-PROOF.pdf](12835-PROOF.pdf) |
+| 12836 | [A305520](https://oeis.org/A305520) | Proof |  | [12836-PROOF.pdf](12836-PROOF.pdf) |
+| 12837 | [A316957](https://oeis.org/A316957) | Proof |  | [12837-PROOF.pdf](12837-PROOF.pdf) |
+| 12838 | [A297680](https://oeis.org/A297680) | Proof |  | [12838-PROOF.pdf](12838-PROOF.pdf) |
+| 12839 | [A282313](https://oeis.org/A282313) | Proof |  | [12839-PROOF.pdf](12839-PROOF.pdf) |
+| 12840 | [A250638](https://oeis.org/A250638) | Proof |  | [12840-PROOF.pdf](12840-PROOF.pdf) |
+| 12841 | [A229636](https://oeis.org/A229636) | Proof |  | [12841-PROOF.pdf](12841-PROOF.pdf) |
+| 12842 | [A254737](https://oeis.org/A254737) | Proof |  | [12842-PROOF.pdf](12842-PROOF.pdf) |
+| 12843 | [A257155](https://oeis.org/A257155) | Proof |  | [12843-PROOF.pdf](12843-PROOF.pdf) |
+| 12844 | [A283382](https://oeis.org/A283382) | Proof |  | [12844-PROOF.pdf](12844-PROOF.pdf) |
+| 12845 | [A230472](https://oeis.org/A230472) | Proof |  | [12845-PROOF.pdf](12845-PROOF.pdf) |
+| 12846 | [A250971](https://oeis.org/A250971) | Proof |  | [12846-PROOF.pdf](12846-PROOF.pdf) |
+| 12847 | [A251098](https://oeis.org/A251098) | Proof |  | [12847-PROOF.pdf](12847-PROOF.pdf) |
+| 12848 | [A232946](https://oeis.org/A232946) | Proof |  | [12848-PROOF.pdf](12848-PROOF.pdf) |
+| 12849 | [A224350](https://oeis.org/A224350) | Proof |  | [12849-PROOF.pdf](12849-PROOF.pdf) |
+| 12850 | [A267953](https://oeis.org/A267953) | Proof |  | [12850-PROOF.pdf](12850-PROOF.pdf) |
+| 12851 | [A238149](https://oeis.org/A238149) | Proof |  | [12851-PROOF.pdf](12851-PROOF.pdf) |
+| 12852 | [A237916](https://oeis.org/A237916) | Proof |  | [12852-PROOF.pdf](12852-PROOF.pdf) |
+| 12853 | [A283695](https://oeis.org/A283695) | Proof |  | [12853-PROOF.pdf](12853-PROOF.pdf) |
+| 12854 | [A251200](https://oeis.org/A251200) | Proof |  | [12854-PROOF.pdf](12854-PROOF.pdf) |
+| 12855 | [A259513](https://oeis.org/A259513) | Proof |  | [12855-PROOF.pdf](12855-PROOF.pdf) |
+| 12856 | [A265930](https://oeis.org/A265930) | Proof |  | [12856-PROOF.pdf](12856-PROOF.pdf) |
+| 12857 | [A279922](https://oeis.org/A279922) | Proof |  | [12857-PROOF.pdf](12857-PROOF.pdf) |
+| 12858 | [A283570](https://oeis.org/A283570) | Proof |  | [12858-PROOF.pdf](12858-PROOF.pdf) |
+| 12859 | [A267907](https://oeis.org/A267907) | Proof |  | [12859-PROOF.pdf](12859-PROOF.pdf) |
+| 12860 | [A282373](https://oeis.org/A282373) | Proof |  | [12860-PROOF.pdf](12860-PROOF.pdf) |
+| 12861 | [A229592](https://oeis.org/A229592) | Proof |  | [12861-PROOF.pdf](12861-PROOF.pdf) |
+| 12862 | [A268910](https://oeis.org/A268910) | Proof |  | [12862-PROOF.pdf](12862-PROOF.pdf) |
+| 12863 | [A268977](https://oeis.org/A268977) | Proof |  | [12863-PROOF.pdf](12863-PROOF.pdf) |
+| 12864 | [A237941](https://oeis.org/A237941) | Proof |  | [12864-PROOF.pdf](12864-PROOF.pdf) |
+| 12865 | [A259249](https://oeis.org/A259249) | Proof |  | [12865-PROOF.pdf](12865-PROOF.pdf) |
+| 12866 | [A223998](https://oeis.org/A223998) | Proof |  | [12866-PROOF.pdf](12866-PROOF.pdf) |
+| 12867 | [A251226](https://oeis.org/A251226) | Proof |  | [12867-PROOF.pdf](12867-PROOF.pdf) |
+| 12868 | [A302068](https://oeis.org/A302068) | Proof |  | [12868-PROOF.pdf](12868-PROOF.pdf) |
+| 12869 | [A254265](https://oeis.org/A254265) | Proof |  | [12869-PROOF.pdf](12869-PROOF.pdf) |
+| 12870 | [A301840](https://oeis.org/A301840) | Proof |  | [12870-PROOF.pdf](12870-PROOF.pdf) |
+| 12871 | [A237294](https://oeis.org/A237294) | Proof |  | [12871-PROOF.pdf](12871-PROOF.pdf) |
+| 12872 | [A251804](https://oeis.org/A251804) | Proof |  | [12872-PROOF.pdf](12872-PROOF.pdf) |
+| 12873 | [A302080](https://oeis.org/A302080) | Proof |  | [12873-PROOF.pdf](12873-PROOF.pdf) |
+| 12874 | [A301883](https://oeis.org/A301883) | Proof |  | [12874-PROOF.pdf](12874-PROOF.pdf) |
+| 12875 | [A224277](https://oeis.org/A224277) | Proof |  | [12875-PROOF.pdf](12875-PROOF.pdf) |
+| 12876 | [A269205](https://oeis.org/A269205) | Proof |  | [12876-PROOF.pdf](12876-PROOF.pdf) |
+| 12877 | [A269218](https://oeis.org/A269218) | Proof |  | [12877-PROOF.pdf](12877-PROOF.pdf) |
+| 12878 | [A264205](https://oeis.org/A264205) | Proof |  | [12878-PROOF.pdf](12878-PROOF.pdf) |
+| 12879 | [A279302](https://oeis.org/A279302) | Proof |  | [12879-PROOF.pdf](12879-PROOF.pdf) |
+| 12880 | [A279659](https://oeis.org/A279659) | Proof |  | [12880-PROOF.pdf](12880-PROOF.pdf) |
+| 12881 | [A251246](https://oeis.org/A251246) | Proof |  | [12881-PROOF.pdf](12881-PROOF.pdf) |
+| 12882 | [A302149](https://oeis.org/A302149) | Proof |  | [12882-PROOF.pdf](12882-PROOF.pdf) |
+| 12883 | [A254385](https://oeis.org/A254385) | Proof |  | [12883-PROOF.pdf](12883-PROOF.pdf) |
+| 12884 | [A250514](https://oeis.org/A250514) | Proof |  | [12884-PROOF.pdf](12884-PROOF.pdf) |
+| 12885 | [A250450](https://oeis.org/A250450) | Proof |  | [12885-PROOF.pdf](12885-PROOF.pdf) |
+| 12886 | [A229369](https://oeis.org/A229369) | Proof |  | [12886-PROOF.pdf](12886-PROOF.pdf) |
+| 12887 | [A233024](https://oeis.org/A233024) | Proof |  | [12887-PROOF.pdf](12887-PROOF.pdf) |
+| 12888 | [A269825](https://oeis.org/A269825) | Proof |  | [12888-PROOF.pdf](12888-PROOF.pdf) |
+| 12889 | [A277784](https://oeis.org/A277784) | Proof |  | [12889-PROOF.pdf](12889-PROOF.pdf) |
+| 12890 | [A224387](https://oeis.org/A224387) | Proof |  | [12890-PROOF.pdf](12890-PROOF.pdf) |
+| 12891 | [A250672](https://oeis.org/A250672) | Proof |  | [12891-PROOF.pdf](12891-PROOF.pdf) |
+| 12892 | [A263552](https://oeis.org/A263552) | Proof |  | [12892-PROOF.pdf](12892-PROOF.pdf) |
+| 12893 | [A301783](https://oeis.org/A301783) | Proof |  | [12893-PROOF.pdf](12893-PROOF.pdf) |
+| 12894 | [A229605](https://oeis.org/A229605) | Proof |  | [12894-PROOF.pdf](12894-PROOF.pdf) |
+| 12895 | [A229684](https://oeis.org/A229684) | Proof |  | [12895-PROOF.pdf](12895-PROOF.pdf) |
+| 12896 | [A301406](https://oeis.org/A301406) | Proof |  | [12896-PROOF.pdf](12896-PROOF.pdf) |
+| 12897 | [A303425](https://oeis.org/A303425) | Proof |  | [12897-PROOF.pdf](12897-PROOF.pdf) |
+| 12898 | [A223972](https://oeis.org/A223972) | Proof |  | [12898-PROOF.pdf](12898-PROOF.pdf) |
+| 12899 | [A253348](https://oeis.org/A253348) | Proof |  | [12899-PROOF.pdf](12899-PROOF.pdf) |
+| 12900 | [A253355](https://oeis.org/A253355) | Proof |  | [12900-PROOF.pdf](12900-PROOF.pdf) |
+| 12901 | [A269212](https://oeis.org/A269212) | Proof |  | [12901-PROOF.pdf](12901-PROOF.pdf) |
+| 12902 | [A224203](https://oeis.org/A224203) | Proof |  | [12902-PROOF.pdf](12902-PROOF.pdf) |
+| 12903 | [A233017](https://oeis.org/A233017) | Proof |  | [12903-PROOF.pdf](12903-PROOF.pdf) |
+| 12904 | [A176126](https://oeis.org/A176126) | Proof | the residual test over one square root, or none | [12904-PROOF.pdf](12904-PROOF.pdf) |
+| 12905 | [A191625](https://oeis.org/A191625) | Proof | the residual test over one square root, or none | [12905-PROOF.pdf](12905-PROOF.pdf) |
+| 12906 | [A186341](https://oeis.org/A186341) | Proof | the residual test over one square root, or none | [12906-PROOF.pdf](12906-PROOF.pdf) |
+| 12907 | [A026743](https://oeis.org/A026743) | Proof | the residual test over one square root, or none | [12907-PROOF.pdf](12907-PROOF.pdf) |
+| 12908 | [A191786](https://oeis.org/A191786) | Proof | the residual test over one square root, or none | [12908-PROOF.pdf](12908-PROOF.pdf) |
+| 12909 | [A210496](https://oeis.org/A210496) | Proof | the residual test over one square root, or none | [12909-PROOF.pdf](12909-PROOF.pdf) |
+| 12910 | [A182892](https://oeis.org/A182892) | Proof | the residual test over one square root, or none | [12910-PROOF.pdf](12910-PROOF.pdf) |
+| 12911 | [A270724](https://oeis.org/A270724) | Proof | the residual test over one square root, or none | [12911-PROOF.pdf](12911-PROOF.pdf) |
+| 12912 | [A190171](https://oeis.org/A190171) | Proof | the residual test over one square root, or none | [12912-PROOF.pdf](12912-PROOF.pdf) |
+| 12913 | [A257515](https://oeis.org/A257515) | Proof | the residual test over one square root, or none | [12913-PROOF.pdf](12913-PROOF.pdf) |
+| 12914 | [A190788](https://oeis.org/A190788) | Proof | the residual test over one square root, or none | [12914-PROOF.pdf](12914-PROOF.pdf) |
+| 12915 | [A095981](https://oeis.org/A095981) | Proof | the residual test over one square root, or none | [12915-PROOF.pdf](12915-PROOF.pdf) |
+| 12916 | [A212205](https://oeis.org/A212205) | Proof | the residual test over one square root, or none | [12916-PROOF.pdf](12916-PROOF.pdf) |
+| 12917 | [A270661](https://oeis.org/A270661) | Proof | the residual test over one square root, or none | [12917-PROOF.pdf](12917-PROOF.pdf) |
+| 12918 | [A157021](https://oeis.org/A157021) | Proof | the residual test over one square root, or none | [12918-PROOF.pdf](12918-PROOF.pdf) |
+| 12919 | [A165537](https://oeis.org/A165537) | Proof | the residual test over one square root, or none | [12919-PROOF.pdf](12919-PROOF.pdf) |
+| 12920 | [A166287](https://oeis.org/A166287) | Proof | the residual test over one square root, or none | [12920-PROOF.pdf](12920-PROOF.pdf) |
+| 12921 | [A174013](https://oeis.org/A174013) | Proof | the residual test over one square root, or none | [12921-PROOF.pdf](12921-PROOF.pdf) |
+| 12922 | [A178072](https://oeis.org/A178072) | Proof | the residual test over one square root, or none | [12922-PROOF.pdf](12922-PROOF.pdf) |
+| 12923 | [A182894](https://oeis.org/A182894) | Proof | the residual test over one square root, or none | [12923-PROOF.pdf](12923-PROOF.pdf) |
+| 12924 | [A114584](https://oeis.org/A114584) | Proof | the residual test over one square root, or none | [12924-PROOF.pdf](12924-PROOF.pdf) |
+| 12925 | [A164586](https://oeis.org/A164586) | Proof | the residual test over one square root, or none | [12925-PROOF.pdf](12925-PROOF.pdf) |
+| 12926 | [A189053](https://oeis.org/A189053) | Proof | the residual test over one square root, or none | [12926-PROOF.pdf](12926-PROOF.pdf) |
+| 12927 | [A182904](https://oeis.org/A182904) | Proof | the residual test over one square root, or none | [12927-PROOF.pdf](12927-PROOF.pdf) |
+| 12928 | [A274295](https://oeis.org/A274295) | Proof | the residual test over one square root, or none | [12928-PROOF.pdf](12928-PROOF.pdf) |
+| 12929 | [A226434](https://oeis.org/A226434) | Proof | the residual test over one square root, or none | [12929-PROOF.pdf](12929-PROOF.pdf) |
+| 12930 | [A257104](https://oeis.org/A257104) | Proof | the residual test over one square root, or none | [12930-PROOF.pdf](12930-PROOF.pdf) |
+| 12931 | [A108600](https://oeis.org/A108600) | Proof | the residual test over one square root, or none | [12931-PROOF.pdf](12931-PROOF.pdf) |
+| 12932 | [A114851](https://oeis.org/A114851) | Proof | the residual test over one square root, or none | [12932-PROOF.pdf](12932-PROOF.pdf) |
+| 12933 | [A125306](https://oeis.org/A125306) | Proof | the residual test over one square root, or none | [12933-PROOF.pdf](12933-PROOF.pdf) |
+| 12934 | [A166290](https://oeis.org/A166290) | Proof | the residual test over one square root, or none | [12934-PROOF.pdf](12934-PROOF.pdf) |
+| 12935 | [A228770](https://oeis.org/A228770) | Proof | the residual test over one square root, or none | [12935-PROOF.pdf](12935-PROOF.pdf) |
+| 12936 | [A257300](https://oeis.org/A257300) | Proof | the residual test over one square root, or none | [12936-PROOF.pdf](12936-PROOF.pdf) |
+| 12937 | [A089324](https://oeis.org/A089324) | Proof | the residual test over one square root, or none | [12937-PROOF.pdf](12937-PROOF.pdf) |
+| 12938 | [A104625](https://oeis.org/A104625) | Proof | the residual test over one square root, or none | [12938-PROOF.pdf](12938-PROOF.pdf) |
+| 12939 | [A113956](https://oeis.org/A113956) | Proof | the residual test over one square root, or none | [12939-PROOF.pdf](12939-PROOF.pdf) |
+| 12940 | [A116383](https://oeis.org/A116383) | Proof | the residual test over one square root, or none | [12940-PROOF.pdf](12940-PROOF.pdf) |
+| 12941 | [A162548](https://oeis.org/A162548) | Proof | the residual test over one square root, or none | [12941-PROOF.pdf](12941-PROOF.pdf) |
+| 12942 | [A173993](https://oeis.org/A173993) | Proof | the residual test over one square root, or none | [12942-PROOF.pdf](12942-PROOF.pdf) |
+| 12943 | [A244886](https://oeis.org/A244886) | Proof | the residual test over one square root, or none | [12943-PROOF.pdf](12943-PROOF.pdf) |
+| 12944 | [A157003](https://oeis.org/A157003) | Proof | the residual test over one square root, or none | [12944-PROOF.pdf](12944-PROOF.pdf) |
+| 12945 | [A162482](https://oeis.org/A162482) | Proof | the residual test over one square root, or none | [12945-PROOF.pdf](12945-PROOF.pdf) |
+| 12946 | [A163493](https://oeis.org/A163493) | Proof | the residual test over one square root, or none | [12946-PROOF.pdf](12946-PROOF.pdf) |
+| 12947 | [A191398](https://oeis.org/A191398) | Proof | the residual test over one square root, or none | [12947-PROOF.pdf](12947-PROOF.pdf) |
+| 12948 | [A135582](https://oeis.org/A135582) | Proof | the residual test over one square root, or none | [12948-PROOF.pdf](12948-PROOF.pdf) |
+| 12949 | [A139376](https://oeis.org/A139376) | Proof | the residual test over one square root, or none | [12949-PROOF.pdf](12949-PROOF.pdf) |
+| 12950 | [A346074](https://oeis.org/A346074) | Proof | the residual test over one square root, or none | [12950-PROOF.pdf](12950-PROOF.pdf) |
+| 12951 | [A190166](https://oeis.org/A190166) | Proof | the residual test over one square root, or none | [12951-PROOF.pdf](12951-PROOF.pdf) |
+| 12952 | [A025251](https://oeis.org/A025251) | Proof | the residual test over one square root, or none | [12952-PROOF.pdf](12952-PROOF.pdf) |
+| 12953 | [A228771](https://oeis.org/A228771) | Proof | the residual test over one square root, or none | [12953-PROOF.pdf](12953-PROOF.pdf) |
+| 12954 | [A025268](https://oeis.org/A025268) | Proof | the residual test over one square root, or none | [12954-PROOF.pdf](12954-PROOF.pdf) |
+| 12955 | [A025272](https://oeis.org/A025272) | Proof | the residual test over one square root, or none | [12955-PROOF.pdf](12955-PROOF.pdf) |
+| 12956 | [A162475](https://oeis.org/A162475) | Proof | the residual test over one square root, or none | [12956-PROOF.pdf](12956-PROOF.pdf) |
+| 12957 | [A385252](https://oeis.org/A385252) | Proof | the residual test over one square root, or none | [12957-PROOF.pdf](12957-PROOF.pdf) |
+| 12958 | [A114464](https://oeis.org/A114464) | Proof | the residual test over one square root, or none | [12958-PROOF.pdf](12958-PROOF.pdf) |
+| 12959 | [A127154](https://oeis.org/A127154) | Proof | the residual test over one square root, or none | [12959-PROOF.pdf](12959-PROOF.pdf) |
+| 12960 | [A135335](https://oeis.org/A135335) | Proof | the residual test over one square root, or none | [12960-PROOF.pdf](12960-PROOF.pdf) |
+| 12961 | [A165540](https://oeis.org/A165540) | Proof | the residual test over one square root, or none | [12961-PROOF.pdf](12961-PROOF.pdf) |
+| 12962 | [A171416](https://oeis.org/A171416) | Proof | the residual test over one square root, or none | [12962-PROOF.pdf](12962-PROOF.pdf) |
+| 12963 | [A188314](https://oeis.org/A188314) | Proof | the residual test over one square root, or none | [12963-PROOF.pdf](12963-PROOF.pdf) |
+| 12964 | [A247170](https://oeis.org/A247170) | Proof | the residual test over one square root, or none | [12964-PROOF.pdf](12964-PROOF.pdf) |
+| 12965 | [A254314](https://oeis.org/A254314) | Proof | the residual test over one square root, or none | [12965-PROOF.pdf](12965-PROOF.pdf) |
+| 12966 | [A270661](https://oeis.org/A270661) | Proof | the residual test over one square root, or none | [12966-PROOF.pdf](12966-PROOF.pdf) |
+| 12967 | [A003440](https://oeis.org/A003440) | Proof | the residual test over one square root, or none | [12967-PROOF.pdf](12967-PROOF.pdf) |
+| 12968 | [A110521](https://oeis.org/A110521) | Proof | the residual test over one square root, or none | [12968-PROOF.pdf](12968-PROOF.pdf) |
+| 12969 | [A114190](https://oeis.org/A114190) | Proof | the residual test over one square root, or none | [12969-PROOF.pdf](12969-PROOF.pdf) |
+| 12970 | [A116387](https://oeis.org/A116387) | Proof | the residual test over one square root, or none | [12970-PROOF.pdf](12970-PROOF.pdf) |
+| 12971 | [A128096](https://oeis.org/A128096) | Proof | the residual test over one square root, or none | [12971-PROOF.pdf](12971-PROOF.pdf) |
+| 12972 | [A135052](https://oeis.org/A135052) | Proof | the residual test over one square root, or none | [12972-PROOF.pdf](12972-PROOF.pdf) |
+| 12973 | [A157021](https://oeis.org/A157021) | Proof | the residual test over one square root, or none | [12973-PROOF.pdf](12973-PROOF.pdf) |
+| 12974 | [A160823](https://oeis.org/A160823) | Proof | the residual test over one square root, or none | [12974-PROOF.pdf](12974-PROOF.pdf) |
+| 12975 | [A166287](https://oeis.org/A166287) | Proof | the residual test over one square root, or none | [12975-PROOF.pdf](12975-PROOF.pdf) |
+| 12976 | [A174808](https://oeis.org/A174808) | Proof | the residual test over one square root, or none | [12976-PROOF.pdf](12976-PROOF.pdf) |
+| 12977 | [A185089](https://oeis.org/A185089) | Proof | the residual test over one square root, or none | [12977-PROOF.pdf](12977-PROOF.pdf) |
+| 12978 | [A186940](https://oeis.org/A186940) | Proof | the residual test over one square root, or none | [12978-PROOF.pdf](12978-PROOF.pdf) |
+| 12979 | [A190736](https://oeis.org/A190736) | Proof | the residual test over one square root, or none | [12979-PROOF.pdf](12979-PROOF.pdf) |
+| 12980 | [A219314](https://oeis.org/A219314) | Proof | the residual test over one square root, or none | [12980-PROOF.pdf](12980-PROOF.pdf) |
+| 12981 | [A100095](https://oeis.org/A100095) | Proof | the residual test over one square root, or none | [12981-PROOF.pdf](12981-PROOF.pdf) |
+| 12982 | [A100097](https://oeis.org/A100097) | Proof | the residual test over one square root, or none | [12982-PROOF.pdf](12982-PROOF.pdf) |
+| 12983 | [A191313](https://oeis.org/A191313) | Proof | the residual test over one square root, or none | [12983-PROOF.pdf](12983-PROOF.pdf) |
+| 12984 | [A191790](https://oeis.org/A191790) | Proof | the residual test over one square root, or none | [12984-PROOF.pdf](12984-PROOF.pdf) |
+| 12985 | [A273351](https://oeis.org/A273351) | Proof | the residual test over one square root, or none | [12985-PROOF.pdf](12985-PROOF.pdf) |
+| 12986 | [A278472](https://oeis.org/A278472) | Proof | the residual test over one square root, or none | [12986-PROOF.pdf](12986-PROOF.pdf) |
+| 12987 | [A108296](https://oeis.org/A108296) | Proof | the residual test over one square root, or none | [12987-PROOF.pdf](12987-PROOF.pdf) |
+| 12988 | [A116391](https://oeis.org/A116391) | Proof | the residual test over one square root, or none | [12988-PROOF.pdf](12988-PROOF.pdf) |
+| 12989 | [A110198](https://oeis.org/A110198) | Proof | the residual test over one square root, or none | [12989-PROOF.pdf](12989-PROOF.pdf) |
+| 12990 | [A182879](https://oeis.org/A182879) | Proof | the residual test over one square root, or none | [12990-PROOF.pdf](12990-PROOF.pdf) |
+| 12991 | [A182887](https://oeis.org/A182887) | Proof | the residual test over one square root, or none | [12991-PROOF.pdf](12991-PROOF.pdf) |
+| 12992 | [A135925](https://oeis.org/A135925) | Proof | the residual test over one square root, or none | [12992-PROOF.pdf](12992-PROOF.pdf) |
+| 12993 | [A007901](https://oeis.org/A007901) | Proof | the residual test over one square root, or none | [12993-PROOF.pdf](12993-PROOF.pdf) |
+| 12994 | [A025256](https://oeis.org/A025256) | Proof | the residual test over one square root, or none | [12994-PROOF.pdf](12994-PROOF.pdf) |
+| 12995 | [A025258](https://oeis.org/A025258) | Proof | the residual test over one square root, or none | [12995-PROOF.pdf](12995-PROOF.pdf) |
+| 12996 | [A000781](https://oeis.org/A000781) | Proof | the residual test over one square root, or none | [12996-PROOF.pdf](12996-PROOF.pdf) |
+| 12997 | [A025245](https://oeis.org/A025245) | Proof | the residual test over one square root, or none | [12997-PROOF.pdf](12997-PROOF.pdf) |
+| 12998 | [A025257](https://oeis.org/A025257) | Proof | the residual test over one square root, or none | [12998-PROOF.pdf](12998-PROOF.pdf) |
+| 12999 | [A025269](https://oeis.org/A025269) | Proof | the residual test over one square root, or none | [12999-PROOF.pdf](12999-PROOF.pdf) |
+| 13000 | [A025270](https://oeis.org/A025270) | Proof | the residual test over one square root, or none | [13000-PROOF.pdf](13000-PROOF.pdf) |

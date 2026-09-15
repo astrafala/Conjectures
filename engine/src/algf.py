@@ -52,9 +52,77 @@ def _brackets(s):
     return s.replace('[', '(').replace(']', ')').replace('{', '(').replace('}', ')')
 
 
+# In this corpus a juxtaposed product written immediately after a division is the whole
+# DENOMINATOR: A118447's `O.g.f.: (R-1)^2(R+1)(R+3)/8R^5, where R=sqrt(1-4x)' means division by
+# 8R^5. Inserting the multiplication signs left to right turns that into `.../8*R**5', which
+# MULTIPLIES by R^5, and the series that came out was 4, -38, 104, ... against a published
+# 4, 42, 304 -- so the sweep recorded "the stated g.f. does not generate the DATA" against an
+# entry that is entirely correct. Sixth time a refusal has blamed an entry for a defect here,
+# and the one with the clearest signature: read as written the line reproduces every term.
+#
+# Only juxtaposition with NO space is absorbed. An explicit `*' after the division keeps its
+# usual left-to-right meaning, and `x/2 - 1' is untouched because the run stops at the sign.
+
+def _denominator_run(s):
+    """parenthesise a juxtaposed product that follows a division sign"""
+    out, i = [], 0
+    while i < len(s):
+        ch = s[i]
+        out.append(ch)
+        if ch != '/':
+            i += 1
+            continue
+        j = i + 1
+        atoms, k = 0, j
+        while k < len(s):
+            m = re.match(r'\d+(?:\.\d+)?|[A-Za-z]\w*', s[k:])
+            if m:
+                k += m.end()
+            elif s[k] == '(':
+                depth, t = 0, k
+                while t < len(s):
+                    if s[t] == '(':
+                        depth += 1
+                    elif s[t] == ')':
+                        depth -= 1
+                        if depth == 0:
+                            break
+                    t += 1
+                if t >= len(s):
+                    break
+                k = t + 1
+            else:
+                break
+            atoms += 1
+            if k < len(s) and s[k] == '^':          # an exponent belongs to its atom
+                m2 = re.match(r'\^\s*(?:\(|-?\d+|[A-Za-z]\w*)', s[k:])
+                if not m2:
+                    break
+                if s[k + 1] == '(':
+                    depth, t = 0, k + 1
+                    while t < len(s):
+                        if s[t] == '(':
+                            depth += 1
+                        elif s[t] == ')':
+                            depth -= 1
+                            if depth == 0:
+                                break
+                        t += 1
+                    k = t + 1
+                else:
+                    k += m2.end()
+        if atoms > 1:
+            out.append('(' + s[j:k] + ')')
+            i = k
+        else:
+            i += 1
+    return ''.join(out)
+
+
 def _implicit(s):
     """the corpus's multiplication, written out"""
     s = _brackets(s)
+    s = _denominator_run(s)
     s = s.replace('^', '**')
     s = re.sub(r'(\d)\s*(?=[A-Za-z(])', r'\1*', s)          # 2x, 6x^2, 2(1+x)
     s = re.sub(r'(\))\s*(?=[A-Za-z(])', r'\1*', s)          # (1-z)(1+z), (1-z)Q

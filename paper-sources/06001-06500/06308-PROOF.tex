@@ -11,77 +11,80 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A251000, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233796, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251000 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $54$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=2187$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A233796 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
+an empirical recurrence of order $54$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
+the count is a walk count on $S=3661$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A251000 is ``Number of (6+1)X(n+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A233796 is ``Number of (n+2)X(1+2) 0..3 arrays with no increasing sequence of length 3 horizontally, vertically or antidiagonally downwards.''. It has offset $1$ and begins
 \[
-32554, 344135, 2592734, 16694358, 92713991, 469255626, 2187354714, 9598391778,\ \dots
+169840, 7959956, 365649436, 16782644101, 768927679996, 35226902340272, 1613594778235212, 73911351482932388,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +17*a(n-2) -284*a(n-3) +106*a(n-4) +4700*a(n-5) -6213*a(n-6) -48140*a(n-7) +92362*a(n-8) +341468*a(n-9) -826118*a(n-10) -1776404*a(n-11) +5213227*a(n-12) +6988348*a(n-13) -24852084*a(n-14) -21045456*a(n-15) +92969210*a(n-16) +48140524*a(n-17) -279535546*a(n-18) -79835920*a(n-19) +686453931*a(n-20) +79155936*a(n-21) -1391929843*a(n-22) +17793384*a(n-23) +2347811498*a(n-24) -259696800*a(n-25) -3309603209*a(n-26) +614759784*a(n-27) +3908486236*a(n-28) -950400596*a(n-29) -3868574686*a(n-30) +1107026528*a(n-31) +3204583292*a(n-32) -1015622316*a(n-33) -2214128543*a(n-34) +745872588*a(n-35) +1269025715*a(n-36) -440082340*a(n-37) -598624682*a(n-38) +207736100*a(n-39) +229909626*a(n-40) -77605988*a(n-41) -70846403*a(n-42) +22535228*a(n-43) +17169883*a(n-44) -4948832*a(n-45) -3182528*a(n-46) +788272*a(n-47) +433005*a(n-48) -85152*a(n-49) -40502*a(n-50) +5520*a(n-51) +2310*a(n-52) -160*a(n-53) -60*a(n-54) for n>58
+Empirical recurrence of order 54 (see link above)
+
+Empirical: a(n) = 56*a(n-1) + 16*a(n-2) - 27358*a(n-3) + 158726*a(n-4) + 4712652*a(n-5) - 40724813*a(n-6) - 320672298*a(n-7) + 3951322057*a(n-8) + 4792605460*a(n-9) - 160843336052*a(n-10) + 186402371340*a(n-11) + 3403019389888*a(n-12) - 8610682669740*a(n-13) - 40498732772740*a(n-14) + 155717436194476*a(n-15) + 258853301515263*a(n-16) - 1599479686449188*a(n-17) - 507292401157576*a(n-18) + 10150300832292994*a(n-19) - 4671835022459462*a(n-20) - 40539580018702504*a(n-21) + 40820880894911887*a(n-22) + 101366584440994938*a(n-23) - 152455259133856029*a(n-24) - 156379741291273376*a(n-25) + 339514996193951650*a(n-26) + 134762389579072436*a(n-27) - 496689511905161965*a(n-28) - 24971978378588052*a(n-29) + 497311786238679546*a(n-30) - 86789648039175598*a(n-31) - 344881151741761841*a(n-32) + 118824868325534384*a(n-33) + 163286789524496107*a(n-34) - 81904966988581548*a(n-35) - 49935271642709753*a(n-36) + 34983180543908992*a(n-37) + 8274124487354909*a(n-38) - 9465246873636042*a(n-39) - 91161229547568*a(n-40) + 1543464204351564*a(n-41) - 237294660937468*a(n-42) - 130824880553886*a(n-43) + 41145380033751*a(n-44) + 3261791329948*a(n-45) - 2647604067175*a(n-46) + 141388845412*a(n-47) + 74116032199*a(n-48) - 9068453676*a(n-49) - 774330531*a(n-50) + 162997230*a(n-51) - 1528321*a(n-52) - 952696*a(n-53) + 56448*a(n-54)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:09, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:11:14, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across and entries $x(i,j)\in\{0,1,2\}$.
-
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
+A RUN is $3$ consecutive cells taken along one of the directions
 \[
-b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+\begin{array}{l}
+\text{along a row} \\
+\text{down an antidiagonal, ne to sw} \\
+\text{down a column} \\
+\end{array}
 \]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
-\[
-c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
-\]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the absolute difference of a cell and its left neighbour, and the vertical one is
-the smaller of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
+all of them inside the array. The array is counted when no run has its entries strictly increasing.
 
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
 
-\section{A bounded window}
+The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
+letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
+over the alphabet the entry names.
+
+\section{Every run lies in $3$ consecutive rows}
 
 \begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
+Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
+a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
+row $i$ lies inside rows $i-2,\dots,i$.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
+other three.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $3^{7}=2187$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+So the state is the window of the last $2$ array rows, a row not yet written carried as
+$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
+A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
+the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
+is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2187.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3661,\quad\tau=\mathbf{1} .
 \]
-
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -105,29 +108,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 17\,a(n-2) - 284\,a(n-3) + 106\,a(n-4) + 4700\,a(n-5) - 6213\,a(n-6) - 48140\,a(n-7) + 92362\,a(n-8) + 341468\,a(n-9) - 826118\,a(n-10) - 1776404\,a(n-11) + 5213227\,a(n-12) + 6988348\,a(n-13) - 24852084\,a(n-14) - 21045456\,a(n-15) + 92969210\,a(n-16) + 48140524\,a(n-17) - 279535546\,a(n-18) - 79835920\,a(n-19) + 686453931\,a(n-20) + 79155936\,a(n-21) - 1391929843\,a(n-22) + 17793384\,a(n-23) + 2347811498\,a(n-24) - 259696800\,a(n-25) - 3309603209\,a(n-26) + 614759784\,a(n-27) + 3908486236\,a(n-28) - 950400596\,a(n-29) - 3868574686\,a(n-30) + 1107026528\,a(n-31) + 3204583292\,a(n-32) - 1015622316\,a(n-33) - 2214128543\,a(n-34) + 745872588\,a(n-35) + 1269025715\,a(n-36) - 440082340\,a(n-37) - 598624682\,a(n-38) + 207736100\,a(n-39) + 229909626\,a(n-40) - 77605988\,a(n-41) - 70846403\,a(n-42) + 22535228\,a(n-43) + 17169883\,a(n-44) - 4948832\,a(n-45) - 3182528\,a(n-46) + 788272\,a(n-47) + 433005\,a(n-48) - 85152\,a(n-49) - 40502\,a(n-50) + 5520\,a(n-51) + 2310\,a(n-52) - 160\,a(n-53) - 60\,a(n-54)
+a(n)\;=\;56\,a(n-1) + 16\,a(n-2) - 27358\,a(n-3) + 158726\,a(n-4) + 4712652\,a(n-5) - 40724813\,a(n-6) - 320672298\,a(n-7) + 3951322057\,a(n-8) + 4792605460\,a(n-9) - 160843336052\,a(n-10) + 186402371340\,a(n-11) + 3403019389888\,a(n-12) - 8610682669740\,a(n-13) - 40498732772740\,a(n-14) + 155717436194476\,a(n-15) + 258853301515263\,a(n-16) - 1599479686449188\,a(n-17) - 507292401157576\,a(n-18) + 10150300832292994\,a(n-19) - 4671835022459462\,a(n-20) - 40539580018702504\,a(n-21) + 40820880894911887\,a(n-22) + 101366584440994938\,a(n-23) - 152455259133856029\,a(n-24) - 156379741291273376\,a(n-25) + 339514996193951650\,a(n-26) + 134762389579072436\,a(n-27) - 496689511905161965\,a(n-28) - 24971978378588052\,a(n-29) + 497311786238679546\,a(n-30) - 86789648039175598\,a(n-31) - 344881151741761841\,a(n-32) + 118824868325534384\,a(n-33) + 163286789524496107\,a(n-34) - 81904966988581548\,a(n-35) - 49935271642709753\,a(n-36) + 34983180543908992\,a(n-37) + 8274124487354909\,a(n-38) - 9465246873636042\,a(n-39) - 91161229547568\,a(n-40) + 1543464204351564\,a(n-41) - 237294660937468\,a(n-42) - 130824880553886\,a(n-43) + 41145380033751\,a(n-44) + 3261791329948\,a(n-45) - 2647604067175\,a(n-46) + 141388845412\,a(n-47) + 74116032199\,a(n-48) - 9068453676\,a(n-49) - 774330531\,a(n-50) + 162997230\,a(n-51) - 1528321\,a(n-52) - 952696\,a(n-53) + 56448\,a(n-54)
 \]
-for every $n>58$.
+for every $n>51$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $54$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=58+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=51+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
+cells in row major order, in the orientation the entry's own name writes, and reject as soon as
+a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
+the published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -137,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251000.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233796.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
