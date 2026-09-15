@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A206218, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A207297, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A206218 counts arrays of width $4$ over $\{0,1,2\}$ by reducing every $2\times2$ subblock to a
+OEIS A207297 counts arrays of width $4$ over $\{0,1,2,3\}$ by reducing every $2\times2$ subblock to a
 single number---here the determinant---and requiring the resulting derived array to have its rows
 lexicographically nondecreasing and its columns lexicographically nondecreasing. The entry carries an
 empirical recurrence of order $14$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. The row comparison is settled by three consecutive rows of the
 array; the column comparison is not settled by any bounded window, but what is still outstanding
-about it is one bit per adjacent pair of columns, so the count is a walk count on $S=3382$
+about it is one bit per adjacent pair of columns, so the count is a walk count on $S=34804$
 states.
 \end{abstract}
 
@@ -33,20 +33,20 @@ states.
 
 \section{The conjecture}
 
-OEIS A206218 is ``Number of (n+1) X 4 0..2 arrays with rows and columns of determinants of all 2 X 2 subblocks lexicographically nondecreasing.''. It has offset $1$ and begins
+OEIS A207297 is ``Number of (n+1)X4 0..3 arrays with rows and columns of determinants of all 2X2 subblocks lexicographically nondecreasing.''. It has offset $1$ and begins
 \[
-1970, 73133, 1782191, 35625711, 600064928, 9098547899, 131428029860, 1883474084204,\ \dots
+15040, 2019514, 158967751, 8967460486, 380160979265, 12920283700575, 373780805511860, 9750412079156987,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 42*a(n-1) -625*a(n-2) +2990*a(n-3) +19429*a(n-4) -300482*a(n-5) +1205989*a(n-6) +739674*a(n-7) -21921768*a(n-8) +68928624*a(n-9) -44135280*a(n-10) -218575584*a(n-11) +570862080*a(n-12) -547928064*a(n-13) +191102976*a(n-14) for n > 30.
+Empirical: a(n) = 72*a(n-1) -1686*a(n-2) +5072*a(n-3) +401103*a(n-4) -6241272*a(n-5) +15657512*a(n-6) +403835904*a(n-7) -3944527488*a(n-8) +8453431296*a(n-9) +64599109632*a(n-10) -475519942656*a(n-11) +1287747403776*a(n-12) -1583479259136*a(n-13) +701730127872*a(n-14) for n>46
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 12:48:20, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 13:44:59, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. A
+The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2,3\}$. A
 $2\times2$ subblock of such an array is
 \[
 B=\begin{pmatrix} p & q \\ r & s \end{pmatrix},
@@ -109,7 +109,7 @@ for the row condition, and for each pair still flagged either leaves the flag se
 agreed again) or clears it after checking the required inequality once. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3382.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=34804.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -134,15 +134,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;42\,a(n-1) - 625\,a(n-2) + 2990\,a(n-3) + 19429\,a(n-4) - 300482\,a(n-5) + 1205989\,a(n-6) + 739674\,a(n-7) - 21921768\,a(n-8) + 68928624\,a(n-9) - 44135280\,a(n-10) - 218575584\,a(n-11) + 570862080\,a(n-12) - 547928064\,a(n-13) + 191102976\,a(n-14)
+a(n)\;=\;72\,a(n-1) - 1686\,a(n-2) + 5072\,a(n-3) + 401103\,a(n-4) - 6241272\,a(n-5) + 15657512\,a(n-6) + 403835904\,a(n-7) - 3944527488\,a(n-8) + 8453431296\,a(n-9) + 64599109632\,a(n-10) - 475519942656\,a(n-11) + 1287747403776\,a(n-12) - 1583479259136\,a(n-13) + 701730127872\,a(n-14)
 \]
-for every $n>30$.
+for every $n>46$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $14$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=46+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -150,11 +150,11 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
-array of width $4$ over $\{0,1,2\}$ with two and with three rows was written out cell by cell,
+array of width $4$ over $\{0,1,2,3\}$ with two and with three rows was written out cell by cell,
 the derived array formed, and its rows and its columns compared as whole words. No state, no
 bits of Lemma~\ref{lem:bits} and no recurrence are involved in that computation, and the
 published terms came back.
@@ -167,7 +167,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A206218.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A207297.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

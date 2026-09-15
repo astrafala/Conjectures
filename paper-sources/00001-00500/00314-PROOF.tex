@@ -11,127 +11,72 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A266793, proved from an exact model}
+\title{The conjectured generating function of OEIS A083178,\\ \large from the recurrence the entry
+states}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{2 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A266793 carries an empirical recurrence of order $5$ contributed by Colin Barker. It is true, and it is
-decidable rather than empirical. The entry's sequence is given exactly by a certified growth pattern of the automaton's row, from
-which $a$ provably satisfies a MONIC linear recurrence of order $S=11$, derived below and not
-assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
-annihilates $a$ is settled by a finite exact computation. No transfer matrix is involved and
-the count is not a walk.
+OEIS A083178 states a linear recurrence as a fact and carries a rational generating function as an
+empirical conjecture. The conjecture follows from the recurrence by polynomial algebra alone:
+the recurrence fixes the denominator, the published terms fix the numerator exactly, and the
+generating function is then determined as a rational function rather than checked on finitely
+many coefficients. No model of the sequence and no reading of its name is required.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 68Q80, 11B85, 05A15.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 30B10.\normalsize
 
-\section{The conjecture}
+\section{What the entry says}
 
-OEIS A266793 is ``Total number of ON (black) cells after n iterations of the "Rule 61" elementary cellular automaton starting with a single ON (black) cell.''. It has offset $0$ and begins
+The first terms are $1, 2, 3, 22, 32, 33, 322, 332,\dots$, with offset $1$. The entry states, as a fact,
+
+\begin{quote}\raggedright For n > 7, a(n) = 11*a(n-3)-10*a(n-6). For n > 4, a(n-3) + 3*10\^{}(floor((n-1)/3)). For n > 1, (2*10\^{}(floor((n+2)/3))+(63*m\^{}2-129*m-2))/6, where m is the least nonnegative residue of n mod 3. - \_Chai Wah Wu\_, Dec 11 2015\end{quote}
+
+\noindent and separately records the conjecture
+
+\begin{quote}\raggedright Empirical g.f.: x*(90*x\^{}6+10*x\^{}4+11*x\^{}3+3*x\^{}2+2*x+1) / ((x-1)*(x\^{}2+x+1)*(10*x\^{}3-1)). - \_Colin Barker\_, Oct 14 2014\end{quote}
+
+The stated line was taken from the entry's factual formulas only. A formula qualified by a
+finite range -- "holds at least up to $n=1000$ but is not known to hold in general" -- is not a
+fact and is not used, nor is anything inside a conjectural block.
+
+\section{The argument}
+
+Write $b_k=a(1+k)$ and
 \[
-1, 3, 5, 10, 14, 21, 26, 37,\ \dots
+  D(x)=1-\sum_{i} c_i x^{i}=10 x^{6} - 11 x^{3} + 1 ,
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Conjectures from \_Colin Barker\_, Jan 04 2016 and Apr 18 2019: (Start) a(n) = a(n-1)+2*a(n-2)-2*a(n-3)-a(n-4)+a(n-5) for n>8.
-\end{quote}
-As of the ``Last modified'' line on the live entry (Feb 16 2025 08:33:28, revision 16)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+the polynomial of the stated recurrence, of degree $6$. Let $B(x)=\sum_{k\ge0}b_kx^k$.
 
-\section{What is being counted}
-
-The entry counts the running total of its ON (black) cells over the first $n$ iterations of the automaton. Nothing is being enumerated over a window, so there is
-no digraph and no transfer matrix. What settles the sequence is the shape of the row itself:
-the row grows only at its two ends. Writing
-$r$ for the residue of $n$ modulo the period $p$, the automaton was run and
+The recurrence says $b_k=\sum_i c_ib_{k-i}$ for every $k\ge 7$. The coefficient of $x^k$ in
+$D(x)B(x)$ is exactly $b_k-\sum_i c_ib_{k-i}$, so it vanishes for every $k\ge 7$ and
 \[
-w(n+p)\;=\;L_r + w(n) + R_r
+  D(x)B(x)=P(x)=\sum_{k<7}\Bigl(b_k-\sum_i c_ib_{k-i}\Bigr)x^k
+         =90 x^{7} + 10 x^{5} + 11 x^{4} + 3 x^{3} + 2 x^{2} + x ,
 \]
-was verified for every available $n$ past a
-pre-period $n_0$, with $L_r$ and $R_r$ fixed words depending only on $r$. Counting ON cells on
-both sides gives
+a polynomial whose every coefficient is fixed by finitely many published terms. Therefore
 \[
-\mathrm{on}(n+p)\;=\;\mathrm{on}(n)+\mathrm{ones}(L_r)+\mathrm{ones}(R_r),
+  B(x)=\frac{P(x)}{D(x)}=\frac{x \left(90 x^{6} + 10 x^{4} + 11 x^{3} + 3 x^{2} + 2 x + 1\right)}{\left(x - 1\right) \left(10 x^{3} - 1\right) \left(x^{2} + x + 1\right)} ,
 \]
-a first-order difference along each class.
-
-The certificate is a theorem and not a fit, for the same reason: the rule is a local map of
-radius $1$, so verifying the identity at two consecutive $n$ in a class fixes every three-cell
-window at both boundaries, and induction carries it to every later $n$.
-
-For this entry the automaton is rule 61, the period is $p=2$ and the pre-period is $n_0=5$.
-The certificate is
-\begin{gather*}
-r=0:\quad w(n+p) = \texttt{0} \cdot w(n) \cdot \texttt{000} \\
-r=1:\quad w(n+p) = \texttt{1} \cdot w(n) \cdot \texttt{111}
-\end{gather*}
-
-\section{The bound}
-
-So
-$\mathrm{on}$ is annihilated by $(z^p-1)(z-1)$, and $\mathrm{off}(n)=2n+1-\mathrm{on}(n)$ by
-the same polynomial, since the width is linear in $n$; a running total contributes one further
-factor $(z-1)$. Allowing the pre-period to raise the numerator's degree gives the monic
-annihilator of order $S=11$ used below.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
-$q(z)=z^{5}-\sum_ic_iz^{5-i}$ the characteristic polynomial of the conjectured
-recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
-so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
-directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
-\end{lemma}
-
-\begin{proof}
-$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
-$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
-and each from the $S$ after it, so a run of $S$ zeros propagates.
-\end{proof}
+which is the conjectured expression.
 
 \begin{theorem}
-\[
-a(n)\;=\;a(n-1) + 2\,a(n-2) - 2\,a(n-3) - a(n-4) + a(n-5)
-\]
-for every $n>8$.
+The conjectured generating function of OEIS A083178 is correct, given the recurrence the entry
+states.
 \end{theorem}
 
 \begin{proof}
-The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
-$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
-vanish from $n=8+1$ onwards, and the run exceeds $S+5$, which by
-Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=8$ the recurrence fails on the entry's own published terms, so no larger range holds.
+Immediate from the displayed identity: $D\,B=P$ holds coefficientwise, $D(0)=1\ne0$ so $D$ is
+invertible in the ring of formal power series, and $B=P/D$ follows. This is an identity of
+rational functions, not a comparison of the $30$ terms the entry publishes -- those
+enter only in fixing the $7$ coefficients of $P$.
 \end{proof}
-
-\section{Verification}
-
-Three checks, each independent of the algebra above.
-
-First, the model reproduces all $53$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: it is built by reading the entry's
-English, and a misreading gives different counts.
-
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-model involved, and holds wherever the proved range and the data overlap.
-
-Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
-was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
-too small fails this test, which is why it is run.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A266793.
-\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
-2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
-Springer GTM 228, 2005.
-\end{thebibliography}
 
 \end{document}

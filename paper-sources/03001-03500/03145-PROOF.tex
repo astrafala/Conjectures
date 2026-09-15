@@ -11,23 +11,19 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A223757, proved}
+\title{The empirical closed form for OEIS A224174, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223757 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A224174 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=3200$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=10240$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{19}$, of degree
 $19$. Two things are then checked exactly: that the walk count satisfies the same
@@ -41,35 +37,26 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A223757 is ``Number of nX3 0..3 arrays with rows, antidiagonals and columns unimodal.''. It has offset $1$ and begins
+OEIS A224174 is ``Number of 3 X n 0..3 arrays with rows, diagonals and antidiagonals unimodal and columns nondecreasing.''. It has offset $1$ and begins
 \[
-50, 2500, 61733, 916107, 9478535, 74824917, 477860225, 2571238699,\ \dots
+20, 400, 4739, 38561, 242114, 1253770, 5588411, 22075529,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical: a(n) = (89/169374965760)*n\^{}18 + (673039/29640619008000)*n\^{}17 + (5753323/10461394944000)*n\^{}16 + (20639/2335132800)*n\^{}15 + (5460977/52306974720)*n\^{}14 + (350675333/373621248000)*n\^{}13 + (34569853/5225472000)*n\^{}12 + (744079211/20118067200)*n\^{}11 + (1214093389/7315660800)*n\^{}10 + (3120210973/5225472000)*n\^{}9 + (1381865894063/804722688000)*n\^{}8 + (2224350329/574801920)*n\^{}7 + (252375235967/37362124800)*n\^{}6 + (1486577243227/163459296000)*n\^{}5 + (2159143550149/217945728000)*n\^{}4 + (154699301/14414400)*n\^{}3 - (959722661/467812800)*n\^{}2 + (50040773/6126120)*n + 1
+\begin{quote}
+Empirical: a(n) = (1/3629463552000)*n\^{}18 + (1/80654745600)*n\^{}17 + (5153/10461394944000)*n\^{}16 + (33323/2615348736000)*n\^{}15 + (186871/747242496000)*n\^{}14 + (566921/149448499200)*n\^{}13 + (390989/8211456000)*n\^{}12 + (13776731/28740096000)*n\^{}11 + (283859867/73156608000)*n\^{}10 + (359930911/14631321600)*n\^{}9 + (13824123559/114960384000)*n\^{}8 + (6442744127/14370048000)*n\^{}7 + (11719345643/8895744000)*n\^{}6 + (10048449577/3736212480)*n\^{}5 + (1016995336979/217945728000)*n\^{}4 + (32943067909/9081072000)*n\^{}3 + (5801778061/735134400)*n\^{}2 - (393478/36465)*n + 10.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 22:21:28, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 18 2025 20:55:54, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\begin{multline*}
-f(n)\;=\;\frac{89 n^{18}}{169374965760} + \frac{673039 n^{17}}{29640619008000} \\
-+ \frac{5753323 n^{16}}{10461394944000} + \frac{20639 n^{15}}{2335132800} \\
-+ \frac{5460977 n^{14}}{52306974720} + \frac{350675333 n^{13}}{373621248000} \\
-+ \frac{34569853 n^{12}}{5225472000} + \frac{744079211 n^{11}}{20118067200} \\
-+ \frac{1214093389 n^{10}}{7315660800} + \frac{3120210973 n^{9}}{5225472000} \\
-+ \frac{1381865894063 n^{8}}{804722688000} + \frac{2224350329 n^{7}}{574801920} \\
-+ \frac{252375235967 n^{6}}{37362124800} + \frac{1486577243227 n^{5}}{163459296000} \\
-+ \frac{2159143550149 n^{4}}{217945728000} + \frac{154699301 n^{3}}{14414400} \\
-- \frac{959722661 n^{2}}{467812800} + \frac{50040773 n}{6126120} \\
-+ 1.
-\end{multline*}
+\[
+f(n)\;=\;\frac{n^{18}}{3629463552000} + \frac{n^{17}}{80654745600} + \frac{5153 n^{16}}{10461394944000} + \frac{33323 n^{15}}{2615348736000} + \frac{186871 n^{14}}{747242496000} + \frac{566921 n^{13}}{149448499200} + \frac{390989 n^{12}}{8211456000} + \frac{13776731 n^{11}}{28740096000} + \frac{283859867 n^{10}}{73156608000} + \frac{359930911 n^{9}}{14631321600} + \frac{13824123559 n^{8}}{114960384000} + \frac{6442744127 n^{7}}{14370048000} + \frac{11719345643 n^{6}}{8895744000} + \frac{10048449577 n^{5}}{3736212480} + \frac{1016995336979 n^{4}}{217945728000} + \frac{32943067909 n^{3}}{9081072000} + \frac{5801778061 n^{2}}{735134400} - \frac{393478 n}{36465} + 10.
+\]
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=3200$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=10240$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -144,7 +131,7 @@ The range is tight in the sense that was checked: the closed form holds from the
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $18$ terms the entry publishes,
+First, the walk model reproduces every one of the $21$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -162,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223757.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A224174.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

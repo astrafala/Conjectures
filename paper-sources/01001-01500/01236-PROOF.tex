@@ -11,132 +11,188 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A268077, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A279744, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268077 carries an empirical recurrence of order $45$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to one counter per column -- how many values that column has introduced so far -- the rows themselves being drawn from the fixed finite set that satisfies the same condition read along a row, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=92$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A279744 imposes three things at once: a condition on each cell that reaches one column up and
+one column down; a global budget allowing exactly one cell to
+break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
+says the array is written in canonical form. None of the three is visible to a plain transfer
+matrix over columns. All three are handled: the state is a pair of consecutive columns
+together with the number of offending cells so far, capped at the budget; and the
+canonical-form clause is removed by counting equality patterns instead of arrays, through the
+identity $2!\,a(n)=\sum_i\binom{2}{i}D_{2-i}L_i(n)$ with $D_m$ the derangement
+numbers. The empirical recurrence of order $45$ contributed by R.~H.~Hardin then follows
+from a finite exact computation on $S=514$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-OEIS A268077 is ``Number of nX6 nonnegative integer arrays with new values introduced in each row and column in sequential order starting with zero.''. It has offset $1$ and begins
+OEIS A279744 is ``Number of 4Xn 0..1 arrays with no element equal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-1, 32, 2094, 216734, 29309170, 4617638834, 795460720710, 144635795908942,\ \dots
+0, 26, 168, 736, 2948, 11434, 42494, 154886,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 45 (see link above)
-
-Empirical: a(n) = 2895*a(n-1) - 4037187*a(n-2) + 3613689287*a(n-3) - 2334125124537*a(n-4) + 1159631062296105*a(n-5) - 461257005407905109*a(n-6) + 150968778600598075089*a(n-7) - 41471328971145605009088*a(n-8) + 9704783871436952838678030*a(n-9) - 1957022022700287700731489726*a(n-10) + 343177793873894182742702292966*a(n-11) - 52712365070825519901142101907714*a(n-12) + 7133906263908005447204898152156370*a(n-13) - 854746526270133308701639829077101258*a(n-14) + 91018149269229552258839566552097059138*a(n-15) - 8640984139957208303204736096219075826545*a(n-16) + 733219179255414218536269669342554124010875*a(n-17) - 55717813552258124604545260808571740027490415*a(n-18) + 3797420365706442370814114939231201445311114115*a(n-19) - 232366104388087963567255336110246609584683993269*a(n-20) + 12773977516508797675676021947157702416853897044405*a(n-21) - 631048469760538332060303042919089504565374018967953*a(n-22) + 28011476937328945319288369832302755484248675194514653*a(n-23) - 1116711142421095493191731058620602637829642680580764958*a(n-24) + 39949519132697483194578469935461429183446008876811680120*a(n-25) - 1280903732180806105953927481197307263853146872749218898656*a(n-26) + 36749275025465356340570520413983538495082702161014692708576*a(n-27) - 941483384012815857748447442948608849704333538476502096986432*a(n-28) + 21483487399546073313078492302234302882456205201919900229605120*a(n-29) - 435300527597013962472484341543843841142564488264833077520107264*a(n-30) + 7803051988590637476780556013159799099337528658853379464214689024*a(n-31) - 123202845657058849933844648445717095793641982508734173229516320256*a(n-32) + 1704443195553926734578271277434785101715673176763039287303051438080*a(n-33) - 20532100016045422078011817234804215995914845157604295311632187154432*a(n-34) + 213753487940783053779888065765881275521232266909373654579699652657152*a(n-35) - 1905799134103083628834482359599671116038059211074586138290729218867200*a(n-36) + 14391139035168383156005796784876620191251019767930017528019136217088000*a(n-37) - 90773625287353864022658981729348913362696546278153301146871822286848000*a(n-38) + 469936965953307172519451754669930954303259085215050285022339478323200000*a(n-39) - 1951488296087302518127193284672302985946101712806383169749180953395200000*a(n-40) + 6300950390550971742817259385020074359061283444232611991062279356416000000*a(n-41) - 15127221247485094184965073145207040345170651089567102823061121925120000000*a(n-42) + 25189111347951059883278915886934600869505152826344567183808187596800000000*a(n-43) - 25685641007654886230766568834993603405496162152345097917534568448000000000*a(n-44) + 11916800781538347336877472262471972075126632747701936893607280640000000000*a(n-45)
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 15*a(n-1) -97*a(n-2) +349*a(n-3) -719*a(n-4) +605*a(n-5) +988*a(n-6) -3940*a(n-7) +5528*a(n-8) -2372*a(n-9) -4242*a(n-10) +7466*a(n-11) -4480*a(n-12) +4508*a(n-13) -15704*a(n-14) +23204*a(n-15) -1380*a(n-16) -40516*a(n-17) +52888*a(n-18) -15504*a(n-19) -18615*a(n-20) -715*a(n-21) +29269*a(n-22) +10487*a(n-23) -77888*a(n-24) +64000*a(n-25) +15211*a(n-26) -48111*a(n-27) +12999*a(n-28) +903*a(n-29) +8726*a(n-30) +4570*a(n-31) -4063*a(n-32) -1491*a(n-33) -2565*a(n-34) -131*a(n-35) +130*a(n-36) +110*a(n-37) +293*a(n-38) +115*a(n-39) +104*a(n-40) +40*a(n-41) +17*a(n-42) +7*a(n-43) +a(n-44) +a(n-45) for n>50
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 25 2016 21:22:06, revision 4) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Dec 18 2016 07:47:15, revision 4) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{The count is a walk count}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;15\,a(n-1) - 97\,a(n-2) + 349\,a(n-3) - 719\,a(n-4) + 605\,a(n-5) + 988\,a(n-6) - 3940\,a(n-7) + 5528\,a(n-8) - 2372\,a(n-9) - 4242\,a(n-10) + 7466\,a(n-11) - 4480\,a(n-12) + 4508\,a(n-13) - 15704\,a(n-14) + 23204\,a(n-15) - 1380\,a(n-16) - 40516\,a(n-17) + 52888\,a(n-18) - 15504\,a(n-19) - 18615\,a(n-20) - 715\,a(n-21) + 29269\,a(n-22) + 10487\,a(n-23) - 77888\,a(n-24) + 64000\,a(n-25) + 15211\,a(n-26) - 48111\,a(n-27) + 12999\,a(n-28) + 903\,a(n-29) + 8726\,a(n-30) + 4570\,a(n-31) - 4063\,a(n-32) - 1491\,a(n-33) - 2565\,a(n-34) - 131\,a(n-35) + 130\,a(n-36) + 110\,a(n-37) + 293\,a(n-38) + 115\,a(n-39) + 104\,a(n-40) + 40\,a(n-41) + 17\,a(n-42) + 7\,a(n-43) + a(n-44) + a(n-45)
+\end{equation}
+for all $n>50$.
 
-The condition the entry imposes is local: it constrains one counter per column -- how many values that column has introduced so far -- the rows themselves being drawn from the fixed finite set that satisfies the same condition read along a row and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=92$ vertices,
+\section{The condition, the budget, and the canonical form}
+
+The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+column $t$ and row $u$. With the neighbour offsets
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+as (column shift, row shift), counting only positions inside the array, call a cell
+$(t,u)$ \emph{offending} when
+\[
+2\,\#\{\text{neighbours equal to }x_{t,u}\}>\#\{\text{neighbours}\} .
+\]
+The entry asks for arrays in which exactly $E=1$ cells offend.
 
-\section{The proof}
+Since $\mathcal N$ contains offsets of both signs in the column direction, a cell of column
+$t$ is judged by columns $t-1$, $t$ and $t+1$ together, so a state carrying one column is not
+enough; and the number of offending cells is a property of the whole array, so no bounded
+window sees it either. Both are fixed by the same device: states are ordered pairs of
+consecutive columns together with a running count $v\in\{0,1,\dots,1\}$, and a count that
+would exceed $1$ is simply not represented --- an array that passes it can never come back
+under it.
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{45}-\sum_i c_it^{45-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
+The condition is stated in equalities between entries, so it is invariant under relabelling
+the values, and so is the number of offending cells. The clause ``new values introduced in
+order $0$ sequentially upwards'' keeps exactly one array from each relabelling class, so what
+the entry counts is admissible equality PATTERNS with at most $K=2$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the arrays over an alphabet of $i$ letters with exactly $1$ offending
+cells, and $N_j(n)$ the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+2!\,\sum_{j\le2}N_j(n)=\sum_{i=0}^{2}\binom{2}{i}D_{2-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Factor $M^{j}$ out of $M^{j+45}-\sum_ic_iM^{j+45-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
+A labelled array is a pattern together with an injection of its classes into the alphabet,
+and a pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which gives the first
+identity. Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially,
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le2$ and exchanging the
+order of summation makes the coefficient of $L_i$ equal to
+$\sum_{t\le2-i}(-1)^t/(i!\,t!)$, which multiplied by $2!$ is
+$\binom{2}{i}D_{2-i}$, an integer.
+\end{proof}
+
+\section{Each $L_i$ is a walk count}
+
+Fix $i$, let $V_i=\{0,\dots,i-1\}^{4}$, and take the triples $(p,c,v)$ with
+$p,c\in V_i$ and $0\le v\le1$ as vertices. Write $\mathrm{viol}(b\mid a,x)$ for the number
+of offending cells in the column $b$ when $a$ lies above it and $x$ below (either may be
+absent, in which case the corresponding neighbours simply do not exist). Declare
+\[
+(p,c,v)\ \longrightarrow\ (c,x,\,v+\mathrm{viol}(c\mid p,x))
+\]
+an edge whenever the new count is at most $1$. Let $\mathbf{s}_i$ mark the vertices with
+$v=\mathrm{viol}(p\mid\text{--},c)$ and $\mathbf{e}_i$ those with
+$v+\mathrm{viol}(c\mid p,\text{--})=1$.
+
+\begin{lemma}\label{lem:walk}
+For $L\ge2$, $L_i=\mathbf{s}_i^{\!\top}P_i^{\,L-2}\mathbf{e}_i$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
+
+\begin{proof}
+Consecutive vertices overlap in one column, so a walk of length $L-2$ is exactly a sequence
+of $L$ columns, that is, an array. Along it, the cells of column $t$ for $2\le t\le L-1$ are
+judged once, at the step leaving $(r^{(t-1)},r^{(t)},\cdot)$, with their true neighbours;
+those of column $1$ are judged by $\mathbf{s}_i$ with no column above, and those of column
+$L$ by $\mathbf{e}_i$ with no column below. Hence the running count is the number of
+offending cells among the columns judged so far, and the walk exists exactly when that total
+never exceeds $1$; since the total only grows, that is implied by the final value being
+$1$, which $\mathbf{e}_i$ imposes.
+\end{proof}
+
+Assembling the $2$ chains block-diagonally into $N$ of size $S=514$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+2!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\end{equation}
+
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{45}-\sum_i c_i\,t^{45-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge2$, $o=1n_0+0-2$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge45$
+\[
+2!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-45}w,
+\qquad w=h_{45}-\sum_i c_i h_{45-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
+
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $2!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-\[
-a(n)\;=\;\sum_{i=1}^{45}c_i\,a(n-i)
-\]
-for every $n>45$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=2895$ & $c_{2}$ & $=-4037187$ \\
-$c_{3}$ & $=3613689287$ & $c_{4}$ & $=-2334125124537$ \\
-$c_{5}$ & $=1159631062296105$ & $c_{6}$ & $=-461257005407905109$ \\
-$c_{7}$ & $=150968778600598075089$ & $c_{8}$ & $=-41471328971145605009088$ \\
-$c_{9}$ & $=9704783871436952838678030$ & $c_{10}$ & $=-1957022022700287700731489726$ \\
-$c_{11}$ & $=343177793873894182742702292966$ & $c_{12}$ & $=-52712365070825519901142101907714$ \\
-$c_{13}$ & $=7133906263908005447204898152156370$ & $c_{14}$ & $=-854746526270133308701639829077101258$ \\
-$c_{15}$ & $=91018149269229552258839566552097059138$ & $c_{16}$ & $=-8640984139957208303204736096219075826545$ \\
-$c_{17}$ & $=733219179255414218536269669342554124010875$ & $c_{18}$ & $=-55717813552258124604545260808571740027490415$ \\
-$c_{19}$ & $=3797420365706442370814114939231201445311114115$ & $c_{20}$ & $=-232366104388087963567255336110246609584683993269$ \\
-$c_{21}$ & $=12773977516508797675676021947157702416853897044405$ & $c_{22}$ & $=-631048469760538332060303042919089504565374018967953$ \\
-$c_{23}$ & $=28011476937328945319288369832302755484248675194514653$ & $c_{24}$ & $=-1116711142421095493191731058620602637829642680580764958$ \\
-$c_{25}$ & $=39949519132697483194578469935461429183446008876811680120$ & $c_{26}$ & $=-1280903732180806105953927481197307263853146872749218898656$ \\
-$c_{27}$ & $=36749275025465356340570520413983538495082702161014692708576$ & $c_{28}$ & $=-941483384012815857748447442948608849704333538476502096986432$ \\
-$c_{29}$ & $=21483487399546073313078492302234302882456205201919900229605120$ & $c_{30}$ & $=-435300527597013962472484341543843841142564488264833077520107264$ \\
-$c_{31}$ & $=7803051988590637476780556013159799099337528658853379464214689024$ & $c_{32}$ & $=-123202845657058849933844648445717095793641982508734173229516320256$ \\
-$c_{33}$ & $=1704443195553926734578271277434785101715673176763039287303051438080$ & $c_{34}$ & $=-20532100016045422078011817234804215995914845157604295311632187154432$ \\
-$c_{35}$ & $=213753487940783053779888065765881275521232266909373654579699652657152$ & $c_{36}$ & $=-1905799134103083628834482359599671116038059211074586138290729218867200$ \\
-$c_{37}$ & $=14391139035168383156005796784876620191251019767930017528019136217088000$ & $c_{38}$ & $=-90773625287353864022658981729348913362696546278153301146871822286848000$ \\
-$c_{39}$ & $=469936965953307172519451754669930954303259085215050285022339478323200000$ & $c_{40}$ & $=-1951488296087302518127193284672302985946101712806383169749180953395200000$ \\
-$c_{41}$ & $=6300950390550971742817259385020074359061283444232611991062279356416000000$ & $c_{42}$ & $=-15127221247485094184965073145207040345170651089567102823061121925120000000$ \\
-$c_{43}$ & $=25189111347951059883278915886934600869505152826344567183808187596800000000$ & $c_{44}$ & $=-25685641007654886230766568834993603405496162152345097917534568448000000000$ \\
-$c_{45}$ & $=11916800781538347336877472262471972075126632747701936893607280640000000000$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+The recurrence \eqref{eq:conj} holds for every $n>50$, which is the statement of
+Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $45$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=45+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$45$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=50+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the right-hand side of \eqref{eq:walk2}, divided by $2!$, was evaluated at every
+one of the $23$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of columns being
+$L=n$ from the entry's own name and the offset saying which index the first published
+term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
+Lemma~\ref{lem:inv} would change the counts and be rejected here.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268077.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279744.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

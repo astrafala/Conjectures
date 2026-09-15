@@ -1677,3 +1677,36 @@ it is worth keeping and it is not a vein.
 claim-readable entries — and between them they paid five.** The filter defects were all real.
 The size of a grep is not the size of a vein, and this is now the third time today that has been
 the lesson.
+
+## AH. A vein with results and no builder, and two more hedges (15 September)
+
+`sweep_recgf` is the mirror of the project's largest vein: a RECURRENCE the entry states as
+fact, and a conjectured rational generating function that follows from it by polynomial algebra.
+Its pool of 1,048 is fully asked. It has **six proved records sitting in `rg_hits_*.json` and
+no builder at all** — the same gap `build_gfonly` was written to close, in a different vein.
+`src/rgbuild.py` and `src/build_recgf.py` close it; all six install (`recurrence-to-gf`).
+
+Applying the §AG.3 filter lesson to this vein's own pool found ten more entries whose
+conjectured g.f. is written `Empirical g.f.:` and which state a recurrence as fact, never asked.
+Three proved — **and two of the three would have been unsound papers.**
+
+### Two more hedges, caught by hand before installation
+
+    A020745  a(n) = 2*a(n-1) - a(n-2) + a(n-3) - a(n-4)
+             (holds at least up to n = 1000 but is not known to hold in general)
+    A153368  Heuristically, a(n) = +6*a(n-2) -9*a(n-4) +2*a(n-6).
+
+Neither line carries a conjectural word, so `factlines` read both as premises. **A formula
+qualified by a finite range is not a fact**, and neither is one the contributor calls heuristic;
+proving the entry's generating function from either would be proving one conjecture from
+another. Counted over the whole clone, the phrasings are: 20 "holds at least up to n = 1000",
+24 "but is not known", 130 "probably", 71 "presumably", ~60 "heuristic", plus "checked/verified
+up to n = ...". All are now in `factlines.WORD`.
+
+**Audited before and after: zero installed papers rest on a line the widened test now rejects.**
+The fix is purely preventive, and what it prevented was two papers in the batch being built at
+the time.
+
+This is the third distinct hole found in one day in what counts as a PREMISE — a conjectural
+block (§AG.2), a range qualifier, and a heuristic. They share a shape: the entry is perfectly
+clear about its own uncertainty, in English, and the filter was looking for one word.

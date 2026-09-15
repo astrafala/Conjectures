@@ -12,48 +12,67 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A248533, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A186475, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{8 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A248533 carries an empirical recurrence of order $5$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=125$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A186475 counts the $(n+1)\times3$ arrays over $\{0,\dots,3\}$ in which
+neighbouring $2\times2$ subblocks commute as matrices, and carries an empirical recurrence
+of order $5$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical. The condition ties together $2+1$ consecutive rows, so $2$ consecutive rows are
+a state, the count is a walk count on $S=205$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A27, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A248533 is ``Number of length n+3 0..4 arrays with every four consecutive terms having the sum of some three elements equal to three times the fourth.''. It has offset $1$ and begins
+OEIS A186475 is ``Number of (n+1) X 3 0..3 arrays with every 2 X 2 subblock commuting with each of its horizontal and vertical 2 X 2 subblock neighbors.''. It has offset $1$ and begins
 \[
-101, 113, 125, 137, 149, 173, 197, 221,\ \dots
+205, 362, 701, 2049, 3442, 8223, 14492, 35081,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 2*a(n-4) - 2*a(n-5).
+Empirical: a(n) = 2*a(n-1) + 2*a(n-2) - 6*a(n-3) + 6*a(n-4) - 3*a(n-5) for n>13.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 08 2018 19:06:21, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Apr 18 2018 10:35:14, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+The contiguous $2\times2$ subblocks of an $(n+1)\times3$ array form a grid of $n$
+rows and $2$ columns. Two subblocks that are neighbours in that
+grid OVERLAP: horizontally they share $2\times1$ entries, vertically
+$1\times2$. Nevertheless each is a $2\times2$ integer matrix in its own right, and
+the entry requires that every neighbouring pair, horizontal or vertical, commute --- that is,
+$AB=BA$ as matrices over $\mathbf{Z}$.
+
+At $n=1$ the array has $2$ rows and the grid is a single row of $2$
+subblocks, with only the horizontal pairs to test; the entry's first term is
+$205$, which the model reproduces along with every later term.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=125$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+A subblock row is fixed by $2$ consecutive array rows, and the vertical condition compares
+two consecutive subblock rows, hence $2+1$ consecutive array rows. So take as state the
+$2$-tuple of consecutive rows whose subblock row has just been completed. A step appends one
+array row: that fixes the next subblock row, and the horizontal pairs inside it and the
+vertical pairs against the previous one are all settled there. An array of $n+1$ rows is
+a walk of $n-1$ steps and every walk comes from exactly one array, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+2}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+on the $S=205$ admissible $2$-tuples. In particular $a$ is $C$-finite.
+
+This state does not compress. What a step needs of the past is the previous subblock row, and
+for $3\ge2$ that row already determines the $2$ array rows it was built from, so nothing
+is lost by carrying the rows and nothing would be gained by carrying the matrices instead. The
+size of the construction is therefore $4^{2\cdot3}$ before the condition prunes
+it, which is what puts the wider members of this family out of reach rather than settling them.
 
 \section{The proof}
 
@@ -75,15 +94,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 2\,a(n-4) - 2\,a(n-5)
+a(n)\;=\;2\,a(n-1) + 2\,a(n-2) - 6\,a(n-3) + 6\,a(n-4) - 3\,a(n-5)
 \]
-for every $n>5$.
+for every $n>13$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $5$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=5+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=13+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +110,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $43$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,11 +122,11 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A248533.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A186475.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{suprunenko} D.~A.~Suprunenko and R.~I.~Tyshkevich, \emph{Commutative Matrices},
+Academic Press, 1968.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

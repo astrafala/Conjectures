@@ -1,0 +1,192 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
+
+\title{The empirical recurrence for OEIS A233912, proved by transfer matrix}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{14 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A233912 counts $(n+1)\times4$ arrays over $\{0,\dots,7\}$ subject to a condition imposed on
+every $2\times2$ subblock, and carries an empirical recurrence of order $74$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
+to each subblock, so the rows of an admissible array are the vertices of a finite digraph
+on $S=4096$ vertices whose edges are the admissible consecutive pairs, and the count is a
+number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
+for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
+$n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
+Cayley--Hamilton theorem bounds that to $j<S$. It is therefore a finite computation in exact
+integer arithmetic, and it comes out zero.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The sequence and the conjecture}
+
+OEIS A233912 is ``Number of (n+1)X(3+1) 0..7 arrays with every 2X2 subblock having the sum of the squares of the edge differences equal to 30, and no two adjacent values equal.''. It has offset $1$ and begins
+\[
+2440, 22632, 194208, 1813476, 15981048, 148503096, 1317291048, 12194674440,\ \dots
+\]
+The entry carries the following comment:
+\begin{quote}\small
+Empirical recurrence of order 74 (see link above)
+
+Empirical: a(n) = 329*a(n-2) + 60*a(n-3) - 48361*a(n-4) - 14528*a(n-5) + 4260411*a(n-6) + 1556886*a(n-7) - 254375240*a(n-8) - 99430364*a(n-9) + 11023597179*a(n-10) + 4278705232*a(n-11) - 362205661359*a(n-12) - 132596516784*a(n-13) + 9298481097615*a(n-14) + 3081937449400*a(n-15) - 190594737856169*a(n-16) - 55143736781172*a(n-17) + 3170107869206913*a(n-18) + 772061822990836*a(n-19) - 43316120288283106*a(n-20) - 8531501410210668*a(n-21) + 490865318802612890*a(n-22) + 74449857197770458*a(n-23) - 4647386342489035462*a(n-24) - 507468894352827302*a(n-25) + 36970483471083262019*a(n-26) + 2609653387010748260*a(n-27) - 248183960396080916146*a(n-28) - 9070937023039933116*a(n-29) + 1410380786181093354479*a(n-30) + 10580858209880129068*a(n-31) - 6799513934068215495867*a(n-32) + 111139081475084942214*a(n-33) + 27844310794716567930453*a(n-34) - 973092583015454509618*a(n-35) - 96889570159674659744293*a(n-36) + 4688067179934797949052*a(n-37) + 286351102859992516739213*a(n-38) - 16275131346019995518078*a(n-39) - 717844060619261736634777*a(n-40) + 43467279841192049369186*a(n-41) + 1523030491325809007211248*a(n-42) - 91153652401354418437990*a(n-43) - 2726140058011867143749154*a(n-44) + 150210843678881304565354*a(n-45) + 4099098412007180082385363*a(n-46) - 191537654390284285852942*a(n-47) - 5149009044183723788444798*a(n-48) + 181297507003561996238296*a(n-49) + 5365459932600436968384772*a(n-50) - 113178715891209117848662*a(n-51) - 4597469329317040584801277*a(n-52) + 22970953244480718449074*a(n-53) + 3203992353495483775354979*a(n-54) + 39645261571804919224670*a(n-55) - 1791308478109899769107089*a(n-56) - 54093897867998002944854*a(n-57) + 789751052889093030832184*a(n-58) + 37532270245829104724472*a(n-59) - 268675029776412861039316*a(n-60) - 16990266351747222808952*a(n-61) + 68606292954230601044000*a(n-62) + 5215551136796399997568*a(n-63) - 12685999466143317335200*a(n-64) - 1069436131655470652288*a(n-65) + 1619311006549321192768*a(n-66) + 139426215663735030784*a(n-67) - 133399898597921435136*a(n-68) - 10502409976317595648*a(n-69) + 6402220188292042752*a(n-70) + 374931147599183872*a(n-71) - 150337390318256128*a(n-72) - 3641372318367744*a(n-73) + 1161856253165568*a(n-74)
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:15:06, revision 7) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
+
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;329\,a(n-2) + 60\,a(n-3) - 48361\,a(n-4) - 14528\,a(n-5) + 4260411\,a(n-6) + 1556886\,a(n-7) - 254375240\,a(n-8) - 99430364\,a(n-9) + 11023597179\,a(n-10) + 4278705232\,a(n-11) - 362205661359\,a(n-12) - 132596516784\,a(n-13) + 9298481097615\,a(n-14) + 3081937449400\,a(n-15) - 190594737856169\,a(n-16) - 55143736781172\,a(n-17) + 3170107869206913\,a(n-18) + 772061822990836\,a(n-19) - 43316120288283106\,a(n-20) - 8531501410210668\,a(n-21) + 490865318802612890\,a(n-22) + 74449857197770458\,a(n-23) - 4647386342489035462\,a(n-24) - 507468894352827302\,a(n-25) + 36970483471083262019\,a(n-26) + 2609653387010748260\,a(n-27) - 248183960396080916146\,a(n-28) - 9070937023039933116\,a(n-29) + 1410380786181093354479\,a(n-30) + 10580858209880129068\,a(n-31) - 6799513934068215495867\,a(n-32) + 111139081475084942214\,a(n-33) + 27844310794716567930453\,a(n-34) - 973092583015454509618\,a(n-35) - 96889570159674659744293\,a(n-36) + 4688067179934797949052\,a(n-37) + 286351102859992516739213\,a(n-38) - 16275131346019995518078\,a(n-39) - 717844060619261736634777\,a(n-40) + 43467279841192049369186\,a(n-41) + 1523030491325809007211248\,a(n-42) - 91153652401354418437990\,a(n-43) - 2726140058011867143749154\,a(n-44) + 150210843678881304565354\,a(n-45) + 4099098412007180082385363\,a(n-46) - 191537654390284285852942\,a(n-47) - 5149009044183723788444798\,a(n-48) + 181297507003561996238296\,a(n-49) + 5365459932600436968384772\,a(n-50) - 113178715891209117848662\,a(n-51) - 4597469329317040584801277\,a(n-52) + 22970953244480718449074\,a(n-53) + 3203992353495483775354979\,a(n-54) + 39645261571804919224670\,a(n-55) - 1791308478109899769107089\,a(n-56) - 54093897867998002944854\,a(n-57) + 789751052889093030832184\,a(n-58) + 37532270245829104724472\,a(n-59) - 268675029776412861039316\,a(n-60) - 16990266351747222808952\,a(n-61) + 68606292954230601044000\,a(n-62) + 5215551136796399997568\,a(n-63) - 12685999466143317335200\,a(n-64) - 1069436131655470652288\,a(n-65) + 1619311006549321192768\,a(n-66) + 139426215663735030784\,a(n-67) - 133399898597921435136\,a(n-68) - 10502409976317595648\,a(n-69) + 6402220188292042752\,a(n-70) + 374931147599183872\,a(n-71) - 150337390318256128\,a(n-72) - 3641372318367744\,a(n-73) + 1161856253165568\,a(n-74)
+\end{equation}
+for all $n>74$.
+
+\section{The condition is local, so the rows form a digraph}
+
+Write an array of the shape in question as its list of rows
+$r^{(1)},r^{(2)},\dots$, each an element of
+$V=\{0,1,\dots,7\}^{4}$, so $|V|=S=4096$. A $2\times2$ subblock of the array
+occupies two consecutive rows and two consecutive columns; if the two rows are $r$
+and $s$ (in that order) and the two columns are numbered $j,j+1$,
+the subblock is
+\[
+\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix}.
+\]
+The entry's requirement on that subblock is
+\begin{equation}\label{eq:loc}
+(\beta-\alpha)^2+(\delta-\beta)^2+(\gamma-\delta)^2+(\alpha-\gamma)^2=30,
+\end{equation}
+a condition on the four entries alone and in which no two adjacent entries are equal.
+
+For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
+$1\le j\le 4-1$,
+\begin{itemize}
+\item the four entries above satisfy \eqref{eq:loc};
+\item no two of those four entries that are horizontally or vertically adjacent are equal, that is $\alpha\ne\beta$, $\gamma\ne\delta$, $\alpha\ne\gamma$ and $\beta\ne\delta$;
+\end{itemize}
+Let $M\in\{0,1\}^{S\times S}$ be the adjacency matrix of $G$ and $\mathbf{1}$ the
+all-ones vector.
+
+\begin{lemma}\label{lem:walk}
+The arrays counted by the entry with $L$ rows are exactly the walks
+$r^{(1)}\to r^{(2)}\to\cdots\to r^{(L)}$ of length $L-1$ in $G$. Consequently
+\[
+a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
+\]
+\end{lemma}
+
+\begin{proof}
+An array with $L$ rows and $4$ columns is precisely a sequence
+$r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
+Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
+consecutive columns, so the array satisfies the entry's condition on all of its subblocks
+if and only if each consecutive pair $\bigl(r^{(t)},r^{(t+1)}\bigr)$ satisfies it for
+every column pair --- which is exactly the edge relation of $G$. The number of walks of
+length $L-1$, summed over all starting and ending vertices, is
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$, since $(M^{k})_{r,s}$ counts the walks of
+length $k$ from $r$ to $s$. The entry's index $n$ corresponds to $L=n+1$ rows.
+\end{proof}
+
+\section{The criterion}
+
+Let $q(t)=t^{74}-\sum_i c_i\,t^{74-i}$ be the characteristic polynomial of
+\eqref{eq:conj}, with the $c_i$ read off that equation.
+
+\begin{lemma}\label{lem:crit}
+For every $n$ with $n+1-1\ge74$,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf{1}^{\!\top}M^{\,n+1-1-74}\,q(M)\,\mathbf{1} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$; and it is enough to check
+$j=0,1,\dots,S-1$.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:walk}, $a(n-i)=\mathbf{1}^{\!\top}M^{\,n+1-1-i}\mathbf{1}$, so
+\[
+a(n)-\sum_i c_i a(n-i)
+=\mathbf{1}^{\!\top}\Bigl(M^{m}-\sum_i c_i M^{m-i}\Bigr)\mathbf{1}
+=\mathbf{1}^{\!\top}M^{\,m-74}\,q(M)\,\mathbf{1}
+\]
+with $m=n+1-1$, which is the stated identity; the equivalence follows by letting
+$m-74=j$ run over $\ge0$. For the last clause put $w=q(M)\mathbf{1}$. By the
+Cayley--Hamilton theorem $M^{S}$ is an integer combination of $I,M,\dots,M^{S-1}$, so
+$\mathbf{1}^{\!\top}M^{j}w$ for $j\ge S$ is the corresponding combination of the earlier
+values; if those all vanish, so do all the rest.
+\end{proof}
+
+\section{The computation}
+
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>74$, which is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $4$
+columns: the edge condition is a conjunction of one constraint per consecutive column
+pair, so the successors of a row $r$ are enumerated column by column without testing all
+$S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $74$
+matrix--vector products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was
+evaluated for $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=74+1$ onwards, and the run continued until $w$ itself was the
+zero vector, which settles every larger $j$ at once. By Lemma~\ref{lem:crit} the recurrence
+holds for every $n>74$.
+\end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: it shows the sequence is $C$-finite with
+characteristic polynomial dividing that of $M$, so it has a rational generating function
+whose denominator divides $\det(I-xM)$. The conjectured recurrence is one consequence; the
+minimal one is a divisor of $q$.
+\end{remark}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the digraph was built directly from the entry's stated condition and the walk counts
+$\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
+every one of the $16$ published indices; the values agree exactly. That is what ties
+the digraph to the sequence: a model that reproduced only some of the published terms would
+be the wrong model, and would have been rejected. In particular it is what rules out a
+misreading of the entry's wording, since a different reading of the condition gives a
+different digraph and different counts.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was run in exact integer arithmetic
+until the working vector was identically zero, not to a sampled prefix, and returned zero
+throughout.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233912.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

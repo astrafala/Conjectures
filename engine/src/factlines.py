@@ -21,7 +21,21 @@ import re
 
 import conjlines
 
-WORD = re.compile(r'onjectur|mpirical|It appears|Apparently|seems to', re.I)
+# A formula qualified by a FINITE RANGE is not a fact, whatever it does not say:
+#
+#     A020745  a(n) = 2*a(n-1) - a(n-2) + a(n-3) - a(n-4)
+#              (holds at least up to n = 1000 but is not known to hold in general)
+#
+# That line carries no conjectural word and was read as a premise. Proving the entry's
+# conjectured generating function from it would be proving one conjecture from another, and
+# two such papers were built and caught by hand before installation. The hedges below are the
+# phrasings the corpus actually uses, counted over the whole clone.
+WORD = re.compile(
+    r'onjectur|mpirical|It appears|Apparently|seems to'
+    r'|not known to (?:hold|be true)|but is not known'
+    r'|holds at least up to|(?:checked|verified|confirmed|tested) up to\b'
+    r'|heuristic|presumably|probably|unproved|unproven|it is likely',
+    re.I)
 
 
 def facts(e):

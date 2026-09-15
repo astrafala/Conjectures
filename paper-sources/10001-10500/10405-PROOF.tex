@@ -12,133 +12,177 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A208291, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A302625, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208291 counts arrays over $\{0,\dots,1\}$ of width $7$ that avoid the patterns
-$(0,0,1), (1,1,0)$ along one axis and $(0,0,0), (0,0,1)$ along the other, and carries an empirical recurrence of
-order $8$ contributed by R.~H.~Hardin. It is true. The patterns have length $3$, so
-the constraint across the growing direction ties together $3$ consecutive columns: taking a
-window of $2$ consecutive columns as a state makes the array a walk in a finite digraph
-on $S=196$ vertices, and $a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$. Writing $q$
-for the characteristic polynomial of the conjectured recurrence, the residual is
-$\mathbf{1}^{\!\top}P^{\,n-2-8}q(P)\mathbf{1}$, which vanishes identically
-beyond a threshold that the computation pins down exactly. Finite, exact, integer.
+OEIS A302625 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+values of its neighbours, and carries an empirical recurrence of order $8$ contributed
+by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
+column up and one column down, so a single column is not enough state and a plain walk count
+is wrong; the right object is a walk on ordered \emph{pairs} of consecutive columns, where
+each step tests the condition on the middle column against both its neighbours and the two
+ends are tested with one neighbour column absent. That makes $a(n)$ a walk count on a digraph
+with $S=256$ vertices, and the conjectured recurrence is then decided by a finite exact
+computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A208291 is ``Number of 7 X n 0..1 arrays avoiding 0 0 0 and 0 0 1 horizontally and 0 0 1 and 1 1 0 vertically.''. It has offset
-$1$ and begins
+OEIS A302625 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 1, 2 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-14, 196, 966, 6650, 40376, 256774, 1604862,\ \dots
+8, 81, 71, 130, 251, 497, 1051, 2274,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 4*a(n-1) + 16*a(n-2) - 7*a(n-3) - 23*a(n-4) + 2*a(n-5) + 9*a(n-6) - a(n-8).
+Empirical: a(n) = a(n-1) +2*a(n-2) +2*a(n-3) +a(n-4) -4*a(n-5) -a(n-6) -2*a(n-7) +2*a(n-8) for n>11
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 30 2018 14:53:47, revision
-8) the statement is still recorded as empirical, and nothing on the entry
-records it as settled either way.
+As of the ``Last modified'' line on the live entry (Apr 10 2018 19:14:28, revision 4) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;4\,a(n-1) + 16\,a(n-2) - 7\,a(n-3) - 23\,a(n-4) + 2\,a(n-5) + 9\,a(n-6) - a(n-8)
+a(n)\;=\;a(n-1) + 2\,a(n-2) + 2\,a(n-3) + a(n-4) - 4\,a(n-5) - a(n-6) - 2\,a(n-7) + 2\,a(n-8)
 \end{equation}
-for all $n>8$. The entry's array has a fixed number of rows and a growing number of
-columns, so the roles of the two directions are exchanged: what the entry calls the
-horizontal direction runs along the growing side. The transfer below is written in the
-growing direction throughout.
+for all $n>11$.
 
-\section{The array as a walk}
+\section{The condition, and why one column is not enough}
 
-Call a column \emph{admissible} if the word it forms contains none of the patterns
-$(0,0,1), (1,1,0)$ as $3$ consecutive entries. There are $14$ admissible columns; that condition
-involves a single column only.
+The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
+column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
+\[
+\mathcal N=\{(-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (1,-1),\ (-1,1)\},
+\]
+written as (column shift, row shift) and counting only positions inside the array, the
+entry's requirement is
+\begin{equation}\label{eq:loc}
+\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,2,6\}
+\end{equation}
+for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
 
-The remaining patterns $(0,0,0), (0,0,1)$ are forbidden along the other axis, so each of them
-constrains $3$ consecutive columns at a fixed position of the row. Take as state a
-window $w=\bigl(w^{(1)},\dots,w^{(2)}\bigr)$ of $2$ consecutive admissible
-columns, so $S=196$, and declare $w\to w'$ an edge when $w'$ is $w$ with its first entry
-dropped and one further admissible column $t$ appended, subject to: for every position
-$j$, the $3$-tuple read down the row $j$ across $w^{(1)},\dots,w^{(2)},t$
-is none of $(0,0,0), (0,0,1)$. Let $P$ be the adjacency matrix.
+Some offsets in $\mathcal N$ have a positive column shift and some a negative one, so the
+condition at a cell of column $t$ involves columns $t-1$, $t$ and $t+1$ together. A transfer
+matrix whose states are single columns cannot express it: the step from $r^{(t)}$ to
+$r^{(t+1)}$ does not know $r^{(t-1)}$. Two consecutive columns are enough, and that is
+the state used below.
+
+\section{The digraph}
+
+Let $V=\{0,\dots,1\}^{4}$ be the possible columns and take
+$\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,x)$ an edge
+when every cell of the middle column $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
+below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
+adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first column $p$
+satisfies \eqref{eq:loc} with no column above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+the pairs $(p,c)$ whose second column $c$ satisfies it with no column below.
 
 \begin{lemma}\label{lem:walk}
-$a(n)=\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$ for every $n\ge2$.
+For $L\ge2$, the arrays counted by the entry with $L$ columns are exactly the walks
+\[
+(r^{(1)},r^{(2)})\to(r^{(2)},r^{(3)})\to\cdots\to(r^{(L-1)},r^{(L)})
+\]
+of length $L-2$ starting at a vertex marked by $\mathbf{v}$ and ending at one marked by
+$\mathbf{u}$. Consequently
+\[
+a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-2}\mathbf{u},\qquad L=n .
+\]
 \end{lemma}
 
 \begin{proof}
-An array of the entry's kind with $n$ columns is a sequence of $n$ admissible columns in
-which no forbidden pattern appears along the other axis. Reading it as the sequence of its
-overlapping windows of length $2$ turns it into a walk: consecutive windows overlap in
-$1$ columns by construction, and the edge condition is exactly the requirement on the one
-new $3$-tuple that each step creates. Conversely a walk reassembles into such an array,
-and the two constructions are mutually inverse. A walk of length $n-2$ visits $n-1$
-windows, that is $n$ columns; summing over all starting and ending states gives
-$\mathbf{1}^{\!\top}P^{\,n-2}\mathbf{1}$.
+Consecutive vertices of such a walk overlap in one column, so a walk of that shape is
+precisely a sequence $r^{(1)},\dots,r^{(L)}$ of columns, that is, an array of $L$ columns
+and $4$ rows. In the walk, the cells of column $t$ for $2\le t\le L-1$ are tested
+exactly once --- at the step leaving $(r^{(t-1)},r^{(t)})$ --- and with their true
+neighbours $r^{(t-1)}$ and $r^{(t+1)}$. The cells of column $1$ are tested by
+$\mathbf{v}$ and those of column $L$ by $\mathbf{u}$, in both cases by the same condition
+with the missing neighbour column treated as absent, which is how the array itself behaves at
+its boundary. So the walks are exactly the admissible arrays, and summing over all starting
+and ending vertices counts them.
 \end{proof}
 
+
+It is worth saying why this is not done by enumeration. At the largest index the entry
+publishes, $n=28$, the arrays have $4\cdot28$ cells over
+$2$ values, so there are about $10^{33}$ of them to sift. The
+walk count replaces that by $256$ states and one matrix--vector product per column.
+
+The threshold below is exact rather than merely sufficient: at $n=11$ the conjectured
+recurrence fails on the entry's own published terms, so no range larger than the one proved
+can hold.
 \section{The criterion}
 
-Let $q(t)=t^{8}-\sum_i c_i t^{8-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $u_j=\mathbf{1}^{\!\top}P^{j}q(P)\mathbf{1}$.
+Let $q(t)=t^{8}-\sum_i c_i\,t^{8-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and put $G=N$, so that a unit step in $n$ advances the walk by
+$1$ column.
 
 \begin{lemma}\label{lem:crit}
-$a(n)-\sum_i c_i a(n-i)=u_{\,n-2-8}$ whenever $n-8\ge2$. Hence
-\eqref{eq:conj} holds for every $n>t$ exactly when $u_j=0$ for every
-$j>t-2-8$. Moreover $(u_j)$ satisfies the monic linear recurrence whose
-characteristic polynomial is that of $P$, of degree $S$, so $S$ consecutive zeros force all
-later ones and the last nonzero $u_j$ pins $t$ down exactly.
+Let $n_0$ be the least index with $L\ge2$ and $h_j=G^{j}N^{o}\mathbf{u}$, where
+$o=1n_0+0-2$. Then for $j\ge8$,
+\[
+a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-8}w,
+\qquad w=h_{8}-\sum_i c_i\,h_{8-i} .
+\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
+$m=0,1,\dots,S-1$.
 \end{lemma}
 
 \begin{proof}
-Substituting Lemma~\ref{lem:walk} into the left side and factoring out
-$P^{\,n-2-8}$ gives the identity. The equivalence follows by letting the exponent
-run. For the last claim, Cayley--Hamilton gives $\chi(P)=0$ for the characteristic
-polynomial $\chi$ of $P$, so $\chi$ applied to the shift annihilates $(u_j)$; being monic of
-degree $S$, it propagates $S$ consecutive zeros forward.
+Substitute Lemma~\ref{lem:walk} and factor $G^{j-8}$ out of
+$G^{j}-\sum_ic_iG^{j-i}$; the nonzero scalar $1$ does not affect
+vanishing. For the last clause, Cayley--Hamilton makes $G^{S}$ an integer combination of
+$I,G,\dots,G^{S-1}$, so $\mathbf{v}^{\!\top}G^{m}w$ for $m\ge S$ is the corresponding
+combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
-\section{The computation}
-
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>8$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
-The vector $q(P)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $8$ matrix--vector
-products in exact integer arithmetic and the $u_j$ evaluated in turn. They vanish from the
-index corresponding to $n=8+1$ onwards, and the run was continued past $S$ consecutive
-zeros, which by Lemma~\ref{lem:crit} settles every larger index.
+The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pairs and each
+of the $(1+1)^{4}$ possible next columns, the condition was tested on every cell of
+the middle column. The vector $w$ was formed by $8$ applications of $G$ in exact integer
+arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
+Every one of those integers vanishes from the index corresponding to $n=11+1$ onwards,
+and the run was continued until $S+1$ consecutive zeros had been seen, which by
+Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
+
+\begin{remark}
+The argument gives more than the recurrence: the sequence is $C$-finite with characteristic
+polynomial dividing that of $G$, hence has a rational generating function whose denominator
+divides $\det(I-xG)$. The conjectured recurrence is one consequence; the minimal one is a
+divisor of $q$.
+\end{remark}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the digraph was built directly from the entry's stated patterns and the walk counts
-compared against the entry's DATA at every one of the $19$ published indices; the
-values agree exactly, including the initial count of $14$ admissible columns. That is
-what ties the digraph to the sequence, and a model reproducing only part of the published
-data was rejected wherever it occurred.
+First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
+every one of the $28$ published indices, with no shift fitted: the number of columns is
+read off the entry's own name as $L=n$ and the entry's offset says which index the first
+published term carries. The values agree exactly. A misreading of \eqref{eq:loc}, of the
+neighbour set, or of the boundary treatment would give a different digraph and different
+counts, so this is a test of the modelling and not only of the arithmetic.
 
 Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes at every index the entry claims.
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
 
-Third, the vanishing test of Lemma~\ref{lem:crit} was carried past $S=196$ consecutive
-zeros rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix, and
+returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208291.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A302625.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

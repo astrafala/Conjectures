@@ -918,3 +918,23 @@ at all. The census's conclusion was right and my objection to it was wrong.
 **Three large greps, five papers.** 1,509 continued-fraction g.f.s, 3,593 `Empirical g.f.` lines
 (against the 131 `equate`'s filter could see — defect 2 again, in a vein with four papers), and
 2,211 claim-readable entries. Every filter defect was real; the populations behind them were not.
+
+### A vein with no builder, and two papers stopped by hand (IDEAS §AH)
+
+**6 more papers; roster 13,326 over 13,299 entries; 162 arguments.** `sweep_recgf` — a
+conjectured generating function proved from a recurrence the entry states as fact — had six
+proved records and **no builder at all**. `src/rgbuild.py`, `src/build_recgf.py`, engine
+`recurrence-to-gf`: A162698, A007388, A121138, A063219, A083178, A065261.
+
+Applying the §AG.3 filter lesson to that vein's pool found ten never-asked entries; three
+proved, and **two of the three would have been unsound**:
+
+    A020745  a(n) = 2*a(n-1) - a(n-2) + a(n-3) - a(n-4)
+             (holds at least up to n = 1000 but is not known to hold in general)
+    A153368  Heuristically, a(n) = +6*a(n-2) -9*a(n-4) +2*a(n-6).
+
+Neither carries a conjectural word and `factlines` read both as premises. A formula qualified by
+a finite range is not a fact and neither is a heuristic one. Both now rejected, along with
+"probably" (130 in the clone), "presumably" (71), "checked/verified up to n = ...".
+**Audited: zero installed papers rest on a line the widened test rejects.** Caught by reading
+the three results by hand before installing them, which is the rule that keeps paying.

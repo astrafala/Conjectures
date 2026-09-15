@@ -11,198 +11,72 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A211329, proved by a one-dimensional reduction}
+\title{The conjectured generating function of OEIS A121138,\\ \large from the recurrence the entry
+states}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{4 September 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A211329 counts symmetric $(n+1)\times(n+1)$ matrices over
-$\{-5,\dots,5\}$ in which every $2\times2$ subblock sums to zero and has one or two distinct
-entries. Both sides of the matrix grow with $n$, so there is no slice of bounded width to walk
-along. There does not need to be: the sum-zero condition is linear and solves completely, and
-its solutions are indexed by a SEQUENCE --- the diagonal of the matrix. The count becomes a walk
-on $S=22$ states, and the empirical recurrence of order $3$ contributed by R.~H.~Hardin
-follows.
+OEIS A121138 states a linear recurrence as a fact and carries a rational generating function as an
+empirical conjecture. The conjecture follows from the recurrence by polynomial algebra alone:
+the recurrence fixes the denominator, the published terms fix the numerator exactly, and the
+generating function is then determined as a rational function rather than checked on finitely
+many coefficients. No model of the sequence and no reading of its name is required.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15B36, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 30B10.\normalsize
 
-\section{The conjecture}
+\section{What the entry says}
 
-OEIS A211329 is ``Number of (n+1) X (n+1) -5..5 symmetric matrices with every 2 X 2 subblock having sum zero and one or two distinct values.''. It has offset $1$ and begins
+The first terms are $1, 1, 3, 10, 46, 192, 840, 3584,\dots$, with offset $1$. The entry states, as a fact,
+
+\begin{quote}\raggedright a(n) = 8*a(n-1)-12*a(n-2)-32*a(n-3)+64*a(n-4) for n>7.\end{quote}
+
+\noindent and separately records the conjecture
+
+\begin{quote}\raggedright Empirical G.f.: -3/128 + x\^{}3/4 + x\^{}2/2 + 49*x/64 - (296*x\^{}3 - 140*x\^{}2 + 6*x + 3)/(128*(2*x-1)*(2*x+1)*(4*x-1)\^{}2). - \_Vaclav Kotesovec\_, Nov 29 2012\end{quote}
+
+The stated line was taken from the entry's factual formulas only. A formula qualified by a
+finite range -- "holds at least up to $n=1000$ but is not known to hold in general" -- is not a
+fact and is not used, nor is anything inside a conjectural block.
+
+\section{The argument}
+
+Write $b_k=a(1+k)$ and
 \[
-15, 19, 25, 35, 51, 77, 119, 187,\ \dots
+  D(x)=1-\sum_{i} c_i x^{i}=- 64 x^{4} + 32 x^{3} + 12 x^{2} - 8 x + 1 ,
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 2*a(n-1) - a(n-3).
-\end{quote}
-As of the ``Last modified'' line on the live entry (Jul 17 2018 08:37:53, revision 8) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+the polynomial of the stated recurrence, of degree $4$. Let $B(x)=\sum_{k\ge0}b_kx^k$.
 
-\section{The sum-zero condition solved}
-
-Let $x$ be an $N\times N$ symmetric matrix with entries in $\{-5,\dots,5\}$ such that
+The recurrence says $b_k=\sum_i c_ib_{k-i}$ for every $k\ge 7$. The coefficient of $x^k$ in
+$D(x)B(x)$ is exactly $b_k-\sum_i c_ib_{k-i}$, so it vanishes for every $k\ge 7$ and
 \[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)=0
+  D(x)B(x)=P(x)=\sum_{k<7}\Bigl(b_k-\sum_i c_ib_{k-i}\Bigr)x^k
+         =- 16 x^{7} - 24 x^{6} - 30 x^{5} + 30 x^{4} + 7 x^{3} - 7 x^{2} + x ,
 \]
-for every $0\le i,j\le N-2$.
-
-\begin{lemma}\label{lem:solve}
-Such matrices are exactly the matrices
+a polynomial whose every coefficient is fixed by finitely many published terms. Therefore
 \[
-x(i,j)=(-1)^{i+j}\,\frac{u_i+u_j}{2},
-\qquad u_0,\dots,u_{N-1}\in\{-5,\dots,5\}\ \text{all of the same parity},
+  B(x)=\frac{P(x)}{D(x)}=\frac{x^{3}}{4} + \frac{x^{2}}{2} + \frac{49 x}{64} - \frac{3}{128} - \frac{296 x^{3} - 140 x^{2} + 6 x + 3}{\left(2 x + 1\right) \left(4 x - 1\right)^{2} \left(256 x - 128\right)} ,
 \]
-and the sequence is recovered from the matrix by $u_i=x(i,i)$, so the correspondence is a
-bijection.
-\end{lemma}
-
-\begin{proof}
-Put $y(i,j)=(-1)^{i+j}x(i,j)$. The four entries of a $2\times2$ subblock alternate in sign
-under this substitution, so
-\[
-x(i,j)+x(i,j{+}1)+x(i{+}1,j)+x(i{+}1,j{+}1)
-=(-1)^{i+j}\bigl[y(i,j)-y(i,j{+}1)-y(i{+}1,j)+y(i{+}1,j{+}1)\bigr],
-\]
-and the condition says exactly that the mixed second difference of $y$ vanishes everywhere.
-Summing that identity over a rectangle gives
-$y(i,j)=y(i,0)+y(0,j)-y(0,0)$ for all $i,j$, which is $y(i,j)=f(i)+g(j)$ with
-$f(i)=y(i,0)-y(0,0)$ and $g(j)=y(0,j)$; conversely every such $y$ has vanishing mixed
-difference. Symmetry of $x$ gives $y(i,j)=y(j,i)$, hence $f(i)-g(i)=f(j)-g(j)$ for all $i,j$:
-the difference is a constant $c$. Writing $u_i=2\bigl(f(i)-c/2\bigr)$, which is an integer
-because $y(i,i)=x(i,i)$ is, we get $y(i,j)=(u_i+u_j)/2$ as claimed. Taking $j=i$ gives
-$u_i=y(i,i)=x(i,i)$.
-
-For the two side conditions: $u_i+u_j$ must be even for all $i,j$, which says all the $u_i$ have
-the same parity; and $|x(i,j)|=|u_i+u_j|/2\le5$ for all $i,j$ is equivalent to $|u_i|\le5$
-for each $i$, the case $j=i$ giving one direction and the triangle inequality the other.
-\end{proof}
-
-So the matrices of size $N$ correspond one for one to the sequences $u_0,\dots,u_{N-1}$ in
-$\{-5,\dots,5\}$ with all entries of one parity. What remains is to say, in terms of $u$,
-that every $2\times2$ subblock has one or two distinct entries.
-
-\begin{lemma}\label{lem:block}
-Write $\pi_i=(u_i,u_{i+1})$ for the $i$-th consecutive pair. The number of distinct entries of
-the subblock at $(i,j)$ depends only on $\pi_i$ and $\pi_j$: with $\pi_i=(\alpha,\beta)$ and
-$\pi_j=(\gamma,\delta)$ it is
-\[
-\Bigl|\Bigl\{\tfrac{\alpha+\gamma}{2},\,-\tfrac{\alpha+\delta}{2},\,
--\tfrac{\beta+\gamma}{2},\,\tfrac{\beta+\delta}{2}\Bigr\}\Bigr| .
-\]
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:solve} the four entries are $(-1)^{i+j}$ times those four numbers, in
-order. Multiplying all four by $\pm1$ does not change how many are distinct.
-\end{proof}
-
-Call two consecutive pairs COMPATIBLE when that number lies in $\{1,2\}$. The condition on the
-matrix is that $\pi_i$ and $\pi_j$ are compatible for every $i$ and $j$ --- including $i=j$,
-which asks each pair to be compatible with itself. In other words:
-
-\begin{corollary}
-The matrices counted are exactly the sequences $u$ whose set of consecutive pairs is a clique in
-the compatibility graph on the $\le 121$ pairs.
-\end{corollary}
-
-\section{A walk on the sequence}
-
-The clique condition is not local: a pair must be compatible with every pair anywhere else in
-the sequence. Carrying the set of pairs already used would be an exponential state. Carrying
-what it FORBIDS is not.
-
-\begin{lemma}\label{lem:lump}
-Let $A$ be the set of pairs compatible with every pair used so far. Then a sequence may be
-continued exactly by pairs lying in $A$, and appending a pair $\pi$ replaces $A$ by
-$A\cap N(\pi)$, where $N(\pi)$ is the set of pairs compatible with $\pi$. Hence the pair
-$(\,\text{last value of }u,\;A\,)$ carries everything the future needs.
-\end{lemma}
-
-\begin{proof}
-The condition is a conjunction of pairwise compatibilities, so the set of pairs still allowed
-after using a set $T$ is $\bigcap_{\pi\in T}N(\pi)$, which is a function of $T$ and is updated
-by intersection as $T$ grows. The next pair is $(\text{last value},w)$, so the last value is
-the only other thing a step needs.
-\end{proof}
-
-The sets $A$ that arise are intersections of neighbourhoods, of which there are far fewer than
-subsets; enumerated from the start $A_0=\{\pi:\pi\in N(\pi)\}$, the reachable states number
-$S=22$. The two parity classes never mix, so the walk starts by choosing a parity and a first
-value, and every state may end a sequence:
-\[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad \tau=\mathbf{1},\qquad S=22.
-\]
-The walk index $j$ is the size of the matrix, and it differs from the entry's own $n$ by a
-constant read off by matching the published terms rather than assumed. In particular $a$ is
-$C$-finite --- for a family in which both dimensions grow with $n$.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{3}-\sum_i c_it^{3-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+3}-\sum_ic_iM^{j+3-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
+which is the conjectured expression.
 
 \begin{theorem}
-\[
-a(n)\;=\;2\,a(n-1) - a(n-3)
-\]
-for every $n>3$.
+The conjectured generating function of OEIS A121138 is correct, given the recurrence the entry
+states.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $3$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+Immediate from the displayed identity: $D\,B=P$ holds coefficientwise, $D(0)=1\ne0$ so $D$ is
+invertible in the ring of formal power series, and $B=P/D$ follows. This is an identity of
+rational functions, not a comparison of the $26$ terms the entry publishes -- those
+enter only in fixing the $7$ coefficients of $P$.
 \end{proof}
-
-\section{Verification}
-
-Four checks, each independent of the algebra above.
-
-First, the model reproduces all $35$ terms the entry publishes, exactly, in integer
-arithmetic.
-
-Second, the count was recomputed for the smallest matrices straight from the definition:
-symmetric matrices were written out entry by entry over $\{-5,\dots,5\}$ and each
-$2\times2$ subblock tested for summing to zero and for having one or two distinct entries. The
-sequence $u$, the sign pattern, the clique and the state play no part in that computation, and
-the published terms came back. Lemma~\ref{lem:solve} was separately checked the same way: for
-small sizes and small ranges the number of symmetric sum-zero matrices found by direct
-enumeration equals the number of admissible sequences.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A211329.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{kemeny} J.~G.~Kemeny and J.~L.~Snell, \emph{Finite Markov Chains}, Springer, 1976.
-(Lumping, Section 6.3.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
-\end{thebibliography}
 
 \end{document}

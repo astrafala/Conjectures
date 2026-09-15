@@ -1,6 +1,6 @@
 # Papers 00001-00500
 
-Ranks 1 to 500 of 13320, hardest first.
+Ranks 1 to 500 of 13326, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -201,306 +201,306 @@ Ranks 1 to 500 of 13320, hardest first.
 | 195 | [A283582](https://oeis.org/A283582) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00195-PROOF.pdf](00195-PROOF.pdf) |
 | 196 | [A283583](https://oeis.org/A283583) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00196-PROOF.pdf](00196-PROOF.pdf) |
 | 197 | [A283584](https://oeis.org/A283584) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00197-PROOF.pdf](00197-PROOF.pdf) |
-| 198 | [A253422](https://oeis.org/A253422) | Proof |  | [00198-PROOF.pdf](00198-PROOF.pdf) |
-| 199 | [A253420](https://oeis.org/A253420) | Proof |  | [00199-PROOF.pdf](00199-PROOF.pdf) |
-| 200 | [A211492](https://oeis.org/A211492) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00200-PROOF.pdf](00200-PROOF.pdf) |
-| 201 | [A253418](https://oeis.org/A253418) | Proof |  | [00201-PROOF.pdf](00201-PROOF.pdf) |
-| 202 | [A211116](https://oeis.org/A211116) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00202-PROOF.pdf](00202-PROOF.pdf) |
-| 203 | [A211115](https://oeis.org/A211115) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00203-PROOF.pdf](00203-PROOF.pdf) |
-| 204 | [A211495](https://oeis.org/A211495) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00204-PROOF.pdf](00204-PROOF.pdf) |
-| 205 | [A211491](https://oeis.org/A211491) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00205-PROOF.pdf](00205-PROOF.pdf) |
-| 206 | [A211328](https://oeis.org/A211328) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00206-PROOF.pdf](00206-PROOF.pdf) |
-| 207 | [A267212](https://oeis.org/A267212) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00207-PROOF.pdf](00207-PROOF.pdf) |
-| 208 | [A267214](https://oeis.org/A267214) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00208-PROOF.pdf](00208-PROOF.pdf) |
-| 209 | [A267452](https://oeis.org/A267452) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00209-PROOF.pdf](00209-PROOF.pdf) |
-| 210 | [A267454](https://oeis.org/A267454) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00210-PROOF.pdf](00210-PROOF.pdf) |
-| 211 | [A267211](https://oeis.org/A267211) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00211-PROOF.pdf](00211-PROOF.pdf) |
-| 212 | [A267213](https://oeis.org/A267213) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00212-PROOF.pdf](00212-PROOF.pdf) |
-| 213 | [A267451](https://oeis.org/A267451) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00213-PROOF.pdf](00213-PROOF.pdf) |
-| 214 | [A267453](https://oeis.org/A267453) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00214-PROOF.pdf](00214-PROOF.pdf) |
-| 215 | [A211324](https://oeis.org/A211324) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00215-PROOF.pdf](00215-PROOF.pdf) |
-| 216 | [A267159](https://oeis.org/A267159) | Proof |  | [00216-PROOF.pdf](00216-PROOF.pdf) |
-| 217 | [A267161](https://oeis.org/A267161) | Proof |  | [00217-PROOF.pdf](00217-PROOF.pdf) |
-| 218 | [A266615](https://oeis.org/A266615) | Proof |  | [00218-PROOF.pdf](00218-PROOF.pdf) |
-| 219 | [A266617](https://oeis.org/A266617) | Proof |  | [00219-PROOF.pdf](00219-PROOF.pdf) |
-| 220 | [A267153](https://oeis.org/A267153) | Proof |  | [00220-PROOF.pdf](00220-PROOF.pdf) |
-| 221 | [A267154](https://oeis.org/A267154) | Proof |  | [00221-PROOF.pdf](00221-PROOF.pdf) |
-| 222 | [A267293](https://oeis.org/A267293) | Proof |  | [00222-PROOF.pdf](00222-PROOF.pdf) |
-| 223 | [A267294](https://oeis.org/A267294) | Proof |  | [00223-PROOF.pdf](00223-PROOF.pdf) |
-| 224 | [A267854](https://oeis.org/A267854) | Proof |  | [00224-PROOF.pdf](00224-PROOF.pdf) |
-| 225 | [A267855](https://oeis.org/A267855) | Proof |  | [00225-PROOF.pdf](00225-PROOF.pdf) |
-| 226 | [A211117](https://oeis.org/A211117) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00226-PROOF.pdf](00226-PROOF.pdf) |
-| 227 | [A265427](https://oeis.org/A265427) | Proof |  | [00227-PROOF.pdf](00227-PROOF.pdf) |
-| 228 | [A267158](https://oeis.org/A267158) | Proof |  | [00228-PROOF.pdf](00228-PROOF.pdf) |
-| 229 | [A267160](https://oeis.org/A267160) | Proof |  | [00229-PROOF.pdf](00229-PROOF.pdf) |
-| 230 | [A266787](https://oeis.org/A266787) | Proof |  | [00230-PROOF.pdf](00230-PROOF.pdf) |
-| 231 | [A266788](https://oeis.org/A266788) | Proof |  | [00231-PROOF.pdf](00231-PROOF.pdf) |
-| 232 | [A267138](https://oeis.org/A267138) | Proof |  | [00232-PROOF.pdf](00232-PROOF.pdf) |
-| 233 | [A267139](https://oeis.org/A267139) | Proof |  | [00233-PROOF.pdf](00233-PROOF.pdf) |
-| 234 | [A266609](https://oeis.org/A266609) | Proof |  | [00234-PROOF.pdf](00234-PROOF.pdf) |
-| 235 | [A266610](https://oeis.org/A266610) | Proof |  | [00235-PROOF.pdf](00235-PROOF.pdf) |
-| 236 | [A266838](https://oeis.org/A266838) | Proof |  | [00236-PROOF.pdf](00236-PROOF.pdf) |
-| 237 | [A266839](https://oeis.org/A266839) | Proof |  | [00237-PROOF.pdf](00237-PROOF.pdf) |
-| 238 | [A267057](https://oeis.org/A267057) | Proof |  | [00238-PROOF.pdf](00238-PROOF.pdf) |
-| 239 | [A267058](https://oeis.org/A267058) | Proof |  | [00239-PROOF.pdf](00239-PROOF.pdf) |
-| 240 | [A267041](https://oeis.org/A267041) | Proof |  | [00240-PROOF.pdf](00240-PROOF.pdf) |
-| 241 | [A267042](https://oeis.org/A267042) | Proof |  | [00241-PROOF.pdf](00241-PROOF.pdf) |
-| 242 | [A266589](https://oeis.org/A266589) | Proof |  | [00242-PROOF.pdf](00242-PROOF.pdf) |
-| 243 | [A266590](https://oeis.org/A266590) | Proof |  | [00243-PROOF.pdf](00243-PROOF.pdf) |
-| 244 | [A266841](https://oeis.org/A266841) | Proof |  | [00244-PROOF.pdf](00244-PROOF.pdf) |
-| 245 | [A266842](https://oeis.org/A266842) | Proof |  | [00245-PROOF.pdf](00245-PROOF.pdf) |
-| 246 | [A266717](https://oeis.org/A266717) | Proof |  | [00246-PROOF.pdf](00246-PROOF.pdf) |
-| 247 | [A266718](https://oeis.org/A266718) | Proof |  | [00247-PROOF.pdf](00247-PROOF.pdf) |
-| 248 | [A267054](https://oeis.org/A267054) | Proof |  | [00248-PROOF.pdf](00248-PROOF.pdf) |
-| 249 | [A267055](https://oeis.org/A267055) | Proof |  | [00249-PROOF.pdf](00249-PROOF.pdf) |
-| 250 | [A267271](https://oeis.org/A267271) | Proof |  | [00250-PROOF.pdf](00250-PROOF.pdf) |
-| 251 | [A267350](https://oeis.org/A267350) | Proof |  | [00251-PROOF.pdf](00251-PROOF.pdf) |
-| 252 | [A267351](https://oeis.org/A267351) | Proof |  | [00252-PROOF.pdf](00252-PROOF.pdf) |
-| 253 | [A266460](https://oeis.org/A266460) | Proof |  | [00253-PROOF.pdf](00253-PROOF.pdf) |
-| 254 | [A266461](https://oeis.org/A266461) | Proof |  | [00254-PROOF.pdf](00254-PROOF.pdf) |
-| 255 | [A266515](https://oeis.org/A266515) | Proof |  | [00255-PROOF.pdf](00255-PROOF.pdf) |
-| 256 | [A266516](https://oeis.org/A266516) | Proof |  | [00256-PROOF.pdf](00256-PROOF.pdf) |
-| 257 | [A266606](https://oeis.org/A266606) | Proof |  | [00257-PROOF.pdf](00257-PROOF.pdf) |
-| 258 | [A266607](https://oeis.org/A266607) | Proof |  | [00258-PROOF.pdf](00258-PROOF.pdf) |
-| 259 | [A266614](https://oeis.org/A266614) | Proof |  | [00259-PROOF.pdf](00259-PROOF.pdf) |
-| 260 | [A266616](https://oeis.org/A266616) | Proof |  | [00260-PROOF.pdf](00260-PROOF.pdf) |
-| 261 | [A266670](https://oeis.org/A266670) | Proof |  | [00261-PROOF.pdf](00261-PROOF.pdf) |
-| 262 | [A266671](https://oeis.org/A266671) | Proof |  | [00262-PROOF.pdf](00262-PROOF.pdf) |
-| 263 | [A266849](https://oeis.org/A266849) | Proof |  | [00263-PROOF.pdf](00263-PROOF.pdf) |
-| 264 | [A266850](https://oeis.org/A266850) | Proof |  | [00264-PROOF.pdf](00264-PROOF.pdf) |
-| 265 | [A266979](https://oeis.org/A266979) | Proof |  | [00265-PROOF.pdf](00265-PROOF.pdf) |
-| 266 | [A266980](https://oeis.org/A266980) | Proof |  | [00266-PROOF.pdf](00266-PROOF.pdf) |
-| 267 | [A267002](https://oeis.org/A267002) | Proof |  | [00267-PROOF.pdf](00267-PROOF.pdf) |
-| 268 | [A267003](https://oeis.org/A267003) | Proof |  | [00268-PROOF.pdf](00268-PROOF.pdf) |
-| 269 | [A279498](https://oeis.org/A279498) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00269-PROOF.pdf](00269-PROOF.pdf) |
-| 270 | [A279499](https://oeis.org/A279499) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00270-PROOF.pdf](00270-PROOF.pdf) |
-| 271 | [A279500](https://oeis.org/A279500) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00271-PROOF.pdf](00271-PROOF.pdf) |
-| 272 | [A279501](https://oeis.org/A279501) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00272-PROOF.pdf](00272-PROOF.pdf) |
-| 273 | [A279873](https://oeis.org/A279873) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00273-PROOF.pdf](00273-PROOF.pdf) |
-| 274 | [A279874](https://oeis.org/A279874) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00274-PROOF.pdf](00274-PROOF.pdf) |
-| 275 | [A279875](https://oeis.org/A279875) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00275-PROOF.pdf](00275-PROOF.pdf) |
-| 276 | [A279876](https://oeis.org/A279876) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00276-PROOF.pdf](00276-PROOF.pdf) |
-| 277 | [A281214](https://oeis.org/A281214) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00277-PROOF.pdf](00277-PROOF.pdf) |
-| 278 | [A281215](https://oeis.org/A281215) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00278-PROOF.pdf](00278-PROOF.pdf) |
-| 279 | [A281216](https://oeis.org/A281216) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00279-PROOF.pdf](00279-PROOF.pdf) |
-| 280 | [A282482](https://oeis.org/A282482) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00280-PROOF.pdf](00280-PROOF.pdf) |
-| 281 | [A282483](https://oeis.org/A282483) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00281-PROOF.pdf](00281-PROOF.pdf) |
-| 282 | [A282484](https://oeis.org/A282484) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00282-PROOF.pdf](00282-PROOF.pdf) |
-| 283 | [A282485](https://oeis.org/A282485) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00283-PROOF.pdf](00283-PROOF.pdf) |
-| 284 | [A282607](https://oeis.org/A282607) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00284-PROOF.pdf](00284-PROOF.pdf) |
-| 285 | [A282609](https://oeis.org/A282609) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00285-PROOF.pdf](00285-PROOF.pdf) |
-| 286 | [A282653](https://oeis.org/A282653) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00286-PROOF.pdf](00286-PROOF.pdf) |
-| 287 | [A282655](https://oeis.org/A282655) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00287-PROOF.pdf](00287-PROOF.pdf) |
-| 288 | [A282915](https://oeis.org/A282915) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00288-PROOF.pdf](00288-PROOF.pdf) |
-| 289 | [A282916](https://oeis.org/A282916) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00289-PROOF.pdf](00289-PROOF.pdf) |
-| 290 | [A282917](https://oeis.org/A282917) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00290-PROOF.pdf](00290-PROOF.pdf) |
-| 291 | [A282918](https://oeis.org/A282918) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00291-PROOF.pdf](00291-PROOF.pdf) |
-| 292 | [A283214](https://oeis.org/A283214) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00292-PROOF.pdf](00292-PROOF.pdf) |
-| 293 | [A283216](https://oeis.org/A283216) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00293-PROOF.pdf](00293-PROOF.pdf) |
-| 294 | [A283217](https://oeis.org/A283217) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00294-PROOF.pdf](00294-PROOF.pdf) |
-| 295 | [A284243](https://oeis.org/A284243) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00295-PROOF.pdf](00295-PROOF.pdf) |
-| 296 | [A284244](https://oeis.org/A284244) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00296-PROOF.pdf](00296-PROOF.pdf) |
-| 297 | [A284246](https://oeis.org/A284246) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00297-PROOF.pdf](00297-PROOF.pdf) |
-| 298 | [A278753](https://oeis.org/A278753) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00298-PROOF.pdf](00298-PROOF.pdf) |
-| 299 | [A278754](https://oeis.org/A278754) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00299-PROOF.pdf](00299-PROOF.pdf) |
-| 300 | [A278755](https://oeis.org/A278755) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00300-PROOF.pdf](00300-PROOF.pdf) |
-| 301 | [A278756](https://oeis.org/A278756) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00301-PROOF.pdf](00301-PROOF.pdf) |
-| 302 | [A279877](https://oeis.org/A279877) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00302-PROOF.pdf](00302-PROOF.pdf) |
-| 303 | [A279879](https://oeis.org/A279879) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00303-PROOF.pdf](00303-PROOF.pdf) |
-| 304 | [A279880](https://oeis.org/A279880) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00304-PROOF.pdf](00304-PROOF.pdf) |
-| 305 | [A282415](https://oeis.org/A282415) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00305-PROOF.pdf](00305-PROOF.pdf) |
-| 306 | [A282416](https://oeis.org/A282416) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00306-PROOF.pdf](00306-PROOF.pdf) |
-| 307 | [A282417](https://oeis.org/A282417) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00307-PROOF.pdf](00307-PROOF.pdf) |
-| 308 | [A282418](https://oeis.org/A282418) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00308-PROOF.pdf](00308-PROOF.pdf) |
-| 309 | [A285833](https://oeis.org/A285833) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00309-PROOF.pdf](00309-PROOF.pdf) |
-| 310 | [A288662](https://oeis.org/A288662) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00310-PROOF.pdf](00310-PROOF.pdf) |
-| 311 | [A265380](https://oeis.org/A265380) | Proof |  | [00311-PROOF.pdf](00311-PROOF.pdf) |
-| 312 | [A211114](https://oeis.org/A211114) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00312-PROOF.pdf](00312-PROOF.pdf) |
-| 313 | [A188789](https://oeis.org/A188789) | Proof |  | [00313-PROOF.pdf](00313-PROOF.pdf) |
-| 314 | [A266793](https://oeis.org/A266793) | Proof |  | [00314-PROOF.pdf](00314-PROOF.pdf) |
-| 315 | [A266795](https://oeis.org/A266795) | Proof |  | [00315-PROOF.pdf](00315-PROOF.pdf) |
-| 316 | [A267262](https://oeis.org/A267262) | Proof |  | [00316-PROOF.pdf](00316-PROOF.pdf) |
-| 317 | [A188788](https://oeis.org/A188788) | Proof |  | [00317-PROOF.pdf](00317-PROOF.pdf) |
-| 318 | [A266250](https://oeis.org/A266250) | Proof |  | [00318-PROOF.pdf](00318-PROOF.pdf) |
-| 319 | [A266252](https://oeis.org/A266252) | Proof |  | [00319-PROOF.pdf](00319-PROOF.pdf) |
-| 320 | [A266448](https://oeis.org/A266448) | Proof |  | [00320-PROOF.pdf](00320-PROOF.pdf) |
-| 321 | [A266450](https://oeis.org/A266450) | Proof |  | [00321-PROOF.pdf](00321-PROOF.pdf) |
-| 322 | [A188787](https://oeis.org/A188787) | Proof |  | [00322-PROOF.pdf](00322-PROOF.pdf) |
-| 323 | [A267047](https://oeis.org/A267047) | Proof |  | [00323-PROOF.pdf](00323-PROOF.pdf) |
-| 324 | [A267049](https://oeis.org/A267049) | Proof |  | [00324-PROOF.pdf](00324-PROOF.pdf) |
-| 325 | [A188786](https://oeis.org/A188786) | Proof |  | [00325-PROOF.pdf](00325-PROOF.pdf) |
-| 326 | [A265428](https://oeis.org/A265428) | Proof |  | [00326-PROOF.pdf](00326-PROOF.pdf) |
-| 327 | [A265430](https://oeis.org/A265430) | Proof |  | [00327-PROOF.pdf](00327-PROOF.pdf) |
-| 328 | [A266221](https://oeis.org/A266221) | Proof |  | [00328-PROOF.pdf](00328-PROOF.pdf) |
-| 329 | [A266223](https://oeis.org/A266223) | Proof |  | [00329-PROOF.pdf](00329-PROOF.pdf) |
-| 330 | [A266594](https://oeis.org/A266594) | Proof |  | [00330-PROOF.pdf](00330-PROOF.pdf) |
-| 331 | [A266596](https://oeis.org/A266596) | Proof |  | [00331-PROOF.pdf](00331-PROOF.pdf) |
-| 332 | [A266663](https://oeis.org/A266663) | Proof |  | [00332-PROOF.pdf](00332-PROOF.pdf) |
-| 333 | [A266665](https://oeis.org/A266665) | Proof |  | [00333-PROOF.pdf](00333-PROOF.pdf) |
-| 334 | [A188785](https://oeis.org/A188785) | Proof |  | [00334-PROOF.pdf](00334-PROOF.pdf) |
-| 335 | [A266257](https://oeis.org/A266257) | Proof |  | [00335-PROOF.pdf](00335-PROOF.pdf) |
-| 336 | [A266259](https://oeis.org/A266259) | Proof |  | [00336-PROOF.pdf](00336-PROOF.pdf) |
-| 337 | [A266438](https://oeis.org/A266438) | Proof |  | [00337-PROOF.pdf](00337-PROOF.pdf) |
-| 338 | [A266440](https://oeis.org/A266440) | Proof |  | [00338-PROOF.pdf](00338-PROOF.pdf) |
-| 339 | [A266723](https://oeis.org/A266723) | Proof |  | [00339-PROOF.pdf](00339-PROOF.pdf) |
-| 340 | [A266725](https://oeis.org/A266725) | Proof |  | [00340-PROOF.pdf](00340-PROOF.pdf) |
-| 341 | [A267353](https://oeis.org/A267353) | Proof |  | [00341-PROOF.pdf](00341-PROOF.pdf) |
-| 342 | [A278665](https://oeis.org/A278665) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00342-PROOF.pdf](00342-PROOF.pdf) |
-| 343 | [A278667](https://oeis.org/A278667) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00343-PROOF.pdf](00343-PROOF.pdf) |
-| 344 | [A282911](https://oeis.org/A282911) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00344-PROOF.pdf](00344-PROOF.pdf) |
-| 345 | [A282912](https://oeis.org/A282912) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00345-PROOF.pdf](00345-PROOF.pdf) |
-| 346 | [A282913](https://oeis.org/A282913) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00346-PROOF.pdf](00346-PROOF.pdf) |
-| 347 | [A282914](https://oeis.org/A282914) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00347-PROOF.pdf](00347-PROOF.pdf) |
-| 348 | [A284179](https://oeis.org/A284179) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00348-PROOF.pdf](00348-PROOF.pdf) |
-| 349 | [A284180](https://oeis.org/A284180) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00349-PROOF.pdf](00349-PROOF.pdf) |
-| 350 | [A284181](https://oeis.org/A284181) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00350-PROOF.pdf](00350-PROOF.pdf) |
-| 351 | [A284182](https://oeis.org/A284182) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00351-PROOF.pdf](00351-PROOF.pdf) |
-| 352 | [A284480](https://oeis.org/A284480) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00352-PROOF.pdf](00352-PROOF.pdf) |
-| 353 | [A284481](https://oeis.org/A284481) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00353-PROOF.pdf](00353-PROOF.pdf) |
-| 354 | [A284482](https://oeis.org/A284482) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00354-PROOF.pdf](00354-PROOF.pdf) |
-| 355 | [A284540](https://oeis.org/A284540) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00355-PROOF.pdf](00355-PROOF.pdf) |
-| 356 | [A284541](https://oeis.org/A284541) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00356-PROOF.pdf](00356-PROOF.pdf) |
-| 357 | [A284542](https://oeis.org/A284542) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00357-PROOF.pdf](00357-PROOF.pdf) |
-| 358 | [A284543](https://oeis.org/A284543) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00358-PROOF.pdf](00358-PROOF.pdf) |
-| 359 | [A265225](https://oeis.org/A265225) | Proof |  | [00359-PROOF.pdf](00359-PROOF.pdf) |
-| 360 | [A265724](https://oeis.org/A265724) | Proof |  | [00360-PROOF.pdf](00360-PROOF.pdf) |
-| 361 | [A266287](https://oeis.org/A266287) | Proof |  | [00361-PROOF.pdf](00361-PROOF.pdf) |
-| 362 | [A266304](https://oeis.org/A266304) | Proof |  | [00362-PROOF.pdf](00362-PROOF.pdf) |
-| 363 | [A285543](https://oeis.org/A285543) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00363-PROOF.pdf](00363-PROOF.pdf) |
-| 364 | [A290233](https://oeis.org/A290233) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00364-PROOF.pdf](00364-PROOF.pdf) |
-| 365 | [A290413](https://oeis.org/A290413) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00365-PROOF.pdf](00365-PROOF.pdf) |
-| 366 | [A290415](https://oeis.org/A290415) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00366-PROOF.pdf](00366-PROOF.pdf) |
-| 367 | [A290526](https://oeis.org/A290526) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00367-PROOF.pdf](00367-PROOF.pdf) |
-| 368 | [A290528](https://oeis.org/A290528) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00368-PROOF.pdf](00368-PROOF.pdf) |
-| 369 | [A032098](https://oeis.org/A032098) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00369-PROOF.pdf](00369-PROOF.pdf) |
-| 370 | [A259661](https://oeis.org/A259661) | Proof |  | [00370-PROOF.pdf](00370-PROOF.pdf) |
-| 371 | [A211323](https://oeis.org/A211323) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00371-PROOF.pdf](00371-PROOF.pdf) |
-| 372 | [A187170](https://oeis.org/A187170) | Proof |  | [00372-PROOF.pdf](00372-PROOF.pdf) |
-| 373 | [A187169](https://oeis.org/A187169) | Proof |  | [00373-PROOF.pdf](00373-PROOF.pdf) |
-| 374 | [A265284](https://oeis.org/A265284) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00374-PROOF.pdf](00374-PROOF.pdf) |
-| 375 | [A267459](https://oeis.org/A267459) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00375-PROOF.pdf](00375-PROOF.pdf) |
-| 376 | [A267461](https://oeis.org/A267461) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00376-PROOF.pdf](00376-PROOF.pdf) |
-| 377 | [A267529](https://oeis.org/A267529) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00377-PROOF.pdf](00377-PROOF.pdf) |
-| 378 | [A267531](https://oeis.org/A267531) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00378-PROOF.pdf](00378-PROOF.pdf) |
-| 379 | [A187168](https://oeis.org/A187168) | Proof |  | [00379-PROOF.pdf](00379-PROOF.pdf) |
-| 380 | [A266792](https://oeis.org/A266792) | Proof |  | [00380-PROOF.pdf](00380-PROOF.pdf) |
-| 381 | [A266794](https://oeis.org/A266794) | Proof |  | [00381-PROOF.pdf](00381-PROOF.pdf) |
-| 382 | [A267359](https://oeis.org/A267359) | Proof |  | [00382-PROOF.pdf](00382-PROOF.pdf) |
-| 383 | [A267360](https://oeis.org/A267360) | Proof |  | [00383-PROOF.pdf](00383-PROOF.pdf) |
-| 384 | [A187167](https://oeis.org/A187167) | Proof |  | [00384-PROOF.pdf](00384-PROOF.pdf) |
-| 385 | [A266249](https://oeis.org/A266249) | Proof |  | [00385-PROOF.pdf](00385-PROOF.pdf) |
-| 386 | [A266251](https://oeis.org/A266251) | Proof |  | [00386-PROOF.pdf](00386-PROOF.pdf) |
-| 387 | [A266447](https://oeis.org/A266447) | Proof |  | [00387-PROOF.pdf](00387-PROOF.pdf) |
-| 388 | [A266449](https://oeis.org/A266449) | Proof |  | [00388-PROOF.pdf](00388-PROOF.pdf) |
-| 389 | [A267526](https://oeis.org/A267526) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00389-PROOF.pdf](00389-PROOF.pdf) |
-| 390 | [A267677](https://oeis.org/A267677) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00390-PROOF.pdf](00390-PROOF.pdf) |
-| 391 | [A267678](https://oeis.org/A267678) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00391-PROOF.pdf](00391-PROOF.pdf) |
-| 392 | [A285647](https://oeis.org/A285647) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00392-PROOF.pdf](00392-PROOF.pdf) |
-| 393 | [A285649](https://oeis.org/A285649) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00393-PROOF.pdf](00393-PROOF.pdf) |
-| 394 | [A285775](https://oeis.org/A285775) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00394-PROOF.pdf](00394-PROOF.pdf) |
-| 395 | [A285777](https://oeis.org/A285777) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00395-PROOF.pdf](00395-PROOF.pdf) |
-| 396 | [A187166](https://oeis.org/A187166) | Proof |  | [00396-PROOF.pdf](00396-PROOF.pdf) |
-| 397 | [A263805](https://oeis.org/A263805) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00397-PROOF.pdf](00397-PROOF.pdf) |
-| 398 | [A263806](https://oeis.org/A263806) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00398-PROOF.pdf](00398-PROOF.pdf) |
-| 399 | [A267046](https://oeis.org/A267046) | Proof |  | [00399-PROOF.pdf](00399-PROOF.pdf) |
-| 400 | [A267048](https://oeis.org/A267048) | Proof |  | [00400-PROOF.pdf](00400-PROOF.pdf) |
-| 401 | [A267688](https://oeis.org/A267688) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00401-PROOF.pdf](00401-PROOF.pdf) |
-| 402 | [A267689](https://oeis.org/A267689) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00402-PROOF.pdf](00402-PROOF.pdf) |
-| 403 | [A286770](https://oeis.org/A286770) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00403-PROOF.pdf](00403-PROOF.pdf) |
-| 404 | [A286772](https://oeis.org/A286772) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00404-PROOF.pdf](00404-PROOF.pdf) |
-| 405 | [A287190](https://oeis.org/A287190) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00405-PROOF.pdf](00405-PROOF.pdf) |
-| 406 | [A287192](https://oeis.org/A287192) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00406-PROOF.pdf](00406-PROOF.pdf) |
-| 407 | [A187165](https://oeis.org/A187165) | Proof |  | [00407-PROOF.pdf](00407-PROOF.pdf) |
-| 408 | [A266220](https://oeis.org/A266220) | Proof |  | [00408-PROOF.pdf](00408-PROOF.pdf) |
-| 409 | [A266222](https://oeis.org/A266222) | Proof |  | [00409-PROOF.pdf](00409-PROOF.pdf) |
-| 410 | [A266593](https://oeis.org/A266593) | Proof |  | [00410-PROOF.pdf](00410-PROOF.pdf) |
-| 411 | [A266595](https://oeis.org/A266595) | Proof |  | [00411-PROOF.pdf](00411-PROOF.pdf) |
-| 412 | [A266660](https://oeis.org/A266660) | Proof |  | [00412-PROOF.pdf](00412-PROOF.pdf) |
-| 413 | [A266661](https://oeis.org/A266661) | Proof |  | [00413-PROOF.pdf](00413-PROOF.pdf) |
-| 414 | [A266662](https://oeis.org/A266662) | Proof |  | [00414-PROOF.pdf](00414-PROOF.pdf) |
-| 415 | [A266664](https://oeis.org/A266664) | Proof |  | [00415-PROOF.pdf](00415-PROOF.pdf) |
-| 416 | [A267274](https://oeis.org/A267274) | Proof |  | [00416-PROOF.pdf](00416-PROOF.pdf) |
-| 417 | [A267456](https://oeis.org/A267456) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00417-PROOF.pdf](00417-PROOF.pdf) |
-| 418 | [A267457](https://oeis.org/A267457) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00418-PROOF.pdf](00418-PROOF.pdf) |
-| 419 | [A187164](https://oeis.org/A187164) | Proof |  | [00419-PROOF.pdf](00419-PROOF.pdf) |
-| 420 | [A266256](https://oeis.org/A266256) | Proof |  | [00420-PROOF.pdf](00420-PROOF.pdf) |
-| 421 | [A266258](https://oeis.org/A266258) | Proof |  | [00421-PROOF.pdf](00421-PROOF.pdf) |
-| 422 | [A266437](https://oeis.org/A266437) | Proof |  | [00422-PROOF.pdf](00422-PROOF.pdf) |
-| 423 | [A266439](https://oeis.org/A266439) | Proof |  | [00423-PROOF.pdf](00423-PROOF.pdf) |
-| 424 | [A266724](https://oeis.org/A266724) | Proof |  | [00424-PROOF.pdf](00424-PROOF.pdf) |
-| 425 | [A266984](https://oeis.org/A266984) | Proof |  | [00425-PROOF.pdf](00425-PROOF.pdf) |
-| 426 | [A267352](https://oeis.org/A267352) | Proof |  | [00426-PROOF.pdf](00426-PROOF.pdf) |
-| 427 | [A267354](https://oeis.org/A267354) | Proof |  | [00427-PROOF.pdf](00427-PROOF.pdf) |
-| 428 | [A280371](https://oeis.org/A280371) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00428-PROOF.pdf](00428-PROOF.pdf) |
-| 429 | [A280373](https://oeis.org/A280373) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00429-PROOF.pdf](00429-PROOF.pdf) |
-| 430 | [A265722](https://oeis.org/A265722) | Proof |  | [00430-PROOF.pdf](00430-PROOF.pdf) |
-| 431 | [A265723](https://oeis.org/A265723) | Proof |  | [00431-PROOF.pdf](00431-PROOF.pdf) |
-| 432 | [A266073](https://oeis.org/A266073) | Proof |  | [00432-PROOF.pdf](00432-PROOF.pdf) |
-| 433 | [A266285](https://oeis.org/A266285) | Proof |  | [00433-PROOF.pdf](00433-PROOF.pdf) |
-| 434 | [A266286](https://oeis.org/A266286) | Proof |  | [00434-PROOF.pdf](00434-PROOF.pdf) |
-| 435 | [A266303](https://oeis.org/A266303) | Proof |  | [00435-PROOF.pdf](00435-PROOF.pdf) |
-| 436 | [A266872](https://oeis.org/A266872) | Proof |  | [00436-PROOF.pdf](00436-PROOF.pdf) |
-| 437 | [A266873](https://oeis.org/A266873) | Proof |  | [00437-PROOF.pdf](00437-PROOF.pdf) |
-| 438 | [A266981](https://oeis.org/A266981) | Proof |  | [00438-PROOF.pdf](00438-PROOF.pdf) |
-| 439 | [A267035](https://oeis.org/A267035) | Proof |  | [00439-PROOF.pdf](00439-PROOF.pdf) |
-| 440 | [A267804](https://oeis.org/A267804) | Proof |  | [00440-PROOF.pdf](00440-PROOF.pdf) |
-| 441 | [A267805](https://oeis.org/A267805) | Proof |  | [00441-PROOF.pdf](00441-PROOF.pdf) |
-| 442 | [A285473](https://oeis.org/A285473) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00442-PROOF.pdf](00442-PROOF.pdf) |
-| 443 | [A267680](https://oeis.org/A267680) | Proof |  | [00443-PROOF.pdf](00443-PROOF.pdf) |
-| 444 | [A267681](https://oeis.org/A267681) | Proof |  | [00444-PROOF.pdf](00444-PROOF.pdf) |
-| 445 | [A279028](https://oeis.org/A279028) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00445-PROOF.pdf](00445-PROOF.pdf) |
-| 446 | [A279030](https://oeis.org/A279030) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00446-PROOF.pdf](00446-PROOF.pdf) |
-| 447 | [A279118](https://oeis.org/A279118) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00447-PROOF.pdf](00447-PROOF.pdf) |
-| 448 | [A279872](https://oeis.org/A279872) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00448-PROOF.pdf](00448-PROOF.pdf) |
-| 449 | [A282004](https://oeis.org/A282004) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00449-PROOF.pdf](00449-PROOF.pdf) |
-| 450 | [A282088](https://oeis.org/A282088) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00450-PROOF.pdf](00450-PROOF.pdf) |
-| 451 | [A282121](https://oeis.org/A282121) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00451-PROOF.pdf](00451-PROOF.pdf) |
-| 452 | [A282122](https://oeis.org/A282122) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00452-PROOF.pdf](00452-PROOF.pdf) |
-| 453 | [A282123](https://oeis.org/A282123) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00453-PROOF.pdf](00453-PROOF.pdf) |
-| 454 | [A282124](https://oeis.org/A282124) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00454-PROOF.pdf](00454-PROOF.pdf) |
-| 455 | [A282142](https://oeis.org/A282142) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00455-PROOF.pdf](00455-PROOF.pdf) |
-| 456 | [A282411](https://oeis.org/A282411) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00456-PROOF.pdf](00456-PROOF.pdf) |
-| 457 | [A282413](https://oeis.org/A282413) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00457-PROOF.pdf](00457-PROOF.pdf) |
-| 458 | [A282414](https://oeis.org/A282414) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00458-PROOF.pdf](00458-PROOF.pdf) |
-| 459 | [A282451](https://oeis.org/A282451) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00459-PROOF.pdf](00459-PROOF.pdf) |
-| 460 | [A282453](https://oeis.org/A282453) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00460-PROOF.pdf](00460-PROOF.pdf) |
-| 461 | [A282454](https://oeis.org/A282454) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00461-PROOF.pdf](00461-PROOF.pdf) |
-| 462 | [A282577](https://oeis.org/A282577) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00462-PROOF.pdf](00462-PROOF.pdf) |
-| 463 | [A282579](https://oeis.org/A282579) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00463-PROOF.pdf](00463-PROOF.pdf) |
-| 464 | [A282796](https://oeis.org/A282796) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00464-PROOF.pdf](00464-PROOF.pdf) |
-| 465 | [A282797](https://oeis.org/A282797) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00465-PROOF.pdf](00465-PROOF.pdf) |
-| 466 | [A282798](https://oeis.org/A282798) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00466-PROOF.pdf](00466-PROOF.pdf) |
-| 467 | [A282799](https://oeis.org/A282799) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00467-PROOF.pdf](00467-PROOF.pdf) |
-| 468 | [A282800](https://oeis.org/A282800) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00468-PROOF.pdf](00468-PROOF.pdf) |
-| 469 | [A282801](https://oeis.org/A282801) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00469-PROOF.pdf](00469-PROOF.pdf) |
-| 470 | [A282802](https://oeis.org/A282802) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00470-PROOF.pdf](00470-PROOF.pdf) |
-| 471 | [A285644](https://oeis.org/A285644) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00471-PROOF.pdf](00471-PROOF.pdf) |
-| 472 | [A285646](https://oeis.org/A285646) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00472-PROOF.pdf](00472-PROOF.pdf) |
-| 473 | [A285778](https://oeis.org/A285778) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00473-PROOF.pdf](00473-PROOF.pdf) |
-| 474 | [A288761](https://oeis.org/A288761) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00474-PROOF.pdf](00474-PROOF.pdf) |
-| 475 | [A211710](https://oeis.org/A211710) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00475-PROOF.pdf](00475-PROOF.pdf) |
-| 476 | [A211813](https://oeis.org/A211813) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00476-PROOF.pdf](00476-PROOF.pdf) |
-| 477 | [A211549](https://oeis.org/A211549) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00477-PROOF.pdf](00477-PROOF.pdf) |
-| 478 | [A211466](https://oeis.org/A211466) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00478-PROOF.pdf](00478-PROOF.pdf) |
-| 479 | [A211253](https://oeis.org/A211253) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00479-PROOF.pdf](00479-PROOF.pdf) |
-| 480 | [A211329](https://oeis.org/A211329) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00480-PROOF.pdf](00480-PROOF.pdf) |
-| 481 | [A267156](https://oeis.org/A267156) | Proof |  | [00481-PROOF.pdf](00481-PROOF.pdf) |
-| 482 | [A267157](https://oeis.org/A267157) | Proof |  | [00482-PROOF.pdf](00482-PROOF.pdf) |
-| 483 | [A187303](https://oeis.org/A187303) | Proof |  | [00483-PROOF.pdf](00483-PROOF.pdf) |
-| 484 | [A187612](https://oeis.org/A187612) | Proof |  | [00484-PROOF.pdf](00484-PROOF.pdf) |
-| 485 | [A187051](https://oeis.org/A187051) | Proof |  | [00485-PROOF.pdf](00485-PROOF.pdf) |
-| 486 | [A187292](https://oeis.org/A187292) | Proof |  | [00486-PROOF.pdf](00486-PROOF.pdf) |
-| 487 | [A187302](https://oeis.org/A187302) | Proof |  | [00487-PROOF.pdf](00487-PROOF.pdf) |
-| 488 | [A187611](https://oeis.org/A187611) | Proof |  | [00488-PROOF.pdf](00488-PROOF.pdf) |
-| 489 | [A187050](https://oeis.org/A187050) | Proof |  | [00489-PROOF.pdf](00489-PROOF.pdf) |
-| 490 | [A187291](https://oeis.org/A187291) | Proof |  | [00490-PROOF.pdf](00490-PROOF.pdf) |
-| 491 | [A187301](https://oeis.org/A187301) | Proof |  | [00491-PROOF.pdf](00491-PROOF.pdf) |
-| 492 | [A187610](https://oeis.org/A187610) | Proof |  | [00492-PROOF.pdf](00492-PROOF.pdf) |
-| 493 | [A187861](https://oeis.org/A187861) | Proof |  | [00493-PROOF.pdf](00493-PROOF.pdf) |
-| 494 | [A266612](https://oeis.org/A266612) | Proof |  | [00494-PROOF.pdf](00494-PROOF.pdf) |
-| 495 | [A266613](https://oeis.org/A266613) | Proof |  | [00495-PROOF.pdf](00495-PROOF.pdf) |
-| 496 | [A187384](https://oeis.org/A187384) | Proof |  | [00496-PROOF.pdf](00496-PROOF.pdf) |
-| 497 | [A187515](https://oeis.org/A187515) | Proof |  | [00497-PROOF.pdf](00497-PROOF.pdf) |
-| 498 | [A188155](https://oeis.org/A188155) | Proof |  | [00498-PROOF.pdf](00498-PROOF.pdf) |
-| 499 | [A267044](https://oeis.org/A267044) | Proof |  | [00499-PROOF.pdf](00499-PROOF.pdf) |
-| 500 | [A267045](https://oeis.org/A267045) | Proof |  | [00500-PROOF.pdf](00500-PROOF.pdf) |
+| 198 | [A162698](https://oeis.org/A162698) | Proof |  | [00198-PROOF.pdf](00198-PROOF.pdf) |
+| 199 | [A253422](https://oeis.org/A253422) | Proof |  | [00199-PROOF.pdf](00199-PROOF.pdf) |
+| 200 | [A253420](https://oeis.org/A253420) | Proof |  | [00200-PROOF.pdf](00200-PROOF.pdf) |
+| 201 | [A211492](https://oeis.org/A211492) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00201-PROOF.pdf](00201-PROOF.pdf) |
+| 202 | [A253418](https://oeis.org/A253418) | Proof |  | [00202-PROOF.pdf](00202-PROOF.pdf) |
+| 203 | [A211116](https://oeis.org/A211116) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00203-PROOF.pdf](00203-PROOF.pdf) |
+| 204 | [A211115](https://oeis.org/A211115) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00204-PROOF.pdf](00204-PROOF.pdf) |
+| 205 | [A211495](https://oeis.org/A211495) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00205-PROOF.pdf](00205-PROOF.pdf) |
+| 206 | [A211491](https://oeis.org/A211491) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00206-PROOF.pdf](00206-PROOF.pdf) |
+| 207 | [A211328](https://oeis.org/A211328) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00207-PROOF.pdf](00207-PROOF.pdf) |
+| 208 | [A267212](https://oeis.org/A267212) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00208-PROOF.pdf](00208-PROOF.pdf) |
+| 209 | [A267214](https://oeis.org/A267214) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00209-PROOF.pdf](00209-PROOF.pdf) |
+| 210 | [A267452](https://oeis.org/A267452) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00210-PROOF.pdf](00210-PROOF.pdf) |
+| 211 | [A267454](https://oeis.org/A267454) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00211-PROOF.pdf](00211-PROOF.pdf) |
+| 212 | [A065261](https://oeis.org/A065261) | Proof |  | [00212-PROOF.pdf](00212-PROOF.pdf) |
+| 213 | [A267211](https://oeis.org/A267211) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00213-PROOF.pdf](00213-PROOF.pdf) |
+| 214 | [A267213](https://oeis.org/A267213) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00214-PROOF.pdf](00214-PROOF.pdf) |
+| 215 | [A267451](https://oeis.org/A267451) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00215-PROOF.pdf](00215-PROOF.pdf) |
+| 216 | [A267453](https://oeis.org/A267453) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00216-PROOF.pdf](00216-PROOF.pdf) |
+| 217 | [A211324](https://oeis.org/A211324) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00217-PROOF.pdf](00217-PROOF.pdf) |
+| 218 | [A267159](https://oeis.org/A267159) | Proof |  | [00218-PROOF.pdf](00218-PROOF.pdf) |
+| 219 | [A267161](https://oeis.org/A267161) | Proof |  | [00219-PROOF.pdf](00219-PROOF.pdf) |
+| 220 | [A266615](https://oeis.org/A266615) | Proof |  | [00220-PROOF.pdf](00220-PROOF.pdf) |
+| 221 | [A266617](https://oeis.org/A266617) | Proof |  | [00221-PROOF.pdf](00221-PROOF.pdf) |
+| 222 | [A007388](https://oeis.org/A007388) | Proof |  | [00222-PROOF.pdf](00222-PROOF.pdf) |
+| 223 | [A267153](https://oeis.org/A267153) | Proof |  | [00223-PROOF.pdf](00223-PROOF.pdf) |
+| 224 | [A267154](https://oeis.org/A267154) | Proof |  | [00224-PROOF.pdf](00224-PROOF.pdf) |
+| 225 | [A267293](https://oeis.org/A267293) | Proof |  | [00225-PROOF.pdf](00225-PROOF.pdf) |
+| 226 | [A267294](https://oeis.org/A267294) | Proof |  | [00226-PROOF.pdf](00226-PROOF.pdf) |
+| 227 | [A267854](https://oeis.org/A267854) | Proof |  | [00227-PROOF.pdf](00227-PROOF.pdf) |
+| 228 | [A267855](https://oeis.org/A267855) | Proof |  | [00228-PROOF.pdf](00228-PROOF.pdf) |
+| 229 | [A211117](https://oeis.org/A211117) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00229-PROOF.pdf](00229-PROOF.pdf) |
+| 230 | [A265427](https://oeis.org/A265427) | Proof |  | [00230-PROOF.pdf](00230-PROOF.pdf) |
+| 231 | [A267158](https://oeis.org/A267158) | Proof |  | [00231-PROOF.pdf](00231-PROOF.pdf) |
+| 232 | [A267160](https://oeis.org/A267160) | Proof |  | [00232-PROOF.pdf](00232-PROOF.pdf) |
+| 233 | [A266787](https://oeis.org/A266787) | Proof |  | [00233-PROOF.pdf](00233-PROOF.pdf) |
+| 234 | [A266788](https://oeis.org/A266788) | Proof |  | [00234-PROOF.pdf](00234-PROOF.pdf) |
+| 235 | [A267138](https://oeis.org/A267138) | Proof |  | [00235-PROOF.pdf](00235-PROOF.pdf) |
+| 236 | [A267139](https://oeis.org/A267139) | Proof |  | [00236-PROOF.pdf](00236-PROOF.pdf) |
+| 237 | [A266609](https://oeis.org/A266609) | Proof |  | [00237-PROOF.pdf](00237-PROOF.pdf) |
+| 238 | [A266610](https://oeis.org/A266610) | Proof |  | [00238-PROOF.pdf](00238-PROOF.pdf) |
+| 239 | [A266838](https://oeis.org/A266838) | Proof |  | [00239-PROOF.pdf](00239-PROOF.pdf) |
+| 240 | [A266839](https://oeis.org/A266839) | Proof |  | [00240-PROOF.pdf](00240-PROOF.pdf) |
+| 241 | [A267057](https://oeis.org/A267057) | Proof |  | [00241-PROOF.pdf](00241-PROOF.pdf) |
+| 242 | [A267058](https://oeis.org/A267058) | Proof |  | [00242-PROOF.pdf](00242-PROOF.pdf) |
+| 243 | [A267041](https://oeis.org/A267041) | Proof |  | [00243-PROOF.pdf](00243-PROOF.pdf) |
+| 244 | [A267042](https://oeis.org/A267042) | Proof |  | [00244-PROOF.pdf](00244-PROOF.pdf) |
+| 245 | [A266589](https://oeis.org/A266589) | Proof |  | [00245-PROOF.pdf](00245-PROOF.pdf) |
+| 246 | [A266590](https://oeis.org/A266590) | Proof |  | [00246-PROOF.pdf](00246-PROOF.pdf) |
+| 247 | [A266841](https://oeis.org/A266841) | Proof |  | [00247-PROOF.pdf](00247-PROOF.pdf) |
+| 248 | [A266842](https://oeis.org/A266842) | Proof |  | [00248-PROOF.pdf](00248-PROOF.pdf) |
+| 249 | [A266717](https://oeis.org/A266717) | Proof |  | [00249-PROOF.pdf](00249-PROOF.pdf) |
+| 250 | [A266718](https://oeis.org/A266718) | Proof |  | [00250-PROOF.pdf](00250-PROOF.pdf) |
+| 251 | [A267054](https://oeis.org/A267054) | Proof |  | [00251-PROOF.pdf](00251-PROOF.pdf) |
+| 252 | [A267055](https://oeis.org/A267055) | Proof |  | [00252-PROOF.pdf](00252-PROOF.pdf) |
+| 253 | [A267271](https://oeis.org/A267271) | Proof |  | [00253-PROOF.pdf](00253-PROOF.pdf) |
+| 254 | [A267350](https://oeis.org/A267350) | Proof |  | [00254-PROOF.pdf](00254-PROOF.pdf) |
+| 255 | [A267351](https://oeis.org/A267351) | Proof |  | [00255-PROOF.pdf](00255-PROOF.pdf) |
+| 256 | [A266460](https://oeis.org/A266460) | Proof |  | [00256-PROOF.pdf](00256-PROOF.pdf) |
+| 257 | [A266461](https://oeis.org/A266461) | Proof |  | [00257-PROOF.pdf](00257-PROOF.pdf) |
+| 258 | [A266515](https://oeis.org/A266515) | Proof |  | [00258-PROOF.pdf](00258-PROOF.pdf) |
+| 259 | [A266516](https://oeis.org/A266516) | Proof |  | [00259-PROOF.pdf](00259-PROOF.pdf) |
+| 260 | [A266606](https://oeis.org/A266606) | Proof |  | [00260-PROOF.pdf](00260-PROOF.pdf) |
+| 261 | [A266607](https://oeis.org/A266607) | Proof |  | [00261-PROOF.pdf](00261-PROOF.pdf) |
+| 262 | [A266614](https://oeis.org/A266614) | Proof |  | [00262-PROOF.pdf](00262-PROOF.pdf) |
+| 263 | [A266616](https://oeis.org/A266616) | Proof |  | [00263-PROOF.pdf](00263-PROOF.pdf) |
+| 264 | [A266670](https://oeis.org/A266670) | Proof |  | [00264-PROOF.pdf](00264-PROOF.pdf) |
+| 265 | [A266671](https://oeis.org/A266671) | Proof |  | [00265-PROOF.pdf](00265-PROOF.pdf) |
+| 266 | [A266849](https://oeis.org/A266849) | Proof |  | [00266-PROOF.pdf](00266-PROOF.pdf) |
+| 267 | [A266850](https://oeis.org/A266850) | Proof |  | [00267-PROOF.pdf](00267-PROOF.pdf) |
+| 268 | [A266979](https://oeis.org/A266979) | Proof |  | [00268-PROOF.pdf](00268-PROOF.pdf) |
+| 269 | [A266980](https://oeis.org/A266980) | Proof |  | [00269-PROOF.pdf](00269-PROOF.pdf) |
+| 270 | [A267002](https://oeis.org/A267002) | Proof |  | [00270-PROOF.pdf](00270-PROOF.pdf) |
+| 271 | [A267003](https://oeis.org/A267003) | Proof |  | [00271-PROOF.pdf](00271-PROOF.pdf) |
+| 272 | [A279498](https://oeis.org/A279498) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00272-PROOF.pdf](00272-PROOF.pdf) |
+| 273 | [A279499](https://oeis.org/A279499) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00273-PROOF.pdf](00273-PROOF.pdf) |
+| 274 | [A279500](https://oeis.org/A279500) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00274-PROOF.pdf](00274-PROOF.pdf) |
+| 275 | [A279501](https://oeis.org/A279501) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00275-PROOF.pdf](00275-PROOF.pdf) |
+| 276 | [A279873](https://oeis.org/A279873) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00276-PROOF.pdf](00276-PROOF.pdf) |
+| 277 | [A279874](https://oeis.org/A279874) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00277-PROOF.pdf](00277-PROOF.pdf) |
+| 278 | [A279875](https://oeis.org/A279875) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00278-PROOF.pdf](00278-PROOF.pdf) |
+| 279 | [A279876](https://oeis.org/A279876) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00279-PROOF.pdf](00279-PROOF.pdf) |
+| 280 | [A281214](https://oeis.org/A281214) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00280-PROOF.pdf](00280-PROOF.pdf) |
+| 281 | [A281215](https://oeis.org/A281215) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00281-PROOF.pdf](00281-PROOF.pdf) |
+| 282 | [A281216](https://oeis.org/A281216) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00282-PROOF.pdf](00282-PROOF.pdf) |
+| 283 | [A282482](https://oeis.org/A282482) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00283-PROOF.pdf](00283-PROOF.pdf) |
+| 284 | [A282483](https://oeis.org/A282483) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00284-PROOF.pdf](00284-PROOF.pdf) |
+| 285 | [A282484](https://oeis.org/A282484) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00285-PROOF.pdf](00285-PROOF.pdf) |
+| 286 | [A282485](https://oeis.org/A282485) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00286-PROOF.pdf](00286-PROOF.pdf) |
+| 287 | [A282607](https://oeis.org/A282607) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00287-PROOF.pdf](00287-PROOF.pdf) |
+| 288 | [A282609](https://oeis.org/A282609) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00288-PROOF.pdf](00288-PROOF.pdf) |
+| 289 | [A282653](https://oeis.org/A282653) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00289-PROOF.pdf](00289-PROOF.pdf) |
+| 290 | [A282655](https://oeis.org/A282655) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00290-PROOF.pdf](00290-PROOF.pdf) |
+| 291 | [A282915](https://oeis.org/A282915) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00291-PROOF.pdf](00291-PROOF.pdf) |
+| 292 | [A282916](https://oeis.org/A282916) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00292-PROOF.pdf](00292-PROOF.pdf) |
+| 293 | [A282917](https://oeis.org/A282917) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00293-PROOF.pdf](00293-PROOF.pdf) |
+| 294 | [A282918](https://oeis.org/A282918) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00294-PROOF.pdf](00294-PROOF.pdf) |
+| 295 | [A283214](https://oeis.org/A283214) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00295-PROOF.pdf](00295-PROOF.pdf) |
+| 296 | [A283216](https://oeis.org/A283216) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00296-PROOF.pdf](00296-PROOF.pdf) |
+| 297 | [A283217](https://oeis.org/A283217) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00297-PROOF.pdf](00297-PROOF.pdf) |
+| 298 | [A284243](https://oeis.org/A284243) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00298-PROOF.pdf](00298-PROOF.pdf) |
+| 299 | [A284244](https://oeis.org/A284244) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00299-PROOF.pdf](00299-PROOF.pdf) |
+| 300 | [A284246](https://oeis.org/A284246) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00300-PROOF.pdf](00300-PROOF.pdf) |
+| 301 | [A278753](https://oeis.org/A278753) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00301-PROOF.pdf](00301-PROOF.pdf) |
+| 302 | [A278754](https://oeis.org/A278754) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00302-PROOF.pdf](00302-PROOF.pdf) |
+| 303 | [A278755](https://oeis.org/A278755) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00303-PROOF.pdf](00303-PROOF.pdf) |
+| 304 | [A278756](https://oeis.org/A278756) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00304-PROOF.pdf](00304-PROOF.pdf) |
+| 305 | [A279877](https://oeis.org/A279877) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00305-PROOF.pdf](00305-PROOF.pdf) |
+| 306 | [A279879](https://oeis.org/A279879) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00306-PROOF.pdf](00306-PROOF.pdf) |
+| 307 | [A279880](https://oeis.org/A279880) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00307-PROOF.pdf](00307-PROOF.pdf) |
+| 308 | [A282415](https://oeis.org/A282415) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00308-PROOF.pdf](00308-PROOF.pdf) |
+| 309 | [A282416](https://oeis.org/A282416) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00309-PROOF.pdf](00309-PROOF.pdf) |
+| 310 | [A282417](https://oeis.org/A282417) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00310-PROOF.pdf](00310-PROOF.pdf) |
+| 311 | [A282418](https://oeis.org/A282418) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00311-PROOF.pdf](00311-PROOF.pdf) |
+| 312 | [A285833](https://oeis.org/A285833) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00312-PROOF.pdf](00312-PROOF.pdf) |
+| 313 | [A288662](https://oeis.org/A288662) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00313-PROOF.pdf](00313-PROOF.pdf) |
+| 314 | [A083178](https://oeis.org/A083178) | Proof |  | [00314-PROOF.pdf](00314-PROOF.pdf) |
+| 315 | [A265380](https://oeis.org/A265380) | Proof |  | [00315-PROOF.pdf](00315-PROOF.pdf) |
+| 316 | [A211114](https://oeis.org/A211114) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00316-PROOF.pdf](00316-PROOF.pdf) |
+| 317 | [A188789](https://oeis.org/A188789) | Proof |  | [00317-PROOF.pdf](00317-PROOF.pdf) |
+| 318 | [A266793](https://oeis.org/A266793) | Proof |  | [00318-PROOF.pdf](00318-PROOF.pdf) |
+| 319 | [A266795](https://oeis.org/A266795) | Proof |  | [00319-PROOF.pdf](00319-PROOF.pdf) |
+| 320 | [A267262](https://oeis.org/A267262) | Proof |  | [00320-PROOF.pdf](00320-PROOF.pdf) |
+| 321 | [A188788](https://oeis.org/A188788) | Proof |  | [00321-PROOF.pdf](00321-PROOF.pdf) |
+| 322 | [A266250](https://oeis.org/A266250) | Proof |  | [00322-PROOF.pdf](00322-PROOF.pdf) |
+| 323 | [A266252](https://oeis.org/A266252) | Proof |  | [00323-PROOF.pdf](00323-PROOF.pdf) |
+| 324 | [A266448](https://oeis.org/A266448) | Proof |  | [00324-PROOF.pdf](00324-PROOF.pdf) |
+| 325 | [A266450](https://oeis.org/A266450) | Proof |  | [00325-PROOF.pdf](00325-PROOF.pdf) |
+| 326 | [A188787](https://oeis.org/A188787) | Proof |  | [00326-PROOF.pdf](00326-PROOF.pdf) |
+| 327 | [A267047](https://oeis.org/A267047) | Proof |  | [00327-PROOF.pdf](00327-PROOF.pdf) |
+| 328 | [A267049](https://oeis.org/A267049) | Proof |  | [00328-PROOF.pdf](00328-PROOF.pdf) |
+| 329 | [A188786](https://oeis.org/A188786) | Proof |  | [00329-PROOF.pdf](00329-PROOF.pdf) |
+| 330 | [A265428](https://oeis.org/A265428) | Proof |  | [00330-PROOF.pdf](00330-PROOF.pdf) |
+| 331 | [A265430](https://oeis.org/A265430) | Proof |  | [00331-PROOF.pdf](00331-PROOF.pdf) |
+| 332 | [A266221](https://oeis.org/A266221) | Proof |  | [00332-PROOF.pdf](00332-PROOF.pdf) |
+| 333 | [A266223](https://oeis.org/A266223) | Proof |  | [00333-PROOF.pdf](00333-PROOF.pdf) |
+| 334 | [A266594](https://oeis.org/A266594) | Proof |  | [00334-PROOF.pdf](00334-PROOF.pdf) |
+| 335 | [A266596](https://oeis.org/A266596) | Proof |  | [00335-PROOF.pdf](00335-PROOF.pdf) |
+| 336 | [A266663](https://oeis.org/A266663) | Proof |  | [00336-PROOF.pdf](00336-PROOF.pdf) |
+| 337 | [A266665](https://oeis.org/A266665) | Proof |  | [00337-PROOF.pdf](00337-PROOF.pdf) |
+| 338 | [A188785](https://oeis.org/A188785) | Proof |  | [00338-PROOF.pdf](00338-PROOF.pdf) |
+| 339 | [A266257](https://oeis.org/A266257) | Proof |  | [00339-PROOF.pdf](00339-PROOF.pdf) |
+| 340 | [A266259](https://oeis.org/A266259) | Proof |  | [00340-PROOF.pdf](00340-PROOF.pdf) |
+| 341 | [A266438](https://oeis.org/A266438) | Proof |  | [00341-PROOF.pdf](00341-PROOF.pdf) |
+| 342 | [A266440](https://oeis.org/A266440) | Proof |  | [00342-PROOF.pdf](00342-PROOF.pdf) |
+| 343 | [A266723](https://oeis.org/A266723) | Proof |  | [00343-PROOF.pdf](00343-PROOF.pdf) |
+| 344 | [A266725](https://oeis.org/A266725) | Proof |  | [00344-PROOF.pdf](00344-PROOF.pdf) |
+| 345 | [A267353](https://oeis.org/A267353) | Proof |  | [00345-PROOF.pdf](00345-PROOF.pdf) |
+| 346 | [A278665](https://oeis.org/A278665) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00346-PROOF.pdf](00346-PROOF.pdf) |
+| 347 | [A278667](https://oeis.org/A278667) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00347-PROOF.pdf](00347-PROOF.pdf) |
+| 348 | [A282911](https://oeis.org/A282911) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00348-PROOF.pdf](00348-PROOF.pdf) |
+| 349 | [A282912](https://oeis.org/A282912) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00349-PROOF.pdf](00349-PROOF.pdf) |
+| 350 | [A282913](https://oeis.org/A282913) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00350-PROOF.pdf](00350-PROOF.pdf) |
+| 351 | [A282914](https://oeis.org/A282914) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00351-PROOF.pdf](00351-PROOF.pdf) |
+| 352 | [A284179](https://oeis.org/A284179) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00352-PROOF.pdf](00352-PROOF.pdf) |
+| 353 | [A284180](https://oeis.org/A284180) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00353-PROOF.pdf](00353-PROOF.pdf) |
+| 354 | [A284181](https://oeis.org/A284181) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00354-PROOF.pdf](00354-PROOF.pdf) |
+| 355 | [A284182](https://oeis.org/A284182) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00355-PROOF.pdf](00355-PROOF.pdf) |
+| 356 | [A284480](https://oeis.org/A284480) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00356-PROOF.pdf](00356-PROOF.pdf) |
+| 357 | [A284481](https://oeis.org/A284481) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00357-PROOF.pdf](00357-PROOF.pdf) |
+| 358 | [A284482](https://oeis.org/A284482) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00358-PROOF.pdf](00358-PROOF.pdf) |
+| 359 | [A284540](https://oeis.org/A284540) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00359-PROOF.pdf](00359-PROOF.pdf) |
+| 360 | [A284541](https://oeis.org/A284541) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00360-PROOF.pdf](00360-PROOF.pdf) |
+| 361 | [A284542](https://oeis.org/A284542) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00361-PROOF.pdf](00361-PROOF.pdf) |
+| 362 | [A284543](https://oeis.org/A284543) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00362-PROOF.pdf](00362-PROOF.pdf) |
+| 363 | [A265225](https://oeis.org/A265225) | Proof |  | [00363-PROOF.pdf](00363-PROOF.pdf) |
+| 364 | [A265724](https://oeis.org/A265724) | Proof |  | [00364-PROOF.pdf](00364-PROOF.pdf) |
+| 365 | [A266287](https://oeis.org/A266287) | Proof |  | [00365-PROOF.pdf](00365-PROOF.pdf) |
+| 366 | [A266304](https://oeis.org/A266304) | Proof |  | [00366-PROOF.pdf](00366-PROOF.pdf) |
+| 367 | [A285543](https://oeis.org/A285543) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00367-PROOF.pdf](00367-PROOF.pdf) |
+| 368 | [A290233](https://oeis.org/A290233) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00368-PROOF.pdf](00368-PROOF.pdf) |
+| 369 | [A290413](https://oeis.org/A290413) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00369-PROOF.pdf](00369-PROOF.pdf) |
+| 370 | [A290415](https://oeis.org/A290415) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00370-PROOF.pdf](00370-PROOF.pdf) |
+| 371 | [A290526](https://oeis.org/A290526) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00371-PROOF.pdf](00371-PROOF.pdf) |
+| 372 | [A290528](https://oeis.org/A290528) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00372-PROOF.pdf](00372-PROOF.pdf) |
+| 373 | [A032098](https://oeis.org/A032098) | Proof | a conjectured closed form or g.f., proved against a recurrence derived from the entry | [00373-PROOF.pdf](00373-PROOF.pdf) |
+| 374 | [A259661](https://oeis.org/A259661) | Proof |  | [00374-PROOF.pdf](00374-PROOF.pdf) |
+| 375 | [A211323](https://oeis.org/A211323) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00375-PROOF.pdf](00375-PROOF.pdf) |
+| 376 | [A187170](https://oeis.org/A187170) | Proof |  | [00376-PROOF.pdf](00376-PROOF.pdf) |
+| 377 | [A187169](https://oeis.org/A187169) | Proof |  | [00377-PROOF.pdf](00377-PROOF.pdf) |
+| 378 | [A265284](https://oeis.org/A265284) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00378-PROOF.pdf](00378-PROOF.pdf) |
+| 379 | [A267459](https://oeis.org/A267459) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00379-PROOF.pdf](00379-PROOF.pdf) |
+| 380 | [A267461](https://oeis.org/A267461) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00380-PROOF.pdf](00380-PROOF.pdf) |
+| 381 | [A267529](https://oeis.org/A267529) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00381-PROOF.pdf](00381-PROOF.pdf) |
+| 382 | [A267531](https://oeis.org/A267531) | Proof | the ON or OFF cell count of an elementary cellular automaton whose row grows in the MIDDLE of a periodic run r... | [00382-PROOF.pdf](00382-PROOF.pdf) |
+| 383 | [A187168](https://oeis.org/A187168) | Proof |  | [00383-PROOF.pdf](00383-PROOF.pdf) |
+| 384 | [A266792](https://oeis.org/A266792) | Proof |  | [00384-PROOF.pdf](00384-PROOF.pdf) |
+| 385 | [A266794](https://oeis.org/A266794) | Proof |  | [00385-PROOF.pdf](00385-PROOF.pdf) |
+| 386 | [A267359](https://oeis.org/A267359) | Proof |  | [00386-PROOF.pdf](00386-PROOF.pdf) |
+| 387 | [A267360](https://oeis.org/A267360) | Proof |  | [00387-PROOF.pdf](00387-PROOF.pdf) |
+| 388 | [A187167](https://oeis.org/A187167) | Proof |  | [00388-PROOF.pdf](00388-PROOF.pdf) |
+| 389 | [A266249](https://oeis.org/A266249) | Proof |  | [00389-PROOF.pdf](00389-PROOF.pdf) |
+| 390 | [A266251](https://oeis.org/A266251) | Proof |  | [00390-PROOF.pdf](00390-PROOF.pdf) |
+| 391 | [A266447](https://oeis.org/A266447) | Proof |  | [00391-PROOF.pdf](00391-PROOF.pdf) |
+| 392 | [A266449](https://oeis.org/A266449) | Proof |  | [00392-PROOF.pdf](00392-PROOF.pdf) |
+| 393 | [A267526](https://oeis.org/A267526) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00393-PROOF.pdf](00393-PROOF.pdf) |
+| 394 | [A267677](https://oeis.org/A267677) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00394-PROOF.pdf](00394-PROOF.pdf) |
+| 395 | [A267678](https://oeis.org/A267678) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00395-PROOF.pdf](00395-PROOF.pdf) |
+| 396 | [A285647](https://oeis.org/A285647) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00396-PROOF.pdf](00396-PROOF.pdf) |
+| 397 | [A285649](https://oeis.org/A285649) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00397-PROOF.pdf](00397-PROOF.pdf) |
+| 398 | [A285775](https://oeis.org/A285775) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00398-PROOF.pdf](00398-PROOF.pdf) |
+| 399 | [A285777](https://oeis.org/A285777) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00399-PROOF.pdf](00399-PROOF.pdf) |
+| 400 | [A187166](https://oeis.org/A187166) | Proof |  | [00400-PROOF.pdf](00400-PROOF.pdf) |
+| 401 | [A263805](https://oeis.org/A263805) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00401-PROOF.pdf](00401-PROOF.pdf) |
+| 402 | [A263806](https://oeis.org/A263806) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00402-PROOF.pdf](00402-PROOF.pdf) |
+| 403 | [A267046](https://oeis.org/A267046) | Proof |  | [00403-PROOF.pdf](00403-PROOF.pdf) |
+| 404 | [A267048](https://oeis.org/A267048) | Proof |  | [00404-PROOF.pdf](00404-PROOF.pdf) |
+| 405 | [A267688](https://oeis.org/A267688) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00405-PROOF.pdf](00405-PROOF.pdf) |
+| 406 | [A267689](https://oeis.org/A267689) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00406-PROOF.pdf](00406-PROOF.pdf) |
+| 407 | [A286770](https://oeis.org/A286770) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00407-PROOF.pdf](00407-PROOF.pdf) |
+| 408 | [A286772](https://oeis.org/A286772) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00408-PROOF.pdf](00408-PROOF.pdf) |
+| 409 | [A287190](https://oeis.org/A287190) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00409-PROOF.pdf](00409-PROOF.pdf) |
+| 410 | [A287192](https://oeis.org/A287192) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00410-PROOF.pdf](00410-PROOF.pdf) |
+| 411 | [A187165](https://oeis.org/A187165) | Proof |  | [00411-PROOF.pdf](00411-PROOF.pdf) |
+| 412 | [A266220](https://oeis.org/A266220) | Proof |  | [00412-PROOF.pdf](00412-PROOF.pdf) |
+| 413 | [A266222](https://oeis.org/A266222) | Proof |  | [00413-PROOF.pdf](00413-PROOF.pdf) |
+| 414 | [A266593](https://oeis.org/A266593) | Proof |  | [00414-PROOF.pdf](00414-PROOF.pdf) |
+| 415 | [A266595](https://oeis.org/A266595) | Proof |  | [00415-PROOF.pdf](00415-PROOF.pdf) |
+| 416 | [A266660](https://oeis.org/A266660) | Proof |  | [00416-PROOF.pdf](00416-PROOF.pdf) |
+| 417 | [A266661](https://oeis.org/A266661) | Proof |  | [00417-PROOF.pdf](00417-PROOF.pdf) |
+| 418 | [A266662](https://oeis.org/A266662) | Proof |  | [00418-PROOF.pdf](00418-PROOF.pdf) |
+| 419 | [A266664](https://oeis.org/A266664) | Proof |  | [00419-PROOF.pdf](00419-PROOF.pdf) |
+| 420 | [A267274](https://oeis.org/A267274) | Proof |  | [00420-PROOF.pdf](00420-PROOF.pdf) |
+| 421 | [A267456](https://oeis.org/A267456) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00421-PROOF.pdf](00421-PROOF.pdf) |
+| 422 | [A267457](https://oeis.org/A267457) | Proof | the row of such an automaton read as a numeral: the same block template makes the value a Z-linear combination... | [00422-PROOF.pdf](00422-PROOF.pdf) |
+| 423 | [A187164](https://oeis.org/A187164) | Proof |  | [00423-PROOF.pdf](00423-PROOF.pdf) |
+| 424 | [A266256](https://oeis.org/A266256) | Proof |  | [00424-PROOF.pdf](00424-PROOF.pdf) |
+| 425 | [A266258](https://oeis.org/A266258) | Proof |  | [00425-PROOF.pdf](00425-PROOF.pdf) |
+| 426 | [A266437](https://oeis.org/A266437) | Proof |  | [00426-PROOF.pdf](00426-PROOF.pdf) |
+| 427 | [A266439](https://oeis.org/A266439) | Proof |  | [00427-PROOF.pdf](00427-PROOF.pdf) |
+| 428 | [A266724](https://oeis.org/A266724) | Proof |  | [00428-PROOF.pdf](00428-PROOF.pdf) |
+| 429 | [A266984](https://oeis.org/A266984) | Proof |  | [00429-PROOF.pdf](00429-PROOF.pdf) |
+| 430 | [A267352](https://oeis.org/A267352) | Proof |  | [00430-PROOF.pdf](00430-PROOF.pdf) |
+| 431 | [A267354](https://oeis.org/A267354) | Proof |  | [00431-PROOF.pdf](00431-PROOF.pdf) |
+| 432 | [A280371](https://oeis.org/A280371) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00432-PROOF.pdf](00432-PROOF.pdf) |
+| 433 | [A280373](https://oeis.org/A280373) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00433-PROOF.pdf](00433-PROOF.pdf) |
+| 434 | [A265722](https://oeis.org/A265722) | Proof |  | [00434-PROOF.pdf](00434-PROOF.pdf) |
+| 435 | [A265723](https://oeis.org/A265723) | Proof |  | [00435-PROOF.pdf](00435-PROOF.pdf) |
+| 436 | [A266073](https://oeis.org/A266073) | Proof |  | [00436-PROOF.pdf](00436-PROOF.pdf) |
+| 437 | [A266285](https://oeis.org/A266285) | Proof |  | [00437-PROOF.pdf](00437-PROOF.pdf) |
+| 438 | [A266286](https://oeis.org/A266286) | Proof |  | [00438-PROOF.pdf](00438-PROOF.pdf) |
+| 439 | [A266303](https://oeis.org/A266303) | Proof |  | [00439-PROOF.pdf](00439-PROOF.pdf) |
+| 440 | [A266872](https://oeis.org/A266872) | Proof |  | [00440-PROOF.pdf](00440-PROOF.pdf) |
+| 441 | [A266873](https://oeis.org/A266873) | Proof |  | [00441-PROOF.pdf](00441-PROOF.pdf) |
+| 442 | [A266981](https://oeis.org/A266981) | Proof |  | [00442-PROOF.pdf](00442-PROOF.pdf) |
+| 443 | [A267035](https://oeis.org/A267035) | Proof |  | [00443-PROOF.pdf](00443-PROOF.pdf) |
+| 444 | [A267804](https://oeis.org/A267804) | Proof |  | [00444-PROOF.pdf](00444-PROOF.pdf) |
+| 445 | [A267805](https://oeis.org/A267805) | Proof |  | [00445-PROOF.pdf](00445-PROOF.pdf) |
+| 446 | [A285473](https://oeis.org/A285473) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00446-PROOF.pdf](00446-PROOF.pdf) |
+| 447 | [A267680](https://oeis.org/A267680) | Proof |  | [00447-PROOF.pdf](00447-PROOF.pdf) |
+| 448 | [A267681](https://oeis.org/A267681) | Proof |  | [00448-PROOF.pdf](00448-PROOF.pdf) |
+| 449 | [A279028](https://oeis.org/A279028) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00449-PROOF.pdf](00449-PROOF.pdf) |
+| 450 | [A279030](https://oeis.org/A279030) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00450-PROOF.pdf](00450-PROOF.pdf) |
+| 451 | [A279118](https://oeis.org/A279118) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00451-PROOF.pdf](00451-PROOF.pdf) |
+| 452 | [A279872](https://oeis.org/A279872) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00452-PROOF.pdf](00452-PROOF.pdf) |
+| 453 | [A282004](https://oeis.org/A282004) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00453-PROOF.pdf](00453-PROOF.pdf) |
+| 454 | [A282088](https://oeis.org/A282088) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00454-PROOF.pdf](00454-PROOF.pdf) |
+| 455 | [A282121](https://oeis.org/A282121) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00455-PROOF.pdf](00455-PROOF.pdf) |
+| 456 | [A282122](https://oeis.org/A282122) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00456-PROOF.pdf](00456-PROOF.pdf) |
+| 457 | [A282123](https://oeis.org/A282123) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00457-PROOF.pdf](00457-PROOF.pdf) |
+| 458 | [A282124](https://oeis.org/A282124) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00458-PROOF.pdf](00458-PROOF.pdf) |
+| 459 | [A282142](https://oeis.org/A282142) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00459-PROOF.pdf](00459-PROOF.pdf) |
+| 460 | [A282411](https://oeis.org/A282411) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00460-PROOF.pdf](00460-PROOF.pdf) |
+| 461 | [A282413](https://oeis.org/A282413) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00461-PROOF.pdf](00461-PROOF.pdf) |
+| 462 | [A282414](https://oeis.org/A282414) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00462-PROOF.pdf](00462-PROOF.pdf) |
+| 463 | [A282451](https://oeis.org/A282451) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00463-PROOF.pdf](00463-PROOF.pdf) |
+| 464 | [A282453](https://oeis.org/A282453) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00464-PROOF.pdf](00464-PROOF.pdf) |
+| 465 | [A282454](https://oeis.org/A282454) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00465-PROOF.pdf](00465-PROOF.pdf) |
+| 466 | [A282577](https://oeis.org/A282577) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00466-PROOF.pdf](00466-PROOF.pdf) |
+| 467 | [A282579](https://oeis.org/A282579) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00467-PROOF.pdf](00467-PROOF.pdf) |
+| 468 | [A282796](https://oeis.org/A282796) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00468-PROOF.pdf](00468-PROOF.pdf) |
+| 469 | [A282797](https://oeis.org/A282797) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00469-PROOF.pdf](00469-PROOF.pdf) |
+| 470 | [A282798](https://oeis.org/A282798) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00470-PROOF.pdf](00470-PROOF.pdf) |
+| 471 | [A282799](https://oeis.org/A282799) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00471-PROOF.pdf](00471-PROOF.pdf) |
+| 472 | [A282800](https://oeis.org/A282800) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00472-PROOF.pdf](00472-PROOF.pdf) |
+| 473 | [A282801](https://oeis.org/A282801) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00473-PROOF.pdf](00473-PROOF.pdf) |
+| 474 | [A282802](https://oeis.org/A282802) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00474-PROOF.pdf](00474-PROOF.pdf) |
+| 475 | [A285644](https://oeis.org/A285644) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00475-PROOF.pdf](00475-PROOF.pdf) |
+| 476 | [A285646](https://oeis.org/A285646) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00476-PROOF.pdf](00476-PROOF.pdf) |
+| 477 | [A285778](https://oeis.org/A285778) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00477-PROOF.pdf](00477-PROOF.pdf) |
+| 478 | [A288761](https://oeis.org/A288761) | Proof | an axis or diagonal of a two-dimensional automaton read as a numeral, for the rules whose whole CONFIGURATION ... | [00478-PROOF.pdf](00478-PROOF.pdf) |
+| 479 | [A063219](https://oeis.org/A063219) | Proof |  | [00479-PROOF.pdf](00479-PROOF.pdf) |
+| 480 | [A121138](https://oeis.org/A121138) | Proof |  | [00480-PROOF.pdf](00480-PROOF.pdf) |
+| 481 | [A211710](https://oeis.org/A211710) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00481-PROOF.pdf](00481-PROOF.pdf) |
+| 482 | [A211813](https://oeis.org/A211813) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00482-PROOF.pdf](00482-PROOF.pdf) |
+| 483 | [A211549](https://oeis.org/A211549) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00483-PROOF.pdf](00483-PROOF.pdf) |
+| 484 | [A211466](https://oeis.org/A211466) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00484-PROOF.pdf](00484-PROOF.pdf) |
+| 485 | [A211253](https://oeis.org/A211253) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00485-PROOF.pdf](00485-PROOF.pdf) |
+| 486 | [A211329](https://oeis.org/A211329) | Proof | square symmetric matrices whose 2 X 2 subblocks all sum to zero: solving that linear condition makes the matri... | [00486-PROOF.pdf](00486-PROOF.pdf) |
+| 487 | [A267156](https://oeis.org/A267156) | Proof |  | [00487-PROOF.pdf](00487-PROOF.pdf) |
+| 488 | [A267157](https://oeis.org/A267157) | Proof |  | [00488-PROOF.pdf](00488-PROOF.pdf) |
+| 489 | [A187303](https://oeis.org/A187303) | Proof |  | [00489-PROOF.pdf](00489-PROOF.pdf) |
+| 490 | [A187612](https://oeis.org/A187612) | Proof |  | [00490-PROOF.pdf](00490-PROOF.pdf) |
+| 491 | [A187051](https://oeis.org/A187051) | Proof |  | [00491-PROOF.pdf](00491-PROOF.pdf) |
+| 492 | [A187292](https://oeis.org/A187292) | Proof |  | [00492-PROOF.pdf](00492-PROOF.pdf) |
+| 493 | [A187302](https://oeis.org/A187302) | Proof |  | [00493-PROOF.pdf](00493-PROOF.pdf) |
+| 494 | [A187611](https://oeis.org/A187611) | Proof |  | [00494-PROOF.pdf](00494-PROOF.pdf) |
+| 495 | [A187050](https://oeis.org/A187050) | Proof |  | [00495-PROOF.pdf](00495-PROOF.pdf) |
+| 496 | [A187291](https://oeis.org/A187291) | Proof |  | [00496-PROOF.pdf](00496-PROOF.pdf) |
+| 497 | [A187301](https://oeis.org/A187301) | Proof |  | [00497-PROOF.pdf](00497-PROOF.pdf) |
+| 498 | [A187610](https://oeis.org/A187610) | Proof |  | [00498-PROOF.pdf](00498-PROOF.pdf) |
+| 499 | [A187861](https://oeis.org/A187861) | Proof |  | [00499-PROOF.pdf](00499-PROOF.pdf) |
+| 500 | [A266612](https://oeis.org/A266612) | Proof |  | [00500-PROOF.pdf](00500-PROOF.pdf) |

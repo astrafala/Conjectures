@@ -11,22 +11,18 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A237033, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A221939, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237033 carries an empirical recurrence of order $37$ contributed by R. H. Hardin. It is
+OEIS A221939 carries an empirical recurrence of order $37$ contributed by R.~H.~Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=2316$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=5331$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -35,25 +31,26 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237033 is ``Number of (n+1) X (6+1) 0..2 arrays with the maximum of every 2 X 2 subblock equal.''. It has offset $1$ and begins
+OEIS A221939 is ``Number of 3Xn arrays of occupancy after each element stays put or moves to some horizontal or antidiagonal neighbor, without move-in move-out straight through or left turns.''. It has offset $1$ and begins
 \[
-1709398, 1918085364, 1877852845426, 1939706609440732, 1964124791456164266, 2003793957976560041092, 2038535046685176084855842, 2076063847537263675938717164,\ \dots
+1, 91, 1599, 36467, 799632, 17595404, 387146025, 8517616158,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 37 (see link above).
-
-Empirical: a(n) = 732*a(n-1) + 449399*a(n-2) - 138277340*a(n-3) - 34376355290*a(n-4) + 11500683908996*a(n-5) + 272389403075464*a(n-6) - 315609708514732240*a(n-7) + 20223563253314698504*a(n-8) + 1906991766588342823184*a(n-9) - 200434187709900826972784*a(n-10) - 4314516406353762654815808*a(n-11) + 759533274404869014660355456*a(n-12) + 4577329894963447520447018304*a(n-13) - 1425345754875818330636066221312*a(n-14) - 5179178387054302755077093417984*a(n-15) + 1338001928505450604279235487355904*a(n-16) + 5180126663663909245657222960743424*a(n-17) - 617134327064962733949228217315028992*a(n-18) - 1528216434602820811049367545984163840*a(n-19) + 148024277857029599617410082952710619136*a(n-20) - 106356766470010058868960069055704858624*a(n-21) - 18100930097512148903107634256918181576704*a(n-22) + 85866618393902555499313883698082856566784*a(n-23) + 763780628681387773038394280607132923461632*a(n-24) - 7800370269764526595432079454875359685640192*a(n-25) + 19115902493637728104232761947228909751762944*a(n-26) + 25398042351970225212164606977281022079533056*a(n-27) - 157629592306514460574222749667425272670978048*a(n-28) + 43054102205134245860134200097507441240965120*a(n-29) + 449041538349258536355250578913022645165359104*a(n-30) - 235232276080724685726633891947346608240197632*a(n-31) - 586716435477878380055256810532562760338767872*a(n-32) + 253313640539393840235816270595557798445056000*a(n-33) + 323818182508316938647675695651480909968834560*a(n-34) - 89408350493919975734163184380293077354414080*a(n-35) - 52042360470763527493115295739530480199925760*a(n-36) + 14256390806204108831780518155380794903756800*a(n-37)
+\begin{quote}
+Empirical: a(n) = 6*a(n-1) +286*a(n-2) +1731*a(n-3) -3366*a(n-4) -58755*a(n-5) -73158*a(n-6) +744580*a(n-7) +1606773*a(n-8) -5847271*a(n-9) -13299665*a(n-10) +35585397*a(n-11) +56858689*a(n-12) -168213873*a(n-13) -99886051*a(n-14) +532060381*a(n-15) -127805646*a(n-16) -951724652*a(n-17) +874261131*a(n-18) +729065885*a(n-19) -1511277493*a(n-20) +275583551*a(n-21) +992093720*a(n-22) -708567632*a(n-23) -119679569*a(n-24) +310913349*a(n-25) -92576435*a(n-26) -25624476*a(n-27) +17876348*a(n-28) -1254086*a(n-29) -1085212*a(n-30) +391330*a(n-31) -46391*a(n-32) -25190*a(n-33) +7306*a(n-34) +873*a(n-35) -236*a(n-36) -12*a(n-37) for n>38
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 27 2023 12:29:09, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 20:06:56, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=2316$ vertices,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
+vertices the admissible configurations of one such window and put an edge from $u$ to $v$
+whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
+admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=5331$ vertices
+and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -78,39 +75,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;\sum_{i=1}^{37}c_i\,a(n-i)
+a(n)\;=\;6\,a(n-1) + 286\,a(n-2) + 1731\,a(n-3) - 3366\,a(n-4) - 58755\,a(n-5) - 73158\,a(n-6) + 744580\,a(n-7) + 1606773\,a(n-8) - 5847271\,a(n-9) - 13299665\,a(n-10) + 35585397\,a(n-11) + 56858689\,a(n-12) - 168213873\,a(n-13) - 99886051\,a(n-14) + 532060381\,a(n-15) - 127805646\,a(n-16) - 951724652\,a(n-17) + 874261131\,a(n-18) + 729065885\,a(n-19) - 1511277493\,a(n-20) + 275583551\,a(n-21) + 992093720\,a(n-22) - 708567632\,a(n-23) - 119679569\,a(n-24) + 310913349\,a(n-25) - 92576435\,a(n-26) - 25624476\,a(n-27) + 17876348\,a(n-28) - 1254086\,a(n-29) - 1085212\,a(n-30) + 391330\,a(n-31) - 46391\,a(n-32) - 25190\,a(n-33) + 7306\,a(n-34) + 873\,a(n-35) - 236\,a(n-36) - 12\,a(n-37)
 \]
-for every $n>36$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=732$ & $c_{2}$ & $=449399$ \\
-$c_{3}$ & $=-138277340$ & $c_{4}$ & $=-34376355290$ \\
-$c_{5}$ & $=11500683908996$ & $c_{6}$ & $=272389403075464$ \\
-$c_{7}$ & $=-315609708514732240$ & $c_{8}$ & $=20223563253314698504$ \\
-$c_{9}$ & $=1906991766588342823184$ & $c_{10}$ & $=-200434187709900826972784$ \\
-$c_{11}$ & $=-4314516406353762654815808$ & $c_{12}$ & $=759533274404869014660355456$ \\
-$c_{13}$ & $=4577329894963447520447018304$ & $c_{14}$ & $=-1425345754875818330636066221312$ \\
-$c_{15}$ & $=-5179178387054302755077093417984$ & $c_{16}$ & $=1338001928505450604279235487355904$ \\
-$c_{17}$ & $=5180126663663909245657222960743424$ & $c_{18}$ & $=-617134327064962733949228217315028992$ \\
-$c_{19}$ & $=-1528216434602820811049367545984163840$ & $c_{20}$ & $=148024277857029599617410082952710619136$ \\
-$c_{21}$ & $=-106356766470010058868960069055704858624$ & $c_{22}$ & $=-18100930097512148903107634256918181576704$ \\
-$c_{23}$ & $=85866618393902555499313883698082856566784$ & $c_{24}$ & $=763780628681387773038394280607132923461632$ \\
-$c_{25}$ & $=-7800370269764526595432079454875359685640192$ & $c_{26}$ & $=19115902493637728104232761947228909751762944$ \\
-$c_{27}$ & $=25398042351970225212164606977281022079533056$ & $c_{28}$ & $=-157629592306514460574222749667425272670978048$ \\
-$c_{29}$ & $=43054102205134245860134200097507441240965120$ & $c_{30}$ & $=449041538349258536355250578913022645165359104$ \\
-$c_{31}$ & $=-235232276080724685726633891947346608240197632$ & $c_{32}$ & $=-586716435477878380055256810532562760338767872$ \\
-$c_{33}$ & $=253313640539393840235816270595557798445056000$ & $c_{34}$ & $=323818182508316938647675695651480909968834560$ \\
-$c_{35}$ & $=-89408350493919975734163184380293077354414080$ & $c_{36}$ & $=-52042360470763527493115295739530480199925760$ \\
-$c_{37}$ & $=14256390806204108831780518155380794903756800$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+for every $n>38$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $37$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=36+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=38+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -118,7 +91,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $9$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -130,7 +103,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237033.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A221939.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

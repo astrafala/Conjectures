@@ -11,102 +11,178 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{An exact count for OEIS A228462: windowed maxima over a growing alphabet}
+\title{The empirical recurrence for OEIS A229580, proved by counting defective colourings}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{15 September 2026}
+\date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228462 counts the arrays obtainable as the maxima of $3$ adjacent elements of a length
-$7$ array with entries in $\{0,\dots,n\}$, and carries an empirical polynomial for that
-count. The count is not a transfer-matrix count: the length is fixed and it is the ALPHABET
-that grows with $n$. It is nevertheless exactly computable, because membership in the image
-depends only on the relative order of the entries of the candidate array and not on their
-values, so the count is a fixed non-negative combination of binomial coefficients
-$\binom{n+1}{m}$. Computing that combination settles the empirical claim as an identity in
-$\mathbb{Q}[n]$.
+OEIS A229580 counts the colourings of an array with $K=3$ colours that are proper except at
+exactly one adjacent pair, the colours being introduced in row
+major order. Neither feature is local: the number of monochromatic adjacent pairs is a
+property of the whole array, and the row major clause fixes a representative of each
+relabelling class. Both are removed by machinery already in hand --- the running count of
+mistakes goes into the state, capped at $1$, and the colour clause disappears into the
+identity $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement
+numbers. What is left is a walk count on $S=28$ vertices, and the empirical recurrence of
+order $2$ contributed by R.~H.~Hardin follows from a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 15B36.\normalsize
 
-\section{The conjecture}
+\section{The sequence and the conjecture}
 
-The entry's first terms are $17, 91, 310, 821, 1847, 3703, 6812, 11721,\dots$ and it states
-
-\begin{quote}\raggedright Empirical: a(n) = (2/15)*n\^{}5 + (7/6)*n\^{}4 + (25/6)*n\^{}3 + (19/3)*n\^{}2 + (21/5)*n + 1.\end{quote}
-
-\section{The object}
-
-Fix $k=7$ and $w=3$, and put $L=k-w+1=5$. For $a=(a_1,\dots,a_k)\in\{0,\dots,n\}^k$
-let
+OEIS A229580 is ``Number of defective 3-colorings of an n X 2 0..2 array connected horizontally and antidiagonally with exactly one mistake, and colors introduced in row-major 0..2 order.''. It has offset $1$ and begins
 \[
-  \Phi(a)=\bigl(\max(a_1,\dots,a_w),\ \max(a_2,\dots,a_{w+1}),\ \dots,\
-  \max(a_{k-w+1},\dots,a_k)\bigr)\in\{0,\dots,n\}^{L} .
+1, 6, 40, 224, 1152, 5632, 26624, 122880,\ \dots
 \]
-The entry counts $\lvert\Phi(\{0,\dots,n\}^k)\rvert$.
+The entry carries the following comment:
+\begin{quote}\small
+Empirical: a(n) = 8*a(n-1) - 16*a(n-2) for n>3.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Mar 06 2024 04:46:49, revision 51) the statement is
+still recorded as empirical, and nothing on the entry records it as settled either way.
 
-\section{Membership in the image is decided by the order type}
+Written out, the claim is
+\begin{equation}\label{eq:conj}
+a(n)\;=\;8\,a(n-1) - 16\,a(n-2)
+\end{equation}
+for all $n>3$.
 
-Write $W_j=\{j,j+1,\dots,j+w-1\}$ for the $j$-th window, $1\le j\le L$.
+\section{Mistakes, and the colour clause}
 
-\begin{lemma}\label{lem:greedy}
-Let $b\in\{0,\dots,n\}^{L}$ and define $\hat a\in\{0,\dots,n\}^k$ by
-$\hat a_i=\min\{\,b_j : i\in W_j\,\}$. Then $b\in\Phi(\{0,\dots,n\}^k)$ if and only if
-$\Phi(\hat a)=b$.
+The arrays have $2$ columns and $L=n$ rows, entries in $\{0,\dots,3-1\}$.
+Two cells are adjacent when they differ by one of
+\[
+\mathcal N=\{(0,1),\ (1,-1)\}
+\]
+(as (row shift, column shift)); each unordered adjacency is represented by exactly one
+offset, and every offset has a nonnegative row shift, so the pairs inside a row are
+counted when that row is laid down and the pairs joining two rows when the later one
+is. Call an adjacent pair a \emph{mistake} when $x_{t,u}=x_{t+d_1,\,u+d_2}$. The entry asks for exactly
+$E=1$ mistakes.
+
+That is a statement about the whole array, so no bounded window sees it; but the running
+number of mistakes can be carried in the state, capped at $1$, the states past $1$ being
+absent because a count that has passed the budget can never come back.
+
+The condition is stated in equalities, so it is invariant under relabelling the colours, and
+so is the number of mistakes. ``Colors introduced in row-major order'' keeps exactly one
+colouring from each relabelling class, so the entry counts equality PATTERNS with at most
+$K=3$ classes.
+
+\begin{lemma}\label{lem:inv}
+Let $L_i(n)$ count the colourings over $i$ colours with exactly $1$ mistakes, and $N_j(n)$
+the admissible patterns with exactly $j$ classes. Then
+$L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1)$ and
+\[
+3!\,\sum_{j\le3}N_j(n)=\sum_{i=0}^{3}\binom{3}{i}D_{3-i}L_i(n),
+\qquad D_m=m!\sum_{t=0}^{m}\frac{(-1)^t}{t!} .
+\]
 \end{lemma}
 
 \begin{proof}
-Each $\hat a_i$ is one of the $b_j$, so $\hat a$ does lie in $\{0,\dots,n\}^k$ and the
-condition is meaningful. If $\Phi(\hat a)=b$ there is nothing to prove. Conversely suppose
-$\Phi(a)=b$ for some $a$. For every $i\in W_j$ we have $a_i\le\max_{l\in W_j}a_l=b_j$, so
-$a_i\le\min\{b_j : i\in W_j\}=\hat a_i$: the array $\hat a$ dominates every witness
-componentwise. Hence
-$\max_{i\in W_j}\hat a_i\ge\max_{i\in W_j}a_i=b_j$. The reverse inequality is immediate
-from the definition, since $\hat a_i\le b_j$ for each $i\in W_j$. So $\Phi(\hat a)=b$.
+A colouring is a pattern together with an injection of its classes into the palette, and a
+pattern with $j$ classes admits $i(i-1)\cdots(i-j+1)$ of them, which is the first identity.
+Writing the falling factorial as $j!\binom{i}{j}$ and inverting binomially gives
+$j!N_j=\sum_i(-1)^{j-i}\binom{j}{i}L_i$; summing over $j\le3$ and exchanging the order
+of summation makes the coefficient of $L_i$ equal to $\sum_{t\le3-i}(-1)^t/(i!\,t!)$,
+which multiplied by $3!$ is $\binom{3}{i}D_{3-i}$, an integer.
 \end{proof}
 
-Both the construction of $\hat a$ and the test $\Phi(\hat a)=b$ use only comparisons between
-entries of $b$. Consequently:
+\section{Each $L_i$ is a walk count}
 
-\begin{corollary}\label{cor:ordertype}
-Whether $b$ lies in the image depends only on the \emph{order type} of $b$ -- the weak
-ordering of its $L$ coordinates -- and not on $n$ or on the values themselves.
-\end{corollary}
+Fix $i$ and take as vertices the pairs $(r,c)$ with $r\in\{0,\dots,i-1\}^{2}$ a row
+and $0\le c\le1$ a running count. Write $\beta(r,s)$ for the number of mistakes joining
+rows $r$ and $s$ plus the number of mistakes inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$
+an edge when $c+\beta(r,s)\le1$, let $\mathbf{s}_i$ mark the vertices whose count is the
+number of mistakes inside $r$ alone, and $\mathbf{e}_i$ those with $c=1$.
+
+\begin{lemma}\label{lem:walk}
+$L_i(n)=\mathbf{s}_i^{\!\top}P_i^{\,L-1}\mathbf{e}_i$ for $L\ge1$, where $P_i$ is the
+adjacency matrix of that digraph.
+\end{lemma}
 
 \begin{proof}
-Let $\sigma$ be any strictly increasing map defined on the values of $b$. Applying $\sigma$
-entrywise commutes with $\min$ and $\max$, so it carries $\hat a$ for $b$ to $\hat a$ for
-$\sigma(b)$ and preserves the equalities tested in Lemma~\ref{lem:greedy}. Any two arrays with
-the same order type differ by such a $\sigma$.
+A walk of length $L-1$ determines the sequence of $L$ rows, and conversely; by induction
+the count component after $t$ rows is the number of mistakes among the first $t$ rows,
+since each step adds exactly the mistakes joining rows $t$ and $t+1$ together with those
+inside row $t+1$, and each unordered pair is named by exactly one offset. The walk exists
+precisely when the running count never exceeds $1$, which for a nondecreasing count follows
+from its final value being $1$, and $\mathbf{e}_i$ imposes that final value. The state
+carries a row, not a boundary, so $L$ rows make a walk of length $L-1$.
 \end{proof}
 
-\section{The count}
+Assembling the $3$ chains block-diagonally into $N$ of size $S=28$ with the weights of
+Lemma~\ref{lem:inv} in the start vector $\mathbf{v}$ and the end markers in
+$\mathbf{u}$,
+\begin{equation}\label{eq:walk2}
+3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\end{equation}
 
-For $1\le m\le L$ let $A_m$ be the number of order types of $L$ coordinates that use exactly
-$m$ distinct values and are achievable. An array $b\in\{0,\dots,n\}^{L}$ using exactly $m$
-distinct values is determined by the $m$-element subset of $\{0,\dots,n\}$ it uses together
-with its order type, and every pair occurs exactly once; so by Corollary~\ref{cor:ordertype},
+\section{The criterion, and the computation}
+
+Let $q(t)=t^{2}-\sum_i c_i\,t^{2-i}$ be the characteristic polynomial of
+\eqref{eq:conj} and $G=N$.
+
+\begin{lemma}\label{lem:crit}
+With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
+$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge2$
 \[
-  \lvert\Phi(\{0,\dots,n\}^k)\rvert=\sum_{m=1}^{5}A_m\binom{n+1}{m}
-  \qquad\text{for every } n\ge 0 .
+3!\Bigl(a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\Bigr)=\mathbf{v}^{\!\top}G^{\,j-2}w,
+\qquad w=h_{2}-\sum_i c_ih_{2-i} .
 \]
-Enumerating the weak orderings of $5$ elements and applying Lemma~\ref{lem:greedy} to each
-gives $A_{1}=1, A_{2}=15, A_{3}=43, A_{4}=44, A_{5}=16$, so
-\[
-  \lvert\Phi(\{0,\dots,n\}^k)\rvert=1\binom{n+1}{1} + 15\binom{n+1}{2} + 43\binom{n+1}{3} + 44\binom{n+1}{4} + 16\binom{n+1}{5}=\frac{2 n^{5}}{15} + \frac{7 n^{4}}{6} + \frac{25 n^{3}}{6} + \frac{19 n^{2}}{3} + \frac{21 n}{5} + 1 .
-\]
+Hence \eqref{eq:conj} holds from that point on if and only if
+$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+\end{lemma}
 
-\section{Conclusion}
+\begin{proof}
+Substitute \eqref{eq:walk2} and factor; $3!$ is a nonzero scalar. Cayley--Hamilton
+makes $G^{S}$ an integer combination of $I,G,\dots,G^{S-1}$, so every later value repeats
+that combination of earlier ones.
+\end{proof}
 
-The right-hand side is the polynomial the entry states, so the empirical claim of OEIS A228462 is
-true for every $n\ge 0$. The argument is finite and exact: it enumerates the weak orderings of
-$5$ elements, of which there are 119 achievable, and performs no fitting to the
-published terms. Those terms are reproduced by the formula as a check, not as evidence.
+\begin{theorem}
+The recurrence \eqref{eq:conj} holds for every $n>3$, which is the statement of
+Section~1.
+\end{theorem}
+
+\begin{proof}
+The digraph was built directly from the definitions above. The vector $w$ was formed by
+$2$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
+evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
+index corresponding to $n=3+1$ onwards, and the run continued until $S+1$ consecutive
+zeros had been seen.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
+one of the $22$ published indices and agrees with the entry's DATA exactly, the quotient
+coming out an integer each time; no shift was fitted, the number of rows being $L=n$
+from the entry's own name and the offset saying which index carries the first published term.
+Double-counting an unordered pair, or mistaking the budget, changes the counts at once.
+
+Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
+integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
+Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A229580.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
+inversion, Section 1.9.)
+\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
+University Press, 2009.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
 
 \end{document}

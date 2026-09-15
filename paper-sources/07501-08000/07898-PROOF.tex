@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280395, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A280899, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{9 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280395 counts $n\times5$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A280899 counts $n\times5$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and counted UP TO RELABELLING of the
 alphabet; it carries an empirical recurrence of order $24$ contributed by
 R.~H.~Hardin. It is true, and it is decidable rather than empirical. What is counted is
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A280395 is ``Number of nX5 0..2 arrays with no element unequal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280899 is ``Number of nX5 0..2 arrays with no element equal to more than one of its horizontal and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-8, 34, 769, 15476, 292622, 5338004, 95102542, 1664838008,\ \dots
+2, 2292, 492490, 65348136, 7083739466, 684011230518, 61277484218852, 5208435552362140,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 62*a(n-1) -1689*a(n-2) +27708*a(n-3) -317054*a(n-4) +2742180*a(n-5) -18792682*a(n-6) +105117296*a(n-7) -489211669*a(n-8) +1918107326*a(n-9) -6385629933*a(n-10) +18129670212*a(n-11) -43970324140*a(n-12) +91044631344*a(n-13) -160522270160*a(n-14) +239886399040*a(n-15) -301819629440*a(n-16) +316752389376*a(n-17) -273752283136*a(n-18) +191350312960*a(n-19) -105370821632*a(n-20) +43909677056*a(n-21) -12957122560*a(n-22) +2392850432*a(n-23) -205520896*a(n-24) for n>25
+Empirical: a(n) = 177*a(n-1) -9639*a(n-2) +107900*a(n-3) +2883885*a(n-4) +5871669*a(n-5) -87408440*a(n-6) -250798851*a(n-7) +1108602915*a(n-8) +2445033196*a(n-9) -8693276349*a(n-10) +921374187*a(n-11) +45823231665*a(n-12) -105612340278*a(n-13) -17974034580*a(n-14) +256947247648*a(n-15) -764890720464*a(n-16) +786528800352*a(n-17) -1082015830016*a(n-18) +590857620864*a(n-19) -784830044928*a(n-20) +120654596096*a(n-21) -298074921984*a(n-22) -3182462976*a(n-23) -41854210048*a(n-24) for n>27
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 02 2017 10:42:08, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 10 2017 10:23:27, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Patterns are a combination of counts}
@@ -77,7 +77,7 @@ all eight --- and every such set lies inside the $3\times3$ square centred on th
 the set is $\{(0,-1), (0,1), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{no cell is unequal to a strict majority of its horizontal and antidiagonal neighbours},
+\text{no cell is equal to more than 1 of its horizontal and antidiagonal neighbours},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
 over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
@@ -91,13 +91,13 @@ either side, and a neighbour that falls outside is simply absent from both count
 Write an array as a sequence of rows $u_1,\dots,u_L$, each in
 $\{0,\dots,2\}^{5}$. The neighbourhood of a cell in row $u_i$ meets $u_{i-1}$,
 $u_i$ and $u_{i+1}$ and nothing else. Take as vertices the pairs
-$(r,s)\in(\{0,\dots,2\}^{5}\cup\{\varnothing\})\times\{0,\dots,2\}^{5}$ \times \{0,\dots,1\},
+$(r,s)\in(\{0,\dots,2\}^{5}\cup\{\varnothing\})\times\{0,\dots,2\}^{5}$ \times \{0,\dots,2\},
 and put an edge $(r,s)\to(s,t)$ when row $s$ satisfies the condition at every one of its
 $5$ cells, given $r$ above and $t$ below. An array with $L$ rows is then a walk of length
 $L-1$ starting at $(\varnothing,u_1)$, each step settling one row, and the last row is
-settled by the terminal weight, which evaluates it with $\varnothing$ below. The clause ``with the exception of exactly $1$ element'' is carried in
-the state as a counter of violations so far, capped at $1$; a step that would push it past
-$1$ has no edge, and a walk is accepted only when the count reaches exactly $1$. Hence,
+settled by the terminal weight, which evaluates it with $\varnothing$ below. The clause ``with the exception of exactly $2$ elements'' is carried in
+the state as a counter of violations so far, capped at $2$; a step that would push it past
+$2$ has no edge, and a walk is accepted only when the count reaches exactly $2$. Hence,
 with $M$ the adjacency matrix, $\iota$ the starting vector and $\tau$ the terminal weight,
 \[
 a(n)\;=\;\frac{1}{1}\,\iota^{\!\top}M^{\,n-1}\tau ,
@@ -125,24 +125,24 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;62\,a(n-1) - 1689\,a(n-2) + 27708\,a(n-3) - 317054\,a(n-4) + 2742180\,a(n-5) - 18792682\,a(n-6) + 105117296\,a(n-7) - 489211669\,a(n-8) + 1918107326\,a(n-9) - 6385629933\,a(n-10) + 18129670212\,a(n-11) - 43970324140\,a(n-12) + 91044631344\,a(n-13) - 160522270160\,a(n-14) + 239886399040\,a(n-15) - 301819629440\,a(n-16) + 316752389376\,a(n-17) - 273752283136\,a(n-18) + 191350312960\,a(n-19) - 105370821632\,a(n-20) + 43909677056\,a(n-21) - 12957122560\,a(n-22) + 2392850432\,a(n-23) - 205520896\,a(n-24)
+a(n)\;=\;177\,a(n-1) - 9639\,a(n-2) + 107900\,a(n-3) + 2883885\,a(n-4) + 5871669\,a(n-5) - 87408440\,a(n-6) - 250798851\,a(n-7) + 1108602915\,a(n-8) + 2445033196\,a(n-9) - 8693276349\,a(n-10) + 921374187\,a(n-11) + 45823231665\,a(n-12) - 105612340278\,a(n-13) - 17974034580\,a(n-14) + 256947247648\,a(n-15) - 764890720464\,a(n-16) + 786528800352\,a(n-17) - 1082015830016\,a(n-18) + 590857620864\,a(n-19) - 784830044928\,a(n-20) + 120654596096\,a(n-21) - 298074921984\,a(n-22) - 3182462976\,a(n-23) - 41854210048\,a(n-24)
 \]
-for every $n>25$.
+for every $n>27$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $24$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly. Those
-integers vanish from the index corresponding to $n=25+1$ onwards, and the run was
+integers vanish from the index corresponding to $n=27+1$ onwards, and the run was
 continued until the working vector was identically zero, which settles all larger $j$ at once.
-By Lemma~\ref{lem:crit} the recurrence holds for every $n>25$.
+By Lemma~\ref{lem:crit} the recurrence holds for every $n>27$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $16$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $12$ terms the entry publishes, exactly, in
 integer arithmetic. That check earned its place here. The neighbour offsets are named in the
 array's own frame --- horizontal means along a row --- but when the entry fixes the first
 dimension, as in ``$2\times n$'', the walk runs along columns and the two components of every
@@ -159,7 +159,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280395.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280899.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

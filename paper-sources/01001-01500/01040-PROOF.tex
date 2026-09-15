@@ -12,195 +12,206 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The reduction of OEIS A396099 modulo $2$}
+\title{Every odd-indexed term of OEIS A389472 after the first is even}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A396099 is defined by a functional equation for its ordinary generating function and
-carries a congruence conjecture of P.~D.~Hanna. It is true. The equation determines the
-coefficients one at a time, with $a(N)$ entering with coefficient $1$, so it determines
-them modulo $2$ as well; and modulo $2$ the series $x/(1-x)$ satisfies the equation
-exactly, because its compositional iterates are $x/(1-jx)$ and the relevant product of
-denominators collapses. Uniqueness then identifies the reduction, which is the conjecture.
-The whole argument is an identity between rational functions over
-$\mathbb{Z}/2\mathbb{Z}$; nothing is truncated or estimated.
+OEIS A389472 is defined by the functional equation $A(x)=A(x^{2}+x^{3})/x^{2}-1$ for its
+ordinary generating function, and carries a conjecture of P.~D.~Hanna that $a(2n-1)$ is
+even for every $n>1$. It is true. The equation determines the coefficients one at a time,
+so it determines them modulo $2$; and over $\mathbb{F}_{2}$ it turns out to be
+\emph{parity-preserving}: the series $x+C(x^{2})$ satisfies it exactly, for $C$ the
+solution of the companion equation $y\,C(y)=C(y^{2}+y^{3})$, because
+$(x^{2}+x^{3})^{2}=x^{4}+x^{6}$ in characteristic $2$. Uniqueness then forces the
+reduction of $A$ to be supported, apart from the term $x$, on even exponents only --- which
+is the conjecture. The entry's second conjecture, modulo $3$, is \emph{not} settled here;
+Section~5 says where the argument fails to carry over.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F25.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 11B50, 05A15, 13F35.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A396099 is ``G.f. satisfies A(x) = x + A\^{}2(x)*A\^{}3(x).''. It has offset $1$ and begins
+OEIS A389472 is ``G.f. satisfies A(x) = A(x\^{}2 + x\^{}3)/x\^{}2 - 1.''. It has offset $1$ and begins
 \[
-1, 1, 5, 39, 383, 4357,\ \dots
+1, 1, 2, 3, 6, 9, 14, 24, 42, 72,\ \dots
 \]
-Writing $A(x)=\sum_{n\ge1}a(n)x^{n}$ and $A^{\,j}$ for the $j$-th compositional
-iterate of $A$, the entry defines $A$ by
+The entry gives the expansion
+\begin{quote}\small
+G.f.: A(x) = x + x\^{}2 + 2*x\^{}3 + 3*x\^{}4 + 6*x\^{}5 + 9*x\^{}6 + 14*x\^{}7 + 24*x\^{}8 + \dots
+\end{quote}
+so, writing $A(x)=\sum_{n\ge1}a(n)x^{n}$, the entry fixes
+\begin{equation}\label{eq:init}
+a(1)=1,\qquad a(2)=1,
+\end{equation}
+and defines the remaining coefficients by $A(x)=A(x^{2}+x^{3})/x^{2}-1$, which we clear
+of the division and write as
 \begin{equation}\label{eq:fe}
-A(x)\;=\;x+A^{2}(x)\,A^{3}(x) .
+x^{2}\bigl(A(x)+1\bigr)\;=\;A\bigl(x^{2}+x^{3}\bigr).
 \end{equation}
 This is the only input taken from the entry.
 
 The entry separately carries the following comment:
 \begin{quote}\small
-Conjecture: all terms are odd. --- \emph{Paul D. Hanna}
+Conjecture: a(2*n-1) = 0 (mod 2) for n > 1. --- \emph{Paul D. Hanna}
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 04 2026 11:37:17, revision 17) it is
-still recorded as a conjecture, and nothing on the entry records
-it as settled either way. The entry carries two further conjectures of the same contributor, on the residues modulo $4$; those are stronger than what is proved here and are not claimed. Section~4 says exactly where the argument stops short of them.
+As of the ``Last modified'' line on the live entry (Oct 17 2025 00:08:59, revision 7) the statement is
+still recorded as a conjecture, and nothing on the entry records it as settled either way.
+The entry carries a second conjecture of the same contributor, that $a(3n-1)\equiv0$
+modulo $3$ for $n>1$. It is not proved below and it is not claimed.
 
 \section{The equation determines the sequence}
 
-\begin{lemma}\label{lem:jaN}
-Let $A(x)=\sum_{n\ge1}a(n)x^{n}$ with $a(1)=1$. Then for every $j\ge1$ and every
-$N\ge1$,
-\[
-\bigl[x^{N}\bigr]A^{\,j}=j\,a(N)+\bigl(\text{a polynomial in }a(1),\dots,a(N-1)\bigr).
-\]
-\end{lemma}
-
-\begin{proof}
-Induction on $j$. For $j=1$ the statement is $\bigl[x^{N}\bigr]A=a(N)$. Suppose it holds
-for $j$, and write $B=A^{\,j}$, so $\bigl[x^{1}\bigr]B=1$ and
-$\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. Then $A^{\,j+1}=A\circ B=\sum_{m\ge1}a(m)B^{m}$
-and
-\[
-\bigl[x^{N}\bigr]A^{\,j+1}=\sum_{m=1}^{N}a(m)\,\bigl[x^{N}\bigr]B^{m} .
-\]
-The term $m=N$ contributes $a(N)\bigl(\bigl[x^{1}\bigr]B\bigr)^{N}=a(N)$. The term $m=1$
-contributes $\bigl[x^{N}\bigr]B=j\,a(N)+\cdots$. For $2\le m\le N-1$, every monomial of
-$\bigl[x^{N}\bigr]B^{m}$ is a product of $m\ge2$ coefficients of $B$ with indices summing
-to $N$, hence each index is at most $N-1$, so no $a(N)$ occurs. Adding up gives
-$(j+1)a(N)$ plus terms in $a(1),\dots,a(N-1)$.
-\end{proof}
+Because $(x^{2}+x^{3})^{n}=x^{2n}(1+x)^{n}$, comparing coefficients of $x^{N}$ in
+\eqref{eq:fe} gives, for every $N\ge2$,
+\begin{equation}\label{eq:rec}
+a(N-2)\;=\;\sum_{n\ge1}a(n)\binom{n}{N-2n},
+\end{equation}
+with $a(0):=0$ and the convention $\binom{n}{j}=0$ unless $0\le j\le n$.
 
 \begin{lemma}\label{lem:unique}
-There is exactly one sequence of integers $a(1),a(2),\dots$ satisfying \eqref{eq:fe}, and
-for each $N\ge2$ the equation read at order $x^{N}$ has the form
-$a(N)=(\text{a polynomial with integer coefficients in }a(1),\dots,a(N-1))$.
+The coefficient $a(1)=1$ is forced by \eqref{eq:fe}. Given also $a(2)$, equation
+\eqref{eq:rec} determines $a(m)$ for every $m\ge3$ as a polynomial with integer
+coefficients in $a(1),\dots,a(m-1)$; so \eqref{eq:init} and \eqref{eq:fe} together have
+exactly one integer solution.
 \end{lemma}
 
 \begin{proof}
-Comparing coefficients of $x$ in \eqref{eq:fe} gives $a(1)=1$. Let $N\ge2$ and collect the
-coefficient of $a(N)$ on each side of \eqref{eq:fe} at order $x^{N}$, using
-Lemma~\ref{lem:jaN}. On the left the coefficient is $1$. On the right, $x$ contributes nothing and the product $A^{\,2}A^{\,3}$ contributes nothing either: every monomial of $\bigl[x^{N}\bigr]\bigl(A^{\,2}A^{\,3}\bigr)$ is a product of one coefficient of $A^{\,2}$ and one of $A^{\,3}$ with indices $i,j\ge1$ and $i+j=N$, so both indices are at most $N-1$. Hence the net coefficient of $a(N)$ is $1$.
-Since that coefficient is $1$, the order-$x^{N}$ equation solves for $a(N)$ over
-$\mathbb{Z}$, and induction gives existence and uniqueness.
+At $N=2$, \eqref{eq:rec} reads $a(0)=a(1)\binom{1}{0}$ --- reading the left side of
+\eqref{eq:fe} instead, the coefficient of $x^{2}$ there is $1$, so $a(1)=1$.
+
+Now take $N\ge5$ and put $m=N-2\ge3$. On the right of \eqref{eq:rec} the binomial
+$\binom{n}{N-2n}$ vanishes unless $2n\le N$, so only $a(n)$ with
+$n\le\lfloor N/2\rfloor$ occur. Since $N\ge5$,
+\[
+\Bigl\lfloor \tfrac{N}{2}\Bigr\rfloor\;\le\;N-3\;=\;m-1,
+\]
+so the right side involves only $a(1),\dots,a(m-1)$ and \eqref{eq:rec} expresses $a(m)$
+through them. (At $N=3$ and $N=4$ the relation reads $a(1)=a(1)$ and $a(2)=a(2)$, giving no
+information; that is why $a(2)$ is part of the data.) Induction finishes the proof.
 \end{proof}
 
 \begin{corollary}\label{cor:mod}
-Let $m\ge2$. If $\bar A\in(\mathbb{Z}/m\mathbb{Z})[[x]]$ satisfies $\bar A=x+O(x^{2})$ and
-\eqref{eq:fe} with all coefficients read modulo $m$, then
-$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod m$ for every $n$.
+Let $k\ge2$. If $\bar A\in(\mathbb{Z}/k\mathbb{Z})[[x]]$ has
+$\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$, no constant term, and satisfies
+\eqref{eq:fe} with all coefficients read modulo $k$, then
+$a(n)\equiv\bigl[x^{n}\bigr]\bar A\pmod k$ for every $n$.
 \end{corollary}
 
 \begin{proof}
-Reduction modulo $m$ is a ring homomorphism, so it carries the integer recursion of
-Lemma~\ref{lem:unique} to the same recursion over $\mathbb{Z}/m\mathbb{Z}$, where the
-coefficient of $a(N)$ is still $1$ and hence still invertible. That recursion therefore has
-a unique solution, and both $a\bmod m$ and the coefficient sequence of $\bar A$ solve it.
+Reduction modulo $k$ is a ring homomorphism, so it carries \eqref{eq:rec} to the same
+relation over $\mathbb{Z}/k\mathbb{Z}$; by Lemma~\ref{lem:unique} that relation, together
+with the two initial values, has a unique solution, and both $a\bmod k$ and the
+coefficients of $\bar A$ solve it.
+\end{proof}
+
+\section{The companion equation}
+
+Work in $\mathbb{F}_{2}[[y]]$.
+
+\begin{lemma}\label{lem:C}
+There is exactly one $C(y)=\sum_{m\ge1}c_m y^{m}\in\mathbb{F}_{2}[[y]]$ with $c_1=1$ and
+\begin{equation}\label{eq:C}
+y\,C(y)\;=\;C\bigl(y^{2}+y^{3}\bigr).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Comparing coefficients of $y^{m}$ in \eqref{eq:C} and using
+$(y^{2}+y^{3})^{n}=y^{2n}(1+y)^{n}$ gives
+$c_{m-1}=\sum_{n\ge1}c_n\binom{n}{m-2n}$, where again only $n\le\lfloor m/2\rfloor$
+occur. For $m\ge3$ we have $\lfloor m/2\rfloor\le m-2$, so this expresses $c_{m-1}$
+through $c_1,\dots,c_{m-2}$; at $m=2$ it reads $c_1=c_1$. Hence $c_1$ may be prescribed
+and everything after it is determined.
+\end{proof}
+
+\begin{lemma}\label{lem:sat}
+Let $C$ be as in Lemma~\ref{lem:C} and put $\bar A(x)=x+C(x^{2})$. Then $\bar A$ satisfies
+\eqref{eq:fe} over $\mathbb{F}_{2}$, and $\bigl[x^{1}\bigr]\bar A=\bigl[x^{2}\bigr]\bar A=1$.
+\end{lemma}
+
+\begin{proof}
+In characteristic $2$ squaring is additive, so
+\begin{equation}\label{eq:frob}
+\bigl(x^{2}+x^{3}\bigr)^{2}\;=\;x^{4}+x^{6} .
+\end{equation}
+Substituting $u=x^{2}+x^{3}$ into $\bar A(u)=u+C(u^{2})$ and using \eqref{eq:frob},
+\[
+\bar A\bigl(x^{2}+x^{3}\bigr)\;=\;x^{2}+x^{3}+C\bigl(x^{4}+x^{6}\bigr),
+\]
+while
+\[
+x^{2}\bigl(\bar A(x)+1\bigr)\;=\;x^{2}\bigl(x+C(x^{2})+1\bigr)
+\;=\;x^{2}+x^{3}+x^{2}C\bigl(x^{2}\bigr).
+\]
+The two agree exactly when $x^{2}C(x^{2})=C(x^{4}+x^{6})$, which is \eqref{eq:C} read
+at $y=x^{2}$. Finally $\bigl[x^{1}\bigr]\bar A=1$ and
+$\bigl[x^{2}\bigr]\bar A=c_1=1$.
 \end{proof}
 
 \section{The reduction modulo $2$}
 
-Write $f(x)=\dfrac{x}{1-x}$ over $\mathbb{Z}/2\mathbb{Z}$.
-
-\begin{lemma}\label{lem:iter}
-$f^{\,j}(x)=\dfrac{x}{1-jx}$ for every $j\ge1$, and more generally for every integer
-$j$, where $f^{-1}$ denotes the compositional inverse.
-\end{lemma}
-
-\begin{proof}
-For $j=1$ this is the definition. If $f^{\,j}(x)=x/(1-jx)$ then
-\[
-f^{\,j+1}(x)=f\bigl(f^{\,j}(x)\bigr)
-=\frac{\dfrac{x}{1-jx}}{1-\dfrac{x}{1-jx}}
-=\frac{x}{(1-jx)-x}=\frac{x}{1-(j+1)x} .
-\]
-The maps $x\mapsto x/(1-jx)$ therefore form a group isomorphic to $(\mathbb{Z},+)$ under
-composition, which also gives the statement for $j\le0$; in particular
-$f^{-1}(x)=x/(1+x)$.
-\end{proof}
-
-\begin{lemma}\label{lem:sat}
-Over $\mathbb{Z}/2\mathbb{Z}$, $f$ satisfies $f=x+f^{\,2}f^{\,3}$.
-\end{lemma}
-
-\begin{proof}
-By Lemma~\ref{lem:iter}, $f^{\,2}f^{\,3}
-=\dfrac{x^{2}}{(1-2x)\bigl(1-3x\bigr)}$, while
-$f-x=\dfrac{x}{1-x}-x=\dfrac{x^{2}}{1-x}$. So the claim is that
-$(1-2x)(1-3x)$ and $1-x$ agree in $(\mathbb{Z}/2\mathbb{Z})[x]$. Expanding,
-\[
-(1-2x)\bigl(1-3x\bigr)=1-5x+6x^{2} ,
-\]
-and modulo $2$ we have $5\equiv1$ and $6\equiv0$. Hence both sides equal
-$1-x$, and the two rational functions agree.
-\end{proof}
-
-
-\begin{theorem}\label{thm:main}
-Over $\mathbb{Z}/2\mathbb{Z}$ the reduction of $A$ is $x/(1-x)$. Equivalently
-$a(n)\equiv1\pmod{2}$ for every $n\ge1$, and more generally
-\[
-\bigl[x^{n}\bigr]A^{\,j}(x)\;\equiv\;j^{\,n-1}\pmod{2}
-\]
-for every $n\ge1$ and every integer $j$. This is the conjecture of Section~1.
+\begin{theorem}
+$a(2n-1)\equiv0\pmod 2$ for every $n>1$. This is the conjecture of Section~1.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sat}, $f=x/(1-x)$ satisfies the reduced equation, and $f=x+O(x^{2})$.
-By Corollary~\ref{cor:mod} the reduction of $A$ equals $f$, so
-$a(n)\equiv\bigl[x^{n}\bigr]f=1$.
+By Lemma~\ref{lem:sat} the series $\bar A(x)=x+C(x^{2})$ satisfies \eqref{eq:fe} over
+$\mathbb{F}_{2}$ and matches \eqref{eq:init}. By Corollary~\ref{cor:mod} with $k=2$ it is
+therefore the reduction of $A$ modulo $2$.
 
-Reduction modulo $2$ carries composition of power series with unit linear coefficient to
-composition, so $A^{\,j}$ reduces to $f^{\,j}$ for every integer $j$ --- for $j<0$
-because $A$ has linear coefficient $1$, hence is invertible under composition, and the
-reduction map is a homomorphism of the composition group. By Lemma~\ref{lem:iter},
-$f^{\,j}(x)=x/(1-jx)=\sum_{n\ge1}j^{\,n-1}x^{n}$, which gives the second statement.
+Every exponent occurring in $C(x^{2})$ is even, so the only odd exponent occurring in
+$\bar A$ is $1$. Hence $\bigl[x^{m}\bigr]\bar A=0$ for every odd $m\ge3$, that is,
+$a(m)\equiv0\pmod2$ for every odd $m\ge3$. Writing $m=2n-1$ with $n>1$ gives the statement.
 \end{proof}
 
 \begin{remark}
-The proof used only that $(1-2x)(1-3x)\equiv1-x$ modulo $2$, that is, that
-$2$ divides both $2\cdot2$ and $2\cdot3$. The largest modulus with that property
-is $\gcd\bigl(2p,\,p(p+1)\bigr)$, which is $2p$ for odd $p$ and $p$ for even $p$; here
-$p=2$ gives $2$. This is exactly why the statement is made modulo $2$ and not modulo
-a larger number.
+The mechanism is worth isolating: \eqref{eq:fe} substitutes $x^{2}+x^{3}$, and in
+characteristic $2$ the square of that is again a polynomial in $x^{2}$, by \eqref{eq:frob}.
+So the substitution cannot manufacture new odd exponents beyond the ones already present,
+and the single odd exponent $1$ forced by $a(1)=1$ is all there is.
 \end{remark}
 
+\section{Where the argument stops}
+
+The entry's other conjecture is that $a(3n-1)\equiv0$ modulo $3$ for $n>1$, that is, that
+the reduction of $A$ modulo $3$ is supported off the exponents $\equiv2\pmod 3$ apart from
+$x^{2}$ itself. That is not proved here, and the proof above does not adapt: it turns on
+the Frobenius identity \eqref{eq:frob}, which in characteristic $3$ becomes
+$(x^{2}+x^{3})^{3}=x^{6}+x^{9}$ --- but \eqref{eq:fe} substitutes the \emph{first}
+power of $x^{2}+x^{3}$, not the third, so the Frobenius map is not available where it
+would be needed. The residues modulo $3$ were computed for every $n\le60$ and the
+conjecture holds throughout that range; no proof is offered.
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the recursion of Lemma~\ref{lem:unique} was run in exact rational arithmetic and
-its output compared against the entry's DATA at every one of the $21$ published
-indices; the values agree exactly, and every one is an integer. A recursion that reproduced
-only some of them would mean the functional equation had been transcribed wrongly.
+First, the recursion \eqref{eq:rec} was run in exact integer arithmetic from
+\eqref{eq:init} and compared against the entry's DATA at every one of the $41$
+published indices; the values agree exactly. A recursion that reproduced only some of them
+would mean the functional equation had been transcribed wrongly.
 
-Second, at every step the coefficient of $a(N)$ was computed rather than assumed, by
-evaluating the order-$x^{N}$ equation at $a(N)=0$ and at $a(N)=1$ and subtracting; it came
-out $1$ at every $N$ up to $24$, as Lemma~\ref{lem:unique} requires. The same run was
-continued to $n=24$ and every term reduced modulo $2$; all residues are
-$1$.
+Second, the series $C$ of Lemma~\ref{lem:C} was generated from its own recursion over
+$\mathbb{F}_{2}$ and $x+C(x^{2})$ compared, coefficient by coefficient, against
+$a(n)\bmod2$ for every $n\le60$; the two agree at every index, with no mismatch. Equation
+\eqref{eq:C} was checked directly over $\mathbb{F}_{2}$ to order $60$.
 
-Third, the composition of the proof was carried out independently as a formal power series
-over $\mathbb{Z}/2\mathbb{Z}$ to order $30$, starting from the coefficients of $x/(1-x)$
-rather than from the closed form; both sides of \eqref{eq:fe} agree at every order, and the
-iterates $f^{\,j}$ were confirmed to have coefficients $j^{\,n-1}$ for $j\le6$.
+Third, $a(2n-1)\bmod2$ was evaluated for every $n$ with $2n-1\le60$: all zero, as the
+theorem requires.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A396099.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A389472.
+\bibitem{lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields}, 2nd ed., Cambridge
+University Press, 1997.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
 University Press, 1999.
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
 University Press, 2009.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
 \end{thebibliography}
 
 \end{document}

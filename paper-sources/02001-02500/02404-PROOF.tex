@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A124999, proved from an exact model}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A124999 carries an empirical recurrence of order $3$. It is true, and it is
+decidable rather than empirical. The entry's sequence is given exactly by the trace of a power of the adjacency matrix of the digit graph, from
+which $a$ provably satisfies a MONIC linear recurrence of order $S=5$, derived below and not
+assumed. The residual of the conjectured recurrence satisfies the same one, so whether it
+annihilates $a$ is settled by a finite exact computation. The count is a walk count, but not of the usual shape: it is a TRACE and not a product with two boundary vectors, so the bound comes from the characteristic polynomial of the matrix itself.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
+
+\section{The conjecture}
+
+OEIS A124999 is ``Number of base 5 circular n-digit numbers with adjacent digits differing by 3 or less.''. It has offset $0$ and begins
+\[
+1, 5, 23, 101, 467, 2165, 10055, 46709,\ \dots
+\]
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+[Empirical] a(base,n)=a(base-1,n)+A025012(n+1) for base>=3.int(n/2)+1 a(n) = 5*a(n-1) - a(n-2) - 3*a(n-3) for n>3.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Aug 12 2026 19:01:43, revision 18)
+this is still recorded as empirical, and nothing on the entry records it as proved.
+
+\section{The count is a trace}
+
+Let $G$ be the graph on the digits $0,1,\dots,4$ with an edge between $u$ and $v$ exactly
+when $|u-v|\le3$, loops included, and let $M$ be its adjacency matrix, so $M_{uv}=1$ when
+$|u-v|\le3$ and $0$ otherwise. A circular $n$-digit string is a cyclic sequence
+$d_1,\dots,d_n$ in which every neighbouring pair, the pair $(d_n,d_1)$ included, differs by at
+most $3$ --- that is, a CLOSED walk of length $n$ in $G$ together with the choice of where it
+starts. Closed walks of length $n$ beginning at $u$ number $(M^n)_{uu}$, so for $n\ge1$
+\[
+a(n)\;=\;\sum_{u=0}^{4}(M^{n})_{uu}\;=\;\operatorname{tr}M^{n} .
+\]
+The entry counts every string, leading zeros included: requiring a nonzero first digit gives
+$4,11,25$ where A124698 gives $5,13,29$. At $n=0$ the entry writes $a(0)=1$, the empty circular
+string, where the trace is $5$; that is the entry's convention at one index and the two agree
+at every $n\ge1$, on every published term.
+
+\section{The bound}
+
+$\operatorname{tr}M^{n}$ is the $n$-th power sum of the eigenvalues of $M$, so by
+Cayley--Hamilton the characteristic polynomial of $M$ --- monic of degree exactly $S=5$,
+computed from the matrix and not estimated --- annihilates $a$ for $n\ge1$. Nothing about this
+bound is derived from the data: it is the size of the digit alphabet.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $A(z)=z^S-\sum_{j<S}\alpha_jz^{j}$ be the monic annihilator derived above and
+$q(z)=z^{3}-\sum_ic_iz^{3-i}$ the characteristic polynomial of the conjectured
+recurrence. The residual $r(n)=a(n)-\sum_ic_ia(n-i)$ is a linear combination of shifts of $a$,
+so $A$ annihilates $r$ as well. Since $A(0)\ne0$ the recurrence it gives runs in both
+directions, and $S$ consecutive zeros of $r$ force $r$ to vanish at every later index.
+\end{lemma}
+
+\begin{proof}
+$A$ annihilates $a$, hence every shift of $a$, hence any linear combination of shifts; that is
+$r$. A monic recurrence with nonzero constant term determines each term from the $S$ before it
+and each from the $S$ after it, so a run of $S$ zeros propagates.
+\end{proof}
+
+\begin{theorem}
+\[
+a(n)\;=\;5\,a(n-1) - a(n-2) - 3\,a(n-3)
+\]
+for every $n>3$.
+\end{theorem}
+
+\begin{proof}
+The terms $a(0),\dots$ were computed exactly in integer arithmetic from the model, extended by
+$A$ where the model itself was not evaluated, and $r(n)$ formed for each index. Those integers
+vanish from $n=3+1$ onwards, and the run exceeds $S+3$, which by
+Lemma~\ref{lem:crit} settles every larger index at once. The bound is exact: at $n=3$ the recurrence fails on the entry's own published terms, so no larger range holds.
+\end{proof}
+
+\section{Verification}
+
+Three checks, each independent of the algebra above.
+
+First, the model reproduces all $24$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
+
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+model involved, and holds wherever the proved range and the data overlap.
+
+Third, the derived annihilator $A$ was itself tested on terms it had not been given: the model
+was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound that is
+too small fails this test, which is why it is run.
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A124999.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\bibitem{ds} F.~Diamond and J.~Shurman, \emph{A First Course in Modular Forms},
+Springer GTM 228, 2005.
+\end{thebibliography}
+
+\end{document}

@@ -12,123 +12,109 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The cross-base identity for OEIS A126365, proved}
+\title{A cross-alphabet identity for bounded-difference square arrays: OEIS A125547}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{13 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A126365 carries an empirical identity, in two clauses, relating its counts to those of the
-entry one base smaller, contributed by R. H. Hardin. Both clauses are true and both are proved
-here, with no computation in the argument. The difference between consecutive bases counts the
-admissible strings that USE the new largest digit; those are the translates of the
-translation-classes of admissible strings over $\mathbf{Z}$ whose range fits below the top of
-the alphabet; the classes are the step vectors, of which there are $(2d+1)^{n-1}$; and at the
-one base where the fit fails by exactly one, the classes lost are the two monotone ones, which
-is the entry's own $-2$.
+OEIS A125547 carries an empirical identity relating its counts to those of the same problem over an
+alphabet one smaller. It is true, and sharply so: the threshold the entry states is exactly the
+diameter bound of the grid graph, and the identity fails below it. The proof is four lines and
+uses no machinery.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 05C38.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A126365 is ``Number of base 11 n-digit numbers with adjacent digits differing by one or less.''. It has offset $0$ and begins
+OEIS A125547 is ``Number of n X n arrays with entries in 1..12 in which adjacent entries differ by 9 or less (adjacent means in x or y directions).''. It has offset $0$ and begins
 \[
-1, 11, 31, 89, 257, 745, 2165, 6303,\ \dots
+1, 12, 17782, 3359860178, 80173083905265254, 241867388512389264991124102, 92239510661284205765199147022065188442, 4446848187806762069273466271591426934850445380022534,\ \dots
 \]
-The entry states, as an empirical claim and never marked settled:
+The entry states, as a conjecture contributed by R. H. Hardin and never marked settled:
 \begin{quote}
-[Empirical] a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1) for base>=n; a(base,n)=a(base-1,n)+3\textasciicircum{}(n-1)-2 when base=n-1
+[Empirical] a(base+1,n,diff) = a(base,n,diff)+F(n,diff) for base>=2.diff.(n-1) and F(n,diff) = (n = 2, A063496(diff+1)) (n = 3, A068744(diff+1)) (n = 4, A068745(diff+1)) (n = 5, A068746(diff+1)) (n = 6, A068747(diff+1))
 \end{quote}
-As of the ``Last modified'' line on the live entry (Aug 12 2026 19:08:54, revision 12)
-this is still recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Mar 31 2012 12:35:05, revision 6)
+this is still recorded as empirical. For this entry's own alphabet the threshold $2d(n-1)\le b$ leaves only $n=1$, so the identity is not a statement about this entry's published terms beyond the first; it is a statement about the family, and it is the family statement that is proved below.
 
-For this entry the base is $11$ and the permitted difference is $d=1$, so the first clause
-claims $a_{11}(n)-a_{10}(n)=3^{\,n-1}$ whenever $(n-1)+1\le11$, that is for
-$1\le n\le11$, and the second claims $a_{11}(n)-a_{10}(n)=3^{\,n-1}-2$ at the single
-$n$ with $(n-1)=11$.
+\section{Notation}
 
-\section{What the entry counts}
+For integers $b\ge1$, $d\ge1$ and $n\ge1$ write $T(b,d,n)$ for the number of $n\times n$ arrays
+with entries in $\{1,\dots,b\}$ in which any two orthogonally adjacent entries differ by at
+most $d$. The entry is $T(12,9,n)$, and the conjecture is
+\[
+T(b+1,d,n)\;=\;T(b,d,n)+F(n,d)\qquad\text{for } b\ \ge\ 2d(n-1),
+\]
+with $F(n,d)$ the quantity the entry tabulates through its reference sequences ($n=2$: OEIS A063496, $n=3$: OEIS A068744, $n=4$: OEIS A068745, $n=5$: OEIS A068746, $n=6$: OEIS A068747).
 
-A base-$b$ $n$-digit string in this family's sense is a tuple
-$(d_1,\dots,d_n)\in\{0,1,\dots,b-1\}^{n}$ with $|d_i-d_{i+1}|\le d$ for $1\le i<n$; there
-is no wrap-around. Leading zeros are counted, which is what the entry's $a(1)=b$ says, and
-$a(0)=1$ is the empty string. Write $L_d(b,n)$ for their number. Evaluated exactly in integer
-arithmetic, $L_{1}$ at base $11$ reproduces all $25$ terms A126365 publishes.
-
-\section{The identity}
+\section{The proof}
 
 \begin{theorem}
-Fix $d\ge1$ and $n\ge1$, and put $K=2d+1$.
-\begin{enumerate}
-\item[(i)] If $b\ge d(n-1)+1$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}$.
-\item[(ii)] If $b=d(n-1)$ then $L_d(b,n)-L_d(b-1,n)=K^{\,n-1}-2$.
-\end{enumerate}
+For all $n\ge1$, $d\ge1$ and $b\ge 2d(n-1)$,
+\[
+T(b+1,d,n)-T(b,d,n)\;=\;F(n,d),
+\]
+where $F(n,d)$ is the number of admissible arrays over $\mathbb{Z}$ whose maximum entry is
+$0$ --- a quantity depending on $n$ and $d$ only.
 \end{theorem}
 
 \begin{proof}
-\emph{Step 1.} The admissible strings over $\{0,\dots,b-1\}$ that do not use the value $b-1$
-are exactly the admissible strings over $\{0,\dots,b-2\}$, so $L_d(b,n)-L_d(b-1,n)$ is the
-number of admissible strings over $\{0,\dots,b-1\}$ in which $b-1$ occurs.
+\emph{Step 1.} An admissible array over $\{1,\dots,b+1\}$ either uses the value $b+1$ or
+does not, and those that do not are exactly the admissible arrays over $\{1,\dots,b\}$. So
+$T(b+1,d,n)-T(b,d,n)$ counts the admissible arrays over $\{1,\dots,b+1\}$ that use $b+1$.
 
-\emph{Step 2.} Consider the admissible strings over $\mathbf{Z}$: tuples
-$(c_1,\dots,c_n)\in\mathbf{Z}^{n}$ with $|c_i-c_{i+1}|\le d$. Translation by an integer acts
-freely on them, each orbit contains exactly one representative with $c_1=0$, and such a
-representative is determined by its step vector $(s_1,\dots,s_{n-1})$, $s_i=c_{i+1}-c_i$,
-which may be any element of $\{-d,\dots,d\}^{n-1}$. So there are exactly $K^{\,n-1}$ orbits.
-Each orbit also contains exactly one representative with $\max_i c_i=0$, and all its
-representatives share one RANGE $\rho=\max_ic_i-\min_ic_i$, which satisfies
-$\rho\le d(n-1)$ because each of the $n-1$ steps moves by at most $d$.
+\emph{Step 2.} Every admissible array satisfies $\max-\min\le 2d(n-1)$. Let $u$ attain the
+maximum and $v$ the minimum. In the grid graph on $n\times n$ cells with orthogonal adjacency
+any two cells are joined by a path of length at most $2(n-1)$ --- move along a row, then along
+a column --- and along a path of length $L$ the entry changes by at most $dL$, since each step
+is between adjacent cells.
 
-\emph{Step 3.} A string counted in Step 1 has maximum $b-1$ and entries at least $0$, so it is
-the representative with maximum $b-1$ of an orbit of range at most $b-1$; conversely every orbit
-of range at most $b-1$ gives exactly one such string. Hence
-\[
-L_d(b,n)-L_d(b-1,n)\;=\;\#\{\text{orbits of range}\le b-1\} .
-\]
-
-\emph{Step 4.} If $b\ge d(n-1)+1$ then $b-1\ge d(n-1)$ and by Step 2 every orbit qualifies,
-giving (i). If $b=d(n-1)$ then exactly the orbits of range $d(n-1)$ are excluded. An orbit has
-range $d(n-1)$ only if some $c_i$ attains the maximum, some $c_j$ the minimum, and the walk
-between them covers $d(n-1)$; that walk has at most $n-1$ steps, each of size at most $d$, so it
-must use all $n-1$ of them in the same direction at full size. There are exactly two such step
-vectors, $(d,\dots,d)$ and $(-d,\dots,-d)$, so two orbits are lost and (ii) follows.
+\emph{Step 3.} An array counted in Step 1 has maximum exactly $b+1$, so by Step 2 all of its
+entries lie in $[\,b+1-2d(n-1),\ b+1\,]$. When $b\ge 2d(n-1)$ that interval is contained in
+$\{1,\dots,b+1\}$, so the constraint ``entries in $\{1,\dots,b+1\}$'' is implied by the
+maximum and the range bound and imposes nothing further. The arrays counted in Step 1 are
+therefore in bijection --- by the translation carrying the maximum to $0$ --- with the
+admissible arrays over $\mathbb{Z}$ of maximum $0$, and that count involves no $b$.
 \end{proof}
+
+\begin{remark}
+The threshold is sharp, and not merely sufficient. Below it the window no longer fits and the
+identity fails: at $b=5$, $d=3$, $n=3$ the difference $T(6,3,3)-T(5,3,3)$ is $964{,}755$
+while $F(3,3)=1{,}253{,}329$.
+\end{remark}
 
 \section{Verification}
 
-Three checks, each independent of the proof above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms A126365 publishes, exactly, in integer
-arithmetic; the reading of the entry's English is what is being tested there.
+First, the count $T(12,9,n)$ was computed by an independent row-pair dynamic program and
+reproduces the $3$ published terms of A125547 that the computation reaches,
+exactly, in integer arithmetic.
 
-Second, the first clause was evaluated directly for every $n$ in the entry's claimed range,
-$1\le n\le11$, both sides computed from the definition and not from the theorem:
+Second, the identity was evaluated directly at the entry's own alphabet size for every $n$ the
+threshold covers, and at one $n$ beyond it, where it fails as the remark says.
 
-\begin{center}
-\begin{tabular}{rrrr}
-$n$ & $L_{1}(11,n)$ & $L_{1}(10,n)$ & $3^{\,n-1}$ \\ \hline
-1 & 11 & 10 & 1 \\
-2 & 31 & 28 & 3 \\
-3 & 89 & 80 & 9 \\
-4 & 257 & 230 & 27 \\
-5 & 745 & 664 & 81 \\
-6 & 2165 & 1922 & 243 \\
-7 & 6303 & 5574 & 729 \\
-8 & 18375 & 16188 & 2187 \\
-\end{tabular}
-\end{center}
+Third, $F(n,d)$ as computed here agrees with the entry's own reference sequences. The entry
+writes them as ``$\mathrm{A}\dots(\mathit{diff}+1)$'', and the index is positional --- the
+$(\mathit{diff}+1)$st term as listed. That reading is forced: the sequences do not share an
+offset, and only the positional reading makes $n=2$ and $n=3$ agree simultaneously.
 
-\noindent and the difference of the second and third columns is the fourth at every row shown
-and at every row up to $n=11$.
+Fourth, the following table was produced by the same program and can be checked by hand at
+small $n$:
+\[
+\begin{array}{rrrr}
+n & T(12+1,9,n) & T(12,9,n) & F(n,9) \\ \hline
+1 & 13 & 12 & 1 \\
+2 & 21997 & 17782 & 4579 \\
+\end{array}
+\]
 
-Third, the second clause was evaluated at its own index. For this entry the second clause bites at $n=12$, where $b=11=(n-1)$: there $L_{1}(11,12)-L_{1}(10,12)=177145$ and $3^{11}-2=177145$.
-
-\section*{References}
-\begin{enumerate}
-\item The OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org/A126365}.
-\end{enumerate}
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A125547: \url{https://oeis.org/A125547}.
+\end{thebibliography}
 
 \end{document}
