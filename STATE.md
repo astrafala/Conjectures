@@ -214,7 +214,7 @@ Recurring defects, all found this way:
 
 ## Where things stand
 
-* **13,739 papers installed** over 13,335 entries and **163 distinct arguments**, as of the
+* **13,739 papers installed** over 13,335 entries and **165 distinct arguments**, as of the
   morning of 15 September 2026. 235 were withdrawn that day and 109 of those reinstated once the
   duplicate test was corrected (defect 29); 122 stay withdrawn as genuine duplicates. The 15 September round: 11 from six notation defects in
   `algf` (IDEAS §Z, §AC), 21 from rebuilding two candidate pools (§AE), 2 from a new argument
