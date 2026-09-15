@@ -275,3 +275,29 @@ in the rotation.
 **So far it has proved nothing.** 135 of 688 asked: 88 still capped, 22 not open, and no proof.
 The list is genuinely stale and the vein behind it may still be empty; both will be known when
 the runner finishes.
+
+### And the contrast that settles what the cap means
+
+The same probe put to the caps `sweep_shard` recorded **today**, on the rebuilt name-readable
+pool: **0 of 25 build.** 15 refused at the cap outright, 10 timed out or were killed. Against
+23 of 30 for `capped.txt`, that is a clean separation:
+
+* `capped.txt` (811, refused by the engines of an earlier round) — **stale**, most now build;
+* `namepool2`'s 1,281 caps (refused this morning) — **real**.
+
+So the two are different objects and only the first was worth re-asking. Both are now recorded
+as such.
+
+**And the rebuilt name-readable pool is 77 per cent state space.** 1,660 entries asked, 25
+proved, **1,281 capped** — the pool that looked like the round's biggest find is, after the
+engines get to it, mostly a wall. Across every shard run this project has made, **1,835 distinct
+off-roster entries are capped**, and each has an engine that reads its name: `galcoord` 226,
+`transfer40` 138, `ca2dcount` 102, `latpoly` 96, `ca2d` 90, `transfer17` 80, and a tail.
+
+**That is the ceiling, and it is engineering rather than mathematics.** Raising the cap was
+tried and is recorded as not working: 6,000,000 built two models in five minutes and proved
+neither. What moves it is building a SMALLER automaton, not affording a bigger one —
+`transfer17` already has a `build_pairfree` construction whose comment says it "merges before
+the states exist and is both smaller and faster". No other engine has one. That is the concrete
+next piece of work behind 1,835 entries, and it is named here rather than attempted in the last
+minutes of a round.
