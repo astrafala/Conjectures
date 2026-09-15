@@ -20,7 +20,8 @@ import re
 import sympy
 
 x = sympy.Symbol('x')
-GFLINE = re.compile(r'^\s*(?:G\.f\.|Generating function)\s*[:.]\s*(.*)$', re.I)
+# `O.g.f.' is the same line, and the corpus writes the separator as `=' as often as `:'.
+GFLINE = re.compile(r'^\s*(?:(?:o\.)?g\.f\.|Generating function)\s*[:.=]\s*(.*)$', re.I)
 CONJ = re.compile(r'\b(conjecture|conjectured|conjecturally|empirical)\b', re.I)
 ATTR = re.compile(r'\s*-\s*_[^_]+_,.*$')
 # The older house style puts the attribution in SQUARE BRACKETS instead:
@@ -45,7 +46,15 @@ def parse_gf(line):
     # a bare "G.f.: A(x) satisfies ..." or anything naming another sequence is out of scope
     if re.search(r'satisf|where|for\s|sum_|Sum_|prod|Prod|A\d{6}|!|integral', body):
         return None
-    body = body.replace('^', '**')
+    # This reader served the largest settleable pool in the project and accepted only a g.f.
+    # written with every multiplication spelled out: `1/(1-2x-x^2)' -- the commonest notation
+    # in the corpus -- was refused, as was `(1-z)/(1-2z-z^2)' and anything grouped with square
+    # brackets. That is the same defect found in `algf' the same day, on a bigger pool, so the
+    # normalisation now comes from the same place rather than being written twice.
+    import algf
+    body = algf._implicit(body)
+    if 'z' in body and 'x' not in body:
+        body = re.sub(r'\bz\b', 'x', body)
     if not re.fullmatch(r'[-+*/()0-9x. ]+', body):
         return None
     try:

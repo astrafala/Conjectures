@@ -835,3 +835,17 @@ at the top; three are required once a prefix is allowed.
 `zeilbrun.sh` merged: 175 records, 6 PROVED, **0 new** — all six are on entries already on the
 roster except A010845, which the entry itself records as following from its own ODE. Correctly
 withheld.
+
+### Two more reader fixes, both measured, both null (IDEAS §AD)
+
+`algf.from_name` could not read the standard trailing phrase "**in powers of x**" (1,552 names
+carry it). Fixed; of the 756 with an x or z variable, **744 carry no readable claim**. Zero
+candidates. `gfrec.parse_gf` — the reader behind the project's largest pool — accepted only a
+g.f. with every `*` written out, refusing `1/(1-2x-x^2)`, `O.g.f.`, `G.f.=`, bracket grouping
+and `z`. Fixed; measured corpus-wide rather than over the pool (**the pool was built by a
+filter using that reader, so a regression over it is blind by construction**): 5 newly readable,
+of which three state the g.f. inside a conjectural block, one is marked proved, and one says in
+its own text that the g.f. implies the recurrence. **Zero results.**
+
+Both fixes are correct and stay. Neither is a vein. The yield of a reader fix is not the size of
+the refusal — it is the overlap between the refusal and the entries that state a claim.

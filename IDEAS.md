@@ -1432,3 +1432,49 @@ One thing the two results do show: A292461's NAME already gives its g.f. in clos
 (`Expansion of (1 - x - x^2 + sqrt((1 - x - x^2)^2 - 4*x^3))/2`), and `algf.from_name` refused
 it. The continued fraction was the second route to a function the first route should have read.
 That is a `from_name` defect worth a census of its own, and it is the next thing to measure.
+
+## AD. Where the reader-defect pattern STOPS paying (15 September)
+
+Today's eleven results all came from one move: find the notational defect that makes a reader
+refuse a line, fix it, re-sweep. It is the move that has found every large vein in this project,
+and the temptation after a morning like this one is to apply it everywhere. So it was applied
+to the two places where it should have paid most, and it paid **nothing**, and that is worth
+recording as carefully as the successes.
+
+### `algf.from_name` and "in powers of x" — zero
+
+`from_name` is the STRONGER g.f. source (A116388 is why: an entry's formula line can be wrong
+where its name is right). It refused `Expansion of (1 - x - x^2 + sqrt(...))/2 **in powers of
+x**` because the trailing phrase, which names the variable rather than qualifying the function,
+became three unknown words. 1,552 names in the corpus carry that phrase; 756 of them in a form
+where the variable is x or z.
+
+Fixed, and then measured: of those 756, **744 carry no readable claim of any kind**, 10 are not
+open, 2 are already on the roster. **Zero candidates.** Regression over the P-recursive pool:
+1 gained (A292461, already counted through `cfrac`), 0 lost. The fix is right and stays — it
+reads a stronger source — but it is not a vein.
+
+### `gfrec.parse_gf` and implicit multiplication — zero
+
+This is the reader behind the largest settleable pool in the project (3,520 entries: a
+conjectured recurrence plus a generating function stated as fact). It accepted only a g.f. with
+every multiplication spelled out — `1/(1-2x-x^2)`, the commonest notation in the corpus, was
+refused, as were `O.g.f.`, `G.f.=`, square-bracket grouping, and `z` as the variable. Exactly
+the five defects found in `algf` the same day. It now normalises through `algf._implicit`.
+
+Measured over the whole clone rather than over the pool — **the pool cannot answer this**, since
+it was built by a filter using the same reader, so an entry written `1/(1-2x)` never entered it
+and a regression over it is blind by construction. Corpus-wide: 3,039 entries read by both
+readers, 35 by neither, **5 by the wider one alone**, 0 lost. Of those 5: three state the g.f.
+inside a `Conjectures from ... (Start)` block, so it is itself a conjecture and `factlines`
+excludes it correctly; one (A092387) is marked proved in the entry; and A090381's own text says
+"the defining g.f. implies the recurrence". **Zero results.**
+
+### What this says about the pattern
+
+A reader defect is only a vein when the refused entries have something to prove. Both of these
+refusals were real, both fixes are correct, and behind both was a population that carries no
+conjecture — 744 of 756 in one case, and in the other a corpus where contributors almost always
+write the `*`. The pattern's yield is not in the size of the refusal; it is in the overlap
+between the refusal and the entries that state a claim. The Motzkin family this morning had that
+overlap (16 of 41) and paid; these two do not and paid nothing.

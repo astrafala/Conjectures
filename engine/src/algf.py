@@ -64,6 +64,13 @@ def _implicit(s):
 
 
 NAME = re.compile(r'^\s*(?:Expansion of|Generating function(?: for)?)\s*[:]?\s*(.*)$', re.I)
+# "Expansion of <f> in powers of x" is the corpus's standard phrasing -- 1,552 names carry it --
+# and it names the variable rather than qualifying the function. Left in place it becomes three
+# unknown words and the name is refused: A292461 gives its g.f. in its own name in closed form
+# and was read only because the same function happened to be written elsewhere as a continued
+# fraction. Powers of q are a different subject (q-series, eta quotients) and stay refused.
+INPOWERS = re.compile(r'\s*,?\s*in\s+(?:increasing\s+)?powers\s+of\s+([A-Za-z])\s*\.?\s*$',
+                      re.I)
 INNER = re.compile(r'^\s*(?:g\.f\.|ordinary generating function)\s*[:]?\s*', re.I)
 EGF = re.compile(r'\be\.g\.f\.|exponential generating', re.I)
 
@@ -88,6 +95,11 @@ def from_name(e):
     if EGF.search(nm):
         return None
     body = INNER.sub('', body).strip()
+    mv = INPOWERS.search(body)
+    if mv:
+        if mv.group(1).lower() not in ('x', 'z'):
+            return None
+        body = body[:mv.start()].strip().rstrip(',')
     if OUT.search(body) or re.search(r'\bwhere\b|satisf|,', body, re.I):
         return None
     return _parse(body)
