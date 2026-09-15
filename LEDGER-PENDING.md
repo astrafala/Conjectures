@@ -103,3 +103,24 @@ is the same one the refusal census found from the other direction.
 
 **The rule, now with eleven measurements behind it: rebuild a sweep's pool from the clone before
 running it again.** It costs one sharded scan. It was wrong eight times out of eleven.
+
+## 15 September 2026 — `engine/src` split before it hit GitHub's listing cap
+
+913 tracked files against a 1,000-entry cap. 525 of the 882 Python files were referenced by no
+import, no runner and no document — one-off scripts from past rounds — and moved to
+`engine/attic/` with `git mv`, which leaves `src/` at 470 and deletes nothing.
+
+**Two static scans were wrong before one was right.** The first missed every name after the
+first in `import entry, phispec, phitex, phimeta`. The second missed `uniform.py`'s 133 engines,
+which are loaded through `importlib.import_module` over a list and appear in no import
+statement. 82 files came back. The check that settled it reads imports with `ast` and resolves
+each name against `src/` or an installed package — and it must not be done by importing, since a
+sweep module RUNS on import and an import-based smoke test starts the whole engine.
+
+Verified after: 0 unresolvable imports across all 470 files, every `src/*.py` named by a runner
+exists, every path named in the documentation exists, `restart_all.sh` brings up 20 runners, and
+`status.py` runs.
+
+`engine/` itself is now the largest tracked directory at 714 and grows with every sweep, because
+the hits and done files live there and every script opens them by bare name from `cwd=engine`.
+Moving those is a real refactor, not a `git mv`. Recorded as defect 32 so it is done before 1,000.

@@ -310,6 +310,30 @@ The first census of the 2,211 printed its counts after the last entry, ran into 
 ninety-minute timeout and produced nothing at all from ninety minutes of CPU. Write results
 incrementally, to one file per shard, from the first entry.
 
+### defect 32 — a directory that GitHub will not finish listing
+
+`engine/src` reached 913 tracked files against GitHub's 1,000-entry listing cap. 525 of its 882
+Python files were referenced by no import, no runner and no document — one-off scripts from past
+rounds — and are now in `engine/attic/`, which leaves `src/` at 470. Nothing was deleted and
+`git mv` kept the history.
+
+**Two static scans were wrong before one was right**, and both mistakes are the same kind:
+
+* `^\s*(?:import|from)\s+([a-z_0-9]+)` captures only the FIRST name of
+  `import entry, phispec, phitex, phimeta`, so `phitex` looked unreferenced;
+* `uniform.py` imports its 133 engines through `importlib.import_module(e)` over a list, which
+  no import-statement scan sees at all.
+
+82 files had to be brought back. The check that finally settled it reads every file's imports
+with `ast` and resolves each name against `src/` or an installed package — and it must NOT be
+done by importing, because a sweep module RUNS when imported and an import-based smoke test
+starts the whole engine.
+
+`engine/` itself is now the largest tracked directory at 714, and it grows with every sweep
+because the hits and done files live there. Every script opens them by bare name from
+`cwd=engine`, so moving them is a real refactor rather than a `git mv`. Do it before 1,000, not
+at 999.
+
 ## When you create a new sharded sweep
 
 Add its shard files to `.gitignore` **at the moment you create it**, and add its stem to
