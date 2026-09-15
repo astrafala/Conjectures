@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223995, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223971, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223995 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
+OEIS A223971 counts arrays over $\{0,\dots,2\}$ whose rows, columns, diagonals or
 antidiagonals are required to be monotone or unimodal, and carries an empirical recurrence of
 order $18$ contributed by R.~H.~Hardin. A monotone condition is local, but a unimodal one
 is not: a sequence is unimodal exactly when it never rises again after it has fallen, so the
 state must remember which sequences have already fallen. With those bits carried along, $a(n)$
-is a walk count on $S=240$ vertices and the recurrence follows from a finite exact
+is a walk count on $S=736$ vertices and the recurrence follows from a finite exact
 computation.
 \end{abstract}
 
@@ -32,31 +32,30 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A223995 is ``Number of nX4 0..2 arrays with antidiagonals unimodal and rows and diagonals nondecreasing.''. It has offset $1$ and begins
+OEIS A223971 is ``Number of nX4 0..2 arrays with rows and antidiagonals unimodal.''. It has offset $1$ and begins
 \[
-15, 155, 1144, 7927, 55333, 388598, 2743444, 19437479,\ \dots
+46, 2116, 76092, 2558848, 84988435, 2809740785, 92756321858, 3060966419662,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 15*a(n-1) -69*a(n-2) +66*a(n-3) +226*a(n-4) -172*a(n-5) -1192*a(n-6) +2157*a(n-7) -1714*a(n-8) -2876*a(n-9) +4966*a(n-10) +12095*a(n-11) -17584*a(n-12) +28968*a(n-13) +156*a(n-14) -2874*a(n-15) -2964*a(n-16) +15876*a(n-17) +1008*a(n-18) for n>19
+Empirical: a(n) = 46*a(n-1) -475*a(n-2) +1981*a(n-3) -20047*a(n-4) +170659*a(n-5) -619313*a(n-6) +1472430*a(n-7) -5125985*a(n-8) +14966969*a(n-9) -26289219*a(n-10) +49504177*a(n-11) -100448013*a(n-12) +127366991*a(n-13) -120709682*a(n-14) +121925145*a(n-15) -83316868*a(n-16) +21878656*a(n-17) -230400*a(n-18)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:09:40, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 23:05:26, revision 8) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;15\,a(n-1) - 69\,a(n-2) + 66\,a(n-3) + 226\,a(n-4) - 172\,a(n-5) - 1192\,a(n-6) + 2157\,a(n-7) - 1714\,a(n-8) - 2876\,a(n-9) + 4966\,a(n-10) + 12095\,a(n-11) - 17584\,a(n-12) + 28968\,a(n-13) + 156\,a(n-14) - 2874\,a(n-15) - 2964\,a(n-16) + 15876\,a(n-17) + 1008\,a(n-18)
+a(n)\;=\;46\,a(n-1) - 475\,a(n-2) + 1981\,a(n-3) - 20047\,a(n-4) + 170659\,a(n-5) - 619313\,a(n-6) + 1472430\,a(n-7) - 5125985\,a(n-8) + 14966969\,a(n-9) - 26289219\,a(n-10) + 49504177\,a(n-11) - 100448013\,a(n-12) + 127366991\,a(n-13) - 120709682\,a(n-14) + 121925145\,a(n-15) - 83316868\,a(n-16) + 21878656\,a(n-17) - 230400\,a(n-18)
 \end{equation}
-for all $n>19$.
+for all $n>18$.
 
 \section{The conditions}
 
 The arrays have $4$ columns and $L=n$ rows. Written in (row, column)
 coordinates, the entry asks:
 \begin{itemize}
+\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is unimodal;
 \item along the direction $(1,-1)$ --- one step of $(1,-1)$ in (row, column) coordinates --- every sequence is unimodal;
-\item along the direction $(0,1)$ --- one step of $(0,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
-\item along the direction $(1,1)$ --- one step of $(1,1)$ in (row, column) coordinates --- every sequence is nondecreasing;
 \end{itemize}
 Here ``unimodal'' means nondecreasing and then nonincreasing, that is: no rise after a fall.
 
@@ -69,7 +68,7 @@ far end of the new row starts with its bit clear.
 
 \begin{lemma}\label{lem:walk}
 Let $\mathcal V$ be the set of pairs (a row satisfying every within-row condition, a
-bit vector), $|\mathcal V|=S=240$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
+bit vector), $|\mathcal V|=S=736$; let $(r,f)\to(s,f')$ be an edge when placing $s$ after $r$
 breaks none of the across-row conditions and $f'$ is $f$ updated by that step; let
 $\mathbf{v}$ mark the vertices whose bit vector is the one their row alone produces.
 Then
@@ -112,7 +111,7 @@ earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>19$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>18$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -120,7 +119,7 @@ Section~1.
 The digraph was built directly from the conditions listed above. The vector $w$ was formed by
 $18$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=19+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=18+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -129,7 +128,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $19$ published indices, with no shift fitted. The values agree exactly.
+every one of the $15$ published indices, with no shift fitted. The values agree exactly.
 This is what fixes the reading of the wording: ``rows and columns in nondecreasing order''
 means the rows and columns are sorted as vectors, not that each is nondecreasing along
 itself, and the two readings already differ at the second published term --- $86$ against
@@ -143,7 +142,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223995.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223971.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

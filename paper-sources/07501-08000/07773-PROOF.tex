@@ -12,48 +12,78 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A local condition on an array: OEIS A202416}
+\title{The empirical recurrence for OEIS A220566, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202416 carries an empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=39$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A220566 counts the ways of linking the cells of a grid $5$ cells wide, each cell either to
+itself or to exactly $1$ of its neighbours, the links being reciprocal, and carries an
+empirical recurrence of order $32$ contributed by R.~H.~Hardin. It is true, and it is
+decidable rather than empirical. A reciprocal link is an undirected edge and a self-link is
+no edge, so what is counted is the spanning subgraphs of a grid graph in which every vertex
+has degree $0$ or $1$; the edges crossing the boundary between two consecutive rows are a
+state, the count is a walk count on $S=89$ of them, and the conjectured recurrence is then
+settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 05C70.\normalsize
 
 \section{The conjecture}
 
-OEIS A202416 is ``Number of (n+2)X5 binary arrays with no more than one of any consecutive three bits set in any row or column.''. It has offset $1$ and begins
+OEIS A220566 is ``Number of ways to reciprocally link elements of an 5Xn array either to themselves or to exactly one horizontal or antidiagonal neighbor.''. It has offset $1$ and begins
 \[
-265, 1369, 7209, 37029, 190951, 989393, 5113271, 26412799,\ \dots
+1, 89, 1332, 36640, 810778, 19333688, 449429440, 10536960271,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) +5*a(n-2) +62*a(n-3) +127*a(n-4) +114*a(n-5) -371*a(n-6) -1575*a(n-7) -1934*a(n-8) +734*a(n-9) +5750*a(n-10) +8836*a(n-11) +2844*a(n-12) -11127*a(n-13) -15425*a(n-14) -6985*a(n-15) +2907*a(n-16) +11546*a(n-17) +11221*a(n-18) +2349*a(n-19) -2359*a(n-20) -3216*a(n-21) -3499*a(n-22) -779*a(n-23) +258*a(n-24) +224*a(n-25) +472*a(n-26) +58*a(n-27) +39*a(n-28) -2*a(n-29) -11*a(n-30) -a(n-32)
+Empirical: a(n) = 8*a(n-1) +332*a(n-2) +1166*a(n-3) -10416*a(n-4) -41922*a(n-5) +174048*a(n-6) +535206*a(n-7) -1872086*a(n-8) -2804534*a(n-9) +11470692*a(n-10) +3617576*a(n-11) -32706416*a(n-12) +4049368*a(n-13) +51508932*a(n-14) -14992866*a(n-15) -49988407*a(n-16) +16438786*a(n-17) +31549556*a(n-18) -9212528*a(n-19) -13108544*a(n-20) +2853616*a(n-21) +3512372*a(n-22) -487178*a(n-23) -584214*a(n-24) +44610*a(n-25) +58000*a(n-26) -2006*a(n-27) -3248*a(n-28) +34*a(n-29) +92*a(n-30) -a(n-32)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:34:37, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:51:01, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
+
+\section{What is being counted}
+
+A link is \emph{reciprocal}: if $u$ is linked to $v$ then $v$ is linked to $u$. So the links
+of a configuration are the edges of an undirected graph on the cells, and a cell ``linked to
+itself'' is a cell lying in no edge. The neighbour relation the entry names is the offset set
+\[
+(-1,0), (-1,1), (1,-1), (1,0),
+\]
+and the condition ``either to themselves or to exactly $1$ neighbours'' says that in that
+graph every cell has degree $0$ or $1$. Hence $a(n)$ counts the spanning subgraphs of the
+grid graph on the offset set above, of $n$ rows and $5$ columns,
+whose every degree is $0$ or $1$: a matching. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every neighbour offset, which is done once, before anything else, so that the walk always runs down the rows.
+
+One point of the English has to be fixed rather than guessed: whether a cell may spend both of
+its links on the same neighbour. It may not. For the king-move neighbourhood the $1\times2$
+and $2\times2$ counts are the degree-$0$-or-$2$ subgraphs of $K_2$ and of $K_4$, which are $1$
+and $1+4+3=8$ with simple edges and larger if a doubled edge were allowed; the entries of that
+family publish $1$ and $8$. The reading is in any case pinned entry by entry, because the
+model below is required to reproduce every term the entry publishes.
+
 
 \section{The count is a walk count}
 
-The entry counts arrays with $5$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $3$ consecutive entries, taken along a row or down a column, may contain more than $1$ ones.
+Every offset above changes the row index by at most one, so an edge either lies inside a row
+or crosses the boundary between two consecutive rows. Take as state the set of edges crossing
+one boundary. Placing a row means choosing the horizontal edges inside it and the edges it
+sends down to the next row; at that moment each of its cells knows all of its links --- those
+arriving from the row above, those inside the row, those going down --- so its degree, and any
+condition on the pair of links at a cell, is settled there and never revisited.
 
-Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
-
-Merging vertices with identical futures leaves $S=39$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Reading a configuration from the top therefore gives a walk that begins at the empty boundary,
+takes one step per row, and ends at the empty boundary, and every such walk comes from exactly
+one configuration. With $M$ the adjacency matrix of the digraph on the $S=89$ reachable
+states and $\iota,\tau$ the indicator vectors of the empty boundary,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+so $a$ is $C$-finite. States are generated from the empty boundary outward, so only the
+reachable ones are ever built; the alignment of the walk index with the entry's own $n$ was
+checked against its published terms rather than assumed.
 
 \section{The proof}
 
@@ -70,49 +100,44 @@ Factor $M^{j}$ out of $M^{j+32}-\sum_ic_iM^{j+32-i}$. For the bound, $M^{S}$
 is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
 $u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
 polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly. A constant factor in front of $a$ divides out of the residual and
-changes nothing here.
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 5\,a(n-2) + 62\,a(n-3) + 127\,a(n-4) + 114\,a(n-5) - 371\,a(n-6) - 1575\,a(n-7) - 1934\,a(n-8) + 734\,a(n-9) + 5750\,a(n-10) + 8836\,a(n-11) + 2844\,a(n-12) - 11127\,a(n-13) - 15425\,a(n-14) - 6985\,a(n-15) + 2907\,a(n-16) + 11546\,a(n-17) + 11221\,a(n-18) + 2349\,a(n-19) - 2359\,a(n-20) - 3216\,a(n-21) - 3499\,a(n-22) - 779\,a(n-23) + 258\,a(n-24) + 224\,a(n-25) + 472\,a(n-26) + 58\,a(n-27) + 39\,a(n-28) - 2\,a(n-29) - 11\,a(n-30) - a(n-32)
+a(n)\;=\;8\,a(n-1) + 332\,a(n-2) + 1166\,a(n-3) - 10416\,a(n-4) - 41922\,a(n-5) + 174048\,a(n-6) + 535206\,a(n-7) - 1872086\,a(n-8) - 2804534\,a(n-9) + 11470692\,a(n-10) + 3617576\,a(n-11) - 32706416\,a(n-12) + 4049368\,a(n-13) + 51508932\,a(n-14) - 14992866\,a(n-15) - 49988407\,a(n-16) + 16438786\,a(n-17) + 31549556\,a(n-18) - 9212528\,a(n-19) - 13108544\,a(n-20) + 2853616\,a(n-21) + 3512372\,a(n-22) - 487178\,a(n-23) - 584214\,a(n-24) + 44610\,a(n-25) + 58000\,a(n-26) - 2006\,a(n-27) - 3248\,a(n-28) + 34\,a(n-29) + 92\,a(n-30) - a(n-32)
 \]
-for every $n>32$.
+for every $n>31$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $32$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=32+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=31+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
-Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202416.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220566.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{lovasz} L.~Lov\'asz and M.~D.~Plummer, \emph{Matching Theory}, AMS Chelsea,
+2009.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -176,3 +176,29 @@ github.com — a browsing cosmetic, not a broken clone — and the growth was al
 which is now ignored. Doing an invasive move of 682 files across 105 call sites to fix a display
 limit would be the wrong trade. Recorded in STATE.md under defect 32 with the measurement, so the
 next round decides from numbers rather than from the alarm.
+
+## 15 September 2026 — the median windowed images, settled: 9 papers
+
+**9 papers; roster 13,738 over 13,334 entries; 164 → 165 arguments.** New argument
+`window-median-alphabet`.
+
+§AF built the order-type argument for a windowed MAXIMUM and stopped at the median: a median
+witness can need a value strictly BETWEEN two entries of the candidate, and whether an integer
+sits in that open interval is a fact about the GAPS, which the order type does not record. Four
+entries whose terms the order-type formula happened to reproduce were withheld. That was the
+right call, and the census that replaces it now proves them — **by a different argument that
+gives the same polynomial.**
+
+Classifying by (order type, gap pattern) is 2^(m+1) times larger, twelve million tests at L = 7.
+It collapses because achievability is **monotone in the set of available gaps**: test whether the
+candidate is achievable with no extra letters (then every pattern works and the type contributes
+the whole `C(n+1,m)`) and whether it is achievable with every gap open (if not, it contributes
+nothing). Only the types between the two need the pattern sum, and here they are few — two tests
+apiece instead of 2^(m+1), and the census runs in minutes.
+
+All nine prove, each equalling the conjectured polynomial exactly: A228741–A228744 plain,
+A229013–A229017 with the source array required to have no two adjacent entries equal.
+
+Worth saying plainly: the withheld four had the RIGHT answer all along from an argument that did
+not hold. Reproducing thirty published terms was the standard of evidence the conjecture already
+had; what was missing was the reason, and that is what has been supplied.

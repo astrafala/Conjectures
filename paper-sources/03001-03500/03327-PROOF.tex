@@ -12,168 +12,180 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A268890, proved by a counting transfer matrix}
+\title{The empirical recurrence for OEIS A214115, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A268890 counts arrays over $\{0,\dots,1\}$ subject to a condition on the array as a
-whole rather than cell by cell: the number of adjacent pairs with a stated property must be
-exactly one. A transfer matrix still applies once the running count is carried in the state; and
-because a count of two or more can never come back, those states may be dropped outright,
-which is what keeps the digraph sparse. That makes $a(n)$ a walk count on $S=64$ vertices,
-and the empirical recurrence of order $26$ contributed by R.~H.~Hardin then follows from
-a finite exact computation.
+OEIS A214115 counts the proper colourings of a grid $4\times(n+1)$, wrapped in the growing direction, with at most $4$ colours and
+counted up to renaming the colours, and carries an empirical recurrence of order $26$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting
+up to renaming is a fixed rational combination of ordinary colouring counts; each of those is
+a walk count; and because permuting the colours preserves everything in sight, the walk may be
+run on the colour-patterns rather than on the colourings, which is what brings the state count
+down to $S=638$ and makes the exact residual test affordable.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C15, 05C30.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A268890 is ``Number of 5Xn binary arrays with some element plus some horizontally or antidiagonally adjacent neighbor totalling two exactly once.''. It has offset $1$ and begins
+OEIS A214115 is ``Number of 0..3 colorings of a 4X(n+1) array circular in the n+1 direction with new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-0, 235, 2418, 31956, 317966, 3283890, 31427480, 299524050,\ \dots
+172, 1331, 110985, 3008980, 136579852, 4797577911, 191154162535, 7146408189140,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 2*a(n-1) +97*a(n-2) +116*a(n-3) -2923*a(n-4) -10986*a(n-5) +4951*a(n-6) +72992*a(n-7) +36740*a(n-8) -223968*a(n-9) -159382*a(n-10) +423052*a(n-11) +256370*a(n-12) -539504*a(n-13) -176570*a(n-14) +450908*a(n-15) +6166*a(n-16) -217920*a(n-17) +57416*a(n-18) +45120*a(n-19) -25021*a(n-20) +562*a(n-21) +2089*a(n-22) -388*a(n-23) -31*a(n-24) +14*a(n-25) -a(n-26)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 26*a(n-1) +793*a(n-2) -10672*a(n-3) -111685*a(n-4) +1555742*a(n-5) +3279675*a(n-6) -80896036*a(n-7) +42501359*a(n-8) +1864752866*a(n-9) -2747661047*a(n-10) -22752052704*a(n-11) +41970382902*a(n-12) +159827903260*a(n-13) -310989873234*a(n-14) -665904810616*a(n-15) +1268829519909*a(n-16) +1620764697790*a(n-17) -2947553967077*a(n-18) -2132419325552*a(n-19) +3856072745271*a(n-20) +1195236104310*a(n-21) -2617797795489*a(n-22) +77268263580*a(n-23) +689877538245*a(n-24) -233806181994*a(n-25) +22293440379*a(n-26)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 15 2016 11:37:09, revision 4) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 16:52:27, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;2\,a(n-1) + 97\,a(n-2) + 116\,a(n-3) - 2923\,a(n-4) - 10986\,a(n-5) + 4951\,a(n-6) + 72992\,a(n-7) + 36740\,a(n-8) - 223968\,a(n-9) - 159382\,a(n-10) + 423052\,a(n-11) + 256370\,a(n-12) - 539504\,a(n-13) - 176570\,a(n-14) + 450908\,a(n-15) + 6166\,a(n-16) - 217920\,a(n-17) + 57416\,a(n-18) + 45120\,a(n-19) - 25021\,a(n-20) + 562\,a(n-21) + 2089\,a(n-22) - 388\,a(n-23) - 31\,a(n-24) + 14\,a(n-25) - a(n-26)
-\end{equation}
-for all $n>26$.
+\section{What is being counted}
 
-\section{A global count, and how to carry it}
+A \emph{colouring} here is proper: cells adjacent horizontally or vertically carry different
+values, and ``circular in one direction'' means the two ends of that direction are adjacent as
+well. The check that this is the right reading is the entry's own first term for the
+one-row case: a cycle of $W$ cells has $(i-1)^W+(-1)^W(i-1)$ proper colourings over $i$
+colours, which at $W=6$, $i=3$ is $66$, and $66/3!=11$ is what the corresponding entry of this
+family publishes.
 
-The arrays have $5$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
-column $t$ and row $u$. Call two cells \emph{adjacent} when they differ by one of the
-offsets
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its equality pattern, so what is counted is patterns, not arrays.
+Write $N_j$ for the number of admissible patterns using exactly $j$ colours and $L_i$ for the
+number of admissible colourings over an alphabet of $i$ colours. A colouring over $i$ colours
+is a pattern together with an injection of its colours into the alphabet, so
 \[
-\mathcal N=\{(1,0),\ (1,-1)\},
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-written as (column shift, row shift), and call an adjacent pair $\{p,q\}$
-\emph{marked} when
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-x_{p}+x_{q}=2 .
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
-Each unordered adjacency is represented by exactly one offset, all with a nonnegative column
-shift, so every pair is named once and only once: the pairs inside a column are seen when
-that column is laid down, and the pairs joining two columns when the later of the two is. The
-entry's requirement is
-\begin{equation}\label{eq:glob}
-\#\{\text{marked pairs in the whole array}\}\;=1.
-\end{equation}
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials. Being properly coloured is a statement about equalities alone, so it is invariant
+under permuting the colours and the reduction is legitimate.
 
-This is not a condition on any bounded window, so no transfer matrix over columns alone can
-express it. It becomes one as soon as the running total is part of the state. Let
+\section{Each $L_i$ is a walk count}
+
+A column of the array is a proper colouring of the path $P_{4}$ and two consecutive
+columns must differ in every one of the $4$ positions; the wrapping makes the last column
+adjacent to the first. A colouring of the array is therefore a CLOSED walk of $m=n+1$ steps
+in the digraph $T_i$ whose vertices are the proper colourings of $P_{4}$ over $i$ colours
+and whose edges join colourings differing everywhere, so
 \[
-\mathcal V=\bigl\{(r,c):\ r\in\{0,\dots,1\}^{5},\ c\in\{0,1\}\bigr\},
-\qquad |\mathcal V|=S=64,
+L_i(n)\;=\;\operatorname{tr}\,T_i^{\,m},\qquad m=n+1.
 \]
-and for columns $r,s$ write $\beta(r,s)$ for the number of marked pairs joining them plus the
-number of marked pairs inside $s$. Declare $(r,c)\to(s,c+\beta(r,s))$ an edge whenever
-$c+\beta(r,s)\le1$, and no edge otherwise.
+A trace is not $\iota^{\!\top}M^m\tau$ for fixed vectors, and computing it as a sum over all
+starting vertices is far too expensive. Lemma~\ref{lem:trace} replaces it by a handful of
+walks with fixed ends.
 
-\begin{remark}
-Dropping the states with $c\ge2$ is not an approximation. Once the total has reached two it
-can only grow, so no array satisfying \eqref{eq:glob} passes through such a state. Keeping
-them --- as a third, absorbing value of $c$ --- would make every pair of columns an edge and
-the digraph dense, with $(1+1)^{2\cdot5}$ edges instead of the sparse set used here.
-\end{remark}
-
-\begin{lemma}\label{lem:walk}
-Let $\mathbf{v}$ mark the vertices $(r,c)$ whose count $c$ equals the number of marked pairs
-inside $r$ alone, and $\mathbf{u}$ the vertices with $c=1$. Then for $L\ge1$ the arrays
-of $L$ columns satisfying \eqref{eq:glob} are exactly the walks of length $L-1$ from a
-vertex marked by $\mathbf{v}$ to one marked by $\mathbf{u}$, so
+\begin{lemma}\label{lem:trace}
+Let $G$ be a group acting on the vertex set of a digraph and preserving its edges, and let $M$
+be the adjacency matrix. Then $(M^m)_{ss}=(M^m)_{\sigma s,\sigma s}$ for every
+$\sigma\in G$, and hence
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n .
+\operatorname{tr} M^m\;=\;\sum_{\text{orbits }O}|O|\;(M^m)_{s_O s_O} ,
 \]
+one representative $s_O$ per orbit. For $T_i$ with $G=S_i$ permuting the colours, the orbits
+are the equality patterns and the orbit of a colouring using $j$ colours has
+$i(i-1)\cdots(i-j+1)$ members.
 \end{lemma}
 
 \begin{proof}
-A walk $(r^{(1)},c_1)\to\cdots\to(r^{(L)},c_L)$ determines the array
-$r^{(1)},\dots,r^{(L)}$, and conversely each array determines at most one walk, since the
-starting count is fixed by $\mathbf{v}$ and each step's count is determined. By induction
-$c_t$ is the number of marked pairs in the first $t$ columns: it holds at $t=1$ by the
-definition of $\mathbf{v}$, and the step from $t$ to $t+1$ adds exactly the pairs joining
-columns $t$ and $t+1$ together with those inside column $t+1$, which are precisely the marked
-pairs of the first $t+1$ columns not already counted --- each unordered pair being named by
-exactly one offset. The walk exists (no edge is missing) if and only if the running total
-never exceeds $1$, which for a nondecreasing total is the same as $c_L\le1$; and
-$\mathbf{u}$ imposes the entry's requirement on $c_L$. Note the state already carries one
-column, so $L$ columns correspond to a walk of length $L-1$.
+$\sigma$ permutes the vertices and carries walks to walks bijectively, so the closed walks of
+length $m$ at $s$ correspond to those at $\sigma s$. Summing the diagonal over each orbit
+gives the displayed identity. Permuting colours preserves ``differ in every position'', so
+$S_i$ acts on the colourings of $P_{4}$ preserving $T_i$; two colourings lie in one orbit
+exactly when they have the same equality pattern, and a pattern using $j$ colours is realised
+in $i(i-1)\cdots(i-j+1)$ ways.
 \end{proof}
 
-\section{The criterion, and the computation}
-
-Let $q(t)=t^{26}-\sum_i c_i\,t^{26-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
-
-\begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$ and $h_j=G^{j}N^{o}\mathbf{u}$,
-$o=1n_0+0-1$,
+\begin{lemma}\label{lem:lump}
+Let a group $G$ act on the vertices of a digraph preserving its edges, and let $v$ be constant
+on the $G$-orbits. Then $Mv$ is constant on the $G$-orbits, and for a representative $s$ of
+the orbit $O$,
 \[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)\;=\;\,\mathbf{v}^{\!\top}G^{\,j-26}w,
-\qquad w=h_{26}-\sum_i c_i h_{26-i},
+(Mv)(O)\;=\;\sum_{O'}A_{OO'}\,v(O'),\qquad
+A_{OO'}=\#\{t\in O':\ s\to t\} .
 \]
-for $j\ge26$. Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for every $m\ge0$, and it is enough to check
-$m=0,1,\dots,S-1$.
+So an iteration started at a $G$-invariant vector may be carried out on the orbits.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value is the same combination of earlier
-ones.
+$\sigma\in G$ is an edge-preserving bijection, so it carries the out-neighbours of $s$ onto
+those of $\sigma s$; with $v$ constant on orbits, $(Mv)(s)$ and $(Mv)(\sigma s)$ are the same
+sum. The count $A_{OO'}$ is likewise independent of which representative of $O$ is used.
+\end{proof}
+
+Both endpoint vectors above are invariant under the relevant group --- the all-ones vectors
+under all of $S_i$, and, for a diagonal entry $(T_i^m)_{ss}$, the vector $e_s$ under the
+subgroup fixing $s$ --- so the whole computation runs on orbits. That is the entire reason the
+state count is $S=638$ rather than the number of colourings.
+
+Assembling the pieces, $a(n)$ is $\iota^{\!\top}M^{\,j}\tau$ on the disjoint union of the
+orbit digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights $w_i$ cleared of
+denominators; the walk index $j$ and the entry's $n$ differ by a constant, read off by
+matching the entry's published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
+
+\begin{lemma}\label{lem:crit}
+Let $q(t)=t^{26}-\sum_i c_it^{26-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
+\end{lemma}
+
+\begin{proof}
+Factor $M^{j}$ out of $M^{j+26}-\sum_ic_iM^{j+26-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>26$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;26\,a(n-1) + 793\,a(n-2) - 10672\,a(n-3) - 111685\,a(n-4) + 1555742\,a(n-5) + 3279675\,a(n-6) - 80896036\,a(n-7) + 42501359\,a(n-8) + 1864752866\,a(n-9) - 2747661047\,a(n-10) - 22752052704\,a(n-11) + 41970382902\,a(n-12) + 159827903260\,a(n-13) - 310989873234\,a(n-14) - 665904810616\,a(n-15) + 1268829519909\,a(n-16) + 1620764697790\,a(n-17) - 2947553967077\,a(n-18) - 2132419325552\,a(n-19) + 3856072745271\,a(n-20) + 1195236104310\,a(n-21) - 2617797795489\,a(n-22) + 77268263580\,a(n-23) + 689877538245\,a(n-24) - 233806181994\,a(n-25) + 22293440379\,a(n-26)
+\]
+for every $n>24$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from the definition of a marked pair. The vector $w$ was
-formed by $26$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=26+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen, which by Lemma~\ref{lem:crit}
-settles every larger $m$.
+The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=24+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights $w_i$ are cleared by a common denominator before any of this, so the whole
+computation is over the integers.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $17$ published indices, with no shift fitted: the number of columns is
-$L=n$, read off the entry's own name, and the offset says which index the first
-published term carries. The values agree exactly. This is where an error in the pair
-bookkeeping would show: counting an unordered pair twice, or missing the pairs inside the
-first column, changes the counts immediately. Indeed a first version of the computation
-placed the walk at length $L-2$ rather than $L-1$ --- the state carries a column, not a
-boundary --- and every value came out one index late, which the DATA comparison rejected.
+First, the model reproduces all $14$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A268890.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A214115.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{biggs} N.~Biggs, \emph{Algebraic Graph Theory}, 2nd ed., Cambridge University
+Press, 1993. (Chromatic polynomials and transfer matrices.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

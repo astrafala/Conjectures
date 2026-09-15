@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252720, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252688, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252720 counts arrays of width $3$ over an alphabet of $4$ letters in which every three
+OEIS A252688 counts arrays of width $3$ over an alphabet of $4$ letters in which every three
 consecutive entries taken along a row, a column or a diagonal hold a prescribed number of
 DISTINCT values, the arrays being counted up to renaming of the letters. The entry carries an
 empirical recurrence of order $13$ contributed by R.~H.~Hardin. It is true, and it is
@@ -27,22 +27,22 @@ decidable rather than empirical. Nothing in the condition compares letters by si
 count up to renaming is recovered from counts over fixed alphabets by inverting a triangular
 system of falling factorials; each of those is a walk count on pairs of consecutive rows, and
 the same symmetry is used a second time to run the walk on ORBITS of pairs, which is what
-brings the state count down to $S=51$.
+brings the state count down to $S=135$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A252720 is ``Number of (1+2) X (n+2) 0..3 arrays with every consecutive three elements in every row and diagonal having exactly two distinct values, and in every column and antidiagonal not having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
+OEIS A252688 is ``Number of (n+2)X(1+2) 0..3 arrays with every consecutive three elements in every row and column having exactly two distinct values, and in every diagonal and antidiagonal not having exactly two distinct values, and new values 0 upwards introduced in row major order.''. It has offset $1$ and begins
 \[
-39, 52, 70, 96, 129, 175, 237, 319,\ \dots
+46, 96, 148, 394, 707, 1982, 3703, 10772,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-2) + 6*a(n-3) - a(n-4) - 11*a(n-5) - 12*a(n-6) + 5*a(n-7) + 20*a(n-8) + 8*a(n-9) - 8*a(n-10) - 12*a(n-11) + 4*a(n-13) for n>14.
+Empirical: a(n) = 2*a(n-1) +9*a(n-2) -15*a(n-3) -30*a(n-4) +21*a(n-5) +80*a(n-6) +18*a(n-7) -132*a(n-8) -76*a(n-9) +88*a(n-10) +108*a(n-11) -32*a(n-12) -40*a(n-13) for n>14
 \end{quote}
-As of the ``Last modified'' line on the live entry (Dec 05 2018 11:07:46, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:38:13, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -53,13 +53,13 @@ entries may hold:
 \[
 \begin{array}{lll}
 \text{along} & \text{the triple} & \text{admissible numbers of distinct values} \\[2pt]
-\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $1, 3$ \\
+\text{a row} & $(i,j),\ (i,j+1),\ (i,j+2)$ & $2$ \\
 \text{a column} & $(i,j),\ (i+1,j),\ (i+2,j)$ & $2$ \\
-\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $2$ \\
+\text{a diagonal (nw--se)} & $(i,j),\ (i+1,j+1),\ (i+2,j+2)$ & $1, 3$ \\
 \text{an antidiagonal (ne--sw)} & $(i,j),\ (i+1,j-1),\ (i+2,j-2)$ & $1, 3$ \\
 \end{array}
 \]
-A triple counts only when all three of its cells lie inside the array. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges rows with columns and carries each diagonal direction to itself, so the two conditions are exchanged once and the diagonal ones left alone.
+A triple counts only when all three of its cells lie inside the array.
 
 The clause ``new values $0$ upwards introduced in row major order'' says the array is the
 canonical representative of its EQUALITY PATTERN: reading the cells in row major order, a
@@ -114,7 +114,7 @@ $w_i$ cleared of denominators,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,
 \]
-with $S=51$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
+with $S=135$ states in all. The walk index $j$ and the entry's own $n$ differ by a constant,
 read off by matching the published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
@@ -137,7 +137,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-2) + 6\,a(n-3) - a(n-4) - 11\,a(n-5) - 12\,a(n-6) + 5\,a(n-7) + 20\,a(n-8) + 8\,a(n-9) - 8\,a(n-10) - 12\,a(n-11) + 4\,a(n-13)
+a(n)\;=\;2\,a(n-1) + 9\,a(n-2) - 15\,a(n-3) - 30\,a(n-4) + 21\,a(n-5) + 80\,a(n-6) + 18\,a(n-7) - 132\,a(n-8) - 76\,a(n-9) + 88\,a(n-10) + 108\,a(n-11) - 32\,a(n-12) - 40\,a(n-13)
 \]
 for every $n>14$.
 \end{theorem}
@@ -155,7 +155,7 @@ performed until the final term.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $37$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -172,7 +172,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252720.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252688.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
 falling factorials, Section 1.9.)

@@ -47,6 +47,7 @@ The cost is the enumeration of the weak orderings of L elements -- the ordered B
 4,683 at L = 6 and 47,293 at L = 7 -- each tested once. The census depends only on
 (k, w, statistic, side condition), never on the entry, so entries of the same shape share it.
 """
+import collections
 import itertools
 from math import comb
 
@@ -154,3 +155,98 @@ def polynomial(A):
 
 
 NO_ADJACENT_EQUAL = lambda t: all(t[i] != t[i + 1] for i in range(len(t) - 1))
+
+
+# ---------------------------------------------------------------------------
+# The MEDIAN case, which the order type alone does not decide.
+#
+# A median witness can need a value strictly BETWEEN two entries of b, and whether an integer
+# sits in that open interval is a fact about the gaps, which the order type does not record.
+# Classifying by (order type, gap pattern) is exact but 2^(m+1) times larger, which at L = 7 is
+# twelve million tests.
+#
+# It collapses, because achievability is MONOTONE in the set of available gaps -- another letter
+# can only help. So test the two extremes first:
+#
+#   * achievable with NO extra letters (only b's own values): then every gap pattern works, and
+#     the order type contributes the whole C(n+1, m), because summing C(n-m, |P|-1) over every
+#     pattern P is exactly the number of ways to choose m values from {0..n};
+#   * not achievable even with EVERY gap available: it contributes nothing.
+#
+# Only the order types between the two need the per-pattern sum, and in this family there are
+# few. Two tests apiece instead of 2^(m+1).
+
+def _values(m, gaps):
+    """m increasing values realising exactly the available-gap set `gaps` (0..m)"""
+    v = [1 if 0 in gaps else 0]
+    for i in range(1, m):
+        v.append(v[-1] + (2 if i in gaps else 1))
+    top = v[-1] + 1 if m in gaps else v[-1]
+    return v, top
+
+
+def _alphabet(v, top, gaps, m):
+    """every letter a witness may use: b's values and one representative per available gap"""
+    al = list(v)
+    if 0 in gaps:
+        al.append(v[0] - 1)
+    for i in range(1, m):
+        if i in gaps:
+            al.append(v[i - 1] + 1)
+    if m in gaps:
+        al.append(top)
+    return sorted(set(al))
+
+
+def achievable_gaps(b, k, w, fn, gaps, cond=None):
+    """is b (as an order type) achievable when exactly `gaps` are non-empty?"""
+    m = max(b) + 1
+    v, top = _values(m, gaps)
+    bb = [v[r] for r in b]
+    al = _alphabet(v, top, gaps, m)
+    live = {t for t in itertools.product(al, repeat=w - 1)
+            if cond is None or cond(t)}
+    for i in range(w - 1, k):
+        nxt = set()
+        for st in live:
+            for x in al:
+                full = st + (x,)
+                if cond is not None and not cond(full):
+                    continue
+                if fn(full) != bb[i - w + 1]:
+                    continue
+                nxt.add(full[1:])
+        live = nxt
+        if not live:
+            return False
+    return True
+
+
+def census_gaps(k, w, stat, cond=None):
+    """(A, extra): A_m for the order types achievable with no extra letters, and a list of
+    (m, pattern-size) contributions for the ones that need some."""
+    L = k - w + 1
+    fn = {'max': max, 'min': min, 'median': _median}[stat]
+    A = [0] * (L + 1)
+    extra = collections.Counter()
+    for b, m in weak_orders(L):
+        none_ = frozenset()
+        all_ = frozenset(range(m + 1))
+        if achievable_gaps(b, k, w, fn, none_, cond):
+            A[m] += 1                      # every pattern works: the whole C(n+1, m)
+            continue
+        if not achievable_gaps(b, k, w, fn, all_, cond):
+            continue                       # nothing works
+        for r in range(1, m + 2):          # the residual: exactly which patterns work
+            for P in itertools.combinations(range(m + 1), r):
+                if achievable_gaps(b, k, w, fn, frozenset(P), cond):
+                    extra[(m, r)] += 1
+    return A[1:], extra
+
+
+def polynomial_gaps(A, extra):
+    """sum_m A_m C(n+1,m)  +  sum over the residual of C(n-m, |P|-1)"""
+    expr = polynomial(A)
+    for (m, r), cnt in extra.items():
+        expr += cnt * sp.binomial(n - m, r - 1)
+    return sp.expand(sp.simplify(sp.expand_func(expr)))

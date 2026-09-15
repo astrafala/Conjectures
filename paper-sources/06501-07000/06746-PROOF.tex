@@ -11,140 +11,143 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A275136, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140921, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A275136 carries an empirical recurrence of order $53$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=6031$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A140921 counts $6\times9$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $6\times9\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $54$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A275136 is ``Number of 7 X n 0..2 arrays with no element equal to any value at offset (-2,-2) (-1,0) or (-1,1) and new values introduced in order 0..2.''. It has offset $1$ and begins
+OEIS A140921 is ``Number of 6 X 9 matrices with elements in 0..n with each row and each column in nondecreasing order. 6,9,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-32, 972, 3148, 31772, 315021, 3146574, 31446544, 315531602,\ \dots
+1, 5005, 5725720, 2530768240, 559299781040, 72261531710368,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 53 (see link above).
+The entry states, as conjectures contributed by its author and never marked settled:
+\begin{quote}
+(empirical) set p,q,r to n,9,6 (in any order) in s=p+q+r-1; a(n) = product {i in 0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1))
 
-Empirical: a(n) = a(n-1) + 64*a(n-2) + 278*a(n-3) + 723*a(n-4) - 2014*a(n-5) - 54442*a(n-6) - 57787*a(n-7) - 10793*a(n-8) - 654251*a(n-9) + 8263792*a(n-10) + 898556*a(n-11) - 26752131*a(n-12) + 199755980*a(n-13) - 492244354*a(n-14) - 661448121*a(n-15) + 3077597870*a(n-16) - 10335961860*a(n-17) + 14507688723*a(n-18) + 42102127886*a(n-19) - 136502129495*a(n-20) + 212713532899*a(n-21) - 20666619093*a(n-22) - 994885987314*a(n-23) + 1753036069074*a(n-24) - 1192863287111*a(n-25) - 1650324887655*a(n-26) + 7550908722421*a(n-27) - 8207562150776*a(n-28) + 1065980677916*a(n-29) + 11011565186395*a(n-30) - 23601162169859*a(n-31) + 14588576818722*a(n-32) + 6591749764570*a(n-33) - 26930553342299*a(n-34) + 27510361753053*a(n-35) - 6506125741921*a(n-36) - 15453510488969*a(n-37) + 23696449073340*a(n-38) - 10197896399369*a(n-39) - 2617563385314*a(n-40) + 9540724924063*a(n-41) - 6875036903162*a(n-42) - 979103123301*a(n-43) + 1960516229851*a(n-44) - 677237506448*a(n-45) + 401983558440*a(n-46) + 321847340564*a(n-47) - 178464575776*a(n-48) - 77131454592*a(n-49) - 21558694784*a(n-50) + 3775588352*a(n-51) + 3946659840*a(n-52) + 467140608*a(n-53) for n>58
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 19 2021 21:22:02, revision 6) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 19 2025 11:09:52, revision 8) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=6031$ vertices,
+A matrix $x$ of shape $6\times9$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$6\times9$ rectangle --- a plane partition in a $6\times9\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\mathrm{PP}(6,9,n).
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-\section{The proof}
+\section{The box count is a polynomial}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{53}-\sum_i c_it^{53-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+53}-\sum_ic_iM^{j+53-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;\sum_{i=1}^{53}c_i\,a(n-i)
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-for every $n>58$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=1$ & $c_{2}$ & $=64$ \\
-$c_{3}$ & $=278$ & $c_{4}$ & $=723$ \\
-$c_{5}$ & $=-2014$ & $c_{6}$ & $=-54442$ \\
-$c_{7}$ & $=-57787$ & $c_{8}$ & $=-10793$ \\
-$c_{9}$ & $=-654251$ & $c_{10}$ & $=8263792$ \\
-$c_{11}$ & $=898556$ & $c_{12}$ & $=-26752131$ \\
-$c_{13}$ & $=199755980$ & $c_{14}$ & $=-492244354$ \\
-$c_{15}$ & $=-661448121$ & $c_{16}$ & $=3077597870$ \\
-$c_{17}$ & $=-10335961860$ & $c_{18}$ & $=14507688723$ \\
-$c_{19}$ & $=42102127886$ & $c_{20}$ & $=-136502129495$ \\
-$c_{21}$ & $=212713532899$ & $c_{22}$ & $=-20666619093$ \\
-$c_{23}$ & $=-994885987314$ & $c_{24}$ & $=1753036069074$ \\
-$c_{25}$ & $=-1192863287111$ & $c_{26}$ & $=-1650324887655$ \\
-$c_{27}$ & $=7550908722421$ & $c_{28}$ & $=-8207562150776$ \\
-$c_{29}$ & $=1065980677916$ & $c_{30}$ & $=11011565186395$ \\
-$c_{31}$ & $=-23601162169859$ & $c_{32}$ & $=14588576818722$ \\
-$c_{33}$ & $=6591749764570$ & $c_{34}$ & $=-26930553342299$ \\
-$c_{35}$ & $=27510361753053$ & $c_{36}$ & $=-6506125741921$ \\
-$c_{37}$ & $=-15453510488969$ & $c_{38}$ & $=23696449073340$ \\
-$c_{39}$ & $=-10197896399369$ & $c_{40}$ & $=-2617563385314$ \\
-$c_{41}$ & $=9540724924063$ & $c_{42}$ & $=-6875036903162$ \\
-$c_{43}$ & $=-979103123301$ & $c_{44}$ & $=1960516229851$ \\
-$c_{45}$ & $=-677237506448$ & $c_{46}$ & $=401983558440$ \\
-$c_{47}$ & $=321847340564$ & $c_{48}$ & $=-178464575776$ \\
-$c_{49}$ & $=-77131454592$ & $c_{50}$ & $=-21558694784$ \\
-$c_{51}$ & $=3775588352$ & $c_{52}$ & $=3946659840$ \\
-$c_{53}$ & $=467140608$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{6}\prod_{j=1}^{9}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $54$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $53$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=58+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$6\cdot9=54$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,9,6)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{6-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{6-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $69$ and $15$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+9+6-1$ one has $s-(n+i)=9+6-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{9+6-1-i}
+=\frac{(s-9-6+2+i)(s-9-6+3+i)\cdots s}{(9+6-1-i)!},
+\]
+a polynomial in $n$ of degree $9+6-1-i$. Multiplying over $i=0,\dots,6-1$ gives
+$\deg N=\sum_{i=0}^{6-1}(9+6-1-i)=69$. The denominator is
+$\prod_{i=0}^{6-1}(s-i)^{6-1-i}$, of degree
+$\sum_{i=0}^{6-1}(6-1-i)=15$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $54+15=69$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,69$, that is at $70$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $69$ has at most $69$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, Theorem~\ref{thm:poly} reproduces all $10$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $6$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,69$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A275136.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140921.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

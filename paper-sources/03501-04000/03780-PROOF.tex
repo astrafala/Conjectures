@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A204627, proved by counting patterns}
+\title{The empirical recurrence for OEIS A203982, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A204627 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A203982 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..2$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -28,7 +28,7 @@ inverting a falling factorial. The result is the clean identity
 $3!\,a(n)=\sum_i\binom{3}{i}D_{3-i}L_i(n)$ with $D_m$ the derangement numbers,
 and each $L_i$ is an ordinary walk count. A second reduction --- the chain is strongly
 lumpable over the patterns, because the condition is relabelling-invariant --- brings the
-state space down from $794$ to $S=155$. The entry's empirical recurrence of order
+state space down from $2316$ to $S=430$. The entry's empirical recurrence of order
 $15$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 \end{abstract}
 
@@ -36,26 +36,26 @@ $15$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A204627 is ``Number of (n+1)X6 0..2 arrays with every 2X2 subblock having unequal diagonal elements or unequal antidiagonal elements, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A203982 is ``Number of (n+1)X7 0..2 arrays with no 2X2 subblock having equal diagonal elements or equal antidiagonal elements, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
 \[
-49152, 19923888, 8077061502, 3274427479938, 1327448018292252, 538145459458960020, 218163372078770313246, 88443107870080810695504,\ \dots
+6144, 186624, 5668704, 178855776, 5671161216, 180709558848, 5764846339584, 184042295652096,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 460*a(n-1) -23188*a(n-2) +435694*a(n-3) -3658549*a(n-4) +11358936*a(n-5) +20419834*a(n-6) -191355445*a(n-7) +159553869*a(n-8) +865499344*a(n-9) -1132300188*a(n-10) -1371731191*a(n-11) +1522080017*a(n-12) +5670605*a(n-13) -262860202*a(n-14) +47382216*a(n-15)
+Empirical: a(n) = 39*a(n-1) +117*a(n-2) -13419*a(n-3) +42120*a(n-4) +1465776*a(n-5) -7558272*a(n-6) -59591376*a(n-7) +389959596*a(n-8) +776691180*a(n-9) -7353962460*a(n-10) -230291100*a(n-11) +53356676400*a(n-12) -41452398000*a(n-13) -124357194000*a(n-14) +143489070000*a(n-15)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 11:22:22, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:55:52, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;460\,a(n-1) - 23188\,a(n-2) + 435694\,a(n-3) - 3658549\,a(n-4) + 11358936\,a(n-5) + 20419834\,a(n-6) - 191355445\,a(n-7) + 159553869\,a(n-8) + 865499344\,a(n-9) - 1132300188\,a(n-10) - 1371731191\,a(n-11) + 1522080017\,a(n-12) + 5670605\,a(n-13) - 262860202\,a(n-14) + 47382216\,a(n-15)
+a(n)\;=\;39\,a(n-1) + 117\,a(n-2) - 13419\,a(n-3) + 42120\,a(n-4) + 1465776\,a(n-5) - 7558272\,a(n-6) - 59591376\,a(n-7) + 389959596\,a(n-8) + 776691180\,a(n-9) - 7353962460\,a(n-10) - 230291100\,a(n-11) + 53356676400\,a(n-12) - 41452398000\,a(n-13) - 124357194000\,a(n-14) + 143489070000\,a(n-15)
 \end{equation}
 for all $n>15$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $6$ columns and $L=n+1$ rows, so $L\cdot6$ cells. Call a
+Fix the shape: $7$ columns and $L=n+1$ rows, so $L\cdot7$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
@@ -68,7 +68,7 @@ subblock is
 \]
 and the entry's requirement on it is
 \begin{equation}\label{eq:loc}
-\alpha\ne\delta\ \text{ or }\ \beta\ne\gamma.
+\text{not }\bigl(\alpha=\delta\ \text{ or }\ \beta=\gamma\bigr).
 \end{equation}
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
@@ -114,7 +114,7 @@ $\frac{3!}{i!}\sum_{t\le 3-i}(-1)^t/t!=\binom{3}{i}(3-i)!\sum_{t\le 3-i}(-1)^t/t
 
 \section{Each $L_i$ is a walk count, and the chain lumps}
 
-Fix $i$ and let $V_i=\{0,\dots,i-1\}^{6}$ be the possible rows. For $r,s\in V_i$
+Fix $i$ and let $V_i=\{0,\dots,i-1\}^{7}$ be the possible rows. For $r,s\in V_i$
 declare $r\to s$ an edge when placing $s$ directly after $r$ satisfies \eqref{eq:loc} at
 every column, and let $M_i$ be the adjacency matrix. An array is exactly a sequence of
 rows, and its condition is exactly the conjunction of the edge conditions along that
@@ -153,13 +153,13 @@ gives the displayed identity, the number of rows of pattern $P$ being the number
 injections of its $|P|$ classes into the alphabet.
 \end{proof}
 
-Assembling the $3$ lumped chains into one block-diagonal matrix $N$ of size $S=155$ and
+Assembling the $3$ lumped chains into one block-diagonal matrix $N$ of size $S=430$ and
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
 $\mathbf{v}=\bigl(\binom{3}{i}D_{3-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
 3!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
 \end{equation}
-The unlumped alphabet had $794$ rows in all; the lumped chain has $S=155$ states.
+The unlumped alphabet had $2316$ rows in all; the lumped chain has $S=430$ states.
 
 \section{The criterion, and the computation}
 
@@ -206,7 +206,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $10$
+\eqref{eq:walk}, divided by $3!$, was evaluated at every one of the $14$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +222,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A204627.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203982.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

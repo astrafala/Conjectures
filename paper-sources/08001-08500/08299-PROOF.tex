@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252681, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252577, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252681 counts $4\times(n+2)$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A252577 counts $5\times(n+2)$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $3\times3$ subblock, and it carries an empirical recurrence of order $24$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive columns, so the state of a transfer matrix is a PAIR of
 consecutive columns and appending one more column is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=65536$ vertices. Such a sequence is $C$-finite, so whether a given
+$a(n)$ is a walk count on $S=1048576$ vertices. Such a sequence is $C$-finite, so whether a given
 recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
 theorem bounding the work.
 \end{abstract}
@@ -33,21 +33,21 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A252681 is ``Number of (2+2)X(n+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 0 2 5 6 or 7 and every 3X3 column and antidiagonal sum not equal to 0 2 5 6 or 7.''. It has offset $1$ and begins
+OEIS A252577 is ``Number of (3+2)X(n+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 1 2 5 6 or 7 and every 3X3 column and antidiagonal sum not equal to 1 2 5 6 or 7.''. It has offset $1$ and begins
 \[
-750, 630, 1005, 1525, 3185, 6645, 10933, 24685,\ \dots
+890, 1558, 4168, 9051, 30532, 92725, 208375, 715437,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 24*a(n-3) -203*a(n-6) +722*a(n-9) -959*a(n-12) -64*a(n-15) +1043*a(n-18) -682*a(n-21) +120*a(n-24) for n>33
+Empirical: a(n) = 46*a(n-3) -572*a(n-6) +1298*a(n-9) -3089*a(n-12) +4222*a(n-15) -3472*a(n-18) +3104*a(n-21) -1536*a(n-24) for n>32
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:31:25, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:24:12, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
 
 Write an admissible array as a sequence of columns $u_1,u_2,\dots$, each an element of
-$\{0,\dots,3\}^{4}$. A $3\times3$ subblock occupies three consecutive columns and
+$\{0,\dots,3\}^{5}$. A $3\times3$ subblock occupies three consecutive columns and
 three consecutive rows, so with $r,s,t$ three consecutive columns the blocks it
 contributes are
 \[
@@ -55,13 +55,13 @@ g=\begin{pmatrix}r_i&s_i&t_i\\ r_{i+1}&s_{i+1}&t_{i+1}\\ r_{i+2}&s_{i+2}&t_{i+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every row, diagonal sum} \in \{0,2,5,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{0,2,5,6,7\}
+\text{every row, diagonal sum} \in \{1,2,5,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{1,2,5,6,7\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive columns and on nothing else.
 
 Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of columns, of which there are
-$S=(3+1)^{2\cdot4}=65536$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
+$S=(3+1)^{2\cdot5}=1048576$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
 holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ columns is then a
 walk of length $L-2$ in $G$: its first two columns name the starting vertex and each further
 column is one step. Hence, with $M$ the adjacency matrix of $G$,
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;24\,a(n-3) - 203\,a(n-6) + 722\,a(n-9) - 959\,a(n-12) - 64\,a(n-15) + 1043\,a(n-18) - 682\,a(n-21) + 120\,a(n-24)
+a(n)\;=\;46\,a(n-3) - 572\,a(n-6) + 1298\,a(n-9) - 3089\,a(n-12) + 4222\,a(n-15) - 3472\,a(n-18) + 3104\,a(n-21) - 1536\,a(n-24)
 \]
-for every $n>33$.
+for every $n>32$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\mathbf{1}$ was formed by $24$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=33+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=32+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>33$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>32$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $26$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $22$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252681.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252577.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

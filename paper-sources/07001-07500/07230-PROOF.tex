@@ -12,42 +12,46 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A183327, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203368, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183327 counts arrays of width $6$ over $\{0,1\}$ under local conditions relating each cell
+OEIS A203368 counts arrays of width $5$ over $\{0,1,2\}$ under local conditions relating each cell
 to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
 order $41$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical: every condition is settled inside three consecutive array rows, so the count is a
-walk count on $S=947$ states.
+walk count on $S=3113$ states.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A183327 is ``Number of n X 6 binary arrays with each 1 adjacent to exactly two other 1's.''. It has offset $1$ and begins
+OEIS A203368 is ``Number of nX5 0..2 arrays with every 1 immediately preceded by 0 to the left or above, and every 2 immediately preceded by both a 1 and a 0.''. It has offset $1$ and begins
 \[
-1, 9, 37, 179, 996, 4740, 21259, 96524,\ \dots
+8, 390, 11541, 386353, 12450511, 406389748, 13204707603, 429752891417,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=7*a(n-1)-18*a(n-2)+38*a(n-3)-48*a(n-4)+110*a(n-5)-30*a(n-6)+13*a(n-7)+12*a(n-8)-168*a(n-9)+12*a(n-10)+396*a(n-11)+2076*a(n-12)-2107*a(n-13)-11936*a(n-14)-23630*a(n-15)-11374*a(n-16)+33929*a(n-17)+86596*a(n-18)+85928*a(n-19)-5767*a(n-20)-137160*a(n-21)-186375*a(n-22)-82400*a(n-23)+98660*a(n-24)+206026*a(n-25)+154539*a(n-26)+271*a(n-27)-129682*a(n-28)-144333*a(n-29)-59907*a(n-30)+31467*a(n-31)+61883*a(n-32)+37532*a(n-33)+5039*a(n-34)-7723*a(n-35)-5583*a(n-36)-944*a(n-37)+520*a(n-38)+332*a(n-39)+24*a(n-40)-32*a(n-41).
+Empirical: a(n) = 8*a(n-1) +546*a(n-2) +6648*a(n-3) +45695*a(n-4) +155600*a(n-5) +61882*a(n-6) -1929726*a(n-7) -6341507*a(n-8) -1031827*a(n-9) +73442108*a(n-10) +55123462*a(n-11) -798824581*a(n-12) -121340332*a(n-13) +11821135522*a(n-14) -40814804925*a(n-15) +72868528346*a(n-16) -81948555588*a(n-17) +42117655464*a(n-18) +48876481619*a(n-19) -99304458931*a(n-20) +59405965046*a(n-21) -26945786407*a(n-22) -8124737055*a(n-23) +27626384615*a(n-24) -1807845185*a(n-25) -1017629558*a(n-26) -10551444955*a(n-27) +7438583232*a(n-28) -664316388*a(n-29) -3441822102*a(n-30) +1245582332*a(n-31) +61135492*a(n-32) +129508714*a(n-33) -360303880*a(n-34) +205040924*a(n-35) -21412300*a(n-36) +27464384*a(n-37) -3646976*a(n-38) +819136*a(n-39) -81152*a(n-40) +26624*a(n-41)
 \end{quote}
-As of the ``Last modified'' line on the live entry (May 03 2023 21:14:45, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:23:27, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
+The array has $5$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
 cells immediately to its left, to its right, above it and below it, those that lie inside the
-array. The entry asks that
+array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
+immediately above it, those that lie inside the array. A cell in the top left corner has none
+at all, so a clause demanding a predecessor of a given value forbids that value there --- which
+is what makes the first published term what it is. The entry asks that
 \begin{itemize}
-\item every cell carrying $1$ has exactly $2$ of its four neighbours carrying $1$;
+\item every cell carrying $1$ has at least one predecessor carrying $0$;
+\item every cell carrying $2$ has one predecessor carrying $1$ and the other carrying $0$;
 \end{itemize}
 and nothing else.
 
@@ -68,14 +72,12 @@ steps, never more.
 So the state is the pair (row above, current row), with a row not yet written carried as
 $\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
 because everything they read is already written, and the adjacency clauses for the MIDDLE row
-of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
-written, so the condition for the LAST row of an array belongs to the end vector, which asks
-whether that row is satisfied with nothing below it. The end vector is therefore not the
-all-ones vector: a row satisfied only because a further row is written below it does not
-finish an array. With $M$ the
+of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
+row is settled as it is written and every state may end an array; the end vector is the
+all-ones vector. With $M$ the
 adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=947.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3113.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -100,7 +102,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) - 18\,a(n-2) + 38\,a(n-3) - 48\,a(n-4) + 110\,a(n-5) - 30\,a(n-6) + 13\,a(n-7) + 12\,a(n-8) - 168\,a(n-9) + 12\,a(n-10) + 396\,a(n-11) + 2076\,a(n-12) - 2107\,a(n-13) - 11936\,a(n-14) - 23630\,a(n-15) - 11374\,a(n-16) + 33929\,a(n-17) + 86596\,a(n-18) + 85928\,a(n-19) - 5767\,a(n-20) - 137160\,a(n-21) - 186375\,a(n-22) - 82400\,a(n-23) + 98660\,a(n-24) + 206026\,a(n-25) + 154539\,a(n-26) + 271\,a(n-27) - 129682\,a(n-28) - 144333\,a(n-29) - 59907\,a(n-30) + 31467\,a(n-31) + 61883\,a(n-32) + 37532\,a(n-33) + 5039\,a(n-34) - 7723\,a(n-35) - 5583\,a(n-36) - 944\,a(n-37) + 520\,a(n-38) + 332\,a(n-39) + 24\,a(n-40) - 32\,a(n-41)
+a(n)\;=\;8\,a(n-1) + 546\,a(n-2) + 6648\,a(n-3) + 45695\,a(n-4) + 155600\,a(n-5) + 61882\,a(n-6) - 1929726\,a(n-7) - 6341507\,a(n-8) - 1031827\,a(n-9) + 73442108\,a(n-10) + 55123462\,a(n-11) - 798824581\,a(n-12) - 121340332\,a(n-13) + 11821135522\,a(n-14) - 40814804925\,a(n-15) + 72868528346\,a(n-16) - 81948555588\,a(n-17) + 42117655464\,a(n-18) + 48876481619\,a(n-19) - 99304458931\,a(n-20) + 59405965046\,a(n-21) - 26945786407\,a(n-22) - 8124737055\,a(n-23) + 27626384615\,a(n-24) - 1807845185\,a(n-25) - 1017629558\,a(n-26) - 10551444955\,a(n-27) + 7438583232\,a(n-28) - 664316388\,a(n-29) - 3441822102\,a(n-30) + 1245582332\,a(n-31) + 61135492\,a(n-32) + 129508714\,a(n-33) - 360303880\,a(n-34) + 205040924\,a(n-35) - 21412300\,a(n-36) + 27464384\,a(n-37) - 3646976\,a(n-38) + 819136\,a(n-39) - 81152\,a(n-40) + 26624\,a(n-41)
 \]
 for every $n>40$.
 \end{theorem}
@@ -116,7 +118,7 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $22$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition:
@@ -132,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183327.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203368.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

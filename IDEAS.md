@@ -1969,3 +1969,34 @@ worth recording as its own small lesson about testing a directory full of script
 `engine/` itself is now the largest tracked directory at 714 and grows with every sweep, because
 the hits and done files live there and every script opens them by bare name from `cwd=engine`.
 That is a real refactor rather than a `git mv`, and defect 32 says to do it before 1,000.
+
+
+## AN. The median windowed image, settled (15 September)
+
+§AF built the order-type argument for a windowed MAXIMUM and stopped at the median, because a
+median witness can need a value strictly BETWEEN two entries of the candidate and whether an
+integer sits there is a fact about the GAPS, which the order type does not record. Four entries
+whose published terms the (wrong) order-type formula happened to reproduce were withheld — the
+right call, and the census that replaces it now proves them.
+
+Classifying by (order type, gap pattern) is exact and 2^(m+1) times larger: twelve million tests
+at L = 7. **It collapses, because achievability is monotone in the set of available gaps** — a
+further letter can only help. So test the two extremes:
+
+* achievable with NO extra letters: every pattern works, and the type contributes the whole
+  `C(n+1, m)`, since summing `C(n-m, |P|-1)` over every pattern P is exactly the number of ways
+  to choose m values from {0..n};
+* not achievable with EVERY gap open: it contributes nothing.
+
+Only the order types strictly between the two need the pattern-by-pattern sum, and in this family
+they are few. Two tests apiece instead of 2^(m+1), and the whole census runs in minutes.
+
+**All nine median entries prove**, each equalling the entry's conjectured polynomial exactly and
+reproducing every published term: A228741–A228744 plain, A229013–A229017 with the source array
+required to have no two adjacent entries equal — a comparison between entries, so it rides
+through the argument unchanged. New argument `window-median-alphabet`, `src/medbuild.py`.
+
+The four that §AF withheld are among the nine, and they are worth a sentence of their own: the
+order-type formula gave them the RIGHT polynomial by an argument that did not hold. Reproducing
+thirty published terms is the standard of evidence the conjecture already had; what was missing
+was the reason, and it is the reason that has now been supplied.

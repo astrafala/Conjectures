@@ -11,23 +11,19 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A224191, proved}
+\title{The empirical closed form for OEIS A223827, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A224191 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A223827 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=240$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=736$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{17}$, of degree
 $17$. Two things are then checked exactly: that the walk count satisfies the same
@@ -41,34 +37,26 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A224191 is ``Number of 4Xn 0..2 arrays with rows unimodal and columns nondecreasing.''. It has offset $1$ and begins
+OEIS A223827 is ``Number of n X 4 0..2 arrays with rows and columns unimodal.''. It has offset $1$ and begins
 \[
-15, 225, 2205, 15779, 89380, 422488, 1727738, 6272940,\ \dots
+46, 2116, 51136, 738482, 7291180, 54035194, 320423509, 1590193515,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical: a(n) = (1/106748928000)*n\^{}16 + (1/1482624000)*n\^{}15 + (7/266872320)*n\^{}14 + (127/197683200)*n\^{}13 + (311999/28740096000)*n\^{}12 + (212351/1596672000)*n\^{}11 + (31937/26127360)*n\^{}10 + (83129/9676800)*n\^{}9 + (34840531/746496000)*n\^{}8 + (9481183/48384000)*n\^{}7 + (90994151/143700480)*n\^{}6 + (123257231/79833600)*n\^{}5 + (43399375531/15567552000)*n\^{}4 + (2360326763/648648000)*n\^{}3 + (218135/61776)*n\^{}2 + (581099/360360)*n + 1
+\begin{quote}
+Empirical: a(n) = (456419/5230697472000)*n\^{}16 + (35741/12108096000)*n\^{}15 + (154711/2874009600)*n\^{}14 + (1309129/2075673600)*n\^{}13 + (149137159/28740096000)*n\^{}12 + (924691/29568000)*n\^{}11 + (261112321/1828915200)*n\^{}10 + (17095201/33868800)*n\^{}9 + (7372850867/5225472000)*n\^{}8 + (227410163/72576000)*n\^{}7 + (8054484973/1437004800)*n\^{}6 + (6610049/831600)*n\^{}5 + (112396487393/12108096000)*n\^{}4 + (4125505841/504504000)*n\^{}3 + (671183/110880)*n\^{}2 + (27067/10010)*n + 1.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:18:17, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Mar 01 2023 13:38:43, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\begin{multline*}
-f(n)\;=\;\frac{n^{16}}{106748928000} + \frac{n^{15}}{1482624000} \\
-+ \frac{7 n^{14}}{266872320} + \frac{127 n^{13}}{197683200} \\
-+ \frac{311999 n^{12}}{28740096000} + \frac{212351 n^{11}}{1596672000} \\
-+ \frac{31937 n^{10}}{26127360} + \frac{83129 n^{9}}{9676800} \\
-+ \frac{34840531 n^{8}}{746496000} + \frac{9481183 n^{7}}{48384000} \\
-+ \frac{90994151 n^{6}}{143700480} + \frac{123257231 n^{5}}{79833600} \\
-+ \frac{43399375531 n^{4}}{15567552000} + \frac{2360326763 n^{3}}{648648000} \\
-+ \frac{218135 n^{2}}{61776} + \frac{581099 n}{360360} \\
-+ 1.
-\end{multline*}
+\[
+f(n)\;=\;\frac{456419 n^{16}}{5230697472000} + \frac{35741 n^{15}}{12108096000} + \frac{154711 n^{14}}{2874009600} + \frac{1309129 n^{13}}{2075673600} + \frac{149137159 n^{12}}{28740096000} + \frac{924691 n^{11}}{29568000} + \frac{261112321 n^{10}}{1828915200} + \frac{17095201 n^{9}}{33868800} + \frac{7372850867 n^{8}}{5225472000} + \frac{227410163 n^{7}}{72576000} + \frac{8054484973 n^{6}}{1437004800} + \frac{6610049 n^{5}}{831600} + \frac{112396487393 n^{4}}{12108096000} + \frac{4125505841 n^{3}}{504504000} + \frac{671183 n^{2}}{110880} + \frac{27067 n}{10010} + 1.
+\]
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=240$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=736$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -143,7 +131,7 @@ The range is tight in the sense that was checked: the closed form holds from the
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $21$ terms the entry publishes,
+First, the walk model reproduces every one of the $18$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -161,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A224191.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223827.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)
