@@ -227,9 +227,22 @@ def _normalize(A, data, offset):
     return sp.together(A * x ** (offset - sh))
 
 
+
+# A generating function inside a `Conjectures from X: (Start)' block carries no conjectural word
+# ON ITS LINE, and this module tested for one line by line. That is defect 2, in the module that
+# supplies the PREMISE: reading such a line as fact and proving the entry's recurrence from it
+# proves nothing, because the two are one conjecture written twice. `factlines.facts` exists for
+# exactly this and records that 1,336 installed papers once had to be withdrawn for it. The
+# premise is now taken only from there.
+#
+# Audited when this was found: of the 36 entries carrying an installed `holonomic` paper, 33
+# took their premise from a fact line and 3 from the entry's NAME, which is always a fact. None
+# was affected. The hole was latent, not exploited.
+
 def read(e, _depth=0):
     """the g.f. as a sympy expression in x, or None."""
-    for L in e['formula'] + e['comment']:
+    import factlines
+    for L in factlines.facts(e):
         t = ' '.join(L.split())
         if CONJ.search(t):
             continue
@@ -305,7 +318,7 @@ def read(e, _depth=0):
     # a g.f. whose abbreviation is defined by an algebraic equation rather than in closed form
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
-    for L in e['formula'] + e['comment']:
+    for L in factlines.facts(e):
         t = ' '.join(L.split())
         if CONJ.search(t):
             continue
@@ -322,7 +335,7 @@ def read(e, _depth=0):
             return A
     # a g.f. written in terms of ANOTHER sequence's g.f., cited by A-number
     if not _depth:
-        for L in e['formula'] + e['comment']:
+        for L in factlines.facts(e):
             t = ' '.join(L.split())
             if CONJ.search(t):
                 continue

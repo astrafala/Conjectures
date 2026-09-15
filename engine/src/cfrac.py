@@ -169,7 +169,8 @@ def read(e):
     import algf
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
-    for L in e['formula'] + e['comment']:
+    import factlines
+    for L in factlines.facts(e):
         t = ' '.join(L.split())
         if 'continued fraction' not in t.lower():
             continue

@@ -11,88 +11,73 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A233706, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203369, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233706 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
-cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
-an empirical recurrence of order $88$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
-the count is a walk count on $S=3661$ states.
- Throughout, \emph{row} means a line of the array in the direction the walk grows: this entry fixes the first dimension and grows the second, so the array is read transposed, and a step appends what the entry's own name writes as a column.\end{abstract}
+OEIS A203369 counts arrays of width $6$ over $\{0,1,2\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
+order $88$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=17108$ states.
+\end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A233706 is ``Number of (1+2)X(n+2) 0..3 arrays with no increasing sequence of length 3 horizontally, vertically, diagonally downwards or antidiagonally downwards.''. It has offset $1$ and begins
+OEIS A203369 is ``Number of nX6 0..2 arrays with every 1 immediately preceded by 0 to the left or above, and every 2 immediately preceded by both a 1 and a 0.''. It has offset $1$ and begins
 \[
-164860, 7442986, 336085716, 15181195220, 684540459662, 30867953018180, 1391576275588606, 62734772781863860,\ \dots
+13, 1399, 85932, 6026844, 406389748, 27758308569, 1887519232797, 128552812110552,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical recurrence of order 88 (see link above)
-
-Empirical: a(n) = 60*a(n-1) - 139*a(n-2) - 32764*a(n-3) + 317451*a(n-4) + 4966876*a(n-5) - 69248802*a(n-6) - 201317612*a(n-7) + 5451994638*a(n-8) - 7348855450*a(n-9) - 165273763327*a(n-10) + 599127529320*a(n-11) + 770253138289*a(n-12) + 837970281982*a(n-13) + 13438213615678*a(n-14) - 757358877893982*a(n-15) + 1040191522287340*a(n-16) + 13954189811058718*a(n-17) + 60570697698451592*a(n-18) + 209811845381658594*a(n-19) - 6398293692582609742*a(n-20) - 9525458528346901596*a(n-21) + 198094322378282895969*a(n-22) + 63331995044594307862*a(n-23) - 3019881952235905864131*a(n-24) + 2050322219325059142848*a(n-25) + 21235878004116378828465*a(n-26) - 54581743416660023753750*a(n-27) + 19139349079703552355820*a(n-28) + 651422108106548289375388*a(n-29) - 1544769725958153227987677*a(n-30) - 4540692510059966123562466*a(n-31) + 12075227940930592282505748*a(n-32) + 14257010837071588656692256*a(n-33) - 56856497985995077450150978*a(n-34) + 63316129497610101583728132*a(n-35) + 442440144826971954190459690*a(n-36) - 871784788853446507870658854*a(n-37) - 4230214164469068467972073935*a(n-38) + 2173583547788592759700812516*a(n-39) + 23063723096206884973606641829*a(n-40) + 19782347986446731018072806498*a(n-41) - 48215061552085870177990068854*a(n-42) - 180327971452003536809034369182*a(n-43) - 107947387332298752976201344988*a(n-44) + 593782533500742784090735307550*a(n-45) + 783485634043013521517810696380*a(n-46) - 648737300369917976102869705700*a(n-47) - 949045438550296268912960280593*a(n-48) - 902461638724389315443644270598*a(n-49) - 3825893034761363760267715824593*a(n-50) + 1591884116065064790807623268430*a(n-51) + 15436369280623657288477676405459*a(n-52) + 5949877159839538850207331199418*a(n-53) - 19341888641939205740334183343247*a(n-54) - 17350593035074215378396857768396*a(n-55) - 4317393398599695453122178777837*a(n-56) + 8572985696324854198568345549288*a(n-57) + 39246537055403280517417515301056*a(n-58) + 22870981265829825251344961671666*a(n-59) - 42696079009258167867421550746150*a(n-60) - 37297156895008626772399074731538*a(n-61) + 14830186290510752370485693555410*a(n-62) + 19248329888171828820680501482878*a(n-63) + 4736403884015159137026607171069*a(n-64) - 766245833718320485133580996100*a(n-65) - 4837887231892204503566169460910*a(n-66) - 1625901216784453456351566212500*a(n-67) + 1362281851100664978769427984125*a(n-68) - 628141146092615372570273606302*a(n-69) - 623953410769551573249279158069*a(n-70) + 713618168561710543490957769384*a(n-71) + 400049173312458927740240505513*a(n-72) - 180444763544088513639927643986*a(n-73) - 104389180390459163117333453162*a(n-74) + 14658167982600607683799152968*a(n-75) + 4966234441640048325372442460*a(n-76) + 372962051627624635843860512*a(n-77) + 1444252371864523846320488160*a(n-78) - 226196209933193271747533440*a(n-79) - 143266726681404227640456480*a(n-80) + 28867093832745895529242944*a(n-81) - 2862170988711768020790464*a(n-82) - 1258978683923712958037248*a(n-83) + 553195868093417103581440*a(n-84) - 1157799007182946222080*a(n-85) - 14117406882804565327872*a(n-86) + 596805415277360578560*a(n-87) + 15036809644659179520*a(n-88) for n>90
+Empirical: a(n) = 13*a(n-1) +2434*a(n-2) +70778*a(n-3) +1142018*a(n-4) +9310253*a(n-5) +11416837*a(n-6) -618809678*a(n-7) -5394431014*a(n-8) -1477201792*a(n-9) +284621717346*a(n-10) +996764450000*a(n-11) -7928649661916*a(n-12) -100025295452118*a(n-13) +611906421413217*a(n-14) +4062245988186985*a(n-15) -40331450485521797*a(n-16) -104465565143410809*a(n-17) +3273476804854413547*a(n-18) -24069627531066673993*a(n-19) +104115753462161528316*a(n-20) -302649095625637967235*a(n-21) +577772388540025438289*a(n-22) -480262040077833097572*a(n-23) -853964362539101626318*a(n-24) +3032287388724435029648*a(n-25) -3275284207809125169986*a(n-26) +507798977424566567795*a(n-27) +9218614782394358962120*a(n-28) -37293866493438520284257*a(n-29) +64112927707974079792188*a(n-30) -47825600872366031315872*a(n-31) -32289044003717622221183*a(n-32) +129629853376751941215570*a(n-33) +15777118375551060307770*a(n-34) -639335896703697675257490*a(n-35) +1731292252572997797616457*a(n-36) -1578553063932179968626878*a(n-37) -1517460400811407401697595*a(n-38) +3766303289118373822046398*a(n-39) -9243814075263945727265153*a(n-40) +21407993999169916717011040*a(n-41) -26703398932474805790259603*a(n-42) +41953199078847176485191845*a(n-43) -41219768734422053314620127*a(n-44) -47829679172131556323453596*a(n-45) +102390488183493037912743776*a(n-46) -36218139387791570284318985*a(n-47) +20542340345000860143877772*a(n-48) -87061458895678669261731834*a(n-49) +86325196125637286578321926*a(n-50) +10049252570623386511165576*a(n-51) -35600351982780487539710063*a(n-52) -59944329239867771804973105*a(n-53) -65436663591433405806857258*a(n-54) -90900140620455639110580967*a(n-55) +36485902864148222529412113*a(n-56) +130061157673143747646022572*a(n-57) +153732793860981653762373932*a(n-58) +147439171302141903832123384*a(n-59) +75109114336263847035844836*a(n-60) +8961712139285438040739963*a(n-61) -30193405103230936831913898*a(n-62) -32346283909114887896129550*a(n-63) -27955825560257469952073958*a(n-64) -15016258081647248359772943*a(n-65) -7666962199477331874319409*a(n-66) -3486007390687047277744488*a(n-67) -1359447622513424045427312*a(n-68) -481584167431867377466524*a(n-69) -105684059293890822408884*a(n-70) -38805771281433176512760*a(n-71) -2928726020353639117160*a(n-72) -6578529385893233459344*a(n-73) -657184028250120362368*a(n-74) -1166609644128981362496*a(n-75) -246271921255327199872*a(n-76) -148237400316779684096*a(n-77) -59271197654712794624*a(n-78) -11968836043259241472*a(n-79) -5845540131664130048*a(n-80) -98725841709154304*a(n-81) -318169013898608640*a(n-82) +16438910744592384*a(n-83) -7075893157560320*a(n-84) +376705932853248*a(n-85) -18275295559680*a(n-86) -2864273424384*a(n-87) -628138967040*a(n-88)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:09:49, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:23:34, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-A RUN is $3$ consecutive cells taken along one of the directions
-\[
-\begin{array}{l}
-\text{along a row} \\
-\text{down an antidiagonal, ne to sw, read the other way} \\
-\text{down a column} \\
-\text{down a diagonal, nw to se} \\
-\end{array}
-\]
-all of them inside the array. The array is counted when no run has its entries strictly increasing. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the directions above are already the transposed ones.
+The array has $6$ cells across, with entries in $\{0,1,2\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The PREDECESSORS of a cell are the cell immediately to its left and the cell
+immediately above it, those that lie inside the array. A cell in the top left corner has none
+at all, so a clause demanding a predecessor of a given value forbids that value there --- which
+is what makes the first published term what it is. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has at least one predecessor carrying $0$;
+\item every cell carrying $2$ has one predecessor carrying $1$ and the other carrying $0$;
+\end{itemize}
+and nothing else.
 
-
-One direction above is marked ``read the other way''. Transposing an array exchanges a row with
-a column and carries each diagonal direction to itself only up to sense: an antidiagonal read
-from the northeast becomes one read from the southwest. For a condition built from EQUALITY
-that would not matter, but ``strictly increasing'' read backwards is ``strictly decreasing'',
-so the sense is carried explicitly rather than normalised away. The
-difference is not subtle: normalising it away makes the model disagree with the entry's
-published terms from the very first one, which is how the point was found.
-
-The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
-letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
-over the alphabet the entry names.
-
-\section{Every run lies in $3$ consecutive rows}
+\section{Three rows decide everything}
 
 \begin{lemma}\label{lem:win}
-Each direction above changes the row index by $0$ or $1$ from one cell of a run to the next, so
-a run of $3$ cells lies inside $3$ consecutive array rows, and a run whose last cell is in
-row $i$ lies inside rows $i-2,\dots,i$.
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
 \end{lemma}
 
 \begin{proof}
-Immediate from the row steps of the four directions, which are $0$ for a row and $1$ for the
-other three.
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
 \end{proof}
 
-So the state is the window of the last $2$ array rows, a row not yet written carried as
-$\bot$; a step appends a row and rejects it exactly when some run ends in it or lies inside it.
-A run needing a row that is $\bot$ does not exist, which is the boundary rule and is read off
-the window rather than assumed. The walk starts at the all-$\bot$ window, so a walk of $R$ steps
-is an array of $R$ rows. With $M$ the adjacency matrix of that digraph,
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. Every clause here reaches backwards only --- to the left and upwards --- so a
+row is settled as it is written and every state may end an array; the end vector is the
+all-ones vector. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3661,\quad\tau=\mathbf{1} .
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=17108.
 \]
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
@@ -117,15 +102,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;60\,a(n-1) - 139\,a(n-2) - 32764\,a(n-3) + 317451\,a(n-4) + 4966876\,a(n-5) - 69248802\,a(n-6) - 201317612\,a(n-7) + 5451994638\,a(n-8) - 7348855450\,a(n-9) - 165273763327\,a(n-10) + 599127529320\,a(n-11) + 770253138289\,a(n-12) + 837970281982\,a(n-13) + 13438213615678\,a(n-14) - 757358877893982\,a(n-15) + 1040191522287340\,a(n-16) + 13954189811058718\,a(n-17) + 60570697698451592\,a(n-18) + 209811845381658594\,a(n-19) - 6398293692582609742\,a(n-20) - 9525458528346901596\,a(n-21) + 198094322378282895969\,a(n-22) + 63331995044594307862\,a(n-23) - 3019881952235905864131\,a(n-24) + 2050322219325059142848\,a(n-25) + 21235878004116378828465\,a(n-26) - 54581743416660023753750\,a(n-27) + 19139349079703552355820\,a(n-28) + 651422108106548289375388\,a(n-29) - 1544769725958153227987677\,a(n-30) - 4540692510059966123562466\,a(n-31) + 12075227940930592282505748\,a(n-32) + 14257010837071588656692256\,a(n-33) - 56856497985995077450150978\,a(n-34) + 63316129497610101583728132\,a(n-35) + 442440144826971954190459690\,a(n-36) - 871784788853446507870658854\,a(n-37) - 4230214164469068467972073935\,a(n-38) + 2173583547788592759700812516\,a(n-39) + 23063723096206884973606641829\,a(n-40) + 19782347986446731018072806498\,a(n-41) - 48215061552085870177990068854\,a(n-42) - 180327971452003536809034369182\,a(n-43) - 107947387332298752976201344988\,a(n-44) + 593782533500742784090735307550\,a(n-45) + 783485634043013521517810696380\,a(n-46) - 648737300369917976102869705700\,a(n-47) - 949045438550296268912960280593\,a(n-48) - 902461638724389315443644270598\,a(n-49) - 3825893034761363760267715824593\,a(n-50) + 1591884116065064790807623268430\,a(n-51) + 15436369280623657288477676405459\,a(n-52) + 5949877159839538850207331199418\,a(n-53) - 19341888641939205740334183343247\,a(n-54) - 17350593035074215378396857768396\,a(n-55) - 4317393398599695453122178777837\,a(n-56) + 8572985696324854198568345549288\,a(n-57) + 39246537055403280517417515301056\,a(n-58) + 22870981265829825251344961671666\,a(n-59) - 42696079009258167867421550746150\,a(n-60) - 37297156895008626772399074731538\,a(n-61) + 14830186290510752370485693555410\,a(n-62) + 19248329888171828820680501482878\,a(n-63) + 4736403884015159137026607171069\,a(n-64) - 766245833718320485133580996100\,a(n-65) - 4837887231892204503566169460910\,a(n-66) - 1625901216784453456351566212500\,a(n-67) + 1362281851100664978769427984125\,a(n-68) - 628141146092615372570273606302\,a(n-69) - 623953410769551573249279158069\,a(n-70) + 713618168561710543490957769384\,a(n-71) + 400049173312458927740240505513\,a(n-72) - 180444763544088513639927643986\,a(n-73) - 104389180390459163117333453162\,a(n-74) + 14658167982600607683799152968\,a(n-75) + 4966234441640048325372442460\,a(n-76) + 372962051627624635843860512\,a(n-77) + 1444252371864523846320488160\,a(n-78) - 226196209933193271747533440\,a(n-79) - 143266726681404227640456480\,a(n-80) + 28867093832745895529242944\,a(n-81) - 2862170988711768020790464\,a(n-82) - 1258978683923712958037248\,a(n-83) + 553195868093417103581440\,a(n-84) - 1157799007182946222080\,a(n-85) - 14117406882804565327872\,a(n-86) + 596805415277360578560\,a(n-87) + 15036809644659179520\,a(n-88)
+a(n)\;=\;13\,a(n-1) + 2434\,a(n-2) + 70778\,a(n-3) + 1142018\,a(n-4) + 9310253\,a(n-5) + 11416837\,a(n-6) - 618809678\,a(n-7) - 5394431014\,a(n-8) - 1477201792\,a(n-9) + 284621717346\,a(n-10) + 996764450000\,a(n-11) - 7928649661916\,a(n-12) - 100025295452118\,a(n-13) + 611906421413217\,a(n-14) + 4062245988186985\,a(n-15) - 40331450485521797\,a(n-16) - 104465565143410809\,a(n-17) + 3273476804854413547\,a(n-18) - 24069627531066673993\,a(n-19) + 104115753462161528316\,a(n-20) - 302649095625637967235\,a(n-21) + 577772388540025438289\,a(n-22) - 480262040077833097572\,a(n-23) - 853964362539101626318\,a(n-24) + 3032287388724435029648\,a(n-25) - 3275284207809125169986\,a(n-26) + 507798977424566567795\,a(n-27) + 9218614782394358962120\,a(n-28) - 37293866493438520284257\,a(n-29) + 64112927707974079792188\,a(n-30) - 47825600872366031315872\,a(n-31) - 32289044003717622221183\,a(n-32) + 129629853376751941215570\,a(n-33) + 15777118375551060307770\,a(n-34) - 639335896703697675257490\,a(n-35) + 1731292252572997797616457\,a(n-36) - 1578553063932179968626878\,a(n-37) - 1517460400811407401697595\,a(n-38) + 3766303289118373822046398\,a(n-39) - 9243814075263945727265153\,a(n-40) + 21407993999169916717011040\,a(n-41) - 26703398932474805790259603\,a(n-42) + 41953199078847176485191845\,a(n-43) - 41219768734422053314620127\,a(n-44) - 47829679172131556323453596\,a(n-45) + 102390488183493037912743776\,a(n-46) - 36218139387791570284318985\,a(n-47) + 20542340345000860143877772\,a(n-48) - 87061458895678669261731834\,a(n-49) + 86325196125637286578321926\,a(n-50) + 10049252570623386511165576\,a(n-51) - 35600351982780487539710063\,a(n-52) - 59944329239867771804973105\,a(n-53) - 65436663591433405806857258\,a(n-54) - 90900140620455639110580967\,a(n-55) + 36485902864148222529412113\,a(n-56) + 130061157673143747646022572\,a(n-57) + 153732793860981653762373932\,a(n-58) + 147439171302141903832123384\,a(n-59) + 75109114336263847035844836\,a(n-60) + 8961712139285438040739963\,a(n-61) - 30193405103230936831913898\,a(n-62) - 32346283909114887896129550\,a(n-63) - 27955825560257469952073958\,a(n-64) - 15016258081647248359772943\,a(n-65) - 7666962199477331874319409\,a(n-66) - 3486007390687047277744488\,a(n-67) - 1359447622513424045427312\,a(n-68) - 481584167431867377466524\,a(n-69) - 105684059293890822408884\,a(n-70) - 38805771281433176512760\,a(n-71) - 2928726020353639117160\,a(n-72) - 6578529385893233459344\,a(n-73) - 657184028250120362368\,a(n-74) - 1166609644128981362496\,a(n-75) - 246271921255327199872\,a(n-76) - 148237400316779684096\,a(n-77) - 59271197654712794624\,a(n-78) - 11968836043259241472\,a(n-79) - 5845540131664130048\,a(n-80) - 98725841709154304\,a(n-81) - 318169013898608640\,a(n-82) + 16438910744592384\,a(n-83) - 7075893157560320\,a(n-84) + 376705932853248\,a(n-85) - 18275295559680\,a(n-86) - 2864273424384\,a(n-87) - 628138967040\,a(n-88)
 \]
-for every $n>90$.
+for every $n>88$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $88$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=90+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=88+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -133,13 +118,13 @@ until the working vector was identically zero.
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order, in the orientation the entry's own name writes, and reject as soon as
-a completed run is strictly increasing. No window, no transposition and no transfer matrix are involved, and
-the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -149,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233706.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203369.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -1596,3 +1596,65 @@ single difference** — exactly the intended change and nothing else.
 **The standing lesson, now with six instances: a "the entry is wrong" verdict is a claim about
 MY reader until it has been checked by hand.** Every one of the six was mine. Not one apparent
 disproof in this project has ever turned out to be a false conjecture in the OEIS.
+
+## AG. The 2,211 really do need engines, and where the premise reader was unsound
+
+Two questions the refusal census left open, both answered, both against my expectation.
+
+### AG.1 "An engine is missing" was right
+
+§W recorded 2,211 entries as **claim read, name NOT read** and concluded an engine was missing.
+The holonomic and transfer arguments never need the name — they settle a claim against the
+entry's OWN generating function — so the conclusion looked premature. Measured over all 2,211:
+
+| | |
+|---:|---|
+| 2,204 | assert **no generating function at all** |
+| 3 | assert one this reader refuses |
+| 4 | assert a usable algebraic one |
+
+**The census was right and the objection was wrong.** Those entries need engines; there is no
+premise hiding in them. Three of the four exceptions proved (§AG.3) and the fourth is A124869,
+whose "G.f." is the generating function of the real parts themselves while its terms are their
+numerators — the asserted line is about a related quantity, and reading it as the sequence's own
+is a mistake of the reader, not an error in the entry.
+
+### AG.2 The premise reader was reading conjectures as facts
+
+The first pass at AG.1 reported **192 with a factual g.f.** and it was wrong. `algf` tested for
+a conjectural word ON THE LINE, and a generating function inside a
+
+    Conjectures from _X_, ... : (Start)
+    a(n) = ...
+    G.f.: ...
+    (End)
+
+block carries none. Of the first 173 it called factual, **170 were inside such a block** — one
+conjecture written twice, and no premise at all. That is defect 2, in the module that supplies
+the premise, and `factlines.facts` exists precisely for it: its docstring records that 1,336
+installed papers once had to be withdrawn for this exact mistake.
+
+**Audited before fixing**: of the 36 entries carrying an installed `holonomic` paper, 33 took
+their premise from a fact line and 3 from the entry's NAME, which is always a fact. **None was
+affected** — the hole was latent, never exploited. `algf.read` and `cfrac.read` now take lines
+only from `factlines.facts`, and the regression over the rebuilt 989-entry pool is 989
+unchanged, nothing lost and nothing gained: closing it cost nothing.
+
+### AG.3 `equate`'s filter, and why 3,593 entries were still worth only three
+
+`equate.py` settles a conjectured generating function against one the entry states as fact. It
+has **four papers**. Its candidate filter requires the conjectural line to BEGIN with
+"Conjectur", and the corpus writes this one overwhelmingly as `Empirical g.f.:` —
+**3,593 entries against 131**. Defect 2 again, in the filter of a vein whose own docstring
+estimated 353 candidates.
+
+It is the largest instance of that filter found, and it paid **three**: A056328, A056329,
+A082975. Of the 3,718 entries carrying such a line, 2,740 are already on the roster; of the 978
+that are not, 120 are closed, 78 carry no readable conjectured g.f., and **892 assert neither a
+generating function nor a closed form to prove one from**. `src/sweep_gfident.py` is the sweep;
+it is worth keeping and it is not a vein.
+
+**Three big-looking numbers in one day — 1,509 continued fractions, 3,593 empirical g.f.s, 2,211
+claim-readable entries — and between them they paid five.** The filter defects were all real.
+The size of a grep is not the size of a vein, and this is now the third time today that has been
+the lesson.

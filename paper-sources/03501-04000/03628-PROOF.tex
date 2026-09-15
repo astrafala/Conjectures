@@ -12,141 +12,144 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A233095, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223230, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{1 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233095 counts arrays over $\{0,\dots,3\}$ under a neighbour condition together with
-two symmetry-breaking clauses: the upper-left entry is $0$, and $1$ must appear before
-$2$ in row major order. The last of these is not local --- it compares first occurrences
-across the whole array --- but it becomes local once the state carries which of the two values
-was seen first. With that, $a(n)$ is a walk count on $S=3072$ vertices and the empirical
-recurrence of order $11$ contributed by R.~H.~Hardin follows from a finite exact
-computation.
+OEIS A223230 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $11$
+contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
+condition joins cells inside one slice of the array or inside two consecutive slices, so a
+single slice is a state and the count is a walk count on a finite digraph with $S=7501$ vertices.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
-\section{The sequence and the conjecture}
+\section{The conjecture}
 
-OEIS A233095 is ``Number of nX5 0..3 arrays with no element x(i,j) adjacent to value 3-x(i,j) horizontally, diagonally or antidiagonally, top left element zero, and 1 appearing before 2 in row major order.''. It has offset $1$ and begins
+OEIS A223230 is ``Rolling icosahedron footprints: number of n X 5 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, diagonal or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
 \[
-41, 2315, 141566, 8714705, 537122150, 33113065637, 2041493495546, 125863931140721,\ \dots
+625, 75665, 11043445, 1697263985, 266409703885, 42210625593305, 6716507564288245, 1070788920090847265,\ \dots
 \]
-The entry carries the following comment:
-\begin{quote}\small
-Empirical: a(n) = 79*a(n-1) -1121*a(n-2) +3055*a(n-3) +8224*a(n-4) -49962*a(n-5) +81450*a(n-6) -48132*a(n-7) -2272*a(n-8) +11272*a(n-9) -2688*a(n-10) +96*a(n-11)
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = 251*a(n-1) -15873*a(n-2) +195175*a(n-3) +2042368*a(n-4) -47798442*a(n-5) +263976930*a(n-6) -451699632*a(n-7) -350892000*a(n-8) +1964608344*a(n-9) -2144659680*a(n-10) +765275040*a(n-11).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 07:52:18, revision 6) the statement is
-still recorded as empirical, and nothing on the entry records it as settled either way.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:23:34, revision 8) this is still
+recorded as empirical, and nothing on the entry records it as proved.
 
-Written out, the claim is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;79\,a(n-1) - 1121\,a(n-2) + 3055\,a(n-3) + 8224\,a(n-4) - 49962\,a(n-5) + 81450\,a(n-6) - 48132\,a(n-7) - 2272\,a(n-8) + 11272\,a(n-9) - 2688\,a(n-10) + 96\,a(n-11)
-\end{equation}
-for all $n>11$.
+\section{What is being counted}
 
-\section{The three clauses}
+Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
 
-The arrays have $5$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
-row $t$ and column $u$. The neighbour condition is
-\begin{equation}\label{eq:loc}
-x_{t+d_1,\,u+d_2}\ne 3-x_{t,u}\qquad\text{for every offset }(d_1,d_2)\in\mathcal N=\{(0,1),\ (1,1),\ (1,-1)\}
-\end{equation}
-inside the array. The relation ``$y=3-x$'' is symmetric, so each unordered adjacency need
-only be tested once; the offsets above are the forward representatives, one per direction,
-and every one of them has a nonnegative row shift. A single row of state is therefore
-enough for \eqref{eq:loc}: the cells of a row are settled by that row and the next.
-
-Here the walk runs along rows, which is the order row
-major reading uses, so a single flag suffices: $0$ while neither $1$ nor $2$ has
-occurred, and thereafter $1$ or $2$ according to which occurred first, the first occurrence
-inside a row being found by scanning it left to right. An array is accepted when the flag
-is not $2$.
-
-\begin{lemma}\label{lem:walk}
-Let $\mathcal V$ be the set of pairs (a row, a flag vector), $|\mathcal V|=S=3072$, let
-$(r,f)\to(s,f')$ be an edge when \eqref{eq:loc} holds for the cells of $r$ with $s$ beneath
-it and $f'$ is $f$ updated by $s$, let $\mathbf{v}$ mark the vertices whose row begins
-with $0$ and whose flag is the one that row alone produces, and $\mathbf{u}$ those whose
-row satisfies \eqref{eq:loc} with nothing beneath it and whose flag is accepted. Then
+An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
+directions antidiagonal, diagonal and horizontal, that is the cell offsets
 \[
-a(n)\;=\;\,\mathbf{v}^{\!\top}N^{\,L-1}\mathbf{u},\qquad L=n.
+(1,-1), (1,1), (0,1),
 \]
+and asks that whenever two cells of the array differ by one of those offsets, the two vertices
+they carry are joined by an edge of $G$:
+\[
+x(i,j)\,x(i+\delta_1,j+\delta_2)\in E(G)\qquad
+\text{for every named offset } (\delta_1,\delta_2)\text{ and every pair of cells in range.}
+\]
+The entry also fixes the top-left cell: $x(0,0)=0$.
+
+\begin{lemma}\label{lem:label}
+The count does not depend on how the vertices are labelled.
 \end{lemma}
 
 \begin{proof}
-A walk of length $L-1$ is a sequence of $L$ rows, and its flag component is determined by
-them, so walks correspond to arrays. Along the walk the cells of row $t$ are tested once,
-at the step leaving it, with the correct neighbour row; the cells of the last row are
-tested by $\mathbf{u}$ with no row beneath, which is how the array behaves at its edge.
-The flag component is by construction the record of first occurrences among the rows laid
-down so far, so $\mathbf{u}$ imposes exactly the ordering clause, and $\mathbf{v}$ imposes
-the upper-left clause. The state carries a row, not a boundary, so $L$ rows make a walk
-of length $L-1$.
+A relabelling is a bijection $\sigma$ of the label set; if it is an isomorphism from one
+labelled copy of $G$ to another then $x\mapsto\sigma\circ x$ is a bijection between the arrays
+counted for the two copies, because the condition mentions only the edge relation.
+Because the four named graphs are vertex-transitive---the symmetry group of the solid is transitive on its vertices, and on its faces---the count is the same whichever vertex is the one called $0$, so fixing the top-left cell at $0$ is unambiguous too.
 \end{proof}
 
-\section{The criterion, and the computation}
+\section{One slice is a state}
 
-Let $q(t)=t^{11}-\sum_i c_i\,t^{11-i}$ be the characteristic polynomial of
-\eqref{eq:conj} and $G=N$.
+Take the array one $row$ at a time, in the direction in which it grows.
+Every offset the entry names has its two cells either in the same $row$ or in two
+consecutive ones. So a $row$, a word of length $5$ over the vertices of $G$, carries
+everything the next $row$ needs: the conditions inside a $row$ constrain that
+$row$ alone, and the conditions across $row$s are a relation between the
+$row$ just written and the one about to be written.
+
+Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+follow $u$. Add one further state for the empty array, whose successors are the legal first
+$row$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+array, so $\tau=\mathbf{1}$ and
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=7501.
+\]
+The $row$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $row$
+of length $5$ over $12$ vertices is one of $12^{5}$ words, but only $S-1$ of them are
+legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
+
+\section{The proof}
 
 \begin{lemma}\label{lem:crit}
-With $n_0$ the least index for which $L\ge1$, $o=1n_0+0-1$ and
-$h_j=G^{j}N^{o}\mathbf{u}$, we have for $j\ge11$
-\[
-a(n_0+j)-\sum_i c_i\,a(n_0+j-i)=\,\mathbf{v}^{\!\top}G^{\,j-11}w,
-\qquad w=h_{11}-\sum_i c_ih_{11-i} .
-\]
-Hence \eqref{eq:conj} holds from that point on if and only if
-$\mathbf{v}^{\!\top}G^{m}w=0$ for all $m\ge0$, and $m<S$ suffices.
+Let $q(t)=t^{11}-\sum_i c_it^{11-i}$ be the characteristic polynomial of the
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
-Substitute Lemma~\ref{lem:walk} and factor. By Cayley--Hamilton $G^{S}$ is an integer
-combination of $I,G,\dots,G^{S-1}$, so every later value repeats that combination of earlier
-ones.
+Factor $M^{j}$ out of $M^{j+11}-\sum_ic_iM^{j+11-i}$. For the bound, $M^{S}$
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
-Section~1.
+\[
+a(n)\;=\;251\,a(n-1) - 15873\,a(n-2) + 195175\,a(n-3) + 2042368\,a(n-4) - 47798442\,a(n-5) + 263976930\,a(n-6) - 451699632\,a(n-7) - 350892000\,a(n-8) + 1964608344\,a(n-9) - 2144659680\,a(n-10) + 765275040\,a(n-11)
+\]
+for every $n>11$.
 \end{theorem}
 
 \begin{proof}
-The digraph was built directly from \eqref{eq:loc} and the flag update. The vector $w$ was
-formed by $11$ applications of $G$ in exact integer arithmetic and
-$\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly. Every one of
-those integers vanishes from the index corresponding to $n=11+1$ onwards, and the run
-continued until $S+1$ consecutive zeros had been seen.
+The vector $w=q(M)\tau$ was formed by $11$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=11+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the walk counts of Lemma~\ref{lem:walk} were compared against the entry's DATA at
-every one of the $13$ published indices, with no shift fitted: the number of rows is
-$L=n$ from the entry's own name and the offset says which index carries the first
-published term. The values agree exactly. The ordering clause is where a misreading would
-show first, and it is the reason the flags are per column rather than a single value.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the recurrence \eqref{eq:conj} was evaluated on those published terms in exact
-integer arithmetic, with no matrices involved, and vanishes wherever it applies.
+Second, the count was recomputed for the smallest arrays straight from the definition, with the
+graph rebuilt by a different route---the cube from its corner points and face normals in space,
+the icosahedron as a pentagonal antiprism capped at both poles---and the arrays written out cell
+by cell, each cell tested against the cells it must be joined to. No slice, no state and no
+recurrence is involved in that computation, and the published terms came back.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried to the full
-Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled prefix.
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
+
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233095.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223230.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

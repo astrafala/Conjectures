@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A316235, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A298618, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A316235 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{0,1,3,4,5,8\}$, and it carries an empirical
+OEIS A298618 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the eight king-move neighbours, a number $equal to$ itself lying in $\{1,3,4,5,7\}$, and it carries an empirical
 recurrence of order $64$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
@@ -34,40 +34,40 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A316235 is ``Number of nX4 0..1 arrays with every element unequal to 0, 1, 3, 4, 5 or 8 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A298618 is ``Number of nX4 0..1 arrays with every element equal to 1, 3, 4, 5 or 7 king-move adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-5, 21, 29, 105, 365, 1135, 4802, 21363,\ \dots
+1, 16, 7, 83, 218, 682, 4068, 14719,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 8*a(n-1) -18*a(n-2) +53*a(n-3) -296*a(n-4) +452*a(n-5) -403*a(n-6) +3468*a(n-7) -4562*a(n-8) +1149*a(n-9) -23130*a(n-10) +19382*a(n-11) -171*a(n-12) +94177*a(n-13) -133*a(n-14) +263*a(n-15) -187581*a(n-16) -221521*a(n-17) +36061*a(n-18) -489030*a(n-19) +719261*a(n-20) -438526*a(n-21) +2594002*a(n-22) -1012606*a(n-23) +2299876*a(n-24) -538884*a(n-25) +1117569*a(n-26) -5770547*a(n-27) -6300489*a(n-28) +2661457*a(n-29) -6840503*a(n-30) -1316472*a(n-31) +2599888*a(n-32) +7586989*a(n-33) +11769255*a(n-34) +8012401*a(n-35) +1019800*a(n-36) +7881110*a(n-37) -6645148*a(n-38) -12505143*a(n-39) -2077028*a(n-40) -9357637*a(n-41) -7446480*a(n-42) +5604247*a(n-43) +11546659*a(n-44) +2833491*a(n-45) +9556261*a(n-46) -276292*a(n-47) -7962752*a(n-48) -2786882*a(n-49) -6040141*a(n-50) -5095204*a(n-51) +2708402*a(n-52) +1344613*a(n-53) +716880*a(n-54) +2223844*a(n-55) +483640*a(n-56) -574020*a(n-57) -57314*a(n-58) +66872*a(n-59) -27032*a(n-60) -11336*a(n-61) +2312*a(n-62) +1168*a(n-63) +96*a(n-64) for n>67
+Empirical: a(n) = 3*a(n-1) +5*a(n-2) +57*a(n-3) -156*a(n-4) -351*a(n-5) -951*a(n-6) +3590*a(n-7) +5183*a(n-8) +4339*a(n-9) -34096*a(n-10) -25660*a(n-11) +3662*a(n-12) +146248*a(n-13) +79765*a(n-14) -47042*a(n-15) -341842*a(n-16) -496953*a(n-17) -45050*a(n-18) +732024*a(n-19) +1813063*a(n-20) +1661106*a(n-21) -1611095*a(n-22) -6119633*a(n-23) -1003826*a(n-24) +503488*a(n-25) +13676437*a(n-26) -248473*a(n-27) -3955194*a(n-28) -9720451*a(n-29) -20023138*a(n-30) +67176*a(n-31) +12728483*a(n-32) +49370872*a(n-33) -12440705*a(n-34) +5572516*a(n-35) -30164607*a(n-36) -29511138*a(n-37) -46686868*a(n-38) +49686604*a(n-39) +163711166*a(n-40) -6286637*a(n-41) -167749272*a(n-42) -73163599*a(n-43) +111419033*a(n-44) +65996870*a(n-45) -57325778*a(n-46) -76765511*a(n-47) +10388355*a(n-48) +46465375*a(n-49) +13699781*a(n-50) -11108132*a(n-51) -6964588*a(n-52) +1911839*a(n-53) +1132203*a(n-54) -599180*a(n-55) +244957*a(n-56) +730075*a(n-57) +62262*a(n-58) -281760*a(n-59) -138662*a(n-60) -1440*a(n-61) +15702*a(n-62) +1180*a(n-63) -720*a(n-64) for n>65
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 27 2018 15:32:12, revision
+As of the ``Last modified'' line on the live entry (Jan 23 2018 12:10:05, revision
 4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;8\,a(n-1) - 18\,a(n-2) + 53\,a(n-3) - 296\,a(n-4) + 452\,a(n-5) - 403\,a(n-6) + 3468\,a(n-7) - 4562\,a(n-8) + 1149\,a(n-9) - 23130\,a(n-10) + 19382\,a(n-11) - 171\,a(n-12) + 94177\,a(n-13) - 133\,a(n-14) + 263\,a(n-15) - 187581\,a(n-16) - 221521\,a(n-17) + 36061\,a(n-18) - 489030\,a(n-19) + 719261\,a(n-20) - 438526\,a(n-21) + 2594002\,a(n-22) - 1012606\,a(n-23) + 2299876\,a(n-24) - 538884\,a(n-25) + 1117569\,a(n-26) - 5770547\,a(n-27) - 6300489\,a(n-28) + 2661457\,a(n-29) - 6840503\,a(n-30) - 1316472\,a(n-31) + 2599888\,a(n-32) + 7586989\,a(n-33) + 11769255\,a(n-34) + 8012401\,a(n-35) + 1019800\,a(n-36) + 7881110\,a(n-37) - 6645148\,a(n-38) - 12505143\,a(n-39) - 2077028\,a(n-40) - 9357637\,a(n-41) - 7446480\,a(n-42) + 5604247\,a(n-43) + 11546659\,a(n-44) + 2833491\,a(n-45) + 9556261\,a(n-46) - 276292\,a(n-47) - 7962752\,a(n-48) - 2786882\,a(n-49) - 6040141\,a(n-50) - 5095204\,a(n-51) + 2708402\,a(n-52) + 1344613\,a(n-53) + 716880\,a(n-54) + 2223844\,a(n-55) + 483640\,a(n-56) - 574020\,a(n-57) - 57314\,a(n-58) + 66872\,a(n-59) - 27032\,a(n-60) - 11336\,a(n-61) + 2312\,a(n-62) + 1168\,a(n-63) + 96\,a(n-64)
+a(n)\;=\;3\,a(n-1) + 5\,a(n-2) + 57\,a(n-3) - 156\,a(n-4) - 351\,a(n-5) - 951\,a(n-6) + 3590\,a(n-7) + 5183\,a(n-8) + 4339\,a(n-9) - 34096\,a(n-10) - 25660\,a(n-11) + 3662\,a(n-12) + 146248\,a(n-13) + 79765\,a(n-14) - 47042\,a(n-15) - 341842\,a(n-16) - 496953\,a(n-17) - 45050\,a(n-18) + 732024\,a(n-19) + 1813063\,a(n-20) + 1661106\,a(n-21) - 1611095\,a(n-22) - 6119633\,a(n-23) - 1003826\,a(n-24) + 503488\,a(n-25) + 13676437\,a(n-26) - 248473\,a(n-27) - 3955194\,a(n-28) - 9720451\,a(n-29) - 20023138\,a(n-30) + 67176\,a(n-31) + 12728483\,a(n-32) + 49370872\,a(n-33) - 12440705\,a(n-34) + 5572516\,a(n-35) - 30164607\,a(n-36) - 29511138\,a(n-37) - 46686868\,a(n-38) + 49686604\,a(n-39) + 163711166\,a(n-40) - 6286637\,a(n-41) - 167749272\,a(n-42) - 73163599\,a(n-43) + 111419033\,a(n-44) + 65996870\,a(n-45) - 57325778\,a(n-46) - 76765511\,a(n-47) + 10388355\,a(n-48) + 46465375\,a(n-49) + 13699781\,a(n-50) - 11108132\,a(n-51) - 6964588\,a(n-52) + 1911839\,a(n-53) + 1132203\,a(n-54) - 599180\,a(n-55) + 244957\,a(n-56) + 730075\,a(n-57) + 62262\,a(n-58) - 281760\,a(n-59) - 138662\,a(n-60) - 1440\,a(n-61) + 15702\,a(n-62) + 1180\,a(n-63) - 720\,a(n-64)
 \end{equation}
 for all $n>65$.
 
 \section{The array as a walk, with boundary}
 
 For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
-has score in $\{0,1,3,4,5,8\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{1,3,4,5,7\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
 cells of a row $s$ are determined by $s$ together with the row above and the row below.
 Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,3,4,5,8\}$ \emph{with no row
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{1,3,4,5,7\}$ \emph{with no row
 above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,3,4,5,8\}$ computed from
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{1,3,4,5,7\}$ computed from
 $r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,3,4,5,8\}$ \emph{with no row
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{1,3,4,5,7\}$ \emph{with no row
 below $s$}, and $0$ otherwise.
 \end{itemize}
 Let $P$ be the adjacency matrix of that edge relation.
@@ -78,7 +78,7 @@ $a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 
 \begin{proof}
 An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{0,1,3,4,5,8\}$. Read the sequence as the
+exactly when every one of its $n$ rows has all scores in $\{1,3,4,5,7\}$. Read the sequence as the
 walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
 \bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
 checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
@@ -143,7 +143,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A316235.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A298618.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

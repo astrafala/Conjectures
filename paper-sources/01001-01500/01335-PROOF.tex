@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical closed form for OEIS A220005, proved}
+\title{The empirical closed form for OEIS A220199, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A220005 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
+OEIS A220199 states an explicit closed form for $a(n)$ and records it as empirical. It is true, and
 it is decidable. What the entry counts is not a set of arrays but the SIZE OF AN IMAGE: each
-admissible array is replaced by the array of minima of its cells and their antidiagonal, horizontal, vertical neighbours,
+admissible array is replaced by the array of minima of its cells and their diagonal, horizontal, vertical neighbours,
 and $a(n)$ counts how many different arrays come out. Two arrays with the same image count
 once, so the usual graph over arrays overcounts. Determinising a machine whose state is a pair
 of consecutive rows and whose output is the filtered array turns the count into a walk count on
-$S=281$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
+$S=410$ vertices, exact and finite. The closed form is a polynomial in $n$, so it satisfies the
 monic recurrence with characteristic polynomial $(x-1)^{30}$; that the walk count
 satisfies the same recurrence, and that the two agree on enough initial terms, are both checked
 in exact integer arithmetic, and together they prove the formula.
@@ -35,15 +35,15 @@ in exact integer arithmetic, and together they prove the formula.
 
 \section{The entry}
 
-OEIS A220005 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, vertical or antidiagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 nX3 array.''. It has offset $1$ and begins
+OEIS A220199 is ``Number of nX3 arrays of the minimum value of corresponding elements and their horizontal, vertical or diagonal neighbors in a random, but sorted with lexicographically nondecreasing rows and nonincreasing columns, 0..3 nX3 array.''. It has offset $1$ and begins
 \[
-10, 19, 109, 560, 2410, 9094, 32575, 114987,\ \dots
+10, 36, 238, 1013, 3916, 15067, 58288, 218422,\ \dots
 \]
 and states:
 \begin{quote}
-Empirical: a(n) = (1/8841761993739701954543616000000)*n\^{}29 + (1/152444172305856930250752000000)*n\^{}28 - (1/3350421369359492972544000000)*n\^{}27 + (1/25471039650101408563200000)*n\^{}26 + (43/41363226782215962624000000)*n\^{}25 - (5029/37226904103994366361600000)*n\^{}24 + (870547/91972351315750787481600000)*n\^{}23 - (404867/6797956401598971248640000)*n\^{}22 - (2777213/176570296145427824640000)*n\^{}21 + (157540321/147141913454523187200000)*n\^{}20 - (8521847489/359680232888834457600000)*n\^{}19 - (5896756171/17037484715786895360000)*n\^{}18 + (1999193158206953/46512333274098224332800000)*n\^{}17 - (1754864756699611/1368009802179359539200000)*n\^{}16 + (347465675323531/30066149498447462400000)*n\^{}15 + (5807854993750157/13028664782660567040000)*n\^{}14 - (63962106808513283/3549475982455603200000)*n\^{}13 + (726321071153298251/2662106986841702400000)*n\^{}12 - (148797834273315164401/289685642113592524800000)*n\^{}11 - (611073680485163068111/11587425684543700992000)*n\^{}10 + (1108080234396388175644549/1138050736874827776000000)*n\^{}9 - (58248175543969688527/7702855864704000000)*n\^{}8 + (283282051354077778828369/28513253756123136000000)*n\^{}7 + (1544529331894217156756731/5385836820601036800000)*n\^{}6 - (1108226389277296065072353107/612638938343367936000000)*n\^{}5 - (8742494209572335492077019/2042129794477893120000)*n\^{}4 + (130381592817894359575/1282342100143104)*n\^{}3 - (101179310872363022329/192944991919680)*n\^{}2 + (2861223530470917191/2329089562800)*n - 1126080 for n>10
+Empirical: a(n) = (1/552610124608731372158976000000)*n\^{}29 - (1/38111043076464232562688000000)*n\^{}28 - (43/10888869450418352160768000000)*n\^{}27 + (1013/1209874383379816906752000000)*n\^{}26 - (37/969450627708186624000000)*n\^{}25 + (59/846066002363508326400000)*n\^{}24 + (54830099/390882493091940846796800000)*n\^{}23 - (7939573/894467947578812006400000)*n\^{}22 + (5134253/22071287018178478080000)*n\^{}21 + (37966001/9196369590907699200000)*n\^{}20 - (152257814897/269760174666625843200000)*n\^{}19 + (918505603831/42593711789467238400000)*n\^{}18 - (962278931784007/2907020829631139020800000)*n\^{}17 - (1930456964404139/342002450544839884800000)*n\^{}16 + (43256823284606443/97714985869954252800000)*n\^{}15 - (33779034291676489/2961060177877401600000)*n\^{}14 + (990119936607349039/7098951964911206400000)*n\^{}13 + (8261472616915478693/21296855894733619200000)*n\^{}12 - (14609050016004250375909/289685642113592524800000)*n\^{}11 + (606095725965810479424827/579371284227185049600000)*n\^{}10 - (6894383399300066098456333/569025368437413888000000)*n\^{}9 + (3094992352284156140975351/42150027291660288000000)*n\^{}8 + (7175705615099463540165439/60590664231761664000000)*n\^{}7 - (204006830067393368414683721/26929184103005184000000)*n\^{}6 + (51776746394532001962514261613/612638938343367936000000)*n\^{}5 - (1063830518327474508898879/1954191190887936000)*n\^{}4 + (31834015971911914244845247/14586641389127808000)*n\^{}3 - (480939292908953611199/96472495959840)*n\^{}2 + (10194642893164011521/2329089562800)*n + 2343378 for n>10
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 18:27:34, revision 8)
+As of the ``Last modified'' line on the live entry (Oct 03 2025 18:33:56, revision 8)
 this is still recorded as empirical, and it is still open.
 
 \section{What is being counted}
@@ -52,7 +52,7 @@ Fix the width $W=3$ and the value range $0..3$. The underlying arrays are the
 $n\times3$ arrays over that range whose rows are lexicographically nondecreasing read downwards
 and whose columns are lexicographically nonincreasing read left to right. Each such array $g$
 is mapped to $F(g)$, the array whose $(i,j)$ entry is the minimum of $g(i,j)$ and the entries
-of its antidiagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
+of its diagonal, horizontal, vertical neighbours that lie inside the array. The entry counts
 \[
 a(n)\;=\;\bigl|\{\,F(g)\;:\;g\text{ admissible with }n\text{ rows}\,\}\bigr|,
 \]
@@ -78,7 +78,7 @@ still agreeing, its two entries either agree again or differ in the permitted di
 \end{proof}
 
 \begin{lemma}\label{lem:det}
-$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=281$
+$a(n)$ is a walk count: there are a matrix $M$ with non-negative integer entries on $S=410$
 vertices and vectors $\iota,\tau$ with $a(n)=\iota^{\!\top}M^{\,n-2}\tau$ for $n\ge2$.
 \end{lemma}
 
@@ -89,7 +89,7 @@ emit $F(g)$ one row at a time. It is nondeterministic --- several continuations 
 same row --- and the images of $g$ are exactly the words it can emit. Determinising it gives a
 machine in which each emitted row leads to exactly one state, so distinct words of length $n$
 correspond to distinct paths, and counting them is counting walks. The reachable determinised
-states number $S=281$. The last filtered row is emitted with no row below it, so it is not a
+states number $S=410$. The last filtered row is emitted with no row below it, so it is not a
 step of the walk but a count attached to the state the walk stops in; that is $\tau$.
 \end{proof}
 
@@ -102,7 +102,7 @@ q(x)=(x-1)^{30},\qquad\text{that is}\qquad a(n)=30\,a(n-1) - 435\,a(n-2) + 4060\
 \]
 
 \begin{theorem}
-The closed form OEIS A220005 records is correct for all $n>10$.
+The closed form OEIS A220199 records is correct for all $n>10$.
 \end{theorem}
 
 \begin{proof}
@@ -134,7 +134,7 @@ fixed horizon, which is what makes it a proof and not a check of finitely many t
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A220005.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A220199.
 \bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
 Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006. (The subset
 construction, Section 2.3.)

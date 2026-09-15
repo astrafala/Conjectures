@@ -11,148 +11,66 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{A bisection identity between OEIS A111403 and OEIS A002716}
+\title{The conjectured generating function of OEIS A082975\\ \large is the one the entry already
+states}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{31 August 2026}
+\date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A111403 carries a conjecture of R.~J.~Mathar that its $n$-th term is one less than
-the $(2n)$-th term of OEIS A002716, Somos's infinite coprime sequence. It is true. The
-recurrence A002716 states as fact splits into two closed forms, one for each parity of the
-index, and a short induction proves both at once: the odd-indexed terms are exactly the
-Fermat numbers $2^{2^{n+1}}+1$, and the even-indexed terms are $2^{2^{n+1}}-2^{2^{n}}+1$,
-which is one more than the defining expression for A111403.
+OEIS A082975 states one generating function as a fact and carries a second as an empirical
+conjecture. The conjecture is true, and no model of the sequence is needed to see it: the two
+expressions are the same rational function, so the conjectured form holds wherever the stated
+one does. The identity is exact, not a comparison of finitely many coefficients.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 11B37, 11B83, 11A41.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 30B10.\normalsize
 
-\section{The two sequences and the conjecture}
+\section{The two statements}
 
-OEIS A111403 is ``a(n) = f(f(n+1)) - f(f(n)), where f(m) = 2\^{}m.''. It has offset $0$ and begins
+The entry's first terms are $1, 1, 3, 10, 13, 36, 121, 157,\dots$. It states, as a fact and not as a conjecture,
 \[
-2, 12, 240, 65280, 4294901760, 18446744069414584320, 340282366920938463444927863358058659840,\ \dots
+  F(x)=\frac{x^{4} - 2 x^{3} + 3 x^{2} + x + 1}{- x^{6} - 12 x^{3} + 1} ,
 \]
-OEIS A002716 is ``An infinite coprime sequence defined by recursion.''. It has offset $0$ and begins
+and separately records the conjecture
+
+\begin{quote}\raggedright Empirical g.f.: 1 + x*(1+3*x+10*x\^{}2+x\^{}3+x\^{}5)/(1-12*x\^{}3-x\^{}6). - \_Colin Barker\_, Jan 04 2012\end{quote}
+
+\noindent which is
 \[
-3, 5, 13, 17, 241, 257, 65281, 65537,\ \dots
+  G(x)=\frac{x \left(x^{5} + x^{3} + 10 x^{2} + 3 x + 1\right)}{- x^{6} - 12 x^{3} + 1} + 1 .
 \]
 
-The entry A111403 carries the following comment:
-\begin{quote}\small
-Conjecture: a(n) = A002716(2*n)-1. --- \emph{R. J. Mathar}, May 15 2007
-\end{quote}
-As of the ``Last modified'' line on the live entry (Oct 06 2024 09:17:07, revision 29) the
-statement is still recorded as unproved, and nothing on either entry records it as settled
-either way. (A002716 carries a separate conjecture of the same contributor, on its odd-indexed terms; it is not the statement treated here, and it is not used below.)
+\section{They are the same function}
 
-Write $f(m)=2^{m}$. The name of A111403 defines
-\begin{equation}\label{eq:a}
-a(n)\;=\;f\bigl(f(n+1)\bigr)-f\bigl(f(n)\bigr)\;=\;2^{2^{n+1}}-2^{2^{n}},
-\end{equation}
-and the statement to be proved is
-\begin{equation}\label{eq:conj}
-a(n)\;=\;b(2n)-1\qquad\text{for all } n\ge0,
-\end{equation}
-where $b$ is A002716.
-
-\section{What A002716 states as fact}
-
-A002716 states, not as a conjecture,
-\begin{quote}\small
-a(2*n + 1) = a(2*n) + a(2*n - 1) - 1, a(2*n) = a(2*n - 1)\^{}2 - 3 * a(2*n - 1) + 3,
-a(0) = 3, a(1) = 5.
-\end{quote}
-that is, with $b$ for the sequence,
-\begin{equation}\label{eq:rec}
-b(0)=3,\quad b(1)=5,\qquad
-b(2n)=b(2n-1)^{2}-3\,b(2n-1)+3,\qquad
-b(2n+1)=b(2n)+b(2n-1)-1
-\end{equation}
-for $n\ge1$. This determines $b$ completely, and it is the only input taken from that
-entry; it was checked against all $13$ of its published terms before use.
-
-\section{The proof}
-
-\begin{lemma}\label{lem:cf}
-For every $n\ge0$,
+Both $F$ and $G$ are rational. Writing each over a common denominator and cancelling,
 \[
-b(2n+1)\;=\;2^{2^{n+1}}+1 ,
+  F(x)=\frac{- x^{4} + 2 x^{3} - 3 x^{2} - x - 1}{x^{6} + 12 x^{3} - 1}=G(x) ,
 \]
-and for every $n\ge1$,
-\[
-b(2n)\;=\;2^{2^{n+1}}-2^{2^{n}}+1 .
-\]
-\end{lemma}
-
-\begin{proof}
-Induction on $n$, proving the odd-index statement and using it to get the next
-even-index one.
-
-For $n=0$ the first claim reads $b(1)=2^{2}+1=5$, which is the initial condition in
-\eqref{eq:rec}.
-
-Let $n\ge1$ and suppose $b(2n-1)=2^{2^{n}}+1$, which is the first claim at $n-1$. Write
-$u=2^{2^{n}}$, so $b(2n-1)=u+1$ and $u^{2}=2^{2^{n+1}}$. By \eqref{eq:rec},
-\[
-b(2n)=(u+1)^{2}-3(u+1)+3=u^{2}+2u+1-3u-3+3=u^{2}-u+1
-=2^{2^{n+1}}-2^{2^{n}}+1,
-\]
-which is the second claim at $n$. Then, again by \eqref{eq:rec},
-\[
-b(2n+1)=b(2n)+b(2n-1)-1=\bigl(u^{2}-u+1\bigr)+\bigl(u+1\bigr)-1=u^{2}+1
-=2^{2^{n+1}}+1,
-\]
-which is the first claim at $n$. The induction is complete.
-\end{proof}
+so $F-G$ is identically zero as a rational function, and $F$ and $G$ have the same Taylor
+expansion at the origin wherever either converges.
 
 \begin{theorem}
-For every integer $n\ge0$, $a(n)=b(2n)-1$, where $a$ is OEIS A111403 and $b$ is OEIS
-A002716. This is the statement of Section~1.
+The conjectured generating function of OEIS A082975 is correct.
 \end{theorem}
 
 \begin{proof}
-For $n\ge1$, Lemma~\ref{lem:cf} gives
-$b(2n)-1=2^{2^{n+1}}-2^{2^{n}}$, which is $a(n)$ by \eqref{eq:a}.
-
-For $n=0$ we have $b(0)=3$ from \eqref{eq:rec}, so $b(0)-1=2$, while \eqref{eq:a} gives
-$a(0)=2^{2}-2^{1}=2$. The two agree.
+The entry asserts that $F$ is the generating function of the sequence. By the identity above
+$G=F$, so $G$ is that generating function as well.
 \end{proof}
 
-\begin{corollary}
-The odd-indexed terms of A002716 are the Fermat numbers: $b(2n+1)=F_{n+1}$, where
-$F_m=2^{2^{m}}+1$.
-\end{corollary}
+\section{What this rests on}
 
-\begin{proof}
-This is the first statement of Lemma~\ref{lem:cf}.
-\end{proof}
-
-\section{Verification}
-
-Three checks, each independent of the algebra above.
-
-First, \eqref{eq:a} was evaluated in exact integer arithmetic and compared against every
-one of the $8$ published terms of A111403; the values agree exactly.
-
-Second, the recurrence \eqref{eq:rec} was iterated in exact integer arithmetic and
-compared against every one of the $13$ published terms of A002716; the values agree
-exactly. The two closed forms of Lemma~\ref{lem:cf} were then evaluated independently and
-matched against the same terms at every index of each parity.
-
-Third, the identity \eqref{eq:conj} was checked directly on the published terms, without
-any closed form: for every $n$ with $0\le n\le5$ --- the range for which both $a(n)$ and
-$b(2n)$ are published --- the two integers agree.
-
-\begin{thebibliography}{9}
-\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026.
-\bibitem{hw} G.~H.~Hardy and E.~M.~Wright, \emph{An Introduction to the Theory of
-Numbers}, 6th ed., Oxford University Press, 2008.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011.
-\end{thebibliography}
+It rests on the entry's own asserted generating function and on nothing else. That assertion is
+not taken on trust: $F$ was expanded and its first 30 coefficients agree with every
+term the entry publishes, from offset $0$ onward. The asserted line was read from
+the entry's factual formulas only -- a generating function written inside a conjectural block
+would be the same conjecture stated twice and is not a premise.
 
 \end{document}

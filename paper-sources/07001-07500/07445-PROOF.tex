@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A264197, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234725, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A264197 carries an empirical recurrence of order $30$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A234725 carries an empirical recurrence of order $30$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=65536$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=262144$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +31,23 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A264197 is ``Number of (3+1)X(n+1) arrays of permutations of 0..n*4+3 with each element having index change +-(.,.) 0,0 0,2 or 2,1.''. It has offset $1$ and begins
+OEIS A234725 is ``Number of (n+1) X (5+1) 0..7 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 7 (constant-stress 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-4, 81, 2025, 20736, 262144, 3748096, 54479161, 741200625,\ \dots
+74496, 168928, 360760, 1000264, 2557656, 8002936, 23194936, 78550072,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 14*a(n-1) -a(n-2) +2911*a(n-4) -40754*a(n-5) +2911*a(n-6) -567645*a(n-8) +7947030*a(n-9) -567645*a(n-10) +7909187*a(n-12) -110728618*a(n-13) +7909187*a(n-14) -7909187*a(n-16) +110728618*a(n-17) -7909187*a(n-18) +567645*a(n-20) -7947030*a(n-21) +567645*a(n-22) -2911*a(n-24) +40754*a(n-25) -2911*a(n-26) +a(n-28) -14*a(n-29) +a(n-30)
+Empirical: a(n) = 4*a(n-1) +137*a(n-2) -560*a(n-3) -8456*a(n-4) +35504*a(n-5) +310702*a(n-6) -1349320*a(n-7) -7561533*a(n-8) +34294092*a(n-9) +128206281*a(n-10) -615707400*a(n-11) -1548288698*a(n-12) +8040276992*a(n-13) +13333179376*a(n-14) -77453548480*a(n-15) -79946374816*a(n-16) +552146144704*a(n-17) +309222145232*a(n-18) -2893327015040*a(n-19) -567224779296*a(n-20) +10948880162304*a(n-21) -974085452928*a(n-22) -28950298675200*a(n-23) +9103597862400*a(n-24) +50436504576000*a(n-25) -24908850432000*a(n-26) -51674112000000*a(n-27) +32903055360000*a(n-28) +23410114560000*a(n-29) -17557585920000*a(n-30).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 10 2015 11:12:52, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 20 2022 18:57:18, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=65536$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=262144$ vertices,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +72,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;14\,a(n-1) - a(n-2) + 2911\,a(n-4) - 40754\,a(n-5) + 2911\,a(n-6) - 567645\,a(n-8) + 7947030\,a(n-9) - 567645\,a(n-10) + 7909187\,a(n-12) - 110728618\,a(n-13) + 7909187\,a(n-14) - 7909187\,a(n-16) + 110728618\,a(n-17) - 7909187\,a(n-18) + 567645\,a(n-20) - 7947030\,a(n-21) + 567645\,a(n-22) - 2911\,a(n-24) + 40754\,a(n-25) - 2911\,a(n-26) + a(n-28) - 14\,a(n-29) + a(n-30)
+a(n)\;=\;4\,a(n-1) + 137\,a(n-2) - 560\,a(n-3) - 8456\,a(n-4) + 35504\,a(n-5) + 310702\,a(n-6) - 1349320\,a(n-7) - 7561533\,a(n-8) + 34294092\,a(n-9) + 128206281\,a(n-10) - 615707400\,a(n-11) - 1548288698\,a(n-12) + 8040276992\,a(n-13) + 13333179376\,a(n-14) - 77453548480\,a(n-15) - 79946374816\,a(n-16) + 552146144704\,a(n-17) + 309222145232\,a(n-18) - 2893327015040\,a(n-19) - 567224779296\,a(n-20) + 10948880162304\,a(n-21) - 974085452928\,a(n-22) - 28950298675200\,a(n-23) + 9103597862400\,a(n-24) + 50436504576000\,a(n-25) - 24908850432000\,a(n-26) - 51674112000000\,a(n-27) + 32903055360000\,a(n-28) + 23410114560000\,a(n-29) - 17557585920000\,a(n-30)
 \]
-for every $n>28$.
+for every $n>30$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $30$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=30+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +88,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +100,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A264197.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234725.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

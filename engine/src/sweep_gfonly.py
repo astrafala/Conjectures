@@ -9,7 +9,11 @@ import localentry as LE, uniform, openness, gfonly, conjgf, conjlines
 # destroy each other's results.
 SHARD = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 NSHARD = int(sys.argv[2]) if len(sys.argv) > 2 else 1
-SFX = '' if NSHARD == 1 else f'_{SHARD}'
+# A TAG keeps a run on a DIFFERENT pool off the standing run's hits and done files. Without
+# one, asking a rebuilt pool while gfrun.sh is going shares both, and the two destroy each
+# other's records -- the same collision that cost a morning in sweep_linkrec.
+TAG = os.environ.get('TAG', '')
+SFX = TAG if NSHARD == 1 else f'{TAG}_{SHARD}'
 HITS, DONE = f'gfonly_hits{SFX}.json', f'gfonly_done{SFX}.json'
 P = '/tmp/claude-0/-home-user-Conjectures/a6c6c48d-a8e1-5e03-bfd7-16e8d9d94539/scratchpad/'
 names = json.load(open(P + 'all_names.json'))

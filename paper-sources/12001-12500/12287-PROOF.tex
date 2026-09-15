@@ -10,14 +10,14 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-\title{A proof of the conjectured recurrence for OEIS A212696}
+\title{A proof of the conjectured recurrence for OEIS A097180}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{25 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A212696 carries a conjectured linear recurrence with polynomial coefficients, of
+OEIS A097180 carries a conjectured linear recurrence with polynomial coefficients, of
 order 3, contributed by R.~J.~Mathar. We prove it. The generating function of the
 entry is algebraic, and the recurrence is equivalent to the vanishing of an explicit
 differential operator applied to it: writing $\theta=x\,\frac{d}{dx}$, the sequence
@@ -25,34 +25,34 @@ $b(n)=\sum_{i}p_{i}(n)a(n-i)$ has generating function
 $B(x)=\sum_{i}x^{i}\,(p_{i}(\theta+i)A)(x)$, so the conjecture holds for all $n>d$ exactly
 when $B$ is a polynomial of degree $d$. Since $A$ is algebraic over $\mathbb{Q}(x)$, and every simple
 algebraic extension of $\mathbb{Q}(x)$ is closed under $\theta$, the residual $B$ can be
-computed in closed form. Here it equals $0$, a polynomial of degree $-1$, which proves
-the recurrence for every $n>-1$.
+computed in closed form. Here it equals $12 x^{2}$, a polynomial of degree $2$, which proves
+the recurrence for every $n>2$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 11B37, 05A15, 33F10.\normalsize
 
 \section{The sequence and the conjecture}
 
-OEIS A212696 is ``Central coefficient of the triangle A097609''. It has offset $0$ and begins
+OEIS A097180 is ``Row sums of triangle A097179, in which the n-th row polynomial R\_n(y) is formed from the initial (n+1) terms of g.f. A077860(y)\textasciicircum{}(n+1), where R\_n(1/2) = 4\textasciicircum{}n for all n>=0''. It has offset $0$ and begins
 \[
-a(0),\dots,a(7)\;=\;1, 0, 3, 4, 25, 66, 287, 960,\ \dots
+a(0),\dots,a(7)\;=\;1, 7, 52, 395, 3036, 23506, 182904, 1428387,\ \dots
 \]
 The entry gives the generating function
 \begin{equation}\label{eq:gf}
-A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{\sqrt{2} \left(3 \sqrt{1 - 4 x} - 1\right) + 2 \sqrt{6 x + \sqrt{1 - 4 x} + 1}}{4 \sqrt{1 - 4 x} \sqrt{6 x + \sqrt{1 - 4 x} + 1}} ,
+A(x)\;=\;\sum_{n\ge 0} a(n)\,x^{n}\;=\;\frac{2}{- 8 x + \left(1 - 8 x\right)^{\frac{3}{4}} + 1} ,
 \end{equation}
 and it carries the following comment:
 \begin{quote}\small
-\textbf{Conjecture:} 2*n*(n-1)*(2*n+1)*(5*n-8)*a(n) -(n-1)*(115*n\^{}3-344*n\^{}2+299*n-82) *a(n-1) -4*(2*n-3)*(5*n\^{}3+27*n\^{}2-74*n+30)*a(n-2) +36*(n-1)*(5*n-3)*(2*n-3)*(2*n-5) *a(n-3)=0. - \emph{R. J. Mathar}, Oct 08 2016
+\textbf{Conjecture:} n*(n-1)*(n+1)*a(n) -12*n*(2*n-1)*(n-1)*a(n-1) +12*(n-1) * (16*n\textasciicircum{}2-32*n+17)*a(n-2) -16*(4*n-5)*(4*n-7)*(2*n-3)*a(n-3) = 0. - \emph{R. J. Mathar}, Nov 16 2012
 \end{quote}
-As of the ``Last modified'' line on the live entry (2024-07-16, revision 44) the
+As of the ``Last modified'' line on the live entry (2025-09-22, revision 15) the
 statement is still recorded as a conjecture, and no proof appears among the entry's links,
 formulas or programs.
 
 Writing the conjectured relation in the form $\sum_{i=0}^{3}p_{i}(n)\,a(n-i)=0$,
 the coefficient polynomials are
 \[
-p_{0}(n)=2 n \left(n - 1\right) \left(2 n + 1\right) \left(5 n - 8\right),\qquad p_{1}(n)=- \left(n - 1\right) \left(115 n^{3} - 344 n^{2} + 299 n - 82\right),\qquad p_{2}(n)=- 4 \left(2 n - 3\right) \left(5 n^{3} + 27 n^{2} - 74 n + 30\right),\qquad p_{3}(n)=36 \left(n - 1\right) \left(2 n - 5\right) \left(2 n - 3\right) \left(5 n - 3\right)
+p_{0}(n)=n \left(n - 1\right) \left(n + 1\right),\qquad p_{1}(n)=- 12 n \left(n - 1\right) \left(2 n - 1\right),\qquad p_{2}(n)=12 \left(n - 1\right) \left(16 n^{2} - 32 n + 17\right),\qquad p_{3}(n)=- 16 \left(2 n - 3\right) \left(4 n - 7\right) \left(4 n - 5\right)
 \]
 
 \section{Recurrences as differential operators}
@@ -126,28 +126,28 @@ Corollary~\ref{cor:criterion} becomes: $B$ is a polynomial precisely when $b_{i}
 every $i\ge1$ and $b_{0}$ has constant denominator. Both are decided by exact
 cancellation of rational functions.
 
-\section{The computation for A212696}
+\section{The computation for A097180}
 
 The generating function \eqref{eq:gf} is algebraic over $\mathbb{Q}(x)$;
 its minimal polynomial is
 \[
-P(x,y) \;=\; 144 x^{4} y^{4} - 8 x^{3} y^{4} - 36 x^{3} y^{2} - 23 x^{2} y^{4} + 17 x^{2} y^{2} + 9 x^{2} + 4 x y^{4} + 2 x y^{2} - 4 x y - 2 x - y^{2} + y ,
+P(x,y) \;=\; 8 \left(512 x^{4} y^{4} - 192 x^{3} y^{4} + 512 x^{3} y^{3} + 24 x^{2} y^{4} - 192 x^{2} y^{3} + 192 x^{2} y^{2} - x y^{4} + 24 x y^{3} - 48 x y^{2} + 32 x y - y^{3} + 3 y^{2} - 4 y + 2\right) ,
 \]
 so \eqref{eq:gf} lies in $K=\mathbb{Q}(x)[y]/\bigl(P(x,y)\bigr)$ and is the root of that polynomial with the right
 expansion at the origin. Applying Lemma~\ref{lem:transfer} to the coefficient polynomials
 of Section~1 and reducing in $K$ by Lemma~\ref{lem:field}, every component $b_{i}$ of $B$
 with $i\ge1$ cancels identically and the remaining rational part collapses to
 \[
-B(x)\;=\;0 ,
+B(x)\;=\;12 x^{2} ,
 \]
-a polynomial of degree $-1$.
+a polynomial of degree $2$.
 
 \begin{theorem}
 The conjectured recurrence
 \[
-2 n \left(n - 1\right) \left(2 n + 1\right) \left(5 n - 8\right)\,a(n) -  \left(n - 1\right) \left(115 n^{3} - 344 n^{2} + 299 n - 82\right)\,a(n-1) -  4 \left(2 n - 3\right) \left(5 n^{3} + 27 n^{2} - 74 n + 30\right)\,a(n-2) + 36 \left(n - 1\right) \left(2 n - 5\right) \left(2 n - 3\right) \left(5 n - 3\right)\,a(n-3) \;=\;0
+n \left(n - 1\right) \left(n + 1\right)\,a(n) -  12 n \left(n - 1\right) \left(2 n - 1\right)\,a(n-1) + 12 \left(n - 1\right) \left(16 n^{2} - 32 n + 17\right)\,a(n-2) -  16 \left(2 n - 3\right) \left(4 n - 7\right) \left(4 n - 5\right)\,a(n-3) \;=\;0
 \]
-holds for every $n>-1$.
+holds for every $n>2$.
 \end{theorem}
 
 \begin{proof}
@@ -156,7 +156,7 @@ Immediate from Corollary~\ref{cor:criterion} and the displayed value of $B$.
 
 \begin{remark}
 The polynomial $B$ is not an error term: it records the boundary of the recurrence. For
-$n\le-1$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
+$n\le2$ some of the shifted terms $a(n-i)$ fall outside the range of the sequence,
 and $B$ collects exactly those contributions. Above that range the relation is exact.
 \end{remark}
 
@@ -167,23 +167,23 @@ independent checks were run.
 
 First, the generating function was checked against the entry rather than assumed: the
 Taylor coefficients of \eqref{eq:gf} were expanded and compared term by term with the DATA
-section of A212696, agreeing on all 13 terms compared.
+section of A097180, agreeing on all 13 terms compared.
 
 Second, the recurrence itself was evaluated directly on the published terms, in exact
 integer arithmetic and without reference to the generating function: for each $n$ in range
 the sum $\sum_{i}p_{i}(n)a(n-i)$ was formed from the entry's own values and found to
-vanish, for all 25 values of $n$ from $n=3$ upward. This is what
+vanish, for all 17 values of $n$ from $n=3$ upward. This is what
 Corollary~\ref{cor:criterion} predicts from the degree of $B$, and it is a genuinely
 different computation from the symbolic one: it never forms $B$, never differentiates, and
 uses only integers.
 
 The symbolic step is exact throughout. The residual is obtained by rational-function
-cancellation in $K$, not by series truncation, so the identity $B=0$ is an
-identity of functions and the theorem holds for all $n>-1$ simultaneously.
+cancellation in $K$, not by series truncation, so the identity $B=12 x^{2}$ is an
+identity of functions and the theorem holds for all $n>2$ simultaneously.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
-\url{https://oeis.org}, 2026. Sequence A212696.
+\url{https://oeis.org}, 2026. Sequence A097180.
 \bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011,
 Chapter 7 (holonomic closure properties and the translation between recurrences and
 differential equations).

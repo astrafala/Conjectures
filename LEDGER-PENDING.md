@@ -897,3 +897,24 @@ to right it multiplies by `R^5`, and the sweep recorded "the stated g.f. does no
 DATA" against a correct entry. Fixed (`_denominator_run`), record deleted, regression over the
 989-entry pool: 988 unchanged, 0 lost, A118447 the only difference. Six for six: every apparent
 disproof this project has produced has been my reader, never a false conjecture.
+
+### The premise reader, and three big greps worth five papers (IDEAS §AG)
+
+**5 more papers; roster 13,320 over 13,293 entries; 161 arguments.** A056328, A056329, A082975
+(new `gf-identity`: the entry asserts one generating function and conjectures another, and they
+are the same rational function); A208995, A250883 (`gf-conjecture`, from the rebuilt pool).
+
+**A soundness hole, found and closed with nothing installed behind it.** `algf` tested for a
+conjectural word ON THE LINE, so a generating function inside a `Conjectures: (Start)` block read
+as fact — proving the entry's recurrence from it would be proving a conjecture from itself.
+`factlines.facts` exists for exactly this and records 1,336 papers once withdrawn for it.
+Audited first: of the 36 entries with an installed `holonomic` paper, 33 took the premise from a
+fact line and 3 from the NAME. **None affected.** Both readers now take premises only from
+`factlines.facts`; regression over the 989-entry pool: 989 unchanged, nothing lost.
+
+**The 2,211 "engine missing" bucket needs engines.** 2,204 of them assert no generating function
+at all. The census's conclusion was right and my objection to it was wrong.
+
+**Three large greps, five papers.** 1,509 continued-fraction g.f.s, 3,593 `Empirical g.f.` lines
+(against the 131 `equate`'s filter could see — defect 2 again, in a vein with four papers), and
+2,211 claim-readable entries. Every filter defect was real; the populations behind them were not.

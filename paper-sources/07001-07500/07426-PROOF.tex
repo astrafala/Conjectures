@@ -12,18 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251097, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A234976, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251097 counts $(n+1)\times6$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A234976 counts $(n+1)\times3$ arrays over $\{0,\dots,4\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $31$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
-on $S=64$ vertices whose edges are the admissible consecutive pairs, and the count is a
+on $S=125$ vertices whose edges are the admissible consecutive pairs, and the count is a
 number of walks: $a(n)=\mathbf{1}^{\!\top}M^{n}\mathbf{1}$. Writing $q$
 for the characteristic polynomial of the conjectured recurrence, the recurrence holds for all
 $n$ exactly when $\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for every $j\ge0$, and the
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251097 is ``Number of (n+1)X(5+1) 0..1 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
+OEIS A234976 is ``Number of (n+1)X(2+1) 0..4 arrays with every 2X2 subblock having the sum of the absolute values of the edge differences equal to 8.''. It has offset $1$ and begins
 \[
-1278, 30517, 713769, 16697127, 391088995, 9160138107, 214512524583, 5023196973684,\ \dots
+1664, 34862, 684282, 13888792, 280501760, 5681668040, 115047739004, 2330312908864,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 64*a(n-1) -1764*a(n-2) +29700*a(n-3) -350488*a(n-4) +3107079*a(n-5) -21536824*a(n-6) +119757642*a(n-7) -543940823*a(n-8) +2045999565*a(n-9) -6444601609*a(n-10) +17157130467*a(n-11) -38908214534*a(n-12) +75659291228*a(n-13) -126869529554*a(n-14) +184336056227*a(n-15) -233006780681*a(n-16) +257060876816*a(n-17) -248098761256*a(n-18) +209731219435*a(n-19) -155260530399*a(n-20) +100445433948*a(n-21) -56541615273*a(n-22) +27492563839*a(n-23) -11423056137*a(n-24) +3995023081*a(n-25) -1152174020*a(n-26) +266437832*a(n-27) -47464016*a(n-28) +6119568*a(n-29) -509760*a(n-30) +20736*a(n-31)
+Empirical: a(n) = 24*a(n-1) +64*a(n-2) -3343*a(n-3) +3560*a(n-4) +161202*a(n-5) -330230*a(n-6) -3637984*a(n-7) +8745716*a(n-8) +44091426*a(n-9) -112181033*a(n-10) -308357502*a(n-11) +798959758*a(n-12) +1293974001*a(n-13) -3329862899*a(n-14) -3350818614*a(n-15) +8265499178*a(n-16) +5548074149*a(n-17) -12222886511*a(n-18) -6121346759*a(n-19) +10583216048*a(n-20) +4613111977*a(n-21) -5146894678*a(n-22) -2277079715*a(n-23) +1263969238*a(n-24) +653512844*a(n-25) -105006895*a(n-26) -86462636*a(n-27) -6362555*a(n-28) +2338008*a(n-29) +347574*a(n-30) +7596*a(n-31)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:03:56, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jun 02 2025 09:20:08, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;64\,a(n-1) - 1764\,a(n-2) + 29700\,a(n-3) - 350488\,a(n-4) + 3107079\,a(n-5) - 21536824\,a(n-6) + 119757642\,a(n-7) - 543940823\,a(n-8) + 2045999565\,a(n-9) - 6444601609\,a(n-10) + 17157130467\,a(n-11) - 38908214534\,a(n-12) + 75659291228\,a(n-13) - 126869529554\,a(n-14) + 184336056227\,a(n-15) - 233006780681\,a(n-16) + 257060876816\,a(n-17) - 248098761256\,a(n-18) + 209731219435\,a(n-19) - 155260530399\,a(n-20) + 100445433948\,a(n-21) - 56541615273\,a(n-22) + 27492563839\,a(n-23) - 11423056137\,a(n-24) + 3995023081\,a(n-25) - 1152174020\,a(n-26) + 266437832\,a(n-27) - 47464016\,a(n-28) + 6119568\,a(n-29) - 509760\,a(n-30) + 20736\,a(n-31)
+a(n)\;=\;24\,a(n-1) + 64\,a(n-2) - 3343\,a(n-3) + 3560\,a(n-4) + 161202\,a(n-5) - 330230\,a(n-6) - 3637984\,a(n-7) + 8745716\,a(n-8) + 44091426\,a(n-9) - 112181033\,a(n-10) - 308357502\,a(n-11) + 798959758\,a(n-12) + 1293974001\,a(n-13) - 3329862899\,a(n-14) - 3350818614\,a(n-15) + 8265499178\,a(n-16) + 5548074149\,a(n-17) - 12222886511\,a(n-18) - 6121346759\,a(n-19) + 10583216048\,a(n-20) + 4613111977\,a(n-21) - 5146894678\,a(n-22) - 2277079715\,a(n-23) + 1263969238\,a(n-24) + 653512844\,a(n-25) - 105006895\,a(n-26) - 86462636\,a(n-27) - 6362555\,a(n-28) + 2338008\,a(n-29) + 347574\,a(n-30) + 7596\,a(n-31)
 \end{equation}
 for all $n>31$.
 
@@ -56,7 +56,7 @@ for all $n>31$.
 
 Write an array of the shape in question as its list of rows
 $r^{(1)},r^{(2)},\dots$, each an element of
-$V=\{0,1,\dots,1\}^{6}$, so $|V|=S=64$. A $2\times2$ subblock of the array
+$V=\{0,1,\dots,4\}^{3}$, so $|V|=S=125$. A $2\times2$ subblock of the array
 occupies two consecutive rows and two consecutive columns; if the two rows are $r$
 and $s$ (in that order) and the two columns are numbered $j,j+1$,
 the subblock is
@@ -65,12 +65,12 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl(\min(\alpha,\delta)<\min(\beta,\gamma)\bigr),
+|\beta-\alpha|+|\delta-\beta|+|\gamma-\delta|+|\alpha-\gamma|=8,
 \end{equation}
 a condition on the four entries alone.
 
 For $r,s\in V$ declare $r\to s$ an edge of a digraph $G$ when, for every
-$1\le j\le 6-1$,
+$1\le j\le 3-1$,
 \begin{itemize}
 \item the four entries above satisfy \eqref{eq:loc};
 
@@ -87,7 +87,7 @@ a(n)\;=\;\mathbf{1}^{\!\top}M^{n}\mathbf{1} .
 \end{lemma}
 
 \begin{proof}
-An array with $L$ rows and $6$ columns is precisely a sequence
+An array with $L$ rows and $3$ columns is precisely a sequence
 $r^{(1)},\dots,r^{(L)}$ of elements of $V$; conversely any such sequence is an array.
 Every $2\times2$ subblock lies in two consecutive rows $r^{(t)},r^{(t+1)}$ and two
 consecutive columns, so the array satisfies the entry's condition on all of its subblocks
@@ -135,7 +135,7 @@ Section~1.
 \end{theorem}
 
 \begin{proof}
-The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $6$
+The digraph was constructed from \eqref{eq:loc} by a depth-first scan across the $3$
 columns: the edge condition is a conjunction of one constraint per consecutive column
 pair, so the successors of a row $r$ are enumerated column by column without testing all
 $S^2$ pairs. The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was then formed by $31$
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251097.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A234976.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -11,102 +11,111 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{An exact count for OEIS A228462: windowed maxima over a growing alphabet}
+\title{The empirical closed form for OEIS A199835, proved from an exact model}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{15 September 2026}
+\date{13 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228462 counts the arrays obtainable as the maxima of $3$ adjacent elements of a length
-$7$ array with entries in $\{0,\dots,n\}$, and carries an empirical polynomial for that
-count. The count is not a transfer-matrix count: the length is fixed and it is the ALPHABET
-that grows with $n$. It is nevertheless exactly computable, because membership in the image
-depends only on the relative order of the entries of the candidate array and not on their
-values, so the count is a fixed non-negative combination of binomial coefficients
-$\binom{n+1}{m}$. Computing that combination settles the empirical claim as an identity in
-$\mathbb{Q}[n]$.
+OEIS A199835 carries an empirical closed form: a polynomial in $n$ of degree $2$, recorded on the
+entry and never marked settled. It is true. The entry's count is given exactly by an Ehrhart
+quasi-polynomial, from which $a$ provably satisfies a monic linear recurrence of order $S=7$
+derived below; a polynomial of degree $2$ satisfies $(z-1)^{2+1}$; so the difference
+satisfies the product, and $7+2+1$ consecutive agreements settle it. No transfer matrix is
+involved and the count is not a walk.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 06A07.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11P21.\normalsize
 
 \section{The conjecture}
 
-The entry's first terms are $17, 91, 310, 821, 1847, 3703, 6812, 11721,\dots$ and it states
-
-\begin{quote}\raggedright Empirical: a(n) = (2/15)*n\^{}5 + (7/6)*n\^{}4 + (25/6)*n\^{}3 + (19/3)*n\^{}2 + (21/5)*n + 1.\end{quote}
-
-\section{The object}
-
-Fix $k=7$ and $w=3$, and put $L=k-w+1=5$. For $a=(a_1,\dots,a_k)\in\{0,\dots,n\}^k$
-let
+OEIS A199835 is ``Number of -n..n arrays x(0..5) of 6 elements with zero sum and no two neighbors summing to zero.''. It has offset $1$ and begins
 \[
-  \Phi(a)=\bigl(\max(a_1,\dots,a_w),\ \max(a_2,\dots,a_{w+1}),\ \dots,\
-  \max(a_{k-w+1},\dots,a_k)\bigr)\in\{0,\dots,n\}^{L} .
+10, 426, 3556, 15708, 49302, 124982, 273728, 538968,\ \dots
 \]
-The entry counts $\lvert\Phi(\{0,\dots,n\}^k)\rvert$.
+The entry states, as a conjecture contributed by its author and never marked settled:
+\begin{quote}
+Empirical: a(n) = n*(2*n+1)*(2*n-1)*(66*n\^{}2-35*n+19)/15.
+\end{quote}
+As of the ``Last modified'' line on the live entry (Jul 22 2025 13:24:45, revision 9)
+this is still recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Membership in the image is decided by the order type}
+\section{The count is a quasi-polynomial}
 
-Write $W_j=\{j,j+1,\dots,j+w-1\}$ for the $j$-th window, $1\le j\le L$.
+The array has a FIXED number $L$ of entries and an alphabet that grows with $n$. Every
+condition the entry imposes is a boolean combination of statements
+$\sum_i c_ix_i + c\,n \bowtie 0$ with integer coefficients and $\bowtie$ one of
+$=,\ne,<,\le,>,\ge$: the bounds $|x_i|\le n$ or $0\le x_i\le n$, a vanishing sum, a difference
+that must not vanish, a pair that must total exactly $n$. Each is homogeneous in $(x,n)$
+jointly, so the admissible $x$ for a given $n$ are precisely the integer points at height $n$
+of a finite union of relatively open rational cones in $\mathbb{R}^{L+1}$, and $a(n)$ is
+the Ehrhart quasi-polynomial of that union: of degree at most $L$, with period dividing the
+heights of the cones' ray generators.
 
-\begin{lemma}\label{lem:greedy}
-Let $b\in\{0,\dots,n\}^{L}$ and define $\hat a\in\{0,\dots,n\}^k$ by
-$\hat a_i=\min\{\,b_j : i\in W_j\,\}$. Then $b\in\Phi(\{0,\dots,n\}^k)$ if and only if
-$\Phi(\hat a)=b$.
-\end{lemma}
+\section{The bound}
+
+The period is derived, not assumed. Every ray of every cell of the arrangement is cut out by
+$L$ linearly independent hyperplanes taken from the constraint set; writing that $L\times(L+1)$
+system as $M$, its null direction has $t$-component $\pm\det$ of the $x$-parts, so the
+primitive generator $(x^*,t^*)$ has $t^*$ dividing that determinant. Let $T$ be the set of
+those determinants. A simplicial cone in a triangulation has at most $L+1$ rays, each
+contributing a factor $1-z^{t_i}$ with $t_i\in T$, so
+\[
+A(z)\;=\;\prod_{d\,\mid\,t\ \text{for some}\ t\in T}\Phi_d(z)^{L+1}
+\]
+annihilates $a$, and $S=\deg A=7$. A congruence condition modulo $m$ is counted one residue
+class at a time; a class is a coset of $m\mathbb{Z}^L$, and a generator primitive in
+$\mathbb{Z}^{L+1}$ must be scaled by a divisor of $m$ to lie in it, so each $t$ is replaced
+by $mt$ and nothing else changes.
+
+Over the common denominator the numerator has degree below that of $A$ for every cell of the
+arrangement that HAS a ray, because such a cell's numerator collects a fundamental
+parallelepiped whose heights are below the sum of its generators' heights. The origin is a cell
+too and it has none: its series is the constant $1$, which over $A$ is $A/A$ and reaches degree
+exactly $\deg A$. The bound in force is therefore $zA(z)$, of order $S=7$, and
+$a(0),\dots,a(S-1)$, computed exactly, determine every later term. Nothing is fitted, and the
+annihilator is tested on terms the model was not asked for before anything is claimed --- a
+bound one too small fails that test, which is how this one was found.
+
+\section{The proof}
+
+\begin{theorem}
+The empirical closed form holds for every $n$.
+\end{theorem}
 
 \begin{proof}
-Each $\hat a_i$ is one of the $b_j$, so $\hat a$ does lie in $\{0,\dots,n\}^k$ and the
-condition is meaningful. If $\Phi(\hat a)=b$ there is nothing to prove. Conversely suppose
-$\Phi(a)=b$ for some $a$. For every $i\in W_j$ we have $a_i\le\max_{l\in W_j}a_l=b_j$, so
-$a_i\le\min\{b_j : i\in W_j\}=\hat a_i$: the array $\hat a$ dominates every witness
-componentwise. Hence
-$\max_{i\in W_j}\hat a_i\ge\max_{i\in W_j}a_i=b_j$. The reverse inequality is immediate
-from the definition, since $\hat a_i\le b_j$ for each $i\in W_j$. So $\Phi(\hat a)=b$.
+Write $P$ for the claimed polynomial and $r(n)=a(n)-P(n)$. The annihilator $A$ derived above
+kills $a$, and $(z-1)^{2+1}$ kills $P$, so $A(z)(z-1)^{2+1}$ --- monic, of order
+$7+2+1$ --- kills $r$. The model was evaluated exactly in integer arithmetic and $P$ in
+exact rational arithmetic at every index from $n=1$ to $n=1+7+2+1$, and $r$ vanished
+at all of them. A monic recurrence with $7+2+1$ consecutive zeros has every later term zero,
+so $r\equiv0$.
 \end{proof}
 
-Both the construction of $\hat a$ and the test $\Phi(\hat a)=b$ use only comparisons between
-entries of $b$. Consequently:
+\section{Verification}
 
-\begin{corollary}\label{cor:ordertype}
-Whether $b$ lies in the image depends only on the \emph{order type} of $b$ -- the weak
-ordering of its $L$ coordinates -- and not on $n$ or on the values themselves.
-\end{corollary}
+Three checks, each independent of the algebra above.
 
-\begin{proof}
-Let $\sigma$ be any strictly increasing map defined on the values of $b$. Applying $\sigma$
-entrywise commutes with $\min$ and $\max$, so it carries $\hat a$ for $b$ to $\hat a$ for
-$\sigma(b)$ and preserves the equalities tested in Lemma~\ref{lem:greedy}. Any two arrays with
-the same order type differ by such a $\sigma$.
-\end{proof}
+First, the model reproduces all $26$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: it is built by reading the entry's
+English, and a misreading gives different counts.
 
-\section{The count}
+Second, the claimed polynomial was evaluated directly on those published terms, in exact
+rational arithmetic and with no model involved, and agrees with every one of them.
 
-For $1\le m\le L$ let $A_m$ be the number of order types of $L$ coordinates that use exactly
-$m$ distinct values and are achievable. An array $b\in\{0,\dots,n\}^{L}$ using exactly $m$
-distinct values is determined by the $m$-element subset of $\{0,\dots,n\}$ it uses together
-with its order type, and every pair occurs exactly once; so by Corollary~\ref{cor:ordertype},
-\[
-  \lvert\Phi(\{0,\dots,n\}^k)\rvert=\sum_{m=1}^{5}A_m\binom{n+1}{m}
-  \qquad\text{for every } n\ge 0 .
-\]
-Enumerating the weak orderings of $5$ elements and applying Lemma~\ref{lem:greedy} to each
-gives $A_{1}=1, A_{2}=15, A_{3}=43, A_{4}=44, A_{5}=16$, so
-\[
-  \lvert\Phi(\{0,\dots,n\}^k)\rvert=1\binom{n+1}{1} + 15\binom{n+1}{2} + 43\binom{n+1}{3} + 44\binom{n+1}{4} + 16\binom{n+1}{5}=\frac{2 n^{5}}{15} + \frac{7 n^{4}}{6} + \frac{25 n^{3}}{6} + \frac{19 n^{2}}{3} + \frac{21 n}{5} + 1 .
-\]
+Third, the derived annihilator was itself tested on terms the model was not asked for: the
+model was evaluated beyond the $S$ values that determine it and $A$ reproduced them. A bound
+that is too small fails this test, which is why it is run.
 
-\section{Conclusion}
-
-The right-hand side is the polynomial the entry states, so the empirical claim of OEIS A228462 is
-true for every $n\ge 0$. The argument is finite and exact: it enumerates the weak orderings of
-$5$ elements, of which there are 119 achievable, and performs no fitting to the
-published terms. Those terms are reproduced by the formula as a check, not as evidence.
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequence A199835.
+\bibitem{beckrobins} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely},
+2nd ed., Springer, 2015. (Ehrhart quasi-polynomials and their periods.)
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011.
+\end{thebibliography}
 
 \end{document}

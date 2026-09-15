@@ -12,47 +12,49 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{An element and the cells around it: OEIS A240478}
+\title{A condition on the multiset of every subblock: OEIS A183587}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A240478 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
-admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=4$ vertices and is $C$-finite, and whether the
-conjectured recurrence annihilates it is settled by a finite exact computation, with the
-Cayley--Hamilton theorem bounding the work.
+OEIS A183587 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition on a subblock depends
+only on which values the block holds and how many times, not on where they sit, so it is
+decided by the few consecutive lines the block spans. The admissible windows are the vertices
+of a finite digraph and the arrays counted are exactly its walks; hence $a(n)$ is a walk count
+on $S=4$ vertices and is $C$-finite, and whether the conjectured recurrence annihilates it
+is settled by a finite exact computation, with the Cayley--Hamilton theorem bounding the
+work. The entry does not count the arrays themselves but $1/24$ of them, so every count below is divided by $24$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A240478 is ``Number of n X 2 0..1 arrays with no element equal to more than two horizontal or vertical neighbors, with new values 0..1 introduced in row major order.''. It has offset $1$ and begins
+OEIS A183587 is ``1/24 the number of (n+1) X 3 0..3 arrays with every 2 X 2 subblock containing exactly three distinct values.''. It has offset $1$ and begins
 \[
-2, 8, 25, 81, 264, 857, 2785, 9050,\ \dots
+56, 1243, 27380, 603766, 13311808, 293504588, 6471298096, 142681644568,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 3*a(n-1) + a(n-2) - 2*a(n-4).
+Empirical: a(n) = 24*a(n-1) - 30*a(n-2) - 296*a(n-3) + 192*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 24 2018 09:25:46, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Mar 29 2018 15:06:23, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $2$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no element may equal more than $2$ of its horizontal and vertical neighbours.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2,3\}$, growing one row at a time, and asks that every $2\times2$ subblock holds exactly $3$ distinct values.
 
-The furthest that condition reaches is $1$ row, so a window of $3$ consecutive rows decides it for the row in the middle. Carry $2$ rows as the state; a row is judged when the row $1$ beyond it arrives, and the last $1$ row --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
+That condition does not depend on where in the block a value sits, only on which values the block holds and how many times --- it is a function of the block's multiset of entries. In particular it is decided by $2$ consecutive rows, the ones the block spans, so carrying the previous $1$ row as the state is enough: each new row completes every block that ends on it, and no judgement is left over at the end of the array.
 
-The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
+The entry counts not the arrays themselves but $1/24$ of them, so every count below is divided by $24$; the division comes out exact at every term the entry publishes, which is itself a check on the model.
 
 Merging vertices with identical futures leaves $S=4$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\tfrac{1}{24}\,\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -78,15 +80,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;3\,a(n-1) + a(n-2) - 2\,a(n-4)
+a(n)\;=\;24\,a(n-1) - 30\,a(n-2) - 296\,a(n-3) + 192\,a(n-4)
 \]
-for every $n>4$.
+for every $n>3$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $4$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=4+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=3+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -94,14 +96,14 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition at each cell
-directly. That program shares no code with the transfer matrix, so an error in one does not
-hide an error in the other.
+every array of the given shape one by one, forms each subblock directly and tests the entry's
+condition on it. That program shares no code with the transfer matrix, so an error in one does
+not hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -111,7 +113,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A240478.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183587.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
