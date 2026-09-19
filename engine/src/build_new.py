@@ -126,9 +126,15 @@ SPECIAL = {'transfer17': 'transfer17build', 'transfer6': 'transfer6build',
 roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
 roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 import integrate_rest_names as _labels
+import refused
 # A withdrawn ARGUMENT must not be rebuilt; a different argument on the same entry may be.
+# `refused.py` says the builder and the installer both read it, and only `install_vein.py` did:
+# a hit from a refused engine reaching this file would have been built and installed with no
+# check anywhere on the path. Nothing refused is in `uniall_hits.json` today, so this changes
+# nothing now -- it is the guard that was described rather than written.
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('anum') not in roster and h.get('engine')
+        and refused.ok(h.get('engine'))
         and not withdrawnset.blocked(h['anum'], _labels.name(h['engine']))]
 only = set(sys.argv[1:])
 if only:

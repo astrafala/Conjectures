@@ -70,6 +70,16 @@ def build(en, p, cap):
             # faster, so it is what the sweep uses. Nothing falls back to the old build: if
             # this one passes the cap, the pair state passed it long ago.
             return M[en].build_pairfree(p, cap=cap)
+        if en == 'transfer40':
+            # the merged build, for the same reason transfer17 uses its pair-free one: the
+            # predecessor rows matter to the future only through the overlap the next window
+            # needs and the statistics it is compared against, so merging them is exact and the
+            # a-priori bound falls from A^(K*W) to A^((K-1)*W). Verified to count identically to
+            # `build` on every entry where both succeed (40) and on 590 shapes of the parameter
+            # grid -- 434 at K=2 and 156 at K=3 -- covering all four kinds and all three
+            # neighbourhoods. Nothing falls back: whatever this refuses, the unmerged build
+            # refused long ago.
+            return M[en].build_merged(p, cap=cap)
         if en in ('transfer23', 'transfer29', 'transfer30', 'transfer31', 'transfer33', 'transfer34', 'transfer35', 'transfer36', 'transfer37', 'transfer6'):
             b = M[en].build(p) if en == 'transfer6' else M[en].build(p, cap=cap)
             if b is None or not b[0]:

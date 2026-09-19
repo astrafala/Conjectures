@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Install every proved result that has a compiled paper and is not yet in the roster."""
+import refused
 import withdrawnset
 import json, os, shutil
 from integrate_rest_names import ENGNAME
@@ -14,6 +15,12 @@ for h in sorted(json.load(open('uniall_hits.json')), key=lambda x: x.get('anum',
     # same open conjecture is a new result, not the withdrawn one returning
     if not a or h.get('FAILS') or a in have or withdrawnset.blocked(
             a, ENGNAME.get(h['engine'], 'transfer-matrix')):
+        continue
+    # the same guard `install_vein.py` applies, which this installer did not: an engine is
+    # refused when its argument turns out not to be one, and a hit written before the refusal
+    # is still sitting in the file. Zero records in `uniall_hits.json` are affected today.
+    if not refused.ok(h.get('engine')):
+        print('  refused engine', a, h.get('engine'))
         continue
     src = f"build/un{a}/p.pdf"
     if not (os.path.exists(src) and os.path.getsize(src) > 50000):
