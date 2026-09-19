@@ -399,6 +399,36 @@ the mathematics: every mismatch was `kind=maxdiff` with `nb > 1`, and every `max
 `nb = 1` -- where the horizontal filter is vacuous -- agreed. A defect that sorts cleanly by a
 parameter is a defect in the code that reads that parameter.
 
+### defect 36 — a measurement that reports the machine's ceiling as the model's
+
+The merged `transfer40` build loosens the a-priori refusal from `A^(K*W)` to `A^((K-1)*W)`, and
+that opens 42 off-roster entries the bound had been refusing. Loosening a refusal is not
+building a model, so the question that matters is how many of the 42 actually produce an
+automaton under the standing cap of 2,000,000. The first run at that question printed `refused
+at build` for the first ten and I was ready to write up that the merge is exact, verified, and
+buys nothing.
+
+It was run under a 1.5 GB address-space limit, and it printed `refused at build` for every
+entry that did not hand back an automaton -- including the ones that raised `MemoryError`. Of
+those first ten, A185806 was the 1.5 GB and not the cap. And the conclusion the ten supported
+was wrong: A185863 builds at S=698048, comfortably inside a cap of two million.
+
+**An out-of-memory and an over-the-cap are different facts and a measurement must never print
+them as one word.** The limit exists so that one oversized shape fails instead of the whole run
+-- that part was right, and `caprun.sh` sets 1.5 GB for a good reason. The error was letting the
+limit's verdict wear the cap's name. A run whose whole purpose is to measure a threshold must
+report anything that is not that threshold separately, or it measures the container.
+
+The correction mattered less than what the corrected measurement then found, which is that the
+whole question was aimed at the wrong population: 40 of the 42 entries the merged bound opens
+carry no conjecture at all (IDEAS section AP). The cap was never what was stopping them.
+
+**A refusal list counts entries, not opportunities.** `sweep_shard` writes `state space > cap`
+against any entry whose NAME an engine parses, and one of its two cap points fires before the
+recurrence is looked for at all. Of 2,311 off-roster capped entries, 1,056 carry a parsable
+conjecture and 1,255 carry none -- and for `transfer40` it is 3 of 199. Before spending a round
+on a population a sweep refused, ask of it the question the sweep asks last.
+
 ## When you create a new sharded sweep
 
 Add its shard files to `.gitignore` **at the moment you create it**, and add its stem to

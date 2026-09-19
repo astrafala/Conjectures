@@ -2057,3 +2057,98 @@ Every candidate pool is rebuilt, every reader defect found today paid 0–1, and
 population is blocked by a limit that is about memory rather than mathematics. **The project is
 at an engineering ceiling, not a mathematical one**, and saying so is more useful than another
 reader fix.
+
+## AP. The capped population is mostly entries with nothing to prove (19 September)
+
+Section AO called the 1,835 off-roster entries capped by state space "the largest single target
+in the project" and set the next piece of work as a merge-at-construction build for the engines
+that dominate them. That build now exists for `transfer40`, it is exact and verified, and the
+honest report on it is that the premise was wrong.
+
+### AP.1 The merge is exact and it opens 42 entries
+
+`transfer40.build_merged` takes the Myhill–Nerode quotient at construction, as
+`transfer17.build_pairfree` already did: the future of a state depends on the predecessor row
+only through the overlap the next window needs and the statistics it is compared against, so the
+a-priori refusal falls from `A^(K*W)` to `A^((K-1)*W)`. It counts identically to the unmerged
+build on all 40 entries where both succeed and on 590 shapes of the parameter grid — 434 at
+`K=2`, 156 at `K=3` — over all four kinds and all three neighbourhoods. Zero mismatches. Of the
+200 off-roster capped `transfer40` entries, 144 already passed the old bound, 14 fail both, and
+**the merged bound opens 42**.
+
+### AP.2 Forty of those 42 have no conjecture in them
+
+Swept with the merged build in place, the 42 come back:
+
+| | |
+|---:|---|
+| 40 | no parsable recurrence |
+| 1 | state space > cap |
+| 1 | build timed out |
+
+A185864, A185886 and A183969 were read by hand: the entries contain no conjectural text at all,
+not an unparsed one. There is nothing in them to settle. **The state-space cap was never what
+was stopping these entries; the absence of a conjecture was**, and no amount of building a
+smaller automaton reaches them.
+
+### AP.3 The same is true of most of the capped list
+
+Asked of every off-roster entry in `uniall_caps.json` — does this entry carry a parsable
+conjectured recurrence at all?
+
+| | |
+|---:|---|
+| 2,311 | off-roster capped entries |
+| 1,056 | carry a parsable conjecture |
+| 1,255 | carry none |
+
+and the split is nowhere near uniform:
+
+| engine | capped | with a conjecture |
+|---:|---|---:|
+| `transfer40` | 199 | **3** |
+| `transfer36` | 75 | 1 |
+| `transfer64` | 67 | 1 |
+| `transfer34` | 87 | 3 |
+| `transfer48` | 73 | 4 |
+| `transfer6` | 116 | 13 |
+| `transfer21` | 78 | 15 |
+| `transfer19` | 68 | 30 |
+| `transfer26` | 78 | 47 |
+| `transfer9` | 84 | 60 |
+| `transfer17` | 120 | 82 |
+| `ca2dcount` | 66 | 66 |
+| `ca2d` | 122 | 122 |
+| `latpoly` | 133 | 133 |
+
+AO's table ranked the targets by how many entries each engine had capped and put `transfer40`
+second with 138. On the count that matters it has three. `latpoly`, `ca2d` and `ca2dcount` are
+every one of them real.
+
+### AP.4 The rule
+
+**A refusal list counts entries, not opportunities.** `sweep_shard` records `state space > cap`
+against an entry whose name an engine parses, and parsing a name is not finding a conjecture —
+one of its two cap points fires before the recurrence is even looked for. Ranking work by the
+size of a refusal population therefore measures how many entries an engine's regex matches, and
+`transfer40` matches the name of every `k X k` subblock-trace array whether or not anyone ever
+conjectured anything about it.
+
+Before treating a population as a target, ask of it the question the sweep asks last. The cost
+here was a verified, exact, correctly-built engine improvement that buys one candidate.
+
+### AP.5 What survives
+
+- The merged build stays: it is exact, it is faster, and it costs nothing to keep.
+- **A185863** carries a conjecture, builds at `S=698048` under a cap of two million, and the
+  42-entry sweep missed it only on a 120-second budget that expired inside the build. A budget
+  that ends a build is not a cap refusing one.
+- The engines worth a merged build are the ones whose capped entries carry conjectures:
+  `latpoly` (133), `ca2d` (122), `transfer17` (82 — it already has `build_pairfree`, so the
+  question there is why those 82 still cap), `ca2dcount` (66, but the engine is withdrawn).
+- `transfer21` is the only caller of `transfer17.build`, the version that refuses a priori on
+  `A^(2W) > cap`; production dispatches `transfer17` to `build_pairfree`, which has no such
+  refusal. That a-priori test alone accounts for 34 of the 78 capped `transfer21` entries. It is
+  not a drop-in — `transfer21` overrides the start vector with a uniform weight, which the
+  pair-free build computes for itself — but 15 of those 78 carry a conjecture and it is a
+  smaller, better-aimed piece of work than another merge.
