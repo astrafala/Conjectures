@@ -57,7 +57,13 @@ for pat in ('shard*_hits*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             'prec_hits*.json'):
     for f in glob.glob(pat):
         for h in (L(f) or []):
-            if isinstance(h, dict) and h.get('anum') and h['anum'] not in roster:
+            # A record marked FAILS is the sweep saying the conjecture did NOT settle. This
+            # list is read as "every result held but not yet installed" and fed to the live
+            # re-check, so a failure in it is a result that never existed being re-checked,
+            # counted as pending, and waiting for a paper nothing will ever build. Every
+            # installer filters FAILS; the list of what they will install did not.
+            if (isinstance(h, dict) and h.get('anum') and not h.get('FAILS')
+                    and h['anum'] not in roster):
                 new.add(h['anum'])
 new |= {x['anum'] for x in (L('ordtails.json') or {}).get('proved', [])
         if x['anum'] not in roster}

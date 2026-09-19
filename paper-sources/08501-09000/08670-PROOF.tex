@@ -12,17 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A local condition on an array: OEIS A202465}
+\title{A condition on every subblock: the empirical recurrence for OEIS A183848}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A202465 carries an empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+OEIS A183848 carries an empirical recurrence of order $21$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=22$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=26$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +32,24 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A202465 is ``Number of (n+2)X4 binary arrays with no more than two of any consecutive three bits set in any row or column.''. It has offset $1$ and begins
+OEIS A183848 is ``Number of (n+1)X4 0..3 arrays with each element of every 2X2 subblock being the sum mod 4 of two others.''. It has offset $1$ and begins
 \[
-1573, 16561, 172197, 1774281, 18374521, 190112777, 1966463785, 20345296193,\ \dots
+328, 1766, 9557, 54724, 310856, 1846987, 10793131, 65461226,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 4*a(n-1) +36*a(n-2) +272*a(n-3) +350*a(n-4) +392*a(n-5) -3016*a(n-6) -164*a(n-7) -5522*a(n-8) +11427*a(n-9) -4608*a(n-10) +10140*a(n-11) -11817*a(n-12) +4108*a(n-13) -2432*a(n-14) +1176*a(n-15) -166*a(n-16) +124*a(n-17) -50*a(n-18) +4*a(n-19) -2*a(n-20) +a(n-21)
+Empirical: a(n)=8*a(n-1)+59*a(n-2)-565*a(n-3)-822*a(n-4)+13359*a(n-5)-4545*a(n-6)-132397*a(n-7)+154942*a(n-8)+558160*a(n-9)-920421*a(n-10)-1048403*a(n-11)+2303548*a(n-12)+729071*a(n-13)-2730029*a(n-14)+118317*a(n-15)+1498861*a(n-16)-308470*a(n-17)-342440*a(n-18)+95112*a(n-19)+25872*a(n-20)-8064*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 09:36:41, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 02:06:48, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $4$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that no $3$ consecutive entries, taken along a row or down a column, may contain more than $2$ ones.
+The entry counts arrays with $4$ columns over the alphabet $\{0,1,2,3\}$, growing one row at a time, and the condition it imposes is that in every $2\times2$ subblock, each of the four entries must be congruent modulo $4$ to the sum of two of the other three.
 
-Every cell the condition names lies within one row of the cell being judged, so three consecutive rows decide everything anchored at the middle one. Carry two consecutive rows as the state; a row is judged when the row after it arrives, and the row with nothing after it is judged by the end vector. That is where the boundary is honest: a neighbour off the edge of the array is not a neighbour, and a run of entries that would leave the array is not a run.
-
-Merging vertices with identical futures leaves $S=22$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=26$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -76,15 +75,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;4\,a(n-1) + 36\,a(n-2) + 272\,a(n-3) + 350\,a(n-4) + 392\,a(n-5) - 3016\,a(n-6) - 164\,a(n-7) - 5522\,a(n-8) + 11427\,a(n-9) - 4608\,a(n-10) + 10140\,a(n-11) - 11817\,a(n-12) + 4108\,a(n-13) - 2432\,a(n-14) + 1176\,a(n-15) - 166\,a(n-16) + 124\,a(n-17) - 50\,a(n-18) + 4\,a(n-19) - 2\,a(n-20) + a(n-21)
+a(n)\;=\;8\,a(n-1) + 59\,a(n-2) - 565\,a(n-3) - 822\,a(n-4) + 13359\,a(n-5) - 4545\,a(n-6) - 132397\,a(n-7) + 154942\,a(n-8) + 558160\,a(n-9) - 920421\,a(n-10) - 1048403\,a(n-11) + 2303548\,a(n-12) + 729071\,a(n-13) - 2730029\,a(n-14) + 118317\,a(n-15) + 1498861\,a(n-16) - 308470\,a(n-17) - 342440\,a(n-18) + 95112\,a(n-19) + 25872\,a(n-20) - 8064\,a(n-21)
 \]
-for every $n>19$.
+for every $n>21$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $21$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=19+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=21+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -92,12 +91,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
 hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -108,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A202465.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183848.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
