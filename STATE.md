@@ -511,3 +511,20 @@ unchanged. Rebuild `uni_cands.json` with `src/mkcands.py` when convenient, not b
 
 `rank.py`, `sync_sources.py` and `paperdates.py` refuse to run twice at once. Never start a
 second copy.
+
+### defect 37 — a maintenance script moved to `attic/` is a routine that fails silently
+
+The daily ledger routine runs `python3 src/ledger_table.py`, which rebuilds the ledger's RESULTS
+HELD table from `rank-map.json`. The `engine/src` split (defect 32) moved that script to
+`attic/`, and every daily firing since has ended that step with `can't open file` — a line in a
+log nobody was reading, because the routine's other steps kept working. The table had drifted
+**25 rows**, which is precisely the failure its own docstring records it was written to prevent:
+"it drifted to 456 rows once because it was appended to instead of rebuilt".
+
+The script is back in `src/`. But the lesson is not about one file. **A tidy-up that moves a
+file moves every path that names it, and the paths inside a scheduled routine are not in the
+repository to be grepped.** When a script is relocated, the routines that call it must be
+re-read, or the relocation silently turns a maintenance step into a no-op. Nothing fails loudly;
+the thing just stops being done.
+
+`attic/` is for code that is finished with. A script a routine calls every day is not.
