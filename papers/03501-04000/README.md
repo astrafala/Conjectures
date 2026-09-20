@@ -1,6 +1,6 @@
 # Papers 03501-04000
 
-Ranks 3501 to 4000 of 13745, hardest first.
+Ranks 3501 to 4000 of 13746, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

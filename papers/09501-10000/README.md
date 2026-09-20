@@ -1,6 +1,6 @@
 # Papers 09501-10000
 
-Ranks 9501 to 10000 of 13745, hardest first.
+Ranks 9501 to 10000 of 13746, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

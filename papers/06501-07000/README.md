@@ -1,6 +1,6 @@
 # Papers 06501-07000
 
-Ranks 6501 to 7000 of 13745, hardest first.
+Ranks 6501 to 7000 of 13746, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

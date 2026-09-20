@@ -1,6 +1,6 @@
 # Papers 08001-08500
 
-Ranks 8001 to 8500 of 13745, hardest first.
+Ranks 8001 to 8500 of 13746, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
