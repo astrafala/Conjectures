@@ -301,3 +301,39 @@ neither. What moves it is building a SMALLER automaton, not affording a bigger o
 the states exist and is both smaller and faster". No other engine has one. That is the concrete
 next piece of work behind 1,835 entries, and it is named here rather than attempted in the last
 minutes of a round.
+
+---
+
+## 19–20 September — the merged build, and the two things actually refusing the capped list
+
+The concrete next piece of work named above — a merge-at-construction build for the engines
+behind the capped population — was done for `transfer40` and is exact: it counts identically to
+the unmerged build on all 40 entries where both succeed and on 590 shapes of the parameter grid,
+over all four kinds and all three neighbourhoods, zero mismatches. `transfer17.build_pairfree`,
+which production had been dispatching to unconditionally and which had never been checked, was
+verified the same way: 200 of 200 identical.
+
+**And the premise it was built on was wrong.** The merged bound opens 42 `transfer40` entries.
+Swept with it in place, 40 of the 42 come back *no parsable recurrence* — A185864, A185886 and
+A183969 were read by hand and contain no conjectural text at all. Asked of the whole list: of
+2,311 off-roster capped entries, **1,056 carry a parsable conjecture and 1,255 carry none**, and
+the split is nowhere near uniform — `transfer40` has 3 of 199, `transfer36` 1 of 75,
+`transfer64` 1 of 67, while `latpoly` (133), `ca2d` (122) and `ca2dcount` (66) are real in full.
+The table above ranked the targets by how many entries each engine had capped, which measures
+how many names its regex matches. **A refusal list counts entries, not opportunities.**
+
+The second thing refusing them is not the cap either. `uniform.build` wrapped its whole body in
+`except Exception: return None`, and `MemoryError` is an `Exception`; `sweep_shard` reads `None`
+as *state space > cap* and writes the entry into `uniall_caps.json`. So every entry whose build
+outgrew its shard's `MEMGB` has been recorded as a model too big for a cap it never reached.
+**A186012 builds at S=900096 under a cap of 2,000,000 and is in the caps file because the shard
+that asked it had 4 GB.** `uniform.build` now re-raises `MemoryError`; `sweep_shard` counts it
+as its own outcome and writes it to `uniall_oom.json`, never to caps.
+
+Re-asking the 255 entries that genuinely carry a conjecture is already paying: of the first five,
+**two are proved** — A184710 at S=353 and A188239 at S=41, both `latpoly`, both recorded as
+*state space > cap* against a cap of two million they were never within four orders of.
+
+Three results installed today besides: **A186955**, **A230751**, **A263664**, and then
+**A185863**, the one the merged build bought, which needed a 1,200-second budget rather than the
+120 the sweep gave it. A budget that ends a build is not a cap refusing one.
