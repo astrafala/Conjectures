@@ -31,6 +31,34 @@ roster = {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
+# The reason an entry was given up on, per ENTRY and not only as a counter. A counter says how
+# many were refused; it cannot say which, and it is rewritten from scratch by the next process.
+# `sweep_ordwhole' and `sweep_linkrec' have recorded per-entry from the start and between them
+# have nothing to recover -- every one of the 20 entries they named as a timeout was re-asked
+# later and 16 are proved and installed. `sweep_shard', which kept only the counter, lost 33
+# entries that read as settled for months (STATE.md defect 40).
+WHYENT = DONE.replace('_done', '_whyent')
+whyent = json.load(open(WHYENT)) if os.path.exists(WHYENT) else {}
+_NOTE_BROKEN = False
+
+
+def note(k, a=None):
+    res[k] = res.get(k, 0) + 1
+    if a is not None:
+        whyent[a] = k
+        try:
+            atomicjson.dump(whyent, WHYENT, indent=0, sort_keys=True)
+        except Exception as exc:
+            # NOT `pass'. A recorder that cannot write must say so: this very function was
+            # calling an unimported `atomicjson' in sweep_ord and the NameError went into a bare
+            # except, so the per-entry reasons were silently not being written at all -- the
+            # exact failure the function exists to prevent, inside the fix for it.
+            global _NOTE_BROKEN
+            if not _NOTE_BROKEN:
+                _NOTE_BROKEN = True
+                print('  note(): cannot write %s (%s) -- per-entry reasons are NOT being kept'
+                      % (WHYENT, exc), flush=True)
+
 BUDGET = int(os.environ.get('BUDGET', '120'))
 CAP = int(os.environ.get('CAP', '20000'))
 # The per-step alarm must be SHORTER than the runner's own timeout, or the runner kills the
@@ -76,7 +104,7 @@ for a in sorted(ONLY or pool):
     save()
     e = LE.get(a)
     if not openness.status(a)[0]:
-        res['not open'] += 1; done.add(a); continue
+        note('not open', a); done.add(a); continue
     gl = None
     # conjgf, not gfonly: the corpus writes the conjectural marker behind the expression as
     # often as in front of it, and gfonly.parse refuses `G.f.: ... (conjectured).' outright.
@@ -88,17 +116,17 @@ for a in sorted(ONLY or pool):
             gl = (L.strip(), g)
             break
     if gl is None:
-        res['no g.f. recovered'] += 1; done.add(a); continue
+        note('no g.f. recovered', a); done.add(a); continue
     got = uniform.read(names[a])
     if not got:
-        res['name no longer read'] += 1; done.add(a); continue
+        note('name no longer read', a); done.add(a); continue
     en, p = got
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['build failed or timed out'] += 1; done.add(a); continue
+        signal.alarm(0); note('build failed or timed out', a); done.add(a); continue
     if b is None:
         res['state space > cap'] += 1; continue
     S = uniform.size(en, p, b)
@@ -115,11 +143,11 @@ for a in sorted(ONLY or pool):
         t = uniform.terms(en, p, b, want_terms)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['terms failed or timed out'] += 1; done.add(a); continue
+        signal.alarm(0); note('terms failed or timed out', a); done.add(a); continue
     tv = [None if (v is None or v.denominator != 1) else v.numerator for v in t]
     sh = next((s for s in range(0, off + 4) if tv[s:s + len(d)] == d), None)
     if sh is None:
-        res['model does not match DATA'] += 1; done.add(a); continue
+        note('model does not match DATA', a); done.add(a); continue
     try:
         signal.alarm(min(BUDGET * 4, ALARMCAP))
         ser = gfrec_series = None
@@ -127,9 +155,9 @@ for a in sorted(ONLY or pool):
         ser = gfrec.series(gl[1], need)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['series failed'] += 1; done.add(a); continue
+        signal.alarm(0); note('series failed', a); done.add(a); continue
     if ser is None:
-        res['series failed'] += 1; done.add(a); continue
+        note('series failed', a); done.add(a); continue
     want = []
     okall = True
     for k in range(len(ser)):
@@ -143,7 +171,7 @@ for a in sorted(ONLY or pool):
             break
     if not okall and len(want) < len(ser):
         if len(want) < need:
-            res['not enough model terms'] += 1; done.add(a); continue
+            note('not enough model terms', a); done.add(a); continue
     if not okall:
         res['the conjectured g.f. is FALSE'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': names[a], 'line': gl[0],

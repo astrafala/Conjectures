@@ -630,3 +630,17 @@ afterwards, and whether a later reader could tell that row from a settled one.
 
 What a sweep writes down when it gives up is the only thing standing between "not proved" and
 "not asked".
+
+**And the measurement bears that out from the other side.** `sweep_ordwhole` is the one sweep
+that records a per-entry reason -- `note(k, a)` writes `why[a] = k` beside the counter -- and
+`sweep_linkrec` does the same with `whyent`. Every entry those two named as a timeout was found
+and re-asked later: of the 20 such entries in the whole repository, **16 are proved and
+installed** and the other 4 carry no parsable conjecture. Nothing sat lost.
+
+`sweep_shard`, which recorded only a counter, lost 33. So the two behaviours can be compared
+directly, and the difference is not hygiene: it is the difference between an entry that gets
+asked again and one that does not exist as far as any later run can tell. Eleven sweeps in this
+repository mark an entry done on a timeout; two of them write down which entry, and those two
+are the two with nothing to recover.
+
+Copy `note()`. It is four lines.

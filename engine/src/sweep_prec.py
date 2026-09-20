@@ -57,6 +57,34 @@ roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
+# The reason an entry was given up on, per ENTRY and not only as a counter. A counter says how
+# many were refused; it cannot say which, and it is rewritten from scratch by the next process.
+# `sweep_ordwhole' and `sweep_linkrec' have recorded per-entry from the start and between them
+# have nothing to recover -- every one of the 20 entries they named as a timeout was re-asked
+# later and 16 are proved and installed. `sweep_shard', which kept only the counter, lost 33
+# entries that read as settled for months (STATE.md defect 40).
+WHYENT = DONE.replace('_done', '_whyent')
+whyent = json.load(open(WHYENT)) if os.path.exists(WHYENT) else {}
+_NOTE_BROKEN = False
+
+
+def note(k, a=None):
+    res[k] = res.get(k, 0) + 1
+    if a is not None:
+        whyent[a] = k
+        try:
+            atomicjson.dump(whyent, WHYENT, indent=0, sort_keys=True)
+        except Exception as exc:
+            # NOT `pass'. A recorder that cannot write must say so: this very function was
+            # calling an unimported `atomicjson' in sweep_ord and the NameError went into a bare
+            # except, so the per-entry reasons were silently not being written at all -- the
+            # exact failure the function exists to prevent, inside the fix for it.
+            global _NOTE_BROKEN
+            if not _NOTE_BROKEN:
+                _NOTE_BROKEN = True
+                print('  note(): cannot write %s (%s) -- per-entry reasons are NOT being kept'
+                      % (WHYENT, exc), flush=True)
+
 
 
 class Timeout(Exception):
@@ -80,7 +108,7 @@ for a in sorted(pool):
         continue
     e = LE.get(a)
     if not e:
-        res['name unknown'] += 1; done.add(a); save(); continue
+        note('name unknown', a); done.add(a); save(); continue
     got = None
     for L in conjlines.claims(e):
         ps = precrec.read(L)
@@ -88,10 +116,10 @@ for a in sorted(pool):
             got = (ps, ' '.join(L.split()))
             break
     if not got:
-        res['no readable P-recursive claim'] += 1; done.add(a); save(); continue
+        note('no readable P-recursive claim', a); done.add(a); save(); continue
     ps, line = got
     if not openness.status(a)[0]:
-        res['not open'] += 1; done.add(a); save(); continue
+        note('not open', a); done.add(a); save(); continue
     try:
         signal.alarm(ALARM)
         A = algf.read(e)
@@ -108,7 +136,7 @@ for a in sorted(pool):
         except Exception:
             signal.alarm(0); A = None
     if A is None:
-        res['no factual algebraic generating function'] += 1; done.add(a); save(); continue
+        note('no factual algebraic generating function', a); done.add(a); save(); continue
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     try:
@@ -116,9 +144,9 @@ for a in sorted(pool):
         okd, bad, _got = holonomic.check_against_data(A, d, off)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['series against DATA timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('series against DATA timed out', a); done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); res['series against DATA failed'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('series against DATA failed', a); done.add(a); save(); continue
     if not okd:
         # the g.f. the entry states does not generate the terms it publishes: that is a fact
         # about the entry worth recording, and the claim cannot be settled from it
@@ -158,9 +186,9 @@ for a in sorted(pool):
             is_zero, Bs, coeffs, firstnz = holonomic.prove(a, A, ps)
             signal.alarm(0)
         except Timeout:
-            signal.alarm(0); res['residual timed out'] += 1; done.add(a); save(); continue
+            signal.alarm(0); note('residual timed out', a); done.add(a); save(); continue
         except Exception:
-            signal.alarm(0); res['residual failed'] += 1; done.add(a); save(); continue
+            signal.alarm(0); note('residual failed', a); done.add(a); save(); continue
         nz = [k for k, c in enumerate(coeffs) if c != 0]
         tail = [k for k in nz if k >= len(coeffs) - 6]
         if not is_zero and tail:

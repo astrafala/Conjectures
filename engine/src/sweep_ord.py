@@ -1,5 +1,6 @@
 """Entries that state only the ORDER of their empirical recurrence, the recurrence itself
 being in a linked file the local copy does not carry."""
+import atomicjson
 import json, re, os, sys, collections, signal
 from fractions import Fraction
 import localentry as LE, openness, uniform, bmrec
@@ -21,6 +22,34 @@ HITS, DONE = (('ord_hits.json', 'ord_done.json') if SKIP_ROSTER else
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
+# The reason an entry was given up on, per ENTRY and not only as a counter. A counter says how
+# many were refused; it cannot say which, and it is rewritten from scratch by the next process.
+# `sweep_ordwhole' and `sweep_linkrec' have recorded per-entry from the start and between them
+# have nothing to recover -- every one of the 20 entries they named as a timeout was re-asked
+# later and 16 are proved and installed. `sweep_shard', which kept only the counter, lost 33
+# entries that read as settled for months (STATE.md defect 40).
+WHYENT = DONE.replace('_done', '_whyent')
+whyent = json.load(open(WHYENT)) if os.path.exists(WHYENT) else {}
+_NOTE_BROKEN = False
+
+
+def note(k, a=None):
+    res[k] = res.get(k, 0) + 1
+    if a is not None:
+        whyent[a] = k
+        try:
+            atomicjson.dump(whyent, WHYENT, indent=0, sort_keys=True)
+        except Exception as exc:
+            # NOT `pass'. A recorder that cannot write must say so: this very function was
+            # calling an unimported `atomicjson' in sweep_ord and the NameError went into a bare
+            # except, so the per-entry reasons were silently not being written at all -- the
+            # exact failure the function exists to prevent, inside the fix for it.
+            global _NOTE_BROKEN
+            if not _NOTE_BROKEN:
+                _NOTE_BROKEN = True
+                print('  note(): cannot write %s (%s) -- per-entry reasons are NOT being kept'
+                      % (WHYENT, exc), flush=True)
+
 ORD = re.compile(r'Empirical recurrence of order (\d+)', re.I)
 P62 = (1 << 61) - 1
 
@@ -44,18 +73,18 @@ for a in sorted(names):
         continue
     got = uniform.read(nm)
     if not got:
-        res['no engine reads the name'] += 1; done.add(a); save(); continue
+        note('no engine reads the name', a); done.add(a); save(); continue
     en, p = got
     if not openness.status(a)[0]:
-        res['not open'] += 1; done.add(a); save(); continue
+        note('not open', a); done.add(a); save(); continue
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('build failed', a); done.add(a); save(); continue
     if b is None:
-        res['state space > cap'] += 1; done.add(a); save(); continue
+        note('state space > cap', a); done.add(a); save(); continue
     S = uniform.size(en, p, b)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
@@ -65,20 +94,20 @@ for a in sorted(names):
         t = uniform.terms(en, p, b, max(N, len(d) + off + 4))
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['terms timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('terms timed out', a); done.add(a); save(); continue
     tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
     sh = next((s for s in range(0, off + 4) if tv[s:s + len(d)] == d), None)
     if sh is None:
-        res['model does not match DATA'] += 1; done.add(a); save(); continue
+        note('model does not match DATA', a); done.add(a); save(); continue
     seq = [v for v in tv[sh:sh + N] if v is not None]
     if len(seq) < 2 * S + 2:
-        res['not enough terms'] += 1; done.add(a); save(); continue
+        note('not enough terms', a); done.add(a); save(); continue
     try:
         signal.alarm(BUDGET)
         Lm = bmrec.bm_mod([v % P62 for v in seq], P62)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['filter failed'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('filter failed', a); done.add(a); save(); continue
     if Lm != stated:
         res['minimal order %s the stated one' % ('below' if Lm < stated else 'above')] += 1
         done.add(a); save(); continue
@@ -87,9 +116,9 @@ for a in sorted(names):
         Lx, cs = bmrec.bm([Fraction(v) for v in seq])
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['exact BM timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('exact BM timed out', a); done.add(a); save(); continue
     if Lx != stated or any(c.denominator != 1 for c in cs):
-        res['exact run disagrees with the filter'] += 1; done.add(a); save(); continue
+        note('exact run disagrees with the filter', a); done.add(a); save(); continue
     # the recurrence must reproduce the entry's own published terms
     bad = [off + k for k in range(len(d))
            if k - Lx >= 0 and d[k] != sum(int(c) * d[k - i - 1] for i, c in enumerate(cs))]

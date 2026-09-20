@@ -51,6 +51,34 @@ roster |= {r['anum'] for r in json.load(open('rank-map.json'))}
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
 done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 res = collections.Counter()
+# The reason an entry was given up on, per ENTRY and not only as a counter. A counter says how
+# many were refused; it cannot say which, and it is rewritten from scratch by the next process.
+# `sweep_ordwhole' and `sweep_linkrec' have recorded per-entry from the start and between them
+# have nothing to recover -- every one of the 20 entries they named as a timeout was re-asked
+# later and 16 are proved and installed. `sweep_shard', which kept only the counter, lost 33
+# entries that read as settled for months (STATE.md defect 40).
+WHYENT = DONE.replace('_done', '_whyent')
+whyent = json.load(open(WHYENT)) if os.path.exists(WHYENT) else {}
+_NOTE_BROKEN = False
+
+
+def note(k, a=None):
+    res[k] = res.get(k, 0) + 1
+    if a is not None:
+        whyent[a] = k
+        try:
+            atomicjson.dump(whyent, WHYENT, indent=0, sort_keys=True)
+        except Exception as exc:
+            # NOT `pass'. A recorder that cannot write must say so: this very function was
+            # calling an unimported `atomicjson' in sweep_ord and the NameError went into a bare
+            # except, so the per-entry reasons were silently not being written at all -- the
+            # exact failure the function exists to prevent, inside the fix for it.
+            global _NOTE_BROKEN
+            if not _NOTE_BROKEN:
+                _NOTE_BROKEN = True
+                print('  note(): cannot write %s (%s) -- per-entry reasons are NOT being kept'
+                      % (WHYENT, exc), flush=True)
+
 
 
 class Timeout(Exception):
@@ -74,7 +102,7 @@ for a in sorted(pool):
         continue
     e = LE.get(a)
     if not e:
-        res['name unknown'] += 1; done.add(a); save(); continue
+        note('name unknown', a); done.add(a); save(); continue
     got = None
     for L in conjlines.claims(e):
         r = degclaim.read(L)
@@ -82,24 +110,24 @@ for a in sorted(pool):
             got = (r, ' '.join(L.split()))
             break
     if not got:
-        res['no degree claim'] += 1; done.add(a); save(); continue
+        note('no degree claim', a); done.add(a); save(); continue
     (deg, first), line = got
     if not openness.status(a)[0]:
-        res['not open'] += 1; done.add(a); save(); continue
+        note('not open', a); done.add(a); save(); continue
     rd = uniform.read(e['name'])
     if not rd:
-        res['name no longer read'] += 1; done.add(a); save(); continue
+        note('name no longer read', a); done.add(a); save(); continue
     en, p = rd
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['build timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('build timed out', a); done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('build failed', a); done.add(a); save(); continue
     if b is None:
-        res['state space > cap'] += 1; done.add(a); save(); continue
+        note('state space > cap', a); done.add(a); save(); continue
     S = uniform.size(en, p, b)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
@@ -108,22 +136,22 @@ for a in sorted(pool):
         t = uniform.terms(en, p, b, len(d) + off + 5)
         signal.alarm(0)
     except Exception:
-        signal.alarm(0); res['terms failed or timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('terms failed or timed out', a); done.add(a); save(); continue
     tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
     sh = next((s for s in range(0, off + 4) if tv[s:s + len(d)] == d), None)
     if sh is None:
-        res['model does not match DATA'] += 1; done.add(a); save(); continue
+        note('model does not match DATA', a); done.add(a); save(); continue
     try:
         signal.alarm(min(BUDGET * 8, ALARMCAP))
         hi = uniform.threshold(en, p, b, degclaim.coeffs(deg), deg + 1)
         lo = uniform.threshold(en, p, b, degclaim.coeffs(deg - 1), deg) if deg else 0
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['annihilation timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('annihilation timed out', a); done.add(a); save(); continue
     except Exception:
-        signal.alarm(0); res['threshold failed'] += 1; done.add(a); save(); continue
+        signal.alarm(0); note('threshold failed', a); done.add(a); save(); continue
     if hi is None:
-        res['UNRESOLVED: no polynomial of that degree'] += 1; done.add(a); save(); continue
+        note('UNRESOLVED: no polynomial of that degree', a); done.add(a); save(); continue
     if lo is not None:
         # (z-1)^deg annihilates too, so the degree is SMALLER than the entry says
         res['degree is smaller than claimed'] += 1
