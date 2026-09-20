@@ -712,3 +712,33 @@ never retracted becomes a rumour (41). This is the same error applied to a PROCE
 file: something was recorded as finished, and the machinery that would have shown otherwise was
 precisely the thing switched off. **Before retiring a runner, read the counter it feeds — and
 check whether that counter's denominator can grow.**
+
+### defect 43 — a skip in a verification is not a pass, and its skip list goes stale like any other
+
+Phase 5 rebuilds each model from cold and re-verifies the paper's claim against no cached
+verdict. When it cannot rebuild — over the cap, timed out, raised — it records a SKIP. Two
+things follow that nobody had put together:
+
+**A skip is subtracted from `left`.** `status.py` computes `left = tot - ok - bad - sk`, so a
+result whose mathematics was never re-checked reads as resolved. The line said `skip 32` all day
+and the 32 were not verified, not verified-and-fine.
+
+**And the skip list is permanent.** A comment in `dc_phase5.skip` records a real bug — a skipped
+entry was retried and recounted on every round, so "179 rebuild over the cap" was 179 skip
+EVENTS, not 179 entries — and the fix was a `seen` set. Correct for the counting, and it turned
+the skip list into an exclusion nothing revisits.
+
+So the 31 entries recorded as "rebuild over the cap" were recorded **on 8 September**, by the
+engines of that date. Four of them are results installed TODAY. A185863 and A186955 were rebuilt
+by hand at `P5CAP=8,000,000` and came back at S=698,048 and S=173,934 — they build perfectly
+well; what could not build them was `transfer40`'s unmerged construction, which was replaced
+this morning. **The check was the faulty side, exactly as its own docstring warns it usually is.**
+
+46 machine-reason skips cleared, from all three shards, so they are asked again by the engines
+that exist now. `skip 32` became `skip 0`.
+
+**The rule, which is defect 34 in its fourth costume today: a refusal recorded for a reason
+about the MACHINE must carry an expiry, and the natural expiry is "the engine changed".** Caps,
+timeouts, out-of-memory and rebuild failures are all statements about the day they were made.
+Only a refusal about the MATHEMATICS — no conjecture in the entry, not open, engine withdrawn —
+is safe to keep forever.
