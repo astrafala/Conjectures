@@ -24337,6 +24337,140 @@ Three results installed today besides: **A186955**, **A230751**, **A263664**, an
 
 ---
 
+## 20 September 2026 — six installed, and a refusal list that was three things at once
+
+**Installed: 13,739 → 13,757, eighteen results.** A186955, A230751 and A263664
+(transfer-matrix, transfer-matrix, bounded-displacement); **A185863**, the one result the merged
+`transfer40` build bought; **A184710**, **A188239**, **A199913** and **A185900** from re-asking
+the capped entries that actually carry a conjecture; **A204150, A204281, A204367, A204479,
+A204638** from dispatching `transfer21` to the pair-free build; and **A221621, A244181, A244182,
+A244698, A244699** from the entries `uniall_done.json` called finished and never decided. Every
+one re-checked against the live OEIS before counting.
+
+### What `uniall_caps.json` turned out to be
+
+Three separate mechanisms write entries into it under the single label *state space > cap*:
+
+1. **the pre-parse size estimate**, which fires before the entry is checked for a conjecture at
+   all — so 1,255 of its 2,311 off-roster rows carry no conjecture to prove. `transfer40` has 3
+   of 199; `latpoly` (133), `ca2d` (122) and `ca2dcount` (66) are real in full;
+2. **a `MemoryError` flattened to `None`.** `uniform.build` wrapped its body in
+   `except Exception: return None`, and `sweep_shard` reads `None` as the cap. Every build that
+   outgrew its shard's `MEMGB` was recorded as a model too big for a cap it never reached;
+3. **an engine of an earlier round** that genuinely refused where the current one does not —
+   defect 34. A184710 builds in **353** states and A188239 in **41**, against a cap of
+   2,000,000. Neither the cap nor a memory limit explains those.
+
+**It is not a list of models too big to build. It is a list of entries some sweep declined to
+finish, for reasons it did not write down.**
+
+### The null that this explains
+
+`caprun.sh` produced **0 proofs in 546 entries** of `deep-check/capped2.txt`. That null is real
+and now accounted for: it was asking a list that is 57 per cent entries with nothing in them to
+prove, at `MEMGB=1.5` — the tightest memory budget in the project, aimed at the population most
+likely to need memory, where every out-of-memory came back wearing the cap's name. Rewritten to
+sweep the 734 conjecture-carrying entries at 6 GB; `rcaprun.sh` added for the 255 `latpoly` and
+`ca2d`. Both in `restart_all.sh`.
+
+`sweep_second` on today's six new entries: **nothing** — five have too few terms past the
+threshold to confirm the premise, one carries no further claim.
+
+### The merged build: exact, verified, and aimed at the wrong population
+
+`transfer40.build_merged` counts identically to the unmerged build on all 40 entries where both
+succeed and on 590 parameter shapes, zero mismatches. Its bound opens 42 entries — and **40 of
+the 42 contain no conjectural text at all**. The engineering was sound and the target was not.
+A185863 and A186012 are the two that carry one; A185863 is installed, and A186012 builds at
+`S=900096` under the cap but its lumping needs more memory than the container has with the
+rotation up, so it sits in the new `uniall_oom.json` rather than being filed as capped.
+
+### Three defects, two of them in my own measurements
+
+**37.** The daily routine calls `src/ledger_table.py`; the `engine/src` split moved it to
+`attic/`, so that step has ended with `can't open file` every day since and the ledger's RESULTS
+HELD table had drifted 25 rows — precisely what its docstring says it exists to prevent. A
+tidy-up that moves a file moves every path that names it, and the paths inside a scheduled
+routine are not in the repository to be grepped.
+
+**38.** A check reported **99 of 99 identical** and had compared nothing: its helper returned its
+own `TypeError` as the compared value, so both sides matched. An exception must never be returned
+as the value being compared — such a harness reports perfect agreement exactly when it is testing
+nothing. The claim it produced was retracted before anything was wired in.
+
+**39.** Catching an out-of-memory is not enough if the handler allocates. A186012's shard caught
+one, then died inside `save()` — because saving allocates and the address space was still
+exhausted — and left no file at all to say the entry had been asked. A failure the recorder
+cannot survive leaves no trace, which is worse than the wrong label.
+
+### The second refusal list: what "done" meant
+
+`uniall_caps.json` at least says an entry was declined. `uniall_done.json` does not. `sweep_shard`
+records a build timeout, a terms timeout, an annihilation timeout, a build failure and a terms
+failure exactly as it records a settlement — `done.add(a)` plus a counter that lives only as long
+as the process — so an entry that merely ran out of `BUDGET` is marked done **forever**, and
+nothing anywhere distinguishes it from one the sweep actually decided.
+
+Of 3,579 entries marked done and off-roster, 3,546 are legitimately finished: capped, a hit,
+carrying no parsable conjecture, not open, or a withdrawn engine. The residue is **33**. That is
+small and is worth reporting as small. Re-asked at `BUDGET=1800`: **five of the first eight
+prove** — A221621 (`permrow`), A244181, A244182, A244698, A244699 (`transfer96`). Densest yield
+of the day, from a list that existed because nobody had asked what the word meant
+(STATE.md defect 40).
+
+### `transfer21`, verified and paying
+
+`transfer21` counts 3×3 subblock conditions up to relabelling by building one `transfer17`
+automaton per alphabet size. It was the only caller left of `transfer17.build`, whose vertices are
+ordered PAIRS of lines and which refuses a priori on `(alpha+1)^(2W) > cap`; everything else had
+long since come through `uniform` to `build_pairfree`, which carries no such refusal. That one
+test is what refused all fifteen capped `transfer21` entries carrying a conjecture, and nothing
+else refused any of them.
+
+Verified on **243 shapes — 99 entries and 144 of the parameter grid — zero mismatches**, with the
+state counts differing throughout (65,793 against 11,717 at `W=4 K=4`), which is what shows the
+comparison ran. Wired in; **five of the fifteen proved within the hour**, at S between 352,291 and
+698,002 where the pair test had demanded 3^14 ≈ 4.78 million against a cap of two million.
+
+### Defect 37 was systemic, and it was destroying batches
+
+`build_new.py` maps 38 engines to a builder of their own. The `engine/src` split moved 100
+builders into `attic/` and left `SPECIAL` naming 35 of them, with the import sitting OUTSIDE the
+try — so the first hit from any such engine killed the entire run with `ModuleNotFoundError`
+before one paper was written. That is what happened to this batch on `transfer19`, and it had
+been true since the split. The 36 referenced builders are back in `src/`, and a builder that will
+not import now costs its own paper and says so, which is what the file's docstring already
+promised.
+
+### Defect 39 was wrong as first written, and is now two mechanisms
+
+Recording an out-of-memory instead of a cap was the easy half. The hard half is that the
+RECORDING fails too: `save()` allocates, and after `RLIMIT_AS` is hit everything allocates
+badly. Dropping the automaton and calling `gc.collect()` does **not** help — the limit caps
+ADDRESS SPACE and CPython does not return freed arenas to the OS. What works is a 48 MB
+`bytearray` reserve, mmap'd on its own and released in the handler; and, because that is only a
+likelihood, an in-flight marker written **before** each risky phase, so a death no handler
+survives still names the entry and the phase. A186012 died twice leaving no trace at all before
+this was right.
+
+And my own worst error of the day: the marker's name was read at module level before the line
+defining it, so every `sweep_shard` invocation died with `NameError` and all four targeted
+runners burned their loops failing for hours. Smoke-test a sweep on one entry after touching it.
+
+### Honest negatives
+
+* **A186012** is beyond this machine. Its build fits — `S=900096` under a cap of 2,000,000 — and
+  the lumping in `uniform.threshold` exhausts the address space at 9 GB. Nothing about the cap
+  stops it. It is in `uniall_oom.json` with five others, and `status.py` reads
+  `oom 6 (build fits, machine did not)`.
+* **`sweep_second`** on the day's new entries: nothing. Five have too few terms past the
+  threshold to confirm the premise; one carries no further claim.
+* The merged `transfer40` build is **exact and verified and bought one result**. Forty of the 42
+  entries its bound opens contain no conjecture at all. The engineering was sound; the target
+  was not.
+
+---
+
 ## 8. WHERE FILES LIVE (Claude Code only)
 
 **The session container is wiped when the session ends.** Anything not committed and
