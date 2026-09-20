@@ -101,30 +101,6 @@ res = collections.Counter()
 # handler -- MemoryError the handler could not survive, the OOM killer, a container restart.
 # Read it here so the entry is named instead of vanishing, and so the next run does not simply
 # walk into the same wall with the same limit.
-_prev = None
-if os.path.exists(INFLIGHT):
-    try:
-        _prev = json.load(open(INFLIGHT))
-    except Exception:
-        _prev = None
-if _prev and _prev.get('anum'):
-    print('previous shard died on %s in phase %s at MEMGB=%s'
-          % (_prev['anum'], _prev.get('phase'), _prev.get('memgb')), flush=True)
-    oom[_prev['anum']] = max(oom.get(_prev['anum'], 0), float(_prev.get('memgb') or 0))
-    # ... and mark it done, or the next shard walks into the same wall and dies in the same
-    # place, forever. The entry was killed outright -- by the OOM killer, which no handler
-    # survives -- so `done.add' never ran for it, and the runner re-selected it on every
-    # iteration: rcap2 sat on A205024 for an hour, dying and restarting, while 595 entries
-    # behind it went unasked. Naming the entry was only half of it; getting PAST the entry is
-    # the other half. It is in `oom', so it is re-askable deliberately, at a memory limit
-    # chosen for it rather than by walking into it again.
-    done.add(_prev['anum'])
-    try:
-        atomicjson.dump(sorted(done), DONE)
-        atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
-    except Exception:
-        print('  could not record the death of %s' % _prev['anum'], flush=True)
-    inflight()
 
 
 def inflight(a=None, phase=''):
@@ -161,6 +137,32 @@ def save():
     # the end can be lost whole), here in the sweep that has produced more results than any
     # other. Written every entry, beside the hits.
     atomicjson.dump(dict(res), WHY, indent=1, sort_keys=True)
+
+
+_prev = None
+if os.path.exists(INFLIGHT):
+    try:
+        _prev = json.load(open(INFLIGHT))
+    except Exception:
+        _prev = None
+if _prev and _prev.get('anum'):
+    print('previous shard died on %s in phase %s at MEMGB=%s'
+          % (_prev['anum'], _prev.get('phase'), _prev.get('memgb')), flush=True)
+    oom[_prev['anum']] = max(oom.get(_prev['anum'], 0), float(_prev.get('memgb') or 0))
+    # ... and mark it done, or the next shard walks into the same wall and dies in the same
+    # place, forever. The entry was killed outright -- by the OOM killer, which no handler
+    # survives -- so `done.add' never ran for it, and the runner re-selected it on every
+    # iteration: rcap2 sat on A205024 for an hour, dying and restarting, while 595 entries
+    # behind it went unasked. Naming the entry was only half of it; getting PAST the entry is
+    # the other half. It is in `oom', so it is re-askable deliberately, at a memory limit
+    # chosen for it rather than by walking into it again.
+    done.add(_prev['anum'])
+    try:
+        atomicjson.dump(sorted(done), DONE)
+        atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
+    except Exception:
+        print('  could not record the death of %s' % _prev['anum'], flush=True)
+    inflight()
 
 
 # asking eighteen parsers about 29k names costs ten seconds, which is most of a chunk when
