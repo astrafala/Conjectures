@@ -290,6 +290,11 @@ for a in sorted(set(CANDS) | ANUMS):
         res['claim contradicted by DATA'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': nm, 'bad': bad[:3]})
     else:
+        # A proof retires the out-of-memory row: the entry was refused by the container on an
+        # earlier pass and is not refused now, and a list that is written but never retracted
+        # over-reports exactly as uniall_caps.json did. Six of the first thirty rows were entries
+        # that had since been proved and installed.
+        oom.pop(a, None)
         res['PROVED'] += 1
         hits.append({'anum': a, 'name': nm, 'engine': en, 'S': S, 'order': order,
                      'offset': off, 'shift': sh, 'nthr': nthr, 'nterms': len(d),

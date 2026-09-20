@@ -58,8 +58,19 @@ try:
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
     json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
+    # Prune the settled: an entry proved since it was recorded is not an entry the container
+    # refuses, and a refusal list that is never retracted becomes exactly the thing this file
+    # was written to stop uniall_caps.json being.
+    roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
+    gone = [a for a in oom if a in roster]
+    for a in gone:
+        del oom[a]
+    if gone:
+        print(f'  {len(gone)} out-of-memory rows retired: proved since they were recorded')
     if oom:
         json.dump(oom, open(OOM, 'w'), indent=0, sort_keys=True)
+    elif os.path.exists(OOM):
+        os.remove(OOM)
     print(f'{added} new hits, {ndone} newly processed; {len(hits)} hits, {len(done)} done'
           + (f'; {len(oom)} out of memory, not capped' if oom else ''))
     for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \

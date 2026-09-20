@@ -644,3 +644,25 @@ repository mark an entry done on a timeout; two of them write down which entry, 
 are the two with nothing to recover.
 
 Copy `note()`. It is four lines.
+
+### defect 41 — a refusal list that is never retracted becomes the thing it replaced
+
+`uniall_oom.json` was added this round so that an entry the CONTAINER refused would stop being
+recorded in `uniall_caps.json` as a model too big for the cap. Within hours it had the same
+fault as the file it was meant to improve on: **six of its first thirty rows were entries that
+had since been proved and installed.** An entry that ran out of memory on one pass and built on
+the next was still listed as one the machine cannot do.
+
+A refusal list needs a way OUT as well as a way in. `sweep_shard` now drops the row when the
+entry proves, and `merge_shards` prunes anything the roster has settled on every fold and
+deletes the file when it empties. Neither is clever; both were simply absent, which is why
+`uniall_caps.json` accumulated three kinds of wrong for months without anyone reading it back.
+
+**The general rule: every row a sweep writes about an entry needs the condition under which it
+is removed, decided at the moment the row is invented.** A row with no retirement condition is
+not a record, it is a rumour — and it will be read later by something that cannot tell the
+difference.
+
+That is three files now with the same shape: `uniall_caps.json` (wrote the wrong reason),
+`uniall_done.json` (wrote no reason), `uniall_oom.json` (wrote the right reason and never took
+it back).
