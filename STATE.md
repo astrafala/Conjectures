@@ -666,3 +666,24 @@ difference.
 That is three files now with the same shape: `uniall_caps.json` (wrote the wrong reason),
 `uniall_done.json` (wrote no reason), `uniall_oom.json` (wrote the right reason and never took
 it back).
+
+## The container restarts about once an hour
+
+Measured on 20 September: four restarts between 16:00 and 20:00 UTC, each landing near the top
+of the hour, each reading `up 0 min` on the next check. A restart wipes `/tmp` and every process
+in it.
+
+This is why `restart_all.sh` is the shape it is, and it is worth stating plainly because two
+hours were lost today misreading its consequences:
+
+* **A runner that vanished is much more likely to have been restarted away than killed.** Both
+  times the out-of-memory sweep disappeared, the container had restarted; I diagnosed the
+  kernel's OOM killer, lowered a memory limit on that reasoning, and was wrong twice.
+  Check `uptime` FIRST when a background job is missing.
+* **Quiescing the rotation removes your own recovery.** `restart_all.sh` is what brings a runner
+  back, so stopping it to free memory for one experiment means the next restart ends that
+  experiment silently. A quiesced machine needs its own way back.
+* **No sweep gets more than about an hour of wall time.** An experiment that needs several hours
+  of one process does not fit this container and should be designed around, not simply started
+  and hoped for. Entries whose single build takes 20 minutes get three or four attempts a day at
+  best, which is why `uniall_oom.json` is read at 3 of 41 after an afternoon on it.
