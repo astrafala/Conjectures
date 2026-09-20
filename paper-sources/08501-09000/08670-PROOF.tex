@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237293, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A236635, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237293 counts arrays over $\{0,\dots,3\}$ subject to a condition on the order
+OEIS A236635 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $21$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=72$
+The condition is local to two consecutive rows, so the count is a walk count on $S=81$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,43 +31,43 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237293 is ``Number of (n+1)X(1+1) 0..3 arrays with the maximum plus the minimum minus the upper median minus the lower median of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A236635 is ``Number of (n+1)X(1+1) 0..2 arrays colored with the maximum plus the upper median plus the minimum of every 2X2 subblock.''. It has offset $1$ and begins
 \[
-256, 1128, 5360, 27376, 145488, 802992, 4552384, 26458368,\ \dots
+81, 474, 2796, 16588, 98368, 582304, 3448740, 20433016,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -80*a(n-2) -356*a(n-3) +3712*a(n-4) -3672*a(n-5) -46200*a(n-6) +121376*a(n-7) +223024*a(n-8) -1056416*a(n-9) -188480*a(n-10) +4472000*a(n-11) -2103552*a(n-12) -10322304*a(n-13) +8097920*a(n-14) +13459968*a(n-15) -12348928*a(n-16) -9893888*a(n-17) +8663040*a(n-18) +3891200*a(n-19) -2293760*a(n-20) -655360*a(n-21)
+Empirical: a(n) = 50*a(n-3) +505*a(n-4) +1446*a(n-5) +4968*a(n-6) +9904*a(n-7) +2968*a(n-8) -14344*a(n-9) -107140*a(n-10) -262208*a(n-11) -282860*a(n-12) -257912*a(n-13) +344240*a(n-14) +1446208*a(n-15) +1594752*a(n-16) +1353472*a(n-17) +397312*a(n-18) -1295360*a(n-19) -1280000*a(n-20) -319488*a(n-21)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:01:40, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 09:23:27, revision 7) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Sort the four entries of a $2\times2$ subblock as $a\le b\le c\le d$: they
-are its minimum, lower median, upper median and maximum. The entry fixes the signed sum
-\[
-\sigma\;=\;a-b-c+d,
-\]
-and asks that $\sigma$ take the SAME value on every $2\times2$ subblock of an
-$(n+1)\times2$ array over $\{0,\dots,3\}$.
+The $2\times2$ subblocks of an $(n+1)\times2$ array form an
+$n\times1$ grid. Colour each of them by $\sigma=a+c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. ``Coloured with'' is the entry's way of
+asking for a PROPER colouring of that grid: subblocks that are neighbours, horizontally or
+vertically, must receive different colours.
 
-The common value is not named, so the count splits by it. For a fixed $v$ let $a_v(n)$ count
-the arrays all of whose subblocks give $\sigma=v$. An array determines its common value, so
-the sets belonging to different $v$ are disjoint and $a(n)=\sum_v a_v(n)$, a finite sum.
-
+That reading is fixed by the entries themselves rather than guessed. Take the upper median
+over $0..2$. A $2\times2$ array has one subblock and no neighbouring pair, so every one of the
+$3^4=81$ arrays qualifies; a $2\times3$ array has one horizontal pair and $294$ of its $729$
+arrays qualify; a $3\times3$ array has two horizontal and two vertical pairs and $722$
+qualify. Those are the three numbers the corresponding entries publish. Imposing no condition
+would give $729$ at $2\times3$, and counting the two diagonal pairs as neighbours as well
+would give $0$ at $3\times3$, so neither is what is meant.
 
 \section{The count is a walk count}
 
-For a fixed $v$ the condition involves two consecutive rows and nothing
-else: rows $r$ and $s$ may follow one another exactly when $\sigma$ equals $v$ on each of the
-$1$ subblocks they form. So a row is a state, an $(n+1)$-row array is a walk of $n$
-steps, and with $M$ the adjacency matrix on the disjoint union over $v$,
+A subblock's colour is decided by two consecutive rows of the array, and
+the vertical condition compares two consecutive rows of the subblock grid, so the state is the
+PAIR of consecutive array rows. A step appends a row: that fixes a new subblock row, which
+must be properly coloured along itself and must differ from the previous subblock row in every
+position. An $(n+1)$-row array is a walk of $n-1$ steps, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top} .
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-Rows carrying no edge at all are dropped: such a row can only be the whole of a one-row
-array, which is not among the objects counted. There are $S=72$ states left.
+over the $S=81$ pairs whose own subblock row is properly coloured.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -91,7 +91,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 80\,a(n-2) - 356\,a(n-3) + 3712\,a(n-4) - 3672\,a(n-5) - 46200\,a(n-6) + 121376\,a(n-7) + 223024\,a(n-8) - 1056416\,a(n-9) - 188480\,a(n-10) + 4472000\,a(n-11) - 2103552\,a(n-12) - 10322304\,a(n-13) + 8097920\,a(n-14) + 13459968\,a(n-15) - 12348928\,a(n-16) - 9893888\,a(n-17) + 8663040\,a(n-18) + 3891200\,a(n-19) - 2293760\,a(n-20) - 655360\,a(n-21)
+a(n)\;=\;50\,a(n-3) + 505\,a(n-4) + 1446\,a(n-5) + 4968\,a(n-6) + 9904\,a(n-7) + 2968\,a(n-8) - 14344\,a(n-9) - 107140\,a(n-10) - 262208\,a(n-11) - 282860\,a(n-12) - 257912\,a(n-13) + 344240\,a(n-14) + 1446208\,a(n-15) + 1594752\,a(n-16) + 1353472\,a(n-17) + 397312\,a(n-18) - 1295360\,a(n-19) - 1280000\,a(n-20) - 319488\,a(n-21)
 \]
 for every $n>21$.
 \end{theorem}
@@ -119,7 +119,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237293.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A236635.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
