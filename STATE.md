@@ -436,6 +436,29 @@ Add its shard files to `.gitignore` **at the moment you create it**, and add its
 tree dirty between every commit, and the merge is what keeps the tracked pair complete. This
 has been caught by the stop hook four separate times.
 
+## When the rotation is starving the vein that is producing
+
+`restart_all.sh` starts every runner, and that is right: a sweep missing from it simply never
+comes back after a container restart, which is how two veins sat idle for a day. But it starts
+them all whether or not they have work, and on 20 September that cost real throughput:
+
+* `merge_sharded.py` reported **0 new hits and 0 newly asked** on all eighteen stems;
+* load average was **60** on four cores, with about twenty-five runners up;
+* the two runners that were producing -- `rcaprun.sh` and the rewritten `caprun.sh`, between
+  them responsible for three of that day's six installs -- had managed **8 entries** between
+  them in half an hour.
+
+Stopping the starved runners for one window gave the capped re-ask a full core immediately. The
+next `restart_all.sh` brings them all back, which is the correct default; this is a note that
+the trade-off exists and what it looked like when measured, not an argument for a smaller
+rotation. **A runner with nothing left to do still takes its share of the CPU away from the
+sweeps that do have work** -- the same sentence `restart_all.sh` already uses about the two
+runners it dropped when their phases finished. It applies to more than two.
+
+Before reaching for it, check: a stem reporting 0 newly asked is not necessarily finished, only
+that it processed nothing since the last merge -- which under a load of 60 is what starvation
+looks like too.
+
 ## Every session, first three commands
 
 ```
