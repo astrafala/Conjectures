@@ -12,18 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A condition on each element and its neighbours: OEIS A241134}
+\title{An element and the cells around it: OEIS A208429}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{6 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A241134 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition names only cells one step apart, so it is decided by a window of
-three consecutive lines; the
+OEIS A208429 carries an empirical recurrence of order $26$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=27$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=38$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -32,26 +31,26 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A241134 is ``Number of nX3 0..2 arrays with no element equal to the same number of vertical neighbors as horizontal neighbors, with new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A208429 is ``Number of nX3 0..2 arrays with new values 0..2 introduced in row major order and no element equal to any knight-move neighbor (colorings ignoring permutations of colors).''. It has offset $1$ and begins
 \[
-1, 5, 24, 152, 935, 6150, 40504, 269481,\ \dots
+5, 54, 129, 339, 1123, 4155, 15273, 55715,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 7*a(n-1) +3*a(n-2) -21*a(n-3) -45*a(n-4) -293*a(n-5) -87*a(n-6) +857*a(n-7) +2153*a(n-8) +3773*a(n-9) +501*a(n-10) -1147*a(n-11) -4888*a(n-12) -15704*a(n-13) +1372*a(n-14) -4728*a(n-15) +4720*a(n-16) +1656*a(n-17) -59632*a(n-18) -55392*a(n-19) -57664*a(n-20) -22400*a(n-21) -2304*a(n-22) -19456*a(n-23) -47104*a(n-24) -114688*a(n-25) -65536*a(n-26) for n>27
+Empirical: a(n) = 3*a(n-1) +8*a(n-2) -18*a(n-3) -17*a(n-5) -116*a(n-6) +256*a(n-7) +184*a(n-8) -335*a(n-9) +260*a(n-10) -644*a(n-11) -368*a(n-12) +2013*a(n-13) -564*a(n-14) -1664*a(n-15) -1063*a(n-16) +1284*a(n-17) +3156*a(n-18) -1962*a(n-19) -256*a(n-20) +1020*a(n-21) -1448*a(n-22) -96*a(n-23) +144*a(n-24) +352*a(n-25) -128*a(n-26) for n>28
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:11:26, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 14:51:21, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, growing one row at a time. Its condition is that every element must equal a different number of its vertical neighbours than it does of its horizontal neighbours.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1,2\}$, growing one row at a time, and asks that no element may equal any of the eight cells a knight's move away.
 
-Every cell named there lies at most one step away, so three consecutive rows decide the condition on the middle one completely. Carry two consecutive rows as the state; when a new row arrives, the row it follows has all its neighbours present and is tested then, and the row with nothing after it is tested by the end vector. That is also where the boundary is honest: a cell in the first row has nothing before it and a cell in the last has nothing after it, and a missing neighbour is not a neighbour rather than a wrapped-round one.
+The furthest that condition reaches is $2$ rows, so a window of $5$ consecutive rows decides it for the row in the middle. Carry $4$ rows as the state; a row is judged when the row $2$ beyond it arrives, and the last $2$ rows --- the ones with nothing far enough beyond them --- are judged by the end vector. A neighbour off the edge of the array is not a neighbour, which is what the entry means and what keeps the first few terms small.
 
-The entry also asks that new values be introduced in row major order, which is not a condition on any window: whether a value may appear here depends on the whole prefix. It enters through one integer all the same --- how many values have been introduced so far --- because a row may follow precisely when each of its entries is at most that count at the moment it is read, and an entry equal to it raises it by one. The effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
+The entry also asks that new values be introduced in row major order. That is not a condition on any window --- whether a value may appear here depends on the whole prefix --- but it enters through a single integer, how many values have been introduced so far, and the effect is that each array is counted once for the whole class of arrays differing from it only by renaming the values.
 
-Vertices with identical futures are merged, which leaves $S=27$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+Merging vertices with identical futures leaves $S=38$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
@@ -79,15 +78,15 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;7\,a(n-1) + 3\,a(n-2) - 21\,a(n-3) - 45\,a(n-4) - 293\,a(n-5) - 87\,a(n-6) + 857\,a(n-7) + 2153\,a(n-8) + 3773\,a(n-9) + 501\,a(n-10) - 1147\,a(n-11) - 4888\,a(n-12) - 15704\,a(n-13) + 1372\,a(n-14) - 4728\,a(n-15) + 4720\,a(n-16) + 1656\,a(n-17) - 59632\,a(n-18) - 55392\,a(n-19) - 57664\,a(n-20) - 22400\,a(n-21) - 2304\,a(n-22) - 19456\,a(n-23) - 47104\,a(n-24) - 114688\,a(n-25) - 65536\,a(n-26)
+a(n)\;=\;3\,a(n-1) + 8\,a(n-2) - 18\,a(n-3) - 17\,a(n-5) - 116\,a(n-6) + 256\,a(n-7) + 184\,a(n-8) - 335\,a(n-9) + 260\,a(n-10) - 644\,a(n-11) - 368\,a(n-12) + 2013\,a(n-13) - 564\,a(n-14) - 1664\,a(n-15) - 1063\,a(n-16) + 1284\,a(n-17) + 3156\,a(n-18) - 1962\,a(n-19) - 256\,a(n-20) + 1020\,a(n-21) - 1448\,a(n-22) - 96\,a(n-23) + 144\,a(n-24) + 352\,a(n-25) - 128\,a(n-26)
 \]
-for every $n>27$.
+for every $n>28$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $26$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=27+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=28+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -95,7 +94,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -112,7 +111,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A241134.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208429.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

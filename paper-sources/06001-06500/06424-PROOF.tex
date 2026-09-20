@@ -12,119 +12,142 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A187641, proved by transfer matrix}
+\title{The empirical product formula for OEIS A140938, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187641 counts arrays of width $4$ over $\{0,1,2\}$ in which every $3\times3$ subblock
-satisfies a condition on its nine entries. The entry carries an empirical recurrence of order
-$65$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: a
-$3\times3$ block lies in three consecutive rows, so the state is the last two rows and the
-count is a walk count on $S=6643$ states.
+OEIS A140938 counts $6\times11$ matrices over $\{0,\dots,n\}$ whose rows and columns are
+nondecreasing, and carries a product formula for $a(n)$ marked empirical. Reversing rows and
+columns turns such a matrix into a plane partition inside a $6\times11\times n$ box, so
+MacMahon's box theorem applies; the triple product telescopes in its third index and leaves a
+polynomial in $n$ of degree $66$. The entry's own expression, cleared of its denominator,
+becomes an identity between two polynomials of bounded degree, and is therefore settled by a
+finite exact computation. The box count itself is classical and is already recorded on this
+entry; what is proved here is the entry's own formula.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B20, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A17, 05A19.\normalsize
 
 \section{The conjecture}
 
-OEIS A187641 is ``Number of (n+2)X4 0..2 arrays with each 3X3 subblock having sum 9.''. It has offset $1$ and begins
+OEIS A140938 is ``Number of 6 X 11 matrices with elements in 0..n with each row and each column in nondecreasing order. 6,11,n can be permuted, see formula.''. It has offset $0$ and begins
 \[
-17701, 79259, 363533, 1747075, 9368309, 51019403, 283738813, 1661843915,\ \dots
+1, 12376, 32821152, 31803696288, 14675134144320, 3792054662892288,\ \dots
 \]
-The entry states, as a conjecture contributed by its author and never marked settled:
+The entry states, as conjectures contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=10*a(n-1)-21*a(n-2)+1179*a(n-3)-11790*a(n-4)+24759*a(n-5)-617826*a(n-6)+6178260*a(n-7)-12974346*a(n-8)+191371452*a(n-9)-1913714520*a(n-10)+4018800492*a(n-11)-39296551266*a(n-12)+392965512660*a(n-13)-825227576586*a(n-14)+5685269974278*a(n-15)-56852699742780*a(n-16)+119390669459838*a(n-17)-601117515776444*a(n-18)+6011175157764440*a(n-19)-12623467831305324*a(n-20)+47542191308281032*a(n-21)-475421913082810320*a(n-22)+998386017473901672*a(n-23)-2854901415527246781*a(n-24)+28549014155272467810*a(n-25)-59952929726072182401*a(n-26)+131363016062080959063*a(n-27)-1313630160620809590630*a(n-28)+2758623337303700140323*a(n-29)-4653876942691669277370*a(n-30)+46538769426916692773700*a(n-31)-97731415796525054824770*a(n-32)+127104364341223563535956*a(n-33)-1271043643412235635359560*a(n-34)+2669191651165694834255076*a(n-35)-2671034245317344639898792*a(n-36)+26710342453173446398987920*a(n-37)-56091719151664237437874632*a(n-38)+42973718542999741813111920*a(n-39)-429737185429997418131119200*a(n-40)+902448089402994578075350320*a(n-41)-524945753995638939106975200*a(n-42)+5249457539956389391069752000*a(n-43)-11023860833908417721246479200*a(n-44)+4808879538561612672778008000*a(n-45)-48088795385616126727780080000*a(n-46)+100986470309793866128338168000*a(n-47)-32452815343848522029571600000*a(n-48)+324528153438485220295716000000*a(n-49)-681509122220818962621003600000*a(n-50)+157206092834527473963441600000*a(n-51)-1572060928345274739634416000000*a(n-52)+3301327949525076953232273600000*a(n-53)-525563702247928386006720000000*a(n-54)+5255637022479283860067200000000*a(n-55)-11036837747206496106141120000000*a(n-56)+1137501980268153329088000000000*a(n-57)-11375019802681533290880000000000*a(n-58)+23887541585631219910848000000000*a(n-59)-1416061344057218107200000000000*a(n-60)+14160613440572181072000000000000*a(n-61)-29737288225201580251200000000000*a(n-62)+759486915141786720000000000000*a(n-63)-7594869151417867200000000000000*a(n-64)+15949225217977521120000000000000*a(n-65)
+(empirical) set p,q,r to n,11,6 (in any order) in s=p+q+r-1; a(n) = Product {i=0..r-1} (binomial(s,p+i)*i!/(s-i)\^{}(r-i-1)).
+
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:04:36, revision 9) this is still
-recorded as empirical, and nothing on the entry records it as proved.
+As of the ``Last modified'' line on the live entry (Jan 25 2025 12:26:07, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
 \section{What is being counted}
 
-The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1,2\}$. The
-condition is imposed on every $3\times3$ block of the array --- every choice of three
-consecutive rows and three consecutive columns --- and asks that the nine entries sum to $9$.
-
-
-
-\section{Three rows}
-
-A $3\times3$ block occupies three consecutive rows, so everything the condition asks is decided
-by three consecutive rows and nothing wider. Take the array one row at a time and let the state
-be the last two rows written, with a distinguished start standing for the array before its
-first row. Appending a row completes the blocks whose bottom row is the new one, and the step
-is allowed exactly when each of those blocks passes.
-
-Every block of the finished array is tested exactly once, at the step that writes its bottom
-row, and no step imposes anything the definition does not ask. The first two rows complete no
-block at all, which is why they are laid down without a test. Every state may end an array, so
-$\tau=\mathbf{1}$. Thus
+A matrix $x$ of shape $6\times11$ with entries in $\{0,\dots,n\}$, nondecreasing along
+every row and down every column, becomes, on reversing the order of the rows and of the
+columns, an array that is NONINCREASING along rows and down columns with the same entries. That
+is exactly a plane partition whose parts are at most $n$ and whose shape fits inside a
+$6\times11$ rectangle --- a plane partition in a $6\times11\times n$ box. The
+correspondence is a bijection, being an involution on arrays, so
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=6643,
+a(n)\;=\;\mathrm{PP}(6,11,n).
 \]
-for the transfer matrix $M$ on those $S$ states. The walk index $j$ and the entry's own $n$
-differ by a constant, read off by matching the published terms rather than assumed. In
-particular $a$ is $C$-finite.
+Note which parameter grows: the shape is FIXED and it is the alphabet $0..n$ that $n$ counts,
+so nothing about transfer matrices applies here.
 
-\section{The proof}
+\section{The box count is a polynomial}
 
-\begin{lemma}\label{lem:crit}
-Let $q(t)=t^{65}-\sum_i c_it^{65-i}$ be the characteristic polynomial of the
-conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
-holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
-and it is enough to examine $j<S$.
-\end{lemma}
-
-\begin{proof}
-Factor $M^{j}$ out of $M^{j+65}-\sum_ic_iM^{j+65-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
-$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
-polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
-pins the threshold exactly.
-\end{proof}
-
-\begin{theorem}
+\begin{theorem}[MacMahon]\label{thm:mm}
 \[
-a(n)\;=\;10\,a(n-1) - 21\,a(n-2) + 1179\,a(n-3) - 11790\,a(n-4) + 24759\,a(n-5) - 617826\,a(n-6) + 6178260\,a(n-7) - 12974346\,a(n-8) + 191371452\,a(n-9) - 1913714520\,a(n-10) + 4018800492\,a(n-11) - 39296551266\,a(n-12) + 392965512660\,a(n-13) - 825227576586\,a(n-14) + 5685269974278\,a(n-15) - 56852699742780\,a(n-16) + 119390669459838\,a(n-17) - 601117515776444\,a(n-18) + 6011175157764440\,a(n-19) - 12623467831305324\,a(n-20) + 47542191308281032\,a(n-21) - 475421913082810320\,a(n-22) + 998386017473901672\,a(n-23) - 2854901415527246781\,a(n-24) + 28549014155272467810\,a(n-25) - 59952929726072182401\,a(n-26) + 131363016062080959063\,a(n-27) - 1313630160620809590630\,a(n-28) + 2758623337303700140323\,a(n-29) - 4653876942691669277370\,a(n-30) + 46538769426916692773700\,a(n-31) - 97731415796525054824770\,a(n-32) + 127104364341223563535956\,a(n-33) - 1271043643412235635359560\,a(n-34) + 2669191651165694834255076\,a(n-35) - 2671034245317344639898792\,a(n-36) + 26710342453173446398987920\,a(n-37) - 56091719151664237437874632\,a(n-38) + 42973718542999741813111920\,a(n-39) - 429737185429997418131119200\,a(n-40) + 902448089402994578075350320\,a(n-41) - 524945753995638939106975200\,a(n-42) + 5249457539956389391069752000\,a(n-43) - 11023860833908417721246479200\,a(n-44) + 4808879538561612672778008000\,a(n-45) - 48088795385616126727780080000\,a(n-46) + 100986470309793866128338168000\,a(n-47) - 32452815343848522029571600000\,a(n-48) + 324528153438485220295716000000\,a(n-49) - 681509122220818962621003600000\,a(n-50) + 157206092834527473963441600000\,a(n-51) - 1572060928345274739634416000000\,a(n-52) + 3301327949525076953232273600000\,a(n-53) - 525563702247928386006720000000\,a(n-54) + 5255637022479283860067200000000\,a(n-55) - 11036837747206496106141120000000\,a(n-56) + 1137501980268153329088000000000\,a(n-57) - 11375019802681533290880000000000\,a(n-58) + 23887541585631219910848000000000\,a(n-59) - 1416061344057218107200000000000\,a(n-60) + 14160613440572181072000000000000\,a(n-61) - 29737288225201580251200000000000\,a(n-62) + 759486915141786720000000000000\,a(n-63) - 7594869151417867200000000000000\,a(n-64) + 15949225217977521120000000000000\,a(n-65)
+\mathrm{PP}(p,q,r)\;=\;\prod_{i=1}^{p}\prod_{j=1}^{q}\prod_{k=1}^{r}
+\frac{i+j+k-1}{i+j+k-2} .
 \]
-for every $n>65$.
+\end{theorem}
+
+This is classical; see Stanley~\cite{stanley}, and it is already recorded on this entry.
+
+\begin{theorem}\label{thm:poly}
+\[
+a(n)\;=\;\prod_{i=1}^{6}\prod_{j=1}^{11}\frac{n+i+j-1}{i+j-1},
+\]
+a polynomial in $n$ of degree $66$ with rational coefficients.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\tau$ was formed by $65$ matrix--vector products in exact integer
-arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=65+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+In Theorem~\ref{thm:mm} the inner product over $k$ telescopes: for fixed $i$ and $j$,
+\[
+\prod_{k=1}^{n}\frac{i+j+k-1}{i+j+k-2}\;=\;\frac{n+i+j-1}{i+j-1} ,
+\]
+every other factor cancelling against its neighbour. The remaining double product has
+$6\cdot11=66$ factors, each linear in $n$, and the denominators are constants.
+\end{proof}
+
+So $a$ is a polynomial, and no appeal to Ehrhart theory or to any general position argument is
+needed to see it.
+
+\section{The entry's expression}
+
+The entry writes $s=p+q+r-1$ with $(p,q,r)=(n,11,6)$ and claims
+\[
+a(n)\;=\;\prod_{i=0}^{6-1}\binom{s}{n+i}\,\frac{i!}{(s-i)^{6-1-i}}\;=\;
+\frac{N(n)}{D(n)} .
+\]
+
+\begin{lemma}\label{lem:deg}
+$N$ and $D$ are polynomials in $n$ of degrees $81$ and $15$ respectively.
+\end{lemma}
+
+\begin{proof}
+With $s=n+11+6-1$ one has $s-(n+i)=11+6-1-i$, a constant, so
+\[
+\binom{s}{n+i}=\binom{s}{11+6-1-i}
+=\frac{(s-11-6+2+i)(s-11-6+3+i)\cdots s}{(11+6-1-i)!},
+\]
+a polynomial in $n$ of degree $11+6-1-i$. Multiplying over $i=0,\dots,6-1$ gives
+$\deg N=\sum_{i=0}^{6-1}(11+6-1-i)=81$. The denominator is
+$\prod_{i=0}^{6-1}(s-i)^{6-1-i}$, of degree
+$\sum_{i=0}^{6-1}(6-1-i)=15$, and it does not vanish for $n\ge0$.
+\end{proof}
+
+\begin{theorem}
+The entry's expression equals $a(n)$ for every $n\ge0$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:poly} and Lemma~\ref{lem:deg}, $a(n)D(n)-N(n)$ is a polynomial in $n$
+of degree at most $66+15=81$. It was evaluated in exact rational arithmetic at
+$n=0,1,\dots,81$, that is at $82$ points, and vanishes at all of them; a nonzero polynomial
+of degree at most $81$ has at most $81$ roots, so it is identically zero. Since $D(n)\neq0$
+for $n\ge0$, the two expressions agree there.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, Theorem~\ref{thm:poly} reproduces all $10$ terms the entry publishes,
+exactly, in integer arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: every
-array was written out cell by cell and each $3\times3$ block tested directly on its nine
-entries. No rows, no window, no state and no transfer matrix are involved in that computation,
-and the published terms came back.
+Second, the matrices themselves were counted for the smallest alphabets, directly from the
+definition: the nondecreasing rows were listed and the chains of $6$ of them increasing
+componentwise counted, with no product formula and no plane partitions anywhere. The counts
+agree, which is what ties the reversal bijection to the entry's own wording.
 
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
-matrices involved, and holds wherever the proved range and the data overlap.
-
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix.
+Third, the polynomial identity was evaluated over the whole range $n=0,\dots,81$ rather than
+sampled, in exact rational arithmetic.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187641.
-\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A140938.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 2, Cambridge
+University Press, 1999. (Plane partitions with bounded part size, Section 7.21.)
+\bibitem{macmahon} P.~A.~MacMahon, \emph{Combinatory Analysis}, Volume 2, Cambridge
+University Press, 1916.
+\bibitem{andrews} G.~E.~Andrews, \emph{The Theory of Partitions}, Addison--Wesley, 1976.
 \end{thebibliography}
 
 \end{document}

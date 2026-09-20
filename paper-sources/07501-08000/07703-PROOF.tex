@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A278090, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A188690, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A278090 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A188690 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $33$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,36 +34,36 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A278090 is ``Number of nX4 0..1 arrays with every element both equal and not equal to some elements at offset (-1,0) (-1,1) (0,-1) (0,1) or (1,0), with upper left element zero.''. It has offset $1$ and begins
+OEIS A188690 is ``Number of nX4 binary arrays without the pattern 0 1 0 diagonally, vertically, antidiagonally or horizontally.''. It has offset $1$ and begins
 \[
-0, 10, 66, 670, 6285, 61123, 588464, 5678912,\ \dots
+12, 144, 857, 4008, 20662, 120839, 708519, 3984317,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 6*a(n-1) +54*a(n-2) -103*a(n-3) -918*a(n-4) +786*a(n-5) +8086*a(n-6) -4408*a(n-7) -45868*a(n-8) +24616*a(n-9) +183624*a(n-10) -117990*a(n-11) -530375*a(n-12) +343831*a(n-13) +1039812*a(n-14) -535859*a(n-15) -1198564*a(n-16) +527719*a(n-17) +525705*a(n-18) -722698*a(n-19) +101062*a(n-20) +428138*a(n-21) -1021*a(n-22) +532091*a(n-23) +129197*a(n-24) -510311*a(n-25) -171880*a(n-26) -29549*a(n-27) +39422*a(n-28) +32189*a(n-29) +16319*a(n-30) -2030*a(n-31) -2334*a(n-32) +36*a(n-33) for n>35
+Empirical: a(n) = 8*a(n-1) -20*a(n-2) +38*a(n-3) +44*a(n-4) -252*a(n-5) -94*a(n-6) -173*a(n-7) +417*a(n-8) +2548*a(n-9) -384*a(n-10) +1193*a(n-11) -4772*a(n-12) -6984*a(n-13) +6677*a(n-14) -10923*a(n-15) +16477*a(n-16) +4376*a(n-17) -6808*a(n-18) +1546*a(n-19) -4577*a(n-20) +1179*a(n-21) +3261*a(n-22) -1466*a(n-23) -63*a(n-24) +121*a(n-25) -246*a(n-26) +361*a(n-27) -334*a(n-28) -3*a(n-29) +149*a(n-30) -66*a(n-31) +4*a(n-32) +2*a(n-33)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 11 2016 20:32:23, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 04:46:33, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;6\,a(n-1) + 54\,a(n-2) - 103\,a(n-3) - 918\,a(n-4) + 786\,a(n-5) + 8086\,a(n-6) - 4408\,a(n-7) - 45868\,a(n-8) + 24616\,a(n-9) + 183624\,a(n-10) - 117990\,a(n-11) - 530375\,a(n-12) + 343831\,a(n-13) + 1039812\,a(n-14) - 535859\,a(n-15) - 1198564\,a(n-16) + 527719\,a(n-17) + 525705\,a(n-18) - 722698\,a(n-19) + 101062\,a(n-20) + 428138\,a(n-21) - 1021\,a(n-22) + 532091\,a(n-23) + 129197\,a(n-24) - 510311\,a(n-25) - 171880\,a(n-26) - 29549\,a(n-27) + 39422\,a(n-28) + 32189\,a(n-29) + 16319\,a(n-30) - 2030\,a(n-31) - 2334\,a(n-32) + 36\,a(n-33)
+a(n)\;=\;8\,a(n-1) - 20\,a(n-2) + 38\,a(n-3) + 44\,a(n-4) - 252\,a(n-5) - 94\,a(n-6) - 173\,a(n-7) + 417\,a(n-8) + 2548\,a(n-9) - 384\,a(n-10) + 1193\,a(n-11) - 4772\,a(n-12) - 6984\,a(n-13) + 6677\,a(n-14) - 10923\,a(n-15) + 16477\,a(n-16) + 4376\,a(n-17) - 6808\,a(n-18) + 1546\,a(n-19) - 4577\,a(n-20) + 1179\,a(n-21) + 3261\,a(n-22) - 1466\,a(n-23) - 63\,a(n-24) + 121\,a(n-25) - 246\,a(n-26) + 361\,a(n-27) - 334\,a(n-28) - 3\,a(n-29) + 149\,a(n-30) - 66\,a(n-31) + 4\,a(n-32) + 2\,a(n-33)
 \end{equation}
-for all $n>35$.
+for all $n>34$.
 
 \section{The condition, and why one row is not enough}
 
 The arrays have $4$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (-1,1),\ (0,-1),\ (0,1),\ (1,0)\},
+\mathcal N=\{(1,1),\ (1,0),\ (1,-1),\ (0,1)\},
 \]
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\exists\ \text{a neighbour }y=x_{t,u}\ \text{ and }\ \exists\ \text{a neighbour }y\ne x_{t,u}
+\text{no }0,1,0\text{ occurs consecutively along any direction in }\mathcal N
 \end{equation}
-for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
+for every cell $(t,u)$.
 
 Some offsets in $\mathcal N$ have a positive row shift and some a negative one, so the
 condition at a cell of row $t$ involves rows $t-1$, $t$ and $t+1$ together. A transfer
@@ -78,7 +78,7 @@ $\mathcal V=V\times V$, of size $S=256$, as the vertex set. Declare $(p,c)\to(c,
 when every cell of the middle row $c$ satisfies \eqref{eq:loc} with $p$ above it and $x$
 below it; there is no edge between pairs that do not overlap in this way. Let $N$ be the
 adjacency matrix, $\mathbf{v}$ the indicator of the pairs $(p,c)$ whose first row $p$
-satisfies \eqref{eq:loc} with no row above and, where the entry demands it, whose first entry is $0$, and $\mathbf{u}$ the indicator of
+satisfies \eqref{eq:loc} with no row above, and $\mathbf{u}$ the indicator of
 the pairs $(p,c)$ whose second row $c$ satisfies it with no row below.
 
 \begin{lemma}\label{lem:walk}
@@ -137,7 +137,7 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>35$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>34$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -146,7 +146,7 @@ The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pair
 of the $(1+1)^{4}$ possible next rows, the condition was tested on every cell of
 the middle row. The vector $w$ was formed by $33$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=35+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=34+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -178,7 +178,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A278090.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A188690.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
