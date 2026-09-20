@@ -112,7 +112,7 @@ Newest entries are at the bottom of the dated sections.
 
 ## Roster
 
-Last updated 6 Sep 2026. Roster: **13762 papers** (13756 proofs, 6 disproofs), in `papers/`, banded by hardness, **numbered by how hard the result was**: 1 is the hardest.
+Last updated 6 Sep 2026. Roster: **13763 papers** (13757 proofs, 6 disproofs), in `papers/`, banded by hardness, **numbered by how hard the result was**: 1 is the hardest.
 `rank-map.json` records the previous numbering. New results are ranked in, not appended.
 
 ---
@@ -10140,3826 +10140,3827 @@ the label. This is now cheap to detect in a sweep: compare the two fields in the
 | 9940 | PROOF | A260134 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
 | 9941 | PROOF | A304228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
 | 9942 | PROOF | A304268 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9943 | PROOF | A255031 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 9944 | PROOF | A280856 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9945 | PROOF | A206057 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 9946 | PROOF | A205210 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 9947 | PROOF | A208068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9948 | PROOF | A197525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9949 | PROOF | A256743 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9950 | PROOF | A260010 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9951 | PROOF | A260922 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9952 | PROOF | A261108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9953 | PROOF | A261260 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9954 | PROOF | A261375 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9955 | PROOF | A297311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9956 | PROOF | A297811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9957 | PROOF | A302012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9958 | PROOF | A302147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9959 | PROOF | A302160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9960 | PROOF | A303317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9961 | PROOF | A305227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9962 | PROOF | A281468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9963 | PROOF | A280855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9964 | PROOF | A203832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9965 | PROOF | A252068 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9966 | PROOF | A207849 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9967 | PROOF | A281204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9968 | PROOF | A207721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9969 | PROOF | A223460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9970 | PROOF | A243030 | conjectured recurrence proved |
-| 9971 | PROOF | A244178 | conjectured recurrence proved |
-| 9972 | PROOF | A237318 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 9973 | PROOF | A208423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9974 | PROOF | A231952 | a condition on each cell and its neighbours, decided in a three-row window |
-| 9975 | PROOF | A185527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9976 | PROOF | A208552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9977 | PROOF | A237952 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 9978 | PROOF | A255656 | conjectured recurrence proved |
-| 9979 | PROOF | A256023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9980 | PROOF | A258726 | conjectured recurrence proved |
-| 9981 | PROOF | A260364 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 9982 | PROOF | A297434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9983 | PROOF | A297597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9984 | PROOF | A183347 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 9985 | PROOF | A208115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9986 | PROOF | A242470 | conjectured recurrence proved |
-| 9987 | PROOF | A243638 | conjectured recurrence proved |
-| 9988 | PROOF | A208371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9989 | PROOF | A282786 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 9990 | PROOF | A228659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9991 | PROOF | A228682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9992 | PROOF | A250581 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 9993 | PROOF | A250803 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 9994 | PROOF | A202118 | conjectured recurrence proved |
-| 9995 | PROOF | A268953 | conjectured recurrence proved |
-| 9996 | PROOF | A208551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 9997 | PROOF | A202311 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 9998 | PROOF | A283574 | a condition on every cell over the neighbour set the entry names |
-| 9999 | PROOF | A283567 | a condition on every cell over the neighbour set the entry names |
-| 10000 | PROOF | A186528 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10001 | PROOF | A207364 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10002 | PROOF | A207753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10003 | PROOF | A207875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10004 | PROOF | A207962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10005 | PROOF | A208009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10006 | PROOF | A233878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10007 | PROOF | A237325 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10008 | PROOF | A237504 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10009 | PROOF | A237958 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10010 | PROOF | A247921 | conjectured recurrence proved |
-| 10011 | PROOF | A232318 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10012 | PROOF | A221458 | conjectured recurrence proved |
-| 10013 | PROOF | A188845 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10014 | PROOF | A207940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10015 | PROOF | A233727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10016 | PROOF | A234424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10017 | PROOF | A250580 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10018 | PROOF | A251272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10019 | PROOF | A251375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10020 | PROOF | A251493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10021 | PROOF | A255785 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10022 | PROOF | A260468 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10023 | PROOF | A260494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10024 | PROOF | A260602 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10025 | PROOF | A261285 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10026 | PROOF | A261548 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10027 | PROOF | A295711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10028 | PROOF | A296536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10029 | PROOF | A296630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10030 | PROOF | A296669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10031 | PROOF | A297340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10032 | PROOF | A297376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10033 | PROOF | A297521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10034 | PROOF | A297902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10035 | PROOF | A297954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10036 | PROOF | A298439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10037 | PROOF | A298542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10038 | PROOF | A298662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10039 | PROOF | A298836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10040 | PROOF | A299130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10041 | PROOF | A299329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10042 | PROOF | A299361 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10043 | PROOF | A299516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10044 | PROOF | A299716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10045 | PROOF | A301843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10046 | PROOF | A302267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10047 | PROOF | A302362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10048 | PROOF | A302455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10049 | PROOF | A302966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10050 | PROOF | A303520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10051 | PROOF | A303964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10052 | PROOF | A304474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10053 | PROOF | A304664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10054 | PROOF | A304850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10055 | PROOF | A305247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10056 | PROOF | A305342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10057 | PROOF | A316299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10058 | PROOF | A316422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10059 | PROOF | A317460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10060 | PROOF | A320397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10061 | PROOF | A282587 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10062 | PROOF | A283277 | a condition on every cell over the neighbour set the entry names |
-| 10063 | PROOF | A234905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10064 | PROOF | A235002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10065 | PROOF | A235072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10066 | PROOF | A268259 | conjectured recurrence proved |
-| 10067 | PROOF | A284076 | a condition on every cell over the neighbour set the entry names |
-| 10068 | PROOF | A237069 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10069 | PROOF | A206878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10070 | PROOF | A237939 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10071 | PROOF | A283094 | a condition on every cell over the neighbour set the entry names |
-| 10072 | PROOF | A237333 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10073 | PROOF | A203348 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10074 | PROOF | A269406 | conjectured recurrence proved |
-| 10075 | PROOF | A269432 | conjectured recurrence proved |
-| 10076 | PROOF | A205066 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10077 | PROOF | A268322 | conjectured recurrence proved |
-| 10078 | PROOF | A282435 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10079 | PROOF | A207118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10080 | PROOF | A207462 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10081 | PROOF | A207584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10082 | PROOF | A207763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10083 | PROOF | A207961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10084 | PROOF | A248458 | conjectured recurrence proved |
-| 10085 | PROOF | A250426 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10086 | PROOF | A220721 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10087 | PROOF | A251254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10088 | PROOF | A184557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10089 | PROOF | A230702 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 10090 | PROOF | A249284 | conjectured recurrence proved |
-| 10091 | PROOF | A250988 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10092 | PROOF | A251066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10093 | PROOF | A251404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10094 | PROOF | A229375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10095 | PROOF | A251030 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10096 | PROOF | A264624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10097 | PROOF | A251234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10098 | PROOF | A298186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10099 | PROOF | A196317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10100 | PROOF | A251233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10101 | PROOF | A252545 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10102 | PROOF | A297222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10103 | PROOF | A301962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10104 | PROOF | A206132 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10105 | PROOF | A241330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10106 | PROOF | A209380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10107 | PROOF | A223601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10108 | PROOF | A203051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10109 | PROOF | A197369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10110 | PROOF | A183389 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10111 | PROOF | A251232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10112 | PROOF | A260202 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10113 | PROOF | A298960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10114 | PROOF | A301659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10115 | PROOF | A301838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10116 | PROOF | A301996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10117 | PROOF | A302066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10118 | PROOF | A302683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10119 | PROOF | A223300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10120 | PROOF | A184499 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 10121 | PROOF | A235899 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 10122 | PROOF | A252025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10123 | PROOF | A234047 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 10124 | PROOF | A201373 | conjectured recurrence proved |
-| 10125 | PROOF | A234222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10126 | PROOF | A254416 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10127 | PROOF | A254423 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10128 | PROOF | A232061 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10129 | PROOF | A281467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10130 | PROOF | A205730 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10131 | PROOF | A208031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10132 | PROOF | A202446 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10133 | PROOF | A183338 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10134 | PROOF | A204612 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10135 | PROOF | A253346 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10136 | PROOF | A253353 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10137 | PROOF | A234877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10138 | PROOF | A252817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10139 | PROOF | A237854 | a condition on every cell over the neighbour set the entry names |
-| 10140 | PROOF | A209548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10141 | PROOF | A234156 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10142 | PROOF | A234485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10143 | PROOF | A236445 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10144 | PROOF | A236495 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10145 | PROOF | A250782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10146 | PROOF | A251231 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10147 | PROOF | A255153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10148 | PROOF | A259766 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10149 | PROOF | A260064 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10150 | PROOF | A260974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10151 | PROOF | A297453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10152 | PROOF | A300800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10153 | PROOF | A301439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10154 | PROOF | A305178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10155 | PROOF | A234118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10156 | PROOF | A255104 | conjectured recurrence proved |
-| 10157 | PROOF | A201696 | conjectured recurrence proved |
-| 10158 | PROOF | A236804 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10159 | PROOF | A234178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10160 | PROOF | A243726 | conjectured recurrence proved |
-| 10161 | PROOF | A243603 | conjectured recurrence proved |
-| 10162 | PROOF | A231221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10163 | PROOF | A250735 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10164 | PROOF | A250795 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10165 | PROOF | A229442 | conjectured recurrence proved |
-| 10166 | PROOF | A206983 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10167 | PROOF | A229425 | conjectured recurrence proved |
-| 10168 | PROOF | A253856 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10169 | PROOF | A232572 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10170 | PROOF | A231645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10171 | PROOF | A231747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10172 | PROOF | A236611 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10173 | PROOF | A236646 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10174 | PROOF | A283693 | a condition on every cell over the neighbour set the entry names |
-| 10175 | PROOF | A183382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10176 | PROOF | A188757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10177 | PROOF | A188993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10178 | PROOF | A189190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10179 | PROOF | A200870 | conjectured recurrence proved |
-| 10180 | PROOF | A209730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10181 | PROOF | A228388 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10182 | PROOF | A233786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10183 | PROOF | A233910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10184 | PROOF | A234327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10185 | PROOF | A255094 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10186 | PROOF | A296034 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10187 | PROOF | A296315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10188 | PROOF | A297501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10189 | PROOF | A297602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10190 | PROOF | A297649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10191 | PROOF | A297981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10192 | PROOF | A297988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10193 | PROOF | A298282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10194 | PROOF | A298489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10195 | PROOF | A298624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10196 | PROOF | A299663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10197 | PROOF | A300170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10198 | PROOF | A300337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10199 | PROOF | A302219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10200 | PROOF | A302376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10201 | PROOF | A303041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10202 | PROOF | A303079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10203 | PROOF | A303097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10204 | PROOF | A304843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10205 | PROOF | A305042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10206 | PROOF | A305525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10207 | PROOF | A305764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10208 | PROOF | A316178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10209 | PROOF | A316540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10210 | PROOF | A316817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10211 | PROOF | A316999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10212 | PROOF | A317567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10213 | PROOF | A318011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10214 | PROOF | A318063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10215 | PROOF | A318217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10216 | PROOF | A237235 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10217 | PROOF | A206780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10218 | PROOF | A234400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10219 | PROOF | A203454 | a condition on every cell over the neighbour set the entry names |
-| 10220 | PROOF | A282857 | a condition on every cell over the neighbour set the entry names |
-| 10221 | PROOF | A200883 | conjectured recurrence proved |
-| 10222 | PROOF | A203050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10223 | PROOF | A207747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10224 | PROOF | A259246 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10225 | PROOF | A250448 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10226 | PROOF | A250944 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10227 | PROOF | A251059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10228 | PROOF | A237092 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10229 | PROOF | A222002 | conjectured recurrence proved |
-| 10230 | PROOF | A229367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10231 | PROOF | A237101 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10232 | PROOF | A277762 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 10233 | PROOF | A251287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10234 | PROOF | A181249 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 10235 | PROOF | A183617 | conjectured recurrence proved |
-| 10236 | PROOF | A183588 | conjectured recurrence proved |
-| 10237 | PROOF | A204478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10238 | PROOF | A264537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10239 | PROOF | A186547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10240 | PROOF | A204479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10241 | PROOF | A235298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10242 | PROOF | A235016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10243 | PROOF | A204477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10244 | PROOF | A204636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10245 | PROOF | A235297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10246 | PROOF | A235015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10247 | PROOF | A235296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10248 | PROOF | A303726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10249 | PROOF | A196899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10250 | PROOF | A230064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10251 | PROOF | A231282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10252 | PROOF | A235014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10253 | PROOF | A232291 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10254 | PROOF | A251772 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10255 | PROOF | A188828 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10256 | PROOF | A228665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10257 | PROOF | A228687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10258 | PROOF | A231834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10259 | PROOF | A235295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10260 | PROOF | A252132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10261 | PROOF | A256744 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10262 | PROOF | A259738 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10263 | PROOF | A302008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10264 | PROOF | A209103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10265 | PROOF | A223444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10266 | PROOF | A183714 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10267 | PROOF | A220998 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10268 | PROOF | A207793 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10269 | PROOF | A196013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10270 | PROOF | A206746 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10271 | PROOF | A206201 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10272 | PROOF | A235013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10273 | PROOF | A258920 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10274 | PROOF | A188870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10275 | PROOF | A235294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10276 | PROOF | A259737 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10277 | PROOF | A296551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10278 | PROOF | A298180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10279 | PROOF | A304218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10280 | PROOF | A196782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10281 | PROOF | A196574 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10282 | PROOF | A196859 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10283 | PROOF | A184469 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 10284 | PROOF | A204401 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10285 | PROOF | A204494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10286 | PROOF | A230270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10287 | PROOF | A206645 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 10288 | PROOF | A196212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10289 | PROOF | A197666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10290 | PROOF | A208081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10291 | PROOF | A250820 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10292 | PROOF | A183722 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10293 | PROOF | A205514 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10294 | PROOF | A246477 | conjectured recurrence proved |
-| 10295 | PROOF | A202596 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10296 | PROOF | A232071 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10297 | PROOF | A207810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10298 | PROOF | A208837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10299 | PROOF | A235293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10300 | PROOF | A235965 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10301 | PROOF | A237967 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10302 | PROOF | A238065 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10303 | PROOF | A238074 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10304 | PROOF | A246887 | conjectured recurrence proved |
-| 10305 | PROOF | A247399 | conjectured recurrence proved |
-| 10306 | PROOF | A250728 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10307 | PROOF | A250789 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10308 | PROOF | A259717 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10309 | PROOF | A260288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10310 | PROOF | A295777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10311 | PROOF | A304129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10312 | PROOF | A304771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10313 | PROOF | A305478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10314 | PROOF | A316514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10315 | PROOF | A205832 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10316 | PROOF | A251369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10317 | PROOF | A208105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10318 | PROOF | A242580 | conjectured recurrence proved |
-| 10319 | PROOF | A243040 | conjectured recurrence proved |
-| 10320 | PROOF | A243385 | conjectured recurrence proved |
-| 10321 | PROOF | A207720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10322 | PROOF | A208422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10323 | PROOF | A206266 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10324 | PROOF | A242469 | conjectured recurrence proved |
-| 10325 | PROOF | A243637 | conjectured recurrence proved |
-| 10326 | PROOF | A283489 | a condition on every cell over the neighbour set the entry names |
-| 10327 | PROOF | A202429 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10328 | PROOF | A234781 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10329 | PROOF | A220648 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10330 | PROOF | A208836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10331 | PROOF | A236943 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10332 | PROOF | A252823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10333 | PROOF | A254085 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10334 | PROOF | A207009 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10335 | PROOF | A253307 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 10336 | PROOF | A253400 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 10337 | PROOF | A232155 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10338 | PROOF | A207725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10339 | PROOF | A207854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10340 | PROOF | A209791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10341 | PROOF | A232282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10342 | PROOF | A236028 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10343 | PROOF | A236089 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10344 | PROOF | A236349 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10345 | PROOF | A236803 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10346 | PROOF | A237077 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10347 | PROOF | A237456 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10348 | PROOF | A237723 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10349 | PROOF | A237772 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10350 | PROOF | A251244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10351 | PROOF | A235081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10352 | PROOF | A282311 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10353 | PROOF | A220623 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10354 | PROOF | A183795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10355 | PROOF | A200837 | conjectured recurrence proved |
-| 10356 | PROOF | A206079 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10357 | PROOF | A206191 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10358 | PROOF | A207250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10359 | PROOF | A220618 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10360 | PROOF | A231377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10361 | PROOF | A233676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10362 | PROOF | A235292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10363 | PROOF | A250693 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10364 | PROOF | A251501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10365 | PROOF | A254971 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10366 | PROOF | A256814 | conjectured recurrence proved |
-| 10367 | PROOF | A260170 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10368 | PROOF | A295115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10369 | PROOF | A295374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10370 | PROOF | A295980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10371 | PROOF | A296646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10372 | PROOF | A296720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10373 | PROOF | A297508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10374 | PROOF | A297884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10375 | PROOF | A298275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10376 | PROOF | A298996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10377 | PROOF | A299076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10378 | PROOF | A299137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10379 | PROOF | A299316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10380 | PROOF | A299368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10381 | PROOF | A299932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10382 | PROOF | A300133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10383 | PROOF | A301610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10384 | PROOF | A301952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10385 | PROOF | A302884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10386 | PROOF | A303011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10387 | PROOF | A303803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10388 | PROOF | A304467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10389 | PROOF | A305177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10390 | PROOF | A305511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10391 | PROOF | A306048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10392 | PROOF | A316284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10393 | PROOF | A317113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10394 | PROOF | A317225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10395 | PROOF | A317736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10396 | PROOF | A205635 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10397 | PROOF | A205937 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10398 | PROOF | A283686 | a condition on every cell over the neighbour set the entry names |
-| 10399 | PROOF | A235251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10400 | PROOF | A221457 | conjectured recurrence proved |
-| 10401 | PROOF | A265923 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10402 | PROOF | A205903 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10403 | PROOF | A220591 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10404 | PROOF | A220727 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10405 | PROOF | A200869 | conjectured recurrence proved |
-| 10406 | PROOF | A233885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10407 | PROOF | A233974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10408 | PROOF | A234406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10409 | PROOF | A251611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10410 | PROOF | A237151 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10411 | PROOF | A202525 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10412 | PROOF | A202584 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10413 | PROOF | A203084 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10414 | PROOF | A234891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10415 | PROOF | A234992 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10416 | PROOF | A235064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10417 | PROOF | A268258 | conjectured recurrence proved |
-| 10418 | PROOF | A202974 | a condition on every cell over the neighbour set the entry names |
-| 10419 | PROOF | A207341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10420 | PROOF | A207509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10421 | PROOF | A234201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10422 | PROOF | A251468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10423 | PROOF | A283197 | a condition on every cell over the neighbour set the entry names |
-| 10424 | PROOF | A283488 | a condition on every cell over the neighbour set the entry names |
-| 10425 | PROOF | A283727 | a condition on every cell over the neighbour set the entry names |
-| 10426 | PROOF | A251271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10427 | PROOF | A269405 | conjectured recurrence proved |
-| 10428 | PROOF | A269431 | conjectured recurrence proved |
-| 10429 | PROOF | A204833 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10430 | PROOF | A282879 | a condition on every cell over the neighbour set the entry names |
-| 10431 | PROOF | A233943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10432 | PROOF | A249701 | conjectured recurrence proved |
-| 10433 | PROOF | A250381 | conjectured recurrence proved |
-| 10434 | PROOF | A250835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10435 | PROOF | A220617 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10436 | PROOF | A236730 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10437 | PROOF | A183364 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10438 | PROOF | A259510 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10439 | PROOF | A259519 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10440 | PROOF | A187721 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 10441 | PROOF | A207025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10442 | PROOF | A207069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10443 | PROOF | A241609 | conjectured recurrence proved |
-| 10444 | PROOF | A251263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10445 | PROOF | A251312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10446 | PROOF | A251321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10447 | PROOF | A251435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10448 | PROOF | A183547 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 10449 | PROOF | A183847 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 10450 | PROOF | A239538 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10451 | PROOF | A212779 | conjectured recurrence proved |
-| 10452 | PROOF | A240770 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 10453 | PROOF | A241345 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 10454 | PROOF | A184191 | conjectured recurrence proved |
-| 10455 | PROOF | A184201 | conjectured recurrence proved |
-| 10456 | PROOF | A220706 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10457 | PROOF | A235278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10458 | PROOF | A252389 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10459 | PROOF | A252152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10460 | PROOF | A252187 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10461 | PROOF | A252300 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10462 | PROOF | A252308 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10463 | PROOF | A252379 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10464 | PROOF | A252387 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10465 | PROOF | A252301 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10466 | PROOF | A252309 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10467 | PROOF | A252188 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10468 | PROOF | A235277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10469 | PROOF | A252380 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10470 | PROOF | A252388 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10471 | PROOF | A184002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10472 | PROOF | A235276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10473 | PROOF | A251646 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10474 | PROOF | A188097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10475 | PROOF | A251027 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10476 | PROOF | A251054 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10477 | PROOF | A252133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10478 | PROOF | A252186 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10479 | PROOF | A252378 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10480 | PROOF | A188104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10481 | PROOF | A188103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10482 | PROOF | A251026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10483 | PROOF | A251053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10484 | PROOF | A195964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10485 | PROOF | A196205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10486 | PROOF | A196324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10487 | PROOF | A196431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10488 | PROOF | A196631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10489 | PROOF | A196952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10490 | PROOF | A196984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10491 | PROOF | A197524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10492 | PROOF | A235275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10493 | PROOF | A188102 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10494 | PROOF | A230683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10495 | PROOF | A188101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10496 | PROOF | A206202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10497 | PROOF | A223375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10498 | PROOF | A250526 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10499 | PROOF | A250905 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10500 | PROOF | A252069 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10501 | PROOF | A251025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10502 | PROOF | A251052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10503 | PROOF | A252271 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10504 | PROOF | A252516 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10505 | PROOF | A303725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10506 | PROOF | A188100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10507 | PROOF | A235274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10508 | PROOF | A250525 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10509 | PROOF | A250904 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10510 | PROOF | A188099 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10511 | PROOF | A208112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10512 | PROOF | A189060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10513 | PROOF | A206251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10514 | PROOF | A251024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10515 | PROOF | A251051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10516 | PROOF | A259637 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10517 | PROOF | A260133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10518 | PROOF | A297221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10519 | PROOF | A297371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10520 | PROOF | A300179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10521 | PROOF | A302512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10522 | PROOF | A303311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10523 | PROOF | A304267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10524 | PROOF | A184378 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 10525 | PROOF | A232454 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10526 | PROOF | A257014 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10527 | PROOF | A232400 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10528 | PROOF | A232146 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10529 | PROOF | A230332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10530 | PROOF | A230521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10531 | PROOF | A250524 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10532 | PROOF | A250903 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10533 | PROOF | A278009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10534 | PROOF | A188098 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 10535 | PROOF | A185765 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10536 | PROOF | A196132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10537 | PROOF | A196294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10538 | PROOF | A197403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10539 | PROOF | A197883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10540 | PROOF | A198179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10541 | PROOF | A203185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10542 | PROOF | A235273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10543 | PROOF | A186134 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10544 | PROOF | A208111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10545 | PROOF | A253518 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10546 | PROOF | A208017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10547 | PROOF | A208072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10548 | PROOF | A205738 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10549 | PROOF | A207593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10550 | PROOF | A236012 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10551 | PROOF | A229697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10552 | PROOF | A202445 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10553 | PROOF | A183445 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10554 | PROOF | A282643 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10555 | PROOF | A183686 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10556 | PROOF | A184147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10557 | PROOF | A188712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10558 | PROOF | A205459 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10559 | PROOF | A206056 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10560 | PROOF | A248996 | conjectured recurrence proved |
-| 10561 | PROOF | A251023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10562 | PROOF | A251050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10563 | PROOF | A251278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10564 | PROOF | A259946 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10565 | PROOF | A260009 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10566 | PROOF | A260278 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10567 | PROOF | A296124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10568 | PROOF | A297591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10569 | PROOF | A303423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10570 | PROOF | A305043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10571 | PROOF | A320367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10572 | PROOF | A206468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10573 | PROOF | A235898 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 10574 | PROOF | A250523 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10575 | PROOF | A250902 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10576 | PROOF | A183730 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10577 | PROOF | A223426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10578 | PROOF | A243029 | conjectured recurrence proved |
-| 10579 | PROOF | A202444 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10580 | PROOF | A207175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10581 | PROOF | A208110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10582 | PROOF | A209226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10583 | PROOF | A207174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10584 | PROOF | A208015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10585 | PROOF | A208070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10586 | PROOF | A243725 | conjectured recurrence proved |
-| 10587 | PROOF | A252816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10588 | PROOF | A250727 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10589 | PROOF | A250781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10590 | PROOF | A250788 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10591 | PROOF | A250954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10592 | PROOF | A234030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10593 | PROOF | A235272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10594 | PROOF | A246475 | conjectured recurrence proved |
-| 10595 | PROOF | A203366 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10596 | PROOF | A206265 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10597 | PROOF | A207173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10598 | PROOF | A237030 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10599 | PROOF | A232296 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10600 | PROOF | A243602 | conjectured recurrence proved |
-| 10601 | PROOF | A183495 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10602 | PROOF | A184370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10603 | PROOF | A185771 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10604 | PROOF | A205831 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10605 | PROOF | A208003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10606 | PROOF | A208109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10607 | PROOF | A235906 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 10608 | PROOF | A250522 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10609 | PROOF | A250901 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10610 | PROOF | A255103 | conjectured recurrence proved |
-| 10611 | PROOF | A255618 | conjectured recurrence proved |
-| 10612 | PROOF | A234876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10613 | PROOF | A254847 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10614 | PROOF | A256764 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10615 | PROOF | A258538 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10616 | PROOF | A231971 | a condition on every cell over the neighbour set the entry names |
-| 10617 | PROOF | A269493 | conjectured recurrence proved |
-| 10618 | PROOF | A269536 | conjectured recurrence proved |
-| 10619 | PROOF | A269582 | conjectured recurrence proved |
-| 10620 | PROOF | A282394 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10621 | PROOF | A268952 | conjectured recurrence proved |
-| 10622 | PROOF | A283125 | a condition on every cell over the neighbour set the entry names |
-| 10623 | PROOF | A183399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10624 | PROOF | A189105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10625 | PROOF | A207172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10626 | PROOF | A233685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10627 | PROOF | A250734 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10628 | PROOF | A250794 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10629 | PROOF | A250802 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10630 | PROOF | A251022 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10631 | PROOF | A251049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10632 | PROOF | A251230 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10633 | PROOF | A256022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10634 | PROOF | A256741 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10635 | PROOF | A260008 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10636 | PROOF | A260099 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10637 | PROOF | A260287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10638 | PROOF | A260537 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10639 | PROOF | A261704 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10640 | PROOF | A295046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10641 | PROOF | A295842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10642 | PROOF | A296330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10643 | PROOF | A297514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10644 | PROOF | A297696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10645 | PROOF | A297735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10646 | PROOF | A297818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10647 | PROOF | A297918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10648 | PROOF | A298141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10649 | PROOF | A298570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10650 | PROOF | A298584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10651 | PROOF | A299062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10652 | PROOF | A299576 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10653 | PROOF | A299834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10654 | PROOF | A300968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10655 | PROOF | A302207 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10656 | PROOF | A302618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10657 | PROOF | A302630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10658 | PROOF | A304297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10659 | PROOF | A304422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10660 | PROOF | A305956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10661 | PROOF | A316277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10662 | PROOF | A317217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10663 | PROOF | A326100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10664 | PROOF | A282832 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10665 | PROOF | A205928 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10666 | PROOF | A235169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10667 | PROOF | A269492 | conjectured recurrence proved |
-| 10668 | PROOF | A269535 | conjectured recurrence proved |
-| 10669 | PROOF | A269581 | conjectured recurrence proved |
-| 10670 | PROOF | A183331 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10671 | PROOF | A229441 | conjectured recurrence proved |
-| 10672 | PROOF | A200836 | conjectured recurrence proved |
-| 10673 | PROOF | A206872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10674 | PROOF | A207089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10675 | PROOF | A248431 | conjectured recurrence proved |
-| 10676 | PROOF | A283635 | a condition on every cell over the neighbour set the entry names |
-| 10677 | PROOF | A205363 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10678 | PROOF | A258548 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10679 | PROOF | A267470 | conjectured recurrence proved |
-| 10680 | PROOF | A202310 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10681 | PROOF | A229424 | conjectured recurrence proved |
-| 10682 | PROOF | A282991 | a condition on every cell over the neighbour set the entry names |
-| 10683 | PROOF | A203176 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10684 | PROOF | A207171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10685 | PROOF | A207437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10686 | PROOF | A207483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10687 | PROOF | A207559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10688 | PROOF | A207712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10689 | PROOF | A207730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10690 | PROOF | A207939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10691 | PROOF | A208023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10692 | PROOF | A208496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10693 | PROOF | A233646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10694 | PROOF | A233749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10695 | PROOF | A234084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10696 | PROOF | A236739 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10697 | PROOF | A203103 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10698 | PROOF | A203969 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10699 | PROOF | A259293 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10700 | PROOF | A228387 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10701 | PROOF | A228479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10702 | PROOF | A250579 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10703 | PROOF | A236886 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10704 | PROOF | A237160 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10705 | PROOF | A184490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10706 | PROOF | A205992 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10707 | PROOF | A206004 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10708 | PROOF | A210270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10709 | PROOF | A245945 | conjectured recurrence proved |
-| 10710 | PROOF | A250521 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10711 | PROOF | A201533 | conjectured recurrence proved |
-| 10712 | PROOF | A200882 | conjectured recurrence proved |
-| 10713 | PROOF | A201082 | conjectured recurrence proved |
-| 10714 | PROOF | A203184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10715 | PROOF | A251508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10716 | PROOF | A237301 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10717 | PROOF | A231703 | a condition on every cell over the neighbour set the entry names |
-| 10718 | PROOF | A231765 | a condition on every cell over the neighbour set the entry names |
-| 10719 | PROOF | A231998 | a condition on every cell over the neighbour set the entry names |
-| 10720 | PROOF | A282831 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10721 | PROOF | A204032 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10722 | PROOF | A205065 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10723 | PROOF | A206311 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10724 | PROOF | A220630 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10725 | PROOF | A250463 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10726 | PROOF | A250968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10727 | PROOF | A251095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10728 | PROOF | A251196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10729 | PROOF | A251214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10730 | PROOF | A296399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10731 | PROOF | A296572 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10732 | PROOF | A296582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10733 | PROOF | A297315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10734 | PROOF | A183437 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 10735 | PROOF | A183839 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 10736 | PROOF | A239152 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10737 | PROOF | A235975 | conjectured recurrence proved |
-| 10738 | PROOF | A236272 | conjectured recurrence proved |
-| 10739 | PROOF | A250585 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10740 | PROOF | A250625 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10741 | PROOF | A296390 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 10742 | PROOF | A204637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10743 | PROOF | A264056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10744 | PROOF | A264124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10745 | PROOF | A252153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10746 | PROOF | A204638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10747 | PROOF | A258892 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10748 | PROOF | A252263 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10749 | PROOF | A252363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10750 | PROOF | A264092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10751 | PROOF | A204412 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10752 | PROOF | A258891 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10753 | PROOF | A303681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10754 | PROOF | A196488 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10755 | PROOF | A196741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10756 | PROOF | A197368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10757 | PROOF | A280670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10758 | PROOF | A253520 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10759 | PROOF | A232903 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10760 | PROOF | A232937 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10761 | PROOF | A281322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10762 | PROOF | A209381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10763 | PROOF | A252337 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10764 | PROOF | A281475 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10765 | PROOF | A208410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10766 | PROOF | A232132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10767 | PROOF | A258890 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10768 | PROOF | A223435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10769 | PROOF | A246736 | conjectured recurrence proved |
-| 10770 | PROOF | A297297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10771 | PROOF | A298915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10772 | PROOF | A302513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10773 | PROOF | A303312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10774 | PROOF | A253519 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10775 | PROOF | A206068 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 10776 | PROOF | A258553 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10777 | PROOF | A207702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10778 | PROOF | A237244 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10779 | PROOF | A237379 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10780 | PROOF | A236013 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10781 | PROOF | A207937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10782 | PROOF | A236050 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10783 | PROOF | A189198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10784 | PROOF | A298914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10785 | PROOF | A298921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10786 | PROOF | A301404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10787 | PROOF | A301781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10788 | PROOF | A303724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10789 | PROOF | A317514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10790 | PROOF | A258552 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10791 | PROOF | A237229 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10792 | PROOF | A253362 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 10793 | PROOF | A196918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10794 | PROOF | A196597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10795 | PROOF | A208067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10796 | PROOF | A196479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10797 | PROOF | A197174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10798 | PROOF | A197201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10799 | PROOF | A197444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10800 | PROOF | A197531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10801 | PROOF | A197539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10802 | PROOF | A197607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10803 | PROOF | A203359 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10804 | PROOF | A258551 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10805 | PROOF | A205192 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10806 | PROOF | A229450 | conjectured recurrence proved |
-| 10807 | PROOF | A236149 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10808 | PROOF | A253361 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 10809 | PROOF | A243518 | conjectured recurrence proved |
-| 10810 | PROOF | A235012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10811 | PROOF | A235948 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 10812 | PROOF | A258675 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10813 | PROOF | A183388 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10814 | PROOF | A237631 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10815 | PROOF | A183704 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10816 | PROOF | A188701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10817 | PROOF | A207848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10818 | PROOF | A208066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10819 | PROOF | A208121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10820 | PROOF | A228756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10821 | PROOF | A232043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10822 | PROOF | A255021 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10823 | PROOF | A256742 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10824 | PROOF | A259888 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10825 | PROOF | A259956 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10826 | PROOF | A260201 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10827 | PROOF | A260921 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10828 | PROOF | A261374 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10829 | PROOF | A278267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10830 | PROOF | A297310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10831 | PROOF | A297397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10832 | PROOF | A298920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10833 | PROOF | A301880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10834 | PROOF | A302077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10835 | PROOF | A302619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10836 | PROOF | A302625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10837 | PROOF | A318339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10838 | PROOF | A209378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10839 | PROOF | A258550 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10840 | PROOF | A208080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10841 | PROOF | A223213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10842 | PROOF | A208291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10843 | PROOF | A183337 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10844 | PROOF | A183685 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10845 | PROOF | A253757 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10846 | PROOF | A255991 | conjectured recurrence proved |
-| 10847 | PROOF | A232060 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10848 | PROOF | A283545 | a condition on every cell over the neighbour set the entry names |
-| 10849 | PROOF | A202595 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10850 | PROOF | A232337 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10851 | PROOF | A258549 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10852 | PROOF | A208065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10853 | PROOF | A202400 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10854 | PROOF | A242468 | conjectured recurrence proved |
-| 10855 | PROOF | A243636 | conjectured recurrence proved |
-| 10856 | PROOF | A253462 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 10857 | PROOF | A232670 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10858 | PROOF | A183346 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10859 | PROOF | A283539 | a condition on every cell over the neighbour set the entry names |
-| 10860 | PROOF | A183325 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 10861 | PROOF | A183692 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10862 | PROOF | A205818 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10863 | PROOF | A206102 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10864 | PROOF | A208114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10865 | PROOF | A208119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10866 | PROOF | A208370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10867 | PROOF | A237465 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10868 | PROOF | A237550 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10869 | PROOF | A237560 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10870 | PROOF | A238039 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 10871 | PROOF | A253526 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10872 | PROOF | A232377 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10873 | PROOF | A187309 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 10874 | PROOF | A206264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10875 | PROOF | A232078 | a condition on each cell and its neighbours, decided in a three-row window |
-| 10876 | PROOF | A282523 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10877 | PROOF | A283852 | a condition on every cell over the neighbour set the entry names |
-| 10878 | PROOF | A205252 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10879 | PROOF | A204648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10880 | PROOF | A189258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10881 | PROOF | A228504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10882 | PROOF | A234241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10883 | PROOF | A234476 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10884 | PROOF | A234721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10885 | PROOF | A249285 | conjectured recurrence proved |
-| 10886 | PROOF | A250726 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10887 | PROOF | A250787 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10888 | PROOF | A256803 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10889 | PROOF | A258725 | conjectured recurrence proved |
-| 10890 | PROOF | A259765 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10891 | PROOF | A259945 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10892 | PROOF | A260277 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10893 | PROOF | A260920 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10894 | PROOF | A260973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10895 | PROOF | A278203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10896 | PROOF | A295411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10897 | PROOF | A296322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10898 | PROOF | A297459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10899 | PROOF | A297683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10900 | PROOF | A297689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10901 | PROOF | A297728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10902 | PROOF | A297853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10903 | PROOF | A298919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10904 | PROOF | A298965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10905 | PROOF | A299656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10906 | PROOF | A299735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10907 | PROOF | A300210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10908 | PROOF | A300345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10909 | PROOF | A300541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10910 | PROOF | A300925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10911 | PROOF | A302948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10912 | PROOF | A304136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10913 | PROOF | A305240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10914 | PROOF | A305687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10915 | PROOF | A317067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10916 | PROOF | A235241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10917 | PROOF | A206121 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 10918 | PROOF | A206931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10919 | PROOF | A207177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10920 | PROOF | A238174 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 10921 | PROOF | A267231 | conjectured recurrence proved |
-| 10922 | PROOF | A202640 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 10923 | PROOF | A204192 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 10924 | PROOF | A235232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10925 | PROOF | A221456 | conjectured recurrence proved |
-| 10926 | PROOF | A220597 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10927 | PROOF | A282554 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 10928 | PROOF | A200868 | conjectured recurrence proved |
-| 10929 | PROOF | A207249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10930 | PROOF | A207363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10931 | PROOF | A234146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10932 | PROOF | A283951 | a condition on every cell over the neighbour set the entry names |
-| 10933 | PROOF | A267469 | conjectured recurrence proved |
-| 10934 | PROOF | A185460 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 10935 | PROOF | A201348 | conjectured recurrence proved |
-| 10936 | PROOF | A220560 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 10937 | PROOF | A250801 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10938 | PROOF | A234984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10939 | PROOF | A268257 | conjectured recurrence proved |
-| 10940 | PROOF | A283036 | a condition on every cell over the neighbour set the entry names |
-| 10941 | PROOF | A235217 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10942 | PROOF | A233710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10943 | PROOF | A283276 | a condition on every cell over the neighbour set the entry names |
-| 10944 | PROOF | A259422 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 10945 | PROOF | A221514 | conjectured recurrence proved |
-| 10946 | PROOF | A221523 | conjectured recurrence proved |
-| 10947 | PROOF | A228799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10948 | PROOF | A230649 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 10949 | PROOF | A231538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10950 | PROOF | A250578 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10951 | PROOF | A251021 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10952 | PROOF | A251048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10953 | PROOF | A251223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10954 | PROOF | A251270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10955 | PROOF | A296380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10956 | PROOF | A296593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10957 | PROOF | A317857 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10958 | PROOF | A221513 | conjectured recurrence proved |
-| 10959 | PROOF | A221522 | conjectured recurrence proved |
-| 10960 | PROOF | A265929 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10961 | PROOF | A265922 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10962 | PROOF | A183829 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 10963 | PROOF | A212778 | conjectured recurrence proved |
-| 10964 | PROOF | A229398 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10965 | PROOF | A250633 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 10966 | PROOF | A183315 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 10967 | PROOF | A252251 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10968 | PROOF | A252249 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10969 | PROOF | A252259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10970 | PROOF | A186879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10971 | PROOF | A186873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10972 | PROOF | A253522 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10973 | PROOF | A186878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10974 | PROOF | A206059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10975 | PROOF | A252250 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10976 | PROOF | A186877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10977 | PROOF | A251888 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 10978 | PROOF | A252258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 10979 | PROOF | A233492 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 10980 | PROOF | A186876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10981 | PROOF | A253521 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 10982 | PROOF | A186567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10983 | PROOF | A203731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10984 | PROOF | A186566 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10985 | PROOF | A186565 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10986 | PROOF | A186560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10987 | PROOF | A186875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10988 | PROOF | A203883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10989 | PROOF | A188711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10990 | PROOF | A317763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10991 | PROOF | A196781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10992 | PROOF | A186564 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10993 | PROOF | A232333 | every cell carrying one stated value required to have a neighbour carrying another |
-| 10994 | PROOF | A203930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10995 | PROOF | A222278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10996 | PROOF | A208395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10997 | PROOF | A186563 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10998 | PROOF | A250897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 10999 | PROOF | A251087 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11000 | PROOF | A251136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11001 | PROOF | A233491 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11002 | PROOF | A233612 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11003 | PROOF | A251645 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 11004 | PROOF | A223594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11005 | PROOF | A298185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11006 | PROOF | A302148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11007 | PROOF | A303680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11008 | PROOF | A317762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11009 | PROOF | A208874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11010 | PROOF | A202531 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11011 | PROOF | A234061 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11012 | PROOF | A203652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11013 | PROOF | A222141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11014 | PROOF | A186562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11015 | PROOF | A186874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11016 | PROOF | A230529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11017 | PROOF | A230567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11018 | PROOF | A250896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11019 | PROOF | A251086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11020 | PROOF | A251135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11021 | PROOF | A258560 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11022 | PROOF | A281474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11023 | PROOF | A202530 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11024 | PROOF | A190032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11025 | PROOF | A206147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11026 | PROOF | A208642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11027 | PROOF | A206321 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11028 | PROOF | A246734 | conjectured recurrence proved |
-| 11029 | PROOF | A190031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11030 | PROOF | A231258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11031 | PROOF | A203792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11032 | PROOF | A228664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11033 | PROOF | A228686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11034 | PROOF | A248484 | conjectured recurrence proved |
-| 11035 | PROOF | A297335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11036 | PROOF | A301881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11037 | PROOF | A302078 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11038 | PROOF | A305037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11039 | PROOF | A316690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11040 | PROOF | A258559 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11041 | PROOF | A190030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11042 | PROOF | A202529 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11043 | PROOF | A231445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11044 | PROOF | A184449 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 11045 | PROOF | A252221 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 11046 | PROOF | A232509 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11047 | PROOF | A209508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11048 | PROOF | A230464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11049 | PROOF | A232018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11050 | PROOF | A250895 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11051 | PROOF | A251085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11052 | PROOF | A251134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11053 | PROOF | A186561 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11054 | PROOF | A195972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11055 | PROOF | A196450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11056 | PROOF | A196584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11057 | PROOF | A196701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11058 | PROOF | A196850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11059 | PROOF | A196961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11060 | PROOF | A197274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11061 | PROOF | A197311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11062 | PROOF | A207701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11063 | PROOF | A190029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11064 | PROOF | A190025 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11065 | PROOF | A245949 | conjectured recurrence proved |
-| 11066 | PROOF | A207936 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11067 | PROOF | A206200 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11068 | PROOF | A258558 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11069 | PROOF | A205980 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11070 | PROOF | A190028 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11071 | PROOF | A202528 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11072 | PROOF | A231338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11073 | PROOF | A185764 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11074 | PROOF | A184767 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11075 | PROOF | A188869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11076 | PROOF | A188987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11077 | PROOF | A189059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11078 | PROOF | A189197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11079 | PROOF | A203095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11080 | PROOF | A206111 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11081 | PROOF | A206320 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11082 | PROOF | A231833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11083 | PROOF | A258960 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11084 | PROOF | A278095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11085 | PROOF | A278189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11086 | PROOF | A296550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11087 | PROOF | A297391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11088 | PROOF | A297427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11089 | PROOF | A298163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11090 | PROOF | A301966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11091 | PROOF | A302511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11092 | PROOF | A302517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11093 | PROOF | A302682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11094 | PROOF | A303310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11095 | PROOF | A303316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11096 | PROOF | A304217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11097 | PROOF | A305036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11098 | PROOF | A305226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11099 | PROOF | A316689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11100 | PROOF | A316804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11101 | PROOF | A317521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11102 | PROOF | A203831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11103 | PROOF | A250894 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11104 | PROOF | A251084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11105 | PROOF | A251133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11106 | PROOF | A243517 | conjectured recurrence proved |
-| 11107 | PROOF | A258557 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11108 | PROOF | A245947 | conjectured recurrence proved |
-| 11109 | PROOF | A202527 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11110 | PROOF | A229449 | conjectured recurrence proved |
-| 11111 | PROOF | A207592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11112 | PROOF | A208030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11113 | PROOF | A202443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11114 | PROOF | A208290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11115 | PROOF | A201372 | conjectured recurrence proved |
-| 11116 | PROOF | A228753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11117 | PROOF | A228795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11118 | PROOF | A204611 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11119 | PROOF | A232370 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11120 | PROOF | A253345 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11121 | PROOF | A253352 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11122 | PROOF | A190026 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11123 | PROOF | A202442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11124 | PROOF | A201976 | conjectured recurrence proved |
-| 11125 | PROOF | A258556 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11126 | PROOF | A242579 | conjectured recurrence proved |
-| 11127 | PROOF | A243039 | conjectured recurrence proved |
-| 11128 | PROOF | A243384 | conjectured recurrence proved |
-| 11129 | PROOF | A244694 | conjectured recurrence proved |
-| 11130 | PROOF | A202526 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11131 | PROOF | A243724 | conjectured recurrence proved |
-| 11132 | PROOF | A220710 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11133 | PROOF | A185515 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11134 | PROOF | A205513 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11135 | PROOF | A205737 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11136 | PROOF | A205979 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11137 | PROOF | A230170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11138 | PROOF | A235897 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 11139 | PROOF | A236664 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11140 | PROOF | A250893 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11141 | PROOF | A250908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11142 | PROOF | A251083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11143 | PROOF | A251132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11144 | PROOF | A186817 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 11145 | PROOF | A232032 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11146 | PROOF | A186055 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11147 | PROOF | A203375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11148 | PROOF | A228658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11149 | PROOF | A228681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11150 | PROOF | A234414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11151 | PROOF | A234667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11152 | PROOF | A234705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11153 | PROOF | A234731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11154 | PROOF | A247528 | conjectured recurrence proved |
-| 11155 | PROOF | A250780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11156 | PROOF | A250953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11157 | PROOF | A251294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11158 | PROOF | A251337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11159 | PROOF | A251485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11160 | PROOF | A252815 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11161 | PROOF | A255990 | conjectured recurrence proved |
-| 11162 | PROOF | A259955 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11163 | PROOF | A259994 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11164 | PROOF | A260363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11165 | PROOF | A278275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11166 | PROOF | A297452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11167 | PROOF | A297596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11168 | PROOF | A300467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11169 | PROOF | A302158 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11170 | PROOF | A302742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11171 | PROOF | A302954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11172 | PROOF | A303192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11173 | PROOF | A303457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11174 | PROOF | A303795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11175 | PROOF | A303956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11176 | PROOF | A304599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11177 | PROOF | A304921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11178 | PROOF | A305335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11179 | PROOF | A306161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11180 | PROOF | A316415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11181 | PROOF | A316948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11182 | PROOF | A317378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11183 | PROOF | A318540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11184 | PROOF | A243601 | conjectured recurrence proved |
-| 11185 | PROOF | A206263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11186 | PROOF | A206989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11187 | PROOF | A234185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11188 | PROOF | A234816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11189 | PROOF | A258555 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11190 | PROOF | A269491 | conjectured recurrence proved |
-| 11191 | PROOF | A269534 | conjectured recurrence proved |
-| 11192 | PROOF | A269580 | conjectured recurrence proved |
-| 11193 | PROOF | A252822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11194 | PROOF | A200835 | conjectured recurrence proved |
-| 11195 | PROOF | A207306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11196 | PROOF | A207495 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11197 | PROOF | A237029 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11198 | PROOF | A248430 | conjectured recurrence proved |
-| 11199 | PROOF | A267230 | conjectured recurrence proved |
-| 11200 | PROOF | A204647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11201 | PROOF | A184681 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11202 | PROOF | A250725 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11203 | PROOF | A250733 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11204 | PROOF | A250786 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11205 | PROOF | A250793 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11206 | PROOF | A206270 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11207 | PROOF | A206505 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11208 | PROOF | A206661 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11209 | PROOF | A236942 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11210 | PROOF | A269579 | conjectured recurrence proved |
-| 11211 | PROOF | A269602 | conjectured recurrence proved |
-| 11212 | PROOF | A269615 | conjectured recurrence proved |
-| 11213 | PROOF | A269636 | conjectured recurrence proved |
-| 11214 | PROOF | A209945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11215 | PROOF | A209954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11216 | PROOF | A233638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11217 | PROOF | A250892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11218 | PROOF | A250936 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11219 | PROOF | A251082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11220 | PROOF | A251131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11221 | PROOF | A251345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11222 | PROOF | A267468 | conjectured recurrence proved |
-| 11223 | PROOF | A263794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11224 | PROOF | A200867 | conjectured recurrence proved |
-| 11225 | PROOF | A234975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11226 | PROOF | A206570 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11227 | PROOF | A229440 | conjectured recurrence proved |
-| 11228 | PROOF | A269614 | conjectured recurrence proved |
-| 11229 | PROOF | A269635 | conjectured recurrence proved |
-| 11230 | PROOF | A237938 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11231 | PROOF | A229423 | conjectured recurrence proved |
-| 11232 | PROOF | A184665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11233 | PROOF | A200881 | conjectured recurrence proved |
-| 11234 | PROOF | A203094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11235 | PROOF | A205919 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11236 | PROOF | A232048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11237 | PROOF | A250512 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11238 | PROOF | A250669 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11239 | PROOF | A250677 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11240 | PROOF | A250692 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11241 | PROOF | A250732 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11242 | PROOF | A250958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11243 | PROOF | A251301 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11244 | PROOF | A251352 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11245 | PROOF | A251395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11246 | PROOF | A251452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11247 | PROOF | A297375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11248 | PROOF | A300374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11249 | PROOF | A300500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11250 | PROOF | A301885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11251 | PROOF | A318018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11252 | PROOF | A220676 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11253 | PROOF | A201040 | conjectured recurrence proved |
-| 11254 | PROOF | A220548 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11255 | PROOF | A220564 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11256 | PROOF | A181255 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 11257 | PROOF | A183597 | conjectured recurrence proved |
-| 11258 | PROOF | A240701 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11259 | PROOF | A250995 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11260 | PROOF | A251106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11261 | PROOF | A181248 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 11262 | PROOF | A252109 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11263 | PROOF | A252527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11264 | PROOF | A252535 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11265 | PROOF | A264472 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11266 | PROOF | A264492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11267 | PROOF | A204281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11268 | PROOF | A204605 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11269 | PROOF | A204280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11270 | PROOF | A204366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11271 | PROOF | A204603 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11272 | PROOF | A204367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11273 | PROOF | A204604 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11274 | PROOF | A234139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11275 | PROOF | A235288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11276 | PROOF | A252108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11277 | PROOF | A252526 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11278 | PROOF | A252534 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11279 | PROOF | A258964 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11280 | PROOF | A252223 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 11281 | PROOF | A204279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11282 | PROOF | A204365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11283 | PROOF | A230181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11284 | PROOF | A230611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11285 | PROOF | A252239 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11286 | PROOF | A255753 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11287 | PROOF | A253465 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 11288 | PROOF | A234138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11289 | PROOF | A235287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11290 | PROOF | A299594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11291 | PROOF | A301789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11292 | PROOF | A303718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11293 | PROOF | A196573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11294 | PROOF | A196804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11295 | PROOF | A196858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11296 | PROOF | A269274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11297 | PROOF | A270114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11298 | PROOF | A252222 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 11299 | PROOF | A223293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11300 | PROOF | A234265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11301 | PROOF | A230726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11302 | PROOF | A203823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11303 | PROOF | A234137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11304 | PROOF | A235286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11305 | PROOF | A252236 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11306 | PROOF | A252262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11307 | PROOF | A252362 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11308 | PROOF | A252543 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11309 | PROOF | A258962 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11310 | PROOF | A299593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11311 | PROOF | A301788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11312 | PROOF | A302678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11313 | PROOF | A303717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11314 | PROOF | A229752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11315 | PROOF | A255751 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11316 | PROOF | A223419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11317 | PROOF | A205021 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11318 | PROOF | A234264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11319 | PROOF | A238908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11320 | PROOF | A223348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11321 | PROOF | A206112 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11322 | PROOF | A229751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11323 | PROOF | A232312 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11324 | PROOF | A188988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11325 | PROOF | A234136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11326 | PROOF | A235285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11327 | PROOF | A299592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11328 | PROOF | A301961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11329 | PROOF | A302007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11330 | PROOF | A303679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11331 | PROOF | A303716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11332 | PROOF | A304227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11333 | PROOF | A305583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11334 | PROOF | A229691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11335 | PROOF | A209379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11336 | PROOF | A223374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11337 | PROOF | A234263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11338 | PROOF | A252336 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11339 | PROOF | A221621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11340 | PROOF | A253396 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11341 | PROOF | A234381 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11342 | PROOF | A183713 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11343 | PROOF | A195956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11344 | PROOF | A196140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11345 | PROOF | A196906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11346 | PROOF | A196976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11347 | PROOF | A197229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11348 | PROOF | A197642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11349 | PROOF | A223251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11350 | PROOF | A253463 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 11351 | PROOF | A208641 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11352 | PROOF | A253395 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11353 | PROOF | A205209 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11354 | PROOF | A206408 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11355 | PROOF | A204679 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11356 | PROOF | A223418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11357 | PROOF | A229750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11358 | PROOF | A236049 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11359 | PROOF | A206791 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11360 | PROOF | A237228 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11361 | PROOF | A188826 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11362 | PROOF | A206250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11363 | PROOF | A208016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11364 | PROOF | A208071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11365 | PROOF | A230782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11366 | PROOF | A234135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11367 | PROOF | A235284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11368 | PROOF | A236120 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11369 | PROOF | A259636 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11370 | PROOF | A260132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11371 | PROOF | A261107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11372 | PROOF | A278183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11373 | PROOF | A295914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11374 | PROOF | A296309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11375 | PROOF | A299591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11376 | PROOF | A300178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11377 | PROOF | A301947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11378 | PROOF | A303417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11379 | PROOF | A303715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11380 | PROOF | A303723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11381 | PROOF | A304137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11382 | PROOF | A304226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11383 | PROOF | A304266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11384 | PROOF | A305582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11385 | PROOF | A317729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11386 | PROOF | A234262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11387 | PROOF | A207700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11388 | PROOF | A223338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11389 | PROOF | A223425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11390 | PROOF | A205191 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11391 | PROOF | A223347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11392 | PROOF | A253360 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 11393 | PROOF | A207935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11394 | PROOF | A208383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11395 | PROOF | A243516 | conjectured recurrence proved |
-| 11396 | PROOF | A205190 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11397 | PROOF | A208382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11398 | PROOF | A234221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11399 | PROOF | A183721 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11400 | PROOF | A229696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11401 | PROOF | A208289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11402 | PROOF | A208381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11403 | PROOF | A223408 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11404 | PROOF | A243028 | conjectured recurrence proved |
-| 11405 | PROOF | A244177 | conjectured recurrence proved |
-| 11406 | PROOF | A185461 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11407 | PROOF | A206694 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11408 | PROOF | A206857 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11409 | PROOF | A232145 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11410 | PROOF | A232150 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11411 | PROOF | A232425 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11412 | PROOF | A239179 | a condition on every cell over the neighbour set the entry names |
-| 11413 | PROOF | A206467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11414 | PROOF | A207591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11415 | PROOF | A207689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11416 | PROOF | A207737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11417 | PROOF | A207924 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11418 | PROOF | A208014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11419 | PROOF | A208035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11420 | PROOF | A208104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11421 | PROOF | A209220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11422 | PROOF | A234261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11423 | PROOF | A235947 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11424 | PROOF | A236011 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11425 | PROOF | A236048 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11426 | PROOF | A237227 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11427 | PROOF | A237630 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11428 | PROOF | A253517 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11429 | PROOF | A229448 | conjectured recurrence proved |
-| 11430 | PROOF | A183444 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11431 | PROOF | A231992 | a condition on every cell over the neighbour set the entry names |
-| 11432 | PROOF | A282642 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11433 | PROOF | A234927 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 11434 | PROOF | A234790 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11435 | PROOF | A186044 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11436 | PROOF | A188748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11437 | PROOF | A208380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11438 | PROOF | A209547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11439 | PROOF | A220561 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11440 | PROOF | A220634 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11441 | PROOF | A234134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11442 | PROOF | A234155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11443 | PROOF | A234228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11444 | PROOF | A235283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11445 | PROOF | A249190 | conjectured recurrence proved |
-| 11446 | PROOF | A251518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11447 | PROOF | A255020 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11448 | PROOF | A255152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11449 | PROOF | A257440 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11450 | PROOF | A259735 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11451 | PROOF | A260063 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11452 | PROOF | A260241 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11453 | PROOF | A261258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11454 | PROOF | A261373 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11455 | PROOF | A297396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11456 | PROOF | A297426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11457 | PROOF | A297433 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11458 | PROOF | A297577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11459 | PROOF | A297590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11460 | PROOF | A299723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11461 | PROOF | A303619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11462 | PROOF | A303722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11463 | PROOF | A305225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11464 | PROOF | A305477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11465 | PROOF | A317728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11466 | PROOF | A318070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11467 | PROOF | A282371 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11468 | PROOF | A235205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11469 | PROOF | A243635 | conjectured recurrence proved |
-| 11470 | PROOF | A206866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11471 | PROOF | A207083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11472 | PROOF | A233897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11473 | PROOF | A234124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11474 | PROOF | A234170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11475 | PROOF | A234550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11476 | PROOF | A234683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11477 | PROOF | A235312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11478 | PROOF | A245867 | conjectured recurrence proved |
-| 11479 | PROOF | A202428 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11480 | PROOF | A196012 | a condition on every cell over the neighbour set the entry names |
-| 11481 | PROOF | A235100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11482 | PROOF | A235191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11483 | PROOF | A183345 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 11484 | PROOF | A283544 | a condition on every cell over the neighbour set the entry names |
-| 11485 | PROOF | A282785 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11486 | PROOF | A205251 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11487 | PROOF | A207347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11488 | PROOF | A207683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11489 | PROOF | A207769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11490 | PROOF | A207840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11491 | PROOF | A208103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11492 | PROOF | A233811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11493 | PROOF | A234452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11494 | PROOF | A206262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11495 | PROOF | A283538 | a condition on every cell over the neighbour set the entry names |
-| 11496 | PROOF | A228503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11497 | PROOF | A228657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11498 | PROOF | A228680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11499 | PROOF | A255989 | conjectured recurrence proved |
-| 11500 | PROOF | A234883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11501 | PROOF | A235019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11502 | PROOF | A235179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11503 | PROOF | A269490 | conjectured recurrence proved |
-| 11504 | PROOF | A269533 | conjectured recurrence proved |
-| 11505 | PROOF | A283573 | a condition on every cell over the neighbour set the entry names |
-| 11506 | PROOF | A221455 | conjectured recurrence proved |
-| 11507 | PROOF | A183785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11508 | PROOF | A206048 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11509 | PROOF | A210384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11510 | PROOF | A233877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11511 | PROOF | A234260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11512 | PROOF | A234437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11513 | PROOF | A236802 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11514 | PROOF | A250900 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11515 | PROOF | A251204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11516 | PROOF | A251329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11517 | PROOF | A251384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11518 | PROOF | A255102 | conjectured recurrence proved |
-| 11519 | PROOF | A267229 | conjectured recurrence proved |
-| 11520 | PROOF | A220709 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11521 | PROOF | A234770 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11522 | PROOF | A200834 | conjectured recurrence proved |
-| 11523 | PROOF | A233921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11524 | PROOF | A234076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11525 | PROOF | A234107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11526 | PROOF | A245865 | conjectured recurrence proved |
-| 11527 | PROOF | A248457 | conjectured recurrence proved |
-| 11528 | PROOF | A220622 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11529 | PROOF | A231799 | a condition on every cell over the neighbour set the entry names |
-| 11530 | PROOF | A267467 | conjectured recurrence proved |
-| 11531 | PROOF | A268256 | conjectured recurrence proved |
-| 11532 | PROOF | A268321 | conjectured recurrence proved |
-| 11533 | PROOF | A282393 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11534 | PROOF | A297079 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11535 | PROOF | A297096 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11536 | PROOF | A238173 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11537 | PROOF | A204646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11538 | PROOF | A234753 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11539 | PROOF | A259292 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11540 | PROOF | A184209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11541 | PROOF | A188501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11542 | PROOF | A188516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11543 | PROOF | A204716 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11544 | PROOF | A207170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11545 | PROOF | A207436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11546 | PROOF | A209709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11547 | PROOF | A209780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11548 | PROOF | A209851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11549 | PROOF | A209906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11550 | PROOF | A210070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11551 | PROOF | A210328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11552 | PROOF | A231509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11553 | PROOF | A235926 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 11554 | PROOF | A236003 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 11555 | PROOF | A248456 | conjectured recurrence proved |
-| 11556 | PROOF | A250724 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11557 | PROOF | A251253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11558 | PROOF | A278171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11559 | PROOF | A295346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11560 | PROOF | A295525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11561 | PROOF | A295937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11562 | PROOF | A295979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11563 | PROOF | A296109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11564 | PROOF | A296645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11565 | PROOF | A296668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11566 | PROOF | A296682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11567 | PROOF | A296733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11568 | PROOF | A296798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11569 | PROOF | A296821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11570 | PROOF | A296984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11571 | PROOF | A297545 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11572 | PROOF | A297608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11573 | PROOF | A297638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11574 | PROOF | A297655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11575 | PROOF | A297721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11576 | PROOF | A297750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11577 | PROOF | A300421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11578 | PROOF | A300533 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11579 | PROOF | A317735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11580 | PROOF | A317767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11581 | PROOF | A317809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11582 | PROOF | A317817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11583 | PROOF | A318031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11584 | PROOF | A318039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11585 | PROOF | A221512 | conjectured recurrence proved |
-| 11586 | PROOF | A221521 | conjectured recurrence proved |
-| 11587 | PROOF | A297370 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11588 | PROOF | A297677 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11589 | PROOF | A221511 | conjectured recurrence proved |
-| 11590 | PROOF | A221520 | conjectured recurrence proved |
-| 11591 | PROOF | A204645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11592 | PROOF | A241608 | conjectured recurrence proved |
-| 11593 | PROOF | A250987 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11594 | PROOF | A251081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11595 | PROOF | A251130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11596 | PROOF | A251151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11597 | PROOF | A251444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11598 | PROOF | A259421 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11599 | PROOF | A183436 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11600 | PROOF | A220713 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11601 | PROOF | A220739 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11602 | PROOF | A239156 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 11603 | PROOF | A240479 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 11604 | PROOF | A250723 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11605 | PROOF | A251311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11606 | PROOF | A202464 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 11607 | PROOF | A241073 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11608 | PROOF | A220705 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11609 | PROOF | A264073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11610 | PROOF | A186011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11611 | PROOF | A204380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11612 | PROOF | A204379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11613 | PROOF | A223600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11614 | PROOF | A264072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11615 | PROOF | A264340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11616 | PROOF | A264536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11617 | PROOF | A232585 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11618 | PROOF | A186481 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11619 | PROOF | A186480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11620 | PROOF | A204378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11621 | PROOF | A196596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11622 | PROOF | A223250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11623 | PROOF | A223409 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11624 | PROOF | A230180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11625 | PROOF | A230610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11626 | PROOF | A251148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11627 | PROOF | A186479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11628 | PROOF | A186478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11629 | PROOF | A186471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11630 | PROOF | A185899 | a condition on every cell over the neighbour set the entry names |
-| 11631 | PROOF | A188710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11632 | PROOF | A230509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11633 | PROOF | A198598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11634 | PROOF | A186470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11635 | PROOF | A185405 | a condition on every cell over the neighbour set the entry names |
-| 11636 | PROOF | A205981 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11637 | PROOF | A251147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11638 | PROOF | A236992 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11639 | PROOF | A185535 | a condition on every cell over the neighbour set the entry names |
-| 11640 | PROOF | A186469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11641 | PROOF | A186477 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11642 | PROOF | A186476 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11643 | PROOF | A301820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11644 | PROOF | A301903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11645 | PROOF | A302677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11646 | PROOF | A186468 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11647 | PROOF | A208505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11648 | PROOF | A232936 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11649 | PROOF | A223292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11650 | PROOF | A230670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11651 | PROOF | A251146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11652 | PROOF | A196072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11653 | PROOF | A196204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11654 | PROOF | A196316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11655 | PROOF | A197211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11656 | PROOF | A197244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11657 | PROOF | A197344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11658 | PROOF | A230393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11659 | PROOF | A206146 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11660 | PROOF | A186467 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11661 | PROOF | A208504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11662 | PROOF | A186461 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11663 | PROOF | A223242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11664 | PROOF | A206679 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11665 | PROOF | A253394 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11666 | PROOF | A231458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11667 | PROOF | A186466 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11668 | PROOF | A186161 | a condition on every cell over the neighbour set the entry names |
-| 11669 | PROOF | A186474 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11670 | PROOF | A205020 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11671 | PROOF | A206199 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11672 | PROOF | A206745 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11673 | PROOF | A207792 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11674 | PROOF | A251127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11675 | PROOF | A261259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11676 | PROOF | A297220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11677 | PROOF | A297334 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11678 | PROOF | A298179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11679 | PROOF | A298959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11680 | PROOF | A301403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11681 | PROOF | A301658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11682 | PROOF | A301837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11683 | PROOF | A302065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11684 | PROOF | A303678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11685 | PROOF | A317760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11686 | PROOF | A186460 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11687 | PROOF | A209507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11688 | PROOF | A251145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11689 | PROOF | A186475 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11690 | PROOF | A253393 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11691 | PROOF | A186459 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11692 | PROOF | A207044 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11693 | PROOF | A203358 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 11694 | PROOF | A251126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11695 | PROOF | A248533 | conjectured recurrence proved |
-| 11696 | PROOF | A221620 | conjectured recurrence proved |
-| 11697 | PROOF | A243515 | conjectured recurrence proved |
-| 11698 | PROOF | A186458 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11699 | PROOF | A185763 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11700 | PROOF | A253537 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11701 | PROOF | A232303 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11702 | PROOF | A185552 | a condition on every cell over the neighbour set the entry names |
-| 11703 | PROOF | A186465 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11704 | PROOF | A186464 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11705 | PROOF | A202883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11706 | PROOF | A205208 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11707 | PROOF | A207719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11708 | PROOF | A208421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11709 | PROOF | A230185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11710 | PROOF | A230470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11711 | PROOF | A230676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11712 | PROOF | A232017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11713 | PROOF | A234117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11714 | PROOF | A236148 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11715 | PROOF | A251144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11716 | PROOF | A251368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11717 | PROOF | A253742 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11718 | PROOF | A235011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11719 | PROOF | A186788 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
-| 11720 | PROOF | A202441 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11721 | PROOF | A232070 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11722 | PROOF | A237853 | a condition on every cell over the neighbour set the entry names |
-| 11723 | PROOF | A283410 | a condition on every cell over the neighbour set the entry names |
-| 11724 | PROOF | A208486 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11725 | PROOF | A188700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11726 | PROOF | A206015 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11727 | PROOF | A208288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11728 | PROOF | A228752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11729 | PROOF | A228794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11730 | PROOF | A234484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11731 | PROOF | A234697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11732 | PROOF | A251125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11733 | PROOF | A260200 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11734 | PROOF | A295776 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11735 | PROOF | A298095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11736 | PROOF | A298897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11737 | PROOF | A299590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11738 | PROOF | A299649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11739 | PROOF | A300203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11740 | PROOF | A302260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11741 | PROOF | A302416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11742 | PROOF | A302636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11743 | PROOF | A302736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11744 | PROOF | A302960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11745 | PROOF | A303183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11746 | PROOF | A303451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11747 | PROOF | A303464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11748 | PROOF | A303631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11749 | PROOF | A304770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11750 | PROOF | A305518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11751 | PROOF | A316513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11752 | PROOF | A316810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11753 | PROOF | A316955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11754 | PROOF | A317560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11755 | PROOF | A318338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11756 | PROOF | A186457 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11757 | PROOF | A183336 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 11758 | PROOF | A243723 | conjectured recurrence proved |
-| 11759 | PROOF | A234659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11760 | PROOF | A201695 | conjectured recurrence proved |
-| 11761 | PROOF | A206982 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11762 | PROOF | A186456 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11763 | PROOF | A185791 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11764 | PROOF | A207718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11765 | PROOF | A207896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11766 | PROOF | A234177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11767 | PROOF | A234491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11768 | PROOF | A234543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11769 | PROOF | A234651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11770 | PROOF | A235303 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11771 | PROOF | A201371 | conjectured recurrence proved |
-| 11772 | PROOF | A229447 | conjectured recurrence proved |
-| 11773 | PROOF | A203374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11774 | PROOF | A232336 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11775 | PROOF | A250779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11776 | PROOF | A251124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11777 | PROOF | A235091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11778 | PROOF | A243600 | conjectured recurrence proved |
-| 11779 | PROOF | A209376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11780 | PROOF | A235896 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 11781 | PROOF | A235905 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 11782 | PROOF | A247527 | conjectured recurrence proved |
-| 11783 | PROOF | A247720 | conjectured recurrence proved |
-| 11784 | PROOF | A251143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11785 | PROOF | A251243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11786 | PROOF | A252814 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11787 | PROOF | A234557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11788 | PROOF | A206261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11789 | PROOF | A204710 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11790 | PROOF | A186455 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11791 | PROOF | A207276 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11792 | PROOF | A267228 | conjectured recurrence proved |
-| 11793 | PROOF | A269489 | conjectured recurrence proved |
-| 11794 | PROOF | A269532 | conjectured recurrence proved |
-| 11795 | PROOF | A283124 | a condition on every cell over the neighbour set the entry names |
-| 11796 | PROOF | A283409 | a condition on every cell over the neighbour set the entry names |
-| 11797 | PROOF | A283692 | a condition on every cell over the neighbour set the entry names |
-| 11798 | PROOF | A297088 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 11799 | PROOF | A234762 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11800 | PROOF | A184680 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11801 | PROOF | A186454 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 11802 | PROOF | A200866 | conjectured recurrence proved |
-| 11803 | PROOF | A206260 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11804 | PROOF | A210149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11805 | PROOF | A210348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11806 | PROOF | A220683 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11807 | PROOF | A228386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11808 | PROOF | A229406 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11809 | PROOF | A231376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11810 | PROOF | A231524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11811 | PROOF | A233628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11812 | PROOF | A233960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11813 | PROOF | A250785 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11814 | PROOF | A250792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11815 | PROOF | A250800 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11816 | PROOF | A251123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11817 | PROOF | A255988 | conjectured recurrence proved |
-| 11818 | PROOF | A295091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11819 | PROOF | A295247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11820 | PROOF | A296033 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11821 | PROOF | A296329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11822 | PROOF | A296957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11823 | PROOF | A296968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11824 | PROOF | A297339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11825 | PROOF | A297507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11826 | PROOF | A297734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11827 | PROOF | A297763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11828 | PROOF | A297817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11829 | PROOF | A297852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11830 | PROOF | A297883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11831 | PROOF | A297901 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11832 | PROOF | A297945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11833 | PROOF | A298057 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11834 | PROOF | A298148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11835 | PROOF | A298189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11836 | PROOF | A298215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11837 | PROOF | A298448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11838 | PROOF | A300344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11839 | PROOF | A302164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11840 | PROOF | A302225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11841 | PROOF | A302310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11842 | PROOF | A303684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11843 | PROOF | A303794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11844 | PROOF | A303882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11845 | PROOF | A304013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11846 | PROOF | A304052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11847 | PROOF | A304143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11848 | PROOF | A304257 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11849 | PROOF | A304341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11850 | PROOF | A305091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11851 | PROOF | A317890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11852 | PROOF | A282856 | a condition on every cell over the neighbour set the entry names |
-| 11853 | PROOF | A237028 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
-| 11854 | PROOF | A267466 | conjectured recurrence proved |
-| 11855 | PROOF | A206727 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11856 | PROOF | A202973 | a condition on every cell over the neighbour set the entry names |
-| 11857 | PROOF | A269488 | conjectured recurrence proved |
-| 11858 | PROOF | A269531 | conjectured recurrence proved |
-| 11859 | PROOF | A235510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11860 | PROOF | A220611 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11861 | PROOF | A230701 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 11862 | PROOF | A183805 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 11863 | PROOF | A183814 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 11864 | PROOF | A184556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11865 | PROOF | A200880 | conjectured recurrence proved |
-| 11866 | PROOF | A202882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11867 | PROOF | A205991 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 11868 | PROOF | A229366 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 11869 | PROOF | A230942 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 11870 | PROOF | A245864 | conjectured recurrence proved |
-| 11871 | PROOF | A250447 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11872 | PROOF | A250899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11873 | PROOF | A250920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11874 | PROOF | A250943 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11875 | PROOF | A250975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11876 | PROOF | A251003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11877 | PROOF | A251012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11878 | PROOF | A251403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11879 | PROOF | A259518 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 11880 | PROOF | A220629 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11881 | PROOF | A220720 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11882 | PROOF | A220733 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 11883 | PROOF | A228798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11884 | PROOF | A229439 | conjectured recurrence proved |
-| 11885 | PROOF | A250462 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11886 | PROOF | A250577 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 11887 | PROOF | A250967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11888 | PROOF | A251122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11889 | PROOF | A251195 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11890 | PROOF | A251213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11891 | PROOF | A251222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11892 | PROOF | A251252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11893 | PROOF | A251269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11894 | PROOF | A251286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11895 | PROOF | A251320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11896 | PROOF | A180752 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 11897 | PROOF | A222099 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 11898 | PROOF | A229422 | conjectured recurrence proved |
-| 11899 | PROOF | A212777 | conjectured recurrence proved |
-| 11900 | PROOF | A235843 | conjectured recurrence proved |
-| 11901 | PROOF | A235850 | conjectured recurrence proved |
-| 11902 | PROOF | A241133 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 11903 | PROOF | A184190 | conjectured recurrence proved |
-| 11904 | PROOF | A184200 | conjectured recurrence proved |
-| 11905 | PROOF | A264019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11906 | PROOF | A264086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11907 | PROOF | A255227 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11908 | PROOF | A257446 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11909 | PROOF | A258965 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11910 | PROOF | A275140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11911 | PROOF | A275506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11912 | PROOF | A255226 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11913 | PROOF | A257445 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11914 | PROOF | A235952 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11915 | PROOF | A188822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11916 | PROOF | A188829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11917 | PROOF | A255225 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11918 | PROOF | A257444 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11919 | PROOF | A258963 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11920 | PROOF | A196917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11921 | PROOF | A237635 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11922 | PROOF | A235951 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11923 | PROOF | A253230 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11924 | PROOF | A237634 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11925 | PROOF | A255224 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11926 | PROOF | A257443 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11927 | PROOF | A208046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11928 | PROOF | A253464 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
-| 11929 | PROOF | A233838 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11930 | PROOF | A235950 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11931 | PROOF | A253229 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11932 | PROOF | A280669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11933 | PROOF | A232332 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11934 | PROOF | A237633 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11935 | PROOF | A230588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11936 | PROOF | A188709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11937 | PROOF | A188820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11938 | PROOF | A188827 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11939 | PROOF | A203822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11940 | PROOF | A255223 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11941 | PROOF | A257442 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11942 | PROOF | A258961 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11943 | PROOF | A297296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11944 | PROOF | A301787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11945 | PROOF | A317761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11946 | PROOF | A208693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11947 | PROOF | A253228 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11948 | PROOF | A235949 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 11949 | PROOF | A232583 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11950 | PROOF | A232902 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11951 | PROOF | A233490 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11952 | PROOF | A233611 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 11953 | PROOF | A237632 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11954 | PROOF | A196630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11955 | PROOF | A196690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11956 | PROOF | A197092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11957 | PROOF | A197497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11958 | PROOF | A197617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11959 | PROOF | A206131 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11960 | PROOF | A232331 | every cell carrying one stated value required to have a neighbour carrying another |
-| 11961 | PROOF | A206067 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11962 | PROOF | A246478 | conjectured recurrence proved |
-| 11963 | PROOF | A252935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11964 | PROOF | A207045 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11965 | PROOF | A208692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11966 | PROOF | A208559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11967 | PROOF | A236991 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11968 | PROOF | A237243 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11969 | PROOF | A237378 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 11970 | PROOF | A253227 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 11971 | PROOF | A253001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11972 | PROOF | A232311 | a condition on each cell and its neighbours, decided in a three-row window |
-| 11973 | PROOF | A206088 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 11974 | PROOF | A185925 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 11975 | PROOF | A223396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11976 | PROOF | A228663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11977 | PROOF | A228685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11978 | PROOF | A230835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11979 | PROOF | A246732 | conjectured recurrence proved |
-| 11980 | PROOF | A250610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11981 | PROOF | A255222 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11982 | PROOF | A257441 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11983 | PROOF | A259736 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 11984 | PROOF | A301780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11985 | PROOF | A301786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11986 | PROOF | A302006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11987 | PROOF | A302011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11988 | PROOF | A302676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11989 | PROOF | A252934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11990 | PROOF | A223442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11991 | PROOF | A253007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11992 | PROOF | A246476 | conjectured recurrence proved |
-| 11993 | PROOF | A207458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11994 | PROOF | A208691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11995 | PROOF | A221788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11996 | PROOF | A207457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11997 | PROOF | A208557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11998 | PROOF | A253000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 11999 | PROOF | A250609 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12000 | PROOF | A253226 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12001 | PROOF | A207456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12002 | PROOF | A207847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12003 | PROOF | A252933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12004 | PROOF | A253392 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12005 | PROOF | A206065 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12006 | PROOF | A206087 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12007 | PROOF | A206407 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12008 | PROOF | A206678 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12009 | PROOF | A207043 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12010 | PROOF | A208029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12011 | PROOF | A208690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12012 | PROOF | A209225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12013 | PROOF | A209377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12014 | PROOF | A229841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12015 | PROOF | A236990 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 12016 | PROOF | A237242 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 12017 | PROOF | A237317 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 12018 | PROOF | A237368 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 12019 | PROOF | A237377 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
-| 12020 | PROOF | A277939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12021 | PROOF | A278000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12022 | PROOF | A278015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12023 | PROOF | A253006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12024 | PROOF | A255075 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 12025 | PROOF | A256728 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 12026 | PROOF | A258674 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 12027 | PROOF | A205189 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12028 | PROOF | A231951 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12029 | PROOF | A295913 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 12030 | PROOF | A243514 | conjectured recurrence proved |
-| 12031 | PROOF | A183684 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12032 | PROOF | A183703 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12033 | PROOF | A184146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12034 | PROOF | A184766 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12035 | PROOF | A188819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12036 | PROOF | A188868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12037 | PROOF | A188986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12038 | PROOF | A206249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12039 | PROOF | A207455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12040 | PROOF | A228755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12041 | PROOF | A250608 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12042 | PROOF | A251277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12043 | PROOF | A255221 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12044 | PROOF | A259635 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12045 | PROOF | A259716 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12046 | PROOF | A259887 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12047 | PROOF | A260131 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12048 | PROOF | A297300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12049 | PROOF | A297309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12050 | PROOF | A297390 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12051 | PROOF | A301657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12052 | PROOF | A301965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12053 | PROOF | A302165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12054 | PROOF | A302422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12055 | PROOF | A302510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12056 | PROOF | A302516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12057 | PROOF | A302624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12058 | PROOF | A302681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12059 | PROOF | A302803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12060 | PROOF | A303309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12061 | PROOF | A303315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12062 | PROOF | A303422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12063 | PROOF | A304216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12064 | PROOF | A316803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12065 | PROOF | A317520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12066 | PROOF | A221764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12067 | PROOF | A252999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12068 | PROOF | A245993 | conjectured recurrence proved |
-| 12069 | PROOF | A205188 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12070 | PROOF | A204610 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12071 | PROOF | A253344 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12072 | PROOF | A204678 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 12073 | PROOF | A253391 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12074 | PROOF | A202594 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 12075 | PROOF | A203357 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 12076 | PROOF | A206535 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12077 | PROOF | A252932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12078 | PROOF | A207454 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12079 | PROOF | A207694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12080 | PROOF | A207929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12081 | PROOF | A208064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12082 | PROOF | A233951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12083 | PROOF | A234674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12084 | PROOF | A242578 | conjectured recurrence proved |
-| 12085 | PROOF | A243038 | conjectured recurrence proved |
-| 12086 | PROOF | A243383 | conjectured recurrence proved |
-| 12087 | PROOF | A228751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12088 | PROOF | A228793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12089 | PROOF | A236324 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 12090 | PROOF | A250607 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12091 | PROOF | A250952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12092 | PROOF | A243722 | conjectured recurrence proved |
-| 12093 | PROOF | A183324 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 12094 | PROOF | A234826 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12095 | PROOF | A183691 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12096 | PROOF | A184369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12097 | PROOF | A185514 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12098 | PROOF | A202117 | conjectured recurrence proved |
-| 12099 | PROOF | A205817 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12100 | PROOF | A206466 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12101 | PROOF | A209790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12102 | PROOF | A234116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12103 | PROOF | A246473 | conjectured recurrence proved |
-| 12104 | PROOF | A196423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12105 | PROOF | A196537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12106 | PROOF | A234029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12107 | PROOF | A234162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12108 | PROOF | A234210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12109 | PROOF | A234444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12110 | PROOF | A235271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12111 | PROOF | A245991 | conjectured recurrence proved |
-| 12112 | PROOF | A248429 | conjectured recurrence proved |
-| 12113 | PROOF | A221619 | conjectured recurrence proved |
-| 12114 | PROOF | A203365 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 12115 | PROOF | A183503 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12116 | PROOF | A185828 | a condition on every cell over the neighbour set the entry names |
-| 12117 | PROOF | A205250 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12118 | PROOF | A232031 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12119 | PROOF | A232077 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12120 | PROOF | A232317 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12121 | PROOF | A234875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12122 | PROOF | A234914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12123 | PROOF | A235080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12124 | PROOF | A282522 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 12125 | PROOF | A283858 | a condition on every cell over the neighbour set the entry names |
-| 12126 | PROOF | A221454 | conjectured recurrence proved |
-| 12127 | PROOF | A183330 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 12128 | PROOF | A201975 | conjectured recurrence proved |
-| 12129 | PROOF | A259245 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12130 | PROOF | A183794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12131 | PROOF | A185459 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12132 | PROOF | A185790 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12133 | PROOF | A200833 | conjectured recurrence proved |
-| 12134 | PROOF | A204543 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12135 | PROOF | A206078 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12136 | PROOF | A206190 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12137 | PROOF | A209546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12138 | PROOF | A210293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12139 | PROOF | A220559 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12140 | PROOF | A228502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12141 | PROOF | A233675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12142 | PROOF | A233726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12143 | PROOF | A233785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12144 | PROOF | A234326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12145 | PROOF | A235291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12146 | PROOF | A236323 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
-| 12147 | PROOF | A248428 | conjectured recurrence proved |
-| 12148 | PROOF | A250606 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12149 | PROOF | A250928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12150 | PROOF | A251229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12151 | PROOF | A251374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12152 | PROOF | A251492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12153 | PROOF | A251500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12154 | PROOF | A278281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12155 | PROOF | A295841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12156 | PROOF | A296946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12157 | PROOF | A297432 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12158 | PROOF | A297458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12159 | PROOF | A297520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12160 | PROOF | A297583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12161 | PROOF | A297809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12162 | PROOF | A297860 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12163 | PROOF | A297870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12164 | PROOF | A297909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12165 | PROOF | A297917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12166 | PROOF | A297937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12167 | PROOF | A297953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12168 | PROOF | A297980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12169 | PROOF | A298569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12170 | PROOF | A301842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12171 | PROOF | A302266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12172 | PROOF | A302279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12173 | PROOF | A302368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12174 | PROOF | A303677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12175 | PROOF | A303721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12176 | PROOF | A303802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12177 | PROOF | A303890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12178 | PROOF | A303963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12179 | PROOF | A304004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12180 | PROOF | A304304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12181 | PROOF | A304349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12182 | PROOF | A317759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12183 | PROOF | A318010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12184 | PROOF | A318062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12185 | PROOF | A229446 | conjectured recurrence proved |
-| 12186 | PROOF | A282990 | a condition on every cell over the neighbour set the entry names |
-| 12187 | PROOF | A204709 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12188 | PROOF | A211327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12189 | PROOF | A267227 | conjectured recurrence proved |
-| 12190 | PROOF | A207008 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 12191 | PROOF | A220647 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12192 | PROOF | A183494 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12193 | PROOF | A268255 | conjectured recurrence proved |
-| 12194 | PROOF | A269578 | conjectured recurrence proved |
-| 12195 | PROOF | A269601 | conjectured recurrence proved |
-| 12196 | PROOF | A183357 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12197 | PROOF | A189450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12198 | PROOF | A235216 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12199 | PROOF | A184489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12200 | PROOF | A200865 | conjectured recurrence proved |
-| 12201 | PROOF | A201081 | conjectured recurrence proved |
-| 12202 | PROOF | A201347 | conjectured recurrence proved |
-| 12203 | PROOF | A220616 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12204 | PROOF | A233942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12205 | PROOF | A239024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12206 | PROOF | A250834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12207 | PROOF | A250891 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12208 | PROOF | A259244 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12209 | PROOF | A259509 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12210 | PROOF | A267465 | conjectured recurrence proved |
-| 12211 | PROOF | A201618 | conjectured recurrence proved |
-| 12212 | PROOF | A220558 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12213 | PROOF | A220590 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12214 | PROOF | A220726 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12215 | PROOF | A221510 | conjectured recurrence proved |
-| 12216 | PROOF | A221519 | conjectured recurrence proved |
-| 12217 | PROOF | A228385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12218 | PROOF | A250605 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12219 | PROOF | A250784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12220 | PROOF | A250791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12221 | PROOF | A250799 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12222 | PROOF | A251094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12223 | PROOF | A251262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12224 | PROOF | A202414 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12225 | PROOF | A222001 | conjectured recurrence proved |
-| 12226 | PROOF | A230648 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 12227 | PROOF | A240888 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 12228 | PROOF | A277653 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12229 | PROOF | A181247 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 12230 | PROOF | A183616 | conjectured recurrence proved |
-| 12231 | PROOF | A183838 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 12232 | PROOF | A214181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12233 | PROOF | A220547 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12234 | PROOF | A229397 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 12235 | PROOF | A230647 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
-| 12236 | PROOF | A262267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12237 | PROOF | A181207 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12238 | PROOF | A183314 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 12239 | PROOF | A183587 | conjectured recurrence proved |
-| 12240 | PROOF | A183596 | conjectured recurrence proved |
-| 12241 | PROOF | A212776 | conjectured recurrence proved |
-| 12242 | PROOF | A235974 | conjectured recurrence proved |
-| 12243 | PROOF | A236271 | conjectured recurrence proved |
-| 12244 | PROOF | A240478 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12245 | PROOF | A250576 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12246 | PROOF | A250730 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12247 | PROOF | A251194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12248 | PROOF | A251285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12249 | PROOF | A251310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12250 | PROOF | A252110 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12251 | PROOF | A204413 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12252 | PROOF | A252528 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12253 | PROOF | A252536 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12254 | PROOF | A205984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12255 | PROOF | A204415 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12256 | PROOF | A204753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12257 | PROOF | A206115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12258 | PROOF | A204752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12259 | PROOF | A223693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12260 | PROOF | A205983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12261 | PROOF | A204414 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12262 | PROOF | A206092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12263 | PROOF | A206114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12264 | PROOF | A206203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12265 | PROOF | A253454 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12266 | PROOF | A253493 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12267 | PROOF | A253500 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12268 | PROOF | A183631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12269 | PROOF | A204751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12270 | PROOF | A301796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12271 | PROOF | A266007 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12272 | PROOF | A206091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12273 | PROOF | A207048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12274 | PROOF | A205982 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12275 | PROOF | A253453 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12276 | PROOF | A253492 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12277 | PROOF | A253499 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12278 | PROOF | A232510 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12279 | PROOF | A183630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12280 | PROOF | A209726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12281 | PROOF | A206113 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12282 | PROOF | A207047 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12283 | PROOF | A206342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12284 | PROOF | A203730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12285 | PROOF | A222460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12286 | PROOF | A301795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12287 | PROOF | A253452 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12288 | PROOF | A253491 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12289 | PROOF | A253498 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12290 | PROOF | A206090 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12291 | PROOF | A203882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12292 | PROOF | A222337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12293 | PROOF | A183629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12294 | PROOF | A209532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12295 | PROOF | A209725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12296 | PROOF | A207046 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12297 | PROOF | A253451 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12298 | PROOF | A253490 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12299 | PROOF | A253497 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12300 | PROOF | A206340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12301 | PROOF | A203929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12302 | PROOF | A222277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12303 | PROOF | A208844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12304 | PROOF | A301794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12305 | PROOF | A206089 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12306 | PROOF | A206341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12307 | PROOF | A230063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12308 | PROOF | A252834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12309 | PROOF | A265987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12310 | PROOF | A197469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12311 | PROOF | A203651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12312 | PROOF | A222140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12313 | PROOF | A232290 | every cell carrying one stated value required to have a neighbour carrying another |
-| 12314 | PROOF | A208843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12315 | PROOF | A252980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12316 | PROOF | A253221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12317 | PROOF | A206338 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12318 | PROOF | A253450 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12319 | PROOF | A253489 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12320 | PROOF | A253496 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12321 | PROOF | A207148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12322 | PROOF | A252833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12323 | PROOF | A206339 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12324 | PROOF | A229690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12325 | PROOF | A238518 | a condition on every cell over the neighbour set the entry names |
-| 12326 | PROOF | A188708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12327 | PROOF | A203791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12328 | PROOF | A206130 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12329 | PROOF | A208558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12330 | PROOF | A223395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12331 | PROOF | A223434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12332 | PROOF | A230245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12333 | PROOF | A301793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12334 | PROOF | A301960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12335 | PROOF | A301995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12336 | PROOF | A317513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12337 | PROOF | A209531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12338 | PROOF | A209723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12339 | PROOF | A223337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12340 | PROOF | A253220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12341 | PROOF | A208842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12342 | PROOF | A206336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12343 | PROOF | A252979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12344 | PROOF | A208503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12345 | PROOF | A206145 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12346 | PROOF | A207146 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12347 | PROOF | A252832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12348 | PROOF | A207147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12349 | PROOF | A204699 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
-| 12350 | PROOF | A221374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12351 | PROOF | A229689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12352 | PROOF | A253219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12353 | PROOF | A206337 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12354 | PROOF | A232453 | every cell carrying one stated value required to have a neighbour carrying another |
-| 12355 | PROOF | A229749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12356 | PROOF | A232508 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12357 | PROOF | A232901 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12358 | PROOF | A232935 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12359 | PROOF | A183626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12360 | PROOF | A186133 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12361 | PROOF | A203830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12362 | PROOF | A208079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12363 | PROOF | A208556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12364 | PROOF | A208841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12365 | PROOF | A209506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12366 | PROOF | A209722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12367 | PROOF | A230269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12368 | PROOF | A230331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12369 | PROOF | A230520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12370 | PROOF | A253449 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12371 | PROOF | A207144 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12372 | PROOF | A258918 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
-| 12373 | PROOF | A268943 | conjectured recurrence proved |
-| 12374 | PROOF | A269466 | conjectured recurrence proved |
-| 12375 | PROOF | A269677 | conjectured recurrence proved |
-| 12376 | PROOF | A269689 | conjectured recurrence proved |
-| 12377 | PROOF | A269775 | conjectured recurrence proved |
-| 12378 | PROOF | A232289 | every cell carrying one stated value required to have a neighbour carrying another |
-| 12379 | PROOF | A252831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12380 | PROOF | A183304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12381 | PROOF | A228662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12382 | PROOF | A228684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12383 | PROOF | A246474 | conjectured recurrence proved |
-| 12384 | PROOF | A252978 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12385 | PROOF | A258959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12386 | PROOF | A261106 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
-| 12387 | PROOF | A297219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12388 | PROOF | A297333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12389 | PROOF | A297369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12390 | PROOF | A300177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12391 | PROOF | A300799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12392 | PROOF | A301438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12393 | PROOF | A301792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12394 | PROOF | A301879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12395 | PROOF | A301902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12396 | PROOF | A301946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12397 | PROOF | A301959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12398 | PROOF | A301994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12399 | PROOF | A302076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12400 | PROOF | A302146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12401 | PROOF | A303416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12402 | PROOF | A303714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12403 | PROOF | A304128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12404 | PROOF | A304225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12405 | PROOF | A304265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12406 | PROOF | A305035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12407 | PROOF | A305581 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12408 | PROOF | A316688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12409 | PROOF | A317512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12410 | PROOF | A320366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12411 | PROOF | A207145 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12412 | PROOF | A268942 | conjectured recurrence proved |
-| 12413 | PROOF | A269465 | conjectured recurrence proved |
-| 12414 | PROOF | A269676 | conjectured recurrence proved |
-| 12415 | PROOF | A269688 | conjectured recurrence proved |
-| 12416 | PROOF | A269774 | conjectured recurrence proved |
-| 12417 | PROOF | A223499 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12418 | PROOF | A207142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12419 | PROOF | A253225 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12420 | PROOF | A253351 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12421 | PROOF | A253218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12422 | PROOF | A229695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12423 | PROOF | A268941 | conjectured recurrence proved |
-| 12424 | PROOF | A269464 | conjectured recurrence proved |
-| 12425 | PROOF | A269675 | conjectured recurrence proved |
-| 12426 | PROOF | A269687 | conjectured recurrence proved |
-| 12427 | PROOF | A269773 | conjectured recurrence proved |
-| 12428 | PROOF | A233218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12429 | PROOF | A185762 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12430 | PROOF | A276300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12431 | PROOF | A234780 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12432 | PROOF | A243513 | conjectured recurrence proved |
-| 12433 | PROOF | A207656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12434 | PROOF | A208689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12435 | PROOF | A243027 | conjectured recurrence proved |
-| 12436 | PROOF | A245866 | conjectured recurrence proved |
-| 12437 | PROOF | A232059 | every cell carrying one stated value required to have a neighbour carrying another |
-| 12438 | PROOF | A183683 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12439 | PROOF | A207143 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
-| 12440 | PROOF | A268940 | conjectured recurrence proved |
-| 12441 | PROOF | A269463 | conjectured recurrence proved |
-| 12442 | PROOF | A269674 | conjectured recurrence proved |
-| 12443 | PROOF | A269686 | conjectured recurrence proved |
-| 12444 | PROOF | A269772 | conjectured recurrence proved |
-| 12445 | PROOF | A183625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12446 | PROOF | A205830 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12447 | PROOF | A209530 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12448 | PROOF | A250907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12449 | PROOF | A262327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12450 | PROOF | A262415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12451 | PROOF | A196700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12452 | PROOF | A233982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12453 | PROOF | A234220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12454 | PROOF | A223363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12455 | PROOF | A206790 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 12456 | PROOF | A206981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12457 | PROOF | A231950 | a condition on each cell and its neighbours, decided in a three-row window |
-| 12458 | PROOF | A268939 | conjectured recurrence proved |
-| 12459 | PROOF | A269462 | conjectured recurrence proved |
-| 12460 | PROOF | A269673 | conjectured recurrence proved |
-| 12461 | PROOF | A269685 | conjectured recurrence proved |
-| 12462 | PROOF | A269771 | conjectured recurrence proved |
-| 12463 | PROOF | A282310 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 12464 | PROOF | A282641 | a condition on every cell's king-move neighbourhood, boundaries included |
-| 12465 | PROOF | A211490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12466 | PROOF | A183344 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
-| 12467 | PROOF | A234789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12468 | PROOF | A184765 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12469 | PROOF | A203373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12470 | PROOF | A204609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12471 | PROOF | A209729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12472 | PROOF | A211322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12473 | PROOF | A220633 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
-| 12474 | PROOF | A228656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12475 | PROOF | A228750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12476 | PROOF | A228792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12477 | PROOF | A233684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12478 | PROOF | A234133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12479 | PROOF | A234154 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12480 | PROOF | A234483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12481 | PROOF | A235282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12482 | PROOF | A250778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12483 | PROOF | A250951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12484 | PROOF | A251293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12485 | PROOF | A251336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12486 | PROOF | A251517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12487 | PROOF | A258547 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12488 | PROOF | A278088 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12489 | PROOF | A278151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12490 | PROOF | A278274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12491 | PROOF | A296719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12492 | PROOF | A297695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12493 | PROOF | A297972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12494 | PROOF | A298234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12495 | PROOF | A301791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12496 | PROOF | A302323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12497 | PROOF | A304421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12498 | PROOF | A205249 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12499 | PROOF | A268938 | conjectured recurrence proved |
-| 12500 | PROOF | A269461 | conjectured recurrence proved |
-| 12501 | PROOF | A269613 | conjectured recurrence proved |
-| 12502 | PROOF | A269684 | conjectured recurrence proved |
-| 12503 | PROOF | A234825 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12504 | PROOF | A183624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12505 | PROOF | A183784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12506 | PROOF | A185513 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
-| 12507 | PROOF | A204708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12508 | PROOF | A205829 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12509 | PROOF | A206003 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12510 | PROOF | A206047 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12511 | PROOF | A209953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12512 | PROOF | A210269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12513 | PROOF | A210383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12514 | PROOF | A229374 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
-| 12515 | PROOF | A234259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12516 | PROOF | A235895 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12517 | PROOF | A235904 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
-| 12518 | PROOF | A251203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12519 | PROOF | A251328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12520 | PROOF | A251344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12521 | PROOF | A251383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12522 | PROOF | A259291 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12523 | PROOF | A262326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12524 | PROOF | A267226 | conjectured recurrence proved |
-| 12525 | PROOF | A184679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12526 | PROOF | A228501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12527 | PROOF | A228655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12528 | PROOF | A228678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12529 | PROOF | A250731 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12530 | PROOF | A204707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12531 | PROOF | A183356 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12532 | PROOF | A183804 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 12533 | PROOF | A183813 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 12534 | PROOF | A222440 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12535 | PROOF | A233213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12536 | PROOF | A259508 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12537 | PROOF | A259517 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12538 | PROOF | A277761 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12539 | PROOF | A277782 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12540 | PROOF | A214160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12541 | PROOF | A228797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12542 | PROOF | A232951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12543 | PROOF | A233162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12544 | PROOF | A239530 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
-| 12545 | PROOF | A250461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12546 | PROOF | A250798 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
-| 12547 | PROOF | A251221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12548 | PROOF | A251251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12549 | PROOF | A251319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12550 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
-| 12551 | PROOF | A181246 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
-| 12552 | PROOF | A183435 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
-| 12553 | PROOF | A184189 | conjectured recurrence proved |
-| 12554 | PROOF | A233106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12555 | PROOF | A233107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12556 | PROOF | A233124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12557 | PROOF | A233211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12558 | PROOF | A233212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12559 | PROOF | A235878 | conjectured recurrence proved |
-| 12560 | PROOF | A235879 | conjectured recurrence proved |
-| 12561 | PROOF | A235880 | conjectured recurrence proved |
-| 12562 | PROOF | A235881 | conjectured recurrence proved |
-| 12563 | PROOF | A235882 | conjectured recurrence proved |
-| 12564 | PROOF | A235883 | conjectured recurrence proved |
-| 12565 | PROOF | A235887 | conjectured recurrence proved |
-| 12566 | PROOF | A235888 | conjectured recurrence proved |
-| 12567 | PROOF | A235889 | conjectured recurrence proved |
-| 12568 | PROOF | A235890 | conjectured recurrence proved |
-| 12569 | PROOF | A235891 | conjectured recurrence proved |
-| 12570 | PROOF | A235892 | conjectured recurrence proved |
-| 12571 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
-| 12572 | PROOF | A264014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12573 | PROOF | A222276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12574 | PROOF | A222139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12575 | PROOF | A223299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12576 | PROOF | A223318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12577 | PROOF | A223291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12578 | PROOF | A223373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12579 | PROOF | A223687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12580 | PROOF | A231280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12581 | PROOF | A223241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12582 | PROOF | A208779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12583 | PROOF | A223212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12584 | PROOF | A230179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12585 | PROOF | A208778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12586 | PROOF | A223249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12587 | PROOF | A253158 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12588 | PROOF | A253434 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12589 | PROOF | A253441 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12590 | PROOF | A223278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12591 | PROOF | A185858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12592 | PROOF | A203729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12593 | PROOF | A222459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12594 | PROOF | A203881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12595 | PROOF | A222336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12596 | PROOF | A253157 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12597 | PROOF | A253433 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12598 | PROOF | A253440 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12599 | PROOF | A223228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12600 | PROOF | A223258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12601 | PROOF | A238923 | a condition on every cell over the neighbour set the entry names |
-| 12602 | PROOF | A223181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12603 | PROOF | A221121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12604 | PROOF | A223443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12605 | PROOF | A203928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12606 | PROOF | A223204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12607 | PROOF | A223277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12608 | PROOF | A253156 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12609 | PROOF | A253432 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12610 | PROOF | A253439 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12611 | PROOF | A223332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12612 | PROOF | A223552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12613 | PROOF | A206066 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12614 | PROOF | A223234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12615 | PROOF | A203650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12616 | PROOF | A253155 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12617 | PROOF | A253431 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12618 | PROOF | A253438 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12619 | PROOF | A223197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12620 | PROOF | A239171 | a condition on every cell over the neighbour set the entry names |
-| 12621 | PROOF | A221082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12622 | PROOF | A208502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12623 | PROOF | A223290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12624 | PROOF | A223372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12625 | PROOF | A278008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12626 | PROOF | A253154 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12627 | PROOF | A253430 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12628 | PROOF | A253437 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12629 | PROOF | A211715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12630 | PROOF | A203790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12631 | PROOF | A245994 | conjectured recurrence proved |
-| 12632 | PROOF | A298777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12633 | PROOF | A301402 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12634 | PROOF | A301779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12635 | PROOF | A301836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12636 | PROOF | A302064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12637 | PROOF | A302675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12638 | PROOF | A206144 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12639 | PROOF | A223240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12640 | PROOF | A223417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12641 | PROOF | A253153 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12642 | PROOF | A253429 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12643 | PROOF | A253436 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12644 | PROOF | A223270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12645 | PROOF | A207590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12646 | PROOF | A207846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12647 | PROOF | A245992 | conjectured recurrence proved |
-| 12648 | PROOF | A184688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12649 | PROOF | A221829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12650 | PROOF | A203829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12651 | PROOF | A209505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12652 | PROOF | A221731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12653 | PROOF | A208485 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
-| 12654 | PROOF | A275229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12655 | PROOF | A183702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12656 | PROOF | A184145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12657 | PROOF | A185761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12658 | PROOF | A205187 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12659 | PROOF | A206014 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
-| 12660 | PROOF | A221462 | conjectured recurrence proved |
-| 12661 | PROOF | A245990 | conjectured recurrence proved |
-| 12662 | PROOF | A251276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12663 | PROOF | A251484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12664 | PROOF | A253152 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
-| 12665 | PROOF | A221461 | conjectured recurrence proved |
-| 12666 | PROOF | A234779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12667 | PROOF | A183690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12668 | PROOF | A184368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12669 | PROOF | A209789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12670 | PROOF | A209944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12671 | PROOF | A233637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12672 | PROOF | A234436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12673 | PROOF | A183682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12674 | PROOF | A228791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12675 | PROOF | A208347 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12676 | PROOF | A233164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12677 | PROOF | A233165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12678 | PROOF | A233166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12679 | PROOF | A259243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12680 | PROOF | A259290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12681 | PROOF | A233163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12682 | PROOF | A183615 | conjectured recurrence proved |
-| 12683 | PROOF | A222098 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12684 | PROOF | A222439 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12685 | PROOF | A233196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12686 | PROOF | A233252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12687 | PROOF | A183586 | conjectured recurrence proved |
-| 12688 | PROOF | A232921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12689 | PROOF | A232950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12690 | PROOF | A232956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12691 | PROOF | A233020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12692 | PROOF | A233123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12693 | PROOF | A233251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12694 | PROOF | A235877 | conjectured recurrence proved |
-| 12695 | PROOF | A235886 | conjectured recurrence proved |
-| 12696 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
-| 12697 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
-| 12698 | PROOF | A264123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12699 | PROOF | A264185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12700 | PROOF | A222335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12701 | PROOF | A222138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12702 | PROOF | A249227 | conjectured recurrence proved |
-| 12703 | PROOF | A223322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12704 | PROOF | A206143 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
-| 12705 | PROOF | A188825 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
-| 12706 | PROOF | A208428 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
-| 12707 | PROOF | A183355 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
-| 12708 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
-| 12709 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
-| 12710 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
-| 12711 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
-| 12712 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
-| 12713 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
-| 12714 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12715 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12716 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12717 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12718 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12719 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12720 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12721 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12722 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12723 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12724 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12725 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12726 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12727 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12728 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12729 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12730 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12731 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12732 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12733 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12734 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12735 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12736 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12737 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12738 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12739 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12740 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12741 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12742 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12743 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12744 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12745 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12746 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
-| 12747 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12748 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12749 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12750 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12751 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12752 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12753 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12754 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12755 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12756 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12757 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12758 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12759 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12760 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12761 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12762 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12763 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12764 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12765 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12766 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12767 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12768 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12769 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12770 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12771 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
-| 12772 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12773 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12774 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12775 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12776 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12777 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12778 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12779 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12780 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12781 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12782 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12783 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12784 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12785 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
-| 12786 | PROOF | A171853 | a posted closed form against a derived holonomic recurrence |
-| 12787 | PROOF | A182899 | a posted closed form against a derived holonomic recurrence |
-| 12788 | PROOF | A273905 | a posted closed form against a derived holonomic recurrence |
-| 12789 | PROOF | A186828 | a posted closed form against a derived holonomic recurrence |
-| 12790 | PROOF | A026571 | a posted closed form against a derived holonomic recurrence |
-| 12791 | PROOF | A162479 | a posted closed form against a derived holonomic recurrence |
-| 12792 | PROOF | A162533 | a posted closed form against a derived holonomic recurrence |
-| 12793 | PROOF | A166697 | a posted closed form against a derived holonomic recurrence |
-| 12794 | PROOF | A242781 | a posted closed form against a derived holonomic recurrence |
-| 12795 | PROOF | A247173 | a posted closed form against a derived holonomic recurrence |
-| 12796 | PROOF | A276068 | a posted closed form against a derived holonomic recurrence |
-| 12797 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
-| 12798 | PROOF | A026110 | a posted closed form against a derived holonomic recurrence |
-| 12799 | PROOF | A026125 | a posted closed form against a derived holonomic recurrence |
-| 12800 | PROOF | A026126 | a posted closed form against a derived holonomic recurrence |
-| 12801 | PROOF | A125267 | a posted closed form against a derived holonomic recurrence |
-| 12802 | PROOF | A174016 | a posted closed form against a derived holonomic recurrence |
-| 12803 | PROOF | A186338 | a posted closed form against a derived holonomic recurrence |
-| 12804 | PROOF | A213203 | a posted closed form compared against the posted generating function |
-| 12805 | PROOF | A228178 | a posted closed form against a derived holonomic recurrence |
-| 12806 | PROOF | A242429 | a posted closed form compared against the posted generating function |
-| 12807 | PROOF | A247102 | a posted closed form against a derived holonomic recurrence |
-| 12808 | PROOF | A250307 | a posted closed form against a derived holonomic recurrence |
-| 12809 | PROOF | A292461 | a posted closed form against a derived holonomic recurrence |
-| 12810 | PROOF | A026018 | a posted closed form compared against the posted generating function |
-| 12811 | PROOF | A026122 | a posted closed form against a derived holonomic recurrence |
-| 12812 | PROOF | A026270 | a posted closed form against a derived holonomic recurrence |
-| 12813 | PROOF | A092634 | a posted closed form compared against the posted generating function |
-| 12814 | PROOF | A097332 | a posted closed form against a derived holonomic recurrence |
-| 12815 | PROOF | A103138 | a posted closed form against a derived holonomic recurrence |
-| 12816 | PROOF | A104624 | a posted closed form against a derived holonomic recurrence |
-| 12817 | PROOF | A141344 | a posted closed form against a derived holonomic recurrence |
-| 12818 | PROOF | A166228 | a posted closed form against a derived holonomic recurrence |
-| 12819 | PROOF | A182122 | a posted closed form against a derived holonomic recurrence |
-| 12820 | PROOF | A239201 | a posted closed form against a derived holonomic recurrence |
-| 12821 | PROOF | A239204 | a posted closed form against a derived holonomic recurrence |
-| 12822 | PROOF | A244884 | a posted closed form against a derived holonomic recurrence |
-| 12823 | PROOF | A026013 | a posted closed form against a derived holonomic recurrence |
-| 12824 | PROOF | A026026 | a posted closed form compared against the posted generating function |
-| 12825 | PROOF | A052227 | a posted closed form compared against the posted generating function |
-| 12826 | PROOF | A054109 | a posted closed form against a derived holonomic recurrence |
-| 12827 | PROOF | A152601 | a posted closed form against a derived holonomic recurrence |
-| 12828 | PROOF | A228329 | a posted closed form compared against the posted generating function |
-| 12829 | PROOF | A259457 | a posted closed form compared against the posted generating function |
-| 12830 | PROOF | A268554 | a posted closed form compared against the posted generating function |
-| 12831 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
-| 12832 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
-| 12833 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
-| 12834 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
-| 12835 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
-| 12836 | PROOF | A102319 | several independent square roots |
-| 12837 | PROOF | A115256 | several independent square roots |
-| 12838 | PROOF | A157125 | several independent square roots |
-| 12839 | PROOF | A102318 | several independent square roots |
-| 12840 | PROOF | A107587 | several independent square roots |
-| 12841 | PROOF | A218185 | several independent square roots |
-| 12842 | PROOF | A025567 | several independent square roots |
-| 12843 | PROOF | A071684 | several independent square roots |
-| 12844 | PROOF | A179648 | several independent square roots |
-| 12845 | PROOF | A184120 | several independent square roots |
-| 12846 | PROOF | A026163 | several independent square roots |
-| 12847 | PROOF | A102318 | several independent square roots |
-| 12848 | PROOF | A101500 | several independent square roots |
-| 12849 | PROOF | A102319 | several independent square roots |
-| 12850 | PROOF | A107587 | several independent square roots |
-| 12851 | PROOF | A263690 | the recurrence follows from a generating function the entry records as fact |
-| 12852 | PROOF | A072100 | several independent square roots |
-| 12853 | PROOF | A211525 | the recurrence follows from a generating function the entry records as fact |
-| 12854 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
-| 12855 | PROOF | A025567 | several independent square roots |
-| 12856 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
-| 12857 | PROOF | A110320 | an identity between different entries |
-| 12858 | PROOF | A346370 | an identity between different entries |
-| 12859 | PROOF | A233679 | conjectured recurrence proved |
-| 12860 | PROOF | A298144 | conjectured recurrence proved |
-| 12861 | PROOF | A301845 | conjectured recurrence proved |
-| 12862 | PROOF | A251227 | conjectured recurrence proved |
-| 12863 | PROOF | A297990 | conjectured recurrence proved |
-| 12864 | PROOF | A281342 | conjectured recurrence proved |
-| 12865 | PROOF | A281031 | conjectured recurrence proved |
-| 12866 | PROOF | A251041 | conjectured recurrence proved |
-| 12867 | PROOF | A305243 | conjectured recurrence proved |
-| 12868 | PROOF | A297821 | conjectured recurrence proved |
-| 12869 | PROOF | A252062 | conjectured recurrence proved |
-| 12870 | PROOF | A278278 | conjectured recurrence proved |
-| 12871 | PROOF | A277769 | conjectured recurrence proved |
-| 12872 | PROOF | A317740 | conjectured recurrence proved |
-| 12873 | PROOF | A281834 | conjectured recurrence proved |
-| 12874 | PROOF | A301441 | conjectured recurrence proved |
-| 12875 | PROOF | A305086 | conjectured recurrence proved |
-| 12876 | PROOF | A305486 | conjectured recurrence proved |
-| 12877 | PROOF | A300877 | conjectured recurrence proved |
-| 12878 | PROOF | A283639 | conjectured recurrence proved |
-| 12879 | PROOF | A264269 | conjectured recurrence proved |
-| 12880 | PROOF | A283200 | conjectured recurrence proved |
-| 12881 | PROOF | A252141 | conjectured recurrence proved |
-| 12882 | PROOF | A252845 | conjectured recurrence proved |
-| 12883 | PROOF | A259999 | conjectured recurrence proved |
-| 12884 | PROOF | A304924 | conjectured recurrence proved |
-| 12885 | PROOF | A254087 | conjectured recurrence proved |
-| 12886 | PROOF | A297611 | conjectured recurrence proved |
-| 12887 | PROOF | A240419 | conjectured recurrence proved |
-| 12888 | PROOF | A300884 | conjectured recurrence proved |
-| 12889 | PROOF | A241075 | conjectured recurrence proved |
-| 12890 | PROOF | A316279 | conjectured recurrence proved |
-| 12891 | PROOF | A232035 | conjectured recurrence proved |
-| 12892 | PROOF | A297799 | conjectured recurrence proved |
-| 12893 | PROOF | A300933 | conjectured recurrence proved |
-| 12894 | PROOF | A230815 | conjectured recurrence proved |
-| 12895 | PROOF | A297587 | conjectured recurrence proved |
-| 12896 | PROOF | A236060 | conjectured recurrence proved |
-| 12897 | PROOF | A240787 | conjectured recurrence proved |
-| 12898 | PROOF | A232157 | conjectured recurrence proved |
-| 12899 | PROOF | A258520 | conjectured recurrence proved |
-| 12900 | PROOF | A317820 | conjectured recurrence proved |
-| 12901 | PROOF | A266057 | conjectured recurrence proved |
-| 12902 | PROOF | A266020 | conjectured recurrence proved |
-| 12903 | PROOF | A267641 | conjectured recurrence proved |
-| 12904 | PROOF | A282590 | conjectured recurrence proved |
-| 12905 | PROOF | A237137 | conjectured recurrence proved |
-| 12906 | PROOF | A267790 | conjectured recurrence proved |
-| 12907 | PROOF | A250711 | conjectured recurrence proved |
-| 12908 | PROOF | A230187 | conjectured recurrence proved |
-| 12909 | PROOF | A303687 | conjectured recurrence proved |
-| 12910 | PROOF | A316737 | conjectured recurrence proved |
-| 12911 | PROOF | A304146 | conjectured recurrence proved |
-| 12912 | PROOF | A303466 | conjectured recurrence proved |
-| 12913 | PROOF | A300502 | conjectured recurrence proved |
-| 12914 | PROOF | A295916 | conjectured recurrence proved |
-| 12915 | PROOF | A264208 | conjectured recurrence proved |
-| 12916 | PROOF | A236030 | conjectured recurrence proved |
-| 12917 | PROOF | A253988 | conjectured recurrence proved |
-| 12918 | PROOF | A304602 | conjectured recurrence proved |
-| 12919 | PROOF | A229540 | conjectured recurrence proved |
-| 12920 | PROOF | A269041 | conjectured recurrence proved |
-| 12921 | PROOF | A269058 | conjectured recurrence proved |
-| 12922 | PROOF | A302221 | conjectured recurrence proved |
-| 12923 | PROOF | A303893 | conjectured recurrence proved |
-| 12924 | PROOF | A260839 | conjectured recurrence proved |
-| 12925 | PROOF | A296383 | conjectured recurrence proved |
-| 12926 | PROOF | A298277 | conjectured recurrence proved |
-| 12927 | PROOF | A302083 | conjectured recurrence proved |
-| 12928 | PROOF | A299726 | conjectured recurrence proved |
-| 12929 | PROOF | A295780 | conjectured recurrence proved |
-| 12930 | PROOF | A254548 | conjectured recurrence proved |
-| 12931 | PROOF | A305514 | conjectured recurrence proved |
-| 12932 | PROOF | A239408 | conjectured recurrence proved |
-| 12933 | PROOF | A239652 | conjectured recurrence proved |
-| 12934 | PROOF | A260542 | conjectured recurrence proved |
-| 12935 | PROOF | A304138 | conjectured recurrence proved |
-| 12936 | PROOF | A295037 | conjectured recurrence proved |
-| 12937 | PROOF | A282836 | conjectured recurrence proved |
-| 12938 | PROOF | A283947 | conjectured recurrence proved |
-| 12939 | PROOF | A238724 | conjectured recurrence proved |
-| 12940 | PROOF | A239028 | conjectured recurrence proved |
-| 12941 | PROOF | A231995 | conjectured recurrence proved |
-| 12942 | PROOF | A304424 | conjectured recurrence proved |
-| 12943 | PROOF | A302805 | conjectured recurrence proved |
-| 12944 | PROOF | A253483 | conjectured recurrence proved |
-| 12945 | PROOF | A303099 | conjectured recurrence proved |
-| 12946 | PROOF | A299652 | conjectured recurrence proved |
-| 12947 | PROOF | A299658 | conjectured recurrence proved |
-| 12948 | PROOF | A263220 | conjectured recurrence proved |
-| 12949 | PROOF | A230907 | conjectured recurrence proved |
-| 12950 | PROOF | A316929 | conjectured recurrence proved |
-| 12951 | PROOF | A301487 | conjectured recurrence proved |
-| 12952 | PROOF | A252286 | conjectured recurrence proved |
-| 12953 | PROOF | A278154 | conjectured recurrence proved |
-| 12954 | PROOF | A250948 | conjectured recurrence proved |
-| 12955 | PROOF | A282438 | conjectured recurrence proved |
-| 12956 | PROOF | A279131 | conjectured recurrence proved |
-| 12957 | PROOF | A237725 | conjectured recurrence proved |
-| 12958 | PROOF | A224308 | conjectured recurrence proved |
-| 12959 | PROOF | A257421 | conjectured recurrence proved |
-| 12960 | PROOF | A251447 | conjectured recurrence proved |
-| 12961 | PROOF | A237220 | conjectured recurrence proved |
-| 12962 | PROOF | A237483 | conjectured recurrence proved |
-| 12963 | PROOF | A263435 | conjectured recurrence proved |
-| 12964 | PROOF | A260498 | conjectured recurrence proved |
-| 12965 | PROOF | A236038 | conjectured recurrence proved |
-| 12966 | PROOF | A280067 | conjectured recurrence proved |
-| 12967 | PROOF | A297717 | conjectured recurrence proved |
-| 12968 | PROOF | A297523 | conjectured recurrence proved |
-| 12969 | PROOF | A317700 | conjectured recurrence proved |
-| 12970 | PROOF | A231742 | conjectured recurrence proved |
-| 12971 | PROOF | A268027 | conjectured recurrence proved |
-| 12972 | PROOF | A282882 | conjectured recurrence proved |
-| 12973 | PROOF | A253874 | conjectured recurrence proved |
-| 12974 | PROOF | A253540 | conjectured recurrence proved |
-| 12975 | PROOF | A278091 | conjectured recurrence proved |
-| 12976 | PROOF | A297886 | conjectured recurrence proved |
-| 12977 | PROOF | A260245 | conjectured recurrence proved |
-| 12978 | PROOF | A232960 | conjectured recurrence proved |
-| 12979 | PROOF | A233688 | conjectured recurrence proved |
-| 12980 | PROOF | A295203 | conjectured recurrence proved |
-| 12981 | PROOF | A296318 | conjectured recurrence proved |
-| 12982 | PROOF | A282860 | conjectured recurrence proved |
-| 12983 | PROOF | A300802 | conjectured recurrence proved |
-| 12984 | PROOF | A306050 | conjectured recurrence proved |
-| 12985 | PROOF | A316286 | conjectured recurrence proved |
-| 12986 | PROOF | A302152 | conjectured recurrence proved |
-| 12987 | PROOF | A264479 | conjectured recurrence proved |
-| 12988 | PROOF | A264503 | conjectured recurrence proved |
-| 12989 | PROOF | A264547 | conjectured recurrence proved |
-| 12990 | PROOF | A264566 | conjectured recurrence proved |
-| 12991 | PROOF | A264580 | conjectured recurrence proved |
-| 12992 | PROOF | A275092 | conjectured recurrence proved |
-| 12993 | PROOF | A284078 | conjectured recurrence proved |
-| 12994 | PROOF | A283662 | conjectured recurrence proved |
-| 12995 | PROOF | A279164 | conjectured recurrence proved |
-| 12996 | PROOF | A303186 | conjectured recurrence proved |
-| 12997 | PROOF | A297378 | conjectured recurrence proved |
-| 12998 | PROOF | A317227 | conjectured recurrence proved |
-| 12999 | PROOF | A304469 | conjectured recurrence proved |
-| 13000 | PROOF | A259892 | conjectured recurrence proved |
-| 13001 | PROOF | A259721 | conjectured recurrence proved |
-| 13002 | PROOF | A302378 | conjectured recurrence proved |
-| 13003 | PROOF | A297594 | conjectured recurrence proved |
-| 13004 | PROOF | A296325 | conjectured recurrence proved |
-| 13005 | PROOF | A283689 | conjectured recurrence proved |
-| 13006 | PROOF | A252029 | conjectured recurrence proved |
-| 13007 | PROOF | A255098 | conjectured recurrence proved |
-| 13008 | PROOF | A299718 | conjectured recurrence proved |
-| 13009 | PROOF | A320405 | conjectured recurrence proved |
-| 13010 | PROOF | A300494 | conjectured recurrence proved |
-| 13011 | PROOF | A317867 | conjectured recurrence proved |
-| 13012 | PROOF | A253040 | conjectured recurrence proved |
-| 13013 | PROOF | A237960 | conjectured recurrence proved |
-| 13014 | PROOF | A297342 | conjectured recurrence proved |
-| 13015 | PROOF | A300678 | conjectured recurrence proved |
-| 13016 | PROOF | A297430 | conjectured recurrence proved |
-| 13017 | PROOF | A283632 | conjectured recurrence proved |
-| 13018 | PROOF | A238250 | conjectured recurrence proved |
-| 13019 | PROOF | A302639 | conjectured recurrence proved |
-| 13020 | PROOF | A231905 | conjectured recurrence proved |
-| 13021 | PROOF | A317732 | conjectured recurrence proved |
-| 13022 | PROOF | A230172 | conjectured recurrence proved |
-| 13023 | PROOF | A232340 | conjectured recurrence proved |
-| 13024 | PROOF | A267663 | conjectured recurrence proved |
-| 13025 | PROOF | A253867 | conjectured recurrence proved |
-| 13026 | PROOF | A302169 | conjectured recurrence proved |
-| 13027 | PROOF | A240366 | conjectured recurrence proved |
-| 13028 | PROOF | A302962 | conjectured recurrence proved |
-| 13029 | PROOF | A240297 | conjectured recurrence proved |
-| 13030 | PROOF | A260206 | conjectured recurrence proved |
-| 13031 | PROOF | A297737 | conjectured recurrence proved |
-| 13032 | PROOF | A253616 | conjectured recurrence proved |
-| 13033 | PROOF | A300376 | conjectured recurrence proved |
-| 13034 | PROOF | A231781 | conjectured recurrence proved |
-| 13035 | PROOF | A263871 | conjectured recurrence proved |
-| 13036 | PROOF | A299737 | conjectured recurrence proved |
-| 13037 | PROOF | A250639 | conjectured recurrence proved |
-| 13038 | PROOF | A250591 | conjectured recurrence proved |
-| 13039 | PROOF | A304132 | conjectured recurrence proved |
-| 13040 | PROOF | A257149 | conjectured recurrence proved |
-| 13041 | PROOF | A302419 | conjectured recurrence proved |
-| 13042 | PROOF | A255157 | conjectured recurrence proved |
-| 13043 | PROOF | A266063 | conjectured recurrence proved |
-| 13044 | PROOF | A295118 | conjectured recurrence proved |
-| 13045 | PROOF | A295273 | conjectured recurrence proved |
-| 13046 | PROOF | A295414 | conjectured recurrence proved |
-| 13047 | PROOF | A253039 | conjectured recurrence proved |
-| 13048 | PROOF | A256731 | conjectured recurrence proved |
-| 13049 | PROOF | A232051 | conjectured recurrence proved |
-| 13050 | PROOF | A232320 | conjectured recurrence proved |
-| 13051 | PROOF | A255778 | conjectured recurrence proved |
-| 13052 | PROOF | A297759 | conjectured recurrence proved |
-| 13053 | PROOF | A295210 | conjectured recurrence proved |
-| 13054 | PROOF | A266133 | conjectured recurrence proved |
-| 13055 | PROOF | A297746 | conjectured recurrence proved |
-| 13056 | PROOF | A301494 | conjectured recurrence proved |
-| 13057 | PROOF | A256026 | conjectured recurrence proved |
-| 13058 | PROOF | A316951 | conjectured recurrence proved |
-| 13059 | PROOF | A255145 | conjectured recurrence proved |
-| 13060 | PROOF | A253656 | conjectured recurrence proved |
-| 13061 | PROOF | A299331 | conjectured recurrence proved |
-| 13062 | PROOF | A295713 | conjectured recurrence proved |
-| 13063 | PROOF | A254776 | conjectured recurrence proved |
-| 13064 | PROOF | A254722 | conjectured recurrence proved |
-| 13065 | PROOF | A260283 | conjectured recurrence proved |
-| 13066 | PROOF | A252600 | conjectured recurrence proved |
-| 13067 | PROOF | A229517 | conjectured recurrence proved |
-| 13068 | PROOF | A300535 | conjectured recurrence proved |
-| 13069 | PROOF | A300962 | conjectured recurrence proved |
-| 13070 | PROOF | A283861 | conjectured recurrence proved |
-| 13071 | PROOF | A283491 | conjectured recurrence proved |
-| 13072 | PROOF | A316180 | conjectured recurrence proved |
-| 13073 | PROOF | A296639 | conjectured recurrence proved |
-| 13074 | PROOF | A241116 | conjectured recurrence proved |
-| 13075 | PROOF | A295845 | conjectured recurrence proved |
-| 13076 | PROOF | A262468 | conjectured recurrence proved |
-| 13077 | PROOF | A236091 | conjectured recurrence proved |
-| 13078 | PROOF | A254452 | conjectured recurrence proved |
-| 13079 | PROOF | A254170 | conjectured recurrence proved |
-| 13080 | PROOF | A302956 | conjectured recurrence proved |
-| 13081 | PROOF | A297462 | conjectured recurrence proved |
-| 13082 | PROOF | A281799 | conjectured recurrence proved |
-| 13083 | PROOF | A236636 | conjectured recurrence proved |
-| 13084 | PROOF | A281718 | conjectured recurrence proved |
-| 13085 | PROOF | A283413 | conjectured recurrence proved |
-| 13086 | PROOF | A259296 | conjectured recurrence proved |
-| 13087 | PROOF | A302524 | conjectured recurrence proved |
-| 13088 | PROOF | A231582 | conjectured recurrence proved |
-| 13089 | PROOF | A252073 | conjectured recurrence proved |
-| 13090 | PROOF | A318041 | conjectured recurrence proved |
-| 13091 | PROOF | A300608 | conjectured recurrence proved |
-| 13092 | PROOF | A301350 | conjectured recurrence proved |
-| 13093 | PROOF | A318094 | conjectured recurrence proved |
-| 13094 | PROOF | A298550 | conjectured recurrence proved |
-| 13095 | PROOF | A299245 | conjectured recurrence proved |
-| 13096 | PROOF | A299557 | conjectured recurrence proved |
-| 13097 | PROOF | A302274 | conjectured recurrence proved |
-| 13098 | PROOF | A298059 | conjectured recurrence proved |
-| 13099 | PROOF | A252267 | conjectured recurrence proved |
-| 13100 | PROOF | A252367 | conjectured recurrence proved |
-| 13101 | PROOF | A259522 | conjectured recurrence proved |
-| 13102 | PROOF | A259960 | conjectured recurrence proved |
-| 13103 | PROOF | A252341 | conjectured recurrence proved |
-| 13104 | PROOF | A255025 | conjectured recurrence proved |
-| 13105 | PROOF | A298316 | conjectured recurrence proved |
-| 13106 | PROOF | A298378 | conjectured recurrence proved |
-| 13107 | PROOF | A300092 | conjectured recurrence proved |
-| 13108 | PROOF | A302462 | conjectured recurrence proved |
-| 13109 | PROOF | A303411 | conjectured recurrence proved |
-| 13110 | PROOF | A306132 | conjectured recurrence proved |
-| 13111 | PROOF | A253858 | conjectured recurrence proved |
-| 13112 | PROOF | A254493 | conjectured recurrence proved |
-| 13113 | PROOF | A280158 | conjectured recurrence proved |
-| 13114 | PROOF | A298708 | conjectured recurrence proved |
-| 13115 | PROOF | A320369 | conjectured recurrence proved |
-| 13116 | PROOF | A237845 | conjectured recurrence proved |
-| 13117 | PROOF | A277941 | conjectured recurrence proved |
-| 13118 | PROOF | A302262 | conjectured recurrence proved |
-| 13119 | PROOF | A231520 | conjectured recurrence proved |
-| 13120 | PROOF | A234862 | conjectured recurrence proved |
-| 13121 | PROOF | A299454 | conjectured recurrence proved |
-| 13122 | PROOF | A304547 | conjectured recurrence proved |
-| 13123 | PROOF | A304672 | conjectured recurrence proved |
-| 13124 | PROOF | A316119 | conjectured recurrence proved |
-| 13125 | PROOF | A295376 | conjectured recurrence proved |
-| 13126 | PROOF | A297400 | conjectured recurrence proved |
-| 13127 | PROOF | A283548 | conjectured recurrence proved |
-| 13128 | PROOF | A254771 | conjectured recurrence proved |
-| 13129 | PROOF | A282994 | conjectured recurrence proved |
-| 13130 | PROOF | A281952 | conjectured recurrence proved |
-| 13131 | PROOF | A281932 | conjectured recurrence proved |
-| 13132 | PROOF | A283787 | conjectured recurrence proved |
-| 13133 | PROOF | A283279 | conjectured recurrence proved |
-| 13134 | PROOF | A229642 | conjectured recurrence proved |
-| 13135 | PROOF | A252453 | conjectured recurrence proved |
-| 13136 | PROOF | A252084 | conjectured recurrence proved |
-| 13137 | PROOF | A295603 | conjectured recurrence proved |
-| 13138 | PROOF | A298385 | conjectured recurrence proved |
-| 13139 | PROOF | A299190 | conjectured recurrence proved |
-| 13140 | PROOF | A299461 | conjectured recurrence proved |
-| 13141 | PROOF | A305011 | conjectured recurrence proved |
-| 13142 | PROOF | A316644 | conjectured recurrence proved |
-| 13143 | PROOF | A304693 | conjectured recurrence proved |
-| 13144 | PROOF | A305907 | conjectured recurrence proved |
-| 13145 | PROOF | A316444 | conjectured recurrence proved |
-| 13146 | PROOF | A316637 | conjectured recurrence proved |
-| 13147 | PROOF | A317149 | conjectured recurrence proved |
-| 13148 | PROOF | A230802 | conjectured recurrence proved |
-| 13149 | PROOF | A231215 | conjectured recurrence proved |
-| 13150 | PROOF | A253980 | conjectured recurrence proved |
-| 13151 | PROOF | A282526 | conjectured recurrence proved |
-| 13152 | PROOF | A268797 | conjectured recurrence proved |
-| 13153 | PROOF | A268808 | conjectured recurrence proved |
-| 13154 | PROOF | A279980 | conjectured recurrence proved |
-| 13155 | PROOF | A238651 | conjectured recurrence proved |
-| 13156 | PROOF | A251316 | conjectured recurrence proved |
-| 13157 | PROOF | A268788 | conjectured recurrence proved |
-| 13158 | PROOF | A268892 | conjectured recurrence proved |
-| 13159 | PROOF | A269001 | conjectured recurrence proved |
-| 13160 | PROOF | A269088 | conjectured recurrence proved |
-| 13161 | PROOF | A254392 | conjectured recurrence proved |
-| 13162 | PROOF | A303459 | conjectured recurrence proved |
-| 13163 | PROOF | A297634 | conjectured recurrence proved |
-| 13164 | PROOF | A299836 | conjectured recurrence proved |
-| 13165 | PROOF | A256897 | conjectured recurrence proved |
-| 13166 | PROOF | A298392 | conjectured recurrence proved |
-| 13167 | PROOF | A299303 | conjectured recurrence proved |
-| 13168 | PROOF | A299510 | conjectured recurrence proved |
-| 13169 | PROOF | A302530 | conjectured recurrence proved |
-| 13170 | PROOF | A299093 | conjectured recurrence proved |
-| 13171 | PROOF | A317432 | conjectured recurrence proved |
-| 13172 | PROOF | A301612 | conjectured recurrence proved |
-| 13173 | PROOF | A262476 | conjectured recurrence proved |
-| 13174 | PROOF | A251001 | conjectured recurrence proved |
-| 13175 | PROOF | A295982 | conjectured recurrence proved |
-| 13176 | PROOF | A296671 | conjectured recurrence proved |
-| 13177 | PROOF | A237237 | conjectured recurrence proved |
-| 13178 | PROOF | A237679 | conjectured recurrence proved |
-| 13179 | PROOF | A252127 | conjectured recurrence proved |
-| 13180 | PROOF | A259950 | conjectured recurrence proved |
-| 13181 | PROOF | A298324 | conjectured recurrence proved |
-| 13182 | PROOF | A299563 | conjectured recurrence proved |
-| 13183 | PROOF | A300104 | conjectured recurrence proved |
-| 13184 | PROOF | A303086 | conjectured recurrence proved |
-| 13185 | PROOF | A303244 | conjectured recurrence proved |
-| 13186 | PROOF | A304700 | conjectured recurrence proved |
-| 13187 | PROOF | A316451 | conjectured recurrence proved |
-| 13188 | PROOF | A317262 | conjectured recurrence proved |
-| 13189 | PROOF | A299875 | conjectured recurrence proved |
-| 13190 | PROOF | A316126 | conjectured recurrence proved |
-| 13191 | PROOF | A302822 | conjectured recurrence proved |
-| 13192 | PROOF | A254486 | conjectured recurrence proved |
-| 13193 | PROOF | A282646 | conjectured recurrence proved |
-| 13194 | PROOF | A254163 | conjectured recurrence proved |
-| 13195 | PROOF | A254356 | conjectured recurrence proved |
-| 13196 | PROOF | A254588 | conjectured recurrence proved |
-| 13197 | PROOF | A301825 | conjectured recurrence proved |
-| 13198 | PROOF | A300339 | conjectured recurrence proved |
-| 13199 | PROOF | A300172 | conjectured recurrence proved |
-| 13200 | PROOF | A299011 | conjectured recurrence proved |
-| 13201 | PROOF | A299217 | conjectured recurrence proved |
-| 13202 | PROOF | A299802 | conjectured recurrence proved |
-| 13203 | PROOF | A298150 | conjectured recurrence proved |
-| 13204 | PROOF | A299124 | conjectured recurrence proved |
-| 13205 | PROOF | A299882 | conjectured recurrence proved |
-| 13206 | PROOF | A305914 | conjectured recurrence proved |
-| 13207 | PROOF | A317156 | conjectured recurrence proved |
-| 13208 | PROOF | A305171 | conjectured recurrence proved |
-| 13209 | PROOF | A262920 | conjectured recurrence proved |
-| 13210 | PROOF | A253331 | conjectured recurrence proved |
-| 13211 | PROOF | A260474 | conjectured recurrence proved |
-| 13212 | PROOF | A250710 | conjectured recurrence proved |
-| 13213 | PROOF | A250531 | conjectured recurrence proved |
-| 13214 | PROOF | A251831 | conjectured recurrence proved |
-| 13215 | PROOF | A231936 | conjectured recurrence proved |
-| 13216 | PROOF | A299004 | conjectured recurrence proved |
-| 13217 | PROOF | A299671 | conjectured recurrence proved |
-| 13218 | PROOF | A299749 | conjectured recurrence proved |
-| 13219 | PROOF | A283577 | conjectured recurrence proved |
-| 13220 | PROOF | A232373 | conjectured recurrence proved |
-| 13221 | PROOF | A252913 | conjectured recurrence proved |
-| 13222 | PROOF | A237062 | conjectured recurrence proved |
-| 13223 | PROOF | A254094 | conjectured recurrence proved |
-| 13224 | PROOF | A302744 | conjectured recurrence proved |
-| 13225 | PROOF | A300927 | conjectured recurrence proved |
-| 13226 | PROOF | A230678 | conjectured recurrence proved |
-| 13227 | PROOF | A229377 | conjectured recurrence proved |
-| 13228 | PROOF | A316172 | conjectured recurrence proved |
-| 13229 | PROOF | A299584 | conjectured recurrence proved |
-| 13230 | PROOF | A317454 | conjectured recurrence proved |
-| 13231 | PROOF | A300263 | conjectured recurrence proved |
-| 13232 | PROOF | A239042 | conjectured recurrence proved |
-| 13233 | PROOF | A239335 | conjectured recurrence proved |
-| 13234 | PROOF | A239400 | conjectured recurrence proved |
-| 13235 | PROOF | A239821 | conjectured recurrence proved |
-| 13236 | PROOF | A278017 | conjectured recurrence proved |
-| 13237 | PROOF | A283638 | conjectured recurrence proved |
-| 13238 | PROOF | A283631 | conjectured recurrence proved |
-| 13239 | PROOF | A296685 | conjectured recurrence proved |
-| 13240 | PROOF | A282835 | conjectured recurrence proved |
-| 13241 | PROOF | A254918 | conjectured recurrence proved |
-| 13242 | PROOF | A253330 | conjectured recurrence proved |
-| 13243 | PROOF | A258533 | conjectured recurrence proved |
-| 13244 | PROOF | A223958 | conjectured recurrence proved |
-| 13245 | PROOF | A252771 | conjectured recurrence proved |
-| 13246 | PROOF | A252905 | conjectured recurrence proved |
-| 13247 | PROOF | A302370 | conjectured recurrence proved |
-| 13248 | PROOF | A302474 | conjectured recurrence proved |
-| 13249 | PROOF | A303515 | conjectured recurrence proved |
-| 13250 | PROOF | A254919 | conjectured recurrence proved |
-| 13251 | PROOF | A282557 | conjectured recurrence proved |
-| 13252 | PROOF | A253310 | conjectured recurrence proved |
-| 13253 | PROOF | A237071 | conjectured recurrence proved |
-| 13254 | PROOF | A231250 | conjectured recurrence proved |
-| 13255 | PROOF | A259425 | conjectured recurrence proved |
-| 13256 | PROOF | A316812 | conjectured recurrence proved |
-| 13257 | PROOF | A317562 | conjectured recurrence proved |
-| 13258 | PROOF | A299064 | conjectured recurrence proved |
-| 13259 | PROOF | A258534 | conjectured recurrence proved |
-| 13260 | PROOF | A224307 | conjectured recurrence proved |
-| 13261 | PROOF | A317462 | conjectured recurrence proved |
-| 13262 | PROOF | A267962 | conjectured recurrence proved |
-| 13263 | PROOF | A282789 | conjectured recurrence proved |
-| 13264 | PROOF | A232379 | conjectured recurrence proved |
-| 13265 | PROOF | A297651 | conjectured recurrence proved |
-| 13266 | PROOF | A297698 | conjectured recurrence proved |
-| 13267 | PROOF | A316806 | conjectured recurrence proved |
-| 13268 | PROOF | A317523 | conjectured recurrence proved |
-| 13269 | PROOF | A276304 | conjectured recurrence proved |
-| 13270 | PROOF | A283542 | conjectured recurrence proved |
-| 13271 | PROOF | A237163 | conjectured recurrence proved |
-| 13272 | PROOF | A236706 | conjectured recurrence proved |
-| 13273 | PROOF | A230616 | conjectured recurrence proved |
-| 13274 | PROOF | A251032 | conjectured recurrence proved |
-| 13275 | PROOF | A297510 | conjectured recurrence proved |
-| 13276 | PROOF | A303420 | conjectured recurrence proved |
-| 13277 | PROOF | A232152 | conjectured recurrence proved |
-| 13278 | PROOF | A296648 | conjectured recurrence proved |
-| 13279 | PROOF | A237386 | conjectured recurrence proved |
-| 13280 | PROOF | A250590 | conjectured recurrence proved |
-| 13281 | PROOF | A250679 | conjectured recurrence proved |
-| 13282 | PROOF | A251290 | conjectured recurrence proved |
-| 13283 | PROOF | A233071 | conjectured recurrence proved |
-| 13284 | PROOF | A305520 | conjectured recurrence proved |
-| 13285 | PROOF | A316957 | conjectured recurrence proved |
-| 13286 | PROOF | A297680 | conjectured recurrence proved |
-| 13287 | PROOF | A282313 | conjectured recurrence proved |
-| 13288 | PROOF | A250638 | conjectured recurrence proved |
-| 13289 | PROOF | A229636 | conjectured recurrence proved |
-| 13290 | PROOF | A254737 | conjectured recurrence proved |
-| 13291 | PROOF | A257155 | conjectured recurrence proved |
-| 13292 | PROOF | A283382 | conjectured recurrence proved |
-| 13293 | PROOF | A230472 | conjectured recurrence proved |
-| 13294 | PROOF | A250971 | conjectured recurrence proved |
-| 13295 | PROOF | A251098 | conjectured recurrence proved |
-| 13296 | PROOF | A232946 | conjectured recurrence proved |
-| 13297 | PROOF | A224350 | conjectured recurrence proved |
-| 13298 | PROOF | A267953 | conjectured recurrence proved |
-| 13299 | PROOF | A238149 | conjectured recurrence proved |
-| 13300 | PROOF | A237916 | conjectured recurrence proved |
-| 13301 | PROOF | A283695 | conjectured recurrence proved |
-| 13302 | PROOF | A251200 | conjectured recurrence proved |
-| 13303 | PROOF | A259513 | conjectured recurrence proved |
-| 13304 | PROOF | A265930 | conjectured recurrence proved |
-| 13305 | PROOF | A279922 | conjectured recurrence proved |
-| 13306 | PROOF | A283570 | conjectured recurrence proved |
-| 13307 | PROOF | A267907 | conjectured recurrence proved |
-| 13308 | PROOF | A282373 | conjectured recurrence proved |
-| 13309 | PROOF | A229592 | conjectured recurrence proved |
-| 13310 | PROOF | A268910 | conjectured recurrence proved |
-| 13311 | PROOF | A268977 | conjectured recurrence proved |
-| 13312 | PROOF | A237941 | conjectured recurrence proved |
-| 13313 | PROOF | A259249 | conjectured recurrence proved |
-| 13314 | PROOF | A223998 | conjectured recurrence proved |
-| 13315 | PROOF | A251226 | conjectured recurrence proved |
-| 13316 | PROOF | A302068 | conjectured recurrence proved |
-| 13317 | PROOF | A254265 | conjectured recurrence proved |
-| 13318 | PROOF | A301840 | conjectured recurrence proved |
-| 13319 | PROOF | A237294 | conjectured recurrence proved |
-| 13320 | PROOF | A251804 | conjectured recurrence proved |
-| 13321 | PROOF | A302080 | conjectured recurrence proved |
-| 13322 | PROOF | A301883 | conjectured recurrence proved |
-| 13323 | PROOF | A224277 | conjectured recurrence proved |
-| 13324 | PROOF | A269205 | conjectured recurrence proved |
-| 13325 | PROOF | A269218 | conjectured recurrence proved |
-| 13326 | PROOF | A264205 | conjectured recurrence proved |
-| 13327 | PROOF | A279302 | conjectured recurrence proved |
-| 13328 | PROOF | A279659 | conjectured recurrence proved |
-| 13329 | PROOF | A251246 | conjectured recurrence proved |
-| 13330 | PROOF | A302149 | conjectured recurrence proved |
-| 13331 | PROOF | A254385 | conjectured recurrence proved |
-| 13332 | PROOF | A250514 | conjectured recurrence proved |
-| 13333 | PROOF | A250450 | conjectured recurrence proved |
-| 13334 | PROOF | A229369 | conjectured recurrence proved |
-| 13335 | PROOF | A233024 | conjectured recurrence proved |
-| 13336 | PROOF | A269825 | conjectured recurrence proved |
-| 13337 | PROOF | A277784 | conjectured recurrence proved |
-| 13338 | PROOF | A224387 | conjectured recurrence proved |
-| 13339 | PROOF | A250672 | conjectured recurrence proved |
-| 13340 | PROOF | A263552 | conjectured recurrence proved |
-| 13341 | PROOF | A301783 | conjectured recurrence proved |
-| 13342 | PROOF | A229605 | conjectured recurrence proved |
-| 13343 | PROOF | A229684 | conjectured recurrence proved |
-| 13344 | PROOF | A301406 | conjectured recurrence proved |
-| 13345 | PROOF | A303425 | conjectured recurrence proved |
-| 13346 | PROOF | A223972 | conjectured recurrence proved |
-| 13347 | PROOF | A253348 | conjectured recurrence proved |
-| 13348 | PROOF | A253355 | conjectured recurrence proved |
-| 13349 | PROOF | A269212 | conjectured recurrence proved |
-| 13350 | PROOF | A224203 | conjectured recurrence proved |
-| 13351 | PROOF | A233017 | conjectured recurrence proved |
-| 13352 | PROOF | A176126 | the residual test over one square root, or none |
-| 13353 | PROOF | A191625 | the residual test over one square root, or none |
-| 13354 | PROOF | A186341 | the residual test over one square root, or none |
-| 13355 | PROOF | A026743 | the residual test over one square root, or none |
-| 13356 | PROOF | A191786 | the residual test over one square root, or none |
-| 13357 | PROOF | A210496 | the residual test over one square root, or none |
-| 13358 | PROOF | A182892 | the residual test over one square root, or none |
-| 13359 | PROOF | A270724 | the residual test over one square root, or none |
-| 13360 | PROOF | A190171 | the residual test over one square root, or none |
-| 13361 | PROOF | A257515 | the residual test over one square root, or none |
-| 13362 | PROOF | A190788 | the residual test over one square root, or none |
-| 13363 | PROOF | A095981 | the residual test over one square root, or none |
-| 13364 | PROOF | A212205 | the residual test over one square root, or none |
-| 13365 | PROOF | A270661 | the residual test over one square root, or none |
-| 13366 | PROOF | A157021 | the residual test over one square root, or none |
-| 13367 | PROOF | A165537 | the residual test over one square root, or none |
-| 13368 | PROOF | A166287 | the residual test over one square root, or none |
-| 13369 | PROOF | A174013 | the residual test over one square root, or none |
-| 13370 | PROOF | A178072 | the residual test over one square root, or none |
-| 13371 | PROOF | A182894 | the residual test over one square root, or none |
-| 13372 | PROOF | A114584 | the residual test over one square root, or none |
-| 13373 | PROOF | A164586 | the residual test over one square root, or none |
-| 13374 | PROOF | A189053 | the residual test over one square root, or none |
-| 13375 | PROOF | A182904 | the residual test over one square root, or none |
-| 13376 | PROOF | A274295 | the residual test over one square root, or none |
-| 13377 | PROOF | A226434 | the residual test over one square root, or none |
-| 13378 | PROOF | A257104 | the residual test over one square root, or none |
-| 13379 | PROOF | A108600 | the residual test over one square root, or none |
-| 13380 | PROOF | A114851 | the residual test over one square root, or none |
-| 13381 | PROOF | A125306 | the residual test over one square root, or none |
-| 13382 | PROOF | A166290 | the residual test over one square root, or none |
-| 13383 | PROOF | A228770 | the residual test over one square root, or none |
-| 13384 | PROOF | A257300 | the residual test over one square root, or none |
-| 13385 | PROOF | A089324 | the residual test over one square root, or none |
-| 13386 | PROOF | A104625 | the residual test over one square root, or none |
-| 13387 | PROOF | A113956 | the residual test over one square root, or none |
-| 13388 | PROOF | A116383 | the residual test over one square root, or none |
-| 13389 | PROOF | A162548 | the residual test over one square root, or none |
-| 13390 | PROOF | A173993 | the residual test over one square root, or none |
-| 13391 | PROOF | A244886 | the residual test over one square root, or none |
-| 13392 | PROOF | A157003 | the residual test over one square root, or none |
-| 13393 | PROOF | A162482 | the residual test over one square root, or none |
-| 13394 | PROOF | A163493 | the residual test over one square root, or none |
-| 13395 | PROOF | A191398 | the residual test over one square root, or none |
-| 13396 | PROOF | A135582 | the residual test over one square root, or none |
-| 13397 | PROOF | A139376 | the residual test over one square root, or none |
-| 13398 | PROOF | A346074 | the residual test over one square root, or none |
-| 13399 | PROOF | A190166 | the residual test over one square root, or none |
-| 13400 | PROOF | A025251 | the residual test over one square root, or none |
-| 13401 | PROOF | A228771 | the residual test over one square root, or none |
-| 13402 | PROOF | A025268 | the residual test over one square root, or none |
-| 13403 | PROOF | A025272 | the residual test over one square root, or none |
-| 13404 | PROOF | A162475 | the residual test over one square root, or none |
-| 13405 | PROOF | A385252 | the residual test over one square root, or none |
-| 13406 | PROOF | A114464 | the residual test over one square root, or none |
-| 13407 | PROOF | A127154 | the residual test over one square root, or none |
-| 13408 | PROOF | A135335 | the residual test over one square root, or none |
-| 13409 | PROOF | A165540 | the residual test over one square root, or none |
-| 13410 | PROOF | A171416 | the residual test over one square root, or none |
-| 13411 | PROOF | A188314 | the residual test over one square root, or none |
-| 13412 | PROOF | A247170 | the residual test over one square root, or none |
-| 13413 | PROOF | A254314 | the residual test over one square root, or none |
-| 13414 | PROOF | A270661 | the residual test over one square root, or none |
-| 13415 | PROOF | A003440 | the residual test over one square root, or none |
-| 13416 | PROOF | A110521 | the residual test over one square root, or none |
-| 13417 | PROOF | A114190 | the residual test over one square root, or none |
-| 13418 | PROOF | A116387 | the residual test over one square root, or none |
-| 13419 | PROOF | A128096 | the residual test over one square root, or none |
-| 13420 | PROOF | A135052 | the residual test over one square root, or none |
-| 13421 | PROOF | A157021 | the residual test over one square root, or none |
-| 13422 | PROOF | A160823 | the residual test over one square root, or none |
-| 13423 | PROOF | A166287 | the residual test over one square root, or none |
-| 13424 | PROOF | A174808 | the residual test over one square root, or none |
-| 13425 | PROOF | A185089 | the residual test over one square root, or none |
-| 13426 | PROOF | A186940 | the residual test over one square root, or none |
-| 13427 | PROOF | A190736 | the residual test over one square root, or none |
-| 13428 | PROOF | A219314 | the residual test over one square root, or none |
-| 13429 | PROOF | A100095 | the residual test over one square root, or none |
-| 13430 | PROOF | A100097 | the residual test over one square root, or none |
-| 13431 | PROOF | A191313 | the residual test over one square root, or none |
-| 13432 | PROOF | A191790 | the residual test over one square root, or none |
-| 13433 | PROOF | A273351 | the residual test over one square root, or none |
-| 13434 | PROOF | A278472 | the residual test over one square root, or none |
-| 13435 | PROOF | A108296 | the residual test over one square root, or none |
-| 13436 | PROOF | A116391 | the residual test over one square root, or none |
-| 13437 | PROOF | A110198 | the residual test over one square root, or none |
-| 13438 | PROOF | A182879 | the residual test over one square root, or none |
-| 13439 | PROOF | A182887 | the residual test over one square root, or none |
-| 13440 | PROOF | A135925 | the residual test over one square root, or none |
-| 13441 | PROOF | A007901 | the residual test over one square root, or none |
-| 13442 | PROOF | A025256 | the residual test over one square root, or none |
-| 13443 | PROOF | A025258 | the residual test over one square root, or none |
-| 13444 | PROOF | A000781 | the residual test over one square root, or none |
-| 13445 | PROOF | A025245 | the residual test over one square root, or none |
-| 13446 | PROOF | A025257 | the residual test over one square root, or none |
-| 13447 | PROOF | A025269 | the residual test over one square root, or none |
-| 13448 | PROOF | A025270 | the residual test over one square root, or none |
-| 13449 | PROOF | A025275 | the residual test over one square root, or none |
-| 13450 | PROOF | A102880 | the residual test over one square root, or none |
-| 13451 | PROOF | A111053 | the residual test over one square root, or none |
-| 13452 | PROOF | A152120 | the residual test over one square root, or none |
-| 13453 | PROOF | A159771 | the residual test over one square root, or none |
-| 13454 | PROOF | A166694 | the residual test over one square root, or none |
-| 13455 | PROOF | A166696 | the residual test over one square root, or none |
-| 13456 | PROOF | A191796 | the residual test over one square root, or none |
-| 13457 | PROOF | A217711 | the residual test over one square root, or none |
-| 13458 | PROOF | A278023 | the residual test over one square root, or none |
-| 13459 | PROOF | A279014 | the residual test over one square root, or none |
-| 13460 | PROOF | A000483 | the residual test over one square root, or none |
-| 13461 | PROOF | A026030 | the residual test over one square root, or none |
-| 13462 | PROOF | A026031 | the residual test over one square root, or none |
-| 13463 | PROOF | A048775 | the residual test over one square root, or none |
-| 13464 | PROOF | A116409 | the residual test over one square root, or none |
-| 13465 | PROOF | A126322 | the residual test over one square root, or none |
-| 13466 | PROOF | A128750 | the residual test over one square root, or none |
-| 13467 | PROOF | A143955 | the residual test over one square root, or none |
-| 13468 | PROOF | A165203 | the residual test over one square root, or none |
-| 13469 | PROOF | A168505 | the residual test over one square root, or none |
-| 13470 | PROOF | A176605 | the residual test over one square root, or none |
-| 13471 | PROOF | A181933 | the residual test over one square root, or none |
-| 13472 | PROOF | A191585 | the residual test over one square root, or none |
-| 13473 | PROOF | A215973 | the residual test over one square root, or none |
-| 13474 | PROOF | A234269 | the residual test over one square root, or none |
-| 13475 | PROOF | A236407 | the residual test over one square root, or none |
-| 13476 | PROOF | A270363 | the residual test over one square root, or none |
-| 13477 | PROOF | A098521 | the residual test over one square root, or none |
-| 13478 | PROOF | A100096 | the residual test over one square root, or none |
-| 13479 | PROOF | A100099 | the residual test over one square root, or none |
-| 13480 | PROOF | A105849 | the residual test over one square root, or none |
-| 13481 | PROOF | A105864 | the residual test over one square root, or none |
-| 13482 | PROOF | A105865 | the residual test over one square root, or none |
-| 13483 | PROOF | A108308 | the residual test over one square root, or none |
-| 13484 | PROOF | A114194 | the residual test over one square root, or none |
-| 13485 | PROOF | A115967 | the residual test over one square root, or none |
-| 13486 | PROOF | A117186 | the residual test over one square root, or none |
-| 13487 | PROOF | A120010 | the residual test over one square root, or none |
-| 13488 | PROOF | A124431 | the residual test over one square root, or none |
-| 13489 | PROOF | A126568 | the residual test over one square root, or none |
-| 13490 | PROOF | A132364 | the residual test over one square root, or none |
-| 13491 | PROOF | A141342 | the residual test over one square root, or none |
-| 13492 | PROOF | A155051 | the residual test over one square root, or none |
-| 13493 | PROOF | A157002 | the residual test over one square root, or none |
-| 13494 | PROOF | A157100 | the residual test over one square root, or none |
-| 13495 | PROOF | A166076 | the residual test over one square root, or none |
-| 13496 | PROOF | A166300 | the residual test over one square root, or none |
-| 13497 | PROOF | A168503 | the residual test over one square root, or none |
-| 13498 | PROOF | A174107 | the residual test over one square root, or none |
-| 13499 | PROOF | A174169 | the residual test over one square root, or none |
-| 13500 | PROOF | A176332 | the residual test over one square root, or none |
-| 13501 | PROOF | A184018 | the residual test over one square root, or none |
-| 13502 | PROOF | A188312 | the residual test over one square root, or none |
-| 13503 | PROOF | A188482 | the residual test over one square root, or none |
-| 13504 | PROOF | A191782 | the residual test over one square root, or none |
-| 13505 | PROOF | A217333 | the residual test over one square root, or none |
-| 13506 | PROOF | A257072 | the residual test over one square root, or none |
-| 13507 | PROOF | A261681 | the residual test over one square root, or none |
-| 13508 | PROOF | A073155 | the residual test over one square root, or none |
-| 13509 | PROOF | A105524 | the residual test over one square root, or none |
-| 13510 | PROOF | A114589 | the residual test over one square root, or none |
-| 13511 | PROOF | A114590 | the residual test over one square root, or none |
-| 13512 | PROOF | A162481 | the residual test over one square root, or none |
-| 13513 | PROOF | A174783 | the residual test over one square root, or none |
-| 13514 | PROOF | A188460 | the residual test over one square root, or none |
-| 13515 | PROOF | A188464 | the residual test over one square root, or none |
-| 13516 | PROOF | A190725 | the residual test over one square root, or none |
-| 13517 | PROOF | A191526 | the residual test over one square root, or none |
-| 13518 | PROOF | A191531 | the residual test over one square root, or none |
-| 13519 | PROOF | A211278 | the residual test over one square root, or none |
-| 13520 | PROOF | A026327 | the residual test over one square root, or none |
-| 13521 | PROOF | A081207 | the residual test over one square root, or none |
-| 13522 | PROOF | A102882 | the residual test over one square root, or none |
-| 13523 | PROOF | A182881 | the residual test over one square root, or none |
-| 13524 | PROOF | A191309 | the residual test over one square root, or none |
-| 13525 | PROOF | A191319 | the residual test over one square root, or none |
-| 13526 | PROOF | A191790 | the residual test over one square root, or none |
-| 13527 | PROOF | A273351 | the residual test over one square root, or none |
-| 13528 | PROOF | A025248 | the residual test over one square root, or none |
-| 13529 | PROOF | A025249 | the residual test over one square root, or none |
-| 13530 | PROOF | A026017 | the residual test over one square root, or none |
-| 13531 | PROOF | A071717 | the residual test over one square root, or none |
-| 13532 | PROOF | A104722 | the residual test over one square root, or none |
-| 13533 | PROOF | A109263 | the residual test over one square root, or none |
-| 13534 | PROOF | A118093 | the residual test over one square root, or none |
-| 13535 | PROOF | A118974 | the residual test over one square root, or none |
-| 13536 | PROOF | A121320 | the residual test over one square root, or none |
-| 13537 | PROOF | A126323 | the residual test over one square root, or none |
-| 13538 | PROOF | A128723 | the residual test over one square root, or none |
-| 13539 | PROOF | A135334 | the residual test over one square root, or none |
-| 13540 | PROOF | A141351 | the residual test over one square root, or none |
-| 13541 | PROOF | A141353 | the residual test over one square root, or none |
-| 13542 | PROOF | A163824 | the residual test over one square root, or none |
-| 13543 | PROOF | A165201 | the residual test over one square root, or none |
-| 13544 | PROOF | A279014 | the residual test over one square root, or none |
-| 13545 | PROOF | A026027 | the residual test over one square root, or none |
-| 13546 | PROOF | A026135 | the residual test over one square root, or none |
-| 13547 | PROOF | A050168 | the residual test over one square root, or none |
-| 13548 | PROOF | A059279 | the residual test over one square root, or none |
-| 13549 | PROOF | A063395 | the residual test over one square root, or none |
-| 13550 | PROOF | A071722 | the residual test over one square root, or none |
-| 13551 | PROOF | A082134 | the residual test over one square root, or none |
-| 13552 | PROOF | A097331 | the residual test over one square root, or none |
-| 13553 | PROOF | A100193 | the residual test over one square root, or none |
-| 13554 | PROOF | A103973 | the residual test over one square root, or none |
-| 13555 | PROOF | A106181 | the residual test over one square root, or none |
-| 13556 | PROOF | A108623 | the residual test over one square root, or none |
-| 13557 | PROOF | A126180 | the residual test over one square root, or none |
-| 13558 | PROOF | A128732 | the residual test over one square root, or none |
-| 13559 | PROOF | A134389 | the residual test over one square root, or none |
-| 13560 | PROOF | A143013 | the residual test over one square root, or none |
-| 13561 | PROOF | A143954 | the residual test over one square root, or none |
-| 13562 | PROOF | A157418 | the residual test over one square root, or none |
-| 13563 | PROOF | A158196 | the residual test over one square root, or none |
-| 13564 | PROOF | A158197 | the residual test over one square root, or none |
-| 13565 | PROOF | A191585 | the residual test over one square root, or none |
-| 13566 | PROOF | A257290 | the residual test over one square root, or none |
-| 13567 | PROOF | A054341 | the residual test over one square root, or none |
-| 13568 | PROOF | A071715 | the residual test over one square root, or none |
-| 13569 | PROOF | A090413 | the residual test over one square root, or none |
-| 13570 | PROOF | A090826 | the residual test over one square root, or none |
-| 13571 | PROOF | A091699 | the residual test over one square root, or none |
-| 13572 | PROOF | A098664 | the residual test over one square root, or none |
-| 13573 | PROOF | A099363 | the residual test over one square root, or none |
-| 13574 | PROOF | A100098 | the residual test over one square root, or none |
-| 13575 | PROOF | A119975 | the residual test over one square root, or none |
-| 13576 | PROOF | A121724 | the residual test over one square root, or none |
-| 13577 | PROOF | A121725 | the residual test over one square root, or none |
-| 13578 | PROOF | A126931 | the residual test over one square root, or none |
-| 13579 | PROOF | A126932 | the residual test over one square root, or none |
-| 13580 | PROOF | A127363 | the residual test over one square root, or none |
-| 13581 | PROOF | A155051 | the residual test over one square root, or none |
-| 13582 | PROOF | A166078 | the residual test over one square root, or none |
-| 13583 | PROOF | A166588 | the residual test over one square root, or none |
-| 13584 | PROOF | A176006 | the residual test over one square root, or none |
-| 13585 | PROOF | A185087 | the residual test over one square root, or none |
-| 13586 | PROOF | A190724 | the residual test over one square root, or none |
-| 13587 | PROOF | A225887 | the residual test over one square root, or none |
-| 13588 | PROOF | A227081 | the residual test over one square root, or none |
-| 13589 | PROOF | A257178 | the residual test over one square root, or none |
-| 13590 | PROOF | A257388 | the residual test over one square root, or none |
-| 13591 | PROOF | A257838 | the residual test over one square root, or none |
-| 13592 | PROOF | A001712 | the residual test over one square root, or none |
-| 13593 | PROOF | A025175 | the residual test over one square root, or none |
-| 13594 | PROOF | A025577 | the residual test over one square root, or none |
-| 13595 | PROOF | A026023 | the residual test over one square root, or none |
-| 13596 | PROOF | A055217 | the residual test over one square root, or none |
-| 13597 | PROOF | A081052 | the residual test over one square root, or none |
-| 13598 | PROOF | A103821 | the residual test over one square root, or none |
-| 13599 | PROOF | A107231 | the residual test over one square root, or none |
-| 13600 | PROOF | A110199 | the residual test over one square root, or none |
-| 13601 | PROOF | A116406 | the residual test over one square root, or none |
-| 13602 | PROOF | A128734 | the residual test over one square root, or none |
-| 13603 | PROOF | A191307 | the residual test over one square root, or none |
-| 13604 | PROOF | A278472 | the residual test over one square root, or none |
-| 13605 | PROOF | A034863 | the residual test over one square root, or none |
-| 13606 | PROOF | A128652 | the residual test over one square root, or none |
-| 13607 | PROOF | A174195 | the residual test over one square root, or none |
-| 13608 | PROOF | A192480 | the residual test over one square root, or none |
-| 13609 | PROOF | A158495 | the residual test over one square root, or none |
-| 13610 | PROOF | A189176 | the residual test over one square root, or none |
-| 13611 | PROOF | A194724 | the residual test over one square root, or none |
-| 13612 | PROOF | A210474 | the residual test over one square root, or none |
-| 13613 | PROOF | A262768 | the residual test over one square root, or none |
-| 13614 | PROOF | A026029 | the residual test over one square root, or none |
-| 13615 | PROOF | A064088 | the residual test over one square root, or none |
-| 13616 | PROOF | A064089 | the residual test over one square root, or none |
-| 13617 | PROOF | A064090 | the residual test over one square root, or none |
-| 13618 | PROOF | A064091 | the residual test over one square root, or none |
-| 13619 | PROOF | A064092 | the residual test over one square root, or none |
-| 13620 | PROOF | A067299 | the residual test over one square root, or none |
-| 13621 | PROOF | A068551 | the residual test over one square root, or none |
-| 13622 | PROOF | A080243 | the residual test over one square root, or none |
-| 13623 | PROOF | A114191 | the residual test over one square root, or none |
-| 13624 | PROOF | A116881 | the residual test over one square root, or none |
-| 13625 | PROOF | A122920 | the residual test over one square root, or none |
-| 13626 | PROOF | A132864 | the residual test over one square root, or none |
-| 13627 | PROOF | A133305 | the residual test over one square root, or none |
-| 13628 | PROOF | A133306 | the residual test over one square root, or none |
-| 13629 | PROOF | A133307 | the residual test over one square root, or none |
-| 13630 | PROOF | A133308 | the residual test over one square root, or none |
-| 13631 | PROOF | A141222 | the residual test over one square root, or none |
-| 13632 | PROOF | A154623 | the residual test over one square root, or none |
-| 13633 | PROOF | A157328 | the residual test over one square root, or none |
-| 13634 | PROOF | A158196 | the residual test over one square root, or none |
-| 13635 | PROOF | A158197 | the residual test over one square root, or none |
-| 13636 | PROOF | A191993 | the residual test over one square root, or none |
-| 13637 | PROOF | A225034 | the residual test over one square root, or none |
-| 13638 | PROOF | A242172 | the residual test over one square root, or none |
-| 13639 | PROOF | A002867 | the residual test over one square root, or none |
-| 13640 | PROOF | A014533 | the residual test over one square root, or none |
-| 13641 | PROOF | A051524 | the residual test over one square root, or none |
-| 13642 | PROOF | A071264 | the residual test over one square root, or none |
-| 13643 | PROOF | A081046 | the residual test over one square root, or none |
-| 13644 | PROOF | A098519 | the residual test over one square root, or none |
-| 13645 | PROOF | A098520 | the residual test over one square root, or none |
-| 13646 | PROOF | A101596 | the residual test over one square root, or none |
-| 13647 | PROOF | A101601 | the residual test over one square root, or none |
-| 13648 | PROOF | A101602 | the residual test over one square root, or none |
-| 13649 | PROOF | A111779 | the residual test over one square root, or none |
-| 13650 | PROOF | A112703 | the residual test over one square root, or none |
-| 13651 | PROOF | A119012 | the residual test over one square root, or none |
-| 13652 | PROOF | A128057 | the residual test over one square root, or none |
-| 13653 | PROOF | A128746 | the residual test over one square root, or none |
-| 13654 | PROOF | A132900 | the residual test over one square root, or none |
-| 13655 | PROOF | A151483 | the residual test over one square root, or none |
-| 13656 | PROOF | A167481 | the residual test over one square root, or none |
-| 13657 | PROOF | A171556 | the residual test over one square root, or none |
-| 13658 | PROOF | A176479 | the residual test over one square root, or none |
-| 13659 | PROOF | A182401 | the residual test over one square root, or none |
-| 13660 | PROOF | A208355 | the residual test over one square root, or none |
-| 13661 | PROOF | A210064 | the residual test over one square root, or none |
-| 13662 | PROOF | A240558 | the residual test over one square root, or none |
-| 13663 | PROOF | A141771 | the residual test over one square root, or none |
-| 13664 | PROOF | A176606 | the residual test over one square root, or none |
-| 13665 | PROOF | A176607 | the residual test over one square root, or none |
-| 13666 | PROOF | A176609 | the residual test over one square root, or none |
-| 13667 | PROOF | A176610 | the residual test over one square root, or none |
-| 13668 | PROOF | A176611 | the residual test over one square root, or none |
-| 13669 | PROOF | A176675 | the residual test over one square root, or none |
-| 13670 | PROOF | A176749 | the residual test over one square root, or none |
-| 13671 | PROOF | A176750 | the residual test over one square root, or none |
-| 13672 | PROOF | A176751 | the residual test over one square root, or none |
-| 13673 | PROOF | A176752 | the residual test over one square root, or none |
-| 13674 | PROOF | A176753 | the residual test over one square root, or none |
-| 13675 | PROOF | A176754 | the residual test over one square root, or none |
-| 13676 | PROOF | A176755 | the residual test over one square root, or none |
-| 13677 | PROOF | A176756 | the residual test over one square root, or none |
-| 13678 | PROOF | A176757 | the residual test over one square root, or none |
-| 13679 | PROOF | A176759 | the residual test over one square root, or none |
-| 13680 | PROOF | A176828 | the residual test over one square root, or none |
-| 13681 | PROOF | A176829 | the residual test over one square root, or none |
-| 13682 | PROOF | A176830 | the residual test over one square root, or none |
-| 13683 | PROOF | A176832 | the residual test over one square root, or none |
-| 13684 | PROOF | A176854 | the residual test over one square root, or none |
-| 13685 | PROOF | A176855 | the residual test over one square root, or none |
-| 13686 | PROOF | A176856 | the residual test over one square root, or none |
-| 13687 | PROOF | A176857 | the residual test over one square root, or none |
-| 13688 | PROOF | A176858 | the residual test over one square root, or none |
-| 13689 | PROOF | A176859 | the residual test over one square root, or none |
-| 13690 | PROOF | A176952 | the residual test over one square root, or none |
-| 13691 | PROOF | A176953 | the residual test over one square root, or none |
-| 13692 | PROOF | A176956 | the residual test over one square root, or none |
-| 13693 | PROOF | A176957 | the residual test over one square root, or none |
-| 13694 | PROOF | A176958 | the residual test over one square root, or none |
-| 13695 | PROOF | A176959 | the residual test over one square root, or none |
-| 13696 | PROOF | A176962 | the residual test over one square root, or none |
-| 13697 | PROOF | A176964 | the residual test over one square root, or none |
-| 13698 | PROOF | A176966 | the residual test over one square root, or none |
-| 13699 | PROOF | A176967 | the residual test over one square root, or none |
-| 13700 | PROOF | A177123 | the residual test over one square root, or none |
-| 13701 | PROOF | A177124 | the residual test over one square root, or none |
-| 13702 | PROOF | A177125 | the residual test over one square root, or none |
-| 13703 | PROOF | A177126 | the residual test over one square root, or none |
-| 13704 | PROOF | A177127 | the residual test over one square root, or none |
-| 13705 | PROOF | A177128 | the residual test over one square root, or none |
-| 13706 | PROOF | A177129 | the residual test over one square root, or none |
-| 13707 | PROOF | A177130 | the residual test over one square root, or none |
-| 13708 | PROOF | A177131 | the residual test over one square root, or none |
-| 13709 | PROOF | A177163 | the residual test over one square root, or none |
-| 13710 | PROOF | A177165 | the residual test over one square root, or none |
-| 13711 | PROOF | A177166 | the residual test over one square root, or none |
-| 13712 | PROOF | A177167 | the residual test over one square root, or none |
-| 13713 | PROOF | A177168 | the residual test over one square root, or none |
-| 13714 | PROOF | A177169 | the residual test over one square root, or none |
-| 13715 | PROOF | A177170 | the residual test over one square root, or none |
-| 13716 | PROOF | A177171 | the residual test over one square root, or none |
-| 13717 | PROOF | A177172 | the residual test over one square root, or none |
-| 13718 | PROOF | A177175 | the residual test over one square root, or none |
-| 13719 | PROOF | A177177 | the residual test over one square root, or none |
-| 13720 | PROOF | A177178 | the residual test over one square root, or none |
-| 13721 | PROOF | A177179 | the residual test over one square root, or none |
-| 13722 | PROOF | A177180 | the residual test over one square root, or none |
-| 13723 | PROOF | A177181 | the residual test over one square root, or none |
-| 13724 | PROOF | A177182 | the residual test over one square root, or none |
-| 13725 | PROOF | A177183 | the residual test over one square root, or none |
-| 13726 | PROOF | A177184 | the residual test over one square root, or none |
-| 13727 | PROOF | A177185 | the residual test over one square root, or none |
-| 13728 | PROOF | A177197 | the residual test over one square root, or none |
-| 13729 | PROOF | A177198 | the residual test over one square root, or none |
-| 13730 | PROOF | A177199 | the residual test over one square root, or none |
-| 13731 | PROOF | A177200 | the residual test over one square root, or none |
-| 13732 | PROOF | A177203 | the residual test over one square root, or none |
-| 13733 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
-| 13734 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
-| 13735 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
-| 13736 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
-| 13737 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
-| 13738 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
-| 13739 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
-| 13740 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
-| 13741 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
-| 13742 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
-| 13743 | PROOF | A025271 | division of one posted operator by another |
-| 13744 | PROOF | A138164 | division of one posted operator by another |
-| 13745 | PROOF | A143017 | division of one posted operator by another |
-| 13746 | PROOF | A159772 | division of one posted operator by another |
-| 13747 | PROOF | A000986 | division of one posted operator by another |
-| 13748 | PROOF | A022917 | division of one posted operator by another |
-| 13749 | PROOF | A217447 | division of one posted operator by another |
-| 13750 | PROOF | A226302 | division of one posted operator by another |
-| 13751 | PROOF | A245088 | division of one posted operator by another |
-| 13752 | PROOF | A026165 | division of one posted operator by another |
-| 13753 | PROOF | A185966 | division of one posted operator by another |
-| 13754 | PROOF | A200753 | division of one posted operator by another |
-| 13755 | PROOF | A217358 | division of one posted operator by another |
-| 13756 | PROOF | A228960 | division of one posted operator by another |
-| 13757 | PROOF | A003435 | division of one posted operator by another |
-| 13758 | PROOF | A228331 | division of one posted operator by another |
-| 13759 | PROOF | A273019 | division of one posted operator by another |
-| 13760 | PROOF | A386834 | division of one posted operator by another |
-| 13761 | PROOF | A228330 | division of one posted operator by another |
-| 13762 | PROOF | A228333 | division of one posted operator by another |
+| 9943 | PROOF | A198483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9944 | PROOF | A255031 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 9945 | PROOF | A280856 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9946 | PROOF | A206057 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 9947 | PROOF | A205210 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 9948 | PROOF | A208068 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9949 | PROOF | A197525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9950 | PROOF | A256743 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9951 | PROOF | A260010 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9952 | PROOF | A260922 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9953 | PROOF | A261108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9954 | PROOF | A261260 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9955 | PROOF | A261375 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9956 | PROOF | A297311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9957 | PROOF | A297811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9958 | PROOF | A302012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9959 | PROOF | A302147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9960 | PROOF | A302160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9961 | PROOF | A303317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9962 | PROOF | A305227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9963 | PROOF | A281468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9964 | PROOF | A280855 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9965 | PROOF | A203832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9966 | PROOF | A252068 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9967 | PROOF | A207849 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9968 | PROOF | A281204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9969 | PROOF | A207721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9970 | PROOF | A223460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9971 | PROOF | A243030 | conjectured recurrence proved |
+| 9972 | PROOF | A244178 | conjectured recurrence proved |
+| 9973 | PROOF | A237318 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 9974 | PROOF | A208423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9975 | PROOF | A231952 | a condition on each cell and its neighbours, decided in a three-row window |
+| 9976 | PROOF | A185527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9977 | PROOF | A208552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9978 | PROOF | A237952 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 9979 | PROOF | A255656 | conjectured recurrence proved |
+| 9980 | PROOF | A256023 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9981 | PROOF | A258726 | conjectured recurrence proved |
+| 9982 | PROOF | A260364 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 9983 | PROOF | A297434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9984 | PROOF | A297597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9985 | PROOF | A183347 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 9986 | PROOF | A208115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9987 | PROOF | A242470 | conjectured recurrence proved |
+| 9988 | PROOF | A243638 | conjectured recurrence proved |
+| 9989 | PROOF | A208371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9990 | PROOF | A282786 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 9991 | PROOF | A228659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9992 | PROOF | A228682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9993 | PROOF | A250581 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 9994 | PROOF | A250803 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 9995 | PROOF | A202118 | conjectured recurrence proved |
+| 9996 | PROOF | A268953 | conjectured recurrence proved |
+| 9997 | PROOF | A208551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 9998 | PROOF | A202311 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 9999 | PROOF | A283574 | a condition on every cell over the neighbour set the entry names |
+| 10000 | PROOF | A283567 | a condition on every cell over the neighbour set the entry names |
+| 10001 | PROOF | A186528 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10002 | PROOF | A207364 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10003 | PROOF | A207753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10004 | PROOF | A207875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10005 | PROOF | A207962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10006 | PROOF | A208009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10007 | PROOF | A233878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10008 | PROOF | A237325 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10009 | PROOF | A237504 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10010 | PROOF | A237958 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10011 | PROOF | A247921 | conjectured recurrence proved |
+| 10012 | PROOF | A232318 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10013 | PROOF | A221458 | conjectured recurrence proved |
+| 10014 | PROOF | A188845 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10015 | PROOF | A207940 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10016 | PROOF | A233727 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10017 | PROOF | A234424 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10018 | PROOF | A250580 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10019 | PROOF | A251272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10020 | PROOF | A251375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10021 | PROOF | A251493 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10022 | PROOF | A255785 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10023 | PROOF | A260468 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10024 | PROOF | A260494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10025 | PROOF | A260602 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10026 | PROOF | A261285 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10027 | PROOF | A261548 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10028 | PROOF | A295711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10029 | PROOF | A296536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10030 | PROOF | A296630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10031 | PROOF | A296669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10032 | PROOF | A297340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10033 | PROOF | A297376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10034 | PROOF | A297521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10035 | PROOF | A297902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10036 | PROOF | A297954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10037 | PROOF | A298439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10038 | PROOF | A298542 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10039 | PROOF | A298662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10040 | PROOF | A298836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10041 | PROOF | A299130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10042 | PROOF | A299329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10043 | PROOF | A299361 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10044 | PROOF | A299516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10045 | PROOF | A299716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10046 | PROOF | A301843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10047 | PROOF | A302267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10048 | PROOF | A302362 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10049 | PROOF | A302455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10050 | PROOF | A302966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10051 | PROOF | A303520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10052 | PROOF | A303964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10053 | PROOF | A304474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10054 | PROOF | A304664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10055 | PROOF | A304850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10056 | PROOF | A305247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10057 | PROOF | A305342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10058 | PROOF | A316299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10059 | PROOF | A316422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10060 | PROOF | A317460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10061 | PROOF | A320397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10062 | PROOF | A282587 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10063 | PROOF | A283277 | a condition on every cell over the neighbour set the entry names |
+| 10064 | PROOF | A234905 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10065 | PROOF | A235002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10066 | PROOF | A235072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10067 | PROOF | A268259 | conjectured recurrence proved |
+| 10068 | PROOF | A284076 | a condition on every cell over the neighbour set the entry names |
+| 10069 | PROOF | A237069 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10070 | PROOF | A206878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10071 | PROOF | A237939 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10072 | PROOF | A283094 | a condition on every cell over the neighbour set the entry names |
+| 10073 | PROOF | A237333 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10074 | PROOF | A203348 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10075 | PROOF | A269406 | conjectured recurrence proved |
+| 10076 | PROOF | A269432 | conjectured recurrence proved |
+| 10077 | PROOF | A205066 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10078 | PROOF | A268322 | conjectured recurrence proved |
+| 10079 | PROOF | A282435 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10080 | PROOF | A207118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10081 | PROOF | A207462 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10082 | PROOF | A207584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10083 | PROOF | A207763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10084 | PROOF | A207961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10085 | PROOF | A248458 | conjectured recurrence proved |
+| 10086 | PROOF | A250426 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10087 | PROOF | A220721 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10088 | PROOF | A251254 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10089 | PROOF | A184557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10090 | PROOF | A230702 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 10091 | PROOF | A249284 | conjectured recurrence proved |
+| 10092 | PROOF | A250988 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10093 | PROOF | A251066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10094 | PROOF | A251404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10095 | PROOF | A229375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10096 | PROOF | A251030 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10097 | PROOF | A264624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10098 | PROOF | A251234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10099 | PROOF | A298186 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10100 | PROOF | A196317 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10101 | PROOF | A251233 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10102 | PROOF | A252545 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10103 | PROOF | A297222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10104 | PROOF | A301962 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10105 | PROOF | A206132 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10106 | PROOF | A241330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10107 | PROOF | A209380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10108 | PROOF | A223601 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10109 | PROOF | A203051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10110 | PROOF | A197369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10111 | PROOF | A183389 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10112 | PROOF | A251232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10113 | PROOF | A260202 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10114 | PROOF | A298960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10115 | PROOF | A301659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10116 | PROOF | A301838 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10117 | PROOF | A301996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10118 | PROOF | A302066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10119 | PROOF | A302683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10120 | PROOF | A223300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10121 | PROOF | A184499 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 10122 | PROOF | A235899 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 10123 | PROOF | A252025 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10124 | PROOF | A234047 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 10125 | PROOF | A201373 | conjectured recurrence proved |
+| 10126 | PROOF | A234222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10127 | PROOF | A254416 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10128 | PROOF | A254423 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10129 | PROOF | A232061 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10130 | PROOF | A281467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10131 | PROOF | A205730 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10132 | PROOF | A208031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10133 | PROOF | A202446 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10134 | PROOF | A183338 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10135 | PROOF | A204612 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10136 | PROOF | A253346 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10137 | PROOF | A253353 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10138 | PROOF | A234877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10139 | PROOF | A252817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10140 | PROOF | A237854 | a condition on every cell over the neighbour set the entry names |
+| 10141 | PROOF | A209548 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10142 | PROOF | A234156 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10143 | PROOF | A234485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10144 | PROOF | A236445 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10145 | PROOF | A236495 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10146 | PROOF | A250782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10147 | PROOF | A251231 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10148 | PROOF | A255153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10149 | PROOF | A259766 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10150 | PROOF | A260064 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10151 | PROOF | A260974 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10152 | PROOF | A297453 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10153 | PROOF | A300800 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10154 | PROOF | A301439 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10155 | PROOF | A305178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10156 | PROOF | A234118 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10157 | PROOF | A255104 | conjectured recurrence proved |
+| 10158 | PROOF | A201696 | conjectured recurrence proved |
+| 10159 | PROOF | A236804 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10160 | PROOF | A234178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10161 | PROOF | A243726 | conjectured recurrence proved |
+| 10162 | PROOF | A243603 | conjectured recurrence proved |
+| 10163 | PROOF | A231221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10164 | PROOF | A250735 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10165 | PROOF | A250795 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10166 | PROOF | A229442 | conjectured recurrence proved |
+| 10167 | PROOF | A206983 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10168 | PROOF | A229425 | conjectured recurrence proved |
+| 10169 | PROOF | A253856 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10170 | PROOF | A232572 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10171 | PROOF | A231645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10172 | PROOF | A231747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10173 | PROOF | A236611 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10174 | PROOF | A236646 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10175 | PROOF | A283693 | a condition on every cell over the neighbour set the entry names |
+| 10176 | PROOF | A183382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10177 | PROOF | A188757 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10178 | PROOF | A188993 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10179 | PROOF | A189190 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10180 | PROOF | A200870 | conjectured recurrence proved |
+| 10181 | PROOF | A209730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10182 | PROOF | A228388 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10183 | PROOF | A233786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10184 | PROOF | A233910 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10185 | PROOF | A234327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10186 | PROOF | A255094 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10187 | PROOF | A296034 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10188 | PROOF | A296315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10189 | PROOF | A297501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10190 | PROOF | A297602 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10191 | PROOF | A297649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10192 | PROOF | A297981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10193 | PROOF | A297988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10194 | PROOF | A298282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10195 | PROOF | A298489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10196 | PROOF | A298624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10197 | PROOF | A299663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10198 | PROOF | A300170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10199 | PROOF | A300337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10200 | PROOF | A302219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10201 | PROOF | A302376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10202 | PROOF | A303041 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10203 | PROOF | A303079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10204 | PROOF | A303097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10205 | PROOF | A304843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10206 | PROOF | A305042 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10207 | PROOF | A305525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10208 | PROOF | A305764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10209 | PROOF | A316178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10210 | PROOF | A316540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10211 | PROOF | A316817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10212 | PROOF | A316999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10213 | PROOF | A317567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10214 | PROOF | A318011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10215 | PROOF | A318063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10216 | PROOF | A318217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10217 | PROOF | A237235 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10218 | PROOF | A206780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10219 | PROOF | A234400 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10220 | PROOF | A203454 | a condition on every cell over the neighbour set the entry names |
+| 10221 | PROOF | A282857 | a condition on every cell over the neighbour set the entry names |
+| 10222 | PROOF | A200883 | conjectured recurrence proved |
+| 10223 | PROOF | A203050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10224 | PROOF | A207747 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10225 | PROOF | A259246 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10226 | PROOF | A250448 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10227 | PROOF | A250944 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10228 | PROOF | A251059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10229 | PROOF | A237092 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10230 | PROOF | A222002 | conjectured recurrence proved |
+| 10231 | PROOF | A229367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10232 | PROOF | A237101 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10233 | PROOF | A277762 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 10234 | PROOF | A251287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10235 | PROOF | A181249 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 10236 | PROOF | A183617 | conjectured recurrence proved |
+| 10237 | PROOF | A183588 | conjectured recurrence proved |
+| 10238 | PROOF | A204478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10239 | PROOF | A264537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10240 | PROOF | A186547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10241 | PROOF | A204479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10242 | PROOF | A235298 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10243 | PROOF | A235016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10244 | PROOF | A204477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10245 | PROOF | A204636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10246 | PROOF | A235297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10247 | PROOF | A235015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10248 | PROOF | A235296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10249 | PROOF | A303726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10250 | PROOF | A196899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10251 | PROOF | A230064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10252 | PROOF | A231282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10253 | PROOF | A235014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10254 | PROOF | A232291 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10255 | PROOF | A251772 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10256 | PROOF | A188828 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10257 | PROOF | A228665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10258 | PROOF | A228687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10259 | PROOF | A231834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10260 | PROOF | A235295 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10261 | PROOF | A252132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10262 | PROOF | A256744 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10263 | PROOF | A259738 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10264 | PROOF | A302008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10265 | PROOF | A209103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10266 | PROOF | A223444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10267 | PROOF | A183714 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10268 | PROOF | A220998 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10269 | PROOF | A207793 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10270 | PROOF | A196013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10271 | PROOF | A206746 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10272 | PROOF | A206201 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10273 | PROOF | A235013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10274 | PROOF | A258920 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10275 | PROOF | A188870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10276 | PROOF | A235294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10277 | PROOF | A259737 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10278 | PROOF | A296551 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10279 | PROOF | A298180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10280 | PROOF | A304218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10281 | PROOF | A196782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10282 | PROOF | A196574 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10283 | PROOF | A196859 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10284 | PROOF | A184469 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 10285 | PROOF | A204401 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10286 | PROOF | A204494 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10287 | PROOF | A230270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10288 | PROOF | A206645 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 10289 | PROOF | A196212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10290 | PROOF | A197666 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10291 | PROOF | A208081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10292 | PROOF | A250820 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10293 | PROOF | A183722 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10294 | PROOF | A205514 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10295 | PROOF | A246477 | conjectured recurrence proved |
+| 10296 | PROOF | A202596 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10297 | PROOF | A232071 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10298 | PROOF | A207810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10299 | PROOF | A208837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10300 | PROOF | A235293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10301 | PROOF | A235965 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10302 | PROOF | A237967 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10303 | PROOF | A238065 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10304 | PROOF | A238074 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10305 | PROOF | A246887 | conjectured recurrence proved |
+| 10306 | PROOF | A247399 | conjectured recurrence proved |
+| 10307 | PROOF | A250728 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10308 | PROOF | A250789 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10309 | PROOF | A259717 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10310 | PROOF | A260288 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10311 | PROOF | A295777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10312 | PROOF | A304129 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10313 | PROOF | A304771 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10314 | PROOF | A305478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10315 | PROOF | A316514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10316 | PROOF | A205832 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10317 | PROOF | A251369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10318 | PROOF | A208105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10319 | PROOF | A242580 | conjectured recurrence proved |
+| 10320 | PROOF | A243040 | conjectured recurrence proved |
+| 10321 | PROOF | A243385 | conjectured recurrence proved |
+| 10322 | PROOF | A207720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10323 | PROOF | A208422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10324 | PROOF | A206266 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10325 | PROOF | A242469 | conjectured recurrence proved |
+| 10326 | PROOF | A243637 | conjectured recurrence proved |
+| 10327 | PROOF | A283489 | a condition on every cell over the neighbour set the entry names |
+| 10328 | PROOF | A202429 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10329 | PROOF | A234781 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10330 | PROOF | A220648 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10331 | PROOF | A208836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10332 | PROOF | A236943 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10333 | PROOF | A252823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10334 | PROOF | A254085 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10335 | PROOF | A207009 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10336 | PROOF | A253307 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 10337 | PROOF | A253400 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 10338 | PROOF | A232155 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10339 | PROOF | A207725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10340 | PROOF | A207854 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10341 | PROOF | A209791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10342 | PROOF | A232282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10343 | PROOF | A236028 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10344 | PROOF | A236089 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10345 | PROOF | A236349 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10346 | PROOF | A236803 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10347 | PROOF | A237077 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10348 | PROOF | A237456 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10349 | PROOF | A237723 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10350 | PROOF | A237772 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10351 | PROOF | A251244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10352 | PROOF | A235081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10353 | PROOF | A282311 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10354 | PROOF | A220623 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10355 | PROOF | A183795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10356 | PROOF | A200837 | conjectured recurrence proved |
+| 10357 | PROOF | A206079 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10358 | PROOF | A206191 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10359 | PROOF | A207250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10360 | PROOF | A220618 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10361 | PROOF | A231377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10362 | PROOF | A233676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10363 | PROOF | A235292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10364 | PROOF | A250693 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10365 | PROOF | A251501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10366 | PROOF | A254971 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10367 | PROOF | A256814 | conjectured recurrence proved |
+| 10368 | PROOF | A260170 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10369 | PROOF | A295115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10370 | PROOF | A295374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10371 | PROOF | A295980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10372 | PROOF | A296646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10373 | PROOF | A296720 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10374 | PROOF | A297508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10375 | PROOF | A297884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10376 | PROOF | A298275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10377 | PROOF | A298996 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10378 | PROOF | A299076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10379 | PROOF | A299137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10380 | PROOF | A299316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10381 | PROOF | A299368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10382 | PROOF | A299932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10383 | PROOF | A300133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10384 | PROOF | A301610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10385 | PROOF | A301952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10386 | PROOF | A302884 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10387 | PROOF | A303011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10388 | PROOF | A303803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10389 | PROOF | A304467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10390 | PROOF | A305177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10391 | PROOF | A305511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10392 | PROOF | A306048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10393 | PROOF | A316284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10394 | PROOF | A317113 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10395 | PROOF | A317225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10396 | PROOF | A317736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10397 | PROOF | A205635 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10398 | PROOF | A205937 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10399 | PROOF | A283686 | a condition on every cell over the neighbour set the entry names |
+| 10400 | PROOF | A235251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10401 | PROOF | A221457 | conjectured recurrence proved |
+| 10402 | PROOF | A265923 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10403 | PROOF | A205903 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10404 | PROOF | A220591 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10405 | PROOF | A220727 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10406 | PROOF | A200869 | conjectured recurrence proved |
+| 10407 | PROOF | A233885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10408 | PROOF | A233974 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10409 | PROOF | A234406 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10410 | PROOF | A251611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10411 | PROOF | A237151 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10412 | PROOF | A202525 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10413 | PROOF | A202584 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10414 | PROOF | A203084 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10415 | PROOF | A234891 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10416 | PROOF | A234992 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10417 | PROOF | A235064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10418 | PROOF | A268258 | conjectured recurrence proved |
+| 10419 | PROOF | A202974 | a condition on every cell over the neighbour set the entry names |
+| 10420 | PROOF | A207341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10421 | PROOF | A207509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10422 | PROOF | A234201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10423 | PROOF | A251468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10424 | PROOF | A283197 | a condition on every cell over the neighbour set the entry names |
+| 10425 | PROOF | A283488 | a condition on every cell over the neighbour set the entry names |
+| 10426 | PROOF | A283727 | a condition on every cell over the neighbour set the entry names |
+| 10427 | PROOF | A251271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10428 | PROOF | A269405 | conjectured recurrence proved |
+| 10429 | PROOF | A269431 | conjectured recurrence proved |
+| 10430 | PROOF | A204833 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10431 | PROOF | A282879 | a condition on every cell over the neighbour set the entry names |
+| 10432 | PROOF | A233943 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10433 | PROOF | A249701 | conjectured recurrence proved |
+| 10434 | PROOF | A250381 | conjectured recurrence proved |
+| 10435 | PROOF | A250835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10436 | PROOF | A220617 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10437 | PROOF | A236730 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10438 | PROOF | A183364 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10439 | PROOF | A259510 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10440 | PROOF | A259519 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10441 | PROOF | A187721 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 10442 | PROOF | A207025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10443 | PROOF | A207069 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10444 | PROOF | A241609 | conjectured recurrence proved |
+| 10445 | PROOF | A251263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10446 | PROOF | A251312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10447 | PROOF | A251321 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10448 | PROOF | A251435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10449 | PROOF | A183547 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 10450 | PROOF | A183847 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 10451 | PROOF | A239538 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10452 | PROOF | A212779 | conjectured recurrence proved |
+| 10453 | PROOF | A240770 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 10454 | PROOF | A241345 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 10455 | PROOF | A184191 | conjectured recurrence proved |
+| 10456 | PROOF | A184201 | conjectured recurrence proved |
+| 10457 | PROOF | A220706 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10458 | PROOF | A235278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10459 | PROOF | A252389 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10460 | PROOF | A252152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10461 | PROOF | A252187 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10462 | PROOF | A252300 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10463 | PROOF | A252308 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10464 | PROOF | A252379 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10465 | PROOF | A252387 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10466 | PROOF | A252301 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10467 | PROOF | A252309 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10468 | PROOF | A252188 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10469 | PROOF | A235277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10470 | PROOF | A252380 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10471 | PROOF | A252388 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10472 | PROOF | A184002 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10473 | PROOF | A235276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10474 | PROOF | A251646 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10475 | PROOF | A188097 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10476 | PROOF | A251027 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10477 | PROOF | A251054 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10478 | PROOF | A252133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10479 | PROOF | A252186 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10480 | PROOF | A252378 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10481 | PROOF | A188104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10482 | PROOF | A188103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10483 | PROOF | A251026 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10484 | PROOF | A251053 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10485 | PROOF | A195964 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10486 | PROOF | A196205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10487 | PROOF | A196324 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10488 | PROOF | A196431 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10489 | PROOF | A196631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10490 | PROOF | A196952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10491 | PROOF | A196984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10492 | PROOF | A197524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10493 | PROOF | A235275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10494 | PROOF | A188102 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10495 | PROOF | A230683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10496 | PROOF | A188101 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10497 | PROOF | A206202 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10498 | PROOF | A223375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10499 | PROOF | A250526 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10500 | PROOF | A250905 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10501 | PROOF | A252069 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10502 | PROOF | A251025 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10503 | PROOF | A251052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10504 | PROOF | A252271 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10505 | PROOF | A252516 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10506 | PROOF | A303725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10507 | PROOF | A188100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10508 | PROOF | A235274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10509 | PROOF | A250525 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10510 | PROOF | A250904 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10511 | PROOF | A188099 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10512 | PROOF | A208112 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10513 | PROOF | A189060 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10514 | PROOF | A206251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10515 | PROOF | A251024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10516 | PROOF | A251051 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10517 | PROOF | A259637 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10518 | PROOF | A260133 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10519 | PROOF | A297221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10520 | PROOF | A297371 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10521 | PROOF | A300179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10522 | PROOF | A302512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10523 | PROOF | A303311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10524 | PROOF | A304267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10525 | PROOF | A184378 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 10526 | PROOF | A232454 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10527 | PROOF | A257014 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10528 | PROOF | A232400 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10529 | PROOF | A232146 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10530 | PROOF | A230332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10531 | PROOF | A230521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10532 | PROOF | A250524 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10533 | PROOF | A250903 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10534 | PROOF | A278009 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10535 | PROOF | A188098 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 10536 | PROOF | A185765 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10537 | PROOF | A196132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10538 | PROOF | A196294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10539 | PROOF | A197403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10540 | PROOF | A197883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10541 | PROOF | A198179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10542 | PROOF | A203185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10543 | PROOF | A235273 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10544 | PROOF | A186134 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10545 | PROOF | A208111 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10546 | PROOF | A253518 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10547 | PROOF | A208017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10548 | PROOF | A208072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10549 | PROOF | A205738 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10550 | PROOF | A207593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10551 | PROOF | A236012 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10552 | PROOF | A229697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10553 | PROOF | A202445 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10554 | PROOF | A183445 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10555 | PROOF | A282643 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10556 | PROOF | A183686 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10557 | PROOF | A184147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10558 | PROOF | A188712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10559 | PROOF | A205459 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10560 | PROOF | A206056 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10561 | PROOF | A248996 | conjectured recurrence proved |
+| 10562 | PROOF | A251023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10563 | PROOF | A251050 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10564 | PROOF | A251278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10565 | PROOF | A259946 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10566 | PROOF | A260009 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10567 | PROOF | A260278 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10568 | PROOF | A296124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10569 | PROOF | A297591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10570 | PROOF | A303423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10571 | PROOF | A305043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10572 | PROOF | A320367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10573 | PROOF | A206468 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10574 | PROOF | A235898 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 10575 | PROOF | A250523 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10576 | PROOF | A250902 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10577 | PROOF | A183730 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10578 | PROOF | A223426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10579 | PROOF | A243029 | conjectured recurrence proved |
+| 10580 | PROOF | A202444 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10581 | PROOF | A207175 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10582 | PROOF | A208110 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10583 | PROOF | A209226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10584 | PROOF | A207174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10585 | PROOF | A208015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10586 | PROOF | A208070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10587 | PROOF | A243725 | conjectured recurrence proved |
+| 10588 | PROOF | A252816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10589 | PROOF | A250727 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10590 | PROOF | A250781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10591 | PROOF | A250788 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10592 | PROOF | A250954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10593 | PROOF | A234030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10594 | PROOF | A235272 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10595 | PROOF | A246475 | conjectured recurrence proved |
+| 10596 | PROOF | A203366 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10597 | PROOF | A206265 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10598 | PROOF | A207173 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10599 | PROOF | A237030 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10600 | PROOF | A232296 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10601 | PROOF | A243602 | conjectured recurrence proved |
+| 10602 | PROOF | A183495 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10603 | PROOF | A184370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10604 | PROOF | A185771 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10605 | PROOF | A205831 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10606 | PROOF | A208003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10607 | PROOF | A208109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10608 | PROOF | A235906 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 10609 | PROOF | A250522 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10610 | PROOF | A250901 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10611 | PROOF | A255103 | conjectured recurrence proved |
+| 10612 | PROOF | A255618 | conjectured recurrence proved |
+| 10613 | PROOF | A234876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10614 | PROOF | A254847 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10615 | PROOF | A256764 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10616 | PROOF | A258538 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10617 | PROOF | A231971 | a condition on every cell over the neighbour set the entry names |
+| 10618 | PROOF | A269493 | conjectured recurrence proved |
+| 10619 | PROOF | A269536 | conjectured recurrence proved |
+| 10620 | PROOF | A269582 | conjectured recurrence proved |
+| 10621 | PROOF | A282394 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10622 | PROOF | A268952 | conjectured recurrence proved |
+| 10623 | PROOF | A283125 | a condition on every cell over the neighbour set the entry names |
+| 10624 | PROOF | A183399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10625 | PROOF | A189105 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10626 | PROOF | A207172 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10627 | PROOF | A233685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10628 | PROOF | A250734 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10629 | PROOF | A250794 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10630 | PROOF | A250802 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10631 | PROOF | A251022 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10632 | PROOF | A251049 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10633 | PROOF | A251230 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10634 | PROOF | A256022 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10635 | PROOF | A256741 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10636 | PROOF | A260008 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10637 | PROOF | A260099 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10638 | PROOF | A260287 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10639 | PROOF | A260537 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10640 | PROOF | A261704 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10641 | PROOF | A295046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10642 | PROOF | A295842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10643 | PROOF | A296330 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10644 | PROOF | A297514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10645 | PROOF | A297696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10646 | PROOF | A297735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10647 | PROOF | A297818 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10648 | PROOF | A297918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10649 | PROOF | A298141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10650 | PROOF | A298570 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10651 | PROOF | A298584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10652 | PROOF | A299062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10653 | PROOF | A299576 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10654 | PROOF | A299834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10655 | PROOF | A300968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10656 | PROOF | A302207 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10657 | PROOF | A302618 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10658 | PROOF | A302630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10659 | PROOF | A304297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10660 | PROOF | A304422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10661 | PROOF | A305956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10662 | PROOF | A316277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10663 | PROOF | A317217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10664 | PROOF | A326100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10665 | PROOF | A282832 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10666 | PROOF | A205928 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10667 | PROOF | A235169 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10668 | PROOF | A269492 | conjectured recurrence proved |
+| 10669 | PROOF | A269535 | conjectured recurrence proved |
+| 10670 | PROOF | A269581 | conjectured recurrence proved |
+| 10671 | PROOF | A183331 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10672 | PROOF | A229441 | conjectured recurrence proved |
+| 10673 | PROOF | A200836 | conjectured recurrence proved |
+| 10674 | PROOF | A206872 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10675 | PROOF | A207089 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10676 | PROOF | A248431 | conjectured recurrence proved |
+| 10677 | PROOF | A283635 | a condition on every cell over the neighbour set the entry names |
+| 10678 | PROOF | A205363 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10679 | PROOF | A258548 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10680 | PROOF | A267470 | conjectured recurrence proved |
+| 10681 | PROOF | A202310 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10682 | PROOF | A229424 | conjectured recurrence proved |
+| 10683 | PROOF | A282991 | a condition on every cell over the neighbour set the entry names |
+| 10684 | PROOF | A203176 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10685 | PROOF | A207171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10686 | PROOF | A207437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10687 | PROOF | A207483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10688 | PROOF | A207559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10689 | PROOF | A207712 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10690 | PROOF | A207730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10691 | PROOF | A207939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10692 | PROOF | A208023 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10693 | PROOF | A208496 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10694 | PROOF | A233646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10695 | PROOF | A233749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10696 | PROOF | A234084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10697 | PROOF | A236739 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10698 | PROOF | A203103 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10699 | PROOF | A203969 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10700 | PROOF | A259293 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10701 | PROOF | A228387 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10702 | PROOF | A228479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10703 | PROOF | A250579 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10704 | PROOF | A236886 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10705 | PROOF | A237160 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10706 | PROOF | A184490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10707 | PROOF | A205992 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10708 | PROOF | A206004 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10709 | PROOF | A210270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10710 | PROOF | A245945 | conjectured recurrence proved |
+| 10711 | PROOF | A250521 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10712 | PROOF | A201533 | conjectured recurrence proved |
+| 10713 | PROOF | A200882 | conjectured recurrence proved |
+| 10714 | PROOF | A201082 | conjectured recurrence proved |
+| 10715 | PROOF | A203184 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10716 | PROOF | A251508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10717 | PROOF | A237301 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10718 | PROOF | A231703 | a condition on every cell over the neighbour set the entry names |
+| 10719 | PROOF | A231765 | a condition on every cell over the neighbour set the entry names |
+| 10720 | PROOF | A231998 | a condition on every cell over the neighbour set the entry names |
+| 10721 | PROOF | A282831 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10722 | PROOF | A204032 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10723 | PROOF | A205065 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10724 | PROOF | A206311 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10725 | PROOF | A220630 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10726 | PROOF | A250463 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10727 | PROOF | A250968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10728 | PROOF | A251095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10729 | PROOF | A251196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10730 | PROOF | A251214 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10731 | PROOF | A296399 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10732 | PROOF | A296572 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10733 | PROOF | A296582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10734 | PROOF | A297315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10735 | PROOF | A183437 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 10736 | PROOF | A183839 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 10737 | PROOF | A239152 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10738 | PROOF | A235975 | conjectured recurrence proved |
+| 10739 | PROOF | A236272 | conjectured recurrence proved |
+| 10740 | PROOF | A250585 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10741 | PROOF | A250625 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10742 | PROOF | A296390 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 10743 | PROOF | A204637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10744 | PROOF | A264056 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10745 | PROOF | A264124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10746 | PROOF | A252153 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10747 | PROOF | A204638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10748 | PROOF | A258892 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10749 | PROOF | A252263 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10750 | PROOF | A252363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10751 | PROOF | A264092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10752 | PROOF | A204412 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10753 | PROOF | A258891 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10754 | PROOF | A303681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10755 | PROOF | A196488 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10756 | PROOF | A196741 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10757 | PROOF | A197368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10758 | PROOF | A280670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10759 | PROOF | A253520 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10760 | PROOF | A232903 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10761 | PROOF | A232937 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10762 | PROOF | A281322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10763 | PROOF | A209381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10764 | PROOF | A252337 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10765 | PROOF | A281475 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10766 | PROOF | A208410 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10767 | PROOF | A232132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10768 | PROOF | A258890 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10769 | PROOF | A223435 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10770 | PROOF | A246736 | conjectured recurrence proved |
+| 10771 | PROOF | A297297 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10772 | PROOF | A298915 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10773 | PROOF | A302513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10774 | PROOF | A303312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10775 | PROOF | A253519 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10776 | PROOF | A206068 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 10777 | PROOF | A258553 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10778 | PROOF | A207702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10779 | PROOF | A237244 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10780 | PROOF | A237379 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10781 | PROOF | A236013 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10782 | PROOF | A207937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10783 | PROOF | A236050 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10784 | PROOF | A189198 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10785 | PROOF | A298914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10786 | PROOF | A298921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10787 | PROOF | A301404 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10788 | PROOF | A301781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10789 | PROOF | A303724 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10790 | PROOF | A317514 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10791 | PROOF | A258552 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10792 | PROOF | A237229 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10793 | PROOF | A253362 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 10794 | PROOF | A196918 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10795 | PROOF | A196597 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10796 | PROOF | A208067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10797 | PROOF | A196479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10798 | PROOF | A197174 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10799 | PROOF | A197201 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10800 | PROOF | A197444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10801 | PROOF | A197531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10802 | PROOF | A197539 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10803 | PROOF | A197607 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10804 | PROOF | A203359 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10805 | PROOF | A258551 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10806 | PROOF | A205192 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10807 | PROOF | A229450 | conjectured recurrence proved |
+| 10808 | PROOF | A236149 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10809 | PROOF | A253361 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 10810 | PROOF | A243518 | conjectured recurrence proved |
+| 10811 | PROOF | A235012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10812 | PROOF | A235948 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 10813 | PROOF | A258675 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10814 | PROOF | A183388 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10815 | PROOF | A237631 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10816 | PROOF | A183704 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10817 | PROOF | A188701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10818 | PROOF | A207848 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10819 | PROOF | A208066 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10820 | PROOF | A208121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10821 | PROOF | A228756 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10822 | PROOF | A232043 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10823 | PROOF | A255021 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10824 | PROOF | A256742 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10825 | PROOF | A259888 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10826 | PROOF | A259956 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10827 | PROOF | A260201 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10828 | PROOF | A260921 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10829 | PROOF | A261374 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10830 | PROOF | A278267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10831 | PROOF | A297310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10832 | PROOF | A297397 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10833 | PROOF | A298920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10834 | PROOF | A301880 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10835 | PROOF | A302077 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10836 | PROOF | A302619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10837 | PROOF | A302625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10838 | PROOF | A318339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10839 | PROOF | A209378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10840 | PROOF | A258550 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10841 | PROOF | A208080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10842 | PROOF | A223213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10843 | PROOF | A208291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10844 | PROOF | A183337 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10845 | PROOF | A183685 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10846 | PROOF | A253757 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10847 | PROOF | A255991 | conjectured recurrence proved |
+| 10848 | PROOF | A232060 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10849 | PROOF | A283545 | a condition on every cell over the neighbour set the entry names |
+| 10850 | PROOF | A202595 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10851 | PROOF | A232337 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10852 | PROOF | A258549 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10853 | PROOF | A208065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10854 | PROOF | A202400 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10855 | PROOF | A242468 | conjectured recurrence proved |
+| 10856 | PROOF | A243636 | conjectured recurrence proved |
+| 10857 | PROOF | A253462 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 10858 | PROOF | A232670 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10859 | PROOF | A183346 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10860 | PROOF | A283539 | a condition on every cell over the neighbour set the entry names |
+| 10861 | PROOF | A183325 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 10862 | PROOF | A183692 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10863 | PROOF | A205818 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10864 | PROOF | A206102 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10865 | PROOF | A208114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10866 | PROOF | A208119 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10867 | PROOF | A208370 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10868 | PROOF | A237465 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10869 | PROOF | A237550 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10870 | PROOF | A237560 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10871 | PROOF | A238039 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 10872 | PROOF | A253526 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10873 | PROOF | A232377 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10874 | PROOF | A187309 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 10875 | PROOF | A206264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10876 | PROOF | A232078 | a condition on each cell and its neighbours, decided in a three-row window |
+| 10877 | PROOF | A282523 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10878 | PROOF | A283852 | a condition on every cell over the neighbour set the entry names |
+| 10879 | PROOF | A205252 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10880 | PROOF | A204648 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10881 | PROOF | A189258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10882 | PROOF | A228504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10883 | PROOF | A234241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10884 | PROOF | A234476 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10885 | PROOF | A234721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10886 | PROOF | A249285 | conjectured recurrence proved |
+| 10887 | PROOF | A250726 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10888 | PROOF | A250787 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10889 | PROOF | A256803 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10890 | PROOF | A258725 | conjectured recurrence proved |
+| 10891 | PROOF | A259765 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10892 | PROOF | A259945 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10893 | PROOF | A260277 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10894 | PROOF | A260920 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10895 | PROOF | A260973 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10896 | PROOF | A278203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10897 | PROOF | A295411 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10898 | PROOF | A296322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10899 | PROOF | A297459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10900 | PROOF | A297683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10901 | PROOF | A297689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10902 | PROOF | A297728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10903 | PROOF | A297853 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10904 | PROOF | A298919 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10905 | PROOF | A298965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10906 | PROOF | A299656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10907 | PROOF | A299735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10908 | PROOF | A300210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10909 | PROOF | A300345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10910 | PROOF | A300541 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10911 | PROOF | A300925 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10912 | PROOF | A302948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10913 | PROOF | A304136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10914 | PROOF | A305240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10915 | PROOF | A305687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10916 | PROOF | A317067 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10917 | PROOF | A235241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10918 | PROOF | A206121 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 10919 | PROOF | A206931 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10920 | PROOF | A207177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10921 | PROOF | A238174 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 10922 | PROOF | A267231 | conjectured recurrence proved |
+| 10923 | PROOF | A202640 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 10924 | PROOF | A204192 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 10925 | PROOF | A235232 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10926 | PROOF | A221456 | conjectured recurrence proved |
+| 10927 | PROOF | A220597 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10928 | PROOF | A282554 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 10929 | PROOF | A200868 | conjectured recurrence proved |
+| 10930 | PROOF | A207249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10931 | PROOF | A207363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10932 | PROOF | A234146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10933 | PROOF | A283951 | a condition on every cell over the neighbour set the entry names |
+| 10934 | PROOF | A267469 | conjectured recurrence proved |
+| 10935 | PROOF | A185460 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 10936 | PROOF | A201348 | conjectured recurrence proved |
+| 10937 | PROOF | A220560 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 10938 | PROOF | A250801 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10939 | PROOF | A234984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10940 | PROOF | A268257 | conjectured recurrence proved |
+| 10941 | PROOF | A283036 | a condition on every cell over the neighbour set the entry names |
+| 10942 | PROOF | A235217 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10943 | PROOF | A233710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10944 | PROOF | A283276 | a condition on every cell over the neighbour set the entry names |
+| 10945 | PROOF | A259422 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 10946 | PROOF | A221514 | conjectured recurrence proved |
+| 10947 | PROOF | A221523 | conjectured recurrence proved |
+| 10948 | PROOF | A228799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10949 | PROOF | A230649 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 10950 | PROOF | A231538 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10951 | PROOF | A250578 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10952 | PROOF | A251021 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10953 | PROOF | A251048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10954 | PROOF | A251223 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10955 | PROOF | A251270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10956 | PROOF | A296380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10957 | PROOF | A296593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10958 | PROOF | A317857 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10959 | PROOF | A221513 | conjectured recurrence proved |
+| 10960 | PROOF | A221522 | conjectured recurrence proved |
+| 10961 | PROOF | A265929 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10962 | PROOF | A265922 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10963 | PROOF | A183829 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 10964 | PROOF | A212778 | conjectured recurrence proved |
+| 10965 | PROOF | A229398 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10966 | PROOF | A250633 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 10967 | PROOF | A183315 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 10968 | PROOF | A252251 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10969 | PROOF | A252249 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10970 | PROOF | A252259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10971 | PROOF | A186879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10972 | PROOF | A186873 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10973 | PROOF | A253522 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10974 | PROOF | A186878 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10975 | PROOF | A206059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10976 | PROOF | A252250 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10977 | PROOF | A186877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10978 | PROOF | A251888 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 10979 | PROOF | A252258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 10980 | PROOF | A233492 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 10981 | PROOF | A186876 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10982 | PROOF | A253521 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 10983 | PROOF | A186567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10984 | PROOF | A203731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10985 | PROOF | A186566 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10986 | PROOF | A186565 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10987 | PROOF | A186560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10988 | PROOF | A186875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10989 | PROOF | A203883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10990 | PROOF | A188711 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10991 | PROOF | A317763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10992 | PROOF | A196781 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10993 | PROOF | A186564 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10994 | PROOF | A232333 | every cell carrying one stated value required to have a neighbour carrying another |
+| 10995 | PROOF | A203930 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10996 | PROOF | A222278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10997 | PROOF | A208395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10998 | PROOF | A186563 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 10999 | PROOF | A250897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11000 | PROOF | A251087 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11001 | PROOF | A251136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11002 | PROOF | A233491 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11003 | PROOF | A233612 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11004 | PROOF | A251645 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 11005 | PROOF | A223594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11006 | PROOF | A298185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11007 | PROOF | A302148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11008 | PROOF | A303680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11009 | PROOF | A317762 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11010 | PROOF | A208874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11011 | PROOF | A202531 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11012 | PROOF | A234061 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11013 | PROOF | A203652 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11014 | PROOF | A222141 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11015 | PROOF | A186562 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11016 | PROOF | A186874 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11017 | PROOF | A230529 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11018 | PROOF | A230567 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11019 | PROOF | A250896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11020 | PROOF | A251086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11021 | PROOF | A251135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11022 | PROOF | A258560 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11023 | PROOF | A281474 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11024 | PROOF | A202530 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11025 | PROOF | A190032 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11026 | PROOF | A206147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11027 | PROOF | A208642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11028 | PROOF | A206321 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11029 | PROOF | A246734 | conjectured recurrence proved |
+| 11030 | PROOF | A190031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11031 | PROOF | A231258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11032 | PROOF | A203792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11033 | PROOF | A228664 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11034 | PROOF | A228686 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11035 | PROOF | A248484 | conjectured recurrence proved |
+| 11036 | PROOF | A297335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11037 | PROOF | A301881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11038 | PROOF | A302078 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11039 | PROOF | A305037 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11040 | PROOF | A316690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11041 | PROOF | A258559 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11042 | PROOF | A190030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11043 | PROOF | A202529 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11044 | PROOF | A231445 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11045 | PROOF | A184449 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 11046 | PROOF | A252221 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 11047 | PROOF | A232509 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11048 | PROOF | A209508 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11049 | PROOF | A230464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11050 | PROOF | A232018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11051 | PROOF | A250895 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11052 | PROOF | A251085 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11053 | PROOF | A251134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11054 | PROOF | A186561 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11055 | PROOF | A195972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11056 | PROOF | A196450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11057 | PROOF | A196584 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11058 | PROOF | A196701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11059 | PROOF | A196850 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11060 | PROOF | A196961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11061 | PROOF | A197274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11062 | PROOF | A197311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11063 | PROOF | A207701 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11064 | PROOF | A190029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11065 | PROOF | A190025 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11066 | PROOF | A245949 | conjectured recurrence proved |
+| 11067 | PROOF | A207936 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11068 | PROOF | A206200 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11069 | PROOF | A258558 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11070 | PROOF | A205980 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11071 | PROOF | A190028 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11072 | PROOF | A202528 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11073 | PROOF | A231338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11074 | PROOF | A185764 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11075 | PROOF | A184767 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11076 | PROOF | A188869 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11077 | PROOF | A188987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11078 | PROOF | A189059 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11079 | PROOF | A189197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11080 | PROOF | A203095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11081 | PROOF | A206111 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11082 | PROOF | A206320 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11083 | PROOF | A231833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11084 | PROOF | A258960 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11085 | PROOF | A278095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11086 | PROOF | A278189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11087 | PROOF | A296550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11088 | PROOF | A297391 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11089 | PROOF | A297427 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11090 | PROOF | A298163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11091 | PROOF | A301966 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11092 | PROOF | A302511 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11093 | PROOF | A302517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11094 | PROOF | A302682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11095 | PROOF | A303310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11096 | PROOF | A303316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11097 | PROOF | A304217 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11098 | PROOF | A305036 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11099 | PROOF | A305226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11100 | PROOF | A316689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11101 | PROOF | A316804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11102 | PROOF | A317521 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11103 | PROOF | A203831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11104 | PROOF | A250894 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11105 | PROOF | A251084 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11106 | PROOF | A251133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11107 | PROOF | A243517 | conjectured recurrence proved |
+| 11108 | PROOF | A258557 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11109 | PROOF | A245947 | conjectured recurrence proved |
+| 11110 | PROOF | A202527 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11111 | PROOF | A229449 | conjectured recurrence proved |
+| 11112 | PROOF | A207592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11113 | PROOF | A208030 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11114 | PROOF | A202443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11115 | PROOF | A208290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11116 | PROOF | A201372 | conjectured recurrence proved |
+| 11117 | PROOF | A228753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11118 | PROOF | A228795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11119 | PROOF | A204611 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11120 | PROOF | A232370 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11121 | PROOF | A253345 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11122 | PROOF | A253352 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11123 | PROOF | A190026 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11124 | PROOF | A202442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11125 | PROOF | A201976 | conjectured recurrence proved |
+| 11126 | PROOF | A258556 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11127 | PROOF | A242579 | conjectured recurrence proved |
+| 11128 | PROOF | A243039 | conjectured recurrence proved |
+| 11129 | PROOF | A243384 | conjectured recurrence proved |
+| 11130 | PROOF | A244694 | conjectured recurrence proved |
+| 11131 | PROOF | A202526 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11132 | PROOF | A243724 | conjectured recurrence proved |
+| 11133 | PROOF | A220710 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11134 | PROOF | A185515 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11135 | PROOF | A205513 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11136 | PROOF | A205737 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11137 | PROOF | A205979 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11138 | PROOF | A230170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11139 | PROOF | A235897 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 11140 | PROOF | A236664 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11141 | PROOF | A250893 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11142 | PROOF | A250908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11143 | PROOF | A251083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11144 | PROOF | A251132 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11145 | PROOF | A186817 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 11146 | PROOF | A232032 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11147 | PROOF | A186055 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11148 | PROOF | A203375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11149 | PROOF | A228658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11150 | PROOF | A228681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11151 | PROOF | A234414 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11152 | PROOF | A234667 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11153 | PROOF | A234705 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11154 | PROOF | A234731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11155 | PROOF | A247528 | conjectured recurrence proved |
+| 11156 | PROOF | A250780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11157 | PROOF | A250953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11158 | PROOF | A251294 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11159 | PROOF | A251337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11160 | PROOF | A251485 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11161 | PROOF | A252815 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11162 | PROOF | A255990 | conjectured recurrence proved |
+| 11163 | PROOF | A259955 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11164 | PROOF | A259994 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11165 | PROOF | A260363 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11166 | PROOF | A278275 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11167 | PROOF | A297452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11168 | PROOF | A297596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11169 | PROOF | A300467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11170 | PROOF | A302158 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11171 | PROOF | A302742 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11172 | PROOF | A302954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11173 | PROOF | A303192 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11174 | PROOF | A303457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11175 | PROOF | A303795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11176 | PROOF | A303956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11177 | PROOF | A304599 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11178 | PROOF | A304921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11179 | PROOF | A305335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11180 | PROOF | A306161 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11181 | PROOF | A316415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11182 | PROOF | A316948 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11183 | PROOF | A317378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11184 | PROOF | A318540 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11185 | PROOF | A243601 | conjectured recurrence proved |
+| 11186 | PROOF | A206263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11187 | PROOF | A206989 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11188 | PROOF | A234185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11189 | PROOF | A234816 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11190 | PROOF | A258555 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11191 | PROOF | A269491 | conjectured recurrence proved |
+| 11192 | PROOF | A269534 | conjectured recurrence proved |
+| 11193 | PROOF | A269580 | conjectured recurrence proved |
+| 11194 | PROOF | A252822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11195 | PROOF | A200835 | conjectured recurrence proved |
+| 11196 | PROOF | A207306 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11197 | PROOF | A207495 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11198 | PROOF | A237029 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11199 | PROOF | A248430 | conjectured recurrence proved |
+| 11200 | PROOF | A267230 | conjectured recurrence proved |
+| 11201 | PROOF | A204647 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11202 | PROOF | A184681 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11203 | PROOF | A250725 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11204 | PROOF | A250733 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11205 | PROOF | A250786 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11206 | PROOF | A250793 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11207 | PROOF | A206270 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11208 | PROOF | A206505 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11209 | PROOF | A206661 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11210 | PROOF | A236942 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11211 | PROOF | A269579 | conjectured recurrence proved |
+| 11212 | PROOF | A269602 | conjectured recurrence proved |
+| 11213 | PROOF | A269615 | conjectured recurrence proved |
+| 11214 | PROOF | A269636 | conjectured recurrence proved |
+| 11215 | PROOF | A209945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11216 | PROOF | A209954 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11217 | PROOF | A233638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11218 | PROOF | A250892 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11219 | PROOF | A250936 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11220 | PROOF | A251082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11221 | PROOF | A251131 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11222 | PROOF | A251345 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11223 | PROOF | A267468 | conjectured recurrence proved |
+| 11224 | PROOF | A263794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11225 | PROOF | A200867 | conjectured recurrence proved |
+| 11226 | PROOF | A234975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11227 | PROOF | A206570 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11228 | PROOF | A229440 | conjectured recurrence proved |
+| 11229 | PROOF | A269614 | conjectured recurrence proved |
+| 11230 | PROOF | A269635 | conjectured recurrence proved |
+| 11231 | PROOF | A237938 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11232 | PROOF | A229423 | conjectured recurrence proved |
+| 11233 | PROOF | A184665 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11234 | PROOF | A200881 | conjectured recurrence proved |
+| 11235 | PROOF | A203094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11236 | PROOF | A205919 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11237 | PROOF | A232048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11238 | PROOF | A250512 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11239 | PROOF | A250669 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11240 | PROOF | A250677 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11241 | PROOF | A250692 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11242 | PROOF | A250732 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11243 | PROOF | A250958 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11244 | PROOF | A251301 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11245 | PROOF | A251352 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11246 | PROOF | A251395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11247 | PROOF | A251452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11248 | PROOF | A297375 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11249 | PROOF | A300374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11250 | PROOF | A300500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11251 | PROOF | A301885 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11252 | PROOF | A318018 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11253 | PROOF | A220676 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11254 | PROOF | A201040 | conjectured recurrence proved |
+| 11255 | PROOF | A220548 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11256 | PROOF | A220564 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11257 | PROOF | A181255 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 11258 | PROOF | A183597 | conjectured recurrence proved |
+| 11259 | PROOF | A240701 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11260 | PROOF | A250995 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11261 | PROOF | A251106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11262 | PROOF | A181248 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 11263 | PROOF | A252109 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11264 | PROOF | A252527 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11265 | PROOF | A252535 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11266 | PROOF | A264472 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11267 | PROOF | A264492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11268 | PROOF | A204281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11269 | PROOF | A204605 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11270 | PROOF | A204280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11271 | PROOF | A204366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11272 | PROOF | A204603 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11273 | PROOF | A204367 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11274 | PROOF | A204604 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11275 | PROOF | A234139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11276 | PROOF | A235288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11277 | PROOF | A252108 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11278 | PROOF | A252526 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11279 | PROOF | A252534 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11280 | PROOF | A258964 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11281 | PROOF | A252223 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 11282 | PROOF | A204279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11283 | PROOF | A204365 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11284 | PROOF | A230181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11285 | PROOF | A230611 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11286 | PROOF | A252239 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11287 | PROOF | A255753 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11288 | PROOF | A253465 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 11289 | PROOF | A234138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11290 | PROOF | A235287 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11291 | PROOF | A299594 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11292 | PROOF | A301789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11293 | PROOF | A303718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11294 | PROOF | A196573 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11295 | PROOF | A196804 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11296 | PROOF | A196858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11297 | PROOF | A269274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11298 | PROOF | A270114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11299 | PROOF | A252222 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 11300 | PROOF | A223293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11301 | PROOF | A234265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11302 | PROOF | A230726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11303 | PROOF | A203823 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11304 | PROOF | A234137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11305 | PROOF | A235286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11306 | PROOF | A252236 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11307 | PROOF | A252262 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11308 | PROOF | A252362 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11309 | PROOF | A252543 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11310 | PROOF | A258962 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11311 | PROOF | A299593 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11312 | PROOF | A301788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11313 | PROOF | A302678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11314 | PROOF | A303717 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11315 | PROOF | A229752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11316 | PROOF | A255751 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11317 | PROOF | A223419 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11318 | PROOF | A205021 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11319 | PROOF | A234264 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11320 | PROOF | A238908 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11321 | PROOF | A223348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11322 | PROOF | A206112 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11323 | PROOF | A229751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11324 | PROOF | A232312 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11325 | PROOF | A188988 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11326 | PROOF | A234136 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11327 | PROOF | A235285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11328 | PROOF | A299592 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11329 | PROOF | A301961 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11330 | PROOF | A302007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11331 | PROOF | A303679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11332 | PROOF | A303716 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11333 | PROOF | A304227 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11334 | PROOF | A305583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11335 | PROOF | A229691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11336 | PROOF | A209379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11337 | PROOF | A223374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11338 | PROOF | A234263 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11339 | PROOF | A252336 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11340 | PROOF | A221621 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11341 | PROOF | A253396 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11342 | PROOF | A234381 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11343 | PROOF | A183713 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11344 | PROOF | A195956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11345 | PROOF | A196140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11346 | PROOF | A196906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11347 | PROOF | A196976 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11348 | PROOF | A197229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11349 | PROOF | A197642 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11350 | PROOF | A223251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11351 | PROOF | A253463 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 11352 | PROOF | A208641 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11353 | PROOF | A253395 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11354 | PROOF | A205209 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11355 | PROOF | A206408 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11356 | PROOF | A204679 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11357 | PROOF | A223418 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11358 | PROOF | A229750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11359 | PROOF | A236049 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11360 | PROOF | A206791 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11361 | PROOF | A237228 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11362 | PROOF | A188826 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11363 | PROOF | A206250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11364 | PROOF | A208016 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11365 | PROOF | A208071 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11366 | PROOF | A230782 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11367 | PROOF | A234135 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11368 | PROOF | A235284 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11369 | PROOF | A236120 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11370 | PROOF | A259636 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11371 | PROOF | A260132 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11372 | PROOF | A261107 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11373 | PROOF | A278183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11374 | PROOF | A295914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11375 | PROOF | A296309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11376 | PROOF | A299591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11377 | PROOF | A300178 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11378 | PROOF | A301947 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11379 | PROOF | A303417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11380 | PROOF | A303715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11381 | PROOF | A303723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11382 | PROOF | A304137 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11383 | PROOF | A304226 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11384 | PROOF | A304266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11385 | PROOF | A305582 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11386 | PROOF | A317729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11387 | PROOF | A234262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11388 | PROOF | A207700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11389 | PROOF | A223338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11390 | PROOF | A223425 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11391 | PROOF | A205191 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11392 | PROOF | A223347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11393 | PROOF | A253360 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 11394 | PROOF | A207935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11395 | PROOF | A208383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11396 | PROOF | A243516 | conjectured recurrence proved |
+| 11397 | PROOF | A205190 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11398 | PROOF | A208382 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11399 | PROOF | A234221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11400 | PROOF | A183721 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11401 | PROOF | A229696 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11402 | PROOF | A208289 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11403 | PROOF | A208381 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11404 | PROOF | A223408 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11405 | PROOF | A243028 | conjectured recurrence proved |
+| 11406 | PROOF | A244177 | conjectured recurrence proved |
+| 11407 | PROOF | A185461 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11408 | PROOF | A206694 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11409 | PROOF | A206857 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11410 | PROOF | A232145 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11411 | PROOF | A232150 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11412 | PROOF | A232425 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11413 | PROOF | A239179 | a condition on every cell over the neighbour set the entry names |
+| 11414 | PROOF | A206467 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11415 | PROOF | A207591 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11416 | PROOF | A207689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11417 | PROOF | A207737 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11418 | PROOF | A207924 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11419 | PROOF | A208014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11420 | PROOF | A208035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11421 | PROOF | A208104 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11422 | PROOF | A209220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11423 | PROOF | A234261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11424 | PROOF | A235947 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11425 | PROOF | A236011 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11426 | PROOF | A236048 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11427 | PROOF | A237227 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11428 | PROOF | A237630 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11429 | PROOF | A253517 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11430 | PROOF | A229448 | conjectured recurrence proved |
+| 11431 | PROOF | A183444 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11432 | PROOF | A231992 | a condition on every cell over the neighbour set the entry names |
+| 11433 | PROOF | A282642 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11434 | PROOF | A234927 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 11435 | PROOF | A234790 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11436 | PROOF | A186044 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11437 | PROOF | A188748 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11438 | PROOF | A208380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11439 | PROOF | A209547 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11440 | PROOF | A220561 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11441 | PROOF | A220634 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11442 | PROOF | A234134 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11443 | PROOF | A234155 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11444 | PROOF | A234228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11445 | PROOF | A235283 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11446 | PROOF | A249190 | conjectured recurrence proved |
+| 11447 | PROOF | A251518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11448 | PROOF | A255020 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11449 | PROOF | A255152 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11450 | PROOF | A257440 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11451 | PROOF | A259735 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11452 | PROOF | A260063 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11453 | PROOF | A260241 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11454 | PROOF | A261258 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11455 | PROOF | A261373 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11456 | PROOF | A297396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11457 | PROOF | A297426 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11458 | PROOF | A297433 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11459 | PROOF | A297577 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11460 | PROOF | A297590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11461 | PROOF | A299723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11462 | PROOF | A303619 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11463 | PROOF | A303722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11464 | PROOF | A305225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11465 | PROOF | A305477 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11466 | PROOF | A317728 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11467 | PROOF | A318070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11468 | PROOF | A282371 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11469 | PROOF | A235205 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11470 | PROOF | A243635 | conjectured recurrence proved |
+| 11471 | PROOF | A206866 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11472 | PROOF | A207083 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11473 | PROOF | A233897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11474 | PROOF | A234124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11475 | PROOF | A234170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11476 | PROOF | A234550 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11477 | PROOF | A234683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11478 | PROOF | A235312 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11479 | PROOF | A245867 | conjectured recurrence proved |
+| 11480 | PROOF | A202428 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11481 | PROOF | A196012 | a condition on every cell over the neighbour set the entry names |
+| 11482 | PROOF | A235100 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11483 | PROOF | A235191 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11484 | PROOF | A183345 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 11485 | PROOF | A283544 | a condition on every cell over the neighbour set the entry names |
+| 11486 | PROOF | A282785 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11487 | PROOF | A205251 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11488 | PROOF | A207347 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11489 | PROOF | A207683 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11490 | PROOF | A207769 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11491 | PROOF | A207840 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11492 | PROOF | A208103 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11493 | PROOF | A233811 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11494 | PROOF | A234452 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11495 | PROOF | A206262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11496 | PROOF | A283538 | a condition on every cell over the neighbour set the entry names |
+| 11497 | PROOF | A228503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11498 | PROOF | A228657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11499 | PROOF | A228680 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11500 | PROOF | A255989 | conjectured recurrence proved |
+| 11501 | PROOF | A234883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11502 | PROOF | A235019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11503 | PROOF | A235179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11504 | PROOF | A269490 | conjectured recurrence proved |
+| 11505 | PROOF | A269533 | conjectured recurrence proved |
+| 11506 | PROOF | A283573 | a condition on every cell over the neighbour set the entry names |
+| 11507 | PROOF | A221455 | conjectured recurrence proved |
+| 11508 | PROOF | A183785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11509 | PROOF | A206048 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11510 | PROOF | A210384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11511 | PROOF | A233877 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11512 | PROOF | A234260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11513 | PROOF | A234437 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11514 | PROOF | A236802 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11515 | PROOF | A250900 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11516 | PROOF | A251204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11517 | PROOF | A251329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11518 | PROOF | A251384 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11519 | PROOF | A255102 | conjectured recurrence proved |
+| 11520 | PROOF | A267229 | conjectured recurrence proved |
+| 11521 | PROOF | A220709 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11522 | PROOF | A234770 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11523 | PROOF | A200834 | conjectured recurrence proved |
+| 11524 | PROOF | A233921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11525 | PROOF | A234076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11526 | PROOF | A234107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11527 | PROOF | A245865 | conjectured recurrence proved |
+| 11528 | PROOF | A248457 | conjectured recurrence proved |
+| 11529 | PROOF | A220622 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11530 | PROOF | A231799 | a condition on every cell over the neighbour set the entry names |
+| 11531 | PROOF | A267467 | conjectured recurrence proved |
+| 11532 | PROOF | A268256 | conjectured recurrence proved |
+| 11533 | PROOF | A268321 | conjectured recurrence proved |
+| 11534 | PROOF | A282393 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11535 | PROOF | A297079 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11536 | PROOF | A297096 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11537 | PROOF | A238173 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11538 | PROOF | A204646 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11539 | PROOF | A234753 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11540 | PROOF | A259292 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11541 | PROOF | A184209 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11542 | PROOF | A188501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11543 | PROOF | A188516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11544 | PROOF | A204716 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11545 | PROOF | A207170 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11546 | PROOF | A207436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11547 | PROOF | A209709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11548 | PROOF | A209780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11549 | PROOF | A209851 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11550 | PROOF | A209906 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11551 | PROOF | A210070 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11552 | PROOF | A210328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11553 | PROOF | A231509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11554 | PROOF | A235926 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 11555 | PROOF | A236003 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 11556 | PROOF | A248456 | conjectured recurrence proved |
+| 11557 | PROOF | A250724 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11558 | PROOF | A251253 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11559 | PROOF | A278171 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11560 | PROOF | A295346 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11561 | PROOF | A295525 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11562 | PROOF | A295937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11563 | PROOF | A295979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11564 | PROOF | A296109 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11565 | PROOF | A296645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11566 | PROOF | A296668 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11567 | PROOF | A296682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11568 | PROOF | A296733 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11569 | PROOF | A296798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11570 | PROOF | A296821 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11571 | PROOF | A296984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11572 | PROOF | A297545 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11573 | PROOF | A297608 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11574 | PROOF | A297638 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11575 | PROOF | A297655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11576 | PROOF | A297721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11577 | PROOF | A297750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11578 | PROOF | A300421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11579 | PROOF | A300533 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11580 | PROOF | A317735 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11581 | PROOF | A317767 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11582 | PROOF | A317809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11583 | PROOF | A317817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11584 | PROOF | A318031 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11585 | PROOF | A318039 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11586 | PROOF | A221512 | conjectured recurrence proved |
+| 11587 | PROOF | A221521 | conjectured recurrence proved |
+| 11588 | PROOF | A297370 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11589 | PROOF | A297677 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11590 | PROOF | A221511 | conjectured recurrence proved |
+| 11591 | PROOF | A221520 | conjectured recurrence proved |
+| 11592 | PROOF | A204645 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11593 | PROOF | A241608 | conjectured recurrence proved |
+| 11594 | PROOF | A250987 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11595 | PROOF | A251081 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11596 | PROOF | A251130 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11597 | PROOF | A251151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11598 | PROOF | A251444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11599 | PROOF | A259421 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11600 | PROOF | A183436 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11601 | PROOF | A220713 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11602 | PROOF | A220739 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11603 | PROOF | A239156 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 11604 | PROOF | A240479 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 11605 | PROOF | A250723 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11606 | PROOF | A251311 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11607 | PROOF | A202464 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 11608 | PROOF | A241073 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11609 | PROOF | A220705 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11610 | PROOF | A264073 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11611 | PROOF | A186011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11612 | PROOF | A204380 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11613 | PROOF | A204379 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11614 | PROOF | A223600 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11615 | PROOF | A264072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11616 | PROOF | A264340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11617 | PROOF | A264536 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11618 | PROOF | A232585 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11619 | PROOF | A186481 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11620 | PROOF | A186480 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11621 | PROOF | A204378 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11622 | PROOF | A196596 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11623 | PROOF | A223250 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11624 | PROOF | A223409 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11625 | PROOF | A230180 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11626 | PROOF | A230610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11627 | PROOF | A251148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11628 | PROOF | A186479 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11629 | PROOF | A186478 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11630 | PROOF | A186471 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11631 | PROOF | A185899 | a condition on every cell over the neighbour set the entry names |
+| 11632 | PROOF | A188710 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11633 | PROOF | A230509 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11634 | PROOF | A198598 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11635 | PROOF | A186470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11636 | PROOF | A185405 | a condition on every cell over the neighbour set the entry names |
+| 11637 | PROOF | A205981 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11638 | PROOF | A251147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11639 | PROOF | A236992 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11640 | PROOF | A185535 | a condition on every cell over the neighbour set the entry names |
+| 11641 | PROOF | A186469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11642 | PROOF | A186477 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11643 | PROOF | A186476 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11644 | PROOF | A301820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11645 | PROOF | A301903 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11646 | PROOF | A302677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11647 | PROOF | A186468 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11648 | PROOF | A208505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11649 | PROOF | A232936 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11650 | PROOF | A223292 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11651 | PROOF | A230670 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11652 | PROOF | A251146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11653 | PROOF | A196072 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11654 | PROOF | A196204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11655 | PROOF | A196316 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11656 | PROOF | A197211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11657 | PROOF | A197244 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11658 | PROOF | A197344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11659 | PROOF | A230393 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11660 | PROOF | A206146 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11661 | PROOF | A186467 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11662 | PROOF | A208504 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11663 | PROOF | A186461 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11664 | PROOF | A223242 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11665 | PROOF | A206679 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11666 | PROOF | A253394 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11667 | PROOF | A231458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11668 | PROOF | A186466 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11669 | PROOF | A186161 | a condition on every cell over the neighbour set the entry names |
+| 11670 | PROOF | A186474 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11671 | PROOF | A205020 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11672 | PROOF | A206199 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11673 | PROOF | A206745 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11674 | PROOF | A207792 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11675 | PROOF | A251127 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11676 | PROOF | A261259 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11677 | PROOF | A297220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11678 | PROOF | A297334 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11679 | PROOF | A298179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11680 | PROOF | A298959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11681 | PROOF | A301403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11682 | PROOF | A301658 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11683 | PROOF | A301837 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11684 | PROOF | A302065 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11685 | PROOF | A303678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11686 | PROOF | A317760 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11687 | PROOF | A186460 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11688 | PROOF | A209507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11689 | PROOF | A251145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11690 | PROOF | A186475 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11691 | PROOF | A253393 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11692 | PROOF | A186459 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11693 | PROOF | A207044 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11694 | PROOF | A203358 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 11695 | PROOF | A251126 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11696 | PROOF | A248533 | conjectured recurrence proved |
+| 11697 | PROOF | A221620 | conjectured recurrence proved |
+| 11698 | PROOF | A243515 | conjectured recurrence proved |
+| 11699 | PROOF | A186458 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11700 | PROOF | A185763 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11701 | PROOF | A253537 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11702 | PROOF | A232303 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11703 | PROOF | A185552 | a condition on every cell over the neighbour set the entry names |
+| 11704 | PROOF | A186465 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11705 | PROOF | A186464 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11706 | PROOF | A202883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11707 | PROOF | A205208 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11708 | PROOF | A207719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11709 | PROOF | A208421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11710 | PROOF | A230185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11711 | PROOF | A230470 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11712 | PROOF | A230676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11713 | PROOF | A232017 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11714 | PROOF | A234117 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11715 | PROOF | A236148 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11716 | PROOF | A251144 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11717 | PROOF | A251368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11718 | PROOF | A253742 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11719 | PROOF | A235011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11720 | PROOF | A186788 | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, the determinant, the pairwise absolute differences, or that every block agrees with every other |
+| 11721 | PROOF | A202441 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11722 | PROOF | A232070 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11723 | PROOF | A237853 | a condition on every cell over the neighbour set the entry names |
+| 11724 | PROOF | A283410 | a condition on every cell over the neighbour set the entry names |
+| 11725 | PROOF | A208486 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11726 | PROOF | A188700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11727 | PROOF | A206015 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11728 | PROOF | A208288 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11729 | PROOF | A228752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11730 | PROOF | A228794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11731 | PROOF | A234484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11732 | PROOF | A234697 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11733 | PROOF | A251125 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11734 | PROOF | A260200 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11735 | PROOF | A295776 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11736 | PROOF | A298095 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11737 | PROOF | A298897 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11738 | PROOF | A299590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11739 | PROOF | A299649 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11740 | PROOF | A300203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11741 | PROOF | A302260 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11742 | PROOF | A302416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11743 | PROOF | A302636 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11744 | PROOF | A302736 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11745 | PROOF | A302960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11746 | PROOF | A303183 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11747 | PROOF | A303451 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11748 | PROOF | A303464 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11749 | PROOF | A303631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11750 | PROOF | A304770 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11751 | PROOF | A305518 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11752 | PROOF | A316513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11753 | PROOF | A316810 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11754 | PROOF | A316955 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11755 | PROOF | A317560 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11756 | PROOF | A318338 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11757 | PROOF | A186457 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11758 | PROOF | A183336 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 11759 | PROOF | A243723 | conjectured recurrence proved |
+| 11760 | PROOF | A234659 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11761 | PROOF | A201695 | conjectured recurrence proved |
+| 11762 | PROOF | A206982 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11763 | PROOF | A186456 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11764 | PROOF | A185791 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11765 | PROOF | A207718 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11766 | PROOF | A207896 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11767 | PROOF | A234177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11768 | PROOF | A234491 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11769 | PROOF | A234543 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11770 | PROOF | A234651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11771 | PROOF | A235303 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11772 | PROOF | A201371 | conjectured recurrence proved |
+| 11773 | PROOF | A229447 | conjectured recurrence proved |
+| 11774 | PROOF | A203374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11775 | PROOF | A232336 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11776 | PROOF | A250779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11777 | PROOF | A251124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11778 | PROOF | A235091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11779 | PROOF | A243600 | conjectured recurrence proved |
+| 11780 | PROOF | A209376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11781 | PROOF | A235896 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 11782 | PROOF | A235905 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 11783 | PROOF | A247527 | conjectured recurrence proved |
+| 11784 | PROOF | A247720 | conjectured recurrence proved |
+| 11785 | PROOF | A251143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11786 | PROOF | A251243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11787 | PROOF | A252814 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11788 | PROOF | A234557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11789 | PROOF | A206261 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11790 | PROOF | A204710 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11791 | PROOF | A186455 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11792 | PROOF | A207276 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11793 | PROOF | A267228 | conjectured recurrence proved |
+| 11794 | PROOF | A269489 | conjectured recurrence proved |
+| 11795 | PROOF | A269532 | conjectured recurrence proved |
+| 11796 | PROOF | A283124 | a condition on every cell over the neighbour set the entry names |
+| 11797 | PROOF | A283409 | a condition on every cell over the neighbour set the entry names |
+| 11798 | PROOF | A283692 | a condition on every cell over the neighbour set the entry names |
+| 11799 | PROOF | A297088 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 11800 | PROOF | A234762 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11801 | PROOF | A184680 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11802 | PROOF | A186454 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 11803 | PROOF | A200866 | conjectured recurrence proved |
+| 11804 | PROOF | A206260 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11805 | PROOF | A210149 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11806 | PROOF | A210348 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11807 | PROOF | A220683 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11808 | PROOF | A228386 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11809 | PROOF | A229406 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11810 | PROOF | A231376 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11811 | PROOF | A231524 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11812 | PROOF | A233628 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11813 | PROOF | A233960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11814 | PROOF | A250785 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11815 | PROOF | A250792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11816 | PROOF | A250800 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11817 | PROOF | A251123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11818 | PROOF | A255988 | conjectured recurrence proved |
+| 11819 | PROOF | A295091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11820 | PROOF | A295247 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11821 | PROOF | A296033 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11822 | PROOF | A296329 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11823 | PROOF | A296957 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11824 | PROOF | A296968 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11825 | PROOF | A297339 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11826 | PROOF | A297507 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11827 | PROOF | A297734 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11828 | PROOF | A297763 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11829 | PROOF | A297817 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11830 | PROOF | A297852 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11831 | PROOF | A297883 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11832 | PROOF | A297901 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11833 | PROOF | A297945 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11834 | PROOF | A298057 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11835 | PROOF | A298148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11836 | PROOF | A298189 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11837 | PROOF | A298215 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11838 | PROOF | A298448 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11839 | PROOF | A300344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11840 | PROOF | A302164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11841 | PROOF | A302225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11842 | PROOF | A302310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11843 | PROOF | A303684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11844 | PROOF | A303794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11845 | PROOF | A303882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11846 | PROOF | A304013 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11847 | PROOF | A304052 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11848 | PROOF | A304143 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11849 | PROOF | A304257 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11850 | PROOF | A304341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11851 | PROOF | A305091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11852 | PROOF | A317890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11853 | PROOF | A282856 | a condition on every cell over the neighbour set the entry names |
+| 11854 | PROOF | A237028 | a signed sum of the order statistics of every 2 X 2 subblock taking one common value |
+| 11855 | PROOF | A267466 | conjectured recurrence proved |
+| 11856 | PROOF | A206727 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11857 | PROOF | A202973 | a condition on every cell over the neighbour set the entry names |
+| 11858 | PROOF | A269488 | conjectured recurrence proved |
+| 11859 | PROOF | A269531 | conjectured recurrence proved |
+| 11860 | PROOF | A235510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11861 | PROOF | A220611 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11862 | PROOF | A230701 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 11863 | PROOF | A183805 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 11864 | PROOF | A183814 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 11865 | PROOF | A184556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11866 | PROOF | A200880 | conjectured recurrence proved |
+| 11867 | PROOF | A202882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11868 | PROOF | A205991 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 11869 | PROOF | A229366 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 11870 | PROOF | A230942 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 11871 | PROOF | A245864 | conjectured recurrence proved |
+| 11872 | PROOF | A250447 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11873 | PROOF | A250899 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11874 | PROOF | A250920 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11875 | PROOF | A250943 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11876 | PROOF | A250975 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11877 | PROOF | A251003 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11878 | PROOF | A251012 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11879 | PROOF | A251403 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11880 | PROOF | A259518 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 11881 | PROOF | A220629 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11882 | PROOF | A220720 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11883 | PROOF | A220733 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 11884 | PROOF | A228798 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11885 | PROOF | A229439 | conjectured recurrence proved |
+| 11886 | PROOF | A250462 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11887 | PROOF | A250577 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 11888 | PROOF | A250967 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11889 | PROOF | A251122 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11890 | PROOF | A251195 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11891 | PROOF | A251213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11892 | PROOF | A251222 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11893 | PROOF | A251252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11894 | PROOF | A251269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11895 | PROOF | A251286 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11896 | PROOF | A251320 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11897 | PROOF | A180752 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 11898 | PROOF | A222099 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 11899 | PROOF | A229422 | conjectured recurrence proved |
+| 11900 | PROOF | A212777 | conjectured recurrence proved |
+| 11901 | PROOF | A235843 | conjectured recurrence proved |
+| 11902 | PROOF | A235850 | conjectured recurrence proved |
+| 11903 | PROOF | A241133 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 11904 | PROOF | A184190 | conjectured recurrence proved |
+| 11905 | PROOF | A184200 | conjectured recurrence proved |
+| 11906 | PROOF | A264019 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11907 | PROOF | A264086 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11908 | PROOF | A255227 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11909 | PROOF | A257446 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11910 | PROOF | A258965 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11911 | PROOF | A275140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11912 | PROOF | A275506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11913 | PROOF | A255226 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11914 | PROOF | A257445 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11915 | PROOF | A235952 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11916 | PROOF | A188822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11917 | PROOF | A188829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11918 | PROOF | A255225 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11919 | PROOF | A257444 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11920 | PROOF | A258963 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11921 | PROOF | A196917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11922 | PROOF | A237635 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11923 | PROOF | A235951 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11924 | PROOF | A253230 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11925 | PROOF | A237634 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11926 | PROOF | A255224 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11927 | PROOF | A257443 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11928 | PROOF | A208046 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11929 | PROOF | A253464 | a number read off the two diagonals of a small subblock -- a difference or a sum of corner entries, or of diagonal extremes -- required to differ from the same number at the overlapping subblock one step over |
+| 11930 | PROOF | A233838 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11931 | PROOF | A235950 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11932 | PROOF | A253229 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11933 | PROOF | A280669 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11934 | PROOF | A232332 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11935 | PROOF | A237633 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11936 | PROOF | A230588 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11937 | PROOF | A188709 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11938 | PROOF | A188820 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11939 | PROOF | A188827 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11940 | PROOF | A203822 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11941 | PROOF | A255223 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11942 | PROOF | A257442 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11943 | PROOF | A258961 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11944 | PROOF | A297296 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11945 | PROOF | A301787 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11946 | PROOF | A317761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11947 | PROOF | A208693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11948 | PROOF | A253228 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11949 | PROOF | A235949 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 11950 | PROOF | A232583 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11951 | PROOF | A232902 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11952 | PROOF | A233490 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11953 | PROOF | A233611 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 11954 | PROOF | A237632 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11955 | PROOF | A196630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11956 | PROOF | A196690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11957 | PROOF | A197092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11958 | PROOF | A197497 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11959 | PROOF | A197617 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11960 | PROOF | A206131 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11961 | PROOF | A232331 | every cell carrying one stated value required to have a neighbour carrying another |
+| 11962 | PROOF | A206067 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11963 | PROOF | A246478 | conjectured recurrence proved |
+| 11964 | PROOF | A252935 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11965 | PROOF | A207045 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11966 | PROOF | A208692 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11967 | PROOF | A208559 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11968 | PROOF | A236991 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11969 | PROOF | A237243 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11970 | PROOF | A237378 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 11971 | PROOF | A253227 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 11972 | PROOF | A253001 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11973 | PROOF | A232311 | a condition on each cell and its neighbours, decided in a three-row window |
+| 11974 | PROOF | A206088 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 11975 | PROOF | A185925 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 11976 | PROOF | A223396 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11977 | PROOF | A228663 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11978 | PROOF | A228685 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11979 | PROOF | A230835 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11980 | PROOF | A246732 | conjectured recurrence proved |
+| 11981 | PROOF | A250610 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11982 | PROOF | A255222 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11983 | PROOF | A257441 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11984 | PROOF | A259736 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 11985 | PROOF | A301780 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11986 | PROOF | A301786 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11987 | PROOF | A302006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11988 | PROOF | A302011 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11989 | PROOF | A302676 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11990 | PROOF | A252934 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11991 | PROOF | A223442 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11992 | PROOF | A253007 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11993 | PROOF | A246476 | conjectured recurrence proved |
+| 11994 | PROOF | A207458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11995 | PROOF | A208691 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11996 | PROOF | A221788 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11997 | PROOF | A207457 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11998 | PROOF | A208557 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 11999 | PROOF | A253000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12000 | PROOF | A250609 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12001 | PROOF | A253226 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12002 | PROOF | A207456 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12003 | PROOF | A207847 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12004 | PROOF | A252933 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12005 | PROOF | A253392 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12006 | PROOF | A206065 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12007 | PROOF | A206087 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12008 | PROOF | A206407 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12009 | PROOF | A206678 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12010 | PROOF | A207043 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12011 | PROOF | A208029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12012 | PROOF | A208690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12013 | PROOF | A209225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12014 | PROOF | A209377 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12015 | PROOF | A229841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12016 | PROOF | A236990 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 12017 | PROOF | A237242 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 12018 | PROOF | A237317 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 12019 | PROOF | A237368 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 12020 | PROOF | A237377 | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount |
+| 12021 | PROOF | A277939 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12022 | PROOF | A278000 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12023 | PROOF | A278015 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12024 | PROOF | A253006 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12025 | PROOF | A255075 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 12026 | PROOF | A256728 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 12027 | PROOF | A258674 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 12028 | PROOF | A205189 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12029 | PROOF | A231951 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12030 | PROOF | A295913 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 12031 | PROOF | A243514 | conjectured recurrence proved |
+| 12032 | PROOF | A183684 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12033 | PROOF | A183703 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12034 | PROOF | A184146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12035 | PROOF | A184766 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12036 | PROOF | A188819 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12037 | PROOF | A188868 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12038 | PROOF | A188986 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12039 | PROOF | A206249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12040 | PROOF | A207455 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12041 | PROOF | A228755 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12042 | PROOF | A250608 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12043 | PROOF | A251277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12044 | PROOF | A255221 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12045 | PROOF | A259635 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12046 | PROOF | A259716 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12047 | PROOF | A259887 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12048 | PROOF | A260131 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12049 | PROOF | A297300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12050 | PROOF | A297309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12051 | PROOF | A297390 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12052 | PROOF | A301657 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12053 | PROOF | A301965 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12054 | PROOF | A302165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12055 | PROOF | A302422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12056 | PROOF | A302510 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12057 | PROOF | A302516 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12058 | PROOF | A302624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12059 | PROOF | A302681 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12060 | PROOF | A302803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12061 | PROOF | A303309 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12062 | PROOF | A303315 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12063 | PROOF | A303422 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12064 | PROOF | A304216 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12065 | PROOF | A316803 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12066 | PROOF | A317520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12067 | PROOF | A221764 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12068 | PROOF | A252999 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12069 | PROOF | A245993 | conjectured recurrence proved |
+| 12070 | PROOF | A205188 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12071 | PROOF | A204610 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12072 | PROOF | A253344 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12073 | PROOF | A204678 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 12074 | PROOF | A253391 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12075 | PROOF | A202594 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 12076 | PROOF | A203357 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 12077 | PROOF | A206535 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12078 | PROOF | A252932 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12079 | PROOF | A207454 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12080 | PROOF | A207694 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12081 | PROOF | A207929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12082 | PROOF | A208064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12083 | PROOF | A233951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12084 | PROOF | A234674 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12085 | PROOF | A242578 | conjectured recurrence proved |
+| 12086 | PROOF | A243038 | conjectured recurrence proved |
+| 12087 | PROOF | A243383 | conjectured recurrence proved |
+| 12088 | PROOF | A228751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12089 | PROOF | A228793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12090 | PROOF | A236324 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 12091 | PROOF | A250607 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12092 | PROOF | A250952 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12093 | PROOF | A243722 | conjectured recurrence proved |
+| 12094 | PROOF | A183324 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 12095 | PROOF | A234826 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12096 | PROOF | A183691 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12097 | PROOF | A184369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12098 | PROOF | A185514 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12099 | PROOF | A202117 | conjectured recurrence proved |
+| 12100 | PROOF | A205817 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12101 | PROOF | A206466 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12102 | PROOF | A209790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12103 | PROOF | A234116 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12104 | PROOF | A246473 | conjectured recurrence proved |
+| 12105 | PROOF | A196423 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12106 | PROOF | A196537 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12107 | PROOF | A234029 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12108 | PROOF | A234162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12109 | PROOF | A234210 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12110 | PROOF | A234444 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12111 | PROOF | A235271 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12112 | PROOF | A245991 | conjectured recurrence proved |
+| 12113 | PROOF | A248429 | conjectured recurrence proved |
+| 12114 | PROOF | A221619 | conjectured recurrence proved |
+| 12115 | PROOF | A203365 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 12116 | PROOF | A183503 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12117 | PROOF | A185828 | a condition on every cell over the neighbour set the entry names |
+| 12118 | PROOF | A205250 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12119 | PROOF | A232031 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12120 | PROOF | A232077 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12121 | PROOF | A232317 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12122 | PROOF | A234875 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12123 | PROOF | A234914 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12124 | PROOF | A235080 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12125 | PROOF | A282522 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 12126 | PROOF | A283858 | a condition on every cell over the neighbour set the entry names |
+| 12127 | PROOF | A221454 | conjectured recurrence proved |
+| 12128 | PROOF | A183330 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 12129 | PROOF | A201975 | conjectured recurrence proved |
+| 12130 | PROOF | A259245 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12131 | PROOF | A183794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12132 | PROOF | A185459 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12133 | PROOF | A185790 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12134 | PROOF | A200833 | conjectured recurrence proved |
+| 12135 | PROOF | A204543 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12136 | PROOF | A206078 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12137 | PROOF | A206190 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12138 | PROOF | A209546 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12139 | PROOF | A210293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12140 | PROOF | A220559 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12141 | PROOF | A228502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12142 | PROOF | A233675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12143 | PROOF | A233726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12144 | PROOF | A233785 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12145 | PROOF | A234326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12146 | PROOF | A235291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12147 | PROOF | A236323 | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ |
+| 12148 | PROOF | A248428 | conjectured recurrence proved |
+| 12149 | PROOF | A250606 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12150 | PROOF | A250928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12151 | PROOF | A251229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12152 | PROOF | A251374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12153 | PROOF | A251492 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12154 | PROOF | A251500 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12155 | PROOF | A278281 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12156 | PROOF | A295841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12157 | PROOF | A296946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12158 | PROOF | A297432 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12159 | PROOF | A297458 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12160 | PROOF | A297520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12161 | PROOF | A297583 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12162 | PROOF | A297809 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12163 | PROOF | A297860 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12164 | PROOF | A297870 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12165 | PROOF | A297909 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12166 | PROOF | A297917 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12167 | PROOF | A297937 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12168 | PROOF | A297953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12169 | PROOF | A297980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12170 | PROOF | A298569 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12171 | PROOF | A301842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12172 | PROOF | A302266 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12173 | PROOF | A302279 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12174 | PROOF | A302368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12175 | PROOF | A303677 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12176 | PROOF | A303721 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12177 | PROOF | A303802 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12178 | PROOF | A303890 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12179 | PROOF | A303963 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12180 | PROOF | A304004 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12181 | PROOF | A304304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12182 | PROOF | A304349 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12183 | PROOF | A317759 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12184 | PROOF | A318010 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12185 | PROOF | A318062 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12186 | PROOF | A229446 | conjectured recurrence proved |
+| 12187 | PROOF | A282990 | a condition on every cell over the neighbour set the entry names |
+| 12188 | PROOF | A204709 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12189 | PROOF | A211327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12190 | PROOF | A267227 | conjectured recurrence proved |
+| 12191 | PROOF | A207008 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 12192 | PROOF | A220647 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12193 | PROOF | A183494 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12194 | PROOF | A268255 | conjectured recurrence proved |
+| 12195 | PROOF | A269578 | conjectured recurrence proved |
+| 12196 | PROOF | A269601 | conjectured recurrence proved |
+| 12197 | PROOF | A183357 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12198 | PROOF | A189450 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12199 | PROOF | A235216 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12200 | PROOF | A184489 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12201 | PROOF | A200865 | conjectured recurrence proved |
+| 12202 | PROOF | A201081 | conjectured recurrence proved |
+| 12203 | PROOF | A201347 | conjectured recurrence proved |
+| 12204 | PROOF | A220616 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12205 | PROOF | A233942 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12206 | PROOF | A239024 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12207 | PROOF | A250834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12208 | PROOF | A250891 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12209 | PROOF | A259244 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12210 | PROOF | A259509 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12211 | PROOF | A267465 | conjectured recurrence proved |
+| 12212 | PROOF | A201618 | conjectured recurrence proved |
+| 12213 | PROOF | A220558 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12214 | PROOF | A220590 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12215 | PROOF | A220726 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12216 | PROOF | A221510 | conjectured recurrence proved |
+| 12217 | PROOF | A221519 | conjectured recurrence proved |
+| 12218 | PROOF | A228385 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12219 | PROOF | A250605 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12220 | PROOF | A250784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12221 | PROOF | A250791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12222 | PROOF | A250799 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12223 | PROOF | A251094 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12224 | PROOF | A251262 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12225 | PROOF | A202414 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12226 | PROOF | A222001 | conjectured recurrence proved |
+| 12227 | PROOF | A230648 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 12228 | PROOF | A240888 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 12229 | PROOF | A277653 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12230 | PROOF | A181247 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 12231 | PROOF | A183616 | conjectured recurrence proved |
+| 12232 | PROOF | A183838 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 12233 | PROOF | A214181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12234 | PROOF | A220547 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12235 | PROOF | A229397 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 12236 | PROOF | A230647 | only the cells with i+j even carry a value and their diagonal neighbours are again such cells, so the white squares form a board of their own; each must have a neighbour holding a prescribed function of its value, which three consecutive lines settle |
+| 12237 | PROOF | A262267 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12238 | PROOF | A181207 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12239 | PROOF | A183314 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 12240 | PROOF | A183587 | conjectured recurrence proved |
+| 12241 | PROOF | A183596 | conjectured recurrence proved |
+| 12242 | PROOF | A212776 | conjectured recurrence proved |
+| 12243 | PROOF | A235974 | conjectured recurrence proved |
+| 12244 | PROOF | A236271 | conjectured recurrence proved |
+| 12245 | PROOF | A240478 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12246 | PROOF | A250576 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12247 | PROOF | A250730 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12248 | PROOF | A251194 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12249 | PROOF | A251285 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12250 | PROOF | A251310 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12251 | PROOF | A252110 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12252 | PROOF | A204413 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12253 | PROOF | A252528 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12254 | PROOF | A252536 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12255 | PROOF | A205984 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12256 | PROOF | A204415 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12257 | PROOF | A204753 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12258 | PROOF | A206115 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12259 | PROOF | A204752 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12260 | PROOF | A223693 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12261 | PROOF | A205983 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12262 | PROOF | A204414 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12263 | PROOF | A206092 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12264 | PROOF | A206114 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12265 | PROOF | A206203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12266 | PROOF | A253454 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12267 | PROOF | A253493 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12268 | PROOF | A253500 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12269 | PROOF | A183631 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12270 | PROOF | A204751 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12271 | PROOF | A301796 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12272 | PROOF | A266007 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12273 | PROOF | A206091 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12274 | PROOF | A207048 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12275 | PROOF | A205982 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12276 | PROOF | A253453 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12277 | PROOF | A253492 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12278 | PROOF | A253499 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12279 | PROOF | A232510 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12280 | PROOF | A183630 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12281 | PROOF | A209726 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12282 | PROOF | A206113 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12283 | PROOF | A207047 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12284 | PROOF | A206342 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12285 | PROOF | A203730 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12286 | PROOF | A222460 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12287 | PROOF | A301795 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12288 | PROOF | A253452 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12289 | PROOF | A253491 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12290 | PROOF | A253498 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12291 | PROOF | A206090 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12292 | PROOF | A203882 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12293 | PROOF | A222337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12294 | PROOF | A183629 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12295 | PROOF | A209532 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12296 | PROOF | A209725 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12297 | PROOF | A207046 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12298 | PROOF | A253451 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12299 | PROOF | A253490 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12300 | PROOF | A253497 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12301 | PROOF | A206340 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12302 | PROOF | A203929 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12303 | PROOF | A222277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12304 | PROOF | A208844 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12305 | PROOF | A301794 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12306 | PROOF | A206089 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12307 | PROOF | A206341 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12308 | PROOF | A230063 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12309 | PROOF | A252834 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12310 | PROOF | A265987 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12311 | PROOF | A197469 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12312 | PROOF | A203651 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12313 | PROOF | A222140 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12314 | PROOF | A232290 | every cell carrying one stated value required to have a neighbour carrying another |
+| 12315 | PROOF | A208843 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12316 | PROOF | A252980 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12317 | PROOF | A253221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12318 | PROOF | A206338 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12319 | PROOF | A253450 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12320 | PROOF | A253489 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12321 | PROOF | A253496 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12322 | PROOF | A207148 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12323 | PROOF | A252833 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12324 | PROOF | A206339 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12325 | PROOF | A229690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12326 | PROOF | A238518 | a condition on every cell over the neighbour set the entry names |
+| 12327 | PROOF | A188708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12328 | PROOF | A203791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12329 | PROOF | A206130 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12330 | PROOF | A208558 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12331 | PROOF | A223395 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12332 | PROOF | A223434 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12333 | PROOF | A230245 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12334 | PROOF | A301793 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12335 | PROOF | A301960 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12336 | PROOF | A301995 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12337 | PROOF | A317513 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12338 | PROOF | A209531 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12339 | PROOF | A209723 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12340 | PROOF | A223337 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12341 | PROOF | A253220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12342 | PROOF | A208842 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12343 | PROOF | A206336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12344 | PROOF | A252979 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12345 | PROOF | A208503 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12346 | PROOF | A206145 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12347 | PROOF | A207146 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12348 | PROOF | A252832 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12349 | PROOF | A207147 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12350 | PROOF | A204699 | runs of equal or of strictly increasing entries forbidden along the directions of a grid |
+| 12351 | PROOF | A221374 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12352 | PROOF | A229689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12353 | PROOF | A253219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12354 | PROOF | A206337 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12355 | PROOF | A232453 | every cell carrying one stated value required to have a neighbour carrying another |
+| 12356 | PROOF | A229749 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12357 | PROOF | A232508 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12358 | PROOF | A232901 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12359 | PROOF | A232935 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12360 | PROOF | A183626 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12361 | PROOF | A186133 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12362 | PROOF | A203830 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12363 | PROOF | A208079 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12364 | PROOF | A208556 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12365 | PROOF | A208841 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12366 | PROOF | A209506 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12367 | PROOF | A209722 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12368 | PROOF | A230269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12369 | PROOF | A230331 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12370 | PROOF | A230520 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12371 | PROOF | A253449 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12372 | PROOF | A207144 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12373 | PROOF | A258918 | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared |
+| 12374 | PROOF | A268943 | conjectured recurrence proved |
+| 12375 | PROOF | A269466 | conjectured recurrence proved |
+| 12376 | PROOF | A269677 | conjectured recurrence proved |
+| 12377 | PROOF | A269689 | conjectured recurrence proved |
+| 12378 | PROOF | A269775 | conjectured recurrence proved |
+| 12379 | PROOF | A232289 | every cell carrying one stated value required to have a neighbour carrying another |
+| 12380 | PROOF | A252831 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12381 | PROOF | A183304 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12382 | PROOF | A228662 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12383 | PROOF | A228684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12384 | PROOF | A246474 | conjectured recurrence proved |
+| 12385 | PROOF | A252978 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12386 | PROOF | A258959 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12387 | PROOF | A261106 | a 3 X 3 subblock condition, whose state is a pair of consecutive lines |
+| 12388 | PROOF | A297219 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12389 | PROOF | A297333 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12390 | PROOF | A297369 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12391 | PROOF | A300177 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12392 | PROOF | A300799 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12393 | PROOF | A301438 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12394 | PROOF | A301792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12395 | PROOF | A301879 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12396 | PROOF | A301902 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12397 | PROOF | A301946 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12398 | PROOF | A301959 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12399 | PROOF | A301994 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12400 | PROOF | A302076 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12401 | PROOF | A302146 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12402 | PROOF | A303416 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12403 | PROOF | A303714 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12404 | PROOF | A304128 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12405 | PROOF | A304225 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12406 | PROOF | A304265 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12407 | PROOF | A305035 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12408 | PROOF | A305581 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12409 | PROOF | A316688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12410 | PROOF | A317512 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12411 | PROOF | A320366 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12412 | PROOF | A207145 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12413 | PROOF | A268942 | conjectured recurrence proved |
+| 12414 | PROOF | A269465 | conjectured recurrence proved |
+| 12415 | PROOF | A269676 | conjectured recurrence proved |
+| 12416 | PROOF | A269688 | conjectured recurrence proved |
+| 12417 | PROOF | A269774 | conjectured recurrence proved |
+| 12418 | PROOF | A223499 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12419 | PROOF | A207142 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12420 | PROOF | A253225 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12421 | PROOF | A253351 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12422 | PROOF | A253218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12423 | PROOF | A229695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12424 | PROOF | A268941 | conjectured recurrence proved |
+| 12425 | PROOF | A269464 | conjectured recurrence proved |
+| 12426 | PROOF | A269675 | conjectured recurrence proved |
+| 12427 | PROOF | A269687 | conjectured recurrence proved |
+| 12428 | PROOF | A269773 | conjectured recurrence proved |
+| 12429 | PROOF | A233218 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12430 | PROOF | A185762 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12431 | PROOF | A276300 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12432 | PROOF | A234780 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12433 | PROOF | A243513 | conjectured recurrence proved |
+| 12434 | PROOF | A207656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12435 | PROOF | A208689 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12436 | PROOF | A243027 | conjectured recurrence proved |
+| 12437 | PROOF | A245866 | conjectured recurrence proved |
+| 12438 | PROOF | A232059 | every cell carrying one stated value required to have a neighbour carrying another |
+| 12439 | PROOF | A183683 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12440 | PROOF | A207143 | neighbouring K X K subblocks commuting as matrices, or none of them commuting |
+| 12441 | PROOF | A268940 | conjectured recurrence proved |
+| 12442 | PROOF | A269463 | conjectured recurrence proved |
+| 12443 | PROOF | A269674 | conjectured recurrence proved |
+| 12444 | PROOF | A269686 | conjectured recurrence proved |
+| 12445 | PROOF | A269772 | conjectured recurrence proved |
+| 12446 | PROOF | A183625 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12447 | PROOF | A205830 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12448 | PROOF | A209530 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12449 | PROOF | A250907 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12450 | PROOF | A262327 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12451 | PROOF | A262415 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12452 | PROOF | A196700 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12453 | PROOF | A233982 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12454 | PROOF | A234220 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12455 | PROOF | A223363 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12456 | PROOF | A206790 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 12457 | PROOF | A206981 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12458 | PROOF | A231950 | a condition on each cell and its neighbours, decided in a three-row window |
+| 12459 | PROOF | A268939 | conjectured recurrence proved |
+| 12460 | PROOF | A269462 | conjectured recurrence proved |
+| 12461 | PROOF | A269673 | conjectured recurrence proved |
+| 12462 | PROOF | A269685 | conjectured recurrence proved |
+| 12463 | PROOF | A269771 | conjectured recurrence proved |
+| 12464 | PROOF | A282310 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 12465 | PROOF | A282641 | a condition on every cell's king-move neighbourhood, boundaries included |
+| 12466 | PROOF | A211490 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12467 | PROOF | A183344 | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry |
+| 12468 | PROOF | A234789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12469 | PROOF | A184765 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12470 | PROOF | A203373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12471 | PROOF | A204609 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12472 | PROOF | A209729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12473 | PROOF | A211322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12474 | PROOF | A220633 | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a grid |
+| 12475 | PROOF | A228656 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12476 | PROOF | A228750 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12477 | PROOF | A228792 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12478 | PROOF | A233684 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12479 | PROOF | A234133 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12480 | PROOF | A234154 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12481 | PROOF | A234483 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12482 | PROOF | A235282 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12483 | PROOF | A250778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12484 | PROOF | A250951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12485 | PROOF | A251293 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12486 | PROOF | A251336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12487 | PROOF | A251517 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12488 | PROOF | A258547 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12489 | PROOF | A278088 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12490 | PROOF | A278151 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12491 | PROOF | A278274 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12492 | PROOF | A296719 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12493 | PROOF | A297695 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12494 | PROOF | A297972 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12495 | PROOF | A298234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12496 | PROOF | A301791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12497 | PROOF | A302323 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12498 | PROOF | A304421 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12499 | PROOF | A205249 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12500 | PROOF | A268938 | conjectured recurrence proved |
+| 12501 | PROOF | A269461 | conjectured recurrence proved |
+| 12502 | PROOF | A269613 | conjectured recurrence proved |
+| 12503 | PROOF | A269684 | conjectured recurrence proved |
+| 12504 | PROOF | A234825 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12505 | PROOF | A183624 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12506 | PROOF | A183784 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12507 | PROOF | A185513 | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, or monotone |
+| 12508 | PROOF | A204708 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12509 | PROOF | A205829 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12510 | PROOF | A206003 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12511 | PROOF | A206047 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12512 | PROOF | A209953 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12513 | PROOF | A210269 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12514 | PROOF | A210383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12515 | PROOF | A229374 | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid |
+| 12516 | PROOF | A234259 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12517 | PROOF | A235895 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12518 | PROOF | A235904 | the smallest and largest of the four entries of a 2 X 2 block, summed, against the sum of the other two |
+| 12519 | PROOF | A251203 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12520 | PROOF | A251328 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12521 | PROOF | A251344 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12522 | PROOF | A251383 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12523 | PROOF | A259291 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12524 | PROOF | A262326 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12525 | PROOF | A267226 | conjectured recurrence proved |
+| 12526 | PROOF | A184679 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12527 | PROOF | A228501 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12528 | PROOF | A228655 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12529 | PROOF | A228678 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12530 | PROOF | A250731 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12531 | PROOF | A204707 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12532 | PROOF | A183356 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12533 | PROOF | A183804 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 12534 | PROOF | A183813 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 12535 | PROOF | A222440 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12536 | PROOF | A233213 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12537 | PROOF | A259508 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12538 | PROOF | A259517 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12539 | PROOF | A277761 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12540 | PROOF | A277782 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12541 | PROOF | A214160 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12542 | PROOF | A228797 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12543 | PROOF | A232951 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12544 | PROOF | A233162 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12545 | PROOF | A239530 | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on differences between a cell and the cells one step away, which three consecutive lines decide |
+| 12546 | PROOF | A250461 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12547 | PROOF | A250798 | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction |
+| 12548 | PROOF | A251221 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12549 | PROOF | A251251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12550 | PROOF | A251319 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12551 | PROOF | A127905 | a recurrence derived from the summand by creative telescoping |
+| 12552 | PROOF | A181246 | the entry constrains every subblock of a fixed size, or every pair of neighbouring subblocks, so a bounded window of consecutive lines decides it; the admissible windows are the vertices of a finite digraph and the arrays are its walks |
+| 12553 | PROOF | A183435 | the entry constrains each element by the elements one step away from it, so three consecutive lines decide the condition on the middle one; the pairs of consecutive lines are the vertices of a finite digraph and the arrays are its walks, with the array boundary honest -- a missing neighbour is not a neighbour |
+| 12554 | PROOF | A184189 | conjectured recurrence proved |
+| 12555 | PROOF | A233106 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12556 | PROOF | A233107 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12557 | PROOF | A233124 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12558 | PROOF | A233211 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12559 | PROOF | A233212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12560 | PROOF | A235878 | conjectured recurrence proved |
+| 12561 | PROOF | A235879 | conjectured recurrence proved |
+| 12562 | PROOF | A235880 | conjectured recurrence proved |
+| 12563 | PROOF | A235881 | conjectured recurrence proved |
+| 12564 | PROOF | A235882 | conjectured recurrence proved |
+| 12565 | PROOF | A235883 | conjectured recurrence proved |
+| 12566 | PROOF | A235887 | conjectured recurrence proved |
+| 12567 | PROOF | A235888 | conjectured recurrence proved |
+| 12568 | PROOF | A235889 | conjectured recurrence proved |
+| 12569 | PROOF | A235890 | conjectured recurrence proved |
+| 12570 | PROOF | A235891 | conjectured recurrence proved |
+| 12571 | PROOF | A235892 | conjectured recurrence proved |
+| 12572 | PROOF | A045742 | a recurrence derived from the summand by creative telescoping |
+| 12573 | PROOF | A264014 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12574 | PROOF | A222276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12575 | PROOF | A222139 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12576 | PROOF | A223299 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12577 | PROOF | A223318 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12578 | PROOF | A223291 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12579 | PROOF | A223373 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12580 | PROOF | A223687 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12581 | PROOF | A231280 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12582 | PROOF | A223241 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12583 | PROOF | A208779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12584 | PROOF | A223212 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12585 | PROOF | A230179 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12586 | PROOF | A208778 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12587 | PROOF | A223249 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12588 | PROOF | A253158 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12589 | PROOF | A253434 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12590 | PROOF | A253441 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12591 | PROOF | A223278 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12592 | PROOF | A185858 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12593 | PROOF | A203729 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12594 | PROOF | A222459 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12595 | PROOF | A203881 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12596 | PROOF | A222336 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12597 | PROOF | A253157 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12598 | PROOF | A253433 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12599 | PROOF | A253440 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12600 | PROOF | A223228 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12601 | PROOF | A223258 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12602 | PROOF | A238923 | a condition on every cell over the neighbour set the entry names |
+| 12603 | PROOF | A223181 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12604 | PROOF | A221121 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12605 | PROOF | A223443 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12606 | PROOF | A203928 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12607 | PROOF | A223204 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12608 | PROOF | A223277 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12609 | PROOF | A253156 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12610 | PROOF | A253432 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12611 | PROOF | A253439 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12612 | PROOF | A223332 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12613 | PROOF | A223552 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12614 | PROOF | A206066 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12615 | PROOF | A223234 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12616 | PROOF | A203650 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12617 | PROOF | A253155 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12618 | PROOF | A253431 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12619 | PROOF | A253438 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12620 | PROOF | A223197 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12621 | PROOF | A239171 | a condition on every cell over the neighbour set the entry names |
+| 12622 | PROOF | A221082 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12623 | PROOF | A208502 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12624 | PROOF | A223290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12625 | PROOF | A223372 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12626 | PROOF | A278008 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12627 | PROOF | A253154 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12628 | PROOF | A253430 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12629 | PROOF | A253437 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12630 | PROOF | A211715 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12631 | PROOF | A203790 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12632 | PROOF | A245994 | conjectured recurrence proved |
+| 12633 | PROOF | A298777 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12634 | PROOF | A301402 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12635 | PROOF | A301779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12636 | PROOF | A301836 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12637 | PROOF | A302064 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12638 | PROOF | A302675 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12639 | PROOF | A206144 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12640 | PROOF | A223240 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12641 | PROOF | A223417 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12642 | PROOF | A253153 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12643 | PROOF | A253429 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12644 | PROOF | A253436 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12645 | PROOF | A223270 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12646 | PROOF | A207590 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12647 | PROOF | A207846 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12648 | PROOF | A245992 | conjectured recurrence proved |
+| 12649 | PROOF | A184688 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12650 | PROOF | A221829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12651 | PROOF | A203829 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12652 | PROOF | A209505 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12653 | PROOF | A221731 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12654 | PROOF | A208485 | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the number of edge increases each way round, and how those counts compare with the neighbouring subblocks' |
+| 12655 | PROOF | A275229 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12656 | PROOF | A183702 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12657 | PROOF | A184145 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12658 | PROOF | A185761 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12659 | PROOF | A205187 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12660 | PROOF | A206014 | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock |
+| 12661 | PROOF | A221462 | conjectured recurrence proved |
+| 12662 | PROOF | A245990 | conjectured recurrence proved |
+| 12663 | PROOF | A251276 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12664 | PROOF | A251484 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12665 | PROOF | A253152 | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid |
+| 12666 | PROOF | A221461 | conjectured recurrence proved |
+| 12667 | PROOF | A234779 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12668 | PROOF | A183690 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12669 | PROOF | A184368 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12670 | PROOF | A209789 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12671 | PROOF | A209944 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12672 | PROOF | A233637 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12673 | PROOF | A234436 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12674 | PROOF | A183682 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12675 | PROOF | A228791 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12676 | PROOF | A208347 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12677 | PROOF | A233164 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12678 | PROOF | A233165 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12679 | PROOF | A233166 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12680 | PROOF | A259243 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12681 | PROOF | A259290 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12682 | PROOF | A233163 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12683 | PROOF | A183615 | conjectured recurrence proved |
+| 12684 | PROOF | A222098 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12685 | PROOF | A222439 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12686 | PROOF | A233196 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12687 | PROOF | A233252 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12688 | PROOF | A183586 | conjectured recurrence proved |
+| 12689 | PROOF | A232921 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12690 | PROOF | A232950 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12691 | PROOF | A232956 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12692 | PROOF | A233020 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12693 | PROOF | A233123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12694 | PROOF | A233251 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12695 | PROOF | A235877 | conjectured recurrence proved |
+| 12696 | PROOF | A235886 | conjectured recurrence proved |
+| 12697 | PROOF | A243585 | a recurrence derived from the summand by creative telescoping |
+| 12698 | PROOF | A026005 | a recurrence derived from the summand by creative telescoping |
+| 12699 | PROOF | A264123 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12700 | PROOF | A264185 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12701 | PROOF | A222335 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12702 | PROOF | A222138 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12703 | PROOF | A249227 | conjectured recurrence proved |
+| 12704 | PROOF | A223322 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12705 | PROOF | A206143 | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up |
+| 12706 | PROOF | A188825 | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly |
+| 12707 | PROOF | A208428 | the entry constrains each element by cells a bounded distance away -- as far as a knight move in some of them -- so a window of that width decides the condition on the line in the middle, and the lines with nothing far enough beyond them are decided at the end |
+| 12708 | PROOF | A183355 | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three consecutive lines for the local ones, or a row sum together with one flag per adjacent column pair for the two that compare whole rows and whole columns |
+| 12709 | PROOF | A359643 | the generating function derived from a coefficient-extraction definition |
+| 12710 | PROOF | A371753 | the generating function derived from a coefficient-extraction definition |
+| 12711 | PROOF | A226751 | the generating function derived from a coefficient-extraction definition |
+| 12712 | PROOF | A386830 | the generating function derived from a coefficient-extraction definition |
+| 12713 | PROOF | A172025 | the generating function derived from a coefficient-extraction definition |
+| 12714 | PROOF | A348410 | the generating function derived from a coefficient-extraction definition |
+| 12715 | PROOF | A243764 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12716 | PROOF | A243760 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12717 | PROOF | A285195 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12718 | PROOF | A243814 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12719 | PROOF | A055392 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12720 | PROOF | A025758 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12721 | PROOF | A308726 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12722 | PROOF | A243022 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12723 | PROOF | A168506 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12724 | PROOF | A239425 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12725 | PROOF | A025757 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12726 | PROOF | A242566 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12727 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12728 | PROOF | A101478 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12729 | PROOF | A025756 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12730 | PROOF | A097180 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12731 | PROOF | A097189 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12732 | PROOF | A127632 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12733 | PROOF | A130655 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12734 | PROOF | A166135 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12735 | PROOF | A212696 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12736 | PROOF | A261196 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12737 | PROOF | A270530 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12738 | PROOF | A185010 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12739 | PROOF | A185020 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12740 | PROOF | A200312 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12741 | PROOF | A025754 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12742 | PROOF | A097188 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12743 | PROOF | A097192 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12744 | PROOF | A158826 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12745 | PROOF | A159769 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12746 | PROOF | A294159 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12747 | PROOF | A392976 | a general algebraic function field: nested radicals, implicit or reversion g.f.s |
+| 12748 | PROOF | A162972 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12749 | PROOF | A001465 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12750 | PROOF | A085387 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12751 | PROOF | A096471 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12752 | PROOF | A000704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12753 | PROOF | A001724 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12754 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12755 | PROOF | A097204 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12756 | PROOF | A053532 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12757 | PROOF | A000483 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12758 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12759 | PROOF | A002104 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12760 | PROOF | A002538 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12761 | PROOF | A066052 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12762 | PROOF | A073591 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12763 | PROOF | A108704 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12764 | PROOF | A110322 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12765 | PROOF | A185369 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12766 | PROOF | A000276 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12767 | PROOF | A000774 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12768 | PROOF | A094905 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12769 | PROOF | A098557 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12770 | PROOF | A051560 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12771 | PROOF | A129149 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12772 | PROOF | A187252 | a transcendental e.g.f., in a differential module over Q(x) |
+| 12773 | PROOF | A005654 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12774 | PROOF | A116385 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12775 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12776 | PROOF | A065942 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12777 | PROOF | A081181 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12778 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12779 | PROOF | A005558 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12780 | PROOF | A005559 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12781 | PROOF | A005560 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12782 | PROOF | A005561 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12783 | PROOF | A005562 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12784 | PROOF | A081204 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12785 | PROOF | A081205 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12786 | PROOF | A213801 | a posted closed form split on the parity of n, then decided by hypergeometric terms |
+| 12787 | PROOF | A171853 | a posted closed form against a derived holonomic recurrence |
+| 12788 | PROOF | A182899 | a posted closed form against a derived holonomic recurrence |
+| 12789 | PROOF | A273905 | a posted closed form against a derived holonomic recurrence |
+| 12790 | PROOF | A186828 | a posted closed form against a derived holonomic recurrence |
+| 12791 | PROOF | A026571 | a posted closed form against a derived holonomic recurrence |
+| 12792 | PROOF | A162479 | a posted closed form against a derived holonomic recurrence |
+| 12793 | PROOF | A162533 | a posted closed form against a derived holonomic recurrence |
+| 12794 | PROOF | A166697 | a posted closed form against a derived holonomic recurrence |
+| 12795 | PROOF | A242781 | a posted closed form against a derived holonomic recurrence |
+| 12796 | PROOF | A247173 | a posted closed form against a derived holonomic recurrence |
+| 12797 | PROOF | A276068 | a posted closed form against a derived holonomic recurrence |
+| 12798 | PROOF | A006231 | a posted closed form against a derived holonomic recurrence |
+| 12799 | PROOF | A026110 | a posted closed form against a derived holonomic recurrence |
+| 12800 | PROOF | A026125 | a posted closed form against a derived holonomic recurrence |
+| 12801 | PROOF | A026126 | a posted closed form against a derived holonomic recurrence |
+| 12802 | PROOF | A125267 | a posted closed form against a derived holonomic recurrence |
+| 12803 | PROOF | A174016 | a posted closed form against a derived holonomic recurrence |
+| 12804 | PROOF | A186338 | a posted closed form against a derived holonomic recurrence |
+| 12805 | PROOF | A213203 | a posted closed form compared against the posted generating function |
+| 12806 | PROOF | A228178 | a posted closed form against a derived holonomic recurrence |
+| 12807 | PROOF | A242429 | a posted closed form compared against the posted generating function |
+| 12808 | PROOF | A247102 | a posted closed form against a derived holonomic recurrence |
+| 12809 | PROOF | A250307 | a posted closed form against a derived holonomic recurrence |
+| 12810 | PROOF | A292461 | a posted closed form against a derived holonomic recurrence |
+| 12811 | PROOF | A026018 | a posted closed form compared against the posted generating function |
+| 12812 | PROOF | A026122 | a posted closed form against a derived holonomic recurrence |
+| 12813 | PROOF | A026270 | a posted closed form against a derived holonomic recurrence |
+| 12814 | PROOF | A092634 | a posted closed form compared against the posted generating function |
+| 12815 | PROOF | A097332 | a posted closed form against a derived holonomic recurrence |
+| 12816 | PROOF | A103138 | a posted closed form against a derived holonomic recurrence |
+| 12817 | PROOF | A104624 | a posted closed form against a derived holonomic recurrence |
+| 12818 | PROOF | A141344 | a posted closed form against a derived holonomic recurrence |
+| 12819 | PROOF | A166228 | a posted closed form against a derived holonomic recurrence |
+| 12820 | PROOF | A182122 | a posted closed form against a derived holonomic recurrence |
+| 12821 | PROOF | A239201 | a posted closed form against a derived holonomic recurrence |
+| 12822 | PROOF | A239204 | a posted closed form against a derived holonomic recurrence |
+| 12823 | PROOF | A244884 | a posted closed form against a derived holonomic recurrence |
+| 12824 | PROOF | A026013 | a posted closed form against a derived holonomic recurrence |
+| 12825 | PROOF | A026026 | a posted closed form compared against the posted generating function |
+| 12826 | PROOF | A052227 | a posted closed form compared against the posted generating function |
+| 12827 | PROOF | A054109 | a posted closed form against a derived holonomic recurrence |
+| 12828 | PROOF | A152601 | a posted closed form against a derived holonomic recurrence |
+| 12829 | PROOF | A228329 | a posted closed form compared against the posted generating function |
+| 12830 | PROOF | A259457 | a posted closed form compared against the posted generating function |
+| 12831 | PROOF | A268554 | a posted closed form compared against the posted generating function |
+| 12832 | PROOF | A214907 | the recurrence follows from a generating function the entry records as fact |
+| 12833 | PROOF | A163020 | the recurrence follows from a generating function the entry records as fact |
+| 12834 | PROOF | A220640 | the recurrence follows from a generating function the entry records as fact |
+| 12835 | PROOF | A262482 | the recurrence follows from a generating function the entry records as fact |
+| 12836 | PROOF | A220639 | the recurrence follows from a generating function the entry records as fact |
+| 12837 | PROOF | A102319 | several independent square roots |
+| 12838 | PROOF | A115256 | several independent square roots |
+| 12839 | PROOF | A157125 | several independent square roots |
+| 12840 | PROOF | A102318 | several independent square roots |
+| 12841 | PROOF | A107587 | several independent square roots |
+| 12842 | PROOF | A218185 | several independent square roots |
+| 12843 | PROOF | A025567 | several independent square roots |
+| 12844 | PROOF | A071684 | several independent square roots |
+| 12845 | PROOF | A179648 | several independent square roots |
+| 12846 | PROOF | A184120 | several independent square roots |
+| 12847 | PROOF | A026163 | several independent square roots |
+| 12848 | PROOF | A102318 | several independent square roots |
+| 12849 | PROOF | A101500 | several independent square roots |
+| 12850 | PROOF | A102319 | several independent square roots |
+| 12851 | PROOF | A107587 | several independent square roots |
+| 12852 | PROOF | A263690 | the recurrence follows from a generating function the entry records as fact |
+| 12853 | PROOF | A072100 | several independent square roots |
+| 12854 | PROOF | A211525 | the recurrence follows from a generating function the entry records as fact |
+| 12855 | PROOF | A189604 | the recurrence follows from a generating function the entry records as fact |
+| 12856 | PROOF | A025567 | several independent square roots |
+| 12857 | PROOF | A189274 | the recurrence follows from a generating function the entry records as fact |
+| 12858 | PROOF | A110320 | an identity between different entries |
+| 12859 | PROOF | A346370 | an identity between different entries |
+| 12860 | PROOF | A233679 | conjectured recurrence proved |
+| 12861 | PROOF | A298144 | conjectured recurrence proved |
+| 12862 | PROOF | A301845 | conjectured recurrence proved |
+| 12863 | PROOF | A251227 | conjectured recurrence proved |
+| 12864 | PROOF | A297990 | conjectured recurrence proved |
+| 12865 | PROOF | A281342 | conjectured recurrence proved |
+| 12866 | PROOF | A281031 | conjectured recurrence proved |
+| 12867 | PROOF | A251041 | conjectured recurrence proved |
+| 12868 | PROOF | A305243 | conjectured recurrence proved |
+| 12869 | PROOF | A297821 | conjectured recurrence proved |
+| 12870 | PROOF | A252062 | conjectured recurrence proved |
+| 12871 | PROOF | A278278 | conjectured recurrence proved |
+| 12872 | PROOF | A277769 | conjectured recurrence proved |
+| 12873 | PROOF | A317740 | conjectured recurrence proved |
+| 12874 | PROOF | A281834 | conjectured recurrence proved |
+| 12875 | PROOF | A301441 | conjectured recurrence proved |
+| 12876 | PROOF | A305086 | conjectured recurrence proved |
+| 12877 | PROOF | A305486 | conjectured recurrence proved |
+| 12878 | PROOF | A300877 | conjectured recurrence proved |
+| 12879 | PROOF | A283639 | conjectured recurrence proved |
+| 12880 | PROOF | A264269 | conjectured recurrence proved |
+| 12881 | PROOF | A283200 | conjectured recurrence proved |
+| 12882 | PROOF | A252141 | conjectured recurrence proved |
+| 12883 | PROOF | A252845 | conjectured recurrence proved |
+| 12884 | PROOF | A259999 | conjectured recurrence proved |
+| 12885 | PROOF | A304924 | conjectured recurrence proved |
+| 12886 | PROOF | A254087 | conjectured recurrence proved |
+| 12887 | PROOF | A297611 | conjectured recurrence proved |
+| 12888 | PROOF | A240419 | conjectured recurrence proved |
+| 12889 | PROOF | A300884 | conjectured recurrence proved |
+| 12890 | PROOF | A241075 | conjectured recurrence proved |
+| 12891 | PROOF | A316279 | conjectured recurrence proved |
+| 12892 | PROOF | A232035 | conjectured recurrence proved |
+| 12893 | PROOF | A297799 | conjectured recurrence proved |
+| 12894 | PROOF | A300933 | conjectured recurrence proved |
+| 12895 | PROOF | A230815 | conjectured recurrence proved |
+| 12896 | PROOF | A297587 | conjectured recurrence proved |
+| 12897 | PROOF | A236060 | conjectured recurrence proved |
+| 12898 | PROOF | A240787 | conjectured recurrence proved |
+| 12899 | PROOF | A232157 | conjectured recurrence proved |
+| 12900 | PROOF | A258520 | conjectured recurrence proved |
+| 12901 | PROOF | A317820 | conjectured recurrence proved |
+| 12902 | PROOF | A266057 | conjectured recurrence proved |
+| 12903 | PROOF | A266020 | conjectured recurrence proved |
+| 12904 | PROOF | A267641 | conjectured recurrence proved |
+| 12905 | PROOF | A282590 | conjectured recurrence proved |
+| 12906 | PROOF | A237137 | conjectured recurrence proved |
+| 12907 | PROOF | A267790 | conjectured recurrence proved |
+| 12908 | PROOF | A250711 | conjectured recurrence proved |
+| 12909 | PROOF | A230187 | conjectured recurrence proved |
+| 12910 | PROOF | A303687 | conjectured recurrence proved |
+| 12911 | PROOF | A316737 | conjectured recurrence proved |
+| 12912 | PROOF | A304146 | conjectured recurrence proved |
+| 12913 | PROOF | A303466 | conjectured recurrence proved |
+| 12914 | PROOF | A300502 | conjectured recurrence proved |
+| 12915 | PROOF | A295916 | conjectured recurrence proved |
+| 12916 | PROOF | A264208 | conjectured recurrence proved |
+| 12917 | PROOF | A236030 | conjectured recurrence proved |
+| 12918 | PROOF | A253988 | conjectured recurrence proved |
+| 12919 | PROOF | A304602 | conjectured recurrence proved |
+| 12920 | PROOF | A229540 | conjectured recurrence proved |
+| 12921 | PROOF | A269041 | conjectured recurrence proved |
+| 12922 | PROOF | A269058 | conjectured recurrence proved |
+| 12923 | PROOF | A302221 | conjectured recurrence proved |
+| 12924 | PROOF | A303893 | conjectured recurrence proved |
+| 12925 | PROOF | A260839 | conjectured recurrence proved |
+| 12926 | PROOF | A296383 | conjectured recurrence proved |
+| 12927 | PROOF | A298277 | conjectured recurrence proved |
+| 12928 | PROOF | A302083 | conjectured recurrence proved |
+| 12929 | PROOF | A299726 | conjectured recurrence proved |
+| 12930 | PROOF | A295780 | conjectured recurrence proved |
+| 12931 | PROOF | A254548 | conjectured recurrence proved |
+| 12932 | PROOF | A305514 | conjectured recurrence proved |
+| 12933 | PROOF | A239408 | conjectured recurrence proved |
+| 12934 | PROOF | A239652 | conjectured recurrence proved |
+| 12935 | PROOF | A260542 | conjectured recurrence proved |
+| 12936 | PROOF | A304138 | conjectured recurrence proved |
+| 12937 | PROOF | A295037 | conjectured recurrence proved |
+| 12938 | PROOF | A282836 | conjectured recurrence proved |
+| 12939 | PROOF | A283947 | conjectured recurrence proved |
+| 12940 | PROOF | A238724 | conjectured recurrence proved |
+| 12941 | PROOF | A239028 | conjectured recurrence proved |
+| 12942 | PROOF | A231995 | conjectured recurrence proved |
+| 12943 | PROOF | A304424 | conjectured recurrence proved |
+| 12944 | PROOF | A302805 | conjectured recurrence proved |
+| 12945 | PROOF | A253483 | conjectured recurrence proved |
+| 12946 | PROOF | A303099 | conjectured recurrence proved |
+| 12947 | PROOF | A299652 | conjectured recurrence proved |
+| 12948 | PROOF | A299658 | conjectured recurrence proved |
+| 12949 | PROOF | A263220 | conjectured recurrence proved |
+| 12950 | PROOF | A230907 | conjectured recurrence proved |
+| 12951 | PROOF | A316929 | conjectured recurrence proved |
+| 12952 | PROOF | A301487 | conjectured recurrence proved |
+| 12953 | PROOF | A252286 | conjectured recurrence proved |
+| 12954 | PROOF | A278154 | conjectured recurrence proved |
+| 12955 | PROOF | A250948 | conjectured recurrence proved |
+| 12956 | PROOF | A282438 | conjectured recurrence proved |
+| 12957 | PROOF | A279131 | conjectured recurrence proved |
+| 12958 | PROOF | A237725 | conjectured recurrence proved |
+| 12959 | PROOF | A224308 | conjectured recurrence proved |
+| 12960 | PROOF | A257421 | conjectured recurrence proved |
+| 12961 | PROOF | A251447 | conjectured recurrence proved |
+| 12962 | PROOF | A237220 | conjectured recurrence proved |
+| 12963 | PROOF | A237483 | conjectured recurrence proved |
+| 12964 | PROOF | A263435 | conjectured recurrence proved |
+| 12965 | PROOF | A260498 | conjectured recurrence proved |
+| 12966 | PROOF | A236038 | conjectured recurrence proved |
+| 12967 | PROOF | A280067 | conjectured recurrence proved |
+| 12968 | PROOF | A297717 | conjectured recurrence proved |
+| 12969 | PROOF | A297523 | conjectured recurrence proved |
+| 12970 | PROOF | A317700 | conjectured recurrence proved |
+| 12971 | PROOF | A231742 | conjectured recurrence proved |
+| 12972 | PROOF | A268027 | conjectured recurrence proved |
+| 12973 | PROOF | A282882 | conjectured recurrence proved |
+| 12974 | PROOF | A253874 | conjectured recurrence proved |
+| 12975 | PROOF | A253540 | conjectured recurrence proved |
+| 12976 | PROOF | A278091 | conjectured recurrence proved |
+| 12977 | PROOF | A297886 | conjectured recurrence proved |
+| 12978 | PROOF | A260245 | conjectured recurrence proved |
+| 12979 | PROOF | A232960 | conjectured recurrence proved |
+| 12980 | PROOF | A233688 | conjectured recurrence proved |
+| 12981 | PROOF | A295203 | conjectured recurrence proved |
+| 12982 | PROOF | A296318 | conjectured recurrence proved |
+| 12983 | PROOF | A282860 | conjectured recurrence proved |
+| 12984 | PROOF | A300802 | conjectured recurrence proved |
+| 12985 | PROOF | A306050 | conjectured recurrence proved |
+| 12986 | PROOF | A316286 | conjectured recurrence proved |
+| 12987 | PROOF | A302152 | conjectured recurrence proved |
+| 12988 | PROOF | A264479 | conjectured recurrence proved |
+| 12989 | PROOF | A264503 | conjectured recurrence proved |
+| 12990 | PROOF | A264547 | conjectured recurrence proved |
+| 12991 | PROOF | A264566 | conjectured recurrence proved |
+| 12992 | PROOF | A264580 | conjectured recurrence proved |
+| 12993 | PROOF | A275092 | conjectured recurrence proved |
+| 12994 | PROOF | A284078 | conjectured recurrence proved |
+| 12995 | PROOF | A283662 | conjectured recurrence proved |
+| 12996 | PROOF | A279164 | conjectured recurrence proved |
+| 12997 | PROOF | A303186 | conjectured recurrence proved |
+| 12998 | PROOF | A297378 | conjectured recurrence proved |
+| 12999 | PROOF | A317227 | conjectured recurrence proved |
+| 13000 | PROOF | A304469 | conjectured recurrence proved |
+| 13001 | PROOF | A259892 | conjectured recurrence proved |
+| 13002 | PROOF | A259721 | conjectured recurrence proved |
+| 13003 | PROOF | A302378 | conjectured recurrence proved |
+| 13004 | PROOF | A297594 | conjectured recurrence proved |
+| 13005 | PROOF | A296325 | conjectured recurrence proved |
+| 13006 | PROOF | A283689 | conjectured recurrence proved |
+| 13007 | PROOF | A252029 | conjectured recurrence proved |
+| 13008 | PROOF | A255098 | conjectured recurrence proved |
+| 13009 | PROOF | A299718 | conjectured recurrence proved |
+| 13010 | PROOF | A320405 | conjectured recurrence proved |
+| 13011 | PROOF | A300494 | conjectured recurrence proved |
+| 13012 | PROOF | A317867 | conjectured recurrence proved |
+| 13013 | PROOF | A253040 | conjectured recurrence proved |
+| 13014 | PROOF | A237960 | conjectured recurrence proved |
+| 13015 | PROOF | A297342 | conjectured recurrence proved |
+| 13016 | PROOF | A300678 | conjectured recurrence proved |
+| 13017 | PROOF | A297430 | conjectured recurrence proved |
+| 13018 | PROOF | A283632 | conjectured recurrence proved |
+| 13019 | PROOF | A238250 | conjectured recurrence proved |
+| 13020 | PROOF | A302639 | conjectured recurrence proved |
+| 13021 | PROOF | A231905 | conjectured recurrence proved |
+| 13022 | PROOF | A317732 | conjectured recurrence proved |
+| 13023 | PROOF | A230172 | conjectured recurrence proved |
+| 13024 | PROOF | A232340 | conjectured recurrence proved |
+| 13025 | PROOF | A267663 | conjectured recurrence proved |
+| 13026 | PROOF | A253867 | conjectured recurrence proved |
+| 13027 | PROOF | A302169 | conjectured recurrence proved |
+| 13028 | PROOF | A240366 | conjectured recurrence proved |
+| 13029 | PROOF | A302962 | conjectured recurrence proved |
+| 13030 | PROOF | A240297 | conjectured recurrence proved |
+| 13031 | PROOF | A260206 | conjectured recurrence proved |
+| 13032 | PROOF | A297737 | conjectured recurrence proved |
+| 13033 | PROOF | A253616 | conjectured recurrence proved |
+| 13034 | PROOF | A300376 | conjectured recurrence proved |
+| 13035 | PROOF | A231781 | conjectured recurrence proved |
+| 13036 | PROOF | A263871 | conjectured recurrence proved |
+| 13037 | PROOF | A299737 | conjectured recurrence proved |
+| 13038 | PROOF | A250639 | conjectured recurrence proved |
+| 13039 | PROOF | A250591 | conjectured recurrence proved |
+| 13040 | PROOF | A304132 | conjectured recurrence proved |
+| 13041 | PROOF | A257149 | conjectured recurrence proved |
+| 13042 | PROOF | A302419 | conjectured recurrence proved |
+| 13043 | PROOF | A255157 | conjectured recurrence proved |
+| 13044 | PROOF | A266063 | conjectured recurrence proved |
+| 13045 | PROOF | A295118 | conjectured recurrence proved |
+| 13046 | PROOF | A295273 | conjectured recurrence proved |
+| 13047 | PROOF | A295414 | conjectured recurrence proved |
+| 13048 | PROOF | A253039 | conjectured recurrence proved |
+| 13049 | PROOF | A256731 | conjectured recurrence proved |
+| 13050 | PROOF | A232051 | conjectured recurrence proved |
+| 13051 | PROOF | A232320 | conjectured recurrence proved |
+| 13052 | PROOF | A255778 | conjectured recurrence proved |
+| 13053 | PROOF | A297759 | conjectured recurrence proved |
+| 13054 | PROOF | A295210 | conjectured recurrence proved |
+| 13055 | PROOF | A266133 | conjectured recurrence proved |
+| 13056 | PROOF | A297746 | conjectured recurrence proved |
+| 13057 | PROOF | A301494 | conjectured recurrence proved |
+| 13058 | PROOF | A256026 | conjectured recurrence proved |
+| 13059 | PROOF | A316951 | conjectured recurrence proved |
+| 13060 | PROOF | A255145 | conjectured recurrence proved |
+| 13061 | PROOF | A253656 | conjectured recurrence proved |
+| 13062 | PROOF | A299331 | conjectured recurrence proved |
+| 13063 | PROOF | A295713 | conjectured recurrence proved |
+| 13064 | PROOF | A254776 | conjectured recurrence proved |
+| 13065 | PROOF | A254722 | conjectured recurrence proved |
+| 13066 | PROOF | A260283 | conjectured recurrence proved |
+| 13067 | PROOF | A252600 | conjectured recurrence proved |
+| 13068 | PROOF | A229517 | conjectured recurrence proved |
+| 13069 | PROOF | A300535 | conjectured recurrence proved |
+| 13070 | PROOF | A300962 | conjectured recurrence proved |
+| 13071 | PROOF | A283861 | conjectured recurrence proved |
+| 13072 | PROOF | A283491 | conjectured recurrence proved |
+| 13073 | PROOF | A316180 | conjectured recurrence proved |
+| 13074 | PROOF | A296639 | conjectured recurrence proved |
+| 13075 | PROOF | A241116 | conjectured recurrence proved |
+| 13076 | PROOF | A295845 | conjectured recurrence proved |
+| 13077 | PROOF | A262468 | conjectured recurrence proved |
+| 13078 | PROOF | A236091 | conjectured recurrence proved |
+| 13079 | PROOF | A254452 | conjectured recurrence proved |
+| 13080 | PROOF | A254170 | conjectured recurrence proved |
+| 13081 | PROOF | A302956 | conjectured recurrence proved |
+| 13082 | PROOF | A297462 | conjectured recurrence proved |
+| 13083 | PROOF | A281799 | conjectured recurrence proved |
+| 13084 | PROOF | A236636 | conjectured recurrence proved |
+| 13085 | PROOF | A281718 | conjectured recurrence proved |
+| 13086 | PROOF | A283413 | conjectured recurrence proved |
+| 13087 | PROOF | A259296 | conjectured recurrence proved |
+| 13088 | PROOF | A302524 | conjectured recurrence proved |
+| 13089 | PROOF | A231582 | conjectured recurrence proved |
+| 13090 | PROOF | A252073 | conjectured recurrence proved |
+| 13091 | PROOF | A318041 | conjectured recurrence proved |
+| 13092 | PROOF | A300608 | conjectured recurrence proved |
+| 13093 | PROOF | A301350 | conjectured recurrence proved |
+| 13094 | PROOF | A318094 | conjectured recurrence proved |
+| 13095 | PROOF | A298550 | conjectured recurrence proved |
+| 13096 | PROOF | A299245 | conjectured recurrence proved |
+| 13097 | PROOF | A299557 | conjectured recurrence proved |
+| 13098 | PROOF | A302274 | conjectured recurrence proved |
+| 13099 | PROOF | A298059 | conjectured recurrence proved |
+| 13100 | PROOF | A252267 | conjectured recurrence proved |
+| 13101 | PROOF | A252367 | conjectured recurrence proved |
+| 13102 | PROOF | A259522 | conjectured recurrence proved |
+| 13103 | PROOF | A259960 | conjectured recurrence proved |
+| 13104 | PROOF | A252341 | conjectured recurrence proved |
+| 13105 | PROOF | A255025 | conjectured recurrence proved |
+| 13106 | PROOF | A298316 | conjectured recurrence proved |
+| 13107 | PROOF | A298378 | conjectured recurrence proved |
+| 13108 | PROOF | A300092 | conjectured recurrence proved |
+| 13109 | PROOF | A302462 | conjectured recurrence proved |
+| 13110 | PROOF | A303411 | conjectured recurrence proved |
+| 13111 | PROOF | A306132 | conjectured recurrence proved |
+| 13112 | PROOF | A253858 | conjectured recurrence proved |
+| 13113 | PROOF | A254493 | conjectured recurrence proved |
+| 13114 | PROOF | A280158 | conjectured recurrence proved |
+| 13115 | PROOF | A298708 | conjectured recurrence proved |
+| 13116 | PROOF | A320369 | conjectured recurrence proved |
+| 13117 | PROOF | A237845 | conjectured recurrence proved |
+| 13118 | PROOF | A277941 | conjectured recurrence proved |
+| 13119 | PROOF | A302262 | conjectured recurrence proved |
+| 13120 | PROOF | A231520 | conjectured recurrence proved |
+| 13121 | PROOF | A234862 | conjectured recurrence proved |
+| 13122 | PROOF | A299454 | conjectured recurrence proved |
+| 13123 | PROOF | A304547 | conjectured recurrence proved |
+| 13124 | PROOF | A304672 | conjectured recurrence proved |
+| 13125 | PROOF | A316119 | conjectured recurrence proved |
+| 13126 | PROOF | A295376 | conjectured recurrence proved |
+| 13127 | PROOF | A297400 | conjectured recurrence proved |
+| 13128 | PROOF | A283548 | conjectured recurrence proved |
+| 13129 | PROOF | A254771 | conjectured recurrence proved |
+| 13130 | PROOF | A282994 | conjectured recurrence proved |
+| 13131 | PROOF | A281952 | conjectured recurrence proved |
+| 13132 | PROOF | A281932 | conjectured recurrence proved |
+| 13133 | PROOF | A283787 | conjectured recurrence proved |
+| 13134 | PROOF | A283279 | conjectured recurrence proved |
+| 13135 | PROOF | A229642 | conjectured recurrence proved |
+| 13136 | PROOF | A252453 | conjectured recurrence proved |
+| 13137 | PROOF | A252084 | conjectured recurrence proved |
+| 13138 | PROOF | A295603 | conjectured recurrence proved |
+| 13139 | PROOF | A298385 | conjectured recurrence proved |
+| 13140 | PROOF | A299190 | conjectured recurrence proved |
+| 13141 | PROOF | A299461 | conjectured recurrence proved |
+| 13142 | PROOF | A305011 | conjectured recurrence proved |
+| 13143 | PROOF | A316644 | conjectured recurrence proved |
+| 13144 | PROOF | A304693 | conjectured recurrence proved |
+| 13145 | PROOF | A305907 | conjectured recurrence proved |
+| 13146 | PROOF | A316444 | conjectured recurrence proved |
+| 13147 | PROOF | A316637 | conjectured recurrence proved |
+| 13148 | PROOF | A317149 | conjectured recurrence proved |
+| 13149 | PROOF | A230802 | conjectured recurrence proved |
+| 13150 | PROOF | A231215 | conjectured recurrence proved |
+| 13151 | PROOF | A253980 | conjectured recurrence proved |
+| 13152 | PROOF | A282526 | conjectured recurrence proved |
+| 13153 | PROOF | A268797 | conjectured recurrence proved |
+| 13154 | PROOF | A268808 | conjectured recurrence proved |
+| 13155 | PROOF | A279980 | conjectured recurrence proved |
+| 13156 | PROOF | A238651 | conjectured recurrence proved |
+| 13157 | PROOF | A251316 | conjectured recurrence proved |
+| 13158 | PROOF | A268788 | conjectured recurrence proved |
+| 13159 | PROOF | A268892 | conjectured recurrence proved |
+| 13160 | PROOF | A269001 | conjectured recurrence proved |
+| 13161 | PROOF | A269088 | conjectured recurrence proved |
+| 13162 | PROOF | A254392 | conjectured recurrence proved |
+| 13163 | PROOF | A303459 | conjectured recurrence proved |
+| 13164 | PROOF | A297634 | conjectured recurrence proved |
+| 13165 | PROOF | A299836 | conjectured recurrence proved |
+| 13166 | PROOF | A256897 | conjectured recurrence proved |
+| 13167 | PROOF | A298392 | conjectured recurrence proved |
+| 13168 | PROOF | A299303 | conjectured recurrence proved |
+| 13169 | PROOF | A299510 | conjectured recurrence proved |
+| 13170 | PROOF | A302530 | conjectured recurrence proved |
+| 13171 | PROOF | A299093 | conjectured recurrence proved |
+| 13172 | PROOF | A317432 | conjectured recurrence proved |
+| 13173 | PROOF | A301612 | conjectured recurrence proved |
+| 13174 | PROOF | A262476 | conjectured recurrence proved |
+| 13175 | PROOF | A251001 | conjectured recurrence proved |
+| 13176 | PROOF | A295982 | conjectured recurrence proved |
+| 13177 | PROOF | A296671 | conjectured recurrence proved |
+| 13178 | PROOF | A237237 | conjectured recurrence proved |
+| 13179 | PROOF | A237679 | conjectured recurrence proved |
+| 13180 | PROOF | A252127 | conjectured recurrence proved |
+| 13181 | PROOF | A259950 | conjectured recurrence proved |
+| 13182 | PROOF | A298324 | conjectured recurrence proved |
+| 13183 | PROOF | A299563 | conjectured recurrence proved |
+| 13184 | PROOF | A300104 | conjectured recurrence proved |
+| 13185 | PROOF | A303086 | conjectured recurrence proved |
+| 13186 | PROOF | A303244 | conjectured recurrence proved |
+| 13187 | PROOF | A304700 | conjectured recurrence proved |
+| 13188 | PROOF | A316451 | conjectured recurrence proved |
+| 13189 | PROOF | A317262 | conjectured recurrence proved |
+| 13190 | PROOF | A299875 | conjectured recurrence proved |
+| 13191 | PROOF | A316126 | conjectured recurrence proved |
+| 13192 | PROOF | A302822 | conjectured recurrence proved |
+| 13193 | PROOF | A254486 | conjectured recurrence proved |
+| 13194 | PROOF | A282646 | conjectured recurrence proved |
+| 13195 | PROOF | A254163 | conjectured recurrence proved |
+| 13196 | PROOF | A254356 | conjectured recurrence proved |
+| 13197 | PROOF | A254588 | conjectured recurrence proved |
+| 13198 | PROOF | A301825 | conjectured recurrence proved |
+| 13199 | PROOF | A300339 | conjectured recurrence proved |
+| 13200 | PROOF | A300172 | conjectured recurrence proved |
+| 13201 | PROOF | A299011 | conjectured recurrence proved |
+| 13202 | PROOF | A299217 | conjectured recurrence proved |
+| 13203 | PROOF | A299802 | conjectured recurrence proved |
+| 13204 | PROOF | A298150 | conjectured recurrence proved |
+| 13205 | PROOF | A299124 | conjectured recurrence proved |
+| 13206 | PROOF | A299882 | conjectured recurrence proved |
+| 13207 | PROOF | A305914 | conjectured recurrence proved |
+| 13208 | PROOF | A317156 | conjectured recurrence proved |
+| 13209 | PROOF | A305171 | conjectured recurrence proved |
+| 13210 | PROOF | A262920 | conjectured recurrence proved |
+| 13211 | PROOF | A253331 | conjectured recurrence proved |
+| 13212 | PROOF | A260474 | conjectured recurrence proved |
+| 13213 | PROOF | A250710 | conjectured recurrence proved |
+| 13214 | PROOF | A250531 | conjectured recurrence proved |
+| 13215 | PROOF | A251831 | conjectured recurrence proved |
+| 13216 | PROOF | A231936 | conjectured recurrence proved |
+| 13217 | PROOF | A299004 | conjectured recurrence proved |
+| 13218 | PROOF | A299671 | conjectured recurrence proved |
+| 13219 | PROOF | A299749 | conjectured recurrence proved |
+| 13220 | PROOF | A283577 | conjectured recurrence proved |
+| 13221 | PROOF | A232373 | conjectured recurrence proved |
+| 13222 | PROOF | A252913 | conjectured recurrence proved |
+| 13223 | PROOF | A237062 | conjectured recurrence proved |
+| 13224 | PROOF | A254094 | conjectured recurrence proved |
+| 13225 | PROOF | A302744 | conjectured recurrence proved |
+| 13226 | PROOF | A300927 | conjectured recurrence proved |
+| 13227 | PROOF | A230678 | conjectured recurrence proved |
+| 13228 | PROOF | A229377 | conjectured recurrence proved |
+| 13229 | PROOF | A316172 | conjectured recurrence proved |
+| 13230 | PROOF | A299584 | conjectured recurrence proved |
+| 13231 | PROOF | A317454 | conjectured recurrence proved |
+| 13232 | PROOF | A300263 | conjectured recurrence proved |
+| 13233 | PROOF | A239042 | conjectured recurrence proved |
+| 13234 | PROOF | A239335 | conjectured recurrence proved |
+| 13235 | PROOF | A239400 | conjectured recurrence proved |
+| 13236 | PROOF | A239821 | conjectured recurrence proved |
+| 13237 | PROOF | A278017 | conjectured recurrence proved |
+| 13238 | PROOF | A283638 | conjectured recurrence proved |
+| 13239 | PROOF | A283631 | conjectured recurrence proved |
+| 13240 | PROOF | A296685 | conjectured recurrence proved |
+| 13241 | PROOF | A282835 | conjectured recurrence proved |
+| 13242 | PROOF | A254918 | conjectured recurrence proved |
+| 13243 | PROOF | A253330 | conjectured recurrence proved |
+| 13244 | PROOF | A258533 | conjectured recurrence proved |
+| 13245 | PROOF | A223958 | conjectured recurrence proved |
+| 13246 | PROOF | A252771 | conjectured recurrence proved |
+| 13247 | PROOF | A252905 | conjectured recurrence proved |
+| 13248 | PROOF | A302370 | conjectured recurrence proved |
+| 13249 | PROOF | A302474 | conjectured recurrence proved |
+| 13250 | PROOF | A303515 | conjectured recurrence proved |
+| 13251 | PROOF | A254919 | conjectured recurrence proved |
+| 13252 | PROOF | A282557 | conjectured recurrence proved |
+| 13253 | PROOF | A253310 | conjectured recurrence proved |
+| 13254 | PROOF | A237071 | conjectured recurrence proved |
+| 13255 | PROOF | A231250 | conjectured recurrence proved |
+| 13256 | PROOF | A259425 | conjectured recurrence proved |
+| 13257 | PROOF | A316812 | conjectured recurrence proved |
+| 13258 | PROOF | A317562 | conjectured recurrence proved |
+| 13259 | PROOF | A299064 | conjectured recurrence proved |
+| 13260 | PROOF | A258534 | conjectured recurrence proved |
+| 13261 | PROOF | A224307 | conjectured recurrence proved |
+| 13262 | PROOF | A317462 | conjectured recurrence proved |
+| 13263 | PROOF | A267962 | conjectured recurrence proved |
+| 13264 | PROOF | A282789 | conjectured recurrence proved |
+| 13265 | PROOF | A232379 | conjectured recurrence proved |
+| 13266 | PROOF | A297651 | conjectured recurrence proved |
+| 13267 | PROOF | A297698 | conjectured recurrence proved |
+| 13268 | PROOF | A316806 | conjectured recurrence proved |
+| 13269 | PROOF | A317523 | conjectured recurrence proved |
+| 13270 | PROOF | A276304 | conjectured recurrence proved |
+| 13271 | PROOF | A283542 | conjectured recurrence proved |
+| 13272 | PROOF | A237163 | conjectured recurrence proved |
+| 13273 | PROOF | A236706 | conjectured recurrence proved |
+| 13274 | PROOF | A230616 | conjectured recurrence proved |
+| 13275 | PROOF | A251032 | conjectured recurrence proved |
+| 13276 | PROOF | A297510 | conjectured recurrence proved |
+| 13277 | PROOF | A303420 | conjectured recurrence proved |
+| 13278 | PROOF | A232152 | conjectured recurrence proved |
+| 13279 | PROOF | A296648 | conjectured recurrence proved |
+| 13280 | PROOF | A237386 | conjectured recurrence proved |
+| 13281 | PROOF | A250590 | conjectured recurrence proved |
+| 13282 | PROOF | A250679 | conjectured recurrence proved |
+| 13283 | PROOF | A251290 | conjectured recurrence proved |
+| 13284 | PROOF | A233071 | conjectured recurrence proved |
+| 13285 | PROOF | A305520 | conjectured recurrence proved |
+| 13286 | PROOF | A316957 | conjectured recurrence proved |
+| 13287 | PROOF | A297680 | conjectured recurrence proved |
+| 13288 | PROOF | A282313 | conjectured recurrence proved |
+| 13289 | PROOF | A250638 | conjectured recurrence proved |
+| 13290 | PROOF | A229636 | conjectured recurrence proved |
+| 13291 | PROOF | A254737 | conjectured recurrence proved |
+| 13292 | PROOF | A257155 | conjectured recurrence proved |
+| 13293 | PROOF | A283382 | conjectured recurrence proved |
+| 13294 | PROOF | A230472 | conjectured recurrence proved |
+| 13295 | PROOF | A250971 | conjectured recurrence proved |
+| 13296 | PROOF | A251098 | conjectured recurrence proved |
+| 13297 | PROOF | A232946 | conjectured recurrence proved |
+| 13298 | PROOF | A224350 | conjectured recurrence proved |
+| 13299 | PROOF | A267953 | conjectured recurrence proved |
+| 13300 | PROOF | A238149 | conjectured recurrence proved |
+| 13301 | PROOF | A237916 | conjectured recurrence proved |
+| 13302 | PROOF | A283695 | conjectured recurrence proved |
+| 13303 | PROOF | A251200 | conjectured recurrence proved |
+| 13304 | PROOF | A259513 | conjectured recurrence proved |
+| 13305 | PROOF | A265930 | conjectured recurrence proved |
+| 13306 | PROOF | A279922 | conjectured recurrence proved |
+| 13307 | PROOF | A283570 | conjectured recurrence proved |
+| 13308 | PROOF | A267907 | conjectured recurrence proved |
+| 13309 | PROOF | A282373 | conjectured recurrence proved |
+| 13310 | PROOF | A229592 | conjectured recurrence proved |
+| 13311 | PROOF | A268910 | conjectured recurrence proved |
+| 13312 | PROOF | A268977 | conjectured recurrence proved |
+| 13313 | PROOF | A237941 | conjectured recurrence proved |
+| 13314 | PROOF | A259249 | conjectured recurrence proved |
+| 13315 | PROOF | A223998 | conjectured recurrence proved |
+| 13316 | PROOF | A251226 | conjectured recurrence proved |
+| 13317 | PROOF | A302068 | conjectured recurrence proved |
+| 13318 | PROOF | A254265 | conjectured recurrence proved |
+| 13319 | PROOF | A301840 | conjectured recurrence proved |
+| 13320 | PROOF | A237294 | conjectured recurrence proved |
+| 13321 | PROOF | A251804 | conjectured recurrence proved |
+| 13322 | PROOF | A302080 | conjectured recurrence proved |
+| 13323 | PROOF | A301883 | conjectured recurrence proved |
+| 13324 | PROOF | A224277 | conjectured recurrence proved |
+| 13325 | PROOF | A269205 | conjectured recurrence proved |
+| 13326 | PROOF | A269218 | conjectured recurrence proved |
+| 13327 | PROOF | A264205 | conjectured recurrence proved |
+| 13328 | PROOF | A279302 | conjectured recurrence proved |
+| 13329 | PROOF | A279659 | conjectured recurrence proved |
+| 13330 | PROOF | A251246 | conjectured recurrence proved |
+| 13331 | PROOF | A302149 | conjectured recurrence proved |
+| 13332 | PROOF | A254385 | conjectured recurrence proved |
+| 13333 | PROOF | A250514 | conjectured recurrence proved |
+| 13334 | PROOF | A250450 | conjectured recurrence proved |
+| 13335 | PROOF | A229369 | conjectured recurrence proved |
+| 13336 | PROOF | A233024 | conjectured recurrence proved |
+| 13337 | PROOF | A269825 | conjectured recurrence proved |
+| 13338 | PROOF | A277784 | conjectured recurrence proved |
+| 13339 | PROOF | A224387 | conjectured recurrence proved |
+| 13340 | PROOF | A250672 | conjectured recurrence proved |
+| 13341 | PROOF | A263552 | conjectured recurrence proved |
+| 13342 | PROOF | A301783 | conjectured recurrence proved |
+| 13343 | PROOF | A229605 | conjectured recurrence proved |
+| 13344 | PROOF | A229684 | conjectured recurrence proved |
+| 13345 | PROOF | A301406 | conjectured recurrence proved |
+| 13346 | PROOF | A303425 | conjectured recurrence proved |
+| 13347 | PROOF | A223972 | conjectured recurrence proved |
+| 13348 | PROOF | A253348 | conjectured recurrence proved |
+| 13349 | PROOF | A253355 | conjectured recurrence proved |
+| 13350 | PROOF | A269212 | conjectured recurrence proved |
+| 13351 | PROOF | A224203 | conjectured recurrence proved |
+| 13352 | PROOF | A233017 | conjectured recurrence proved |
+| 13353 | PROOF | A176126 | the residual test over one square root, or none |
+| 13354 | PROOF | A191625 | the residual test over one square root, or none |
+| 13355 | PROOF | A186341 | the residual test over one square root, or none |
+| 13356 | PROOF | A026743 | the residual test over one square root, or none |
+| 13357 | PROOF | A191786 | the residual test over one square root, or none |
+| 13358 | PROOF | A210496 | the residual test over one square root, or none |
+| 13359 | PROOF | A182892 | the residual test over one square root, or none |
+| 13360 | PROOF | A270724 | the residual test over one square root, or none |
+| 13361 | PROOF | A190171 | the residual test over one square root, or none |
+| 13362 | PROOF | A257515 | the residual test over one square root, or none |
+| 13363 | PROOF | A190788 | the residual test over one square root, or none |
+| 13364 | PROOF | A095981 | the residual test over one square root, or none |
+| 13365 | PROOF | A212205 | the residual test over one square root, or none |
+| 13366 | PROOF | A270661 | the residual test over one square root, or none |
+| 13367 | PROOF | A157021 | the residual test over one square root, or none |
+| 13368 | PROOF | A165537 | the residual test over one square root, or none |
+| 13369 | PROOF | A166287 | the residual test over one square root, or none |
+| 13370 | PROOF | A174013 | the residual test over one square root, or none |
+| 13371 | PROOF | A178072 | the residual test over one square root, or none |
+| 13372 | PROOF | A182894 | the residual test over one square root, or none |
+| 13373 | PROOF | A114584 | the residual test over one square root, or none |
+| 13374 | PROOF | A164586 | the residual test over one square root, or none |
+| 13375 | PROOF | A189053 | the residual test over one square root, or none |
+| 13376 | PROOF | A182904 | the residual test over one square root, or none |
+| 13377 | PROOF | A274295 | the residual test over one square root, or none |
+| 13378 | PROOF | A226434 | the residual test over one square root, or none |
+| 13379 | PROOF | A257104 | the residual test over one square root, or none |
+| 13380 | PROOF | A108600 | the residual test over one square root, or none |
+| 13381 | PROOF | A114851 | the residual test over one square root, or none |
+| 13382 | PROOF | A125306 | the residual test over one square root, or none |
+| 13383 | PROOF | A166290 | the residual test over one square root, or none |
+| 13384 | PROOF | A228770 | the residual test over one square root, or none |
+| 13385 | PROOF | A257300 | the residual test over one square root, or none |
+| 13386 | PROOF | A089324 | the residual test over one square root, or none |
+| 13387 | PROOF | A104625 | the residual test over one square root, or none |
+| 13388 | PROOF | A113956 | the residual test over one square root, or none |
+| 13389 | PROOF | A116383 | the residual test over one square root, or none |
+| 13390 | PROOF | A162548 | the residual test over one square root, or none |
+| 13391 | PROOF | A173993 | the residual test over one square root, or none |
+| 13392 | PROOF | A244886 | the residual test over one square root, or none |
+| 13393 | PROOF | A157003 | the residual test over one square root, or none |
+| 13394 | PROOF | A162482 | the residual test over one square root, or none |
+| 13395 | PROOF | A163493 | the residual test over one square root, or none |
+| 13396 | PROOF | A191398 | the residual test over one square root, or none |
+| 13397 | PROOF | A135582 | the residual test over one square root, or none |
+| 13398 | PROOF | A139376 | the residual test over one square root, or none |
+| 13399 | PROOF | A346074 | the residual test over one square root, or none |
+| 13400 | PROOF | A190166 | the residual test over one square root, or none |
+| 13401 | PROOF | A025251 | the residual test over one square root, or none |
+| 13402 | PROOF | A228771 | the residual test over one square root, or none |
+| 13403 | PROOF | A025268 | the residual test over one square root, or none |
+| 13404 | PROOF | A025272 | the residual test over one square root, or none |
+| 13405 | PROOF | A162475 | the residual test over one square root, or none |
+| 13406 | PROOF | A385252 | the residual test over one square root, or none |
+| 13407 | PROOF | A114464 | the residual test over one square root, or none |
+| 13408 | PROOF | A127154 | the residual test over one square root, or none |
+| 13409 | PROOF | A135335 | the residual test over one square root, or none |
+| 13410 | PROOF | A165540 | the residual test over one square root, or none |
+| 13411 | PROOF | A171416 | the residual test over one square root, or none |
+| 13412 | PROOF | A188314 | the residual test over one square root, or none |
+| 13413 | PROOF | A247170 | the residual test over one square root, or none |
+| 13414 | PROOF | A254314 | the residual test over one square root, or none |
+| 13415 | PROOF | A270661 | the residual test over one square root, or none |
+| 13416 | PROOF | A003440 | the residual test over one square root, or none |
+| 13417 | PROOF | A110521 | the residual test over one square root, or none |
+| 13418 | PROOF | A114190 | the residual test over one square root, or none |
+| 13419 | PROOF | A116387 | the residual test over one square root, or none |
+| 13420 | PROOF | A128096 | the residual test over one square root, or none |
+| 13421 | PROOF | A135052 | the residual test over one square root, or none |
+| 13422 | PROOF | A157021 | the residual test over one square root, or none |
+| 13423 | PROOF | A160823 | the residual test over one square root, or none |
+| 13424 | PROOF | A166287 | the residual test over one square root, or none |
+| 13425 | PROOF | A174808 | the residual test over one square root, or none |
+| 13426 | PROOF | A185089 | the residual test over one square root, or none |
+| 13427 | PROOF | A186940 | the residual test over one square root, or none |
+| 13428 | PROOF | A190736 | the residual test over one square root, or none |
+| 13429 | PROOF | A219314 | the residual test over one square root, or none |
+| 13430 | PROOF | A100095 | the residual test over one square root, or none |
+| 13431 | PROOF | A100097 | the residual test over one square root, or none |
+| 13432 | PROOF | A191313 | the residual test over one square root, or none |
+| 13433 | PROOF | A191790 | the residual test over one square root, or none |
+| 13434 | PROOF | A273351 | the residual test over one square root, or none |
+| 13435 | PROOF | A278472 | the residual test over one square root, or none |
+| 13436 | PROOF | A108296 | the residual test over one square root, or none |
+| 13437 | PROOF | A116391 | the residual test over one square root, or none |
+| 13438 | PROOF | A110198 | the residual test over one square root, or none |
+| 13439 | PROOF | A182879 | the residual test over one square root, or none |
+| 13440 | PROOF | A182887 | the residual test over one square root, or none |
+| 13441 | PROOF | A135925 | the residual test over one square root, or none |
+| 13442 | PROOF | A007901 | the residual test over one square root, or none |
+| 13443 | PROOF | A025256 | the residual test over one square root, or none |
+| 13444 | PROOF | A025258 | the residual test over one square root, or none |
+| 13445 | PROOF | A000781 | the residual test over one square root, or none |
+| 13446 | PROOF | A025245 | the residual test over one square root, or none |
+| 13447 | PROOF | A025257 | the residual test over one square root, or none |
+| 13448 | PROOF | A025269 | the residual test over one square root, or none |
+| 13449 | PROOF | A025270 | the residual test over one square root, or none |
+| 13450 | PROOF | A025275 | the residual test over one square root, or none |
+| 13451 | PROOF | A102880 | the residual test over one square root, or none |
+| 13452 | PROOF | A111053 | the residual test over one square root, or none |
+| 13453 | PROOF | A152120 | the residual test over one square root, or none |
+| 13454 | PROOF | A159771 | the residual test over one square root, or none |
+| 13455 | PROOF | A166694 | the residual test over one square root, or none |
+| 13456 | PROOF | A166696 | the residual test over one square root, or none |
+| 13457 | PROOF | A191796 | the residual test over one square root, or none |
+| 13458 | PROOF | A217711 | the residual test over one square root, or none |
+| 13459 | PROOF | A278023 | the residual test over one square root, or none |
+| 13460 | PROOF | A279014 | the residual test over one square root, or none |
+| 13461 | PROOF | A000483 | the residual test over one square root, or none |
+| 13462 | PROOF | A026030 | the residual test over one square root, or none |
+| 13463 | PROOF | A026031 | the residual test over one square root, or none |
+| 13464 | PROOF | A048775 | the residual test over one square root, or none |
+| 13465 | PROOF | A116409 | the residual test over one square root, or none |
+| 13466 | PROOF | A126322 | the residual test over one square root, or none |
+| 13467 | PROOF | A128750 | the residual test over one square root, or none |
+| 13468 | PROOF | A143955 | the residual test over one square root, or none |
+| 13469 | PROOF | A165203 | the residual test over one square root, or none |
+| 13470 | PROOF | A168505 | the residual test over one square root, or none |
+| 13471 | PROOF | A176605 | the residual test over one square root, or none |
+| 13472 | PROOF | A181933 | the residual test over one square root, or none |
+| 13473 | PROOF | A191585 | the residual test over one square root, or none |
+| 13474 | PROOF | A215973 | the residual test over one square root, or none |
+| 13475 | PROOF | A234269 | the residual test over one square root, or none |
+| 13476 | PROOF | A236407 | the residual test over one square root, or none |
+| 13477 | PROOF | A270363 | the residual test over one square root, or none |
+| 13478 | PROOF | A098521 | the residual test over one square root, or none |
+| 13479 | PROOF | A100096 | the residual test over one square root, or none |
+| 13480 | PROOF | A100099 | the residual test over one square root, or none |
+| 13481 | PROOF | A105849 | the residual test over one square root, or none |
+| 13482 | PROOF | A105864 | the residual test over one square root, or none |
+| 13483 | PROOF | A105865 | the residual test over one square root, or none |
+| 13484 | PROOF | A108308 | the residual test over one square root, or none |
+| 13485 | PROOF | A114194 | the residual test over one square root, or none |
+| 13486 | PROOF | A115967 | the residual test over one square root, or none |
+| 13487 | PROOF | A117186 | the residual test over one square root, or none |
+| 13488 | PROOF | A120010 | the residual test over one square root, or none |
+| 13489 | PROOF | A124431 | the residual test over one square root, or none |
+| 13490 | PROOF | A126568 | the residual test over one square root, or none |
+| 13491 | PROOF | A132364 | the residual test over one square root, or none |
+| 13492 | PROOF | A141342 | the residual test over one square root, or none |
+| 13493 | PROOF | A155051 | the residual test over one square root, or none |
+| 13494 | PROOF | A157002 | the residual test over one square root, or none |
+| 13495 | PROOF | A157100 | the residual test over one square root, or none |
+| 13496 | PROOF | A166076 | the residual test over one square root, or none |
+| 13497 | PROOF | A166300 | the residual test over one square root, or none |
+| 13498 | PROOF | A168503 | the residual test over one square root, or none |
+| 13499 | PROOF | A174107 | the residual test over one square root, or none |
+| 13500 | PROOF | A174169 | the residual test over one square root, or none |
+| 13501 | PROOF | A176332 | the residual test over one square root, or none |
+| 13502 | PROOF | A184018 | the residual test over one square root, or none |
+| 13503 | PROOF | A188312 | the residual test over one square root, or none |
+| 13504 | PROOF | A188482 | the residual test over one square root, or none |
+| 13505 | PROOF | A191782 | the residual test over one square root, or none |
+| 13506 | PROOF | A217333 | the residual test over one square root, or none |
+| 13507 | PROOF | A257072 | the residual test over one square root, or none |
+| 13508 | PROOF | A261681 | the residual test over one square root, or none |
+| 13509 | PROOF | A073155 | the residual test over one square root, or none |
+| 13510 | PROOF | A105524 | the residual test over one square root, or none |
+| 13511 | PROOF | A114589 | the residual test over one square root, or none |
+| 13512 | PROOF | A114590 | the residual test over one square root, or none |
+| 13513 | PROOF | A162481 | the residual test over one square root, or none |
+| 13514 | PROOF | A174783 | the residual test over one square root, or none |
+| 13515 | PROOF | A188460 | the residual test over one square root, or none |
+| 13516 | PROOF | A188464 | the residual test over one square root, or none |
+| 13517 | PROOF | A190725 | the residual test over one square root, or none |
+| 13518 | PROOF | A191526 | the residual test over one square root, or none |
+| 13519 | PROOF | A191531 | the residual test over one square root, or none |
+| 13520 | PROOF | A211278 | the residual test over one square root, or none |
+| 13521 | PROOF | A026327 | the residual test over one square root, or none |
+| 13522 | PROOF | A081207 | the residual test over one square root, or none |
+| 13523 | PROOF | A102882 | the residual test over one square root, or none |
+| 13524 | PROOF | A182881 | the residual test over one square root, or none |
+| 13525 | PROOF | A191309 | the residual test over one square root, or none |
+| 13526 | PROOF | A191319 | the residual test over one square root, or none |
+| 13527 | PROOF | A191790 | the residual test over one square root, or none |
+| 13528 | PROOF | A273351 | the residual test over one square root, or none |
+| 13529 | PROOF | A025248 | the residual test over one square root, or none |
+| 13530 | PROOF | A025249 | the residual test over one square root, or none |
+| 13531 | PROOF | A026017 | the residual test over one square root, or none |
+| 13532 | PROOF | A071717 | the residual test over one square root, or none |
+| 13533 | PROOF | A104722 | the residual test over one square root, or none |
+| 13534 | PROOF | A109263 | the residual test over one square root, or none |
+| 13535 | PROOF | A118093 | the residual test over one square root, or none |
+| 13536 | PROOF | A118974 | the residual test over one square root, or none |
+| 13537 | PROOF | A121320 | the residual test over one square root, or none |
+| 13538 | PROOF | A126323 | the residual test over one square root, or none |
+| 13539 | PROOF | A128723 | the residual test over one square root, or none |
+| 13540 | PROOF | A135334 | the residual test over one square root, or none |
+| 13541 | PROOF | A141351 | the residual test over one square root, or none |
+| 13542 | PROOF | A141353 | the residual test over one square root, or none |
+| 13543 | PROOF | A163824 | the residual test over one square root, or none |
+| 13544 | PROOF | A165201 | the residual test over one square root, or none |
+| 13545 | PROOF | A279014 | the residual test over one square root, or none |
+| 13546 | PROOF | A026027 | the residual test over one square root, or none |
+| 13547 | PROOF | A026135 | the residual test over one square root, or none |
+| 13548 | PROOF | A050168 | the residual test over one square root, or none |
+| 13549 | PROOF | A059279 | the residual test over one square root, or none |
+| 13550 | PROOF | A063395 | the residual test over one square root, or none |
+| 13551 | PROOF | A071722 | the residual test over one square root, or none |
+| 13552 | PROOF | A082134 | the residual test over one square root, or none |
+| 13553 | PROOF | A097331 | the residual test over one square root, or none |
+| 13554 | PROOF | A100193 | the residual test over one square root, or none |
+| 13555 | PROOF | A103973 | the residual test over one square root, or none |
+| 13556 | PROOF | A106181 | the residual test over one square root, or none |
+| 13557 | PROOF | A108623 | the residual test over one square root, or none |
+| 13558 | PROOF | A126180 | the residual test over one square root, or none |
+| 13559 | PROOF | A128732 | the residual test over one square root, or none |
+| 13560 | PROOF | A134389 | the residual test over one square root, or none |
+| 13561 | PROOF | A143013 | the residual test over one square root, or none |
+| 13562 | PROOF | A143954 | the residual test over one square root, or none |
+| 13563 | PROOF | A157418 | the residual test over one square root, or none |
+| 13564 | PROOF | A158196 | the residual test over one square root, or none |
+| 13565 | PROOF | A158197 | the residual test over one square root, or none |
+| 13566 | PROOF | A191585 | the residual test over one square root, or none |
+| 13567 | PROOF | A257290 | the residual test over one square root, or none |
+| 13568 | PROOF | A054341 | the residual test over one square root, or none |
+| 13569 | PROOF | A071715 | the residual test over one square root, or none |
+| 13570 | PROOF | A090413 | the residual test over one square root, or none |
+| 13571 | PROOF | A090826 | the residual test over one square root, or none |
+| 13572 | PROOF | A091699 | the residual test over one square root, or none |
+| 13573 | PROOF | A098664 | the residual test over one square root, or none |
+| 13574 | PROOF | A099363 | the residual test over one square root, or none |
+| 13575 | PROOF | A100098 | the residual test over one square root, or none |
+| 13576 | PROOF | A119975 | the residual test over one square root, or none |
+| 13577 | PROOF | A121724 | the residual test over one square root, or none |
+| 13578 | PROOF | A121725 | the residual test over one square root, or none |
+| 13579 | PROOF | A126931 | the residual test over one square root, or none |
+| 13580 | PROOF | A126932 | the residual test over one square root, or none |
+| 13581 | PROOF | A127363 | the residual test over one square root, or none |
+| 13582 | PROOF | A155051 | the residual test over one square root, or none |
+| 13583 | PROOF | A166078 | the residual test over one square root, or none |
+| 13584 | PROOF | A166588 | the residual test over one square root, or none |
+| 13585 | PROOF | A176006 | the residual test over one square root, or none |
+| 13586 | PROOF | A185087 | the residual test over one square root, or none |
+| 13587 | PROOF | A190724 | the residual test over one square root, or none |
+| 13588 | PROOF | A225887 | the residual test over one square root, or none |
+| 13589 | PROOF | A227081 | the residual test over one square root, or none |
+| 13590 | PROOF | A257178 | the residual test over one square root, or none |
+| 13591 | PROOF | A257388 | the residual test over one square root, or none |
+| 13592 | PROOF | A257838 | the residual test over one square root, or none |
+| 13593 | PROOF | A001712 | the residual test over one square root, or none |
+| 13594 | PROOF | A025175 | the residual test over one square root, or none |
+| 13595 | PROOF | A025577 | the residual test over one square root, or none |
+| 13596 | PROOF | A026023 | the residual test over one square root, or none |
+| 13597 | PROOF | A055217 | the residual test over one square root, or none |
+| 13598 | PROOF | A081052 | the residual test over one square root, or none |
+| 13599 | PROOF | A103821 | the residual test over one square root, or none |
+| 13600 | PROOF | A107231 | the residual test over one square root, or none |
+| 13601 | PROOF | A110199 | the residual test over one square root, or none |
+| 13602 | PROOF | A116406 | the residual test over one square root, or none |
+| 13603 | PROOF | A128734 | the residual test over one square root, or none |
+| 13604 | PROOF | A191307 | the residual test over one square root, or none |
+| 13605 | PROOF | A278472 | the residual test over one square root, or none |
+| 13606 | PROOF | A034863 | the residual test over one square root, or none |
+| 13607 | PROOF | A128652 | the residual test over one square root, or none |
+| 13608 | PROOF | A174195 | the residual test over one square root, or none |
+| 13609 | PROOF | A192480 | the residual test over one square root, or none |
+| 13610 | PROOF | A158495 | the residual test over one square root, or none |
+| 13611 | PROOF | A189176 | the residual test over one square root, or none |
+| 13612 | PROOF | A194724 | the residual test over one square root, or none |
+| 13613 | PROOF | A210474 | the residual test over one square root, or none |
+| 13614 | PROOF | A262768 | the residual test over one square root, or none |
+| 13615 | PROOF | A026029 | the residual test over one square root, or none |
+| 13616 | PROOF | A064088 | the residual test over one square root, or none |
+| 13617 | PROOF | A064089 | the residual test over one square root, or none |
+| 13618 | PROOF | A064090 | the residual test over one square root, or none |
+| 13619 | PROOF | A064091 | the residual test over one square root, or none |
+| 13620 | PROOF | A064092 | the residual test over one square root, or none |
+| 13621 | PROOF | A067299 | the residual test over one square root, or none |
+| 13622 | PROOF | A068551 | the residual test over one square root, or none |
+| 13623 | PROOF | A080243 | the residual test over one square root, or none |
+| 13624 | PROOF | A114191 | the residual test over one square root, or none |
+| 13625 | PROOF | A116881 | the residual test over one square root, or none |
+| 13626 | PROOF | A122920 | the residual test over one square root, or none |
+| 13627 | PROOF | A132864 | the residual test over one square root, or none |
+| 13628 | PROOF | A133305 | the residual test over one square root, or none |
+| 13629 | PROOF | A133306 | the residual test over one square root, or none |
+| 13630 | PROOF | A133307 | the residual test over one square root, or none |
+| 13631 | PROOF | A133308 | the residual test over one square root, or none |
+| 13632 | PROOF | A141222 | the residual test over one square root, or none |
+| 13633 | PROOF | A154623 | the residual test over one square root, or none |
+| 13634 | PROOF | A157328 | the residual test over one square root, or none |
+| 13635 | PROOF | A158196 | the residual test over one square root, or none |
+| 13636 | PROOF | A158197 | the residual test over one square root, or none |
+| 13637 | PROOF | A191993 | the residual test over one square root, or none |
+| 13638 | PROOF | A225034 | the residual test over one square root, or none |
+| 13639 | PROOF | A242172 | the residual test over one square root, or none |
+| 13640 | PROOF | A002867 | the residual test over one square root, or none |
+| 13641 | PROOF | A014533 | the residual test over one square root, or none |
+| 13642 | PROOF | A051524 | the residual test over one square root, or none |
+| 13643 | PROOF | A071264 | the residual test over one square root, or none |
+| 13644 | PROOF | A081046 | the residual test over one square root, or none |
+| 13645 | PROOF | A098519 | the residual test over one square root, or none |
+| 13646 | PROOF | A098520 | the residual test over one square root, or none |
+| 13647 | PROOF | A101596 | the residual test over one square root, or none |
+| 13648 | PROOF | A101601 | the residual test over one square root, or none |
+| 13649 | PROOF | A101602 | the residual test over one square root, or none |
+| 13650 | PROOF | A111779 | the residual test over one square root, or none |
+| 13651 | PROOF | A112703 | the residual test over one square root, or none |
+| 13652 | PROOF | A119012 | the residual test over one square root, or none |
+| 13653 | PROOF | A128057 | the residual test over one square root, or none |
+| 13654 | PROOF | A128746 | the residual test over one square root, or none |
+| 13655 | PROOF | A132900 | the residual test over one square root, or none |
+| 13656 | PROOF | A151483 | the residual test over one square root, or none |
+| 13657 | PROOF | A167481 | the residual test over one square root, or none |
+| 13658 | PROOF | A171556 | the residual test over one square root, or none |
+| 13659 | PROOF | A176479 | the residual test over one square root, or none |
+| 13660 | PROOF | A182401 | the residual test over one square root, or none |
+| 13661 | PROOF | A208355 | the residual test over one square root, or none |
+| 13662 | PROOF | A210064 | the residual test over one square root, or none |
+| 13663 | PROOF | A240558 | the residual test over one square root, or none |
+| 13664 | PROOF | A141771 | the residual test over one square root, or none |
+| 13665 | PROOF | A176606 | the residual test over one square root, or none |
+| 13666 | PROOF | A176607 | the residual test over one square root, or none |
+| 13667 | PROOF | A176609 | the residual test over one square root, or none |
+| 13668 | PROOF | A176610 | the residual test over one square root, or none |
+| 13669 | PROOF | A176611 | the residual test over one square root, or none |
+| 13670 | PROOF | A176675 | the residual test over one square root, or none |
+| 13671 | PROOF | A176749 | the residual test over one square root, or none |
+| 13672 | PROOF | A176750 | the residual test over one square root, or none |
+| 13673 | PROOF | A176751 | the residual test over one square root, or none |
+| 13674 | PROOF | A176752 | the residual test over one square root, or none |
+| 13675 | PROOF | A176753 | the residual test over one square root, or none |
+| 13676 | PROOF | A176754 | the residual test over one square root, or none |
+| 13677 | PROOF | A176755 | the residual test over one square root, or none |
+| 13678 | PROOF | A176756 | the residual test over one square root, or none |
+| 13679 | PROOF | A176757 | the residual test over one square root, or none |
+| 13680 | PROOF | A176759 | the residual test over one square root, or none |
+| 13681 | PROOF | A176828 | the residual test over one square root, or none |
+| 13682 | PROOF | A176829 | the residual test over one square root, or none |
+| 13683 | PROOF | A176830 | the residual test over one square root, or none |
+| 13684 | PROOF | A176832 | the residual test over one square root, or none |
+| 13685 | PROOF | A176854 | the residual test over one square root, or none |
+| 13686 | PROOF | A176855 | the residual test over one square root, or none |
+| 13687 | PROOF | A176856 | the residual test over one square root, or none |
+| 13688 | PROOF | A176857 | the residual test over one square root, or none |
+| 13689 | PROOF | A176858 | the residual test over one square root, or none |
+| 13690 | PROOF | A176859 | the residual test over one square root, or none |
+| 13691 | PROOF | A176952 | the residual test over one square root, or none |
+| 13692 | PROOF | A176953 | the residual test over one square root, or none |
+| 13693 | PROOF | A176956 | the residual test over one square root, or none |
+| 13694 | PROOF | A176957 | the residual test over one square root, or none |
+| 13695 | PROOF | A176958 | the residual test over one square root, or none |
+| 13696 | PROOF | A176959 | the residual test over one square root, or none |
+| 13697 | PROOF | A176962 | the residual test over one square root, or none |
+| 13698 | PROOF | A176964 | the residual test over one square root, or none |
+| 13699 | PROOF | A176966 | the residual test over one square root, or none |
+| 13700 | PROOF | A176967 | the residual test over one square root, or none |
+| 13701 | PROOF | A177123 | the residual test over one square root, or none |
+| 13702 | PROOF | A177124 | the residual test over one square root, or none |
+| 13703 | PROOF | A177125 | the residual test over one square root, or none |
+| 13704 | PROOF | A177126 | the residual test over one square root, or none |
+| 13705 | PROOF | A177127 | the residual test over one square root, or none |
+| 13706 | PROOF | A177128 | the residual test over one square root, or none |
+| 13707 | PROOF | A177129 | the residual test over one square root, or none |
+| 13708 | PROOF | A177130 | the residual test over one square root, or none |
+| 13709 | PROOF | A177131 | the residual test over one square root, or none |
+| 13710 | PROOF | A177163 | the residual test over one square root, or none |
+| 13711 | PROOF | A177165 | the residual test over one square root, or none |
+| 13712 | PROOF | A177166 | the residual test over one square root, or none |
+| 13713 | PROOF | A177167 | the residual test over one square root, or none |
+| 13714 | PROOF | A177168 | the residual test over one square root, or none |
+| 13715 | PROOF | A177169 | the residual test over one square root, or none |
+| 13716 | PROOF | A177170 | the residual test over one square root, or none |
+| 13717 | PROOF | A177171 | the residual test over one square root, or none |
+| 13718 | PROOF | A177172 | the residual test over one square root, or none |
+| 13719 | PROOF | A177175 | the residual test over one square root, or none |
+| 13720 | PROOF | A177177 | the residual test over one square root, or none |
+| 13721 | PROOF | A177178 | the residual test over one square root, or none |
+| 13722 | PROOF | A177179 | the residual test over one square root, or none |
+| 13723 | PROOF | A177180 | the residual test over one square root, or none |
+| 13724 | PROOF | A177181 | the residual test over one square root, or none |
+| 13725 | PROOF | A177182 | the residual test over one square root, or none |
+| 13726 | PROOF | A177183 | the residual test over one square root, or none |
+| 13727 | PROOF | A177184 | the residual test over one square root, or none |
+| 13728 | PROOF | A177185 | the residual test over one square root, or none |
+| 13729 | PROOF | A177197 | the residual test over one square root, or none |
+| 13730 | PROOF | A177198 | the residual test over one square root, or none |
+| 13731 | PROOF | A177199 | the residual test over one square root, or none |
+| 13732 | PROOF | A177200 | the residual test over one square root, or none |
+| 13733 | PROOF | A177203 | the residual test over one square root, or none |
+| 13734 | PROOF | A081670 | the known side is the entry's NAME rather than a formula line |
+| 13735 | PROOF | A085781 | the known side is the entry's NAME rather than a formula line |
+| 13736 | PROOF | A026019 | the known side is the entry's NAME rather than a formula line |
+| 13737 | PROOF | A052183 | the known side is the entry's NAME rather than a formula line |
+| 13738 | PROOF | A052204 | the known side is the entry's NAME rather than a formula line |
+| 13739 | PROOF | A157713 | the known side is the entry's NAME rather than a formula line |
+| 13740 | PROOF | A049486 | a posted closed form decided by the theory of hypergeometric terms |
+| 13741 | PROOF | A126501 | a posted closed form decided by the theory of hypergeometric terms |
+| 13742 | PROOF | A248434 | a posted closed form decided by the theory of hypergeometric terms |
+| 13743 | PROOF | A126089 | complete annihilation, tested in the Ore algebra Q(n)[N] |
+| 13744 | PROOF | A025271 | division of one posted operator by another |
+| 13745 | PROOF | A138164 | division of one posted operator by another |
+| 13746 | PROOF | A143017 | division of one posted operator by another |
+| 13747 | PROOF | A159772 | division of one posted operator by another |
+| 13748 | PROOF | A000986 | division of one posted operator by another |
+| 13749 | PROOF | A022917 | division of one posted operator by another |
+| 13750 | PROOF | A217447 | division of one posted operator by another |
+| 13751 | PROOF | A226302 | division of one posted operator by another |
+| 13752 | PROOF | A245088 | division of one posted operator by another |
+| 13753 | PROOF | A026165 | division of one posted operator by another |
+| 13754 | PROOF | A185966 | division of one posted operator by another |
+| 13755 | PROOF | A200753 | division of one posted operator by another |
+| 13756 | PROOF | A217358 | division of one posted operator by another |
+| 13757 | PROOF | A228960 | division of one posted operator by another |
+| 13758 | PROOF | A003435 | division of one posted operator by another |
+| 13759 | PROOF | A228331 | division of one posted operator by another |
+| 13760 | PROOF | A273019 | division of one posted operator by another |
+| 13761 | PROOF | A386834 | division of one posted operator by another |
+| 13762 | PROOF | A228330 | division of one posted operator by another |
+| 13763 | PROOF | A228333 | division of one posted operator by another |
 
 ### What the ranking means
 

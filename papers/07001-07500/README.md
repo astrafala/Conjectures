@@ -1,6 +1,6 @@
 # Papers 07001-07500
 
-Ranks 7001 to 7500 of 13762, hardest first.
+Ranks 7001 to 7500 of 13763, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

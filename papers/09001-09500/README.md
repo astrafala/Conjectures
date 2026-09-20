@@ -1,6 +1,6 @@
 # Papers 09001-09500
 
-Ranks 9001 to 9500 of 13762, hardest first.
+Ranks 9001 to 9500 of 13763, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |

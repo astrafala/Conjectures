@@ -1,6 +1,6 @@
 # Papers 09501-10000
 
-Ranks 9501 to 10000 of 13762, hardest first.
+Ranks 9501 to 10000 of 13763, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -446,61 +446,61 @@ Ranks 9501 to 10000 of 13762, hardest first.
 | 9940 | [A260134](https://oeis.org/A260134) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09940-PROOF.pdf](09940-PROOF.pdf) |
 | 9941 | [A304228](https://oeis.org/A304228) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09941-PROOF.pdf](09941-PROOF.pdf) |
 | 9942 | [A304268](https://oeis.org/A304268) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09942-PROOF.pdf](09942-PROOF.pdf) |
-| 9943 | [A255031](https://oeis.org/A255031) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [09943-PROOF.pdf](09943-PROOF.pdf) |
-| 9944 | [A280856](https://oeis.org/A280856) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09944-PROOF.pdf](09944-PROOF.pdf) |
-| 9945 | [A206057](https://oeis.org/A206057) | Proof | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up | [09945-PROOF.pdf](09945-PROOF.pdf) |
-| 9946 | [A205210](https://oeis.org/A205210) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [09946-PROOF.pdf](09946-PROOF.pdf) |
-| 9947 | [A208068](https://oeis.org/A208068) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09947-PROOF.pdf](09947-PROOF.pdf) |
-| 9948 | [A197525](https://oeis.org/A197525) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09948-PROOF.pdf](09948-PROOF.pdf) |
-| 9949 | [A256743](https://oeis.org/A256743) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09949-PROOF.pdf](09949-PROOF.pdf) |
-| 9950 | [A260010](https://oeis.org/A260010) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09950-PROOF.pdf](09950-PROOF.pdf) |
-| 9951 | [A260922](https://oeis.org/A260922) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09951-PROOF.pdf](09951-PROOF.pdf) |
-| 9952 | [A261108](https://oeis.org/A261108) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09952-PROOF.pdf](09952-PROOF.pdf) |
-| 9953 | [A261260](https://oeis.org/A261260) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09953-PROOF.pdf](09953-PROOF.pdf) |
-| 9954 | [A261375](https://oeis.org/A261375) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09954-PROOF.pdf](09954-PROOF.pdf) |
-| 9955 | [A297311](https://oeis.org/A297311) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09955-PROOF.pdf](09955-PROOF.pdf) |
-| 9956 | [A297811](https://oeis.org/A297811) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09956-PROOF.pdf](09956-PROOF.pdf) |
-| 9957 | [A302012](https://oeis.org/A302012) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09957-PROOF.pdf](09957-PROOF.pdf) |
-| 9958 | [A302147](https://oeis.org/A302147) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09958-PROOF.pdf](09958-PROOF.pdf) |
-| 9959 | [A302160](https://oeis.org/A302160) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09959-PROOF.pdf](09959-PROOF.pdf) |
-| 9960 | [A303317](https://oeis.org/A303317) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09960-PROOF.pdf](09960-PROOF.pdf) |
-| 9961 | [A305227](https://oeis.org/A305227) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09961-PROOF.pdf](09961-PROOF.pdf) |
-| 9962 | [A281468](https://oeis.org/A281468) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09962-PROOF.pdf](09962-PROOF.pdf) |
-| 9963 | [A280855](https://oeis.org/A280855) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09963-PROOF.pdf](09963-PROOF.pdf) |
-| 9964 | [A203832](https://oeis.org/A203832) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09964-PROOF.pdf](09964-PROOF.pdf) |
-| 9965 | [A252068](https://oeis.org/A252068) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09965-PROOF.pdf](09965-PROOF.pdf) |
-| 9966 | [A207849](https://oeis.org/A207849) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09966-PROOF.pdf](09966-PROOF.pdf) |
-| 9967 | [A281204](https://oeis.org/A281204) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09967-PROOF.pdf](09967-PROOF.pdf) |
-| 9968 | [A207721](https://oeis.org/A207721) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09968-PROOF.pdf](09968-PROOF.pdf) |
-| 9969 | [A223460](https://oeis.org/A223460) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09969-PROOF.pdf](09969-PROOF.pdf) |
-| 9970 | [A243030](https://oeis.org/A243030) | Proof |  | [09970-PROOF.pdf](09970-PROOF.pdf) |
-| 9971 | [A244178](https://oeis.org/A244178) | Proof |  | [09971-PROOF.pdf](09971-PROOF.pdf) |
-| 9972 | [A237318](https://oeis.org/A237318) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [09972-PROOF.pdf](09972-PROOF.pdf) |
-| 9973 | [A208423](https://oeis.org/A208423) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09973-PROOF.pdf](09973-PROOF.pdf) |
-| 9974 | [A231952](https://oeis.org/A231952) | Proof | a condition on each cell and its neighbours, decided in a three-row window | [09974-PROOF.pdf](09974-PROOF.pdf) |
-| 9975 | [A185527](https://oeis.org/A185527) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09975-PROOF.pdf](09975-PROOF.pdf) |
-| 9976 | [A208552](https://oeis.org/A208552) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09976-PROOF.pdf](09976-PROOF.pdf) |
-| 9977 | [A237952](https://oeis.org/A237952) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [09977-PROOF.pdf](09977-PROOF.pdf) |
-| 9978 | [A255656](https://oeis.org/A255656) | Proof |  | [09978-PROOF.pdf](09978-PROOF.pdf) |
-| 9979 | [A256023](https://oeis.org/A256023) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09979-PROOF.pdf](09979-PROOF.pdf) |
-| 9980 | [A258726](https://oeis.org/A258726) | Proof |  | [09980-PROOF.pdf](09980-PROOF.pdf) |
-| 9981 | [A260364](https://oeis.org/A260364) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09981-PROOF.pdf](09981-PROOF.pdf) |
-| 9982 | [A297434](https://oeis.org/A297434) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09982-PROOF.pdf](09982-PROOF.pdf) |
-| 9983 | [A297597](https://oeis.org/A297597) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09983-PROOF.pdf](09983-PROOF.pdf) |
-| 9984 | [A183347](https://oeis.org/A183347) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [09984-PROOF.pdf](09984-PROOF.pdf) |
-| 9985 | [A208115](https://oeis.org/A208115) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09985-PROOF.pdf](09985-PROOF.pdf) |
-| 9986 | [A242470](https://oeis.org/A242470) | Proof |  | [09986-PROOF.pdf](09986-PROOF.pdf) |
-| 9987 | [A243638](https://oeis.org/A243638) | Proof |  | [09987-PROOF.pdf](09987-PROOF.pdf) |
-| 9988 | [A208371](https://oeis.org/A208371) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09988-PROOF.pdf](09988-PROOF.pdf) |
-| 9989 | [A282786](https://oeis.org/A282786) | Proof | a condition on every cell's king-move neighbourhood, boundaries included | [09989-PROOF.pdf](09989-PROOF.pdf) |
-| 9990 | [A228659](https://oeis.org/A228659) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09990-PROOF.pdf](09990-PROOF.pdf) |
-| 9991 | [A228682](https://oeis.org/A228682) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09991-PROOF.pdf](09991-PROOF.pdf) |
-| 9992 | [A250581](https://oeis.org/A250581) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [09992-PROOF.pdf](09992-PROOF.pdf) |
-| 9993 | [A250803](https://oeis.org/A250803) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [09993-PROOF.pdf](09993-PROOF.pdf) |
-| 9994 | [A202118](https://oeis.org/A202118) | Proof |  | [09994-PROOF.pdf](09994-PROOF.pdf) |
-| 9995 | [A268953](https://oeis.org/A268953) | Proof |  | [09995-PROOF.pdf](09995-PROOF.pdf) |
-| 9996 | [A208551](https://oeis.org/A208551) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09996-PROOF.pdf](09996-PROOF.pdf) |
-| 9997 | [A202311](https://oeis.org/A202311) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [09997-PROOF.pdf](09997-PROOF.pdf) |
-| 9998 | [A283574](https://oeis.org/A283574) | Proof | a condition on every cell over the neighbour set the entry names | [09998-PROOF.pdf](09998-PROOF.pdf) |
-| 9999 | [A283567](https://oeis.org/A283567) | Proof | a condition on every cell over the neighbour set the entry names | [09999-PROOF.pdf](09999-PROOF.pdf) |
-| 10000 | [A186528](https://oeis.org/A186528) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [10000-PROOF.pdf](10000-PROOF.pdf) |
+| 9943 | [A198483](https://oeis.org/A198483) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09943-PROOF.pdf](09943-PROOF.pdf) |
+| 9944 | [A255031](https://oeis.org/A255031) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [09944-PROOF.pdf](09944-PROOF.pdf) |
+| 9945 | [A280856](https://oeis.org/A280856) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09945-PROOF.pdf](09945-PROOF.pdf) |
+| 9946 | [A206057](https://oeis.org/A206057) | Proof | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up | [09946-PROOF.pdf](09946-PROOF.pdf) |
+| 9947 | [A205210](https://oeis.org/A205210) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [09947-PROOF.pdf](09947-PROOF.pdf) |
+| 9948 | [A208068](https://oeis.org/A208068) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09948-PROOF.pdf](09948-PROOF.pdf) |
+| 9949 | [A197525](https://oeis.org/A197525) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09949-PROOF.pdf](09949-PROOF.pdf) |
+| 9950 | [A256743](https://oeis.org/A256743) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09950-PROOF.pdf](09950-PROOF.pdf) |
+| 9951 | [A260010](https://oeis.org/A260010) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09951-PROOF.pdf](09951-PROOF.pdf) |
+| 9952 | [A260922](https://oeis.org/A260922) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09952-PROOF.pdf](09952-PROOF.pdf) |
+| 9953 | [A261108](https://oeis.org/A261108) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09953-PROOF.pdf](09953-PROOF.pdf) |
+| 9954 | [A261260](https://oeis.org/A261260) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09954-PROOF.pdf](09954-PROOF.pdf) |
+| 9955 | [A261375](https://oeis.org/A261375) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09955-PROOF.pdf](09955-PROOF.pdf) |
+| 9956 | [A297311](https://oeis.org/A297311) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09956-PROOF.pdf](09956-PROOF.pdf) |
+| 9957 | [A297811](https://oeis.org/A297811) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09957-PROOF.pdf](09957-PROOF.pdf) |
+| 9958 | [A302012](https://oeis.org/A302012) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09958-PROOF.pdf](09958-PROOF.pdf) |
+| 9959 | [A302147](https://oeis.org/A302147) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09959-PROOF.pdf](09959-PROOF.pdf) |
+| 9960 | [A302160](https://oeis.org/A302160) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09960-PROOF.pdf](09960-PROOF.pdf) |
+| 9961 | [A303317](https://oeis.org/A303317) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09961-PROOF.pdf](09961-PROOF.pdf) |
+| 9962 | [A305227](https://oeis.org/A305227) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09962-PROOF.pdf](09962-PROOF.pdf) |
+| 9963 | [A281468](https://oeis.org/A281468) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09963-PROOF.pdf](09963-PROOF.pdf) |
+| 9964 | [A280855](https://oeis.org/A280855) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09964-PROOF.pdf](09964-PROOF.pdf) |
+| 9965 | [A203832](https://oeis.org/A203832) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09965-PROOF.pdf](09965-PROOF.pdf) |
+| 9966 | [A252068](https://oeis.org/A252068) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09966-PROOF.pdf](09966-PROOF.pdf) |
+| 9967 | [A207849](https://oeis.org/A207849) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09967-PROOF.pdf](09967-PROOF.pdf) |
+| 9968 | [A281204](https://oeis.org/A281204) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09968-PROOF.pdf](09968-PROOF.pdf) |
+| 9969 | [A207721](https://oeis.org/A207721) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09969-PROOF.pdf](09969-PROOF.pdf) |
+| 9970 | [A223460](https://oeis.org/A223460) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09970-PROOF.pdf](09970-PROOF.pdf) |
+| 9971 | [A243030](https://oeis.org/A243030) | Proof |  | [09971-PROOF.pdf](09971-PROOF.pdf) |
+| 9972 | [A244178](https://oeis.org/A244178) | Proof |  | [09972-PROOF.pdf](09972-PROOF.pdf) |
+| 9973 | [A237318](https://oeis.org/A237318) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [09973-PROOF.pdf](09973-PROOF.pdf) |
+| 9974 | [A208423](https://oeis.org/A208423) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09974-PROOF.pdf](09974-PROOF.pdf) |
+| 9975 | [A231952](https://oeis.org/A231952) | Proof | a condition on each cell and its neighbours, decided in a three-row window | [09975-PROOF.pdf](09975-PROOF.pdf) |
+| 9976 | [A185527](https://oeis.org/A185527) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09976-PROOF.pdf](09976-PROOF.pdf) |
+| 9977 | [A208552](https://oeis.org/A208552) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09977-PROOF.pdf](09977-PROOF.pdf) |
+| 9978 | [A237952](https://oeis.org/A237952) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [09978-PROOF.pdf](09978-PROOF.pdf) |
+| 9979 | [A255656](https://oeis.org/A255656) | Proof |  | [09979-PROOF.pdf](09979-PROOF.pdf) |
+| 9980 | [A256023](https://oeis.org/A256023) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09980-PROOF.pdf](09980-PROOF.pdf) |
+| 9981 | [A258726](https://oeis.org/A258726) | Proof |  | [09981-PROOF.pdf](09981-PROOF.pdf) |
+| 9982 | [A260364](https://oeis.org/A260364) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [09982-PROOF.pdf](09982-PROOF.pdf) |
+| 9983 | [A297434](https://oeis.org/A297434) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09983-PROOF.pdf](09983-PROOF.pdf) |
+| 9984 | [A297597](https://oeis.org/A297597) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09984-PROOF.pdf](09984-PROOF.pdf) |
+| 9985 | [A183347](https://oeis.org/A183347) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [09985-PROOF.pdf](09985-PROOF.pdf) |
+| 9986 | [A208115](https://oeis.org/A208115) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09986-PROOF.pdf](09986-PROOF.pdf) |
+| 9987 | [A242470](https://oeis.org/A242470) | Proof |  | [09987-PROOF.pdf](09987-PROOF.pdf) |
+| 9988 | [A243638](https://oeis.org/A243638) | Proof |  | [09988-PROOF.pdf](09988-PROOF.pdf) |
+| 9989 | [A208371](https://oeis.org/A208371) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09989-PROOF.pdf](09989-PROOF.pdf) |
+| 9990 | [A282786](https://oeis.org/A282786) | Proof | a condition on every cell's king-move neighbourhood, boundaries included | [09990-PROOF.pdf](09990-PROOF.pdf) |
+| 9991 | [A228659](https://oeis.org/A228659) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09991-PROOF.pdf](09991-PROOF.pdf) |
+| 9992 | [A228682](https://oeis.org/A228682) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09992-PROOF.pdf](09992-PROOF.pdf) |
+| 9993 | [A250581](https://oeis.org/A250581) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [09993-PROOF.pdf](09993-PROOF.pdf) |
+| 9994 | [A250803](https://oeis.org/A250803) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [09994-PROOF.pdf](09994-PROOF.pdf) |
+| 9995 | [A202118](https://oeis.org/A202118) | Proof |  | [09995-PROOF.pdf](09995-PROOF.pdf) |
+| 9996 | [A268953](https://oeis.org/A268953) | Proof |  | [09996-PROOF.pdf](09996-PROOF.pdf) |
+| 9997 | [A208551](https://oeis.org/A208551) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [09997-PROOF.pdf](09997-PROOF.pdf) |
+| 9998 | [A202311](https://oeis.org/A202311) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [09998-PROOF.pdf](09998-PROOF.pdf) |
+| 9999 | [A283574](https://oeis.org/A283574) | Proof | a condition on every cell over the neighbour set the entry names | [09999-PROOF.pdf](09999-PROOF.pdf) |
+| 10000 | [A283567](https://oeis.org/A283567) | Proof | a condition on every cell over the neighbour set the entry names | [10000-PROOF.pdf](10000-PROOF.pdf) |
