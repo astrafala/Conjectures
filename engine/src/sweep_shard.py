@@ -38,6 +38,12 @@ import atomicjson, re, os, sys, collections, gc, resource, signal, zlib
 # written; this sweep never did.
 MEMGB = float(os.environ.get('MEMGB', '6'))
 resource.setrlimit(resource.RLIMIT_AS, (int(MEMGB * 2 ** 30), resource.RLIM_INFINITY))
+# Emergency reserve, released by the MemoryError handlers so that RECORDING the failure does not
+# fail in its turn. Dropping the automaton and calling gc.collect() was tried first and does not
+# work: RLIMIT_AS caps ADDRESS SPACE, and CPython does not hand freed arenas back to the OS, so
+# a collection lowers nothing the limit is measuring. A bytearray this size is mmap'd on its own
+# and IS unmapped when deleted, which is the only thing that actually buys the handler room.
+_RESERVE = bytearray(48 * 1024 * 1024)
 import conjlines
 import localentry as LE, ratrec, openness, uniform
 
@@ -87,12 +93,48 @@ WHY = f'shard{TAG}_why_{SHARD}.json'
 # that asked it had 4 GB. Recorded here in its own file, with the limit it failed under, so it
 # can be re-asked with the memory it needs instead of being read back as settled.
 OOM = f'shard{TAG}_oom_{SHARD}.json'
+INFLIGHT = f'shard{TAG}_inflight_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
 res = collections.Counter()
+# A marker left behind means the previous shard died inside that entry without reaching any
+# handler -- MemoryError the handler could not survive, the OOM killer, a container restart.
+# Read it here so the entry is named instead of vanishing, and so the next run does not simply
+# walk into the same wall with the same limit.
+_prev = None
+if os.path.exists(INFLIGHT):
+    try:
+        _prev = json.load(open(INFLIGHT))
+    except Exception:
+        _prev = None
+if _prev and _prev.get('anum'):
+    print('previous shard died on %s in phase %s at MEMGB=%s'
+          % (_prev['anum'], _prev.get('phase'), _prev.get('memgb')), flush=True)
+    oom[_prev['anum']] = max(oom.get(_prev['anum'], 0), float(_prev.get('memgb') or 0))
+
+
+def inflight(a=None, phase=''):
+    """Name the entry being worked on, before the work starts.
+
+    Every other record here is written after an outcome is known, which is exactly the case a
+    process that dies cannot reach. A186012 died twice in `uniform.threshold' and left no row
+    anywhere saying it had ever been asked -- not a hit, not a cap, not an oom. This file says
+    `we are inside phase P of entry A' and is removed when the entry finishes, so whatever kills
+    the shard, the next run can read who it was killed on. It survives SIGKILL and the OOM
+    killer, which no exception handler does.
+    """
+    try:
+        if a is None:
+            if os.path.exists(INFLIGHT):
+                os.remove(INFLIGHT)
+        else:
+            atomicjson.dump({'anum': a, 'phase': phase, 'memgb': MEMGB}, INFLIGHT, indent=0)
+    except Exception:
+        pass
 
 
 def save():
+    inflight()
     atomicjson.dump(hits, HITS, indent=1)
     atomicjson.dump(sorted(done), DONE)
     atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
@@ -170,6 +212,7 @@ for a in sorted(set(CANDS) | ANUMS):
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:
         res['not open'] += 1; done.add(a); save(); continue
+    inflight(a, 'build')
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
@@ -189,6 +232,7 @@ for a in sorted(set(CANDS) | ANUMS):
     S = uniform.size(en, p, b)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
+    inflight(a, 'terms')
     try:
         signal.alarm(BUDGET)
         t = uniform.terms(en, p, b, len(d) + off + 5)
@@ -197,13 +241,13 @@ for a in sorted(set(CANDS) | ANUMS):
         signal.alarm(0); res['terms timed out'] += 1; done.add(a); save(); continue
     except MemoryError:
         signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
-        # Drop the automaton BEFORE saving. Saving allocates, and on this path the address
+        # Release the reserve and drop the automaton BEFORE saving. Saving allocates, and on this path the address
         # space is already exhausted, so the save raised MemoryError too and the shard died
         # having written nothing: A186012's run left no file at all to say what happened to it.
         # It has to be `b' that goes -- handing the automaton to save() and deleting the
         # parameter there frees nothing, because this name still holds the only reference that
         # matters. Catching MemoryError is not enough if the recovery path allocates.
-        b = None; gc.collect()
+        _RESERVE = None; b = None; gc.collect()
         done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['terms failed'] += 1; done.add(a); save(); continue
@@ -213,6 +257,7 @@ for a in sorted(set(CANDS) | ANUMS):
         res['model does not match DATA'] += 1; done.add(a); save(); continue
     coeffs, dd = recs[0]
     order = max(coeffs)
+    inflight(a, 'threshold')
     try:
         signal.alarm(BUDGET)
         thr = uniform.threshold(en, p, b, coeffs, order)
@@ -225,13 +270,13 @@ for a in sorted(set(CANDS) | ANUMS):
         # that can exhaust the limit, and recording an out-of-memory here as a timeout is the
         # same conflation one phase later.
         signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
-        # Drop the automaton BEFORE saving. Saving allocates, and on this path the address
+        # Release the reserve and drop the automaton BEFORE saving. Saving allocates, and on this path the address
         # space is already exhausted, so the save raised MemoryError too and the shard died
         # having written nothing: A186012's run left no file at all to say what happened to it.
         # It has to be `b' that goes -- handing the automaton to save() and deleting the
         # parameter there frees nothing, because this name still holds the only reference that
         # matters. Catching MemoryError is not enough if the recovery path allocates.
-        b = None; gc.collect()
+        _RESERVE = None; b = None; gc.collect()
         done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['threshold failed'] += 1; done.add(a); save(); continue

@@ -1,6 +1,6 @@
 # Papers 07001-07500
 
-Ranks 7001 to 7500 of 13747, hardest first.
+Ranks 7001 to 7500 of 13748, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -486,21 +486,21 @@ Ranks 7001 to 7500 of 13747, hardest first.
 | 7480 | [A300181](https://oeis.org/A300181) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07480-PROOF.pdf](07480-PROOF.pdf) |
 | 7481 | [A318342](https://oeis.org/A318342) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07481-PROOF.pdf](07481-PROOF.pdf) |
 | 7482 | [A196213](https://oeis.org/A196213) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07482-PROOF.pdf](07482-PROOF.pdf) |
-| 7483 | [A231319](https://oeis.org/A231319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07483-PROOF.pdf](07483-PROOF.pdf) |
-| 7484 | [A206471](https://oeis.org/A206471) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07484-PROOF.pdf](07484-PROOF.pdf) |
-| 7485 | [A196954](https://oeis.org/A196954) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07485-PROOF.pdf](07485-PROOF.pdf) |
-| 7486 | [A196433](https://oeis.org/A196433) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07486-PROOF.pdf](07486-PROOF.pdf) |
-| 7487 | [A205156](https://oeis.org/A205156) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [07487-PROOF.pdf](07487-PROOF.pdf) |
-| 7488 | [A231994](https://oeis.org/A231994) | Proof | a condition on every cell over the neighbour set the entry names | [07488-PROOF.pdf](07488-PROOF.pdf) |
-| 7489 | [A234707](https://oeis.org/A234707) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07489-PROOF.pdf](07489-PROOF.pdf) |
-| 7490 | [A317731](https://oeis.org/A317731) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07490-PROOF.pdf](07490-PROOF.pdf) |
-| 7491 | [A281536](https://oeis.org/A281536) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07491-PROOF.pdf](07491-PROOF.pdf) |
-| 7492 | [A205834](https://oeis.org/A205834) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [07492-PROOF.pdf](07492-PROOF.pdf) |
-| 7493 | [A251969](https://oeis.org/A251969) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [07493-PROOF.pdf](07493-PROOF.pdf) |
-| 7494 | [A232339](https://oeis.org/A232339) | Proof | every cell carrying one stated value required to have a neighbour carrying another | [07494-PROOF.pdf](07494-PROOF.pdf) |
-| 7495 | [A205070](https://oeis.org/A205070) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [07495-PROOF.pdf](07495-PROOF.pdf) |
-| 7496 | [A257356](https://oeis.org/A257356) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [07496-PROOF.pdf](07496-PROOF.pdf) |
-| 7497 | [A188847](https://oeis.org/A188847) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07497-PROOF.pdf](07497-PROOF.pdf) |
-| 7498 | [A302167](https://oeis.org/A302167) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07498-PROOF.pdf](07498-PROOF.pdf) |
-| 7499 | [A255030](https://oeis.org/A255030) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [07499-PROOF.pdf](07499-PROOF.pdf) |
-| 7500 | [A258561](https://oeis.org/A258561) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [07500-PROOF.pdf](07500-PROOF.pdf) |
+| 7483 | [A244182](https://oeis.org/A244182) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07483-PROOF.pdf](07483-PROOF.pdf) |
+| 7484 | [A231319](https://oeis.org/A231319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07484-PROOF.pdf](07484-PROOF.pdf) |
+| 7485 | [A206471](https://oeis.org/A206471) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07485-PROOF.pdf](07485-PROOF.pdf) |
+| 7486 | [A196954](https://oeis.org/A196954) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07486-PROOF.pdf](07486-PROOF.pdf) |
+| 7487 | [A196433](https://oeis.org/A196433) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07487-PROOF.pdf](07487-PROOF.pdf) |
+| 7488 | [A205156](https://oeis.org/A205156) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [07488-PROOF.pdf](07488-PROOF.pdf) |
+| 7489 | [A231994](https://oeis.org/A231994) | Proof | a condition on every cell over the neighbour set the entry names | [07489-PROOF.pdf](07489-PROOF.pdf) |
+| 7490 | [A234707](https://oeis.org/A234707) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07490-PROOF.pdf](07490-PROOF.pdf) |
+| 7491 | [A317731](https://oeis.org/A317731) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07491-PROOF.pdf](07491-PROOF.pdf) |
+| 7492 | [A281536](https://oeis.org/A281536) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07492-PROOF.pdf](07492-PROOF.pdf) |
+| 7493 | [A205834](https://oeis.org/A205834) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [07493-PROOF.pdf](07493-PROOF.pdf) |
+| 7494 | [A251969](https://oeis.org/A251969) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [07494-PROOF.pdf](07494-PROOF.pdf) |
+| 7495 | [A232339](https://oeis.org/A232339) | Proof | every cell carrying one stated value required to have a neighbour carrying another | [07495-PROOF.pdf](07495-PROOF.pdf) |
+| 7496 | [A205070](https://oeis.org/A205070) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [07496-PROOF.pdf](07496-PROOF.pdf) |
+| 7497 | [A257356](https://oeis.org/A257356) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [07497-PROOF.pdf](07497-PROOF.pdf) |
+| 7498 | [A188847](https://oeis.org/A188847) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07498-PROOF.pdf](07498-PROOF.pdf) |
+| 7499 | [A302167](https://oeis.org/A302167) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [07499-PROOF.pdf](07499-PROOF.pdf) |
+| 7500 | [A255030](https://oeis.org/A255030) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [07500-PROOF.pdf](07500-PROOF.pdf) |

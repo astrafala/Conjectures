@@ -70,6 +70,25 @@ def build(en, p, cap):
             # faster, so it is what the sweep uses. Nothing falls back to the old build: if
             # this one passes the cap, the pair state passed it long ago.
             return M[en].build_pairfree(p, cap=cap)
+        if en == 'transfer21':
+            # transfer21 counts 3x3 subblock conditions up to relabelling of the alphabet, by
+            # building one transfer17 automaton per alphabet size and weighting them. It was the
+            # ONLY caller of `transfer17.build', whose vertices are ordered PAIRS of lines and
+            # which therefore refuses a priori on (alpha+1)^(2W) > cap; everything else has come
+            # through here to `build_pairfree', which merges the predecessor line into its effect
+            # on the future before the states exist and has no such refusal. That one test is
+            # what refuses all 15 capped transfer21 entries carrying a conjecture, and nothing
+            # else refuses any of them.
+            #
+            # Verified to produce the same terms as the pair build on 243 shapes -- 99 entries
+            # and 144 of the parameter grid, over every body form the parser accepts crossed
+            # with W=3..6 and K=2..4 -- with zero mismatches, compared through `terms' below so
+            # the scaling denominator is handled the way production handles it. The state counts
+            # differ throughout (65793 against 11717 at W=4 K=4), which is what shows the
+            # comparison was running rather than comparing two copies of a failure: an earlier
+            # harness returned its own TypeError as the compared value and reported 99 of 99
+            # agreeing having compared nothing (STATE.md defect 38).
+            return M[en].build_pairfree(p, cap=cap)
         if en == 'transfer40':
             # the merged build, for the same reason transfer17 uses its pair-free one: the
             # predecessor rows matter to the future only through the overlap the next window
