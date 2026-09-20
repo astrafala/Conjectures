@@ -16,94 +16,97 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{An exact count for OEIS A228742: windowed medians over a growing alphabet}
+\title{An exact count for OEIS A228464: windowed maxima over a growing alphabet}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{15 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A228742 counts the arrays obtainable as the medians of $3$ adjacent elements of a length
-$7$ array with entries in $\{0,\dots,n\}$, and carries an empirical polynomial for that
-count. The length is fixed and it is the ALPHABET that grows, so no transfer matrix applies.
-Membership in the image is decided by comparisons, but -- unlike the analogous question for a
-windowed maximum -- \emph{not} by the relative order of the candidate's entries alone: a
-witness may need a value strictly between two of them, and whether an integer lies there depends
-on the gaps. Counting by order type together with gap pattern, and using the fact that
-achievability only improves as more gaps open, gives the count exactly.
+OEIS A228464 counts the arrays obtainable as the maxima of $3$ adjacent elements of a length
+$9$ array with entries in $\{0,\dots,n\}$, and carries an empirical polynomial for that
+count. The count is not a transfer-matrix count: the length is fixed and it is the ALPHABET
+that grows with $n$. It is nevertheless exactly computable, because membership in the image
+depends only on the relative order of the entries of the candidate array and not on their
+values, so the count is a fixed non-negative combination of binomial coefficients
+$\binom{n+1}{m}$. Computing that combination settles the empirical claim as an identity in
+$\mathbb{Q}[n]$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05A05, 06A07.\normalsize
 
 \section{The conjecture}
 
-The entry's first terms are $28, 185, 696, 1943, 4504, 9191, 17088, 29589,\dots$ and it states
+The entry's first terms are $44, 383, 1821, 6254, 17487, 42386, 92430, 185727,\dots$ and it states
 
-\begin{quote}\raggedright Empirical: a(n) = (n+1)*(19*n\^{}4+186*n\^{}3+349*n\^{}2+226*n+60)/60.\end{quote}
+\begin{quote}\raggedright Empirical: a(n) = (4/315)*n\^{}7 + (1/5)*n\^{}6 + (91/45)*n\^{}5 + (63/8)*n\^{}4 + (2557/180)*n\^{}3 + (517/40)*n\^{}2 + (2419/420)*n + 1 = (n+1) *(n+2) *(32*n\^{}5 + 408*n\^{}4 + 3808*n\^{}3 + 7605*n\^{}2 + 5367*n + 1260)/2520.\end{quote}
 
 \section{The object}
 
-Fix $k=7$, $w=3$ and $L=k-w+1=5$. For $a\in\{0,\dots,n\}^k$ let
+Fix $k=9$ and $w=3$, and put $L=k-w+1=7$. For $a=(a_1,\dots,a_k)\in\{0,\dots,n\}^k$
+let
 \[
-  \Phi(a)=\bigl(\operatorname{med}(a_1,\dots,a_w),\ \dots,\
-  \operatorname{med}(a_{k-w+1},\dots,a_k)\bigr)\in\{0,\dots,n\}^{L} ,
+  \Phi(a)=\bigl(\max(a_1,\dots,a_w),\ \max(a_2,\dots,a_{w+1}),\ \dots,\
+  \max(a_{k-w+1},\dots,a_k)\bigr)\in\{0,\dots,n\}^{L} .
 \]
-where $\operatorname{med}$ is the middle entry in sorted order. The entry counts
-$\lvert\Phi(\{0,\dots,n\}^k)\rvert$.
+The entry counts $\lvert\Phi(\{0,\dots,n\}^k)\rvert$.
 
-\section{Why the order type is not enough}
+\section{Membership in the image is decided by the order type}
 
-For a windowed MAXIMUM the componentwise-largest witness uses only the candidate's own values,
-so membership depends on nothing but their relative order. That fails here. A median window
-forces its value to be one of its three entries, but the two others may have to straddle it, and
-a straddling value need only lie in an open interval between two entries of $b$ -- any integer
-there will do, and some integer must be there. Two candidates with the same order type can differ
-in whether such an integer exists: $b=(0,1)$ and $b=(0,5)$ order alike and gap differently.
+Write $W_j=\{j,j+1,\dots,j+w-1\}$ for the $j$-th window, $1\le j\le L$.
 
-So the invariant is the pair: the order type of $b$, and which of the $m+1$ gaps around its $m$
-distinct values contain an integer.
-
-\begin{lemma}\label{lem:mono}
-Achievability is monotone in the gap set: if $b$ is in the image when a set $G$ of gaps is
-non-empty, it is in the image when any $G'\supseteq G$ is.
+\begin{lemma}\label{lem:greedy}
+Let $b\in\{0,\dots,n\}^{L}$ and define $\hat a\in\{0,\dots,n\}^k$ by
+$\hat a_i=\min\{\,b_j : i\in W_j\,\}$. Then $b\in\Phi(\{0,\dots,n\}^k)$ if and only if
+$\Phi(\hat a)=b$.
 \end{lemma}
 
 \begin{proof}
-A witness for $G$ uses letters drawn from the values of $b$ and from the gaps of $G$; every such
-letter is still available under $G'$, and the medians it produces are determined by its position
-in the order, which is unchanged.
+Each $\hat a_i$ is one of the $b_j$, so $\hat a$ does lie in $\{0,\dots,n\}^k$ and the
+condition is meaningful. If $\Phi(\hat a)=b$ there is nothing to prove. Conversely suppose
+$\Phi(a)=b$ for some $a$. For every $i\in W_j$ we have $a_i\le\max_{l\in W_j}a_l=b_j$, so
+$a_i\le\min\{b_j : i\in W_j\}=\hat a_i$: the array $\hat a$ dominates every witness
+componentwise. Hence
+$\max_{i\in W_j}\hat a_i\ge\max_{i\in W_j}a_i=b_j$. The reverse inequality is immediate
+from the definition, since $\hat a_i\le b_j$ for each $i\in W_j$. So $\Phi(\hat a)=b$.
+\end{proof}
+
+Both the construction of $\hat a$ and the test $\Phi(\hat a)=b$ use only comparisons between
+entries of $b$. Consequently:
+
+\begin{corollary}\label{cor:ordertype}
+Whether $b$ lies in the image depends only on the \emph{order type} of $b$ -- the weak
+ordering of its $L$ coordinates -- and not on $n$ or on the values themselves.
+\end{corollary}
+
+\begin{proof}
+Let $\sigma$ be any strictly increasing map defined on the values of $b$. Applying $\sigma$
+entrywise commutes with $\min$ and $\max$, so it carries $\hat a$ for $b$ to $\hat a$ for
+$\sigma(b)$ and preserves the equalities tested in Lemma~\ref{lem:greedy}. Any two arrays with
+the same order type differ by such a $\sigma$.
 \end{proof}
 
 \section{The count}
 
-Write $m$ for the number of distinct values of $b$. The number of $b\in\{0,\dots,n\}^{L}$ with
-a prescribed order type on $m$ values and a prescribed set $P$ of non-empty gaps is
-$\binom{n-m}{\lvert P\rvert-1}$, and summing that over every $P$ recovers
-$\binom{n+1}{m}$, the number of ways to choose the $m$ values at all.
-
-By Lemma~\ref{lem:mono} each order type falls into one of three cases, and only the third needs
-the pattern-by-pattern sum:
-
-\begin{itemize}
-\item achievable with NO extra letters -- every pattern works, and the type contributes the whole
-      $\binom{n+1}{m}$;
-\item not achievable even with every gap open -- it contributes nothing;
-\item otherwise, the patterns that work are enumerated.
-\end{itemize}
-
-Carrying that out over the weak orderings of $5$ elements gives
+For $1\le m\le L$ let $A_m$ be the number of order types of $L$ coordinates that use exactly
+$m$ distinct values and are achievable. An array $b\in\{0,\dots,n\}^{L}$ using exactly $m$
+distinct values is determined by the $m$-element subset of $\{0,\dots,n\}$ it uses together
+with its order type, and every pair occurs exactly once; so by Corollary~\ref{cor:ordertype},
 \[
-  \lvert\Phi(\{0,\dots,n\}^k)\rvert
-  = 1\binom{n+1}{1} + 26\binom{n+1}{2} + 104\binom{n+1}{3} + 120\binom{n+1}{4} + 38\binom{n+1}{5} \;+\; 0
-  = \frac{19 n^{5}}{60} + \frac{41 n^{4}}{12} + \frac{107 n^{3}}{12} + \frac{115 n^{2}}{12} + \frac{143 n}{30} + 1 .
+  \lvert\Phi(\{0,\dots,n\}^k)\rvert=\sum_{m=1}^{7}A_m\binom{n+1}{m}
+  \qquad\text{for every } n\ge 0 .
+\]
+Enumerating the weak orderings of $7$ elements and applying Lemma~\ref{lem:greedy} to each
+gives $A_{1}=1, A_{2}=42, A_{3}=254, A_{4}=549, A_{5}=544, A_{6}=272, A_{7}=64$, so
+\[
+  \lvert\Phi(\{0,\dots,n\}^k)\rvert=1\binom{n+1}{1} + 42\binom{n+1}{2} + 254\binom{n+1}{3} + 549\binom{n+1}{4} + 544\binom{n+1}{5} + 272\binom{n+1}{6} + 64\binom{n+1}{7}=\frac{4 n^{7}}{315} + \frac{n^{6}}{5} + \frac{91 n^{5}}{45} + \frac{63 n^{4}}{8} + \frac{2557 n^{3}}{180} + \frac{517 n^{2}}{40} + \frac{2419 n}{420} + 1 .
 \]
 
 \section{Conclusion}
 
-The right-hand side is the polynomial the entry states, so the empirical claim of OEIS A228742 is
-true for every $n\ge 0$. The computation is finite and exact -- it enumerates the weak orderings
-of $5$ elements and, for the few that need it, the gap patterns -- and performs no fitting to
-the published terms. Those 30 terms are reproduced by the formula as a check, not as
-evidence.
+The right-hand side is the polynomial the entry states, so the empirical claim of OEIS A228464 is
+true for every $n\ge 0$. The argument is finite and exact: it enumerates the weak orderings of
+$7$ elements, of which there are 1726 achievable, and performs no fitting to the
+published terms. Those terms are reproduced by the formula as a check, not as evidence.
 
 \end{document}
