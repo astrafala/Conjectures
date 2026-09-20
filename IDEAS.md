@@ -2152,3 +2152,43 @@ here was a verified, exact, correctly-built engine improvement that buys one can
   not a drop-in — `transfer21` overrides the start vector with a uniform weight, which the
   pair-free build computes for itself — but 15 of those 78 carry a conjecture and it is a
   smaller, better-aimed piece of work than another merge.
+
+### AP.6 The caps file is polluted by more than one mechanism
+
+Re-asking the 255 entries of `deep-check/realcap.txt` — the capped entries that actually carry a
+conjecture — produced two proofs in its first five entries, both installed:
+
+| | | |
+|---|---|---:|
+| A184710 | strings x(i=1..10) in 0..n with Sum i*x(i) = n*10 | **S=353** |
+| A188239 | nondecreasing arrangements of 6 numbers in -(n+4)..(n+4), sum zero, at most two equal | **S=41** |
+
+Both are in `uniall_caps.json` as *state space > cap*. The cap is 2,000,000. **They build in 353
+and 41 states** — four orders of magnitude inside it, in under a second, in any amount of memory
+this container has ever had. So neither the cap nor the `MemoryError` of AP/defect 36 explains
+them: these are defect 34, a refusal list gone stale because the engine that wrote it is not the
+engine that reads it now.
+
+That makes three separate mechanisms writing entries into one file under one label —
+
+1. the pre-parse size estimate, which fires before the entry is checked for a conjecture at all;
+2. a `MemoryError` flattened to `None` and read as the cap (defect 36, and defect 39 for the
+   phases after the build);
+3. an engine of an earlier round that genuinely refused, and a current engine that does not.
+
+— and the file records only "capped" for all three. **`uniall_caps.json` is not a list of models
+too big to build. It is a list of entries some sweep once declined to finish, for reasons it did
+not write down.** Its 2,311 off-roster rows are worth re-asking in full, not because the cap has
+moved but because most of what put them there was never the cap.
+
+### AP.7 Correction to AP.5: the `transfer21` pair-free build is NOT verified
+
+AP.5 named `transfer21` — the only caller of `transfer17.build`, the version refusing a priori on
+`A^(2W) > cap` — as the best-aimed next piece of work, and that stands: all 15 capped
+`transfer21` entries carrying a conjecture are refused by that test and by nothing else.
+
+A `build_pairfree` for it is written. The check that appeared to verify it, reporting 99 of 99
+entries identical, had compared nothing: it returned its own `TypeError` as the compared value,
+so both sides matched (STATE.md defect 38). **Nothing dispatches to it** — `uniform.build` still
+sends `transfer21` down the old path — and nothing will until a comparison that can actually run
+comes back clean.
