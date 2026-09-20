@@ -65,6 +65,13 @@ def main():
     if p:
         out.append(f'phase12 {len(p["ok"])} fail {len(p["bad"])}')
     out.append(f'disproofs {len(L("falsify.json") or [])}')
+    # Entries the CONTAINER refused, not the cap. They are not in uniall_caps.json and nothing
+    # else would ever mention them, so without this line an entry whose build fits but whose
+    # machine did not simply disappears from view -- which is the whole failure uniall_oom.json
+    # was made to stop (STATE.md defects 36 and 39).
+    oom = L('uniall_oom.json')
+    if oom:
+        out.append(f'oom {len(oom)} (build fits, machine did not)')
     t = L('ordtails.json')
     if t:
         out.append(f'tails {len(t["proved"])} proved {len(t["disproved"])} disproof-cand')
