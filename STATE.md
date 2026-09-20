@@ -687,3 +687,28 @@ hours were lost today misreading its consequences:
   of one process does not fit this container and should be designed around, not simply started
   and hoped for. Entries whose single build takes 20 minutes get three or four attempts a day at
   best, which is why `uniall_oom.json` is read at 3 of 41 after an afternoon on it.
+
+### defect 42 — a runner switched off on the belief that it had finished
+
+`restart_all.sh` carried the line *"p5last.sh and p12run.sh were dropped once Phases 5 and 12
+finished: a runner with nothing left to do still takes its share of the CPU away from the sweeps
+that do have work."* The reasoning is right and the premise was false for one of the two.
+
+**Phase 5 had not finished.** It is the deep check that rebuilds each model in a fresh process
+and re-verifies, against no cached verdict, that the model reproduces every published term, that
+the stated recurrence annihilates it at the stated threshold, and that the threshold is exact.
+Its `ok` count has stood at **3,847 since 8 September**. Its total is derived — every non-FAILS
+hit in `uniall_hits.json` carrying coeffs and an engine — so it GROWS with every sweep: 5,942
+this morning, 5,971 tonight. The status line has read `left 2,100` all day and nobody, including
+me for sixteen hours, read it as a number that was supposed to go down.
+
+So 2,100 results have never had their mathematics recomputed from cold. That is not a search for
+new results; it is whether the ones already counted are right, which matters more than any vein.
+Back in the rotation as `p5run.sh`.
+
+**The shape is the day's, one level up.** A refusal list nobody re-reads goes stale (defect 34);
+a done-list that cannot distinguish a timeout from an answer hides work (40); a refusal list
+never retracted becomes a rumour (41). This is the same error applied to a PROCESS rather than a
+file: something was recorded as finished, and the machinery that would have shown otherwise was
+precisely the thing switched off. **Before retiring a runner, read the counter it feeds — and
+check whether that counter's denominator can grow.**
