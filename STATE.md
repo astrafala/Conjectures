@@ -729,10 +729,20 @@ EVENTS, not 179 entries — and the fix was a `seen` set. Correct for the counti
 the skip list into an exclusion nothing revisits.
 
 So the 31 entries recorded as "rebuild over the cap" were recorded **on 8 September**, by the
-engines of that date. Four of them are results installed TODAY. A185863 and A186955 were rebuilt
-by hand at `P5CAP=8,000,000` and came back at S=698,048 and S=173,934 — they build perfectly
-well; what could not build them was `transfer40`'s unmerged construction, which was replaced
-this morning. **The check was the faulty side, exactly as its own docstring warns it usually is.**
+engines of that date. Four of them are results installed TODAY, and all four were rebuilt by hand
+at `P5CAP=8,000,000`:
+
+| | | |
+|---|---|---:|
+| A185863 | `transfer40` | S = 698,048 |
+| A186955 | `transfer40` | S = 173,934 |
+| A184710 | `latpoly` | S = 353 |
+| A185900 | `transfer19` | S = 4,088 |
+
+Every one builds without difficulty. **A184710 needs 353 states against a cap of eight
+million** — it was never within four orders of magnitude of the limit it was recorded as
+exceeding. What could not build the `transfer40` pair was that engine's unmerged construction,
+replaced this morning; what could not build the others was whatever stood on 8 September. **The check was the faulty side, exactly as its own docstring warns it usually is.**
 
 46 machine-reason skips cleared, from all three shards, so they are asked again by the engines
 that exist now. `skip 32` became `skip 0`.
