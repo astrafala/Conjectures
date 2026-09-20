@@ -528,3 +528,56 @@ re-read, or the relocation silently turns a maintenance step into a no-op. Nothi
 the thing just stops being done.
 
 `attic/` is for code that is finished with. A script a routine calls every day is not.
+
+### defect 38 — a comparison that cannot run must fail, never pass
+
+The check that was to verify `transfer21.build_pairfree` against `transfer21.build` reported
+**99 of 99 entries identical**. It had compared nothing. Its helper was
+
+    def seq(b, p):
+        try:
+            return tuple(transfer21.terms(p, b, NT))
+        except Exception as exc:
+            return ('ERR', str(exc)[:50])
+
+and `transfer21.terms` IS `transfer19.terms`, whose signature is `(adj, start, end, N)`. Called
+as `(p, b, N)` it raises `TypeError` on every shape. Both sides therefore returned **the same
+error tuple**, compared equal, and every shape was counted as agreeing. The louder the failure,
+the cleaner the result looked.
+
+**An exception must never be returned as the value being compared.** A harness that turns its
+own breakage into a comparable object reports perfect agreement exactly when it is testing
+nothing, and the report is indistinguishable from a real one. Let it raise, count it as a
+failure of the comparison, and print it.
+
+The second half is the same shape: the grid version of the check swallowed the `TypeError` in
+an `except ... continue` with no print, so it produced no output at all and read as slow
+progress on a hard problem. **A branch that gives up on an item must say so.** Silence is the
+one thing a measurement must never mean.
+
+Use `uniform.terms(en, p, b, N)` for this, not the engine's own `terms`: it is the entry point
+the sweep uses, it knows which engines carry a scaling denominator, and getting the comparison
+to go through the same door as production is most of what makes it worth running.
+
+### defect 39 — catching an out-of-memory is not enough if the handler allocates
+
+Defect 36 fixed `uniform.build` flattening `MemoryError` into `None`, and `sweep_shard` now
+counts an out-of-memory as its own outcome instead of writing the entry into `uniall_caps.json`.
+That was one phase of three.
+
+A186012's re-ask at 7 GB died like this: the BUILD succeeded — `S=900096`, comfortably under the
+cap of 2,000,000 — and the `MemoryError` came out of `lumpauto.lump` inside `uniform.threshold`,
+two phases later, where the handler recorded it as **`terms timed out`**. Then `save()` raised
+`MemoryError` in its turn, because the address space was still exhausted and writing a file
+allocates. The shard died having written **no file at all**: no hits, no done, no caps, no oom,
+no record that A186012 had ever been asked.
+
+So: the build is not the only phase that can exhaust the limit, and a phase counter that names
+a timeout is as wrong about an out-of-memory as a cap counter is. Every phase now catches
+`MemoryError` separately. And the recovery path itself must not allocate — the automaton is
+dropped and `gc.collect()` run *before* the save, and it must be the loop's own name `b` that
+goes: handing the object to `save()` and deleting the parameter there frees nothing, because the
+caller still holds the reference that matters.
+
+**A failure the recorder cannot survive is a failure that leaves no trace at all**, which is
+worse than the wrong label — the wrong label at least says an entry was asked.

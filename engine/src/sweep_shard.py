@@ -26,7 +26,7 @@ terms are, so one conversion serves them all.
 """
 import json
 
-import atomicjson, re, os, sys, collections, resource, signal, zlib
+import atomicjson, re, os, sys, collections, gc, resource, signal, zlib
 
 # Without an address-space limit the KERNEL decides what a runaway build costs, and it kills the
 # whole shard rather than the one entry. STATE.md records that re-asking `deep-check/capped.txt`
@@ -195,6 +195,16 @@ for a in sorted(set(CANDS) | ANUMS):
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['terms timed out'] += 1; done.add(a); save(); continue
+    except MemoryError:
+        signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
+        # Drop the automaton BEFORE saving. Saving allocates, and on this path the address
+        # space is already exhausted, so the save raised MemoryError too and the shard died
+        # having written nothing: A186012's run left no file at all to say what happened to it.
+        # It has to be `b' that goes -- handing the automaton to save() and deleting the
+        # parameter there frees nothing, because this name still holds the only reference that
+        # matters. Catching MemoryError is not enough if the recovery path allocates.
+        b = None; gc.collect()
+        done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['terms failed'] += 1; done.add(a); save(); continue
     tv = [None if (x is None or x.denominator != 1) else x.numerator for x in t]
@@ -209,6 +219,20 @@ for a in sorted(set(CANDS) | ANUMS):
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['annihilation timed out'] += 1; done.add(a); save(); continue
+    except MemoryError:
+        # A186012's BUILD fits: S=900096 under a cap of 2,000,000. What did not fit was
+        # `lumpauto.lump' inside `uniform.threshold', at 7 GB. The build is not the only phase
+        # that can exhaust the limit, and recording an out-of-memory here as a timeout is the
+        # same conflation one phase later.
+        signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
+        # Drop the automaton BEFORE saving. Saving allocates, and on this path the address
+        # space is already exhausted, so the save raised MemoryError too and the shard died
+        # having written nothing: A186012's run left no file at all to say what happened to it.
+        # It has to be `b' that goes -- handing the automaton to save() and deleting the
+        # parameter there frees nothing, because this name still holds the only reference that
+        # matters. Catching MemoryError is not enough if the recovery path allocates.
+        b = None; gc.collect()
+        done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['threshold failed'] += 1; done.add(a); save(); continue
     if thr is None:
