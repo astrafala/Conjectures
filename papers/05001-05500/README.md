@@ -1,6 +1,6 @@
 # Papers 05001-05500
 
-Ranks 5001 to 5500 of 13746, hardest first.
+Ranks 5001 to 5500 of 13747, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
