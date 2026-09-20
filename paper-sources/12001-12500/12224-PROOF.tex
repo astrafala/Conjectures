@@ -12,17 +12,18 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Parities, differences and neighbours: OEIS A183314}
+\title{A condition on every subblock: the empirical recurrence for OEIS A183838}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A183314 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is decided by a bounded amount of state carried down the array; the
+OEIS A183838 carries an empirical recurrence of order $4$ contributed by R.~H.~Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is a condition on every
+subblock of a fixed size, so it is decided by a bounded window of consecutive lines; the
 admissible windows are the vertices of a finite digraph and the arrays counted are exactly the
-walks in it. Hence $a(n)$ is a walk count on $S=4$ vertices and is $C$-finite, and whether the
+walks in it. Hence $a(n)$ is a walk count on $S=5$ vertices and is $C$-finite, and whether the
 conjectured recurrence annihilates it is settled by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +32,24 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A183314 is ``Number of n X 2 binary arrays with an element zero only if there are an even number of ones to its left and an even number of ones above it.''. It has offset $1$ and begins
+OEIS A183838 is ``Number of (n+1) X 3 binary arrays with each element of every 2 X 2 subblock being the sum mod 2 of two others.''. It has offset $1$ and begins
 \[
-3, 6, 13, 27, 57, 119, 250, 523,\ \dots
+31, 129, 542, 2297, 9747, 41430, 176119, 748937,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = a(n-1) + 3*a(n-2) - a(n-3) - a(n-4).
+Empirical: a(n) = 5*a(n-1) + a(n-2) - 22*a(n-3) + 18*a(n-4).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 27 2018 08:49:50, revision 10) this is still
+As of the ``Last modified'' line on the live entry (Apr 05 2018 06:39:50, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The entry counts arrays with $2$ columns over the alphabet $\{0,1\}$, growing one row at a time, and asks that an entry may be zero only where the number of ones to its left in its own line and the number of ones above it in its own column are both even.
+The entry counts arrays with $3$ columns over the alphabet $\{0,1\}$, growing one row at a time, and the condition it imposes is that in every $2\times2$ subblock, each of the four entries must be congruent modulo $2$ to the sum of two of the other three.
 
-The count of ones above a cell reaches back to the top of the array, so no window of consecutive rows holds it. It does not have to: only the parity of that count is ever asked for, and a parity is one bit per column, flipped by each one that lands in that column. The other half of the condition, the ones to a cell's left, is read straight off the row being placed. So the state is $2$ bits and nothing else, and a row may follow a state exactly when every zero in it sits where both parities are even.
-
-Merging vertices with identical futures leaves $S=4$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which states may begin and end an array,
+That condition is decided by a bounded window. A $2\times2$ subblock occupies $2$ consecutive rows, so a window of $2$ consecutive rows decides everything that the arrival of a new row settles; nothing outside the window is consulted. Take those windows as the vertices of a digraph, with an edge from $u$ to $v$ when $v$'s new row may follow $u$, and merge vertices with identical futures; that leaves $S=5$. An admissible array is exactly a walk, so with $M$ the adjacency matrix and $\iota,\tau$ the vectors recording which windows may begin and end an array,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -76,7 +75,7 @@ changes nothing here.
 
 \begin{theorem}
 \[
-a(n)\;=\;a(n-1) + 3\,a(n-2) - a(n-3) - a(n-4)
+a(n)\;=\;5\,a(n-1) + a(n-2) - 22\,a(n-3) + 18\,a(n-4)
 \]
 for every $n>4$.
 \end{theorem}
@@ -92,12 +91,13 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $21$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
 Second, the reading was pinned before the digraph was written, by a program that enumerates
-every array of the given shape one by one and tests the entry's condition on it directly. That program shares no code with the transfer matrix, so an error in one does not
+every array of the given shape one by one and tests the entry's condition on each subblock
+directly. That program shares no code with the transfer matrix, so an error in one does not
 hide an error in the other.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
@@ -108,7 +108,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A183314.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183838.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

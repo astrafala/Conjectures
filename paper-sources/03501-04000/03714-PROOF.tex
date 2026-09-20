@@ -11,23 +11,19 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical closed form for OEIS A227330, proved}
+\title{The empirical closed form for OEIS A238809, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A227330 carries an empirical closed form for $a(n)$ --- not a recurrence relating
+OEIS A238809 carries an empirical closed form for $a(n)$ --- not a recurrence relating
 consecutive terms but an explicit formula. It is true, and it is decidable rather than
 empirical. The entry counts arrays subject to a condition on a bounded window of consecutive lines, so the lines of an array are the
 vertices of a finite digraph, an array is a walk in it, and $a(n)$ is a walk count on
-$S=217$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
+$S=243$ vertices. Any function of the form $\sum_j p_j(n)\lambda_j^{\,n}$ satisfies the
 monic linear recurrence whose characteristic polynomial is
 $\prod_j(x-\lambda_j)^{\deg p_j+1}$; here that polynomial is $q(x)=(x-1)^{16}$, of degree
 $16$. Two things are then checked exactly: that the walk count satisfies the same
@@ -41,33 +37,26 @@ there is agreement for good.
 
 \section{The conjecture}
 
-OEIS A227330 is ``Number of n X 3 0,1 arrays indicating 2 X 2 subblocks of some larger (n+1) X 4 binary array having two adjacent 1's and two adjacent 0's, with rows and columns of the latter in lexicographically nondecreasing order.''. It has offset $1$ and begins
+OEIS A238809 is ``Number of n X 5 0..2 arrays with no element equal to one plus the sum of elements to its left or one plus the sum of the sum of elements above it, modulo 3.''. It has offset $1$ and begins
 \[
-8, 34, 153, 708, 3013, 11292, 37312, 110816,\ \dots
+6, 39, 254, 1501, 7502, 31125, 111564, 356666,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical: a(n) = (1/1307674368000)*n\^{}15 + (1/87178291200)*n\^{}14 + (19/7472424960)*n\^{}13 - (1/191600640)*n\^{}12 + (36577/14370048000)*n\^{}11 - (2689/87091200)*n\^{}10 + (436297/365783040)*n\^{}9 - (2115367/121927680)*n\^{}8 + (6669593/23328000)*n\^{}7 - (13770361/4354560)*n\^{}6 + (104682953/3592512)*n\^{}5 - (2364431063/11975040)*n\^{}4 + (366060925289/378378000)*n\^{}3 - (487180400717/151351200)*n\^{}2 + (2320943983/360360)*n - 5585 for n>6.
+\begin{quote}
+Empirical: a(n) = (1/4572288000)*n\^{}15 - (977/43589145600)*n\^{}14 + (2063/1334361600)*n\^{}13 - (3407/47900160)*n\^{}12 + (8955043/3592512000)*n\^{}11 - (52157/777600)*n\^{}10 + (81530299/57153600)*n\^{}9 - (146333539/6096384)*n\^{}8 + (209014719719/653184000)*n\^{}7 - (29159596579/8709120)*n\^{}6 + (1769086509077/65318400)*n\^{}5 - (565086990557/3421440)*n\^{}4 + (510122386391417/698544000)*n\^{}3 - (166274896650011/75675600)*n\^{}2 + (1441644437297/360360)*n - 3304835 for n>6.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 23:57:56, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 24 2025 08:56:01, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved. Write
-\begin{multline*}
-f(n)\;=\;\frac{n^{15}}{1307674368000} + \frac{n^{14}}{87178291200} \\
-+ \frac{19 n^{13}}{7472424960} - \frac{n^{12}}{191600640} \\
-+ \frac{36577 n^{11}}{14370048000} - \frac{2689 n^{10}}{87091200} \\
-+ \frac{436297 n^{9}}{365783040} - \frac{2115367 n^{8}}{121927680} \\
-+ \frac{6669593 n^{7}}{23328000} - \frac{13770361 n^{6}}{4354560} \\
-+ \frac{104682953 n^{5}}{3592512} - \frac{2364431063 n^{4}}{11975040} \\
-+ \frac{366060925289 n^{3}}{378378000} - \frac{487180400717 n^{2}}{151351200} \\
-+ \frac{2320943983 n}{360360} - 5585.
-\end{multline*}
+\[
+f(n)\;=\;\frac{n^{15}}{4572288000} - \frac{977 n^{14}}{43589145600} + \frac{2063 n^{13}}{1334361600} - \frac{3407 n^{12}}{47900160} + \frac{8955043 n^{11}}{3592512000} - \frac{52157 n^{10}}{777600} + \frac{81530299 n^{9}}{57153600} - \frac{146333539 n^{8}}{6096384} + \frac{209014719719 n^{7}}{653184000} - \frac{29159596579 n^{6}}{8709120} + \frac{1769086509077 n^{5}}{65318400} - \frac{565086990557 n^{4}}{3421440} + \frac{510122386391417 n^{3}}{698544000} - \frac{166274896650011 n^{2}}{75675600} + \frac{1441644437297 n}{360360} - 3304835.
+\]
 
 \section{The count is a walk count}
 
 The entry's defining condition is local: it is a condition on a bounded window of consecutive lines. Take as vertices the
 admissible configurations of such a window and put an edge from $u$ to $v$ when $v$ may
 follow $u$, which the condition decides by inspection. An admissible array is then exactly a
-walk, so with $M$ the adjacency matrix of that digraph on $S=217$ vertices, and $u,w$ the
+walk, so with $M$ the adjacency matrix of that digraph on $S=243$ vertices, and $u,w$ the
 vectors recording which windows may start and end an array,
 \[
 a(n)\;=\;u^{\!\top}M^{\,g(n)}w
@@ -142,7 +131,7 @@ The range is tight in the sense that was checked: at $n=6$ the closed form and t
 
 Four checks, each independent of the algebra above.
 
-First, the walk model reproduces every one of the $25$ terms the entry publishes,
+First, the walk model reproduces every one of the $27$ terms the entry publishes,
 exactly, in integer arithmetic. This is what ties the model to the entry: the model is built
 by reading the entry's English, and a misreading gives a different digraph and different
 counts.
@@ -160,7 +149,7 @@ that anything would pass.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A227330.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238809.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; $C$-finite sequences,
 Section 4.1.)

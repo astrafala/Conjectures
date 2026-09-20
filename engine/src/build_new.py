@@ -143,8 +143,22 @@ mods = {}
 made, failed = 0, []
 for h in sorted(hits, key=lambda x: x['anum']):
     name = SPECIAL.get(h['engine'], 'unibuild')
-    mods.setdefault(name, importlib.import_module(name))
     mods.setdefault('unibuild', importlib.import_module('unibuild'))
+    # This import used to sit OUTSIDE the try below, so an engine whose named builder was not
+    # importable did not cost its own paper -- it killed the whole run with ModuleNotFoundError
+    # before a single one was written. The `engine/src' split moved 100 builders into `attic/'
+    # and left SPECIAL naming 35 of them, so the first hit from any of those engines took the
+    # batch down with it; they are back in `src/' now. The docstring already says engines
+    # without a builder of their own get the general one, and a builder that will not import is
+    # an engine without one. Say so, and carry on.
+    if name not in mods:
+        try:
+            mods[name] = importlib.import_module(name)
+        except Exception as exc:
+            print(f"  no builder {name} ({exc}); {h['engine']} uses the general one")
+            SPECIAL.pop(h['engine'], None)
+            name = 'unibuild'
+    name = name if name in mods else 'unibuild'
     if h['engine'] in ENRICH:
         eng = importlib.import_module(h['engine'])
         q = eng.parse_name(LE.get(h['anum'])['name'])

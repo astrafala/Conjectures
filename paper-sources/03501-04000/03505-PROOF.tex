@@ -12,44 +12,44 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223281, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223335, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223281 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$7$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is dodecahedron graph. The entry carries an empirical recurrence of order $20$
+OEIS A223335 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is cube graph $Q_3$. The entry carries an empirical recurrence of order $20$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
 condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=14581$ vertices.
+single slice is a state and the count is a walk count on a finite digraph with $S=39937$ vertices.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223281 is ``Rolling icosahedron face footprints: number of nX7 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal, diagonal or antidiagonal neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
+OEIS A223335 is ``Rolling cube footprints: number of 6 X n 0..7 arrays starting with 0 where 0..7 label vertices of a cube and every array movement to a horizontal or antidiagonal neighbor moves along a corresponding cube edge.''. It has offset $1$ and begins
 \[
-729, 29943, 1881441, 137621799, 10801441521, 879050854455, 72981761306721, 6127190749734087,\ \dots
+32768, 177147, 36756909, 7626831723, 1587890407761, 330815891296611, 68935627430614161, 14365712340521444763,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 193*a(n-1) -13138*a(n-2) +389164*a(n-3) -4361048*a(n-4) -16478976*a(n-5) +680367552*a(n-6) -2205737728*a(n-7) -32395676672*a(n-8) +159364997888*a(n-9) +669407522304*a(n-10) -3582601411584*a(n-11) -5951537518592*a(n-12) +34040410587136*a(n-13) +16838602686464*a(n-14) -137580342149120*a(n-15) +18193951227904*a(n-16) +210744868077568*a(n-17) -92999396622336*a(n-18) -80015240724480*a(n-19) +37572373905408*a(n-20)
+Empirical: a(n) = 363*a(n-1) -42090*a(n-2) +2394790*a(n-3) -76949379*a(n-4) +1439989707*a(n-5) -14188685367*a(n-6) +22105928025*a(n-7) +1145452404696*a(n-8) -13381549738272*a(n-9) +56254263011793*a(n-10) +62916731731323*a(n-11) -1574353040753800*a(n-12) +5560131978318054*a(n-13) -1833699655619436*a(n-14) -34189681765260294*a(n-15) +75258675804889728*a(n-16) -6463571598539280*a(n-17) -143095150109785392*a(n-18) +141900806436429312*a(n-19) -28670292192657024*a(n-20) for n>25.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:27:29, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Apr 16 2024 22:43:27, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,19\}$ whose vertices are the twenty faces of a regular icosahedron, two of them adjacent when they share an edge. That is the dodecahedron graph: $20$ vertices, $3$-regular, $30$ edges.
+Let $G$ be the graph on the label set $\{0,1,\dots,7\}$ whose vertices are the eight corners of a cube, two of them adjacent when an edge of the cube joins them. That is the graph $Q_3$ of the $3$-dimensional cube: $8$ vertices, $3$-regular, $12$ edges.
 
 An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, diagonal and horizontal, that is the cell offsets
+directions antidiagonal and horizontal, that is the cell offsets
 \[
-(1,-1), (1,1), (0,1),
+(1,-1), (0,1),
 \]
 and asks that whenever two cells of the array differ by one of those offsets, the two vertices
 they carry are joined by an edge of $G$:
@@ -72,24 +72,24 @@ Because the four named graphs are vertex-transitive---the symmetry group of the 
 
 \section{One slice is a state}
 
-Take the array one $row$ at a time, in the direction in which it grows.
-Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $7$ over the vertices of $G$, carries
-everything the next $row$ needs: the conditions inside a $row$ constrain that
-$row$ alone, and the conditions across $row$s are a relation between the
-$row$ just written and the one about to be written.
+Take the array one $column$ at a time, in the direction in which it grows. The entry writes the array with $n$ as the number of COLUMNS, so the slice added at each step is a column. Transposing the array exchanges the horizontal and vertical directions and carries each diagonal direction to itself, and that is how the directions are read below.
+Every offset the entry names has its two cells either in the same $column$ or in two
+consecutive ones. So a $column$, a word of length $6$ over the vertices of $G$, carries
+everything the next $column$ needs: the conditions inside a $column$ constrain that
+$column$ alone, and the conditions across $column$s are a relation between the
+$column$ just written and the one about to be written.
 
-Let $M$ be the matrix indexed by the legal $row$s, with $M_{uv}=1$ when $v$ may
+Let $M$ be the matrix indexed by the legal $column$s, with $M_{uv}=1$ when $v$ may
 follow $u$. Add one further state for the empty array, whose successors are the legal first
-$row$s---those beginning with the vertex $0$; then a walk of
-$n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
+$column$s---those beginning with the vertex $0$; then a walk of
+$n$ steps from that state is exactly an array of $n$ $column$s. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=14581.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=39937.
 \]
-The $row$s themselves are built one cell at a time with the conditions applied as soon
-as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $7$ over $20$ vertices is one of $20^{7}$ words, but only $S-1$ of them are
+The $column$s themselves are built one cell at a time with the conditions applied as soon
+as they can be, which for the sparser graphs is what makes the state list short: a $column$
+of length $6$ over $8$ vertices is one of $8^{6}$ words, but only $S-1$ of them are
 legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;193\,a(n-1) - 13138\,a(n-2) + 389164\,a(n-3) - 4361048\,a(n-4) - 16478976\,a(n-5) + 680367552\,a(n-6) - 2205737728\,a(n-7) - 32395676672\,a(n-8) + 159364997888\,a(n-9) + 669407522304\,a(n-10) - 3582601411584\,a(n-11) - 5951537518592\,a(n-12) + 34040410587136\,a(n-13) + 16838602686464\,a(n-14) - 137580342149120\,a(n-15) + 18193951227904\,a(n-16) + 210744868077568\,a(n-17) - 92999396622336\,a(n-18) - 80015240724480\,a(n-19) + 37572373905408\,a(n-20)
+a(n)\;=\;363\,a(n-1) - 42090\,a(n-2) + 2394790\,a(n-3) - 76949379\,a(n-4) + 1439989707\,a(n-5) - 14188685367\,a(n-6) + 22105928025\,a(n-7) + 1145452404696\,a(n-8) - 13381549738272\,a(n-9) + 56254263011793\,a(n-10) + 62916731731323\,a(n-11) - 1574353040753800\,a(n-12) + 5560131978318054\,a(n-13) - 1833699655619436\,a(n-14) - 34189681765260294\,a(n-15) + 75258675804889728\,a(n-16) - 6463571598539280\,a(n-17) - 143095150109785392\,a(n-18) + 141900806436429312\,a(n-19) - 28670292192657024\,a(n-20)
 \]
-for every $n>20$.
+for every $n>25$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $20$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=20+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=25+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition, with the
@@ -146,7 +146,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223281.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223335.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.
