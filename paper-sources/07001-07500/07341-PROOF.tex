@@ -11,45 +11,41 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A230613, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A235195, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{15 September 2026}
+\date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A230613 carries an empirical recurrence of order $39$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+OEIS A235195 carries an empirical recurrence of order $39$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to every $2\times2$ subblock, hence two consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=18774$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=54432$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
- The entry also fixes one corner: its upper left cell must be $0$. That is part of the condition and it changes the count, so the model enforces it in the starting vector, which admits only the states whose first line carries that value in that position; every walk counted below begins from one of those.\end{abstract}
+\end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A230613 is ``Number of n X 7 0..2 arrays x(i,j) with each element horizontally or antidiagonally next to at least one element with value (x(i,j)+1) mod 3, and upper left element zero.''. It has offset $1$ and begins
+OEIS A235195 is ``Number of (n+1) X (5+1) 0..6 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 5, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$ and begins
 \[
-0, 108, 20430, 3023532, 434369516, 62312057642, 8937075346246, 1281770005911328,\ \dots
+26040, 51144, 105208, 261760, 652872, 1816160, 4984584, 14642048,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical: a(n) = 227*a(n-1) -15073*a(n-2) +516849*a(n-3) -12004704*a(n-4) +210898965*a(n-5) -2423644215*a(n-6) +10342524170*a(n-7) +95146925330*a(n-8) -1270472692024*a(n-9) +3509210149862*a(n-10) +18487113129390*a(n-11) -118346116978076*a(n-12) -142045747219349*a(n-13) +1981657241253047*a(n-14) -797608174902841*a(n-15) -15665230743026270*a(n-16) +16136528041550748*a(n-17) +100523161525342639*a(n-18) -390340855048743361*a(n-19) +233817541582646426*a(n-20) +2657045726509285686*a(n-21) -2826074288477380324*a(n-22) -10042267477638045785*a(n-23) -893399234003894819*a(n-24) +21271266621127182723*a(n-25) +29807155260119262672*a(n-26) -4592555879996432954*a(n-27) -46721024398304244746*a(n-28) -22705965854461622084*a(n-29) +49126201387464330532*a(n-30) +68141813936973463424*a(n-31) +31547751481543057692*a(n-32) +3384275076564111348*a(n-33) -931910606918155028*a(n-34) +212617089869580916*a(n-35) +118425972661438288*a(n-36) +3200357881449152*a(n-37) +870950365213440*a(n-38) +4393637366976*a(n-39) for n>41.
+\begin{quote}
+Empirical: a(n) = 9*a(n-1) +57*a(n-2) -731*a(n-3) -878*a(n-4) +26304*a(n-5) -15900*a(n-6) -552844*a(n-7) +899723*a(n-8) +7521105*a(n-9) -18125633*a(n-10) -69122561*a(n-11) +220983779*a(n-12) +431291855*a(n-13) -1831340243*a(n-14) -1746606119*a(n-15) +10803108780*a(n-16) +3716404250*a(n-17) -46315168788*a(n-18) +2550194940*a(n-19) +145490417695*a(n-20) -46954531755*a(n-21) -335197745077*a(n-22) +166429786799*a(n-23) +564880422518*a(n-24) -334400168840*a(n-25) -694120308016*a(n-26) +424547635156*a(n-27) +620744392928*a(n-28) -343613520080*a(n-29) -401608244880*a(n-30) +170947437904*a(n-31) +182786646240*a(n-32) -46865973504*a(n-33) -54609655680*a(n-34) +4665398976*a(n-35) +9369063936*a(n-36) +551978496*a(n-37) -679311360*a(n-38) -113218560*a(n-39).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 03 2024 22:09:50, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 19 2022 03:34:19, revision 10) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two. Windows that admit exactly the same continuations and lead to the same states are identified, which changes no count: such windows contribute identically to every walk count, so the vertex is the class rather than the window.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=18774$ vertices,
+The condition the entry imposes is local: it constrains every $2\times2$ subblock, hence two consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=54432$ vertices,
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
 \]
@@ -76,40 +72,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;\sum_{i=1}^{39}c_i\,a(n-i)
+a(n)\;=\;9\,a(n-1) + 57\,a(n-2) - 731\,a(n-3) - 878\,a(n-4) + 26304\,a(n-5) - 15900\,a(n-6) - 552844\,a(n-7) + 899723\,a(n-8) + 7521105\,a(n-9) - 18125633\,a(n-10) - 69122561\,a(n-11) + 220983779\,a(n-12) + 431291855\,a(n-13) - 1831340243\,a(n-14) - 1746606119\,a(n-15) + 10803108780\,a(n-16) + 3716404250\,a(n-17) - 46315168788\,a(n-18) + 2550194940\,a(n-19) + 145490417695\,a(n-20) - 46954531755\,a(n-21) - 335197745077\,a(n-22) + 166429786799\,a(n-23) + 564880422518\,a(n-24) - 334400168840\,a(n-25) - 694120308016\,a(n-26) + 424547635156\,a(n-27) + 620744392928\,a(n-28) - 343613520080\,a(n-29) - 401608244880\,a(n-30) + 170947437904\,a(n-31) + 182786646240\,a(n-32) - 46865973504\,a(n-33) - 54609655680\,a(n-34) + 4665398976\,a(n-35) + 9369063936\,a(n-36) + 551978496\,a(n-37) - 679311360\,a(n-38) - 113218560\,a(n-39)
 \]
-for every $n>41$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=227$ & $c_{2}$ & $=-15073$ \\
-$c_{3}$ & $=516849$ & $c_{4}$ & $=-12004704$ \\
-$c_{5}$ & $=210898965$ & $c_{6}$ & $=-2423644215$ \\
-$c_{7}$ & $=10342524170$ & $c_{8}$ & $=95146925330$ \\
-$c_{9}$ & $=-1270472692024$ & $c_{10}$ & $=3509210149862$ \\
-$c_{11}$ & $=18487113129390$ & $c_{12}$ & $=-118346116978076$ \\
-$c_{13}$ & $=-142045747219349$ & $c_{14}$ & $=1981657241253047$ \\
-$c_{15}$ & $=-797608174902841$ & $c_{16}$ & $=-15665230743026270$ \\
-$c_{17}$ & $=16136528041550748$ & $c_{18}$ & $=100523161525342639$ \\
-$c_{19}$ & $=-390340855048743361$ & $c_{20}$ & $=233817541582646426$ \\
-$c_{21}$ & $=2657045726509285686$ & $c_{22}$ & $=-2826074288477380324$ \\
-$c_{23}$ & $=-10042267477638045785$ & $c_{24}$ & $=-893399234003894819$ \\
-$c_{25}$ & $=21271266621127182723$ & $c_{26}$ & $=29807155260119262672$ \\
-$c_{27}$ & $=-4592555879996432954$ & $c_{28}$ & $=-46721024398304244746$ \\
-$c_{29}$ & $=-22705965854461622084$ & $c_{30}$ & $=49126201387464330532$ \\
-$c_{31}$ & $=68141813936973463424$ & $c_{32}$ & $=31547751481543057692$ \\
-$c_{33}$ & $=3384275076564111348$ & $c_{34}$ & $=-931910606918155028$ \\
-$c_{35}$ & $=212617089869580916$ & $c_{36}$ & $=118425972661438288$ \\
-$c_{37}$ & $=3200357881449152$ & $c_{38}$ & $=870950365213440$ \\
-$c_{39}$ & $=4393637366976$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+for every $n>39$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $39$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=41+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=39+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -117,7 +88,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $12$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -129,7 +100,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A230613.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A235195.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A297698: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A297651: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A297698 records ``Empirical recurrence of order $60$'', with the recurrence itself in a
+OEIS A297651 records ``Empirical recurrence of order $60$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
 local to a bounded window of lines, so the count is a walk count on a finite digraph and
 satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=83$; Berlekamp--Massey applied to $2S'$ exact
+futures, here $S'=89$; Berlekamp--Massey applied to $2S'$ exact
 terms therefore returns the MINIMAL such recurrence. Its order is exactly $60$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
 $60$ that the sequence satisfies from any point on must then have a characteristic
@@ -37,15 +37,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A297698 is ``Number of 5Xn 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 0, 2 or 4 neighboring 1s.''. It has offset $1$ and begins
+OEIS A297651 is ``Number of nX5 0..1 arrays with every 1 horizontally, diagonally or antidiagonally adjacent to 1, 2 or 3 neighboring 1s.''. It has offset $1$ and begins
 \[
-32, 120, 1801, 10647, 118791, 858645, 8377550, 66530487,\ \dots
+12, 494, 6838, 131044, 2525244, 46187510, 864944851, 16149058068,\ \dots
 \]
 The entry states:
 \begin{quote}
 Empirical recurrence of order 60 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 03 2018 12:31:37, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Jan 02 2018 15:12:20, revision 4) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -53,14 +53,14 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=83$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=89$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
 and checked against its published terms. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
 $a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=83$.
+$S'=89$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -71,28 +71,28 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S'=166$ exact terms of the model returns order $60$ --- the order the
+Running it on $2S'=178$ exact terms of the model returns order $60$ --- the order the
 entry states --- with the integer coefficients
 \[
 a(n)\;=\;\sum_{i=1}^{60}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $14$ & $c_{16}$ & $310857511$ & $c_{31}$ & $125201765253$ & $c_{46}$ & $-1234600453840$ \\
-$c_{2}$ & $55$ & $c_{17}$ & $-7130257808$ & $c_{32}$ & $6711488689566$ & $c_{47}$ & $3739941195148$ \\
-$c_{3}$ & $-1473$ & $c_{18}$ & $33577890676$ & $c_{33}$ & $-7810247101386$ & $c_{48}$ & $121071187528$ \\
-$c_{4}$ & $1205$ & $c_{19}$ & $-20291224471$ & $c_{34}$ & $289715463733$ & $c_{49}$ & $-66729266264$ \\
-$c_{5}$ & $60941$ & $c_{20}$ & $-82511169386$ & $c_{35}$ & $-2124042487445$ & $c_{50}$ & $-16286897008$ \\
-$c_{6}$ & $-156178$ & $c_{21}$ & $113889544009$ & $c_{36}$ & $-9743941213017$ & $c_{51}$ & $-737206915472$ \\
-$c_{7}$ & $-1274676$ & $c_{22}$ & $-145920748748$ & $c_{37}$ & $11718023077885$ & $c_{52}$ & $136053164448$ \\
-$c_{8}$ & $4784167$ & $c_{23}$ & $50241501078$ & $c_{38}$ & $-1548839801576$ & $c_{53}$ & $-76195110368$ \\
-$c_{9}$ & $14060905$ & $c_{24}$ & $688974586858$ & $c_{39}$ & $6352046838684$ & $c_{54}$ & $109291900096$ \\
-$c_{10}$ & $-72969214$ & $c_{25}$ & $-781605360510$ & $c_{40}$ & $8025478759302$ & $c_{55}$ & $49951408256$ \\
-$c_{11}$ & $-68017707$ & $c_{26}$ & $248289722283$ & $c_{41}$ & $-9292940872664$ & $c_{56}$ & $-19668425728$ \\
-$c_{12}$ & $605669205$ & $c_{27}$ & $8802617645$ & $c_{42}$ & $2373690600464$ & $c_{57}$ & $7463332864$ \\
-$c_{13}$ & $-99846116$ & $c_{28}$ & $-2798136104274$ & $c_{43}$ & $-7655559856004$ & $c_{58}$ & $-14135402496$ \\
-$c_{14}$ & $-2424307896$ & $c_{29}$ & $3127074130042$ & $c_{44}$ & $-3068110268980$ & $c_{59}$ & $595394560$ \\
-$c_{15}$ & $2529592532$ & $c_{30}$ & $-120056916419$ & $c_{45}$ & $2860054068900$ & $c_{60}$ & $1376256000$ \\
+$c_{1}$ & $9$ & $c_{16}$ & $4452657263$ & $c_{31}$ & $305771363891$ & $c_{46}$ & $459115977710$ \\
+$c_{2}$ & $81$ & $c_{17}$ & $-12479256576$ & $c_{32}$ & $-159861612537$ & $c_{47}$ & $-143490913736$ \\
+$c_{3}$ & $1580$ & $c_{18}$ & $-11889306832$ & $c_{33}$ & $81719847248$ & $c_{48}$ & $-106116482342$ \\
+$c_{4}$ & $4866$ & $c_{19}$ & $2978190646$ & $c_{34}$ & $-1213924502193$ & $c_{49}$ & $69936611944$ \\
+$c_{5}$ & $18956$ & $c_{20}$ & $59732601301$ & $c_{35}$ & $-68992576629$ & $c_{50}$ & $-15752272132$ \\
+$c_{6}$ & $-254956$ & $c_{21}$ & $-47517250218$ & $c_{36}$ & $-1121024546538$ & $c_{51}$ & $16391636976$ \\
+$c_{7}$ & $-1161211$ & $c_{22}$ & $80312290563$ & $c_{37}$ & $389287385224$ & $c_{52}$ & $-1998671456$ \\
+$c_{8}$ & $-1032855$ & $c_{23}$ & $-254879995736$ & $c_{38}$ & $1621540572107$ & $c_{53}$ & $-1692451688$ \\
+$c_{9}$ & $18415367$ & $c_{24}$ & $5623258877$ & $c_{39}$ & $663589362720$ & $c_{54}$ & $2296335360$ \\
+$c_{10}$ & $58555200$ & $c_{25}$ & $-440591953881$ & $c_{40}$ & $396180429536$ & $c_{55}$ & $254319392$ \\
+$c_{11}$ & $-25423522$ & $c_{26}$ & $608801591239$ & $c_{41}$ & $-523909066460$ & $c_{56}$ & $-8218432$ \\
+$c_{12}$ & $-564504402$ & $c_{27}$ & $179718964261$ & $c_{42}$ & $178405285519$ & $c_{57}$ & $-58431360$ \\
+$c_{13}$ & $-1086399261$ & $c_{28}$ & $532178577951$ & $c_{43}$ & $117862754277$ & $c_{58}$ & $-1048064$ \\
+$c_{14}$ & $1253795432$ & $c_{29}$ & $-426695243194$ & $c_{44}$ & $-615190505128$ & $c_{59}$ & $-1445376$ \\
+$c_{15}$ & $7515584072$ & $c_{30}$ & $-81325341043$ & $c_{45}$ & $-475101195581$ & $c_{60}$ & $1296384$ \\
 \end{tabular}
 \end{center}
 
@@ -114,7 +114,7 @@ $q=q_{\min}$, which is the polynomial computed above.
 
 Three checks.
 
-First, the walk model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the walk model reproduces all $16$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry, and it is the only place where reading
 the entry's English enters.
 
@@ -135,7 +135,7 @@ to a one-parameter family --- the recurrences of order $60$ that this sequence s
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A297698.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A297651.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

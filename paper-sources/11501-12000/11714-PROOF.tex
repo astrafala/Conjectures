@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251368, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251144, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251368 counts $4$-column arrays over $\{0,\dots,2\}$ in which every
-$2\times2$ subblock sums to one of $\{1, 2, 3, 4, 5, 6, 7\}$, and carries an empirical
+OEIS A251144 counts $4$-column arrays over $\{0,\dots,2\}$ in which every
+$2\times2$ subblock sums to one of $\{4\}$, and in which no $2\times2$ subblock has exactly two nonzero entries, and carries an empirical
 recurrence of order $5$ contributed by R.~H.~Hardin. It is true, and it is not an
 empirical matter at all: the rows of such an array are the vertices of a finite digraph in
 which the admissible row-to-row steps are the edges, so $a(n)=\mathbf{1}^{\!\top}M^{n}
@@ -35,23 +35,23 @@ computation in exact integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251368 is ``Number of (n+1) X (3+1) 0..2 arrays with every 2 X 2 subblock summing to 1 2 3 4 5 6 or 7.''. It has offset $1$
+OEIS A251144 is ``Number of (n+1) X (3+1) 0..2 arrays with every 2 X 2 subblock summing to 4 and no 2 X 2 subblock having exactly two nonzero entries.''. It has offset $1$
 and begins
 \[
-6113, 464393, 35257505, 2676962017, 203249994369, 15431888950873, 1171676222709377, 88960280954218353,\ \dots
+53, 87, 143, 247, 433, 777, 1413, 2607,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 66*a(n-1) + 746*a(n-2) + 660*a(n-3) - 6281*a(n-4) + 3690*a(n-5).
+Empirical: a(n) = 3*a(n-1) - 5*a(n-3) + a(n-4) + 2*a(n-5)..
 \end{quote}
-As of the ``Last modified'' line on the live entry (Nov 29 2018 10:37:10, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Nov 26 2018 11:23:52, revision 16) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;66\,a(n-1) + 746\,a(n-2) + 660\,a(n-3) - 6281\,a(n-4) + 3690\,a(n-5)
+a(n)\;=\;3\,a(n-1) - 5\,a(n-3) + a(n-4) + 2\,a(n-5)
 \end{equation}
-for all $n>4$, which is every $n$ at which a recurrence of order $5$ can be
+for all $n>5$, which is every $n$ at which a recurrence of order $5$ can be
 stated.
 
 \section{The rows form a digraph}
@@ -59,8 +59,8 @@ stated.
 Let $V=\{0,1,\dots,2\}^{4}$, the set of possible rows, so $|V|=S=81$. For
 $r,s\in V$ declare $r\to s$ an edge when, for every $j$ with $1\le j\le 4-1$,
 \begin{itemize}
-\item $r_j+r_{j+1}+s_j+s_{j+1}\in\{1, 2, 3, 4, 5, 6, 7\}$;
-
+\item $r_j+r_{j+1}+s_j+s_{j+1}\in\{4\}$;
+\item the four entries $r_j,r_{j+1},s_j,s_{j+1}$ do not include exactly two nonzero ones, that is $\#\bigl\{v\in\{r_j,r_{j+1},s_j,s_{j+1}\}: v\ne0\bigr\}\ne2$;
 \end{itemize}
 that is, when placing the row $s$ directly under the row $r$ satisfies the entry's
 condition on every $2\times2$ subblock formed by those two rows. Let $M\in\{0,1\}^{S\times
@@ -118,7 +118,7 @@ earlier values; if those all vanish, so do all the rest.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>4$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>5$. This is the statement of
 Section~1.
 \end{theorem}
 
@@ -126,9 +126,9 @@ Section~1.
 The vector $w=q(M)\mathbf{1}\in\mathbb{Z}^{S}$ was formed by $5$ matrix--vector
 products in exact integer arithmetic, and $\mathbf{1}^{\!\top}M^{j}w$ was evaluated for
 $j=0,1,\dots$ in exact integer arithmetic. Every one of those integers is $0$ from
-$j=4-5+1$ onwards, and the run was continued past $S$ consecutive zeros, which by
+$j=5-5+1$ onwards, and the run was continued past $S$ consecutive zeros, which by
 Lemma~\ref{lem:crit} settles every larger $j$ as well. Hence the recurrence holds for
-every $n>4$.
+every $n>5$.
 \end{proof}
 
 \begin{remark}
@@ -144,7 +144,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ compared against the entry's DATA at every one of
-the $12$ published indices; the values agree exactly. That is what ties the digraph to
+the $29$ published indices; the values agree exactly. That is what ties the digraph to
 the sequence: a model that reproduced only some of the published terms would be the wrong
 model, and would have been rejected.
 
@@ -157,7 +157,7 @@ zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251368.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251144.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
