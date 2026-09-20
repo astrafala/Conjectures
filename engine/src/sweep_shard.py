@@ -79,7 +79,16 @@ done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
 # size is recorded here now.
 CAPS = f'shard{TAG}_caps_{SHARD}.json'
 WHY = f'shard{TAG}_why_{SHARD}.json'
+# ... and an out-of-memory is not an actual refusal for size either, which is the same mistake
+# one layer down. `uniform.build' wrapped everything including MemoryError in `except
+# Exception: return None', and None is read here as the cap refusing, so every entry whose
+# build outgrew the shard's MEMGB went into CAPS as though the model were too big. A186012
+# builds at S=900096 under a cap of 2,000,000 and is in `uniall_caps.json' because the shard
+# that asked it had 4 GB. Recorded here in its own file, with the limit it failed under, so it
+# can be re-asked with the memory it needs instead of being read back as settled.
+OOM = f'shard{TAG}_oom_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
+oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
 res = collections.Counter()
 
 
@@ -87,6 +96,8 @@ def save():
     atomicjson.dump(hits, HITS, indent=1)
     atomicjson.dump(sorted(done), DONE)
     atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
+    if oom:
+        atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
     # The counters were printed ONCE, after the loop, so a shard that is still running or that
     # dies mid-way reports nothing at all about why it refused anything -- and these shards do
     # die: four launched over the capped list, three gone, four empty logs and no idea what the
@@ -165,6 +176,11 @@ for a in sorted(set(CANDS) | ANUMS):
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['build timed out'] += 1; done.add(a); save(); continue
+    except MemoryError:
+        # marked done so the run makes progress, but NOT written to caps: what this entry
+        # exceeded is MEMGB, and the file says which so a later run can ask it again with more
+        signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
+        done.add(a); save(); continue
     except Exception:
         signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
     if b is None:

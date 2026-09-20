@@ -108,6 +108,13 @@ def build(en, p, cap):
             return b if b[0] else None
         b = M[en].build(p, cap=cap)
         return b if b else None
+    except MemoryError:
+        # NOT `return None'. The callers read None as "the state space exceeded the cap", and an
+        # out-of-memory is a different fact: A186012 builds at S=900096 under a cap of 2,000,000
+        # and was written into `uniall_caps.json' as capped because the shard asking it had 4 GB.
+        # Every such entry is a result the project refused for the size of a container and then
+        # recorded as refused for the size of the model. Let it out and let the caller name it.
+        raise
     except Exception:
         return None
 

@@ -12,15 +12,15 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A303686, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A303178, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A303686 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
-among the eight king-move neighbours, a number $different from$ itself lying in $\{2,3,4\}$, and it carries an empirical
+OEIS A303178 counts $4$-column arrays over $\{0,\dots,1\}$ in which every entry has,
+among the six horizontal, diagonal and antidiagonal neighbours, a number $equal to$ itself lying in $\{0,1,2,5,6\}$, and it carries an empirical
 recurrence of order $31$ contributed by R.~H.~Hardin. It is true. The neighbourhood
 reaches one row up and one row down, so the condition on a row involves three consecutive
 rows and a window of two rows is a sufficient state; the array is then a walk in a digraph
@@ -34,40 +34,40 @@ all-ones. The conjectured recurrence is then annihilated exactly, in integer ari
 
 \section{The sequence and the conjecture}
 
-OEIS A303686 is ``Number of nX4 0..1 arrays with every element unequal to 2, 3 or 4 king-move adjacent elements, with upper left element zero.''. It has offset
+OEIS A303178 is ``Number of nX4 0..1 arrays with every element equal to 0, 1, 2, 5 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset
 $1$ and begins
 \[
-0, 18, 20, 138, 343, 1744, 5563, 23963,\ \dots
+8, 37, 72, 297, 1302, 5050, 20188, 81926,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +16*a(n-2) -80*a(n-4) -37*a(n-5) +195*a(n-6) +139*a(n-7) -235*a(n-8) -254*a(n-9) +22*a(n-10) +175*a(n-11) +412*a(n-12) +300*a(n-13) -564*a(n-14) -853*a(n-15) +201*a(n-16) +822*a(n-17) +70*a(n-18) -251*a(n-19) +26*a(n-20) -139*a(n-21) -266*a(n-22) +225*a(n-23) +290*a(n-24) -140*a(n-25) -150*a(n-26) +24*a(n-27) +78*a(n-28) -16*a(n-29) -14*a(n-30) +4*a(n-31) for n>35
+Empirical: a(n) = 3*a(n-1) +6*a(n-2) -a(n-3) -15*a(n-4) -47*a(n-5) -18*a(n-6) +91*a(n-7) +121*a(n-8) +35*a(n-9) -33*a(n-10) -205*a(n-11) -172*a(n-12) -49*a(n-13) +107*a(n-14) +182*a(n-15) -26*a(n-16) +178*a(n-17) +171*a(n-18) -156*a(n-19) -88*a(n-20) -98*a(n-21) -154*a(n-22) +74*a(n-23) +127*a(n-24) +19*a(n-25) -63*a(n-26) -13*a(n-27) +26*a(n-28) -a(n-29) +4*a(n-30) -4*a(n-31) for n>33
 \end{quote}
-As of the ``Last modified'' line on the live entry (Apr 28 2018 09:31:07, revision
+As of the ``Last modified'' line on the live entry (Apr 19 2018 13:22:40, revision
 4) the statement is still recorded as empirical, and nothing on the entry
 records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + 16\,a(n-2) - 80\,a(n-4) - 37\,a(n-5) + 195\,a(n-6) + 139\,a(n-7) - 235\,a(n-8) - 254\,a(n-9) + 22\,a(n-10) + 175\,a(n-11) + 412\,a(n-12) + 300\,a(n-13) - 564\,a(n-14) - 853\,a(n-15) + 201\,a(n-16) + 822\,a(n-17) + 70\,a(n-18) - 251\,a(n-19) + 26\,a(n-20) - 139\,a(n-21) - 266\,a(n-22) + 225\,a(n-23) + 290\,a(n-24) - 140\,a(n-25) - 150\,a(n-26) + 24\,a(n-27) + 78\,a(n-28) - 16\,a(n-29) - 14\,a(n-30) + 4\,a(n-31)
+a(n)\;=\;3\,a(n-1) + 6\,a(n-2) - a(n-3) - 15\,a(n-4) - 47\,a(n-5) - 18\,a(n-6) + 91\,a(n-7) + 121\,a(n-8) + 35\,a(n-9) - 33\,a(n-10) - 205\,a(n-11) - 172\,a(n-12) - 49\,a(n-13) + 107\,a(n-14) + 182\,a(n-15) - 26\,a(n-16) + 178\,a(n-17) + 171\,a(n-18) - 156\,a(n-19) - 88\,a(n-20) - 98\,a(n-21) - 154\,a(n-22) + 74\,a(n-23) + 127\,a(n-24) + 19\,a(n-25) - 63\,a(n-26) - 13\,a(n-27) + 26\,a(n-28) - a(n-29) + 4\,a(n-30) - 4\,a(n-31)
 \end{equation}
-for all $n>35$.
+for all $n>33$.
 
 \section{The array as a walk, with boundary}
 
-For a cell of the array let its \emph{score} be the number of the eight king-move neighbours that lie inside
-the array and carry a value $different from$ the cell's own. The entry's condition is that every cell
-has score in $\{2,3,4\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
+For a cell of the array let its \emph{score} be the number of the six horizontal, diagonal and antidiagonal neighbours that lie inside
+the array and carry a value $equal to$ the cell's own. The entry's condition is that every cell
+has score in $\{0,1,2,5,6\}$. The entry also fixes the top-left entry to be $0$; that is a condition on the first row alone, so it restricts the start vector and nothing else.
 
 A cell's neighbourhood reaches at most one row up and one row down, so the scores of the
 cells of a row $s$ are determined by $s$ together with the row above and the row below.
 Take as state an ordered pair $(r,s)$ of rows, so $S=256$, and set
 \begin{itemize}
-\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{2,3,4\}$ \emph{with no row
+\item $\mathbf{s}(r,s)=1$ when every cell of $r$ has score in $\{0,1,2,5,6\}$ \emph{with no row
 above $r$} and $r_1=0$, and $0$ otherwise;
-\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{2,3,4\}$ computed from
+\item an edge $(r,s)\to(s,t)$ when every cell of $s$ has score in $\{0,1,2,5,6\}$ computed from
 $r$, $s$ and $t$;
-\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{2,3,4\}$ \emph{with no row
+\item $\mathbf{e}(r,s)=1$ when every cell of $s$ has score in $\{0,1,2,5,6\}$ \emph{with no row
 below $s$}, and $0$ otherwise.
 \end{itemize}
 Let $P$ be the adjacency matrix of that edge relation.
@@ -78,7 +78,7 @@ $a(n)=\mathbf{s}^{\!\top}P^{\,n-2}\mathbf{e}$ for every $n\ge2$.
 
 \begin{proof}
 An array with $n$ rows is a sequence $r^{(1)},\dots,r^{(n)}$ of rows, and it is counted
-exactly when every one of its $n$ rows has all scores in $\{2,3,4\}$. Read the sequence as the
+exactly when every one of its $n$ rows has all scores in $\{0,1,2,5,6\}$. Read the sequence as the
 walk $\bigl(r^{(1)},r^{(2)}\bigr)\to\bigl(r^{(2)},r^{(3)}\bigr)\to\cdots\to
 \bigl(r^{(n-1)},r^{(n)}\bigr)$, of length $n-2$. The condition on the first row is
 checked by $\mathbf{s}$ at the initial state, because a first row has no row above it; the
@@ -113,14 +113,14 @@ degree $S$, which propagates $S$ consecutive zeros forward.
 \section{The computation}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>35$. This is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>33$. This is the statement of
 Section~1.
 \end{theorem}
 
 \begin{proof}
 The vector $q(P)\mathbf{e}\in\mathbb{Z}^{S}$ was formed by $31$ matrix--vector
 products in exact integer arithmetic and the $u_j$ evaluated against $\mathbf{s}$ in turn.
-They vanish from the index corresponding to $n=35+1$ onwards, and the run was continued
+They vanish from the index corresponding to $n=33+1$ onwards, and the run was continued
 past $S$ consecutive zeros, which by Lemma~\ref{lem:crit} settles every larger index.
 \end{proof}
 
@@ -130,7 +130,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph, the start vector and the end vector were built directly from the
 entry's stated condition, the one-row count computed separately, and the resulting values
-compared against the entry's DATA at every one of the $24$ published indices; they
+compared against the entry's DATA at every one of the $23$ published indices; they
 agree exactly. This is the check that ties the model to the sequence, and it is a sharp one:
 getting the boundary rows wrong, or treating them as interior rows, changes the early terms
 immediately.
@@ -143,7 +143,7 @@ zeros rather than to a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A303686.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A303178.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

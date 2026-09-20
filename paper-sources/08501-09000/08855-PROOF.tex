@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253700, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253693, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{5 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253700 counts arrays of width $4$ over $\{0,1\}$ in which two diagonal numbers of every $2\times2$ subblock each differ from the same number at a neighbouring subblock. The entry carries an
+OEIS A253693 counts arrays of width $4$ over $\{0,1\}$ in which two diagonal numbers of every $2\times2$ subblock each differ from the same number at a neighbouring subblock. The entry carries an
 empirical recurrence of order $19$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: a block of $k$ rows and the block one row lower together
 occupy $k+1$ consecutive rows, so every comparison the condition makes is settled inside
@@ -30,15 +30,15 @@ $3$ consecutive rows and the count is a walk count on $S=121$ states.
 
 \section{The conjecture}
 
-OEIS A253700 is ``Number of (3+1)X(n+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference unequal to its neighbors horizontally and nw+se diagonal sum unequal to its neighbors vertically.''. It has offset $1$ and begins
+OEIS A253693 is ``Number of (n+1)X(3+1) 0..1 arrays with every 2X2 subblock ne-sw antidiagonal difference unequal to its neighbors horizontally and nw+se diagonal sum unequal to its neighbors vertically.''. It has offset $1$ and begins
 \[
-104, 146, 234, 356, 618, 968, 1608, 2558,\ \dots
+104, 150, 234, 480, 878, 1472, 2982, 5282,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 2*a(n-2) +2*a(n-4) +2*a(n-5) -3*a(n-6) +a(n-7) -a(n-8) -6*a(n-9) +2*a(n-10) -2*a(n-12) -3*a(n-13) +a(n-14) +6*a(n-15) +a(n-16) +a(n-17) -a(n-18) -a(n-19) for n>21
+Empirical: a(n) = 2*a(n-2) +2*a(n-3) +4*a(n-4) +2*a(n-5) -6*a(n-6) -12*a(n-7) -6*a(n-8) +2*a(n-9) +5*a(n-10) +11*a(n-11) +5*a(n-12) -5*a(n-13) -a(n-14) -2*a(n-16) +a(n-17) -a(n-19) for n>21
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:10:22, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:09:34, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -48,28 +48,23 @@ The arrays have $4$ columns and a growing number of rows, with entries in $\{0,1
 The entry states two conditions at once. For a $k\times k$ block $B$ of
 cells of the array put
 \[
-f(B)=B_{1,k}-B_{k,1}\qquad\text{compared vertically,}
+f(B)=B_{1,k}-B_{k,1}\qquad\text{compared horizontally,}
 \]
 that is, the northeast entry minus the southwest entry;
 \[
-g(B)=B_{1,1}+B_{k,k}\qquad\text{compared horizontally,}
+g(B)=B_{1,1}+B_{k,k}\qquad\text{compared vertically,}
 \]
 that is, the northwest entry plus the southeast entry.
 Each condition says that its own number takes different values on two blocks that are
 neighbours in its own directions: with $B(i,j)$ the block whose top-left cell is $(i,j)$ and
-$(\delta_1,\delta_2)$ the step for the direction concerned --- $(1,0)$ vertically, $(0,1)$ horizontally ---
+$(\delta_1,\delta_2)$ the step for the direction concerned --- $(0,1)$ horizontally, $(1,0)$ vertically ---
 \[
 f\bigl(B(i,j)\bigr)\neq f\bigl(B(i+\delta_1,\,j+\delta_2)\bigr)
 \quad\text{resp.}\quad
 g\bigl(B(i,j)\bigr)\neq g\bigl(B(i+\delta_1,\,j+\delta_2)\bigr),
 \]
 whenever both blocks lie wholly inside the array. Both conditions are imposed for that one size of block,
-$2\times2$. The entry writes the array with $n$ as the number of COLUMNS. Transposing
-it exchanges the horizontal and vertical directions and fixes the two diagonal ones, and it
-either fixes the number $f$ or replaces it by its negative --- the northeast and southwest
-entries change places. An equality is unaffected by negating both sides, so the transposed
-problem is the same problem with the horizontal and vertical directions exchanged, and the
-directions above are named in the transposed frame.
+$2\times2$.
 
 Two remarks fix the reading. A neighbouring block is the block one step over, overlapping the
 first, not the next disjoint block: the entry says ``its neighbors'', and the counts below
@@ -84,7 +79,7 @@ the same $k$ rows or the $k$ rows one lower. So both blocks of any comparison li
 consecutive rows, hence inside $3$ consecutive rows for every size the entry names. No
 comparison reaches further than that, in either direction.
 
-Take the array one column at a time and let the state be the last 2 rows written so far, with a
+Take the array one row at a time and let the state be the last 2 rows written so far, with a
 distinguished start standing for the array before its first row, so that a walk of $n$ steps is
 an array of $n$ rows. Appending a row produces a window of $3$ rows, and the step is
 allowed exactly when every comparison whose two blocks both lie inside that window holds.
@@ -129,7 +124,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;2\,a(n-2) + 2\,a(n-4) + 2\,a(n-5) - 3\,a(n-6) + a(n-7) - a(n-8) - 6\,a(n-9) + 2\,a(n-10) - 2\,a(n-12) - 3\,a(n-13) + a(n-14) + 6\,a(n-15) + a(n-16) + a(n-17) - a(n-18) - a(n-19)
+a(n)\;=\;2\,a(n-2) + 2\,a(n-3) + 4\,a(n-4) + 2\,a(n-5) - 6\,a(n-6) - 12\,a(n-7) - 6\,a(n-8) + 2\,a(n-9) + 5\,a(n-10) + 11\,a(n-11) + 5\,a(n-12) - 5\,a(n-13) - a(n-14) - 2\,a(n-16) + a(n-17) - a(n-19)
 \]
 for every $n>21$.
 \end{theorem}
@@ -145,7 +140,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $30$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $29$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: every
@@ -162,7 +157,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253700.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253693.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
