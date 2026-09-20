@@ -604,3 +604,29 @@ caller still holds the reference that matters.
 
 **A failure the recorder cannot survive is a failure that leaves no trace at all**, which is
 worse than the wrong label — the wrong label at least says an entry was asked.
+
+### defect 40 — a timeout recorded as a settlement is a refusal with no label at all
+
+`uniall_caps.json` at least says an entry was declined. `uniall_done.json` does not. `sweep_shard`
+records a build timeout, a terms timeout, an annihilation timeout, a build failure and a terms
+failure exactly as it records a genuine settlement — `done.add(a)`, plus a counter in `res` that
+lives only as long as the process and is written to `shard<TAG>_why_<i>.json`, which is
+overwritten from scratch by the next process. So an entry that merely ran out of `BUDGET` is
+marked done **forever**, and nothing anywhere distinguishes it from an entry the sweep actually
+decided.
+
+Measured: of 3,579 entries marked done and off-roster, 3,546 are legitimately finished — capped,
+a hit, carrying no parsable conjecture, not open, or belonging to a withdrawn engine. The
+residue is **33**. That is small and should be reported as small. But two of the first three of
+them proved on being re-asked at `BUDGET=1800` instead of the usual 40–600: **A221621**
+(`permrow`, S=720) and **A244181** (`transfer96`, S=4676, order 30). Two in three is the densest
+yield of the day.
+
+The general form, and it is the same as defect 34 one level down: **a list of what has been
+DONE is a refusal list too, if anything that is not a decision can put an entry on it.** The caps
+file was three different refusals wearing one label (IDEAS AP); the done file is a refusal
+wearing none. When you next add a `continue` to a sweep loop, ask what the entry's row will say
+afterwards, and whether a later reader could tell that row from a settled one.
+
+What a sweep writes down when it gives up is the only thing standing between "not proved" and
+"not asked".
