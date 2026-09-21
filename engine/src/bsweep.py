@@ -16,6 +16,7 @@ first index where the recurrence fails is recorded exactly.
 import json, os, re, sys, time
 sys.path.insert(0, ".")
 import sympy as sp
+import atomicjson
 import bfile, conjlines, cfparse, gfclean, blocks
 from makeslots import coeffs_of
 from regf import entry
@@ -335,10 +336,10 @@ def main(budget=460, per_fetch=0.0):
                   f"({b0[3]} failures, tested to n={b0[4]}; {len(data)} terms in DATA)",
                   flush=True)
         n_new += 1
-        json.dump(done, open(OUT, "w"))
+        atomicjson.dump(done, OUT)
         if per_fetch:
             time.sleep(per_fetch)
-    json.dump(done, open(OUT, "w"))
+    atomicjson.dump(done, OUT)
     dis = sum(1 for v in done.values() if v.get("status") == "DISPROVED")
     print(f"  {n_new} checked this slice; {len(done)}/{len(queue)} total, {dis} disproved",
           flush=True)
