@@ -29,6 +29,13 @@
 # boot stamp intact can lie, and the outer timeout is the only one of those. So the fix is to
 # put it out of reach rather than to shorten the budget: 5400 > 4500, and the container is left
 # as the sole external killer, which is the one this already handles honestly.
+#
+# THE CAP, NOT THE MEMORY, IS WHAT THIS VEIN NOW HITS. Twenty-one entries asked at MEMGB=11:
+# one proved, one annihilation timeout, and FIFTEEN `state space > cap' at 2,000,000. Not one
+# out-of-memory. src/oomtruth.py says why -- asked alone, these entries have footprints of
+# fifty to seventy megabytes (A183618: 391s, 0.07 GB; A183913: 34s, 0.06 GB), so their rows in
+# uniall_oom.json were never statements about memory at all. Raised to 8,000,000, the cap
+# t17run already uses, because a population measured at 0.07 GB can afford it.
 cd /home/user/Conjectures/engine
 # IDLE BACKOFF (defect 44). A round of this loop that finds work takes minutes -- BUDGET
 # alone is 90 seconds or more -- so a round that returns in seconds found nothing, and the
@@ -42,7 +49,7 @@ cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10; do
   _t0=$(date +%s)
   ANUMS_FILE=deep-check/oomlist.txt BUDGET=1500 TAG=oom MEMGB=11 \
-    timeout 5400 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/oom_run.log 2>&1
+    timeout 5400 python3 src/sweep_shard.py 8000000 0 1 >> /tmp/oom_run.log 2>&1
   _el=$(( $(date +%s) - _t0 ))
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- read out under the current engines, stopping"
