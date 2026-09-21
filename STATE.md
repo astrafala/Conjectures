@@ -1130,6 +1130,13 @@ the reboot branch. **A guard clause that returns a sentinel on `Exception` will 
 just introduced.** It catches `OSError` now, which is the only failure reading `/proc` that is
 data rather than a mistake.
 
+One transition artifact, benign and worth knowing: a marker written by the uptime version
+carries a small number, and the boot-time version compares it against a Unix timestamp, so every
+such marker reads as a container restart. That is the SAFE direction — the entry is re-asked
+rather than retired — and it clears itself as soon as each shard writes a new marker. **If this
+stamp is ever changed again, check which way an unrecognised value falls.** A format change that
+defaults to "genuine refusal" would retire an entry per shard, silently.
+
 This also retires the hand-rule written a few hours earlier ("after killing a runner, check its
 oom and done files for whatever was in flight") for the restart case, though not for a
 deliberate `kill`, which leaves uptime unchanged and is still indistinguishable from a real
