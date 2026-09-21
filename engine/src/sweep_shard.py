@@ -402,6 +402,37 @@ for a in sorted(set(CANDS) | ANUMS):
     bad = [off + k for k in range(len(d))
            if off + k > nthr and k - order >= 0 and
            d[k] != sum(int(c) * d[k - i] for i, c in coeffs.items())]
+    # DEFECT 51. That test reads an index only when `off + k > nthr' AND `k >= order', and for
+    # 2,132 of 5,987 results held so far there is no such index: the DATA field is shorter than
+    # the order proved for it, so the guard read nothing and printed what it prints when a
+    # result passes. A183618 has order 30 and fourteen published terms.
+    #
+    # The b-file is the witness, and for these entries it is already on disk -- Hardin's run to
+    # a hundred terms or more where DATA stops at fourteen. Read from the CACHE ONLY: never
+    # fetch here. `bfile.fetch' is rate-limited and explicitly single-process, and this code
+    # runs in seventy shards at once. A cache miss leaves the result exactly as it was.
+    btested = 0
+    if not bad:
+        for _bd in ('bcache', '/home/user/Conjectures/bcache'):
+            _bp = os.path.join(_bd, 'b' + a[1:] + '.txt')
+            if not os.path.exists(_bp):
+                continue
+            B = {}
+            for _ln in open(_bp, errors='ignore'):
+                _ln = _ln.strip()
+                if not _ln or _ln.startswith('#'):
+                    continue
+                _pt = _ln.split()
+                if len(_pt) >= 2 and _pt[0].lstrip('-').isdigit() and _pt[1].lstrip('-').isdigit():
+                    B[int(_pt[0])] = int(_pt[1])
+            for _n in sorted(B):
+                if _n > nthr and all((_n - i) in B for i in coeffs):
+                    btested += 1
+                    if sum(int(c) * B[_n - i] for i, c in coeffs.items()) != B[_n]:
+                        bad.append(_n)
+                        if len(bad) >= 3:
+                            break
+            break
     if bad:
         res['claim contradicted by DATA'] += 1
         hits.append({'anum': a, 'FAILS': True, 'name': nm, 'bad': bad[:3]})
@@ -414,6 +445,9 @@ for a in sorted(set(CANDS) | ANUMS):
         res['PROVED'] += 1
         hits.append({'anum': a, 'name': nm, 'engine': en, 'S': S, 'order': order,
                      'offset': off, 'shift': sh, 'nthr': nthr, 'nterms': len(d),
+                     # how many b-file indices the recurrence was actually tested at, so a
+                     # result never again carries silence where its evidence should be
+                     'btested': btested,
                      'claimed': dd,
                      'coeffs': {int(k): str(v) for k, v in coeffs.items()}})
     done.add(a); save()
