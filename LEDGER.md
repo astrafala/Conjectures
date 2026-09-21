@@ -24488,6 +24488,157 @@ runners burned their loops failing for hours. Smoke-test a sweep on one entry af
 
 ---
 
+## 20 September 2026 (later) — the transfer21 vein, read out in full
+
+`uniform.build` dispatches `transfer21` to `transfer17.build_pairfree`, verified on 243 shapes
+with zero mismatches. The whole capped `transfer21` population has since been asked:
+
+| | |
+|---:|---|
+| 78 | capped off-roster `transfer21` entries |
+| **5** | proved and installed |
+| 73 | asked again and still over the cap |
+| 0 | left unasked |
+
+Fifteen of the 78 carried a conjecture, and all fifteen were refused a priori by
+`transfer17.build`'s `(alpha+1)^(2W) > cap` test and by nothing else. Five of those fifteen now
+build and prove; the other ten exceed the cap for real. At `W=7` over alphabet `0..2` the pair
+test demands `3^14 = 4,782,969` against a cap of two million, and the pair-free build returns
+the same sequence in 663,553 states — so the a-priori refusal was wrong about five entries and
+right about ten. The swap was worth making and is permanent, and it bought five results rather
+than fifteen.
+
+---
+
+## 21 September 2026 — the rotation was spinning, and a withdrawal was short by four
+
+**The machine.** Sixty-eight Python processes on four cores, and thirteen of the veins driving
+them had nothing left to ask. A sweep that examines no entries prints an empty result dict and
+exits, and every runner loop relaunched it at once: five minutes after a container restart wiped
+`/tmp`, the runner logs held about twenty-five thousand lines, almost all of them that dict.
+Phase 5 — 1,904 entries of real work outstanding — wrote nothing in the fifty-five minutes
+before the restart. Stopping the read-out runners for four minutes was the whole experiment: its
+three shard states were written again at 02:04, 02:05 and 02:07.
+
+A round that finds work takes minutes, so a round returning in seconds found nothing. That test
+reads the clock and needs nothing from the sweep, so it covers every script the runners call.
+Twenty-eight runners now break out on a short round; `forever.sh` sleeps instead, because it
+must not stop. **68 processes → 17, and 23 of 30 runners stopped themselves.** Breaking out is
+not retirement: `restart_all.sh` brings everything back an hour later, which is when a changed
+engine could have reopened a vein.
+
+**The results.** `merge_sharded.py` reported 419 second-conjecture results while the installer
+read a different file that stopped at 203 on 15 September. The gap looked like 138.
+
+| | |
+|---:|---|
+| 138 | settled and not papered |
+| 42 | premise not on the roster, and no record of it anywhere in the project |
+| 93 | already withdrawn, correctly kept out |
+| **1** | installed (A277560) |
+
+Checking the three genuinely new ones by hand is what found the real fault. Two rested on
+`gf-conjecture` papers for the active-cell count of a two-dimensional automaton — the class
+withdrawn on 13 September because that count has no proved generating function, so the degree
+bound the argument needs does not exist. That pass took five and left four. Each of the four
+names the same `S=24` `ca2dcount` model and the same transfer-matrix argument — a strip of
+consecutive rows as the state of a finite automaton — which is what a fixed-width array count
+licenses and what an automaton growing in every direction does not. **Withdrawn: A270934,
+A273334, A273447, A273781.**
+
+A277560 is sound and is installed: it rests on a `ca2d` model of the automaton's x-axis, a
+finite row at each stage, a real automaton and a real degree bound. All 80 remaining
+`gf-conjecture` papers on this family rest on such a model and none is at risk; no roster paper
+anywhere still rests on a `ca2dcount` model.
+
+**Roster 13,768 → 13,764 → 13,765. One added, four withdrawn.** The honest number in the batch
+is 1, not 138.
+
+The method error is worth more than either count. The first query for "does this project model
+this sequence" looked for a `coeffs` key — but a generating-function record has no `coeffs`, it
+has `degnum` and `degden`, so the query answered "nothing models these twelve" about entries
+whose records read `engine: ca2d, S: 8` in plain sight, and that answer was one step from
+withdrawing eighty sound papers. **Ask what shape a record has before asking whether it
+exists.** And an absent record is not an absent proof: the four withdrawn have no surviving
+record of any kind, and what settled them was reading the paper, which names its own model in
+its abstract.
+
+---
+
+## 21 September 2026 — a merge that opens what a cap refused: nine results
+
+IDEAS AP.5 left one line as a question rather than a target: `transfer17` already has the merged
+pair-free build, so why do 82 of its capped entries still cap? Asking directly found that the
+cap was real construction reaching a limit, not the a-priori refusal — and that **79 of the 80
+had only ever been asked at 2,000,000**, which is not a judgement about them but the cap every
+sweep happened to use.
+
+Reading `build_pairfree` to answer that turned up an exact quotient it misses. Its state is
+`(s, C)`: the current row, and the window masks the pair (previous row, `s`) imposes. `C`
+decides which rows may follow; the successor `constraint(s, t)` never reads `C`. So two states
+with the same row and the same `follows(C)` have the same outgoing labels and, label by label,
+the same successor — indistinguishable, and merging them is exact rather than approximate.
+`build_lineset` does it, keyed on the trimmed constraint rather than on the row set itself,
+because at `alpha=3, W=9` one row set holds `4^9 = 262,144` rows and hashing that costs more
+than the states it saves.
+
+Verified against `build_pairfree` on 96 parameter shapes and 14 roster entries: **0 mismatches,
+never larger, never slower**, 112.7s → 57.3s in total. Nil at `W=3`, where `K=1` leaves nothing
+to collapse, and 12×–80× at `W=6..8` — which is where every capped entry lives.
+
+**Nine results, installed. Roster 13,765 → 13,774.** Every one kept by a fresh live OEIS fetch,
+and every one matched against the entry's own recurrence line programmatically: coefficients
+identical, threshold on the entry equal to both the claimed and the computed one.
+
+| entry | states | recurrence | claim begins | published terms |
+|---|---:|---|---|---:|
+| A251842 | 16,767 | order 36, 12 coefficients | n>43 | 21 |
+| A204606 | 315,011 | order 6, 2 coefficients | n>18 | 15 |
+| A252163 | 8,082 | order 46, 45 coefficients | n>50 | 23 |
+| A251947 | 17,733 | order 54, 18 coefficients | n>57 | 21 |
+| A252189 | 18,102 | order 12, 4 coefficients | n>22 | 26 |
+| A252302 | 18,276 | order 12, 4 coefficients | n>21 | 27 |
+| A252216 | 18,798 | order 46, 46 coefficients | n>48 | 18 |
+| A252111 | 17,242 | order 6, 2 coefficients | n>11 | 26 |
+| A252310 | 17,524 | order 12, 4 coefficients | n>21 | 26 |
+
+Five of the nine state a claim beginning **past the last published term**, so no amount of
+checking data could have settled them; only a model can.
+
+**The merge does not open everything.** Entries at `alpha=3, W=9` — 262,144 rows — still exceed
+8,000,000 states, and seven at `W=7..8` exceed 5 GB. The vein is split so the 25 largest are
+asked separately rather than holding the other 55 behind them.
+
+### And the largest finding of the night is a defect, not a result
+
+`uniform.build` re-raises `MemoryError` with a comment making the argument exactly: callers read
+`None` as "the state space exceeded the cap", and an out-of-memory is a different fact. The very
+next clause, `except Exception: return None`, undid that argument for the clock. Every sweep
+raises its alarm as `class Timeout(Exception)`; the alarm fires **inside** `uniform.build`; that
+clause caught it and returned `None`. **Every build timeout in this project has been recorded as
+a cap refusal since the alarm was added.**
+
+Measured, not inferred. A252147 at `alpha=3, W=9`, asked with a 2-second budget and a cap of
+10^12 that nothing can exceed: reported `state space > cap` and named nothing before; reports
+`build timed out` and writes `uniall_tmo.json: {A252147: 2}` after.
+
+`uniall_caps.json` holds 3,362 rows, 2,378 of them off-roster and unsettled, and the share that
+never touched a cap is unknown and unrecoverable from the record — the record is the thing that
+was wrong. It is also the mechanism behind `residue.txt`, the 33 entries `uniall_done.json`
+called finished with no record of what finished them.
+
+`Timeout` now derives from `BaseException` in all 19 sweeps that define one, so no
+`except Exception` can absorb it — Python's own idiom for `KeyboardInterrupt`, for the same
+reason. Three files now hold three facts: `uniall_caps.json` the cap, `uniall_oom.json` the
+container, `uniall_tmo.json` the clock. This project's refusal lists have repeatedly worn each
+other's names, and this is the fourth time that has cost a population.
+
+**A caution against over-reading it:** the `transfer17` vein has produced no timeouts at all.
+Its entries refuse at the cap or at memory, quickly. The record cannot be trusted; that is not
+the same as the record being wrong everywhere.
+
+---
+
 ## 8. WHERE FILES LIVE (Claude Code only)
 
 **The session container is wiped when the session ends.** Anything not committed and
