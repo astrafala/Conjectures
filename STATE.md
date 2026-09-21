@@ -1257,3 +1257,27 @@ quieter one**, which is the opposite of the silence they were.
 **The rule: a budget must be shorter than the shortest container generation you have seen, or
 it is a guarantee of being killed mid-work rather than a limit on it.** Check `uptime` against
 the budget before trusting a runner that reports nothing.
+
+### `checkclaim.py` — the by-hand check, done mechanically
+
+The binding rule is to check every apparent proof against the entry's own wording. By eye that
+is slow and it degrades: eleven results were checked that way in one night, and the eleventh got
+the same attention as the first only by luck.
+
+`src/checkclaim.py` does the textual half mechanically. For every held, un-installed hit
+carrying `coeffs` it parses the entry's own formula line and compares the coefficient set lag by
+lag, and the threshold the entry states against both the claimed and the computed one. A record
+that disagrees is printed loudly and withheld; a record whose entry has no parsable recurrence
+line is ALSO withheld and named, because the absence of a line is not evidence the claim is
+wrong, only that this tool cannot speak to it.
+
+**It does not replace the reading.** Whether a parsed line is the entry's conjecture at all, and
+whether the conjecture says what the paper claims it says, still needs a human pass — that is
+the part that caught the `ca2dcount` family. What this removes is the part where a coefficient
+is misread on the eleventh check of a long night.
+
+Validated before use, per defect 46: run against the whole held set it printed
+`0 verified, 0 DISAGREE, 0 withheld`, which is exactly what a broken check prints. Run against
+the eleven results already installed it re-verified **11 of 11 with 0 disagreements**, so the
+zero was an empty input. **A checker that has not been shown to return non-zero on a case you
+know is not a checker.**
