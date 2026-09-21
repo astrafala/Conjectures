@@ -1728,3 +1728,12 @@ comparison, which is the fix that should have been there first.
 
 What this cost: one wrong withdrawal on top of one right one, both on the same batch, in the
 same hour. What it did not cost: a padded count, which is what the first withdrawal prevented.
+
+## 21 September 2026 -- 4 withdrawn
+
+the same class as the five withdrawn on 13 September and missed by that pass: the active-cell count of a two-dimensional automaton, and its partial sums, have no proved generating function, so the degree bound the argument needs does not exist. Every formula line on all four entries sits inside a single Conjectures from Colin Barker: (Start) block, no hits file anywhere in the project holds a model for them, and the four were built in the same run as the five (builds 11677-11684 against 11676-11683)
+
+* A270934 (build 11677, gf-conjecture)
+* A273334 (build 11680, gf-conjecture)
+* A273447 (build 11682, gf-conjecture)
+* A273781 (build 11684, gf-conjecture)

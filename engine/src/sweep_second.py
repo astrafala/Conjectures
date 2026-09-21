@@ -124,6 +124,14 @@ def already_proved(anum, line):
     return any(core in body for body in bodies)
 
 
+# The entries whose proof this project has actually PUBLISHED. A premise held in a hits file
+# but never installed is a proof that no paper states, and a second-conjecture paper resting on
+# one rests on nothing a reader can follow.
+try:
+    ROSTER = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
+except Exception:
+    ROSTER = set()
+
 PROVED = {}
 import glob as _glob
 # A hand-written list of hits files is a stale filter like any other: every vein added since
@@ -132,11 +140,21 @@ import glob as _glob
 # had already settled were refused on re-ask for exactly that reason. Read every hits file --
 # only records carrying explicit `coeffs` and no FAILS are used, so a file of a different shape
 # contributes nothing rather than something wrong.
+# Where each premise came from, alongside the premise itself. A hit here copies the
+# coefficients in and kept no reference to their source, so when the source was withdrawn
+# nothing connected the two: 42 records in snd_hits.json carry premise_kind "proved in this
+# project" and there is no coeffs record anywhere in the project that supports them. Six are
+# named in WITHDRAWN.md -- under `gf-conjecture', because a withdrawal blocks the ARGUMENT and
+# these rest ON that argument (STATE.md defect 45). A copied fact cannot be re-checked; a
+# named one can.
+PREMISE_FROM = {}
 _files = sorted(set(_glob.glob('*_hits*.json')) | {'uniall_hits.json'})
 for f in _files:
     try:
         for h in json.load(open(f)):
             if isinstance(h, dict) and h.get('anum') and h.get('coeffs') and not h.get('FAILS'):
+                if h['anum'] not in PROVED:
+                    PREMISE_FROM[h['anum']] = [f, h.get('engine', '')]
                 PROVED.setdefault(h['anum'], h['coeffs'])
     except Exception:
         pass
@@ -369,7 +387,9 @@ for a in targets:
     if fresh:
         res['PROVED'] += 1
         hits.append({'anum': a, 'name': e['name'], 'premise': co,
-                     'premise_kind': premise, 'qorder': qorder,
+                     'premise_kind': premise,
+                     'premise_from': PREMISE_FROM.get(a, ['the entry itself', '']),
+                     'premise_on_roster': a in ROSTER, 'qorder': qorder,
                      'settled': fresh, 'restated': [c for c in settled if c not in fresh],
                      'offset': int(e['offset'].split(',')[0]), 'nterms': len(d)})
         print('SETTLED', a, len(fresh), flush=True)

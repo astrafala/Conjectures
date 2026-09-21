@@ -842,3 +842,78 @@ for the whole of the write. It runs after every entry, so a reader arriving insi
 sees a half-written object; the file was well-formed a second later. It uses `atomicjson` now,
 like every other progress file in the project. A torn read of a progress file is worse than a
 crash, because it reads as data loss.
+
+### defect 45 — a withdrawal blocks the argument, and not the arguments resting on it
+
+`merge_sharded.py` reported `snd: 175 new hits (419 total)` and none of them were visible to the
+installer. Two separate reasons, and the second is the one that matters.
+
+**The file name.** `build_second.py` read `snd_all_hits.json`, which stopped at 203 records on
+15 September; `merge_sharded.py` has written the merged file as `snd_hits.json` since the vein
+was sharded, and it holds 419. The installer and the merge disagreed about a name, so 138
+settled results sat held. `newlist.py` does not list either file, so `status.py` never counted
+them either. Both now read `snd_hits.json`.
+
+**What the 138 turned out to be.** Nothing like 138 results:
+
+| | |
+|---:|---|
+| 138 | settled and not papered |
+| 42 | premise entry not on the roster at all |
+| 93 | already WITHDRAWN as second-conjecture papers, correctly kept out by `withdrawnset` |
+| **3** | actually new |
+| **0** | installed |
+
+The 93 are `withdrawnset` working exactly as designed, and the honest reading of "138 held
+results" is 3. Counting the file would have padded the roster by 135.
+
+**The 42 are the defect.** Every one carries `premise_kind: "proved in this project"`, and
+there is no `coeffs` record anywhere in the project that supports any of them — not in any
+`*_hits*.json`, not in `uniall_hits.json`, not in `ordtails.json`. Six are named in
+WITHDRAWN.md, under `gf-conjecture`. `withdrawnset.blocked(a, 'second-conjecture')` returns
+False for all six, and it is right to: **a withdrawal blocks the ARGUMENT, not the entry**, which
+is correct for a second engine settling the same entry independently and exactly wrong for an
+argument that takes the withdrawn one as its premise. `sweep_second` copied the premise's
+coefficients into its hit and kept no reference to where they came from, so when the premise was
+withdrawn nothing connected the two. A copied fact cannot be re-checked; a named one can, so a
+hit now records `premise_from` (file and engine) and `premise_on_roster` beside it, and
+`build_second` refuses any entry that is not on the roster. An entry on the roster is the one
+condition checkable at build time that cannot go stale in silence.
+
+`livenew.py` also needed fixing to check these at all. Its state file is a cache — an entry
+already in `kept` is skipped and never re-fetched — and every second-conjecture target is on the
+roster already, so all 96 were "confirmed" from the day their FIRST paper was installed. A
+verdict about the first conjecture says nothing about whether the second line is still
+unsettled. `LIVEOUT` now points the check at a state file of its own; re-run that way, all 96
+came back kept, 0 dropped, 0 flagged, on a genuine fetch.
+
+### The 13 September withdrawal was short by four, and eighty more are unresolved
+
+The three genuinely new second conjectures rested on A270934, A273334 and A277560. The first two
+are `gf-conjecture` papers on the active-cell count of a two-dimensional automaton — the exact
+class withdrawn on 13 September for "the active-cell count of a two-dimensional automaton has no
+proved generating function, so the degree bound the argument needs does not exist". That pass
+took five and left four: **A270934, A273334, A273447, A273781**, the last two being partial sums
+of the same quantity. Checked one at a time against their own entries, all four are
+indistinguishable from the five:
+
+* every formula line sits inside one `Conjectures from _Colin Barker_: (Start)` block, so the
+  generating function the argument consumes is the conjecture itself in another notation;
+* no `coeffs` record for them exists in any hits file, so nothing in this project models them;
+* they were built in the same run — builds 11677, 11680, 11682, 11684 against the withdrawn
+  11676, 11678, 11679, 11681, 11683.
+
+Withdrawn. **Roster 13,768 → 13,764.** Nothing was installed on their second conjectures.
+
+**What is left open, and it is not small.** 84 roster papers carry engine `gf-conjecture` on
+this automaton family, and all 84 rest on a generating function the entry states only inside a
+conjecture block — 224 x-axis and diagonal-representation papers under the two engines were
+checked and **not one** states a g.f. as fact. The four withdrawn tonight are the ones where the
+class was already settled. The other 80 are a different question, because the `ca2d` vein
+(engine `automaton-axis`, 144 papers on the same family) builds an actual model of the axis, and
+an x-axis entry with a real ca2d proof is not in the position the active-cell counts are in. It
+may be sound, it may be a duplicate of the ca2d paper, or it may be the same defect at
+twenty times the size. **A277560 is one of the 80, which is why its second conjecture was not
+installed either.** This wants its own pass, entry by entry, asking of each: is there a model
+for this sequence anywhere in the project, or is the generating function the argument consumes
+the very thing being conjectured?

@@ -24,7 +24,14 @@ SHARD = int(os.environ.get('LSHARD', '0'))
 NSHARD = int(os.environ.get('LNSHARD', '1'))
 targets = [a for a in open(sys.argv[1]).read().split()
            if a.startswith('A') and zlib.crc32(a.encode()) % NSHARD == SHARD]
-OUT = 'deep-check/livenew.json' if NSHARD == 1 else f'deep-check/livenew_{SHARD}.json'
+# LIVEOUT points the check at a state file of its own. The shared one is a cache -- an entry
+# already in `kept' is skipped, never re-fetched -- and that is right for a first result and
+# wrong for a second conjecture on the same entry: the entry was confirmed open when its FIRST
+# paper was installed, and a verdict recorded then says nothing about whether the SECOND line
+# is still unsettled today. Re-checking those 96 against the live OEIS needed a fresh state,
+# and mutating the shared one to get it would have thrown away 4,940 confirmations.
+OUT = os.environ.get('LIVEOUT') or (
+    'deep-check/livenew.json' if NSHARD == 1 else f'deep-check/livenew_{SHARD}.json')
 state = json.load(open(OUT)) if os.path.exists(OUT) else {'kept': {}, 'dropped': {},
                                                           'flagged': {}}
 if NSHARD > 1:
