@@ -5,6 +5,17 @@
 # Split in two rather than run as one list because these two engines are the ones where every
 # capped entry carries a conjecture, and a runner that finishes is worth more than a runner that
 # is still in its first tenth. Its first five entries gave two proofs.
+#
+# THE CAP THIS ASKS AT WAS THE CAP THAT ALREADY REFUSED THE LIST. 727 of realcap2.txt's 734
+# entries, and all 255 of realcap.txt's, carry a row in uniall_caps.json saying they were
+# refused at 2,000,000 or more -- and both runners asked at exactly 2,000,000. A refusal is
+# only meaningful next to the cap it was made at, and re-asking at the same cap is not a
+# question, it is the same answer again. Raised to 8,000,000: measured, that is a NEW question
+# for 375 of realcap2's 603 open entries and for 242 of realcap's 243.
+#
+# The memory is deliberately NOT raised with it. Three shards at MEMGB=5 already reach the
+# whole container if they all peak; an entry whose state space needs more than that at the new
+# cap will raise MemoryError and be recorded honestly, which is information rather than a loss.
 cd /home/user/Conjectures/engine
 # IDLE BACKOFF (defect 44). A round of this loop that finds work takes minutes -- BUDGET
 # alone is 90 seconds or more -- so a round that returns in seconds found nothing, and the
@@ -18,7 +29,7 @@ cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
   _t0=$(date +%s)
   ANUMS_FILE=deep-check/realcap.txt BUDGET=600 TAG=rcap MEMGB=6 \
-    timeout 2100 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/rcap_run.log 2>&1
+    timeout 2100 python3 src/sweep_shard.py 8000000 0 1 >> /tmp/rcap_run.log 2>&1
   _rc=$?
   _el=$(( $(date +%s) - _t0 ))
   # DEFECT 52. A round that ends in seconds was read as "nothing left to ask". A round that

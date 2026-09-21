@@ -1585,3 +1585,29 @@ changing a setting, neither needing a bigger machine.
 This is the standing habit paying out exactly as it usually does. The vein was not hidden by
 mathematics. It was hidden by a sweep recording two different facts in one file under the name
 of the more discouraging one.
+
+### defect 54 — two runners spent weeks asking at the cap that had already refused their lists
+
+A refusal is only meaningful next to the cap it was made at. That rule is written into
+`sweep_shard`'s own comments, and both cap runners broke it.
+
+`caprun.sh` reads `deep-check/realcap2.txt` — 734 entries, **727 of which carry a row in
+`uniall_caps.json` saying they were refused at 2,000,000 or more** — and asked at exactly
+2,000,000. `rcaprun.sh` reads `realcap.txt`, 255 entries, **all 255 refused at 2,000,000 or
+more**, and asked at exactly 2,000,000. Re-asking at the cap that already refused is not a
+question; it is the same answer again, and neither runner could have produced a result.
+
+It printed as work. Both looped, both wrote refusal rows, both looked busy.
+
+Raised to 8,000,000, which is measured rather than guessed: that is a genuinely new question
+for **375 of realcap2's 603 open entries and 242 of realcap's 243**. The lists were regenerated
+at the same time, dropping what has since been proved, what is now a real memory refusal, and
+what 8,000,000 has already refused — 734 → 375 and 255 → 242.
+
+The memory was deliberately not raised with the cap. Three shards at `MEMGB=5` already reach
+the whole container if they all peak; an entry whose state space needs more than that at the
+new cap raises `MemoryError` and is recorded honestly, which is information rather than a loss.
+
+**This is the third stale refusal list tonight** — `oomlist.txt` at 41 rows when the file held
+138, `realcap2.txt` and `realcap.txt` here. A list generated from a refusal file is a snapshot,
+and every one of them was being treated as though it were a query.

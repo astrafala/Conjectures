@@ -15,6 +15,17 @@
 # each one holds its shard for minutes. Three shards write three sets of files and cannot
 # overwrite each other -- that is the whole reason sweep_shard takes a shard index -- so the
 # only cost is memory, and 5 GB each is chosen to fit three of them beside the rotation.
+#
+# THE CAP THIS ASKS AT WAS THE CAP THAT ALREADY REFUSED THE LIST. 727 of realcap2.txt's 734
+# entries, and all 255 of realcap.txt's, carry a row in uniall_caps.json saying they were
+# refused at 2,000,000 or more -- and both runners asked at exactly 2,000,000. A refusal is
+# only meaningful next to the cap it was made at, and re-asking at the same cap is not a
+# question, it is the same answer again. Raised to 8,000,000: measured, that is a NEW question
+# for 375 of realcap2's 603 open entries and for 242 of realcap's 243.
+#
+# The memory is deliberately NOT raised with it. Three shards at MEMGB=5 already reach the
+# whole container if they all peak; an entry whose state space needs more than that at the new
+# cap will raise MemoryError and be recorded honestly, which is information rather than a loss.
 cd /home/user/Conjectures/engine
 # IDLE BACKOFF (defect 44). A round of this loop that finds work takes minutes -- BUDGET
 # alone is 90 seconds or more -- so a round that returns in seconds found nothing, and the
@@ -30,7 +41,7 @@ for r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
   _pids=""
   for i in 0 1 2; do
     ANUMS_FILE=deep-check/realcap2.txt BUDGET=600 TAG=rcap2 MEMGB=5 \
-      timeout 2100 python3 src/sweep_shard.py 2000000 $i 3 >> /tmp/cap_run.log 2>&1 &
+      timeout 2100 python3 src/sweep_shard.py 8000000 $i 3 >> /tmp/cap_run.log 2>&1 &
     _pids="$_pids $!"
   done
   # `wait' with NO OPERANDS is specified to return zero, always -- so reading $? after it
