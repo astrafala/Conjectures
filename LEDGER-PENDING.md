@@ -68,3 +68,36 @@ result within the hour.
 
 Twelve now. The vein's 55 small-shape entries stand at 12 proved, 14 refused at 5 GB and
 re-askable, 29 never yet asked at 8,000,000.
+
+## 21 September 2026 (evening) — a vein that did not exist yesterday
+
+Fixing STATE.md defect 49 — every build timeout was being swallowed by `uniform.build`'s
+`except Exception: return None` and recorded as a cap refusal — turned an invisible population
+into a named one. Folding the shard files, including the **untagged** ones, which is where the
+biggest runners write:
+
+| | |
+|---:|---|
+| 3,362 | `uniall_caps.json` — the state space exceeded the cap |
+| 117 | `uniall_oom.json` — the container refused it |
+| **62** | `uniall_tmo.json` — the CLOCK refused it |
+
+Every one of the 62 is off the roster, carries a parsable conjecture and is still open. The
+budgets they failed under: **40 at ninety seconds**, 20 at 150, 2 at 420. Ninety seconds is a
+seventh of the shortest container generation seen all day. `tmorun.sh` asks all 62 at 900.
+
+Two faults of my own found on the way, both about reading rather than mathematics:
+
+**`TAG=` is a real tag, and it is the one the biggest runners use.** 54 timeout rows appeared to
+vanish between two commands; they were in the untagged shard files, and the command that listed
+the tags rendered the empty tag as an empty string, so `" t17c "` read as "only t17c". Folding
+the empty tag took the recorded timeouts from 2 to 59 and the out-of-memory rows from 60 to 116.
+
+**The other half of defect 48.** `sweep_shard` skipped what the machine had refused but not what
+the clock had refused, because `uniall_tmo.json` did not exist when that guard was written. So
+`merge_shards` deleted the per-shard done file, the timeout rows went somewhere nothing read,
+and both `t17c` shards looped on A252112 and A251948 for hours — recording correctly, advancing
+not at all. Measured before fixing: A252112 asked alone under the runner's own settings reported
+`build timed out` and wrote `{"A252112": 420}`. The machinery was right; nothing read it. With
+the guard in place the vein moved again within the hour — 14 entries newly asked at 8,000,000,
+ten of which genuinely exceed it.
