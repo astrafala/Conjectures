@@ -82,3 +82,43 @@ whose records read `engine: ca2d, S: 8` in plain sight. Ask what shape a record 
 asking whether it exists. And an absent record is not an absent proof: the four withdrawn have
 no surviving record of any kind, and what settled them was reading the paper, which names its
 own model in its abstract.
+
+## 21 September 2026 (early hours) — a merge that opens what a cap refused
+
+IDEAS AP.5 left one line as a question rather than a target: `transfer17` already has the merged
+pair-free build, so why do 82 of its capped entries still cap? Asking directly found that the
+cap was real construction reaching a limit, not the a-priori refusal — and that **79 of the 80
+had only ever been asked at 2,000,000**, which is not a judgement about them but the cap every
+sweep happened to use.
+
+Reading `build_pairfree` to answer it turned up an exact quotient it misses. Its state is
+`(s, C)`: the current row, and the window masks the pair (previous row, `s`) imposes. `C`
+decides which rows may follow; the successor `constraint(s, t)` never reads `C`. So two states
+with the same row and the same `follows(C)` have the same outgoing labels and, label by label,
+the same successor — indistinguishable, and merging them is exact rather than approximate.
+`build_lineset` does it, keyed on the trimmed constraint rather than the row set itself.
+
+Verified against `build_pairfree` on 96 parameter shapes and 14 roster entries: **0 mismatches,
+never larger, never slower**, 112.7s → 57.3s. Nil at W=3, where K=1 leaves nothing to collapse,
+and 12×–80× at W=6–8 — which is where every capped entry lives.
+
+**Five results, installed. Roster 13,765 → 13,770.** Every one re-checked against the live OEIS
+(5 kept, 0 dropped, 0 flagged) and every one matched against the entry's own line
+programmatically — coefficients identical, threshold on the entry equal to both the claimed and
+the computed one:
+
+| entry | states | recurrence | claim begins | published terms |
+|---|---:|---|---|---:|
+| A251842 | 16,767 | order 36, 12 coefficients | n>43 | 21 |
+| A204606 | 315,011 | order 6, 2 coefficients | n>18 | 15 |
+| A252163 | 8,082 | order 46, 45 coefficients | n>50 | 23 |
+| A251947 | 17,733 | order 54, 18 coefficients | n>57 | 21 |
+| A252189 | 18,102 | order 12, 4 coefficients | n>22 | 26 |
+
+Four of the five state a claim that begins **past the last published term**, so no amount of
+checking data could have settled them; only a model can. Each was refused by a cap the merge
+removes.
+
+The honest counterpoint: the merge does not open everything. Entries at alpha=3, W=9 — 262,144
+rows — still exceed 8,000,000 states, and the vein is split so those 25 are asked separately
+rather than holding the other 55 behind them.
