@@ -1281,3 +1281,22 @@ Validated before use, per defect 46: run against the whole held set it printed
 the eleven results already installed it re-verified **11 of 11 with 0 disagreements**, so the
 zero was an empty input. **A checker that has not been shown to return non-zero on a case you
 know is not a checker.**
+
+### Changing a sweep's shard count orphans its in-flight markers
+
+Cutting `t17run.sh` from three shards to two left `shardt17c_inflight_2.json` behind, naming
+A252190 at the old `MEMGB=5` and an old boot stamp. Nothing reads it — shard 2 no longer runs —
+so it sits there for ever, and every later inspection reads it as a shard at work on an entry
+that nothing is touching. Harmless to the data, actively misleading to the reader, which is the
+same failure as every refusal list this project has had to retract.
+
+**The entry itself is not orphaned.** The partition is `crc32(anum) % NSHARD`, recomputed on
+every run, so lowering `NSHARD` reassigns every entry among the shards that remain: A252190 went
+from shard 2 of 3 to shard 0 of 2 and is still unsettled and still in the list. **Delete the
+markers above the new shard count when changing it**, and do not assume an entry was lost with
+its shard.
+
+A related misreading, worth naming because it cost a minute twice tonight: `ps` showed
+`sweep_shard.py 8000000 0 3` after the change and I read it as t17run still running three
+shards. It was `readable.sh`, which also uses an 8,000,000 cap. **The cap is not an identifier.**
+Match a runner's shards by the runner's own `ANUMS_FILE` or by parentage, never by the cap.
