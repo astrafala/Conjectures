@@ -18,6 +18,7 @@ and settled by hand, never by trusting whichever ran last.
 
     python3 src/dc_phase5.py <shard> <nshards> [budget]
 """
+import glob
 import json
 import os
 import signal
@@ -75,7 +76,46 @@ def skip(a, why):
     if a not in d:
         d.append(a)
     state['skip'] = {k: len(v) for k, v in state['skipped'].items()}
+    # stamp the state with the engines this verdict was reached under, so a machine-reason skip
+    # can be told apart from one reached under today's code
+    state['stamp'] = _stamp
 
+
+# A skip whose reason is about the MACHINE expires when the engines change; a skip about the
+# MATHEMATICS does not. The `seen` set below is what stops a skipped entry being retried, and
+# without this the two kinds were kept forever alike: 31 entries recorded "rebuild over the cap"
+# on 8 September were still excluded tonight, four of them results installed TODAY, and
+# A184710 -- which needs 353 states against a cap of eight million -- was among them. The engine
+# that could not build them was replaced this morning (STATE.md defect 43).
+#
+# The expiry is the engine sources themselves. If any of them is newer than the stamp written
+# when a machine-reason skip was recorded, those skips are dropped and the entries asked again.
+MACHINE_REASON = ('over the cap', 'timed out', 'raised', 'out of memory', 'unreadable')
+
+
+def _engine_stamp():
+    """Newest mtime across the engine sources, to the second."""
+    newest = 0.0
+    for f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), '*.py')):
+        try:
+            newest = max(newest, os.path.getmtime(f))
+        except OSError:
+            pass
+    return int(newest)
+
+
+_stamp = _engine_stamp()
+if state.get('stamp') != _stamp:
+    _dropped = 0
+    for _why in [w for w in state.get('skipped', {})
+                 if any(m in w for m in MACHINE_REASON)]:
+        _dropped += len(state['skipped'].pop(_why))
+    if _dropped:
+        state['skip'] = {k: len(v) for k, v in state.get('skipped', {}).items()}
+        print(f'  engines changed since the last run: {_dropped} machine-reason skips retired',
+              flush=True)
+    state['stamp'] = _stamp
+    save()
 
 seen = (set(state['ok']) | {b[0] for b in state['bad']}
         | {a for v in state.get('skipped', {}).values() for a in v})
