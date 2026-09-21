@@ -10,14 +10,27 @@
 # A204606 (alpha=2, W=9) BUILDS at 8,000,000. That is the whole case for this runner: the
 # population was never refused by mathematics, only by the one cap every sweep happened to use.
 #
-# MEMGB=5 and a 900-second budget because the build that succeeded took seven minutes on a
-# loaded machine and about 1.8 GB. Three shards, so the 80 are read in a night rather than a
-# week; sweep_shard's shard index keeps their files apart.
+# SPLIT BY ROW SPACE, because the 80 are not one population. Their shapes:
+#
+#     alpha=2 W=9    19,683 rows     1
+#     alpha=3 W=6     4,096 rows     1
+#     alpha=3 W=7    16,384 rows    26
+#     alpha=3 W=8    65,536 rows    27
+#     alpha=3 W=9   262,144 rows    25
+#
+# A204606 (19,683 rows) built in 215 seconds; A251844 (262,144 rows) was still building after
+# eighteen minutes, which is past this runner's whole budget. Left in one list the 25 largest
+# would hold the shards for the entire night and the 55 cheap ones would never be reached --
+# and a build that runs out of BUDGET is recorded as a COUNT in the why file, not per entry,
+# so they would not even be identifiable afterwards (STATE.md defect 40). This runner takes
+# the 55 that fit; t17big.sh takes the 25 that do not, with a budget that suits them.
+#
+# MEMGB=5 and a 900-second budget: the build that succeeded took 215s and about 1.8 GB.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   for i in 0 1 2; do
-    ANUMS_FILE=deep-check/t17conj.txt BUDGET=900 TAG=t17c MEMGB=5 \
+    ANUMS_FILE=deep-check/t17small.txt BUDGET=900 TAG=t17c MEMGB=5 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 3 >> /tmp/t17c_$i.log 2>&1 &
   done
   wait
