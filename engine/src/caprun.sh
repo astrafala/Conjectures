@@ -29,7 +29,7 @@ for r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
   _t0=$(date +%s)
   for i in 0 1 2; do
     ANUMS_FILE=deep-check/realcap2.txt BUDGET=600 TAG=rcap2 MEMGB=5 \
-      timeout 1700 python3 src/sweep_shard.py 2000000 $i 3 >> /tmp/cap_run.log 2>&1 &
+      timeout 2100 python3 src/sweep_shard.py 2000000 $i 3 >> /tmp/cap_run.log 2>&1 &
   done
   wait
   _el=$(( $(date +%s) - _t0 ))

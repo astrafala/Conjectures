@@ -27,7 +27,7 @@ cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8; do
   _t0=$(date +%s)
   ANUMS_FILE=deep-check/residue.txt BUDGET=1800 TAG=res MEMGB=5 \
-    timeout 2400 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/res_run.log 2>&1
+    timeout 6000 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/res_run.log 2>&1
   _el=$(( $(date +%s) - _t0 ))
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- read out under the current engines, stopping"

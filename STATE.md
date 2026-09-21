@@ -1367,3 +1367,55 @@ for the budget the entry was last refused at — never the log alone.
 
 The near-miss is the lesson. A plausible mechanism, a symptom that fits it, and a file that
 would have carried it for ever — with the measurement that refutes it costing sixty seconds.
+
+### defect 50 — the outer `timeout` lies where a container restart tells the truth
+
+`BUDGET` is per PHASE. `sweep_shard` arms `signal.alarm(BUDGET)` separately for the build, for
+the terms and for the threshold, so a single entry's worst case is `3 * BUDGET`. Every runner
+also wraps the shard in a shell `timeout`. Nobody had compared the two numbers.
+
+`oomrun.sh` ran `BUDGET=1500` inside `timeout 2400` — an outer clock shorter than two of the
+three phases it was supposed to contain. An entry slow in the build could not reach a recorded
+outcome at all. What happened instead is worse than silence: `timeout` killed the interpreter
+with the in-flight marker still on disk, the boot stamp unchanged, and the next round read that
+marker and wrote the entry down as having died at `MEMGB=11`.
+
+**A200556, A201092, A202126 and A202127 were recorded as out-of-memory refusals at 11 GB when
+what refused them was a shell timeout.** They have been withdrawn from `shardoom_oom_0.json`
+and put back in the list. This is defect 49's shape one layer further out: the per-phase alarm
+was taught to say `timed out` instead of `too big`, and then an outer clock that nothing had
+counted in said `out of memory` on its behalf.
+
+**A container restart is not this problem, and the difference is the whole point.** A restart
+changes the boot stamp, the marker reads as a death that was not the entry's, and the round
+re-asks — defect 47's machinery, working. Only a killer that leaves the boot stamp intact can
+be mistaken for the entry, and the outer `timeout` is the only such killer. So the fix is to
+put it out of reach rather than to shorten the budget: the container is then the sole external
+killer, and that one is already handled honestly.
+
+Five runners had `timeout < 3 * BUDGET`; four were preventive and one had already done the
+damage. `oomrun` 2400 → 5400, `resrun` 2400 → 6000, `t21run` 1700 → 3000, `caprun` and
+`rcaprun` 1700 → 2100. The check is one line and belongs before any budget change:
+
+    for f in src/*.sh; do B=$(grep -oE 'BUDGET=[0-9]+' $f|head -1|cut -d= -f2); \
+      T=$(grep -oE 'timeout [0-9]+' $f|head -1|cut -d' ' -f2); ...  # T must exceed 3*B
+
+I also killed the live shard by hand while fixing this, and that leaves the same lying marker.
+Deleting the marker for the entry I interrupted (A203295) is not tidying up: a death I caused
+must not be recorded as a refusal the entry earned.
+
+**A number in a comment is not a setting.** Verifying the patch with
+`grep -oE 'timeout [0-9]+' /tmp/oomrun.sh | head -1` returned `timeout 2400` — from the prose
+in which I had just explained the bug. The same mistake as reading a cap out of `ps` and
+calling it an identifier. Anchor on the command line (`^\s+timeout [0-9]+ python3`), not on the
+first occurrence of the digits.
+
+### the idle veins are the measurement
+
+`rcaprun`, `resrun` and `t21run` had all stopped on the idle backoff, each reporting only
+`out of memory on an earlier pass, at this limit or more` — 17, 4 and 0 entries skipped. They
+are not out of work; they are asking at 5 and 6 GB for entries already refused at 5 and 6 GB.
+That population has exactly one open route, which is `oomrun` at 11 GB, and its list had been
+left at the 41 entries `uniall_oom.json` held when it was written. The file now holds 138, all
+off-roster, all unsettled, none ever asked above 7 GB. Regenerating the list from the refusal
+file rather than from memory is the whole of today's unblocking.
