@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251405, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A251153, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251405 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
+OEIS A251153 counts $(n+1)\times4$ arrays over $\{0,\dots,2\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $37$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251405 is ``Number of (n+1)X(3+1) 0..2 arrays with every 2X2 subblock summing to a prime.''. It has offset $1$ and begins
+OEIS A251153 is ``Number of (n+1)X(3+1) 0..2 arrays with no 2X2 subblock having the minimum of its diagonal elements greater than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
 \[
-1230, 19654, 313396, 5037428, 80717134, 1297591952, 20821486740, 334615097454,\ \dots
+3374, 148833, 6441563, 280327551, 12175291327, 529076339144, 22986742140730, 998750677876750,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 7*a(n-1) +415*a(n-2) -2170*a(n-3) -65018*a(n-4) +279158*a(n-5) +5209878*a(n-6) -19110091*a(n-7) -241884065*a(n-8) +770936285*a(n-9) +6925377809*a(n-10) -19408276678*a(n-11) -126423709248*a(n-12) +316443716761*a(n-13) +1497304356328*a(n-14) -3412859931553*a(n-15) -11572642532092*a(n-16) +24480490792547*a(n-17) +58017621913005*a(n-18) -115645342019311*a(n-19) -185048719496534*a(n-20) +350615451009020*a(n-21) +363598533038691*a(n-22) -653187102277345*a(n-23) -423563887277148*a(n-24) +702290291166770*a(n-25) +283913177157700*a(n-26) -400320176322800*a(n-27) -106630599041392*a(n-28) +108533272966240*a(n-29) +18430917299936*a(n-30) -12244527293952*a(n-31) -1022082252800*a(n-32) +426212623232*a(n-33) +14250333696*a(n-34) -4553766400*a(n-35) -32858112*a(n-36) +9977856*a(n-37)
+Empirical: a(n) = 41*a(n-1) +374*a(n-2) -11137*a(n-3) -43917*a(n-4) +951280*a(n-5) +2263876*a(n-6) -40034249*a(n-7) -50359104*a(n-8) +910438947*a(n-9) +326025243*a(n-10) -11493598836*a(n-11) +3575878139*a(n-12) +76798067297*a(n-13) -49959968631*a(n-14) -288074117355*a(n-15) +236004606406*a(n-16) +628148761942*a(n-17) -645102616147*a(n-18) -517231514411*a(n-19) +766300926808*a(n-20) -173888708937*a(n-21) -169536054835*a(n-22) +208505069033*a(n-23) -33672175492*a(n-24) -44398300500*a(n-25) +91080733749*a(n-26) -59835758002*a(n-27) -95630937412*a(n-28) +63893438960*a(n-29) +20635533088*a(n-30) -8099640060*a(n-31) +775817849*a(n-32) +8582552*a(n-33) -1036147776*a(n-34) -440219968*a(n-35) -83077760*a(n-36) -864000*a(n-37)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:19:04, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 13:06:36, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;7\,a(n-1) + 415\,a(n-2) - 2170\,a(n-3) - 65018\,a(n-4) + 279158\,a(n-5) + 5209878\,a(n-6) - 19110091\,a(n-7) - 241884065\,a(n-8) + 770936285\,a(n-9) + 6925377809\,a(n-10) - 19408276678\,a(n-11) - 126423709248\,a(n-12) + 316443716761\,a(n-13) + 1497304356328\,a(n-14) - 3412859931553\,a(n-15) - 11572642532092\,a(n-16) + 24480490792547\,a(n-17) + 58017621913005\,a(n-18) - 115645342019311\,a(n-19) - 185048719496534\,a(n-20) + 350615451009020\,a(n-21) + 363598533038691\,a(n-22) - 653187102277345\,a(n-23) - 423563887277148\,a(n-24) + 702290291166770\,a(n-25) + 283913177157700\,a(n-26) - 400320176322800\,a(n-27) - 106630599041392\,a(n-28) + 108533272966240\,a(n-29) + 18430917299936\,a(n-30) - 12244527293952\,a(n-31) - 1022082252800\,a(n-32) + 426212623232\,a(n-33) + 14250333696\,a(n-34) - 4553766400\,a(n-35) - 32858112\,a(n-36) + 9977856\,a(n-37)
+a(n)\;=\;41\,a(n-1) + 374\,a(n-2) - 11137\,a(n-3) - 43917\,a(n-4) + 951280\,a(n-5) + 2263876\,a(n-6) - 40034249\,a(n-7) - 50359104\,a(n-8) + 910438947\,a(n-9) + 326025243\,a(n-10) - 11493598836\,a(n-11) + 3575878139\,a(n-12) + 76798067297\,a(n-13) - 49959968631\,a(n-14) - 288074117355\,a(n-15) + 236004606406\,a(n-16) + 628148761942\,a(n-17) - 645102616147\,a(n-18) - 517231514411\,a(n-19) + 766300926808\,a(n-20) - 173888708937\,a(n-21) - 169536054835\,a(n-22) + 208505069033\,a(n-23) - 33672175492\,a(n-24) - 44398300500\,a(n-25) + 91080733749\,a(n-26) - 59835758002\,a(n-27) - 95630937412\,a(n-28) + 63893438960\,a(n-29) + 20635533088\,a(n-30) - 8099640060\,a(n-31) + 775817849\,a(n-32) + 8582552\,a(n-33) - 1036147776\,a(n-34) - 440219968\,a(n-35) - 83077760\,a(n-36) - 864000\,a(n-37)
 \end{equation}
 for all $n>36$.
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\alpha+\beta+\gamma+\delta\ \text{is prime},
+\text{not }\bigl(\min(\alpha,\delta)>|\beta-\gamma|\bigr),
 \end{equation}
 a condition on the four entries alone.
 
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $15$ published indices; the values agree exactly. That is what ties
+every one of the $13$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251405.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A251153.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

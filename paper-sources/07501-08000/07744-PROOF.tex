@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A301997, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A301882, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A301997 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A301882 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $32$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 row up and one row down, so a single row is not enough state and a plain walk count
@@ -34,20 +34,20 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A301997 is ``Number of nX6 0..1 arrays with every element equal to 1, 2 or 4 horizontally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A301882 is ``Number of nX6 0..1 arrays with every element equal to 0, 1 or 3 horizontally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-5, 50, 309, 2036, 14016, 100176, 729297, 5333386,\ \dots
+13, 74, 331, 1754, 8829, 46079, 240222, 1258853,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 37*a(n-1) -646*a(n-2) +7145*a(n-3) -56474*a(n-4) +340368*a(n-5) -1627864*a(n-6) +6344426*a(n-7) -20530229*a(n-8) +55921932*a(n-9) -129560648*a(n-10) +257379094*a(n-11) -441218290*a(n-12) +656019085*a(n-13) -849333774*a(n-14) +960248209*a(n-15) -949688428*a(n-16) +822086289*a(n-17) -622603894*a(n-18) +412123821*a(n-19) -238125530*a(n-20) +119900686*a(n-21) -52488320*a(n-22) +19925276*a(n-23) -6551781*a(n-24) +1868622*a(n-25) -461972*a(n-26) +97988*a(n-27) -17522*a(n-28) +2597*a(n-29) -306*a(n-30) +25*a(n-31) -a(n-32) for n>33
+Empirical: a(n) = a(n-1) +48*a(n-2) -16*a(n-3) -864*a(n-4) +3*a(n-5) +7667*a(n-6) +1179*a(n-7) -37181*a(n-8) -8572*a(n-9) +110043*a(n-10) +31823*a(n-11) -237350*a(n-12) -64544*a(n-13) +345618*a(n-14) +74271*a(n-15) -425703*a(n-16) -53446*a(n-17) +346542*a(n-18) +24267*a(n-19) -275496*a(n-20) -3139*a(n-21) +132994*a(n-22) -2714*a(n-23) -63515*a(n-24) +1651*a(n-25) +15195*a(n-26) -192*a(n-27) -1586*a(n-28) +6*a(n-29) +68*a(n-30) -a(n-32) for n>33
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 30 2018 12:25:14, revision 4) the statement is
+As of the ``Last modified'' line on the live entry (Mar 28 2018 10:57:06, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;37\,a(n-1) - 646\,a(n-2) + 7145\,a(n-3) - 56474\,a(n-4) + 340368\,a(n-5) - 1627864\,a(n-6) + 6344426\,a(n-7) - 20530229\,a(n-8) + 55921932\,a(n-9) - 129560648\,a(n-10) + 257379094\,a(n-11) - 441218290\,a(n-12) + 656019085\,a(n-13) - 849333774\,a(n-14) + 960248209\,a(n-15) - 949688428\,a(n-16) + 822086289\,a(n-17) - 622603894\,a(n-18) + 412123821\,a(n-19) - 238125530\,a(n-20) + 119900686\,a(n-21) - 52488320\,a(n-22) + 19925276\,a(n-23) - 6551781\,a(n-24) + 1868622\,a(n-25) - 461972\,a(n-26) + 97988\,a(n-27) - 17522\,a(n-28) + 2597\,a(n-29) - 306\,a(n-30) + 25\,a(n-31) - a(n-32)
+a(n)\;=\;a(n-1) + 48\,a(n-2) - 16\,a(n-3) - 864\,a(n-4) + 3\,a(n-5) + 7667\,a(n-6) + 1179\,a(n-7) - 37181\,a(n-8) - 8572\,a(n-9) + 110043\,a(n-10) + 31823\,a(n-11) - 237350\,a(n-12) - 64544\,a(n-13) + 345618\,a(n-14) + 74271\,a(n-15) - 425703\,a(n-16) - 53446\,a(n-17) + 346542\,a(n-18) + 24267\,a(n-19) - 275496\,a(n-20) - 3139\,a(n-21) + 132994\,a(n-22) - 2714\,a(n-23) - 63515\,a(n-24) + 1651\,a(n-25) + 15195\,a(n-26) - 192\,a(n-27) - 1586\,a(n-28) + 6\,a(n-29) + 68\,a(n-30) - a(n-32)
 \end{equation}
 for all $n>33$.
 
@@ -61,7 +61,7 @@ row $t$ and column $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 written as (row shift, column shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{1,2,4\}
+\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,3\}
 \end{equation}
 for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which rows may begin a walk.
 
@@ -183,7 +183,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A301997.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A301882.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
