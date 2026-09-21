@@ -72,6 +72,28 @@ def main():
     oom = L('uniall_oom.json')
     if oom:
         out.append(f'oom {len(oom)} (build fits, machine did not)')
+    # The second-conjecture vein counted nowhere. `newlist.py' cannot list it -- every one of
+    # its entries is ALREADY on the roster, which is the point of the vein and exactly what
+    # newlist filters out -- so 419 settled results were invisible to every count the project
+    # keeps, and the installer meanwhile read a file that stopped at 203 (STATE.md defect 45).
+    snd = L('snd_hits.json') or []
+    if snd:
+        roster = {v['anum'] for v in (L('paper-engines.json') or {}).values()}
+        pap = {v['anum'] for v in (L('paper-engines.json') or {}).values()
+               if v.get('engine') == 'second-conjecture'}
+        st = {h['anum'] for h in snd if isinstance(h, dict) and h.get('settled')}
+        # Three ways a settled result here is not a result waiting to be installed, and they
+        # must be separated or the line reads as a backlog: a premise that is not on the
+        # roster cannot be had until the premise is; a paper already WITHDRAWN is a decision,
+        # not a queue. A first draft of this line called 93 withdrawn results "left".
+        try:
+            import withdrawnset
+            wd = {a for a in st - pap if withdrawnset.blocked(a, 'second-conjecture')}
+        except Exception:
+            wd = set()
+        nop = {a for a in st - pap - wd if a not in roster}
+        out.append(f'second {len(st)} papered {len(st & pap)} withdrawn {len(wd)} '
+                   f'no-premise {len(nop)} left {len(st - pap - wd - nop)}')
     t = L('ordtails.json')
     if t:
         out.append(f'tails {len(t["proved"])} proved {len(t["disproved"])} disproof-cand')
