@@ -102,7 +102,7 @@ Verified against `build_pairfree` on 96 parameter shapes and 14 roster entries: 
 never larger, never slower**, 112.7s → 57.3s. Nil at W=3, where K=1 leaves nothing to collapse,
 and 12×–80× at W=6–8 — which is where every capped entry lives.
 
-**Five results, installed. Roster 13,765 → 13,770.** Every one re-checked against the live OEIS
+**Eight results, installed. Roster 13,765 → 13,773.** Every one re-checked against the live OEIS
 (5 kept, 0 dropped, 0 flagged) and every one matched against the entry's own line
 programmatically — coefficients identical, threshold on the entry equal to both the claimed and
 the computed one:
@@ -114,8 +114,11 @@ the computed one:
 | A252163 | 8,082 | order 46, 45 coefficients | n>50 | 23 |
 | A251947 | 17,733 | order 54, 18 coefficients | n>57 | 21 |
 | A252189 | 18,102 | order 12, 4 coefficients | n>22 | 26 |
+| A252302 | 18,276 | order 12, 4 coefficients | n>21 | 27 |
+| A252216 | 18,798 | order 46, 46 coefficients | n>48 | 18 |
+| A252111 | 17,242 | order 6, 2 coefficients | n>11 | 26 |
 
-Four of the five state a claim that begins **past the last published term**, so no amount of
+Five of the eight state a claim that begins **past the last published term**, so no amount of
 checking data could have settled them; only a model can. Each was refused by a cap the merge
 removes.
 
