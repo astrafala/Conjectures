@@ -63,6 +63,10 @@ state = json.load(open(OUT)) if os.path.exists(OUT) else {'ok': [], 'bad': [], '
 
 def save():
     json.dump(state, open(OUT, 'w'), indent=1)
+    try:
+        inflight()
+    except NameError:
+        pass
 
 
 def skip(a, why):
@@ -130,11 +134,35 @@ hits = [h for h in json.load(open('uniall_hits.json'))
 # The remaining entries cost about seven minutes each to rebuild and re-verify from cold, so the
 # backlog is roughly 237 hours at three shards. The order is therefore most of what this check
 # can control: it decides which results are verified in the first day rather than the tenth.
+INFLIGHT = os.path.join(repopaths.DEEPCHECK, f'phase5-inflight-{SHARD}.json')
+
+
+def inflight(a=None, phase=''):
+    """Name the entry being verified, BEFORE the work starts.
+
+    Every record this check writes is written after a verdict, which is exactly the case a
+    process that dies cannot reach -- and this one dies every hour, because the container
+    restarts. Without this there is no way to tell a shard grinding on one expensive rebuild
+    from a shard that is not running: both look like an `ok` count that does not move, which is
+    what "4,064, unchanged" meant for an hour tonight. Same fix as sweep_shard's (defect 39).
+    """
+    try:
+        if a is None:
+            if os.path.exists(INFLIGHT):
+                os.remove(INFLIGHT)
+        else:
+            json.dump({'anum': a, 'phase': phase, 'cap': CAP, 'budget': BUDGET},
+                      open(INFLIGHT, 'w'), indent=0)
+    except Exception:
+        pass
+
+
 for h in reversed(hits):
     a = h['anum']
     if a in seen or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
     seen.add(a)
+    inflight(a, 'start')
     try:
         e = LE.get(a)
         got = uniform.read(e['name'])
@@ -166,6 +194,7 @@ for h in reversed(hits):
         en = h['engine']
     try:
         signal.alarm(BUDGET)
+        inflight(a, 'rebuild')
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:

@@ -14,11 +14,19 @@ cd /home/user/Conjectures/engine
 # every runner belongs here: a container restart wipes /tmp, and a sweep that is
 # not in this list simply never comes back -- which is how two veins sat idle for
 # a whole day earlier in this project.
-for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh t21run.sh oomrun.sh p5run.sh; do
-  [ -f "/tmp/$f" ] || cp "src/$f" "/tmp/$f"
-done
 running() { ps -eo args | grep -q "[/]tmp/$1"; }
-start() { running "$1" || { nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 & echo "started $1"; }; }
+# The copy belongs INSIDE the guard, and both halves of that matter. It must not be skipped when
+# /tmp/$f already exists -- that guard meant an edited runner did not take effect until the next
+# container restart, so tonight's idle backoff would have sat in src/ unused for an hour. And it
+# must not overwrite a runner that is RUNNING: /bin/sh reads a script lazily by byte offset, so
+# rewriting it underneath a live shell makes it resume at whatever now sits at that offset.
+# Copying only when the runner is not running satisfies both.
+start() {
+  running "$1" && return
+  cp "src/$1" "/tmp/$1"
+  nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 &
+  echo "started $1"
+}
 for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh t21run.sh oomrun.sh p5run.sh; do
   start "$f"
 done

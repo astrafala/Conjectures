@@ -12,6 +12,7 @@ cd /home/user/Conjectures/engine
 round=0
 while true; do
   round=$((round + 1))
+  _t0=$(date +%s)
   for i in 0 1 2; do
     # the 1,590 entries with a readable conjecture AND a readable name that the cached
     # candidate list had never heard of -- 610 of them were not in it at all
@@ -36,5 +37,16 @@ while true; do
   # engines widen what counts as a candidate
   if [ $((round % 3)) -eq 0 ]; then
     timeout 1700 python3 src/keepgoing.py >> /tmp/keep.log 2>&1
+  fi
+  # IDLE BACKOFF (defect 44). This loop must not stop -- it is the standing rule made real, and
+  # it is the only thing that rebuilds the pools from the clone -- so where the other runners
+  # break out, this one slows down. A round that comes back in under a minute found nothing:
+  # BUDGET alone is 90 seconds. Without this it span at about twenty rounds a minute, each one
+  # a fresh interpreter reading uniall_done.json and uniall_hits.json to discover it had no
+  # work, and that spin across thirteen veins is what starved Phase 5 for an hour tonight.
+  _el=$(( $(date +%s) - _t0 ))
+  if [ $_el -lt 60 ]; then
+    echo "round $round found nothing in ${_el}s -- sleeping 300 before the next"
+    sleep 300
   fi
 done
