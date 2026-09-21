@@ -55,19 +55,30 @@ was reading a different file that stopped at 203 on 15 September. The gap looked
 | **3** | actually new |
 | **0** | installed |
 
-None of the three was installed, because checking them by hand is what found the real fault.
-Two rested on `gf-conjecture` papers for the active-cell count of a two-dimensional automaton —
-the class withdrawn on 13 September because that count has no proved generating function. That
-pass took five and left four. All four have every formula line inside one `Conjectures from
-Colin Barker: (Start)` block, no model anywhere in the project, and build numbers interleaved
-with the five withdrawn. **Withdrawn: A270934, A273334, A273447, A273781. Roster 13,768 →
-13,764.**
+Checking the three by hand is what found the real fault. Two rested on `gf-conjecture` papers
+for the active-cell count of a two-dimensional automaton — the class withdrawn on 13 September
+because that count has no proved generating function, so the degree bound the argument needs
+does not exist. That pass took five and left four. Each of the four names the same S=24
+`ca2dcount` model and the same transfer-matrix argument, a strip of consecutive rows taken as
+the state of a finite automaton, which is what a fixed-width array count licenses and what an
+automaton growing in every direction does not. **Withdrawn: A270934, A273334, A273447,
+A273781.**
 
-Eighty more `gf-conjecture` papers on that family are unresolved and are written up in STATE.md:
-none of the 224 x-axis and diagonal entries states its generating function as fact, but the
-`ca2d` vein does model the axis, so those may be sound where the active-cell counts cannot be.
-That is a pass of its own, not a line in a batch note. The third new result, A277560, is one of
-the eighty, which is why it was held too.
+The third, A277560, turned out to be sound and **is installed**. It rests on a `ca2d` model of
+the automaton's x-axis — a finite row at each stage, a real automaton, a real degree bound —
+which is a different object from the active-cell count, and the distinction is the whole of it.
+All 80 remaining `gf-conjecture` papers on this family rest on a `ca2d` axis model and **none is
+at risk**; no roster paper anywhere still rests on a `ca2dcount` model. The 13 September pass
+was complete on its own terms, and what it missed was four papers whose records had been pruned.
 
-Net for the night: **no results added, four withdrawn, and the machine doing the verification it
-had been prevented from doing.** The one honest number in the batch is 3, not 138.
+**Roster 13,768 → 13,764 → 13,765.** Net for the night: **one result added, four withdrawn**, and
+the machine doing the verification it had been prevented from doing. The honest number in the
+batch is 1, not 138.
+
+The method error is worth more than either count. The first query for "does this project model
+this sequence" looked for a `coeffs` key; a generating-function record has no `coeffs`, it has
+`degnum` and `degden`, so the query reported "nothing models these twelve" about twelve entries
+whose records read `engine: ca2d, S: 8` in plain sight. Ask what shape a record has before
+asking whether it exists. And an absent record is not an absent proof: the four withdrawn have
+no surviving record of any kind, and what settled them was reading the paper, which names its
+own model in its abstract.

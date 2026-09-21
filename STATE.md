@@ -887,7 +887,7 @@ verdict about the first conjecture says nothing about whether the second line is
 unsettled. `LIVEOUT` now points the check at a state file of its own; re-run that way, all 96
 came back kept, 0 dropped, 0 flagged, on a genuine fetch.
 
-### The 13 September withdrawal was short by four, and eighty more are unresolved
+### The 13 September withdrawal was short by four, and the eighty it did not touch are sound
 
 The three genuinely new second conjectures rested on A270934, A273334 and A277560. The first two
 are `gf-conjecture` papers on the active-cell count of a two-dimensional automaton — the exact
@@ -899,24 +899,41 @@ indistinguishable from the five:
 
 * every formula line sits inside one `Conjectures from _Colin Barker_: (Start)` block, so the
   generating function the argument consumes is the conjecture itself in another notation;
-* no `coeffs` record for them exists in any hits file, so nothing in this project models them;
+* each paper names the same S=24 `ca2dcount` model and the same transfer-matrix argument — a
+  strip of consecutive rows taken as the state of a finite automaton — which is what a
+  fixed-width array count licenses and what an automaton growing in every direction does not
+  (`build/gfoA270934/p.tex` says it in the abstract: "counts arrays of a fixed width under a
+  local condition", which A270934 is not);
 * they were built in the same run — builds 11677, 11680, 11682, 11684 against the withdrawn
   11676, 11678, 11679, 11681, 11683.
 
 Withdrawn. **Roster 13,768 → 13,764.** Nothing was installed on their second conjectures.
 
-**What is left open, and it is not small.** 84 roster papers carry engine `gf-conjecture` on
-this automaton family, and all 84 rest on a generating function the entry states only inside a
-conjecture block — 224 x-axis and diagonal-representation papers under the two engines were
-checked and **not one** states a g.f. as fact. The four withdrawn tonight are the ones where the
-class was already settled. The other 80 are a different question, because the `ca2d` vein
-(engine `automaton-axis`, 144 papers on the same family) builds an actual model of the axis, and
-an x-axis entry with a real ca2d proof is not in the position the active-cell counts are in. It
-may be sound, it may be a duplicate of the ca2d paper, or it may be the same defect at
-twenty times the size. **A277560 is one of the 80, which is why its second conjecture was not
-installed either.** This wants its own pass, entry by entry, asking of each: is there a model
-for this sequence anywhere in the project, or is the generating function the argument consumes
-the very thing being conjectured?
+**The other eighty are sound, and asking properly is what showed it.** 84 roster papers carried
+engine `gf-conjecture` on this automaton family, and all 84 rest on a generating function the
+entry states only inside a conjecture block — of 224 x-axis and diagonal papers checked, **not
+one** states a g.f. as fact. That looked like the same defect at twenty times the size. It is
+not, and the distinction is the model, not the entry's wording:
+
+| model the paper is built on | what it licenses | papers |
+|---|---|---:|
+| `ca2dcount` — the active-cell COUNT | nothing: no bounded strip exists, so no degree bound | 0 on the roster |
+| `ca2d` — the x-axis or diagonal at stage n | a finite row, a real automaton, a real degree bound | 80 |
+
+Every one of the 80 rests on a `ca2d` axis model. **Zero are at risk**, and no roster paper
+anywhere still rests on a `ca2dcount` model — the 13 September pass was complete on its own
+terms, and what it missed was four papers with no surviving record at all.
+
+**Two method errors of mine, worth more than the result.** The first query for "does this
+project model the sequence" looked for a `coeffs` key. A generating-function record does not
+have one — it carries `degnum` and `degden` — so the query answered "nothing models these 12"
+about twelve entries whose records say `engine: ca2d, S: 8` in plain sight. **Ask what shape the
+record actually has before asking whether it exists.** And the four withdrawn have no surviving
+record of either kind, which says only that theirs were pruned: an absent record is not evidence
+of an absent proof, and the thing that settled it was reading the paper, which names its model
+in its own abstract.
+
+**A277560 is one of the 80, so its premise holds and its second conjecture is installable.**
 
 **A corollary, and it is the reason the log is the right diagnostic.** After the backoff stopped
 `precrun.sh`, its own `prec_done*.json` said 486 of its 989 entries were still unasked — which
