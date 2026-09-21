@@ -917,3 +917,14 @@ twenty times the size. **A277560 is one of the 80, which is why its second conje
 installed either.** This wants its own pass, entry by entry, asking of each: is there a model
 for this sequence anywhere in the project, or is the generating function the argument consumes
 the very thing being conjectured?
+
+**A corollary, and it is the reason the log is the right diagnostic.** After the backoff stopped
+`precrun.sh`, its own `prec_done*.json` said 486 of its 989 entries were still unasked — which
+would make the stop a bug. It is not: `sweep_prec` line 107 is
+`if a in done or a in roster or <not my shard>: continue`, a bare `continue` with no note and no
+`done.add`, so all 486 are entries that already have a paper and are skipped, unrecorded, on
+every pass for ever. **A done file measures what a sweep finished, not what it has left**, because
+a refusal that costs nothing is never written down — the same shape as defect 40, where a
+timeout was recorded as a settlement. Checked: 486 of 486 are on the roster, 0 genuinely
+unasked. The empty result dict in the log is the only statement either way that is actually
+true.
