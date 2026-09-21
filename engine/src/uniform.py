@@ -69,7 +69,27 @@ def build(en, p, cap):
             # pair-free construction merges before the states exist and is both smaller and
             # faster, so it is what the sweep uses. Nothing falls back to the old build: if
             # this one passes the cap, the pair state passed it long ago.
-            return M[en].build_pairfree(p, cap=cap)
+            #
+            # `build_lineset' now, which quotients the pair-free build once more: its state is
+            # `(s, C)', `C' decides which rows may follow, and `constraint(s, t)' -- the
+            # successor -- never reads `C', so two states with the same row and the same
+            # `follows(C)' have identical labels AND identical successors. The merge is exact by
+            # construction rather than by experiment.
+            #
+            # Verified against `build_pairfree' on 96 parameter shapes (both walks, alpha 1-2,
+            # W 3-5, four predicates, two thresholds), 0 mismatches, 44 of them with DIFFERENT
+            # state counts so the comparison demonstrably ran; and on 14 roster entries through
+            # `terms', again 0 mismatches. Never larger and never slower on any of the 14:
+            #
+            #   W=3 (K=1, one mask position, nothing to merge)   732 ->    732   identical
+            #   A252029 W=7 alpha=2                            58222 ->   2654   22x fewer
+            #   A252554 W=6 alpha=3                           408573 ->   5120   80x fewer
+            #   A252267 W=8 alpha=3                           820278 ->  66027   12x fewer
+            #
+            # total build time over the 14: 112.7s -> 57.3s. The saving grows with W because
+            # the number of distinct mask tuples grows with K = W-2 while the number of
+            # distinct row-sets does not -- and every capped entry is W=7..9.
+            return M[en].build_lineset(p, cap=cap)
         if en == 'transfer21':
             # transfer21 counts 3x3 subblock conditions up to relabelling of the alphabet, by
             # building one transfer17 automaton per alphabet size and weighting them. It was the
