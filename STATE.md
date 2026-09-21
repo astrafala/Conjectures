@@ -971,3 +971,54 @@ reads as a finished search. Two habits, and neither costs anything:
 
 The same shape as defect 38, where a harness returned its own `TypeError` as the compared value
 and 99 entries "matched". A measurement that cannot fail is not a measurement.
+
+### The capped `transfer17` population, and defect 46 a third time
+
+IDEAS AP.5 listed `transfer17` among the engines worth a merged build with a parenthesis: "82 —
+it already has `build_pairfree`, so the question there is why those 82 still cap". Asked:
+
+* 118 off-roster capped `transfer17` entries, **80** of them carrying a parsable conjectured
+  recurrence (AP.3 said 82; the roster has grown since);
+* eight of eight **cap at 2,000,000**, taking 12–30 seconds each. The time-to-cap scaling with
+  the cap is the tell: this is construction reaching the limit, not the a-priori
+  `(alpha+1)^(2W) > cap` refusal, which is instant and which `build_pairfree` does not have;
+* **79 of the 80 had only ever been asked at 2,000,000.** Not because anything judged that the
+  right cap for them — because it is the cap every sweep happened to use;
+* **A204606 (alpha=2, W=9) builds at 8,000,000**, in about seven minutes and 1.8 GB.
+
+`t17run.sh` asks all 80 at 8,000,000. This is the standing habit again: the population was
+refused by a number in a shell script, not by mathematics, and nothing had re-asked it.
+
+**Defect 46 a third time, in one night.** The probe that found A204606 printed
+`TypeError: object of type 'int' has no len()` after 428 seconds, because the reporting line
+called `len(b[3])` where `b[3]` is already the state count. The build had SUCCEEDED. The first
+two instances swallowed a query; this one swallowed the answer, which is worse — a failed query
+returns a suspicious zero, and this returned a plausible-looking error that reads as "the build
+did not work". **Widen the rule: a probe must not be able to turn a result into an error
+message.** Print the raw object before formatting it, or format inside its own `try`.
+
+### A further exact quotient for `transfer17`
+
+Reading `build_pairfree` to answer the question above turned up a merge it misses. Its state is
+`(s, C)` — the current row, and the tuple of `K` window masks the pair (previous row, `s`)
+imposes — and its loop is
+
+    for t in follows(C):
+        row.append(sid((t, constraint(s, t))))
+
+`C` decides which `t` are legal. The successor uses `s` and `t` only: **`constraint` never looks
+at `C`**. So two states `(s, C1)` and `(s, C2)` with `follows(C1) == follows(C2)` have the same
+outgoing labels and, label by label, literally the same successor. They are indistinguishable,
+and merging them is exact. Many distinct mask tuples admit the same set of lines, and that
+saving is invisible while the key is the mask tuple.
+
+`transfer17.build_lineset` does it. Verified against `build_pairfree` on 96 shapes — both walks,
+alpha 1 and 2, W 3 to 5, four predicates, two thresholds — **0 mismatches, none skipped**, and
+**44 of the 96 have different state counts**, which is what shows the comparison ran rather than
+comparing an object with itself (defect 38). 32.6% fewer states in total, and the reduction
+grows with `W`, which is where the capped entries are: `alpha=2 W=5 sum<=2` goes 1152 → 386.
+
+**Not dispatched from `uniform.build` yet, deliberately.** That one line touches every
+`transfer17` entry on the roster, and the missing number is build TIME on entries that already
+succeed. A third fewer states bought at triple the time is a regression wearing an improvement's
+clothes. The engine stands on its verification; the dispatch waits for that measurement.
