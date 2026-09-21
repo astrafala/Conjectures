@@ -121,7 +121,16 @@ seen = (set(state['ok']) | {b[0] for b in state['bad']}
         | {a for v in state.get('skipped', {}).values() for a in v})
 hits = [h for h in json.load(open('uniall_hits.json'))
         if not h.get('FAILS') and h.get('coeffs') and h.get('engine')]
-for h in sorted(hits, key=lambda x: x['anum']):
+# NEWEST FIRST, not by A-number. `uniall_hits.json` is appended in the order results are found,
+# so the tail is the most recent and the head is what has been verified for weeks. Iterating by
+# anum spends the expensive end of this check re-verifying A000045 while the results installed
+# today -- the ones that have never been checked at all, and the ones that exercise whatever
+# build was changed most recently -- wait behind 4,000 others.
+#
+# The remaining entries cost about seven minutes each to rebuild and re-verify from cold, so the
+# backlog is roughly 237 hours at three shards. The order is therefore most of what this check
+# can control: it decides which results are verified in the first day rather than the tenth.
+for h in reversed(hits):
     a = h['anum']
     if a in seen or zlib.crc32(a.encode()) % NSHARD != SHARD:
         continue
