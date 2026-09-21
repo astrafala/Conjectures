@@ -1042,3 +1042,26 @@ about the machine must carry an expiry, and "the engine changed" is the natural 
 already the defect-34 rule and already implemented for Phase 5's skips via the engine stamp.
 `sweep_shard`'s oom file has no such stamp. Until it does, after killing a runner on purpose,
 check its `oom` file and its `done` files for whatever was in flight.
+
+### Never start a runner by hand; `restart_all.sh` is the only safe way to start one
+
+Within twenty minutes of the `transfer17` vein opening there were **two `t17run.sh` shells
+running at once**, six `sweep_shard` processes on TAG `t17c`, two of them writing each of
+`shardt17c_hits_0/1/2.json`. That is the precise failure `restart_all.sh`'s `running()` guard
+exists to prevent, and the comment at the top of `sweep_shard.py` records what it costs: two
+writers on one hits file destroy each other's results.
+
+The cause was not the guard. It was that I started the runner myself —
+`nohup /bin/sh /tmp/t17run.sh &` — after `restart_all.sh` had already started one, and a manual
+start consults no guard at all. Nothing detected it; I found it only by reading `ps` for an
+unrelated reason, and by then two generations had been running for seven minutes.
+
+**The rule: to start a runner, run `restart_all.sh`.** It starts only what is not already
+running, it refreshes the `/tmp` copy while doing so, and it is the single place that knows
+what "already running" means. Adding a runner to its list and calling it is one line and cannot
+produce a second generation. Starting one by hand is never necessary and has no safe form.
+
+Nothing was lost this time: `atomicjson` kept every file parseable, `shardt17c_hits_1.json`
+still held the vein's first proof (A251842), and the two `done` files had not diverged. That is
+luck, not design — the same luck the `forever.sh` header already records from the time its loop
+reached 470 copies of one sweep.
