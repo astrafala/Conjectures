@@ -1113,3 +1113,24 @@ This also retires the hand-rule written a few hours earlier ("after killing a ru
 oom and done files for whatever was in flight") for the restart case, though not for a
 deliberate `kill`, which leaves uptime unchanged and is still indistinguishable from a real
 refusal.
+
+### The transfer17 vein, first read: five proofs and a memory wall
+
+14 of the 55 small-shape entries asked, and the shape of the answer is already clear:
+
+| | |
+|---:|---|
+| 5 | proved and installed |
+| 7 | exceeded MEMGB=5 at cap 8,000,000 |
+| 1 | state space over 8,000,000 even merged |
+
+The seven are W=7 and W=8 — genuine machine refusals under the current settings, not container
+restarts (defect 47's stamp distinguishes them now), and they are in `uniall_oom.json` at 5.0,
+so they stay re-askable at a limit chosen for them. Raising that limit is a real trade rather
+than a free win: three shards at 5 GB already claim 15 GB on a 15 GB machine, so more memory
+means fewer shards, and the vein is currently reading faster than it is refusing.
+
+The 25 large-shape entries (alpha=3, W=9, 262,144 rows) are on `t17big.sh` at 7 GB with a
+2,400-second budget, and two of them are already recorded at 7.0. Given restarts as close
+together as eleven minutes, that budget cannot be relied on to complete — expect those to be
+settled only in a long generation, and do not read their silence as a refusal.
