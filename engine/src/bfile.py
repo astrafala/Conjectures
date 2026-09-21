@@ -17,6 +17,25 @@ import os, re, subprocess, time
 
 ROOT = "/home/user/oeis/oeisdata/files"
 CACHE = "/home/user/Conjectures/bcache"
+# THERE ARE TWO CACHES AND ONLY ONE WAS EVER READ. The historical one -- 3,377 files, 145 MB,
+# accumulated by this project over weeks -- is engine/bcache, because a relative "bcache" is
+# what the code that filled it resolved to from engine/. CACHE above is absolute and points at
+# the repository root. `terms' looked only there, so every one of those 3,377 b-files read as
+# ABSENT: the roster sweep marked 2,932 entries "b-file too short" while holding files of one
+# to ten thousand lines, A076217's ten thousand among them. `fetch' had the same blind spot in
+# the other direction and would re-download all 3,377.
+#
+# Reads search both; writes still go to CACHE, so nothing new is added to the older directory.
+CACHES = [CACHE, "/home/user/Conjectures/engine/bcache"]
+
+
+def cached_path(anum):
+    """the cached b-file for `anum' in whichever cache holds it, or None"""
+    for d in CACHES:
+        p = os.path.join(d, "b" + anum[1:] + ".txt")
+        if os.path.exists(p):
+            return p
+    return None
 
 
 def lfs_size(anum):
@@ -53,9 +72,10 @@ def fetch(anum, timeout=25):
     Sequential and rate-limited by construction: never call this from several processes.
     """
     os.makedirs(CACHE, exist_ok=True)
+    have = cached_path(anum)
+    if have:
+        return have
     out = os.path.join(CACHE, "b" + anum[1:] + ".txt")
-    if os.path.exists(out):
-        return out
     wait = DELAY - (time.time() - _last[0])
     if wait > 0:
         time.sleep(wait)
@@ -97,8 +117,8 @@ def path(anum):
 
 def terms(anum, limit=None):
     """[(n, a(n))] from the cached b-file, or [] if there is none."""
-    p = os.path.join(CACHE, "b" + anum[1:] + ".txt")
-    if not os.path.exists(p):
+    p = cached_path(anum)
+    if p is None:
         return []
     out = []
     for line in open(p, errors="ignore"):

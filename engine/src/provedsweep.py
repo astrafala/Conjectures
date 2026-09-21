@@ -46,7 +46,15 @@ def cached(anum):
 
 
 def main():
-    roster = sorted({v['anum'] for v in json.load(open('paper-engines.json')).values()})
+    pe = json.load(open('paper-engines.json')).values()
+    roster = sorted({v['anum'] for v in pe})
+    # Six papers on this roster are DISPROOFS. For those the entry's own conjecture is the
+    # thing shown FALSE, so a failure on the b-file is what the paper asserts and a PASS is
+    # the alarming result. A076217 is the case: this sweep flagged it as contradicting a
+    # proved paper, and the proved paper is the one saying the conjecture is false. Without
+    # this the checker's only finding is a false alarm, and worse, the check that would catch
+    # a disproof paper whose conjecture actually holds does not exist.
+    DISPROOF = {v['anum'] for v in pe if v.get('disproof')}
     state = json.load(open(OUT)) if os.path.exists(OUT) else {}
     # a cache-only pass records a fact about this machine; a downloading pass must be allowed
     # to overturn it, or FETCH=1 is a no-op (the mistake bproved made first)
@@ -100,10 +108,15 @@ def main():
         conjs = [l for l in F if bsweep.MARK.match(l)]
         bad = bsweep.check(a, conjs, vals, off)
         bad += bsweep.check_closed(F, vals, off) + bsweep.check_gf(F, vals, off)
-        state[a] = {'status': 'CONTRADICTS A PROVED PAPER' if bad else 'holds on all b-file terms',
-                    'nterms': len(vals), 'ndata': len(data), 'nconj': len(conjs), 'bad': bad}
-        if bad:
-            print(f'*** {a} CONTRADICTS A PROVED PAPER: {bad[0]}', flush=True)
+        if a in DISPROOF:
+            st = 'disproof confirmed: the entry fails, as its paper says' if bad else \
+                 'DISPROOF PAPER BUT THE CONJECTURE HOLDS'
+        else:
+            st = 'CONTRADICTS A PROVED PAPER' if bad else 'holds on all b-file terms'
+        state[a] = {'status': st, 'nterms': len(vals), 'ndata': len(data),
+                    'nconj': len(conjs), 'bad': bad}
+        if st.startswith('CONTRADICTS') or st.startswith('DISPROOF PAPER BUT'):
+            print(f'*** {a} {st}: {bad[0] if bad else "no failing index"}', flush=True)
         if n % 25 == 0:
             tmp = OUT + '.tmp'
             json.dump(state, open(tmp, 'w'), indent=0)
