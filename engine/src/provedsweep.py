@@ -48,13 +48,24 @@ def cached(anum):
 def main():
     pe = json.load(open('paper-engines.json')).values()
     roster = sorted({v['anum'] for v in pe})
-    # Six papers on this roster are DISPROOFS. For those the entry's own conjecture is the
-    # thing shown FALSE, so a failure on the b-file is what the paper asserts and a PASS is
-    # the alarming result. A076217 is the case: this sweep flagged it as contradicting a
-    # proved paper, and the proved paper is the one saying the conjecture is false. Without
-    # this the checker's only finding is a false alarm, and worse, the check that would catch
-    # a disproof paper whose conjecture actually holds does not exist.
-    DISPROOF = {v['anum'] for v in pe if v.get('disproof')}
+    # Six papers on this roster carry `disproof', and only THREE of them disprove the thing
+    # this sweep tests. The distinction is the engine.
+    #
+    # `engine: disproof' (A076217, A141135, A197230) means the entry's own stated recurrence,
+    # closed form or generating function is the thing shown false -- exactly what is tested
+    # here -- so a b-file failure is the paper's assertion and a PASS is the alarm.
+    #
+    # `engine: quadratic' (A000364, A000040, A008365) disproves something else entirely.
+    # Paper 28 refutes a trigonometric phi(k) periodicity claim on the Euler numbers, failing
+    # at k = 27 and 54; paper 29 is on the primes. Neither says a word about those entries'
+    # formula lines, which may hold perfectly well -- and do. Flagging them as "DISPROOF PAPER
+    # BUT THE CONJECTURE HOLDS" was this sweep asserting something no paper had claimed.
+    #
+    # Caught by hand, which is the binding rule: check every apparent disproof against the
+    # entry's own wording. Here it was the apparent FALSE disproof that had to be checked, and
+    # the defect was in the checker's premise rather than in anybody's paper.
+    DISPROOF = {v['anum'] for v in pe if v.get('disproof') and v.get('engine') == 'disproof'}
+    OTHERDIS = {v['anum'] for v in pe if v.get('disproof') and v.get('engine') != 'disproof'}
     state = json.load(open(OUT)) if os.path.exists(OUT) else {}
     # a cache-only pass records a fact about this machine; a downloading pass must be allowed
     # to overturn it, or FETCH=1 is a no-op (the mistake bproved made first)
@@ -111,6 +122,9 @@ def main():
         if a in DISPROOF:
             st = 'disproof confirmed: the entry fails, as its paper says' if bad else \
                  'DISPROOF PAPER BUT THE CONJECTURE HOLDS'
+        elif a in OTHERDIS:
+            st = ('formula lines fail, but this entry\'s disproof paper is about another claim'
+                  if bad else 'holds on all b-file terms (its disproof paper is about another claim)')
         else:
             st = 'CONTRADICTS A PROVED PAPER' if bad else 'holds on all b-file terms'
         state[a] = {'status': st, 'nterms': len(vals), 'ndata': len(data),
