@@ -1022,3 +1022,23 @@ grows with `W`, which is where the capped entries are: `alpha=2 W=5 sum<=2` goes
 `transfer17` entry on the roster, and the missing number is build TIME on entries that already
 succeed. A third fewer states bought at triple the time is a regression wearing an improvement's
 clothes. The engine stands on its verification; the dispatch waits for that measurement.
+
+### The in-flight recovery cannot tell a kill from a refusal
+
+The marker from defect 39 worked exactly as designed within minutes of the `transfer17` vein
+starting: restarting its three shards to pick up a source change left
+
+    previous shard died on A204606 in phase build at MEMGB=5.0
+
+in each log, which is the whole point — an entry that killed its shard is named instead of
+vanishing. But the recovery block then does `done.add(a)` and writes the entry into the shard's
+out-of-memory file, and **those three shards died because I killed them**, not because the
+machine refused anything. A204606 is the entry that had just been PROVED to build at 8,000,000.
+
+So a deliberate restart retires whatever each shard happened to be inside, as an out-of-memory
+that never happened. Retracted by hand here (three `done` files, three `oom` files). The general
+rule is the one this project keeps relearning in new costumes: **a refusal recorded for a reason
+about the machine must carry an expiry, and "the engine changed" is the natural one** — which is
+already the defect-34 rule and already implemented for Phase 5's skips via the engine stamp.
+`sweep_shard`'s oom file has no such stamp. Until it does, after killing a runner on purpose,
+check its `oom` file and its `done` files for whatever was in flight.
