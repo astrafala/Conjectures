@@ -26,11 +26,22 @@
 # the 55 that fit; t17big.sh takes the 25 that do not, with a budget that suits them.
 #
 # MEMGB=5 and a 900-second budget: the build that succeeded took 215s and about 1.8 GB.
+# BUDGET=420, not 900. The container restarts on no schedule and has been as close as
+# eleven minutes apart, so a 900-second budget is longer than a generation: all three shards
+# sat in a restart loop on A252318, A252421 and A252146, each starting the same entry again
+# every time, recording nothing, while 35 entries of this list had never been asked at
+# 8,000,000 at all. Defect 47's stamp is what makes the loop correct rather than destructive --
+# it re-asks instead of retiring -- but correct is not the same as progressing.
+#
+# Seven minutes fits inside almost every generation seen, and since defect 49 a build that
+# runs out of budget is NAMED in uniall_tmo.json with the budget it failed under. So the
+# entries this cuts off become a list to re-ask at a longer budget on a quieter machine,
+# rather than the silence they were before.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   for i in 0 1 2; do
-    ANUMS_FILE=deep-check/t17small.txt BUDGET=900 TAG=t17c MEMGB=5 \
+    ANUMS_FILE=deep-check/t17small.txt BUDGET=420 TAG=t17c MEMGB=5 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 3 >> /tmp/t17c_$i.log 2>&1 &
   done
   wait

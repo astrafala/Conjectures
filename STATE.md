@@ -1234,3 +1234,26 @@ the largest budget each entry has failed under, `merge_shards.py` folds those in
 out-of-memory. Three separate files for three separate facts — the cap, the container, the
 clock — because the whole history of this project's refusal lists is one of them wearing
 another's name.
+
+### A budget longer than a container generation is not a budget
+
+Defect 47 makes a shard re-ask the entry a container restart killed, rather than retiring it as
+a refusal. That is correct and it is not progress. With `BUDGET=900` against restarts as close
+as eleven minutes apart, all three `t17c` shards sat in a loop on A252318, A252421 and A252146 —
+starting the same entry every generation, being killed, and starting it again — while **35
+entries of that list had never been asked at 8,000,000 at all.** `uniall_caps.json` still
+recorded 2,000,000 for them, which is what gave them away: a stale cap is not a current refusal,
+and reading one as the other made the vein look read out when a third of it was untouched.
+
+`t17big.sh` was worse: `BUDGET=2400` is longer than this container has ever lived, so it could
+not complete an entry under any circumstances. It produced nothing at all in two hours.
+
+**Budgets are now 420s and 900s.** The reason this is a fix rather than a retreat is defect 49:
+a build that runs out of budget is NAMED in `uniall_tmo.json` with the budget it failed under,
+where before it was counted anonymously in the why file and, worse, attributed to the cap. A
+shortened budget now converts entries this machine cannot reach into **a list to re-ask on a
+quieter one**, which is the opposite of the silence they were.
+
+**The rule: a budget must be shorter than the shortest container generation you have seen, or
+it is a guarantee of being killed mid-work rather than a limit on it.** Check `uptime` against
+the budget before trusting a runner that reports nothing.
