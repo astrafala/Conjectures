@@ -72,6 +72,19 @@ TAG = os.environ.get('TAG', '')
 HITS, DONE = f'shard{TAG}_hits_{SHARD}.json', f'shard{TAG}_done_{SHARD}.json'
 # the shard skips what the global sweep has already settled, but never writes those files
 GDONE = set(json.load(open('uniall_done.json'))) if os.path.exists('uniall_done.json') else set()
+# Entries the MACHINE has already refused, and the largest limit each was refused under.
+# `merge_shards.py' folds a shard's own `done' into `uniall_done.json' and then DELETES it, and
+# `sweep_shard' deliberately ignores the global done set whenever ANUMS is given -- so an
+# ANUMS_FILE runner starts its list again after every merge and spends its budget re-asking the
+# entries that already failed. Re-asking at the SAME memory limit cannot succeed: the state
+# space did not shrink because a file was deleted. Skipped only while this shard's MEMGB is no
+# larger than the limit it failed under, so raising MEMGB re-opens it automatically -- which is
+# the defect-34 rule (a refusal about the machine carries an expiry) with the expiry being a
+# bigger machine rather than a changed engine.
+try:
+    GOOM = {k: float(v) for k, v in json.load(open('uniall_oom.json')).items()}
+except Exception:
+    GOOM = {}
 GHITS = ({h['anum'] for h in json.load(open('uniall_hits.json'))}
          if os.path.exists('uniall_hits.json') else set())
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
@@ -220,6 +233,9 @@ for a in sorted(set(CANDS) | ANUMS):
     # sweeps that had no engine to offer them. Honouring `done` there would refuse to ask
     # the new question, which is the whole reason for the run.
     if a in roster or a in GHITS:
+        continue
+    if MEMGB <= GOOM.get(a, 0):
+        res['out of memory on an earlier pass, at this limit or more'] += 1
         continue
     # `done` is this shard's own record and is always honoured --- ignoring it made every
     # interrupted rerun reprocess from the front and append the same hits again. Only the

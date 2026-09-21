@@ -1134,3 +1134,31 @@ The 25 large-shape entries (alpha=3, W=9, 262,144 rows) are on `t17big.sh` at 7 
 2,400-second budget, and two of them are already recorded at 7.0. Given restarts as close
 together as eleven minutes, that budget cannot be relied on to complete — expect those to be
 settled only in a long generation, and do not read their silence as a refusal.
+
+### defect 48 — a merge deletes the progress an ANUMS runner depends on
+
+`merge_shards.py` folds a tagged run's `done` set into `uniall_done.json` and then **deletes**
+`shard<TAG>_done_*.json`. `sweep_shard` honours the global set only when no list is given —
+`if a in done or (not (ONLY or ANUMS) and a in GDONE)` — and that bypass is deliberate: the
+point of an ANUMS list is to re-ask what the global set calls finished.
+
+Together they mean **an `ANUMS_FILE` runner starts its list from the beginning after every
+merge.** Observed directly: `TAG=t17c python3 src/merge_shards.py` folded three new proofs and
+left the vein reading `asked 0/55`.
+
+The proofs are safe — they are on the roster now and the roster check skips them — so what the
+runner actually re-asks is the entries that already **failed**, spending a 900-second budget
+each time on a wall it has already hit. That is defect 44 in a new place: work that cannot
+produce anything, repeated because nothing remembers it was done.
+
+`sweep_shard` now reads `uniall_oom.json` and skips an entry whose recorded limit is at least
+this shard's `MEMGB`. Re-asking at the same memory cannot succeed; the state space did not
+shrink because a file was deleted. **The skip releases as soon as `MEMGB` exceeds the recorded
+limit**, so raising memory re-opens the entry automatically — that is the defect-34 rule with a
+bigger machine as the expiry instead of a changed engine. Both directions were tested against a
+real row: A251843, recorded at 5.0, is skipped at `MEMGB=5` and asked again at `MEMGB=9`.
+
+What is still not remembered is a `state space > cap` refusal, which `uniall_caps.json` records
+but which nothing consults on the ANUMS path. That one is cheap to re-ask — the cap is checked
+during construction rather than after — so it is left alone for now, and named here so it is
+not rediscovered as a surprise.
