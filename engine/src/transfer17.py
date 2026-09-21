@@ -573,3 +573,135 @@ def build_pairfree(p, cap=200000):
     start = [startw.get(k, 0) for k in states]
     end = [1] * S
     return adj, start, end, S
+
+
+def build_lineset(p, cap=200000):
+    """`build_pairfree', quotiented once more: the state is the current row and the SET OF ROWS
+    the predecessor allows, not the constraint that produced it.
+
+    `build_pairfree' keys a state on `(s, C)', where `s' is the current row and `C' is the
+    tuple of K window masks the pair (previous row, s) imposes. Read what the two halves are
+    used for in its own loop:
+
+        for t in follows(C):                     # C decides WHICH t are legal
+            row.append(sid((t, constraint(s, t))))   # and the successor uses s and t ONLY
+
+    `constraint' never looks at `C'. So two states `(s, C1)' and `(s, C2)' with
+    `follows(C1) == follows(C2)' have the same outgoing labels and, label by label, literally
+    the same successor: they are indistinguishable, and merging them is exact rather than
+    approximate. Many distinct mask tuples admit the same set of lines -- that is the whole
+    saving, and it is invisible while the key is the mask tuple.
+
+    This is the same move `build_pairfree' made on `build' one level down. `build' keyed on an
+    ordered PAIR of rows; `build_pairfree' replaced the predecessor by its effect on the future;
+    this replaces that effect by the set of futures it actually permits.
+    """
+    W, alpha, fn = p['fixed'], p['alpha'], p['pred']
+    rowwalk = p['walk'] == 'rows'
+    A = alpha + 1
+    K = W - 2
+    if K < 1:
+        return None
+    vals = list(range(A))
+    tris = list(product(vals, repeat=3))
+    tri_bit = {t: 1 << i for i, t in enumerate(tris)}
+    mask_cache = {}
+
+    def mask(rw, sw):
+        m = mask_cache.get((rw, sw))
+        if m is None:
+            m = 0
+            for tw in tris:
+                g = (rw, sw, tw) if rowwalk else ((rw[0], sw[0], tw[0]),
+                                                  (rw[1], sw[1], tw[1]),
+                                                  (rw[2], sw[2], tw[2]))
+                if fn(g):
+                    m |= tri_bit[tw]
+            mask_cache[(rw, sw)] = m
+        return m
+
+    def constraint(r, s):
+        rw, sw = _windows(r, K), _windows(s, K)
+        return tuple(mask(rw[j], sw[j]) for j in range(K))
+
+    def follows(C):
+        out, pre = [], []
+
+        def rec(i):
+            if i == W:
+                out.append(tuple(pre))
+                return
+            for v in vals:
+                pre.append(v)
+                j = i - 2
+                if j < 0 or (C[j] >> (tri_bit[(pre[j], pre[j + 1], pre[j + 2])].bit_length() - 1)) & 1:
+                    rec(i + 1)
+                pre.pop()
+
+        rec(0)
+        return out
+
+    # the set of allowed rows, as one id per distinct set. `follows' is called once per distinct
+    # C rather than once per state, which is itself a saving: the same C arises under many rows.
+    fset_id, fset_rows, fcache = {}, [], {}
+
+    def fid(C):
+        i = fcache.get(C)
+        if i is None:
+            rowsC = follows(C)
+            key = frozenset(rowsC)
+            i = fset_id.get(key)
+            if i is None:
+                i = fset_id[key] = len(fset_rows)
+                fset_rows.append(rowsC)
+            fcache[C] = i
+        return i
+
+    rows = list(product(vals, repeat=W))
+    startw = {}
+    for s in rows:
+        sw = _windows(s, K)
+        layer = {}
+        for a in vals:
+            for b in vals:
+                layer[((a, b), ())] = layer.get(((a, b), ()), 0) + 1
+        for j in range(K):
+            nxt = {}
+            for (last2, done), cnt in layer.items():
+                x, y = last2
+                for z in vals:
+                    key = ((y, z), done + (mask((x, y, z), sw[j]),))
+                    nxt[key] = nxt.get(key, 0) + cnt
+            layer = nxt
+        for (_, C), cnt in layer.items():
+            k = (s, fid(C))
+            startw[k] = startw.get(k, 0) + cnt
+        if len(startw) > cap:
+            return None
+
+    index, states, adj = {}, [], []
+
+    def sid(key):
+        i = index.get(key)
+        if i is None:
+            i = index[key] = len(states)
+            states.append(key)
+            adj.append(None)
+        return i
+
+    for k in startw:
+        sid(k)
+    qi = 0
+    while qi < len(states):
+        s, f = states[qi]
+        row = []
+        for t in fset_rows[f]:
+            row.append(sid((t, fid(constraint(s, t)))))
+            if len(states) > cap:
+                return None
+        adj[qi] = row
+        qi += 1
+    S = len(states)
+    start = [startw.get(k, 0) for k in states]
+    end = [1] * S
+    return adj, start, end, S
