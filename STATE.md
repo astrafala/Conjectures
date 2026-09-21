@@ -1326,3 +1326,21 @@ untagged fold turned 2 recorded timeouts into 59, and 116 out-of-memory rows.
 The scale is the point. `uniall_tmo.json` now holds **59 entries the clock refused** at budgets
 of 90, 150 and 420 seconds — a population that before defect 49 would have been recorded as
 exceeding the cap, and that a longer budget on a quieter machine can simply have.
+
+### BUDGET is a per-PHASE limit, so an entry can cost three times it
+
+`sweep_shard` sets `signal.alarm(BUDGET)` three times for each entry — once around the build,
+once around the terms, once around the threshold. **`BUDGET` therefore bounds a phase, not an
+entry, and an entry's worst case is `3 * BUDGET`.**
+
+This is not a detail. `tmorun.sh` was given `BUDGET=900` on the reasoning that fifteen minutes
+fits comfortably inside a container generation. Its real worst case was forty-five minutes, most
+of a generation, and in its first hour it recorded **nothing at all**: each shard began one
+entry and the restart killed it before the entry finished. The runner looked broken and was
+merely mis-budgeted.
+
+The arithmetic to do before setting a budget is `3 * BUDGET` against the SHORTEST container
+generation seen, not `BUDGET` against the average. By that rule the earlier changes were
+luckier than they were reasoned: `t17run`'s 420 is really up to 21 minutes per entry.
+`tmorun` is 300 now — a 15-minute worst case, about four entries per shard per generation, and
+still more than three times the ninety seconds most of its list was refused at.

@@ -14,8 +14,17 @@
 #     420s   2
 #
 # Forty were refused at NINETY SECONDS, which is a seventh of the shortest container generation
-# seen. BUDGET=900 is ten times that and still fits. MEMGB=6 and two shards, because this list
-# spans every engine and nothing suggests it is memory-bound -- what refused it was the clock.
+# seen. MEMGB=6 and two shards, because this list spans every engine and nothing suggests it is
+# memory-bound -- what refused it was the clock.
+#
+# BUDGET=300, and it started at 900. `signal.alarm(BUDGET)' is set THREE times per entry -- for
+# the build, the terms and the threshold -- so BUDGET is a per-PHASE limit and an entry can
+# consume three times it. At 900 that is forty-five minutes for one entry, most of a container
+# generation, and in its first hour this runner recorded nothing at all: each shard started one
+# entry and was killed by the restart before finishing it. At 300 the worst case is fifteen
+# minutes, about four entries per shard per generation, and 300 is still more than three times
+# the ninety seconds most of this list was refused at -- which is the whole point of asking
+# again.
 #
 # sweep_shard skips an entry whose recorded budget is at least its own, and releases it when
 # BUDGET is larger, so pointing a 900-second runner at this list re-asks all 62 with no
@@ -24,7 +33,7 @@ cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   for i in 0 1; do
-    ANUMS_FILE=deep-check/tmolist.txt BUDGET=900 TAG=tmo MEMGB=6 \
+    ANUMS_FILE=deep-check/tmolist.txt BUDGET=300 TAG=tmo MEMGB=6 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/tmo_$i.log 2>&1 &
   done
   wait
