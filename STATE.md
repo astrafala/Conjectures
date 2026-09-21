@@ -673,11 +673,27 @@ That is three files now with the same shape: `uniall_caps.json` (wrote the wrong
 `uniall_done.json` (wrote no reason), `uniall_oom.json` (wrote the right reason and never took
 it back).
 
-## The container restarts about once an hour
+## The container restarts on no schedule at all — sometimes every eleven minutes
 
 Measured on 20 September: four restarts between 16:00 and 20:00 UTC, each landing near the top
-of the hour, each reading `up 0 min` on the next check. A restart wipes `/tmp` and every process
-in it.
+of the hour, which is where the old heading's "about once an hour" came from. **21 September
+disproved the regularity**: restarts at 01:58, 03:48, 03:59 and 04:27 — a 110-minute gap
+followed by an 11-minute one and a 28-minute one. A restart wipes `/tmp` and every process in
+it.
+
+**Nothing may be planned around the interval.** Two consequences, both paid for tonight:
+
+* a budget longer than the shortest gap cannot be relied on to complete. `t17big.sh` allows
+  2,400 seconds per entry, and an 11-minute container will never finish one — it will re-ask
+  the same entry for ever, making no progress and recording nothing. That is not a reason to
+  cut the budget (the work genuinely takes that long) but it is a reason to expect the large
+  shapes to be settled only in a long generation, and to say so rather than read the silence as
+  a refusal.
+* anything that accumulates must persist after every step, not at the end. Two attempts at the
+  `transfer21` verification were lost whole this way before `t21check.py` was written to record
+  each entry as it goes; `sweep_shard` and `dc_phase5` already save per entry.
+
+And a restart is not a refusal — see defect 47, which is what a restart used to be recorded as.
 
 This is why `restart_all.sh` is the shape it is, and it is worth stating plainly because two
 hours were lost today misreading its consequences:
