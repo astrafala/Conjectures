@@ -641,15 +641,30 @@ def build_lineset(p, cap=200000):
         rec(0)
         return out
 
-    # the set of allowed rows, as one id per distinct set. `follows' is called once per distinct
-    # C rather than once per state, which is itself a saving: the same C arises under many rows.
+    # One id per distinct set of allowed rows -- but keyed on the TRIMMED constraint, not on the
+    # set itself. `frozenset(follows(C))' is the obvious key and it is the wrong one: at W=9 over
+    # 0..3 a single set can hold 4^9 = 262144 rows, and building and hashing that per distinct C
+    # can cost more than the states it saves.
+    #
+    # Let Cmin[j] be the triples that actually OCCUR at position j in some allowed row. Then
+    # follows(Cmin) == follows(C): every row of follows(C) satisfies Cmin by construction, so
+    # follows(C) is contained in follows(Cmin), and Cmin[j] is a subset of C[j] gives the
+    # reverse. And Cmin is a function of the row set alone. So Cmin separates exactly the same
+    # states as the row set does, while being a K-tuple of ints -- the same shape as C.
+    #
+    # `follows' is still called once per distinct C rather than once per state, which is a
+    # saving of its own: the same C arises under many different rows.
     fset_id, fset_rows, fcache = {}, [], {}
 
     def fid(C):
         i = fcache.get(C)
         if i is None:
             rowsC = follows(C)
-            key = frozenset(rowsC)
+            occ = [0] * K
+            for r in rowsC:
+                for j in range(K):
+                    occ[j] |= tri_bit[(r[j], r[j + 1], r[j + 2])]
+            key = tuple(occ)
             i = fset_id.get(key)
             if i is None:
                 i = fset_id[key] = len(fset_rows)
