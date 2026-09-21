@@ -48,7 +48,22 @@ import conjlines
 import localentry as LE, ratrec, openness, uniform
 
 
-class Timeout(Exception):
+class Timeout(BaseException):
+    """BaseException, not Exception, and that is the whole point.
+
+    The alarm fires INSIDE `uniform.build', whose last clause is `except Exception: return
+    None' -- so a Timeout derived from Exception was swallowed there and the build returned
+    None, which every caller reads as "the state space exceeded the cap". Measured: a W=9 entry
+    asked with a 2-second budget and a cap of 10^12 was recorded as `state space > cap'. Every
+    build timeout in this project has been filed as a cap refusal, which is why
+    `uniall_caps.json' over-reports and why the 33 entries of `residue.txt' were finished with
+    no record of what finished them.
+
+    `uniform.build' already re-raises MemoryError for exactly this reason, with the comment
+    that an out-of-memory "is a different fact". A timeout is a different fact by the same
+    argument. Deriving from BaseException makes it one no `except Exception' can absorb --
+    the idiom Python itself uses for KeyboardInterrupt.
+    """
     pass
 
 
@@ -106,9 +121,16 @@ WHY = f'shard{TAG}_why_{SHARD}.json'
 # that asked it had 4 GB. Recorded here in its own file, with the limit it failed under, so it
 # can be re-asked with the memory it needs instead of being read back as settled.
 OOM = f'shard{TAG}_oom_{SHARD}.json'
+# Entries the CLOCK refused, named. A timeout was `res['build timed out'] += 1' and nothing
+# else: a count in the why file, with no way to say WHICH entries ran out of budget, so a
+# shortened budget bought progress at the price of an unidentifiable population (defect 40).
+# Separate from `oom' on purpose -- what a timeout exceeded is the budget, and folding the two
+# together is exactly how a cap came to wear an out-of-memory's name.
+TMO = f'shard{TAG}_tmo_{SHARD}.json'
 INFLIGHT = f'shard{TAG}_inflight_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
+tmo = json.load(open(TMO)) if os.path.exists(TMO) else {}
 res = collections.Counter()
 # A marker left behind means the previous shard died inside that entry without reaching any
 # handler -- MemoryError the handler could not survive, the OOM killer, a container restart.
@@ -173,6 +195,8 @@ def save():
     atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
     if oom:
         atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
+    if tmo:
+        atomicjson.dump(tmo, TMO, indent=0, sort_keys=True)
     # The counters were printed ONCE, after the loop, so a shard that is still running or that
     # dies mid-way reports nothing at all about why it refused anything -- and these shards do
     # die: four launched over the capped list, three gone, four empty logs and no idea what the
@@ -290,7 +314,9 @@ for a in sorted(set(CANDS) | ANUMS):
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['build timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); res['build timed out'] += 1
+        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        done.add(a); save(); continue
     except MemoryError:
         # marked done so the run makes progress, but NOT written to caps: what this entry
         # exceeded is MEMGB, and the file says which so a later run can ask it again with more
@@ -310,7 +336,9 @@ for a in sorted(set(CANDS) | ANUMS):
         t = uniform.terms(en, p, b, len(d) + off + 5)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['terms timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); res['terms timed out'] += 1
+        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        done.add(a); save(); continue
     except MemoryError:
         signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
         # Release the reserve and drop the automaton BEFORE saving. Saving allocates, and on this path the address
@@ -335,7 +363,9 @@ for a in sorted(set(CANDS) | ANUMS):
         thr = uniform.threshold(en, p, b, coeffs, order)
         signal.alarm(0)
     except Timeout:
-        signal.alarm(0); res['annihilation timed out'] += 1; done.add(a); save(); continue
+        signal.alarm(0); res['annihilation timed out'] += 1
+        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        done.add(a); save(); continue
     except MemoryError:
         # A186012's BUILD fits: S=900096 under a cap of 2,000,000. What did not fit was
         # `lumpauto.lump' inside `uniform.threshold', at 7 GB. The build is not the only phase

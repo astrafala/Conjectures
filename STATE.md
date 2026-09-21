@@ -1190,3 +1190,47 @@ What is still not remembered is a `state space > cap` refusal, which `uniall_cap
 but which nothing consults on the ANUMS path. That one is cheap to re-ask — the cap is checked
 during construction rather than after — so it is left alone for now, and named here so it is
 not rediscovered as a surprise.
+
+### defect 49 — every build timeout in this project has been recorded as a cap refusal
+
+`uniform.build` ends with
+
+    except MemoryError:
+        # NOT `return None'. The callers read None as "the state space exceeded the cap", and
+        # an out-of-memory is a different fact ...
+        raise
+    except Exception:
+        return None
+
+The comment is exactly right and the clause below it undoes the argument. Every sweep raises
+its alarm as `class Timeout(Exception)`, the alarm fires **inside** `uniform.build`, and that
+last clause catches it and returns `None` — which every caller reads as "the state space
+exceeded the cap". **A timeout is a different fact by precisely the same argument as an
+out-of-memory, and it has been silently filed as a cap since the day the alarm was added.**
+
+Measured, not inferred. A252147 at `alpha=3, W=9`, asked with `BUDGET=2` and a cap of 10^12 —
+a cap nothing can exceed:
+
+| | before | after |
+|---|---|---|
+| why | `state space > cap` | `build timed out` |
+| named | nothing | `uniall_tmo.json: {A252147: 2}` |
+
+This is the mechanism behind two things already written down here. `uniall_caps.json` holds
+2,311 off-roster entries and an unknown share of them never touched the cap at all. And
+`residue.txt` — the 33 entries `uniall_done.json` called finished with no record anywhere of
+what finished them (defect 40) — is what this looks like from the far end: the clock ended them,
+the cap took the blame, and the cap's own list was written under a different name.
+
+**The fix is the exception's base class.** `Timeout` now derives from `BaseException` in all 19
+sweeps that define one, so no `except Exception` anywhere can absorb it — the idiom Python
+itself uses for `KeyboardInterrupt`, and for the same reason: a control-flow signal is not an
+error the callee may handle. A bare `except:` would still swallow it, so do not write one in a
+build path.
+
+Alongside it, a timeout is now NAMED. `sweep_shard` writes `shard<TAG>_tmo_<i>.json` holding
+the largest budget each entry has failed under, `merge_shards.py` folds those into
+`uniall_tmo.json` and retires rows for entries since proved, exactly as it does for
+out-of-memory. Three separate files for three separate facts — the cap, the container, the
+clock — because the whole history of this project's refusal lists is one of them wearing
+another's name.

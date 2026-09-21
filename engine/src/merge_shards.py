@@ -20,6 +20,9 @@ HITS, DONE, CAPS = 'uniall_hits.json', 'uniall_done.json', 'uniall_caps.json'
 # as refused for size when it builds at S=900096 under a cap of 2,000,000. Kept as its own
 # list, holding the largest limit each has failed under, so it stays re-askable.
 OOM = 'uniall_oom.json'
+# entries the CLOCK refused, holding the largest budget each has failed under. Not the same
+# fact as an out-of-memory and not the same fact as a cap, so not the same file.
+TMO = 'uniall_tmo.json'
 LOCK = HITS + '.lock'
 
 if os.path.exists(LOCK):
@@ -35,6 +38,7 @@ try:
     done = set(json.load(open(DONE))) if os.path.exists(DONE) else set()
     caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
     oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
+    tmo = json.load(open(TMO)) if os.path.exists(TMO) else {}
     have = {h['anum'] for h in hits}
     added = 0
     for f in sorted(glob.glob(f'shard{TAG}_hits_*.json')):
@@ -55,6 +59,9 @@ try:
     for f in sorted(glob.glob(f'shard{TAG}_oom_*.json')):
         for a, g in json.load(open(f)).items():
             oom[a] = max(oom.get(a, 0), g)
+    for f in sorted(glob.glob(f'shard{TAG}_tmo_*.json')):
+        for a, b in json.load(open(f)).items():
+            tmo[a] = max(tmo.get(a, 0), b)
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
     json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
@@ -67,14 +74,25 @@ try:
         del oom[a]
     if gone:
         print(f'  {len(gone)} out-of-memory rows retired: proved since they were recorded')
+    gonet = [a for a in tmo if a in roster]
+    for a in gonet:
+        del tmo[a]
+    if gonet:
+        print(f'  {len(gonet)} timed-out rows retired: proved since they were recorded')
     if oom:
         json.dump(oom, open(OOM, 'w'), indent=0, sort_keys=True)
     elif os.path.exists(OOM):
         os.remove(OOM)
+    if tmo:
+        json.dump(tmo, open(TMO, 'w'), indent=0, sort_keys=True)
+    elif os.path.exists(TMO):
+        os.remove(TMO)
     print(f'{added} new hits, {ndone} newly processed; {len(hits)} hits, {len(done)} done'
-          + (f'; {len(oom)} out of memory, not capped' if oom else ''))
+          + (f'; {len(oom)} out of memory, not capped' if oom else '')
+          + (f'; {len(tmo)} out of budget, not capped' if tmo else ''))
     for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \
-             glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json'):
+             glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json') + \
+             glob.glob(f'shard{TAG}_tmo_*.json'):
         os.remove(f)
 finally:
     try:

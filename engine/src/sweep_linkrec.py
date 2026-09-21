@@ -78,7 +78,22 @@ for _f in _glob.glob('linkrec_hits_*.json') + ['linkrec_hits.json']:
 res = collections.Counter()
 
 
-class Timeout(Exception):
+class Timeout(BaseException):
+    """BaseException, not Exception, and that is the whole point.
+
+    The alarm fires INSIDE `uniform.build', whose last clause is `except Exception: return
+    None' -- so a Timeout derived from Exception was swallowed there and the build returned
+    None, which every caller reads as "the state space exceeded the cap". Measured: a W=9 entry
+    asked with a 2-second budget and a cap of 10^12 was recorded as `state space > cap'. Every
+    build timeout in this project has been filed as a cap refusal, which is why
+    `uniall_caps.json' over-reports and why the 33 entries of `residue.txt' were finished with
+    no record of what finished them.
+
+    `uniform.build' already re-raises MemoryError for exactly this reason, with the comment
+    that an out-of-memory "is a different fact". A timeout is a different fact by the same
+    argument. Deriving from BaseException makes it one no `except Exception' can absorb --
+    the idiom Python itself uses for KeyboardInterrupt.
+    """
     pass
 
 
