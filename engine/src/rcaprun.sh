@@ -19,7 +19,19 @@ for r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
   _t0=$(date +%s)
   ANUMS_FILE=deep-check/realcap.txt BUDGET=600 TAG=rcap MEMGB=6 \
     timeout 2100 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/rcap_run.log 2>&1
+  _rc=$?
   _el=$(( $(date +%s) - _t0 ))
+  # DEFECT 52. A round that ends in seconds was read as "nothing left to ask". A round that
+  # ends in seconds because the sweep CRASHED ends in seconds too, and said the same thing.
+  # bsweep.py died on its first entry with AttributeError on 31 August and sat at 3,376 of
+  # 10,632 for three weeks looking like a half-read queue; the moment it was put in a runner
+  # the backoff would have called that queue read out. An exit code tells the two apart for
+  # nothing: 0 is a clean round, 124 is `timeout' doing its job, anything else is a crash and
+  # must never be mistaken for an empty vein.
+  if [ $_rc -ne 0 ] && [ $_rc -ne 124 ]; then
+    echo "round FAILED with exit $_rc after ${_el}s -- this is a crash, NOT an empty vein; stopping"
+    break
+  fi
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- read out under the current engines, stopping"
     break

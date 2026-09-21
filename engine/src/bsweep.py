@@ -280,6 +280,13 @@ def check_gf(F, vals, off, cap=120):
 
 def main(budget=460, per_fetch=0.0):
     done = json.load(open(OUT)) if os.path.exists(OUT) else {}
+    # The second thing rot did to this sweep. 3,376 of the stored results are in an older
+    # shape, ["ok", {...}], while every reader here expects the bare dict -- so even with the
+    # is_recurrence crash fixed, the summary line died on `'list' object has no attribute
+    # 'get'`. The wrapper tag is "ok" for all 3,376 and carries nothing, so unwrapping loses
+    # no information; the 63 entries written by the current code are already bare.
+    done = {a: (v[1] if isinstance(v, list) and len(v) == 2 and isinstance(v[1], dict) else v)
+            for a, v in done.items()}
     idx = json.load(open("open_index.json"))["open"]
     rm = {r["anum"] for r in json.load(open("rank-map.json"))}
     queue = json.load(open("bsweep_queue.json"))
@@ -305,7 +312,16 @@ def main(budget=460, per_fetch=0.0):
         if off != doff or any(vals[i] != data[i] for i in range(min(m, 20))):
             done[anum] = {"status": "b-file disagrees with DATA"}
             continue
-        conjs = [l for l in F if conjlines.is_recurrence(l)]
+        # `conjlines.is_recurrence' was removed when conjlines was refactored to lines()/
+        # claims(), and nothing updated this call. bsweep has raised AttributeError on its
+        # FIRST entry ever since -- 31 August -- so its 3,376 of 10,632 is not a backlog, it
+        # is a sweep that died and left a queue looking half-read. Worse, the crash returns in
+        # under a second, so an idle-backoff runner reads it as "nothing left to ask".
+        #
+        # MARK is this module's own test for a conjectural line and was here all along; the
+        # recurrence test is `coeffs_of' inside check(), which already skips a line it cannot
+        # parse. So the pre-filter only ever needed to say "conjectural".
+        conjs = [l for l in F if MARK.match(l)]
         bad = check(anum, conjs, vals, off)
         # the download is already paid for, so test the other conjecture shapes on the same
         # terms: a conjectured closed form is disproved by one index where it differs, and

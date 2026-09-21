@@ -1477,3 +1477,40 @@ limit or more` — declining to ask entries that may need seventy megabytes and 
 `src/oomtruth.py` measures each row alone and records the two numbers that decide which file it
 belongs in. The population is also growing faster than it is read: 138 rows at the start of
 tonight, 197 after the merges.
+
+### defect 52 — a crash and an empty vein were the same event
+
+The idle backoff added for defect 44 stops a runner when a round comes back in under a minute,
+on the reasoning that a round doing real work takes minutes. It is right about that. What it
+cannot see is WHY the round was short.
+
+**`bsweep.py` has been dead since 31 August.** `conjlines` was refactored to `lines()` and
+`claims()`, `is_recurrence` went away, and the one call to it was never updated. The sweep
+raises `AttributeError` on its first entry, every time. Its results file has sat at 3,376 of a
+10,632-entry queue for three weeks looking exactly like a half-read backlog, and nothing said
+otherwise — a crash in under a second and an exhausted vein print the same thing, which is
+nothing. The moment it was put behind an idle backoff, the backoff would have announced the
+queue read out.
+
+The exit code tells them apart and costs nothing: 0 is a clean round, 124 is `timeout` doing
+its job, anything else is a crash and must never be read as an empty vein. All 33 runners now
+check it.
+
+**`wait` with no operands is specified to return zero, always.** So the first version of this
+fix was inert in the 22 runners that launch more than one shard — the check was there, it ran,
+and it could not fail. Each backgrounded shard's pid is collected now and waited on in turn.
+Verified by construction rather than by reading: two children exiting 0 and 3 under the new
+block report 3.
+
+`forever.sh` is deliberately left out. It runs six sequential sweeps a round and must never
+stop, so where the others break it sleeps; a crash there costs one 300-second sleep and is
+retried, which is already right.
+
+**The rot was three layers deep, and each layer hid the next.** Fixing `is_recurrence` exposed
+`'list' object has no attribute 'get'` — 3,376 stored results are in an older `["ok", {...}]`
+shape the current readers do not understand. The wrapper tag is `"ok"` for all 3,376 and
+carries nothing, so unwrapping loses nothing. With both fixed, bsweep checked 101 entries in a
+180-second slice: 3,540 of 10,632, and alive for the first time in three weeks.
+
+**The lesson is the standing one, pointed at the sweeps themselves.** Read what a sweep
+refuses. This sweep refused everything, and the refusal was indistinguishable from success.

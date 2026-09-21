@@ -21,8 +21,17 @@ for r in 1 2 3 4 5 6 7 8 9 10; do
   waitfetch
   _t0=$(date +%s)
   timeout 3000 python3 src/bsweep.py >> /tmp/bsweep_run.log 2>&1
+  _rc=$?
   _el=$(( $(date +%s) - _t0 ))
   # IDLE BACKOFF (defect 44). A round that returns in seconds found nothing left to ask.
+  # DEFECT 52. A round ending in seconds because the sweep CRASHED looks exactly like a round
+  # ending in seconds because there was nothing to ask. bsweep.py died on its first entry on
+  # 31 August and sat at 3,376 of 10,632 for three weeks looking like a half-read queue.
+  # 0 is a clean round, 124 is `timeout' doing its job, anything else is a crash.
+  if [ $_rc -ne 0 ] && [ $_rc -ne 124 ]; then
+    echo "round FAILED with exit $_rc after ${_el}s -- this is a crash, NOT an empty vein; stopping"
+    break
+  fi
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- queue read out, stopping"
     break

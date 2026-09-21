@@ -51,12 +51,32 @@
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
+  _pids=""
   for i in 0 1; do
     ANUMS_FILE=deep-check/t17small.txt BUDGET=420 TAG=t17c MEMGB=7 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/t17c_$i.log 2>&1 &
+    _pids="$_pids $!"
   done
-  wait
+  # `wait' with NO OPERANDS is specified to return zero, always -- so reading $? after it
+  # tells you nothing about the shards, and the defect-52 check was inert in every runner
+  # that launches more than one. Waiting on each pid in turn is the portable way to get a
+  # status back. 124 is `timeout' doing its job, not a crash.
+  _rc=0
+  for _p in $_pids; do
+    if wait "$_p"; then :; else _s=$?; [ $_s -ne 124 ] && _rc=$_s; fi
+  done
   _el=$(( $(date +%s) - _t0 ))
+  # DEFECT 52. A round that ends in seconds was read as "nothing left to ask". A round that
+  # ends in seconds because the sweep CRASHED ends in seconds too, and said the same thing.
+  # bsweep.py died on its first entry with AttributeError on 31 August and sat at 3,376 of
+  # 10,632 for three weeks looking like a half-read queue; the moment it was put in a runner
+  # the backoff would have called that queue read out. An exit code tells the two apart for
+  # nothing: 0 is a clean round, 124 is `timeout' doing its job, anything else is a crash and
+  # must never be mistaken for an empty vein.
+  if [ $_rc -ne 0 ] && [ $_rc -ne 124 ]; then
+    echo "round FAILED with exit $_rc after ${_el}s -- this is a crash, NOT an empty vein; stopping"
+    break
+  fi
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- read out under the current engines, stopping"
     break
