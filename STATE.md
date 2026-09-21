@@ -1514,3 +1514,47 @@ carries nothing, so unwrapping loses nothing. With both fixed, bsweep checked 10
 
 **The lesson is the standing one, pointed at the sweeps themselves.** Read what a sweep
 refuses. This sweep refused everything, and the refusal was indistinguishable from success.
+
+### defect 53 — one death wrote a permanent exclusion, and the file could not say from where
+
+`uniall_oom.json` was written from two places that produce the same key and the same value:
+
+* `uniform.build` raising `MemoryError` against the shard's `RLIMIT_AS`. That is the entry's
+  own appetite and it is a fact about the entry.
+* the in-flight marker, read by the next round after a shard vanished. That is the machine's
+  state at that moment — the cgroup choosing this process while a hundred and twenty others
+  shared fifteen gigabytes, or an outer clock killing it (defect 50) — and it says nothing
+  certain about the entry at all.
+
+`sweep_shard` skips when `MEMGB <= GOOM[a]`, so either one made a **permanent exclusion from
+every runner at that limit or below**, from a single event.
+
+**Measured, and the measurement is what forced this.** Of the first seven rows, six are not
+memory facts: A183618 builds in 391s at 0.07 GB; A183913 in 34s at 0.06 GB; A183921 is refused
+by the CAP before memory is ever in question; A183358, A184472 and A183359 run out of clock,
+the last with **9.33 GB free** — three times what its row claimed it wanted, available and
+unused. Only A185885's SIGKILL is arguably about memory, and it died with about five gigabytes
+free out of fifteen, so even that is the machine's choice rather than a footprint.
+
+The list was also growing three times faster than it could be measured — 138 rows at 21:00,
+207 at 22:25, 222 at 22:45, against `oomtruth` managing about five an hour. Brute force was
+never going to settle it.
+
+**So the two facts are separated instead.** `MemoryError` still writes `uniall_oom.json` and
+still excludes. A shard dying writes `uniall_died.json`, a COUNT, and costs the entry a chance
+rather than its place in the queue; only `DIEDMAX` deaths across separate generations — three —
+are treated as the entry reliably killing whatever asks it. That still stops a shard walking
+into the same wall for ever, which is what the original behaviour was for.
+
+All 222 rows were migrated to one death each, because nothing in the file could be told from
+anything else in it. This is safe in one direction that matters: **an entry that really does
+raise `MemoryError` writes itself straight back into `uniall_oom.json` on the first re-ask**,
+since that handler is untouched. The file sorts itself out within a generation.
+
+Verified rather than assumed: A184472, previously excluded from every runner at 6 GB or below,
+is now asked and comes back `build timed out` at BUDGET=90 — the honest answer, and one a
+longer clock can change. 146 of the 222 have no clock row either and are open to every runner.
+
+**The definition-order trap caught me again while writing this.** `died = json.load(open(DIED))`
+went in forty lines above `DIED = ...`, which is the same `NameError`-on-first-statement that
+made twenty `oomrun` rounds die silently. Checked by character offset rather than by reading.

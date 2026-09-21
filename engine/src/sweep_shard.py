@@ -111,6 +111,12 @@ try:
     GTMO = {k: float(v) for k, v in json.load(open('uniall_tmo.json')).items()}
 except Exception:
     GTMO = {}
+# how many times a shard has died holding each entry, across all generations
+try:
+    GDIED = {k: int(v) for k, v in json.load(open('uniall_died.json')).items()}
+except Exception:
+    GDIED = {}
+DIEDMAX = int(os.environ.get('DIEDMAX', '3'))
 GHITS = ({h['anum'] for h in json.load(open('uniall_hits.json'))}
          if os.path.exists('uniall_hits.json') else set())
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
@@ -138,6 +144,20 @@ OOM = f'shard{TAG}_oom_{SHARD}.json'
 # Separate from `oom' on purpose -- what a timeout exceeded is the budget, and folding the two
 # together is exactly how a cap came to wear an out-of-memory's name.
 TMO = f'shard{TAG}_tmo_{SHARD}.json'
+# Entries a shard DIED on, which is not the same fact as an entry that raised MemoryError.
+# `uniform.build' raising MemoryError against this shard's RLIMIT_AS is the entry's own
+# appetite and belongs in OOM. A shard that vanished without recording anything belongs here:
+# the cgroup chose it while a hundred and twenty other processes shared fifteen gigabytes, or
+# an outer clock killed it (defect 50), and the in-flight marker cannot tell those from the
+# entry. Measured: of the first seven rows uniall_oom.json held, SIX are not memory facts at
+# all -- A183618 builds in 391s with 0.07 GB, A183359 exceeds 900s with 9.33 GB free.
+#
+# The count matters because the skip does. A death must still stop a shard walking into the
+# same wall for ever, but one death is not evidence about the entry, and `oom' made it a
+# PERMANENT exclusion from every runner at that limit or below. Three deaths across three
+# generations is.
+DIED = f'shard{TAG}_died_{SHARD}.json'
+died = json.load(open(DIED)) if os.path.exists(DIED) else {}
 INFLIGHT = f'shard{TAG}_inflight_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
@@ -236,7 +256,7 @@ if _prev and _prev.get('anum') and _rebooted:
 elif _prev and _prev.get('anum'):
     print('previous shard died on %s in phase %s at MEMGB=%s'
           % (_prev['anum'], _prev.get('phase'), _prev.get('memgb')), flush=True)
-    oom[_prev['anum']] = max(oom.get(_prev['anum'], 0), float(_prev.get('memgb') or 0))
+    died[_prev['anum']] = died.get(_prev['anum'], 0) + 1
     # ... and mark it done, or the next shard walks into the same wall and dies in the same
     # place, forever. The entry was killed outright -- by the OOM killer, which no handler
     # survives -- so `done.add' never ran for it, and the runner re-selected it on every
@@ -247,7 +267,7 @@ elif _prev and _prev.get('anum'):
     done.add(_prev['anum'])
     try:
         atomicjson.dump(sorted(done), DONE)
-        atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
+        atomicjson.dump(died, DIED, indent=0, sort_keys=True)
     except Exception:
         print('  could not record the death of %s' % _prev['anum'], flush=True)
     inflight()
@@ -284,6 +304,15 @@ for a in sorted(set(CANDS) | ANUMS):
         continue
     if BUDGET <= GTMO.get(a, 0):
         res['out of budget on an earlier pass, at this budget or more'] += 1
+        continue
+    # A shard dying while holding an entry is a fact about the machine at that moment. One such
+    # death used to write the entry into `oom' at the shard's MEMGB, which excluded it from
+    # every runner at that limit or below for ever. Measured: six of the first seven rows that
+    # produced are not memory facts at all. So a death costs the entry a chance, not its place
+    # in the queue, and only a run of them -- DIEDMAX, across separate generations -- is
+    # treated as the entry reliably killing whatever asks it.
+    if GDIED.get(a, 0) + died.get(a, 0) >= DIEDMAX:
+        res[f'a shard died holding this entry {DIEDMAX} times or more'] += 1
         continue
     # `done` is this shard's own record and is always honoured --- ignoring it made every
     # interrupted rerun reprocess from the front and append the same hits again. Only the

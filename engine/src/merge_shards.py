@@ -23,6 +23,11 @@ OOM = 'uniall_oom.json'
 # entries the CLOCK refused, holding the largest budget each has failed under. Not the same
 # fact as an out-of-memory and not the same fact as a cap, so not the same file.
 TMO = 'uniall_tmo.json'
+# how many times a shard has died holding each entry. Separate from OOM on purpose: OOM is
+# `uniform.build' raising MemoryError against a limit, which is the entry's appetite; this is a
+# shard that vanished, which is the machine's state at that moment and says nothing certain
+# about the entry (STATE.md, the out-of-memory section).
+DIED = 'uniall_died.json'
 LOCK = HITS + '.lock'
 
 if os.path.exists(LOCK):
@@ -39,6 +44,7 @@ try:
     caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
     oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
     tmo = json.load(open(TMO)) if os.path.exists(TMO) else {}
+    dieds = json.load(open(DIED)) if os.path.exists(DIED) else {}
     have = {h['anum'] for h in hits}
     added = 0
     for f in sorted(glob.glob(f'shard{TAG}_hits_*.json')):
@@ -62,6 +68,11 @@ try:
     for f in sorted(glob.glob(f'shard{TAG}_tmo_*.json')):
         for a, b in json.load(open(f)).items():
             tmo[a] = max(tmo.get(a, 0), b)
+    # deaths ADD rather than max: the question is how many separate generations died on this
+    # entry, because one death is the machine and a run of them is the entry
+    for f in sorted(glob.glob(f'shard{TAG}_died_*.json')):
+        for a, c in json.load(open(f)).items():
+            dieds[a] = dieds.get(a, 0) + int(c)
     json.dump(hits, open(HITS, 'w'), indent=1)
     json.dump(sorted(done), open(DONE, 'w'))
     json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
@@ -79,6 +90,11 @@ try:
         del tmo[a]
     if gonet:
         print(f'  {len(gonet)} timed-out rows retired: proved since they were recorded')
+    goned = [a for a in dieds if a in roster]
+    for a in goned:
+        del dieds[a]
+    if goned:
+        print(f'  {len(goned)} death rows retired: proved since they were recorded')
     if oom:
         json.dump(oom, open(OOM, 'w'), indent=0, sort_keys=True)
     elif os.path.exists(OOM):
@@ -87,12 +103,17 @@ try:
         json.dump(tmo, open(TMO, 'w'), indent=0, sort_keys=True)
     elif os.path.exists(TMO):
         os.remove(TMO)
+    if dieds:
+        json.dump(dieds, open(DIED, 'w'), indent=0, sort_keys=True)
+    elif os.path.exists(DIED):
+        os.remove(DIED)
     print(f'{added} new hits, {ndone} newly processed; {len(hits)} hits, {len(done)} done'
           + (f'; {len(oom)} out of memory, not capped' if oom else '')
-          + (f'; {len(tmo)} out of budget, not capped' if tmo else ''))
+          + (f'; {len(tmo)} out of budget, not capped' if tmo else '')
+          + (f'; {len(dieds)} entries a shard died on' if dieds else ''))
     for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \
              glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json') + \
-             glob.glob(f'shard{TAG}_tmo_*.json'):
+             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_died_*.json'):
         os.remove(f)
 finally:
     try:
