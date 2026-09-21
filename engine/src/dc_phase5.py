@@ -28,6 +28,7 @@ from fractions import Fraction
 
 import bmrec
 import localentry as LE
+import atomicjson
 import repopaths
 import uniform
 
@@ -62,7 +63,12 @@ state = json.load(open(OUT)) if os.path.exists(OUT) else {'ok': [], 'bad': [], '
 
 
 def save():
-    json.dump(state, open(OUT, 'w'), indent=1)
+    # atomicjson, not `json.dump(open(OUT, "w"))'. This runs after every entry and the file is
+    # truncated for the whole of the write, so a reader that arrives inside that window sees a
+    # half-written object -- `status.py' died on `KeyError: "ok"' reading exactly that, three
+    # minutes after this check was restarted, and the file was perfectly well-formed a second
+    # later. A torn read of a progress file is worse than a crash: it reads as data loss.
+    atomicjson.dump(state, OUT, indent=1)
     try:
         inflight()
     except NameError:
@@ -134,7 +140,12 @@ hits = [h for h in json.load(open('uniall_hits.json'))
 # The remaining entries cost about seven minutes each to rebuild and re-verify from cold, so the
 # backlog is roughly 237 hours at three shards. The order is therefore most of what this check
 # can control: it decides which results are verified in the first day rather than the tenth.
-INFLIGHT = os.path.join(repopaths.DEEPCHECK, f'phase5-inflight-{SHARD}.json')
+# NOT `phase5-inflight-<shard>.json'. Two readers glob `phase5-*.json' for the shard states --
+# `status.py' and this file's own `_summary', which is how a shard learns what the other two
+# have settled -- and a marker named to match is picked up as a fourth shard state. status.py
+# died on `KeyError: "ok"' within a minute of the marker first being written. A new file
+# placed beside an existing glob is a change to every reader of that glob.
+INFLIGHT = os.path.join(repopaths.DEEPCHECK, f'p5-inflight-{SHARD}.json')
 
 
 def inflight(a=None, phase=''):

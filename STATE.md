@@ -459,6 +459,12 @@ Before reaching for it, check: a stem reporting 0 newly asked is not necessarily
 that it processed nothing since the last merge -- which under a load of 60 is what starvation
 looks like too.
 
+**Read defect 44 before trusting the paragraph above.** It called this a trade-off between
+runners and declined to argue for a smaller rotation. Measured properly a day later it was not a
+trade-off at all: thirteen of those runners had nothing to do and were relaunching themselves
+thousands of times a minute to find that out. The diagnostic that settles it is the runner's own
+log -- a sweep that examined nothing prints an empty result dict -- not the load average.
+
 ## Every session, first three commands
 
 ```
@@ -752,3 +758,87 @@ about the MACHINE must carry an expiry, and the natural expiry is "the engine ch
 timeouts, out-of-memory and rebuild failures are all statements about the day they were made.
 Only a refusal about the MATHEMATICS — no conjecture in the entry, not open, engine withdrawn —
 is safe to keep forever.
+
+### defect 44 — a runner loop with no backoff turns a read-out vein into a spin
+
+The section "When the rotation is starving the vein that is producing" recorded, on 20
+September, a load average of 60 on four cores and the two producing runners managing eight
+entries in half an hour. It read that as a trade-off between runners and closed by saying it was
+"not an argument for a smaller rotation". That reading was wrong, and the measurement that shows
+it was available the whole time: **the logs.**
+
+A container restart at 02:00 on 21 September wiped `/tmp`. Five minutes later:
+
+| log | lines | of which the empty result dict |
+|---|---:|---:|
+| `/tmp/snd_0.log` | 1568 | 1431 |
+| `/tmp/tab_0.log` | 1289 | 958 |
+| `/tmp/mfcf_0.log` | 750 | 738 |
+| `/tmp/eca_0.log` | 959 | 435 |
+| `/tmp/np2_0.log` | 178 | 170 |
+
+`sweep_shard` ends with `print(dict(res))`, and `res` is a `Counter`, so `{}` means it examined
+**no entries at all** — every candidate was already in this shard's own `done` file. Thirteen
+veins were in that state and every one of their runner loops relaunched immediately on exit.
+About twenty-five thousand no-op launches in five minutes, each a fresh interpreter parsing
+`uni_cands.json`, `uniall_done.json` (11,660), `uniall_hits.json` (5,971) and
+`paper-engines.json` (13,364) in order to discover it had nothing to do.
+
+Sixty-eight Python processes were doing this on four cores. The cost fell on the one job with
+real work left: `deep-check/phase5-[012].json` were last written at **01:05** and the container
+restarted at **02:00** — three Phase 5 shards, fifty-five minutes, not one entry finished.
+Stopping the read-out runners for four minutes was the whole experiment: the three shard states
+were written again at 02:04, 02:05 and 02:07.
+
+**The fix is the clock, not the bookkeeping.** A round that finds work takes minutes — `BUDGET`
+alone is 90 seconds or more — so a round that returns in seconds found nothing. That test needs
+nothing from the sweep, which is why it covers `sweep_gf`, `sweep_table`, `ordtails`,
+`sweep_cf`, `zeilb_run` and the rest and not just `sweep_shard`. Twenty-eight runners now break
+out of their loop on a round under a minute; `forever.sh` sleeps 300 instead, because it must
+not stop and is the only thing that rebuilds the pools from the clone. Measured after:
+**68 processes → 17, and 23 of 30 runners stopped themselves.**
+
+Breaking out is not retirement. `restart_all.sh` relaunches everything an hour later, which is
+exactly when a changed engine could have reopened a vein — that is how the `transfer21` swap
+reopened 78 capped entries and bought five results the day before.
+
+Two smaller things fell out of it:
+
+* `restart_all.sh` copied a runner into `/tmp` only when `/tmp/<name>.sh` did not exist, so an
+  **edited runner did not take effect until the next container restart**. The copy now happens
+  inside the not-running guard, which refreshes the text and still never rewrites a script under
+  a live `/bin/sh` — that shell reads its script lazily by byte offset and would resume at
+  whatever landed there.
+* `dc_phase5.py` now writes `deep-check/phase5-inflight-<shard>.json` naming the entry and phase
+  **before** the work starts, as `sweep_shard` does (defect 39). Its absence was itself the
+  clue: the running shards had started at 01:59:19 and the edited source was written at
+  01:59:57, so they were executing the old code. **A source fix does not reach a running
+  process** — after editing anything a runner imports, restart the runner.
+
+The marker earned itself in its first minute. All three shards were inside `rebuild` on
+A204406, A203739 and A204416 — three of the 29 entries installed on 20 September, which is the
+newest-first ordering working as intended and also why the `ok` count moves slowly: newest-first
+is most-expensive-first, because today's installs came from the capped list and are large by
+construction.
+
+Two more came out of watching the fix land, and both are about the same thing — a change that
+looks local is not:
+
+* **A new file beside an existing glob is a change to every reader of that glob.** The marker
+  was first called `phase5-inflight-<shard>.json`, and `status.py` and `dc_phase5._summary`
+  both glob `phase5-*.json` for the shard states. `status.py` died on `KeyError: 'ok'` within a
+  minute, and `_summary` — which is how one shard learns what the other two have settled —
+  would have read the marker as a fourth shard. It is `p5-inflight-<shard>.json` now.
+* **`restart_all.sh`'s guard matched a substring.** `ps -eo args | grep -q "[/]tmp/$1"` counts
+  any process whose command line merely MENTIONS the path, so a shell that happened to contain
+  the words `/tmp/p5run.sh` made the guard report p5run.sh as already running, and
+  `restart_all.sh` silently skipped the one runner the machine had just been cleared for. A
+  skipped runner and a healthy one print exactly the same nothing. The guard is anchored to
+  `^(/bin/)?sh /tmp/<name>( |$)` now, which is the form `start()` actually launches, and both
+  directions were checked — a running name is seen, an absent one is not.
+
+And `dc_phase5.save()` was writing with `json.dump(open(OUT, 'w'))`, which truncates the file
+for the whole of the write. It runs after every entry, so a reader arriving inside that window
+sees a half-written object; the file was well-formed a second later. It uses `atomicjson` now,
+like every other progress file in the project. A torn read of a progress file is worse than a
+crash, because it reads as data loss.

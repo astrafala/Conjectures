@@ -14,7 +14,12 @@ cd /home/user/Conjectures/engine
 # every runner belongs here: a container restart wipes /tmp, and a sweep that is
 # not in this list simply never comes back -- which is how two veins sat idle for
 # a whole day earlier in this project.
-running() { ps -eo args | grep -q "[/]tmp/$1"; }
+# Anchored, because a substring match sees any process that merely MENTIONS the path. A shell
+# whose command line happened to contain the words /tmp/p5run.sh was enough to make this report
+# that p5run.sh was already up, and restart_all.sh then skipped the one runner the machine had
+# been cleared for. Nothing said so: a skipped runner and a running one print the same nothing.
+# start() launches exactly `/bin/sh /tmp/<name>', so match that and not a substring of it.
+running() { ps -eo args | grep -qE "^(/bin/)?sh /tmp/$1( |$)"; }
 # The copy belongs INSIDE the guard, and both halves of that matter. It must not be skipped when
 # /tmp/$f already exists -- that guard meant an edited runner did not take effect until the next
 # container restart, so tonight's idle backoff would have sat in src/ unused for an hour. And it
