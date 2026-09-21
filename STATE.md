@@ -1065,3 +1065,35 @@ Nothing was lost this time: `atomicjson` kept every file parseable, `shardt17c_h
 still held the vein's first proof (A251842), and the two `done` files had not diverged. That is
 luck, not design — the same luck the `forever.sh` header already records from the time its loop
 reached 470 copies of one sweep.
+
+### defect 47 — a container restart was being recorded as a refusal, once per restart
+
+The in-flight marker (defect 39) names the entry a shard died inside, and the recovery block
+then retires that entry: `oom[anum] = MEMGB` and `done.add(anum)`. That is right when the entry
+killed the shard and wrong when something else did — and the commonest something else is the
+container restarting, which kills every shard exactly as the OOM killer does.
+
+It restarted **twice in eleven minutes** on 21 September, after a 110-minute stretch, so the
+cadence is irregular and cannot be planned around. Every restart retired one entry per shard as
+an out-of-memory that never happened. `t17big.sh` asks the 25 entries at alpha=3 W=9, tens of
+minutes each: left alone, the restarts would have retired its entire list without a single
+genuine refusal, and the list would have read as "this shape is beyond the machine" when
+nothing of the sort had been shown.
+
+**The distinction is free.** `/proc/uptime` only increases within one boot, so a marker whose
+recorded uptime is GREATER than the machine's current uptime was written before a reboot. The
+marker now carries `boot`, and on recovery:
+
+* marker's uptime > current uptime → the restart killed it. Clear the marker, record nothing,
+  let the entry be selected again on this pass.
+* otherwise → as before: name it, record the memory, mark it done, so the next shard does not
+  walk into the same wall for ever.
+
+Both branches were tested with planted markers before this was trusted — a recovery path only
+runs after a crash, which is exactly the kind of code that goes untested until it matters. The
+reboot branch recorded nothing and marked nothing done; the death branch recorded both.
+
+This also retires the hand-rule written a few hours earlier ("after killing a runner, check its
+oom and done files for whatever was in flight") for the restart case, though not for a
+deliberate `kill`, which leaves uptime unchanged and is still indistinguishable from a real
+refusal.

@@ -103,6 +103,25 @@ res = collections.Counter()
 # walk into the same wall with the same limit.
 
 
+def _boot():
+    """Seconds of machine uptime, rounded, as a stamp for WHICH boot wrote this marker.
+
+    A container restart kills a shard exactly as the OOM killer does, and the recovery below
+    cannot tell them apart from the marker alone -- so every restart retired one entry as a
+    refusal that never happened. This container restarted twice in eleven minutes on the night
+    this was written, and t17big.sh asks entries that take tens of minutes each: left alone,
+    the restarts would have retired its whole list without ever refusing anything.
+
+    The distinction is free. `up' only ever increases within one boot, so a marker whose
+    recorded uptime is GREATER than the current uptime was written before a reboot. That is a
+    container restart, and the entry is owed another ask, not a refusal.
+    """
+    try:
+        return int(float(open('/proc/uptime').read().split()[0]))
+    except Exception:
+        return -1
+
+
 def inflight(a=None, phase=''):
     """Name the entry being worked on, before the work starts.
 
@@ -118,7 +137,8 @@ def inflight(a=None, phase=''):
             if os.path.exists(INFLIGHT):
                 os.remove(INFLIGHT)
         else:
-            atomicjson.dump({'anum': a, 'phase': phase, 'memgb': MEMGB}, INFLIGHT, indent=0)
+            atomicjson.dump({'anum': a, 'phase': phase, 'memgb': MEMGB, 'boot': _boot()},
+                            INFLIGHT, indent=0)
     except Exception:
         pass
 
@@ -145,7 +165,17 @@ if os.path.exists(INFLIGHT):
         _prev = json.load(open(INFLIGHT))
     except Exception:
         _prev = None
-if _prev and _prev.get('anum'):
+_rebooted = (_prev is not None and _prev.get('boot') is not None
+             and _prev.get('boot', -1) > _boot())
+if _prev and _prev.get('anum') and _rebooted:
+    # The machine rebooted while this entry was in flight: the marker records more uptime than
+    # the machine now has. The shard was killed by the restart, not by the entry, so the entry
+    # is owed another ask. Clearing the marker without recording anything is the whole fix --
+    # it will be selected again on this pass.
+    print('previous shard on %s was killed by a container restart, not by the entry; '
+          're-asking' % _prev['anum'], flush=True)
+    inflight()
+elif _prev and _prev.get('anum'):
     print('previous shard died on %s in phase %s at MEMGB=%s'
           % (_prev['anum'], _prev.get('phase'), _prev.get('memgb')), flush=True)
     oom[_prev['anum']] = max(oom.get(_prev['anum'], 0), float(_prev.get('memgb') or 0))
