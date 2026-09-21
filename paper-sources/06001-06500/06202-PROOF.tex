@@ -11,52 +11,76 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A247531, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A202893, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{14 September 2026}
+\date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A247531 carries an empirical recurrence of order $82$ contributed by R. H. Hardin. It is
-true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
-the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=343$ vertices
-and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
-finite exact computation, with the Cayley--Hamilton theorem bounding the work.
+OEIS A202893 counts arrays of width $5$ over $\{0,1\}$ containing no occurrence of certain short
+patterns, read along the rows, the columns or the diagonals. The entry carries an empirical
+recurrence of order $82$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: no pattern is longer than $3$ letters and no direction moves the row
+index by more than one, so every occurrence lies inside $3$ consecutive array rows and the
+count is a walk count on $S=211$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A247531 is ``Number of length n+3 0..6 arrays with some disjoint pairs in every consecutive four terms having the same sum.''. It has offset $1$ and begins
+OEIS A202893 is ``Number of (n+2)X5 binary arrays avoiding patterns 001 and 010 in rows, columns and nw-to-se diagonals.''. It has offset $1$ and begins
 \[
-553, 1033, 2009, 3997, 8051, 16683, 34695, 72269,\ \dots
+776, 3264, 17116, 81308, 369152, 1719383, 7994866, 36814964,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}\raggedright\small
-Empirical recurrence of order 82 (see link above)
-
-Empirical: a(n) = a(n-1) + 9*a(n-2) - 8*a(n-3) + 25*a(n-4) - 32*a(n-5) - 437*a(n-6) + 396*a(n-7) + 331*a(n-8) + 41*a(n-9) + 8038*a(n-10) - 7569*a(n-11) - 17097*a(n-12) + 9173*a(n-13) - 73740*a(n-14) + 75303*a(n-15) + 246305*a(n-16) - 154260*a(n-17) + 333612*a(n-18) - 421742*a(n-19) - 1900641*a(n-20) + 1249336*a(n-21) - 248047*a(n-22) + 1229901*a(n-23) + 8873963*a(n-24) - 5972984*a(n-25) - 5378341*a(n-26) - 614078*a(n-27) - 25376987*a(n-28) + 17560024*a(n-29) + 31232156*a(n-30) - 8313226*a(n-31) + 40132150*a(n-32) - 30271274*a(n-33) - 85937022*a(n-34) + 29792498*a(n-35) - 15706927*a(n-36) + 23541377*a(n-37) + 128014969*a(n-38) - 44409820*a(n-39) - 58961932*a(n-40) + 8300991*a(n-41) - 82032720*a(n-42) + 22382514*a(n-43) + 101008432*a(n-44) - 25915107*a(n-45) - 26974507*a(n-46) + 15140923*a(n-47) - 38360166*a(n-48) + 5203468*a(n-49) + 62835312*a(n-50) - 16575814*a(n-51) - 37448644*a(n-52) + 10935375*a(n-53) - 8128234*a(n-54) - 2715673*a(n-55) + 26635164*a(n-56) - 1839648*a(n-57) - 18875365*a(n-58) + 3384669*a(n-59) + 6570464*a(n-60) - 2309770*a(n-61) + 1882048*a(n-62) + 1032499*a(n-63) - 4291964*a(n-64) - 369976*a(n-65) + 2911511*a(n-66) + 60782*a(n-67) - 1338381*a(n-68) - 3312*a(n-69) + 435200*a(n-70) - 7754*a(n-71) - 75320*a(n-72) + 3472*a(n-73) - 82*a(n-74) - 888*a(n-75) + 10146*a(n-76) + 192*a(n-77) - 4168*a(n-78) + 1080*a(n-80) - 192*a(n-82) for n>84
+\begin{quote}
+Empirical: a(n) = 7*a(n-1) -20*a(n-2) +107*a(n-3) -398*a(n-4) +738*a(n-5) -2666*a(n-6) +6567*a(n-7) -5696*a(n-8) +23763*a(n-9) -38174*a(n-10) -28818*a(n-11) -128857*a(n-12) +91998*a(n-13) +497173*a(n-14) +980615*a(n-15) +2613*a(n-16) -2944178*a(n-17) -6692446*a(n-18) -3201580*a(n-19) +12324831*a(n-20) +31942303*a(n-21) +27028612*a(n-22) -33117909*a(n-23) -116041590*a(n-24) -124565023*a(n-25) +41055880*a(n-26) +313353070*a(n-27) +407261622*a(n-28) +54971014*a(n-29) -612525762*a(n-30) -981333878*a(n-31) -429317040*a(n-32) +851543798*a(n-33) +1753792532*a(n-34) +1184415382*a(n-35) -726958892*a(n-36) -2352756541*a(n-37) -2083099763*a(n-38) +90662131*a(n-39) +2318885002*a(n-40) +2613663583*a(n-41) +745650465*a(n-42) -1576402440*a(n-43) -2392059010*a(n-44) -1253899240*a(n-45) +596726635*a(n-46) +1575476433*a(n-47) +1177422401*a(n-48) +75440229*a(n-49) -705283171*a(n-50) -737641009*a(n-51) -273495008*a(n-52) +169039353*a(n-53) +312071492*a(n-54) +197384459*a(n-55) +18468996*a(n-56) -80302791*a(n-57) -82414262*a(n-58) -34856020*a(n-59) +5887432*a(n-60) +20946985*a(n-61) +15251291*a(n-62) +4417667*a(n-63) -2598284*a(n-64) -3750121*a(n-65) -2034951*a(n-66) -220817*a(n-67) +543926*a(n-68) +447516*a(n-69) +154787*a(n-70) -34294*a(n-71) -59123*a(n-72) -29828*a(n-73) -1394*a(n-74) +4423*a(n-75) +3179*a(n-76) +350*a(n-77) -182*a(n-78) -169*a(n-79) -23*a(n-80) +5*a(n-81) +4*a(n-82).
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 11:35:43, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 19 2023 10:17:05, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{The count is a walk count}
+\section{What is being counted}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
-An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=343$ vertices,
+The array has $5$ cells across, with entries in $\{0,1\}$. An OCCURRENCE of a pattern in a
+direction is a run of consecutive cells taken in that direction whose entries match the pattern
+in order; the array is counted when it has no occurrence at all. The entry names
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
+\begin{array}{ll}
+\text{direction} & \text{forbidden patterns} \\[2pt]
+\text{along a row, left to right} & \mathtt{001},\quad \mathtt{010} \\
+\text{down a column} & \mathtt{001},\quad \mathtt{010} \\
+\text{down a diagonal, nw to se} & \mathtt{001},\quad \mathtt{010} \\
+\end{array}
 \]
-the exponent fixed by the entry's own shape and checked against its published terms. In
-particular $a$ is $C$-finite.
+
+
+\section{Every occurrence lies in $3$ consecutive rows}
+
+\begin{lemma}\label{lem:win}
+Each of the directions above changes the row index by $0$ or $1$ from one cell of a run to the
+next, and no pattern is longer than $3$ letters. Hence every occurrence lies inside $3$
+consecutive array rows, and an occurrence whose last cell is in row $i$ lies inside rows
+$i-2,\dots,i$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the offsets listed: the row step is $0$ for a row and $1$ for the other three.
+\end{proof}
+
+So the state is the window of the last $2$ array rows, a row still to come being written
+$\bot$. A step appends a row and rejects it exactly when some occurrence ends in it or lies
+inside it; an occurrence needing a row that is $\bot$ cannot exist, which is the boundary rule
+and is not assumed but read off the window. The walk starts at the all-$\bot$ window, so a walk
+of no steps is the empty array and a walk of $R$ steps is an array of $R$ rows. With $M$ the
+adjacency matrix, $\iota$ the indicator of the starting window and $\tau=\mathbf{1}$,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=211.
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -78,85 +102,43 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;\sum_{i=1}^{82}c_i\,a(n-i)
+a(n)\;=\;7\,a(n-1) - 20\,a(n-2) + 107\,a(n-3) - 398\,a(n-4) + 738\,a(n-5) - 2666\,a(n-6) + 6567\,a(n-7) - 5696\,a(n-8) + 23763\,a(n-9) - 38174\,a(n-10) - 28818\,a(n-11) - 128857\,a(n-12) + 91998\,a(n-13) + 497173\,a(n-14) + 980615\,a(n-15) + 2613\,a(n-16) - 2944178\,a(n-17) - 6692446\,a(n-18) - 3201580\,a(n-19) + 12324831\,a(n-20) + 31942303\,a(n-21) + 27028612\,a(n-22) - 33117909\,a(n-23) - 116041590\,a(n-24) - 124565023\,a(n-25) + 41055880\,a(n-26) + 313353070\,a(n-27) + 407261622\,a(n-28) + 54971014\,a(n-29) - 612525762\,a(n-30) - 981333878\,a(n-31) - 429317040\,a(n-32) + 851543798\,a(n-33) + 1753792532\,a(n-34) + 1184415382\,a(n-35) - 726958892\,a(n-36) - 2352756541\,a(n-37) - 2083099763\,a(n-38) + 90662131\,a(n-39) + 2318885002\,a(n-40) + 2613663583\,a(n-41) + 745650465\,a(n-42) - 1576402440\,a(n-43) - 2392059010\,a(n-44) - 1253899240\,a(n-45) + 596726635\,a(n-46) + 1575476433\,a(n-47) + 1177422401\,a(n-48) + 75440229\,a(n-49) - 705283171\,a(n-50) - 737641009\,a(n-51) - 273495008\,a(n-52) + 169039353\,a(n-53) + 312071492\,a(n-54) + 197384459\,a(n-55) + 18468996\,a(n-56) - 80302791\,a(n-57) - 82414262\,a(n-58) - 34856020\,a(n-59) + 5887432\,a(n-60) + 20946985\,a(n-61) + 15251291\,a(n-62) + 4417667\,a(n-63) - 2598284\,a(n-64) - 3750121\,a(n-65) - 2034951\,a(n-66) - 220817\,a(n-67) + 543926\,a(n-68) + 447516\,a(n-69) + 154787\,a(n-70) - 34294\,a(n-71) - 59123\,a(n-72) - 29828\,a(n-73) - 1394\,a(n-74) + 4423\,a(n-75) + 3179\,a(n-76) + 350\,a(n-77) - 182\,a(n-78) - 169\,a(n-79) - 23\,a(n-80) + 5\,a(n-81) + 4\,a(n-82)
 \]
-for every $n>87$, with
-\begin{center}\footnotesize
-\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
-$c_{1}$ & $=1$ & $c_{2}$ & $=9$ \\
-$c_{3}$ & $=-8$ & $c_{4}$ & $=25$ \\
-$c_{5}$ & $=-32$ & $c_{6}$ & $=-437$ \\
-$c_{7}$ & $=396$ & $c_{8}$ & $=331$ \\
-$c_{9}$ & $=41$ & $c_{10}$ & $=8038$ \\
-$c_{11}$ & $=-7569$ & $c_{12}$ & $=-17097$ \\
-$c_{13}$ & $=9173$ & $c_{14}$ & $=-73740$ \\
-$c_{15}$ & $=75303$ & $c_{16}$ & $=246305$ \\
-$c_{17}$ & $=-154260$ & $c_{18}$ & $=333612$ \\
-$c_{19}$ & $=-421742$ & $c_{20}$ & $=-1900641$ \\
-$c_{21}$ & $=1249336$ & $c_{22}$ & $=-248047$ \\
-$c_{23}$ & $=1229901$ & $c_{24}$ & $=8873963$ \\
-$c_{25}$ & $=-5972984$ & $c_{26}$ & $=-5378341$ \\
-$c_{27}$ & $=-614078$ & $c_{28}$ & $=-25376987$ \\
-$c_{29}$ & $=17560024$ & $c_{30}$ & $=31232156$ \\
-$c_{31}$ & $=-8313226$ & $c_{32}$ & $=40132150$ \\
-$c_{33}$ & $=-30271274$ & $c_{34}$ & $=-85937022$ \\
-$c_{35}$ & $=29792498$ & $c_{36}$ & $=-15706927$ \\
-$c_{37}$ & $=23541377$ & $c_{38}$ & $=128014969$ \\
-$c_{39}$ & $=-44409820$ & $c_{40}$ & $=-58961932$ \\
-$c_{41}$ & $=8300991$ & $c_{42}$ & $=-82032720$ \\
-$c_{43}$ & $=22382514$ & $c_{44}$ & $=101008432$ \\
-$c_{45}$ & $=-25915107$ & $c_{46}$ & $=-26974507$ \\
-$c_{47}$ & $=15140923$ & $c_{48}$ & $=-38360166$ \\
-$c_{49}$ & $=5203468$ & $c_{50}$ & $=62835312$ \\
-$c_{51}$ & $=-16575814$ & $c_{52}$ & $=-37448644$ \\
-$c_{53}$ & $=10935375$ & $c_{54}$ & $=-8128234$ \\
-$c_{55}$ & $=-2715673$ & $c_{56}$ & $=26635164$ \\
-$c_{57}$ & $=-1839648$ & $c_{58}$ & $=-18875365$ \\
-$c_{59}$ & $=3384669$ & $c_{60}$ & $=6570464$ \\
-$c_{61}$ & $=-2309770$ & $c_{62}$ & $=1882048$ \\
-$c_{63}$ & $=1032499$ & $c_{64}$ & $=-4291964$ \\
-$c_{65}$ & $=-369976$ & $c_{66}$ & $=2911511$ \\
-$c_{67}$ & $=60782$ & $c_{68}$ & $=-1338381$ \\
-$c_{69}$ & $=-3312$ & $c_{70}$ & $=435200$ \\
-$c_{71}$ & $=-7754$ & $c_{72}$ & $=-75320$ \\
-$c_{73}$ & $=3472$ & $c_{74}$ & $=-82$ \\
-$c_{75}$ & $=-888$ & $c_{76}$ & $=10146$ \\
-$c_{77}$ & $=192$ & $c_{78}$ & $=-4168$ \\
-$c_{79}$ & $=0$ & $c_{80}$ & $=1080$ \\
-$c_{81}$ & $=0$ & $c_{82}$ & $=-192$ \\
-\end{tabular}
-\end{center}
-and $c_i=0$ for every $i$ not listed.
+for every $n>82$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $82$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=82+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $25$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition: fill the
+cells one at a time, in the orientation the entry's own name writes, and reject as soon as a
+completed run matches a forbidden pattern. No transfer matrix, no window and no transposition
+are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A247531.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A202893.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
+\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
+Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

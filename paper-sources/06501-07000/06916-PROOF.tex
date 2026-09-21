@@ -11,118 +11,129 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A261112, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A203739, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{20 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A261112 counts $(n+2)\times9$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
-every $3\times3$ subblock, and it carries an empirical recurrence of order $48$
-contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
-subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
-consecutive rows and appending one more row is a step; an array is then a walk, and
-$a(n)$ is a walk count on $S=262144$ vertices. Such a sequence is $C$-finite, so whether a given
-recurrence annihilates it is decided by a finite exact computation, with the Cayley--Hamilton
-theorem bounding the work.
+OEIS A203739 carries an empirical recurrence of order $48$ contributed by R. H. Hardin. It is
+true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
+the admissible configurations of such a window are the vertices of a finite digraph and the
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=16385$ vertices
+and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
+finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The conjecture}
 
-OEIS A261112 is ``Number of (n+2)X(7+2) 0..1 arrays with each 3X3 subblock having clockwise perimeter pattern 00010001 00010101 or 01010101.''. It has offset $1$ and begins
+OEIS A203739 is ``Number of (n+1)X7 0..3 arrays with column and row pair sums b(i,j)=a(i,j)+a(i,j-1) and c(i,j)=a(i,j)+a(i-1,j) nondecreasing in column and row directions, respectively.''. It has offset $1$ and begins
 \[
-547, 1546, 7284, 27030, 121313, 449132, 2037285, 7510472,\ \dots
+111916, 1868452, 24571387, 240425612, 1908258519, 12852015708, 75830205850, 399483991424,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
-Empirical: a(n) = 9*a(n-2) +117*a(n-4) +232*a(n-6) -453*a(n-8) -2222*a(n-10) +4157*a(n-12) -4373*a(n-14) +31514*a(n-16) -108786*a(n-18) +199500*a(n-20) -228491*a(n-22) +167917*a(n-24) -76526*a(n-26) +21086*a(n-28) -3000*a(n-30) +634*a(n-32) +1184*a(n-34) -1009*a(n-36) -616*a(n-38) +123*a(n-40) +125*a(n-42) +43*a(n-44) +9*a(n-46) +a(n-48) for n>49
+\begin{quote}\raggedright\small
+Empirical: a(n) = 14*a(n-1) -74*a(n-2) +126*a(n-3) +410*a(n-4) -2282*a(n-5) +2318*a(n-6) +9382*a(n-7) -28588*a(n-8) +1730*a(n-9) +111930*a(n-10) -148590*a(n-11) -181090*a(n-12) +617930*a(n-13) -152270*a(n-14) -1299718*a(n-15) +1460827*a(n-16) +1319948*a(n-17) -3623652*a(n-18) +516460*a(n-19) +5073956*a(n-20) -4095844*a(n-21) -3851316*a(n-22) +7152444*a(n-23) -7152444*a(n-25) +3851316*a(n-26) +4095844*a(n-27) -5073956*a(n-28) -516460*a(n-29) +3623652*a(n-30) -1319948*a(n-31) -1460827*a(n-32) +1299718*a(n-33) +152270*a(n-34) -617930*a(n-35) +181090*a(n-36) +148590*a(n-37) -111930*a(n-38) -1730*a(n-39) +28588*a(n-40) -9382*a(n-41) -2318*a(n-42) +2282*a(n-43) -410*a(n-44) -126*a(n-45) +74*a(n-46) -14*a(n-47) +a(n-48) for n>67
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 12:14:20, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 10:42:18, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
-\section{Three consecutive lines}
+\section{The count is a walk count}
 
-Write an admissible array as a sequence of rows $u_1,u_2,\dots$, each an element of
-$\{0,\dots,1\}^{9}$. A $3\times3$ subblock occupies three consecutive rows and
-three consecutive columns, so with $r,s,t$ three consecutive rows the blocks it
-contributes are
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=16385$ vertices,
 \[
-g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}\end{pmatrix}
+a(n)\;=\;\iota^{\!\top}M^{\,n+1}\tau ,
 \]
-for each admissible index, and the entry's condition is the requirement that
-\[
-\text{the clockwise perimeter word of }g\text{ is a rotation of one of }\{00010001,\ 00010101,\ 01010101\}
-\]
-holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
-three consecutive rows and on nothing else.
-
-Take as vertices of a digraph $G$ the ordered PAIRS $(r,s)$ of rows, of which there are
-$S=(1+1)^{2\cdot9}=262144$, and put an edge $(r,s)\to(s,t)$ exactly when the condition
-holds for the triple $(r,s,t)$ at every admissible index. An array with $L$ rows is then a
-walk of length $L-2$ in $G$: its first two rows name the starting vertex and each further
-row is one step. Hence, with $M$ the adjacency matrix of $G$,
-\[
-a(n)\;=\;\,\mathbf{1}^{\!\top}M^{\,n-1+1}\mathbf{1},
-\]
-the exponent being fixed by the entry's own shape and checked against its published terms.
-In particular $a$ is $C$-finite.
+the exponent fixed by the entry's own shape and checked against its published terms. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
 \begin{lemma}\label{lem:crit}
 Let $q(t)=t^{48}-\sum_i c_it^{48-i}$ be the characteristic polynomial of the
-conjectured recurrence. Then the residual $a(n)-\sum_ic_ia(n-i)$ equals
-$\mathbf{1}^{\!\top}M^{\,j}q(M)\mathbf{1}$ for the corresponding walk index
-$j$, so the recurrence holds from some point on if and only if
-$\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}=0$ for all large $j$; and by the
-Cayley--Hamilton theorem it is enough to examine $j<S$.
+conjectured recurrence. The residual $a(n)-\sum_ic_ia(n-i)$ equals
+$\iota^{\!\top}M^{\,j}q(M)\tau$ for the corresponding walk index $j$, so the recurrence
+holds from some point on if and only if $\iota^{\!\top}M^{j}q(M)\tau=0$ for all large $j$,
+and it is enough to examine $j<S$.
 \end{lemma}
 
 \begin{proof}
 Factor $M^{j}$ out of $M^{j+48}-\sum_ic_iM^{j+48-i}$. For the bound, $M^{S}$
-is an integer combination of $I,M,\dots,M^{S-1}$, so the numbers
-$u_j=\mathbf{1}^{\!\top}M^{j}q(M)\mathbf{1}$ satisfy the monic linear recurrence given by
-the characteristic polynomial of $M$; $S$ consecutive zeros therefore force every later one,
-and the last nonzero $u_j$ pins the threshold exactly.
+is an integer combination of $I,M,\dots,M^{S-1}$ by Cayley--Hamilton, so the numbers
+$u_j=\iota^{\!\top}M^{j}q(M)\tau$ obey the monic recurrence given by the characteristic
+polynomial of $M$; $S$ consecutive zeros force every later one, and the last nonzero $u_j$
+pins the threshold exactly.
 \end{proof}
 
 \begin{theorem}
 \[
-a(n)\;=\;9\,a(n-2) + 117\,a(n-4) + 232\,a(n-6) - 453\,a(n-8) - 2222\,a(n-10) + 4157\,a(n-12) - 4373\,a(n-14) + 31514\,a(n-16) - 108786\,a(n-18) + 199500\,a(n-20) - 228491\,a(n-22) + 167917\,a(n-24) - 76526\,a(n-26) + 21086\,a(n-28) - 3000\,a(n-30) + 634\,a(n-32) + 1184\,a(n-34) - 1009\,a(n-36) - 616\,a(n-38) + 123\,a(n-40) + 125\,a(n-42) + 43\,a(n-44) + 9\,a(n-46) + a(n-48)
+a(n)\;=\;\sum_{i=1}^{48}c_i\,a(n-i)
 \]
-for every $n>49$.
+for every $n>67$, with
+\begin{center}\footnotesize
+\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
+$c_{1}$ & $=14$ & $c_{2}$ & $=-74$ \\
+$c_{3}$ & $=126$ & $c_{4}$ & $=410$ \\
+$c_{5}$ & $=-2282$ & $c_{6}$ & $=2318$ \\
+$c_{7}$ & $=9382$ & $c_{8}$ & $=-28588$ \\
+$c_{9}$ & $=1730$ & $c_{10}$ & $=111930$ \\
+$c_{11}$ & $=-148590$ & $c_{12}$ & $=-181090$ \\
+$c_{13}$ & $=617930$ & $c_{14}$ & $=-152270$ \\
+$c_{15}$ & $=-1299718$ & $c_{16}$ & $=1460827$ \\
+$c_{17}$ & $=1319948$ & $c_{18}$ & $=-3623652$ \\
+$c_{19}$ & $=516460$ & $c_{20}$ & $=5073956$ \\
+$c_{21}$ & $=-4095844$ & $c_{22}$ & $=-3851316$ \\
+$c_{23}$ & $=7152444$ & $c_{24}$ & $=0$ \\
+$c_{25}$ & $=-7152444$ & $c_{26}$ & $=3851316$ \\
+$c_{27}$ & $=4095844$ & $c_{28}$ & $=-5073956$ \\
+$c_{29}$ & $=-516460$ & $c_{30}$ & $=3623652$ \\
+$c_{31}$ & $=-1319948$ & $c_{32}$ & $=-1460827$ \\
+$c_{33}$ & $=1299718$ & $c_{34}$ & $=152270$ \\
+$c_{35}$ & $=-617930$ & $c_{36}$ & $=181090$ \\
+$c_{37}$ & $=148590$ & $c_{38}$ & $=-111930$ \\
+$c_{39}$ & $=-1730$ & $c_{40}$ & $=28588$ \\
+$c_{41}$ & $=-9382$ & $c_{42}$ & $=-2318$ \\
+$c_{43}$ & $=2282$ & $c_{44}$ & $=-410$ \\
+$c_{45}$ & $=-126$ & $c_{46}$ & $=74$ \\
+$c_{47}$ & $=-14$ & $c_{48}$ & $=1$ \\
+\end{tabular}
+\end{center}
+and $c_i=0$ for every $i$ not listed.
 \end{theorem}
 
 \begin{proof}
-The vector $w=q(M)\mathbf{1}$ was formed by $48$ matrix--vector products in exact
-integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=49+1$ onwards, and the
-run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>49$.
+The vector $w=q(M)\tau$ was formed by $48$ matrix--vector products in exact integer
+arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
+integers vanish from the index corresponding to $n=67+1$ onwards and the run continued
+until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $20$ terms the entry publishes, exactly, in
-integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
-the entry's English, and a misreading gives different counts. That check did real work here. The phrase ``clockwise perimeter pattern'' does not mean that the eight boundary entries, read clockwise from the top left, equal the quoted word; it means the cyclic word they form is that word up to rotation. Read the first way the model returns counts far below the entry's own first term, and only the second reading reproduces the published values. It is the one used.
+First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the conjectured recurrence was evaluated directly on the entry's own published terms,
-with no matrices involved, and holds wherever the proved range and the data overlap.
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
+matrices involved, and holds wherever the proved range and the data overlap.
 
 Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
-arithmetic on the whole vector rather than on a sampled prefix, so no rounding or sampling
-enters anywhere.
+arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A261112.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A203739.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

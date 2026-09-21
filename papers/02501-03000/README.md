@@ -1,6 +1,6 @@
 # Papers 02501-03000
 
-Ranks 2501 to 3000 of 13768, hardest first.
+Ranks 2501 to 3000 of 13765, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -286,221 +286,221 @@ Ranks 2501 to 3000 of 13768, hardest first.
 | 2780 | [A270111](https://oeis.org/A270111) | Proof |  | [02780-PROOF.pdf](02780-PROOF.pdf) |
 | 2781 | [A270112](https://oeis.org/A270112) | Proof |  | [02781-PROOF.pdf](02781-PROOF.pdf) |
 | 2782 | [A270145](https://oeis.org/A270145) | Proof |  | [02782-PROOF.pdf](02782-PROOF.pdf) |
-| 2783 | [A277797](https://oeis.org/A277797) | Proof |  | [02783-PROOF.pdf](02783-PROOF.pdf) |
-| 2784 | [A277798](https://oeis.org/A277798) | Proof |  | [02784-PROOF.pdf](02784-PROOF.pdf) |
-| 2785 | [A277799](https://oeis.org/A277799) | Proof |  | [02785-PROOF.pdf](02785-PROOF.pdf) |
-| 2786 | [A277800](https://oeis.org/A277800) | Proof |  | [02786-PROOF.pdf](02786-PROOF.pdf) |
-| 2787 | [A277864](https://oeis.org/A277864) | Proof |  | [02787-PROOF.pdf](02787-PROOF.pdf) |
-| 2788 | [A277865](https://oeis.org/A277865) | Proof |  | [02788-PROOF.pdf](02788-PROOF.pdf) |
-| 2789 | [A277866](https://oeis.org/A277866) | Proof |  | [02789-PROOF.pdf](02789-PROOF.pdf) |
-| 2790 | [A277867](https://oeis.org/A277867) | Proof |  | [02790-PROOF.pdf](02790-PROOF.pdf) |
-| 2791 | [A277936](https://oeis.org/A277936) | Proof |  | [02791-PROOF.pdf](02791-PROOF.pdf) |
-| 2792 | [A277953](https://oeis.org/A277953) | Proof |  | [02792-PROOF.pdf](02792-PROOF.pdf) |
-| 2793 | [A277954](https://oeis.org/A277954) | Proof |  | [02793-PROOF.pdf](02793-PROOF.pdf) |
-| 2794 | [A279028](https://oeis.org/A279028) | Proof |  | [02794-PROOF.pdf](02794-PROOF.pdf) |
-| 2795 | [A279030](https://oeis.org/A279030) | Proof |  | [02795-PROOF.pdf](02795-PROOF.pdf) |
-| 2796 | [A279053](https://oeis.org/A279053) | Proof |  | [02796-PROOF.pdf](02796-PROOF.pdf) |
-| 2797 | [A279897](https://oeis.org/A279897) | Proof |  | [02797-PROOF.pdf](02797-PROOF.pdf) |
-| 2798 | [A280392](https://oeis.org/A280392) | Proof |  | [02798-PROOF.pdf](02798-PROOF.pdf) |
-| 2799 | [A280399](https://oeis.org/A280399) | Proof |  | [02799-PROOF.pdf](02799-PROOF.pdf) |
-| 2800 | [A280400](https://oeis.org/A280400) | Proof |  | [02800-PROOF.pdf](02800-PROOF.pdf) |
-| 2801 | [A280474](https://oeis.org/A280474) | Proof |  | [02801-PROOF.pdf](02801-PROOF.pdf) |
-| 2802 | [A281200](https://oeis.org/A281200) | Proof |  | [02802-PROOF.pdf](02802-PROOF.pdf) |
-| 2803 | [A282121](https://oeis.org/A282121) | Proof |  | [02803-PROOF.pdf](02803-PROOF.pdf) |
-| 2804 | [A282122](https://oeis.org/A282122) | Proof |  | [02804-PROOF.pdf](02804-PROOF.pdf) |
-| 2805 | [A282123](https://oeis.org/A282123) | Proof |  | [02805-PROOF.pdf](02805-PROOF.pdf) |
-| 2806 | [A282124](https://oeis.org/A282124) | Proof |  | [02806-PROOF.pdf](02806-PROOF.pdf) |
-| 2807 | [A282411](https://oeis.org/A282411) | Proof |  | [02807-PROOF.pdf](02807-PROOF.pdf) |
-| 2808 | [A282871](https://oeis.org/A282871) | Proof |  | [02808-PROOF.pdf](02808-PROOF.pdf) |
-| 2809 | [A283349](https://oeis.org/A283349) | Proof |  | [02809-PROOF.pdf](02809-PROOF.pdf) |
-| 2810 | [A283351](https://oeis.org/A283351) | Proof |  | [02810-PROOF.pdf](02810-PROOF.pdf) |
-| 2811 | [A283505](https://oeis.org/A283505) | Proof |  | [02811-PROOF.pdf](02811-PROOF.pdf) |
-| 2812 | [A283507](https://oeis.org/A283507) | Proof |  | [02812-PROOF.pdf](02812-PROOF.pdf) |
-| 2813 | [A283508](https://oeis.org/A283508) | Proof |  | [02813-PROOF.pdf](02813-PROOF.pdf) |
-| 2814 | [A283523](https://oeis.org/A283523) | Proof |  | [02814-PROOF.pdf](02814-PROOF.pdf) |
-| 2815 | [A283589](https://oeis.org/A283589) | Proof |  | [02815-PROOF.pdf](02815-PROOF.pdf) |
-| 2816 | [A283590](https://oeis.org/A283590) | Proof |  | [02816-PROOF.pdf](02816-PROOF.pdf) |
-| 2817 | [A283591](https://oeis.org/A283591) | Proof |  | [02817-PROOF.pdf](02817-PROOF.pdf) |
-| 2818 | [A283649](https://oeis.org/A283649) | Proof |  | [02818-PROOF.pdf](02818-PROOF.pdf) |
-| 2819 | [A283651](https://oeis.org/A283651) | Proof |  | [02819-PROOF.pdf](02819-PROOF.pdf) |
-| 2820 | [A284352](https://oeis.org/A284352) | Proof |  | [02820-PROOF.pdf](02820-PROOF.pdf) |
-| 2821 | [A284403](https://oeis.org/A284403) | Proof |  | [02821-PROOF.pdf](02821-PROOF.pdf) |
-| 2822 | [A284404](https://oeis.org/A284404) | Proof |  | [02822-PROOF.pdf](02822-PROOF.pdf) |
-| 2823 | [A284405](https://oeis.org/A284405) | Proof |  | [02823-PROOF.pdf](02823-PROOF.pdf) |
-| 2824 | [A284484](https://oeis.org/A284484) | Proof |  | [02824-PROOF.pdf](02824-PROOF.pdf) |
-| 2825 | [A284485](https://oeis.org/A284485) | Proof |  | [02825-PROOF.pdf](02825-PROOF.pdf) |
-| 2826 | [A285473](https://oeis.org/A285473) | Proof |  | [02826-PROOF.pdf](02826-PROOF.pdf) |
-| 2827 | [A285474](https://oeis.org/A285474) | Proof |  | [02827-PROOF.pdf](02827-PROOF.pdf) |
-| 2828 | [A286519](https://oeis.org/A286519) | Proof |  | [02828-PROOF.pdf](02828-PROOF.pdf) |
-| 2829 | [A286521](https://oeis.org/A286521) | Proof |  | [02829-PROOF.pdf](02829-PROOF.pdf) |
-| 2830 | [A287191](https://oeis.org/A287191) | Proof |  | [02830-PROOF.pdf](02830-PROOF.pdf) |
-| 2831 | [A287193](https://oeis.org/A287193) | Proof |  | [02831-PROOF.pdf](02831-PROOF.pdf) |
-| 2832 | [A290680](https://oeis.org/A290680) | Proof |  | [02832-PROOF.pdf](02832-PROOF.pdf) |
-| 2833 | [A290681](https://oeis.org/A290681) | Proof |  | [02833-PROOF.pdf](02833-PROOF.pdf) |
-| 2834 | [A290682](https://oeis.org/A290682) | Proof |  | [02834-PROOF.pdf](02834-PROOF.pdf) |
-| 2835 | [A290683](https://oeis.org/A290683) | Proof |  | [02835-PROOF.pdf](02835-PROOF.pdf) |
-| 2836 | [A290834](https://oeis.org/A290834) | Proof |  | [02836-PROOF.pdf](02836-PROOF.pdf) |
-| 2837 | [A290835](https://oeis.org/A290835) | Proof |  | [02837-PROOF.pdf](02837-PROOF.pdf) |
-| 2838 | [A290836](https://oeis.org/A290836) | Proof |  | [02838-PROOF.pdf](02838-PROOF.pdf) |
-| 2839 | [A290837](https://oeis.org/A290837) | Proof |  | [02839-PROOF.pdf](02839-PROOF.pdf) |
-| 2840 | [A239847](https://oeis.org/A239847) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02840-PROOF.pdf](02840-PROOF.pdf) |
-| 2841 | [A189277](https://oeis.org/A189277) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02841-PROOF.pdf](02841-PROOF.pdf) |
-| 2842 | [A202801](https://oeis.org/A202801) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02842-PROOF.pdf](02842-PROOF.pdf) |
-| 2843 | [A267670](https://oeis.org/A267670) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02843-PROOF.pdf](02843-PROOF.pdf) |
-| 2844 | [A250350](https://oeis.org/A250350) | Proof |  | [02844-PROOF.pdf](02844-PROOF.pdf) |
-| 2845 | [A229010](https://oeis.org/A229010) | Proof |  | [02845-PROOF.pdf](02845-PROOF.pdf) |
-| 2846 | [A203938](https://oeis.org/A203938) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02846-PROOF.pdf](02846-PROOF.pdf) |
-| 2847 | [A223666](https://oeis.org/A223666) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02847-PROOF.pdf](02847-PROOF.pdf) |
-| 2848 | [A209811](https://oeis.org/A209811) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02848-PROOF.pdf](02848-PROOF.pdf) |
-| 2849 | [A205750](https://oeis.org/A205750) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02849-PROOF.pdf](02849-PROOF.pdf) |
-| 2850 | [A186123](https://oeis.org/A186123) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02850-PROOF.pdf](02850-PROOF.pdf) |
-| 2851 | [A204738](https://oeis.org/A204738) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02851-PROOF.pdf](02851-PROOF.pdf) |
-| 2852 | [A223185](https://oeis.org/A223185) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02852-PROOF.pdf](02852-PROOF.pdf) |
-| 2853 | [A208793](https://oeis.org/A208793) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02853-PROOF.pdf](02853-PROOF.pdf) |
-| 2854 | [A240036](https://oeis.org/A240036) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02854-PROOF.pdf](02854-PROOF.pdf) |
-| 2855 | [A193701](https://oeis.org/A193701) | Proof |  | [02855-PROOF.pdf](02855-PROOF.pdf) |
-| 2856 | [A206363](https://oeis.org/A206363) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02856-PROOF.pdf](02856-PROOF.pdf) |
-| 2857 | [A210049](https://oeis.org/A210049) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02857-PROOF.pdf](02857-PROOF.pdf) |
-| 2858 | [A204507](https://oeis.org/A204507) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02858-PROOF.pdf](02858-PROOF.pdf) |
-| 2859 | [A189607](https://oeis.org/A189607) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02859-PROOF.pdf](02859-PROOF.pdf) |
-| 2860 | [A189596](https://oeis.org/A189596) | Proof |  | [02860-PROOF.pdf](02860-PROOF.pdf) |
-| 2861 | [A189597](https://oeis.org/A189597) | Proof |  | [02861-PROOF.pdf](02861-PROOF.pdf) |
-| 2862 | [A189598](https://oeis.org/A189598) | Proof |  | [02862-PROOF.pdf](02862-PROOF.pdf) |
-| 2863 | [A189599](https://oeis.org/A189599) | Proof |  | [02863-PROOF.pdf](02863-PROOF.pdf) |
-| 2864 | [A203865](https://oeis.org/A203865) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02864-PROOF.pdf](02864-PROOF.pdf) |
-| 2865 | [A210058](https://oeis.org/A210058) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02865-PROOF.pdf](02865-PROOF.pdf) |
-| 2866 | [A206653](https://oeis.org/A206653) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02866-PROOF.pdf](02866-PROOF.pdf) |
-| 2867 | [A267930](https://oeis.org/A267930) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02867-PROOF.pdf](02867-PROOF.pdf) |
-| 2868 | [A240361](https://oeis.org/A240361) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02868-PROOF.pdf](02868-PROOF.pdf) |
-| 2869 | [A203890](https://oeis.org/A203890) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02869-PROOF.pdf](02869-PROOF.pdf) |
-| 2870 | [A223785](https://oeis.org/A223785) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02870-PROOF.pdf](02870-PROOF.pdf) |
-| 2871 | [A187957](https://oeis.org/A187957) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02871-PROOF.pdf](02871-PROOF.pdf) |
-| 2872 | [A268047](https://oeis.org/A268047) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02872-PROOF.pdf](02872-PROOF.pdf) |
-| 2873 | [A240790](https://oeis.org/A240790) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02873-PROOF.pdf](02873-PROOF.pdf) |
-| 2874 | [A240757](https://oeis.org/A240757) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02874-PROOF.pdf](02874-PROOF.pdf) |
-| 2875 | [A208442](https://oeis.org/A208442) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02875-PROOF.pdf](02875-PROOF.pdf) |
-| 2876 | [A268007](https://oeis.org/A268007) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02876-PROOF.pdf](02876-PROOF.pdf) |
-| 2877 | [A187933](https://oeis.org/A187933) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02877-PROOF.pdf](02877-PROOF.pdf) |
-| 2878 | [A185499](https://oeis.org/A185499) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02878-PROOF.pdf](02878-PROOF.pdf) |
-| 2879 | [A193700](https://oeis.org/A193700) | Proof |  | [02879-PROOF.pdf](02879-PROOF.pdf) |
-| 2880 | [A253032](https://oeis.org/A253032) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02880-PROOF.pdf](02880-PROOF.pdf) |
-| 2881 | [A205259](https://oeis.org/A205259) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02881-PROOF.pdf](02881-PROOF.pdf) |
-| 2882 | [A208565](https://oeis.org/A208565) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02882-PROOF.pdf](02882-PROOF.pdf) |
-| 2883 | [A202985](https://oeis.org/A202985) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02883-PROOF.pdf](02883-PROOF.pdf) |
-| 2884 | [A240336](https://oeis.org/A240336) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02884-PROOF.pdf](02884-PROOF.pdf) |
-| 2885 | [A265994](https://oeis.org/A265994) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02885-PROOF.pdf](02885-PROOF.pdf) |
-| 2886 | [A223679](https://oeis.org/A223679) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02886-PROOF.pdf](02886-PROOF.pdf) |
-| 2887 | [A263679](https://oeis.org/A263679) | Proof |  | [02887-PROOF.pdf](02887-PROOF.pdf) |
-| 2888 | [A203960](https://oeis.org/A203960) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02888-PROOF.pdf](02888-PROOF.pdf) |
-| 2889 | [A203393](https://oeis.org/A203393) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02889-PROOF.pdf](02889-PROOF.pdf) |
-| 2890 | [A198650](https://oeis.org/A198650) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02890-PROOF.pdf](02890-PROOF.pdf) |
-| 2891 | [A209015](https://oeis.org/A209015) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02891-PROOF.pdf](02891-PROOF.pdf) |
-| 2892 | [A229009](https://oeis.org/A229009) | Proof |  | [02892-PROOF.pdf](02892-PROOF.pdf) |
-| 2893 | [A186916](https://oeis.org/A186916) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02893-PROOF.pdf](02893-PROOF.pdf) |
-| 2894 | [A204534](https://oeis.org/A204534) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02894-PROOF.pdf](02894-PROOF.pdf) |
-| 2895 | [A241351](https://oeis.org/A241351) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02895-PROOF.pdf](02895-PROOF.pdf) |
-| 2896 | [A263595](https://oeis.org/A263595) | Proof |  | [02896-PROOF.pdf](02896-PROOF.pdf) |
-| 2897 | [A205611](https://oeis.org/A205611) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02897-PROOF.pdf](02897-PROOF.pdf) |
-| 2898 | [A206616](https://oeis.org/A206616) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02898-PROOF.pdf](02898-PROOF.pdf) |
-| 2899 | [A209894](https://oeis.org/A209894) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02899-PROOF.pdf](02899-PROOF.pdf) |
-| 2900 | [A183477](https://oeis.org/A183477) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02900-PROOF.pdf](02900-PROOF.pdf) |
-| 2901 | [A189431](https://oeis.org/A189431) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02901-PROOF.pdf](02901-PROOF.pdf) |
-| 2902 | [A275397](https://oeis.org/A275397) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02902-PROOF.pdf](02902-PROOF.pdf) |
-| 2903 | [A205349](https://oeis.org/A205349) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02903-PROOF.pdf](02903-PROOF.pdf) |
-| 2904 | [A266103](https://oeis.org/A266103) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02904-PROOF.pdf](02904-PROOF.pdf) |
-| 2905 | [A204332](https://oeis.org/A204332) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02905-PROOF.pdf](02905-PROOF.pdf) |
-| 2906 | [A200663](https://oeis.org/A200663) | Proof |  | [02906-PROOF.pdf](02906-PROOF.pdf) |
-| 2907 | [A185800](https://oeis.org/A185800) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02907-PROOF.pdf](02907-PROOF.pdf) |
-| 2908 | [A266077](https://oeis.org/A266077) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02908-PROOF.pdf](02908-PROOF.pdf) |
-| 2909 | [A275568](https://oeis.org/A275568) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02909-PROOF.pdf](02909-PROOF.pdf) |
-| 2910 | [A209043](https://oeis.org/A209043) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02910-PROOF.pdf](02910-PROOF.pdf) |
-| 2911 | [A207099](https://oeis.org/A207099) | Proof |  | [02911-PROOF.pdf](02911-PROOF.pdf) |
-| 2912 | [A263751](https://oeis.org/A263751) | Proof |  | [02912-PROOF.pdf](02912-PROOF.pdf) |
-| 2913 | [A263750](https://oeis.org/A263750) | Proof |  | [02913-PROOF.pdf](02913-PROOF.pdf) |
-| 2914 | [A263749](https://oeis.org/A263749) | Proof |  | [02914-PROOF.pdf](02914-PROOF.pdf) |
-| 2915 | [A209099](https://oeis.org/A209099) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02915-PROOF.pdf](02915-PROOF.pdf) |
-| 2916 | [A263748](https://oeis.org/A263748) | Proof |  | [02916-PROOF.pdf](02916-PROOF.pdf) |
-| 2917 | [A263747](https://oeis.org/A263747) | Proof |  | [02917-PROOF.pdf](02917-PROOF.pdf) |
-| 2918 | [A203501](https://oeis.org/A203501) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02918-PROOF.pdf](02918-PROOF.pdf) |
-| 2919 | [A205605](https://oeis.org/A205605) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02919-PROOF.pdf](02919-PROOF.pdf) |
-| 2920 | [A206596](https://oeis.org/A206596) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02920-PROOF.pdf](02920-PROOF.pdf) |
-| 2921 | [A202794](https://oeis.org/A202794) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02921-PROOF.pdf](02921-PROOF.pdf) |
-| 2922 | [A186173](https://oeis.org/A186173) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02922-PROOF.pdf](02922-PROOF.pdf) |
-| 2923 | [A252947](https://oeis.org/A252947) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02923-PROOF.pdf](02923-PROOF.pdf) |
-| 2924 | [A223508](https://oeis.org/A223508) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02924-PROOF.pdf](02924-PROOF.pdf) |
-| 2925 | [A205585](https://oeis.org/A205585) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02925-PROOF.pdf](02925-PROOF.pdf) |
-| 2926 | [A198664](https://oeis.org/A198664) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02926-PROOF.pdf](02926-PROOF.pdf) |
-| 2927 | [A193699](https://oeis.org/A193699) | Proof |  | [02927-PROOF.pdf](02927-PROOF.pdf) |
-| 2928 | [A206393](https://oeis.org/A206393) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02928-PROOF.pdf](02928-PROOF.pdf) |
-| 2929 | [A210170](https://oeis.org/A210170) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02929-PROOF.pdf](02929-PROOF.pdf) |
-| 2930 | [A209845](https://oeis.org/A209845) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02930-PROOF.pdf](02930-PROOF.pdf) |
-| 2931 | [A189146](https://oeis.org/A189146) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02931-PROOF.pdf](02931-PROOF.pdf) |
-| 2932 | [A204957](https://oeis.org/A204957) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02932-PROOF.pdf](02932-PROOF.pdf) |
-| 2933 | [A210104](https://oeis.org/A210104) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02933-PROOF.pdf](02933-PROOF.pdf) |
-| 2934 | [A211503](https://oeis.org/A211503) | Proof |  | [02934-PROOF.pdf](02934-PROOF.pdf) |
-| 2935 | [A205755](https://oeis.org/A205755) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02935-PROOF.pdf](02935-PROOF.pdf) |
-| 2936 | [A276250](https://oeis.org/A276250) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02936-PROOF.pdf](02936-PROOF.pdf) |
-| 2937 | [A253038](https://oeis.org/A253038) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02937-PROOF.pdf](02937-PROOF.pdf) |
-| 2938 | [A193704](https://oeis.org/A193704) | Proof |  | [02938-PROOF.pdf](02938-PROOF.pdf) |
-| 2939 | [A279380](https://oeis.org/A279380) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02939-PROOF.pdf](02939-PROOF.pdf) |
-| 2940 | [A204861](https://oeis.org/A204861) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02940-PROOF.pdf](02940-PROOF.pdf) |
-| 2941 | [A186897](https://oeis.org/A186897) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02941-PROOF.pdf](02941-PROOF.pdf) |
-| 2942 | [A250360](https://oeis.org/A250360) | Proof |  | [02942-PROOF.pdf](02942-PROOF.pdf) |
-| 2943 | [A203449](https://oeis.org/A203449) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02943-PROOF.pdf](02943-PROOF.pdf) |
-| 2944 | [A232259](https://oeis.org/A232259) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02944-PROOF.pdf](02944-PROOF.pdf) |
-| 2945 | [A186172](https://oeis.org/A186172) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02945-PROOF.pdf](02945-PROOF.pdf) |
-| 2946 | [A279712](https://oeis.org/A279712) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02946-PROOF.pdf](02946-PROOF.pdf) |
-| 2947 | [A189589](https://oeis.org/A189589) | Proof |  | [02947-PROOF.pdf](02947-PROOF.pdf) |
-| 2948 | [A189590](https://oeis.org/A189590) | Proof |  | [02948-PROOF.pdf](02948-PROOF.pdf) |
-| 2949 | [A189591](https://oeis.org/A189591) | Proof |  | [02949-PROOF.pdf](02949-PROOF.pdf) |
-| 2950 | [A189592](https://oeis.org/A189592) | Proof |  | [02950-PROOF.pdf](02950-PROOF.pdf) |
-| 2951 | [A204798](https://oeis.org/A204798) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02951-PROOF.pdf](02951-PROOF.pdf) |
-| 2952 | [A204394](https://oeis.org/A204394) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02952-PROOF.pdf](02952-PROOF.pdf) |
-| 2953 | [A206689](https://oeis.org/A206689) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02953-PROOF.pdf](02953-PROOF.pdf) |
-| 2954 | [A204075](https://oeis.org/A204075) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02954-PROOF.pdf](02954-PROOF.pdf) |
-| 2955 | [A235551](https://oeis.org/A235551) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02955-PROOF.pdf](02955-PROOF.pdf) |
-| 2956 | [A240780](https://oeis.org/A240780) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02956-PROOF.pdf](02956-PROOF.pdf) |
-| 2957 | [A198622](https://oeis.org/A198622) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02957-PROOF.pdf](02957-PROOF.pdf) |
-| 2958 | [A235760](https://oeis.org/A235760) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02958-PROOF.pdf](02958-PROOF.pdf) |
-| 2959 | [A203864](https://oeis.org/A203864) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02959-PROOF.pdf](02959-PROOF.pdf) |
-| 2960 | [A223502](https://oeis.org/A223502) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02960-PROOF.pdf](02960-PROOF.pdf) |
-| 2961 | [A210082](https://oeis.org/A210082) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02961-PROOF.pdf](02961-PROOF.pdf) |
-| 2962 | [A210305](https://oeis.org/A210305) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02962-PROOF.pdf](02962-PROOF.pdf) |
-| 2963 | [A262269](https://oeis.org/A262269) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02963-PROOF.pdf](02963-PROOF.pdf) |
-| 2964 | [A262790](https://oeis.org/A262790) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02964-PROOF.pdf](02964-PROOF.pdf) |
-| 2965 | [A186845](https://oeis.org/A186845) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02965-PROOF.pdf](02965-PROOF.pdf) |
-| 2966 | [A189182](https://oeis.org/A189182) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02966-PROOF.pdf](02966-PROOF.pdf) |
-| 2967 | [A189250](https://oeis.org/A189250) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02967-PROOF.pdf](02967-PROOF.pdf) |
-| 2968 | [A189653](https://oeis.org/A189653) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02968-PROOF.pdf](02968-PROOF.pdf) |
-| 2969 | [A188304](https://oeis.org/A188304) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02969-PROOF.pdf](02969-PROOF.pdf) |
-| 2970 | [A263664](https://oeis.org/A263664) | Proof |  | [02970-PROOF.pdf](02970-PROOF.pdf) |
-| 2971 | [A185482](https://oeis.org/A185482) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02971-PROOF.pdf](02971-PROOF.pdf) |
-| 2972 | [A210092](https://oeis.org/A210092) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02972-PROOF.pdf](02972-PROOF.pdf) |
-| 2973 | [A252841](https://oeis.org/A252841) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02973-PROOF.pdf](02973-PROOF.pdf) |
-| 2974 | [A205194](https://oeis.org/A205194) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02974-PROOF.pdf](02974-PROOF.pdf) |
-| 2975 | [A252987](https://oeis.org/A252987) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02975-PROOF.pdf](02975-PROOF.pdf) |
-| 2976 | [A231110](https://oeis.org/A231110) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02976-PROOF.pdf](02976-PROOF.pdf) |
-| 2977 | [A209500](https://oeis.org/A209500) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02977-PROOF.pdf](02977-PROOF.pdf) |
-| 2978 | [A209826](https://oeis.org/A209826) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02978-PROOF.pdf](02978-PROOF.pdf) |
-| 2979 | [A209523](https://oeis.org/A209523) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02979-PROOF.pdf](02979-PROOF.pdf) |
-| 2980 | [A210179](https://oeis.org/A210179) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02980-PROOF.pdf](02980-PROOF.pdf) |
-| 2981 | [A210263](https://oeis.org/A210263) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02981-PROOF.pdf](02981-PROOF.pdf) |
-| 2982 | [A210316](https://oeis.org/A210316) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02982-PROOF.pdf](02982-PROOF.pdf) |
-| 2983 | [A186933](https://oeis.org/A186933) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02983-PROOF.pdf](02983-PROOF.pdf) |
-| 2984 | [A297503](https://oeis.org/A297503) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02984-PROOF.pdf](02984-PROOF.pdf) |
-| 2985 | [A235518](https://oeis.org/A235518) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02985-PROOF.pdf](02985-PROOF.pdf) |
-| 2986 | [A204285](https://oeis.org/A204285) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02986-PROOF.pdf](02986-PROOF.pdf) |
-| 2987 | [A230991](https://oeis.org/A230991) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02987-PROOF.pdf](02987-PROOF.pdf) |
-| 2988 | [A232593](https://oeis.org/A232593) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02988-PROOF.pdf](02988-PROOF.pdf) |
-| 2989 | [A187597](https://oeis.org/A187597) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02989-PROOF.pdf](02989-PROOF.pdf) |
-| 2990 | [A281341](https://oeis.org/A281341) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02990-PROOF.pdf](02990-PROOF.pdf) |
-| 2991 | [A210781](https://oeis.org/A210781) | Proof | the entry asks that every value be repeated, or never be repeated, at exactly its own city-block distance; the... | [02991-PROOF.pdf](02991-PROOF.pdf) |
-| 2992 | [A203665](https://oeis.org/A203665) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02992-PROOF.pdf](02992-PROOF.pdf) |
-| 2993 | [A207098](https://oeis.org/A207098) | Proof |  | [02993-PROOF.pdf](02993-PROOF.pdf) |
-| 2994 | [A218662](https://oeis.org/A218662) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02994-PROOF.pdf](02994-PROOF.pdf) |
-| 2995 | [A206756](https://oeis.org/A206756) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02995-PROOF.pdf](02995-PROOF.pdf) |
-| 2996 | [A226869](https://oeis.org/A226869) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02996-PROOF.pdf](02996-PROOF.pdf) |
-| 2997 | [A210139](https://oeis.org/A210139) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02997-PROOF.pdf](02997-PROOF.pdf) |
-| 2998 | [A227255](https://oeis.org/A227255) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02998-PROOF.pdf](02998-PROOF.pdf) |
-| 2999 | [A240515](https://oeis.org/A240515) | Proof | a cell condition stated through equality alone, counted up to renaming the letters | [02999-PROOF.pdf](02999-PROOF.pdf) |
-| 3000 | [A250349](https://oeis.org/A250349) | Proof |  | [03000-PROOF.pdf](03000-PROOF.pdf) |
+| 2783 | [A277560](https://oeis.org/A277560) | Proof |  | [02783-PROOF.pdf](02783-PROOF.pdf) |
+| 2784 | [A277797](https://oeis.org/A277797) | Proof |  | [02784-PROOF.pdf](02784-PROOF.pdf) |
+| 2785 | [A277798](https://oeis.org/A277798) | Proof |  | [02785-PROOF.pdf](02785-PROOF.pdf) |
+| 2786 | [A277799](https://oeis.org/A277799) | Proof |  | [02786-PROOF.pdf](02786-PROOF.pdf) |
+| 2787 | [A277800](https://oeis.org/A277800) | Proof |  | [02787-PROOF.pdf](02787-PROOF.pdf) |
+| 2788 | [A277864](https://oeis.org/A277864) | Proof |  | [02788-PROOF.pdf](02788-PROOF.pdf) |
+| 2789 | [A277865](https://oeis.org/A277865) | Proof |  | [02789-PROOF.pdf](02789-PROOF.pdf) |
+| 2790 | [A277866](https://oeis.org/A277866) | Proof |  | [02790-PROOF.pdf](02790-PROOF.pdf) |
+| 2791 | [A277867](https://oeis.org/A277867) | Proof |  | [02791-PROOF.pdf](02791-PROOF.pdf) |
+| 2792 | [A277936](https://oeis.org/A277936) | Proof |  | [02792-PROOF.pdf](02792-PROOF.pdf) |
+| 2793 | [A277953](https://oeis.org/A277953) | Proof |  | [02793-PROOF.pdf](02793-PROOF.pdf) |
+| 2794 | [A277954](https://oeis.org/A277954) | Proof |  | [02794-PROOF.pdf](02794-PROOF.pdf) |
+| 2795 | [A279028](https://oeis.org/A279028) | Proof |  | [02795-PROOF.pdf](02795-PROOF.pdf) |
+| 2796 | [A279030](https://oeis.org/A279030) | Proof |  | [02796-PROOF.pdf](02796-PROOF.pdf) |
+| 2797 | [A279053](https://oeis.org/A279053) | Proof |  | [02797-PROOF.pdf](02797-PROOF.pdf) |
+| 2798 | [A279897](https://oeis.org/A279897) | Proof |  | [02798-PROOF.pdf](02798-PROOF.pdf) |
+| 2799 | [A280392](https://oeis.org/A280392) | Proof |  | [02799-PROOF.pdf](02799-PROOF.pdf) |
+| 2800 | [A280399](https://oeis.org/A280399) | Proof |  | [02800-PROOF.pdf](02800-PROOF.pdf) |
+| 2801 | [A280400](https://oeis.org/A280400) | Proof |  | [02801-PROOF.pdf](02801-PROOF.pdf) |
+| 2802 | [A280474](https://oeis.org/A280474) | Proof |  | [02802-PROOF.pdf](02802-PROOF.pdf) |
+| 2803 | [A281200](https://oeis.org/A281200) | Proof |  | [02803-PROOF.pdf](02803-PROOF.pdf) |
+| 2804 | [A282121](https://oeis.org/A282121) | Proof |  | [02804-PROOF.pdf](02804-PROOF.pdf) |
+| 2805 | [A282122](https://oeis.org/A282122) | Proof |  | [02805-PROOF.pdf](02805-PROOF.pdf) |
+| 2806 | [A282123](https://oeis.org/A282123) | Proof |  | [02806-PROOF.pdf](02806-PROOF.pdf) |
+| 2807 | [A282124](https://oeis.org/A282124) | Proof |  | [02807-PROOF.pdf](02807-PROOF.pdf) |
+| 2808 | [A282411](https://oeis.org/A282411) | Proof |  | [02808-PROOF.pdf](02808-PROOF.pdf) |
+| 2809 | [A282871](https://oeis.org/A282871) | Proof |  | [02809-PROOF.pdf](02809-PROOF.pdf) |
+| 2810 | [A283349](https://oeis.org/A283349) | Proof |  | [02810-PROOF.pdf](02810-PROOF.pdf) |
+| 2811 | [A283351](https://oeis.org/A283351) | Proof |  | [02811-PROOF.pdf](02811-PROOF.pdf) |
+| 2812 | [A283505](https://oeis.org/A283505) | Proof |  | [02812-PROOF.pdf](02812-PROOF.pdf) |
+| 2813 | [A283507](https://oeis.org/A283507) | Proof |  | [02813-PROOF.pdf](02813-PROOF.pdf) |
+| 2814 | [A283508](https://oeis.org/A283508) | Proof |  | [02814-PROOF.pdf](02814-PROOF.pdf) |
+| 2815 | [A283523](https://oeis.org/A283523) | Proof |  | [02815-PROOF.pdf](02815-PROOF.pdf) |
+| 2816 | [A283589](https://oeis.org/A283589) | Proof |  | [02816-PROOF.pdf](02816-PROOF.pdf) |
+| 2817 | [A283590](https://oeis.org/A283590) | Proof |  | [02817-PROOF.pdf](02817-PROOF.pdf) |
+| 2818 | [A283591](https://oeis.org/A283591) | Proof |  | [02818-PROOF.pdf](02818-PROOF.pdf) |
+| 2819 | [A283649](https://oeis.org/A283649) | Proof |  | [02819-PROOF.pdf](02819-PROOF.pdf) |
+| 2820 | [A283651](https://oeis.org/A283651) | Proof |  | [02820-PROOF.pdf](02820-PROOF.pdf) |
+| 2821 | [A284352](https://oeis.org/A284352) | Proof |  | [02821-PROOF.pdf](02821-PROOF.pdf) |
+| 2822 | [A284403](https://oeis.org/A284403) | Proof |  | [02822-PROOF.pdf](02822-PROOF.pdf) |
+| 2823 | [A284404](https://oeis.org/A284404) | Proof |  | [02823-PROOF.pdf](02823-PROOF.pdf) |
+| 2824 | [A284405](https://oeis.org/A284405) | Proof |  | [02824-PROOF.pdf](02824-PROOF.pdf) |
+| 2825 | [A284484](https://oeis.org/A284484) | Proof |  | [02825-PROOF.pdf](02825-PROOF.pdf) |
+| 2826 | [A284485](https://oeis.org/A284485) | Proof |  | [02826-PROOF.pdf](02826-PROOF.pdf) |
+| 2827 | [A285473](https://oeis.org/A285473) | Proof |  | [02827-PROOF.pdf](02827-PROOF.pdf) |
+| 2828 | [A285474](https://oeis.org/A285474) | Proof |  | [02828-PROOF.pdf](02828-PROOF.pdf) |
+| 2829 | [A286519](https://oeis.org/A286519) | Proof |  | [02829-PROOF.pdf](02829-PROOF.pdf) |
+| 2830 | [A286521](https://oeis.org/A286521) | Proof |  | [02830-PROOF.pdf](02830-PROOF.pdf) |
+| 2831 | [A287191](https://oeis.org/A287191) | Proof |  | [02831-PROOF.pdf](02831-PROOF.pdf) |
+| 2832 | [A287193](https://oeis.org/A287193) | Proof |  | [02832-PROOF.pdf](02832-PROOF.pdf) |
+| 2833 | [A290680](https://oeis.org/A290680) | Proof |  | [02833-PROOF.pdf](02833-PROOF.pdf) |
+| 2834 | [A290681](https://oeis.org/A290681) | Proof |  | [02834-PROOF.pdf](02834-PROOF.pdf) |
+| 2835 | [A290682](https://oeis.org/A290682) | Proof |  | [02835-PROOF.pdf](02835-PROOF.pdf) |
+| 2836 | [A290683](https://oeis.org/A290683) | Proof |  | [02836-PROOF.pdf](02836-PROOF.pdf) |
+| 2837 | [A290834](https://oeis.org/A290834) | Proof |  | [02837-PROOF.pdf](02837-PROOF.pdf) |
+| 2838 | [A290835](https://oeis.org/A290835) | Proof |  | [02838-PROOF.pdf](02838-PROOF.pdf) |
+| 2839 | [A290836](https://oeis.org/A290836) | Proof |  | [02839-PROOF.pdf](02839-PROOF.pdf) |
+| 2840 | [A290837](https://oeis.org/A290837) | Proof |  | [02840-PROOF.pdf](02840-PROOF.pdf) |
+| 2841 | [A239847](https://oeis.org/A239847) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02841-PROOF.pdf](02841-PROOF.pdf) |
+| 2842 | [A189277](https://oeis.org/A189277) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02842-PROOF.pdf](02842-PROOF.pdf) |
+| 2843 | [A202801](https://oeis.org/A202801) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02843-PROOF.pdf](02843-PROOF.pdf) |
+| 2844 | [A267670](https://oeis.org/A267670) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02844-PROOF.pdf](02844-PROOF.pdf) |
+| 2845 | [A250350](https://oeis.org/A250350) | Proof |  | [02845-PROOF.pdf](02845-PROOF.pdf) |
+| 2846 | [A229010](https://oeis.org/A229010) | Proof |  | [02846-PROOF.pdf](02846-PROOF.pdf) |
+| 2847 | [A203938](https://oeis.org/A203938) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02847-PROOF.pdf](02847-PROOF.pdf) |
+| 2848 | [A223666](https://oeis.org/A223666) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02848-PROOF.pdf](02848-PROOF.pdf) |
+| 2849 | [A209811](https://oeis.org/A209811) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02849-PROOF.pdf](02849-PROOF.pdf) |
+| 2850 | [A205750](https://oeis.org/A205750) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02850-PROOF.pdf](02850-PROOF.pdf) |
+| 2851 | [A186123](https://oeis.org/A186123) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02851-PROOF.pdf](02851-PROOF.pdf) |
+| 2852 | [A204738](https://oeis.org/A204738) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02852-PROOF.pdf](02852-PROOF.pdf) |
+| 2853 | [A223185](https://oeis.org/A223185) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02853-PROOF.pdf](02853-PROOF.pdf) |
+| 2854 | [A208793](https://oeis.org/A208793) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02854-PROOF.pdf](02854-PROOF.pdf) |
+| 2855 | [A240036](https://oeis.org/A240036) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02855-PROOF.pdf](02855-PROOF.pdf) |
+| 2856 | [A193701](https://oeis.org/A193701) | Proof |  | [02856-PROOF.pdf](02856-PROOF.pdf) |
+| 2857 | [A206363](https://oeis.org/A206363) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02857-PROOF.pdf](02857-PROOF.pdf) |
+| 2858 | [A210049](https://oeis.org/A210049) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02858-PROOF.pdf](02858-PROOF.pdf) |
+| 2859 | [A204507](https://oeis.org/A204507) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02859-PROOF.pdf](02859-PROOF.pdf) |
+| 2860 | [A189607](https://oeis.org/A189607) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02860-PROOF.pdf](02860-PROOF.pdf) |
+| 2861 | [A189596](https://oeis.org/A189596) | Proof |  | [02861-PROOF.pdf](02861-PROOF.pdf) |
+| 2862 | [A189597](https://oeis.org/A189597) | Proof |  | [02862-PROOF.pdf](02862-PROOF.pdf) |
+| 2863 | [A189598](https://oeis.org/A189598) | Proof |  | [02863-PROOF.pdf](02863-PROOF.pdf) |
+| 2864 | [A189599](https://oeis.org/A189599) | Proof |  | [02864-PROOF.pdf](02864-PROOF.pdf) |
+| 2865 | [A203865](https://oeis.org/A203865) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02865-PROOF.pdf](02865-PROOF.pdf) |
+| 2866 | [A210058](https://oeis.org/A210058) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02866-PROOF.pdf](02866-PROOF.pdf) |
+| 2867 | [A206653](https://oeis.org/A206653) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02867-PROOF.pdf](02867-PROOF.pdf) |
+| 2868 | [A267930](https://oeis.org/A267930) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02868-PROOF.pdf](02868-PROOF.pdf) |
+| 2869 | [A240361](https://oeis.org/A240361) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02869-PROOF.pdf](02869-PROOF.pdf) |
+| 2870 | [A203890](https://oeis.org/A203890) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02870-PROOF.pdf](02870-PROOF.pdf) |
+| 2871 | [A223785](https://oeis.org/A223785) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02871-PROOF.pdf](02871-PROOF.pdf) |
+| 2872 | [A187957](https://oeis.org/A187957) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02872-PROOF.pdf](02872-PROOF.pdf) |
+| 2873 | [A268047](https://oeis.org/A268047) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02873-PROOF.pdf](02873-PROOF.pdf) |
+| 2874 | [A240790](https://oeis.org/A240790) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02874-PROOF.pdf](02874-PROOF.pdf) |
+| 2875 | [A240757](https://oeis.org/A240757) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02875-PROOF.pdf](02875-PROOF.pdf) |
+| 2876 | [A208442](https://oeis.org/A208442) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02876-PROOF.pdf](02876-PROOF.pdf) |
+| 2877 | [A268007](https://oeis.org/A268007) | Proof | the repeated values of each row and column, in the order they occur, required to stand in a prescribed relatio... | [02877-PROOF.pdf](02877-PROOF.pdf) |
+| 2878 | [A187933](https://oeis.org/A187933) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02878-PROOF.pdf](02878-PROOF.pdf) |
+| 2879 | [A185499](https://oeis.org/A185499) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02879-PROOF.pdf](02879-PROOF.pdf) |
+| 2880 | [A193700](https://oeis.org/A193700) | Proof |  | [02880-PROOF.pdf](02880-PROOF.pdf) |
+| 2881 | [A253032](https://oeis.org/A253032) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02881-PROOF.pdf](02881-PROOF.pdf) |
+| 2882 | [A205259](https://oeis.org/A205259) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02882-PROOF.pdf](02882-PROOF.pdf) |
+| 2883 | [A208565](https://oeis.org/A208565) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02883-PROOF.pdf](02883-PROOF.pdf) |
+| 2884 | [A202985](https://oeis.org/A202985) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02884-PROOF.pdf](02884-PROOF.pdf) |
+| 2885 | [A240336](https://oeis.org/A240336) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02885-PROOF.pdf](02885-PROOF.pdf) |
+| 2886 | [A265994](https://oeis.org/A265994) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02886-PROOF.pdf](02886-PROOF.pdf) |
+| 2887 | [A223679](https://oeis.org/A223679) | Proof | monotone and unimodal conditions along rows, columns and diagonals, with the fallen bits carried in the state | [02887-PROOF.pdf](02887-PROOF.pdf) |
+| 2888 | [A263679](https://oeis.org/A263679) | Proof |  | [02888-PROOF.pdf](02888-PROOF.pdf) |
+| 2889 | [A203960](https://oeis.org/A203960) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02889-PROOF.pdf](02889-PROOF.pdf) |
+| 2890 | [A203393](https://oeis.org/A203393) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02890-PROOF.pdf](02890-PROOF.pdf) |
+| 2891 | [A198650](https://oeis.org/A198650) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02891-PROOF.pdf](02891-PROOF.pdf) |
+| 2892 | [A209015](https://oeis.org/A209015) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02892-PROOF.pdf](02892-PROOF.pdf) |
+| 2893 | [A229009](https://oeis.org/A229009) | Proof |  | [02893-PROOF.pdf](02893-PROOF.pdf) |
+| 2894 | [A186916](https://oeis.org/A186916) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02894-PROOF.pdf](02894-PROOF.pdf) |
+| 2895 | [A204534](https://oeis.org/A204534) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02895-PROOF.pdf](02895-PROOF.pdf) |
+| 2896 | [A241351](https://oeis.org/A241351) | Proof | no entry equal, modulo m, to a constant plus the sum of the entries along a ray out of it | [02896-PROOF.pdf](02896-PROOF.pdf) |
+| 2897 | [A263595](https://oeis.org/A263595) | Proof |  | [02897-PROOF.pdf](02897-PROOF.pdf) |
+| 2898 | [A205611](https://oeis.org/A205611) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02898-PROOF.pdf](02898-PROOF.pdf) |
+| 2899 | [A206616](https://oeis.org/A206616) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02899-PROOF.pdf](02899-PROOF.pdf) |
+| 2900 | [A209894](https://oeis.org/A209894) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02900-PROOF.pdf](02900-PROOF.pdf) |
+| 2901 | [A183477](https://oeis.org/A183477) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02901-PROOF.pdf](02901-PROOF.pdf) |
+| 2902 | [A189431](https://oeis.org/A189431) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02902-PROOF.pdf](02902-PROOF.pdf) |
+| 2903 | [A275397](https://oeis.org/A275397) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02903-PROOF.pdf](02903-PROOF.pdf) |
+| 2904 | [A205349](https://oeis.org/A205349) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02904-PROOF.pdf](02904-PROOF.pdf) |
+| 2905 | [A266103](https://oeis.org/A266103) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02905-PROOF.pdf](02905-PROOF.pdf) |
+| 2906 | [A204332](https://oeis.org/A204332) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02906-PROOF.pdf](02906-PROOF.pdf) |
+| 2907 | [A200663](https://oeis.org/A200663) | Proof |  | [02907-PROOF.pdf](02907-PROOF.pdf) |
+| 2908 | [A185800](https://oeis.org/A185800) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02908-PROOF.pdf](02908-PROOF.pdf) |
+| 2909 | [A266077](https://oeis.org/A266077) | Proof | every entry equal to the number of its own neighbours standing in a stated relation to it | [02909-PROOF.pdf](02909-PROOF.pdf) |
+| 2910 | [A275568](https://oeis.org/A275568) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02910-PROOF.pdf](02910-PROOF.pdf) |
+| 2911 | [A209043](https://oeis.org/A209043) | Proof | what a cell asks of the cells around it: not their average, not matched by a strict majority of them, not beat... | [02911-PROOF.pdf](02911-PROOF.pdf) |
+| 2912 | [A207099](https://oeis.org/A207099) | Proof |  | [02912-PROOF.pdf](02912-PROOF.pdf) |
+| 2913 | [A263751](https://oeis.org/A263751) | Proof |  | [02913-PROOF.pdf](02913-PROOF.pdf) |
+| 2914 | [A263750](https://oeis.org/A263750) | Proof |  | [02914-PROOF.pdf](02914-PROOF.pdf) |
+| 2915 | [A263749](https://oeis.org/A263749) | Proof |  | [02915-PROOF.pdf](02915-PROOF.pdf) |
+| 2916 | [A209099](https://oeis.org/A209099) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02916-PROOF.pdf](02916-PROOF.pdf) |
+| 2917 | [A263748](https://oeis.org/A263748) | Proof |  | [02917-PROOF.pdf](02917-PROOF.pdf) |
+| 2918 | [A263747](https://oeis.org/A263747) | Proof |  | [02918-PROOF.pdf](02918-PROOF.pdf) |
+| 2919 | [A203501](https://oeis.org/A203501) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02919-PROOF.pdf](02919-PROOF.pdf) |
+| 2920 | [A205605](https://oeis.org/A205605) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02920-PROOF.pdf](02920-PROOF.pdf) |
+| 2921 | [A206596](https://oeis.org/A206596) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02921-PROOF.pdf](02921-PROOF.pdf) |
+| 2922 | [A202794](https://oeis.org/A202794) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02922-PROOF.pdf](02922-PROOF.pdf) |
+| 2923 | [A186173](https://oeis.org/A186173) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02923-PROOF.pdf](02923-PROOF.pdf) |
+| 2924 | [A252947](https://oeis.org/A252947) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02924-PROOF.pdf](02924-PROOF.pdf) |
+| 2925 | [A223508](https://oeis.org/A223508) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02925-PROOF.pdf](02925-PROOF.pdf) |
+| 2926 | [A205585](https://oeis.org/A205585) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02926-PROOF.pdf](02926-PROOF.pdf) |
+| 2927 | [A198664](https://oeis.org/A198664) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02927-PROOF.pdf](02927-PROOF.pdf) |
+| 2928 | [A193699](https://oeis.org/A193699) | Proof |  | [02928-PROOF.pdf](02928-PROOF.pdf) |
+| 2929 | [A206393](https://oeis.org/A206393) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02929-PROOF.pdf](02929-PROOF.pdf) |
+| 2930 | [A210170](https://oeis.org/A210170) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02930-PROOF.pdf](02930-PROOF.pdf) |
+| 2931 | [A209845](https://oeis.org/A209845) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02931-PROOF.pdf](02931-PROOF.pdf) |
+| 2932 | [A189146](https://oeis.org/A189146) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02932-PROOF.pdf](02932-PROOF.pdf) |
+| 2933 | [A204957](https://oeis.org/A204957) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02933-PROOF.pdf](02933-PROOF.pdf) |
+| 2934 | [A210104](https://oeis.org/A210104) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02934-PROOF.pdf](02934-PROOF.pdf) |
+| 2935 | [A211503](https://oeis.org/A211503) | Proof |  | [02935-PROOF.pdf](02935-PROOF.pdf) |
+| 2936 | [A205755](https://oeis.org/A205755) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02936-PROOF.pdf](02936-PROOF.pdf) |
+| 2937 | [A276250](https://oeis.org/A276250) | Proof | no cell equal to the cells at a fixed list of offsets, counted up to renaming | [02937-PROOF.pdf](02937-PROOF.pdf) |
+| 2938 | [A253038](https://oeis.org/A253038) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02938-PROOF.pdf](02938-PROOF.pdf) |
+| 2939 | [A193704](https://oeis.org/A193704) | Proof |  | [02939-PROOF.pdf](02939-PROOF.pdf) |
+| 2940 | [A279380](https://oeis.org/A279380) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02940-PROOF.pdf](02940-PROOF.pdf) |
+| 2941 | [A204861](https://oeis.org/A204861) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02941-PROOF.pdf](02941-PROOF.pdf) |
+| 2942 | [A186897](https://oeis.org/A186897) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02942-PROOF.pdf](02942-PROOF.pdf) |
+| 2943 | [A250360](https://oeis.org/A250360) | Proof |  | [02943-PROOF.pdf](02943-PROOF.pdf) |
+| 2944 | [A203449](https://oeis.org/A203449) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02944-PROOF.pdf](02944-PROOF.pdf) |
+| 2945 | [A232259](https://oeis.org/A232259) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02945-PROOF.pdf](02945-PROOF.pdf) |
+| 2946 | [A186172](https://oeis.org/A186172) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02946-PROOF.pdf](02946-PROOF.pdf) |
+| 2947 | [A279712](https://oeis.org/A279712) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02947-PROOF.pdf](02947-PROOF.pdf) |
+| 2948 | [A189589](https://oeis.org/A189589) | Proof |  | [02948-PROOF.pdf](02948-PROOF.pdf) |
+| 2949 | [A189590](https://oeis.org/A189590) | Proof |  | [02949-PROOF.pdf](02949-PROOF.pdf) |
+| 2950 | [A189591](https://oeis.org/A189591) | Proof |  | [02950-PROOF.pdf](02950-PROOF.pdf) |
+| 2951 | [A189592](https://oeis.org/A189592) | Proof |  | [02951-PROOF.pdf](02951-PROOF.pdf) |
+| 2952 | [A204798](https://oeis.org/A204798) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02952-PROOF.pdf](02952-PROOF.pdf) |
+| 2953 | [A204394](https://oeis.org/A204394) | Proof | a 3 X 3 subblock condition counted up to relabelling, by falling-factorial inversion | [02953-PROOF.pdf](02953-PROOF.pdf) |
+| 2954 | [A206689](https://oeis.org/A206689) | Proof | no two cells within a stated distance may agree, counted up to renaming | [02954-PROOF.pdf](02954-PROOF.pdf) |
+| 2955 | [A204075](https://oeis.org/A204075) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02955-PROOF.pdf](02955-PROOF.pdf) |
+| 2956 | [A235551](https://oeis.org/A235551) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02956-PROOF.pdf](02956-PROOF.pdf) |
+| 2957 | [A240780](https://oeis.org/A240780) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02957-PROOF.pdf](02957-PROOF.pdf) |
+| 2958 | [A198622](https://oeis.org/A198622) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02958-PROOF.pdf](02958-PROOF.pdf) |
+| 2959 | [A235760](https://oeis.org/A235760) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02959-PROOF.pdf](02959-PROOF.pdf) |
+| 2960 | [A203864](https://oeis.org/A203864) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02960-PROOF.pdf](02960-PROOF.pdf) |
+| 2961 | [A223502](https://oeis.org/A223502) | Proof | arrays whose cells carry vertices of a fixed graph -- the faces or vertices of a cube or icosahedron, a triang... | [02961-PROOF.pdf](02961-PROOF.pdf) |
+| 2962 | [A210082](https://oeis.org/A210082) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02962-PROOF.pdf](02962-PROOF.pdf) |
+| 2963 | [A210305](https://oeis.org/A210305) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02963-PROOF.pdf](02963-PROOF.pdf) |
+| 2964 | [A262269](https://oeis.org/A262269) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02964-PROOF.pdf](02964-PROOF.pdf) |
+| 2965 | [A262790](https://oeis.org/A262790) | Proof | rows and columns read as base-b numbers and required to be divisible, or not, by given moduli | [02965-PROOF.pdf](02965-PROOF.pdf) |
+| 2966 | [A186845](https://oeis.org/A186845) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02966-PROOF.pdf](02966-PROOF.pdf) |
+| 2967 | [A189182](https://oeis.org/A189182) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02967-PROOF.pdf](02967-PROOF.pdf) |
+| 2968 | [A189250](https://oeis.org/A189250) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02968-PROOF.pdf](02968-PROOF.pdf) |
+| 2969 | [A189653](https://oeis.org/A189653) | Proof | permutations of the CELLS of a fixed-width array in which every cell moves by one of a short list of offsets -... | [02969-PROOF.pdf](02969-PROOF.pdf) |
+| 2970 | [A188304](https://oeis.org/A188304) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02970-PROOF.pdf](02970-PROOF.pdf) |
+| 2971 | [A263664](https://oeis.org/A263664) | Proof |  | [02971-PROOF.pdf](02971-PROOF.pdf) |
+| 2972 | [A185482](https://oeis.org/A185482) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02972-PROOF.pdf](02972-PROOF.pdf) |
+| 2973 | [A210092](https://oeis.org/A210092) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02973-PROOF.pdf](02973-PROOF.pdf) |
+| 2974 | [A252841](https://oeis.org/A252841) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02974-PROOF.pdf](02974-PROOF.pdf) |
+| 2975 | [A205194](https://oeis.org/A205194) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02975-PROOF.pdf](02975-PROOF.pdf) |
+| 2976 | [A252987](https://oeis.org/A252987) | Proof | consecutive triples along rows, columns and diagonals holding a prescribed number of distinct values, counted ... | [02976-PROOF.pdf](02976-PROOF.pdf) |
+| 2977 | [A231110](https://oeis.org/A231110) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02977-PROOF.pdf](02977-PROOF.pdf) |
+| 2978 | [A209500](https://oeis.org/A209500) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02978-PROOF.pdf](02978-PROOF.pdf) |
+| 2979 | [A209826](https://oeis.org/A209826) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02979-PROOF.pdf](02979-PROOF.pdf) |
+| 2980 | [A209523](https://oeis.org/A209523) | Proof | arrays counted up to relabelling: patterns recovered by falling-factorial inversion, then a lumped walk count | [02980-PROOF.pdf](02980-PROOF.pdf) |
+| 2981 | [A210179](https://oeis.org/A210179) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02981-PROOF.pdf](02981-PROOF.pdf) |
+| 2982 | [A210263](https://oeis.org/A210263) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02982-PROOF.pdf](02982-PROOF.pdf) |
+| 2983 | [A210316](https://oeis.org/A210316) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02983-PROOF.pdf](02983-PROOF.pdf) |
+| 2984 | [A186933](https://oeis.org/A186933) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02984-PROOF.pdf](02984-PROOF.pdf) |
+| 2985 | [A297503](https://oeis.org/A297503) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02985-PROOF.pdf](02985-PROOF.pdf) |
+| 2986 | [A235518](https://oeis.org/A235518) | Proof | each 2 X 2 subblock reduced to one number -- a determinant, a permanent, a sum, or an order statistic -- with ... | [02986-PROOF.pdf](02986-PROOF.pdf) |
+| 2987 | [A204285](https://oeis.org/A204285) | Proof | the entry asks two things at once: a condition on every subblock, which a window of consecutive rows decides, ... | [02987-PROOF.pdf](02987-PROOF.pdf) |
+| 2988 | [A230991](https://oeis.org/A230991) | Proof | every cell required to see neighbours carrying the next and the previous value modulo m | [02988-PROOF.pdf](02988-PROOF.pdf) |
+| 2989 | [A232593](https://oeis.org/A232593) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02989-PROOF.pdf](02989-PROOF.pdf) |
+| 2990 | [A187597](https://oeis.org/A187597) | Proof | a subblock statistic compared with its neighbours': none equal, some equal, exactly one or two equal, or bound... | [02990-PROOF.pdf](02990-PROOF.pdf) |
+| 2991 | [A281341](https://oeis.org/A281341) | Proof | a cell condition counted up to relabelling, by falling-factorial inversion | [02991-PROOF.pdf](02991-PROOF.pdf) |
+| 2992 | [A210781](https://oeis.org/A210781) | Proof | the entry asks that every value be repeated, or never be repeated, at exactly its own city-block distance; the... | [02992-PROOF.pdf](02992-PROOF.pdf) |
+| 2993 | [A203665](https://oeis.org/A203665) | Proof | two derived arrays of pair sums, ordered monotonically, lexicographically, or by a nonvanishing determinant | [02993-PROOF.pdf](02993-PROOF.pdf) |
+| 2994 | [A207098](https://oeis.org/A207098) | Proof |  | [02994-PROOF.pdf](02994-PROOF.pdf) |
+| 2995 | [A218662](https://oeis.org/A218662) | Proof | what a cell demands that SOME neighbour of it look like: one at least as large, one of a named value, an allow... | [02995-PROOF.pdf](02995-PROOF.pdf) |
+| 2996 | [A206756](https://oeis.org/A206756) | Proof | equal-edge conditions on the subblocks, counted up to renaming the letters | [02996-PROOF.pdf](02996-PROOF.pdf) |
+| 2997 | [A226869](https://oeis.org/A226869) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02997-PROOF.pdf](02997-PROOF.pdf) |
+| 2998 | [A210139](https://oeis.org/A210139) | Proof | subblocks with a prescribed number of distinct values, counted up to renaming and using every letter | [02998-PROOF.pdf](02998-PROOF.pdf) |
+| 2999 | [A227255](https://oeis.org/A227255) | Proof | an explicit closed form, turned into the recurrence it satisfies | [02999-PROOF.pdf](02999-PROOF.pdf) |
+| 3000 | [A240515](https://oeis.org/A240515) | Proof | a cell condition stated through equality alone, counted up to renaming the letters | [03000-PROOF.pdf](03000-PROOF.pdf) |
