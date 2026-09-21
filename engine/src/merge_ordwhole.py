@@ -9,6 +9,12 @@ change the claim a paper was built from.
 
     python3 src/merge_ordwhole.py
 """
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import glob
 import json
 import os
@@ -22,7 +28,7 @@ for f in sorted(glob.glob('ordwhole_hits_*.json')):
             by[h['anum']] = h
             added += 1
 out = [by[a] for a in sorted(by)]
-json.dump(out, open('ordwhole_hits.json', 'w'), indent=1)
+atomicjson.dump(out, 'ordwhole_hits.json', indent=1)
 
 done = set(json.load(open('ordwhole_done.json'))) if os.path.exists('ordwhole_done.json') else set()
 for f in sorted(glob.glob('ordwhole_done_*.json')):

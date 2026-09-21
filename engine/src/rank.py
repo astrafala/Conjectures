@@ -39,6 +39,12 @@ The tiers, hardest first:
 The last is honestly the shallowest thing here: both recurrences were already on the
 entry and the work is noticing that one divides the other.
 """
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import json, os, shutil
 import paperpath
 import repopaths
@@ -115,7 +121,7 @@ def main():
         mapping.append({"rank": new, "was": old, "anum": eng[old]["anum"],
                         "verdict": suf, "engine": eng[old]["engine"],
                         "path": paperpath.path(new, suf)})
-    json.dump(mapping, open("rank-map.json", "w"), indent=1)
+    atomicjson.dump(mapping, "rank-map.json", indent=1)
     # swap the freshly ranked tree into place here rather than leaving it to a shell step:
     # the old numbering and the new one differ, so a half-done move is a corrupt roster
     shutil.rmtree(repopaths.PAPERS, ignore_errors=True)

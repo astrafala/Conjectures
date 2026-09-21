@@ -9,6 +9,12 @@ so the list is rebuilt from scratch rather than appended to.
 
     python3 src/mkcands.py            rebuild, report what changed
 """
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import json
 import os
 
@@ -26,7 +32,7 @@ for a, nm in names.items():
 added = sorted(set(new) - set(old))
 gone = sorted(set(old) - set(new))
 moved = sorted(a for a in set(new) & set(old) if new[a] != old[a])
-json.dump(new, open('uni_cands.json', 'w'), indent=0, sort_keys=True)
+atomicjson.dump(new, 'uni_cands.json', indent=0, sort_keys=True)
 print(f'{len(new)} candidates ({len(old)} before): {len(added)} new, {len(gone)} no longer '
       f'parsed, {len(moved)} now read by a different engine')
 for a in added[:20]:

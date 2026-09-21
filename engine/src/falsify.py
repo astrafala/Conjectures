@@ -4,6 +4,12 @@ Proving a recurrence needs S+1 matrix-vector products; DISPROVING one needs only
 terms to reach a failure. So the entries whose state space is past the proving cap, and the
 ones whose annihilation run was cut off, can still be decided in the negative cheaply.
 """
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import json, re, os, sys, collections, importlib, time
 from math import factorial
 import localentry as LE, ratrec, openness, uniform
@@ -80,5 +86,5 @@ for a in sorted(names):
     else:
         res['holds to n=%d' % (len(got) - 1)] += 0
         res['holds'] += 1
-    json.dump(out, open('falsify.json', 'w'), indent=1)
+    atomicjson.dump(out, 'falsify.json', indent=1)
 print(dict(res))

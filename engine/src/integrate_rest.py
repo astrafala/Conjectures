@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """Install every proved result that has a compiled paper and is not yet in the roster."""
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import refused
 import withdrawnset
 import json, os, shutil
@@ -32,6 +38,6 @@ for h in sorted(json.load(open('uniall_hits.json')), key=lambda x: x.get('anum',
     have.add(a)
     nxt += 1
     added += 1
-json.dump({str(k): v for k, v in eng.items()}, open('paper-engines.json', 'w'),
+atomicjson.dump({str(k): v for k, v in eng.items()}, 'paper-engines.json',
           indent=1, sort_keys=True)
 print('added', added)

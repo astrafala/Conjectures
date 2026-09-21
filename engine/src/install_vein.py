@@ -13,6 +13,12 @@ The engine name written into the roster is the third argument. A paper is instal
 its PDF compiled to a plausible size and its entry is not already in the roster, so running
 this twice is safe.
 """
+# Written by rename, not by truncate: this file is read at startup by sweeps that are
+# running while it is rewritten, and a plain json.dump truncates first. Defect 55 --
+# nineteen shards died with JSONDecodeError on half-written unified files in one night,
+# each one costing a round and each one invisible because the idle backoff read the
+# instant death as an exhausted vein.
+import atomicjson
 import withdrawnset
 import json
 import os
@@ -62,7 +68,7 @@ for h in sorted(recs, key=lambda x: x.get('anum', '')):
     have.add(a)
     nxt += 1
     added += 1
-json.dump({str(k): v for k, v in eng.items()}, open('paper-engines.json', 'w'),
+atomicjson.dump({str(k): v for k, v in eng.items()}, 'paper-engines.json',
           indent=1, sort_keys=True)
 print(f'added {added}; {len(nopaper)} had no compiled paper; '
       f'{len(norefuse)} from a refused engine')
