@@ -35,6 +35,21 @@ import bfile
 OUT = 'deep-check/bproved.json'
 FETCH = os.environ.get('FETCH') == '1'
 
+# There are TWO b-file caches and they are not the same directory. `bfile.CACHE' is an absolute
+# path to the repository root; the historical cache this project accumulated -- 3,377 files,
+# 145 MB -- sits in engine/bcache and is what a relative 'bcache' resolves to when run from
+# engine/. Reading only one of them means a cache-only pass reports `no cached b-file' for
+# every file the last downloading pass fetched, and downloads it again. Both are searched.
+CACHES = [os.path.join('bcache'), bfile.CACHE]
+
+
+def cached(anum):
+    for d in CACHES:
+        p = os.path.join(d, 'b' + anum[1:] + '.txt')
+        if os.path.exists(p):
+            return p
+    return None
+
 
 def guard_coverage(h):
     """how many published terms sweep_shard's own `contradicted by DATA' test actually read"""
@@ -61,6 +76,13 @@ def read_bfile(path):
 def main():
     H = json.load(open('uniall_hits.json'))
     state = json.load(open(OUT)) if os.path.exists(OUT) else {}
+    # `no cached b-file' is a statement about this machine, not about the entry, so it must not
+    # survive into a run that is allowed to download. Left in place it made FETCH=1 a no-op:
+    # 4,426 results were recorded as unreachable by a cache-only pass and then skipped by the
+    # very run whose job was to reach them.
+    if FETCH:
+        for a in [a for a, v in state.items() if v.get('status') == 'no cached b-file']:
+            del state[a]
     # the results whose own guard read nothing come first: they are the ones with no empirical
     # check at all behind them, and so the ones where this is evidence rather than confirmation
     todo = [h for h in H if h.get('coeffs') and h.get('order') and h['anum'] not in state]
@@ -72,8 +94,8 @@ def main():
     nver = nfail = nshort = nmiss = 0
     for h in todo:
         a = h['anum']
-        path = os.path.join('bcache', 'b' + a[1:] + '.txt')
-        if not os.path.exists(path):
+        path = cached(a)
+        if path is None:
             if not FETCH:
                 state[a] = {'status': 'no cached b-file', 'guard': guard_coverage(h)}
                 nmiss += 1
