@@ -2225,3 +2225,69 @@ cheaper thing to spend than a new engine.**
 First measurement, and it is a caution against assuming: the `transfer17` vein has produced no
 timeouts at all so far. Its entries refuse at the cap or at memory, quickly. Defect 49 says the
 existing record cannot be trusted, not that the record is wrong everywhere.
+
+## AR. The evidence behind a result, and the largest untouched pool in the project (21 September)
+
+Section AQ is about which population a refusal belongs to. This one is about what stands behind
+a result once it is kept — and it turns out that for a third of them, nothing did.
+
+### AR.1 The guard that could not fail — 2,132 of 5,987
+
+`sweep_shard` keeps a proved recurrence only if it reproduces the entry's published terms. That
+test reads index `k` when `off + k > nthr` AND `k >= order`. **For 2,132 of 5,987 held results
+there is no such index**, because the DATA field is shorter than the order proved for it.
+A183618 has order 30 and fourteen published terms: its guard read nothing, and printed exactly
+what it prints on success.
+
+They are not thereby wrong, and the reason is the interesting part. The model is matched
+term-for-term against the whole of DATA before any recurrence is derived, and the recurrence
+comes from the transfer matrix by annihilation rather than from a fit. So the missing witness is
+on the annihilation step alone — the only step in the chain with nothing checking it.
+
+**Pool: 5,987. Measured: 2,058 at 364,173 b-file indices, orders to 99, ZERO failures.**
+1,384 of those had a guard that read nothing. `src/bproved.py` does the checking; `sweep_shard`
+now falls back to the cached b-file when DATA is short, and every hit records `btested`, so a
+result can no longer carry silence where its evidence should be.
+
+The honest reading of zero failures: it is the strongest evidence this project has that the
+engines are right, and it is the FIRST evidence of that kind. A third of the results had
+nothing behind them but the engine's own arithmetic, for months, and the check that would have
+caught a wrong annihilation was silently inert the whole time.
+
+### AR.2 The disproof side, untouched — 7,256 open conjectures
+
+`bsweep.py` does the same thing for conjectures nobody has proved: test the entry's own
+recurrence against its full b-file, where a conjecture that survives DATA's forty terms and
+fails at the two-hundredth is FALSE. `bsweep_results.json` holds **3,376 of a 10,632-entry
+queue and was last written on 31 August**. 7,256 have never been asked.
+
+That is the largest untouched population in the project, it is on the disproof side where
+results are scarcer, and the vein is not empty: the first 3,376 produced A076217, already
+papered as ledger 2430. The queue is ordered by how much the b-file adds over DATA, largest
+first, so the unread portion is the less informative half — but 7,256 of it.
+
+`bsweeprun.sh` is in the rotation, waiting for `bproved`'s fetch to exit first. **The two must
+never download at once**: `bfile.fetch` is rate-limited by a module global, two processes share
+no such global, and the only signal of having doubled the rate is a page saying "temporarily
+blocked".
+
+### AR.3 An out-of-memory row can be about the clock, the cap, or the machine
+
+A183618's row said 6 GB refused it. Asked alone: 391 seconds, **peak RSS 0.07 GB**. A183913:
+34 seconds, 0.06 GB. A183921: refused by the CAP, instantly. A184472: over 900 seconds.
+A185885: SIGKILLed — and even that is not a footprint, because it died while 9 of 15 GB were
+held by 128 other processes.
+
+Five rows, five different facts, and only one of them is about memory at all. `uniall_oom.json`
+is written from two places: `uniform.build` raising MemoryError against `RLIMIT_AS`, which is
+the entry's own appetite, and the in-flight marker, which is a shard that died for any reason
+whatever while holding that entry's name.
+
+The cost is not bookkeeping. `sweep_shard` skips when `MEMGB <= GOOM[a]`, so every false row is
+a permanent exclusion from every runner at that limit or below. `rcaprun`, `resrun` and
+`t21run` were all idle tonight reporting nothing but `out of memory on an earlier pass` —
+declining to ask entries that need seventy megabytes and half a minute.
+
+**Pool: 207 rows and growing about ten an hour.** `src/oomtruth.py` measures each alone and now
+records MemAvailable at the start, and at the death for a kill, because a kill under plenty and
+a kill under pressure are different facts and were indistinguishable.
