@@ -2192,3 +2192,36 @@ entries identical, had compared nothing: it returned its own `TypeError` as the 
 so both sides matched (STATE.md defect 38). **Nothing dispatches to it** — `uniform.build` still
 sends `transfer21` down the old path — and nothing will until a comparison that can actually run
 comes back clean.
+
+## AQ. The capped population must be read again, because the cap was not what refused it (21 September)
+
+Section AP settled that the capped population is mostly entries with nothing to prove, and that
+stands: 1,255 of 2,311 off-roster capped entries carry no parsable conjecture at all. What AP
+could not know is that the label on the other 1,056 was unreliable in a second way.
+
+**STATE.md defect 49: every build timeout in this project was recorded as a cap refusal.** The
+alarm fires inside `uniform.build`, whose last clause was `except Exception: return None`, and
+every caller reads `None` as "the state space exceeded the cap". So `uniall_caps.json` — 3,362
+rows, 2,378 of them off-roster and unsettled — is a mixture of two populations that were never
+distinguishable:
+
+* entries whose state space genuinely exceeds the cap, which a bigger cap or a smaller
+  construction can reach;
+* entries that merely ran out of BUDGET, which a longer clock can reach and which no amount of
+  engine work was ever needed for.
+
+Neither the size of the second population nor its membership is known, and it cannot be
+recovered from the record — the record is the thing that was wrong. **It can only be found by
+asking again**, which the runners now do correctly: a timeout is named in `uniall_tmo.json` with
+the budget it failed under, a container refusal in `uniall_oom.json` with the memory, and a cap
+in `uniall_caps.json` with the cap.
+
+What this does NOT license is re-asking everything at once. The capped lists are already read by
+`caprun.sh` (734 entries) and `rcaprun.sh` (255), and those runs will now classify their own
+refusals correctly as they go. The work is to let them, and to read `uniall_tmo.json` when it
+starts filling: **an entry that appears there is one the clock refused, and a longer budget is a
+cheaper thing to spend than a new engine.**
+
+First measurement, and it is a caution against assuming: the `transfer17` vein has produced no
+timeouts at all so far. Its entries refuse at the cap or at memory, quickly. Defect 49 says the
+existing record cannot be trusted, not that the record is wrong everywhere.
