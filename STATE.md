@@ -1419,3 +1419,61 @@ That population has exactly one open route, which is `oomrun` at 11 GB, and its 
 left at the 41 entries `uniall_oom.json` held when it was written. The file now holds 138, all
 off-roster, all unsettled, none ever asked above 7 GB. Regenerating the list from the refusal
 file rather than from memory is the whole of today's unblocking.
+
+### defect 51 — the guard against a wrong recurrence read nothing for 36% of the results
+
+`sweep_shard` has exactly one empirical check on a result it is about to keep: recompute each
+published term from the recurrence and refuse the hit if any disagrees. It runs at indices
+satisfying both `off + k > nthr` and `k >= order`.
+
+A183618 has order 30 and fourteen published terms. There is no such index. **The guard tested
+nothing and printed exactly what it prints when a result passes** — which is nothing.
+
+It is not one entry. **2,132 of 5,987 held results have a DATA field shorter than the order of
+the recurrence proved for them**, so every one of those passed a guard that read zero terms.
+The distribution is not a tail either: the modal number of terms tested is 0, and the next most
+common values are 11–19.
+
+**This does not make them wrong, and the reason matters.** The model is matched term-for-term
+against the whole DATA field before any recurrence is derived (`tv[s:s+len(d)] == d`, and a
+mismatch is recorded as `model does not match DATA`), and the recurrence comes from the
+transfer matrix by annihilation rather than from fitting terms. So what was uncovered is the
+independent check on the annihilation step alone — the only step with no second witness.
+
+For Hardin's entries that witness is free and was sitting on disk. DATA stops at fourteen terms
+where the b-file runs to a hundred or more, and `bcache/` already held 3,377 of them. With no
+network at all: **1,560 proved recurrences tested at 289,903 b-file indices, orders up to 99,
+zero failures.** Of the results whose own guard had read nothing, 886 are now verified on
+151,921 indices. A183618 holds at all 87 of its testable indices, with all 30 coefficients
+identical to the entry's own `Empirical:` line.
+
+Zero failures across 1,560 recurrences is the strongest evidence this project has that the
+engines are right. It is also the first evidence of that kind, which is the uncomfortable half:
+36% of the results had nothing behind them but the engine's own arithmetic, and the check that
+would have caught a wrong annihilation had been silently inert since the beginning.
+
+**A cache-only pass writes `no cached b-file`, which is a fact about this machine.** Left in
+the state file it made `FETCH=1` a no-op — 4,426 results recorded as unreachable by a pass that
+was not allowed to reach them, then skipped by the run whose whole job was to. A resume must
+discard the conclusions the new run is able to overturn.
+
+### an out-of-memory row can be a statement about the clock
+
+A183618's row in `uniall_oom.json` said 6 GB refused it. Asked alone: **364 seconds, peak RSS
+0.07 GB.** Seventy megabytes. Nothing about that entry was ever a memory problem. What refused
+it was every budget it had been asked under, all shorter than 364 seconds.
+
+The file is written from two places and only one is honest. `uniform.build` raising MemoryError
+against the shard's `RLIMIT_AS` is a fact about the entry. The in-flight marker is not: the
+shard died recording nothing, the boot stamp said the container had not restarted, so the next
+round wrote the entry down as having died at `MEMGB`. A shard the cgroup killed while
+twenty-eight runners shared 15 GB has learned nothing about whichever entry it happened to be
+holding when the kernel chose it.
+
+The cost is not bookkeeping. `sweep_shard` skips when `MEMGB <= GOOM[a]`, so a row recorded at
+6 GB locks that entry out of every runner at 6 GB or less, for ever. `rcaprun`, `resrun` and
+`t21run` were all idle tonight reporting nothing but `out of memory on an earlier pass, at this
+limit or more` — declining to ask entries that may need seventy megabytes and six minutes.
+`src/oomtruth.py` measures each row alone and records the two numbers that decide which file it
+belongs in. The population is also growing faster than it is read: 138 rows at the start of
+tonight, 197 after the merges.
