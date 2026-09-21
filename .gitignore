@@ -162,3 +162,11 @@ engine/zeilb-[3-8].json
 # alone, which is 13 per cent of everything at the engine root in one day, and the root is
 # tracked because a container restart wipes it. Only a STANDING sweep's state belongs in git.
 engine/scratch/
+
+# rank.py's lock. It was committed by a broad `git add -A' while rank.py held it, and a
+# TRACKED lock is worse than a stray file: rank.py refuses to run while one exists, so a fresh
+# checkout would ship a stale lock and the ranking step would refuse to run at all, silently,
+# for ever. Never track a lock, a pid or an in-flight marker.
+engine/papers-ranked.lock
+# staging file for one install run, rewritten every time
+engine/snd_install.json
