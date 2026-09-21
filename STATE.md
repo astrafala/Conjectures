@@ -1611,3 +1611,28 @@ new cap raises `MemoryError` and is recorded honestly, which is information rath
 **This is the third stale refusal list tonight** — `oomlist.txt` at 41 rows when the file held
 138, `realcap2.txt` and `realcap.txt` here. A list generated from a refusal file is a snapshot,
 and every one of them was being treated as though it were a query.
+
+### defect 55 — the hourly merge kills the runners it is merging for
+
+Every unified file is read by seventy shards at startup and written by `merge_shards`. The
+writes were plain `json.dump(open(f, 'w'))`, which truncates first and writes second. A shard
+starting during a merge reads a half-written file and dies with `JSONDecodeError` before its
+first entry.
+
+Nineteen such deaths sit in tonight's runner logs — `uniall_done.json` torn at char 3,646,799,
+`uniall_hits.json` at 3,203,111, across `cap_run`, `oom_run`, `res_run`, `t21_run`, both
+`t17c` shards and both `tmo` shards. Each one cost a whole round.
+
+**They were invisible until defect 52.** A shard that dies at line 89 comes back in under a
+second, and the idle backoff read that as the vein being read out. So the merge — which runs
+every hour, on the hour, against every runner at once — has been stopping runners and reporting
+it as exhaustion. Two defects that each hid the other: the crash looked like an empty vein, and
+the empty vein explained away the crash.
+
+`merge_shards` and `merge_sharded` both write through `atomicjson` now, six files and two. A
+reader sees the old file or the new one.
+
+**Third instance of the same defect tonight**, after `dc_phase5.save()` and `bsweep`. The rule
+is worth stating once: *any file a long-running process reads at startup must be written by
+rename, not by truncate.* `atomicjson` has existed in this project since two shard files were
+destroyed that way, and the writers that predate it were never converted.

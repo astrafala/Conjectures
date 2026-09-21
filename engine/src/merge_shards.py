@@ -6,6 +6,14 @@ This is the one place they come together, and it takes the same lock sweep_uni.p
 the same reason: whoever writes uniall_hits.json last would otherwise drop what the others
 found, silently and with a correct-looking count.
 """
+# EVERY UNIFIED FILE HERE IS READ BY SEVENTY SHARDS AND WRITTEN BY THIS. A plain
+# `json.dump(open(f, 'w'))' truncates first and writes second, so a shard starting during a
+# merge reads a file that is half-written and dies with JSONDecodeError before its first
+# entry. Nineteen such deaths are in tonight's runner logs -- uniall_done.json at char
+# 3,646,799, uniall_hits.json at 3,203,111 -- and each one cost a whole round. Until defect 52
+# they were invisible: the round came back in under a second and the idle backoff called the
+# vein read out. The merge runs every hour, on the hour, against every runner at once.
+import atomicjson
 import glob
 import json
 import os
@@ -73,9 +81,9 @@ try:
     for f in sorted(glob.glob(f'shard{TAG}_died_*.json')):
         for a, c in json.load(open(f)).items():
             dieds[a] = dieds.get(a, 0) + int(c)
-    json.dump(hits, open(HITS, 'w'), indent=1)
-    json.dump(sorted(done), open(DONE, 'w'))
-    json.dump(caps, open(CAPS, 'w'), indent=0, sort_keys=True)
+    atomicjson.dump(hits, HITS, indent=1)
+    atomicjson.dump(sorted(done), DONE)
+    atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
     # Prune the settled: an entry proved since it was recorded is not an entry the container
     # refuses, and a refusal list that is never retracted becomes exactly the thing this file
     # was written to stop uniall_caps.json being.
@@ -96,15 +104,15 @@ try:
     if goned:
         print(f'  {len(goned)} death rows retired: proved since they were recorded')
     if oom:
-        json.dump(oom, open(OOM, 'w'), indent=0, sort_keys=True)
+        atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
     elif os.path.exists(OOM):
         os.remove(OOM)
     if tmo:
-        json.dump(tmo, open(TMO, 'w'), indent=0, sort_keys=True)
+        atomicjson.dump(tmo, TMO, indent=0, sort_keys=True)
     elif os.path.exists(TMO):
         os.remove(TMO)
     if dieds:
-        json.dump(dieds, open(DIED, 'w'), indent=0, sort_keys=True)
+        atomicjson.dump(dieds, DIED, indent=0, sort_keys=True)
     elif os.path.exists(DIED):
         os.remove(DIED)
     print(f'{added} new hits, {ndone} newly processed; {len(hits)} hits, {len(done)} done'

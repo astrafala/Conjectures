@@ -12,6 +12,14 @@ cap cannot quietly change the claim a paper was built from.
     python3 src/merge_sharded.py            # every known sweep
     python3 src/merge_sharded.py tabnew     # one of them
 """
+# EVERY UNIFIED FILE HERE IS READ BY SEVENTY SHARDS AND WRITTEN BY THIS. A plain
+# `json.dump(open(f, 'w'))' truncates first and writes second, so a shard starting during a
+# merge reads a file that is half-written and dies with JSONDecodeError before its first
+# entry. Nineteen such deaths are in tonight's runner logs -- uniall_done.json at char
+# 3,646,799, uniall_hits.json at 3,203,111 -- and each one cost a whole round. Until defect 52
+# they were invisible: the round came back in under a second and the idle backoff called the
+# vein read out. The merge runs every hour, on the hour, against every runner at once.
+import atomicjson
 import glob
 import json
 import os
@@ -45,8 +53,8 @@ def merge(stem):
             continue
         nd += len(s - done)
         done |= s
-    json.dump(hits, open(hits_f, 'w'), indent=1)
-    json.dump(sorted(done), open(done_f, 'w'))
+    atomicjson.dump(hits, hits_f, indent=1)
+    atomicjson.dump(sorted(done), done_f)
     return added, len(hits), nd, len(done)
 
 
