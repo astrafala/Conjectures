@@ -945,3 +945,29 @@ a refusal that costs nothing is never written down — the same shape as defect 
 timeout was recorded as a settlement. Checked: 486 of 486 are on the roster, 0 genuinely
 unasked. The empty result dict in the log is the only statement either way that is actually
 true.
+
+### defect 46 — a zero produced by a swallowed exception is not a measurement
+
+Twice in one night, and the second time within an hour of writing up the first:
+
+* the query "does this project model this sequence" looked for a `coeffs` key. A
+  generating-function record has no `coeffs`; it carries `degnum` and `degden`. The query
+  reported **0 models for 12 entries** whose records read `engine: ca2d, S: 8` in plain sight,
+  and that zero was one step from withdrawing eighty sound papers.
+* the query "how many capped `transfer17` entries carry a conjecture" called
+  `conjlines.recs(e)`. There is no such function — it is `conjlines.claims` — and the call sat
+  inside `try: ... except Exception: pass`, so every one of the 118 raised `AttributeError` and
+  the answer came back **0 of 118**. IDEAS AP.3 had recorded 82 six days earlier. Asked
+  correctly: **80**.
+
+A zero is the cheapest wrong answer to produce and the most expensive to act on, because it
+reads as a finished search. Two habits, and neither costs anything:
+
+1. **Never wrap a probe in a bare `except Exception: pass`.** The except is there for the entry
+   that genuinely cannot be read; it silently absorbs a typo in the function name just as
+   willingly. Catch what the data can do, let a `NameError` or an `AttributeError` out.
+2. **Before believing a zero, make the same query return a non-zero on a case you already
+   know.** Either query above would have failed that test in one line.
+
+The same shape as defect 38, where a harness returned its own `TypeError` as the compared value
+and 99 entries "matched". A measurement that cannot fail is not a measurement.
