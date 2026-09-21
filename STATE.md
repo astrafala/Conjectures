@@ -1344,3 +1344,26 @@ generation seen, not `BUDGET` against the average. By that rule the earlier chan
 luckier than they were reasoned: `t17run`'s 420 is really up to 21 minutes per entry.
 `tmorun` is 300 now — a 15-minute worst case, about four entries per shard per generation, and
 still more than three times the ninety seconds most of its list was refused at.
+
+### A recovery message marks where a generation BEGAN, not what it did
+
+`tmorun.sh` looked stuck: its shard-0 log held two lines across two container generations, both
+`previous shard on A183358 was killed by a container restart, re-asking`, and A183358 was
+recorded at 150 rather than at the runner's 300. I read that as a loop and started building a
+case that `SIGALRM` was not being delivered inside long C-level calls — a genuine limit of the
+budget mechanism, which would have gone into this file as a fact.
+
+**It was wrong, and measuring it is what showed that.** Asked directly with a 60-second alarm,
+A183358 raised at exactly 60 seconds: the signal is delivered. Watched live, the shard moved
+A183358 → A183359 after its 300 seconds and wrote `{"A183358": 300}`. Nothing was stuck. The
+vein has since re-asked four of its 62 at the higher budget and recorded each honestly.
+
+**A container-restart recovery line says only where a generation started.** It is written at
+startup, about the PREVIOUS generation's death; it carries no information about the entries the
+generation then processed, because those are recorded silently in the shard files and swept away
+by the next `merge_shards`. Two such lines in a log are two generations, not a loop. To tell a
+loop from progress, read the in-flight marker twice a minute apart, or read the refusal lists
+for the budget the entry was last refused at — never the log alone.
+
+The near-miss is the lesson. A plausible mechanism, a symptom that fits it, and a file that
+would have carried it for ever — with the measurement that refutes it costing sixty seconds.
