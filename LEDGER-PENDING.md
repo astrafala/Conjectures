@@ -101,3 +101,36 @@ not at all. Measured before fixing: A252112 asked alone under the runner's own s
 `build timed out` and wrote `{"A252112": 420}`. The machinery was right; nothing read it. With
 the guard in place the vein moved again within the hour — 14 entries newly asked at 8,000,000,
 ten of which genuinely exceed it.
+
+## 21 September, late: five results, and the discovery that a third of the record had no witness
+
+**Five results installed**, each on a distinct entry, papers 13,765 → 13,782.
+
+| entry | order | evidence |
+|---|---:|---|
+| A183618 | 30 | 30 coefficients identical to the entry's own `Empirical:` line; holds at all 87 testable indices of its 117-term b-file |
+| A208412 | 29 | threshold n>32; verified at 178 b-file indices |
+| A252381 | — | checked mechanically against the entry's own recurrence line; its DATA guard read 22 terms |
+| A252420 | — | checkclaim: coefficients and threshold identical; fresh live fetch, revision 6, open |
+| A252470 | — | checkclaim: coefficients and threshold identical; fresh live fetch, revision 6, open |
+
+**The finding that matters more than the five.** `sweep_shard` keeps a proved recurrence only
+if it reproduces the entry's published terms, testing index `k` when `off + k > nthr` and
+`k >= order`. A183618 has order 30 and fourteen published terms, so there was no such index:
+the guard read nothing and printed what it prints on success.
+
+**2,132 of 5,987 held results — 36% — are in that position.** They are not thereby wrong; the
+model is matched against the whole of DATA before any recurrence is derived, and the recurrence
+comes from the transfer matrix rather than a fit. What had no witness was the annihilation step
+alone. Cached b-files supply one, and have now tested **2,358 proved recurrences at 412,240
+indices, orders to 99, with zero failures**. `sweep_shard` falls back to the b-file when DATA
+is short, and every hit records `btested`, so a result can no longer carry silence where its
+evidence should be.
+
+**Three defects.** (50) `BUDGET` is per-phase, so an entry costs `3*BUDGET`; five runners had
+an outer `timeout` smaller than that, and four entries had been written down as 11 GB memory
+refusals when a shell timeout killed them — withdrawn. (51) the guard above. And an
+out-of-memory row can mean anything: A183618's said 6 GB and means 391 seconds and 0.07 GB.
+
+**Still open:** 7,256 open conjectures have never been checked against their b-files — the
+largest untouched population here, and the disproof side.
