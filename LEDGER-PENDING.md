@@ -53,3 +53,18 @@ an entry with no parsable line is withheld too and named, since absence of a lin
 evidence against a claim. It does not replace the reading — whether a line is the entry's
 conjecture at all still needs a human pass, and that is what caught the `ca2dcount` family.
 Validated against the eleven already installed: **11 of 11 re-verified, 0 disagreements.**
+
+## 21 September 2026 (twelfth) — the memory reallocation pays for itself
+
+**A251843**, S=66,006, an order-42 recurrence in steps of three, stated on the entry for `n>50`
+against 19 published terms. Roster 13,776 → 13,777.
+
+It is the first result found by `checkclaim.py` rather than by hand, and more to the point **it
+is one of the 13 entries that had been refused at `MEMGB=5`**. Raising the limit to 7 GB — paid
+for by stopping `t17big.sh`, whose 25 entries had produced nothing in three hours — released it
+with no bookkeeping at all, because a memory refusal is skipped only while `MEMGB` is no larger
+than the limit it failed under. The reallocation was argued from the counts and it returned a
+result within the hour.
+
+Twelve now. The vein's 55 small-shape entries stand at 12 proved, 14 refused at 5 GB and
+re-askable, 29 never yet asked at 8,000,000.
