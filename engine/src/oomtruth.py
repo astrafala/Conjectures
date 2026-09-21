@@ -56,6 +56,25 @@ print(json.dumps({'status': 'refused-at-cap' if b is None else 'built',
 '''
 
 
+def avail_gb():
+    """what the container had FREE at this moment, in GB
+
+    Without it a SIGKILL is uninterpretable, and uninterpretable in exactly the way this script
+    exists to fix. A185885's child was killed with rc=-9 while 9 of 15 GB were held by a hundred
+    and twenty-eight other processes: what that says is "it wanted more than the five gigabytes
+    that happened to be free", not "it needs more than the nine it was allowed". Recording the
+    number turns a kill into a fact that can be read months later, and lets a kill under plenty
+    be told from a kill under pressure.
+    """
+    try:
+        for ln in open('/proc/meminfo'):
+            if ln.startswith('MemAvailable:'):
+                return round(int(ln.split()[1]) / 1048576.0, 2)
+    except OSError:
+        pass
+    return None
+
+
 def main():
     rows = json.load(open('uniall_oom.json'))
     state = json.load(open(OUT)) if os.path.exists(OUT) else {}
@@ -63,12 +82,14 @@ def main():
     print(f'{len(rows)} oom rows, {len(state)} measured, {len(todo)} to ask', flush=True)
     for a in todo:
         t0 = time.time()
+        free0 = avail_gb()
         try:
             p = subprocess.run([sys.executable, '-c', CHILD, a, str(CAP)],
                                capture_output=True, text=True, timeout=BUDGET)
         except subprocess.TimeoutExpired:
-            state[a] = {'status': f'over {BUDGET}s', 'recorded_gb': rows[a]}
-            print(f'{a:<10} over {BUDGET}s', flush=True)
+            state[a] = {'status': f'over {BUDGET}s', 'recorded_gb': rows[a],
+                        'avail_gb_at_start': free0}
+            print(f'{a:<10} over {BUDGET}s   ({free0} GB free at start)', flush=True)
         else:
             line = (p.stdout or '').strip().splitlines()
             if p.returncode != 0 or not line:
@@ -76,12 +97,18 @@ def main():
                 # entry. Named as such rather than folded back into a memory refusal, which is
                 # the whole mistake this script exists to stop repeating.
                 tail = (p.stderr or '').strip().splitlines()
+                free1 = avail_gb()
                 state[a] = {'status': 'child died', 'rc': p.returncode,
-                            'stderr': tail[-1] if tail else '', 'recorded_gb': rows[a]}
-                print(f'{a:<10} child died rc={p.returncode} {state[a]["stderr"][:70]}', flush=True)
+                            'stderr': tail[-1] if tail else '', 'recorded_gb': rows[a],
+                            'avail_gb_at_start': free0, 'avail_gb_at_death': free1,
+                            'secs': round(time.time() - t0, 1)}
+                print(f'{a:<10} child died rc={p.returncode} after '
+                      f'{state[a]["secs"]}s, {free0} GB free at start and {free1} at death '
+                      f'-- a KILL IS NOT A FOOTPRINT  {state[a]["stderr"][:50]}', flush=True)
             else:
                 d = json.loads(line[-1])
                 d['recorded_gb'] = rows[a]
+                d['avail_gb_at_start'] = free0
                 state[a] = d
                 if d['status'] == 'built':
                     print(f'{a:<10} BUILT S={d["S"]:<9} {d["secs"]:>7.1f}s  peak '
