@@ -37,12 +37,23 @@
 # runs out of budget is NAMED in uniall_tmo.json with the budget it failed under. So the
 # entries this cuts off become a list to re-ask at a longer budget on a quieter machine,
 # rather than the silence they were before.
+# TWO shards at 7 GB, not three at 5. Memory is what refuses this list, not the cap and not
+# the clock: of its 55 entries, 11 are proved and 13 exceeded MEMGB=5 -- more than were refused
+# for any other reason. Three shards at 5 GB already claim 15 GB on a 15 GB machine, so the
+# only way to raise the limit is to run fewer of them.
+#
+# This costs a third of the parallelism and re-opens 13 entries, because sweep_shard skips an
+# out-of-memory row only while MEMGB is no larger than the limit it failed under (defect 48) --
+# so raising the limit releases them with no bookkeeping at all. t17big.sh is stopped to pay
+# for it: its 25 entries have produced nothing in three hours while holding 7 GB, and moving
+# memory from the population that has produced nothing to the one that has produced eleven is
+# the whole of the argument.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
-  for i in 0 1 2; do
-    ANUMS_FILE=deep-check/t17small.txt BUDGET=420 TAG=t17c MEMGB=5 \
-      timeout 1700 python3 src/sweep_shard.py 8000000 $i 3 >> /tmp/t17c_$i.log 2>&1 &
+  for i in 0 1; do
+    ANUMS_FILE=deep-check/t17small.txt BUDGET=420 TAG=t17c MEMGB=7 \
+      timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/t17c_$i.log 2>&1 &
   done
   wait
   _el=$(( $(date +%s) - _t0 ))
