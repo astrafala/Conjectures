@@ -1558,3 +1558,30 @@ longer clock can change. 146 of the 222 have no clock row either and are open to
 **The definition-order trap caught me again while writing this.** `died = json.load(open(DIED))`
 went in forty lines above `DIED = ...`, which is the same `NameError`-on-first-statement that
 made twenty `oomrun` rounds die silently. Checked by character offset rather than by reading.
+
+### the defect-53 migration answered its own question in one generation
+
+The migration was built so that the record would correct itself: `MemoryError` still writes
+`uniall_oom.json`, so an entry that genuinely wants more memory re-establishes its own row the
+first time it is asked again, while an entry that was only ever a dead shard does not. One
+generation later, every one of the 222 migrated rows has been re-asked and classified.
+
+| what the row turned out to be | count |
+|---|---:|
+| genuine `MemoryError`, row re-established by the untouched handler | **106** |
+| refused by the CAP | 93 |
+| refused by the CLOCK | 21 |
+| asked, no verdict recorded | 2 |
+
+**116 of 222 — 52% — were not memory facts at all**, and not one of them is merely unexamined:
+every single one came back with a different verdict. They had been excluded from every runner
+at their recorded limit or below, permanently, on no evidence.
+
+The two halves matter separately. **The honest handler works**: 106 rows returned at once, at
+5, 6, 7, 9 and 11 GB, so nothing real was lost by emptying the file. **The marker path was
+writing fiction**: 114 of the remaining 116 are cap or clock refusals — both reachable by
+changing a setting, neither needing a bigger machine.
+
+This is the standing habit paying out exactly as it usually does. The vein was not hidden by
+mathematics. It was hidden by a sweep recording two different facts in one file under the name
+of the more discouraging one.

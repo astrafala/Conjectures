@@ -2288,6 +2288,11 @@ a permanent exclusion from every runner at that limit or below. `rcaprun`, `resr
 `t21run` were all idle tonight reporting nothing but `out of memory on an earlier pass` —
 declining to ask entries that need seventy megabytes and half a minute.
 
-**Pool: 207 rows and growing about ten an hour.** `src/oomtruth.py` measures each alone and now
-records MemAvailable at the start, and at the death for a kill, because a kill under plenty and
-a kill under pressure are different facts and were indistinguishable.
+**SETTLED, and the answer is about half.** Measuring row by row could never keep up — 138 rows
+at 21:00, 222 at 22:45, against `oomtruth` managing five an hour — so the two facts were
+separated instead (STATE.md defect 53) and the record was made to correct itself. One
+generation later all 222 have been re-asked: **106 are genuine `MemoryError` and re-established
+their own rows; 116 are not memory at all** — 93 refused by the cap, 21 by the clock, 2 with no
+verdict recorded. None was left unexamined. The 116 had been excluded from every runner at
+their recorded limit or below, permanently, and 114 of them are reachable by changing a setting
+rather than by a bigger machine.
