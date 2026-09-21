@@ -14,6 +14,23 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 
+# A WITHDRAWN argument is not a result waiting to be installed. 17 of the 45 entries this
+# listed were named in WITHDRAWN.md, so the live re-check fetched 17 entries from the OEIS to
+# confirm a conjecture the project had already decided not to claim, and the backlog read 60%
+# larger than it was. The builders refuse them -- but only after that cost.
+#
+# The label, not the A-number: a withdrawal blocks the ARGUMENT, and a different engine
+# settling the same open conjecture is a new result, not the withdrawn one returning (that is
+# `withdrawnset.blocked''s own docstring). A hits record carries the SWEEP engine (`ca2d',
+# `ca2dcount') while WITHDRAWN.md records the ROSTER label (`automaton-axis',
+# `gf-conjecture'), so the sweep name has to be mapped through `integrate_rest_names.name'
+# first -- comparing the two namespaces directly would block nothing at all. Checked on all
+# 17: every one is the same argument that was withdrawn, re-offered by its surviving record,
+# and none is a second engine on the same entry.
+import integrate_rest_names
+import withdrawnset
+
+
 def L(f):
     try:
         return json.load(open(f))
@@ -63,7 +80,9 @@ for pat in ('shard*_hits*.json', 'ordwhole_hits.json', 'tabnew_hits.json', 'tabn
             # counted as pending, and waiting for a paper nothing will ever build. Every
             # installer filters FAILS; the list of what they will install did not.
             if (isinstance(h, dict) and h.get('anum') and not h.get('FAILS')
-                    and h['anum'] not in roster):
+                    and h['anum'] not in roster
+                    and not withdrawnset.blocked(h['anum'],
+                                                 integrate_rest_names.name(h.get('engine')))):
                 new.add(h['anum'])
 new |= {x['anum'] for x in (L('ordtails.json') or {}).get('proved', [])
         if x['anum'] not in roster}
