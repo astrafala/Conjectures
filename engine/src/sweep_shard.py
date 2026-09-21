@@ -100,6 +100,17 @@ try:
     GOOM = {k: float(v) for k, v in json.load(open('uniall_oom.json')).items()}
 except Exception:
     GOOM = {}
+# ...and the same for the CLOCK. This is the half of defect 48 that was missing, because
+# uniall_tmo.json did not exist when the memory half was written: merge_shards deletes the
+# per-shard done file, the timeout rows are folded into uniall_tmo.json, and nothing consulted
+# it -- so every generation re-asked the same entries and spent the whole budget rediscovering
+# the same timeout. Measured on A252112: it needs more than 420s at 7 GB, and both t17c shards
+# had been looping on it and A251948 for hours, recording correctly and advancing not at all.
+# Released as soon as BUDGET exceeds the budget it failed under, exactly as for memory.
+try:
+    GTMO = {k: float(v) for k, v in json.load(open('uniall_tmo.json')).items()}
+except Exception:
+    GTMO = {}
 GHITS = ({h['anum'] for h in json.load(open('uniall_hits.json'))}
          if os.path.exists('uniall_hits.json') else set())
 hits = json.load(open(HITS)) if os.path.exists(HITS) else []
@@ -270,6 +281,9 @@ for a in sorted(set(CANDS) | ANUMS):
         continue
     if MEMGB <= GOOM.get(a, 0):
         res['out of memory on an earlier pass, at this limit or more'] += 1
+        continue
+    if BUDGET <= GTMO.get(a, 0):
+        res['out of budget on an earlier pass, at this budget or more'] += 1
         continue
     # `done` is this shard's own record and is always honoured --- ignoring it made every
     # interrupted rerun reprocess from the front and append the same hits again. Only the

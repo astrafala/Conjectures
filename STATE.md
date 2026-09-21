@@ -1300,3 +1300,29 @@ A related misreading, worth naming because it cost a minute twice tonight: `ps` 
 `sweep_shard.py 8000000 0 3` after the change and I read it as t17run still running three
 shards. It was `readable.sh`, which also uses an 8,000,000 cap. **The cap is not an identifier.**
 Match a runner's shards by the runner's own `ANUMS_FILE` or by parentage, never by the cap.
+
+### defect 48, the half that was missing — and the tag that is invisible
+
+`sweep_shard` learned to skip an entry the MACHINE had refused (`uniall_oom.json`), but not one
+the CLOCK had refused, because `uniall_tmo.json` did not exist when that guard was written. So:
+`merge_shards` deletes the per-shard done file, the timeout rows are folded into
+`uniall_tmo.json`, nothing consults it, and **every generation re-asks the same entries and
+spends the whole budget rediscovering the same timeout.** Both `t17c` shards had been looping on
+A252112 and A251948 for hours, recording correctly and advancing not at all.
+
+Measured before fixing: A252112 asked alone with the runner's own settings reported
+`build timed out` and wrote `{"A252112": 420}`. The machinery was right; nothing read what it
+wrote. `sweep_shard` now skips an entry whose recorded budget is at least its own `BUDGET`, and
+releases it the moment `BUDGET` is larger — the memory rule, for the clock. Both directions
+tested: skipped at 420, asked again at 900.
+
+**The tag that is invisible.** Chasing this, 54 timeout rows appeared to vanish between two
+commands. They had not: they were in the UNTAGGED shard files, `shard_tmo_0.json` and friends,
+and the command that listed the tags rendered the empty tag as an empty string, so the output
+read as `" t17c "` and I read it as "only t17c". **`TAG=` is a real tag and it is the one the
+biggest runners use.** When folding or auditing by tag, run the empty one explicitly — the
+untagged fold turned 2 recorded timeouts into 59, and 116 out-of-memory rows.
+
+The scale is the point. `uniall_tmo.json` now holds **59 entries the clock refused** at budgets
+of 90, 150 and 420 seconds — a population that before defect 49 would have been recorded as
+exceeding the cap, and that a longer budget on a quieter machine can simply have.
