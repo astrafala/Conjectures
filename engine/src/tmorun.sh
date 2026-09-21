@@ -29,12 +29,22 @@
 # sweep_shard skips an entry whose recorded budget is at least its own, and releases it when
 # BUDGET is larger, so pointing a 900-second runner at this list re-asks all 62 with no
 # bookkeeping. Whatever it cannot settle is recorded again, at 900, and stays honest.
+#
+# THE BUDGET THIS ASKS AT HAD ALREADY REFUSED MOST OF THE LIST. 39 of tmolist's 62 entries
+# carry a uniall_tmo.json row saying the clock refused them at 300 seconds or more, and this
+# asked at exactly 300 -- defect 54's shape, in the vein whose whole subject is the clock.
+# Raised to 500, at which all 62 are a new question (the worst row is 420).
+#
+# 500 and not more because BUDGET is PER PHASE: build, terms and threshold each arm their own
+# alarm, so one entry costs up to 3*BUDGET = 1500s, and the outer `timeout 1700' has to be
+# larger than that or a slow entry is killed with its marker on disk and written down as
+# something it is not (defect 50).
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   _pids=""
   for i in 0 1; do
-    ANUMS_FILE=deep-check/tmolist.txt BUDGET=300 TAG=tmo MEMGB=6 \
+    ANUMS_FILE=deep-check/tmolist.txt BUDGET=500 TAG=tmo MEMGB=6 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/tmo_$i.log 2>&1 &
     _pids="$_pids $!"
   done

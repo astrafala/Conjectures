@@ -1636,3 +1636,29 @@ reader sees the old file or the new one.
 is worth stating once: *any file a long-running process reads at startup must be written by
 rename, not by truncate.* `atomicjson` has existed in this project since two shard files were
 destroyed that way, and the writers that predate it were never converted.
+
+### defect 54 again, twice more — and the check that finds it in one line
+
+`tmorun.sh` reads `deep-check/tmolist.txt` and asked at `BUDGET=300`. **39 of its 62 entries
+carry a `uniall_tmo.json` row saying the clock refused them at 300 seconds or more.** The vein
+whose entire subject is the clock was re-asking at a budget already known to be too short.
+Raised to 500, at which all 62 are a new question — the worst row is 420 — and not higher,
+because `BUDGET` is per phase and `3 * 500 = 1500` must stay under the outer `timeout 1700`
+(defect 50).
+
+`realcap2.txt` had a second kind of dead weight. With the cap fixed, `caprun`'s dominant
+refusal became `not open` — 41 in one round — which is `openness.status` saying the entry's
+conjecture is already settled and there is nothing to prove. **117 of its 375 entries.**
+Dropped; 258 remain.
+
+**Four stale lists in one night** — `oomlist` (41 rows against a file of 138), `realcap2` and
+`realcap` (asked at the cap that had refused them), `tmolist` (asked at the budget that had
+refused it). The check is one line and belongs before trusting any runner list:
+
+    for each entry on the list: is it already in the refusal file AT OR ABOVE the setting
+    this runner uses? and is its conjecture still open?
+
+Run over all five lists, only `realcap2` had entries with nothing to prove; `realcap`,
+`tmolist`, `oomlist` and `t17small` are all fully open. So this is not a general rot in the
+lists — it is specifically that **a list generated from a refusal file is a snapshot, and the
+setting it was generated for is part of the snapshot.** Neither half is carried in the filename.
