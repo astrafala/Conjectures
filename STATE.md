@@ -1109,6 +1109,27 @@ Both branches were tested with planted markers before this was trusted — a rec
 runs after a crash, which is exactly the kind of code that goes untested until it matters. The
 reboot branch recorded nothing and marked nothing done; the death branch recorded both.
 
+**And the first version of it was wrong, in two ways, both caught in production within an
+hour.**
+
+It stamped UPTIME and asked whether the marker's number was larger than the current one,
+reasoning that uptime only increases within a boot. True, and still wrong: a marker written 10
+seconds into the previous boot, read 20 seconds into the new one, carries the SMALLER number and
+reads as a genuine death. A252303 and A252147 were killed by the 05:47 restart and retired as
+refusals by exactly that. **The stable quantity is BOOT TIME — `time.time()` minus uptime —
+which is constant within a boot and needs no reasoning about which number is bigger.** Two of
+the three shards did classify their restarts correctly, which is what makes this kind of bug
+expensive: it works most of the time.
+
+The second way was worse and is defect 46 for the fourth time, in code written while documenting
+defect 46. The `import time` was never added, `time.time()` raised `NameError` inside `_boot()`,
+and `except Exception: return -1` turned that into a sentinel — so `_boot()` returned -1 for
+every call, `abs(-1 - anything) > 5` held always, and every marker read as a container restart,
+genuine deaths included. The test caught it only because it asserted the DEATH branch as well as
+the reboot branch. **A guard clause that returns a sentinel on `Exception` will hide the bug you
+just introduced.** It catches `OSError` now, which is the only failure reading `/proc` that is
+data rather than a mistake.
+
 This also retires the hand-rule written a few hours earlier ("after killing a runner, check its
 oom and done files for whatever was in flight") for the restart case, though not for a
 deliberate `kill`, which leaves uptime unchanged and is still indistinguishable from a real

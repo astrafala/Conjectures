@@ -26,7 +26,7 @@ terms are, so one conversion serves them all.
 """
 import json
 
-import atomicjson, re, os, sys, collections, gc, resource, signal, zlib
+import atomicjson, re, os, sys, collections, gc, resource, signal, zlib, time
 
 # Without an address-space limit the KERNEL decides what a runaway build costs, and it kills the
 # whole shard rather than the one entry. STATE.md records that re-asking `deep-check/capped.txt`
@@ -117,7 +117,7 @@ res = collections.Counter()
 
 
 def _boot():
-    """Seconds of machine uptime, rounded, as a stamp for WHICH boot wrote this marker.
+    """The wall-clock time this machine booted, as a stamp for WHICH boot wrote the marker.
 
     A container restart kills a shard exactly as the OOM killer does, and the recovery below
     cannot tell them apart from the marker alone -- so every restart retired one entry as a
@@ -125,13 +125,23 @@ def _boot():
     this was written, and t17big.sh asks entries that take tens of minutes each: left alone,
     the restarts would have retired its whole list without ever refusing anything.
 
-    The distinction is free. `up' only ever increases within one boot, so a marker whose
-    recorded uptime is GREATER than the current uptime was written before a reboot. That is a
-    container restart, and the entry is owed another ask, not a refusal.
+    The first version of this stamped UPTIME and compared `marker > current', reasoning that
+    uptime only increases within a boot. That is true and still gets it wrong: a marker written
+    10 seconds into the previous boot, read 20 seconds into the new one, has the SMALLER number
+    and reads as a genuine death. It misfired the first time it ran in production, on A252303
+    and A252147, both of which were killed by the 05:47 restart and recorded as refusals.
+
+    Boot time -- now minus uptime -- is constant within a boot and differs across boots, so
+    comparing it needs no reasoning about which number is larger. A few seconds of tolerance
+    absorbs clock jitter and the rounding.
     """
+    # NOT `except Exception: return -1'. That sentinel is what hid a missing `import time':
+    # _boot() returned -1 on every call, `abs(-1 - anything) > 5' held always, and every marker
+    # read as a container restart -- genuine deaths included. An OSError reading /proc is the
+    # only failure worth tolerating; a NameError is a bug and must not be dressed up as data.
     try:
-        return int(float(open('/proc/uptime').read().split()[0]))
-    except Exception:
+        return int(time.time() - float(open('/proc/uptime').read().split()[0]))
+    except OSError:
         return -1
 
 
@@ -179,7 +189,7 @@ if os.path.exists(INFLIGHT):
     except Exception:
         _prev = None
 _rebooted = (_prev is not None and _prev.get('boot') is not None
-             and _prev.get('boot', -1) > _boot())
+             and abs(_prev.get('boot', 0) - _boot()) > 5)
 if _prev and _prev.get('anum') and _rebooted:
     # The machine rebooted while this entry was in flight: the marker records more uptime than
     # the machine now has. The shard was killed by the restart, not by the entry, so the entry
