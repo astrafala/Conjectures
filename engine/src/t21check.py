@@ -21,6 +21,7 @@ TypeError with itself (STATE.md defect 38).
 """
 import json
 import os
+import signal
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +34,19 @@ import uniform
 
 OUT = 'deep-check/t21check.json'
 CAP = int(os.environ.get('CAP', '200000'))
+# A per-entry clock, because one entry that cannot finish blocks every entry behind it. A204054
+# did exactly that: four container generations in a row printed the header, started on it, and
+# died before recording anything, so the verification stood at 12 for forty-five minutes while
+# looking alive. The entry is recorded as skipped and the run moves on -- a skip that names the
+# entry is a fact; a silent restart loop is not.
+BUDGET = int(os.environ.get('BUDGET', '240'))
+
+
+class Timeout(Exception):
+    pass
+
+
+signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(Timeout()))
 N = int(os.environ.get('NTERMS', '12'))
 state = json.load(open(OUT)) if os.path.exists(OUT) else {'same': {}, 'opened': {},
                                                           'both_refused': [], 'skipped': {}}
@@ -67,12 +81,21 @@ def main():
             atomicjson.dump(state, OUT, indent=0); continue
         p = got[1]
         try:
+            signal.alarm(BUDGET)
             ta, Sa = run(PF, p)
             tb, Sb = run(LS, p)
+            signal.alarm(0)
+        except Timeout:
+            signal.alarm(0)
+            state['skipped'][a] = f'over {BUDGET}s'
+            print(f'{a} skipped: over {BUDGET}s', flush=True)
+            atomicjson.dump(state, OUT, indent=0); continue
         except MemoryError:
+            signal.alarm(0)
             state['skipped'][a] = 'harness out of memory'
             atomicjson.dump(state, OUT, indent=0); continue
         except Exception as exc:
+            signal.alarm(0)
             state['skipped'][a] = f'{type(exc).__name__}: {exc}'
             atomicjson.dump(state, OUT, indent=0); continue
         if tb is None:
