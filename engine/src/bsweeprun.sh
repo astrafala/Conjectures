@@ -21,6 +21,14 @@ for r in 1 2 3 4 5 6 7 8 9 10; do
   waitfetch
   _t0=$(date +%s)
   timeout 3000 python3 src/bsweep.py >> /tmp/bsweep_run.log 2>&1
+  # THE ONE FETCHING SLOT. Three sweeps now want b-files this machine does not have: bsweep's
+  # 7,092 open conjectures, provedsweep's 9,188 roster entries, and bproved's remainder. They
+  # cannot run at once -- bfile.fetch is rate-limited by a module global, so two processes
+  # simply double the request rate at oeis.org, and the only signal is a page saying
+  # "temporarily blocked". Running them one after another inside a single round is what keeps
+  # that from happening by accident, and it is why this runner waits for bproved above rather
+  # than starting beside it.
+  FETCH=1 BUDGET=1200 timeout 1500 python3 src/provedsweep.py >> /tmp/provedsweep.log 2>&1
   _rc=$?
   _el=$(( $(date +%s) - _t0 ))
   # IDLE BACKOFF (defect 44). A round that returns in seconds found nothing left to ask.
