@@ -1,6 +1,6 @@
 # Papers 06501-07000
 
-Ranks 6501 to 7000 of 13770, hardest first.
+Ranks 6501 to 7000 of 13773, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
@@ -499,8 +499,8 @@ Ranks 6501 to 7000 of 13770, hardest first.
 | 6993 | [A253932](https://oeis.org/A253932) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06993-PROOF.pdf](06993-PROOF.pdf) |
 | 6994 | [A204403](https://oeis.org/A204403) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06994-PROOF.pdf](06994-PROOF.pdf) |
 | 6995 | [A204496](https://oeis.org/A204496) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06995-PROOF.pdf](06995-PROOF.pdf) |
-| 6996 | [A303319](https://oeis.org/A303319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06996-PROOF.pdf](06996-PROOF.pdf) |
-| 6997 | [A305039](https://oeis.org/A305039) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06997-PROOF.pdf](06997-PROOF.pdf) |
-| 6998 | [A316692](https://oeis.org/A316692) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06998-PROOF.pdf](06998-PROOF.pdf) |
-| 6999 | [A252163](https://oeis.org/A252163) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06999-PROOF.pdf](06999-PROOF.pdf) |
-| 7000 | [A237856](https://oeis.org/A237856) | Proof | a condition on every cell over the neighbour set the entry names | [07000-PROOF.pdf](07000-PROOF.pdf) |
+| 6996 | [A252216](https://oeis.org/A252216) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06996-PROOF.pdf](06996-PROOF.pdf) |
+| 6997 | [A303319](https://oeis.org/A303319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06997-PROOF.pdf](06997-PROOF.pdf) |
+| 6998 | [A305039](https://oeis.org/A305039) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06998-PROOF.pdf](06998-PROOF.pdf) |
+| 6999 | [A316692](https://oeis.org/A316692) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06999-PROOF.pdf](06999-PROOF.pdf) |
+| 7000 | [A252163](https://oeis.org/A252163) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [07000-PROOF.pdf](07000-PROOF.pdf) |

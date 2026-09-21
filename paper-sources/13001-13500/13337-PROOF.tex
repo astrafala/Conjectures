@@ -12,20 +12,20 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251246, recovered from its tail}
+\title{The empirical recurrence for OEIS A264205, recovered from its tail}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{8 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251246 records ``Empirical recurrence of order $51$'' and keeps the recurrence itself in
+OEIS A264205 records ``Empirical recurrence of order $51$'' and keeps the recurrence itself in
 a linked file rather than in the entry, so the conjecture cannot be read off the entry at all.
 It can still be settled. The entry counts arrays under a condition local to a bounded window of
 lines, which makes the count a walk count on a finite digraph and forces a monic integer
-recurrence of order at most the number $S'=729$ of states with distinct futures. Berlekamp--Massey on
+recurrence of order at most the number $S'=4096$ of states with distinct futures. Berlekamp--Massey on
 enough exact terms therefore returns the minimal such recurrence, and on the whole sequence, so the recurrence holds from $n=52$ --- every index at which it can be written down.
-Its last coefficient is $c_{51}=835234548219950137344\neq0$, so no further tail satisfies anything
+Its last coefficient is $c_{51}=-1\neq0$, so no further tail satisfies anything
 shorter; any order-$51$ recurrence the sequence satisfies from any point on must then have
 the same characteristic polynomial. The entry's recurrence is the one displayed here, whatever
 its linked file contains, and it is proved.
@@ -35,15 +35,15 @@ its linked file contains, and it is proved.
 
 \section{A conjecture that is not written down}
 
-OEIS A251246 is ``Number of (n+1)X(5+1) 0..2 arrays with no 2X2 subblock having the sum of its diagonal elements less than the minimum of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A264205 is ``Number of (n+1)X(5+1) arrays of permutations of 0..n*6+5 with each element having index change +-(.,.) 0,0 0,2 or 1,0.''. It has offset $1$ and begins
 \[
-351891, 173028393, 85032883789, 41786532918513, 20534495636679387, 10090935221593972941, 4958824382557190011939, 2436834428903758977300429,\ \dots
+1024, 52441, 3404025, 205062400, 12652875225, 774686906569, 47551947307264, 2916406634175225,\ \dots
 \]
 The entry states:
 \begin{quote}
 Empirical recurrence of order 51 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:12:22, revision 6)
+As of the ``Last modified'' line on the live entry (Nov 10 2015 11:37:01, revision 6)
 this is still recorded as empirical, and it is still open. The coefficients are nowhere in the
 entry text: what is conjectured is only that a recurrence of that order exists.
 
@@ -59,10 +59,10 @@ a(n)\;=\;\iota^{\!\top}M^{\,j(n)}\tau
 \]
 for a linear reindexing $j$ fixed by the entry's shape. States with identical futures
 contribute identically to that product and may be merged without changing any count; after
-merging $S'=729$ states remain, and it is that bound every computation below uses.
+merging $S'=4096$ states remain, and it is that bound every computation below uses.
 
 \begin{lemma}\label{lem:cf}
-$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=729$.
+$a$ satisfies a monic linear recurrence with integer coefficients of order at most $S'=4096$.
 \end{lemma}
 
 \begin{proof}
@@ -81,33 +81,33 @@ together with its minimal recurrence, by any $2S'$ consecutive terms: Berlekamp-
 to them returns that minimal recurrence exactly.
 \end{lemma}
 
-Applied to $2S'=1458$ exact terms from $n=1$ on, it returns order $51$ --- the
+Applied to $2S'=8192$ exact terms from $n=1$ on, it returns order $51$ --- the
 order the entry states --- with integer coefficients:
 \[
 a(n)\;=\;\sum_{i=1}^{51}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $729$ & $c_{14}$ & $162563461742864929760$ & $c_{27}$ & $5050949585642764370589450240$ & $c_{40}$ & $-1667738382872240676015177728$ \\
-$c_{2}$ & $-136244$ & $c_{15}$ & $-625811664785835358656$ & $c_{28}$ & $-1062421646382610697671213056$ & $c_{41}$ & $-1177792247219658604708626432$ \\
-$c_{3}$ & $10212102$ & $c_{16}$ & $-5745711372853287144960$ & $c_{29}$ & $-15816296175206240024536743936$ & $c_{42}$ & $-533117569672886741557575680$ \\
-$c_{4}$ & $-316876749$ & $c_{17}$ & $13785487367134428638784$ & $c_{30}$ & $-18530430003343205106891358208$ & $c_{43}$ & $-182136764717664350685364224$ \\
-$c_{5}$ & $2480647797$ & $c_{18}$ & $154732532944134605573248$ & $c_{31}$ & $1089606023771551083412586496$ & $c_{44}$ & $-47236563238904982291873792$ \\
-$c_{6}$ & $64601349346$ & $c_{19}$ & $6925146822109230803712$ & $c_{32}$ & $14953788587269596098893447168$ & $c_{45}$ & $17882604204893377048608768$ \\
-$c_{7}$ & $-1318069374804$ & $c_{20}$ & $-92925293863028664894208$ & $c_{33}$ & $1198200681041466726997032960$ & $c_{46}$ & $12213192183734822800195584$ \\
-$c_{8}$ & $-2480280057320$ & $c_{21}$ & $1635872335418130693944832$ & $c_{34}$ & $-14114423021547903806557650944$ & $c_{47}$ & $4483791039005421924777984$ \\
-$c_{9}$ & $345778787057004$ & $c_{22}$ & $-27561932787531908542346240$ & $c_{35}$ & $-8497557171132366625821425664$ & $c_{48}$ & $541532878218064268623872$ \\
-$c_{10}$ & $1697367914248556$ & $c_{23}$ & $-101655423376987387857131520$ & $c_{36}$ & $6578903258771589495495065600$ & $c_{49}$ & $323702238512900286185472$ \\
-$c_{11}$ & $-181069349862855384$ & $c_{24}$ & $36085123839034139945218048$ & $c_{37}$ & $12838486697596817974914711552$ & $c_{50}$ & $11858134607214592131072$ \\
-$c_{12}$ & $-550720797670234336$ & $c_{25}$ & $194212324317258866814971904$ & $c_{38}$ & $7057701905857429554893684736$ & $c_{51}$ & $835234548219950137344$ \\
-$c_{13}$ & $24390728077044285072$ & $c_{26}$ & $1616986187399833301582184448$ & $c_{39}$ & $693609870507656361371762688$ &  &  \\
+$c_{1}$ & $61$ & $c_{14}$ & $-28146182866051$ & $c_{27}$ & $-26923254709385749$ & $c_{40}$ & $31372497771$ \\
+$c_{2}$ & $618$ & $c_{15}$ & $106845514645115$ & $c_{28}$ & $-1466534912923849$ & $c_{41}$ & $-150840846203$ \\
+$c_{3}$ & $-38310$ & $c_{16}$ & $86800931168257$ & $c_{29}$ & $16788266283774137$ & $c_{42}$ & $12499914587$ \\
+$c_{4}$ & $-3427$ & $c_{17}$ & $-834668448592049$ & $c_{30}$ & $-5486702028573961$ & $c_{43}$ & $3453953709$ \\
+$c_{5}$ & $7166515$ & $c_{18}$ & $482262503549937$ & $c_{31}$ & $-4951174249731663$ & $c_{44}$ & $-506459717$ \\
+$c_{6}$ & $-28633731$ & $c_{19}$ & $3265149557224999$ & $c_{32}$ & $3265149557224999$ & $c_{45}$ & $-28633731$ \\
+$c_{7}$ & $-506459717$ & $c_{20}$ & $-4951174249731663$ & $c_{33}$ & $482262503549937$ & $c_{46}$ & $7166515$ \\
+$c_{8}$ & $3453953709$ & $c_{21}$ & $-5486702028573961$ & $c_{34}$ & $-834668448592049$ & $c_{47}$ & $-3427$ \\
+$c_{9}$ & $12499914587$ & $c_{22}$ & $16788266283774137$ & $c_{35}$ & $86800931168257$ & $c_{48}$ & $-38310$ \\
+$c_{10}$ & $-150840846203$ & $c_{23}$ & $-1466534912923849$ & $c_{36}$ & $106845514645115$ & $c_{49}$ & $618$ \\
+$c_{11}$ & $31372497771$ & $c_{24}$ & $-26923254709385749$ & $c_{37}$ & $-28146182866051$ & $c_{50}$ & $61$ \\
+$c_{12}$ & $3005717450113$ & $c_{25}$ & $18964429793062037$ & $c_{38}$ & $-6173259840249$ & $c_{51}$ & $-1$ \\
+$c_{13}$ & $-6173259840249$ & $c_{26}$ & $18964429793062037$ & $c_{39}$ & $3005717450113$ &  &  \\
 \end{tabular}
 \end{center}
 
 \section{The recurrence, and the identification}
 
 \begin{theorem}
-The recurrence above holds for every $n\ge52$, and it is the recurrence OEIS A251246 records.
+The recurrence above holds for every $n\ge52$, and it is the recurrence OEIS A264205 records.
 \end{theorem}
 
 \begin{proof}
@@ -116,7 +116,7 @@ recurrence it is.
 
 For the identification, write $q_{\min}$ for the characteristic polynomial of that minimal
 recurrence, $x^{51}-c_1x^{51-1}-\dots-c_{51}$. Its constant term is
-$-c_{51}=-835234548219950137344$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
+$-c_{51}=1$, which is not zero, so $q_{\min}(0)\neq0$ and $q_{\min}$ has no
 root at the origin. A solution of a constant-coefficient recurrence is a combination of terms
 $n^{k}\lambda^{n}$ with $\lambda$ a root of its characteristic polynomial, and only the
 components with $\lambda=0$ vanish after finitely many terms. Since $q_{\min}$ has none, no
@@ -134,7 +134,7 @@ $q_{\min}\mid q$. Both are monic of degree $51$, so $q=q_{\min}$.
 
 Four checks, all in exact integer or rational arithmetic.
 
-First, the walk model reproduces all $10$ terms the entry publishes, exactly. This is
+First, the walk model reproduces all $13$ terms the entry publishes, exactly. This is
 what ties the model to the entry, and it is the only place where reading the entry's English
 enters the argument.
 
@@ -148,7 +148,7 @@ no matrices and no Berlekamp--Massey involved. It holds at each of the $0$ indic
 the entry publishes enough earlier terms to test it.
 
 Fourth, the last coefficient was checked to be nonzero, which is what the identification above
-turns on; it is $835234548219950137344$.
+turns on; it is $-1$.
 
 \begin{remark}
 The conjecture's own statement was never read. The entry pins it down to the family of
@@ -158,7 +158,7 @@ out to have exactly one member.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251246.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A264205.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
