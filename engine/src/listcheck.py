@@ -33,6 +33,14 @@ J = lambda f: json.load(open(f)) if os.path.exists(f) else {}
 CAPS, TMO, OOM = J('uniall_caps.json'), J('uniall_tmo.json'), J('uniall_oom.json')
 DIED = J('uniall_died.json')
 HITS = {h['anum'] for h in J('uniall_hits.json')} if os.path.exists('uniall_hits.json') else set()
+# sweep_shard's FIRST skip is `if a in roster or a in GHITS: continue', and it is SILENT -- no
+# counter, no log line. A list made of entries that already carry an installed paper therefore
+# asks nothing while every refusal file says it is clear. t21run sat at 52 of 52 "askable" and
+# an empty result dict for an hour because its list was filtered on uniall_hits alone and all
+# 52 were on the roster. This tool existed to catch exactly that and had the same gap.
+ROSTER = ({v['anum'] for v in J('paper-engines.json').values()}
+          if os.path.exists('paper-engines.json') else set())
+HITS |= ROSTER
 DIEDMAX = 3
 
 SET = re.compile(r'ANUMS_FILE=(\S+)[^\n]*?BUDGET=(\d+)[^\n]*?MEMGB=([\d.]+)', re.S)

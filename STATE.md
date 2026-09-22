@@ -1826,3 +1826,34 @@ wrapped to raise the exact `AttributeError` tonight's wrong dispatch produced, a
 record that reason in the why file, and write **no caps row**. The instrumentation would have
 named tonight's bug on its first entry instead of after forty thousand states of disagreement
 between two of my own measurements.
+
+### defect 57 — `sweep_shard`'s first skip is the roster, and it is silent
+
+`sweep_shard` begins each entry with `if a in roster or a in GHITS: continue`. No counter, no
+log line. A list made entirely of entries that already carry an installed paper therefore asks
+nothing at all, while every refusal file reports the list as clear and the round returns `{}`.
+
+**`t21run` sat at "52 of 52 askable" and an empty result dict for an hour.** I had rebuilt its
+list from the full transfer21 candidate pool filtered on `uniall_hits`, and all 52 were on the
+roster — an entry can carry several conjectures, so a paper on one leaves the A-number on the
+roster while `uniall_hits` says nothing about the others.
+
+**`listcheck.py` had the identical gap**, which is the part worth recording: the tool written to
+catch lists that ask nothing was itself filtering on `uniall_hits` and not on `paper-engines`,
+so it confirmed the wrong number. It now folds the roster into its skip set and reports
+`ASKS NOTHING` for that runner. The other six are barely affected — 4, 6, 5, 3 and 2 roster
+entries between them.
+
+**With the roster filter the transfer21 vein is read out.** 160 candidates: 37 already hits, 89
+on the roster, 71 neither — and only **eight** of the 71 carry an open conjecture. All eight are
+refused by a cap of 8,000,000, three also by memory at 6 GB, and a cap of 32,000,000 was
+measured not to open this family. Nothing there is reachable by a setting. `t21run` is retired.
+
+The `build_lineset` switch was still right — verified on 268 shapes, and it produced A204282 and
+A204480, models the pair-free build refuses outright. It read the vein out rather than opening
+it further.
+
+**The general lesson is the one I keep relearning in new clothes.** A skip that increments no
+counter is invisible to every check built on counters, and I have now twice built a check that
+omitted a filter the sweep actually applies: first the clock, among the three refusal files, and
+now the roster. The rule: **enumerate the skips from `sweep_shard`'s source, not from memory.**

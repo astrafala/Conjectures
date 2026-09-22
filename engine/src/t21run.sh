@@ -1,4 +1,22 @@
 #!/bin/sh
+# RETIRED 22 September. The transfer21 vein is read out, and the number I quoted for it was
+# wrong in a way worth recording.
+#
+# I rebuilt this runner's list from the full candidate pool and reported "52 of 52 askable".
+# All 52 were already on the ROSTER -- they carry an installed paper. sweep_shard's first skip
+# is `if a in roster or a in GHITS: continue' and it is SILENT: no counter, no log line. So the
+# runner returned an empty result dict every round while every refusal file said its list was
+# clear, and `listcheck.py' agreed, because it too filtered on uniall_hits and not on
+# paper-engines. Both are fixed; listcheck now reports this runner as ASKS NOTHING.
+#
+# The honest state of the vein, with the roster filter applied: 160 transfer21 candidates, 37
+# already hits, 89 on the roster, 71 neither -- and only EIGHT of those 71 carry an open
+# conjecture. All eight are refused by a cap of 8,000,000, three of them also by memory at
+# 6 GB, and a cap of 32,000,000 was measured not to open this family. Nothing here is reachable
+# by a setting.
+#
+# The build_lineset switch was still right: it was verified on 268 shapes and produced A204282
+# and A204480, which are models the pair-free build refuses outright. It read the vein out.
 # The 78 capped off-roster transfer21 entries, now that uniform.build dispatches transfer21 to
 # transfer17's pair-free construction instead of its pair build.
 #
