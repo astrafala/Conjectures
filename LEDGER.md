@@ -24656,6 +24656,100 @@ the same as the record being wrong everywhere.
 
 ---
 
+## 21–22 September 2026 — seventeen results, and the discovery that a third of the record had no witness
+
+**Roster 13,774 → 13,791.** Seventeen results on seventeen distinct entries, each checked three
+ways: `checkclaim` against the entry's own recurrence line character by character, a fresh live
+OEIS fetch with an independent state file (not the shared cache, which skips what it has seen),
+and an empirical check on the terms.
+
+A252404 (order 84, `n>87` against 21 published terms), A251843, A252154, A252310, A252111,
+A252216, A252302, A252189 and the rest of the transfer17 run; then A183618, A208412, A252381,
+A252420, A252470; then A204282, A204480, A252571, A252684, A253748, A223253, A252102, A252128,
+A252145.
+
+**A183618 is worth naming.** Order 30, thirty coefficients identical to the entry's own
+`Empirical:` line, holding at all 87 testable indices of its 117-term b-file. Its own DATA guard
+read **zero** terms.
+
+### The finding that matters more than the seventeen
+
+`sweep_shard` keeps a proved recurrence only if it reproduces the entry's published terms. That
+test reads index `k` when `off + k > nthr` AND `k >= order`. **For 2,132 of 5,987 held results
+there is no such index** — the DATA field is shorter than the order proved for it — so the guard
+read nothing and printed exactly what it prints on success.
+
+They are not thereby wrong, and the reason matters: the model is matched term-for-term against
+the whole DATA field before any recurrence is derived, and the recurrence comes from the transfer
+matrix rather than a fit. What had no second witness was the annihilation step alone.
+
+B-files supply one. **4,758 proved recurrences verified at 830,479 b-file indices, orders to 99,
+zero failures** — and 2,135 of those are results whose own guard had read nothing. `sweep_shard`
+now falls back to the cached b-file when DATA is short, and every hit records `btested`.
+
+On the other side, `bsweep` tested **5,072 OPEN conjectured recurrences** against full b-files.
+All hold. One is disproved and was already papered. Whatever else is wrong in the open pool, it
+is not recurrences failing late.
+
+### transfer21 switched to the line-set quotient
+
+Verified on 268 shapes — 160 entries and 108 grid points over every body form crossed with width
+3..6 and K 2..4 — giving 198 comparable agreements, **138 of them with a genuinely smaller state
+space**, zero mismatches, zero lost, 24 opened. The shrinking counts are the load-bearing part:
+two builders agreeing on identical state spaces prove nothing, which is how an earlier harness on
+this vein reported 99 of 99 having compared its own `TypeError` with itself. A204282 and A204480
+are its first results.
+
+**The first attempt at that switch broke transfer21 silently and completely.** Pointing
+`uniform`'s dispatch at `M[en].build_lineset` asked the transfer21 module for a transfer17
+function; the `AttributeError` was swallowed; every build returned `None` in 0.0 seconds and was
+recorded as *state space > cap*. Caught only because two of my own measurements disagreed.
+
+### Seven defects, and one clause behind four of them
+
+50. `BUDGET` is per phase, so an entry costs `3*BUDGET`; five runners had an outer `timeout`
+    smaller than that, and four entries were recorded as 11 GB memory refusals when a shell
+    timeout killed them.
+51. The DATA guard above.
+52. A crash and an exhausted vein print the same thing. `bsweep.py` had been dead since
+    31 August — `AttributeError` on its first entry — and its results file looked like a
+    half-read queue. All 33 runners now check the exit code; `wait` with no operands always
+    returns zero, so the 22 multi-shard runners collect per-pid status.
+53. An out-of-memory row can be about the clock, the cap or the machine. Of 222 migrated rows,
+    **106 were genuine and 116 were not** — 93 cap, 21 clock. Each false row was a permanent
+    exclusion from every runner at that limit or below.
+54. Five runner lists were being asked at the setting that had already refused them.
+    `src/listcheck.py` now does that check mechanically and found two more runners asking
+    nothing at all.
+55. The hourly merge wrote the unified files by truncate while seventy shards read them at
+    startup — nineteen `JSONDecodeError` deaths in one night, each invisible because the idle
+    backoff read the instant death as an empty vein.
+56. **A cap row only means something if the engine's build reads the cap.** `transfer6` and
+    `transfer7` do not even take the parameter; `latpoly` takes it and never uses it. **607 of
+    2,367 off-roster cap rows — 26% — belonged to engines that could not have been refused by a
+    cap.**
+
+All four cap-file pollutions pass through one clause: `uniform.build`'s `except Exception:
+return None`. A broken engine, a declining engine and a model too big are indistinguishable at
+that point. `uniform.LAST_ERROR` now records what was swallowed, and `sweep_shard` names it.
+
+### Dead ends, stated plainly
+
+- **A bigger cap does not open the rest.** Five `transfer35` entries refuse at a cap of
+  32,000,000 — four times the current one — spending 2.68 GB each to establish it. No runner was
+  built. What would open them is a smaller construction, not a larger ceiling.
+- **`capgaprun` was written and retired within the hour.** Its 145 entries looked like open
+  conjectures no runner asks; 143 read as `ca2dcount`, whose build is an unconditional refusal
+  because the active-cell count of a two-dimensional automaton has no proved generating function.
+  The "956 reachable" figure that justified it was an overcount; **the corrected pool is 539**.
+- **The re-settinged cap and clock runners have produced nothing.** Fixing their lists was right
+  and has not yet been what paid; every result came from the transfer17 rebuild, the transfer21
+  switch, and the ordinary sweeps.
+- An alarm fired on A000040 and A000364 as disproof papers whose conjecture holds. **It was my
+  checker over-claiming**, not a bad paper: those disprove a trigonometric periodicity claim, not
+  the entry's recurrence.
+- `bproved` stopped at 3,060 of 5,987 because I started it by hand and it was in no list.
+
 ## 8. WHERE FILES LIVE (Claude Code only)
 
 **The session container is wiped when the session ends.** Anything not committed and
