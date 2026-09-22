@@ -108,6 +108,25 @@ def build(en, p, cap):
             # comparison was running rather than comparing two copies of a failure: an earlier
             # harness returned its own TypeError as the compared value and reported 99 of 99
             # agreeing having compared nothing (STATE.md defect 38).
+            #
+            # SWITCHED to `build_lineset' (22 September), which quotients the pair-free build
+            # once more: the state is the current row and the SET of rows the predecessor
+            # allows, not the constraint that produced it. `constraint(s, t)' never reads that
+            # set, so two states with the same row and the same `follows(C)' have identical
+            # labels and, label by label, literally the same successor. Exact by construction.
+            #
+            # Held to the standard the pair-free switch was held to, and past it. ENTRIES
+            # (`src/t21check.py'): all 160 transfer21 candidates -- 110 comparable, 0
+            # mismatches, 0 lost, 19 opened, and 80 of the 110 agreeing while the state space
+            # SHRANK, median 2.13x and up to 81x. GRID (`src/t21grid.py'): every one of the 9
+            # distinct body forms crossed with width 3..6 and K 2..4, 108 shapes -- 88 agree,
+            # 58 of them with a smaller state space, 0 mismatches, 0 lost, and 5 OPENED at
+            # width 6 where the pair-free build refuses outright.
+            #
+            # The shrinking state counts are the load-bearing part. Two builders agreeing on
+            # identical state spaces prove nothing, which is exactly how the harness that
+            # compared its own TypeError with itself got 99 of 99. 138 agreements where the
+            # quotient actually collapsed states is what says it is exact.
             return M[en].build_pairfree(p, cap=cap)
         if en == 'transfer40':
             # the merged build, for the same reason transfer17 uses its pair-free one: the

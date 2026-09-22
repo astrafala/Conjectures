@@ -93,7 +93,14 @@ def build_pairfree(p, cap=200000):
     for i, wi in zip(range(1, K + 1), w):
         q = dict(p)
         q['alpha'] = i - 1
-        b = T17.build_pairfree(q, cap=cap)
+        # SWITCHED to `T17.build_lineset' (22 September). This is where the switch belongs:
+        # `build_lineset' is transfer17's function, not this module's, and transfer21 reaches
+        # transfer17 only through here. Changing `uniform`'s dispatch to `M[en].build_lineset'
+        # instead asked THIS module for a function it does not have, and `uniform.build' ends
+        # in `except Exception: return None' -- so every transfer21 build returned None in
+        # 0.0 seconds and read as "state space > cap". Defect 46's shape once more, in the one
+        # place already documented as having it.
+        b = T17.build_lineset(q, cap=cap)
         if b is None:
             # `build_pairfree' also returns None on `W < 3', where the pair build works fine.
             # Falling back keeps this strictly an improvement: it can open entries the pair
