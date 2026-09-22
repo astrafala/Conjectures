@@ -1916,6 +1916,47 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 64 — a budget measured in wall-clock seconds records the load, not the entry
+
+`uniall_tmophase.json` was supposed to answer "which phase is the out-of-budget pool losing
+to". It does not exist, and the reason is the finding: an entry already in `uniall_tmo.json`
+at this budget or more is **skipped before it is ever asked again**, so the 427 rows sitting
+there will never record a phase unless something re-asks them on purpose
+(`src/phasewhy.py` does).
+
+Looking for why nothing had re-timed-out, the machine answered instead. **Measured: load
+average 46 on 4 cores, 31 runnable processes, a sweep shard receiving 0.53 cores.** A BUDGET
+of 600 wall-seconds is 318 CPU-seconds at that load, and the row it writes excludes the entry
+from every future round at 600 or less. **Load was being written into the refusal file and
+read back as the entry's difficulty.**
+
+It also quietly explains the ledger's own observation that *every budget raise produced a
+result and every cap raise produced nothing*: part of what a raise bought was simply undoing
+the oversubscription.
+
+`sweep_shard` now records `time.process_time()` across each phase — CPU-seconds, a property
+of the entry — instead of the wall budget. The skip still compares this runner's wall BUDGET
+against the stored CPU figure, which errs towards re-asking, and that is the right direction
+for a file that had been permanently excluding work it never fairly tried. The 427 legacy
+rows are wall values and over-state; they will be re-asked as budgets rise.
+
+### defect 65 — the idle backoff and the restarter were fighting, and the restarter won
+
+Every runner stops itself when a round finds nothing (defect 44, and it is right). Then
+`restart_all.sh` relaunches it, because "is it running?" was the only test — and
+`restart_all.sh` is called on **every wake-up**. With 33 runners that is 33 read-out veins
+brought back to life once a turn, which is where the load average of 46 came from, which is
+where defect 64 came from.
+
+A runner that stops because its vein was read out now writes `/tmp/<name>.readout` and
+`restart_all` leaves it alone for an hour. A runner that **crashed** writes no marker and is
+restarted at once — the distinction defect 52 exists to make, and the two look identical from
+outside. An hour matches the wake-up rhythm: long enough to stop the churn, short enough that
+a changed engine, a raised budget or a widened pool is picked up next firing.
+
+**The shape to remember: two mechanisms that were each right, wired so that one silently
+undid the other every turn, and the damage showed up two layers away in a refusal file.**
+
 ### defect 63 — the openness test could not read a refutation, and nearly cost a wrong claim
 
 `bsweep` flagged **A210247** as a disproof: "Conjecture: a(n) = -a(n-28)" fails at n = 606 and

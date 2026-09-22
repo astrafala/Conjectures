@@ -430,3 +430,50 @@ in the refused pool. So the paper waits on a model, and the disproof is complete
 bsweep's own record for it reads `[38, 78, 41, 200]`, which looks like "fails 38–78 then holds".
 That is the defect-58 cap at 40 collected failures doing its job — the record is correctly
 marked capped, and the truth is that it fails at every one of the 163.
+
+## 22 September 2026 — defects 64 and 65: the machine was the bottleneck, and I was making it worse
+
+Defect 62 made `sweep_shard` record which phase exhausts the budget. The file never appeared.
+The reason is the first finding: **an entry already in `uniall_tmo.json` at this budget or more
+is skipped before it is ever asked again**, so the 427 rows there will never record a phase
+unless something re-asks them deliberately. `src/phasewhy.py` does exactly that — it replays
+the sweep's own sequence (build → size → terms → annihilation) at the row's own budget and
+reports where the clock runs out.
+
+Looking for why nothing had re-timed-out, the machine answered instead.
+
+### defect 64 — a wall-clock budget records the load, not the entry
+
+**Measured on this container: load average 46 on 4 cores, 31 runnable processes, and a sweep
+shard receiving 0.53 cores.** So a BUDGET of 600 wall-seconds is **318 CPU-seconds** — and the
+row it writes excludes that entry from every future round at 600 or less. Load was being
+written into the refusal file and read back as difficulty.
+
+It also explains, quietly, the ledger's own repeated observation that *every budget raise
+produced a result and every cap raise produced nothing*. Part of what a raise bought was
+undoing the oversubscription.
+
+`sweep_shard` now records `time.process_time()` across each phase — CPU-seconds, a property of
+the entry — instead of the wall budget. The skip still compares this runner's wall BUDGET
+against the stored CPU figure, which errs towards re-asking; that is the right direction for a
+file that had been permanently excluding work it never fairly tried. The 427 legacy rows are
+wall values and over-state.
+
+### defect 65 — and the load was self-inflicted, once per turn
+
+Every runner stops itself when a round finds nothing. That is defect 44 and it is correct.
+Then `restart_all.sh` relaunches it, because *is it running?* was the only test — and
+`restart_all.sh` runs on **every wake-up**. With 33 runners that is 33 read-out veins brought
+back once a turn, each spawning 2–6 shards. That is the load average of 46. That is defect 64.
+
+A runner that stops because its vein is read out now writes `/tmp/<name>.readout`, and
+`restart_all` leaves it alone for an hour. A runner that **crashed** writes no marker and comes
+back immediately — the distinction defect 52 went to the trouble of making, since the two look
+identical from outside. An hour matches the firing rhythm: long enough to stop the churn, short
+enough that a changed engine, a raised budget or a widened pool is picked up next time.
+Applied to all 34 runners; the read-out helper was tested against a fresh marker, a stale one
+and a missing one.
+
+**The shape worth remembering: two mechanisms each correct on its own, wired so that one
+silently undid the other every turn, with the damage surfacing two layers away in a refusal
+file — as difficulty that was really arithmetic about who got the CPU.**

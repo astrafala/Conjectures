@@ -26,8 +26,37 @@ running() { ps -eo args | grep -qE "^(/bin/)?sh /tmp/$1( |$)"; }
 # must not overwrite a runner that is RUNNING: /bin/sh reads a script lazily by byte offset, so
 # rewriting it underneath a live shell makes it resume at whatever now sits at that offset.
 # Copying only when the runner is not running satisfies both.
+# DEFECT 65. The idle backoff and this restarter were fighting, and the restarter won once
+# per firing. Every runner stops itself when a round finds nothing -- that is defect 44, and
+# it is right -- and then this relaunched it, because "not running" was the only test. With
+# 33 runners the container reached a load average of 46 on 4 cores, which is where defect 64
+# came from: a wall-clock BUDGET on a machine at 11x oversubscription is worth a fraction of
+# itself, and the shortfall was being written into uniall_tmo.json and read back as the
+# entry's difficulty.
+#
+# A runner that stopped because its vein was read out now says so, in /tmp/<name>.readout,
+# and is left alone for READOUT_HOLD seconds. A runner that CRASHED writes no marker and is
+# restarted immediately, which is exactly the distinction defect 52 exists to make -- the two
+# look identical from the outside and must not be treated alike.
+#
+# An hour is chosen to match the wake-up rhythm: long enough to stop the churn, short enough
+# that a changed engine, a raised budget or a widened pool is picked up on the next firing.
+# Clearing the marker by hand (or a container restart wiping /tmp) re-tries everything, which
+# is what should happen after an engine changes.
+READOUT_HOLD=${READOUT_HOLD:-3600}
+readout() {
+  m="/tmp/$1.readout"
+  [ -f "$m" ] || return 1
+  t=$(cat "$m" 2>/dev/null) || return 1
+  n=$(date +%s)
+  [ $(( n - t )) -lt "$READOUT_HOLD" ]
+}
 start() {
   running "$1" && return
+  if readout "$1"; then
+    echo "held  $1 (read out $(( $(date +%s) - $(cat /tmp/$1.readout) ))s ago)"
+    return
+  fi
   cp "src/$1" "/tmp/$1"
   nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 &
   echo "started $1"

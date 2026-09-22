@@ -42,6 +42,17 @@ for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   fi
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- read out under the current engines, stopping"
+    # DEFECT 65. The backoff and the restarter were fighting, and the restarter won
+    # once a turn: `restart_all.sh' relaunches every runner that is not currently up,
+    # so a vein that had correctly stopped itself as read out came straight back. With
+    # 33 runners doing that, the container reached a load average of 46 on 4 cores and
+    # every wall-clock BUDGET was worth a fraction of itself (defect 64). The marker
+    # says "this stopped because it had nothing to do", and restart_all honours it for
+    # an hour -- long enough to stop the churn, short enough that a changed engine or a
+    # widened pool is picked up on the next hour's firing. A CRASH writes no marker, so
+    # a crashed runner is still restarted at once, which is the distinction defect 52
+    # went to the trouble of making.
+    date +%s > "/tmp/$(basename "$0").readout"
     break
   fi
 done

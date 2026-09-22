@@ -23,6 +23,8 @@ for r in 1 2 3 4 5 6 7 8; do
   fi
   if [ $_el -lt 60 ]; then
     echo "round found nothing in ${_el}s -- every cap row audited, stopping"
+    # defect 65: say WHY this stopped, so restart_all does not undo an idle backoff.
+    date +%s > "/tmp/$(basename "$0").readout"
     break
   fi
 done

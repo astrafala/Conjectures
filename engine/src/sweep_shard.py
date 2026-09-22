@@ -314,6 +314,14 @@ for a in sorted(set(CANDS) | ANUMS):
     if MEMGB <= GOOM.get(a, 0):
         res['out of memory on an earlier pass, at this limit or more'] += 1
         continue
+    # DEFECT 64. This compares a WALL-CLOCK budget against a stored one, and wall clock is
+    # not a property of the entry. Measured on this container: 31 runnable processes on 4
+    # cores, a sweep shard receiving 0.53 cores, so a BUDGET of 600 wall-seconds is 318 CPU-
+    # seconds -- and the row it writes excludes the entry from every future round at 600 or
+    # less. Load was being written into the refusal file and then read back as difficulty.
+    # The rows are CPU-seconds now (see the Timeout handlers), which is a property of the
+    # entry; comparing this runner's wall BUDGET against them errs towards re-asking, which
+    # is the right direction for a file that had been permanently excluding work.
     if BUDGET <= GTMO.get(a, 0):
         res['out of budget on an earlier pass, at this budget or more'] += 1
         continue
@@ -378,13 +386,14 @@ for a in sorted(set(CANDS) | ANUMS):
     if _never:
         res['engine cannot certify by design'] += 1; done.add(a); save(); continue
     inflight(a, 'build')
+    _cpu0 = time.process_time()
     try:
         signal.alarm(BUDGET)
         b = uniform.build(en, p, CAP)
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['build timed out'] += 1
-        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmo[a] = max(tmo.get(a, 0), int(time.process_time() - _cpu0))
         tmophase[a] = 'build'
         done.add(a); save(); continue
     except MemoryError:
@@ -421,13 +430,14 @@ for a in sorted(set(CANDS) | ANUMS):
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])
     inflight(a, 'terms')
+    _cpu0 = time.process_time()
     try:
         signal.alarm(BUDGET)
         t = uniform.terms(en, p, b, len(d) + off + 5)
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['terms timed out'] += 1
-        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmo[a] = max(tmo.get(a, 0), int(time.process_time() - _cpu0))
         tmophase[a] = 'terms'
         done.add(a); save(); continue
     except MemoryError:
@@ -449,13 +459,14 @@ for a in sorted(set(CANDS) | ANUMS):
     coeffs, dd = recs[0]
     order = max(coeffs)
     inflight(a, 'threshold')
+    _cpu0 = time.process_time()
     try:
         signal.alarm(BUDGET)
         thr = uniform.threshold(en, p, b, coeffs, order)
         signal.alarm(0)
     except Timeout:
         signal.alarm(0); res['annihilation timed out'] += 1
-        tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmo[a] = max(tmo.get(a, 0), int(time.process_time() - _cpu0))
         tmophase[a] = 'threshold'
         done.add(a); save(); continue
     except MemoryError:
