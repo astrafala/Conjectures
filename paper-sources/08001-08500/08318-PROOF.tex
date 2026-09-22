@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251396, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250959, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251396 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A250959 counts $(n+1)\times3$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $2\times2$ subblock, and carries an empirical recurrence of order $25$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter at all. The condition is local
 to each subblock, so the rows of an admissible array are the vertices of a finite digraph
@@ -35,20 +35,20 @@ integer arithmetic, and it comes out zero.
 
 \section{The sequence and the conjecture}
 
-OEIS A251396 is ``Number of (n+1)X(2+1) 0..3 arrays with no 2X2 subblock having the sum of its diagonal elements less than the absolute difference of its antidiagonal elements.''. It has offset $1$ and begins
+OEIS A250959 is ``Number of (n+1)X(2+1) 0..3 arrays with no 2X2 subblock having its minimum diagonal element less than its minimum antidiagonal element.''. It has offset $1$ and begins
 \[
-3205, 165498, 8558283, 442476530, 22875877611, 1182680672547, 61144538351375, 3161169623507538,\ \dots
+1592, 34988, 768855, 17233753, 390286993, 8862302446, 201262465235, 4569607131470,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 64*a(n-1) -765*a(n-2) +7612*a(n-3) -52441*a(n-4) +214718*a(n-5) -593810*a(n-6) +1025324*a(n-7) -199793*a(n-8) -5621360*a(n-9) +22779258*a(n-10) -54455283*a(n-11) +92144141*a(n-12) -114989494*a(n-13) +108478582*a(n-14) -77963792*a(n-15) +41298509*a(n-16) -14996935*a(n-17) +2763273*a(n-18) +672602*a(n-19) -778511*a(n-20) +318339*a(n-21) -73291*a(n-22) +9681*a(n-23) -693*a(n-24) +25*a(n-25)
+Empirical: a(n) = 64*a(n-1) -1748*a(n-2) +28346*a(n-3) -310754*a(n-4) +2462920*a(n-5) -14717932*a(n-6) +68296776*a(n-7) -251551335*a(n-8) +747834819*a(n-9) -1817725856*a(n-10) +3647857862*a(n-11) -6087841866*a(n-12) +8491206253*a(n-13) -9927412988*a(n-14) +9738203645*a(n-15) -8005861493*a(n-16) +5496893372*a(n-17) -3132361554*a(n-18) +1466713771*a(n-19) -555901930*a(n-20) +166711184*a(n-21) -38185312*a(n-22) +6298320*a(n-23) -669024*a(n-24) +34560*a(n-25)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 13:18:15, revision 6) the statement is
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:54:20, revision 6) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;64\,a(n-1) - 765\,a(n-2) + 7612\,a(n-3) - 52441\,a(n-4) + 214718\,a(n-5) - 593810\,a(n-6) + 1025324\,a(n-7) - 199793\,a(n-8) - 5621360\,a(n-9) + 22779258\,a(n-10) - 54455283\,a(n-11) + 92144141\,a(n-12) - 114989494\,a(n-13) + 108478582\,a(n-14) - 77963792\,a(n-15) + 41298509\,a(n-16) - 14996935\,a(n-17) + 2763273\,a(n-18) + 672602\,a(n-19) - 778511\,a(n-20) + 318339\,a(n-21) - 73291\,a(n-22) + 9681\,a(n-23) - 693\,a(n-24) + 25\,a(n-25)
+a(n)\;=\;64\,a(n-1) - 1748\,a(n-2) + 28346\,a(n-3) - 310754\,a(n-4) + 2462920\,a(n-5) - 14717932\,a(n-6) + 68296776\,a(n-7) - 251551335\,a(n-8) + 747834819\,a(n-9) - 1817725856\,a(n-10) + 3647857862\,a(n-11) - 6087841866\,a(n-12) + 8491206253\,a(n-13) - 9927412988\,a(n-14) + 9738203645\,a(n-15) - 8005861493\,a(n-16) + 5496893372\,a(n-17) - 3132361554\,a(n-18) + 1466713771\,a(n-19) - 555901930\,a(n-20) + 166711184\,a(n-21) - 38185312\,a(n-22) + 6298320\,a(n-23) - 669024\,a(n-24) + 34560\,a(n-25)
 \end{equation}
 for all $n>24$.
 
@@ -65,7 +65,7 @@ the subblock is
 \]
 The entry's requirement on that subblock is
 \begin{equation}\label{eq:loc}
-\text{not }\bigl((\alpha+\delta)<|\beta-\gamma|\bigr),
+\text{not }\bigl(\min(\alpha,\delta)<\min(\beta,\gamma)\bigr),
 \end{equation}
 a condition on the four entries alone.
 
@@ -159,7 +159,7 @@ Three checks, each independent of the algebra above.
 
 First, the digraph was built directly from the entry's stated condition and the walk counts
 $\mathbf{1}^{\!\top}M^{L-1}\mathbf{1}$ compared against the entry's DATA at
-every one of the $13$ published indices; the values agree exactly. That is what ties
+every one of the $14$ published indices; the values agree exactly. That is what ties
 the digraph to the sequence: a model that reproduced only some of the published terms would
 be the wrong model, and would have been rejected. In particular it is what rules out a
 misreading of the entry's wording, since a different reading of the condition gives a
@@ -174,7 +174,7 @@ throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251396.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250959.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
