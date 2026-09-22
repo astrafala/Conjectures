@@ -1876,3 +1876,22 @@ refusal this generation is *out of budget on an earlier pass* — 19, 4, 3, 15 a
 entries each asked. Every one of those rows was written at a budget the runner has since raised
 past once already, which is the shape that has paid twice now: `tmorun` 300 → 500 gave A253494,
 and `t17run` 420 → 550 gave A252102, A252128 and A252145.
+
+### a `why` file that outlives its merge is not evidence
+
+`merge_shards` consumes and deletes a shard's hits, done, caps, oom, tmo and died files on every
+run, so each of those always describes the **current** generation. The `why` file was not in
+that list. It accumulated counters indefinitely and outlived the results it described.
+
+This morning a `tmo` shard read `{"PROVED": 1}` at the newly raised budget. It was tempting to
+call that a result of the raise. The file was dated **06:07 — five hours earlier** — and the
+hit was A253494, already merged, installed and papered. The raised budget had been running for
+one minute and had produced nothing yet.
+
+Nothing in the codebase reads `shard*_why_*.json`; the only reader is a person looking at what a
+vein is refusing **right now**, which is this project's central habit. A counter that cannot be
+dated is no use for that, so the merge clears it with the rest.
+
+**The general form**, since this is the second time the same shape has cost me: a file that
+survives the operation that resets its siblings will eventually be read as current. Either it is
+cleared with them or every reading of it has to carry a date, and the first is cheaper.

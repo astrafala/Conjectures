@@ -119,9 +119,18 @@ try:
           + (f'; {len(oom)} out of memory, not capped' if oom else '')
           + (f'; {len(tmo)} out of budget, not capped' if tmo else '')
           + (f'; {len(dieds)} entries a shard died on' if dieds else ''))
+# The why file is deleted with the rest now, and that is a correctness fix rather than tidying.
+# Everything else here is consumed and removed on every merge, so a shard's hits, done, caps,
+# oom, tmo and died files always describe the CURRENT generation. The why file was not, so it
+# accumulated counters for ever and outlived the results it described. Reading `{"PROVED": 1}'
+# in a tmo shard this morning meant a hit had been found -- five hours earlier, already merged
+# and installed. Nothing reads these files but a human looking at what a vein is refusing right
+# now, which is this project's central habit, and a counter that cannot be dated is no use for
+# it. Nothing else in the codebase reads `shard*_why_*.json'.
     for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \
              glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json') + \
-             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_died_*.json'):
+             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_died_*.json') + \
+             glob.glob(f'shard{TAG}_why_*.json'):
         os.remove(f)
 finally:
     try:
