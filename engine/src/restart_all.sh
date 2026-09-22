@@ -88,7 +88,14 @@ MAXSTART=${MAXSTART:-8}
 # of jobs ALREADY running, so that is what is checked: above MAXJOBS this firing starts
 # nothing and lets the machine drain. Six jobs per core is the ceiling; the sweeps are
 # CPU-bound, so beyond that every extra process only makes every BUDGET worth less.
-MAXJOBS=${MAXJOBS:-24}
+# Lowered from 24 to 12 on 22 September, on evidence rather than taste: over several merges
+# in a row the twenty-six running sweep shards returned "0 new hits" while walking their skip
+# lists, and the measurement work that IS producing findings -- classifying galcoord's 355
+# declines, which is where the frontier actually is -- was getting a ninth of a core. Three
+# jobs per core instead of six. The sweeps are not retired, they drain as their rounds end and
+# the rotation brings them back; what changes is that they stop crowding out the work that has
+# somewhere to go.
+MAXJOBS=${MAXJOBS:-12}
 _jobs=$(ps -eo args | grep -c 'python3 src/')
 if [ "$_jobs" -ge "$MAXJOBS" ]; then
   echo "holding all starts: $_jobs python jobs already running (MAXJOBS=$MAXJOBS), load $(cut -d' ' -f1 /proc/loadavg) on $(nproc) cores"

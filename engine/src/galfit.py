@@ -87,7 +87,15 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
         # right OUTSIDE the patch is not decided here and must not be -- `galcert2` decides it.
         pl, left = galhull.pieces(lst)
         if left:
-            return None, 'distance is not a max of affine pieces'
+            # the COUNT, not just the fact. Whether a class leaves 3 points uncovered out of
+            # 400 or 120 out of 400 is the difference between a patch that is too small and a
+            # distance function that genuinely is not a max of affine pieces, and it decides
+            # whether RADIUS is the lever. It was computed on every one of these refusals and
+            # thrown away, which is why 355 declines looked like one problem.
+            return None, ('distance is not a max of affine pieces '
+                          '(%d of %d points uncovered by %d pieces)'
+                          % (len(left) if hasattr(left, '__len__') else left,
+                             len(lst), len(pl)))
         P = [(int(A), int(B), int(C)) for A, B, C in pl]
         for (m, n, d) in lst:
             if max(A * m + B * n + C for A, B, C in P) != d:

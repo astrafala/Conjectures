@@ -28,6 +28,52 @@ counted twice.
 | A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **null**: all 41 rested on a block line; purged |
 | A8 | further conjectures on sequences already proved C-finite | 13,109 | **running**, 297 with new content |
 
+## A11. galcoord's 355 declines: the exceptional set the docstring already describes
+
+**The largest single block on the project's frontier**, and as of 22 September every one of
+them has a named reason rather than a bare `None` (`deep-check/galcoord-why.json`,
+`galcoord.LAST_WHY`). The distribution of the first twenty:
+
+       8  galfit: distance is not a max of affine pieces
+       6  galcert2: (b) fails on class N region M
+       3  galcert2: no predecessor at class N
+       2  galcert2: edge raises D by more than 1 at class N
+       1  galfit: the fit fails on the patch
+
+**The largest class is decided, not undecided.** `galhull.pieces` now reports how much is
+uncovered, and it is substantial: A310007 10 of 127 points, A310018 58 of 179, A310019 20 of
+305, A310025 10 of 127, A310039 6 of 157 — four to thirty-two percent, and all of them at
+`d <= max(d) - margin`, so they are interior points and not a patch-rim artifact.
+
+Nor is it a search that gave up. `galhull.support` **decides** the feasibility outright ("either
+it returns a supporting plane or there provably is none, at about 9 ms a point"), so a leftover
+point provably has no supporting plane. **The distance function on those classes genuinely is
+not a max of affine pieces.**
+
+**And the fix is already written down, in `galhull.pieces`'s own docstring:**
+
+> An empty leftover list means d IS the max over `planes` at every point given — an exact,
+> checkable closed form. A non-empty one is not a failure to hide: those points are where the
+> function is not convex, and the certificate has to carry them as an exceptional set the way
+> `kdcert` carries the board heights below H0.
+
+So the work is: carry the leftovers as an exceptional set instead of refusing. Three parts, in
+order:
+
+1. **Decide whether the exceptional set is bounded in the infinite tiling**, not merely in the
+   patch. That is the crux — the Ehrhart argument needs the region's combinatorial type to
+   stop changing past the onset, and a finite exceptional set near the origin does not disturb
+   that, while an unbounded one destroys it. `galcert2` is where that decision belongs, and it
+   already decides the two Bellman conditions on regions rather than on samples.
+2. **Count the ball as max-of-planes plus a correction at the exceptional points**, which is a
+   finite table once (1) holds.
+3. **Extend the certificate** to state and check exactly that, the way `kdcert` does for board
+   heights below H0 — the precedent exists in this codebase.
+
+If it works it reaches up to 355 entries, and the same shape (a decided refusal carrying a
+finite exceptional set) is what `ca2dcount`, `ca2d` and `latpoly` would need too — another 411
+declines behind it.
+
 ## A10. Every held conjecture against every published b-file term — DONE, read out
 
 `src/bsweep.py`. **10,632 of 10,632 checked, 2,426,440 b-file terms** (median 210 per entry,

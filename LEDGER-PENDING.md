@@ -926,3 +926,38 @@ classification of all 355 is running into `deep-check/galcoord-why.json`.
 **The frontier is 533 cap refusals and 793 engine declines, and this is what turning the
 second number into work looks like:** not raising a cap, but reading the sentence the engine
 was already writing and discarding.
+
+### galcoord's largest decline class is decided, and the fix is in the docstring
+
+With `LAST_WHY` recording which `None` it was, the largest class — "distance is not a max of
+affine pieces", 8 of the first 20 — got a count attached too, because `galhull.pieces` was
+computing the leftovers and reporting only their existence:
+
+      A310007   10 of 127 points uncovered by 10 pieces
+      A310018   58 of 179 uncovered by 19
+      A310019   20 of 305 uncovered by 13
+      A310025   10 of 127 uncovered by 10
+      A310039    6 of 157 uncovered by 11
+
+Four to thirty-two percent, all at `d <= max(d) - margin`, so interior points rather than a
+patch-rim artifact. And not a search that gave up: `galhull.support` **decides** the
+feasibility ("either it returns a supporting plane or there provably is none"), so those points
+provably have no support. The distance function on those classes genuinely is not a max of
+affine pieces.
+
+**The fix is already written down, in `galhull.pieces`'s own docstring** — carry the leftovers
+as an exceptional set, the way `kdcert` carries board heights below H0, rather than refusing.
+Three parts, and the first is the crux: decide whether the exceptional set is bounded in the
+*infinite tiling* and not merely in the patch, which is what the Ehrhart argument needs and
+what `galcert2` is the right place to decide. Recorded as IDEAS §A11 with the evidence.
+
+Up to 355 entries, and the same shape — a decided refusal carrying a finite exceptional set —
+is what ca2dcount, ca2d and latpoly would need as well: another 411 declines behind it.
+
+### Machine: MAXJOBS lowered from 24 to 12, on evidence
+
+Over several merges in a row the twenty-six running sweep shards returned **0 new hits** while
+walking their skip lists, and the measurement work that is producing findings — classifying
+galcoord's 355 — was getting a ninth of a core. Three jobs per core instead of six. The sweeps
+are not retired; they drain as their rounds end and the rotation brings them back. What changes
+is that they stop crowding out work that has somewhere to go.
