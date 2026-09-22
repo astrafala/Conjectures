@@ -23,6 +23,9 @@ import os
 # the builders read: the same silent gap that left gfonly's 312 results uninstalled.
 TAG = os.environ.get('TAG', '')
 HITS, DONE, CAPS = 'uniall_hits.json', 'uniall_done.json', 'uniall_caps.json'
+# which PHASE exhausted the budget -- build, terms or threshold. Defect 62: all three
+# wrote the same number into TMO and the distinction that decides what to fix was lost.
+TMOPHASE = 'uniall_tmophase.json'
 # entries whose build outgrew the shard's MEMGB. They are NOT caps -- what they exceeded is
 # the container -- and folding them into uniall_caps.json is how A186012 came to be recorded
 # as refused for size when it builds at S=900096 under a cap of 2,000,000. Kept as its own
@@ -52,6 +55,7 @@ try:
     caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
     oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
     tmo = json.load(open(TMO)) if os.path.exists(TMO) else {}
+    tmoph = json.load(open(TMOPHASE)) if os.path.exists(TMOPHASE) else {}
     dieds = json.load(open(DIED)) if os.path.exists(DIED) else {}
     have = {h['anum'] for h in hits}
     added = 0
@@ -76,6 +80,9 @@ try:
     for f in sorted(glob.glob(f'shard{TAG}_tmo_*.json')):
         for a, b in json.load(open(f)).items():
             tmo[a] = max(tmo.get(a, 0), b)
+    for f in sorted(glob.glob(f'shard{TAG}_tmophase_*.json')):
+        for a, ph in json.load(open(f)).items():
+            tmoph[a] = ph
     # deaths ADD rather than max: the question is how many separate generations died on this
     # entry, because one death is the machine and a run of them is the entry
     for f in sorted(glob.glob(f'shard{TAG}_died_*.json')):
@@ -101,7 +108,7 @@ try:
     # way the entry is no longer something the container refuses.
     settled = roster | have
     for nm, f in (('cap', caps), ('out-of-memory', oom), ('out-of-budget', tmo),
-                  ('shard-death', dieds)):
+                  ('out-of-budget phase', tmoph), ('shard-death', dieds)):
         gone = [a for a in f if a in settled]
         for a in gone:
             del f[a]
@@ -118,6 +125,10 @@ try:
         atomicjson.dump(tmo, TMO, indent=0, sort_keys=True)
     elif os.path.exists(TMO):
         os.remove(TMO)
+    if tmoph:
+        atomicjson.dump(tmoph, TMOPHASE, indent=0, sort_keys=True)
+    elif os.path.exists(TMOPHASE):
+        os.remove(TMOPHASE)
     if dieds:
         atomicjson.dump(dieds, DIED, indent=0, sort_keys=True)
     elif os.path.exists(DIED):
@@ -136,7 +147,8 @@ try:
 # it. Nothing else in the codebase reads `shard*_why_*.json'.
     for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \
              glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json') + \
-             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_died_*.json') + \
+             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_tmophase_*.json') + \
+             glob.glob(f'shard{TAG}_died_*.json') + \
              glob.glob(f'shard{TAG}_why_*.json'):
         os.remove(f)
 finally:

@@ -344,3 +344,35 @@ honest CAP**; the BUILDS rows build in a median of **2.5 seconds** at the cap th
 
 **The habit says read what a sweep refuses. It also has to say: check that the refusal is still
 true.** A refusal file is a claim with a date on it, and nothing here was re-reading the date.
+
+## 22 September 2026 — defect 62: three phases, one number, and what the sweep is actually refusing
+
+Having made `uniall_caps.json` honest, the obvious next question is what the refusals now say.
+The live sweep's own tally, this generation:
+
+      385  out of budget on an earlier pass
+       64  out of memory
+       44  a shard died holding this entry 3 times or more
+        9  state space > cap
+        6  build timed out
+        1  engine returned no model
+
+**Nine cap refusals against 385 clock refusals.** So the on-the-fly quotient — the lever
+IDEAS.md §T named and I spent this morning measuring targets for — is aimed at nine entries.
+Twice in one day I aimed at the cap and the cap was not what was holding anything.
+
+But "out of budget" is not one problem. `sweep_shard` distinguishes **three** timeouts in its
+own counters — `build timed out`, `terms timed out`, `annihilation timed out` — and writes the
+**same** `tmo[a] = BUDGET` for all three. The file whose entire purpose is keeping refusals
+apart (defects 48, 49, 53 went to that trouble) throws away the distinction that decides what
+to speed up: exploring a state space, iterating the matrix, or the annihilation test. These are
+three different fixes and one number.
+
+The phase was never unavailable — `inflight` writes it for the death marker. It was simply not
+kept. Now written to `uniall_tmophase.json`, beside `uniall_tmo.json` rather than inside it so
+every reader expecting an int still works, folded by `merge_shards` and pruned with the rest.
+Sweeps restarted, since a source fix does not reach a running process.
+
+**Defect 48 one level down.** That one separated the cap from the clock from the memory; this
+one separates the clock from itself. The next firing can read which phase the 385 are losing
+to, and that is the first time that question has had an answer on disk.

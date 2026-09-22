@@ -1916,6 +1916,32 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 62 — three phases, one number: which budget was exhausted was never recorded
+
+`sweep_shard` names three separate timeouts — `build timed out`, `terms timed out`,
+`annihilation timed out` — and all three write the **same** `tmo[a] = BUDGET`. So
+`uniall_tmo.json`, the file that exists to keep refusals apart, collapses the one distinction
+that decides what to fix.
+
+It matters right now. The live sweep's own tally this generation:
+
+      385  out of budget on an earlier pass
+       64  out of memory
+       44  a shard died holding this entry 3 times or more
+        9  state space > cap
+
+**Nine cap refusals against 385 clock refusals.** Every hour spent on an on-the-fly quotient to
+raise the cap is aimed at nine entries. But "out of budget" is three different problems —
+exploring a state space (raise the cap, write the quotient), iterating the matrix (speed up
+`terms`), or the annihilation test (lump harder) — and nothing on disk said which. The phase
+was already known: `inflight` writes it for the death marker. It was simply not kept.
+
+Now kept, in `uniall_tmophase.json` beside `uniall_tmo.json` so every reader expecting an int
+still works. The sweeps were restarted, because a source fix does not reach a running process.
+
+**This is defect 48 one level down.** That one separated the cap from the clock from the
+memory. This one separates the clock from itself.
+
 ### defect 61 — a refusal file that is never retracted, and the retraction that was written once
 
 `uniall_caps.json` held **2,759** rows. **997 of them were already HITS of the very sweep that

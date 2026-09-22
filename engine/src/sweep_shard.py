@@ -144,6 +144,15 @@ OOM = f'shard{TAG}_oom_{SHARD}.json'
 # Separate from `oom' on purpose -- what a timeout exceeded is the budget, and folding the two
 # together is exactly how a cap came to wear an out-of-memory's name.
 TMO = f'shard{TAG}_tmo_{SHARD}.json'
+# DEFECT 62, and it is defect 48 one level down. Three separate phases can exhaust BUDGET ---
+# the build, the terms, the annihilation --- and `res' names all three, but all three write the
+# SAME `tmo[a] = BUDGET'. So the file that exists to keep refusals apart collapses the one
+# distinction that decides what to fix: 385 entries are "out of budget on an earlier pass" and
+# nothing on disk says whether the budget went to exploring a state space (raise the cap, write
+# a quotient), to iterating the matrix (speed up `terms'), or to the annihilation test (lump
+# harder). The phase is already known --- `inflight' writes it --- and was simply not kept.
+# Written beside TMO rather than inside it so every existing reader of an int still works.
+TMOPHASE = f'shard{TAG}_tmophase_{SHARD}.json'
 # Entries a shard DIED on, which is not the same fact as an entry that raised MemoryError.
 # `uniform.build' raising MemoryError against this shard's RLIMIT_AS is the entry's own
 # appetite and belongs in OOM. A shard that vanished without recording anything belongs here:
@@ -162,6 +171,7 @@ INFLIGHT = f'shard{TAG}_inflight_{SHARD}.json'
 caps = json.load(open(CAPS)) if os.path.exists(CAPS) else {}
 oom = json.load(open(OOM)) if os.path.exists(OOM) else {}
 tmo = json.load(open(TMO)) if os.path.exists(TMO) else {}
+tmophase = json.load(open(TMOPHASE)) if os.path.exists(TMOPHASE) else {}
 res = collections.Counter()
 # A marker left behind means the previous shard died inside that entry without reaching any
 # handler -- MemoryError the handler could not survive, the OOM killer, a container restart.
@@ -228,6 +238,8 @@ def save():
         atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
     if tmo:
         atomicjson.dump(tmo, TMO, indent=0, sort_keys=True)
+    if tmophase:
+        atomicjson.dump(tmophase, TMOPHASE, indent=0, sort_keys=True)
     # The counters were printed ONCE, after the loop, so a shard that is still running or that
     # dies mid-way reports nothing at all about why it refused anything -- and these shards do
     # die: four launched over the capped list, three gone, four empty logs and no idea what the
@@ -373,6 +385,7 @@ for a in sorted(set(CANDS) | ANUMS):
     except Timeout:
         signal.alarm(0); res['build timed out'] += 1
         tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmophase[a] = 'build'
         done.add(a); save(); continue
     except MemoryError:
         # marked done so the run makes progress, but NOT written to caps: what this entry
@@ -415,6 +428,7 @@ for a in sorted(set(CANDS) | ANUMS):
     except Timeout:
         signal.alarm(0); res['terms timed out'] += 1
         tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmophase[a] = 'terms'
         done.add(a); save(); continue
     except MemoryError:
         signal.alarm(0); res['out of memory'] += 1; oom[a] = MEMGB
@@ -442,6 +456,7 @@ for a in sorted(set(CANDS) | ANUMS):
     except Timeout:
         signal.alarm(0); res['annihilation timed out'] += 1
         tmo[a] = max(tmo.get(a, 0), BUDGET)
+        tmophase[a] = 'threshold'
         done.add(a); save(); continue
     except MemoryError:
         # A186012's BUILD fits: S=900096 under a cap of 2,000,000. What did not fit was
