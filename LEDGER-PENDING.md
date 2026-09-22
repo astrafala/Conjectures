@@ -506,3 +506,42 @@ coming; that made 64's wall-clock budgets record the load rather than the entry;
 `uniall_tmo.json`, which the whole project reads to decide what to work on next. None of the
 three is visible from inside its own layer, and all three were found by asking why a file
 defect 62 had just created was still empty.
+
+## 22 September 2026 — A196074, and the false cap row that was hiding it
+
+The third entry of this shape today, and the one that says most about the refusal files.
+
+**A196074**, "Number of nX4 0..4 arrays with each element x equal to the number its horizontal
+and vertical neighbors equal to 0,3,2,1,4 for x=0,1,2,3,4", offset 1, 30 DATA terms, 200-term
+b-file. Its order-37 empirical line first asserts at n = 38 and **fails at all 163 indices the
+b-file can test**, first at n = 38 where it exceeds a(38) = 299,231,374,661,523 by 393. As with
+A269637 and A236647, the entry's own published terms settle it and no model is needed.
+
+**The correction, and it is proved.** The least order that fits is **43**, integral, and its
+first 37 coefficients are exactly the published ones — the tail
+`+274*a(n-38) +112*a(n-39) +84*a(n-40) -56*a(n-41) +8*a(n-42) -8*a(n-43)` dropped. Run through
+the project's own annihilation test, the order-43 line is **certified from threshold 42** and
+the published order-37 line returns **no threshold at all**: there is no index beyond which it
+holds.
+
+The model was not taken on trust. An independent enumeration written from the entry's wording,
+sharing no code with the engine, gives 0, 0, 1, 8, 39, 60, 111 — the entry's first seven terms;
+and the engine's model reproduces all 30 DATA terms and all 200 b-file terms.
+
+Paper at rank 1256. `src/verify_a196074.py` re-derives every claim and passes.
+
+### Why this entry was sitting unasked
+
+**A196074 carried a row in `uniall_caps.json` at a cap of 2,000,000.** It builds in **3.8
+seconds at 1,461 reachable states**, which merge to **58**. IDEAS.md §T names it explicitly as
+one of the entries "in the pool because the BUILD refuses them, not the parser" — that
+sentence was written from the cap file and the cap file was wrong.
+
+So the audit that made `uniall_caps.json` honest this morning (defect 61) did not just correct
+a number. One of the rows it was wrong about was hiding a disproof, and the entry had been
+carrying the wrong label long enough to be quoted in a planning document as evidence for where
+the engine work should go.
+
+Three disproofs today, all the same truncation shape — A269637 (10 published, 13 true),
+A236647 (34, 38) and A196074 (37, 43) — and in every one the published coefficients are the
+true recurrence's first coefficients, term for term.

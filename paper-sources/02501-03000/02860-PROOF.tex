@@ -12,87 +12,83 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210049, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A206363, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210049 counts arrays of width $6$ whose every $2\times2$ subblock holds a
-prescribed number of DISTINCT values, which use ALL of the $3$ available letters, and which
-are counted up to renaming. The entry carries an empirical recurrence of order $85$
-contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical. The
-condition counts distinct values and so survives renaming, which lets the count of patterns be
-recovered from counts over fixed alphabets by inverting a triangular system of falling
-factorials; the words ``containing all values'' change which row of that inverse is used and
-nothing else. Each fixed-alphabet count is a walk count on $S=794$ states in all.
+OEIS A206363 counts, up to renaming the letters, the arrays of width $4$ over at most $4$
+letters in which every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree. It carries an empirical recurrence of order $85$ contributed by
+R.~H.~Hardin. It is true, and it is decidable rather than empirical. Counting up to renaming is
+a fixed rational combination of ordinary array counts, each of those is a walk count, and the
+conjectured recurrence is then settled by a finite exact computation.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 05B45.\normalsize
 
 \section{The conjecture}
 
-OEIS A210049 is ``Number of (n+1)X6 0..2 arrays containing all values 0..2 with every 2X2 subblock having two distinct values, and new values 0..2 introduced in row major order.''. It has offset $1$ and begins
+OEIS A206363 is ``Number of (n+1)X4 0..3 arrays with every 2X3 or 3X2 subblock having no more than two equal edges, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
 \[
-2695, 114237, 5169813, 240224641, 11175987745, 518401340537, 23937024685863, 1100584205159383,\ \dots
+1990, 294983, 47155911, 7524874363, 1197873588223, 190817902385518, 30394990249581088, 4841446696348626725,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 95*a(n-1) -1900*a(n-2) -56187*a(n-3) +1896826*a(n-4) +10639671*a(n-5) -701967562*a(n-6) +182025504*a(n-7) +145227173547*a(n-8) -419177692530*a(n-9) -19353743252952*a(n-10) +85433587963187*a(n-11) +1789310766121030*a(n-12) -9814164235308092*a(n-13) -120060982729819483*a(n-14) +765035170825593245*a(n-15) +6017016207355416460*a(n-16) -43541812515518188378*a(n-17) -229165729445431519990*a(n-18) +1883135755161684947180*a(n-19) +6681559617272514956311*a(n-20) -63470576622786136682427*a(n-21) -148387908315962080864347*a(n-22) +1696040408430945413751419*a(n-23) +2441965221868975215665887*a(n-24) -36367868110504859946108233*a(n-25) -27123365069860973680044986*a(n-26) +631130053365999735351614148*a(n-27) +119980272688573408489016056*a(n-28) -8915897918476195422100426614*a(n-29) +2412340555420151638480078658*a(n-30) +102896759828837108198775563215*a(n-31) -68644270700583096858101003448*a(n-32) -971547304253211509401889501357*a(n-33) +995012323475586180840182952483*a(n-34) +7499405881793341784125165632547*a(n-35) -10232435340791417316913030684426*a(n-36) -47161621488766896200634807982479*a(n-37) +80820197825843514088408850293447*a(n-38) +239855811396646802214363695180830*a(n-39) -505732140134030094288174473059546*a(n-40) -972742523593329235306216393345880*a(n-41) +2543169520372173508071434849734048*a(n-42) +3058611451317489983173515035561168*a(n-43) -10342968088581061157016175191676640*a(n-44) -6977459283642089223709813906160960*a(n-45) +34073152101317101518285115092132992*a(n-46) +9114754028315599477362585372463872*a(n-47) -90726619705297606228840946528413184*a(n-48) +5712787931119845131108798817557504*a(n-49) +194093674517911624712078233321302016*a(n-50) -67650269415852823479141377504284672*a(n-51) -329954767661586600044634334076174336*a(n-52) +203840703277616818982293766396248064*a(n-53) +437172596651511261196700599060299776*a(n-54) -396576835852277476758522471722385408*a(n-55) -435146329265061509372084133603573760*a(n-56) +560513238066512908271893616141795328*a(n-57) +298566983364908489347607489997176832*a(n-58) -593417366209162076201649845555953664*a(n-59) -100638006616185019609324494583234560*a(n-60) +471240603234583504420313636037197824*a(n-61) -45562344037918621053683765849620480*a(n-62) -275706079523436749614843746456698880*a(n-63) +88841666981863575790183893881061376*a(n-64) +113767808816928441874153965636026368*a(n-65) -63784227683525892936104047204630528*a(n-66) -29715171577770889841433311723913216*a(n-67) +27937344701767998441500182090612736*a(n-68) +3035982582593744479341262252539904*a(n-69) -7898537092413062015374966248177664*a(n-70) +872457845406545206794050963767296*a(n-71) +1383835119274937089141022897733632*a(n-72) -406187967110938717076817165942784*a(n-73) -125911386037639966549457871306752*a(n-74) +71872362752322059117260567478272*a(n-75) +615381469617027062858438934528*a(n-76) -6230031747986295045906157797376*a(n-77) +962157249671359029077329575936*a(n-78) +201447367970440853444823613440*a(n-79) -73731760702864937441302675456*a(n-80) +3853709312871652730349813760*a(n-81) +1381244199549680888917786624*a(n-82) -266234332241304577659371520*a(n-83) +18796013717194851735306240*a(n-84) -487592409806823116242944*a(n-85)
+Empirical: a(n) = 156*a(n-1) -1413*a(n-2) +329106*a(n-3) -4154064*a(n-4) +186840087*a(n-5) -8192746333*a(n-6) +38256252573*a(n-7) +1524493608637*a(n-8) -14650534294939*a(n-9) -70737673568729*a(n-10) +1266959328258358*a(n-11) +1305358080627014*a(n-12) -57723840510391912*a(n-13) -143071119831815622*a(n-14) +3140645711858022401*a(n-15) -1305066715344231552*a(n-16) -65229690816553397761*a(n-17) +75497968365687199186*a(n-18) +631869450113827724563*a(n-19) -1008205063597125759852*a(n-20) -17929402222374322998733*a(n-21) +122327054387103519125111*a(n-22) +464725801000735333183598*a(n-23) -2465472225898448207231288*a(n-24) -156547751115906706500371*a(n-25) -30698647352213321127103802*a(n-26) -169321220443896083823109141*a(n-27) +1024989169658009258328131623*a(n-28) -446176112972097179334633604*a(n-29) +3438194787300589043171190374*a(n-30) +53754059779526411972793401792*a(n-31) -99297157343228786341710316519*a(n-32) -186348746017147456654042037043*a(n-33) -980511766094394050160296684141*a(n-34) -3860545763955432766686121360048*a(n-35) +1800658275478467059082507907630*a(n-36) +5683480556604232205159834488193*a(n-37) +84436913072511515434531261294259*a(n-38) +201013788648537453968005814761691*a(n-39) +317143053951493206349513023222952*a(n-40) +465414406361574321457329730858706*a(n-41) -1774838715783548998747399345859554*a(n-42) -5386485181143264155006607744277576*a(n-43) -18430124632356464460977373517297142*a(n-44) -23176378783105043807857486557822660*a(n-45) -20265402938979906164077466135001889*a(n-46) +72214616284983713771584870800105104*a(n-47) +206109451346604589085910677991731511*a(n-48) +295665513674613843340094829344781018*a(n-49) +300995727057338655304477996783095257*a(n-50) -474763553278461043092075823566948470*a(n-51) +954925001289007754801210834954608087*a(n-52) -265048063242935544705538978751136419*a(n-53) +4033613235448021689216936549526879844*a(n-54) +2328665429101220413795440019452500581*a(n-55) +10817496708615259100742210303409406988*a(n-56) +6523544352168070916759371713077465450*a(n-57) -10911703961725738105473020634675713780*a(n-58) -52193695973520841774898350977964973300*a(n-59) -35808642699687643575940299358141412296*a(n-60) -27383986136907950207446881762894898920*a(n-61) -46431458138215326166908082652669157056*a(n-62) -30352758852440647468320897326795394656*a(n-63) +57336456437583528121359131409473443904*a(n-64) +256113389527547637754347868711690622592*a(n-65) +16050973371501943567388377553943270400*a(n-66) -462290927134426426834247835984190160896*a(n-67) +124450859935497506530885347185361995776*a(n-68) +545570025581283201732334566502703677440*a(n-69) -494641588038546120478581739110369755136*a(n-70) -262694706278462839542389619331891789824*a(n-71) +534467659856189181706516380893280731136*a(n-72) -114871871918666790476160929116685598720*a(n-73) -204484152643211333062197003990866067456*a(n-74) +216450190885624277290287175845323735040*a(n-75) -22914412904956493121107620055312498688*a(n-76) -100566381423434781578461610471596228608*a(n-77) +43503459079164257382178958052251664384*a(n-78) +7292513991812167577018793791078793216*a(n-79) -15644270164788059197341510897915396096*a(n-80) +8052695477492562845196427289715277824*a(n-81) +3143716862083141634766200203043143680*a(n-82) -2495101350879765737743335206525337600*a(n-83) -320589669443445488711333169856512000*a(n-84) +234029489504704351561662081269760000*a(n-85)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:39:19, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 12:53:53, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $6$ cells across and entries in $\{0,1,\dots,2\}$. In every
-$2\times2$ window of it, the number of DISTINCT entries must be one of $2$. Two
-further clauses come with it:
+The condition is that every $2\times3$ and $3\times2$ subblock has at most $2$ equal edges, an edge of such a window being one of the six steps of its perimeter cycle and an equal edge one whose two cells agree.
 
-\begin{itemize}
-\item ``new values $0..2$ introduced in row major order'' --- reading the cells in row major
-order, a letter may appear for the first time only when every smaller letter already has, so
-the array counted is the canonical representative of its EQUALITY PATTERN;
-\item ``containing all values $0..2$'' --- every one of the $3$ letters must actually
-occur.
-\end{itemize}
-
-
-\section{From patterns to fixed alphabets}
-
+The clause ``new values $0..3$ introduced in row major order'' says the array is the
+canonical representative of its EQUALITY PATTERN, so what is counted is patterns, not arrays.
 Write $N_j$ for the number of admissible patterns using exactly $j$ letters and $L_i$ for the
 number of admissible arrays over an alphabet of $i$ letters. An array over $i$ letters is a
 pattern together with an injection of its letters into the alphabet, so
 \[
-L_i\;=\;\sum_{j} N_j\,i(i-1)\cdots(i-j+1)\;=\;\sum_j F_{ij}N_j ,
+L_i\;=\;\sum_j N_j\,i(i-1)\cdots(i-j+1),
 \]
-a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$.
-
-Here is the whole difference between this entry and its neighbours. Without the words
-``containing all values'' the quantity counted is $N_1+\dots+N_{3}$, and the weights are
-the row vector $\mathbf{1}^{\!\top}F^{-1}$. With them, the pattern must use every letter,
-so the quantity counted is $N_{3}$ alone and the weights are the single row
-$e_{3}^{\!\top}F^{-1}$ of the same inverse:
+a triangular system with unit diagonal, hence invertible over $\mathbf{Q}$. The entry counts
+$a=N_1+\dots+N_{4}$, so
 \[
-a\;=\;N_{3}\;=\;\sum_{i=1}^{3}\bigl(F^{-1}\bigr)_{3i}\,L_i .
+a\;=\;\sum_{i=1}^{4}w_i\,L_i
 \]
+for one fixed rational vector $w=\mathbf{1}^{\!\top}F^{-1}$, $F$ the matrix of falling
+factorials.
 
-The step is legitimate only if the condition survives renaming the alphabet, and it does: the
-condition counts how many DISTINCT values a window holds, and whether two cells agree is
-untouched by any renaming. No clause compares letters by size or does arithmetic on them.
+\section{Why the reduction is allowed here}
+
+The step above is legitimate only if the condition is invariant under permuting the alphabet,
+and in this family that is a real restriction rather than a formality. An \emph{equal edge}
+is an edge of a subblock whose two cells carry the same letter; whether two cells agree is
+untouched by any renaming, so every condition built from counting equal edges is invariant and
+the reduction applies.
+
+The neighbouring conditions of the same family that count \emph{increases} --- how many steps
+of a subblock's perimeter cycle go UP in value --- are not invariant: they compare letters by
+size, and a permutation of the alphabet changes the count. Those entries are therefore excluded
+here rather than reduced, and are settled, when they are settled, over their own alphabet
+without the pattern step.
 
 \section{Each $L_i$ is a walk count}
 
-A $2\times2$ window lies in $2$ consecutive array rows, so the window of the last
-$1$ rows is a state and a step appends a row, settling every subblock it completes.
-Assembling the pieces for $i=1,\dots,3$ as a disjoint union, with $\iota$ carrying the
-weights above cleared of denominators and $\tau=\mathbf{1}$,
+For a fixed alphabet the condition is local: a $2\times2$ subblock is built from two
+consecutive array rows, a $2\times3$ or $3\times2$ window from two or three of them, and every
+comparison the entry makes is between subblocks that meet in the grid. Taking as state a single
+row where the condition looks at one subblock at a time, and the pair of consecutive rows where
+it compares neighbours, each $L_i$ is a walk count on its own digraph. Assembling,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=794.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau
 \]
-The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
-published terms rather than assumed. In particular $a$ is $C$-finite.
+on the disjoint union of those digraphs for $i=1,\dots,4$, with $\iota$ carrying the weights
+$w_i$ cleared of denominators and $S=50860$ states in all. The walk index $j$ and the entry's own
+$n$ differ by a constant, read off by matching the published terms rather than assumed. In
+particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -114,7 +110,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;95\,a(n-1) - 1900\,a(n-2) - 56187\,a(n-3) + 1896826\,a(n-4) + 10639671\,a(n-5) - 701967562\,a(n-6) + 182025504\,a(n-7) + 145227173547\,a(n-8) - 419177692530\,a(n-9) - 19353743252952\,a(n-10) + 85433587963187\,a(n-11) + 1789310766121030\,a(n-12) - 9814164235308092\,a(n-13) - 120060982729819483\,a(n-14) + 765035170825593245\,a(n-15) + 6017016207355416460\,a(n-16) - 43541812515518188378\,a(n-17) - 229165729445431519990\,a(n-18) + 1883135755161684947180\,a(n-19) + 6681559617272514956311\,a(n-20) - 63470576622786136682427\,a(n-21) - 148387908315962080864347\,a(n-22) + 1696040408430945413751419\,a(n-23) + 2441965221868975215665887\,a(n-24) - 36367868110504859946108233\,a(n-25) - 27123365069860973680044986\,a(n-26) + 631130053365999735351614148\,a(n-27) + 119980272688573408489016056\,a(n-28) - 8915897918476195422100426614\,a(n-29) + 2412340555420151638480078658\,a(n-30) + 102896759828837108198775563215\,a(n-31) - 68644270700583096858101003448\,a(n-32) - 971547304253211509401889501357\,a(n-33) + 995012323475586180840182952483\,a(n-34) + 7499405881793341784125165632547\,a(n-35) - 10232435340791417316913030684426\,a(n-36) - 47161621488766896200634807982479\,a(n-37) + 80820197825843514088408850293447\,a(n-38) + 239855811396646802214363695180830\,a(n-39) - 505732140134030094288174473059546\,a(n-40) - 972742523593329235306216393345880\,a(n-41) + 2543169520372173508071434849734048\,a(n-42) + 3058611451317489983173515035561168\,a(n-43) - 10342968088581061157016175191676640\,a(n-44) - 6977459283642089223709813906160960\,a(n-45) + 34073152101317101518285115092132992\,a(n-46) + 9114754028315599477362585372463872\,a(n-47) - 90726619705297606228840946528413184\,a(n-48) + 5712787931119845131108798817557504\,a(n-49) + 194093674517911624712078233321302016\,a(n-50) - 67650269415852823479141377504284672\,a(n-51) - 329954767661586600044634334076174336\,a(n-52) + 203840703277616818982293766396248064\,a(n-53) + 437172596651511261196700599060299776\,a(n-54) - 396576835852277476758522471722385408\,a(n-55) - 435146329265061509372084133603573760\,a(n-56) + 560513238066512908271893616141795328\,a(n-57) + 298566983364908489347607489997176832\,a(n-58) - 593417366209162076201649845555953664\,a(n-59) - 100638006616185019609324494583234560\,a(n-60) + 471240603234583504420313636037197824\,a(n-61) - 45562344037918621053683765849620480\,a(n-62) - 275706079523436749614843746456698880\,a(n-63) + 88841666981863575790183893881061376\,a(n-64) + 113767808816928441874153965636026368\,a(n-65) - 63784227683525892936104047204630528\,a(n-66) - 29715171577770889841433311723913216\,a(n-67) + 27937344701767998441500182090612736\,a(n-68) + 3035982582593744479341262252539904\,a(n-69) - 7898537092413062015374966248177664\,a(n-70) + 872457845406545206794050963767296\,a(n-71) + 1383835119274937089141022897733632\,a(n-72) - 406187967110938717076817165942784\,a(n-73) - 125911386037639966549457871306752\,a(n-74) + 71872362752322059117260567478272\,a(n-75) + 615381469617027062858438934528\,a(n-76) - 6230031747986295045906157797376\,a(n-77) + 962157249671359029077329575936\,a(n-78) + 201447367970440853444823613440\,a(n-79) - 73731760702864937441302675456\,a(n-80) + 3853709312871652730349813760\,a(n-81) + 1381244199549680888917786624\,a(n-82) - 266234332241304577659371520\,a(n-83) + 18796013717194851735306240\,a(n-84) - 487592409806823116242944\,a(n-85)
+a(n)\;=\;156\,a(n-1) - 1413\,a(n-2) + 329106\,a(n-3) - 4154064\,a(n-4) + 186840087\,a(n-5) - 8192746333\,a(n-6) + 38256252573\,a(n-7) + 1524493608637\,a(n-8) - 14650534294939\,a(n-9) - 70737673568729\,a(n-10) + 1266959328258358\,a(n-11) + 1305358080627014\,a(n-12) - 57723840510391912\,a(n-13) - 143071119831815622\,a(n-14) + 3140645711858022401\,a(n-15) - 1305066715344231552\,a(n-16) - 65229690816553397761\,a(n-17) + 75497968365687199186\,a(n-18) + 631869450113827724563\,a(n-19) - 1008205063597125759852\,a(n-20) - 17929402222374322998733\,a(n-21) + 122327054387103519125111\,a(n-22) + 464725801000735333183598\,a(n-23) - 2465472225898448207231288\,a(n-24) - 156547751115906706500371\,a(n-25) - 30698647352213321127103802\,a(n-26) - 169321220443896083823109141\,a(n-27) + 1024989169658009258328131623\,a(n-28) - 446176112972097179334633604\,a(n-29) + 3438194787300589043171190374\,a(n-30) + 53754059779526411972793401792\,a(n-31) - 99297157343228786341710316519\,a(n-32) - 186348746017147456654042037043\,a(n-33) - 980511766094394050160296684141\,a(n-34) - 3860545763955432766686121360048\,a(n-35) + 1800658275478467059082507907630\,a(n-36) + 5683480556604232205159834488193\,a(n-37) + 84436913072511515434531261294259\,a(n-38) + 201013788648537453968005814761691\,a(n-39) + 317143053951493206349513023222952\,a(n-40) + 465414406361574321457329730858706\,a(n-41) - 1774838715783548998747399345859554\,a(n-42) - 5386485181143264155006607744277576\,a(n-43) - 18430124632356464460977373517297142\,a(n-44) - 23176378783105043807857486557822660\,a(n-45) - 20265402938979906164077466135001889\,a(n-46) + 72214616284983713771584870800105104\,a(n-47) + 206109451346604589085910677991731511\,a(n-48) + 295665513674613843340094829344781018\,a(n-49) + 300995727057338655304477996783095257\,a(n-50) - 474763553278461043092075823566948470\,a(n-51) + 954925001289007754801210834954608087\,a(n-52) - 265048063242935544705538978751136419\,a(n-53) + 4033613235448021689216936549526879844\,a(n-54) + 2328665429101220413795440019452500581\,a(n-55) + 10817496708615259100742210303409406988\,a(n-56) + 6523544352168070916759371713077465450\,a(n-57) - 10911703961725738105473020634675713780\,a(n-58) - 52193695973520841774898350977964973300\,a(n-59) - 35808642699687643575940299358141412296\,a(n-60) - 27383986136907950207446881762894898920\,a(n-61) - 46431458138215326166908082652669157056\,a(n-62) - 30352758852440647468320897326795394656\,a(n-63) + 57336456437583528121359131409473443904\,a(n-64) + 256113389527547637754347868711690622592\,a(n-65) + 16050973371501943567388377553943270400\,a(n-66) - 462290927134426426834247835984190160896\,a(n-67) + 124450859935497506530885347185361995776\,a(n-68) + 545570025581283201732334566502703677440\,a(n-69) - 494641588038546120478581739110369755136\,a(n-70) - 262694706278462839542389619331891789824\,a(n-71) + 534467659856189181706516380893280731136\,a(n-72) - 114871871918666790476160929116685598720\,a(n-73) - 204484152643211333062197003990866067456\,a(n-74) + 216450190885624277290287175845323735040\,a(n-75) - 22914412904956493121107620055312498688\,a(n-76) - 100566381423434781578461610471596228608\,a(n-77) + 43503459079164257382178958052251664384\,a(n-78) + 7292513991812167577018793791078793216\,a(n-79) - 15644270164788059197341510897915396096\,a(n-80) + 8052695477492562845196427289715277824\,a(n-81) + 3143716862083141634766200203043143680\,a(n-82) - 2495101350879765737743335206525337600\,a(n-83) - 320589669443445488711333169856512000\,a(n-84) + 234029489504704351561662081269760000\,a(n-85)
 \]
 for every $n>85$.
 \end{theorem}
@@ -123,36 +119,32 @@ for every $n>85$.
 The vector $w=q(M)\tau$ was formed by $85$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=85+1$ onwards and the run continued
-until the working vector was identically zero. The rational weights are carried as one common
-denominator throughout, so no division is performed until the final term.
+until the working vector was identically zero, which settles every larger $j$ at once. The
+rational weights are cleared by a common denominator first, so the whole computation is over
+the integers.
 \end{proof}
 
 \section{Verification}
 
-Four checks, each independent of the algebra above.
+Three checks, each independent of the algebra above.
 
-First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
-arithmetic.
+First, the model reproduces all $11$ terms the entry publishes, exactly, in integer
+arithmetic. This is what ties the model to the entry: the digraph is built by reading the
+entry's English, and a misreading gives different counts.
 
-Second, the count was recomputed for the smallest arrays straight from the definition:
-enumerate every array over $\{0,\dots,2\}$, keep those that are canonical, that use every
-letter, and whose every subblock passes, and count them. Neither the transfer matrix nor the
-falling-factorial inversion is involved, and the published terms came back --- including the
-initial zeros, which are a sharp test of the ``containing all values'' clause: a small array
-cannot show $3$ letters at all.
-
-Third, the conjectured recurrence was evaluated directly on the published terms, with no
+Second, the conjectured recurrence was evaluated directly on those published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210049.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A206363.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling numbers and
-falling factorials, Section 1.9.)
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974. (Set partitions
+and falling factorials.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

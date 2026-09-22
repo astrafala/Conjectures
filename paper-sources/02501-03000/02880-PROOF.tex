@@ -11,79 +11,91 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A187933, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A268007, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{3 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A187933 counts arrays over $\{0,\dots,1\}$ under a condition comparing a statistic of
-every $2\times2$ subblock with those of its neighbours, and carries an empirical recurrence
-of order $75$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
-empirical. The count is a walk count on $S=1422$ states and is $C$-finite; whether the
-conjectured recurrence annihilates it is then settled by a finite exact computation.
+OEIS A268007 counts arrays in which the REPEATED VALUES of each row, and of each column, stand in a
+prescribed relation to one another in the order they occur. The entry carries an empirical
+recurrence of order $75$ contributed by R.~H.~Hardin. It is true, and it is decidable
+rather than empirical: one of the two scans runs inside a slice of the array and the other
+across slices, and the second needs only the previous slice together with the last repeated
+value so far in each column of the scan, so the count is a walk count on $S=9189$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A18, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A187933 is ``Number of (n+2)X4 binary arrays with every 2X2 subblock sum equal to some diagonal or antidiagonal neighbor 2X2 subblock sum.''. It has offset $1$ and begins
+OEIS A268007 is ``Number of nX3 0..3 arrays with every repeated value in every row and column unequal to the previous repeated value, and new values introduced in row-major sequential order.''. It has offset $1$ and begins
 \[
-44, 104, 704, 2532, 14308, 64024, 328116, 1509288,\ \dots
+4, 159, 7445, 381958, 18691624, 911680225, 43653230106, 2074179818184,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n)=8*a(n-1)-18*a(n-2)+6*a(n-3)+304*a(n-4)-2033*a(n-5)+4034*a(n-6)-580*a(n-7)-28763*a(n-8)+151699*a(n-9)-282467*a(n-10)+50276*a(n-11)+1173373*a(n-12)-4810771*a(n-13)+8448909*a(n-14)-3832537*a(n-15)-19145259*a(n-16)+77277253*a(n-17)-139216499*a(n-18)+106280857*a(n-19)+128969780*a(n-20)-686066310*a(n-21)+1332354155*a(n-22)-1320546548*a(n-23)-134214361*a(n-24)+3430781392*a(n-25)-7447681464*a(n-26)+8649852375*a(n-27)-3263437890*a(n-28)-8740672240*a(n-29)+23870214560*a(n-30)-32193286295*a(n-31)+21921745920*a(n-32)+3625661685*a(n-33)-39628520857*a(n-34)+67737879788*a(n-35)-62712514658*a(n-36)+35408423577*a(n-37)+20487107016*a(n-38)-71671379796*a(n-39)+83259647444*a(n-40)-82639430156*a(n-41)+25055626404*a(n-42)+26357815576*a(n-43)-46896528420*a(n-44)+76959675332*a(n-45)-26100705884*a(n-46)+4069895120*a(n-47)+20658712264*a(n-48)-52895629880*a(n-49)-4230213968*a(n-50)-4064870912*a(n-51)-37012235712*a(n-52)+52432794368*a(n-53)+4199264480*a(n-54)+11271623520*a(n-55)+34228002752*a(n-56)-30018029504*a(n-57)+2026068352*a(n-58)-6677852672*a(n-59)-13614194432*a(n-60)+3580450816*a(n-61)-2653281024*a(n-62)-4018797568*a(n-63)+6763790336*a(n-64)-1936586240*a(n-65)+197451776*a(n-66)+1509737472*a(n-67)-927522816*a(n-68)+739151872*a(n-69)-182849536*a(n-70)+103931904*a(n-71)+10715136*a(n-72)+27918336*a(n-73)-8323072*a(n-74)+3670016*a(n-75)
+Empirical recurrence of order 75 (see link above)
+
+Empirical: a(n) = 132*a(n-1) - 4506*a(n-2) - 103267*a(n-3) + 8259938*a(n-4) - 24127703*a(n-5) - 5787115400*a(n-6) + 56232404488*a(n-7) + 2306735665228*a(n-8) - 28409177513485*a(n-9) - 601356750127296*a(n-10) + 7707964848572199*a(n-11) + 108342718171421879*a(n-12) - 1324387442904996554*a(n-13) - 13634656380981041506*a(n-14) + 157339687681868416794*a(n-15) + 1200206993744949578133*a(n-16) - 13687263951517014395166*a(n-17) - 73490498158890582169026*a(n-18) + 900908463564006151171675*a(n-19) + 3019263057698530984178952*a(n-20) - 45407954278661696148210819*a(n-21) - 70842704399062670186246692*a(n-22) + 1745306321505982101316313084*a(n-23) - 40175872090483637059080438*a(n-24) - 50209873329076660639636568665*a(n-25) + 74287704480200514260029881020*a(n-26) + 1038942506783823367409969764585*a(n-27) - 3126793539020096092474991665833*a(n-28) - 14093350469213058809098580121116*a(n-29) + 73619913860597032037382692955454*a(n-30) + 87788095525747152122076504901858*a(n-31) - 1100736779984672265890282645859834*a(n-32) + 734002862321680806727044660641296*a(n-33) + 10231602929163237529926065671237152*a(n-34) - 22494234103006762393672787158189480*a(n-35) - 49898711810316390467118094362206120*a(n-36) + 235041419757121908095030273990534448*a(n-37) - 4068487382975582489338106822443056*a(n-38) - 1339390817958557796896511797012260960*a(n-39) + 1703675623400440046961706740944574784*a(n-40) + 4041035974506971263485668462239046656*a(n-41) - 11438125476078134884011089582298136256*a(n-42) - 2397248142906239566825731423054633216*a(n-43) + 39247079200477613297051488198977516800*a(n-44) - 30245655533501109303265627014700406784*a(n-45) - 74085848197948547828308410089207923712*a(n-46) + 131958841912264988512342024848333745664*a(n-47) + 48223272272941936224475327667516282368*a(n-48) - 279573662917398911038909554985733965824*a(n-49) + 117534119852638568820367158391806003200*a(n-50) + 334778553723086324846536561326827296768*a(n-51) - 366427387942327171165368575270984509440*a(n-52) - 176358857349579387355655384508938907648*a(n-53) + 486535019965364531861677570619178897408*a(n-54) - 96974456895826685911017452732540166144*a(n-55) - 357417015043586152813632715004657860608*a(n-56) + 248442349977444846374228711777028046848*a(n-57) + 117125324016549402863803494235620261888*a(n-58) - 196544976910013997142902739166264229888*a(n-59) + 27773224192704720802608578921252585472*a(n-60) + 71916244820985527744407624222648565760*a(n-61) - 38813244722379527826446775649705918464*a(n-62) - 5324542870170103416063160268139528192*a(n-63) + 9717782454566058348505473249687109632*a(n-64) - 2122766750229838850797232785050304512*a(n-65) + 65721749366441034111041731395846144*a(n-66) - 269933537553349892082889689101500416*a(n-67) + 36284468843291819164679430809321472*a(n-68) + 119783589517722385988975012207394816*a(n-69) - 70440710126344522886976102488604672*a(n-70) + 19123621892059459996063610487963648*a(n-71) - 1420383554813638494484035727785984*a(n-72) - 1624339879755056252315067356282880*a(n-73) + 631879357712252378887591003422720*a(n-74) - 60862841283540265540998974668800*a(n-75)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 04:09:49, revision 9) this is still
+As of the ``Last modified'' line on the live entry (Jan 24 2016 09:25:25, revision 5) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Write $\sigma$ for the sum of all its entries, taken on a $2\times2$ subblock. The contiguous $2\times2$
-subblocks of an $(n+1)\times4$ array over $\{0,\dots,1\}$ form a grid of $n$ rows
-and $3$ columns, and $\sigma$ labels that grid. The entry
-requires that every subblock carries the same value of $\sigma$ as at least ONE of its neighbours diagonally or antidiagonally.
+Read a row of the array from left to right. A REPEATED VALUE is an entry equal to the entry
+immediately before it; the row thus produces the sequence of values at the places where two
+equal entries stand side by side. The entry asks that each repeated value of a row be
+different from the previous repeated value of that row, and that each repeated value of a column,
+read downwards, be different from the previous repeated value of that column. The FIRST repeated
+value of a scan has no predecessor and is unconstrained; a scan with no two equal neighbours
+imposes nothing at all.
 
-\section{The count is a walk count}
-
-This condition is NOT a condition on a pair. Whether a subblock has a
-matching neighbour cannot be decided when its own row is placed: the row BELOW it may yet
-supply the match. So the state carries, besides the $2$ consecutive array rows, a tally for
-each of the $3$ subblocks of the row just completed --- a single bit saying whether it has already been matched --- counting its matches
-among its own row and the row above.
-
-A step appends an array row. It fixes the next subblock row, adds the matches between the two
-rows to the OLD row's tallies, and requires those totals to be acceptable, the old row being
-final at that moment; the new row's tallies start from its own horizontal matches plus the
-matches just made. A state is ACCEPTING when its own tally is already acceptable, which is
-exactly the right condition for the last subblock row, the one with nothing below it. Only the
-states whose tally came from their own row may BEGIN an array, since the first row has nothing
-above it.
-
-An array of $n+1$ rows is then a walk of $n-1$ steps and
+The entry closes with ``new values introduced in row-major sequential order'', so what is
+counted is arrays up to renaming the letters. Both relations here are built from equality
+alone, so the condition survives renaming and the usual inversion applies: with $N_j$ the
+classes on exactly $j$ letters and $L_i$ the admissible arrays over an alphabet of $i$ letters,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau
+L_i=\sum_j N_j\,i(i-1)\cdots(i-j+1),\qquad
+a=N_1+\dots+N_{4}=\bigl(\mathbf{1}^{\!\top}F^{-1}\bigr)L .
 \]
-with $\iota$ the indicator of the starting states and $\tau$ of the accepting ones, on
-$S=1422$ states in all. Getting the two vectors right is the whole of the argument: with
-$\iota$ taken as all-ones the first row would be allowed a match from a row above it that does
-not exist, and the count would be too large. The entry's own first terms settle it --- for
-the smallest cases
-the model reproduces every published term.
+An entry of this family whose relation compares letters by size, or does arithmetic on them,
+carries no such clause and is counted over its own alphabet instead; the two cases are not
+mixed.
 
-Over the alphabet $\{0,\dots,1\}$ the statistic takes values in $[0,4]$, so the
-grid it labels carries at most $5$ different labels. At $n=1$ the array has $2$
-rows and the grid is a single row of $3$
-subblocks, with only the neighbours inside that row; the entry's first term is
-$44$, which the model reproduces along with every later term, and that is the cheapest
-check that the grid has been read with the right shape.
+\section{One scan inside a slice, one across}
 
-In particular $a$ is $C$-finite. The alignment of the walk index with the entry's own $n$ was
-checked against its published terms rather than assumed.
+Take the array a $row$ at a time, the direction in which it grows.
+
+\begin{lemma}\label{lem:state}
+The $row$ scans are settled as each $row$ is written. The $column$ scans are
+settled by the previous $row$ together with, for each position, the last repeated value
+so far in that $column$.
+\end{lemma}
+
+\begin{proof}
+A $row$ scan compares neighbours inside one $row$, so writing the
+$row$ left to right and carrying the last repeated value seen decides it. In a
+$column$ scan a repeat happens at the new $row$ exactly when the new entry equals the
+entry in the same position of the previous $row$, and the only thing the relation needs
+besides that entry is the previous repeated value of that $column$.
+\end{proof}
+
+So the state is the pair (previous $row$, vector of last repeated values), the second
+component taking $3+2$ values at each position --- the letters together with a symbol for
+``none yet''. Assembling the pieces for $i=1,\dots,4$ as a disjoint union, with $\iota$ carrying the weights above cleared of denominators,
+\[
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=9189,\quad\tau=\mathbf{1} .
+\]
+The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
+published terms rather than assumed. In particular $a$ is $C$-finite.
 
 \section{The proof}
 
@@ -105,7 +117,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) - 18\,a(n-2) + 6\,a(n-3) + 304\,a(n-4) - 2033\,a(n-5) + 4034\,a(n-6) - 580\,a(n-7) - 28763\,a(n-8) + 151699\,a(n-9) - 282467\,a(n-10) + 50276\,a(n-11) + 1173373\,a(n-12) - 4810771\,a(n-13) + 8448909\,a(n-14) - 3832537\,a(n-15) - 19145259\,a(n-16) + 77277253\,a(n-17) - 139216499\,a(n-18) + 106280857\,a(n-19) + 128969780\,a(n-20) - 686066310\,a(n-21) + 1332354155\,a(n-22) - 1320546548\,a(n-23) - 134214361\,a(n-24) + 3430781392\,a(n-25) - 7447681464\,a(n-26) + 8649852375\,a(n-27) - 3263437890\,a(n-28) - 8740672240\,a(n-29) + 23870214560\,a(n-30) - 32193286295\,a(n-31) + 21921745920\,a(n-32) + 3625661685\,a(n-33) - 39628520857\,a(n-34) + 67737879788\,a(n-35) - 62712514658\,a(n-36) + 35408423577\,a(n-37) + 20487107016\,a(n-38) - 71671379796\,a(n-39) + 83259647444\,a(n-40) - 82639430156\,a(n-41) + 25055626404\,a(n-42) + 26357815576\,a(n-43) - 46896528420\,a(n-44) + 76959675332\,a(n-45) - 26100705884\,a(n-46) + 4069895120\,a(n-47) + 20658712264\,a(n-48) - 52895629880\,a(n-49) - 4230213968\,a(n-50) - 4064870912\,a(n-51) - 37012235712\,a(n-52) + 52432794368\,a(n-53) + 4199264480\,a(n-54) + 11271623520\,a(n-55) + 34228002752\,a(n-56) - 30018029504\,a(n-57) + 2026068352\,a(n-58) - 6677852672\,a(n-59) - 13614194432\,a(n-60) + 3580450816\,a(n-61) - 2653281024\,a(n-62) - 4018797568\,a(n-63) + 6763790336\,a(n-64) - 1936586240\,a(n-65) + 197451776\,a(n-66) + 1509737472\,a(n-67) - 927522816\,a(n-68) + 739151872\,a(n-69) - 182849536\,a(n-70) + 103931904\,a(n-71) + 10715136\,a(n-72) + 27918336\,a(n-73) - 8323072\,a(n-74) + 3670016\,a(n-75)
+a(n)\;=\;132\,a(n-1) - 4506\,a(n-2) - 103267\,a(n-3) + 8259938\,a(n-4) - 24127703\,a(n-5) - 5787115400\,a(n-6) + 56232404488\,a(n-7) + 2306735665228\,a(n-8) - 28409177513485\,a(n-9) - 601356750127296\,a(n-10) + 7707964848572199\,a(n-11) + 108342718171421879\,a(n-12) - 1324387442904996554\,a(n-13) - 13634656380981041506\,a(n-14) + 157339687681868416794\,a(n-15) + 1200206993744949578133\,a(n-16) - 13687263951517014395166\,a(n-17) - 73490498158890582169026\,a(n-18) + 900908463564006151171675\,a(n-19) + 3019263057698530984178952\,a(n-20) - 45407954278661696148210819\,a(n-21) - 70842704399062670186246692\,a(n-22) + 1745306321505982101316313084\,a(n-23) - 40175872090483637059080438\,a(n-24) - 50209873329076660639636568665\,a(n-25) + 74287704480200514260029881020\,a(n-26) + 1038942506783823367409969764585\,a(n-27) - 3126793539020096092474991665833\,a(n-28) - 14093350469213058809098580121116\,a(n-29) + 73619913860597032037382692955454\,a(n-30) + 87788095525747152122076504901858\,a(n-31) - 1100736779984672265890282645859834\,a(n-32) + 734002862321680806727044660641296\,a(n-33) + 10231602929163237529926065671237152\,a(n-34) - 22494234103006762393672787158189480\,a(n-35) - 49898711810316390467118094362206120\,a(n-36) + 235041419757121908095030273990534448\,a(n-37) - 4068487382975582489338106822443056\,a(n-38) - 1339390817958557796896511797012260960\,a(n-39) + 1703675623400440046961706740944574784\,a(n-40) + 4041035974506971263485668462239046656\,a(n-41) - 11438125476078134884011089582298136256\,a(n-42) - 2397248142906239566825731423054633216\,a(n-43) + 39247079200477613297051488198977516800\,a(n-44) - 30245655533501109303265627014700406784\,a(n-45) - 74085848197948547828308410089207923712\,a(n-46) + 131958841912264988512342024848333745664\,a(n-47) + 48223272272941936224475327667516282368\,a(n-48) - 279573662917398911038909554985733965824\,a(n-49) + 117534119852638568820367158391806003200\,a(n-50) + 334778553723086324846536561326827296768\,a(n-51) - 366427387942327171165368575270984509440\,a(n-52) - 176358857349579387355655384508938907648\,a(n-53) + 486535019965364531861677570619178897408\,a(n-54) - 96974456895826685911017452732540166144\,a(n-55) - 357417015043586152813632715004657860608\,a(n-56) + 248442349977444846374228711777028046848\,a(n-57) + 117125324016549402863803494235620261888\,a(n-58) - 196544976910013997142902739166264229888\,a(n-59) + 27773224192704720802608578921252585472\,a(n-60) + 71916244820985527744407624222648565760\,a(n-61) - 38813244722379527826446775649705918464\,a(n-62) - 5324542870170103416063160268139528192\,a(n-63) + 9717782454566058348505473249687109632\,a(n-64) - 2122766750229838850797232785050304512\,a(n-65) + 65721749366441034111041731395846144\,a(n-66) - 269933537553349892082889689101500416\,a(n-67) + 36284468843291819164679430809321472\,a(n-68) + 119783589517722385988975012207394816\,a(n-69) - 70440710126344522886976102488604672\,a(n-70) + 19123621892059459996063610487963648\,a(n-71) - 1420383554813638494484035727785984\,a(n-72) - 1624339879755056252315067356282880\,a(n-73) + 631879357712252378887591003422720\,a(n-74) - 60862841283540265540998974668800\,a(n-75)
 \]
 for every $n>75$.
 \end{theorem}
@@ -114,30 +126,32 @@ for every $n>75$.
 The vector $w=q(M)\tau$ was formed by $75$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
 integers vanish from the index corresponding to $n=75+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Four checks, each independent of the algebra above.
 
-First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
-arithmetic. This is what ties the model to the entry: the digraph is built by reading the
-entry's English, and a misreading gives different counts.
+First, the model reproduces all $15$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the conjectured recurrence was evaluated directly on those published terms, with no
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size, form each row's and each column's list of repeated values
+by scanning it, and test consecutive members of those lists against the relation. No state, no
+window and no transfer matrix are involved, and the published terms came back.
+
+Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
 
-Third, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
+Fourth, the annihilation test of Lemma~\ref{lem:crit} was carried out in exact integer
 arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A187933.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A268007.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{hu} J.~E.~Hopcroft, R.~Motwani and J.~D.~Ullman, \emph{Introduction to Automata
-Theory, Languages, and Computation}, 3rd ed., Addison--Wesley, 2006.
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
 University Press, 2013.
 \end{thebibliography}

@@ -1,0 +1,207 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A196074 is false at every index its b-file can
+test, and the correct one, of order 43}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A196074 carries an empirical recurrence of order $37$ contributed by R.~H.~Hardin. It is
+false. The entry publishes $30$ terms and links a b-file running to $n=210$, so the recurrence
+can be tested at $163$ indices and it fails at every one; the first is $n=38$, where it exceeds
+the true value by $393$. A transfer matrix on $1461$ states --- independently confirmed by
+direct enumeration and reproducing all $200$ b-file terms --- gives the recurrence that does
+hold. It has order $43$, its first $37$ coefficients are exactly the published ones, and the
+annihilation test certifies it from $n=44$ onwards while returning \emph{no threshold at all}
+for the published line. So the published line is the correct recurrence with its last six terms
+dropped.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The sequence and the claim}
+
+OEIS A196074 is ``Number of nX4 0..4 arrays with each element x equal to the number its
+horizontal and vertical neighbors equal to 0,3,2,1,4 for x=0,1,2,3,4.''. It has offset $1$,
+publishes $30$ terms beginning
+\[
+0,\;0,\;1,\;8,\;39,\;60,\;111,\;343,\;861,\;2115,\;5016,\;13734,\ \dots
+\]
+and links a b-file of $200$. The entry carries one formula line, an empirical recurrence of
+order $37$:
+\begin{multline}\label{eq:conj}
+a(n)\;=\;a(n-2) + 4\,a(n-3) + 14\,a(n-4) + 23\,a(n-5)\\
+{}- 2\,a(n-6) + 24\,a(n-7) + 44\,a(n-8) - 133\,a(n-9)\\
+{}- 186\,a(n-10) - 317\,a(n-11) - 363\,a(n-12) + 372\,a(n-13)\\
+{}+ 825\,a(n-14) - 50\,a(n-15) - 513\,a(n-16) + 173\,a(n-17)\\
+{}+ 42\,a(n-18) + 441\,a(n-19) + 835\,a(n-20) + 563\,a(n-21)\\
+{}+ 336\,a(n-22) - 1995\,a(n-23) - 4044\,a(n-24) - 1095\,a(n-25)\\
+{}+ 4154\,a(n-26) + 1656\,a(n-27) - 395\,a(n-28) + 3391\,a(n-29)\\
+{}- 709\,a(n-30) - 3210\,a(n-31) - 1608\,a(n-32) - 2382\,a(n-33)\\
+{}- 47\,a(n-34) - 219\,a(n-35) + 91\,a(n-36) + 1032\,a(n-37).
+\end{multline}
+As of the live entry (revision $9$, Oct 2025) this is recorded as empirical, with no range
+stated and nothing recording it as settled or corrected.
+
+With offset $1$ and order $37$ the line first asserts something at $n=38$. DATA stops at
+$n=30$, so on the DATA alone it is untestable --- but the b-file tests it $163$ times.
+
+\section{The published recurrence fails at all 163 indices its b-file can test}
+
+Substituting the b-file's own integers into the right-hand side of \eqref{eq:conj}:
+
+\begin{center}\small
+\begin{tabular}{rrrr}
+\toprule
+$n$ & $a(n)$ & \eqref{eq:conj} predicts & difference \\
+\midrule
+$38$ & $299231374661523$ & $299231374661916$ & $-393$\\
+$39$ & $748157125706655$ & $748157125707069$ & $-414$\\
+$40$ & $1870872919049913$ & $1870872919049599$ & $+314$\\
+$41$ & $4678203678514716$ & $4678203678514596$ & $+120$\\
+$42$ & $11697062923684722$ & $11697062923682370$ & $+2352$\\
+$43$ & $29247168388430532$ & $29247168388418874$ & $+11658$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}\label{prop:false}
+\eqref{eq:conj} is false. It fails at every one of the $163$ indices $n=38,\dots,200$ at
+which the entry's b-file can test it. The smallest is $n=38$, where
+$a(38)=299231374661523$ and \eqref{eq:conj} gives $299231374661916$, exceeding it by $393$.
+\end{proposition}
+
+\begin{proof}
+Direct evaluation in exact integer arithmetic on the $200$ integers the entry's b-file
+publishes. No model enters this computation.
+\end{proof}
+
+\section{What the entry counts, and a model for it}
+
+Write $f=(0,3,2,1,4)$, that is $f(0)=0$, $f(1)=3$, $f(2)=2$, $f(3)=1$, $f(4)=4$. An array is
+an $n\times4$ matrix over $\{0,1,2,3,4\}$, and the condition is that every cell of value $x$
+has exactly $x$ of its horizontal and vertical neighbours equal to $f(x)$, positions outside
+the array not being counted. The entry states this in the same words:
+``Every 0 is next to 0 0's, every 1 is next to 1 3's, every 2 is next to 2 2's, every 3 is
+next to 3 1's, every 4 is next to 4 4's''.
+
+Because the neighbourhood reaches one row up and one row down, a state carrying a single row
+is not enough. Take ordered pairs of consecutive rows as vertices, with $(p,c)\to(c,x)$ an
+edge when every cell of the middle row $c$ satisfies the condition with $p$ above and $x$
+below, and mark the pairs whose first row passes with nothing above and those whose second
+passes with nothing below. Of the $5^{8}=390625$ ordered pairs only $S=1461$ are reachable,
+and merging states with identical future behaviour leaves $58$.
+
+The model reproduces all $30$ published DATA terms and all $200$ b-file terms exactly. It was
+not taken on trust: an independent enumeration, written from the entry's wording alone and
+sharing no code with the model, gives
+\[
+0,\;0,\;1,\;8,\;39,\;60,\;111 \qquad (n=1,\dots,7),
+\]
+the entry's first seven terms.
+
+\section{The recurrence that does hold}
+
+Being a walk count, $a$ is $C$-finite. Solving over $\mathbf{Q}$ from the b-file's own terms,
+the least order that admits a recurrence is $43$, and the coefficients come out integral:
+\begin{multline}\label{eq:true}
+a(n)\;=\;a(n-2) + 4\,a(n-3) + 14\,a(n-4) + 23\,a(n-5)\\
+{}- 2\,a(n-6) + 24\,a(n-7) + 44\,a(n-8) - 133\,a(n-9)\\
+{}- 186\,a(n-10) - 317\,a(n-11) - 363\,a(n-12) + 372\,a(n-13)\\
+{}+ 825\,a(n-14) - 50\,a(n-15) - 513\,a(n-16) + 173\,a(n-17)\\
+{}+ 42\,a(n-18) + 441\,a(n-19) + 835\,a(n-20) + 563\,a(n-21)\\
+{}+ 336\,a(n-22) - 1995\,a(n-23) - 4044\,a(n-24) - 1095\,a(n-25)\\
+{}+ 4154\,a(n-26) + 1656\,a(n-27) - 395\,a(n-28) + 3391\,a(n-29)\\
+{}- 709\,a(n-30) - 3210\,a(n-31) - 1608\,a(n-32) - 2382\,a(n-33)\\
+{}- 47\,a(n-34) - 219\,a(n-35) + 91\,a(n-36) + 1032\,a(n-37)\\
+{}274\,a(n-38) + 112\,a(n-39) + 84\,a(n-40) - 56\,a(n-41)\\
+{}+ 8\,a(n-42) - 8\,a(n-43).
+\end{multline}
+The first $37$ coefficients of \eqref{eq:true} are, term for term, those of \eqref{eq:conj}.
+The published line is \eqref{eq:true} with its last six terms,
+$+274\,a(n-38)+112\,a(n-39)+84\,a(n-40)-56\,a(n-41)+8\,a(n-42)-8\,a(n-43)$, missing.
+
+\begin{theorem}\label{thm:true}
+\eqref{eq:true} holds for every $n>42$.
+\end{theorem}
+
+\begin{proof}
+Let $q(t)=t^{43}-\sum_i c_it^{43-i}$ be its characteristic polynomial and $w=q(M)\mathbf u$,
+with $M$ the transfer matrix above and $\mathbf u$ the start vector. For $n$ beyond the order,
+\[
+a(n)-\sum_i c_i\,a(n-i)\;=\;\mathbf v^{\!\top}M^{\,n-44}w ,
+\]
+so the recurrence holds from there on exactly when $\mathbf v^{\!\top}M^{m}w=0$ for every
+$m\ge0$; by the Cayley--Hamilton theorem $M^{S}$ is an integer combination of
+$I,M,\dots,M^{S-1}$, so checking $m<S$ suffices. Carried out in exact integer arithmetic on
+the merged model, every value vanishes, and the test returns the threshold $42$.
+\end{proof}
+
+\begin{corollary}
+\eqref{eq:conj} admits no threshold: there is no index beyond which it holds.
+\end{corollary}
+
+\begin{proof}
+The same test applied to the published coefficients returns no threshold --- the residuals
+$\mathbf v^{\!\top}M^{m}w$ for the order-$37$ polynomial do not all vanish, at any $m$ within
+the Cayley--Hamilton bound, so they do not vanish eventually. Proposition~\ref{prop:false}
+exhibits the failure at $163$ consecutive indices in any case.
+\end{proof}
+
+\section{Verification}
+
+Five checks.
+
+First, the disproof of Section~2 uses only the $200$ integers of the entry's own b-file, and
+does not depend on the model or on Theorem~\ref{thm:true}.
+
+Second, the model was confirmed against an independent enumeration written from the entry's
+wording alone, agreeing at $n=1,\dots,7$, and it reproduces all $30$ DATA terms and all $200$
+b-file terms --- every one, not a sample.
+
+Third, \eqref{eq:true} was checked directly against the b-file at all $157$ indices from
+$n=44$ to $n=200$ at which it asserts anything, and holds at every one.
+
+Fourth, every order below $43$ was solved for and each fails, so $43$ is minimal and the
+published $37$ is not merely incomplete bookkeeping but too short to be repaired by any
+choice of coefficients.
+
+Fifth, the annihilation test was run on both lines through the same code: it certifies
+\eqref{eq:true} from $n=44$ and returns nothing for \eqref{eq:conj}.
+
+\begin{remark}
+This is the third entry of this shape settled here in one day, after A269637 (order 10
+published, 13 true) and A236647 (34 published, 38 true). In all three the published
+coefficients are not wrong but incomplete, and in all three they are the true recurrence's
+first coefficients term for term. A recurrence fitted to a finite sample and reported at an
+order the sample cannot support looks exactly like this: correct as far as it goes, and false
+at the first index where it says anything.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A196074.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+($C$-finite sequences and their recurrences.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

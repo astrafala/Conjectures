@@ -12,44 +12,44 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A223183, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A223207, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A223183 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
-$5$ so that any two cells adjacent in one of the named directions carry vertices joined by an
-edge of $G$; here $G$ is icosahedron graph. The entry carries an empirical recurrence of order $12$
+OEIS A223207 counts the ways of writing the vertices of a fixed graph $G$ into an array of width
+$6$ so that any two cells adjacent in one of the named directions carry vertices joined by an
+edge of $G$; here $G$ is dodecahedron graph. The entry carries an empirical recurrence of order $12$
 contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical: every
 condition joins cells inside one slice of the array or inside two consecutive slices, so a
-single slice is a state and the count is a walk count on a finite digraph with $S=3266$ vertices.
+single slice is a state and the count is a walk count on a finite digraph with $S=4861$ vertices.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05C15, 05A15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A223183 is ``Rolling icosahedron footprints: number of nX5 0..11 arrays starting with 0 where 0..11 label vertices of an icosahedron and every array movement to a horizontal, vertical or antidiagonal neighbor moves along an icosahedral edge.''. It has offset $1$ and begins
+OEIS A223207 is ``Rolling icosahedron face footprints: number of nX6 0..19 arrays starting with 0 where 0..19 label faces of an icosahedron and every array movement to a horizontal or vertical neighbor moves across an icosahedral edge.''. It has offset $1$ and begins
 \[
-625, 1280, 10880, 103520, 1018720, 10117600, 100734400, 1003652480,\ \dots
+243, 9375, 443451, 22163655, 1127761923, 57728430255, 2960941376139, 151970441720919,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 18*a(n-1) -114*a(n-2) +436*a(n-3) -1171*a(n-4) +2198*a(n-5) -2626*a(n-6) +1520*a(n-7) +79*a(n-8) -490*a(n-9) +156*a(n-10) +20*a(n-11) -16*a(n-12) for n>14
+Empirical: a(n) = 77*a(n-1) -1444*a(n-2) +5860*a(n-3) +38744*a(n-4) -300016*a(n-5) +339296*a(n-6) +1286720*a(n-7) -2655360*a(n-8) -56832*a(n-9) +1682944*a(n-10) -149504*a(n-11) -163840*a(n-12)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 21:18:58, revision 8) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 21:21:09, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-Let $G$ be the graph on the label set $\{0,1,\dots,11\}$ whose vertices are the twelve vertices of a regular icosahedron, two of them adjacent when an edge joins them. That is the icosahedron graph: $12$ vertices, $5$-regular, $30$ edges.
+Let $G$ be the graph on the label set $\{0,1,\dots,19\}$ whose vertices are the twenty faces of a regular icosahedron, two of them adjacent when they share an edge. That is the dodecahedron graph: $20$ vertices, $3$-regular, $30$ edges.
 
 An array $x$ is a map from the cells of a rectangle to the vertices of $G$. The entry names the
-directions antidiagonal, horizontal and vertical, that is the cell offsets
+directions horizontal and vertical, that is the cell offsets
 \[
-(1,-1), (0,1), (1,0),
+(0,1), (1,0),
 \]
 and asks that whenever two cells of the array differ by one of those offsets, the two vertices
 they carry are joined by an edge of $G$:
@@ -74,7 +74,7 @@ Because the four named graphs are vertex-transitive---the symmetry group of the 
 
 Take the array one $row$ at a time, in the direction in which it grows.
 Every offset the entry names has its two cells either in the same $row$ or in two
-consecutive ones. So a $row$, a word of length $5$ over the vertices of $G$, carries
+consecutive ones. So a $row$, a word of length $6$ over the vertices of $G$, carries
 everything the next $row$ needs: the conditions inside a $row$ constrain that
 $row$ alone, and the conditions across $row$s are a relation between the
 $row$ just written and the one about to be written.
@@ -85,11 +85,11 @@ $row$s---those beginning with the vertex $0$; then a walk of
 $n$ steps from that state is exactly an array of $n$ $row$s. Every state may end an
 array, so $\tau=\mathbf{1}$ and
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3266.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=4861.
 \]
 The $row$s themselves are built one cell at a time with the conditions applied as soon
 as they can be, which for the sparser graphs is what makes the state list short: a $row$
-of length $5$ over $12$ vertices is one of $12^{5}$ words, but only $S-1$ of them are
+of length $6$ over $20$ vertices is one of $20^{6}$ words, but only $S-1$ of them are
 legal. The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -113,15 +113,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) - 114\,a(n-2) + 436\,a(n-3) - 1171\,a(n-4) + 2198\,a(n-5) - 2626\,a(n-6) + 1520\,a(n-7) + 79\,a(n-8) - 490\,a(n-9) + 156\,a(n-10) + 20\,a(n-11) - 16\,a(n-12)
+a(n)\;=\;77\,a(n-1) - 1444\,a(n-2) + 5860\,a(n-3) + 38744\,a(n-4) - 300016\,a(n-5) + 339296\,a(n-6) + 1286720\,a(n-7) - 2655360\,a(n-8) - 56832\,a(n-9) + 1682944\,a(n-10) - 149504\,a(n-11) - 163840\,a(n-12)
 \]
-for every $n>14$.
+for every $n>12$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $12$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=14+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=12+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -129,7 +129,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $13$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition, with the
@@ -146,7 +146,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A223183.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A223207.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{cox} H.~S.~M.~Coxeter, \emph{Regular Polytopes}, 3rd ed., Dover, 1973.

@@ -1,506 +1,506 @@
 # Papers 06001-06500
 
-Ranks 6001 to 6500 of 13796, hardest first.
+Ranks 6001 to 6500 of 13797, hardest first.
 
 | # | OEIS | Result | What settles it | Paper |
 | --- | --- | --- | --- | --- |
-| 6001 | [A284483](https://oeis.org/A284483) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06001-PROOF.pdf](06001-PROOF.pdf) |
-| 6002 | [A284484](https://oeis.org/A284484) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06002-PROOF.pdf](06002-PROOF.pdf) |
-| 6003 | [A284485](https://oeis.org/A284485) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06003-PROOF.pdf](06003-PROOF.pdf) |
-| 6004 | [A286771](https://oeis.org/A286771) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06004-PROOF.pdf](06004-PROOF.pdf) |
-| 6005 | [A286773](https://oeis.org/A286773) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06005-PROOF.pdf](06005-PROOF.pdf) |
-| 6006 | [A287191](https://oeis.org/A287191) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06006-PROOF.pdf](06006-PROOF.pdf) |
-| 6007 | [A287193](https://oeis.org/A287193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06007-PROOF.pdf](06007-PROOF.pdf) |
-| 6008 | [A289097](https://oeis.org/A289097) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06008-PROOF.pdf](06008-PROOF.pdf) |
-| 6009 | [A290193](https://oeis.org/A290193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06009-PROOF.pdf](06009-PROOF.pdf) |
-| 6010 | [A290195](https://oeis.org/A290195) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06010-PROOF.pdf](06010-PROOF.pdf) |
-| 6011 | [A063081](https://oeis.org/A063081) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06011-PROOF.pdf](06011-PROOF.pdf) |
-| 6012 | [A063168](https://oeis.org/A063168) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06012-PROOF.pdf](06012-PROOF.pdf) |
-| 6013 | [A277797](https://oeis.org/A277797) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06013-PROOF.pdf](06013-PROOF.pdf) |
-| 6014 | [A277798](https://oeis.org/A277798) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06014-PROOF.pdf](06014-PROOF.pdf) |
-| 6015 | [A277799](https://oeis.org/A277799) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06015-PROOF.pdf](06015-PROOF.pdf) |
-| 6016 | [A277800](https://oeis.org/A277800) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06016-PROOF.pdf](06016-PROOF.pdf) |
-| 6017 | [A277864](https://oeis.org/A277864) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06017-PROOF.pdf](06017-PROOF.pdf) |
-| 6018 | [A277866](https://oeis.org/A277866) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06018-PROOF.pdf](06018-PROOF.pdf) |
-| 6019 | [A277926](https://oeis.org/A277926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06019-PROOF.pdf](06019-PROOF.pdf) |
-| 6020 | [A277927](https://oeis.org/A277927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06020-PROOF.pdf](06020-PROOF.pdf) |
-| 6021 | [A277928](https://oeis.org/A277928) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06021-PROOF.pdf](06021-PROOF.pdf) |
-| 6022 | [A277929](https://oeis.org/A277929) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06022-PROOF.pdf](06022-PROOF.pdf) |
-| 6023 | [A280367](https://oeis.org/A280367) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06023-PROOF.pdf](06023-PROOF.pdf) |
-| 6024 | [A280368](https://oeis.org/A280368) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06024-PROOF.pdf](06024-PROOF.pdf) |
-| 6025 | [A280369](https://oeis.org/A280369) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06025-PROOF.pdf](06025-PROOF.pdf) |
-| 6026 | [A280370](https://oeis.org/A280370) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06026-PROOF.pdf](06026-PROOF.pdf) |
-| 6027 | [A283504](https://oeis.org/A283504) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06027-PROOF.pdf](06027-PROOF.pdf) |
-| 6028 | [A283505](https://oeis.org/A283505) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06028-PROOF.pdf](06028-PROOF.pdf) |
-| 6029 | [A283506](https://oeis.org/A283506) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06029-PROOF.pdf](06029-PROOF.pdf) |
-| 6030 | [A283507](https://oeis.org/A283507) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06030-PROOF.pdf](06030-PROOF.pdf) |
-| 6031 | [A284351](https://oeis.org/A284351) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06031-PROOF.pdf](06031-PROOF.pdf) |
-| 6032 | [A284353](https://oeis.org/A284353) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06032-PROOF.pdf](06032-PROOF.pdf) |
-| 6033 | [A285541](https://oeis.org/A285541) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06033-PROOF.pdf](06033-PROOF.pdf) |
-| 6034 | [A287199](https://oeis.org/A287199) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06034-PROOF.pdf](06034-PROOF.pdf) |
-| 6035 | [A290072](https://oeis.org/A290072) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06035-PROOF.pdf](06035-PROOF.pdf) |
-| 6036 | [A290835](https://oeis.org/A290835) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06036-PROOF.pdf](06036-PROOF.pdf) |
-| 6037 | [A290837](https://oeis.org/A290837) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06037-PROOF.pdf](06037-PROOF.pdf) |
-| 6038 | [A277560](https://oeis.org/A277560) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06038-PROOF.pdf](06038-PROOF.pdf) |
-| 6039 | [A277936](https://oeis.org/A277936) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06039-PROOF.pdf](06039-PROOF.pdf) |
-| 6040 | [A282002](https://oeis.org/A282002) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06040-PROOF.pdf](06040-PROOF.pdf) |
-| 6041 | [A282003](https://oeis.org/A282003) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06041-PROOF.pdf](06041-PROOF.pdf) |
-| 6042 | [A282005](https://oeis.org/A282005) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06042-PROOF.pdf](06042-PROOF.pdf) |
-| 6043 | [A283523](https://oeis.org/A283523) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06043-PROOF.pdf](06043-PROOF.pdf) |
-| 6044 | [A284403](https://oeis.org/A284403) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06044-PROOF.pdf](06044-PROOF.pdf) |
-| 6045 | [A284404](https://oeis.org/A284404) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06045-PROOF.pdf](06045-PROOF.pdf) |
-| 6046 | [A284405](https://oeis.org/A284405) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06046-PROOF.pdf](06046-PROOF.pdf) |
-| 6047 | [A290661](https://oeis.org/A290661) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06047-PROOF.pdf](06047-PROOF.pdf) |
-| 6048 | [A290662](https://oeis.org/A290662) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06048-PROOF.pdf](06048-PROOF.pdf) |
-| 6049 | [A290681](https://oeis.org/A290681) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06049-PROOF.pdf](06049-PROOF.pdf) |
-| 6050 | [A290683](https://oeis.org/A290683) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06050-PROOF.pdf](06050-PROOF.pdf) |
-| 6051 | [A277865](https://oeis.org/A277865) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06051-PROOF.pdf](06051-PROOF.pdf) |
-| 6052 | [A277867](https://oeis.org/A277867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06052-PROOF.pdf](06052-PROOF.pdf) |
-| 6053 | [A280410](https://oeis.org/A280410) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06053-PROOF.pdf](06053-PROOF.pdf) |
-| 6054 | [A280411](https://oeis.org/A280411) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06054-PROOF.pdf](06054-PROOF.pdf) |
-| 6055 | [A280412](https://oeis.org/A280412) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06055-PROOF.pdf](06055-PROOF.pdf) |
-| 6056 | [A283589](https://oeis.org/A283589) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06056-PROOF.pdf](06056-PROOF.pdf) |
-| 6057 | [A283590](https://oeis.org/A283590) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06057-PROOF.pdf](06057-PROOF.pdf) |
-| 6058 | [A283592](https://oeis.org/A283592) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06058-PROOF.pdf](06058-PROOF.pdf) |
-| 6059 | [A284352](https://oeis.org/A284352) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06059-PROOF.pdf](06059-PROOF.pdf) |
-| 6060 | [A284354](https://oeis.org/A284354) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06060-PROOF.pdf](06060-PROOF.pdf) |
-| 6061 | [A285474](https://oeis.org/A285474) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06061-PROOF.pdf](06061-PROOF.pdf) |
-| 6062 | [A286519](https://oeis.org/A286519) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06062-PROOF.pdf](06062-PROOF.pdf) |
-| 6063 | [A286521](https://oeis.org/A286521) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06063-PROOF.pdf](06063-PROOF.pdf) |
-| 6064 | [A267867](https://oeis.org/A267867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06064-PROOF.pdf](06064-PROOF.pdf) |
-| 6065 | [A283508](https://oeis.org/A283508) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06065-PROOF.pdf](06065-PROOF.pdf) |
-| 6066 | [A140943](https://oeis.org/A140943) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06066-PROOF.pdf](06066-PROOF.pdf) |
-| 6067 | [A140942](https://oeis.org/A140942) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06067-PROOF.pdf](06067-PROOF.pdf) |
-| 6068 | [A140933](https://oeis.org/A140933) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06068-PROOF.pdf](06068-PROOF.pdf) |
-| 6069 | [A252102](https://oeis.org/A252102) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06069-PROOF.pdf](06069-PROOF.pdf) |
-| 6070 | [A207927](https://oeis.org/A207927) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06070-PROOF.pdf](06070-PROOF.pdf) |
-| 6071 | [A188563](https://oeis.org/A188563) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06071-PROOF.pdf](06071-PROOF.pdf) |
-| 6072 | [A250451](https://oeis.org/A250451) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06072-PROOF.pdf](06072-PROOF.pdf) |
-| 6073 | [A237310](https://oeis.org/A237310) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06073-PROOF.pdf](06073-PROOF.pdf) |
-| 6074 | [A140941](https://oeis.org/A140941) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06074-PROOF.pdf](06074-PROOF.pdf) |
-| 6075 | [A224351](https://oeis.org/A224351) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06075-PROOF.pdf](06075-PROOF.pdf) |
-| 6076 | [A205092](https://oeis.org/A205092) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06076-PROOF.pdf](06076-PROOF.pdf) |
-| 6077 | [A237857](https://oeis.org/A237857) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06077-PROOF.pdf](06077-PROOF.pdf) |
-| 6078 | [A250053](https://oeis.org/A250053) | Proof |  | [06078-PROOF.pdf](06078-PROOF.pdf) |
-| 6079 | [A205200](https://oeis.org/A205200) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06079-PROOF.pdf](06079-PROOF.pdf) |
-| 6080 | [A207965](https://oeis.org/A207965) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06080-PROOF.pdf](06080-PROOF.pdf) |
-| 6081 | [A207274](https://oeis.org/A207274) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06081-PROOF.pdf](06081-PROOF.pdf) |
-| 6082 | [A206729](https://oeis.org/A206729) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06082-PROOF.pdf](06082-PROOF.pdf) |
-| 6083 | [A206507](https://oeis.org/A206507) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06083-PROOF.pdf](06083-PROOF.pdf) |
-| 6084 | [A237205](https://oeis.org/A237205) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06084-PROOF.pdf](06084-PROOF.pdf) |
-| 6085 | [A237393](https://oeis.org/A237393) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06085-PROOF.pdf](06085-PROOF.pdf) |
-| 6086 | [A205213](https://oeis.org/A205213) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06086-PROOF.pdf](06086-PROOF.pdf) |
-| 6087 | [A279975](https://oeis.org/A279975) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06087-PROOF.pdf](06087-PROOF.pdf) |
-| 6088 | [A234110](https://oeis.org/A234110) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06088-PROOF.pdf](06088-PROOF.pdf) |
-| 6089 | [A207844](https://oeis.org/A207844) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06089-PROOF.pdf](06089-PROOF.pdf) |
-| 6090 | [A208038](https://oeis.org/A208038) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06090-PROOF.pdf](06090-PROOF.pdf) |
-| 6091 | [A207185](https://oeis.org/A207185) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06091-PROOF.pdf](06091-PROOF.pdf) |
-| 6092 | [A207441](https://oeis.org/A207441) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06092-PROOF.pdf](06092-PROOF.pdf) |
-| 6093 | [A250075](https://oeis.org/A250075) | Proof |  | [06093-PROOF.pdf](06093-PROOF.pdf) |
-| 6094 | [A236870](https://oeis.org/A236870) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06094-PROOF.pdf](06094-PROOF.pdf) |
-| 6095 | [A264140](https://oeis.org/A264140) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06095-PROOF.pdf](06095-PROOF.pdf) |
-| 6096 | [A234033](https://oeis.org/A234033) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06096-PROOF.pdf](06096-PROOF.pdf) |
-| 6097 | [A197066](https://oeis.org/A197066) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06097-PROOF.pdf](06097-PROOF.pdf) |
-| 6098 | [A196714](https://oeis.org/A196714) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06098-PROOF.pdf](06098-PROOF.pdf) |
-| 6099 | [A205734](https://oeis.org/A205734) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06099-PROOF.pdf](06099-PROOF.pdf) |
-| 6100 | [A234417](https://oeis.org/A234417) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06100-PROOF.pdf](06100-PROOF.pdf) |
-| 6101 | [A195966](https://oeis.org/A195966) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06101-PROOF.pdf](06101-PROOF.pdf) |
-| 6102 | [A230691](https://oeis.org/A230691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06102-PROOF.pdf](06102-PROOF.pdf) |
-| 6103 | [A207247](https://oeis.org/A207247) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06103-PROOF.pdf](06103-PROOF.pdf) |
-| 6104 | [A204871](https://oeis.org/A204871) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06104-PROOF.pdf](06104-PROOF.pdf) |
-| 6105 | [A237923](https://oeis.org/A237923) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06105-PROOF.pdf](06105-PROOF.pdf) |
-| 6106 | [A206538](https://oeis.org/A206538) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06106-PROOF.pdf](06106-PROOF.pdf) |
-| 6107 | [A206938](https://oeis.org/A206938) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06107-PROOF.pdf](06107-PROOF.pdf) |
-| 6108 | [A207445](https://oeis.org/A207445) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06108-PROOF.pdf](06108-PROOF.pdf) |
-| 6109 | [A205661](https://oeis.org/A205661) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06109-PROOF.pdf](06109-PROOF.pdf) |
-| 6110 | [A205516](https://oeis.org/A205516) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06110-PROOF.pdf](06110-PROOF.pdf) |
-| 6111 | [A208419](https://oeis.org/A208419) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06111-PROOF.pdf](06111-PROOF.pdf) |
-| 6112 | [A196963](https://oeis.org/A196963) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06112-PROOF.pdf](06112-PROOF.pdf) |
-| 6113 | [A237370](https://oeis.org/A237370) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06113-PROOF.pdf](06113-PROOF.pdf) |
-| 6114 | [A234829](https://oeis.org/A234829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06114-PROOF.pdf](06114-PROOF.pdf) |
-| 6115 | [A236981](https://oeis.org/A236981) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06115-PROOF.pdf](06115-PROOF.pdf) |
-| 6116 | [A249524](https://oeis.org/A249524) | Proof |  | [06116-PROOF.pdf](06116-PROOF.pdf) |
-| 6117 | [A207239](https://oeis.org/A207239) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06117-PROOF.pdf](06117-PROOF.pdf) |
-| 6118 | [A223973](https://oeis.org/A223973) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06118-PROOF.pdf](06118-PROOF.pdf) |
-| 6119 | [A202315](https://oeis.org/A202315) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06119-PROOF.pdf](06119-PROOF.pdf) |
-| 6120 | [A207856](https://oeis.org/A207856) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06120-PROOF.pdf](06120-PROOF.pdf) |
-| 6121 | [A206313](https://oeis.org/A206313) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06121-PROOF.pdf](06121-PROOF.pdf) |
-| 6122 | [A207464](https://oeis.org/A207464) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06122-PROOF.pdf](06122-PROOF.pdf) |
-| 6123 | [A252645](https://oeis.org/A252645) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06123-PROOF.pdf](06123-PROOF.pdf) |
-| 6124 | [A206411](https://oeis.org/A206411) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06124-PROOF.pdf](06124-PROOF.pdf) |
-| 6125 | [A252128](https://oeis.org/A252128) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06125-PROOF.pdf](06125-PROOF.pdf) |
-| 6126 | [A237553](https://oeis.org/A237553) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06126-PROOF.pdf](06126-PROOF.pdf) |
-| 6127 | [A231129](https://oeis.org/A231129) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06127-PROOF.pdf](06127-PROOF.pdf) |
-| 6128 | [A231136](https://oeis.org/A231136) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06128-PROOF.pdf](06128-PROOF.pdf) |
-| 6129 | [A189614](https://oeis.org/A189614) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06129-PROOF.pdf](06129-PROOF.pdf) |
-| 6130 | [A264517](https://oeis.org/A264517) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06130-PROOF.pdf](06130-PROOF.pdf) |
-| 6131 | [A196946](https://oeis.org/A196946) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06131-PROOF.pdf](06131-PROOF.pdf) |
-| 6132 | [A206998](https://oeis.org/A206998) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06132-PROOF.pdf](06132-PROOF.pdf) |
-| 6133 | [A202588](https://oeis.org/A202588) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06133-PROOF.pdf](06133-PROOF.pdf) |
-| 6134 | [A208499](https://oeis.org/A208499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06134-PROOF.pdf](06134-PROOF.pdf) |
-| 6135 | [A220723](https://oeis.org/A220723) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06135-PROOF.pdf](06135-PROOF.pdf) |
-| 6136 | [A140932](https://oeis.org/A140932) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06136-PROOF.pdf](06136-PROOF.pdf) |
-| 6137 | [A196852](https://oeis.org/A196852) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06137-PROOF.pdf](06137-PROOF.pdf) |
-| 6138 | [A203369](https://oeis.org/A203369) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06138-PROOF.pdf](06138-PROOF.pdf) |
-| 6139 | [A196425](https://oeis.org/A196425) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06139-PROOF.pdf](06139-PROOF.pdf) |
-| 6140 | [A205654](https://oeis.org/A205654) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06140-PROOF.pdf](06140-PROOF.pdf) |
-| 6141 | [A235967](https://oeis.org/A235967) | Proof | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ | [06141-PROOF.pdf](06141-PROOF.pdf) |
-| 6142 | [A196319](https://oeis.org/A196319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06142-PROOF.pdf](06142-PROOF.pdf) |
-| 6143 | [A233706](https://oeis.org/A233706) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06143-PROOF.pdf](06143-PROOF.pdf) |
-| 6144 | [A197043](https://oeis.org/A197043) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06144-PROOF.pdf](06144-PROOF.pdf) |
-| 6145 | [A203089](https://oeis.org/A203089) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06145-PROOF.pdf](06145-PROOF.pdf) |
-| 6146 | [A235769](https://oeis.org/A235769) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06146-PROOF.pdf](06146-PROOF.pdf) |
-| 6147 | [A207487](https://oeis.org/A207487) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06147-PROOF.pdf](06147-PROOF.pdf) |
-| 6148 | [A253478](https://oeis.org/A253478) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06148-PROOF.pdf](06148-PROOF.pdf) |
-| 6149 | [A140940](https://oeis.org/A140940) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06149-PROOF.pdf](06149-PROOF.pdf) |
-| 6150 | [A204038](https://oeis.org/A204038) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06150-PROOF.pdf](06150-PROOF.pdf) |
-| 6151 | [A253332](https://oeis.org/A253332) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06151-PROOF.pdf](06151-PROOF.pdf) |
-| 6152 | [A203841](https://oeis.org/A203841) | Proof | a condition on every cell over the neighbour set the entry names | [06152-PROOF.pdf](06152-PROOF.pdf) |
-| 6153 | [A235677](https://oeis.org/A235677) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06153-PROOF.pdf](06153-PROOF.pdf) |
-| 6154 | [A225023](https://oeis.org/A225023) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06154-PROOF.pdf](06154-PROOF.pdf) |
-| 6155 | [A237304](https://oeis.org/A237304) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06155-PROOF.pdf](06155-PROOF.pdf) |
-| 6156 | [A249287](https://oeis.org/A249287) | Proof |  | [06156-PROOF.pdf](06156-PROOF.pdf) |
-| 6157 | [A237804](https://oeis.org/A237804) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06157-PROOF.pdf](06157-PROOF.pdf) |
-| 6158 | [A236814](https://oeis.org/A236814) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06158-PROOF.pdf](06158-PROOF.pdf) |
-| 6159 | [A206986](https://oeis.org/A206986) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06159-PROOF.pdf](06159-PROOF.pdf) |
-| 6160 | [A209957](https://oeis.org/A209957) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06160-PROOF.pdf](06160-PROOF.pdf) |
-| 6161 | [A236742](https://oeis.org/A236742) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06161-PROOF.pdf](06161-PROOF.pdf) |
-| 6162 | [A235732](https://oeis.org/A235732) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06162-PROOF.pdf](06162-PROOF.pdf) |
-| 6163 | [A236898](https://oeis.org/A236898) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06163-PROOF.pdf](06163-PROOF.pdf) |
-| 6164 | [A207794](https://oeis.org/A207794) | Proof | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up | [06164-PROOF.pdf](06164-PROOF.pdf) |
-| 6165 | [A196340](https://oeis.org/A196340) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06165-PROOF.pdf](06165-PROOF.pdf) |
-| 6166 | [A196693](https://oeis.org/A196693) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06166-PROOF.pdf](06166-PROOF.pdf) |
-| 6167 | [A207552](https://oeis.org/A207552) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06167-PROOF.pdf](06167-PROOF.pdf) |
-| 6168 | [A206104](https://oeis.org/A206104) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06168-PROOF.pdf](06168-PROOF.pdf) |
-| 6169 | [A196703](https://oeis.org/A196703) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06169-PROOF.pdf](06169-PROOF.pdf) |
-| 6170 | [A188691](https://oeis.org/A188691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06170-PROOF.pdf](06170-PROOF.pdf) |
-| 6171 | [A207499](https://oeis.org/A207499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06171-PROOF.pdf](06171-PROOF.pdf) |
-| 6172 | [A207664](https://oeis.org/A207664) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06172-PROOF.pdf](06172-PROOF.pdf) |
-| 6173 | [A207127](https://oeis.org/A207127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06173-PROOF.pdf](06173-PROOF.pdf) |
-| 6174 | [A241960](https://oeis.org/A241960) | Proof |  | [06174-PROOF.pdf](06174-PROOF.pdf) |
-| 6175 | [A252404](https://oeis.org/A252404) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06175-PROOF.pdf](06175-PROOF.pdf) |
-| 6176 | [A252571](https://oeis.org/A252571) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06176-PROOF.pdf](06176-PROOF.pdf) |
-| 6177 | [A197095](https://oeis.org/A197095) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06177-PROOF.pdf](06177-PROOF.pdf) |
-| 6178 | [A204615](https://oeis.org/A204615) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06178-PROOF.pdf](06178-PROOF.pdf) |
-| 6179 | [A253349](https://oeis.org/A253349) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06179-PROOF.pdf](06179-PROOF.pdf) |
-| 6180 | [A253356](https://oeis.org/A253356) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06180-PROOF.pdf](06180-PROOF.pdf) |
-| 6181 | [A264159](https://oeis.org/A264159) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06181-PROOF.pdf](06181-PROOF.pdf) |
-| 6182 | [A264333](https://oeis.org/A264333) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06182-PROOF.pdf](06182-PROOF.pdf) |
-| 6183 | [A236114](https://oeis.org/A236114) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06183-PROOF.pdf](06183-PROOF.pdf) |
-| 6184 | [A198151](https://oeis.org/A198151) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06184-PROOF.pdf](06184-PROOF.pdf) |
-| 6185 | [A196481](https://oeis.org/A196481) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06185-PROOF.pdf](06185-PROOF.pdf) |
-| 6186 | [A207907](https://oeis.org/A207907) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06186-PROOF.pdf](06186-PROOF.pdf) |
-| 6187 | [A237154](https://oeis.org/A237154) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06187-PROOF.pdf](06187-PROOF.pdf) |
-| 6188 | [A203179](https://oeis.org/A203179) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06188-PROOF.pdf](06188-PROOF.pdf) |
-| 6189 | [A238177](https://oeis.org/A238177) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06189-PROOF.pdf](06189-PROOF.pdf) |
-| 6190 | [A205287](https://oeis.org/A205287) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06190-PROOF.pdf](06190-PROOF.pdf) |
-| 6191 | [A235834](https://oeis.org/A235834) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06191-PROOF.pdf](06191-PROOF.pdf) |
-| 6192 | [A235829](https://oeis.org/A235829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06192-PROOF.pdf](06192-PROOF.pdf) |
-| 6193 | [A236823](https://oeis.org/A236823) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06193-PROOF.pdf](06193-PROOF.pdf) |
-| 6194 | [A263797](https://oeis.org/A263797) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06194-PROOF.pdf](06194-PROOF.pdf) |
-| 6195 | [A250455](https://oeis.org/A250455) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06195-PROOF.pdf](06195-PROOF.pdf) |
-| 6196 | [A197231](https://oeis.org/A197231) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06196-PROOF.pdf](06196-PROOF.pdf) |
-| 6197 | [A231399](https://oeis.org/A231399) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06197-PROOF.pdf](06197-PROOF.pdf) |
-| 6198 | [A207002](https://oeis.org/A207002) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06198-PROOF.pdf](06198-PROOF.pdf) |
-| 6199 | [A220715](https://oeis.org/A220715) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06199-PROOF.pdf](06199-PROOF.pdf) |
-| 6200 | [A254693](https://oeis.org/A254693) | Proof |  | [06200-PROOF.pdf](06200-PROOF.pdf) |
-| 6201 | [A236784](https://oeis.org/A236784) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06201-PROOF.pdf](06201-PROOF.pdf) |
-| 6202 | [A236793](https://oeis.org/A236793) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06202-PROOF.pdf](06202-PROOF.pdf) |
-| 6203 | [A207546](https://oeis.org/A207546) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06203-PROOF.pdf](06203-PROOF.pdf) |
-| 6204 | [A231836](https://oeis.org/A231836) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06204-PROOF.pdf](06204-PROOF.pdf) |
-| 6205 | [A206783](https://oeis.org/A206783) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06205-PROOF.pdf](06205-PROOF.pdf) |
-| 6206 | [A298090](https://oeis.org/A298090) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06206-PROOF.pdf](06206-PROOF.pdf) |
-| 6207 | [A247531](https://oeis.org/A247531) | Proof |  | [06207-PROOF.pdf](06207-PROOF.pdf) |
-| 6208 | [A236519](https://oeis.org/A236519) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06208-PROOF.pdf](06208-PROOF.pdf) |
-| 6209 | [A207521](https://oeis.org/A207521) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06209-PROOF.pdf](06209-PROOF.pdf) |
-| 6210 | [A202893](https://oeis.org/A202893) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06210-PROOF.pdf](06210-PROOF.pdf) |
-| 6211 | [A207775](https://oeis.org/A207775) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06211-PROOF.pdf](06211-PROOF.pdf) |
-| 6212 | [A236078](https://oeis.org/A236078) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06212-PROOF.pdf](06212-PROOF.pdf) |
-| 6213 | [A207343](https://oeis.org/A207343) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06213-PROOF.pdf](06213-PROOF.pdf) |
-| 6214 | [A275225](https://oeis.org/A275225) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06214-PROOF.pdf](06214-PROOF.pdf) |
-| 6215 | [A196586](https://oeis.org/A196586) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06215-PROOF.pdf](06215-PROOF.pdf) |
-| 6216 | [A205821](https://oeis.org/A205821) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06216-PROOF.pdf](06216-PROOF.pdf) |
-| 6217 | [A207086](https://oeis.org/A207086) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06217-PROOF.pdf](06217-PROOF.pdf) |
-| 6218 | [A207504](https://oeis.org/A207504) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06218-PROOF.pdf](06218-PROOF.pdf) |
-| 6219 | [A257380](https://oeis.org/A257380) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06219-PROOF.pdf](06219-PROOF.pdf) |
-| 6220 | [A208026](https://oeis.org/A208026) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06220-PROOF.pdf](06220-PROOF.pdf) |
-| 6221 | [A184132](https://oeis.org/A184132) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06221-PROOF.pdf](06221-PROOF.pdf) |
-| 6222 | [A207179](https://oeis.org/A207179) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06222-PROOF.pdf](06222-PROOF.pdf) |
-| 6223 | [A207697](https://oeis.org/A207697) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06223-PROOF.pdf](06223-PROOF.pdf) |
-| 6224 | [A207349](https://oeis.org/A207349) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06224-PROOF.pdf](06224-PROOF.pdf) |
-| 6225 | [A236723](https://oeis.org/A236723) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06225-PROOF.pdf](06225-PROOF.pdf) |
-| 6226 | [A140924](https://oeis.org/A140924) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06226-PROOF.pdf](06226-PROOF.pdf) |
-| 6227 | [A282127](https://oeis.org/A282127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06227-PROOF.pdf](06227-PROOF.pdf) |
-| 6228 | [A196726](https://oeis.org/A196726) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06228-PROOF.pdf](06228-PROOF.pdf) |
-| 6229 | [A232347](https://oeis.org/A232347) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06229-PROOF.pdf](06229-PROOF.pdf) |
-| 6230 | [A237490](https://oeis.org/A237490) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06230-PROOF.pdf](06230-PROOF.pdf) |
-| 6231 | [A206887](https://oeis.org/A206887) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06231-PROOF.pdf](06231-PROOF.pdf) |
-| 6232 | [A207417](https://oeis.org/A207417) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06232-PROOF.pdf](06232-PROOF.pdf) |
-| 6233 | [A224969](https://oeis.org/A224969) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06233-PROOF.pdf](06233-PROOF.pdf) |
-| 6234 | [A208075](https://oeis.org/A208075) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06234-PROOF.pdf](06234-PROOF.pdf) |
-| 6235 | [A255085](https://oeis.org/A255085) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06235-PROOF.pdf](06235-PROOF.pdf) |
-| 6236 | [A220678](https://oeis.org/A220678) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06236-PROOF.pdf](06236-PROOF.pdf) |
-| 6237 | [A207423](https://oeis.org/A207423) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06237-PROOF.pdf](06237-PROOF.pdf) |
-| 6238 | [A140931](https://oeis.org/A140931) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06238-PROOF.pdf](06238-PROOF.pdf) |
-| 6239 | [A204406](https://oeis.org/A204406) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06239-PROOF.pdf](06239-PROOF.pdf) |
-| 6240 | [A252408](https://oeis.org/A252408) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06240-PROOF.pdf](06240-PROOF.pdf) |
-| 6241 | [A207772](https://oeis.org/A207772) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06241-PROOF.pdf](06241-PROOF.pdf) |
-| 6242 | [A204224](https://oeis.org/A204224) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06242-PROOF.pdf](06242-PROOF.pdf) |
-| 6243 | [A253376](https://oeis.org/A253376) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06243-PROOF.pdf](06243-PROOF.pdf) |
-| 6244 | [A247922](https://oeis.org/A247922) | Proof |  | [06244-PROOF.pdf](06244-PROOF.pdf) |
-| 6245 | [A203257](https://oeis.org/A203257) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06245-PROOF.pdf](06245-PROOF.pdf) |
-| 6246 | [A234127](https://oeis.org/A234127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06246-PROOF.pdf](06246-PROOF.pdf) |
-| 6247 | [A302014](https://oeis.org/A302014) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06247-PROOF.pdf](06247-PROOF.pdf) |
-| 6248 | [A189108](https://oeis.org/A189108) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06248-PROOF.pdf](06248-PROOF.pdf) |
-| 6249 | [A206833](https://oeis.org/A206833) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06249-PROOF.pdf](06249-PROOF.pdf) |
-| 6250 | [A233985](https://oeis.org/A233985) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06250-PROOF.pdf](06250-PROOF.pdf) |
-| 6251 | [A250992](https://oeis.org/A250992) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06251-PROOF.pdf](06251-PROOF.pdf) |
-| 6252 | [A207716](https://oeis.org/A207716) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06252-PROOF.pdf](06252-PROOF.pdf) |
-| 6253 | [A206193](https://oeis.org/A206193) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06253-PROOF.pdf](06253-PROOF.pdf) |
-| 6254 | [A203105](https://oeis.org/A203105) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06254-PROOF.pdf](06254-PROOF.pdf) |
-| 6255 | [A220741](https://oeis.org/A220741) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06255-PROOF.pdf](06255-PROOF.pdf) |
-| 6256 | [A204836](https://oeis.org/A204836) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06256-PROOF.pdf](06256-PROOF.pdf) |
-| 6257 | [A235738](https://oeis.org/A235738) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06257-PROOF.pdf](06257-PROOF.pdf) |
-| 6258 | [A183351](https://oeis.org/A183351) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06258-PROOF.pdf](06258-PROOF.pdf) |
-| 6259 | [A209948](https://oeis.org/A209948) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06259-PROOF.pdf](06259-PROOF.pdf) |
-| 6260 | [A235543](https://oeis.org/A235543) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06260-PROOF.pdf](06260-PROOF.pdf) |
-| 6261 | [A140939](https://oeis.org/A140939) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06261-PROOF.pdf](06261-PROOF.pdf) |
-| 6262 | [A255790](https://oeis.org/A255790) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06262-PROOF.pdf](06262-PROOF.pdf) |
-| 6263 | [A195975](https://oeis.org/A195975) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06263-PROOF.pdf](06263-PROOF.pdf) |
-| 6264 | [A232140](https://oeis.org/A232140) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06264-PROOF.pdf](06264-PROOF.pdf) |
-| 6265 | [A184660](https://oeis.org/A184660) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06265-PROOF.pdf](06265-PROOF.pdf) |
-| 6266 | [A297984](https://oeis.org/A297984) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06266-PROOF.pdf](06266-PROOF.pdf) |
-| 6267 | [A238307](https://oeis.org/A238307) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06267-PROOF.pdf](06267-PROOF.pdf) |
-| 6268 | [A206273](https://oeis.org/A206273) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06268-PROOF.pdf](06268-PROOF.pdf) |
-| 6269 | [A297855](https://oeis.org/A297855) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06269-PROOF.pdf](06269-PROOF.pdf) |
-| 6270 | [A204725](https://oeis.org/A204725) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06270-PROOF.pdf](06270-PROOF.pdf) |
-| 6271 | [A204870](https://oeis.org/A204870) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06271-PROOF.pdf](06271-PROOF.pdf) |
-| 6272 | [A247723](https://oeis.org/A247723) | Proof |  | [06272-PROOF.pdf](06272-PROOF.pdf) |
-| 6273 | [A205306](https://oeis.org/A205306) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06273-PROOF.pdf](06273-PROOF.pdf) |
-| 6274 | [A207469](https://oeis.org/A207469) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06274-PROOF.pdf](06274-PROOF.pdf) |
-| 6275 | [A237170](https://oeis.org/A237170) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06275-PROOF.pdf](06275-PROOF.pdf) |
-| 6276 | [A205914](https://oeis.org/A205914) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06276-PROOF.pdf](06276-PROOF.pdf) |
-| 6277 | [A233912](https://oeis.org/A233912) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06277-PROOF.pdf](06277-PROOF.pdf) |
-| 6278 | [A197313](https://oeis.org/A197313) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06278-PROOF.pdf](06278-PROOF.pdf) |
-| 6279 | [A196134](https://oeis.org/A196134) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06279-PROOF.pdf](06279-PROOF.pdf) |
-| 6280 | [A206124](https://oeis.org/A206124) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06280-PROOF.pdf](06280-PROOF.pdf) |
-| 6281 | [A207959](https://oeis.org/A207959) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06281-PROOF.pdf](06281-PROOF.pdf) |
-| 6282 | [A207921](https://oeis.org/A207921) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06282-PROOF.pdf](06282-PROOF.pdf) |
-| 6283 | [A205240](https://oeis.org/A205240) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06283-PROOF.pdf](06283-PROOF.pdf) |
-| 6284 | [A207273](https://oeis.org/A207273) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06284-PROOF.pdf](06284-PROOF.pdf) |
-| 6285 | [A280676](https://oeis.org/A280676) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06285-PROOF.pdf](06285-PROOF.pdf) |
-| 6286 | [A196798](https://oeis.org/A196798) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06286-PROOF.pdf](06286-PROOF.pdf) |
-| 6287 | [A204037](https://oeis.org/A204037) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06287-PROOF.pdf](06287-PROOF.pdf) |
-| 6288 | [A234765](https://oeis.org/A234765) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06288-PROOF.pdf](06288-PROOF.pdf) |
-| 6289 | [A235408](https://oeis.org/A235408) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06289-PROOF.pdf](06289-PROOF.pdf) |
-| 6290 | [A237476](https://oeis.org/A237476) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06290-PROOF.pdf](06290-PROOF.pdf) |
-| 6291 | [A252620](https://oeis.org/A252620) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06291-PROOF.pdf](06291-PROOF.pdf) |
-| 6292 | [A252429](https://oeis.org/A252429) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06292-PROOF.pdf](06292-PROOF.pdf) |
-| 6293 | [A209105](https://oeis.org/A209105) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06293-PROOF.pdf](06293-PROOF.pdf) |
-| 6294 | [A209551](https://oeis.org/A209551) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06294-PROOF.pdf](06294-PROOF.pdf) |
-| 6295 | [A260291](https://oeis.org/A260291) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06295-PROOF.pdf](06295-PROOF.pdf) |
-| 6296 | [A260606](https://oeis.org/A260606) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06296-PROOF.pdf](06296-PROOF.pdf) |
-| 6297 | [A185466](https://oeis.org/A185466) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06297-PROOF.pdf](06297-PROOF.pdf) |
-| 6298 | [A196901](https://oeis.org/A196901) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06298-PROOF.pdf](06298-PROOF.pdf) |
-| 6299 | [A220626](https://oeis.org/A220626) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06299-PROOF.pdf](06299-PROOF.pdf) |
-| 6300 | [A185528](https://oeis.org/A185528) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06300-PROOF.pdf](06300-PROOF.pdf) |
-| 6301 | [A188770](https://oeis.org/A188770) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06301-PROOF.pdf](06301-PROOF.pdf) |
-| 6302 | [A254839](https://oeis.org/A254839) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06302-PROOF.pdf](06302-PROOF.pdf) |
-| 6303 | [A255757](https://oeis.org/A255757) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06303-PROOF.pdf](06303-PROOF.pdf) |
-| 6304 | [A209782](https://oeis.org/A209782) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06304-PROOF.pdf](06304-PROOF.pdf) |
-| 6305 | [A210330](https://oeis.org/A210330) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06305-PROOF.pdf](06305-PROOF.pdf) |
-| 6306 | [A210350](https://oeis.org/A210350) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06306-PROOF.pdf](06306-PROOF.pdf) |
-| 6307 | [A298051](https://oeis.org/A298051) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06307-PROOF.pdf](06307-PROOF.pdf) |
-| 6308 | [A298656](https://oeis.org/A298656) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06308-PROOF.pdf](06308-PROOF.pdf) |
-| 6309 | [A220735](https://oeis.org/A220735) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06309-PROOF.pdf](06309-PROOF.pdf) |
-| 6310 | [A140923](https://oeis.org/A140923) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06310-PROOF.pdf](06310-PROOF.pdf) |
-| 6311 | [A206134](https://oeis.org/A206134) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06311-PROOF.pdf](06311-PROOF.pdf) |
-| 6312 | [A230933](https://oeis.org/A230933) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06312-PROOF.pdf](06312-PROOF.pdf) |
-| 6313 | [A303798](https://oeis.org/A303798) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06313-PROOF.pdf](06313-PROOF.pdf) |
-| 6314 | [A188519](https://oeis.org/A188519) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06314-PROOF.pdf](06314-PROOF.pdf) |
-| 6315 | [A188854](https://oeis.org/A188854) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06315-PROOF.pdf](06315-PROOF.pdf) |
-| 6316 | [A205995](https://oeis.org/A205995) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06316-PROOF.pdf](06316-PROOF.pdf) |
-| 6317 | [A203437](https://oeis.org/A203437) | Proof | a condition on every cell over the neighbour set the entry names | [06317-PROOF.pdf](06317-PROOF.pdf) |
-| 6318 | [A207246](https://oeis.org/A207246) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06318-PROOF.pdf](06318-PROOF.pdf) |
-| 6319 | [A210072](https://oeis.org/A210072) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06319-PROOF.pdf](06319-PROOF.pdf) |
-| 6320 | [A302456](https://oeis.org/A302456) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06320-PROOF.pdf](06320-PROOF.pdf) |
-| 6321 | [A303238](https://oeis.org/A303238) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06321-PROOF.pdf](06321-PROOF.pdf) |
-| 6322 | [A305093](https://oeis.org/A305093) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06322-PROOF.pdf](06322-PROOF.pdf) |
-| 6323 | [A316753](https://oeis.org/A316753) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06323-PROOF.pdf](06323-PROOF.pdf) |
-| 6324 | [A203097](https://oeis.org/A203097) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06324-PROOF.pdf](06324-PROOF.pdf) |
-| 6325 | [A264381](https://oeis.org/A264381) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06325-PROOF.pdf](06325-PROOF.pdf) |
-| 6326 | [A264418](https://oeis.org/A264418) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06326-PROOF.pdf](06326-PROOF.pdf) |
-| 6327 | [A264552](https://oeis.org/A264552) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06327-PROOF.pdf](06327-PROOF.pdf) |
-| 6328 | [A264678](https://oeis.org/A264678) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06328-PROOF.pdf](06328-PROOF.pdf) |
-| 6329 | [A275034](https://oeis.org/A275034) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06329-PROOF.pdf](06329-PROOF.pdf) |
-| 6330 | [A233701](https://oeis.org/A233701) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06330-PROOF.pdf](06330-PROOF.pdf) |
-| 6331 | [A237458](https://oeis.org/A237458) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06331-PROOF.pdf](06331-PROOF.pdf) |
-| 6332 | [A234783](https://oeis.org/A234783) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06332-PROOF.pdf](06332-PROOF.pdf) |
-| 6333 | [A207789](https://oeis.org/A207789) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06333-PROOF.pdf](06333-PROOF.pdf) |
-| 6334 | [A209514](https://oeis.org/A209514) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06334-PROOF.pdf](06334-PROOF.pdf) |
-| 6335 | [A209793](https://oeis.org/A209793) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06335-PROOF.pdf](06335-PROOF.pdf) |
-| 6336 | [A235928](https://oeis.org/A235928) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06336-PROOF.pdf](06336-PROOF.pdf) |
-| 6337 | [A236005](https://oeis.org/A236005) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06337-PROOF.pdf](06337-PROOF.pdf) |
-| 6338 | [A249839](https://oeis.org/A249839) | Proof |  | [06338-PROOF.pdf](06338-PROOF.pdf) |
-| 6339 | [A301665](https://oeis.org/A301665) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06339-PROOF.pdf](06339-PROOF.pdf) |
-| 6340 | [A303036](https://oeis.org/A303036) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06340-PROOF.pdf](06340-PROOF.pdf) |
-| 6341 | [A303199](https://oeis.org/A303199) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06341-PROOF.pdf](06341-PROOF.pdf) |
-| 6342 | [A304948](https://oeis.org/A304948) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06342-PROOF.pdf](06342-PROOF.pdf) |
-| 6343 | [A318020](https://oeis.org/A318020) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06343-PROOF.pdf](06343-PROOF.pdf) |
-| 6344 | [A250330](https://oeis.org/A250330) | Proof |  | [06344-PROOF.pdf](06344-PROOF.pdf) |
-| 6345 | [A230945](https://oeis.org/A230945) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06345-PROOF.pdf](06345-PROOF.pdf) |
-| 6346 | [A237144](https://oeis.org/A237144) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06346-PROOF.pdf](06346-PROOF.pdf) |
-| 6347 | [A207074](https://oeis.org/A207074) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06347-PROOF.pdf](06347-PROOF.pdf) |
-| 6348 | [A140930](https://oeis.org/A140930) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06348-PROOF.pdf](06348-PROOF.pdf) |
-| 6349 | [A252675](https://oeis.org/A252675) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06349-PROOF.pdf](06349-PROOF.pdf) |
-| 6350 | [A205053](https://oeis.org/A205053) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06350-PROOF.pdf](06350-PROOF.pdf) |
-| 6351 | [A205741](https://oeis.org/A205741) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06351-PROOF.pdf](06351-PROOF.pdf) |
-| 6352 | [A196633](https://oeis.org/A196633) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06352-PROOF.pdf](06352-PROOF.pdf) |
-| 6353 | [A196638](https://oeis.org/A196638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06353-PROOF.pdf](06353-PROOF.pdf) |
-| 6354 | [A252098](https://oeis.org/A252098) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06354-PROOF.pdf](06354-PROOF.pdf) |
-| 6355 | [A207011](https://oeis.org/A207011) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06355-PROOF.pdf](06355-PROOF.pdf) |
-| 6356 | [A188603](https://oeis.org/A188603) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06356-PROOF.pdf](06356-PROOF.pdf) |
-| 6357 | [A298954](https://oeis.org/A298954) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06357-PROOF.pdf](06357-PROOF.pdf) |
-| 6358 | [A205365](https://oeis.org/A205365) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06358-PROOF.pdf](06358-PROOF.pdf) |
-| 6359 | [A206858](https://oeis.org/A206858) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06359-PROOF.pdf](06359-PROOF.pdf) |
-| 6360 | [A206671](https://oeis.org/A206671) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06360-PROOF.pdf](06360-PROOF.pdf) |
-| 6361 | [A206868](https://oeis.org/A206868) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06361-PROOF.pdf](06361-PROOF.pdf) |
-| 6362 | [A206991](https://oeis.org/A206991) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06362-PROOF.pdf](06362-PROOF.pdf) |
-| 6363 | [A304955](https://oeis.org/A304955) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06363-PROOF.pdf](06363-PROOF.pdf) |
-| 6364 | [A210272](https://oeis.org/A210272) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06364-PROOF.pdf](06364-PROOF.pdf) |
-| 6365 | [A235655](https://oeis.org/A235655) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06365-PROOF.pdf](06365-PROOF.pdf) |
-| 6366 | [A202466](https://oeis.org/A202466) | Proof | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three conse... | [06366-PROOF.pdf](06366-PROOF.pdf) |
-| 6367 | [A197472](https://oeis.org/A197472) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06367-PROOF.pdf](06367-PROOF.pdf) |
-| 6368 | [A233499](https://oeis.org/A233499) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06368-PROOF.pdf](06368-PROOF.pdf) |
-| 6369 | [A233620](https://oeis.org/A233620) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06369-PROOF.pdf](06369-PROOF.pdf) |
-| 6370 | [A206696](https://oeis.org/A206696) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06370-PROOF.pdf](06370-PROOF.pdf) |
-| 6371 | [A202433](https://oeis.org/A202433) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06371-PROOF.pdf](06371-PROOF.pdf) |
-| 6372 | [A197675](https://oeis.org/A197675) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06372-PROOF.pdf](06372-PROOF.pdf) |
-| 6373 | [A198009](https://oeis.org/A198009) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06373-PROOF.pdf](06373-PROOF.pdf) |
-| 6374 | [A197746](https://oeis.org/A197746) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06374-PROOF.pdf](06374-PROOF.pdf) |
-| 6375 | [A208418](https://oeis.org/A208418) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06375-PROOF.pdf](06375-PROOF.pdf) |
-| 6376 | [A247400](https://oeis.org/A247400) | Proof |  | [06376-PROOF.pdf](06376-PROOF.pdf) |
-| 6377 | [A186529](https://oeis.org/A186529) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06377-PROOF.pdf](06377-PROOF.pdf) |
-| 6378 | [A203402](https://oeis.org/A203402) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06378-PROOF.pdf](06378-PROOF.pdf) |
-| 6379 | [A189266](https://oeis.org/A189266) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06379-PROOF.pdf](06379-PROOF.pdf) |
-| 6380 | [A209853](https://oeis.org/A209853) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06380-PROOF.pdf](06380-PROOF.pdf) |
-| 6381 | [A298578](https://oeis.org/A298578) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06381-PROOF.pdf](06381-PROOF.pdf) |
-| 6382 | [A302429](https://oeis.org/A302429) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06382-PROOF.pdf](06382-PROOF.pdf) |
-| 6383 | [A302729](https://oeis.org/A302729) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06383-PROOF.pdf](06383-PROOF.pdf) |
-| 6384 | [A237094](https://oeis.org/A237094) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06384-PROOF.pdf](06384-PROOF.pdf) |
-| 6385 | [A208695](https://oeis.org/A208695) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06385-PROOF.pdf](06385-PROOF.pdf) |
-| 6386 | [A275129](https://oeis.org/A275129) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06386-PROOF.pdf](06386-PROOF.pdf) |
-| 6387 | [A264143](https://oeis.org/A264143) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06387-PROOF.pdf](06387-PROOF.pdf) |
-| 6388 | [A188751](https://oeis.org/A188751) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06388-PROOF.pdf](06388-PROOF.pdf) |
-| 6389 | [A252641](https://oeis.org/A252641) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06389-PROOF.pdf](06389-PROOF.pdf) |
-| 6390 | [A298175](https://oeis.org/A298175) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06390-PROOF.pdf](06390-PROOF.pdf) |
-| 6391 | [A197892](https://oeis.org/A197892) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06391-PROOF.pdf](06391-PROOF.pdf) |
-| 6392 | [A235959](https://oeis.org/A235959) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06392-PROOF.pdf](06392-PROOF.pdf) |
-| 6393 | [A207740](https://oeis.org/A207740) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06393-PROOF.pdf](06393-PROOF.pdf) |
-| 6394 | [A203971](https://oeis.org/A203971) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06394-PROOF.pdf](06394-PROOF.pdf) |
-| 6395 | [A298164](https://oeis.org/A298164) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06395-PROOF.pdf](06395-PROOF.pdf) |
-| 6396 | [A239173](https://oeis.org/A239173) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06396-PROOF.pdf](06396-PROOF.pdf) |
-| 6397 | [A250467](https://oeis.org/A250467) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06397-PROOF.pdf](06397-PROOF.pdf) |
-| 6398 | [A298290](https://oeis.org/A298290) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06398-PROOF.pdf](06398-PROOF.pdf) |
-| 6399 | [A298556](https://oeis.org/A298556) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06399-PROOF.pdf](06399-PROOF.pdf) |
-| 6400 | [A299183](https://oeis.org/A299183) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06400-PROOF.pdf](06400-PROOF.pdf) |
-| 6401 | [A299570](https://oeis.org/A299570) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06401-PROOF.pdf](06401-PROOF.pdf) |
-| 6402 | [A304006](https://oeis.org/A304006) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06402-PROOF.pdf](06402-PROOF.pdf) |
-| 6403 | [A304540](https://oeis.org/A304540) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06403-PROOF.pdf](06403-PROOF.pdf) |
-| 6404 | [A306125](https://oeis.org/A306125) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06404-PROOF.pdf](06404-PROOF.pdf) |
-| 6405 | [A316307](https://oeis.org/A316307) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06405-PROOF.pdf](06405-PROOF.pdf) |
-| 6406 | [A235561](https://oeis.org/A235561) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06406-PROOF.pdf](06406-PROOF.pdf) |
-| 6407 | [A187723](https://oeis.org/A187723) | Proof | neighbouring K X K subblocks commuting as matrices, or none of them commuting | [06407-PROOF.pdf](06407-PROOF.pdf) |
-| 6408 | [A252101](https://oeis.org/A252101) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06408-PROOF.pdf](06408-PROOF.pdf) |
-| 6409 | [A252403](https://oeis.org/A252403) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06409-PROOF.pdf](06409-PROOF.pdf) |
-| 6410 | [A251917](https://oeis.org/A251917) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [06410-PROOF.pdf](06410-PROOF.pdf) |
-| 6411 | [A252599](https://oeis.org/A252599) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06411-PROOF.pdf](06411-PROOF.pdf) |
-| 6412 | [A206895](https://oeis.org/A206895) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06412-PROOF.pdf](06412-PROOF.pdf) |
-| 6413 | [A197533](https://oeis.org/A197533) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06413-PROOF.pdf](06413-PROOF.pdf) |
-| 6414 | [A249654](https://oeis.org/A249654) | Proof |  | [06414-PROOF.pdf](06414-PROOF.pdf) |
-| 6415 | [A256898](https://oeis.org/A256898) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06415-PROOF.pdf](06415-PROOF.pdf) |
-| 6416 | [A234792](https://oeis.org/A234792) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06416-PROOF.pdf](06416-PROOF.pdf) |
-| 6417 | [A302412](https://oeis.org/A302412) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06417-PROOF.pdf](06417-PROOF.pdf) |
-| 6418 | [A303179](https://oeis.org/A303179) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06418-PROOF.pdf](06418-PROOF.pdf) |
-| 6419 | [A206007](https://oeis.org/A206007) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06419-PROOF.pdf](06419-PROOF.pdf) |
-| 6420 | [A207686](https://oeis.org/A207686) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06420-PROOF.pdf](06420-PROOF.pdf) |
-| 6421 | [A257355](https://oeis.org/A257355) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [06421-PROOF.pdf](06421-PROOF.pdf) |
-| 6422 | [A297947](https://oeis.org/A297947) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06422-PROOF.pdf](06422-PROOF.pdf) |
-| 6423 | [A298226](https://oeis.org/A298226) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06423-PROOF.pdf](06423-PROOF.pdf) |
-| 6424 | [A298766](https://oeis.org/A298766) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06424-PROOF.pdf](06424-PROOF.pdf) |
-| 6425 | [A300919](https://oeis.org/A300919) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06425-PROOF.pdf](06425-PROOF.pdf) |
-| 6426 | [A301604](https://oeis.org/A301604) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06426-PROOF.pdf](06426-PROOF.pdf) |
-| 6427 | [A304015](https://oeis.org/A304015) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06427-PROOF.pdf](06427-PROOF.pdf) |
-| 6428 | [A304152](https://oeis.org/A304152) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06428-PROOF.pdf](06428-PROOF.pdf) |
-| 6429 | [A304351](https://oeis.org/A304351) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06429-PROOF.pdf](06429-PROOF.pdf) |
-| 6430 | [A305363](https://oeis.org/A305363) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06430-PROOF.pdf](06430-PROOF.pdf) |
-| 6431 | [A249954](https://oeis.org/A249954) | Proof |  | [06431-PROOF.pdf](06431-PROOF.pdf) |
-| 6432 | [A222003](https://oeis.org/A222003) | Proof |  | [06432-PROOF.pdf](06432-PROOF.pdf) |
-| 6433 | [A140938](https://oeis.org/A140938) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06433-PROOF.pdf](06433-PROOF.pdf) |
-| 6434 | [A303960](https://oeis.org/A303960) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06434-PROOF.pdf](06434-PROOF.pdf) |
-| 6435 | [A187641](https://oeis.org/A187641) | Proof | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, ... | [06435-PROOF.pdf](06435-PROOF.pdf) |
-| 6436 | [A252385](https://oeis.org/A252385) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06436-PROOF.pdf](06436-PROOF.pdf) |
-| 6437 | [A317771](https://oeis.org/A317771) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06437-PROOF.pdf](06437-PROOF.pdf) |
-| 6438 | [A208701](https://oeis.org/A208701) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06438-PROOF.pdf](06438-PROOF.pdf) |
-| 6439 | [A202402](https://oeis.org/A202402) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06439-PROOF.pdf](06439-PROOF.pdf) |
-| 6440 | [A209908](https://oeis.org/A209908) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06440-PROOF.pdf](06440-PROOF.pdf) |
-| 6441 | [A304475](https://oeis.org/A304475) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06441-PROOF.pdf](06441-PROOF.pdf) |
-| 6442 | [A305219](https://oeis.org/A305219) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06442-PROOF.pdf](06442-PROOF.pdf) |
-| 6443 | [A305638](https://oeis.org/A305638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06443-PROOF.pdf](06443-PROOF.pdf) |
-| 6444 | [A306056](https://oeis.org/A306056) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06444-PROOF.pdf](06444-PROOF.pdf) |
-| 6445 | [A316300](https://oeis.org/A316300) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06445-PROOF.pdf](06445-PROOF.pdf) |
-| 6446 | [A317032](https://oeis.org/A317032) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06446-PROOF.pdf](06446-PROOF.pdf) |
-| 6447 | [A317234](https://oeis.org/A317234) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06447-PROOF.pdf](06447-PROOF.pdf) |
-| 6448 | [A236274](https://oeis.org/A236274) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06448-PROOF.pdf](06448-PROOF.pdf) |
-| 6449 | [A274893](https://oeis.org/A274893) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06449-PROOF.pdf](06449-PROOF.pdf) |
-| 6450 | [A275502](https://oeis.org/A275502) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06450-PROOF.pdf](06450-PROOF.pdf) |
-| 6451 | [A204405](https://oeis.org/A204405) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06451-PROOF.pdf](06451-PROOF.pdf) |
-| 6452 | [A264374](https://oeis.org/A264374) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06452-PROOF.pdf](06452-PROOF.pdf) |
-| 6453 | [A204777](https://oeis.org/A204777) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06453-PROOF.pdf](06453-PROOF.pdf) |
-| 6454 | [A204498](https://oeis.org/A204498) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06454-PROOF.pdf](06454-PROOF.pdf) |
-| 6455 | [A250442](https://oeis.org/A250442) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [06455-PROOF.pdf](06455-PROOF.pdf) |
-| 6456 | [A230790](https://oeis.org/A230790) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06456-PROOF.pdf](06456-PROOF.pdf) |
-| 6457 | [A260367](https://oeis.org/A260367) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06457-PROOF.pdf](06457-PROOF.pdf) |
-| 6458 | [A232409](https://oeis.org/A232409) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06458-PROOF.pdf](06458-PROOF.pdf) |
-| 6459 | [A269934](https://oeis.org/A269934) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06459-PROOF.pdf](06459-PROOF.pdf) |
-| 6460 | [A304300](https://oeis.org/A304300) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06460-PROOF.pdf](06460-PROOF.pdf) |
-| 6461 | [A279739](https://oeis.org/A279739) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06461-PROOF.pdf](06461-PROOF.pdf) |
-| 6462 | [A184141](https://oeis.org/A184141) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06462-PROOF.pdf](06462-PROOF.pdf) |
-| 6463 | [A196452](https://oeis.org/A196452) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06463-PROOF.pdf](06463-PROOF.pdf) |
-| 6464 | [A259007](https://oeis.org/A259007) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06464-PROOF.pdf](06464-PROOF.pdf) |
-| 6465 | [A189113](https://oeis.org/A189113) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06465-PROOF.pdf](06465-PROOF.pdf) |
-| 6466 | [A202643](https://oeis.org/A202643) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06466-PROOF.pdf](06466-PROOF.pdf) |
-| 6467 | [A204195](https://oeis.org/A204195) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06467-PROOF.pdf](06467-PROOF.pdf) |
-| 6468 | [A207659](https://oeis.org/A207659) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06468-PROOF.pdf](06468-PROOF.pdf) |
-| 6469 | [A203350](https://oeis.org/A203350) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06469-PROOF.pdf](06469-PROOF.pdf) |
-| 6470 | [A184123](https://oeis.org/A184123) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06470-PROOF.pdf](06470-PROOF.pdf) |
-| 6471 | [A209711](https://oeis.org/A209711) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06471-PROOF.pdf](06471-PROOF.pdf) |
-| 6472 | [A298191](https://oeis.org/A298191) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06472-PROOF.pdf](06472-PROOF.pdf) |
-| 6473 | [A298618](https://oeis.org/A298618) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06473-PROOF.pdf](06473-PROOF.pdf) |
-| 6474 | [A299085](https://oeis.org/A299085) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06474-PROOF.pdf](06474-PROOF.pdf) |
-| 6475 | [A299341](https://oeis.org/A299341) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06475-PROOF.pdf](06475-PROOF.pdf) |
-| 6476 | [A299848](https://oeis.org/A299848) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06476-PROOF.pdf](06476-PROOF.pdf) |
-| 6477 | [A302281](https://oeis.org/A302281) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06477-PROOF.pdf](06477-PROOF.pdf) |
-| 6478 | [A316235](https://oeis.org/A316235) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06478-PROOF.pdf](06478-PROOF.pdf) |
-| 6479 | [A220551](https://oeis.org/A220551) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06479-PROOF.pdf](06479-PROOF.pdf) |
-| 6480 | [A220567](https://oeis.org/A220567) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06480-PROOF.pdf](06480-PROOF.pdf) |
-| 6481 | [A207708](https://oeis.org/A207708) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06481-PROOF.pdf](06481-PROOF.pdf) |
-| 6482 | [A202373](https://oeis.org/A202373) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06482-PROOF.pdf](06482-PROOF.pdf) |
-| 6483 | [A140917](https://oeis.org/A140917) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06483-PROOF.pdf](06483-PROOF.pdf) |
-| 6484 | [A207428](https://oeis.org/A207428) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06484-PROOF.pdf](06484-PROOF.pdf) |
-| 6485 | [A183318](https://oeis.org/A183318) | Proof | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on dif... | [06485-PROOF.pdf](06485-PROOF.pdf) |
-| 6486 | [A303799](https://oeis.org/A303799) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06486-PROOF.pdf](06486-PROOF.pdf) |
-| 6487 | [A318544](https://oeis.org/A318544) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06487-PROOF.pdf](06487-PROOF.pdf) |
-| 6488 | [A302638](https://oeis.org/A302638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06488-PROOF.pdf](06488-PROOF.pdf) |
-| 6489 | [A202120](https://oeis.org/A202120) | Proof |  | [06489-PROOF.pdf](06489-PROOF.pdf) |
-| 6490 | [A204036](https://oeis.org/A204036) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06490-PROOF.pdf](06490-PROOF.pdf) |
-| 6491 | [A207216](https://oeis.org/A207216) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06491-PROOF.pdf](06491-PROOF.pdf) |
-| 6492 | [A207984](https://oeis.org/A207984) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06492-PROOF.pdf](06492-PROOF.pdf) |
-| 6493 | [A206874](https://oeis.org/A206874) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06493-PROOF.pdf](06493-PROOF.pdf) |
-| 6494 | [A208167](https://oeis.org/A208167) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06494-PROOF.pdf](06494-PROOF.pdf) |
-| 6495 | [A207091](https://oeis.org/A207091) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06495-PROOF.pdf](06495-PROOF.pdf) |
-| 6496 | [A282965](https://oeis.org/A282965) | Proof | a condition on every cell over the neighbour set the entry names | [06496-PROOF.pdf](06496-PROOF.pdf) |
-| 6497 | [A210295](https://oeis.org/A210295) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06497-PROOF.pdf](06497-PROOF.pdf) |
-| 6498 | [A298715](https://oeis.org/A298715) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06498-PROOF.pdf](06498-PROOF.pdf) |
-| 6499 | [A298830](https://oeis.org/A298830) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06499-PROOF.pdf](06499-PROOF.pdf) |
-| 6500 | [A304259](https://oeis.org/A304259) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06500-PROOF.pdf](06500-PROOF.pdf) |
+| 6001 | [A283651](https://oeis.org/A283651) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06001-PROOF.pdf](06001-PROOF.pdf) |
+| 6002 | [A284483](https://oeis.org/A284483) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06002-PROOF.pdf](06002-PROOF.pdf) |
+| 6003 | [A284484](https://oeis.org/A284484) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06003-PROOF.pdf](06003-PROOF.pdf) |
+| 6004 | [A284485](https://oeis.org/A284485) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06004-PROOF.pdf](06004-PROOF.pdf) |
+| 6005 | [A286771](https://oeis.org/A286771) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06005-PROOF.pdf](06005-PROOF.pdf) |
+| 6006 | [A286773](https://oeis.org/A286773) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06006-PROOF.pdf](06006-PROOF.pdf) |
+| 6007 | [A287191](https://oeis.org/A287191) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06007-PROOF.pdf](06007-PROOF.pdf) |
+| 6008 | [A287193](https://oeis.org/A287193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06008-PROOF.pdf](06008-PROOF.pdf) |
+| 6009 | [A289097](https://oeis.org/A289097) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06009-PROOF.pdf](06009-PROOF.pdf) |
+| 6010 | [A290193](https://oeis.org/A290193) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06010-PROOF.pdf](06010-PROOF.pdf) |
+| 6011 | [A290195](https://oeis.org/A290195) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06011-PROOF.pdf](06011-PROOF.pdf) |
+| 6012 | [A063081](https://oeis.org/A063081) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06012-PROOF.pdf](06012-PROOF.pdf) |
+| 6013 | [A063168](https://oeis.org/A063168) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06013-PROOF.pdf](06013-PROOF.pdf) |
+| 6014 | [A277797](https://oeis.org/A277797) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06014-PROOF.pdf](06014-PROOF.pdf) |
+| 6015 | [A277798](https://oeis.org/A277798) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06015-PROOF.pdf](06015-PROOF.pdf) |
+| 6016 | [A277799](https://oeis.org/A277799) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06016-PROOF.pdf](06016-PROOF.pdf) |
+| 6017 | [A277800](https://oeis.org/A277800) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06017-PROOF.pdf](06017-PROOF.pdf) |
+| 6018 | [A277864](https://oeis.org/A277864) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06018-PROOF.pdf](06018-PROOF.pdf) |
+| 6019 | [A277866](https://oeis.org/A277866) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06019-PROOF.pdf](06019-PROOF.pdf) |
+| 6020 | [A277926](https://oeis.org/A277926) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06020-PROOF.pdf](06020-PROOF.pdf) |
+| 6021 | [A277927](https://oeis.org/A277927) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06021-PROOF.pdf](06021-PROOF.pdf) |
+| 6022 | [A277928](https://oeis.org/A277928) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06022-PROOF.pdf](06022-PROOF.pdf) |
+| 6023 | [A277929](https://oeis.org/A277929) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06023-PROOF.pdf](06023-PROOF.pdf) |
+| 6024 | [A280367](https://oeis.org/A280367) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06024-PROOF.pdf](06024-PROOF.pdf) |
+| 6025 | [A280368](https://oeis.org/A280368) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06025-PROOF.pdf](06025-PROOF.pdf) |
+| 6026 | [A280369](https://oeis.org/A280369) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06026-PROOF.pdf](06026-PROOF.pdf) |
+| 6027 | [A280370](https://oeis.org/A280370) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06027-PROOF.pdf](06027-PROOF.pdf) |
+| 6028 | [A283504](https://oeis.org/A283504) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06028-PROOF.pdf](06028-PROOF.pdf) |
+| 6029 | [A283505](https://oeis.org/A283505) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06029-PROOF.pdf](06029-PROOF.pdf) |
+| 6030 | [A283506](https://oeis.org/A283506) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06030-PROOF.pdf](06030-PROOF.pdf) |
+| 6031 | [A283507](https://oeis.org/A283507) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06031-PROOF.pdf](06031-PROOF.pdf) |
+| 6032 | [A284351](https://oeis.org/A284351) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06032-PROOF.pdf](06032-PROOF.pdf) |
+| 6033 | [A284353](https://oeis.org/A284353) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06033-PROOF.pdf](06033-PROOF.pdf) |
+| 6034 | [A285541](https://oeis.org/A285541) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06034-PROOF.pdf](06034-PROOF.pdf) |
+| 6035 | [A287199](https://oeis.org/A287199) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06035-PROOF.pdf](06035-PROOF.pdf) |
+| 6036 | [A290072](https://oeis.org/A290072) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06036-PROOF.pdf](06036-PROOF.pdf) |
+| 6037 | [A290835](https://oeis.org/A290835) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06037-PROOF.pdf](06037-PROOF.pdf) |
+| 6038 | [A290837](https://oeis.org/A290837) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06038-PROOF.pdf](06038-PROOF.pdf) |
+| 6039 | [A277560](https://oeis.org/A277560) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06039-PROOF.pdf](06039-PROOF.pdf) |
+| 6040 | [A277936](https://oeis.org/A277936) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06040-PROOF.pdf](06040-PROOF.pdf) |
+| 6041 | [A282002](https://oeis.org/A282002) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06041-PROOF.pdf](06041-PROOF.pdf) |
+| 6042 | [A282003](https://oeis.org/A282003) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06042-PROOF.pdf](06042-PROOF.pdf) |
+| 6043 | [A282005](https://oeis.org/A282005) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06043-PROOF.pdf](06043-PROOF.pdf) |
+| 6044 | [A283523](https://oeis.org/A283523) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06044-PROOF.pdf](06044-PROOF.pdf) |
+| 6045 | [A284403](https://oeis.org/A284403) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06045-PROOF.pdf](06045-PROOF.pdf) |
+| 6046 | [A284404](https://oeis.org/A284404) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06046-PROOF.pdf](06046-PROOF.pdf) |
+| 6047 | [A284405](https://oeis.org/A284405) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06047-PROOF.pdf](06047-PROOF.pdf) |
+| 6048 | [A290661](https://oeis.org/A290661) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06048-PROOF.pdf](06048-PROOF.pdf) |
+| 6049 | [A290662](https://oeis.org/A290662) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06049-PROOF.pdf](06049-PROOF.pdf) |
+| 6050 | [A290681](https://oeis.org/A290681) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06050-PROOF.pdf](06050-PROOF.pdf) |
+| 6051 | [A290683](https://oeis.org/A290683) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06051-PROOF.pdf](06051-PROOF.pdf) |
+| 6052 | [A277865](https://oeis.org/A277865) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06052-PROOF.pdf](06052-PROOF.pdf) |
+| 6053 | [A277867](https://oeis.org/A277867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06053-PROOF.pdf](06053-PROOF.pdf) |
+| 6054 | [A280410](https://oeis.org/A280410) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06054-PROOF.pdf](06054-PROOF.pdf) |
+| 6055 | [A280411](https://oeis.org/A280411) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06055-PROOF.pdf](06055-PROOF.pdf) |
+| 6056 | [A280412](https://oeis.org/A280412) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06056-PROOF.pdf](06056-PROOF.pdf) |
+| 6057 | [A283589](https://oeis.org/A283589) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06057-PROOF.pdf](06057-PROOF.pdf) |
+| 6058 | [A283590](https://oeis.org/A283590) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06058-PROOF.pdf](06058-PROOF.pdf) |
+| 6059 | [A283592](https://oeis.org/A283592) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06059-PROOF.pdf](06059-PROOF.pdf) |
+| 6060 | [A284352](https://oeis.org/A284352) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06060-PROOF.pdf](06060-PROOF.pdf) |
+| 6061 | [A284354](https://oeis.org/A284354) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06061-PROOF.pdf](06061-PROOF.pdf) |
+| 6062 | [A285474](https://oeis.org/A285474) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06062-PROOF.pdf](06062-PROOF.pdf) |
+| 6063 | [A286519](https://oeis.org/A286519) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06063-PROOF.pdf](06063-PROOF.pdf) |
+| 6064 | [A286521](https://oeis.org/A286521) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06064-PROOF.pdf](06064-PROOF.pdf) |
+| 6065 | [A267867](https://oeis.org/A267867) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06065-PROOF.pdf](06065-PROOF.pdf) |
+| 6066 | [A283508](https://oeis.org/A283508) | Proof | the entry's only conjecture is a generating function: the count is a walk count so its generating function is ... | [06066-PROOF.pdf](06066-PROOF.pdf) |
+| 6067 | [A140943](https://oeis.org/A140943) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06067-PROOF.pdf](06067-PROOF.pdf) |
+| 6068 | [A140942](https://oeis.org/A140942) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06068-PROOF.pdf](06068-PROOF.pdf) |
+| 6069 | [A140933](https://oeis.org/A140933) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06069-PROOF.pdf](06069-PROOF.pdf) |
+| 6070 | [A252102](https://oeis.org/A252102) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06070-PROOF.pdf](06070-PROOF.pdf) |
+| 6071 | [A207927](https://oeis.org/A207927) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06071-PROOF.pdf](06071-PROOF.pdf) |
+| 6072 | [A188563](https://oeis.org/A188563) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06072-PROOF.pdf](06072-PROOF.pdf) |
+| 6073 | [A250451](https://oeis.org/A250451) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06073-PROOF.pdf](06073-PROOF.pdf) |
+| 6074 | [A237310](https://oeis.org/A237310) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06074-PROOF.pdf](06074-PROOF.pdf) |
+| 6075 | [A140941](https://oeis.org/A140941) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06075-PROOF.pdf](06075-PROOF.pdf) |
+| 6076 | [A224351](https://oeis.org/A224351) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06076-PROOF.pdf](06076-PROOF.pdf) |
+| 6077 | [A205092](https://oeis.org/A205092) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06077-PROOF.pdf](06077-PROOF.pdf) |
+| 6078 | [A237857](https://oeis.org/A237857) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06078-PROOF.pdf](06078-PROOF.pdf) |
+| 6079 | [A250053](https://oeis.org/A250053) | Proof |  | [06079-PROOF.pdf](06079-PROOF.pdf) |
+| 6080 | [A205200](https://oeis.org/A205200) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06080-PROOF.pdf](06080-PROOF.pdf) |
+| 6081 | [A207965](https://oeis.org/A207965) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06081-PROOF.pdf](06081-PROOF.pdf) |
+| 6082 | [A207274](https://oeis.org/A207274) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06082-PROOF.pdf](06082-PROOF.pdf) |
+| 6083 | [A206729](https://oeis.org/A206729) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06083-PROOF.pdf](06083-PROOF.pdf) |
+| 6084 | [A206507](https://oeis.org/A206507) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06084-PROOF.pdf](06084-PROOF.pdf) |
+| 6085 | [A237205](https://oeis.org/A237205) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06085-PROOF.pdf](06085-PROOF.pdf) |
+| 6086 | [A237393](https://oeis.org/A237393) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06086-PROOF.pdf](06086-PROOF.pdf) |
+| 6087 | [A205213](https://oeis.org/A205213) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06087-PROOF.pdf](06087-PROOF.pdf) |
+| 6088 | [A279975](https://oeis.org/A279975) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06088-PROOF.pdf](06088-PROOF.pdf) |
+| 6089 | [A234110](https://oeis.org/A234110) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06089-PROOF.pdf](06089-PROOF.pdf) |
+| 6090 | [A207844](https://oeis.org/A207844) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06090-PROOF.pdf](06090-PROOF.pdf) |
+| 6091 | [A208038](https://oeis.org/A208038) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06091-PROOF.pdf](06091-PROOF.pdf) |
+| 6092 | [A207185](https://oeis.org/A207185) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06092-PROOF.pdf](06092-PROOF.pdf) |
+| 6093 | [A207441](https://oeis.org/A207441) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06093-PROOF.pdf](06093-PROOF.pdf) |
+| 6094 | [A250075](https://oeis.org/A250075) | Proof |  | [06094-PROOF.pdf](06094-PROOF.pdf) |
+| 6095 | [A236870](https://oeis.org/A236870) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06095-PROOF.pdf](06095-PROOF.pdf) |
+| 6096 | [A264140](https://oeis.org/A264140) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06096-PROOF.pdf](06096-PROOF.pdf) |
+| 6097 | [A234033](https://oeis.org/A234033) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06097-PROOF.pdf](06097-PROOF.pdf) |
+| 6098 | [A197066](https://oeis.org/A197066) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06098-PROOF.pdf](06098-PROOF.pdf) |
+| 6099 | [A196714](https://oeis.org/A196714) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06099-PROOF.pdf](06099-PROOF.pdf) |
+| 6100 | [A205734](https://oeis.org/A205734) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06100-PROOF.pdf](06100-PROOF.pdf) |
+| 6101 | [A234417](https://oeis.org/A234417) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06101-PROOF.pdf](06101-PROOF.pdf) |
+| 6102 | [A195966](https://oeis.org/A195966) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06102-PROOF.pdf](06102-PROOF.pdf) |
+| 6103 | [A230691](https://oeis.org/A230691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06103-PROOF.pdf](06103-PROOF.pdf) |
+| 6104 | [A207247](https://oeis.org/A207247) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06104-PROOF.pdf](06104-PROOF.pdf) |
+| 6105 | [A204871](https://oeis.org/A204871) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06105-PROOF.pdf](06105-PROOF.pdf) |
+| 6106 | [A237923](https://oeis.org/A237923) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06106-PROOF.pdf](06106-PROOF.pdf) |
+| 6107 | [A206538](https://oeis.org/A206538) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06107-PROOF.pdf](06107-PROOF.pdf) |
+| 6108 | [A206938](https://oeis.org/A206938) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06108-PROOF.pdf](06108-PROOF.pdf) |
+| 6109 | [A207445](https://oeis.org/A207445) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06109-PROOF.pdf](06109-PROOF.pdf) |
+| 6110 | [A205661](https://oeis.org/A205661) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06110-PROOF.pdf](06110-PROOF.pdf) |
+| 6111 | [A205516](https://oeis.org/A205516) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06111-PROOF.pdf](06111-PROOF.pdf) |
+| 6112 | [A208419](https://oeis.org/A208419) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06112-PROOF.pdf](06112-PROOF.pdf) |
+| 6113 | [A196963](https://oeis.org/A196963) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06113-PROOF.pdf](06113-PROOF.pdf) |
+| 6114 | [A237370](https://oeis.org/A237370) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06114-PROOF.pdf](06114-PROOF.pdf) |
+| 6115 | [A234829](https://oeis.org/A234829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06115-PROOF.pdf](06115-PROOF.pdf) |
+| 6116 | [A236981](https://oeis.org/A236981) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06116-PROOF.pdf](06116-PROOF.pdf) |
+| 6117 | [A249524](https://oeis.org/A249524) | Proof |  | [06117-PROOF.pdf](06117-PROOF.pdf) |
+| 6118 | [A207239](https://oeis.org/A207239) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06118-PROOF.pdf](06118-PROOF.pdf) |
+| 6119 | [A223973](https://oeis.org/A223973) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06119-PROOF.pdf](06119-PROOF.pdf) |
+| 6120 | [A202315](https://oeis.org/A202315) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06120-PROOF.pdf](06120-PROOF.pdf) |
+| 6121 | [A207856](https://oeis.org/A207856) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06121-PROOF.pdf](06121-PROOF.pdf) |
+| 6122 | [A206313](https://oeis.org/A206313) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06122-PROOF.pdf](06122-PROOF.pdf) |
+| 6123 | [A207464](https://oeis.org/A207464) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06123-PROOF.pdf](06123-PROOF.pdf) |
+| 6124 | [A252645](https://oeis.org/A252645) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06124-PROOF.pdf](06124-PROOF.pdf) |
+| 6125 | [A206411](https://oeis.org/A206411) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06125-PROOF.pdf](06125-PROOF.pdf) |
+| 6126 | [A252128](https://oeis.org/A252128) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06126-PROOF.pdf](06126-PROOF.pdf) |
+| 6127 | [A237553](https://oeis.org/A237553) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06127-PROOF.pdf](06127-PROOF.pdf) |
+| 6128 | [A231129](https://oeis.org/A231129) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06128-PROOF.pdf](06128-PROOF.pdf) |
+| 6129 | [A231136](https://oeis.org/A231136) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06129-PROOF.pdf](06129-PROOF.pdf) |
+| 6130 | [A189614](https://oeis.org/A189614) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06130-PROOF.pdf](06130-PROOF.pdf) |
+| 6131 | [A264517](https://oeis.org/A264517) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06131-PROOF.pdf](06131-PROOF.pdf) |
+| 6132 | [A196946](https://oeis.org/A196946) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06132-PROOF.pdf](06132-PROOF.pdf) |
+| 6133 | [A206998](https://oeis.org/A206998) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06133-PROOF.pdf](06133-PROOF.pdf) |
+| 6134 | [A202588](https://oeis.org/A202588) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06134-PROOF.pdf](06134-PROOF.pdf) |
+| 6135 | [A208499](https://oeis.org/A208499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06135-PROOF.pdf](06135-PROOF.pdf) |
+| 6136 | [A220723](https://oeis.org/A220723) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06136-PROOF.pdf](06136-PROOF.pdf) |
+| 6137 | [A140932](https://oeis.org/A140932) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06137-PROOF.pdf](06137-PROOF.pdf) |
+| 6138 | [A196852](https://oeis.org/A196852) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06138-PROOF.pdf](06138-PROOF.pdf) |
+| 6139 | [A203369](https://oeis.org/A203369) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06139-PROOF.pdf](06139-PROOF.pdf) |
+| 6140 | [A196425](https://oeis.org/A196425) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06140-PROOF.pdf](06140-PROOF.pdf) |
+| 6141 | [A205654](https://oeis.org/A205654) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06141-PROOF.pdf](06141-PROOF.pdf) |
+| 6142 | [A235967](https://oeis.org/A235967) | Proof | the 2 X 2 subblocks properly coloured by a statistic of their entries: neighbours must differ | [06142-PROOF.pdf](06142-PROOF.pdf) |
+| 6143 | [A196319](https://oeis.org/A196319) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06143-PROOF.pdf](06143-PROOF.pdf) |
+| 6144 | [A233706](https://oeis.org/A233706) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06144-PROOF.pdf](06144-PROOF.pdf) |
+| 6145 | [A197043](https://oeis.org/A197043) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06145-PROOF.pdf](06145-PROOF.pdf) |
+| 6146 | [A203089](https://oeis.org/A203089) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06146-PROOF.pdf](06146-PROOF.pdf) |
+| 6147 | [A235769](https://oeis.org/A235769) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06147-PROOF.pdf](06147-PROOF.pdf) |
+| 6148 | [A207487](https://oeis.org/A207487) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06148-PROOF.pdf](06148-PROOF.pdf) |
+| 6149 | [A253478](https://oeis.org/A253478) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06149-PROOF.pdf](06149-PROOF.pdf) |
+| 6150 | [A140940](https://oeis.org/A140940) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06150-PROOF.pdf](06150-PROOF.pdf) |
+| 6151 | [A204038](https://oeis.org/A204038) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06151-PROOF.pdf](06151-PROOF.pdf) |
+| 6152 | [A253332](https://oeis.org/A253332) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06152-PROOF.pdf](06152-PROOF.pdf) |
+| 6153 | [A203841](https://oeis.org/A203841) | Proof | a condition on every cell over the neighbour set the entry names | [06153-PROOF.pdf](06153-PROOF.pdf) |
+| 6154 | [A235677](https://oeis.org/A235677) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06154-PROOF.pdf](06154-PROOF.pdf) |
+| 6155 | [A225023](https://oeis.org/A225023) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06155-PROOF.pdf](06155-PROOF.pdf) |
+| 6156 | [A237304](https://oeis.org/A237304) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06156-PROOF.pdf](06156-PROOF.pdf) |
+| 6157 | [A249287](https://oeis.org/A249287) | Proof |  | [06157-PROOF.pdf](06157-PROOF.pdf) |
+| 6158 | [A237804](https://oeis.org/A237804) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06158-PROOF.pdf](06158-PROOF.pdf) |
+| 6159 | [A236814](https://oeis.org/A236814) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06159-PROOF.pdf](06159-PROOF.pdf) |
+| 6160 | [A206986](https://oeis.org/A206986) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06160-PROOF.pdf](06160-PROOF.pdf) |
+| 6161 | [A209957](https://oeis.org/A209957) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06161-PROOF.pdf](06161-PROOF.pdf) |
+| 6162 | [A236742](https://oeis.org/A236742) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06162-PROOF.pdf](06162-PROOF.pdf) |
+| 6163 | [A235732](https://oeis.org/A235732) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06163-PROOF.pdf](06163-PROOF.pdf) |
+| 6164 | [A236898](https://oeis.org/A236898) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06164-PROOF.pdf](06164-PROOF.pdf) |
+| 6165 | [A207794](https://oeis.org/A207794) | Proof | the clockwise perimeter cycle of every 2 X 3 and 3 X 2 subblock: how many of its six steps go up | [06165-PROOF.pdf](06165-PROOF.pdf) |
+| 6166 | [A196340](https://oeis.org/A196340) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06166-PROOF.pdf](06166-PROOF.pdf) |
+| 6167 | [A196693](https://oeis.org/A196693) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06167-PROOF.pdf](06167-PROOF.pdf) |
+| 6168 | [A207552](https://oeis.org/A207552) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06168-PROOF.pdf](06168-PROOF.pdf) |
+| 6169 | [A206104](https://oeis.org/A206104) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06169-PROOF.pdf](06169-PROOF.pdf) |
+| 6170 | [A196703](https://oeis.org/A196703) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06170-PROOF.pdf](06170-PROOF.pdf) |
+| 6171 | [A188691](https://oeis.org/A188691) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06171-PROOF.pdf](06171-PROOF.pdf) |
+| 6172 | [A207499](https://oeis.org/A207499) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06172-PROOF.pdf](06172-PROOF.pdf) |
+| 6173 | [A207664](https://oeis.org/A207664) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06173-PROOF.pdf](06173-PROOF.pdf) |
+| 6174 | [A207127](https://oeis.org/A207127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06174-PROOF.pdf](06174-PROOF.pdf) |
+| 6175 | [A241960](https://oeis.org/A241960) | Proof |  | [06175-PROOF.pdf](06175-PROOF.pdf) |
+| 6176 | [A252404](https://oeis.org/A252404) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06176-PROOF.pdf](06176-PROOF.pdf) |
+| 6177 | [A252571](https://oeis.org/A252571) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06177-PROOF.pdf](06177-PROOF.pdf) |
+| 6178 | [A197095](https://oeis.org/A197095) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06178-PROOF.pdf](06178-PROOF.pdf) |
+| 6179 | [A204615](https://oeis.org/A204615) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06179-PROOF.pdf](06179-PROOF.pdf) |
+| 6180 | [A253349](https://oeis.org/A253349) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06180-PROOF.pdf](06180-PROOF.pdf) |
+| 6181 | [A253356](https://oeis.org/A253356) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06181-PROOF.pdf](06181-PROOF.pdf) |
+| 6182 | [A264159](https://oeis.org/A264159) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06182-PROOF.pdf](06182-PROOF.pdf) |
+| 6183 | [A264333](https://oeis.org/A264333) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06183-PROOF.pdf](06183-PROOF.pdf) |
+| 6184 | [A236114](https://oeis.org/A236114) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06184-PROOF.pdf](06184-PROOF.pdf) |
+| 6185 | [A198151](https://oeis.org/A198151) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06185-PROOF.pdf](06185-PROOF.pdf) |
+| 6186 | [A196481](https://oeis.org/A196481) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06186-PROOF.pdf](06186-PROOF.pdf) |
+| 6187 | [A207907](https://oeis.org/A207907) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06187-PROOF.pdf](06187-PROOF.pdf) |
+| 6188 | [A237154](https://oeis.org/A237154) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06188-PROOF.pdf](06188-PROOF.pdf) |
+| 6189 | [A203179](https://oeis.org/A203179) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06189-PROOF.pdf](06189-PROOF.pdf) |
+| 6190 | [A238177](https://oeis.org/A238177) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06190-PROOF.pdf](06190-PROOF.pdf) |
+| 6191 | [A205287](https://oeis.org/A205287) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06191-PROOF.pdf](06191-PROOF.pdf) |
+| 6192 | [A235834](https://oeis.org/A235834) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06192-PROOF.pdf](06192-PROOF.pdf) |
+| 6193 | [A235829](https://oeis.org/A235829) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06193-PROOF.pdf](06193-PROOF.pdf) |
+| 6194 | [A236823](https://oeis.org/A236823) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06194-PROOF.pdf](06194-PROOF.pdf) |
+| 6195 | [A263797](https://oeis.org/A263797) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06195-PROOF.pdf](06195-PROOF.pdf) |
+| 6196 | [A250455](https://oeis.org/A250455) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06196-PROOF.pdf](06196-PROOF.pdf) |
+| 6197 | [A197231](https://oeis.org/A197231) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06197-PROOF.pdf](06197-PROOF.pdf) |
+| 6198 | [A231399](https://oeis.org/A231399) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06198-PROOF.pdf](06198-PROOF.pdf) |
+| 6199 | [A207002](https://oeis.org/A207002) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06199-PROOF.pdf](06199-PROOF.pdf) |
+| 6200 | [A220715](https://oeis.org/A220715) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06200-PROOF.pdf](06200-PROOF.pdf) |
+| 6201 | [A254693](https://oeis.org/A254693) | Proof |  | [06201-PROOF.pdf](06201-PROOF.pdf) |
+| 6202 | [A236784](https://oeis.org/A236784) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06202-PROOF.pdf](06202-PROOF.pdf) |
+| 6203 | [A236793](https://oeis.org/A236793) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06203-PROOF.pdf](06203-PROOF.pdf) |
+| 6204 | [A207546](https://oeis.org/A207546) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06204-PROOF.pdf](06204-PROOF.pdf) |
+| 6205 | [A231836](https://oeis.org/A231836) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06205-PROOF.pdf](06205-PROOF.pdf) |
+| 6206 | [A206783](https://oeis.org/A206783) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06206-PROOF.pdf](06206-PROOF.pdf) |
+| 6207 | [A298090](https://oeis.org/A298090) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06207-PROOF.pdf](06207-PROOF.pdf) |
+| 6208 | [A247531](https://oeis.org/A247531) | Proof |  | [06208-PROOF.pdf](06208-PROOF.pdf) |
+| 6209 | [A236519](https://oeis.org/A236519) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06209-PROOF.pdf](06209-PROOF.pdf) |
+| 6210 | [A207521](https://oeis.org/A207521) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06210-PROOF.pdf](06210-PROOF.pdf) |
+| 6211 | [A202893](https://oeis.org/A202893) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06211-PROOF.pdf](06211-PROOF.pdf) |
+| 6212 | [A207775](https://oeis.org/A207775) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06212-PROOF.pdf](06212-PROOF.pdf) |
+| 6213 | [A236078](https://oeis.org/A236078) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06213-PROOF.pdf](06213-PROOF.pdf) |
+| 6214 | [A207343](https://oeis.org/A207343) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06214-PROOF.pdf](06214-PROOF.pdf) |
+| 6215 | [A275225](https://oeis.org/A275225) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06215-PROOF.pdf](06215-PROOF.pdf) |
+| 6216 | [A196586](https://oeis.org/A196586) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06216-PROOF.pdf](06216-PROOF.pdf) |
+| 6217 | [A205821](https://oeis.org/A205821) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06217-PROOF.pdf](06217-PROOF.pdf) |
+| 6218 | [A207086](https://oeis.org/A207086) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06218-PROOF.pdf](06218-PROOF.pdf) |
+| 6219 | [A207504](https://oeis.org/A207504) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06219-PROOF.pdf](06219-PROOF.pdf) |
+| 6220 | [A257380](https://oeis.org/A257380) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06220-PROOF.pdf](06220-PROOF.pdf) |
+| 6221 | [A208026](https://oeis.org/A208026) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06221-PROOF.pdf](06221-PROOF.pdf) |
+| 6222 | [A184132](https://oeis.org/A184132) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06222-PROOF.pdf](06222-PROOF.pdf) |
+| 6223 | [A207179](https://oeis.org/A207179) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06223-PROOF.pdf](06223-PROOF.pdf) |
+| 6224 | [A207697](https://oeis.org/A207697) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06224-PROOF.pdf](06224-PROOF.pdf) |
+| 6225 | [A207349](https://oeis.org/A207349) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06225-PROOF.pdf](06225-PROOF.pdf) |
+| 6226 | [A236723](https://oeis.org/A236723) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06226-PROOF.pdf](06226-PROOF.pdf) |
+| 6227 | [A140924](https://oeis.org/A140924) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06227-PROOF.pdf](06227-PROOF.pdf) |
+| 6228 | [A282127](https://oeis.org/A282127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06228-PROOF.pdf](06228-PROOF.pdf) |
+| 6229 | [A196726](https://oeis.org/A196726) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06229-PROOF.pdf](06229-PROOF.pdf) |
+| 6230 | [A232347](https://oeis.org/A232347) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06230-PROOF.pdf](06230-PROOF.pdf) |
+| 6231 | [A237490](https://oeis.org/A237490) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06231-PROOF.pdf](06231-PROOF.pdf) |
+| 6232 | [A206887](https://oeis.org/A206887) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06232-PROOF.pdf](06232-PROOF.pdf) |
+| 6233 | [A207417](https://oeis.org/A207417) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06233-PROOF.pdf](06233-PROOF.pdf) |
+| 6234 | [A224969](https://oeis.org/A224969) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06234-PROOF.pdf](06234-PROOF.pdf) |
+| 6235 | [A208075](https://oeis.org/A208075) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06235-PROOF.pdf](06235-PROOF.pdf) |
+| 6236 | [A255085](https://oeis.org/A255085) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06236-PROOF.pdf](06236-PROOF.pdf) |
+| 6237 | [A220678](https://oeis.org/A220678) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06237-PROOF.pdf](06237-PROOF.pdf) |
+| 6238 | [A207423](https://oeis.org/A207423) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06238-PROOF.pdf](06238-PROOF.pdf) |
+| 6239 | [A140931](https://oeis.org/A140931) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06239-PROOF.pdf](06239-PROOF.pdf) |
+| 6240 | [A204406](https://oeis.org/A204406) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06240-PROOF.pdf](06240-PROOF.pdf) |
+| 6241 | [A252408](https://oeis.org/A252408) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06241-PROOF.pdf](06241-PROOF.pdf) |
+| 6242 | [A207772](https://oeis.org/A207772) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06242-PROOF.pdf](06242-PROOF.pdf) |
+| 6243 | [A204224](https://oeis.org/A204224) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06243-PROOF.pdf](06243-PROOF.pdf) |
+| 6244 | [A253376](https://oeis.org/A253376) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06244-PROOF.pdf](06244-PROOF.pdf) |
+| 6245 | [A247922](https://oeis.org/A247922) | Proof |  | [06245-PROOF.pdf](06245-PROOF.pdf) |
+| 6246 | [A203257](https://oeis.org/A203257) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06246-PROOF.pdf](06246-PROOF.pdf) |
+| 6247 | [A234127](https://oeis.org/A234127) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06247-PROOF.pdf](06247-PROOF.pdf) |
+| 6248 | [A302014](https://oeis.org/A302014) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06248-PROOF.pdf](06248-PROOF.pdf) |
+| 6249 | [A189108](https://oeis.org/A189108) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06249-PROOF.pdf](06249-PROOF.pdf) |
+| 6250 | [A206833](https://oeis.org/A206833) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06250-PROOF.pdf](06250-PROOF.pdf) |
+| 6251 | [A233985](https://oeis.org/A233985) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06251-PROOF.pdf](06251-PROOF.pdf) |
+| 6252 | [A250992](https://oeis.org/A250992) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06252-PROOF.pdf](06252-PROOF.pdf) |
+| 6253 | [A207716](https://oeis.org/A207716) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06253-PROOF.pdf](06253-PROOF.pdf) |
+| 6254 | [A206193](https://oeis.org/A206193) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06254-PROOF.pdf](06254-PROOF.pdf) |
+| 6255 | [A203105](https://oeis.org/A203105) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06255-PROOF.pdf](06255-PROOF.pdf) |
+| 6256 | [A220741](https://oeis.org/A220741) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06256-PROOF.pdf](06256-PROOF.pdf) |
+| 6257 | [A204836](https://oeis.org/A204836) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06257-PROOF.pdf](06257-PROOF.pdf) |
+| 6258 | [A235738](https://oeis.org/A235738) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06258-PROOF.pdf](06258-PROOF.pdf) |
+| 6259 | [A183351](https://oeis.org/A183351) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06259-PROOF.pdf](06259-PROOF.pdf) |
+| 6260 | [A209948](https://oeis.org/A209948) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06260-PROOF.pdf](06260-PROOF.pdf) |
+| 6261 | [A235543](https://oeis.org/A235543) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06261-PROOF.pdf](06261-PROOF.pdf) |
+| 6262 | [A140939](https://oeis.org/A140939) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06262-PROOF.pdf](06262-PROOF.pdf) |
+| 6263 | [A255790](https://oeis.org/A255790) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06263-PROOF.pdf](06263-PROOF.pdf) |
+| 6264 | [A195975](https://oeis.org/A195975) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06264-PROOF.pdf](06264-PROOF.pdf) |
+| 6265 | [A232140](https://oeis.org/A232140) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06265-PROOF.pdf](06265-PROOF.pdf) |
+| 6266 | [A184660](https://oeis.org/A184660) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06266-PROOF.pdf](06266-PROOF.pdf) |
+| 6267 | [A297984](https://oeis.org/A297984) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06267-PROOF.pdf](06267-PROOF.pdf) |
+| 6268 | [A238307](https://oeis.org/A238307) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06268-PROOF.pdf](06268-PROOF.pdf) |
+| 6269 | [A206273](https://oeis.org/A206273) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06269-PROOF.pdf](06269-PROOF.pdf) |
+| 6270 | [A297855](https://oeis.org/A297855) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06270-PROOF.pdf](06270-PROOF.pdf) |
+| 6271 | [A204725](https://oeis.org/A204725) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06271-PROOF.pdf](06271-PROOF.pdf) |
+| 6272 | [A204870](https://oeis.org/A204870) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06272-PROOF.pdf](06272-PROOF.pdf) |
+| 6273 | [A247723](https://oeis.org/A247723) | Proof |  | [06273-PROOF.pdf](06273-PROOF.pdf) |
+| 6274 | [A205306](https://oeis.org/A205306) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06274-PROOF.pdf](06274-PROOF.pdf) |
+| 6275 | [A207469](https://oeis.org/A207469) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06275-PROOF.pdf](06275-PROOF.pdf) |
+| 6276 | [A237170](https://oeis.org/A237170) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06276-PROOF.pdf](06276-PROOF.pdf) |
+| 6277 | [A205914](https://oeis.org/A205914) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06277-PROOF.pdf](06277-PROOF.pdf) |
+| 6278 | [A233912](https://oeis.org/A233912) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06278-PROOF.pdf](06278-PROOF.pdf) |
+| 6279 | [A197313](https://oeis.org/A197313) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06279-PROOF.pdf](06279-PROOF.pdf) |
+| 6280 | [A196134](https://oeis.org/A196134) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06280-PROOF.pdf](06280-PROOF.pdf) |
+| 6281 | [A206124](https://oeis.org/A206124) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06281-PROOF.pdf](06281-PROOF.pdf) |
+| 6282 | [A207959](https://oeis.org/A207959) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06282-PROOF.pdf](06282-PROOF.pdf) |
+| 6283 | [A207921](https://oeis.org/A207921) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06283-PROOF.pdf](06283-PROOF.pdf) |
+| 6284 | [A205240](https://oeis.org/A205240) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06284-PROOF.pdf](06284-PROOF.pdf) |
+| 6285 | [A207273](https://oeis.org/A207273) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06285-PROOF.pdf](06285-PROOF.pdf) |
+| 6286 | [A280676](https://oeis.org/A280676) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06286-PROOF.pdf](06286-PROOF.pdf) |
+| 6287 | [A196798](https://oeis.org/A196798) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06287-PROOF.pdf](06287-PROOF.pdf) |
+| 6288 | [A204037](https://oeis.org/A204037) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06288-PROOF.pdf](06288-PROOF.pdf) |
+| 6289 | [A234765](https://oeis.org/A234765) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06289-PROOF.pdf](06289-PROOF.pdf) |
+| 6290 | [A235408](https://oeis.org/A235408) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06290-PROOF.pdf](06290-PROOF.pdf) |
+| 6291 | [A237476](https://oeis.org/A237476) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06291-PROOF.pdf](06291-PROOF.pdf) |
+| 6292 | [A252620](https://oeis.org/A252620) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06292-PROOF.pdf](06292-PROOF.pdf) |
+| 6293 | [A252429](https://oeis.org/A252429) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06293-PROOF.pdf](06293-PROOF.pdf) |
+| 6294 | [A209105](https://oeis.org/A209105) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06294-PROOF.pdf](06294-PROOF.pdf) |
+| 6295 | [A209551](https://oeis.org/A209551) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06295-PROOF.pdf](06295-PROOF.pdf) |
+| 6296 | [A260291](https://oeis.org/A260291) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06296-PROOF.pdf](06296-PROOF.pdf) |
+| 6297 | [A260606](https://oeis.org/A260606) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06297-PROOF.pdf](06297-PROOF.pdf) |
+| 6298 | [A185466](https://oeis.org/A185466) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06298-PROOF.pdf](06298-PROOF.pdf) |
+| 6299 | [A196901](https://oeis.org/A196901) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06299-PROOF.pdf](06299-PROOF.pdf) |
+| 6300 | [A220626](https://oeis.org/A220626) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06300-PROOF.pdf](06300-PROOF.pdf) |
+| 6301 | [A185528](https://oeis.org/A185528) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06301-PROOF.pdf](06301-PROOF.pdf) |
+| 6302 | [A188770](https://oeis.org/A188770) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06302-PROOF.pdf](06302-PROOF.pdf) |
+| 6303 | [A254839](https://oeis.org/A254839) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06303-PROOF.pdf](06303-PROOF.pdf) |
+| 6304 | [A255757](https://oeis.org/A255757) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06304-PROOF.pdf](06304-PROOF.pdf) |
+| 6305 | [A209782](https://oeis.org/A209782) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06305-PROOF.pdf](06305-PROOF.pdf) |
+| 6306 | [A210330](https://oeis.org/A210330) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06306-PROOF.pdf](06306-PROOF.pdf) |
+| 6307 | [A210350](https://oeis.org/A210350) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06307-PROOF.pdf](06307-PROOF.pdf) |
+| 6308 | [A298051](https://oeis.org/A298051) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06308-PROOF.pdf](06308-PROOF.pdf) |
+| 6309 | [A298656](https://oeis.org/A298656) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06309-PROOF.pdf](06309-PROOF.pdf) |
+| 6310 | [A220735](https://oeis.org/A220735) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06310-PROOF.pdf](06310-PROOF.pdf) |
+| 6311 | [A140923](https://oeis.org/A140923) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06311-PROOF.pdf](06311-PROOF.pdf) |
+| 6312 | [A206134](https://oeis.org/A206134) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06312-PROOF.pdf](06312-PROOF.pdf) |
+| 6313 | [A230933](https://oeis.org/A230933) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06313-PROOF.pdf](06313-PROOF.pdf) |
+| 6314 | [A303798](https://oeis.org/A303798) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06314-PROOF.pdf](06314-PROOF.pdf) |
+| 6315 | [A188519](https://oeis.org/A188519) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06315-PROOF.pdf](06315-PROOF.pdf) |
+| 6316 | [A188854](https://oeis.org/A188854) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06316-PROOF.pdf](06316-PROOF.pdf) |
+| 6317 | [A205995](https://oeis.org/A205995) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06317-PROOF.pdf](06317-PROOF.pdf) |
+| 6318 | [A203437](https://oeis.org/A203437) | Proof | a condition on every cell over the neighbour set the entry names | [06318-PROOF.pdf](06318-PROOF.pdf) |
+| 6319 | [A207246](https://oeis.org/A207246) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06319-PROOF.pdf](06319-PROOF.pdf) |
+| 6320 | [A210072](https://oeis.org/A210072) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06320-PROOF.pdf](06320-PROOF.pdf) |
+| 6321 | [A302456](https://oeis.org/A302456) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06321-PROOF.pdf](06321-PROOF.pdf) |
+| 6322 | [A303238](https://oeis.org/A303238) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06322-PROOF.pdf](06322-PROOF.pdf) |
+| 6323 | [A305093](https://oeis.org/A305093) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06323-PROOF.pdf](06323-PROOF.pdf) |
+| 6324 | [A316753](https://oeis.org/A316753) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06324-PROOF.pdf](06324-PROOF.pdf) |
+| 6325 | [A203097](https://oeis.org/A203097) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06325-PROOF.pdf](06325-PROOF.pdf) |
+| 6326 | [A264381](https://oeis.org/A264381) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06326-PROOF.pdf](06326-PROOF.pdf) |
+| 6327 | [A264418](https://oeis.org/A264418) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06327-PROOF.pdf](06327-PROOF.pdf) |
+| 6328 | [A264552](https://oeis.org/A264552) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06328-PROOF.pdf](06328-PROOF.pdf) |
+| 6329 | [A264678](https://oeis.org/A264678) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06329-PROOF.pdf](06329-PROOF.pdf) |
+| 6330 | [A275034](https://oeis.org/A275034) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06330-PROOF.pdf](06330-PROOF.pdf) |
+| 6331 | [A233701](https://oeis.org/A233701) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06331-PROOF.pdf](06331-PROOF.pdf) |
+| 6332 | [A237458](https://oeis.org/A237458) | Proof | a statistic of every 2 X 2 subblock differing from its neighbours by exactly a fixed amount | [06332-PROOF.pdf](06332-PROOF.pdf) |
+| 6333 | [A234783](https://oeis.org/A234783) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06333-PROOF.pdf](06333-PROOF.pdf) |
+| 6334 | [A207789](https://oeis.org/A207789) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06334-PROOF.pdf](06334-PROOF.pdf) |
+| 6335 | [A209514](https://oeis.org/A209514) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06335-PROOF.pdf](06335-PROOF.pdf) |
+| 6336 | [A209793](https://oeis.org/A209793) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06336-PROOF.pdf](06336-PROOF.pdf) |
+| 6337 | [A235928](https://oeis.org/A235928) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06337-PROOF.pdf](06337-PROOF.pdf) |
+| 6338 | [A236005](https://oeis.org/A236005) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06338-PROOF.pdf](06338-PROOF.pdf) |
+| 6339 | [A249839](https://oeis.org/A249839) | Proof |  | [06339-PROOF.pdf](06339-PROOF.pdf) |
+| 6340 | [A301665](https://oeis.org/A301665) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06340-PROOF.pdf](06340-PROOF.pdf) |
+| 6341 | [A303036](https://oeis.org/A303036) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06341-PROOF.pdf](06341-PROOF.pdf) |
+| 6342 | [A303199](https://oeis.org/A303199) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06342-PROOF.pdf](06342-PROOF.pdf) |
+| 6343 | [A304948](https://oeis.org/A304948) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06343-PROOF.pdf](06343-PROOF.pdf) |
+| 6344 | [A318020](https://oeis.org/A318020) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06344-PROOF.pdf](06344-PROOF.pdf) |
+| 6345 | [A250330](https://oeis.org/A250330) | Proof |  | [06345-PROOF.pdf](06345-PROOF.pdf) |
+| 6346 | [A230945](https://oeis.org/A230945) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06346-PROOF.pdf](06346-PROOF.pdf) |
+| 6347 | [A237144](https://oeis.org/A237144) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06347-PROOF.pdf](06347-PROOF.pdf) |
+| 6348 | [A207074](https://oeis.org/A207074) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06348-PROOF.pdf](06348-PROOF.pdf) |
+| 6349 | [A140930](https://oeis.org/A140930) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06349-PROOF.pdf](06349-PROOF.pdf) |
+| 6350 | [A252675](https://oeis.org/A252675) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06350-PROOF.pdf](06350-PROOF.pdf) |
+| 6351 | [A205053](https://oeis.org/A205053) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06351-PROOF.pdf](06351-PROOF.pdf) |
+| 6352 | [A205741](https://oeis.org/A205741) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06352-PROOF.pdf](06352-PROOF.pdf) |
+| 6353 | [A196633](https://oeis.org/A196633) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06353-PROOF.pdf](06353-PROOF.pdf) |
+| 6354 | [A196638](https://oeis.org/A196638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06354-PROOF.pdf](06354-PROOF.pdf) |
+| 6355 | [A252098](https://oeis.org/A252098) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06355-PROOF.pdf](06355-PROOF.pdf) |
+| 6356 | [A207011](https://oeis.org/A207011) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06356-PROOF.pdf](06356-PROOF.pdf) |
+| 6357 | [A188603](https://oeis.org/A188603) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06357-PROOF.pdf](06357-PROOF.pdf) |
+| 6358 | [A298954](https://oeis.org/A298954) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06358-PROOF.pdf](06358-PROOF.pdf) |
+| 6359 | [A205365](https://oeis.org/A205365) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06359-PROOF.pdf](06359-PROOF.pdf) |
+| 6360 | [A206858](https://oeis.org/A206858) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06360-PROOF.pdf](06360-PROOF.pdf) |
+| 6361 | [A206671](https://oeis.org/A206671) | Proof | conditions read round the clockwise perimeter of every 2 X 2 subblock: the pattern its corners spell, the numb... | [06361-PROOF.pdf](06361-PROOF.pdf) |
+| 6362 | [A206868](https://oeis.org/A206868) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06362-PROOF.pdf](06362-PROOF.pdf) |
+| 6363 | [A206991](https://oeis.org/A206991) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06363-PROOF.pdf](06363-PROOF.pdf) |
+| 6364 | [A304955](https://oeis.org/A304955) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06364-PROOF.pdf](06364-PROOF.pdf) |
+| 6365 | [A210272](https://oeis.org/A210272) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06365-PROOF.pdf](06365-PROOF.pdf) |
+| 6366 | [A235655](https://oeis.org/A235655) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06366-PROOF.pdf](06366-PROOF.pdf) |
+| 6367 | [A202466](https://oeis.org/A202466) | Proof | the entry imposes a condition that a bounded amount of state carries down the array -- a window of three conse... | [06367-PROOF.pdf](06367-PROOF.pdf) |
+| 6368 | [A197472](https://oeis.org/A197472) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06368-PROOF.pdf](06368-PROOF.pdf) |
+| 6369 | [A233499](https://oeis.org/A233499) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06369-PROOF.pdf](06369-PROOF.pdf) |
+| 6370 | [A233620](https://oeis.org/A233620) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06370-PROOF.pdf](06370-PROOF.pdf) |
+| 6371 | [A206696](https://oeis.org/A206696) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06371-PROOF.pdf](06371-PROOF.pdf) |
+| 6372 | [A202433](https://oeis.org/A202433) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06372-PROOF.pdf](06372-PROOF.pdf) |
+| 6373 | [A197675](https://oeis.org/A197675) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06373-PROOF.pdf](06373-PROOF.pdf) |
+| 6374 | [A198009](https://oeis.org/A198009) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06374-PROOF.pdf](06374-PROOF.pdf) |
+| 6375 | [A197746](https://oeis.org/A197746) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06375-PROOF.pdf](06375-PROOF.pdf) |
+| 6376 | [A208418](https://oeis.org/A208418) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06376-PROOF.pdf](06376-PROOF.pdf) |
+| 6377 | [A247400](https://oeis.org/A247400) | Proof |  | [06377-PROOF.pdf](06377-PROOF.pdf) |
+| 6378 | [A186529](https://oeis.org/A186529) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06378-PROOF.pdf](06378-PROOF.pdf) |
+| 6379 | [A203402](https://oeis.org/A203402) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06379-PROOF.pdf](06379-PROOF.pdf) |
+| 6380 | [A189266](https://oeis.org/A189266) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06380-PROOF.pdf](06380-PROOF.pdf) |
+| 6381 | [A209853](https://oeis.org/A209853) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06381-PROOF.pdf](06381-PROOF.pdf) |
+| 6382 | [A298578](https://oeis.org/A298578) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06382-PROOF.pdf](06382-PROOF.pdf) |
+| 6383 | [A302429](https://oeis.org/A302429) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06383-PROOF.pdf](06383-PROOF.pdf) |
+| 6384 | [A302729](https://oeis.org/A302729) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06384-PROOF.pdf](06384-PROOF.pdf) |
+| 6385 | [A237094](https://oeis.org/A237094) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06385-PROOF.pdf](06385-PROOF.pdf) |
+| 6386 | [A208695](https://oeis.org/A208695) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06386-PROOF.pdf](06386-PROOF.pdf) |
+| 6387 | [A275129](https://oeis.org/A275129) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06387-PROOF.pdf](06387-PROOF.pdf) |
+| 6388 | [A264143](https://oeis.org/A264143) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06388-PROOF.pdf](06388-PROOF.pdf) |
+| 6389 | [A188751](https://oeis.org/A188751) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06389-PROOF.pdf](06389-PROOF.pdf) |
+| 6390 | [A252641](https://oeis.org/A252641) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06390-PROOF.pdf](06390-PROOF.pdf) |
+| 6391 | [A298175](https://oeis.org/A298175) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06391-PROOF.pdf](06391-PROOF.pdf) |
+| 6392 | [A197892](https://oeis.org/A197892) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06392-PROOF.pdf](06392-PROOF.pdf) |
+| 6393 | [A235959](https://oeis.org/A235959) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06393-PROOF.pdf](06393-PROOF.pdf) |
+| 6394 | [A207740](https://oeis.org/A207740) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06394-PROOF.pdf](06394-PROOF.pdf) |
+| 6395 | [A203971](https://oeis.org/A203971) | Proof | cells constrained by how many neighbours carry a value, or by what the cells to the left and above them carry | [06395-PROOF.pdf](06395-PROOF.pdf) |
+| 6396 | [A298164](https://oeis.org/A298164) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06396-PROOF.pdf](06396-PROOF.pdf) |
+| 6397 | [A239173](https://oeis.org/A239173) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06397-PROOF.pdf](06397-PROOF.pdf) |
+| 6398 | [A250467](https://oeis.org/A250467) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06398-PROOF.pdf](06398-PROOF.pdf) |
+| 6399 | [A298290](https://oeis.org/A298290) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06399-PROOF.pdf](06399-PROOF.pdf) |
+| 6400 | [A298556](https://oeis.org/A298556) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06400-PROOF.pdf](06400-PROOF.pdf) |
+| 6401 | [A299183](https://oeis.org/A299183) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06401-PROOF.pdf](06401-PROOF.pdf) |
+| 6402 | [A299570](https://oeis.org/A299570) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06402-PROOF.pdf](06402-PROOF.pdf) |
+| 6403 | [A304006](https://oeis.org/A304006) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06403-PROOF.pdf](06403-PROOF.pdf) |
+| 6404 | [A304540](https://oeis.org/A304540) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06404-PROOF.pdf](06404-PROOF.pdf) |
+| 6405 | [A306125](https://oeis.org/A306125) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06405-PROOF.pdf](06405-PROOF.pdf) |
+| 6406 | [A316307](https://oeis.org/A316307) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06406-PROOF.pdf](06406-PROOF.pdf) |
+| 6407 | [A235561](https://oeis.org/A235561) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06407-PROOF.pdf](06407-PROOF.pdf) |
+| 6408 | [A187723](https://oeis.org/A187723) | Proof | neighbouring K X K subblocks commuting as matrices, or none of them commuting | [06408-PROOF.pdf](06408-PROOF.pdf) |
+| 6409 | [A252101](https://oeis.org/A252101) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06409-PROOF.pdf](06409-PROOF.pdf) |
+| 6410 | [A252403](https://oeis.org/A252403) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06410-PROOF.pdf](06410-PROOF.pdf) |
+| 6411 | [A251917](https://oeis.org/A251917) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [06411-PROOF.pdf](06411-PROOF.pdf) |
+| 6412 | [A252599](https://oeis.org/A252599) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06412-PROOF.pdf](06412-PROOF.pdf) |
+| 6413 | [A206895](https://oeis.org/A206895) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06413-PROOF.pdf](06413-PROOF.pdf) |
+| 6414 | [A197533](https://oeis.org/A197533) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06414-PROOF.pdf](06414-PROOF.pdf) |
+| 6415 | [A249654](https://oeis.org/A249654) | Proof |  | [06415-PROOF.pdf](06415-PROOF.pdf) |
+| 6416 | [A256898](https://oeis.org/A256898) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06416-PROOF.pdf](06416-PROOF.pdf) |
+| 6417 | [A234792](https://oeis.org/A234792) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06417-PROOF.pdf](06417-PROOF.pdf) |
+| 6418 | [A302412](https://oeis.org/A302412) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06418-PROOF.pdf](06418-PROOF.pdf) |
+| 6419 | [A303179](https://oeis.org/A303179) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06419-PROOF.pdf](06419-PROOF.pdf) |
+| 6420 | [A206007](https://oeis.org/A206007) | Proof | the number of clockwise, counterclockwise or rightwards-and-downwards edge increases in every 2 X 2 subblock | [06420-PROOF.pdf](06420-PROOF.pdf) |
+| 6421 | [A207686](https://oeis.org/A207686) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06421-PROOF.pdf](06421-PROOF.pdf) |
+| 6422 | [A257355](https://oeis.org/A257355) | Proof | the sums along the rows, columns and diagonals of every K X K window of a grid, constrained or compared | [06422-PROOF.pdf](06422-PROOF.pdf) |
+| 6423 | [A297947](https://oeis.org/A297947) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06423-PROOF.pdf](06423-PROOF.pdf) |
+| 6424 | [A298226](https://oeis.org/A298226) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06424-PROOF.pdf](06424-PROOF.pdf) |
+| 6425 | [A298766](https://oeis.org/A298766) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06425-PROOF.pdf](06425-PROOF.pdf) |
+| 6426 | [A300919](https://oeis.org/A300919) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06426-PROOF.pdf](06426-PROOF.pdf) |
+| 6427 | [A301604](https://oeis.org/A301604) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06427-PROOF.pdf](06427-PROOF.pdf) |
+| 6428 | [A304015](https://oeis.org/A304015) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06428-PROOF.pdf](06428-PROOF.pdf) |
+| 6429 | [A304152](https://oeis.org/A304152) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06429-PROOF.pdf](06429-PROOF.pdf) |
+| 6430 | [A304351](https://oeis.org/A304351) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06430-PROOF.pdf](06430-PROOF.pdf) |
+| 6431 | [A305363](https://oeis.org/A305363) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06431-PROOF.pdf](06431-PROOF.pdf) |
+| 6432 | [A249954](https://oeis.org/A249954) | Proof |  | [06432-PROOF.pdf](06432-PROOF.pdf) |
+| 6433 | [A222003](https://oeis.org/A222003) | Proof |  | [06433-PROOF.pdf](06433-PROOF.pdf) |
+| 6434 | [A140938](https://oeis.org/A140938) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06434-PROOF.pdf](06434-PROOF.pdf) |
+| 6435 | [A303960](https://oeis.org/A303960) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06435-PROOF.pdf](06435-PROOF.pdf) |
+| 6436 | [A187641](https://oeis.org/A187641) | Proof | a property of the nine entries of a 3 X 3 subblock -- their sum, the multiset of how often each value occurs, ... | [06436-PROOF.pdf](06436-PROOF.pdf) |
+| 6437 | [A252385](https://oeis.org/A252385) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06437-PROOF.pdf](06437-PROOF.pdf) |
+| 6438 | [A317771](https://oeis.org/A317771) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06438-PROOF.pdf](06438-PROOF.pdf) |
+| 6439 | [A208701](https://oeis.org/A208701) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06439-PROOF.pdf](06439-PROOF.pdf) |
+| 6440 | [A202402](https://oeis.org/A202402) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06440-PROOF.pdf](06440-PROOF.pdf) |
+| 6441 | [A209908](https://oeis.org/A209908) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06441-PROOF.pdf](06441-PROOF.pdf) |
+| 6442 | [A304475](https://oeis.org/A304475) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06442-PROOF.pdf](06442-PROOF.pdf) |
+| 6443 | [A305219](https://oeis.org/A305219) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06443-PROOF.pdf](06443-PROOF.pdf) |
+| 6444 | [A305638](https://oeis.org/A305638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06444-PROOF.pdf](06444-PROOF.pdf) |
+| 6445 | [A306056](https://oeis.org/A306056) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06445-PROOF.pdf](06445-PROOF.pdf) |
+| 6446 | [A316300](https://oeis.org/A316300) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06446-PROOF.pdf](06446-PROOF.pdf) |
+| 6447 | [A317032](https://oeis.org/A317032) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06447-PROOF.pdf](06447-PROOF.pdf) |
+| 6448 | [A317234](https://oeis.org/A317234) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06448-PROOF.pdf](06448-PROOF.pdf) |
+| 6449 | [A236274](https://oeis.org/A236274) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06449-PROOF.pdf](06449-PROOF.pdf) |
+| 6450 | [A274893](https://oeis.org/A274893) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06450-PROOF.pdf](06450-PROOF.pdf) |
+| 6451 | [A275502](https://oeis.org/A275502) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06451-PROOF.pdf](06451-PROOF.pdf) |
+| 6452 | [A204405](https://oeis.org/A204405) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06452-PROOF.pdf](06452-PROOF.pdf) |
+| 6453 | [A264374](https://oeis.org/A264374) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06453-PROOF.pdf](06453-PROOF.pdf) |
+| 6454 | [A204777](https://oeis.org/A204777) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06454-PROOF.pdf](06454-PROOF.pdf) |
+| 6455 | [A204498](https://oeis.org/A204498) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06455-PROOF.pdf](06455-PROOF.pdf) |
+| 6456 | [A250442](https://oeis.org/A250442) | Proof | a statistic of short runs of cells, whose derived array is required to be monotone in a named direction | [06456-PROOF.pdf](06456-PROOF.pdf) |
+| 6457 | [A230790](https://oeis.org/A230790) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06457-PROOF.pdf](06457-PROOF.pdf) |
+| 6458 | [A260367](https://oeis.org/A260367) | Proof | a 3 X 3 subblock condition, whose state is a pair of consecutive lines | [06458-PROOF.pdf](06458-PROOF.pdf) |
+| 6459 | [A232409](https://oeis.org/A232409) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06459-PROOF.pdf](06459-PROOF.pdf) |
+| 6460 | [A269934](https://oeis.org/A269934) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06460-PROOF.pdf](06460-PROOF.pdf) |
+| 6461 | [A304300](https://oeis.org/A304300) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06461-PROOF.pdf](06461-PROOF.pdf) |
+| 6462 | [A279739](https://oeis.org/A279739) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06462-PROOF.pdf](06462-PROOF.pdf) |
+| 6463 | [A184141](https://oeis.org/A184141) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06463-PROOF.pdf](06463-PROOF.pdf) |
+| 6464 | [A196452](https://oeis.org/A196452) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06464-PROOF.pdf](06464-PROOF.pdf) |
+| 6465 | [A259007](https://oeis.org/A259007) | Proof | a statistic of every 2 X 2 or 3 X 3 subblock monotone along named directions of the subblock grid | [06465-PROOF.pdf](06465-PROOF.pdf) |
+| 6466 | [A189113](https://oeis.org/A189113) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06466-PROOF.pdf](06466-PROOF.pdf) |
+| 6467 | [A202643](https://oeis.org/A202643) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06467-PROOF.pdf](06467-PROOF.pdf) |
+| 6468 | [A204195](https://oeis.org/A204195) | Proof | runs of equal or of strictly increasing entries forbidden along the directions of a grid | [06468-PROOF.pdf](06468-PROOF.pdf) |
+| 6469 | [A207659](https://oeis.org/A207659) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06469-PROOF.pdf](06469-PROOF.pdf) |
+| 6470 | [A203350](https://oeis.org/A203350) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06470-PROOF.pdf](06470-PROOF.pdf) |
+| 6471 | [A184123](https://oeis.org/A184123) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06471-PROOF.pdf](06471-PROOF.pdf) |
+| 6472 | [A209711](https://oeis.org/A209711) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06472-PROOF.pdf](06472-PROOF.pdf) |
+| 6473 | [A298191](https://oeis.org/A298191) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06473-PROOF.pdf](06473-PROOF.pdf) |
+| 6474 | [A298618](https://oeis.org/A298618) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06474-PROOF.pdf](06474-PROOF.pdf) |
+| 6475 | [A299085](https://oeis.org/A299085) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06475-PROOF.pdf](06475-PROOF.pdf) |
+| 6476 | [A299341](https://oeis.org/A299341) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06476-PROOF.pdf](06476-PROOF.pdf) |
+| 6477 | [A299848](https://oeis.org/A299848) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06477-PROOF.pdf](06477-PROOF.pdf) |
+| 6478 | [A302281](https://oeis.org/A302281) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06478-PROOF.pdf](06478-PROOF.pdf) |
+| 6479 | [A316235](https://oeis.org/A316235) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06479-PROOF.pdf](06479-PROOF.pdf) |
+| 6480 | [A220551](https://oeis.org/A220551) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06480-PROOF.pdf](06480-PROOF.pdf) |
+| 6481 | [A220567](https://oeis.org/A220567) | Proof | cells linked reciprocally to themselves or to a fixed number of neighbours: degree-constrained subgraphs of a ... | [06481-PROOF.pdf](06481-PROOF.pdf) |
+| 6482 | [A207708](https://oeis.org/A207708) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06482-PROOF.pdf](06482-PROOF.pdf) |
+| 6483 | [A202373](https://oeis.org/A202373) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06483-PROOF.pdf](06483-PROOF.pdf) |
+| 6484 | [A140917](https://oeis.org/A140917) | Proof | matrices over 0..n with rows and columns nondecreasing: reversed, they are the plane partitions in a box, so M... | [06484-PROOF.pdf](06484-PROOF.pdf) |
+| 6485 | [A207428](https://oeis.org/A207428) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06485-PROOF.pdf](06485-PROOF.pdf) |
+| 6486 | [A183318](https://oeis.org/A183318) | Proof | a parity that reaches back to the top of the array but is carried by one bit per column, or a condition on dif... | [06486-PROOF.pdf](06486-PROOF.pdf) |
+| 6487 | [A303799](https://oeis.org/A303799) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06487-PROOF.pdf](06487-PROOF.pdf) |
+| 6488 | [A318544](https://oeis.org/A318544) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06488-PROOF.pdf](06488-PROOF.pdf) |
+| 6489 | [A302638](https://oeis.org/A302638) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06489-PROOF.pdf](06489-PROOF.pdf) |
+| 6490 | [A202120](https://oeis.org/A202120) | Proof |  | [06490-PROOF.pdf](06490-PROOF.pdf) |
+| 6491 | [A204036](https://oeis.org/A204036) | Proof | the determinant, permanent or trace of every 2 X 2 subblock: singular, all equal, differing from a neighbour, ... | [06491-PROOF.pdf](06491-PROOF.pdf) |
+| 6492 | [A207216](https://oeis.org/A207216) | Proof | short absolute or relative patterns forbidden along the rows, columns and diagonals of a grid | [06492-PROOF.pdf](06492-PROOF.pdf) |
+| 6493 | [A207984](https://oeis.org/A207984) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06493-PROOF.pdf](06493-PROOF.pdf) |
+| 6494 | [A206874](https://oeis.org/A206874) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06494-PROOF.pdf](06494-PROOF.pdf) |
+| 6495 | [A208167](https://oeis.org/A208167) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06495-PROOF.pdf](06495-PROOF.pdf) |
+| 6496 | [A207091](https://oeis.org/A207091) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06496-PROOF.pdf](06496-PROOF.pdf) |
+| 6497 | [A282965](https://oeis.org/A282965) | Proof | a condition on every cell over the neighbour set the entry names | [06497-PROOF.pdf](06497-PROOF.pdf) |
+| 6498 | [A210295](https://oeis.org/A210295) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06498-PROOF.pdf](06498-PROOF.pdf) |
+| 6499 | [A298715](https://oeis.org/A298715) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06499-PROOF.pdf](06499-PROOF.pdf) |
+| 6500 | [A298830](https://oeis.org/A298830) | Proof | an array count rebuilt as walks in a digraph, then the recurrence annihilated exactly | [06500-PROOF.pdf](06500-PROOF.pdf) |
