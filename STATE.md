@@ -1810,9 +1810,19 @@ sweeps is not a surgical change — but the caller that matters can now name the
 `sweep_shard` checks it first, before the no-cap test and before the cap row, and records
 `ENGINE RAISED: <type>: <message>` while printing it.
 
-Verified: `uniform.build('transfer17', {'nonsense': True}, 1000)` returns `None` and sets
-`LAST_ERROR` to `KeyError: 'fixed'`. The decline path is verified end to end — two `latpoly`
-entries record *engine returned no model* with an empty caps file, so a clean `None` is not
-mistaken for an error. **The raise path is verified at the `uniform` level only**; the three
-lines in `sweep_shard` are a direct read of that verified value, and I have not contrived an
-entry whose engine raises in order to see them fire in a real round.
+**Both paths verified, and the raise path took some doing.** `uniform.build('transfer17',
+{'nonsense': True}, 1000)` returns `None` and sets `LAST_ERROR` to `KeyError: 'fixed'`. The
+decline path is end-to-end: two `latpoly` entries record *engine returned no model* with an
+empty caps file, so a clean `None` is not mistaken for an error.
+
+The raise path could not be exercised by production data — **275 completed builds across a
+400-entry sample of the candidate pool, and not one engine raised**, which is the reassuring
+answer and also a dead end for testing. So it was contrived deliberately: `uniform.build` was
+wrapped to raise the exact `AttributeError` tonight's wrong dispatch produced, and
+**`sweep_shard.py` was then executed unmodified**. A183914 and A183921 print
+
+    A183914 ENGINE RAISED AttributeError: module 'transfer21' has no attribute 'build_lineset'
+
+record that reason in the why file, and write **no caps row**. The instrumentation would have
+named tonight's bug on its first entry instead of after forty thousand states of disagreement
+between two of my own measurements.
