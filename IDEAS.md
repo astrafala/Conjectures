@@ -127,7 +127,42 @@ extrapolation one is answered by a larger patch — R = 90 and above pass (a), w
 — which is a measurement `galcoord.RADIUS = 50` should be revisited against, but not blindly,
 since it affects every entry.
 
-**What (b) needs.** It is checked as a pure inequality on the planes,
+### (b) implemented, and it does NOT close these entries — the blocker is elsewhere
+
+The ray split for (b) is written: each region is cut into the pieces where `D` is the max of
+planes and the pieces on a ray, the target splits the same way at `m + d`, and every case is an
+affine form on a polyhedron that `galpoly.nonneg` decides. It runs, and **A310039 still fails
+`(b) on class 0 region 0`** at radius 90, 150 and 220 alike.
+
+The failing points were then located, and they settle the question:
+
+      neighbour class 1, plane 4:  fails at (8,8), (8,9), (8,10), (8,11), (9,9), ...
+      neighbour class 3, plane 0:  fails at (9,9), (10,10), (11,11), (12,12)
+
+Those are on the **(1,1) diagonal**, and **they are not exceptional at any radius** — class 0's
+exceptional directions are `±(1,−2)` and nothing else at R = 90, 150 or 220, and (8,8) and
+(9,9) are not in the exceptional set at any of them. So (b) is failing where the fitted
+description of class 0 is *correct*, which means the fault is in a neighbour's fit, not in the
+exceptional set.
+
+**So the ray correction is necessary and not sufficient.** It removed the failures it was
+supposed to remove — every "no predecessor at an exceptional point" is gone — and what is left
+is a different defect that was simply next in line. The same shape as the earlier "edge raises
+D by more than 1 at (6,6)", which was also on the (1,1) diagonal and also not exceptional, and
+which a larger radius fixed.
+
+**Where to look next**, in order of cheapness:
+
+1. Whether the neighbour classes' own fits are wrong on that diagonal — check class 1 and class
+   3's exceptional sets and patch coverage at (8,8) and (9,9) directly, the way class 0's were
+   checked here.
+2. Whether the class splitting or the lattice embedding puts those points in the wrong class:
+   the per-class fits are each consistent on their own patch and jointly violate an edge
+   condition, which is what a wrong class assignment looks like.
+3. `galcoord.RADIUS = 50` against the measurement that R = 90 clears (a): worth revisiting, but
+   it affects every entry and 90 does not clear (b), so it is not the answer on its own.
+
+**What (b) needed, for the record.** It is checked as a pure inequality on the planes,
 `f = l_i − l'_j(· + d) + 1 ≥ 0` over region `i`, with no knowledge of the exceptional set. But
 the true `D` is larger on the rays, so the inequality to decide is a case split: `m` on a ray
 or not, `m + d` on a ray or not. Each case is still a polyhedron — a ray is `{h = 0, k ≥ 1}`

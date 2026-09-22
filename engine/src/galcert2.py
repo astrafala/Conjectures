@@ -156,16 +156,90 @@ def check(planes, edge_list, exc=None, R=6):
                 if (c, m1, m2) != (0, 0, 0) and not wit:
                     return False, f'no predecessor at class {c} {(m1, m2)}'
 
+    # --- the exceptional set as regions -------------------------------------------------
+    # A ray k*v (k >= 1) lies on the line h.m = 0 with h = (-v[1], v[0]), and on it the true
+    # distance is d1 + (k-1)*step, which is AFFINE in m: on the line m = k*v, so k = m[0]/v[0]
+    # (or m[1]/v[1]), and r(m) = (step/v[0])*m[0] + (d1 - step). Everything below is therefore
+    # still an affine function on a polyhedron, which is all `galpoly.nonneg' needs. Nothing
+    # here is new machinery; what is new is that the region a condition is checked on now
+    # knows where D is not the max of planes.
+    def ray_line(v):
+        return (-v[1], v[0], 0)
+
+    def ray_pos(v):
+        """the half of the line with k >= 1, as one constraint"""
+        if v[0]:
+            return (1, 0, -1) if v[0] > 0 else (-1, 0, -1)
+        return (0, 1, -1) if v[1] > 0 else (0, -1, -1)
+
+    def ray_aff(v, d1, step):
+        """r(m) on the line, as an affine form with Fraction coefficients"""
+        if v[0]:
+            return (Fraction(step, v[0]), Fraction(0), Fraction(d1 - step))
+        return (Fraction(0), Fraction(step, v[1]), Fraction(d1 - step))
+
+    def off_ray_pieces(c, reg):
+        """`reg` split into polyhedra on which D_c IS the max of planes"""
+        hs = [ray_line(v) for v in rays[c]]
+        seen = set()
+        lines = []
+        for h in hs:
+            k = h if h[0] > 0 or (h[0] == 0 and h[1] > 0) else (-h[0], -h[1], 0)
+            if k not in seen:
+                seen.add(k)
+                lines.append(k)
+        out = [list(reg)]
+        for h in lines:
+            nxt = []
+            for piece in out:
+                nxt.append(piece + [(h[0], h[1], -1)])          # h.m >= 1
+                nxt.append(piece + [(-h[0], -h[1], -1)])        # h.m <= -1
+            out = nxt
+        return out
+
+    def on_ray_piece(c, reg, v):
+        """`reg` intersected with the ray k*v, k >= 1"""
+        h = ray_line(v)
+        return list(reg) + [(h[0], h[1], 0), (-h[0], -h[1], 0), ray_pos(v)]
+
     # (b) everywhere, as an affine inequality on each region
     for c, P in enumerate(Pl):
         for i, reg in enumerate(cells(P)):
             Ai, Bi, Ci = P[i]
+            src_here = [((Fraction(Ai), Fraction(Bi), Fraction(Ci)), pc)
+                        for pc in off_ray_pieces(c, reg)]
+            # and where m IS on a ray of class c, D_c is the ray's own affine form and the
+            # inequality is WEAKER there, not stronger -- checking the plane on the ray is what
+            # made (b) fail on A310039's class 0 region 0
+            for v, (d1, st) in rays[c].items():
+                src_here.append((ray_aff(v, d1, st), on_ray_piece(c, reg, v)))
             for (c2, d) in nbr.get(c, ()):
-                for co in Pl[c2]:
-                    A2, B2, C2 = _shift(co, d, den)
-                    f = (Ai - A2, Bi - B2, Ci + den - C2)
-                    if not galpoly.nonneg(f, reg):
-                        return False, f'(b) fails on class {c} region {i}'
+                for (fsrc, piece) in src_here:
+                    if galpoly.empty(piece):
+                        continue
+                    # the TARGET splits the same way: off every c2-ray it is a plane, and on
+                    # one it is that ray's affine form, evaluated at m + d
+                    tgt = [((Fraction(A2), Fraction(B2), Fraction(C2)), pp)
+                           for (A2, B2, C2) in (_shift(co, d, den) for co in Pl[c2])
+                           for pp in [piece]]
+                    for v2, (d12, st2) in rays[c2].items():
+                        h2 = ray_line(v2)
+                        # m + d on the ray k*v2 is a line in m, and the ray's affine form in
+                        # m + d is affine in m
+                        a2, b2, c2f = ray_aff(v2, d12, st2)
+                        shifted = (a2, b2, c2f + a2 * d[0] + b2 * d[1])
+                        pos = ray_pos(v2)
+                        pp = piece + [(h2[0], h2[1], h2[0] * d[0] + h2[1] * d[1]),
+                                      (-h2[0], -h2[1], -(h2[0] * d[0] + h2[1] * d[1])),
+                                      (pos[0], pos[1], pos[2] + pos[0] * d[0] + pos[1] * d[1])]
+                        tgt.append((shifted, pp))
+                    for (ftgt, pp) in tgt:
+                        if galpoly.empty(pp):
+                            continue
+                        f = (fsrc[0] - ftgt[0], fsrc[1] - ftgt[1],
+                             fsrc[2] + den - ftgt[2])
+                        if not galpoly.nonneg(f, pp):
+                            return False, f'(b) fails on class {c} region {i}'
 
     # (c) outside the box: P_i must be covered by the neighbours' regions
     HALF = [(1, 0, -(R + 1)), (-1, 0, -(R + 1)), (0, 1, -(R + 1)), (0, -1, -(R + 1))]

@@ -1065,3 +1065,35 @@ whether m and m + d are on a ray. Each case is still a polyhedron — a ray is `
 and its complement in a cell is `{h ≥ 1} ∪ {h ≤ −1} ∪ {h = 0, k ≤ 0}` — so `galpoly.nonneg`
 decides all four and no new machinery is needed. That is the last piece before a certificate
 exists.
+
+### (b) is implemented, and the ray correction does not close these entries
+
+The ray split for condition (b) is written and runs: each region is cut into the pieces where D
+is the max of planes and the pieces on a ray, the target splits the same way at m + d, and
+every case is an affine form on a polyhedron for `galpoly.nonneg`. **A310039 still fails
+`(b) on class 0 region 0`**, at radius 90, 150 and 220 alike.
+
+Locating the failing points settles it:
+
+      neighbour class 1, plane 4:  (8,8), (8,9), (8,10), (8,11), (9,9), ...
+      neighbour class 3, plane 0:  (9,9), (10,10), (11,11), (12,12)
+
+All on the **(1,1) diagonal**, and **not exceptional at any radius** — class 0's exceptional
+directions are ±(1,−2) and nothing else at R = 90, 150 or 220, and (8,8)/(9,9) are in none of
+those sets. So (b) fails where class 0's fitted description is *correct*, which puts the fault
+in a neighbour's fit rather than in the exceptional set.
+
+**The ray correction is necessary and not sufficient.** It removed exactly what it was meant to
+— every "no predecessor at an exceptional point" is gone — and what is left is a different
+defect that was next in line. It is the same shape as the earlier "edge raises D by more than 1
+at (6,6)": also on the (1,1) diagonal, also not exceptional, and that one a larger radius fixed.
+
+Stated plainly: **§A11 as scoped does not close galcoord's 355.** The exceptional set was a
+real obstacle and is now handled; it was not the only one. Next, cheapest first: check class 1
+and class 3's own fits and patch coverage at (8,8) and (9,9) the way class 0's were checked;
+then whether the class splitting or lattice embedding is putting those points in the wrong
+class, which is what per-class fits that are individually consistent and jointly violate an
+edge condition look like.
+
+Nothing is installed and nothing is claimed. The corrected count still reproduces 35 of 35
+published terms on all five entries, and that remains a fit.
