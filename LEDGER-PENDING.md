@@ -859,3 +859,42 @@ mathematics.
 That is the honest summary of the day's engine work: the largest obstacle was never a hard
 problem, it was a set of files that recorded something once and were never re-read. The 533
 that remain are the first cap figure this project has had that means what it says.
+
+## 22 September 2026 — the frontier, completely accounted for
+
+With the census reconciling, one bucket was still taken on trust: the **4,759 entries with no
+parsable conjecture**, 27% of everything the sweep has considered. `tableorder.py` had already
+shown that a column entry's conjecture can live on its parent table, so "no conjecture on the
+entry" is not the same as "nothing to settle". Checked, every one:
+
+      3,999  a column or row of a table that carries no line for that column -- nothing anywhere
+        685  not a column or row of any table -- nothing anywhere
+         75  the conjecture IS on the parent table -- and every one of those tables is
+             already in the table sweep's pool
+
+**Zero uncovered.** The bucket is a verified null, not an assumed one.
+
+That completes the picture:
+
+      11,116  settled by this project
+       4,759  nothing to settle (verified above)
+         793  engine declined -- its build never reads the cap, so a None means "this reading
+              does not apply". galcoord 355, ca2dcount 142, ca2d 142, latpoly 127, transfer6 50
+         533  refused at the cap -- 193 have a row below 8,000,000 and are askable at that
+              setting right now; 340 refused at 8,000,000 and need a better engine
+         153  settled on the entry itself
+          10  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+**The frontier is 533 cap refusals and 793 engine declines**, and they are different problems.
+A cap refusal is a size: the state space outgrew the room it was given, and the answer is a
+smaller model — the on-the-fly quotient, with `lumpgain.py`'s ratios to aim it. A decline is an
+engine saying the entry is not its shape, and the answer is engine design: galcoord's tilings
+that do not close up (IDEAS §O, §U, §X), latpoly's seven "this reading does not apply" tests.
+Neither is reachable by raising a number, which is what the cap file had been suggesting all
+week.
+
+The 193 askable-right-now are in `deep-check/cap-askable.json` and `freedrun.sh` is pointed at
+them.

@@ -1,14 +1,18 @@
 #!/bin/sh
-# The 1,110 entries defect 69 freed: they carry a conjecture and were refused at a cap of
-# 2,000,000 by `np2run', whose refusal path then marked them `done' -- which is global and
-# permanent, so they were excluded from every runner at every cap for ever. They are not hard:
-# 21 of 25 build at 2,000,000 with state counts of 5, 20, 40, ..., 2560, and 29 of 40 put
-# through the sweep's whole sequence prove outright.
+# The entries that are askable at 8,000,000 RIGHT NOW: their cap row records a refusal at a
+# smaller cap, they carry a conjecture, they are still open, and an engine reads them. The list
+# is `deep-check/cap-askable.json' / `cap-freed.txt', regenerated from `uniall_caps.json'
+# whenever the refusal files change.
 #
-# Asked here directly rather than waiting for the main sweep to reach them: the main sweep
-# spends most of a round walking skip lists, and at CAP=2,000,000 the new cap skip would pass
-# over these anyway, since that is exactly the cap their rows record. 8,000,000 is above every
-# one of those rows, so the skip lets them through.
+# It began as the 1,110 that defect 69 freed from `done', on an estimate of "29 of 40 prove"
+# that was drawn from the first forty of a SORTED list and skipped the openness check the sweep
+# does first. Tested properly, that estimate was zero: 349 of the 396 refuse at the build even
+# at 8,000,000, 46 are settled on their own page. The list here is now the honest residue --
+# entries whose recorded refusal is below this runner's cap, so the cap skip lets them through
+# and the question has actually never been put to them at this setting.
+#
+# Asked directly rather than waiting for the main sweep, which runs at CAP=2,000,000 and would
+# skip every one of them: that is exactly the cap their rows record.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16; do
   _t0=$(date +%s)

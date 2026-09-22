@@ -1916,6 +1916,40 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### the frontier, completely accounted for — 22 September
+
+With the census reconciling and the "no conjecture" bucket checked for hidden claims, this is
+the first complete picture of what is left.
+
+      11,116  settled by this project
+       4,759  NOTHING TO SETTLE -- verified, not assumed (below)
+         793  engine declined: the build never reads the cap, so a None means
+              "this reading does not apply". Engine-design work, not a cap raise.
+              galcoord 355, ca2dcount 142, ca2d 142, latpoly 127, transfer6 50, ...
+         533  refused at the cap -- 193 of them have a row BELOW 8,000,000 and are
+              askable at that setting right now; the other 340 refused at 8,000,000
+              and need a better engine. No engine dominates: transfer17 57,
+              transfer9 55, transfer26 45, transfer57 42, transfer23 35, transfer35 32.
+         153  settled on the entry itself
+          10  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+**The 4,759 is a verified null, and that matters because it is 27% of everything.** Every one
+was checked for a conjecture hiding on its parent table, the way `tableorder.py` taught:
+
+      3,999  a column or row of a table that carries no line for that column -- nothing anywhere
+        685  not a column or row of any table -- nothing anywhere
+         75  the conjecture IS on the parent table, and every one of those tables is
+             already in the table sweep's pool
+
+**Zero uncovered.** There is no hidden work in that bucket.
+
+So the frontier is **533 cap refusals and 793 engine declines**, and they are different kinds
+of problem: the first is a size, the second is an engine that says the entry is not its shape.
+Neither is reachable by raising a number.
+
 ### the pool, reconciled — 16,627 entries and every one accounted for
 
 `src/poolcensus.py`, after two fixes to the instrument itself (defect 68's tagged merge, and a
