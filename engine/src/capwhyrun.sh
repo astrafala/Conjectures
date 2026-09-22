@@ -6,7 +6,8 @@ for r in 1 2 3 4 5 6 7 8; do
   _t0=$(date +%s)
   _pids=""
   for i in 0 1 2 3 4 5; do
-    CWSHARD=$i CWNSHARD=6 BUDGET=60 timeout 1700 python3 src/capwhy.py \
+    CWSHARD=$i CWNSHARD=6 BUDGET=180 ONLY=${ONLY:-deep-check/cap-withconj.json} \
+      timeout 1700 python3 src/capwhy.py \
       >> /tmp/capwhy_$i.log 2>&1 &
     _pids="$_pids $!"
   done

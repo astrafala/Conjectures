@@ -616,3 +616,48 @@ coefficients being the true recurrence's first coefficients term for term.
 
 The vein is read out at the current b-file lengths. It reopens when the OEIS publishes longer
 b-files, or when a new engine puts new entries in the pool — not before.
+
+## 22 September 2026 — the cap pool is 645, not 2,759, and the recovery it promised is null
+
+`uniall_caps.json` went 2,759 → 1,755 this morning when the settled rows were retired
+(defect 61). The next question was whether the **BUILDS** rows — entries that build fine at the
+cap they were "refused" at — are a recovered pool. A196074 was one and turned out to be a
+disproof, so the expectation was reasonable.
+
+**It is not a pool.** Of the first 32 BUILDS rows audited, all 32 are `done`, none settled, none
+papered — and **none of them carries a conjecture at all.** Ten were run through the sweep's
+full sequence by hand: every one builds, every model matches the entry's DATA exactly, and
+every one reports *no parsable recurrence*. A183965's entire content beyond its name is
+"Column 3 of A183971", and A183971 has no formula lines either, so the conjecture is not
+hiding on the parent table the way `tableorder.py` taught me to check. There is nothing on
+these entries to prove.
+
+Measured over the whole file rather than the sample:
+
+      1,754  cap rows, already-settled ones removed
+        645  carry a parsable conjecture
+      1,109  carry none
+
+So **the capped pool is 645**, not 2,759 — under a quarter of the figure that has been quoted
+in planning all week, after two independent corrections to the same file in one day. The 1,109
+were put in the pool by a name-shape scan, the sweep finished them correctly as "no parsable
+recurrence", and their cap rows are leftovers from a generation that hit the cap during the
+BUILD, before ever reaching the recurrence check. Auditing them answers a question nobody has.
+
+`capwhy` now takes `ONLY=<list>` and `capwhyrun.sh` points it at the 645 with a 180-second
+budget, which cuts the audit by 63% and loses nothing. It is also in `restart_all`'s rotation
+now, so it is governed by the same MAXJOBS guard as every other runner rather than being
+launched by hand on top of a loaded machine.
+
+**A196074 remains the one that paid** — and the honest reading is that it paid because it
+carried a conjecture, not because its cap row was wrong. The wrong cap row is what kept it
+out of view; the conjecture is what made it worth finding.
+
+### defect 67 — capping starts is not capping what runs
+
+`restart_all` capped the runners STARTED per firing at 8 (defect 66). Each runner spawns 2–6
+shards and the firings come every minute or two, so it climbed straight back to **74 python
+jobs on 4 cores**. The quantity that matters is what is already running, so that is what is
+checked now: above `MAXJOBS` (default 24, six per core) a firing starts nothing and lets the
+machine drain. Verified: it now reports *"holding all starts: 68 python jobs already running"*
+instead of adding eight more.

@@ -48,6 +48,18 @@ class Timeout(BaseException):
 
 def main():
     caps = json.load(open('uniall_caps.json'))
+    # ONLY: audit a named subset. Pointed at `deep-check/cap-withconj.json' this cuts the work
+    # by 63 percent and loses nothing, because **1,109 of the 1,754 cap rows carry no
+    # conjecture at all** -- no formula line, and none on the parent table either. They were
+    # put in the pool by a name-shape scan, the sweep finished them correctly as "no parsable
+    # recurrence", and the cap row is a leftover from a generation that hit the cap during the
+    # BUILD, before ever reaching the recurrence check. Auditing them answers a question
+    # nobody has: whether an entry with nothing to prove would build.
+    only = os.environ.get('ONLY')
+    if only:
+        keep = set(json.load(open(only)))
+        caps = {a: c for a, c in caps.items() if a in keep}
+        print('restricted to %s: %d rows' % (only, len(caps)))
     # resumable: this is 2,759 builds and a container restart in the middle of it must not
     # mean starting over. The restart that killed the first run cost every row it had.
     out = json.load(open(OUT)) if os.path.exists(OUT) else {}
@@ -91,7 +103,7 @@ def main():
             out[a] = {'engine': en, 'cap': cap, 'verdict': verdict, 'secs': round(el, 1),
                       'detail': (detail or '')[:120]}
             print('  %-10s %-8s %6.1fs %s' % (a, verdict, el, (detail or '')[:60]), flush=True)
-            if len(out) % 25 == 0:
+            if len(out) % 5 == 0:
                 json.dump(out, open(OUT, 'w'), indent=1, sort_keys=True)
         print('%s: %s' % (en, dict(tally)), flush=True)
         json.dump(out, open(OUT, 'w'), indent=1, sort_keys=True)

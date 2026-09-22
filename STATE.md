@@ -1916,6 +1916,23 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 67 — capping starts is not capping what runs; and the cap pool is 645, not 2,759
+
+`restart_all` capped the runners *started* per firing at 8 (defect 66). Each spawns 2–6 shards
+and the firings come every minute or two, so it climbed back to **74 python jobs on 4 cores**.
+What matters is what is already running: above `MAXJOBS` (default 24, six per core) a firing
+now starts nothing and lets the machine drain.
+
+And the capped pool shrank again. Of the 1,754 unsettled cap rows, **1,109 carry no conjecture
+at all** — no formula line, and none on the parent table either. Ten were run through the
+sweep's whole sequence by hand: all build, all match the DATA, all report *no parsable
+recurrence*. **The capped pool is 645.** Under a quarter of the number quoted in planning all
+week, after two independent corrections to the same file in one day.
+
+The BUILDS rows are therefore **not** a recovered pool of results. A196074 paid because it
+carried a conjecture, not because its cap row was wrong — the wrong row is what hid it, the
+conjecture is what made it worth finding.
+
 ### bsweep is COMPLETE: every held conjecture against every published b-file term
 
 **10,632 of 10,632 checked, 2,426,440 b-file terms, median 210 per entry and up to 20,001.**

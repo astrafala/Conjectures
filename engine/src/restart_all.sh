@@ -65,7 +65,7 @@ start() {
   echo "started $1"
   return 0
 }
-RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh"
+RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh capwhyrun.sh"
 
 # DEFECT 66, and it is defect 65's feedback loop closing on itself. Starting all 33 runners
 # at once, each with 2-6 shards, put 92 python processes and 42 sweep_shard instances on FOUR
@@ -81,6 +81,19 @@ RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh t
 # Runners already up are not counted against the cap -- the cap is on new work, not on total
 # work -- and the read-out hold above still applies first.
 MAXSTART=${MAXSTART:-8}
+# DEFECT 67. Capping the runners STARTED per firing is not a cap on what is running. Each
+# runner spawns 2-6 shards and the firings come every minute or two, so eight new runners a
+# firing still climbed back to 74 python jobs on 4 cores -- 18x oversubscribed, which is the
+# state defect 64 measured and defect 66 explained. The quantity that matters is the number
+# of jobs ALREADY running, so that is what is checked: above MAXJOBS this firing starts
+# nothing and lets the machine drain. Six jobs per core is the ceiling; the sweeps are
+# CPU-bound, so beyond that every extra process only makes every BUDGET worth less.
+MAXJOBS=${MAXJOBS:-24}
+_jobs=$(ps -eo args | grep -c 'python3 src/')
+if [ "$_jobs" -ge "$MAXJOBS" ]; then
+  echo "holding all starts: $_jobs python jobs already running (MAXJOBS=$MAXJOBS), load $(cut -d' ' -f1 /proc/loadavg) on $(nproc) cores"
+  exit 0
+fi
 OFFFILE=/tmp/restart_all.offset
 off=$(cat "$OFFFILE" 2>/dev/null || echo 0)
 case "$off" in ''|*[!0-9]*) off=0 ;; esac
