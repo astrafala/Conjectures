@@ -70,14 +70,55 @@ def main():
             raise SystemExit(f'sync_sources (pid {other}) is running; refusing to start')
     open(lock, 'w').write(str(os.getpid()))
 
-    written = kept = dropped = 0
+    # Defect 60. For 714 papers no build directory survives, so the hash match below finds
+    # nothing and the ONLY copy of the source is the file sitting under that paper's previous
+    # rank. A re-ranking shifts ranks; the old code then found a stranger's source under the
+    # new name and deleted it, never looking one name away at the paper's own. Inserting a
+    # single paper at rank 1619 destroyed 104 sources. `was` -- the slot id -- is stable
+    # across rankings, so the previous rank-map says exactly where each source went.
+    # the count this run starts from. The loss below was invisible for as long as it was
+    # because every number this script printed only ever went up; a before against an after
+    # is the one line that would have caught it.
+    was_there = sum(1 for _, _, fs in os.walk(repopaths.SOURCES) for f in fs
+                    if f.endswith('.tex'))
+
+    prev = {}
+    try:
+        for m in json.load(open('rank-map-prev.json')):
+            prev[m['was']] = (f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
+                              f"{P.name(m['rank'], m['verdict'])[:-4]}.tex", m['anum'])
+    except Exception:
+        pass
+
+    # Pass 1 decides, reading only. Nothing is written or deleted until every source that has
+    # to be carried is in memory: the destinations overlap the old locations, so writing while
+    # still reading would overwrite a source before it had been carried.
+    digest, carried = {}, {}
+    for m in rm:
+        dst = (f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
+               f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")
+        h = hashlib.md5(open(P.path(m['rank'], m['verdict']), 'rb').read()).hexdigest()
+        digest[m['rank']] = h
+        if h in h2t:
+            continue
+        if os.path.exists(dst) and m['anum'] in open(dst, errors='ignore').read(6000):
+            continue
+        src = prev.get(m['was'])
+        if not src or not os.path.exists(src[0]):
+            continue
+        body = open(src[0], 'rb').read()
+        # the carried file must name the paper it is about to sit under, exactly as the
+        # final check below demands; a source that does not is not carried, it is dropped
+        if m['anum'].encode() in body[:6000]:
+            carried[m['rank']] = body
+
+    written = kept = dropped = moved = 0
     present = set()
     for m in rm:
         dst = (f"{repopaths.SOURCES}/{P.band(m['rank'])}/"
                f"{P.name(m['rank'], m['verdict'])[:-4]}.tex")
         present.add(os.path.abspath(dst))
-        pdf = P.path(m['rank'], m['verdict'])
-        t = h2t.get(hashlib.md5(open(pdf, 'rb').read()).hexdigest())
+        t = h2t.get(digest[m['rank']])
         if t:
             # ALWAYS rewrite from the hash match. A rank is a position in an ordering that is
             # re-derived whenever the roster changes, so the paper sitting at a given rank
@@ -86,9 +127,14 @@ def main():
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copy(t, dst)
             written += 1
+        elif m['rank'] in carried:
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            open(dst, 'wb').write(carried[m['rank']])
+            moved += 1
         elif os.path.exists(dst):
-            # no build directory survives; keep what is there only if it is demonstrably this
-            # paper's, and delete it otherwise rather than let it mislead
+            # no build directory survives and nothing was carried; keep what is there only if
+            # it is demonstrably this paper's, and delete it otherwise rather than let it
+            # mislead
             if m['anum'] in open(dst, errors='ignore').read(6000):
                 kept += 1
             else:
@@ -135,7 +181,12 @@ def main():
         os.remove(lock)
     except OSError:
         pass
-    print(f'sources: {written} written from a hash match, {kept} kept and confirmed, '
+    now_there = sum(1 for _, _, fs in os.walk(repopaths.SOURCES) for f in fs
+                    if f.endswith('.tex'))
+    print(f'  sources on disk: {was_there} before, {now_there} after '
+          f'({now_there - was_there:+d})')
+    print(f'sources: {written} written from a hash match, {moved} carried across the '
+          f'ranking, {kept} kept and confirmed, '
           f'{dropped} dropped as belonging to another paper, {stale} stale removed, '
           f'{len(missing)} with no source')
 

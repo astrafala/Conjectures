@@ -121,6 +121,17 @@ def main():
         mapping.append({"rank": new, "was": old, "anum": eng[old]["anum"],
                         "verdict": suf, "engine": eng[old]["engine"],
                         "path": paperpath.path(new, suf)})
+    # Defect 60. Keep the ranking this one replaces. `sync_sources.py` matches a paper to
+    # its source through the build directory that compiled it, and for 714 papers no build
+    # directory survives; for those, the only copy of the source is the file sitting under
+    # the paper's OLD rank. A re-ranking shifts the rank, sync_sources finds a stranger's
+    # source under the new name, deletes it as belonging to another paper -- and the real
+    # source, one name away, is never looked at. Inserting ONE paper at rank 1619 destroyed
+    # 104 sources that way. The `was` slot is stable across rankings, so the previous map is
+    # exactly what is needed to carry a source across, and it is written before the new one
+    # so a crash in between leaves the old map readable, not missing.
+    if os.path.exists("rank-map.json"):
+        shutil.copy("rank-map.json", "rank-map-prev.json")
     atomicjson.dump(mapping, "rank-map.json", indent=1)
     # swap the freshly ranked tree into place here rather than leaving it to a shell step:
     # the old numbering and the new one differ, so a half-done move is a corrupt roster

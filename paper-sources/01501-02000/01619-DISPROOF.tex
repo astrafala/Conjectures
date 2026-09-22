@@ -1,0 +1,269 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A269637 is false at every index its own data
+can test, and the correct one, of order 13}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A269637 carries an empirical recurrence of order $10$ contributed by R.~H.~Hardin.
+It is false, and it is false in the strongest sense available: the entry publishes $20$
+terms with offset $1$, so the recurrence asserts something at each of
+$n=11,\dots,20$, and it fails at all ten. The first failure is at $n=11$, where the
+entry's own DATA gives $199677806$ and the recurrence gives $199034092$. No model and no
+computation beyond ten multiply--adds on the entry's published integers are needed for
+that. The sequence is a transfer-matrix count, so it is $C$-finite and its true minimal
+recurrence can be computed and proved; it has order $13$, and its first $10$ coefficients
+are exactly the published ones. The published line is therefore the correct recurrence
+with its last three terms dropped. Both statements are proved here in exact integer
+arithmetic.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+
+\section{The sequence and the claim}
+
+OEIS A269637 is ``Number of length-n 0..5 arrays with no repeated value differing from the
+previous repeated value by other than plus two or minus 1.''. It has offset $1$ and its
+published DATA is
+\begin{gather*}
+6,\; 36,\; 210,\; 1209,\; 6876,\; 38738,\; 216528,\; 1202353,\; 6639294,\; 36486190,\\
+199677806,\; 1088813760,\; 5918190122,\; 32077034918,\; 173421804818,\; 935474530883,\\
+5035906367464,\; 27059901888584,\; 145161762258568,\; 777537033208493
+\end{gather*}
+--- $20$ terms in all. The entry carries one formula line:
+\begin{quote}\small
+Empirical: a(n) = 29*a(n-1) -330*a(n-2) +1730*a(n-3) -2815*a(n-4)\\
+-9981*a(n-5) +36088*a(n-6) +31192*a(n-7) -161403*a(n-8) -158561*a(n-9)\\
++291970*a(n-10)
+\end{quote}
+As of the live entry (revision $4$, last modified Mar 02 2016) this is recorded as
+empirical and nothing on the entry records it as settled or as corrected. Written out,
+the claim is
+\begin{multline}\label{eq:conj}
+a(n)\;=\;29\,a(n-1) - 330\,a(n-2) + 1730\,a(n-3) - 2815\,a(n-4) - 9981\,a(n-5)\\
+{}+ 36088\,a(n-6) + 31192\,a(n-7) - 161403\,a(n-8) - 158561\,a(n-9) + 291970\,a(n-10),
+\end{multline}
+of order $10$, with no range stated and no initial index excluded.
+
+With offset $1$ and order $10$, the first index at which \eqref{eq:conj} asserts anything
+is $n=11$, and the entry publishes terms through $n=20$. Unlike the usual case, the claim
+is therefore testable --- ten times over --- on the entry's own data, with no model
+involved.
+
+\section{The published recurrence fails on the published data}
+
+Substituting the entry's own integers into the right-hand side of \eqref{eq:conj} gives
+the following.
+
+\begin{center}\small
+\begin{tabular}{rrrr}
+\toprule
+$n$ & entry's $a(n)$ & \eqref{eq:conj} predicts & difference \\
+\midrule
+$11$ & $199677806$ & $199034092$ & $643714$\\
+$12$ & $1088813760$ & $1084932650$ & $3881110$\\
+$13$ & $5918190122$ & $5894918440$ & $23271682$\\
+$14$ & $32077034918$ & $31940912174$ & $136122744$\\
+$15$ & $173421804818$ & $172637008448$ & $784796370$\\
+$16$ & $935474530883$ & $931005351317$ & $4469179566$\\
+$17$ & $5035906367464$ & $5010702199870$ & $25204167594$\\
+$18$ & $27059901888584$ & $26918901378892$ & $141000509692$\\
+$19$ & $145161762258568$ & $144378240753606$ & $783521504962$\\
+$20$ & $777537033208493$ & $773207835052431$ & $4329198156062$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}
+The recurrence \eqref{eq:conj} is false. It fails at every one of the ten indices
+$n=11,\dots,20$ at which the entry's published DATA can test it, the smallest being
+$n=11$, where the two sides differ by $643714$.
+\end{proposition}
+
+\begin{proof}
+Direct evaluation in exact integer arithmetic, using only the twenty integers the entry
+publishes. For $n=11$,
+\begin{align*}
+&29\cdot36486190 - 330\cdot6639294 + 1730\cdot1202353 - 2815\cdot216528 - 9981\cdot38738\\
+&\quad{}+ 36088\cdot6876 + 31192\cdot1209 - 161403\cdot210 - 158561\cdot36 + 291970\cdot6\\
+&\quad=\;199034092\;\ne\;199677806=a(11).\qedhere
+\end{align*}
+\end{proof}
+
+Nothing about $n=11$ is exceptional; the discrepancy grows by a factor of between
+$5.5$ and $6$ at each successive index, and the recurrence continues to fail for every
+larger $n$ as well, as the corollary in Section~3 shows.
+
+\section{A model, and the recurrence that does hold}
+
+\subsection{What the entry counts}
+
+Read the name as it is written. An array is a tuple
+$(x_1,\dots,x_n)\in\{0,1,2,3,4,5\}^{n}$. Say that index $i\ge2$ \emph{repeats} when
+$x_i=x_{i-1}$, and call $x_i$ the repeated value there. Listing the repeated values in
+order of $i$ as $v_1,v_2,\dots$, the condition is that each differs from its predecessor
+by plus two or minus one:
+\begin{equation}\label{eq:cond}
+v_{j+1}-v_j\in\{+2,-1\}\qquad\text{for every } j\ge1,
+\end{equation}
+with $v_1$ unconstrained. (A run of three equal values contributes two repeated values
+with $v_{j+1}-v_j=0$, so such runs are excluded by \eqref{eq:cond}; this is forced by the
+data, see below.)
+
+Let $a(n)$ be the number of such tuples. This reading was confirmed against the entry by
+direct enumeration of all $6^{n}$ tuples for $n=1,\dots,7$, which gives
+\[
+6,\;36,\;210,\;1209,\;6876,\;38738,\;216528,
+\]
+the entry's first seven terms exactly.
+
+\subsection{The transfer matrix}
+
+Whether a tuple can be extended depends on the last entry and on the last repeated value
+so far, and on nothing else. Take as vertex set
+\[
+\mathcal V=\{0,\dots,5\}\times\bigl(\{0,\dots,5\}\cup\{\varnothing\}\bigr),
+\qquad |\mathcal V|=S=42,
+\]
+a vertex $(L,P)$ recording the last entry $L$ and the last repeated value $P$, with
+$\varnothing$ meaning ``no repeat yet''. Define $M$ by: from $(L,P)$, appending
+$x\ne L$ leads to $(x,P)$; appending $x=L$ leads to $(x,x)$ and is allowed only when
+$P=\varnothing$ or $x-P\in\{+2,-1\}$. Let $\mathbf u\in\mathbf Z^{\mathcal V}$ be the
+indicator of $\{(t,\varnothing):0\le t\le5\}$ and $\mathbf 1$ the all-ones vector. Then
+\begin{equation}\label{eq:model}
+a(n)\;=\;\mathbf 1^{\!\top}M^{\,n-1}\mathbf u\qquad (n\ge1).
+\end{equation}
+Evaluated exactly, \eqref{eq:model} reproduces all $20$ terms of the entry's DATA and all
+$210$ terms of the entry's b-file, and its first seven values agree with the brute-force
+enumeration above.
+
+\subsection{The true recurrence}
+
+Being a walk count, $a$ is $C$-finite. Solving over $\mathbf Q$ for a
+constant-coefficient recurrence from the model's own terms, the least order that admits
+one is $13$, and the coefficients come out integral:
+\begin{multline}\label{eq:true}
+a(n)\;=\;29\,a(n-1) - 330\,a(n-2) + 1730\,a(n-3) - 2815\,a(n-4) - 9981\,a(n-5)\\
+{}+ 36088\,a(n-6) + 31192\,a(n-7) - 161403\,a(n-8) - 158561\,a(n-9) + 291970\,a(n-10)\\
+{}+ 583350\,a(n-11) + 364874\,a(n-12) + 80630\,a(n-13).
+\end{multline}
+The first $10$ coefficients of \eqref{eq:true} are, term for term, those of
+\eqref{eq:conj}. The published line is \eqref{eq:true} with its last three terms,
+$+583350\,a(n-11)+364874\,a(n-12)+80630\,a(n-13)$, missing.
+
+\begin{theorem}\label{thm:true}
+\eqref{eq:true} holds for every $n\ge14$.
+\end{theorem}
+
+\begin{proof}
+Let
+\begin{align*}
+p(t)\;=\;&t^{13}-29t^{12}+330t^{11}-1730t^{10}+2815t^{9}+9981t^{8}-36088t^{7}\\
+&{}-31192t^{6}+161403t^{5}+158561t^{4}-291970t^{3}-583350t^{2}-364874t-80630
+\end{align*}
+be the characteristic polynomial of \eqref{eq:true}, and put $w=p(M)\mathbf u$. Formed by
+thirteen matrix--vector products in exact integer arithmetic, $w$ is the zero vector of
+$\mathbf Z^{42}$. Hence for every $n\ge14$,
+\[
+a(n)-\sum_{i=1}^{13}c_i\,a(n-i)\;=\;\mathbf 1^{\!\top}M^{\,n-14}p(M)\mathbf u
+\;=\;\mathbf 1^{\!\top}M^{\,n-14}w\;=\;0 . \qedhere
+\]
+\end{proof}
+
+\begin{remark}
+The annihilation here is stronger than the usual Cayley--Hamilton argument needs. Normally
+one checks $\mathbf 1^{\!\top}M^{m}w=0$ for $m<S$ and appeals to Cayley--Hamilton for the
+rest; here $w$ itself vanishes, so $p$ annihilates $\mathbf u$ under $M$ outright and no
+appeal is needed. (The weaker check was run as well, for $m=0,\dots,41$, and every value
+is $0$.) Solving for the recurrence is only a way of \emph{proposing} \eqref{eq:true};
+what makes it a theorem is this annihilation, which is independent of how the candidate
+was found.
+\end{remark}
+
+\begin{corollary}
+\eqref{eq:conj} fails for every $n\ge11$, not merely at the ten indices the entry's DATA
+exhibits.
+\end{corollary}
+
+\begin{proof}
+Subtracting \eqref{eq:conj} from \eqref{eq:true}, a failure of \eqref{eq:conj} at $n$
+amounts to
+$583350\,a(n-11)+364874\,a(n-12)+80630\,a(n-13)\ne0$ for $n\ge14$; every $a(m)$ is a
+count and $a(m)\ge6>0$ for all $m\ge1$, and all three coefficients are positive, so the
+left side is positive. For $n=11,12,13$ the table in Section~2 exhibits the failure
+directly.
+\end{proof}
+
+\section{Verification}
+
+Five checks, each independent of the others.
+
+First, the disproof in Section~2 uses nothing but the entry's own published integers and
+ten multiply--adds per index. It does not depend on the model, on the b-file, or on
+Theorem~\ref{thm:true}.
+
+Second, the model was not taken on trust. Its first seven values were confirmed by
+brute-force enumeration over all $6^{n}$ tuples, it reproduces all $20$ published DATA
+terms, and it reproduces all $210$ terms of the entry's b-file --- every one, not a
+sample.
+
+Third, \eqref{eq:true} was checked directly on $260$ exactly computed model terms, and
+holds at all $247$ indices where it asserts anything, before any matrix argument was
+made. Orders $1$ through $12$ were each solved for and each fails, so $13$ is minimal.
+
+Fourth, the annihilation test of Theorem~\ref{thm:true} was carried out in exact integer
+arithmetic and gave the zero vector, and the weaker Krylov test was carried to the full
+Cayley--Hamilton bound $m<42$ rather than to a sampled prefix.
+
+Fifth, the entry's parent table A269640 independently records the order of this column
+as $13$: its ``Empirical for column k'' block prints the recurrences for $k=1,2,3$ and
+then, for $k=4,\dots,7$, only the placeholders ``[order 7]'', ``[order 13]'', ``[order
+14]'', ``[order 16]''. Column $k=5$ is A269637, and the order named there is $13$, not
+$10$.
+
+\begin{remark}
+The shape of the error decides what this note is. The published coefficients are not
+wrong; they are incomplete, and the line is the correct recurrence truncated after ten
+terms. What distinguishes this case from an over-fitted empirical recurrence reported at
+an order its sample cannot support is that the truncation is visible from the entry
+alone: the line contradicts the data printed a few lines above it, at ten consecutive
+indices, and the parent table names the right order. The correction is \eqref{eq:true}.
+\end{remark}
+
+\begin{remark}
+The other columns of A269640 were checked the same way. The empirical lines for
+A269635 ($k=3$, order 7), A269636 ($k=4$, order 7), A269638 ($k=6$, order 14) and
+A269639 ($k=7$, order 16) hold at every index their published DATA can test. A269643 and
+A269644 carry lines whose stated range ``for $n>9$'' and ``for $n>10$'' excludes the only
+indices at which they disagree with the data, so they too are untouched by this note.
+A269637 is the only member of the family whose published line is false.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequences A269637 and A269640.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+($C$-finite sequences and their recurrences.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

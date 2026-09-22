@@ -12,38 +12,39 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical column recurrences for the table OEIS A235017}
+\title{The empirical column recurrences for the table OEIS A231463}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A235017 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
+OEIS A231463 is a two-dimensional table $T(n,k)$, and it carries a block of empirical
 recurrences contributed by R.~H.~Hardin --- one for each of its first few columns. They are
 true. Column $k$ of the table is an ordinary fixed-width array count, so its rows are the
 vertices of a finite digraph and $T(n,k)$ is a number of walks in it; being a walk count the
 column is $C$-finite, and whether a given recurrence annihilates it is decided by a finite
-exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1, 2$.
+exact computation, with the Cayley--Hamilton theorem bounding the work. This note settles the columns $k=1$.
 \end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
 
 \section{The table and the conjectures}
 
-OEIS A235017 is ``T(n,k) is the number of (n+1) X (k+1) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. It has offset $1$, is
+OEIS A231463 is ``T(n,k)=Number of (n+1)X(k+1) 0..3 arrays with no element unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbors, with values 0..3 introduced in row major order.''. It has offset $1$, is
 read by antidiagonals, and begins
 \[
-40, 104, 104, 264, 224, 264, 680, 488,\ \dots
+3, 7, 4, 14, 8, 7, 33, 38,\ \dots
 \]
 The entry carries the following block:
 \begin{quote}\small
-Empirical for column k (the k=4..7 recurrence also works for k=1..3; apparently every row and column satisfies the same order 10 recurrence):\\
-k=1: a(n) = a(n-1) +4*a(n-2).\\
-k=2: a(n) = 3*a(n-1) +4*a(n-2) -14*a(n-3) -4*a(n-4) +16*a(n-5).\\
-k=3: [order 8].\\
+Empirical for column k:\\
+k=1: a(n) = 3*a(n-1) +a(n-2) -7*a(n-3) +a(n-4) +3*a(n-5)\\
+k=2: a(n) = 3*a(n-1) +a(n-2) -7*a(n-3) +a(n-4) +3*a(n-5) for n>7\\
+k=3: [order 32]\\
+k=4: [order 52] for n>55\\
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 20 2022 21:19:42, revision 6) these are still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 06:32:04, revision 6) these are still
 recorded as empirical, and nothing on the entry records any of them as settled.
 
 \section{A column of the table is a walk count}
@@ -86,8 +87,7 @@ $j\ge S_k$ repeats that combination of earlier values.
 \begin{center}
 \begin{tabular}{ccccc}
 line & order & vertices $S$ & proved for & terms checked \\ \hline
-column $k$$=1$ & $2$ & $20$ & $>2$ & $9$ \\
-column $k$$=2$ & $5$ & $80$ & $>5$ & $8$ \\
+column $k$$=1$ & $5$ & $80$ & $>5$ & $9$ \\
 \end{tabular}
 \end{center}
 
@@ -97,22 +97,12 @@ again exactly; every one of those integers vanishes from the stated point onward
 continued until the working vector was identically zero, which settles all larger $j$ at once.
 
 \subsection*{Column $k$$=1$}
-The sequence is ``Number of (n+1) X (2) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. Its rows are the vertices of a digraph on
-$S=20$ vertices, edges being the admissible consecutive pairs, and the count is
-$\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
-The conjectured recurrence
-\[
-a(n)\;=\;a(n-1) + 4\,a(n-2)
-\]
-holds from index $2+1$ on.
-
-\subsection*{Column $k$$=2$}
-The sequence is ``Number of (n+1) X (3) 0..4 arrays with every 2 X 2 subblock having its diagonal sum differing from its antidiagonal sum by 3, with no adjacent elements equal (constant-stress tilted 1 X 1 tilings).''. Its rows are the vertices of a digraph on
+The sequence is ``Number of (n+1)X(2) 0..3 arrays with no element unequal to a strict majority of its horizontal, diagonal and antidiagonal neighbors, with values 0..3 introduced in row major order.''. Its rows are the vertices of a digraph on
 $S=80$ vertices, edges being the admissible consecutive pairs, and the count is
 $\mathbf{1}^{\!\top}M^{n}\mathbf{1}$ up to the constant factor in the entry's name.
 The conjectured recurrence
 \[
-a(n)\;=\;3\,a(n-1) + 4\,a(n-2) - 14\,a(n-3) - 4\,a(n-4) + 16\,a(n-5)
+a(n)\;=\;3\,a(n-1) + a(n-2) - 7\,a(n-3) + a(n-4) + 3\,a(n-5)
 \]
 holds from index $5+1$ on.
 
@@ -128,16 +118,17 @@ begin only partway along --- any recurrence of that order the line satisfies has
 characteristic polynomial that is a multiple of the minimal one and of equal degree, hence is
 that polynomial. So the entry's recurrence is the one displayed, whatever its file contains.
 
-\subsection*{Column $k=3$, recovered}
-The entry gives only the order for this line: ``k=3: [order 8].''. Its model is a walk on
-$S=320$ vertices, so it satisfies a monic recurrence of order at most $S$;
-Berlekamp--Massey on $2S=640$ exact terms returns the minimal one, of order
-$8$ --- the stated order --- with integer coefficients
+\subsection*{Row $n=1$, recovered}
+The entry gives only the order for this line: ``n=1: [order 10]''. Its model is a walk on
+$S=180$ vertices, so it satisfies a monic recurrence of order at most $S$;
+Berlekamp--Massey on $2S=360$ exact terms returns the minimal one, of order
+$10$ --- the stated order --- with integer coefficients
 \begin{center}\small\begin{tabular}{cccccccc}
-$c_{1}$ & $4$ & $c_{3}$ & $-30$ & $c_{5}$ & $74$ & $c_{7}$ & $-60$ \\
-$c_{2}$ & $4$ & $c_{4}$ & $7$ & $c_{6}$ & $-46$ & $c_{8}$ & $48$ \\
+$c_{1}$ & $5$ & $c_{4}$ & $11$ & $c_{7}$ & $-176$ & $c_{10}$ & $-72$ \\
+$c_{2}$ & $3$ & $c_{5}$ & $137$ & $c_{8}$ & $108$ &  &  \\
+$c_{3}$ & $-41$ & $c_{6}$ & $-82$ & $c_{9}$ & $108$ &  &  \\
 \end{tabular}\end{center}
-Repeating with the first $8+4$ terms removed gives order $8$ again.
+Repeating with the first $10+4$ terms removed gives order $10$ again.
 
 \section{Verification}
 
@@ -148,7 +139,7 @@ both from the antidiagonal DATA read in either orientation and from the ``Table 
 block, and agrees at every available term. This is what ties a model to the table:
 substituting the fixed index into the entry's wording is a reading of English, and a wrong
 reading gives a different digraph and different counts. Across the lines settled here the
-model reproduces $17$ published values, $65$ decimal digits in all, every one of
+model reproduces $9$ published values, $18$ decimal digits in all, every one of
 them exactly; a misreading of the entry would have to reproduce all of them by accident.
 
 Second, each conjectured recurrence was evaluated on those published values in exact
@@ -168,7 +159,7 @@ claimed.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A235017.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A231463.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

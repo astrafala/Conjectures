@@ -1916,6 +1916,40 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 60 — a re-ranking silently destroyed the LaTeX source of 104 papers
+
+Installing one paper and running the ranking chain cost 104 sources. `paper-sources/` went
+from 13,183 files to 13,079 and nothing said so: `sync_sources.py` reported "381 dropped as
+belonging to another paper", which reads like tidying and was a deletion.
+
+**The mechanism.** `sync_sources` matches a paper to its source through the build directory
+that compiled it, by PDF hash. For **714 papers no build directory survives** — `engine/build/`
+is regenerable working state and is not stored — so for those the ONLY copy of the source is
+the file sitting under that paper's rank. A rank is a position in an ordering re-derived every
+time the roster changes: inserting one paper at rank 1619 shifted all 12,174 papers after it by
+one. For a shifted paper with no build directory, `sync_sources` looked under its NEW rank,
+found the previous occupant's source there, correctly judged that it named a different paper —
+and deleted it, never looking one name away at the paper's own source.
+
+So the loss was proportional to the shift, and every ranking took another bite. It is not
+something this session introduced; it would have fired on the next daily fold just the same.
+
+**The fix.** The slot id (`was`) is stable across rankings, so the previous rank-map says
+exactly where each source went. `rank.py` now copies `rank-map.json` to `rank-map-prev.json`
+before overwriting it, and `sync_sources.py` carries a source across by `was` when no build
+directory survives — reading everything it must carry BEFORE it writes or deletes anything,
+since the destinations overlap the old locations. A carried source must still name the paper
+it lands under, the same test the final check applies.
+
+All 104 were recovered from git by `was`, each verified to name its own paper, and
+`src/test_sync_sources.py` is the regression test: it builds a four-paper repository, inserts a
+paper at rank 2, and checks every source survives. It fails against the old code (three sources
+lost) and passes against the new.
+
+**The general lesson, which is the one worth keeping.** A count that only ever goes up is not
+a check. `sync_sources` printed five numbers every run and not one of them was "sources before"
+against "sources after". The deletion was loud in the filesystem and invisible in the output.
+
 ### defect 58 — the disproof sweep discarded a conjecture for failing too thoroughly
 
 `bsweep.check` filters boundary effects: *a recurrence with polynomial coefficients is asserted
@@ -1998,7 +2032,22 @@ Two more of the nine are the entry's own typo rather than a false claim: **A1684
 under either reading because the line as published cannot be right. That is the same class as
 A286772's lost "even" and "odd", already recorded in the ledger.
 
-**What survives the hand-check: two candidates, not nine.** A026672 fails under both readings;
-A269637 has constant coefficients — so the convention is irrelevant — and fails at all ten of
-the terms its own published data can test. Neither is claimed yet. A236647 is untestable: order
-34 against sixteen published terms.
+**What survives the hand-check: one candidate, not nine — and it is now a paper.**
+
+* **A026672 was a tenth instance of defect 59, in my own correction.** The sentence that stood
+  here said it "fails under both readings". It fails under three of the four: `n = index`,
+  `n = index + offset`, and nothing else. Under **`n = index + 1`** — equivalently
+  `n = index + offset - 1`, since the offset is 2 — Mathar's relation holds at **all 19**
+  indices its 22 published terms can test, with no failures. Not a disproof. The entry also
+  carries a g.f. stated as fact (`x*C(x)^4/(1-x*C(x)^3)`, Deléham), so it is a **proof**
+  candidate for the ordinary residual test, and belongs in that queue rather than this one.
+* **A269637 is genuinely false** and is now roster slot 14978. Constant coefficients, so the
+  convention is irrelevant; it fails at all ten of the indices its own published DATA can test,
+  first at n = 11 (published 199677806, line 199034092). The true minimal order is 13 and the
+  published ten coefficients are its first ten — the A197230 truncation shape again. See the
+  batch note in `LEDGER-PENDING.md` and `engine/src/verify_a269637.py`.
+* **A236647 is untestable**: order 34 against sixteen published terms. Closed, not refuted.
+
+**The lesson repeats.** Nine candidates became one. Eight were my reading, and one of those
+eight was in the very paragraph correcting the other seven. A checker that ignores a stated
+range or a stated index convention does not find false conjectures; it manufactures them.

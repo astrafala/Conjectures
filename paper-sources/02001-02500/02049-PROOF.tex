@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A280393, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A279852, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A280393 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A279852 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly one cell to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -35,29 +35,29 @@ from a finite exact computation on $S=1588$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A280393 is ``Number of n X 3 0..2 arrays with no element unequal to a strict majority of its horizontal and antidiagonal neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A279852 is ``Number of n X 3 0..2 arrays with no element unequal to a strict majority of its horizontal and vertical neighbors, with the exception of exactly one element, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-2, 6, 66, 554, 4250, 31242, 223706, 1571978,\ \dots
+2, 10, 49, 168, 557, 1758, 5441, 16500,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 18*a(n-1) - 121*a(n-2) + 392*a(n-3) - 688*a(n-4) + 640*a(n-5) - 256*a(n-6) for n>7.
+Empirical: a(n) = 4*a(n-1) - 2*a(n-2) - 9*a(n-4) - 4*a(n-5) - 4*a(n-6) for n>9.
 \end{quote}
-As of the ``Last modified'' line on the live entry (Feb 13 2019 11:19:43, revision 8) the statement is
+As of the ``Last modified'' line on the live entry (Feb 11 2019 14:20:43, revision 7) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;18\,a(n-1) - 121\,a(n-2) + 392\,a(n-3) - 688\,a(n-4) + 640\,a(n-5) - 256\,a(n-6)
+a(n)\;=\;4\,a(n-1) - 2\,a(n-2) - 9\,a(n-4) - 4\,a(n-5) - 4\,a(n-6)
 \end{equation}
-for all $n>7$.
+for all $n>9$.
 
 \section{The condition, the budget, and the canonical form}
 
 The arrays have $3$ columns and $L=n$ rows; write $x_{t,u}$ for the entry in
 row $t$ and column $u$. With the neighbour offsets
 \[
-\mathcal N=\{(0,-1),\ (0,1),\ (-1,1),\ (1,-1)\}
+\mathcal N=\{(0,-1),\ (0,1),\ (-1,0),\ (1,0)\}
 \]
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>7$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $6$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=7+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=9+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $20$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $25$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A280393.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A279852.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

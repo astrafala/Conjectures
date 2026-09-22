@@ -18,6 +18,7 @@ HAND = {
  'A000364': "This conjecture is false. The smallest counterexample is k = 27: phi(27) = 18, but a(1) = 1 and a(19) = 10 (mod 27), so 18 is not a period, and any period dividing 18 would make 18 one. It fails again for k = 54, 81, 108, 125, 135, 162, 189, 216, 243, 250, 270, 297 and 324 below 340. The prime case is true and is presumably what suggested it.",
  'A008365': "This is false as stated. The smallest counterexample is n = 17, itself a term of the sequence: 17^24 = 1681 (mod 2310). The image of n -> n^24 on the units mod 2310 has five elements, not four; adding the missing residue 1681 makes it correct, and then it is an equivalence. The exceptions are exactly the 13-rough n = 5 or 6 (mod 11).",
  'A197230': "This empirical recurrence is false. The entry publishes 22 terms with offset 1, so the recurrence first says something at n = 23, and it already fails there: the true value is 1327965802062332 and the recurrence gives 1327965802062198. The sequence is a transfer-matrix count, hence C-finite, and its true minimal recurrence has order 25; its first 22 coefficients are exactly the ones above, so the line is the correct recurrence with its last three terms dropped.",
+ 'A269637': "This empirical recurrence is false, and the entry's own DATA refutes it: with offset 1 and order 10 it asserts something at each of n = 11..20, and it fails at all ten. At n = 11 the published a(11) = 199677806 while the line gives 199034092. The sequence is a transfer-matrix count, hence C-finite, and its true minimal recurrence has order 13; its first 10 coefficients are exactly the ones above, so the line is the correct recurrence with its last three terms, +583350*a(n-11) +364874*a(n-12) +80630*a(n-13), dropped. The parent table A269640 already names the order of this column as 13.",
  'A141135': "Both of these conjectures are false, and the entry's own terms refute them. The generating function reproduces a(1)..a(23) and then disagrees at n = 24, 27 and 30; the recurrence holds up to n = 23 and fails at n = 24 and again at n = 25.",
  'A076217': "This recurrence fails at n = 3^k, 3^k + 1 and 3^k + 2 for every k >= 2, so it fails infinitely often; the observation above that it seems to fail at powers of 3 is exactly right. It follows from a(n) = 1 precisely when n = 3^k - 2, which an induction on the entry's own defining recursion gives, and then the six values around each power of three can be written down.",
  'A129365': "Conjecture A is true, and more: for every prime p, ord_p(a(n)) = Sum_{i>=1} B(floor(n/p^i)) with B(M) = Sum_{k=1..M} (M mod k) = A004125(M). A sum of remainders is nonnegative, so every exponent is, which gives A; the formula is Conjecture D, and B and C follow from it as well. The proof is the known factorisation of the numerator, the identity floor(n/(k*p^i)) = floor(floor(n/p^i)/k) for the denominator, and M^2 - Sum_{k<=M} k*floor(M/k) = Sum_{k<=M} (M mod k).",
@@ -500,7 +501,11 @@ def main():
             if a in HAND:
                 rows.append(HAND[a])
             rows += H2BY.get(a, [])
-            out[a] = [{'title': '(hand-written; the paper source is gone)',
+            # the label used to assert the source was gone. For an entry reached through
+            # HAND that is not something this branch knows: HAND is consulted before the
+            # texfacts map is, so a hand-written draft is used even when the paper's .tex is
+            # sitting in paper-sources -- A197230's and A269637's both are.
+            out[a] = [{'title': '(hand-written)',
                        'conjecture': None, 'S': None, 'thr': None, 'verify': st.get(a),
                        'hold': None, 'note': NOTE.get(a), 'comment': c + SIG} for c in rows]
             continue

@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A270511, proved by an exact quasi-polynomial}
+\title{The empirical recurrence for OEIS A270258, proved by an exact quasi-polynomial}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A270511 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
+OEIS A270258 counts triangular arrays of a FIXED shape over the alphabet $0..n$, and carries an
 empirical recurrence of order $10$ contributed by R.~H.~Hardin. It is true. The array
 family usually met in this part of the OEIS fixes the alphabet and lets the shape grow, so the
 count is a walk count in a finite digraph; here it is the alphabet that grows and there is no
@@ -34,15 +34,15 @@ division.
 
 \section{The conjecture}
 
-OEIS A270511 is ``Number of 3X3X3 triangular 0..n arrays with some element plus some adjacent element totalling n+1 exactly once.''. It has offset $1$ and begins
+OEIS A270258 is ``Number of 3X3X3 triangular 0..n arrays with some element plus some adjacent element totalling n exactly once.''. It has offset $1$ and begins
 \[
-15, 144, 1137, 4584, 15843, 40392,\ \dots
+0, 66, 768, 4428, 14976, 42750,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 2*a(n-1) +3*a(n-2) -8*a(n-3) -2*a(n-4) +12*a(n-5) -2*a(n-6) -8*a(n-7) +3*a(n-8) +2*a(n-9) -a(n-10)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 18 2016 08:06:26, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Mar 14 2016 09:20:40, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -52,14 +52,14 @@ so $T=6$ of them. Two cells are adjacent when they are neighbours in that triang
 by side in a row, or one directly below the other on either side --- and there are
 $3\binom{3}{2}=9$ adjacent pairs. Each cell carries a value in
 $\{0,1,\dots,n\}$, and the entry counts those arrays in which EXACTLY ONE adjacent pair
-$\{u,v\}$ has $x_u+x_v=n+1$.
+$\{u,v\}$ has $x_u+x_v=n$.
 
 Note which parameter grows. The shape is fixed; the alphabet is what $n$ counts. So this is not
 a walk in a finite digraph, and nothing about transfer matrices applies.
 
 \section{A set of pairs forces the values along its components}
 
-Write $E$ for the set of adjacent pairs, $t=n+1$ for the target, and for $S\subseteq E$ let
+Write $E$ for the set of adjacent pairs, $t=n$ for the target, and for $S\subseteq E$ let
 $N(S)$ be the number of arrays satisfying $x_u+x_v=t$ for every pair in $S$ --- and possibly
 others.
 
@@ -84,7 +84,7 @@ $c$ and $t-c$ both lying in $\{0,\dots,n\}$, which is $B$ choices. Cells touched
 of $S$ are unconstrained, giving $(n+1)$ choices each.
 \end{proof}
 
-Here $B=n$ and $F=1$ precisely when $n$ is odd.
+Here $B=n+1$ and $F=1$ precisely when $n$ is even.
 
 \section{The count}
 
@@ -92,10 +92,10 @@ Here $B=n$ and $F=1$ precisely when $n$ is odd.
 For every $n\ge0$,
 \[
 a(n)\;=\;A(n)+(-1)^n\,C(n),\qquad
-A(n)=9n^{5} - 36n^{4} + 102n^{3} - \tfrac{267}{2}n^{2} + 93n - 21,
+A(n)=9n^{5} - 27n^{4} + 36n^{3} - \tfrac{33}{2}n^{2} - 12n + \tfrac{21}{2},
 \]
 \[
-C(n)=- 6n^{3} + \tfrac{45}{2}n^{2} - 39n + 21.
+C(n)=6n^{3} - \tfrac{45}{2}n^{2} + 27n - \tfrac{21}{2}.
 \]
 \end{theorem}
 
@@ -126,16 +126,16 @@ component.
 
 The entry also records, as separate empirical observations:
 \begin{quote}
-Empirical for n mod 2 = 0: a(n) = 9*n\^{}5 - 36*n\^{}4 + 96*n\^{}3 - 111*n\^{}2 + 54*n
+Empirical for n mod 2 = 0: a(n) = 9*n\^{}5 - 27*n\^{}4 + 42*n\^{}3 - 39*n\^{}2 + 15*n
 
-Empirical for n mod 2 = 1: a(n) = 9*n\^{}5 - 36*n\^{}4 + 108*n\^{}3 - 156*n\^{}2 + 132*n - 42
+Empirical for n mod 2 = 1: a(n) = 9*n\^{}5 - 27*n\^{}4 + 30*n\^{}3 + 6*n\^{}2 - 39*n + 21
 \end{quote}
 These follow at once, and are exact: putting $n$ even and $n$ odd into
 Theorem~\ref{thm:quasi},
 \[
 a(n)=\begin{cases}
-9n^{5} - 36n^{4} + 96n^{3} - 111n^{2} + 54n, & n\ \text{even},\\[2pt]
-9n^{5} - 36n^{4} + 108n^{3} - 156n^{2} + 132n - 42, & n\ \text{odd},
+9n^{5} - 27n^{4} + 42n^{3} - 39n^{2} + 15n, & n\ \text{even},\\[2pt]
+9n^{5} - 27n^{4} + 30n^{3} + 6n^{2} - 39n + 21, & n\ \text{odd},
 \end{cases}
 \]
 which is what the entry states.
@@ -183,7 +183,7 @@ divisibility argument, which is what actually proves it.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A270511.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A270258.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Quasi-polynomials, Section 4.4.)
 \bibitem{beck} M.~Beck and S.~Robins, \emph{Computing the Continuous Discretely}, 2nd ed.,
