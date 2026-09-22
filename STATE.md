@@ -1662,3 +1662,32 @@ Run over all five lists, only `realcap2` had entries with nothing to prove; `rea
 `tmolist`, `oomlist` and `t17small` are all fully open. So this is not a general rot in the
 lists — it is specifically that **a list generated from a refusal file is a snapshot, and the
 setting it was generated for is part of the snapshot.** Neither half is carried in the filename.
+
+### the transfer21 switch: what the precondition actually says, and a figure I had invented
+
+`t21check` is finished: **160 of 160 candidates. 110 comparable, ZERO mismatches, ZERO lost,
+19 opened by the merge, and 80 of the 110 agree while the state space genuinely SHRANK** —
+median 2.13×, maximum 81×. That last number is the one that matters: an agreement between two
+builders that produce identical state counts proves little, and an earlier harness on this very
+vein reported 99 of 99 agreeing having compared its own `TypeError` with itself (defect 38).
+Eighty cases where the quotient collapsed states and the terms came out the same is the
+evidence that the quotient is exact.
+
+**I had been carrying a precondition that does not exist.** Every handoff note I wrote said
+"do not switch until the sample approaches the 243 shapes this vein was held to". The 243 is
+real, but it belongs to a *different* comparison: `uniform.py` records `build_pairfree` being
+accepted against the PAIR build on "99 entries and 144 of the parameter grid". `t21check`
+compares `build_lineset` against `build_pairfree` — the next link in the chain, with its own
+sample. Repeating a number from one verification as the bar for another is how a figure becomes
+folklore, and I did it to myself three times in one night.
+
+The precondition that IS written down is AP.7: *"nothing will [dispatch to it] until a
+comparison that can actually run comes back clean."* That is met — and it can fail, which is
+the point of the `lost` bucket and of the `both_refused` fix that stopped the harness recording
+a lineset failure as agreement.
+
+What the earlier standard does have, and mine did not, is the **grid** — shapes no entry
+happens to use. `src/t21grid.py` supplies it: every distinct body form among the 160 candidates
+crossed with width 3..6 and K 2..4, terms compared through `uniform.terms` so the scaling
+denominator is handled as production handles it, and a builder that raises reported with its
+exception type rather than counted as agreement.
