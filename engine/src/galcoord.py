@@ -114,25 +114,40 @@ def parse_name(nm):
     return {'engine': 'galcoord', 'u': u, 't': t, 'v': v, 'frac': 1}
 
 
+# Why the LAST build declined. `galfit.data' and `galcert2.check' each compute a reason and
+# each had it dropped into `_why' and `_r'; five separate refusal paths came out of `build' as
+# the same bare None, and every caller reads a None as "too big". 355 entries -- the largest
+# single block on this project's frontier -- were sitting under that one word, with the reason
+# computed and thrown away on every one of them. The same shape as uniall_caps.json holding
+# four different facts, one file down.
+LAST_WHY = [None]
+
+
 def build(p, cap=400000):
-    """the certified model, or None.
+    """the certified model, or None --- and `LAST_WHY' says which None.
 
     Every step that could be wrong is somebody else's job now: `galfit` lays out the patch,
     finds the translation lattice IN THAT EMBEDDING, splits the classes and fits the distance,
     validating the fit on the patch rim as well as the inside; `galcert2` decides the two
     Bellman conditions on regions rather than on samples. Both refuse rather than approximate.
     """
+    LAST_WHY[0] = None
     if not IN_SERVICE:
+        LAST_WHY[0] = 'engine out of service'
         return None
-    d, _why = galfit.data(p['u'], p['t'], p['v'], radius=RADIUS)
+    d, why = galfit.data(p['u'], p['t'], p['v'], radius=RADIUS)
     if not d:
+        LAST_WHY[0] = 'galfit: %s' % (why or 'no data')
         return None
     planes, el = d['planes'], d['edges']
-    ok, _r = galcert2.check(planes, el)
+    ok, r = galcert2.check(planes, el)
     if not ok:
+        LAST_WHY[0] = 'galcert2: %s' % (r or 'certificate refused')
         return None
     fits = [galehr.fit(pl) for pl in planes]
     if any(f is None for f in fits):
+        LAST_WHY[0] = 'galehr: no Ehrhart fit for %d of %d planes' % (
+            sum(1 for f in fits if f is None), len(fits))
         return None
     q = 1
     for (qq, _T, _c) in fits:

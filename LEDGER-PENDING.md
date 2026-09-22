@@ -898,3 +898,31 @@ week.
 
 The 193 askable-right-now are in `deep-check/cap-askable.json` and `freedrun.sh` is pointed at
 them.
+
+## 22 September 2026 — galcoord's 355 declines, and the reason it was computing and throwing away
+
+The largest single block on the frontier is `galcoord`: **355 entries** its build declines.
+Until now every one of them came out of `build` as the same bare `None`, which every caller
+reads as "too big".
+
+`galcoord.build` has five separate refusal paths, and **two of them already compute a
+reason and drop it**: `d, _why = galfit.data(...)` and `ok, _r = galcert2.check(...)`. The
+underscore is doing a lot of damage. That is the same shape as `uniall_caps.json` holding four
+different facts, one file down.
+
+`LAST_WHY` now records which `None` it was, and the first twenty classified read:
+
+      8  galfit: distance is not a max of affine pieces
+      6  galcert2: (b) fails on class N region M
+      3  galcert2: no predecessor at class N
+      2  galcert2: edge raises D by more than 1 at class N
+      1  galfit: the fit fails on the patch
+
+These are engine-design facts with directions attached — "distance is not a max of affine
+pieces" says the vertex class needs more pieces or a larger patch radius, and the Bellman
+failures name the class and region they fail on. None of them is "too big". A full
+classification of all 355 is running into `deep-check/galcoord-why.json`.
+
+**The frontier is 533 cap refusals and 793 engine declines, and this is what turning the
+second number into work looks like:** not raising a cap, but reading the sentence the engine
+was already writing and discarding.
