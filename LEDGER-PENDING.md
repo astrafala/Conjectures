@@ -1004,3 +1004,31 @@ took one pass over five entries.
 This is what it looks like when "read what a sweep refuses" reaches the bottom: the refusal was
 one word, then five words, then a count, and now a direction vector and an arithmetic
 progression.
+
+### The ray correction reproduces every published term — and is still only a fit
+
+`galfit.data(..., exc=True)` carries the exceptional set instead of refusing (opt-in, default
+unchanged), and the corrected ball count gives:
+
+| entry | classes | exceptional points | corrected | uncorrected |
+|---|---:|---:|---:|---:|
+| A310039 | 24 | 15 | **35 of 35** | 31 of 35 |
+| A310007 | 30 | 24 | **35 of 35** | 27 of 35 |
+| A310025 | 30 | 24 | **35 of 35** | 27 of 35 |
+| A310019 | 15 | 48 | **35 of 35** | 19 of 35 |
+| A310018 | 25 | 305 | **35 of 35** | 19 of 35 |
+
+Every published term, on all five, the scattered case included. Extending each ray past the
+patch by its arithmetic progression changes none of them. Per class: A310039, A310007 and
+A310019 have two ray-shaped exceptional classes and none scattered; A310018 has three ray and
+fifteen scattered.
+
+**Nothing is claimed from this and no paper may be installed on it.** These entries have no
+b-files — 35 to 40 DATA terms is the whole published record — and the patch radius is 50, so
+agreement to n = 35 cannot tell a correction that is right on the infinite tiling from one that
+is right on the patch. The binding rule is a proof, and this is a fit.
+
+What it does establish is that the route is the right one: the correction is exactly the
+missing term, it is the difference between 19 of 35 and 35 of 35, and the remaining work is
+`galcert2` certifying `D = max-planes off the exceptional set` with that set characterised as
+rays. `src/rayval.py` keeps the check.

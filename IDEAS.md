@@ -81,6 +81,31 @@ in t** — a quasi-linear term added to a quasi-quadratic count leaves `a(n) = |
 quasi-linear, which is precisely what `galehr` already fits and `galcert2` already certifies.
 No new machinery, one new term.
 
+### Validated end to end on every published term — 22 September
+
+`galfit.data(..., exc=True)` now carries the exceptional set instead of refusing (opt-in;
+`exc=False` is the default and nothing else changed), and `src/rayval.py` checks what the
+corrected count produces:
+
+| entry | classes | exceptional points | corrected | uncorrected |
+|---|---:|---:|---:|---:|
+| A310039 | 24 | 15 | **35 of 35** | 31 of 35 |
+| A310007 | 30 | 24 | **35 of 35** | 27 of 35 |
+| A310025 | 30 | 24 | **35 of 35** | 27 of 35 |
+| A310019 | 15 | 48 | **35 of 35** | 19 of 35 |
+| A310018 | 25 | 305 | **35 of 35** | 19 of 35 |
+
+Every published term, on all five, including the scattered case. And extending each ray past
+the patch by its arithmetic progression changes none of them, which is consistent with the ray
+reading. Per class, A310039/A310007/A310019 have 2 ray-shaped classes and none scattered;
+A310018 has 3 ray and **15 scattered**.
+
+**This is a fit, not a proof, and no paper may be installed on it.** The entries have no
+b-files — 35 to 40 DATA terms is all the published data — and the patch radius is 50, so
+agreement to n=35 cannot distinguish a correction that is right on the infinite tiling from one
+that is right on the patch. What it does establish is that the route works: the correction is
+the missing term, and the remaining work is the certificate.
+
 So §A11's three parts become:
 
 1. **Detect the ray case**: group the leftovers by primitive direction and check that each

@@ -21,7 +21,7 @@ import galhull
 import galtile
 
 
-def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
+def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1), exc=False):
     """(data, None) or (None, reason)
 
     `refine` passes to a SUBLATTICE (k1*a, k2*b) of the translation lattice, which splits each
@@ -75,6 +75,7 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
         return None, 'the start vertex is not class 0 at the origin'
 
     planes = []
+    excpts = []
     for lst in cells:
         if len(lst) < minpts:
             return None, 'a class has too few patch points'
@@ -86,6 +87,32 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
         # whole patch the same two tilings fit with no leftovers at all. Whether the planes are
         # right OUTSIDE the patch is not decided here and must not be -- `galcert2` decides it.
         pl, left = galhull.pieces(lst)
+        if left and exc:
+            # EXCEPTIONAL SET. The distance on this class is not a max of affine pieces, and
+            # measured on 22 September the uncovered points are usually a pair of opposite RAYS
+            # through the origin with d affine along the ray (IDEAS A11). Carried out rather
+            # than refused, so the ball count can subtract them:
+            #     |B(t)| = #{max_i l_i <= t} - #{exceptional m : max_i l_i(m) <= t < d(m)}
+            # On a ray both bounds are affine in the ray parameter, so that correction is
+            # quasi-linear in t and leaves a(n) quasi-linear -- the shape galehr already fits.
+            # Nothing here certifies it; `exc` is opt-in and the caller must say what it does
+            # with the points.
+            P = [(int(A), int(B), int(C)) for A, B, C in pl]
+            # the exceptional set is every patch point the planes do not reach, not just the
+            # ones `galhull.pieces' returns: it reports only those with d <= max(d) - margin,
+            # deliberately leaving the rim band out, and a point in that band is still a point
+            # the max of planes does not equal.
+            bad = [(int(m), int(n), int(dd)) for (m, n, dd) in lst
+                   if max(A * m + B * n + C for A, B, C in P) != dd]
+            over = [x for x in bad
+                    if max(A * x[0] + B * x[1] + C for A, B, C in P) > x[2]]
+            if over:
+                # a plane ABOVE the true distance is not an exceptional point, it is a wrong
+                # fit, and must still refuse
+                return None, 'a fitted plane exceeds the distance at %d patch points' % len(over)
+            excpts.append(bad)
+            planes.append(P)
+            continue
         if left:
             # the COUNT, not just the fact. Whether a class leaves 3 points uncovered out of
             # 400 or 120 out of 400 is the difference between a patch that is too small and a
@@ -101,6 +128,7 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
             if max(A * m + B * n + C for A, B, C in P) != d:
                 return None, 'the fit fails on the patch'
         planes.append(P)
+        excpts.append([])
 
     def cls_of(q, nl, nr, nf):
         h = find(q, nl, nr, nf)
@@ -120,6 +148,6 @@ def data(u, t, v, radius=70, margin=6, minpts=40, refine=(1, 1)):
             if off is None:
                 return None, 'an edge is not expressible in lattice coordinates'
             out.append((ci, j, off))
-    return {'planes': planes, 'edges': out, 'classes': len(planes),
+    return {'planes': planes, 'exc': excpts, 'edges': out, 'classes': len(planes),
             'start': start, 'u': u, 't': t, 'v': v, 'radius': radius,
             'refine': (k1, k2)}, None
