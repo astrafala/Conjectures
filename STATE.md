@@ -1943,3 +1943,32 @@ one of them fails from a *small* index (3, 4, 5, 6), which is precisely the case
 written to suppress. They are candidates, not disproofs, until each is checked by hand against
 the entry's own wording. Four times in one day a batch of "disproofs" was a defect in my own
 reading, and this is exactly the shape that produced those.
+
+### a long-running process overwrites the file you just corrected
+
+I patched `provedsweep.py`, re-queued A193641, watched it come back correct — and an hour later
+it was wrong again. The live `provedsweep` inside `bsweeprun` had started **before** the patch.
+It held the old code and the old verdict in memory, and wrote its whole state back over my
+corrected file.
+
+Nothing detected this, because the file was valid JSON containing a plausible answer. I then
+said in a commit message that both entries resolved correctly, which was **not true of the file
+on disk at the time** — the code was fixed, the record was not.
+
+The rule that follows is the one already written for runner scripts, extended: **a source fix
+does not reach a running process, and a running process will undo a data fix.** Stop the process
+before correcting data it owns. `restart_all.sh` exists for the first half; the second half has
+no guard but the discipline.
+
+**With the runner stopped and the patched code run, all three resolve**, and one is a real gain:
+
+| entry | before | after |
+|---|---|---|
+| A193641 | *b-file disagrees with DATA* | holds on all b-file terms |
+| A286772 | *CONTRADICTS A PROVED PAPER* | other lines fail; not the claim this paper proved |
+| A197230 | *DISPROOF PAPER BUT THE CONJECTURE HOLDS* | **disproof confirmed: the entry fails, as its paper says** |
+
+A197230 is the payoff of defect 58. This project disproved it by hand and papered it as ledger
+1392; the sweep had been contradicting that, and now the b-file confirms it independently.
+`disproof confirmed` goes 2 → 3, and **no entry on the roster contradicts the claim its paper
+proved.**
