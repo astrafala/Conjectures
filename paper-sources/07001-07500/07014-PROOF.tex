@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A253929, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A253842, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A253929 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
+OEIS A253842 counts the arrays over $\{0,\dots,1\}$ whose $3\times3$ subblocks carry a
 statistic that is monotone along named directions of the subblock grid, and carries an
 empirical recurrence of order $46$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical. Every direction named moves the subblock row by at most one,
@@ -32,15 +32,15 @@ exact computation.
 
 \section{The conjecture}
 
-OEIS A253929 is ``Number of (n+2)X(2+2) 0..1 arrays with every 3X3 subblock diagonal sum plus antidiagonal sum nondecreasing horizontally and vertically.''. It has offset $1$ and begins
+OEIS A253842 is ``Number of (2+2)X(n+2) 0..1 arrays with every 3X3 subblock diagonal sum plus antidiagonal sum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-2440, 8384, 30184, 109666, 299727, 756553, 1786831, 3803056,\ \dots
+2440, 6339, 17491, 50462, 127376, 308576, 697720, 1437880,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
 Empirical: a(n) = 4*a(n-1) -5*a(n-2) +15*a(n-4) -44*a(n-5) +53*a(n-6) -8*a(n-7) -79*a(n-8) +196*a(n-9) -235*a(n-10) +88*a(n-11) +172*a(n-12) -472*a(n-13) +612*a(n-14) -392*a(n-15) -70*a(n-16) +656*a(n-17) -1054*a(n-18) +952*a(n-19) -426*a(n-20) -448*a(n-21) +1210*a(n-22) -1400*a(n-23) +1030*a(n-24) -112*a(n-25) -834*a(n-26) +1288*a(n-27) -1216*a(n-28) +584*a(n-29) +200*a(n-30) -728*a(n-31) +903*a(n-32) -628*a(n-33) +163*a(n-34) +232*a(n-35) -445*a(n-36) +364*a(n-37) -151*a(n-38) -32*a(n-39) +137*a(n-40) -116*a(n-41) +45*a(n-42) -20*a(n-44) +16*a(n-45) -4*a(n-46) for n>58
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 14:20:27, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:17:30, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -51,9 +51,9 @@ aggregates --- sums, maxima, minima, medians --- taken over those lines, and $\s
 denotes its value on the subblock in position $(i,j)$ of the subblock grid, which has $n$ rows
 and $2$ columns for an $(n+2)\times4$ array over $\{0,\dots,1\}$. The condition is
 \[
-\sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\le\sigma(i+1,j)
+\sigma(i,j)\le\sigma(i+1,j),\qquad \sigma(i,j)\le\sigma(i,j+1),\qquad \sigma(i,j)\ge\sigma(i+1,j-1)
 \]
-whenever both positions exist.
+whenever both positions exist. The entry writes the array with $n$ as the number of COLUMNS; transposing it exchanges the two coordinates of every direction, which is done once, and a direction that then points upward is turned round by reversing its inequality.
 
 ``ne-to-sw antidiagonally'' is the offset $(+1,-1)$ on the subblock grid; that reading, and
 the reading of every statistic name here, was checked by counting the small arrays directly
@@ -130,7 +130,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A253929.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A253842.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{davey} B.~A.~Davey and H.~A.~Priestley, \emph{Introduction to Lattices and

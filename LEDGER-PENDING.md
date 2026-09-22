@@ -134,3 +134,42 @@ out-of-memory row can mean anything: A183618's said 6 GB and means 391 seconds a
 
 **Still open:** 7,256 open conjectures have never been checked against their b-files — the
 largest untouched population here, and the disproof side.
+
+## 22 September, early: the transfer21 merge switched, and five more results
+
+**Papers 13,782 → 13,787**, five results on five distinct entries.
+
+| entry | result | how it was reached |
+|---|---|---|
+| A204282 | order 6, n>8, S=21,607 | a model the pair-free build refuses outright |
+| A204480 | order 10, n>13, S=44,927 | the same |
+| A252571 | 3×3 subblock row and diagonal sums | ordinary sweep |
+| A252684 | order 60, S=16,851, `transfer17` | ordinary sweep |
+| A253748 | order 26, S=315,576, `transfer31` | ordinary sweep |
+
+Each checked three ways: `checkclaim` against the entry's own recurrence line character by
+character (5 verified, 0 disagree, 0 withheld), a fresh live fetch with an independent state
+file rather than the shared cache, and a DATA guard that actually read terms.
+
+**`transfer21` now builds through `T17.build_lineset`.** Verified on 268 shapes — 160 entries
+and 108 grid points over every body form crossed with width 3..6 and K 2..4 — giving 198
+comparable agreements, **138 of them with a genuinely smaller state space**, zero mismatches,
+zero lost, 24 opened. The shrinking counts are the evidence: two builders agreeing on identical
+state spaces prove nothing, which is exactly how an earlier harness on this vein reported
+99 of 99 having compared its own `TypeError` with itself.
+
+**My first attempt at that switch broke `transfer21` silently and completely.** Pointing
+`uniform`'s dispatch at `M[en].build_lineset` asked the transfer21 module for a transfer17
+function; `AttributeError`; and `uniform.build` ends in `except Exception: return None`. Every
+`transfer21` build returned `None` in 0.0 seconds and was recorded as *state space > cap*. It
+was caught only because two of my own measurements disagreed — `t21check` built A204282 at
+S=21,607 under a 200,000 cap while the sweep refused it at forty times that.
+
+**Nulls, stated plainly.** `t21cap.txt` held 78 entries of which only 5 carry an open
+conjecture — 63 have no parsable recurrence — and all 5 exceed 8,000,000 even after the merge.
+That list is closed. And the four runner lists re-settinged earlier tonight (`caprun`/`rcaprun`
+to CAP 8,000,000, `tmorun` to BUDGET 500) have **not** produced a result yet; all five of
+tonight's came from the switch and from the ordinary sweeps.
+
+**Verification, no failures anywhere.** 3,000+ proved recurrences against b-files at 520,000+
+indices; 5,154 installed papers holding on every b-file term of the entry's own line.

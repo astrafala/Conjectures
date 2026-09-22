@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237551, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A237466, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237551 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A237466 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $14$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=312$
+The condition is local to two consecutive rows, so the count is a walk count on $S=356$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,28 +31,28 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237551 is ``Number of (n+1)X(2+1) 0..2 arrays with the maximum minus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A237466 is ``Number of (n+1)X(2+1) 0..2 arrays with the maximum plus the lower median minus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-312, 1668, 8764, 44668, 224948, 1181206, 6170564, 31538382,\ \dots
+356, 2308, 14968, 99086, 651906, 4259914, 27861088, 183385520,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 26*a(n-3) +473*a(n-4) +382*a(n-5) +716*a(n-6) +1304*a(n-7) -5953*a(n-8) -1004*a(n-9) -1124*a(n-10) -466*a(n-11) +9039*a(n-12) +792*a(n-13) -3360*a(n-14)
+Empirical: a(n) = 70*a(n-3) +1053*a(n-4) +1879*a(n-5) +5530*a(n-6) -1147*a(n-7) -108738*a(n-8) -155485*a(n-9) +35869*a(n-10) +101903*a(n-11) +100682*a(n-12) -23634*a(n-13) -19682*a(n-14)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:17:02, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:10:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 The $2\times2$ subblocks of an $(n+1)\times3$ array form an
-$n\times2$ grid, and each carries the value $\sigma=-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+$n\times2$ grid, and each carries the value $\sigma=b-c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
 subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
 That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
 so it is local to the grid.
 
 At $n=1$ the array has two rows, so its subblock grid is a single row of $2$ subblocks with
 no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $312$ counts those, and the model was made to
+differ by $1$. The entry's first term $356$ counts those, and the model was made to
 reproduce it along with every later term.
 
 \section{The count is a walk count}
@@ -66,7 +66,7 @@ $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=312$ pairs whose own subblock row already satisfies the condition along itself.
+over the $S=356$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -90,7 +90,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;26\,a(n-3) + 473\,a(n-4) + 382\,a(n-5) + 716\,a(n-6) + 1304\,a(n-7) - 5953\,a(n-8) - 1004\,a(n-9) - 1124\,a(n-10) - 466\,a(n-11) + 9039\,a(n-12) + 792\,a(n-13) - 3360\,a(n-14)
+a(n)\;=\;70\,a(n-3) + 1053\,a(n-4) + 1879\,a(n-5) + 5530\,a(n-6) - 1147\,a(n-7) - 108738\,a(n-8) - 155485\,a(n-9) + 35869\,a(n-10) + 101903\,a(n-11) + 100682\,a(n-12) - 23634\,a(n-13) - 19682\,a(n-14)
 \]
 for every $n>14$.
 \end{theorem}
@@ -106,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $19$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -118,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237551.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A237466.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,
