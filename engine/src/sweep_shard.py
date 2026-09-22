@@ -390,6 +390,15 @@ for a in sorted(set(CANDS) | ANUMS):
         # a population that looked reachable by raising a number. Fourth mechanism to pollute
         # that file, after defect 49's timeouts, defects 36/39/41's out-of-memory, and the
         # refusal by design.
+        # An engine that RAISED is broken, not refusing, and must never be recorded as either
+        # a cap refusal or a decline. uniform.build still returns None for thirty callers'
+        # sake, but it records what it swallowed. Tonight a wrong dispatch made every
+        # transfer21 build raise AttributeError and be written down as "state space > cap";
+        # this is the line that would have said so on the first entry.
+        if uniform.LAST_ERROR[0]:
+            res['ENGINE RAISED: ' + uniform.LAST_ERROR[0][:60]] += 1
+            print('  %s ENGINE RAISED %s' % (a, uniform.LAST_ERROR[0][:120]), flush=True)
+            done.add(a); save(); continue
         if en in uniform.NO_SIZE_REFUSAL:
             res['engine returned no model (its build has no cap)'] += 1
             done.add(a); save(); continue

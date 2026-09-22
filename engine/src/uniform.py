@@ -81,7 +81,13 @@ NO_SIZE_REFUSAL = frozenset({
 })
 
 
+# What `build' last swallowed. Cleared on entry, set by the `except Exception' clause below.
+# Read it immediately after a None to tell "the engine declined" from "the engine is broken".
+LAST_ERROR = [None]
+
+
 def build(en, p, cap):
+    LAST_ERROR[0] = None
     try:
         if en in IMAGE:
             return M[en].build(p, cap)
@@ -199,7 +205,23 @@ def build(en, p, cap):
         # Every such entry is a result the project refused for the size of a container and then
         # recorded as refused for the size of the model. Let it out and let the caller name it.
         raise
-    except Exception:
+    except Exception as exc:
+        # STILL `return None', because thirty callers read None and changing that contract
+        # under the running sweeps is not a surgical change. But the exception is RECORDED, so
+        # a caller can name it instead of guessing.
+        #
+        # This one clause is the root of four separate pollutions of uniall_caps.json and of
+        # tonight's worst self-inflicted bug. Pointing uniform's transfer21 dispatch at
+        # `M[en].build_lineset' asked the module for a function it does not have; the
+        # AttributeError landed here; every transfer21 build returned None in 0.0 seconds and
+        # was written down as "state space > cap". It was caught only because two of my own
+        # measurements disagreed about A204282. With LAST_ERROR set, sweep_shard would have
+        # printed `engine raised AttributeError' on the first entry.
+        #
+        # A list, not a plain global, so `LAST_ERROR[0]' is unambiguous at every read site.
+        # Single-threaded by assumption: every sweep in this project is one build at a time in
+        # its own process.
+        LAST_ERROR[0] = '%s: %s' % (type(exc).__name__, exc)
         return None
 
 

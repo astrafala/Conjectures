@@ -1789,3 +1789,30 @@ about what the engine *means* by `None`, and `uniform.build` flattens every mean
 The rule to carry: **`None` is not a fact.** Before reading a `None` as any particular refusal,
 check what the function that produced it is able to refuse for. Every one of the four pollutions
 came from skipping that check, and each cost a population that looked reachable and was not.
+
+### the root of all four: `uniform.build`'s `except Exception: return None`
+
+Four mechanisms polluted `uniall_caps.json` and every one of them passed through a single
+clause. `uniform.build` catches every exception and returns `None`, and every caller reads
+`None` as *state space > cap*. So an engine that is BROKEN is indistinguishable from an engine
+that declined, and both are indistinguishable from a model that is genuinely too big.
+
+It is also the root of tonight's worst self-inflicted bug. Pointing the transfer21 dispatch at
+`M[en].build_lineset` asked the module for a function it does not have; the `AttributeError`
+landed in that clause; **every transfer21 build returned `None` in 0.0 seconds and was written
+down as a cap refusal.** It was caught only because two of my own measurements disagreed about
+A204282 — `t21check` built it at S=21,607 under a 200,000 cap while the sweep refused it at
+forty times that.
+
+`uniform.LAST_ERROR` now records what the clause swallowed, cleared on entry to `build`. The
+contract is unchanged — thirty callers still read `None`, and changing that under the running
+sweeps is not a surgical change — but the caller that matters can now name the fact.
+`sweep_shard` checks it first, before the no-cap test and before the cap row, and records
+`ENGINE RAISED: <type>: <message>` while printing it.
+
+Verified: `uniform.build('transfer17', {'nonsense': True}, 1000)` returns `None` and sets
+`LAST_ERROR` to `KeyError: 'fixed'`. The decline path is verified end to end — two `latpoly`
+entries record *engine returned no model* with an empty caps file, so a clean `None` is not
+mistaken for an error. **The raise path is verified at the `uniform` level only**; the three
+lines in `sweep_shard` are a direct read of that verified value, and I have not contrived an
+entry whose engine raises in order to see them fire in a real round.
