@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A302682, proved by a two-line transfer matrix}
+\title{The empirical recurrence for OEIS A301966, proved by a two-line transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A302682 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
+OEIS A301966 counts arrays over $\{0,\dots,1\}$ in which every cell is constrained by the
 values of its neighbours, and carries an empirical recurrence of order $7$ contributed
 by R.~H.~Hardin. It is true, and it is not an empirical matter. The neighbourhood reaches one
 column up and one column down, so a single column is not enough state and a plain walk count
@@ -34,34 +34,34 @@ computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A302682 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 1, 4 or 6 horizontally, diagonally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
+OEIS A301966 is ``Number of 4Xn 0..1 arrays with every element equal to 0, 1 or 4 horizontally or antidiagonally adjacent elements, with upper left element zero.''. It has offset $1$ and begins
 \[
-8, 6, 7, 20, 30, 76, 217, 509,\ \dots
+8, 34, 40, 64, 111, 219, 443, 904,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = a(n-1) +a(n-2) +5*a(n-3) +5*a(n-4) -3*a(n-5) -3*a(n-6) +2*a(n-7) for n>11
+Empirical: a(n) = 2*a(n-1) +a(n-3) -a(n-4) -2*a(n-6) +a(n-7) for n>9
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 11 2018 22:07:04, revision 7) the statement is
+As of the ``Last modified'' line on the live entry (Mar 29 2018 13:03:31, revision 4) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;a(n-1) + a(n-2) + 5\,a(n-3) + 5\,a(n-4) - 3\,a(n-5) - 3\,a(n-6) + 2\,a(n-7)
+a(n)\;=\;2\,a(n-1) + a(n-3) - a(n-4) - 2\,a(n-6) + a(n-7)
 \end{equation}
-for all $n>11$.
+for all $n>9$.
 
 \section{The condition, and why one column is not enough}
 
 The arrays have $4$ rows and $L=n$ columns; write $x_{t,u}$ for the entry in
 column $t$ and row $u$, each in $\{0,\dots,1\}$. With the neighbour offsets
 \[
-\mathcal N=\{(-1,0),\ (1,0),\ (-1,-1),\ (1,1),\ (1,-1),\ (-1,1)\},
+\mathcal N=\{(-1,0),\ (1,0),\ (1,-1),\ (-1,1)\},
 \]
 written as (column shift, row shift) and counting only positions inside the array, the
 entry's requirement is
 \begin{equation}\label{eq:loc}
-\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,4,6\}
+\#\{\text{neighbours with a value }equal to\ x_{t,u}\}\in\{0,1,4\}
 \end{equation}
 for every cell $(t,u)$. A further clause fixes the upper-left entry of the array to be $0$; it removes nothing but a relabelling, and enters the construction as a restriction on which columns may begin a walk.
 
@@ -111,7 +111,7 @@ publishes, $n=29$, the arrays have $4\cdot29$ cells over
 $2$ values, so there are about $10^{34}$ of them to sift. The
 walk count replaces that by $256$ states and one matrix--vector product per column.
 
-The threshold below is exact rather than merely sufficient: at $n=11$ the conjectured
+The threshold below is exact rather than merely sufficient: at $n=9$ the conjectured
 recurrence fails on the entry's own published terms, so no range larger than the one proved
 can hold.
 \section{The criterion}
@@ -141,7 +141,7 @@ combination of the earlier values; if those vanish, so do all the rest.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>11$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>9$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -150,7 +150,7 @@ The digraph was built directly from \eqref{eq:loc}: for each of the $S=256$ pair
 of the $(1+1)^{4}$ possible next columns, the condition was tested on every cell of
 the middle column. The vector $w$ was formed by $7$ applications of $G$ in exact integer
 arithmetic and $\mathbf{v}^{\!\top}G^{m}w$ evaluated for $m=0,1,\dots$, again exactly.
-Every one of those integers vanishes from the index corresponding to $n=11+1$ onwards,
+Every one of those integers vanishes from the index corresponding to $n=9+1$ onwards,
 and the run was continued until $S+1$ consecutive zeros had been seen, which by
 Lemma~\ref{lem:crit} settles every larger $m$ at once.
 \end{proof}
@@ -182,7 +182,7 @@ returned zero throughout.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A302682.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A301966.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

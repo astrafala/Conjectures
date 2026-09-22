@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A283228, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A284071, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A283228 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
+OEIS A284071 counts $n\times4$ arrays over $\{0,\dots,1\}$ subject to a condition imposed on
 every CELL over a neighbour set the entry names, and it carries an empirical recurrence of
 order $51$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
 empirical. A cell's neighbourhood meets three consecutive rows, so the state of a transfer
 matrix is a pair of consecutive rows and each step settles the middle one; an array is a
-walk, and $a(n)$ is a walk count on $S=721$ vertices, which is $C$-finite. Whether the
+walk, and $a(n)$ is a walk count on $S=753$ vertices, which is $C$-finite. Whether the
 conjectured recurrence annihilates it is then decided by a finite exact computation, with the
 Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -33,15 +33,15 @@ Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A283228 is ``Number of nX4 0..1 arrays with no 1 equal to more than two of its horizontal and vertical neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
+OEIS A284071 is ``Number of nX4 0..1 arrays with no 1 equal to more than three of its horizontal, diagonal and antidiagonal neighbors, with the exception of exactly two elements.''. It has offset $1$ and begins
 \[
-0, 6, 395, 8592, 163860, 2875836, 47531178, 753320466,\ \dots
+0, 6, 275, 7302, 151310, 2816826, 48994058, 812565760,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 27*a(n-1) -165*a(n-2) -234*a(n-3) -3129*a(n-4) +22416*a(n-5) +159152*a(n-6) +1030014*a(n-7) +3401490*a(n-8) +9668304*a(n-9) +14625564*a(n-10) +12014199*a(n-11) -37229470*a(n-12) -103402119*a(n-13) -171763266*a(n-14) +8354570*a(n-15) +254906391*a(n-16) +384743559*a(n-17) -123324128*a(n-18) -421598184*a(n-19) +628179321*a(n-20) +221724497*a(n-21) -1083423084*a(n-22) +249815562*a(n-23) +858637588*a(n-24) -920514603*a(n-25) -506962308*a(n-26) +883018391*a(n-27) -119359263*a(n-28) -648783024*a(n-29) +364210256*a(n-30) +278523843*a(n-31) -341026164*a(n-32) -28626721*a(n-33) +212356545*a(n-34) -50258766*a(n-35) -85509859*a(n-36) +52041366*a(n-37) +22638720*a(n-38) -29260115*a(n-39) -2214948*a(n-40) +11531682*a(n-41) -1415738*a(n-42) -3657156*a(n-43) +711432*a(n-44) +897796*a(n-45) -137640*a(n-46) -146136*a(n-47) +12088*a(n-48) +13344*a(n-49) -384*a(n-50) -512*a(n-51)
+Empirical: a(n) = 33*a(n-1) -300*a(n-2) +32*a(n-3) +3402*a(n-4) +42147*a(n-5) -10398*a(n-6) -401499*a(n-7) -1778961*a(n-8) +1011851*a(n-9) +12805080*a(n-10) +30529581*a(n-11) -29629828*a(n-12) -172139721*a(n-13) -207374589*a(n-14) +353786001*a(n-15) +1034468307*a(n-16) +256346187*a(n-17) -2043653609*a(n-18) -2576319183*a(n-19) +2375745975*a(n-20) +5158025728*a(n-21) +132659427*a(n-22) -7795648047*a(n-23) -3605171554*a(n-24) +8489348817*a(n-25) +4142290659*a(n-26) -2903509566*a(n-27) -7496601300*a(n-28) +2314636680*a(n-29) +4513564645*a(n-30) -741508704*a(n-31) +62308878*a(n-32) -3600855885*a(n-33) +3595073904*a(n-34) -2476131675*a(n-35) +2635368007*a(n-36) -2197414518*a(n-37) +1423241388*a(n-38) -1023654655*a(n-39) +644059068*a(n-40) -329116782*a(n-41) +164011904*a(n-42) -70594374*a(n-43) +24735420*a(n-44) -7915920*a(n-45) +2073792*a(n-46) -405660*a(n-47) +55536*a(n-48) -5112*a(n-49) +288*a(n-50) -8*a(n-51)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Mar 03 2017 09:04:32, revision 4) this is still
+As of the ``Last modified'' line on the live entry (Mar 19 2017 20:08:45, revision 4) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Cells, not blocks}
@@ -49,16 +49,16 @@ recorded as empirical, and nothing on the entry records it as proved.
 The entry names the neighbours it means --- horizontal is left and right, vertical is up and
 down, diagonal is northwest-to-southeast, antidiagonal is northeast-to-southwest, king-move is
 all eight --- and every such set lies inside the $3\times3$ square centred on the cell. Here
-the set is $\{(0,-1), (0,1), (-1,0), (1,0)\}$, written as offsets (row, column) from the cell. Every cell carries
+the set is $\{(0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)\}$, written as offsets (row, column) from the cell. Every cell carries
 the condition
 \[
-\text{every 1 has at most 2 neighbouring 1s},
+\text{every 1 has at most 3 neighbouring 1s},
 \]
 and the count of neighbours enters it, so the boundary is not a detail that can be papered
-over: a cell in the interior has $4$ neighbours in this set and a cell on the boundary
+over: a cell in the interior has $6$ neighbours in this set and a cell on the boundary
 fewer, and a condition such as ``a strict majority of its neighbours'' therefore means
 different things at the two. In particular one cannot pad the array with a border of zeros ---
-that would give every cell the full $4$ and change what is being counted. The outside is
+that would give every cell the full $6$ and change what is being counted. The outside is
 therefore carried
 explicitly, as a sentinel row above the first and below the last and as a sentinel column
 either side, and a neighbour that falls outside is simply absent from both counts.
@@ -100,7 +100,7 @@ nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;27\,a(n-1) - 165\,a(n-2) - 234\,a(n-3) - 3129\,a(n-4) + 22416\,a(n-5) + 159152\,a(n-6) + 1030014\,a(n-7) + 3401490\,a(n-8) + 9668304\,a(n-9) + 14625564\,a(n-10) + 12014199\,a(n-11) - 37229470\,a(n-12) - 103402119\,a(n-13) - 171763266\,a(n-14) + 8354570\,a(n-15) + 254906391\,a(n-16) + 384743559\,a(n-17) - 123324128\,a(n-18) - 421598184\,a(n-19) + 628179321\,a(n-20) + 221724497\,a(n-21) - 1083423084\,a(n-22) + 249815562\,a(n-23) + 858637588\,a(n-24) - 920514603\,a(n-25) - 506962308\,a(n-26) + 883018391\,a(n-27) - 119359263\,a(n-28) - 648783024\,a(n-29) + 364210256\,a(n-30) + 278523843\,a(n-31) - 341026164\,a(n-32) - 28626721\,a(n-33) + 212356545\,a(n-34) - 50258766\,a(n-35) - 85509859\,a(n-36) + 52041366\,a(n-37) + 22638720\,a(n-38) - 29260115\,a(n-39) - 2214948\,a(n-40) + 11531682\,a(n-41) - 1415738\,a(n-42) - 3657156\,a(n-43) + 711432\,a(n-44) + 897796\,a(n-45) - 137640\,a(n-46) - 146136\,a(n-47) + 12088\,a(n-48) + 13344\,a(n-49) - 384\,a(n-50) - 512\,a(n-51)
+a(n)\;=\;33\,a(n-1) - 300\,a(n-2) + 32\,a(n-3) + 3402\,a(n-4) + 42147\,a(n-5) - 10398\,a(n-6) - 401499\,a(n-7) - 1778961\,a(n-8) + 1011851\,a(n-9) + 12805080\,a(n-10) + 30529581\,a(n-11) - 29629828\,a(n-12) - 172139721\,a(n-13) - 207374589\,a(n-14) + 353786001\,a(n-15) + 1034468307\,a(n-16) + 256346187\,a(n-17) - 2043653609\,a(n-18) - 2576319183\,a(n-19) + 2375745975\,a(n-20) + 5158025728\,a(n-21) + 132659427\,a(n-22) - 7795648047\,a(n-23) - 3605171554\,a(n-24) + 8489348817\,a(n-25) + 4142290659\,a(n-26) - 2903509566\,a(n-27) - 7496601300\,a(n-28) + 2314636680\,a(n-29) + 4513564645\,a(n-30) - 741508704\,a(n-31) + 62308878\,a(n-32) - 3600855885\,a(n-33) + 3595073904\,a(n-34) - 2476131675\,a(n-35) + 2635368007\,a(n-36) - 2197414518\,a(n-37) + 1423241388\,a(n-38) - 1023654655\,a(n-39) + 644059068\,a(n-40) - 329116782\,a(n-41) + 164011904\,a(n-42) - 70594374\,a(n-43) + 24735420\,a(n-44) - 7915920\,a(n-45) + 2073792\,a(n-46) - 405660\,a(n-47) + 55536\,a(n-48) - 5112\,a(n-49) + 288\,a(n-50) - 8\,a(n-51)
 \]
 for every $n>51$.
 \end{theorem}
@@ -134,7 +134,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A283228.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A284071.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
