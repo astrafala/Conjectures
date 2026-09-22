@@ -50,7 +50,50 @@ it returns a supporting plane or there provably is none, at about 9 ms a point")
 point provably has no supporting plane. **The distance function on those classes genuinely is
 not a max of affine pieces.**
 
-**And the fix is already written down, in `galhull.pieces`'s own docstring:**
+### What the exceptional set actually looks like — measured 22 September
+
+Two things had to be settled before the docstring's plan could be followed, and the data
+settles both.
+
+**1. The exceptional set is NOT bounded.** Its size grows with the patch. A310039 at
+`refine=(2,2)`: 2 leftovers of 43 points at radius 50, 6 of 157 at radius 100, 10 of 343 at
+radius 150 — a roughly constant *fraction*, not a fixed set near the origin. So "carry a finite
+exceptional set" is not available, and neither is a bigger patch: refining the lattice by
+(2,2), (3,3), (2,1), (1,3) leaves the same proportion uncovered, because refinement splits the
+class rather than absorbing the correction.
+
+**2. But it is not scattered either — for most of them it is a pair of opposite RAYS through
+the origin, with the distance affine along the ray:**
+
+| entry | tiling | leftovers | direction | distances along it |
+|---|---|---:|---|---|
+| A310039 | Gal.3.7.1 | 6 | ±(1,−2) | 13, 25, 37 — step 12 |
+| A310007 | Gal.4.31.1 | 10 | ±(1,−1) | 9, 17, 25, 33, 41 — step 8 |
+| A310025 | Gal.4.31.2 | 10 | ±(1,−1) | 9, 17, 25, 33, 41 — step 8 |
+| A310019 | Gal.6.110.1 | 20 | ±(1,0) | 5, 9, 13, …, 41 — step 4 |
+| A310018 | Gal.4.34.1 | 58 | ~30 directions, one point each | scattered |
+
+**That changes the plan, and for the better.** A ray is exactly the shape the Ehrhart argument
+can absorb. The ball is
+`|B(t)| = #{m : max_i l_i(m) <= t} - #{m on the ray : max_i l_i(m) <= t < D(m)}`,
+and on a ray both bounds are affine in the ray parameter, so the correction is **quasi-linear
+in t** — a quasi-linear term added to a quasi-quadratic count leaves `a(n) = |B(n)| - |B(n-1)|`
+quasi-linear, which is precisely what `galehr` already fits and `galcert2` already certifies.
+No new machinery, one new term.
+
+So §A11's three parts become:
+
+1. **Detect the ray case**: group the leftovers by primitive direction and check that each
+   group is a full ray `k·v` with `D` affine in `k`. Cheap, and it is how the table above was
+   made.
+2. **Add the ray correction to the count**, as a quasi-linear term with its own period.
+3. **Extend the certificate** to state and check it on the ray as a region, which is what
+   `galcert2` already does for polyhedra.
+
+A310018's scattered case is a different problem and should be counted separately rather than
+folded in; how many of the 355 are ray-type is the measurement to make next.
+
+**The docstring's plan, for the record:**
 
 > An empty leftover list means d IS the max over `planes` at every point given — an exact,
 > checkable closed form. A non-empty one is not a failure to hide: those points are where the

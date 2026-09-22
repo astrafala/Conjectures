@@ -961,3 +961,46 @@ walking their skip lists, and the measurement work that is producing findings �
 galcoord's 355 — was getting a ninth of a core. Three jobs per core instead of six. The sweeps
 are not retired; they drain as their rounds end and the rotation brings them back. What changes
 is that they stop crowding out work that has somewhere to go.
+
+## 22 September 2026 — what galcoord's exceptional set actually is: two rays, not a scatter
+
+IDEAS §A11 proposed following `galhull.pieces`'s own docstring and carrying the leftovers as an
+exceptional set. Two questions had to be settled first, and measuring both changed the plan.
+
+**The exceptional set is not bounded.** It grows with the patch: A310039 at `refine=(2,2)` has
+2 leftovers of 43 points at radius 50, 6 of 157 at radius 100, 10 of 343 at radius 150 — a
+roughly constant *fraction*, not a fixed set near the origin. Nor does refinement absorb it:
+(2,2), (3,3), (2,1), (1,3) all leave the same proportion, because refining splits the class
+rather than absorbing the correction. So "carry a finite exceptional set" was not available.
+
+**But the set is not scattered either. For four of the five entries examined it is a pair of
+opposite RAYS through the origin, with the distance affine along the ray:**
+
+| entry | tiling | leftovers | direction | distances |
+|---|---|---:|---|---|
+| A310039 | Gal.3.7.1 | 6 | ±(1,−2) | 13, 25, 37 — step 12 |
+| A310007 | Gal.4.31.1 | 10 | ±(1,−1) | 9, 17, 25, 33, 41 — step 8 |
+| A310025 | Gal.4.31.2 | 10 | ±(1,−1) | 9, 17, 25, 33, 41 — step 8 |
+| A310019 | Gal.6.110.1 | 20 | ±(1,0) | 5, 9, …, 41 — step 4 |
+| A310018 | Gal.4.34.1 | 58 | ~30 directions, one point each | scattered |
+
+**A ray is exactly what the Ehrhart argument can absorb.** Writing
+
+      |B(t)| = #{m : max_i l_i(m) <= t}  -  #{m on the ray : max_i l_i(m) <= t < D(m)}
+
+both bounds on the ray are affine in the ray parameter, so the correction is **quasi-linear in
+t**. A quasi-linear term subtracted from a quasi-quadratic count leaves a(n) = |B(n)| − |B(n−1)|
+quasi-linear — exactly what `galehr` already fits and `galcert2` already certifies on regions.
+No new machinery, one new term.
+
+So the plan is now: (1) detect the ray case by grouping leftovers by primitive direction and
+checking D is affine along each; (2) add the ray correction as a quasi-linear term with its own
+period; (3) extend the certificate to the ray as a region. A310018's scattered case is a
+different problem and should be counted separately, not folded in.
+
+**How many of the 355 are ray-type is the next measurement**, and it is cheap — the table above
+took one pass over five entries.
+
+This is what it looks like when "read what a sweep refuses" reaches the bottom: the refusal was
+one word, then five words, then a count, and now a direction vector and an arithmetic
+progression.
