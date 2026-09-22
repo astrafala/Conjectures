@@ -1857,3 +1857,22 @@ it further.
 counter is invisible to every check built on counters, and I have now twice built a check that
 omitted a filter the sweep actually applies: first the clock, among the three refusal files, and
 now the roster. The rule: **enumerate the skips from `sweep_shard`'s source, not from memory.**
+
+
+### correction — `tmorun` did produce a result, and the clock is the current ceiling
+
+I repeated, including into LEDGER.md, that the runners whose lists and settings were fixed
+overnight had produced nothing. **That is false for `tmorun`.** A253494 was on its list at the
+time it was proved (git history confirms it; the entry is absent from the current file only
+because the roster strip removed it once papered). Its `PROVED: 1` for this generation is that
+entry, so the raise from `BUDGET=300` to 500 — made after finding that **39 of its 62 entries
+carried a `uniall_tmo` row of exactly 300** — is what produced it.
+
+The claim stands for `caprun`, `rcaprun` and `resrun`, which have still produced nothing, and
+`t21run` was asking nothing at all (defect 57).
+
+**And the current ceiling is the clock, not the cap.** Across all six runners the dominant
+refusal this generation is *out of budget on an earlier pass* — 19, 4, 3, 15 and 28 of the
+entries each asked. Every one of those rows was written at a budget the runner has since raised
+past once already, which is the shape that has paid twice now: `tmorun` 300 → 500 gave A253494,
+and `t17run` 420 → 550 gave A252102, A252128 and A252145.

@@ -19,3 +19,27 @@ the recurrence, which is what the 48,293-state transfer matrix does, and the ent
 
 Its DATA guard read **16** terms, so this one has an empirical check of its own and did not need
 the b-file fallback.
+
+## 22 September 2026 — correction: the clock runner DID produce a result
+
+I said several times, and it went into LEDGER.md's 21–22 September section as
+*"the re-settinged cap and clock runners have produced nothing at all"*, that none of the
+runners whose lists and settings were fixed overnight had yielded anything.
+
+**That is wrong for `tmorun`.** A253494 was on `deep-check/tmolist.txt` — it is absent from the
+current file only because the roster strip removed it once it was papered, and git history
+confirms it was there at the time. The runner's `PROVED: 1` for this generation is that entry.
+
+So the budget raise paid. `tmorun` asked at `BUDGET=300` against a list where **39 of its 62
+entries carried a `uniall_tmo` row of exactly 300** — the vein whose whole subject is the clock,
+re-asking at a budget already known to be too short. Raised to 500, it proved A253494.
+
+The claim stands for the others: `caprun`, `rcaprun` and `resrun` have still produced nothing,
+and `t21run` turned out to be asking nothing at all (defect 57) and is retired. **The next daily
+fold should amend the 21–22 September section accordingly** — the sentence as written is false.
+
+What the veins are refusing now, which is the more useful half: across all six runners the
+dominant reason this generation is *out of budget on an earlier pass* — 19, 4, 3, 15 and 28 of
+their asked entries respectively. **The clock, not the cap, is what is holding the remaining
+pool**, and every one of those rows was written at a budget the runner has already raised past
+once.
