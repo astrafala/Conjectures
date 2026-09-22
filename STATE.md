@@ -1953,10 +1953,26 @@ A cap row is now the record, carrying its setting, so a runner with a larger cap
 unanswered entry from a finished one; and a new skip stops a shard re-asking below its own
 recorded cap.
 
-**2,265 entries freed, 1,110 of them carrying a conjecture.** They are not hard: **21 of 25
-build at the main sweep's own cap of 2,000,000**, at state counts of 5, 20, 40, …, 2560 — and
-of 40 sampled through the sweep's whole sequence, **29 proved outright**. The cap rows were
-written by engines that have since changed.
+**2,265 entries freed, 1,110 of them carrying a conjecture, 1,001 still open.**
+
+**How much of that is recoverable — corrected.** The first estimate here said "29 of 40 proved
+outright", and that number came from `un[:40]` — the first forty in *sorted* order, which are
+all A163xxx/A166xxx/A183xxx `conn2` and `transfer6` entries with state spaces of 13 to 139. A
+sorted prefix is not a sample, and the estimate it gave was wrong.
+
+Random samples of 40, drawn properly:
+
+  * from the 742 freed entries with no other refusal row: **0 proved**, 37 refused at the
+    build even at a cap of 8,000,000, 3 timed out;
+  * from the 396 unexplained: **0 proved**, 33 refused at the build, 7 not open.
+
+So **the cap rows on the wider pool are largely honest** — those entries really are too big —
+and the recovery is the small, easy cluster at the head of the list, not hundreds of results.
+`freedrun.sh` is working the list and the exact count is being measured entry by entry rather
+than sampled.
+
+The structural fixes stand on their own: an entry refused at one cap should not be excluded
+from a runner with a larger one, whatever the yield turns out to be.
 
 ### defect 67 — capping starts is not capping what runs; and the cap pool is 645, not 2,759
 

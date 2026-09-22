@@ -65,7 +65,7 @@ start() {
   echo "started $1"
   return 0
 }
-RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh capwhyrun.sh"
+RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh capwhyrun.sh freedrun.sh"
 
 # DEFECT 66, and it is defect 65's feedback loop closing on itself. Starting all 33 runners
 # at once, each with 2-6 shards, put 92 python processes and 42 sweep_shard instances on FOUR

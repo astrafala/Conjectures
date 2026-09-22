@@ -719,3 +719,34 @@ changed and never retracted. Of 40 put through the sweep's complete sequence by 
 back as a fact about the mathematics. Defect 61 was settled work in the cap file; 64 was the
 load in the budget file; 68 is a record nobody merged; 69 is a refusal filed as an answer. None
 of them is about conjectures at all.
+
+### Correcting the freed-pool estimate: a sorted prefix is not a sample
+
+The note above said 29 of 40 of the freed entries proved outright. **That number is wrong**, and
+the way it was got is worth writing down because it is an easy mistake to repeat.
+
+It came from `un[:40]` — the first forty entries in *sorted* order. Sorted by A-number, the head
+of that list is all A163xxx/A166xxx/A183xxx `conn2` and `transfer6` entries, with state spaces
+of 13, 16, 36, 43, 139. They prove instantly. They are also nothing like the rest of the list.
+
+Drawn properly, with `random.sample`:
+
+| population | sample | PROVED | build refused | other |
+|---|---:|---:|---:|---|
+| 742 freed, no other refusal row | 40 | **0** | 37 | 3 timed out |
+| 396 unexplained | 40 | **0** | 33 | 7 not open |
+
+So the cap rows on the wider pool are **largely honest**: those entries really are too big, even
+at a cap of 8,000,000. The recovery is the small easy cluster at the head of the list — a few
+dozen entries, not the hundreds the prefix implied.
+
+That does not undo defects 68 and 69. An entry refused at a cap of 2,000,000 should not be
+excluded from a runner with a cap of 8,000,000, and a tagged runner's results should not be
+written where nothing reads them; both were real and both are fixed. What is corrected is only
+the estimate of what they unlock, and the exact figure is now being measured entry by entry
+over all 396 rather than sampled.
+
+**The lesson is the one this project keeps relearning, turned on myself:** I spent the morning
+finding refusal files that were never re-checked, and then quoted a headline number from the
+first forty rows of a sorted list without checking that they were representative. Measure the
+population, not its prefix.
