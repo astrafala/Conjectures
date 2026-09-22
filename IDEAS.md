@@ -2325,8 +2325,22 @@ generating function, so no bound on its degree exists and the residual test cann
 other 2 have no engine. Measured directly at a cap of 200,000,000 they refuse in **0.0
 seconds** — the signature of an a-priori refusal, which is what gave it away.
 
-So **the 956 was an overcount.** 455 of those 956 are not in `uni_cands.json`, and the share
-reading as `ca2dcount` can never be proved by this machinery at any setting whatever.
+So **the 956 was an overcount, and the corrected figure is 539.** 455 of the 956 are not in
+`uni_cands.json`, and the share reading as `ca2dcount` can never be proved at any setting. After
+defect 56 removed the 607 rows whose engines cannot refuse for size, the honest pool is:
+
+| | before | after |
+|---|---:|---:|
+| off-roster unsettled cap rows | 2,367 | 1,795 |
+| no parsable recurrence | 1,255 | 1,109 |
+| already settled | 117 | 104 |
+| **carry an open conjecture** | 995 | **582** |
+| reachable (not also clock/memory/death blocked) | 956 | **539** |
+
+Of the 539, **320 sit at a cap of 8,000,000** and need a larger one; 260 sit at 2,000,000 or
+below and are a new question at the cap every runner now uses. That is the whole of the capped
+vein's remaining reachable work, and it is 44% smaller than the figure I quoted an hour before
+measuring what `None` meant.
 
 The lasting fix is not a list. `ca2dcount` declares `NEVER_CERTIFIES`, `sweep_shard` records
 such entries as *engine cannot certify by design* instead of writing a cap row, and the 143
