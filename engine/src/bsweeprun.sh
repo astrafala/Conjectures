@@ -9,25 +9,26 @@
 # IT MUST NOT RUN WHILE ANYTHING ELSE IS FETCHING. bfile.fetch is rate-limited by a module
 # global and is documented as single-process; two downloaders share no such global, so they
 # double the request rate against OEIS and the only signal is a page saying "temporarily
-# blocked", which bfile detects and reports as BLOCKED. So this waits for bproved's fetch to
-# finish before it starts, and checks again between rounds.
+# blocked", which bfile detects and reports as BLOCKED. So all three are rounds of THIS runner,
+# run one after another, and nothing else on the machine fetches.
 cd /home/user/Conjectures/engine
-waitfetch() {
-  while ps -eo args | grep -q '[b]proved\.py'; do
-    sleep 60
-  done
-}
 for r in 1 2 3 4 5 6 7 8 9 10; do
-  waitfetch
   _t0=$(date +%s)
+  # bproved goes FIRST and inside this runner rather than beside it. It was started by hand,
+  # stopped at 3,060 of 5,987 when its process ended, and never came back -- which is the
+  # failure restart_all.sh's own comment records: "a sweep that is not in this list simply
+  # never comes back, which is how two veins sat idle for a whole day". A job launched by hand
+  # is not in any list. So the wait-for-bproved loop this runner used to carry is gone: there
+  # is nothing to wait for when all three fetchers are rounds of one runner.
+  FETCH=1 timeout 2000 python3 src/bproved.py >> /tmp/bproved_fetch.log 2>&1
   timeout 3000 python3 src/bsweep.py >> /tmp/bsweep_run.log 2>&1
   # THE ONE FETCHING SLOT. Three sweeps now want b-files this machine does not have: bsweep's
   # 7,092 open conjectures, provedsweep's 9,188 roster entries, and bproved's remainder. They
   # cannot run at once -- bfile.fetch is rate-limited by a module global, so two processes
   # simply double the request rate at oeis.org, and the only signal is a page saying
   # "temporarily blocked". Running them one after another inside a single round is what keeps
-  # that from happening by accident, and it is why this runner waits for bproved above rather
-  # than starting beside it.
+  # that from happening by accident, and it is why all three are rounds of
+  # this one runner rather than three processes started separately.
   FETCH=1 BUDGET=1200 timeout 1500 python3 src/provedsweep.py >> /tmp/provedsweep.log 2>&1
   _rc=$?
   _el=$(( $(date +%s) - _t0 ))

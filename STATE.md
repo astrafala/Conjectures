@@ -1742,3 +1742,22 @@ candidates, 123 unsettled, **60 carrying an open conjecture, 52 askable at the n
 The remaining honest reading across all seven runners: `caprun` 220 of 258, `rcaprun` 214 of
 242, `oomrun` 90 of 222, `t17run` 36 of 57, `tmorun` 46 of 62. Those were already asking real
 questions; the two that were not are now.
+
+### a job started by hand is in no list, and does not come back
+
+`restart_all.sh`'s own comment says it: *"every runner belongs here: a container restart wipes
+/tmp, and a sweep that is not in this list simply never comes back — which is how two veins sat
+idle for a whole day earlier in this project."*
+
+`bproved` was started by hand with `nohup`. It stopped at **3,060 of 5,987** when its process
+ended and nothing restarted it, because a hand-started job is not in any list. Its log's last
+lines are ordinary successes — it did not fail, it just stopped existing. 2,927 held results
+were left unchecked with no sign that anything was wrong.
+
+It is a round of `bsweeprun.sh` now, first of the three, so the fetching slot holds all of
+`bproved`, `bsweep` and `provedsweep` in sequence. The wait-for-bproved loop that runner used
+to carry is gone — there is nothing to wait for once all three are rounds of one runner, and
+that loop was itself a symptom of one fetcher living outside the rotation.
+
+The rule generalises past sweeps: **anything expected to still be running an hour from now
+belongs in `restart_all.sh`.** A `nohup` in a terminal is a one-shot, whatever it is doing.
