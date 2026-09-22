@@ -750,3 +750,47 @@ over all 396 rather than sampled.
 finding refusal files that were never re-checked, and then quoted a headline number from the
 first forty rows of a sorted list without checking that they were representative. Measure the
 population, not its prefix.
+
+## 22 September 2026 — the pool reconciled: 16,627 entries, and the cap pool is 582
+
+The freed-pool estimate was corrected once for being a sorted prefix. Testing all 396 end to
+end rather than sampling corrects it a second time, and more sharply:
+
+      349  refuse at the build even at a cap of 8,000,000
+       46  settled on their own page (not open)
+        1  unresolved
+        0  provable
+
+**Zero.** And the forty from the sorted prefix that I reported as proofs were not proofs at
+all: my hand-run skipped the openness check the sweep performs first, and every one of them is
+already settled on its own entry — Peter Kagey's proof on A163029, the Goodman-Strauss links on
+A163030, "The above empirical formulas confirmed using the transfer matrix method" on A163714.
+The sweep had finished them correctly. I was wrong about the sample and wrong about the result.
+
+### Fixing the instrument, then re-measuring
+
+`poolcensus.py` had no column for NOT OPEN — a terminal state that records nothing in any
+refusal file — which, together with defect 68's unmerged tags, is the whole of why it reported
+396 entries as unexplained. With both fixed:
+
+      11,116  settled by this project
+       4,758  no conjecture to settle
+         582  refused: cap          <- the real remaining engine-work pool
+         153  settled on the entry (not open)
+           8  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+**396 → 3, with no entry recovered.** Every one was already accounted for; the census simply
+could not see it. The three residuals: one builds at 6 states and its annihilation does not
+vanish, two refuse at the build.
+
+**The cap pool is 582.** It has been quoted as 2,759 in planning all week, and has now been
+corrected downward three times in one day — for settled work (defect 61), for entries with no
+conjecture, and now for rows sitting under unmerged tags. None of those corrections is about
+mathematics, and the figure is finally one worth aiming an engine at.
+
+Defects 68 and 69 remain right and remain fixed — a tagged runner's results should not be
+written where nothing reads them, and an entry refused at one cap should not be barred from a
+runner with a larger one. They simply unlock nothing, and saying so is the point.

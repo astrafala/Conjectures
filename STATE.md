@@ -1916,6 +1916,30 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### the pool, reconciled — 16,627 entries and every one accounted for
+
+`src/poolcensus.py`, after two fixes to the instrument itself (defect 68's tagged merge, and a
+column for NOT OPEN which records nothing in any refusal file):
+
+      11,116  settled by this project
+       4,758  no conjecture to settle
+         582  refused: cap          <- the real remaining engine-work pool
+         153  settled on the entry (not open)
+           8  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+The unexplained bucket went **396 → 3** without a single entry being recovered: 349 had cap
+rows sitting under a tag nothing merged, 46 were settled on their own page, 1 is unresolved.
+Of the three residuals, one builds and its annihilation does not vanish; two refuse at the
+build.
+
+**So the number that has been quoted in planning all week — 2,759 refused at the cap — is
+582.** Three independent corrections to the same file in one day, all downward, none of them
+mathematics. The 582 is what an on-the-fly quotient would be aimed at, and it is now a figure
+worth aiming by.
+
 ### defects 68 and 69 — a refusal nobody merged, and a refusal filed as an answer
 
 `src/poolcensus.py` classifies every entry the unified sweep has ever considered, once, from
@@ -1953,12 +1977,19 @@ A cap row is now the record, carrying its setting, so a runner with a larger cap
 unanswered entry from a finished one; and a new skip stops a shard re-asking below its own
 recorded cap.
 
-**2,265 entries freed, 1,110 of them carrying a conjecture, 1,001 still open.**
+**2,265 entries freed, 1,110 of them carrying a conjecture, 1,001 still open — and the yield
+is zero.** All 396 were then tested end to end rather than sampled: **349 refuse at the build
+even at a cap of 8,000,000, 46 are settled on their own page, 1 is unresolved, 0 are
+provable.** The sweep had handled every one of them correctly.
 
-**How much of that is recoverable — corrected.** The first estimate here said "29 of 40 proved
-outright", and that number came from `un[:40]` — the first forty in *sorted* order, which are
-all A163xxx/A166xxx/A183xxx `conn2` and `transfer6` entries with state spaces of 13 to 139. A
-sorted prefix is not a sample, and the estimate it gave was wrong.
+**How much of that is recoverable — corrected twice.** The first estimate said "29 of 40
+proved outright". It came from `un[:40]`, the first forty in *sorted* order, which are all
+A163xxx/A166xxx/A183xxx `conn2` and `transfer6` entries with state spaces of 13 to 139. A
+sorted prefix is not a sample. Worse, **those forty were not proofs at all**: my hand-run
+skipped the openness check the sweep does first, and every one of them is settled on its own
+page — Peter Kagey's proof on A163029, the Goodman-Strauss links on A163030, "The above
+empirical formulas confirmed using the transfer matrix method" on A163714. The sweep was right
+and I was wrong twice over.
 
 Random samples of 40, drawn properly:
 

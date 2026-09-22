@@ -22,6 +22,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import conjlines
 import localentry as LE
+import openness
 import ratrec
 import uniform
 
@@ -55,6 +56,16 @@ def main():
         recs = [x for x in (ratrec.parse_rec(L) for L in conjlines.claims(e)) if x]
         if not recs:
             tally['no conjecture to settle'] += 1
+            continue
+        # NOT OPEN is a terminal state that records nothing in any refusal file, and leaving
+        # it out is half of why the first run reported 396 entries as "asked, unsettled, no
+        # refusal recorded". Forty-six of those were settled on the entry itself -- Peter
+        # Kagey's proof on A163029, the Goodman-Strauss links on A163030, "The above empirical
+        # formulas confirmed using the transfer matrix method" on A163714. The sweep had
+        # finished them correctly; the census had no column for it. (The other half was
+        # defect 68: 349 of them had cap rows under a tag nothing merged.)
+        if not openness.status(a)[0]:
+            tally['settled on the entry (not open)'] += 1
             continue
         if a in caps:
             tally['refused: cap'] += 1
