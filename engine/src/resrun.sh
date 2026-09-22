@@ -14,6 +14,12 @@
 #
 # Asked with BUDGET=1800 rather than the usual 40-600: if the reason was the clock, this is what
 # finds out, and if it was not, the reason will now be written down.
+#
+# CHECKED WITH src/listcheck.py, WHICH IS THE POINT. That tool reports, per runner, how many of
+# its list each of the three refusal files already refuses AT OR ABOVE this runner's own cap,
+# budget and memory. It found this runner asking NOTHING -- 0 of 5 -- and `resrun' asking 5 of
+# 33. Five stale lists were found by hand in one night before it existed, the fifth being one I
+# had built myself twenty minutes earlier.
 cd /home/user/Conjectures/engine
 # IDLE BACKOFF (defect 44). A round of this loop that finds work takes minutes -- BUDGET
 # alone is 90 seconds or more -- so a round that returns in seconds found nothing, and the
@@ -27,7 +33,7 @@ cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8; do
   _t0=$(date +%s)
   ANUMS_FILE=deep-check/residue.txt BUDGET=1800 TAG=res MEMGB=5 \
-    timeout 6000 python3 src/sweep_shard.py 2000000 0 1 >> /tmp/res_run.log 2>&1
+    timeout 6000 python3 src/sweep_shard.py 8000000 0 1 >> /tmp/res_run.log 2>&1
   _rc=$?
   _el=$(( $(date +%s) - _t0 ))
   # DEFECT 52. A round that ends in seconds was read as "nothing left to ask". A round that

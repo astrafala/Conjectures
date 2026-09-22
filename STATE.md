@@ -1716,3 +1716,29 @@ to stay under the outer `timeout 1700`.
 
 The runner's own counters are what caught this. Reading them is the standing habit working on
 my own work rather than on somebody else's sweep.
+
+### `src/listcheck.py` — the stale-list check, done mechanically
+
+Five stale lists were found by hand in one night, and the fifth was one I had built myself
+twenty minutes after writing the check down. That is the signature of a check that needs to be
+a program rather than a habit, exactly as `checkclaim.py` is for the by-hand claim comparison.
+
+`listcheck.py` parses each runner's own settings out of its script — cap from the
+`sweep_shard.py <cap>` argument, `BUDGET`, `MEMGB` — and reports, for its list, how many
+entries each refusal file already refuses **at or above that runner's own setting**, plus how
+many are already proved. What survives all four is the number of questions the runner can
+actually ask.
+
+It paid immediately. **`t21run` was asking NOTHING**: 5 rows, 1 proved and 4 refused at its own
+cap. **`resrun` was asking 5 of 33** — 20 refused at the 2,000,000 it was asking at. Both are
+the defect-54 shape that had already been found four times by hand and was still sitting in two
+more runners.
+
+Fixed by measurement rather than by guess: `t21run` and `resrun` to `CAP=8,000,000`, and
+`t21cap.txt` rebuilt from the whole `transfer21` candidate pool rather than the stale 5 — 160
+candidates, 123 unsettled, **60 carrying an open conjecture, 52 askable at the new setting**.
+`resrun` goes 5 → 25. Re-run of the checker confirms 52 of 52 and 25 of 33.
+
+The remaining honest reading across all seven runners: `caprun` 220 of 258, `rcaprun` 214 of
+242, `oomrun` 90 of 222, `t17run` 36 of 57, `tmorun` 46 of 62. Those were already asking real
+questions; the two that were not are now.
