@@ -51,17 +51,49 @@ readout() {
   n=$(date +%s)
   [ $(( n - t )) -lt "$READOUT_HOLD" ]
 }
+# returns 0 only when it actually LAUNCHED something, so the cap below counts launches and
+# not holds. Returning 0 for a hold made a firing that held eight read-out runners think it
+# had started eight and stop looking, which is the opposite of what the cap is for.
 start() {
-  running "$1" && return
+  running "$1" && return 1
   if readout "$1"; then
     echo "held  $1 (read out $(( $(date +%s) - $(cat /tmp/$1.readout) ))s ago)"
-    return
+    return 1
   fi
   cp "src/$1" "/tmp/$1"
   nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 &
   echo "started $1"
+  return 0
 }
-for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh; do
-  start "$f"
+RUNNERS="forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh"
+
+# DEFECT 66, and it is defect 65's feedback loop closing on itself. Starting all 33 runners
+# at once, each with 2-6 shards, put 92 python processes and 42 sweep_shard instances on FOUR
+# cores: load average 56, about 0.04 cores each. At that point nothing finishes, every
+# wall-clock budget is worth a fortieth of itself (defect 64), and -- the part that makes it
+# self-sustaining -- the idle backoff cannot fire either, because it declares a vein read out
+# only when a round returns in under 60 seconds, and under this load even an empty round
+# cannot start four interpreters that fast. The machine was too busy to notice it had nothing
+# to do.
+#
+# So the number started per firing is capped, and the starting point rotates, so every runner
+# gets its turn across successive wake-ups rather than all of them fighting on every one.
+# Runners already up are not counted against the cap -- the cap is on new work, not on total
+# work -- and the read-out hold above still applies first.
+MAXSTART=${MAXSTART:-8}
+OFFFILE=/tmp/restart_all.offset
+off=$(cat "$OFFFILE" 2>/dev/null || echo 0)
+case "$off" in ''|*[!0-9]*) off=0 ;; esac
+n=0; i=0; started=0
+set -- $RUNNERS
+total=$#
+while [ $i -lt $total ]; do
+  idx=$(( (off + i) % total ))
+  f=$(echo $RUNNERS | cut -d' ' -f$(( idx + 1 )))
+  i=$(( i + 1 ))
+  if start "$f"; then started=$(( started + 1 )); fi
+  if [ $started -ge $MAXSTART ]; then break; fi
 done
+echo $(( (off + i) % total )) > "$OFFFILE"
+echo "load $(cut -d' ' -f1 /proc/loadavg) on $(nproc) cores; $(ps -eo args | grep -c 'python3 src/') python jobs" 
 ps -eo args | grep -oE "src/[a-z_0-9]+\.py" | sort | uniq -c | sort -rn

@@ -1916,6 +1916,33 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 66 — the machine was too busy to notice it had nothing to do
+
+Defect 65's feedback loop closing on itself. Starting all 33 runners at once, each with 2–6
+shards, put **92 python processes and 42 `sweep_shard` instances on four cores** — load average
+56, about 0.04 cores each.
+
+At that point nothing finishes, every wall-clock budget is worth a fortieth of itself
+(defect 64), and — the part that makes it self-sustaining — **the idle backoff cannot fire
+either.** A runner declares its vein read out only when a round returns in under 60 seconds,
+and under that load an empty round cannot start four interpreters that fast. So no marker is
+written, so `restart_all` restarts it, so the load stays up.
+
+`restart_all.sh` now starts at most `MAXSTART` (default 8) runners per firing, with a rotating
+start point kept in `/tmp/restart_all.offset`, so every runner gets its turn across successive
+wake-ups instead of all of them fighting on every one. Runners already up are not counted
+against the cap — it is a cap on new work, not on total work — and the read-out hold applies
+first. `start()` returns 0 only when it actually launched, or a firing that held eight read-out
+runners would think it had started eight.
+
+Verified live: two firings at `MAXSTART=2` started exactly two each, honoured three read-out
+holds with their ages, advanced the offset, and took the container from **load 56 / 92 python
+jobs to load 42 / 61**.
+
+**Three defects, one loop.** 66 kept the machine too busy to back off, which kept 65's restarts
+coming, which made 64's wall-clock budgets record the load instead of the entry — and that fed
+a refusal file the whole project reads to decide what to work on next.
+
 ### defect 64 — a budget measured in wall-clock seconds records the load, not the entry
 
 `uniall_tmophase.json` was supposed to answer "which phase is the out-of-budget pool losing

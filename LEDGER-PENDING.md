@@ -477,3 +477,32 @@ and a missing one.
 **The shape worth remembering: two mechanisms each correct on its own, wired so that one
 silently undid the other every turn, with the damage surfacing two layers away in a refusal
 file — as difficulty that was really arithmetic about who got the CPU.**
+
+### defect 66 — the machine was too busy to notice it had nothing to do
+
+Defect 65's loop closing on itself. All 33 runners started at once, each with 2–6 shards:
+**92 python processes and 42 `sweep_shard` instances on four cores**, load average 56, about
+**0.04 cores each**.
+
+Nothing finishes at that ratio. Every wall-clock budget is worth a fortieth of itself, which is
+defect 64. And the part that makes it self-sustaining: **the idle backoff cannot fire either.**
+A runner declares its vein read out only when a round returns in under 60 seconds, and under
+that load an empty round cannot start four interpreters that fast. No marker, so `restart_all`
+restarts it, so the load stays up, so no marker.
+
+`restart_all.sh` now starts at most `MAXSTART` (default 8) runners per firing, rotating the
+start point through `/tmp/restart_all.offset` so each runner gets its turn across wake-ups
+instead of all of them fighting on every one. Runners already up are not counted against the
+cap — it caps new work, not total work — and the read-out hold applies first. `start()` returns
+0 only when it actually launched: returning 0 for a hold would make a firing that held eight
+read-out runners believe it had started eight and stop looking, the opposite of the point.
+
+Verified live: two firings at `MAXSTART=2` started exactly two each, honoured three read-out
+holds and printed their ages, advanced the offset, and took the container from **load 56 with
+92 python jobs to load 42 with 61**.
+
+**Three defects, one loop.** 66 kept the machine too busy to back off; that kept 65's restarts
+coming; that made 64's wall-clock budgets record the load rather than the entry; and that fed
+`uniall_tmo.json`, which the whole project reads to decide what to work on next. None of the
+three is visible from inside its own layer, and all three were found by asking why a file
+defect 62 had just created was still empty.
