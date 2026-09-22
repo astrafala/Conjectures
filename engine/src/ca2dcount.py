@@ -86,6 +86,17 @@ def raw(rule, steps):
 REFUSE = ('the active-cell count of a two-dimensional automaton has no proved generating '
           'function, so no bound on its degree exists and the residual test cannot certify')
 
+# `build' below is an unconditional `return None', and `sweep_shard' reads None from a build as
+# "state space > cap" and writes a row into uniall_caps.json. So every ca2dcount entry has been
+# recorded as refused by a CAP when what refuses it is this paragraph: 143 of the 145 entries
+# that a measurement of the capped population turned up as "open conjectures no runner asks"
+# are ca2dcount, and not one of them could ever be proved by this machinery.
+#
+# This flag says so where a sweep can read it. An engine that sets NEVER_CERTIFIES is recording
+# a fact about the mathematics, not about a setting, and no cap, budget or memory limit will
+# change it.
+NEVER_CERTIFIES = REFUSE
+
 
 def build(p, cap=200000):
     return None

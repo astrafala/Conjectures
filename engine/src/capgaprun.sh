@@ -1,4 +1,23 @@
 #!/bin/sh
+# RETIRED THE SAME HOUR IT WAS WRITTEN. Kept as the record of a null, not as a runner.
+#
+# The 145 entries this reads are not 145 open questions. 143 of them read as `ca2dcount', whose
+# `build' is an unconditional `return None' with a documented reason: the active-cell count of a
+# two-dimensional automaton has no proved generating function, so no bound on its degree exists
+# and the residual test cannot certify. The other 2 have no engine at all. Every one of the 143
+# was asked at CAP=8,000,000 within minutes of this runner starting and refused; measured
+# directly at a cap of 200,000,000 they refuse in 0.0 seconds, which is what an a-priori
+# refusal looks like and what gave the game away.
+#
+# The count that justified writing this -- "956 reachable capped entries carrying an open
+# conjecture" -- was an overcount. 455 of those 956 are not in uni_cands.json, and the share of
+# them that reads as ca2dcount can never be proved by this machinery at any setting.
+#
+# The lasting fix is not a list. `ca2dcount' now declares NEVER_CERTIFIES and `sweep_shard'
+# records such entries as "engine cannot certify by design" instead of writing a cap row, and
+# the 143 rows they had already written have been removed from uniall_caps.json. That is a
+# THIRD mechanism polluting the cap file, after the timeout of defect 49 and the out-of-memory
+# of defects 36, 39 and 41: a refusal about the mathematics wearing a setting's name.
 # The 145 entries that carry an open conjecture, were refused by a CAP, and are on no other
 # runner's list.
 #

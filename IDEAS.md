@@ -2315,10 +2315,24 @@ cap, budget and memory limit:
 | on a runner's list but blocked by that runner's cap (154) or clock (11) | 165 |
 | on **no** `sweep_shard` list at all | 311 |
 
-**145 of the 311 are askable at CAP=8,000,000**, and 142 of those carry a cap row of
-**200,000** — refused at a cap forty times smaller than the one a runner would use today, and
-nothing has asked them since. `src/capgaprun.sh` reads them; `listcheck` confirms 145 of 145
-askable.
+**145 of the 311 looked askable at CAP=8,000,000**, and 142 of those carry a cap row of
+**200,000**. `src/capgaprun.sh` was written for them and **retired within the hour**, because
+they are not questions at all.
+
+**143 of the 145 read as `ca2dcount`, whose `build` is an unconditional `return None`** with a
+documented reason: the active-cell count of a two-dimensional automaton has no proved
+generating function, so no bound on its degree exists and the residual test cannot certify. The
+other 2 have no engine. Measured directly at a cap of 200,000,000 they refuse in **0.0
+seconds** — the signature of an a-priori refusal, which is what gave it away.
+
+So **the 956 was an overcount.** 455 of those 956 are not in `uni_cands.json`, and the share
+reading as `ca2dcount` can never be proved by this machinery at any setting whatever.
+
+The lasting fix is not a list. `ca2dcount` declares `NEVER_CERTIFIES`, `sweep_shard` records
+such entries as *engine cannot certify by design* instead of writing a cap row, and the 143
+rows they had already written are removed — `uniall_caps.json` 3,366 → 3,223. That is a **third
+mechanism polluting the cap file**, after the timeout of defect 49 and the out-of-memory of
+defects 36, 39 and 41: a refusal about the mathematics wearing a setting's name.
 
 This is the same fact as the five stale lists, one level up. Those were lists asked at the
 setting that had already refused them. This is a population that no list covers — invisible to

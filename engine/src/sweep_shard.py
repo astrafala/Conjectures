@@ -351,6 +351,20 @@ for a in sorted(set(CANDS) | ANUMS):
         res['no parsable recurrence'] += 1; done.add(a); save(); continue
     if not openness.status(a)[0]:
         res['not open'] += 1; done.add(a); save(); continue
+    # An engine may declare that it can never certify a recurrence -- `ca2dcount' does, because
+    # the active-cell count of a two-dimensional automaton has no proved generating function and
+    # so no degree bound for the residual test. Its `build' is an unconditional `return None',
+    # and None from a build is read below as "state space > cap", so every such entry has been
+    # recorded in uniall_caps.json as refused by a CAP. 143 of the 145 entries that a
+    # measurement of the capped population turned up as "open conjectures no runner asks" are
+    # ca2dcount, and no cap, budget or memory limit could ever have reached one of them.
+    #
+    # That is a third mechanism polluting the cap file, after the timeout of defect 49 and the
+    # out-of-memory of defects 36/39/41: a refusal about the MATHEMATICS wearing a setting's
+    # name. Recorded under its own reason now, and not asked at all.
+    _never = getattr(uniform.M.get(en), 'NEVER_CERTIFIES', None) if hasattr(uniform, 'M') else None
+    if _never:
+        res['engine cannot certify by design'] += 1; done.add(a); save(); continue
     inflight(a, 'build')
     try:
         signal.alarm(BUDGET)
