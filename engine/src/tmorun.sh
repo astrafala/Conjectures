@@ -39,13 +39,24 @@
 # alarm, so one entry costs up to 3*BUDGET = 1500s, and the outer `timeout 1700' has to be
 # larger than that or a slow entry is killed with its marker on disk and written down as
 # something it is not (defect 50).
+#
+# BUDGET DOUBLED, AND THE OUTER TIMEOUT WITH IT. Measured: the clock is what holds this vein --
+# "out of budget on an earlier pass" is the dominant refusal across every runner -- and the two
+# budget raises made so far are the only setting changes that have produced anything. tmorun
+# 300 -> 500 gave A253494; t17run 420 -> 550 gave A252102, A252128 and A252145. Every cap raise
+# has given nothing.
+#
+# The raise that fits inside the old timeout was 8 percent, which will not convert an entry that
+# already exhausted the budget; the two that paid were 67 and 31 percent. So the outer timeout
+# rises too, and it must, because BUDGET is per phase: 3*BUDGET has to stay under it or an entry
+# is killed with its marker on disk and recorded as something it is not (defect 50).
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   _pids=""
   for i in 0 1; do
-    ANUMS_FILE=deep-check/tmolist.txt BUDGET=500 TAG=tmo MEMGB=6 \
-      timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/tmo_$i.log 2>&1 &
+    ANUMS_FILE=deep-check/tmolist.txt BUDGET=1000 TAG=tmo MEMGB=6 \
+      timeout 3300 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/tmo_$i.log 2>&1 &
     _pids="$_pids $!"
   done
   # `wait' with no operands always returns zero, so per-pid is the only way to see a status.

@@ -43,3 +43,32 @@ dominant reason this generation is *out of budget on an earlier pass* — 19, 4,
 their asked entries respectively. **The clock, not the cap, is what is holding the remaining
 pool**, and every one of those rows was written at a budget the runner has already raised past
 once.
+
+## 22 September 2026 — the clock is the ceiling, and the budgets are doubled
+
+Measured across all six runners: the dominant refusal this generation is **out of budget on an
+earlier pass** — 19, 4, 3, 15 and 28 entries respectively. Not the cap.
+
+That matches which settings have actually paid. **Every budget raise has produced a result and
+every cap raise has produced nothing:** `tmorun` 300 → 500 gave A253494, `t17run` 420 → 550 gave
+A252102, A252128 and A252145; `caprun`, `rcaprun` and `resrun` all went to CAP=8,000,000 and
+have yielded nothing at all, and a measured test showed a cap of 32,000,000 does not open the
+`transfer35` family either.
+
+The raise that fits inside the old outer timeout is **8 percent** — 600 → 651, 550 → 566 — which
+will not convert an entry that has already exhausted its budget. The two raises that worked were
+67 and 31 percent. So the timeouts rise with the budgets:
+
+| runner | BUDGET | outer timeout | 3×BUDGET |
+|---|---:|---:|---:|
+| `tmorun` | 500 → **1000** | 1700 → **3300** | 3000 |
+| `t17run` | 550 → **1100** | 1700 → **3400** | 3300 |
+
+Both kept under the per-phase rule — `3 * BUDGET` must stay below the outer timeout or an entry
+is killed with its marker on disk and written down as something it is not (defect 50).
+
+`caprun` and `rcaprun` are left alone deliberately: their lists are built from **cap** refusals,
+not clock ones, so a longer clock is not the thing they are short of. Only 14 and 7 of their
+entries are clock-blocked at all.
+
+Askable after the change: `tmorun` 50 of 60, `t17run` 36 of 54.
