@@ -268,3 +268,33 @@ The blind spot this looked for and did **not** find is worth stating too: only *
 line printed in full belongs to a column entry that carries no formula of its own. Where a
 column entry exists, it repeats the table's line essentially always. The gap was never
 table-states-it-and-entry-does-not; it was tables whose columns have no entry at all.
+
+## 22 September 2026 — measured: which engine deserves an on-the-fly quotient
+
+2,759 entries are refused at the **cap** — the largest single block of unasked work, and
+IDEAS.md §T named the lever a week ago: every engine builds the whole reachable set and only
+then merges, so the cap is hit during *exploration* and `lumpauto` runs too late to help.
+`transfer17` got a Myhill–Nerode quotient of its own (`build_lineset`); nothing else did.
+
+Before writing that again, measure whether it pays. `src/lumpgain.py` takes entries an engine
+has actually built, rebuilds them, lumps, and reports the ratio — with `uniform.lumpable()`
+factored out of `threshold`, which already knew the per-engine shape but knew it only inline,
+so nothing could ask "what would this model merge to".
+
+| engine | capped | median lump ratio | |
+|---|---:|---:|---|
+| transfer17 | 332 | 3.50× | already quotients (`build_lineset`) |
+| transfer40 | 201 | 7.00× | |
+| transfer19 | 169 | 2.36× | |
+| transfer9 | 114 | 3.00× | |
+| transfer21 | 103 | **16.37×** | reaches `transfer17.build_pairfree` |
+| transfer20 | 103 | **30.38×** | untouched |
+
+**transfer20 and transfer21 are the targets** — 206 capped entries between them at 30× and 16×.
+And the number that decides it is not the median but the trend: the ratio **grows with the
+width**, which is to say it grows exactly where the cap bites. A184545/46/47 go 12.95×, 21.80×,
+37.89× as the width rises; A185459…A185464 go 1.60× to 3.86×. An engine whose redundancy is
+flat would not be worth the surgery; these are not flat.
+
+Read the medians as medians: 4 builds each, and one 40× outlier says nothing about the 103
+entries behind it. The trend is the evidence, not the maximum.

@@ -298,6 +298,34 @@ def terms(en, p, b, N):
             for q in M[en].avals(adj, start, end, p, N)]
 
 
+def lumpable(en, b):
+    """(adj, start, end) for a built model, in the shape `lumpauto.lump' takes, or None.
+
+    `threshold' already knows this per engine --- it lumps before every annihilation test ---
+    but it knew it only inline, so nothing else could ask "what would this model merge to".
+    That question is what decides whether an engine is worth an on-the-fly quotient like
+    `transfer17.build_lineset': the cap is hit during EXPLORATION, and a merge that happens
+    after the build is finished can never raise it. `src/lumpgain.py' asks it in bulk.
+
+    Returns None rather than guessing for the engines whose model is not a plain weighted
+    digraph (IMAGE, and the few that carry their own threshold).
+    """
+    if en in IMAGE or en in ('transfer25', 'transfer7', 'transfer10'):
+        return None
+    if en == 'transfer3' or en in ('transfer6', 'transfer23', 'transfer29', 'transfer30',
+                                   'transfer31', 'transfer33', 'transfer34', 'transfer35',
+                                   'transfer36', 'transfer37'):
+        st, adj = b
+        S = len(st)
+        return adj, [1] * S, [1] * S
+    if en == 'transfer17' or en in PAIR or en in DEN:
+        return b[0], b[1], b[2]
+    try:
+        return b[0], b[1], b[2]
+    except Exception:
+        return None
+
+
 def threshold(en, p, b, coeffs, order):
     if en in IMAGE:
         return M[en].threshold(b, coeffs, order)
