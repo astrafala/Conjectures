@@ -1895,3 +1895,23 @@ dated is no use for that, so the merge clears it with the rest.
 **The general form**, since this is the second time the same shape has cost me: a file that
 survives the operation that resets its siblings will eventually be read as current. Either it is
 cleared with them or every reading of it has to carry a date, and the first is cheaper.
+
+### a shared slot with a fixed order is a priority list nobody chose
+
+`bsweeprun` runs three fetching sweeps in one round, because `bfile.fetch` is single-process and
+two downloaders would double the request rate at OEIS. The order was `bproved`, `bsweep`,
+`provedsweep` — and the last of those **had not run since 01:43, ten hours earlier**, while
+`bsweep` advanced from 4,453 to 5,109 in the same period.
+
+Nothing was broken. `bproved` could take its full 2,000 seconds and `bsweep` its slice, so the
+third only got a turn when a whole round completed, and a container restart resets the loop to
+the top. A queue whose last entry waits on two others finishing is not a rotation; it is a
+priority order arrived at by accident.
+
+`provedsweep` goes first now, being the one behind — 5,958 of 13,387 roster entries against
+`bsweep`'s 5,109 of 10,632 — and `bproved` is finished, so it returns at once and costs the
+round nothing.
+
+**The general form:** when several jobs share a serialised slot, the order is a scheduling
+decision whether or not anyone made it. Check which of them is furthest behind, not which one
+was written first.

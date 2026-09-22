@@ -20,6 +20,15 @@ for r in 1 2 3 4 5 6 7 8 9 10; do
   # never comes back, which is how two veins sat idle for a whole day". A job launched by hand
   # is not in any list. So the wait-for-bproved loop this runner used to carry is gone: there
   # is nothing to wait for when all three fetchers are rounds of one runner.
+  # ORDER MATTERS, AND IT STARVED ONE OF THEM. These three share a round, and until now
+  # provedsweep ran last. bproved took up to 2000s and bsweep another slice, so provedsweep's
+  # turn came only if a round completed -- and it last wrote at 01:43 while bsweep advanced
+  # from 4,453 to 5,109 in the same ten hours. A queue where the last entry waits on two others
+  # completing is not a rotation, it is a priority order nobody chose.
+  #
+  # provedsweep goes first now, being the one behind: 5,958 of 13,387 roster entries against
+  # bsweep's 5,109 of 10,632, and bproved is finished so it returns at once.
+  FETCH=1 BUDGET=1200 timeout 1500 python3 src/provedsweep.py >> /tmp/provedsweep.log 2>&1
   FETCH=1 timeout 2000 python3 src/bproved.py >> /tmp/bproved_fetch.log 2>&1
   timeout 3000 python3 src/bsweep.py >> /tmp/bsweep_run.log 2>&1
   # THE ONE FETCHING SLOT. Three sweeps now want b-files this machine does not have: bsweep's
@@ -29,7 +38,6 @@ for r in 1 2 3 4 5 6 7 8 9 10; do
   # "temporarily blocked". Running them one after another inside a single round is what keeps
   # that from happening by accident, and it is why all three are rounds of
   # this one runner rather than three processes started separately.
-  FETCH=1 BUDGET=1200 timeout 1500 python3 src/provedsweep.py >> /tmp/provedsweep.log 2>&1
   _rc=$?
   _el=$(( $(date +%s) - _t0 ))
   # IDLE BACKOFF (defect 44). A round that returns in seconds found nothing left to ask.
