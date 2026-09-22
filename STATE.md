@@ -1691,3 +1691,28 @@ happens to use. `src/t21grid.py` supplies it: every distinct body form among the
 crossed with width 3..6 and K 2..4, terms compared through `uniform.terms` so the scaling
 denominator is handled as production handles it, and a builder that raises reported with its
 exception type rather than counted as agreement.
+
+### a sweep has THREE refusals, and a list is only new against all three
+
+The one-line check written down earlier tonight — *is this entry already in the refusal file at
+or above the setting this runner uses?* — has a plural in it that I dropped the first time I
+applied it to a list I had built myself.
+
+`t17small.txt` was rebuilt as the 57 `transfer17` entries that are capped, unsettled and carry
+an open conjecture. I checked them against the CAP and against memory, found 36 below the
+runner's 8,000,000, and said 36 were a new question. The runner immediately reported **32 skips
+of "out of budget on an earlier pass"**: 31 of the 57 carry a `uniall_tmo.json` row of exactly
+420, which is `t17run`'s own budget. **Only 16 were askable at all.**
+
+The three refusal files exist precisely because they are three different facts — that is the
+whole of defects 48, 49 and 53 — and a list is new only against `uniall_caps`, `uniall_tmo` AND
+`uniall_oom`, each compared to the corresponding runner setting. Checking one and announcing a
+number is how a list looks fixed while being mostly unaskable.
+
+`t17run` is at `BUDGET=550` now: nothing on the list is budget-skipped (the worst row is 500),
+36 become askable, and the remaining 21 are refused by the cap and need a bigger one rather
+than a longer clock. 550 and not more because the budget is per phase and `3 * 550 = 1650` has
+to stay under the outer `timeout 1700`.
+
+The runner's own counters are what caught this. Reading them is the standing habit working on
+my own work rather than on somebody else's sweep.

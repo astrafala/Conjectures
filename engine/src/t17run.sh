@@ -48,12 +48,25 @@
 # for it: its 25 entries have produced nothing in three hours while holding 7 GB, and moving
 # memory from the population that has produced nothing to the one that has produced eleven is
 # the whole of the argument.
+#
+# A LIST MUST BE CHECKED AGAINST ALL THREE SETTINGS, NOT ONE. t17small.txt was rebuilt as the
+# 57 transfer17 entries that are capped, unsettled and carry an open conjecture -- checked
+# against the CAP and against memory, and I called 36 of them a new question. The runner then
+# reported 32 skips of "out of budget on an earlier pass": 31 of the 57 carry a uniall_tmo.json
+# row of exactly 420, which is this runner's own budget. Only 16 were askable at all.
+#
+# A sweep has three refusals and a list is only new against all three. Raised to 550, at which
+# nothing on the list is budget-skipped (the worst row is 500) and 36 become askable; the other
+# 21 are refused by the cap at 8,000,000 and need a bigger one, not a longer clock.
+#
+# 550 and not more because BUDGET is per phase: 3*550 = 1650 must stay under `timeout 1700'
+# or a slow entry is killed with its marker on disk and recorded as something it is not.
 cd /home/user/Conjectures/engine
 for r in 1 2 3 4 5 6 7 8 9 10 11 12; do
   _t0=$(date +%s)
   _pids=""
   for i in 0 1; do
-    ANUMS_FILE=deep-check/t17small.txt BUDGET=420 TAG=t17c MEMGB=7 \
+    ANUMS_FILE=deep-check/t17small.txt BUDGET=550 TAG=t17c MEMGB=7 \
       timeout 1700 python3 src/sweep_shard.py 8000000 $i 2 >> /tmp/t17c_$i.log 2>&1 &
     _pids="$_pids $!"
   done
