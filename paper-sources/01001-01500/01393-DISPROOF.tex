@@ -1,0 +1,158 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A222434 is false, and the correct one is the same
+line with one more term and a range}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A222434 carries an empirical recurrence of order $25$ contributed by R.~H.~Hardin. It is
+false: the entry's b-file runs to $n=210$, so the recurrence can be tested at $185$ indices and
+it fails at every one, the first being $n=26$ where it falls short by $3$. A transfer matrix on
+$62$ states, reproducing all $210$ b-file terms, settles both halves. Appending a single term
+$-a(n-26)$ gives a recurrence that the annihilation test certifies for every $n>54$, while the
+published line is certified for no $n$ at all. The range is not decoration: the corrected line
+also fails at eight indices below $55$, so this is not the published line with a term
+accidentally omitted --- it is a different statement.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 11B37, 15B36.\normalsize
+
+\section{The sequence and the claim}
+
+OEIS A222434 is ``Number of binary arrays indicating the locations of trailing edge maxima of a
+random length-n 0..4 array extended with zeros and convolved with 1,1,1.''. It has offset $1$,
+publishes $38$ terms and links a b-file of $210$. It carries one formula line, an empirical
+recurrence of order $25$:
+\begin{multline}\label{eq:conj}
+a(n)\;=\;a(n-1) + a(n-2) - a(n-3) + a(n-4) + a(n-5) - a(n-6)\\
+{}+ a(n-7) + a(n-8) - a(n-9) + a(n-10) + a(n-11) - a(n-12)\\
+{}+ 2\,a(n-13) - a(n-14) - a(n-15) + a(n-16) - a(n-17) - a(n-18)\\
+{}+ a(n-19) - a(n-20) - a(n-21) + a(n-22) - a(n-23) - a(n-24)\\
+{}+ a(n-25),
+\end{multline}
+recorded as empirical on the live entry (revision $8$, Oct 2025), with no range stated and
+nothing recording it as settled or corrected.
+
+With offset $1$ and order $25$ the line first asserts something at $n=26$. DATA stops at
+$n=38$, so the DATA alone tests it thirteen times; the b-file tests it $185$.
+
+\section{The published recurrence fails at all 185 indices its b-file can test}
+
+\begin{center}\small
+\begin{tabular}{rrrr}
+\toprule
+$n$ & $a(n)$ & \eqref{eq:conj} predicts & difference \\
+\midrule
+$26$ & $194714$ & $194711$ & $+3$\\
+$27$ & $314846$ & $314848$ & $-2$\\
+$28$ & $509094$ & $509097$ & $-3$\\
+$29$ & $823186$ & $823187$ & $-1$\\
+$30$ & $1331062$ & $1331067$ & $-5$\\
+$31$ & $2152279$ & $2152288$ & $-9$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}\label{prop:false}
+\eqref{eq:conj} is false. It fails at every one of the $185$ indices $n=26,\dots,210$ at which
+the entry's b-file can test it; the smallest is $n=26$, where $a(26)=194714$ and
+\eqref{eq:conj} gives $194711$.
+\end{proposition}
+
+\begin{proof}
+Direct evaluation in exact integer arithmetic on the $210$ integers the entry's b-file
+publishes. It is worth noting that thirteen of these failures are already visible in the
+entry's own DATA section, without the b-file.
+\end{proof}
+
+\section{The model}
+
+The counting problem is a walk count: the condition defining a trailing edge maximum of the
+convolved array is local, and a state carrying enough of the recent window determines which
+extensions are admissible. Built and reduced, the automaton has $S=62$ states, and
+$a(n)=\mathbf v^{\!\top}M^{\,n}\mathbf u$ reproduces \emph{all} $210$ b-file terms exactly ---
+every one, not a sample --- and hence all $38$ published DATA terms.
+
+\section{The recurrence that does hold}
+
+\begin{theorem}\label{thm:true}
+For every $n>54$,
+\begin{equation}\label{eq:true}
+a(n)\;=\;\bigl[\text{the right-hand side of \eqref{eq:conj}}\bigr]\;-\;a(n-26).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $q$ be the characteristic polynomial of \eqref{eq:true} and $w=q(M)\mathbf u$. For $n$
+beyond the order, $a(n)-\sum_i c_i a(n-i)=\mathbf v^{\!\top}M^{\,n-55}w$, so the recurrence
+holds from there exactly when $\mathbf v^{\!\top}M^{m}w=0$ for every $m\ge0$; by
+Cayley--Hamilton, checking $m<S=62$ suffices. Carried out in exact integer arithmetic, the
+residuals vanish and the test returns the threshold $54$.
+\end{proof}
+
+\begin{proposition}
+\eqref{eq:conj} is certified for no threshold at all: the same test applied to the published
+coefficients returns none, so there is no index beyond which \eqref{eq:conj} holds.
+\end{proposition}
+
+\begin{remark}
+The stated range in Theorem~\ref{thm:true} is not a formality. Evaluated on the b-file,
+\eqref{eq:true} fails at exactly eight indices below $55$ ---
+$n=29,35,38,41,45,48,51,54$ --- and holds at all $156$ indices from $n=55$ to $n=210$. So
+\eqref{eq:true} is not \eqref{eq:conj} with a term accidentally dropped in transcription; it is
+a different statement, true only eventually, and a reader who appended $-a(n-26)$ to the
+published line and tested it from $n=27$ would conclude it was false too.
+\end{remark}
+
+\section{Verification}
+
+Four checks.
+
+First, Proposition~\ref{prop:false} uses only the $210$ integers of the entry's own b-file, and
+thirteen of its failures need only the DATA. It does not depend on the model.
+
+Second, the model reproduces all $210$ b-file terms, and therefore all $38$ DATA terms.
+
+Third, \eqref{eq:true} was checked directly against the b-file at every index from $n=27$ to
+$n=210$: it fails at the eight indices listed above and holds at all $156$ others, matching
+Theorem~\ref{thm:true}'s threshold of $54$ exactly.
+
+Fourth, both lines were put through the same annihilation test in the same code: it certifies
+\eqref{eq:true} from $n=55$ and returns nothing for \eqref{eq:conj}.
+
+\begin{remark}
+This is the fourth entry of this shape settled here in one day, after A269637 (order 10
+published, 13 true), A236647 ($34$, $38$) and A196074 ($37$, $43$). In the first three the
+published coefficients are the true recurrence's first coefficients term for term, and the
+correction is a pure truncation. This one is the variant worth separating: the published
+coefficients are again a prefix, but what is missing is one term \emph{and} a range, and
+without the range the corrected line is false as well.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences},
+\url{https://oeis.org}, 2026. Sequence A222434.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}

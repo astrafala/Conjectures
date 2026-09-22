@@ -16,27 +16,27 @@
 % the page; the linked-a-file papers are all of that shape.
 \setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A233802, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A233483, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A233802 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
+OEIS A233483 counts arrays of width $3$ over $\{0,1,2,3\}$ containing no run of $3$ consecutive
 cells, taken along a named direction of the grid, whose entries are strictly increasing. The entry carries
 an empirical recurrence of order $60$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every such run lies inside $3$ consecutive array rows, so
 the count is a walk count on $S=3661$ states.
- Throughout, \emph{row} means a line of the array in the direction the walk grows: this entry fixes the first dimension and grows the second, so the array is read transposed, and a step appends what the entry's own name writes as a column.\end{abstract}
+\end{abstract}
 
 \noindent\small 2020 Mathematics Subject Classification. 05A15, 68R15, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A233802 is ``Number of (1+2)X(n+2) 0..3 arrays with no increasing sequence of length 3 horizontally, vertically or antidiagonally downwards.''. It has offset $1$ and begins
+OEIS A233483 is ``Number of (n+2)X(1+2) 0..3 arrays with no increasing sequence of length 3 horizontally, diagonally downwards or vertically.''. It has offset $1$ and begins
 \[
-169840, 7949773, 371832256, 17394286865, 812933550972, 37996849382405, 1775753454824996, 82989727430563759,\ \dots
+172952, 8254896, 386906152, 18116531520, 846914338316, 39587056212137, 1850126770689608, 86465768048368472,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
@@ -44,7 +44,7 @@ Empirical recurrence of order 60 (see link above)
 
 Empirical: a(n) = 60*a(n-1) - 139*a(n-2) - 29472*a(n-3) + 254156*a(n-4) + 4697496*a(n-5) - 57768479*a(n-6) - 240706944*a(n-7) + 5001507923*a(n-8) - 3390017216*a(n-9) - 179155001902*a(n-10) + 488520513366*a(n-11) + 3103395758940*a(n-12) - 13625055771924*a(n-13) - 24949389271282*a(n-14) + 184914867657876*a(n-15) + 29017544780262*a(n-16) - 1364428675286624*a(n-17) + 948329958322049*a(n-18) + 5234250754528626*a(n-19) - 5789855001947623*a(n-20) - 7998489504361020*a(n-21) + 1967997250357611*a(n-22) + 3035784315125332*a(n-23) + 85093594645776469*a(n-24) - 65565680654911310*a(n-25) - 301805973867918561*a(n-26) + 362600367849032930*a(n-27) + 427294630660143399*a(n-28) - 805308790152033386*a(n-29) - 185055660636091343*a(n-30) + 942173033093886658*a(n-31) - 220754655006947124*a(n-32) - 609828287013182126*a(n-33) + 362872398293436838*a(n-34) + 193683545342593154*a(n-35) - 232773792208872660*a(n-36) - 1192355442421010*a(n-37) + 85237962436030485*a(n-38) - 25174418275511564*a(n-39) - 19338938872046723*a(n-40) + 12385962718203524*a(n-41) + 1794421447258601*a(n-42) - 3291542535144124*a(n-43) + 463617247788676*a(n-44) + 450510933454224*a(n-45) - 175898834915411*a(n-46) - 12021382694806*a(n-47) + 18331853163026*a(n-48) - 2286906317596*a(n-49) - 697017496406*a(n-50) + 192804179360*a(n-51) + 1573633748*a(n-52) - 5200295532*a(n-53) + 441730715*a(n-54) + 40869080*a(n-55) - 7819876*a(n-56) + 167144*a(n-57) + 41400*a(n-58) - 3408*a(n-59) + 80*a(n-60)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 08:11:42, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 08:03:14, revision 8) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -53,20 +53,12 @@ A RUN is $3$ consecutive cells taken along one of the directions
 \[
 \begin{array}{l}
 \text{along a row} \\
-\text{down an antidiagonal, ne to sw, read the other way} \\
 \text{down a column} \\
+\text{down a diagonal, nw to se} \\
 \end{array}
 \]
-all of them inside the array. The array is counted when no run has its entries strictly increasing. The entry writes the array with $n$ as the number of COLUMNS; the walk is run down the transpose, so the directions above are already the transposed ones.
+all of them inside the array. The array is counted when no run has its entries strictly increasing.
 
-
-One direction above is marked ``read the other way''. Transposing an array exchanges a row with
-a column and carries each diagonal direction to itself only up to sense: an antidiagonal read
-from the northeast becomes one read from the southwest. For a condition built from EQUALITY
-that would not matter, but ``strictly increasing'' read backwards is ``strictly decreasing'',
-so the sense is carried explicitly rather than normalised away. The
-difference is not subtle: normalising it away makes the model disagree with the entry's
-published terms from the very first one, which is how the point was found.
 
 The entry carries no renaming clause, and it could not: ``strictly increasing'' compares
 letters by size, so it is not preserved by a permutation of the alphabet. The count is taken
@@ -118,13 +110,13 @@ pins the threshold exactly.
 \[
 a(n)\;=\;60\,a(n-1) - 139\,a(n-2) - 29472\,a(n-3) + 254156\,a(n-4) + 4697496\,a(n-5) - 57768479\,a(n-6) - 240706944\,a(n-7) + 5001507923\,a(n-8) - 3390017216\,a(n-9) - 179155001902\,a(n-10) + 488520513366\,a(n-11) + 3103395758940\,a(n-12) - 13625055771924\,a(n-13) - 24949389271282\,a(n-14) + 184914867657876\,a(n-15) + 29017544780262\,a(n-16) - 1364428675286624\,a(n-17) + 948329958322049\,a(n-18) + 5234250754528626\,a(n-19) - 5789855001947623\,a(n-20) - 7998489504361020\,a(n-21) + 1967997250357611\,a(n-22) + 3035784315125332\,a(n-23) + 85093594645776469\,a(n-24) - 65565680654911310\,a(n-25) - 301805973867918561\,a(n-26) + 362600367849032930\,a(n-27) + 427294630660143399\,a(n-28) - 805308790152033386\,a(n-29) - 185055660636091343\,a(n-30) + 942173033093886658\,a(n-31) - 220754655006947124\,a(n-32) - 609828287013182126\,a(n-33) + 362872398293436838\,a(n-34) + 193683545342593154\,a(n-35) - 232773792208872660\,a(n-36) - 1192355442421010\,a(n-37) + 85237962436030485\,a(n-38) - 25174418275511564\,a(n-39) - 19338938872046723\,a(n-40) + 12385962718203524\,a(n-41) + 1794421447258601\,a(n-42) - 3291542535144124\,a(n-43) + 463617247788676\,a(n-44) + 450510933454224\,a(n-45) - 175898834915411\,a(n-46) - 12021382694806\,a(n-47) + 18331853163026\,a(n-48) - 2286906317596\,a(n-49) - 697017496406\,a(n-50) + 192804179360\,a(n-51) + 1573633748\,a(n-52) - 5200295532\,a(n-53) + 441730715\,a(n-54) + 40869080\,a(n-55) - 7819876\,a(n-56) + 167144\,a(n-57) + 41400\,a(n-58) - 3408\,a(n-59) + 80\,a(n-60)
 \]
-for every $n>60$.
+for every $n>57$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $60$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=60+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=57+1$ onwards and the run continued
 until the working vector was identically zero.
 \end{proof}
 
@@ -148,7 +140,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A233802.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A233483.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

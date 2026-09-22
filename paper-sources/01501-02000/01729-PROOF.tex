@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A281247, proved by counting patterns with a budget}
+\title{The empirical recurrence for OEIS A280212, proved by counting patterns with a budget}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{1 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A281247 imposes three things at once: a condition on each cell that reaches one row up and
+OEIS A280212 imposes three things at once: a condition on each cell that reaches one row up and
 one row down; a global budget allowing exactly two cells to
 break it; and the clause ``new values introduced in order $0$ sequentially upwards'', which
 says the array is written in canonical form. None of the three is visible to a plain transfer
@@ -35,22 +35,22 @@ from a finite exact computation on $S=294$ states.
 
 \section{The sequence and the conjecture}
 
-OEIS A281247 is ``Number of nX2 0..2 arrays with no element equal to more than one of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
+OEIS A280212 is ``Number of nX2 0..2 arrays with no element unequal to a strict majority of its horizontal, vertical and antidiagonal neighbors, with the exception of exactly two elements, and with new values introduced in order 0 sequentially upwards.''. It has offset $1$ and begins
 \[
-0, 0, 12, 139, 1222, 9151, 63138, 412070,\ \dots
+1, 2, 26, 92, 307, 1072, 3541, 11834,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 13*a(n-1) -48*a(n-2) +7*a(n-3) +149*a(n-4) +96*a(n-5) -59*a(n-6) -97*a(n-7) -48*a(n-8) -11*a(n-9) -a(n-10) for n>12
+Empirical: a(n) = 4*a(n-1) +6*a(n-2) -20*a(n-3) -49*a(n-4) +24*a(n-5) +148*a(n-6) +128*a(n-7) -48*a(n-8) -128*a(n-9) -64*a(n-10) for n>14
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jan 18 2017 08:42:26, revision 5) the statement is
+As of the ``Last modified'' line on the live entry (Dec 29 2016 04:00:42, revision 5) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;13\,a(n-1) - 48\,a(n-2) + 7\,a(n-3) + 149\,a(n-4) + 96\,a(n-5) - 59\,a(n-6) - 97\,a(n-7) - 48\,a(n-8) - 11\,a(n-9) - a(n-10)
+a(n)\;=\;4\,a(n-1) + 6\,a(n-2) - 20\,a(n-3) - 49\,a(n-4) + 24\,a(n-5) + 148\,a(n-6) + 128\,a(n-7) - 48\,a(n-8) - 128\,a(n-9) - 64\,a(n-10)
 \end{equation}
-for all $n>12$.
+for all $n>14$.
 
 \section{The condition, the budget, and the canonical form}
 
@@ -62,7 +62,7 @@ row $t$ and column $u$. With the neighbour offsets
 as (row shift, column shift), counting only positions inside the array, call a cell
 $(t,u)$ \emph{offending} when
 \[
-\#\{\text{neighbours equal to }x_{t,u}\}>1 .
+2\,\#\{\text{neighbours different from }x_{t,u}\}>\#\{\text{neighbours}\} .
 \]
 The entry asks for arrays in which exactly $E=2$ cells offend.
 
@@ -158,7 +158,7 @@ that combination of earlier ones.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>14$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -166,7 +166,7 @@ Section~1.
 The digraph was built directly from the definitions above. The vector $w$ was formed by
 $10$ applications of $G$ in exact integer arithmetic and $\mathbf{v}^{\!\top}G^{m}w$
 evaluated for $m=0,1,\dots$, again exactly. Every one of those integers vanishes from the
-index corresponding to $n=12+1$ onwards, and the run continued until $S+1$ consecutive
+index corresponding to $n=14+1$ onwards, and the run continued until $S+1$ consecutive
 zeros had been seen.
 \end{proof}
 
@@ -175,7 +175,7 @@ zeros had been seen.
 Three checks, each independent of the algebra above.
 
 First, the right-hand side of \eqref{eq:walk2}, divided by $3!$, was evaluated at every
-one of the $21$ published indices and agrees with the entry's DATA exactly, the quotient
+one of the $25$ published indices and agrees with the entry's DATA exactly, the quotient
 coming out an integer each time; no shift was fitted, the number of rows being
 $L=n$ from the entry's own name and the offset saying which index the first published
 term carries. A misreading of the offending-cell rule, of the budget, or of the inversion in
@@ -189,7 +189,7 @@ Cayley--Hamilton bound in exact integer arithmetic rather than to a sampled pref
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A281247.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A280212.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; falling-factorial
 inversion, Section 1.9.)

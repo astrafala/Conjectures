@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A252402, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A252329, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{7 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A252402 counts $(n+2)\times5$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
+OEIS A252329 counts $(n+2)\times5$ arrays over $\{0,\dots,3\}$ subject to a condition imposed on
 every $3\times3$ subblock, and it carries an empirical recurrence of order $45$
 contributed by R.~H.~Hardin. It is true, and it is not an empirical matter. A $3\times3$
 subblock spans three consecutive rows, so the state of a transfer matrix is a PAIR of
@@ -33,15 +33,15 @@ theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A252402 is ``Number of (n+2)X(3+2) 0..3 arrays with every 3X3 subblock row and diagonal sum equal to 2 3 4 6 or 7 and every 3X3 column and antidiagonal sum not equal to 2 3 4 6 or 7.''. It has offset $1$ and begins
+OEIS A252329 is ``Number of (n+2)X(3+2) 0..3 arrays with every 3X3 subblock row and column sum equal to 0 3 5 6 or 8 and every 3X3 diagonal and antidiagonal sum not equal to 0 3 5 6 or 8.''. It has offset $1$ and begins
 \[
-983, 774, 1515, 3302, 8346, 20998, 50675, 133296,\ \dots
+6089, 6222, 10070, 22016, 68675, 180469, 503439, 1603276,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 32*a(n-3) -310*a(n-6) +1291*a(n-9) -4641*a(n-12) +11713*a(n-15) -20535*a(n-18) +26754*a(n-21) -23045*a(n-24) +8109*a(n-27) +1127*a(n-30) -638*a(n-33) +162*a(n-36) -12*a(n-39) -7*a(n-42) +a(n-45) for n>48
+Empirical: a(n) = 58*a(n-3) -1122*a(n-6) +10005*a(n-9) -54999*a(n-12) +226911*a(n-15) -741086*a(n-18) +1816623*a(n-21) -3182005*a(n-24) +3900573*a(n-27) -3282696*a(n-30) +1827728*a(n-33) -630683*a(n-36) +121014*a(n-39) -10608*a(n-42) +288*a(n-45) for n>50
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jun 02 2025 11:10:47, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jun 02 2025 11:05:50, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{Three consecutive lines}
@@ -55,7 +55,7 @@ g=\begin{pmatrix}r_j&r_{j+1}&r_{j+2}\\ s_j&s_{j+1}&s_{j+2}\\ t_j&t_{j+1}&t_{j+2}
 \]
 for each admissible index, and the entry's condition is the requirement that
 \[
-\text{every row, diagonal sum} \in \{2,3,4,6,7\}\ \text{ and }\ \text{every column, antidiagonal sum} \notin \{2,3,4,6,7\}
+\text{every row, column sum} \in \{0,3,5,6,8\}\ \text{ and }\ \text{every diagonal, antidiagonal sum} \notin \{0,3,5,6,8\}
 \]
 holds for every such $g$. This involves $r$, $s$ and $t$ only: it is a condition on
 three consecutive rows and on nothing else.
@@ -92,24 +92,24 @@ and the last nonzero $u_j$ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;32\,a(n-3) - 310\,a(n-6) + 1291\,a(n-9) - 4641\,a(n-12) + 11713\,a(n-15) - 20535\,a(n-18) + 26754\,a(n-21) - 23045\,a(n-24) + 8109\,a(n-27) + 1127\,a(n-30) - 638\,a(n-33) + 162\,a(n-36) - 12\,a(n-39) - 7\,a(n-42) + a(n-45)
+a(n)\;=\;58\,a(n-3) - 1122\,a(n-6) + 10005\,a(n-9) - 54999\,a(n-12) + 226911\,a(n-15) - 741086\,a(n-18) + 1816623\,a(n-21) - 3182005\,a(n-24) + 3900573\,a(n-27) - 3282696\,a(n-30) + 1827728\,a(n-33) - 630683\,a(n-36) + 121014\,a(n-39) - 10608\,a(n-42) + 288\,a(n-45)
 \]
-for every $n>48$.
+for every $n>50$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\mathbf{1}$ was formed by $45$ matrix--vector products in exact
 integer arithmetic and $\mathbf{1}^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again
-exactly. Those integers vanish from the index corresponding to $n=48+1$ onwards, and the
+exactly. Those integers vanish from the index corresponding to $n=50+1$ onwards, and the
 run was continued until the working vector was identically zero, which settles all larger $j$
-at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>48$.
+at once. By Lemma~\ref{lem:crit} the recurrence holds for every $n>50$.
 \end{proof}
 
 \section{Verification}
 
 Three checks, each independent of the algebra above.
 
-First, the transfer model reproduces all $24$ terms the entry publishes, exactly, in
+First, the transfer model reproduces all $21$ terms the entry publishes, exactly, in
 integer arithmetic. This is what ties the model to the entry: the digraph is built by reading
 the entry's English, and a misreading gives different counts.
 
@@ -122,7 +122,7 @@ enters anywhere.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A252402.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A252329.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

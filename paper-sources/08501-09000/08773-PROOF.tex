@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250989, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A250627, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250989 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
+OEIS A250627 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
 of cells produces a derived array that is monotone in a named direction. The entry carries an
 empirical recurrence of order $20$ contributed by R.~H.~Hardin. It is true, and it is
 decidable rather than empirical: every comparison the condition makes lies inside a bounded
@@ -31,15 +31,15 @@ conjectured recurrence is then settled by a finite exact computation.
 
 \section{The conjecture}
 
-OEIS A250989 is ``Number of (n+1)X(3+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A250627 is ``Number of (n+1)X(3+1) 0..2 arrays with nondecreasing x(i,j)+x(i,j-1) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
 \[
-646, 4007, 21955, 111175, 542834, 2592734, 12238954, 57388086,\ \dots
+585, 2969, 12151, 43185, 134878, 381834, 994281, 2419996,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 25*a(n-1) -263*a(n-2) +1465*a(n-3) -4208*a(n-4) +2752*a(n-5) +20591*a(n-6) -63149*a(n-7) +39306*a(n-8) +127182*a(n-9) -234935*a(n-10) -16967*a(n-11) +341508*a(n-12) -162216*a(n-13) -227787*a(n-14) +169273*a(n-15) +82343*a(n-16) -69183*a(n-17) -19686*a(n-18) +10818*a(n-19) +3132*a(n-20)
+Empirical: a(n) = 9*a(n-1) -30*a(n-2) +31*a(n-3) +67*a(n-4) -220*a(n-5) +136*a(n-6) +300*a(n-7) -546*a(n-8) +78*a(n-9) +572*a(n-10) -494*a(n-11) -130*a(n-12) +404*a(n-13) -152*a(n-14) -100*a(n-15) +99*a(n-16) -15*a(n-17) -14*a(n-18) +7*a(n-19) -a(n-20)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:57:00, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 12:37:02, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
@@ -49,16 +49,16 @@ The array has $4$ cells across and entries $x(i,j)\in\{0,1,2\}$.
 Two derived arrays are formed. The first reads the horizontal statistic across each
 neighbouring pair of a row,
 \[
-b(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
+b(i,j)\;=\;\bigl[\,a+b\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
 \]
 and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
 statistic down each neighbouring pair of a column,
 \[
-c(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
+c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
 \]
 and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the smaller of a cell and its left neighbour, and the vertical one is
-the absolute difference of a cell and the cell above it.
+is the sum of a cell and its left neighbour, and the vertical one is
+the smaller of a cell and the cell above it.
 
 Nothing in the condition is invariant under renaming the letters --- each statistic either does
 arithmetic on them or compares them by size --- so no reduction to equality patterns is
@@ -105,7 +105,7 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;25\,a(n-1) - 263\,a(n-2) + 1465\,a(n-3) - 4208\,a(n-4) + 2752\,a(n-5) + 20591\,a(n-6) - 63149\,a(n-7) + 39306\,a(n-8) + 127182\,a(n-9) - 234935\,a(n-10) - 16967\,a(n-11) + 341508\,a(n-12) - 162216\,a(n-13) - 227787\,a(n-14) + 169273\,a(n-15) + 82343\,a(n-16) - 69183\,a(n-17) - 19686\,a(n-18) + 10818\,a(n-19) + 3132\,a(n-20)
+a(n)\;=\;9\,a(n-1) - 30\,a(n-2) + 31\,a(n-3) + 67\,a(n-4) - 220\,a(n-5) + 136\,a(n-6) + 300\,a(n-7) - 546\,a(n-8) + 78\,a(n-9) + 572\,a(n-10) - 494\,a(n-11) - 130\,a(n-12) + 404\,a(n-13) - 152\,a(n-14) - 100\,a(n-15) + 99\,a(n-16) - 15\,a(n-17) - 14\,a(n-18) + 7\,a(n-19) - a(n-20)
 \]
 for every $n>20$.
 \end{theorem}
@@ -121,7 +121,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $23$ terms the entry publishes, exactly, in integer
 arithmetic.
 
 Second, the count was recomputed for the smallest arrays straight from the definition: fill the
@@ -137,7 +137,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250989.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A250627.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

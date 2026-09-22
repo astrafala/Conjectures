@@ -545,3 +545,48 @@ the engine work should go.
 Three disproofs today, all the same truncation shape — A269637 (10 published, 13 true),
 A236647 (34, 38) and A196074 (37, 43) — and in every one the published coefficients are the
 true recurrence's first coefficients, term for term.
+
+## 22 September 2026 — A222434: a fourth disproof, and the variant where the RANGE is the thing
+
+With the container no longer thrashing, `bsweep` jumped from ~9,378 to **10,375 of 10,632** in
+minutes — which is its own comment on defects 64–66 — and surfaced one new unpapered
+DISPROVED row.
+
+**A222434**, "Number of binary arrays indicating the locations of trailing edge maxima of a
+random length-n 0..4 array extended with zeros and convolved with 1,1,1", offset 1, 38 DATA
+terms, 210-term b-file. Its order-25 empirical line first asserts at n = 26 and **fails at all
+185 indices the b-file can test** — and **thirteen of those failures are visible in the DATA
+alone**, first at n = 26 where a(26) = 194,714 and the line gives 194,711.
+
+The `edgemark` engine builds the model instantly at **62 states**, reproducing all 210 b-file
+terms. Through the project's own annihilation test:
+
+* the published order-25 line is certified **for no n at all** — there is no index beyond which
+  it holds;
+* the same line with **one term appended, `-a(n-26)`**, is certified from **threshold 54**.
+
+**And the range is the point.** The corrected line still fails at eight indices below 55 —
+n = 29, 35, 38, 41, 45, 48, 51, 54 — and holds at all 156 from 55 to 210. So this is *not* the
+published line with a term dropped in transcription, the way the other three are: it is a
+different statement, true only eventually. A reader who appended `-a(n-26)` and tested from
+n = 27 would conclude the correction was false as well.
+
+Paper at rank 1393. `src/verify_a222434.py` re-derives every claim and passes.
+
+### Four in one day, and the shape they share
+
+| entry | published | true | what is missing |
+|---|---:|---:|---|
+| A269637 | 10 | 13 | last three terms |
+| A236647 | 34 | 38 | last four terms |
+| A196074 | 37 | 43 | last six terms |
+| A222434 | 25 | 26 | one term **and a range** |
+
+In all four the published coefficients are the true recurrence's first coefficients term for
+term. Three are pure truncations; A222434 is the variant where the missing range does as much
+work as the missing term, and it is worth keeping separate for exactly that reason.
+
+Worth stating plainly about how they were found: none needed a new idea. Two came from a scan
+built in an hour (`tableorder.py`), two from `bsweep` reading b-files it has been reading for
+weeks. What changed today was that the refusal files stopped lying (defect 61) and the machine
+stopped strangling itself (defects 64–66).
