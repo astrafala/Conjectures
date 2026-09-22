@@ -1972,3 +1972,33 @@ A197230 is the payoff of defect 58. This project disproved it by hand and papere
 1392; the sweep had been contradicting that, and now the b-file confirms it independently.
 `disproof confirmed` goes 2 → 3, and **no entry on the roster contradicts the claim its paper
 proved.**
+
+### defect 59 — the evaluator's `n` and the entry's `n` are not always the same
+
+Defect 58's fix re-admitted nine conjectures the boundary guard had been discarding. Checking
+each by hand against its entry's own wording, as the binding rule requires, **six were my error
+and not the entry's.**
+
+With polynomial coefficients, everything turns on what `n` means. A165968 has offset 1 and
+R. J. Mathar's line `a(n) +2*(-n+1)*a(n-1) +2*(-n+2)*a(n-2)=0`. Evaluated with `n` as the array
+INDEX the residuals are 0, 0, 0, 0, 0, 0 — exact. Evaluated with `n` including the offset they
+are −2, −6, −24, −156, −1344. A026377, A080244 and A221701 are identical in shape: **zero
+failures under one reading, every term failing under the other.**
+
+`bsweep` evaluated one convention and would have reported four false disproofs. That is the
+fifth time in this project that a batch of "disproofs" was a defect in my own reading, and the
+rule that catches it caught it again.
+
+Both readings are tried now, and a failure is recorded only where **both** fail. For constant
+coefficients the two are identical, so A197230 — the genuine case all of this was found through
+— still reports failing from n=23.
+
+Two more of the nine are the entry's own typo rather than a false claim: **A168494 states
+`a(n-2)` twice with no `a(n-1)`, and A202020 states `a(n-4)` twice with no `a(n-3)`.** Both fail
+under either reading because the line as published cannot be right. That is the same class as
+A286772's lost "even" and "odd", already recorded in the ledger.
+
+**What survives the hand-check: two candidates, not nine.** A026672 fails under both readings;
+A269637 has constant coefficients — so the convention is irrelevant — and fails at all ten of
+the terms its own published data can test. Neither is claimed yet. A236647 is untestable: order
+34 against sixteen published terms.

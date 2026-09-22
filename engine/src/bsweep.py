@@ -92,20 +92,40 @@ def check(anum, conjs, vals, off, cap=4000):
         r = len(ps) - 1
         top = min(len(vals), cap)
         lo = start_index(cl, r, off)
-        fails = []
-        capped = False
-        for i in range(max(r, lo - off), top):
-            nn = i + off
-            tot = 0
-            for j, co in enumerate(polys):
-                if co == [0]:
-                    continue
-                tot += _ev(co, nn) * vals[i - j]
-            if tot != 0:
-                fails.append(nn)
-                if len(fails) > 40:
-                    capped = True
-                    break
+        # A conjecture is false only if NO reasonable reading of it holds. With polynomial
+        # coefficients the reading turns on what `n' means, and the entries disagree with each
+        # other: A165968 has offset 1 and R. J. Mathar's line
+        # `a(n) +2*(-n+1)*a(n-1) +2*(-n+2)*a(n-2)=0' is exact when n is the ARRAY INDEX and
+        # wrong at every term when n includes the offset -- residuals 0,0,0,0 against
+        # -2,-6,-24,-156. A026377, A080244 and A221701 are the same. Evaluating one convention
+        # and calling the other a disproof is how four "disproofs" in one day turned out to be
+        # a defect in my own reading.
+        #
+        # So both are tried, and a failure is recorded only where BOTH fail. For constant
+        # coefficients the two are identical and nothing changes, which is why A197230 -- the
+        # genuine case this was all found through -- still reports.
+        best = None
+        for shift in ({off, 0} if any(len(co) > 1 for co in polys) else {off}):
+            fails = []
+            capped = False
+            for i in range(max(r, lo - off), top):
+                nn = i + shift
+                tot = 0
+                for j, co in enumerate(polys):
+                    if co == [0]:
+                        continue
+                    tot += _ev(co, nn) * vals[i - j]
+                if tot != 0:
+                    fails.append(nn)
+                    if len(fails) > 40:
+                        capped = True
+                        break
+            if not fails:
+                best = ([], False)
+                break
+            if best is None or len(fails) < len(best[0]):
+                best = (fails, capped)
+        fails, capped = best
         if not fails:
             continue
         tested_hi = max(r, lo - off) + off, top - 1 + off
