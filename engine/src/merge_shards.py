@@ -83,26 +83,33 @@ try:
             dieds[a] = dieds.get(a, 0) + int(c)
     atomicjson.dump(hits, HITS, indent=1)
     atomicjson.dump(sorted(done), DONE)
-    atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
+    # CAPS is dumped BELOW the pruning, not above it. It was written here, before, and the
+    # prune that followed deleted 1,004 rows from a dict nothing wrote again -- so the file
+    # on disk kept every one of them and the run printed that it had retired them.
     # Prune the settled: an entry proved since it was recorded is not an entry the container
     # refuses, and a refusal list that is never retracted becomes exactly the thing this file
     # was written to stop uniall_caps.json being.
     roster = {v['anum'] for v in json.load(open('paper-engines.json')).values()}
-    gone = [a for a in oom if a in roster]
-    for a in gone:
-        del oom[a]
-    if gone:
-        print(f'  {len(gone)} out-of-memory rows retired: proved since they were recorded')
-    gonet = [a for a in tmo if a in roster]
-    for a in gonet:
-        del tmo[a]
-    if gonet:
-        print(f'  {len(gonet)} timed-out rows retired: proved since they were recorded')
-    goned = [a for a in dieds if a in roster]
-    for a in goned:
-        del dieds[a]
-    if goned:
-        print(f'  {len(goned)} death rows retired: proved since they were recorded')
+    # DEFECT 61. This pruning was written once, for `oom', with a comment naming
+    # `uniall_caps.json' as the thing it existed to stop --- and the other three files were
+    # left exactly as described. Audited on 22 September: of 2,759 rows in uniall_caps.json,
+    # 997 were already HITS of this very sweep and 1,004 were papered. Thirty-six percent of
+    # the "refused at the cap" file was finished work, and every measurement built on it --
+    # which engine deserves attention, how many entries a raised cap would open, what a list
+    # is askable against -- was inflated by that much. None of the 2,759 was unasked.
+    # `settled' is the union of what this sweep proved and what any engine papered: either
+    # way the entry is no longer something the container refuses.
+    settled = roster | have
+    for nm, f in (('cap', caps), ('out-of-memory', oom), ('out-of-budget', tmo),
+                  ('shard-death', dieds)):
+        gone = [a for a in f if a in settled]
+        for a in gone:
+            del f[a]
+        if gone:
+            print(f'  {len(gone)} {nm} rows retired: settled since they were recorded')
+    # (the separate roster-only prunes for tmo and dieds that used to stand here are covered
+    # by the loop above, which uses the wider `settled' set)
+    atomicjson.dump(caps, CAPS, indent=0, sort_keys=True)
     if oom:
         atomicjson.dump(oom, OOM, indent=0, sort_keys=True)
     elif os.path.exists(OOM):

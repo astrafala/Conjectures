@@ -19,52 +19,80 @@ A BUILDS row is the valuable one: the entry is sitting in the refused pool for n
 """
 import collections
 import json
+import zlib
 import os
 import signal
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import localentry as LE
 import uniform
 
 BUDGET = int(os.environ.get('BUDGET', '120'))
-OUT = os.environ.get('OUT', 'deep-check/capwhy.json')
+SHARD = int(os.environ.get('CWSHARD', '0'))
+NSHARD = int(os.environ.get('CWNSHARD', '1'))
+OUT = os.environ.get('OUT') or ('deep-check/capwhy.json' if NSHARD == 1
+                                else 'deep-check/capwhy_%d.json' % SHARD)
 
 
-class Timeout(Exception):
-    pass
+class Timeout(BaseException):
+    """Derived from BaseException so `uniform.build''s `except Exception' cannot absorb it.
+
+    `sweep_shard' already does this and says why: a Timeout derived from Exception is
+    swallowed there and the build returns None, which every caller reads as "the state space
+    exceeded the cap". That is the single defect this whole audit exists to measure, so the
+    audit must not commit it.
+    """
 
 
 def main():
     caps = json.load(open('uniall_caps.json'))
+    # resumable: this is 2,759 builds and a container restart in the middle of it must not
+    # mean starting over. The restart that killed the first run cost every row it had.
+    out = json.load(open(OUT)) if os.path.exists(OUT) else {}
     byeng = collections.defaultdict(list)
-    for a, c in caps.items():
+    for a, c in sorted(caps.items()):
+        if a in out or zlib.crc32(a.encode()) % NSHARD != SHARD:
+            continue
         r = uniform.read(LE.get(a)['name'])
         if r:
             byeng[r[0]].append((a, c, r[1]))
     want = sys.argv[1:] or [e for e, _ in
                             collections.Counter({k: len(v) for k, v in byeng.items()}).most_common(6)]
-    out = {}
     for en in want:
         tally = collections.Counter()
         for a, cap, p in byeng[en]:
             signal.signal(signal.SIGALRM, lambda *_: (_ for _ in ()).throw(Timeout()))
             signal.alarm(BUDGET)
+            t0 = time.time()
             try:
                 b = uniform.build(en, p, cap)
-                verdict = 'BUILDS' if b is not None else (
-                    'RAISED' if uniform.LAST_ERROR[0] else 'CAP')
                 detail = uniform.LAST_ERROR[0]
+                # the alarm fires INSIDE uniform.build, whose bare except swallows it and
+                # records it like any other exception -- so a clock row would be filed as a
+                # bug unless it is read back out here
+                verdict = ('BUILDS' if b is not None else
+                           'TIMEOUT' if (detail or '').startswith('Timeout') else
+                           'RAISED' if detail else 'CAP')
             except Timeout:
                 verdict, detail = 'TIMEOUT', None
             except Exception as exc:
                 verdict, detail = 'RAISED', '%s: %s' % (type(exc).__name__, exc)
             finally:
                 signal.alarm(0)
+            el = time.time() - t0
+            # the seconds are what make a BUILDS row actionable. `sweep_shard' does not skip
+            # an entry because it has a cap row -- it re-asks it every round -- so a row that
+            # persists while the build SUCCEEDS here means the shard is losing it to its own
+            # clock, not to the cap. A build that succeeds in three seconds is a wrong row; one
+            # that takes fifty is a clock row wearing a cap's name.
             tally[verdict] += 1
-            out[a] = {'engine': en, 'cap': cap, 'verdict': verdict,
+            out[a] = {'engine': en, 'cap': cap, 'verdict': verdict, 'secs': round(el, 1),
                       'detail': (detail or '')[:120]}
-            print('  %-10s %-8s %s' % (a, verdict, (detail or '')[:70]), flush=True)
+            print('  %-10s %-8s %6.1fs %s' % (a, verdict, el, (detail or '')[:60]), flush=True)
+            if len(out) % 25 == 0:
+                json.dump(out, open(OUT, 'w'), indent=1, sort_keys=True)
         print('%s: %s' % (en, dict(tally)), flush=True)
         json.dump(out, open(OUT, 'w'), indent=1, sort_keys=True)
     print('-> ' + OUT)

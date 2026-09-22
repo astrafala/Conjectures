@@ -1916,6 +1916,41 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 61 — a refusal file that is never retracted, and the retraction that was written once
+
+`uniall_caps.json` held **2,759** rows. **997 of them were already HITS of the very sweep that
+wrote them**, and 1,004 were papered by some engine. **None of the 2,759 was unasked.** So
+thirty-six percent of the file called "refused at the cap" was finished work, and every
+measurement built on it was inflated by that much.
+
+`merge_shards.py` already had the fix — for `oom` alone, under a comment naming
+`uniall_caps.json` as the thing it existed to stop. Written once, applied to one of four
+files. Worse, the version extended to `caps` still did nothing, because `CAPS` was dumped
+*above* the pruning: the run deleted 1,004 rows from a dict nothing wrote again and printed
+that it had retired them.
+
+Now all four files (`caps`, `oom`, `tmo`, `died`) are pruned against `roster | hits`, and the
+dump sits below the prune. **2,759 → 1,755.**
+
+**What it changed, which is the point.** Targeting the on-the-fly quotient by cap count:
+
+| engine | before | after | lump ratio |
+|---|---:|---:|---:|
+| transfer40 | 201 | **198** | 7.00x |
+| transfer17 | 332 | 98 | 3.50x (already quotients) |
+| transfer34 | 94 | 87 | 10.67x |
+| transfer9 | 114 | 83 | 3.00x |
+| transfer21 | 103 | 71 | 16.37x |
+| **transfer20** | **103** | **18** | 30.38x |
+
+`transfer20` was the target an hour earlier — highest lump ratio, 103 capped entries. **Eighty-
+five percent of those entries were already settled.** The engine with the most honest cap rows
+is `transfer40`, which barely moved: 201 → 198, so its refusals are real.
+
+Read a refusal file as a claim that needs re-checking, not as a fact. This one had been
+inflating every judgement made from it for weeks, and the audit that caught it
+(`src/capwhy.py`) was three lines of cross-referencing against files sitting next to it.
+
 ### the tableorder scan — a vein opened, measured and closed in one sitting
 
 A269637's parent table named the right order where the column entry's own line was wrong. That

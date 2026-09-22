@@ -298,3 +298,49 @@ flat would not be worth the surgery; these are not flat.
 
 Read the medians as medians: 4 builds each, and one 40× outlier says nothing about the 103
 entries behind it. The trend is the evidence, not the maximum.
+
+## 22 September 2026 — defect 61: 36 percent of the "refused at the cap" file was finished work
+
+`uniall_caps.json` held **2,759** rows. Cross-referenced against the files sitting next to it:
+
+* **997 were already HITS of the very sweep that wrote them**; 1,004 were papered by some engine
+* **0 were unasked** — every one had been asked, and `sweep_shard` re-asks them every round
+* 1,762 were done-and-not-a-hit, which is the real remaining pool
+
+So more than a third of the refusal file was finished work, and every measurement built on it —
+which engine deserves attention, how much a raised cap would open, what a list is askable
+against — was inflated by that much.
+
+`merge_shards.py` already carried the fix, **for `oom` alone**, under a comment naming
+`uniall_caps.json` as exactly the thing it existed to stop. Written once, applied to one file of
+four. And the version extended to `caps` still did nothing, because `CAPS` was dumped *above*
+the pruning block: the run deleted 1,004 rows from a dict nothing wrote again, and printed that
+it had retired them. A fix that reports success and changes no file is worse than no fix.
+
+All four files now pruned against `roster | hits`, dump moved below the prune. **2,759 → 1,755.**
+
+### What it changed
+
+An hour earlier I measured which engine deserves an on-the-fly quotient and concluded
+**transfer20** — highest lump ratio at 30.38x, 103 entries refused at the cap. After the prune
+transfer20 has **18**. Eighty-five percent of the entries I was about to do engine surgery for
+were already settled.
+
+| engine | capped before | after | lump ratio |
+|---|---:|---:|---:|
+| transfer40 | 201 | **198** | 7.00x |
+| transfer17 | 332 | 98 | 3.50x (already quotients) |
+| transfer34 | 94 | **87** | 10.67x |
+| transfer9 | 114 | 83 | 3.00x |
+| transfer21 | 103 | 71 | 16.37x |
+| transfer20 | 103 | 18 | 30.38x |
+
+**transfer40 is the target** — it barely moved, so its refusals are real — with transfer34
+second on ratio times count.
+
+`src/capwhy.py` is the auditor. Its first 58 rebuilds found **42 BUILDS and 16 TIMEOUT, not one
+honest CAP**; the BUILDS rows build in a median of **2.5 seconds** at the cap they were
+"refused" at. Every one of them was already done, which is what led to the count above.
+
+**The habit says read what a sweep refuses. It also has to say: check that the refusal is still
+true.** A refusal file is a claim with a date on it, and nothing here was re-reading the date.

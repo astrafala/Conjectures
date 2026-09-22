@@ -11,162 +11,139 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
-% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
-% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
-% the page; the linked-a-file papers are all of that shape.
-\setlength{\emergencystretch}{3em}
 
-\title{The conjectured generating function for OEIS A208995, proved}
+\title{The empirical closed form for OEIS A195250, proved}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{6 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A208995 counts arrays of a fixed width under a local condition, and carries a conjectured
-generating function --- and nothing else. It is true. The count is a walk count in a finite
-digraph on $S=17$ vertices, so its generating function is a rational function whose numerator
-and denominator have degrees bounded by $S$; the conjectured expression is another rational
-function of known degree; and two rational functions of bounded degree agree as soon as enough
-coefficients of their expansions do. Comparing $29$ coefficients in exact arithmetic
-therefore settles the conjecture, rather than testing it.
+OEIS A195250 counts the lower triangles of a $4\times4$ array over $\{0,\dots,n\}$ in which
+adjacent entries differ by at most $2$, and carries closed form recorded as empirical. The shape here is FIXED
+and it is the alphabet that grows, so there is no digraph to walk. What settles it is that the
+condition constrains DIFFERENCES only: translating an admissible array by a constant leaves it
+admissible, so the arrays split into translation classes, and a class with spread $s$ contains
+exactly $\max(0,n+1-s)$ arrays with entries in $\{0,\dots,n\}$. Since no spread can exceed
+$2$ times the diameter of the neighbour graph, $a(n)$ is exactly linear from a point that is
+known in advance, and two evaluations pin it. Nothing is fitted.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 68Q45.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05A19, 11B37.\normalsize
 
 \section{The conjecture}
 
-OEIS A208995 is ``Number of 4-bead necklaces labeled with numbers -n..n not allowing reversal, with sum zero and first differences in -n..n.''. It has offset $1$ and begins
+OEIS A195250 is ``Number of lower triangles of a 4X4 0..n array with each element differing from all of its diagonal, vertical, antidiagonal and horizontal neighbors by two or less.''. It has offset $1$ and begins
 \[
-2, 7, 16, 33, 58, 95,\ \dots
+1024, 59049, 190514, 357847, 533142, 709613,\ \dots
 \]
-The entry states, as a conjecture contributed by a reader and never marked settled:
+The entry states, as conjectures contributed by its author and by later readers and never
+marked settled:
 \begin{quote}
-G.f.: x*(2 + x - x\^{}2 + 3*x\^{}3 - x\^{}4) / ((1 - x)\^{}4*(1 + x)).
+Empirical: a(n) = 176471*n - 349213 for n>4
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 07 2018 19:31:24, revision 16) this is still
-recorded as empirical, and nothing on the entry records it as proved. The entry carries no
-conjectured recurrence, which is why this generating function is the whole of what is open
-here.
+As of the ``Last modified'' line on the live entry (Oct 03 2025 06:14:25, revision 9) these are still
+recorded as empirical, and nothing on the entry records them as proved.
 
+\section{What is being counted}
 
-\section{The count is a Burnside sum}
-
-The entry counts $4$-bead necklaces labelled from $-n..n$ with sum zero under a further
-condition on consecutive beads, the beads identified under the cyclic group of rotations, written $G$. Nothing is a
-walk here: the bead count is fixed and the ALPHABET grows.
-
-By Burnside's lemma the number of orbits is $\frac{1}{|G|}\sum_{g\in G}|\mathrm{Fix}(g)|$.
-A labelling fixed by $g$ is constant on the orbits of $g$, so it is a choice of one value per
-orbit. For a rotation by $d$ with $c=\gcd(4,d)$ the fixed labellings are exactly the
-$c$-periodic words, the whole sum is $(4/c)$ times the sum of one period, and the condition on
-the $4$-periodic extension is the condition on the length-$c$ cyclic word; for a reflection
-they are the palindromes, determined by $\lceil(4+1)/2\rceil$ values, and the condition is
-again local in those. Every term is therefore a count of integer points of
+The lower triangle of a $4\times4$ array is the set of cells $(i,j)$ with $0\le j\le
+i<4$, so there are $T=10$ of them. Two cells are adjacent when they differ by one of the
+horizontal, antidiagonal, vertical, diagonal offsets, which here gives $21$ adjacent pairs. Each cell carries a value in
+$\{0,\dots,n\}$, and the entry requires
 \[
-\sum_i w_i y_i = 0, \qquad -n \le y_i \le n,
+|x_u-x_v|\le 2\qquad\text{for every adjacent pair }u,v .
 \]
-$w_i$ the orbit sizes, under a condition on consecutive beads. The forbidden windows the entry
-names are defined by EQUALITIES between bead values, with fixed offsets, so inclusion-exclusion
-over them turns each term into a count under a set of affine identifications --- one
-convolution each --- and nothing is enumerated over the alphabet.
 
-\section{The bound}
+The shape is fixed and $n$ is the size of the ALPHABET. So this is not a walk count and
+nothing about transfer matrices applies.
 
-Each term is a lattice-point count over a union of relatively open rational cones in the orbit
-variables, hence a quasi-polynomial in $n$; a Burnside average of quasi-polynomials is one. The
-period is read off the arrangement: every ray of every cell is cut out by as many independent
-hyperplanes as there are variables, so by Cramer its primitive generator has its $n$-coordinate
-dividing the determinant of their $y$-parts, and a ray leaving the box or the sum-zero plane
-bounds no cell and is dropped. The multiplicity of each cyclotomic factor is bounded by the
-number of distinct rays whose height it divides, and by the dimension of the cone. Taking the
-maximum over $g$ of the resulting multiplicities gives a monic annihilator of order
-$S=17$, which includes the pre-period $n_0=0$ the conditions with an offset need. The
-annihilator was then asked for terms the model had not supplied and reproduced them.
+\section{Translation}
 
-The family this entry belongs to is read by one model, described by its author as: ``Necklaces and bracelets of k beads over -n..n with sum zero AND a cyclic condition.''
-
-
-The model reproduces all $44$ terms the entry publishes, exactly, in integer arithmetic:
-it is built by reading the entry's own English, and a misreading gives different counts, so
-this ties the model to the entry and not merely to the arithmetic.
-
-\section{Its generating function is rational, with bounded degree}
-
-\begin{lemma}\label{lem:rat}
-$A(x)=\sum_{n\ge1}a(n)x^n=N_1(x)/D_1(x)$ where $D_1(x)$ has degree at most $S=17$ and
-$D_1(0)=1$, and $\deg N_1<S+1$.
+\begin{lemma}\label{lem:trans}
+Let $\mathcal P$ be the set of integer arrays $y$ on these cells satisfying the same condition
+and having least entry $0$, and for $y\in\mathcal P$ write $\mathrm{sp}(y)$ for its largest
+entry. Then $\mathcal P$ is finite and
+\[
+a(n)\;=\;\sum_{y\in\mathcal P}\max\bigl(0,\;n+1-\mathrm{sp}(y)\bigr).
+\]
 \end{lemma}
 
 \begin{proof}
-The section above derives a MONIC linear recurrence of order $S$ that $a$ provably satisfies
-from some index onwards; write its characteristic polynomial as $z^S-\sum_{j<S}\alpha_jz^j$
-and put $D_1(x)=1-\sum_{j<S}\alpha_jx^{S-j}$, the same polynomial written backwards, so
-$\deg D_1\le S$ and $D_1(0)=1$. Multiplying the power series $A(x)$ by $D_1(x)$ annihilates
-every coefficient at which the recurrence is in force, so $N_1=AD_1$ is a polynomial, and the
-indices it can be supported on are the offset together with the finitely many below the point
-where the recurrence takes hold, all of them less than $S+1$. No matrix is involved: the
-model here is not a walk and has no adjacency matrix, and the bound comes from the recurrence
-the model itself supplies.
+The condition depends only on the differences $x_u-x_v$, so if $x$ is admissible so is $x+m$
+for any integer $m$, and every admissible $x$ is $y+m$ for exactly one $y\in\mathcal P$ and one
+integer $m$, namely $m=\min x$. Given $y$, the array $y+m$ has all entries in
+$\{0,\dots,n\}$ precisely when $m\ge0$ and $m+\mathrm{sp}(y)\le n$, which is
+$\max(0,n+1-\mathrm{sp}(y))$ values of $m$. Finiteness follows from
+Lemma~\ref{lem:bound}.
 \end{proof}
 
-\begin{theorem}
-The conjectured generating function is $A(x)$.
+\begin{lemma}\label{lem:bound}
+Every $y\in\mathcal P$ has $\mathrm{sp}(y)\le 2\cdot3=6$, where $3$ is the
+diameter of the neighbour graph.
+\end{lemma}
+
+\begin{proof}
+The neighbour graph is connected, so any two cells are joined by a path of at most $3$
+edges, and each edge changes the value by at most $2$. Hence the largest and the smallest
+entry differ by at most $2\cdot3$.
+\end{proof}
+
+\section{The count}
+
+\begin{theorem}\label{thm:line}
+\[
+a(n)\;=\;176471\,n-349213\qquad\text{for every }n\ge5,
+\]
+and $\mathcal P$ has exactly $176471$ elements.
 \end{theorem}
 
 \begin{proof}
-Write the conjecture as $N_2/D_2$ with $\deg N_2=5$ and $\deg D_2=5$; its expansion as a
-power series exists because $D_2(0)\neq0$. Put
+For $n\ge6$ every term of Lemma~\ref{lem:trans} is positive by
+Lemma~\ref{lem:bound}, so
 \[
-R(x)\;=\;N_1(x)D_2(x)-N_2(x)D_1(x),
+a(n)=\sum_{y\in\mathcal P}\bigl(n+1-\mathrm{sp}(y)\bigr)
+=|\mathcal P|\,(n+1)-\sum_{y}\mathrm{sp}(y),
 \]
-a polynomial of degree at most $22$ by Lemma~\ref{lem:rat}. The difference
-$A-N_2/D_2$ equals $R/(D_1D_2)$, and $D_1(0)D_2(0)\neq0$, so if the two power series agree in
-every coefficient up to $x^{22}$ then $R$ has a zero of order greater than its own
-degree at the origin, which forces $R\equiv0$ and hence $A=N_2/D_2$ identically.
-
-The coefficients of $A$ were produced from the model by repeated matrix--vector products in
-exact integer arithmetic, those of $N_2/D_2$ by exact rational long division, and $29$
-of them --- more than the $22+1$ the argument requires --- agree.
+which is a linear function of $n$. Two values determine it, and $a(6)$ and
+$a(6+1)$ were computed exactly, giving slope $176471$ and the stated intercept; the slope
+is $|\mathcal P|$. That the identity already holds from $n=5$ was then read off by
+comparing it with the exact values of $a(n)$ below $6$, each computed the same way.
 \end{proof}
 
-\section{A recurrence the entry does not state}
+The counts $a(n)$ themselves are obtained by walking over the cells in row major order and
+carrying only the entries a later cell can still see --- for this shape at most $4+1$ of
+them --- so no array is ever written down.
 
-The denominator of a rational generating function is a linear recurrence written backwards, so
-the theorem above yields one for free. With $D_2(x)=1-\sum_{i\ge1}c_ix^i$ after normalising
-$D_2(0)=1$, comparing coefficients of $x^n$ in $A(x)D_2(x)=N_2(x)$ gives
-\[
-a(n)\;=\;\sum_{i\ge1}c_i\,a(n-i)\qquad\text{for every }n>5,
-\]
-a constant-coefficient linear recurrence of order $5$, valid past the degree of the
-numerator. Its coefficients are the integers $c_1,\dots,c_{5}$ read off $D_2$, the first few being $3,\ -2,\ -2,\ 3,\ -1$. The entry records no recurrence, so this is not a restatement of anything
-already there.
+Each statement quoted in Section 1 is a consequence of Theorem~\ref{thm:line}, and each was
+also checked directly against it.
 
 \section{Verification}
 
-Three checks, each independent of the algebra above.
+Three checks, each independent of the argument above.
 
-First, the model reproduces every one of the $44$ published terms, with the index shift
-read off the entry's offset rather than fitted.
+First, the count reproduces all $28$ terms the entry publishes, exactly, in integer
+arithmetic.
 
-Second, the arrays themselves were enumerated for the smallest shapes the entry counts,
-directly from its English and with no automaton, and the counts agree. Writing that check is
-where the risk actually sits: an earlier version of it dropped a clause from the entry's name
-in three cases and disagreed with the model, and in all three the check was wrong and the model
-was right.
+Second, the arrays themselves were enumerated for the smallest alphabets --- every assignment
+of $0..n$ to the $10$ cells written out and every adjacent pair tested --- with no
+translation argument and no frontier walk. Where the shape is too large for that, the first
+term is settled by an exact argument instead: at $n=1$ every entry is $0$ or $1$, so an ``at
+most'' condition is no condition and the count is $2^{10}$, while ``differing by exactly
+one'' asks for a proper $2$-colouring of the neighbour graph. Both test the cell set and the
+adjacency, which is what this check is for.
 
-Third, the coefficient comparison was carried out over the whole range required by the degree
-bound rather than on a prefix, in exact arithmetic throughout.
+Third, the linear form was compared against the entry's own published terms over their whole
+range, and the conjectured statements were each evaluated against it in exact arithmetic
+rather than sampled.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A208995.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A195250.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
-Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
-\bibitem{flajolet} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge
-University Press, 2009.
-\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
-University Press, 2013.
+Cambridge University Press, 2011.
+\bibitem{comtet} L.~Comtet, \emph{Advanced Combinatorics}, Reidel, 1974.
+\bibitem{kauers} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
 \end{thebibliography}
 
 \end{document}
