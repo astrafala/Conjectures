@@ -12,14 +12,14 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A210056, proved by counting patterns}
+\title{The empirical recurrence for OEIS A208860, proved by counting patterns}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{31 August 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A210056 counts arrays subject to a local condition \emph{and} to the clause ``new values
+OEIS A208860 counts arrays subject to a local condition \emph{and} to the clause ``new values
 $0..3$ introduced in row major order'', which says the array is written in canonical
 form. That clause is not local, so a transfer matrix over the alphabet does not see it. It
 does not have to: what is being counted is not arrays but equality patterns, and the number
@@ -36,40 +36,44 @@ $11$, contributed by R.~H.~Hardin, then follows from a finite exact computation.
 
 \section{The sequence and the conjecture}
 
-OEIS A210056 is ``Number of (n+1)X4 0..3 arrays with every 2X2 subblock having one, two or four distinct values, and new values 0..3 introduced in row major order.''. It has offset $1$ and begins
+OEIS A208860 is ``Number of nX4 0..3 arrays with new values 0..3 introduced in row major order and no element equal to more than one of its immediate leftward or upward or left-upward diagonal neighbors.''. It has offset $1$ and begins
 \[
-323, 8767, 249327, 7293673, 216648913, 6488330257, 195167694929, 5884233366145,\ \dots
+15, 1691, 273049, 44452082, 7240366702, 1179377179523, 192108983085145, 31292693945057258,\ \dots
 \]
 The entry carries the following comment:
 \begin{quote}\small
-Empirical: a(n) = 66*a(n-1) -1511*a(n-2) +14904*a(n-3) -58950*a(n-4) +21360*a(n-5) +330508*a(n-6) -503712*a(n-7) -93160*a(n-8) +369120*a(n-9) -9504*a(n-10) -69120*a(n-11)
+Empirical: a(n) = 219*a(n-1) -10289*a(n-2) +197167*a(n-3) -1651023*a(n-4) +4615685*a(n-5) +5157645*a(n-6) -45444123*a(n-7) +78064236*a(n-8) -63363708*a(n-9) +40081392*a(n-10) -18662400*a(n-11) for n>12
 \end{quote}
-As of the ``Last modified'' line on the live entry (Oct 03 2025 15:39:57, revision 9) the statement is
+As of the ``Last modified'' line on the live entry (Oct 03 2025 15:02:40, revision 9) the statement is
 still recorded as empirical, and nothing on the entry records it as settled either way.
 
 Written out, the claim is
 \begin{equation}\label{eq:conj}
-a(n)\;=\;66\,a(n-1) - 1511\,a(n-2) + 14904\,a(n-3) - 58950\,a(n-4) + 21360\,a(n-5) + 330508\,a(n-6) - 503712\,a(n-7) - 93160\,a(n-8) + 369120\,a(n-9) - 9504\,a(n-10) - 69120\,a(n-11)
+a(n)\;=\;219\,a(n-1) - 10289\,a(n-2) + 197167\,a(n-3) - 1651023\,a(n-4) + 4615685\,a(n-5) + 5157645\,a(n-6) - 45444123\,a(n-7) + 78064236\,a(n-8) - 63363708\,a(n-9) + 40081392\,a(n-10) - 18662400\,a(n-11)
 \end{equation}
-for all $n>10$.
+for all $n>12$.
 
 \section{What the canonical-form clause counts}
 
-Fix the shape: $4$ columns and $L=n+1$ rows, so $L\cdot4$ cells. Call a
+Fix the shape: $4$ columns and $L=n+0$ rows, so $L\cdot4$ cells. Call a
 partition of the cells into nonempty classes a \emph{pattern}; an array over an alphabet
 determines a pattern, two cells lying in the same class exactly when they carry the same
 value.
 
-Every $2\times2$ subblock of the array occupies two consecutive
-rows and two consecutive columns; writing those two rows as $r$ and $s$ the
-subblock is
+Write $x_{t,u}$ for the entry in row $t$ and column $u$. The
+entry's requirement is that no cell equals more than $1$ of its neighbours at the
+offsets
 \[
-\begin{pmatrix}\alpha&\beta\\\gamma&\delta\end{pmatrix}=\begin{pmatrix}r_j&r_{j+1}\\s_j&s_{j+1}\end{pmatrix},
+\mathcal N=\{(0,-1),\ (-1,0),\ (-1,-1)\}
 \]
-and the entry's requirement on it is
+(offsets given as (row shift, column shift), and only cells inside the array count),
+that is
 \begin{equation}\label{eq:loc}
-\#\{\alpha,\beta,\gamma,\delta\}\in\{1,2,4\}.
+\#\bigl\{(d_1,d_2)\in\mathcal N:\ x_{t+d_1,\,u+d_2}=x_{t,u}\bigr\}\;\le\;1
+\qquad\text{for every cell }(t,u).
 \end{equation}
+Every offset in $\mathcal N$ points backwards in the walk, so the condition at a cell of
+row $t$ is settled by row $t$ itself together with row $t-1$.
 
 The condition is stated purely in terms of equalities between entries, so it is invariant
 under any relabelling of the values and is therefore a property of the pattern alone. Call a
@@ -120,10 +124,11 @@ every column, and let $M_i$ be the adjacency matrix. An array is exactly a seque
 rows, and its condition is exactly the conjunction of the edge conditions along that
 sequence, so
 \[
-L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n}\mathbf{1} .
+L_i(n)\;=\;\mathbf{s}_i^{\!\top}M_i^{\,n+0-1}\mathbf{1} .
 \]
-Because the condition involves no row before the first, every
-row may start a walk, and $\mathbf{s}_i=\mathbf{1}$.
+The first row has no row before it, so its cells are tested
+against their within-row neighbours only; $\mathbf{s}_i$ is the indicator vector of the
+rows that pass that test.
 
 \begin{lemma}\label{lem:lump}
 Let $\pi(r)$ be the equality pattern of the row $r$. For all $r,r'$ with
@@ -157,7 +162,7 @@ Assembling the $4$ lumped chains into one block-diagonal matrix $N$ of size $S=3
 putting the weights of Lemma~\ref{lem:inv} into the start vector,
 $\mathbf{v}=\bigl(\binom{4}{i}D_{4-i}\varepsilon_P\bigr)_{i,P}$, gives
 \begin{equation}\label{eq:walk}
-4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n}\mathbf{1} .
+4!\;a(n)\;=\;\mathbf{v}^{\!\top}N^{\,n+0-1}\mathbf{1} .
 \end{equation}
 The unlumped alphabet had $354$ rows in all; the lumped chain has $S=38$ states.
 
@@ -167,7 +172,7 @@ Let $q(t)=t^{11}-\sum_i c_i\,t^{11-i}$ be the characteristic polynomial of
 \eqref{eq:conj}.
 
 \begin{lemma}\label{lem:crit}
-For every $n$ with $m=n+1-1\ge11$,
+For every $n$ with $m=n+0-1\ge11$,
 \[
 4!\Bigl(a(n)-\sum_i c_i\,a(n-i)\Bigr)\;=\;\mathbf{v}^{\!\top}N^{\,m-11}q(N)\mathbf{1} .
 \]
@@ -186,7 +191,7 @@ values.
 \end{proof}
 
 \begin{theorem}
-The recurrence \eqref{eq:conj} holds for every $n>10$, which is the statement of
+The recurrence \eqref{eq:conj} holds for every $n>12$, which is the statement of
 Section~1.
 \end{theorem}
 
@@ -197,7 +202,7 @@ generated column by column, since the edge condition is a conjunction of one con
 column. The vector $w=q(N)\mathbf{1}$ was then formed by $11$ matrix--vector products
 in exact integer arithmetic and $\mathbf{v}^{\!\top}N^{j}w$ evaluated for
 $j=0,1,\dots$, again exactly. Every one of those integers vanishes from the index
-corresponding to $n=10+1$ onwards, and the run continued until $w$ was the zero vector,
+corresponding to $n=12+1$ onwards, and the run continued until $w$ was the zero vector,
 which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 \end{proof}
 
@@ -206,7 +211,7 @@ which settles all larger $j$ at once. Lemma~\ref{lem:crit} gives the theorem.
 Three checks, each independent of the algebra above.
 
 First, the whole construction was compared against the entry's DATA: the right-hand side of
-\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $15$
+\eqref{eq:walk}, divided by $4!$, was evaluated at every one of the $12$
 published indices and agrees exactly. This is a strong test of the modelling and not only of
 the arithmetic --- the inversion of Lemma~\ref{lem:inv}, the reading of the local
 condition, and the alignment of the entry's index with the number of rows would each
@@ -222,7 +227,7 @@ run until the working vector was identically zero rather than to a sampled prefi
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A210056.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A208860.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7; Stirling and
 falling-factorial inversion, Section 1.9.)

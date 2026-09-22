@@ -12,19 +12,19 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A250514: recovering a conjecture that is not written down}
+\title{The empirical recurrence for OEIS A254385: recovering a conjecture that is not written down}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A250514 records ``Empirical recurrence of order $50$'', with the recurrence itself in a
+OEIS A254385 records ``Empirical recurrence of order $50$'', with the recurrence itself in a
 linked file rather than in the entry. The conjecture can nevertheless be settled, and the
 recurrence recovered, without reading that file. The entry counts arrays under a condition
 local to a bounded window of lines, so the count is a walk count on a finite digraph and
 satisfies some monic recurrence of order at most the number of its states with distinct
-futures, here $S'=52$; Berlekamp--Massey applied to $2S'$ exact
+futures, here $S'=117$; Berlekamp--Massey applied to $2S'$ exact
 terms therefore returns the MINIMAL such recurrence. Its order is exactly $50$, the order
 the entry states, and the same is true of every tail of the sequence. Any recurrence of order
 $50$ that the sequence satisfies from any point on must then have a characteristic
@@ -37,15 +37,15 @@ proved.
 
 \section{A conjecture one cannot read}
 
-OEIS A250514 is ``Number of (n+1)X(3+1) 0..3 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing min(x(i,j),x(i-1,j)) in the j direction.''. It has offset $1$ and begins
+OEIS A254385 is ``Number of (n+2)X(3+2) 0..1 arrays with every 3X3 subblock diagonal maximum plus antidiagonal maximum nondecreasing horizontally, vertically and ne-to-sw antidiagonally.''. It has offset $1$ and begins
 \[
-5996, 205022, 5941982, 166583429, 4464289109, 117638074883, 3049397341176, 78567969110807,\ \dots
+21304, 406548, 8533796, 175329586, 3587965682, 73923120984, 1521733260456, 31311650491630,\ \dots
 \]
 The entry states:
 \begin{quote}
 Empirical recurrence of order 50 (see link above)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:29:12, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 14:38:19, revision 6) this is still
 recorded as empirical. The recurrence's coefficients are not in the entry text.
 
 \section{The count is a walk count}
@@ -53,14 +53,14 @@ recorded as empirical. The recurrence's coefficients are not in the entry text.
 The entry's condition is local: it constrains a bounded window of consecutive lines of the
 array and nothing further. The admissible configurations of one such window are the vertices
 of a finite digraph, an edge joining $u$ to $v$ when $v$ may follow $u$, and an admissible
-array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=256$ vertices,
+array is exactly a walk. Hence, with $M$ the adjacency matrix on $S=1748$ vertices,
 $a(n)=\iota^{\!\top}M^{\,j(n)}\tau$ for a linear reindexing $j$ fixed by the entry's shape
-and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=52$ of the $256$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
+and checked against its published terms. States with the same future contribute identically to $\iota^{\!\top}M^n\tau$, so they may be merged without changing any count; merging leaves $S'=117$ of the $1748$, and it is that smaller bound the computation below uses. By the Cayley--Hamilton theorem $M^{S}$ is an
 integer combination of $I,M,\dots,M^{S-1}$, so:
 
 \begin{lemma}\label{lem:cf}
 $a$ satisfies a monic linear recurrence with integer coefficients of order at most
-$S'=52$.
+$S'=117$.
 \end{lemma}
 
 \section{Recovering the recurrence}
@@ -71,26 +71,26 @@ with its minimal recurrence, by its first $2S$ terms: Berlekamp--Massey applied 
 that minimal recurrence exactly.
 \end{lemma}
 
-Running it on $2S'=104$ exact terms of the model returns order $50$ --- the order the
+Running it on $2S'=234$ exact terms of the model returns order $50$ --- the order the
 entry states --- with the integer coefficients
 \[
 a(n)\;=\;\sum_{i=1}^{50}c_i\,a(n-i),
 \]
 \begin{center}\small
 \begin{tabular}{cccccccc}
-$c_{1}$ & $34$ & $c_{14}$ & $-43422949768128$ & $c_{27}$ & $-42900747845081720064$ & $c_{40}$ & $-255739745717945892864$ \\
-$c_{2}$ & $261$ & $c_{15}$ & $-275515120052537$ & $c_{28}$ & $-4352980615800170624$ & $c_{41}$ & $218046461899658231808$ \\
-$c_{3}$ & $-16431$ & $c_{16}$ & $667645665201026$ & $c_{29}$ & $121408208416569476352$ & $c_{42}$ & $143477146970098237440$ \\
-$c_{4}$ & $28001$ & $c_{17}$ & $4098596546440968$ & $c_{30}$ & $31504815035795370496$ & $c_{43}$ & $-82169853486641971200$ \\
-$c_{5}$ & $2740249$ & $c_{18}$ & $-7178844486178680$ & $c_{31}$ & $-264430483901619320320$ & $c_{44}$ & $-56083675155951255552$ \\
-$c_{6}$ & $-10565886$ & $c_{19}$ & $-45605243448275052$ & $c_{32}$ & $-100328174888589462528$ & $c_{45}$ & $20388604412801581056$ \\
-$c_{7}$ & $-241401307$ & $c_{20}$ & $54060070980323448$ & $c_{33}$ & $443126456668247224320$ & $c_{46}$ & $14380778412992102400$ \\
-$c_{8}$ & $1071602699$ & $c_{21}$ & $381668926694121592$ & $c_{34}$ & $208305168489270945792$ & $c_{47}$ & $-2938550553535315968$ \\
-$c_{9}$ & $13345125148$ & $c_{22}$ & $-279276792495587856$ & $c_{35}$ & $-569277525167457398784$ & $c_{48}$ & $-2147353631957975040$ \\
-$c_{10}$ & $-57863788103$ & $c_{23}$ & $-2416454789280863680$ & $c_{36}$ & $-306464037826789122048$ & $c_{49}$ & $181032503501389824$ \\
-$c_{11}$ & $-505706609529$ & $c_{24}$ & $913586694625426208$ & $c_{37}$ & $556103049695904006144$ & $c_{50}$ & $138663194171277312$ \\
-$c_{12}$ & $1943503404355$ & $c_{25}$ & $11641743624327594848$ & $c_{38}$ & $327863698842886078464$ &  &  \\
-$c_{13}$ & $13766291794097$ & $c_{26}$ & $-1236120346220230592$ & $c_{39}$ & $-407101841515756781568$ &  &  \\
+$c_{1}$ & $23$ & $c_{14}$ & $-23702032928$ & $c_{27}$ & $-3185462895788032$ & $c_{40}$ & $-629568218742128640$ \\
+$c_{2}$ & $-22$ & $c_{15}$ & $-200481608192$ & $c_{28}$ & $39848377400631296$ & $c_{41}$ & $1258378020079534080$ \\
+$c_{3}$ & $-604$ & $c_{16}$ & $709463535664$ & $c_{29}$ & $-79758251087298560$ & $c_{42}$ & $-642528485629231104$ \\
+$c_{4}$ & $1553$ & $c_{17}$ & $-1811463143952$ & $c_{30}$ & $39788840039038976$ & $c_{43}$ & $16137740466782208$ \\
+$c_{5}$ & $-21323$ & $c_{18}$ & $10925721868320$ & $c_{31}$ & $-3717469113942016$ & $c_{44}$ & $183910856097005568$ \\
+$c_{6}$ & $374102$ & $c_{19}$ & $4403855164608$ & $c_{32}$ & $-48433316471898112$ & $c_{45}$ & $-429581649693376512$ \\
+$c_{7}$ & $-7115148$ & $c_{20}$ & $-66760852800$ & $c_{33}$ & $113237205732294656$ & $c_{46}$ & $212847498174136320$ \\
+$c_{8}$ & $9095944$ & $c_{21}$ & $-55937672341120$ & $c_{34}$ & $-3651899753234432$ & $c_{47}$ & $7063606294216704$ \\
+$c_{9}$ & $146892908$ & $c_{22}$ & $-790036437982976$ & $c_{35}$ & $-115695910986448896$ & $c_{48}$ & $-10420071696433152$ \\
+$c_{10}$ & $-148190520$ & $c_{23}$ & $1689699655347456$ & $c_{36}$ & $35586168391204864$ & $c_{49}$ & $20038599416217600$ \\
+$c_{11}$ & $785046752$ & $c_{24}$ & $-1121483811830784$ & $c_{37}$ & $62900533836382208$ & $c_{50}$ & $-9618527719784448$ \\
+$c_{12}$ & $-7134769952$ & $c_{25}$ & $-443185615263744$ & $c_{38}$ & $-85070442733240320$ &  &  \\
+$c_{13}$ & $8718510768$ & $c_{26}$ & $3059510887941120$ & $c_{39}$ & $69139754586734592$ &  &  \\
 \end{tabular}
 \end{center}
 
@@ -133,7 +133,7 @@ to a one-parameter family --- the recurrences of order $50$ that this sequence s
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A250514.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A254385.
 \bibitem{massey} J.~L.~Massey, Shift-register synthesis and BCH decoding, \emph{IEEE
 Trans. Inform. Theory} \textbf{15} (1969), 122--127.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,

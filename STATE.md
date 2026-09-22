@@ -1916,6 +1916,16 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### the tableorder scan — a vein opened, measured and closed in one sitting
+
+A269637's parent table named the right order where the column entry's own line was wrong. That
+shape is checkable across the whole OEIS with no arithmetic, and `src/tableorder.py` does it:
+6,430 table/column pairs that both say something about the same recurrence, **two
+disagreements, both disproofs** (A269637 → order 13, A236647 → order 38; in each the published
+line is the true one truncated, and the table is right). Papered at ranks 1620 and 1278.
+The vein is **exhausted**; see IDEAS.md §A9 for the three ways the scan was wrong first, all of
+them a parser or a reading rather than a false conjecture.
+
 ### defect 60 — a re-ranking silently destroyed the LaTeX source of 104 papers
 
 Installing one paper and running the ranking chain cost 104 sources. `paper-sources/` went

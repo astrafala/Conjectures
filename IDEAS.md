@@ -28,6 +28,40 @@ counted twice.
 | A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **null**: all 41 rested on a block line; purged |
 | A8 | further conjectures on sequences already proved C-finite | 13,109 | **running**, 297 with new content |
 
+## A9. Tables that name an order their own column entries contradict — DONE, exhausted, 2 hits
+
+`src/tableorder.py`. A Hardin table prints, per column, either the full recurrence or a
+placeholder naming only the order (`k=5: [order 13]`); the column entry publishes a line of its
+own. Where the two orders disagree, one of two published statements is wrong — and it costs one
+pass over the clone and no arithmetic to find them.
+
+**Measured on the whole clone: 399,027 files, 2,111 tables with per-column blocks, 22,866
+column/row members, 6,430 pairs that both say something. Exactly two disagreements, and both
+are disproofs.**
+
+| | table | entry | truth | shape |
+|---|---:|---:|---:|---|
+| A269637 (k=5 of A269640) | 13 | 10 | 13 | line truncated, last 3 terms dropped |
+| A236647 (k=2 of A236651) | 38 | 34 | 38 | line truncated, last 4 terms dropped |
+
+Both papered (ranks 1620 and 1278). **The vein is exhausted — there is no third** — and the
+measurement is worth as much as the hits: across 6,430 chances the OEIS contradicts itself
+twice.
+
+Three things the scan got wrong first, all of them the same lesson:
+
+* **839 "new conjectures" that were my parser.** The scan reported 839 columns whose entry
+  carried no recurrence at all. Every one carries it in prose — `Empirical recurrence of order
+  26 (see link above)` — which a parser reading only lines containing `a(n-` counts as nothing.
+  The true count is 0.
+* **Six false hits from stride.** A263913's columns alternate with zeros, so its lines are in
+  a(n-2), a(n-4), … while its column entries count (2n+2)X(k+2) arrays. Exactly a factor of two,
+  four times over. Dividing by the stride unconditionally then broke fourteen agreeing pairs the
+  other way. Rule, again: **contradiction only when no reasonable reading agrees** (defect 59).
+* **521 pairs dropped on the placeholder's wording** — `[linear recurrence of order N]`,
+  `[same order N]`, `[same linear recurrence of order N]` were not matched, and one of them was
+  in the block carrying the second disproof.
+
 ## B. Engines written for name shapes nothing could read
 
 | # | family | pool | status |

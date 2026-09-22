@@ -12,17 +12,17 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A237774, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A238041, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{2 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237774 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
+OEIS A238041 counts arrays over $\{0,\dots,2\}$ subject to a condition on the order
 statistics of every $2\times2$ subblock, and carries an empirical recurrence of order
 $50$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than empirical.
-The condition is local to two consecutive rows, so the count is a walk count on $S=1176$
+The condition is local to two consecutive rows, so the count is a walk count on $S=1440$
 states and is $C$-finite; whether the conjectured recurrence annihilates it is then settled by
 a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,28 +31,28 @@ a finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237774 is ``Number of (n+1)X(3+1) 0..2 arrays with the maximum plus the upper median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
+OEIS A238041 is ``Number of (n+1)X(3+1) 0..2 arrays with the upper median minus the lower median of every 2X2 subblock differing from its horizontal and vertical neighbors by exactly one.''. It has offset $1$ and begins
 \[
-1176, 7220, 44224, 241036, 1618456, 10751680, 75418228, 465173744,\ \dots
+1440, 10812, 81524, 621780, 4837484, 36440340, 282305082, 2134998732,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 1890*a(n-4) +11436*a(n-6) -297317*a(n-8) -1964276*a(n-10) +14369445*a(n-12) +101694144*a(n-14) -182013563*a(n-16) -1485295098*a(n-18) +1261787279*a(n-20) +7944769616*a(n-22) -6190719967*a(n-24) -10223487242*a(n-26) +8861140786*a(n-28) +4411410330*a(n-30) -7175325372*a(n-32) +2763746512*a(n-34) +683460326*a(n-36) -1158240208*a(n-38) +99695884*a(n-40) +172729392*a(n-42) -44372896*a(n-44) +3735360*a(n-46) +487680*a(n-48) -9216*a(n-50) for n>55
+Empirical: a(n) = 35*a(n-2) +1365*a(n-4) +5818*a(n-6) -253745*a(n-8) -2515364*a(n-10) +10622583*a(n-12) +185736185*a(n-14) +215793766*a(n-16) -2565871459*a(n-18) +1332702148*a(n-20) +36260764417*a(n-22) -76174294334*a(n-24) -318514722516*a(n-26) +853854046952*a(n-28) +424255350704*a(n-30) -1871720624096*a(n-32) -110445159552*a(n-34) +754983001216*a(n-36) -22781154048*a(n-38) -449740093440*a(n-40) +150005694464*a(n-42) +20312506368*a(n-44) +3601989632*a(n-46) +1937768448*a(n-48) +134217728*a(n-50)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:26:43, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 10:42:39, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
 The $2\times2$ subblocks of an $(n+1)\times4$ array form an
-$n\times3$ grid, and each carries the value $\sigma=c+d$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
+$n\times3$ grid, and each carries the value $\sigma=-b+c$, where $a\le b\le c\le d$ are its four entries sorted --- its minimum, lower median, upper median and maximum. The entry asks that the values of
 subblocks that are neighbours --- horizontally or vertically --- differ by exactly $1$.
 That is sharper than merely differing, and it is a condition on a pair of adjacent subblocks,
 so it is local to the grid.
 
 At $n=1$ the array has two rows, so its subblock grid is a single row of $3$ subblocks with
 no vertical neighbours; the condition there is exactly that consecutive values along that row
-differ by $1$. The entry's first term $1176$ counts those, and the model was made to
+differ by $1$. The entry's first term $1440$ counts those, and the model was made to
 reproduce it along with every later term.
 
 \section{The count is a walk count}
@@ -66,7 +66,7 @@ $n-1$ steps, so
 \[
 a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau,\qquad\iota=\tau=(1,\dots,1)^{\!\top},
 \]
-over the $S=1176$ pairs whose own subblock row already satisfies the condition along itself.
+over the $S=1440$ pairs whose own subblock row already satisfies the condition along itself.
 The alignment of the walk index with the entry's own $n$ was checked against its published
 terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -90,15 +90,15 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;1890\,a(n-4) + 11436\,a(n-6) - 297317\,a(n-8) - 1964276\,a(n-10) + 14369445\,a(n-12) + 101694144\,a(n-14) - 182013563\,a(n-16) - 1485295098\,a(n-18) + 1261787279\,a(n-20) + 7944769616\,a(n-22) - 6190719967\,a(n-24) - 10223487242\,a(n-26) + 8861140786\,a(n-28) + 4411410330\,a(n-30) - 7175325372\,a(n-32) + 2763746512\,a(n-34) + 683460326\,a(n-36) - 1158240208\,a(n-38) + 99695884\,a(n-40) + 172729392\,a(n-42) - 44372896\,a(n-44) + 3735360\,a(n-46) + 487680\,a(n-48) - 9216\,a(n-50)
+a(n)\;=\;35\,a(n-2) + 1365\,a(n-4) + 5818\,a(n-6) - 253745\,a(n-8) - 2515364\,a(n-10) + 10622583\,a(n-12) + 185736185\,a(n-14) + 215793766\,a(n-16) - 2565871459\,a(n-18) + 1332702148\,a(n-20) + 36260764417\,a(n-22) - 76174294334\,a(n-24) - 318514722516\,a(n-26) + 853854046952\,a(n-28) + 424255350704\,a(n-30) - 1871720624096\,a(n-32) - 110445159552\,a(n-34) + 754983001216\,a(n-36) - 22781154048\,a(n-38) - 449740093440\,a(n-40) + 150005694464\,a(n-42) + 20312506368\,a(n-44) + 3601989632\,a(n-46) + 1937768448\,a(n-48) + 134217728\,a(n-50)
 \]
-for every $n>55$.
+for every $n>50$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $50$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=55+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=50+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -106,7 +106,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -118,7 +118,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237774.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A238041.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{david} H.~A.~David and H.~N.~Nagaraja, \emph{Order Statistics}, 3rd ed., Wiley,

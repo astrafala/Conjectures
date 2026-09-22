@@ -12,76 +12,71 @@
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The empirical recurrence for OEIS A251000, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A183350, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
 \date{3 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A251000 counts arrays over $\{0,1,2\}$ in which a statistic taken over short runs
-of cells produces a derived array that is monotone in a named direction. The entry carries an
-empirical recurrence of order $54$ contributed by R.~H.~Hardin. It is true, and it is
-decidable rather than empirical: every comparison the condition makes lies inside a bounded
-window of consecutive rows, so the count is a walk count on $S=2187$ states, and the
-conjectured recurrence is then settled by a finite exact computation.
+OEIS A183350 counts arrays of width $8$ over $\{0,1\}$ under local conditions relating each cell
+to its neighbours or to the cells preceding it. The entry carries an empirical recurrence of
+order $54$ contributed by R.~H.~Hardin. It is true, and it is decidable rather than
+empirical: every condition is settled inside three consecutive array rows, so the count is a
+walk count on $S=3649$ states.
 \end{abstract}
 
-\noindent\small 2020 Mathematics Subject Classification. 05A15, 15A18.\normalsize
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05C30, 15A18.\normalsize
 
 \section{The conjecture}
 
-OEIS A251000 is ``Number of (6+1)X(n+1) 0..2 arrays with nondecreasing min(x(i,j),x(i,j-1)) in the i direction and nondecreasing absolute value of x(i,j)-x(i-1,j) in the j direction.''. It has offset $1$ and begins
+OEIS A183350 is ``Number of nX8 binary arrays with each 1 adjacent to exactly one 0 vertically and one 0 horizontally.''. It has offset $1$ and begins
 \[
-32554, 344135, 2592734, 16694358, 92713991, 469255626, 2187354714, 9598391778,\ \dots
+1, 201, 625, 2289, 15789, 80265, 387783, 2078075,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
 \begin{quote}
-Empirical: a(n) = 8*a(n-1) +17*a(n-2) -284*a(n-3) +106*a(n-4) +4700*a(n-5) -6213*a(n-6) -48140*a(n-7) +92362*a(n-8) +341468*a(n-9) -826118*a(n-10) -1776404*a(n-11) +5213227*a(n-12) +6988348*a(n-13) -24852084*a(n-14) -21045456*a(n-15) +92969210*a(n-16) +48140524*a(n-17) -279535546*a(n-18) -79835920*a(n-19) +686453931*a(n-20) +79155936*a(n-21) -1391929843*a(n-22) +17793384*a(n-23) +2347811498*a(n-24) -259696800*a(n-25) -3309603209*a(n-26) +614759784*a(n-27) +3908486236*a(n-28) -950400596*a(n-29) -3868574686*a(n-30) +1107026528*a(n-31) +3204583292*a(n-32) -1015622316*a(n-33) -2214128543*a(n-34) +745872588*a(n-35) +1269025715*a(n-36) -440082340*a(n-37) -598624682*a(n-38) +207736100*a(n-39) +229909626*a(n-40) -77605988*a(n-41) -70846403*a(n-42) +22535228*a(n-43) +17169883*a(n-44) -4948832*a(n-45) -3182528*a(n-46) +788272*a(n-47) +433005*a(n-48) -85152*a(n-49) -40502*a(n-50) +5520*a(n-51) +2310*a(n-52) -160*a(n-53) -60*a(n-54) for n>58
+Empirical: a(n)=a(n-1)+8*a(n-2)+61*a(n-3)+108*a(n-4)-84*a(n-5)-766*a(n-6)-2284*a(n-7)-856*a(n-8)+7705*a(n-9)+18604*a(n-10)+13454*a(n-11)-47608*a(n-12)-125818*a(n-13)+178*a(n-14)+271103*a(n-15)+192026*a(n-16)-206016*a(n-17)-245214*a(n-18)-102804*a(n-19)-100789*a(n-20)+86031*a(n-21)+522440*a(n-22)+181189*a(n-23)-174911*a(n-24)-271165*a(n-25)-208301*a(n-26)-240559*a(n-27)+276540*a(n-28)+185848*a(n-29)+76229*a(n-30)+51736*a(n-31)-109630*a(n-32)-26571*a(n-33)-43513*a(n-34)-22938*a(n-35)+36341*a(n-36)-40970*a(n-37)+67314*a(n-38)-27022*a(n-39)+33774*a(n-40)-20773*a(n-41)+6267*a(n-42)-8484*a(n-43)+2766*a(n-44)+212*a(n-45)+802*a(n-46)+238*a(n-47)-172*a(n-48)+6*a(n-49)-22*a(n-50)+48*a(n-51)-4*a(n-54)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 12:58:09, revision 6) this is still
+As of the ``Last modified'' line on the live entry (Oct 03 2025 01:35:42, revision 9) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{What is being counted}
 
-The array has $7$ cells across and entries $x(i,j)\in\{0,1,2\}$.
+The array has $8$ cells across, with entries in $\{0,1\}$. The NEIGHBOURS of a cell are the
+cells immediately to its left, to its right, above it and below it, those that lie inside the
+array. The entry asks that
+\begin{itemize}
+\item every cell carrying $1$ has exactly $1$ of its two VERTICAL neighbours carrying $0$ and exactly $1$ of its two HORIZONTAL neighbours carrying $0$;
+\end{itemize}
+and nothing else.
 
-Two derived arrays are formed. The first reads the horizontal statistic across each
-neighbouring pair of a row,
-\[
-b(i,j)\;=\;\bigl[\,\lvert a-b\rvert\,\bigr]_{a=x(i,j),\,b=x(i,j-1)}\qquad (j\ge1),
-\]
-and must not decrease DOWN a column: $b(i,j)\le b(i{+}1,j)$. The second reads the vertical
-statistic down each neighbouring pair of a column,
-\[
-c(i,j)\;=\;\bigl[\,\min(a,b)\,\bigr]_{a=x(i,j),\,b=x(i{-}1,j)}\qquad (i\ge1),
-\]
-and must not decrease ALONG a row: $c(i,j)\le c(i,j{+}1)$. In words, the horizontal statistic
-is the absolute difference of a cell and its left neighbour, and the vertical one is
-the smaller of a cell and the cell above it. The entry writes the array with $n$ as the number of COLUMNS. The walk is run down the transpose, which exchanges the roles of the two directions once and for all; the arguments of each statistic keep their order under that exchange, the later cell staying the first argument.
-
-Nothing in the condition is invariant under renaming the letters --- each statistic either does
-arithmetic on them or compares them by size --- so no reduction to equality patterns is
-available, and the walk is run over the alphabet the entry names.
-
-\section{A bounded window}
+\section{Three rows decide everything}
 
 \begin{lemma}\label{lem:win}
-Both conditions are conditions on TWO consecutive array rows and nothing more.
+Every clause above is decided by three consecutive array rows. An adjacency clause for a cell
+of row $i$ reads rows $i-1$, $i$ and $i+1$; a precedence clause for a cell of row $i$ reads
+rows $i-2$, $i-1$ and $i$, and columns at most two to the left.
 \end{lemma}
 
 \begin{proof}
-$b(i,j)\le b(i{+}1,j)$ names four cells, all in rows $i$ and $i+1$. $c(i,j)\le c(i,j{+}1)$
-names four cells, all in rows $i-1$ and $i$. No comparison reaches further.
+The neighbours of a cell lie one step away in each of the four directions, and the predecessors
+one step to the left or one step up; a clause naming two cells in a row or column reaches two
+steps, never more.
 \end{proof}
 
-So a single row is a state. Let $M$ be the matrix on the $3^{7}=2187$ rows with
-$M[r,s]=1$ when the pair $(r,s)$ passes both tests and $0$ otherwise. An array of $R$ rows is a
-walk of $R-1$ steps and every row may begin or end one, so with $\iota=\tau=\mathbf{1}$,
+So the state is the pair (row above, current row), with a row not yet written carried as
+$\bot$. A step appends a row: the precedence clauses for the NEW row are settled at once,
+because everything they read is already written, and the adjacency clauses for the MIDDLE row
+of the window are settled because the row below it has just arrived. An adjacency clause for a row is settled only when the row BELOW it has been
+written, so the condition for the LAST row of an array belongs to the end vector, which asks
+whether that row is satisfied with nothing below it. The end vector is therefore not the
+all-ones vector: a row satisfied only because a further row is written below it does not
+finish an array. With $M$ the
+adjacency matrix of the digraph on those states,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=2187.
+a(n)\;=\;\iota^{\!\top}M^{\,j}\tau ,\qquad S=3649.
 \]
-
 The walk index $j$ and the entry's own $n$ differ by a constant, read off by matching the
 published terms rather than assumed. In particular $a$ is $C$-finite.
 
@@ -105,29 +100,29 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;8\,a(n-1) + 17\,a(n-2) - 284\,a(n-3) + 106\,a(n-4) + 4700\,a(n-5) - 6213\,a(n-6) - 48140\,a(n-7) + 92362\,a(n-8) + 341468\,a(n-9) - 826118\,a(n-10) - 1776404\,a(n-11) + 5213227\,a(n-12) + 6988348\,a(n-13) - 24852084\,a(n-14) - 21045456\,a(n-15) + 92969210\,a(n-16) + 48140524\,a(n-17) - 279535546\,a(n-18) - 79835920\,a(n-19) + 686453931\,a(n-20) + 79155936\,a(n-21) - 1391929843\,a(n-22) + 17793384\,a(n-23) + 2347811498\,a(n-24) - 259696800\,a(n-25) - 3309603209\,a(n-26) + 614759784\,a(n-27) + 3908486236\,a(n-28) - 950400596\,a(n-29) - 3868574686\,a(n-30) + 1107026528\,a(n-31) + 3204583292\,a(n-32) - 1015622316\,a(n-33) - 2214128543\,a(n-34) + 745872588\,a(n-35) + 1269025715\,a(n-36) - 440082340\,a(n-37) - 598624682\,a(n-38) + 207736100\,a(n-39) + 229909626\,a(n-40) - 77605988\,a(n-41) - 70846403\,a(n-42) + 22535228\,a(n-43) + 17169883\,a(n-44) - 4948832\,a(n-45) - 3182528\,a(n-46) + 788272\,a(n-47) + 433005\,a(n-48) - 85152\,a(n-49) - 40502\,a(n-50) + 5520\,a(n-51) + 2310\,a(n-52) - 160\,a(n-53) - 60\,a(n-54)
+a(n)\;=\;a(n-1) + 8\,a(n-2) + 61\,a(n-3) + 108\,a(n-4) - 84\,a(n-5) - 766\,a(n-6) - 2284\,a(n-7) - 856\,a(n-8) + 7705\,a(n-9) + 18604\,a(n-10) + 13454\,a(n-11) - 47608\,a(n-12) - 125818\,a(n-13) + 178\,a(n-14) + 271103\,a(n-15) + 192026\,a(n-16) - 206016\,a(n-17) - 245214\,a(n-18) - 102804\,a(n-19) - 100789\,a(n-20) + 86031\,a(n-21) + 522440\,a(n-22) + 181189\,a(n-23) - 174911\,a(n-24) - 271165\,a(n-25) - 208301\,a(n-26) - 240559\,a(n-27) + 276540\,a(n-28) + 185848\,a(n-29) + 76229\,a(n-30) + 51736\,a(n-31) - 109630\,a(n-32) - 26571\,a(n-33) - 43513\,a(n-34) - 22938\,a(n-35) + 36341\,a(n-36) - 40970\,a(n-37) + 67314\,a(n-38) - 27022\,a(n-39) + 33774\,a(n-40) - 20773\,a(n-41) + 6267\,a(n-42) - 8484\,a(n-43) + 2766\,a(n-44) + 212\,a(n-45) + 802\,a(n-46) + 238\,a(n-47) - 172\,a(n-48) + 6\,a(n-49) - 22\,a(n-50) + 48\,a(n-51) - 4\,a(n-54)
 \]
-for every $n>58$.
+for every $n>54$.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $54$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=58+1$ onwards and the run continued
-until the working vector was identically zero, which settles every larger $j$ at once.
+integers vanish from the index corresponding to $n=54+1$ onwards and the run continued
+until the working vector was identically zero.
 \end{proof}
 
 \section{Verification}
 
 Four checks, each independent of the algebra above.
 
-First, the model reproduces all $17$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $20$ terms the entry publishes, exactly, in integer
 arithmetic.
 
-Second, the count was recomputed for the smallest arrays straight from the definition: fill the
-cells in row major order and test each comparison the moment both of its runs are complete,
-in the orientation the entry's own name writes. No transfer matrix and no transposition are
-involved, and the published terms came back.
+Second, the count was recomputed for the smallest arrays straight from the definition:
+enumerate every array of that size in the orientation the entry's own name writes and test each
+clause on each cell directly. No window, no state and no transfer matrix are involved, and the
+published terms came back.
 
 Third, the conjectured recurrence was evaluated directly on the published terms, with no
 matrices involved, and holds wherever the proved range and the data overlap.
@@ -137,7 +132,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A251000.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A183350.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge

@@ -11,18 +11,22 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
+% A quoted conjecture can be a single hundred-term formula whose terms are thirty-digit
+% numbers. TeX cannot hyphenate those, so without a little stretch every such quote runs off
+% the page; the linked-a-file papers are all of that shape.
+\setlength{\emergencystretch}{3em}
 
-\title{The empirical recurrence for OEIS A237804, proved by transfer matrix}
+\title{The empirical recurrence for OEIS A249287, proved by transfer matrix}
 \author{Adrian Perez Fontelles\\ \small Independent researcher}
-\date{7 September 2026}
+\date{14 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-OEIS A237804 carries an empirical recurrence of order $87$ contributed by R. H. Hardin. It is
+OEIS A249287 carries an empirical recurrence of order $87$ contributed by R. H. Hardin. It is
 true, and it is decidable rather than empirical. The entry's condition is local to a bounded window of consecutive lines, so
 the admissible configurations of such a window are the vertices of a finite digraph and the
-arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=194$ vertices
+arrays counted are exactly the walks in it; hence $a(n)$ is a walk count on $S=216$ vertices
 and is $C$-finite. Whether the conjectured recurrence annihilates it is then settled by a
 finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 \end{abstract}
@@ -31,26 +35,25 @@ finite exact computation, with the Cayley--Hamilton theorem bounding the work.
 
 \section{The conjecture}
 
-OEIS A237804 is ``Number of (n+1)X(3+1) 0..2 arrays with the maximum plus the upper median minus the minimum of every 2X2 subblock equal.''. It has offset $1$ and begins
+OEIS A249287 is ``Number of length n+3 0..5 arrays with no four consecutive terms having the sum of any three elements equal to three times the fourth.''. It has offset $1$ and begins
 \[
-1085, 10433, 94325, 932255, 9105033, 91394885, 915038911, 9256755467,\ \dots
+1098, 5646, 29100, 150112, 774542, 3996816, 20626236, 106449362,\ \dots
 \]
 The entry states, as a conjecture contributed by its author and never marked settled:
-\begin{quote}
+\begin{quote}\raggedright\small
 Empirical recurrence of order 87 (see link above)
+
+Empirical: a(n) = 3*a(n-1) + 12*a(n-2) + a(n-3) + 21*a(n-4) - 132*a(n-5) - 588*a(n-6) - 346*a(n-7) + 520*a(n-8) + 1442*a(n-9) + 4618*a(n-10) + 7400*a(n-11) - 7826*a(n-12) + 8252*a(n-13) + 95330*a(n-14) + 71724*a(n-15) - 72562*a(n-16) - 209620*a(n-17) - 642499*a(n-18) - 1058831*a(n-19) + 355352*a(n-20) + 56347*a(n-21) - 7012523*a(n-22) - 9480520*a(n-23) + 2057489*a(n-24) + 12138881*a(n-25) + 10071975*a(n-26) + 9690401*a(n-27) - 1848980*a(n-28) + 13619424*a(n-29) + 131163937*a(n-30) + 194404754*a(n-31) + 22740084*a(n-32) - 173196795*a(n-33) - 99269790*a(n-34) + 36804539*a(n-35) + 43668553*a(n-36) - 226146991*a(n-37) - 1056300175*a(n-38) - 1526072442*a(n-39) - 555006247*a(n-40) + 848674502*a(n-41) + 807419220*a(n-42) - 91213944*a(n-43) - 149746672*a(n-44) + 1119506263*a(n-45) + 3862938023*a(n-46) + 5340521303*a(n-47) + 2870190768*a(n-48) - 1413019705*a(n-49) - 3566991925*a(n-50) - 2399481656*a(n-51) - 1102933028*a(n-52) - 2185475782*a(n-53) - 4980600897*a(n-54) - 6211557689*a(n-55) - 4173396712*a(n-56) + 580239300*a(n-57) + 6037502575*a(n-58) + 5993933950*a(n-59) + 2815331120*a(n-60) + 1044939860*a(n-61) - 1112410595*a(n-62) - 1034279986*a(n-63) + 1512870535*a(n-64) + 2163354109*a(n-65) - 98668449*a(n-66) - 1134572225*a(n-67) - 1605037214*a(n-68) - 2727211194*a(n-69) - 444870030*a(n-70) + 1001362321*a(n-71) + 298140063*a(n-72) + 935079514*a(n-73) + 381263190*a(n-74) - 395392203*a(n-75) - 16306201*a(n-76) - 68825836*a(n-77) - 87016489*a(n-78) + 73195007*a(n-79) + 19227156*a(n-80) - 14796010*a(n-81) + 743784*a(n-82) + 1074048*a(n-83) - 218172*a(n-84) - 107148*a(n-85) - 32824*a(n-86) - 4704*a(n-87)
 \end{quote}
-As of the ``Last modified'' line on the live entry (Jul 23 2025 10:29:29, revision 7) this is still
+As of the ``Last modified'' line on the live entry (Jul 23 2025 11:57:53, revision 6) this is still
 recorded as empirical, and nothing on the entry records it as proved.
 
 \section{The count is a walk count}
 
-The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as
-vertices the admissible configurations of one such window and put an edge from $u$ to $v$
-whenever $v$ may follow $u$, which the condition decides by inspection of the two. An
-admissible array is then exactly a walk, so with $M$ the adjacency matrix on $S=194$ vertices
-and $\iota,\tau$ the vectors recording which windows may begin and end an array,
+The condition the entry imposes is local: it constrains a bounded window of consecutive lines and nothing beyond. Take as vertices the admissible configurations of one such window and put an edge from $u$ to $v$ whenever $v$ may follow $u$, which the condition decides by inspection of the two.
+An admissible array is then exactly a walk, and $\iota,\tau$ are the vectors recording which windows may begin and end an array, so with $M$ the adjacency matrix on $S=216$ vertices,
 \[
-a(n)\;=\;\iota^{\!\top}M^{\,n}\tau ,
+a(n)\;=\;\iota^{\!\top}M^{\,n-1}\tau ,
 \]
 the exponent fixed by the entry's own shape and checked against its published terms. In
 particular $a$ is $C$-finite.
@@ -75,15 +78,64 @@ pins the threshold exactly.
 
 \begin{theorem}
 \[
-a(n)\;=\;18\,a(n-1) + 217\,a(n-2) - 5294\,a(n-3) - 16403\,a(n-4) + 704948\,a(n-5) + 82705\,a(n-6) - 56584136\,a(n-7) + 78865362\,a(n-8) + 3076026863\,a(n-9) - 7199166181\,a(n-10) - 120637593501\,a(n-11) + 365564762756\,a(n-12) + 3549504142917\,a(n-13) - 12790096388590\,a(n-14) - 80402546736359\,a(n-15) + 332992110159246\,a(n-16) + 1426499548921077\,a(n-17) - 6717451929297421\,a(n-18) - 20034163844778889\,a(n-19) + 107696548314961391\,a(n-20) + 223653595364293632\,a(n-21) - 1396521986902156263\,a(n-22) - 1976412615036492683\,a(n-23) + 14836482474933147940\,a(n-24) + 13563732063040913356\,a(n-25) - 130404408691998761896\,a(n-26) - 68263929204891372063\,a(n-27) + 955456073628960588907\,a(n-28) + 201721297361134917842\,a(n-29) - 5869976180402022060575\,a(n-30) + 259393033169619842343\,a(n-31) + 30376513365179750646842\,a(n-32) - 7818797983978706256898\,a(n-33) - 132861218552181333307226\,a(n-34) + 58377863779052390964153\,a(n-35) + 492349527558191665442684\,a(n-36) - 294669376845857357690051\,a(n-37) - 1548197055346471473406398\,a(n-38) + 1147882790463355604001788\,a(n-39) + 4133656620746930597917597\,a(n-40) - 3612822625250659103647598\,a(n-41) - 9368663326389324810838605\,a(n-42) + 9384473910088753791292498\,a(n-43) + 18000935051354459039097591\,a(n-44) - 20345770213690112028932763\,a(n-45) - 29248497595062500439781612\,a(n-46) + 37045806533320857022536584\,a(n-47) + 40026867790058529737492767\,a(n-48) - 56834491006726781217519707\,a(n-49) - 45851699063594239332346870\,a(n-50) + 73557528686746167002037132\,a(n-51) + 43550594932175151132613717\,a(n-52) - 80288895649150119915495756\,a(n-53) - 33778782955352208756603085\,a(n-54) + 73791982911443384289980890\,a(n-55) + 20824592946090046063790339\,a(n-56) - 56948955132985558274367151\,a(n-57) - 9637602128018719030465208\,a(n-58) + 36759718260662043172253570\,a(n-59) + 2815038601185442749958555\,a(n-60) - 19743137517971584389044423\,a(n-61) - 8875845991399554903844\,a(n-62) + 8765263160568774888691411\,a(n-63) - 543139744547779165573018\,a(n-64) - 3190541833737192571081290\,a(n-65) + 359745558209911185960996\,a(n-66) + 942549898415827658796780\,a(n-67) - 144649979123862935613584\,a(n-68) - 223142681653184361451848\,a(n-69) + 41333191284692496925712\,a(n-70) + 41662216634818473995392\,a(n-71) - 8700356513785281898656\,a(n-72) - 6008932112830137312064\,a(n-73) + 1350392959805202008576\,a(n-74) + 651314664425245439488\,a(n-75) - 151802367639435532288\,a(n-76) - 51071206646146962432\,a(n-77) + 11927182049124145152\,a(n-78) + 2740364705195704320\,a(n-79) - 616639562856390656\,a(n-80) - 92176973744701440\,a(n-81) + 18856582268682240\,a(n-82) + 1660403493765120\,a(n-83) - 272499966738432\,a(n-84) - 11129516457984\,a(n-85) + 812201803776\,a(n-86) + 16307453952\,a(n-87)
+a(n)\;=\;\sum_{i=1}^{87}c_i\,a(n-i)
 \]
-for every $n>87$.
+for every $n>89$, with
+\begin{center}\footnotesize
+\begin{tabular}{r@{\,}l@{\qquad}r@{\,}l}
+$c_{1}$ & $=3$ & $c_{2}$ & $=12$ \\
+$c_{3}$ & $=1$ & $c_{4}$ & $=21$ \\
+$c_{5}$ & $=-132$ & $c_{6}$ & $=-588$ \\
+$c_{7}$ & $=-346$ & $c_{8}$ & $=520$ \\
+$c_{9}$ & $=1442$ & $c_{10}$ & $=4618$ \\
+$c_{11}$ & $=7400$ & $c_{12}$ & $=-7826$ \\
+$c_{13}$ & $=8252$ & $c_{14}$ & $=95330$ \\
+$c_{15}$ & $=71724$ & $c_{16}$ & $=-72562$ \\
+$c_{17}$ & $=-209620$ & $c_{18}$ & $=-642499$ \\
+$c_{19}$ & $=-1058831$ & $c_{20}$ & $=355352$ \\
+$c_{21}$ & $=56347$ & $c_{22}$ & $=-7012523$ \\
+$c_{23}$ & $=-9480520$ & $c_{24}$ & $=2057489$ \\
+$c_{25}$ & $=12138881$ & $c_{26}$ & $=10071975$ \\
+$c_{27}$ & $=9690401$ & $c_{28}$ & $=-1848980$ \\
+$c_{29}$ & $=13619424$ & $c_{30}$ & $=131163937$ \\
+$c_{31}$ & $=194404754$ & $c_{32}$ & $=22740084$ \\
+$c_{33}$ & $=-173196795$ & $c_{34}$ & $=-99269790$ \\
+$c_{35}$ & $=36804539$ & $c_{36}$ & $=43668553$ \\
+$c_{37}$ & $=-226146991$ & $c_{38}$ & $=-1056300175$ \\
+$c_{39}$ & $=-1526072442$ & $c_{40}$ & $=-555006247$ \\
+$c_{41}$ & $=848674502$ & $c_{42}$ & $=807419220$ \\
+$c_{43}$ & $=-91213944$ & $c_{44}$ & $=-149746672$ \\
+$c_{45}$ & $=1119506263$ & $c_{46}$ & $=3862938023$ \\
+$c_{47}$ & $=5340521303$ & $c_{48}$ & $=2870190768$ \\
+$c_{49}$ & $=-1413019705$ & $c_{50}$ & $=-3566991925$ \\
+$c_{51}$ & $=-2399481656$ & $c_{52}$ & $=-1102933028$ \\
+$c_{53}$ & $=-2185475782$ & $c_{54}$ & $=-4980600897$ \\
+$c_{55}$ & $=-6211557689$ & $c_{56}$ & $=-4173396712$ \\
+$c_{57}$ & $=580239300$ & $c_{58}$ & $=6037502575$ \\
+$c_{59}$ & $=5993933950$ & $c_{60}$ & $=2815331120$ \\
+$c_{61}$ & $=1044939860$ & $c_{62}$ & $=-1112410595$ \\
+$c_{63}$ & $=-1034279986$ & $c_{64}$ & $=1512870535$ \\
+$c_{65}$ & $=2163354109$ & $c_{66}$ & $=-98668449$ \\
+$c_{67}$ & $=-1134572225$ & $c_{68}$ & $=-1605037214$ \\
+$c_{69}$ & $=-2727211194$ & $c_{70}$ & $=-444870030$ \\
+$c_{71}$ & $=1001362321$ & $c_{72}$ & $=298140063$ \\
+$c_{73}$ & $=935079514$ & $c_{74}$ & $=381263190$ \\
+$c_{75}$ & $=-395392203$ & $c_{76}$ & $=-16306201$ \\
+$c_{77}$ & $=-68825836$ & $c_{78}$ & $=-87016489$ \\
+$c_{79}$ & $=73195007$ & $c_{80}$ & $=19227156$ \\
+$c_{81}$ & $=-14796010$ & $c_{82}$ & $=743784$ \\
+$c_{83}$ & $=1074048$ & $c_{84}$ & $=-218172$ \\
+$c_{85}$ & $=-107148$ & $c_{86}$ & $=-32824$ \\
+$c_{87}$ & $=-4704$ \\
+\end{tabular}
+\end{center}
+and $c_i=0$ for every $i$ not listed.
 \end{theorem}
 
 \begin{proof}
 The vector $w=q(M)\tau$ was formed by $87$ matrix--vector products in exact integer
 arithmetic and $\iota^{\!\top}M^{j}w$ evaluated for $j=0,1,\dots$, again exactly; those
-integers vanish from the index corresponding to $n=87+1$ onwards and the run continued
+integers vanish from the index corresponding to $n=89+1$ onwards and the run continued
 until the working vector was identically zero, which settles every larger $j$ at once.
 \end{proof}
 
@@ -91,7 +143,7 @@ until the working vector was identically zero, which settles every larger $j$ at
 
 Three checks, each independent of the algebra above.
 
-First, the model reproduces all $16$ terms the entry publishes, exactly, in integer
+First, the model reproduces all $18$ terms the entry publishes, exactly, in integer
 arithmetic. This is what ties the model to the entry: the digraph is built by reading the
 entry's English, and a misreading gives different counts.
 
@@ -103,7 +155,7 @@ arithmetic on the whole vector rather than on a sampled prefix.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
-Sequences}, \url{https://oeis.org}, 2026. Sequence A237804.
+Sequences}, \url{https://oeis.org}, 2026. Sequence A249287.
 \bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
 Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
 \bibitem{fs} P.~Flajolet and R.~Sedgewick, \emph{Analytic Combinatorics}, Cambridge

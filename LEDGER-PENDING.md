@@ -168,3 +168,82 @@ every source must survive. It fails against the old code and passes against the 
 **The lesson.** A count that only goes up is not a check. `sync_sources` printed five numbers
 every run and none of them was sources-before against sources-after. The deletion was loud in
 the filesystem and invisible in the output.
+
+## 22 September 2026 — a new scan: tables that name an order their own column entries contradict
+
+A269637's disproof was corroborated by something that cost nothing. Its parent table A269640
+prints, in one block, the full recurrence for its short columns and a **placeholder naming only
+the order** for its long ones — `k=5: [order 13]` — while A269637, which *is* column 5,
+publishes an order-10 line. Two statements on the OEIS about the same recurrence, disagreeing,
+and the disagreement visible without computing anything.
+
+So: **scan the whole clone for that shape.** `src/tableorder.py` reads every
+`%F <table> k=<j>: ...` block, every `Column j of <table>` / `Row n of <table>` comment, and
+compares the order the table names against the order the member entry's own line has.
+
+**The measurement: 399,027 files, 2,111 tables with per-column blocks, 22,866 column/row
+members, 6,430 pairs where both sides say something about the same recurrence.**
+
+**Exactly two disagreements in the whole OEIS.** And both are real:
+
+| | table says | entry says | truth | dropped |
+|---|---:|---:|---:|---|
+| A269637 (k=5 of A269640) | 13 | 10 | **13** | last 3 terms |
+| A236647 (k=2 of A236651) | 38 | 34 | **38** | last 4 terms |
+
+In both the table is right, the column entry's line is the correct recurrence truncated, and
+the published coefficients are the true line's first ones term for term. Two for two.
+
+### A236647, the second one
+
+"Number of (n+1)X(2+1) 0..2 arrays colored with the maximum plus the upper median minus the
+lower median minus the minimum of every 2X2 subblock", offset 1, 16 DATA terms — but a
+**b-file of 210**. Order 34 first asserts at n = 35, so the b-file tests it 176 times and it
+**fails all 176**, first at n = 35 short by 145,084,608. Again no model is needed for the
+disproof: the entry's own published terms do it.
+
+The wording had to be pinned down and then checked rather than assumed. Hardin's "colored with
+X of every 2X2 subblock" means the 2X2 subblocks are **properly coloured** by
+χ = max + upper median − lower median − min: horizontally and vertically adjacent subblocks get
+different χ. Brute force over all 3^(3(n+1)) arrays gives 484, 4500, 41980 for n = 1,2,3 — the
+entry's first three terms — and the same rule at width 2 reproduces A236646, the k=1 column.
+
+A 224-state transfer model (last row, colours of the subblock row just completed) reproduces
+all 16 DATA terms and all 210 b-file terms. The recurrence that holds has **order 38**, integral,
+first 34 coefficients exactly the published ones, tail
+`+1733120*a(n-35) +12956032*a(n-36) +5889024*a(n-37) -243712*a(n-38)`.
+
+The proof is an annihilation that does **not** vanish, and that is the interesting part:
+1ᵀp(M)u = 114,688 ≠ 0, so the order-38 line fails at n = 39 — while 1ᵀMᵐ(M·p(M)u) = 0 for every
+m ≤ 224 and hence for all m, so it holds for every n ≥ 40. **The table said "for n>39" and that
+is exactly the exception the matrix produces.** Every order 1..37 fitted on the tail fails
+there, so 34 is not merely incomplete — no order-34 recurrence exists.
+
+Paper installed at rank 1278 (A269637 is now 1620). `src/verify_a236647.py` re-derives every
+claim and passes.
+
+### What the scan refused, which is the more useful half
+
+The first run also reported 839 pairs as ABSENT — a table naming an order for a column entry
+that carried no recurrence at all. **That number is now 0**, and the correction is the familiar
+one: those entries *do* carry the conjecture, in prose. When the line is long the entry writes
+`Empirical recurrence of order 26 (see link above)` instead of the coefficients, and a parser
+that only reads lines containing `a(n-` counts them as carrying nothing. 839 "new conjectures"
+were my own parser.
+
+Two other corrections came out of the same scan and are worth keeping:
+
+* **Six false hits from the table's stride.** A263913's columns alternate with zeros, so its
+  lines are written in a(n-2), a(n-4), … and its column entries count (2n+2)X(k+2) arrays —
+  one term per two table rows. All four of its columns looked like contradictions of *exactly*
+  a factor of two. Dividing by the stride unconditionally then turned fourteen agreeing pairs
+  into disagreements, because a short column can have only even lags without the block being in
+  double units. Both directions are the defect-59 lesson: **report a contradiction only when no
+  reasonable reading agrees.**
+* **521 pairs silently dropped** because only `[order N]` was matched. The placeholder is also
+  written `[linear recurrence of order N]` (423), `[same order N]` (79) and
+  `[same linear recurrence of order N]` (19) — and one of the dropped lines was in the very
+  block carrying the second disproof.
+
+**The honest verdict on the vein: it is exhausted, and it was worth running.** 6,430 pairs, two
+hits, both papers. There is no third.

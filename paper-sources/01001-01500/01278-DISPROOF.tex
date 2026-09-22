@@ -1,0 +1,253 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The empirical recurrence for OEIS A236647 is false at every index its b-file can
+test, and the correct one, of order 38}
+\author{Adrian Perez Fontelles\\ \small Independent researcher}
+\date{22 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+OEIS A236647 carries an empirical recurrence of order $34$ contributed by R.~H.~Hardin. It
+is false. The entry's own b-file runs to $n=210$, so the recurrence can be tested at $176$
+indices, and it fails at all $176$; the first is $n=35$, where the recurrence falls short of
+the b-file's $36$-digit value by $145084608$. A
+transfer matrix on $224$ states, brute-force confirmed and reproducing all $210$ b-file
+terms, gives the recurrence that does hold: it has order $38$, its first $34$
+coefficients are exactly the published ones, and it holds for every $n\ge40$, failing at
+$n=39$ and there only. The published line is the correct recurrence with its last four
+terms dropped, and the entry's own parent table A236651 already says so, recording this
+column as ``[order 38] for n>39''.
+\end{abstract}
+
+\noindent\small 2020 Mathematics Subject Classification. 05A15, 05B45, 15B36.\normalsize
+
+\section{The sequence and the claim}
+
+OEIS A236647 is ``Number of (n+1)X(2+1) 0..2 arrays colored with the maximum plus the upper
+median minus the lower median minus the minimum of every 2X2 subblock.''. It has offset $1$,
+publishes $16$ terms in DATA and a b-file of $210$. It carries one formula line, an
+empirical recurrence of order $34$:
+\begin{multline}\label{eq:conj}
+a(n)\;=\;13\,a(n-2) + 184\,a(n-3) + 3506\,a(n-4) + 9110\,a(n-5)\\
+{}+ 21587\,a(n-6) + 63605\,a(n-7) - 342128\,a(n-8) - 864643\,a(n-9)\\
+{}+ 1140624\,a(n-10) + 294974\,a(n-11) + 739053\,a(n-12) + 15509266\,a(n-13)\\
+{}- 16660349\,a(n-14) - 37563062\,a(n-15) + 41074149\,a(n-16) - 39645704\,a(n-17)\\
+{}- 48556860\,a(n-18) + 140778823\,a(n-19) - 72899036\,a(n-20) - 67241570\,a(n-21)\\
+{}+ 329687733\,a(n-22) - 46469782\,a(n-23) - 133466871\,a(n-24) + 319656720\,a(n-25)\\
+{}- 408928291\,a(n-26) - 40519358\,a(n-27) + 151099557\,a(n-28) - 160188966\,a(n-29)\\
+{}+ 104521624\,a(n-30) - 63973040\,a(n-31) - 163603316\,a(n-32) + 759648\,a(n-33)\\
+{}+ 12746672\,a(n-34).
+\end{multline}
+As of the live entry (revision $6$, last modified Jul 23 2025) this is recorded as empirical,
+with no range stated and nothing recording it as settled or corrected.
+
+With offset $1$ and order $34$ the line first asserts something at $n=35$. DATA stops at
+$n=16$, so on the DATA alone the claim is untestable --- but the entry links a b-file running
+to $n=210$, which tests it $176$ times.
+
+\section{The published recurrence fails at all 176 indices its b-file can test}
+
+Substituting the b-file's own integers into the right-hand side of \eqref{eq:conj}:
+
+\begin{center}\small
+\begin{tabular}{rr}
+\toprule
+$n$ & $a(n)-\text{RHS of \eqref{eq:conj}}$ \\
+\midrule
+$35$ & $145084608$\\
+$36$ & $1515557632$\\
+$37$ & $14366219776$\\
+$38$ & $133896336896$\\
+$39$ & $1253784855040$\\
+$40$ & $11713661278720$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}
+\eqref{eq:conj} is false. It fails at every one of the $176$ indices
+$n=35,\dots,210$ at which the entry's b-file can test it. The smallest is $n=35$, where
+\[
+a(35)\;=\;470259440232820855339223326337397112
+\]
+and the right-hand side of \eqref{eq:conj} gives
+\[
+470259440232820855339223326192312504,
+\]
+a difference of $145084608$.
+\end{proposition}
+
+\begin{proof}
+Direct evaluation in exact integer arithmetic on the $210$ integers the entry's b-file
+publishes. No model enters this computation.
+\end{proof}
+
+\section{What the entry counts}
+
+The wording is Hardin's and is terse, so it is worth fixing precisely, and then checking the
+reading rather than assuming it. Let $A$ be an $(n+1)\times3$ array over $\{0,1,2\}$. Each
+$2\times2$ subblock has four entries; sorted as $w\le x\le y\le z$, give the subblock the
+\emph{colour}
+\[
+\chi \;=\; z + y - x - w ,
+\]
+the maximum plus the upper median minus the lower median minus the minimum. The subblocks of
+$A$ form an $n\times2$ grid, and the condition is that \emph{horizontally and vertically
+adjacent subblocks get different colours} --- the array is properly coloured by $\chi$.
+Let $a(n)$ count such arrays.
+
+For $n=1$ there are two subblocks, side by side, and the condition is one inequality; for
+$n=2$ there are four, in a $2\times2$ grid. Direct enumeration over all $3^{3(n+1)}$ arrays
+gives
+\[
+484,\quad 4500,\quad 41980 \qquad (n=1,2,3),
+\]
+the entry's first three terms exactly.
+
+\section{The transfer matrix, and the recurrence that does hold}
+
+A row of the array is one of $3^{3}=27$ tuples, and whether a new row may be added depends on
+the previous row and on the colours of the subblock row just completed --- on nothing else.
+Take as vertices the pairs (last row, colour pair), keep those reachable, and there are
+$S=224$ of them; let $M$ be the adjacency matrix of the legal extensions and $\mathbf u$ the
+distribution after the first two rows. Then $a(n)=\mathbf1^{\!\top}M^{\,n-1}\mathbf u$ for
+$n\ge1$. Evaluated exactly, this reproduces all $16$ published DATA terms and all $210$
+b-file terms, and its first three values are the brute-force counts above.
+
+Being a walk count, $a$ is $C$-finite. Solving over $\mathbf Q$ from the model's terms, the
+recurrence that holds on the tail has order $38$ with integer coefficients:
+\begin{multline}\label{eq:true}
+a(n)\;=\;13\,a(n-2) + 184\,a(n-3) + 3506\,a(n-4) + 9110\,a(n-5)\\
+{}+ 21587\,a(n-6) + 63605\,a(n-7) - 342128\,a(n-8) - 864643\,a(n-9)\\
+{}+ 1140624\,a(n-10) + 294974\,a(n-11) + 739053\,a(n-12) + 15509266\,a(n-13)\\
+{}- 16660349\,a(n-14) - 37563062\,a(n-15) + 41074149\,a(n-16) - 39645704\,a(n-17)\\
+{}- 48556860\,a(n-18) + 140778823\,a(n-19) - 72899036\,a(n-20) - 67241570\,a(n-21)\\
+{}+ 329687733\,a(n-22) - 46469782\,a(n-23) - 133466871\,a(n-24) + 319656720\,a(n-25)\\
+{}- 408928291\,a(n-26) - 40519358\,a(n-27) + 151099557\,a(n-28) - 160188966\,a(n-29)\\
+{}+ 104521624\,a(n-30) - 63973040\,a(n-31) - 163603316\,a(n-32) + 759648\,a(n-33)\\
+{}+ 12746672\,a(n-34)\\
+{}1733120\,a(n-35) + 12956032\,a(n-36) + 5889024\,a(n-37) - 243712\,a(n-38).
+\end{multline}
+Its first $34$ coefficients are, term for term, those of \eqref{eq:conj}. The published line
+is \eqref{eq:true} with its last four terms,
+$+1733120\,a(n-35)+12956032\,a(n-36)+5889024\,a(n-37)-243712\,a(n-38)$, missing.
+
+\begin{theorem}\label{thm:true}
+\eqref{eq:true} holds for every $n\ge40$, and fails at $n=39$, where the two sides differ by
+$114688$.
+\end{theorem}
+
+\begin{proof}
+Let $p(t)$ be the characteristic polynomial of \eqref{eq:true},
+\begin{multline*}
+p(t)\;=\;t^{38} - 13t^{36} - 184t^{35} - 3506t^{34} - 9110t^{33} - 21587t^{32}\\
+{}- 63605t^{31} + 342128t^{30} + 864643t^{29} - 1140624t^{28} - 294974t^{27} - 739053t^{26}\\
+{}- 15509266t^{25} + 16660349t^{24} + 37563062t^{23} - 41074149t^{22} + 39645704t^{21} + 48556860t^{20}\\
+{}- 140778823t^{19} + 72899036t^{18} + 67241570t^{17} - 329687733t^{16} + 46469782t^{15} + 133466871t^{14}\\
+{}- 319656720t^{13} + 408928291t^{12} + 40519358t^{11} - 151099557t^{10} + 160188966t^{9} - 104521624t^{8}\\
+{}+ 63973040t^{7} + 163603316t^{6} - 759648t^{5} - 12746672t^{4} - 1733120t^{3} - 12956032t^{2}\\
+{}- 5889024t + 243712,
+\end{multline*}
+and put $w=p(M)\mathbf u$, formed by $38$ matrix--vector products in exact integer
+arithmetic. For $n\ge39$,
+\[
+a(n)-\sum_{i=1}^{38}c_i\,a(n-i)\;=\;\mathbf1^{\!\top}M^{\,n-39}w .
+\]
+At $n=39$ this is $\mathbf1^{\!\top}w=114688\ne0$, which is the stated exception. For
+$n\ge40$ it is $\mathbf1^{\!\top}M^{\,m}(Mw)$ with $m=n-40\ge0$, and that vanishes for every
+$m=0,\dots,S$; by the Cayley--Hamilton theorem $M^{S}$ is an integer combination of
+$I,M,\dots,M^{S-1}$, so it vanishes for every $m\ge0$.
+\end{proof}
+
+Solving for the recurrence only \emph{proposes} \eqref{eq:true}; what makes it a theorem is
+the annihilation test, which is independent of how the candidate was found.
+
+\begin{corollary}
+\eqref{eq:conj} fails for every $n\ge35$, not merely at the $176$ indices the b-file
+exhibits.
+\end{corollary}
+
+\begin{proof}
+For $n\ge40$, subtracting \eqref{eq:conj} from \eqref{eq:true} makes a failure of
+\eqref{eq:conj} at $n$ equivalent to
+\[
+1733120\,a(n-35)+12956032\,a(n-36)+5889024\,a(n-37)-243712\,a(n-38)\;\ne\;0 .
+\]
+Every state of the transfer graph has out-degree at least $5$, checked over all $224$ of
+them, so every admissible array of $n+1$ rows extends to one of $n+2$ rows and $a$ is
+nondecreasing; every $a(m)$ is a count of a nonempty set, so $a(m)\ge a(1)=484>0$. Hence
+each of $a(n-35),a(n-36),a(n-37)$ is at least $a(n-38)$ and the expression is at least
+$(1733120+12956032+5889024-243712)\,a(n-38)>0$. For $35\le n\le39$ the table in Section~2
+exhibits the failure directly.
+\end{proof}
+
+\section{Verification}
+
+Five checks.
+
+First, the disproof in Section~2 uses only the $210$ integers of the entry's own b-file. It
+does not depend on the model or on Theorem~\ref{thm:true}.
+
+Second, the reading of the entry's wording was not assumed. It was confirmed by direct
+enumeration over all $3^{3(n+1)}$ arrays for $n=1,2,3$, which gives $484$, $4500$, $41980$
+--- the entry's first three terms. The same rule, applied at width $2$ instead of $3$,
+reproduces the first four terms of A236646, the $k=1$ column of the same table.
+
+Third, the transfer model reproduces all $16$ published DATA terms and all $210$ b-file
+terms, every one and not a sample.
+
+Fourth, \eqref{eq:true} was checked directly against the b-file at every index from $n=39$
+to $n=210$: it fails at $n=39$ and holds at all $171$ others, matching
+Theorem~\ref{thm:true} exactly. Every order $1,\dots,37$ was solved for on the tail
+(fitted at $n=140$) and every one fails there --- order $37$ at $22$ of the remaining $61$
+indices, and the failure count rises steadily as the order falls --- so $38$ is the least
+order that holds eventually, and \eqref{eq:conj}'s $34$ is not merely incomplete
+bookkeeping but too short to be repaired by any choice of coefficients.
+
+Fifth, the annihilation test was carried to the full Cayley--Hamilton bound $m\le S=224$,
+not to a sampled prefix.
+
+\begin{remark}
+The entry's parent table already carries the right answer. A236651 is the table of which
+A236647 is column $2$, and its ``Empirical for column k'' block records
+\begin{quote}\small
+k=1: [linear recurrence of order 11]\\
+k=2: [order 38] for n>39
+\end{quote}
+--- naming both the order, $38$, and the exception, $n>39$, that
+Theorem~\ref{thm:true} proves. The column entry prints an order-$34$ line instead. Two
+statements on the OEIS about the same recurrence disagree, and the table is the one that is
+right.
+
+This is the second instance of the same shape found by the same scan. The other is A269637,
+column $5$ of A269640, where the table says ``[order 13]'' and the column entry publishes an
+order-$10$ line that its own DATA refutes ten times over. Across $6430$ table/column pairs in
+the OEIS these two are the only disagreements, and both are the column entry's line, truncated.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{oeis} The OEIS Foundation, \emph{The On-Line Encyclopedia of Integer
+Sequences}, \url{https://oeis.org}, 2026. Sequences A236646, A236647 and A236651.
+\bibitem{stanley} R.~P.~Stanley, \emph{Enumerative Combinatorics}, Volume 1, 2nd ed.,
+Cambridge University Press, 2011. (Transfer-matrix method, Section 4.7.)
+\bibitem{kp} M.~Kauers and P.~Paule, \emph{The Concrete Tetrahedron}, Springer, 2011.
+($C$-finite sequences and their recurrences.)
+\bibitem{horn} R.~A.~Horn and C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge
+University Press, 2013.
+\end{thebibliography}
+
+\end{document}
