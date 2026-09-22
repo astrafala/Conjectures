@@ -823,3 +823,39 @@ more carry no conjecture or are settled on their own page → **1,326 real**, an
 reconciles. Four corrections, every one of them bookkeeping, none of them mathematics. That is
 worth saying plainly rather than dressing up: the single largest obstacle to this project today
 was not a hard problem but a set of files that recorded things once and were never re-read.
+
+### defect 70 — 843 cap rows written by engines that never read the cap
+
+The largest single block in the "capped" pool was **galcoord, 355 entries**. galcoord refuses
+in **0.3 seconds at a cap of 8,000,000** — it is declining the tiling, not exploring a state
+space.
+
+`sweep_shard` already knows this. It stopped writing a cap row for the nineteen engines in
+`uniform.NO_SIZE_REFUSAL`, whose build never reads `cap` at all, and the comment there records
+that doing so had put "607 entries, 26% of the off-roster cap file, into a population that
+looked reachable by raising a number". **The rows written before that fix were never
+retracted** — the same failure the fix was written to stop, one layer back.
+
+843 were still there: galcoord 355, ca2dcount 142, ca2d 142, latpoly 127, transfer6 50,
+necklace2 12, ecacol 7, transfer3 5. They now live in `uniall_declined.json` under their own
+name, and `merge_shards` separates them on every run.
+
+**The census, reconciled and complete — 17,374 entries:**
+
+      11,116  settled by this project
+       4,759  no conjecture to settle
+         793  engine declined (its build has no cap)
+         533  refused: cap          <- the real remaining engine-work pool
+         153  settled on the entry (not open)
+          10  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+**The arc for `uniall_caps.json` today: 2,759 quoted in planning → 1,004 were finished work →
+843 were engine declines → 533 real.** Four corrections, every one bookkeeping, not one of them
+mathematics.
+
+That is the honest summary of the day's engine work: the largest obstacle was never a hard
+problem, it was a set of files that recorded something once and were never re-read. The 533
+that remain are the first cap figure this project has had that means what it says.

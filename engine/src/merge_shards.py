@@ -14,6 +14,8 @@ found, silently and with a correct-looking count.
 # they were invisible: the round came back in under a second and the idle backoff called the
 # vein read out. The merge runs every hour, on the hour, against every runner at once.
 import atomicjson
+import localentry as LE
+import uniform
 import glob
 import json
 import os
@@ -43,6 +45,9 @@ HITS, DONE, CAPS = 'uniall_hits.json', 'uniall_done.json', 'uniall_caps.json'
 # which PHASE exhausted the budget -- build, terms or threshold. Defect 62: all three
 # wrote the same number into TMO and the distinction that decides what to fix was lost.
 TMOPHASE = 'uniall_tmophase.json'
+# a build that returned None from an engine that never reads the cap: a decline,
+# not a size refusal (defect 70)
+DECLINED = 'uniall_declined.json'
 # entries whose build outgrew the shard's MEMGB. They are NOT caps -- what they exceeded is
 # the container -- and folding them into uniall_caps.json is how A186012 came to be recorded
 # as refused for size when it builds at S=900096 under a cap of 2,000,000. Kept as its own
@@ -123,6 +128,32 @@ try:
     # is askable against -- was inflated by that much. None of the 2,759 was unasked.
     # `settled' is the union of what this sweep proved and what any engine papered: either
     # way the entry is no longer something the container refuses.
+    # DEFECT 70. Keep `uniall_caps.json' meaning ONE thing. `sweep_shard' stopped writing a
+    # cap row for the engines in `uniform.NO_SIZE_REFUSAL' -- whose build never reads the cap,
+    # so a None from them means "this reading does not apply", not "too big" -- but the rows
+    # written before that fix were never retracted. 843 of them were still there, galcoord's
+    # 355 among them, and galcoord refuses in 0.3 seconds at a cap of 8,000,000 because it is
+    # declining the tiling, not exploring a state space. They are moved to
+    # `uniall_declined.json', which keeps the fact under its own name instead of losing it.
+    try:
+        declined = json.load(open(DECLINED)) if os.path.exists(DECLINED) else {}
+        moved = 0
+        for a in list(caps):
+            try:
+                r = uniform.read(LE.get(a)['name'])
+            except Exception:
+                continue
+            if r and r[0] in uniform.NO_SIZE_REFUSAL:
+                declined[a] = r[0]
+                del caps[a]
+                moved += 1
+        if moved:
+            atomicjson.dump(declined, DECLINED, indent=0, sort_keys=True)
+            print(f'  {moved} cap rows moved to {DECLINED}: written by an engine whose build '
+                  f'never reads the cap')
+    except Exception as _exc:
+        print('  could not separate the engine declines: %s' % _exc)
+
     settled = roster | have
     for nm, f in (('cap', caps), ('out-of-memory', oom), ('out-of-budget', tmo),
                   ('out-of-budget phase', tmoph), ('shard-death', dieds)):

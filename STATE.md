@@ -1923,7 +1923,8 @@ column for NOT OPEN which records nothing in any refusal file):
 
       11,116  settled by this project
        4,759  no conjecture to settle
-       1,326  refused: cap          <- the real remaining engine-work pool
+         793  engine declined (its build has no cap)
+         533  refused: cap          <- the real remaining engine-work pool
          153  settled on the entry (not open)
           10  no engine reads the name
            6  refused: budget
@@ -1935,20 +1936,30 @@ rows sitting under a tag nothing merged, 46 were settled on their own page, 1 is
 Of the three residuals, one builds and its annihilation does not vanish; two refuse at the
 build.
 
-**The capped pool is 1,326** — entries that carry a conjecture, are still open, and have an
-engine that reads them. The figure first printed here was 582, and that was this script's
+**The capped pool is 533** — entries that carry a conjecture, are still open, have an engine
+that reads them, and whose build genuinely ran out of room. The figure first printed here was 582, and that was this script's
 error, not a fourth shrinkage: its universe was `cands | done | hits`, and defect 69 had just
 removed 2,265 entries from `done`, so any of those not also in `uni_cands.json` fell out of
 the census entirely. The refusal files are part of the universe now.
 
-By engine: **galcoord 355**, ca2dcount 142, ca2d 142, latpoly 127, transfer17 57, transfer9
-55, transfer26 45, transfer57 42, transfer23 35, transfer35 32. And **986 of the 1,326 carry a
-cap row of only 2,000,000**, so a runner at 8,000,000 can ask them — which is what
-`freedrun.sh` is doing.
+### defect 70 — 843 cap rows written by engines that never read the cap
 
-So the honest arc for the day on this file: 2,759 quoted → 1,004 were finished work →
-another slice carries no conjecture or is settled on its own page → **1,326 real**. Still less
-than half the number planning was using, and now it reconciles.
+The largest block in the "capped" pool was **galcoord, 355 entries** — and galcoord refuses in
+**0.3 seconds at a cap of 8,000,000**, because it is declining the tiling, not exploring a
+state space. `sweep_shard` already knows: it stopped writing a cap row for the nineteen engines
+in `uniform.NO_SIZE_REFUSAL`, whose build never reads `cap`, and the comment there says doing
+so had put "607 entries, 26% of the off-roster cap file, into a population that looked
+reachable by raising a number". **The rows written before that fix were never retracted.**
+
+843 of them were still there: galcoord 355, ca2dcount 142, ca2d 142, latpoly 127, transfer6 50,
+necklace2 12, ecacol 7, transfer3 5. Moved to `uniall_declined.json`, which keeps the fact
+under its own name, and `merge_shards` now does this on every run so the cap file means one
+thing.
+
+So the arc for this file today: **2,759 quoted in planning → 1,004 were finished work → 843
+were engine declines → 533 real.** Four corrections, every one bookkeeping. The single largest
+obstacle to this project today was not a hard problem but a set of files that recorded things
+once and were never re-read — and the 533 that remain are finally worth aiming an engine at.
 
 ### defects 68 and 69 — a refusal nobody merged, and a refusal filed as an answer
 

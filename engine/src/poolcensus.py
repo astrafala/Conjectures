@@ -35,12 +35,17 @@ def main():
     tmo = json.load(open('uniall_tmo.json'))
     oom = json.load(open('uniall_oom.json'))
     died = json.load(open('uniall_died.json'))
+    # engines whose build never reads the cap: a None from them is "this reading does not
+    # apply", not "too big" (defect 70). Counted, and counted separately.
+    declined = (json.load(open('uniall_declined.json'))
+                if os.path.exists('uniall_declined.json') else {})
     cands = json.load(open('uni_cands.json'))
     # the refusal files belong in the universe too. `done' is not a superset of everything
     # considered: defect 69 removed 2,265 entries from it, and any of those not also in
     # `uni_cands.json' fell out of this census entirely -- which is how it reported a capped
     # pool of 582 when the cap file, filtered the same way, holds 1,326.
-    universe = set(cands) | done | hits | set(caps) | set(tmo) | set(oom) | set(died)
+    universe = (set(cands) | done | hits | set(caps) | set(tmo) | set(oom) | set(died)
+                | set(declined))
     print('entries the unified sweep has ever considered: %d' % len(universe))
 
     tally = collections.Counter()
@@ -71,7 +76,9 @@ def main():
         if not openness.status(a)[0]:
             tally['settled on the entry (not open)'] += 1
             continue
-        if a in caps:
+        if a in declined:
+            tally['engine declined (its build has no cap)'] += 1
+        elif a in caps:
             tally['refused: cap'] += 1
         elif a in tmo:
             tally['refused: budget'] += 1
