@@ -1032,3 +1032,36 @@ What it does establish is that the route is the right one: the correction is exa
 missing term, it is the difference between 19 of 35 and 35 of 35, and the remaining work is
 `galcert2` certifying `D = max-planes off the exceptional set` with that set characterised as
 rays. `src/rayval.py` keeps the check.
+
+### The certificate now knows the rays, and two of three failures are gone
+
+`galcert2.check(planes, edges, exc=...)` learned the exceptional set: `raymap` turns a class's
+exceptional points into `{primitive direction: (d1, step)}` and refuses when they are not rays;
+`D` returns `d1 + (k−1)·step` on them. Opt-in — without `exc` the function is exactly what it
+was.
+
+Run on A310039 as the patch grows, three different failures appear and two are now answered:
+
+| radius | first failure |
+|---:|---|
+| before | `no predecessor at class 0 (−3, 6)` — an **exceptional point**, gone once D knows the rays |
+| 50 | `edge raises D by more than 1 at class 0 (6, 6)` — **not** exceptional: D(0,(6,6)) = 72 and a neighbour gives 74, a jump of 2, which no graph distance can do. The planes are fitted on d ≤ 50 and extrapolate badly past it |
+| 90, 150, 220 | `(b) fails on class 0 region 0` — stable, and the real remaining piece |
+
+**Two separate problems were hiding behind one refusal**, and they need different fixes. The
+extrapolation one is answered by a larger patch: R = 90 and above clear (a) where 50 does not.
+That is a measurement `galcoord.RADIUS = 50` should be revisited against — but not blindly, it
+affects every entry.
+
+**And the rays are genuinely infinite and perfectly regular.** A310039, class 0, direction
+(−1,2): k = 1..4 at R = 50, 1..7 at R = 90, **1..12 at R = 150**, d = 13, 25, 37, 49, 61, 73,
+85, 97, 109, 121, 133, 145 — arithmetic with step 12 at every k the patch can see. So
+`d1 + (k−1)·step` is exact as far as anything can check it, which is what makes this a
+candidate for a proof rather than a fit.
+
+**What remains is (b).** It is decided as a pure inequality on the planes with no knowledge of
+the exceptional set, and the true D is larger on the rays, so it needs a four-way case split on
+whether m and m + d are on a ray. Each case is still a polyhedron — a ray is `{h = 0, k ≥ 1}`
+and its complement in a cell is `{h ≥ 1} ∪ {h ≤ −1} ∪ {h = 0, k ≤ 0}` — so `galpoly.nonneg`
+decides all four and no new machinery is needed. That is the last piece before a certificate
+exists.

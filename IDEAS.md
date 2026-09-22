@@ -106,6 +106,41 @@ agreement to n=35 cannot distinguish a correction that is right on the infinite 
 that is right on the patch. What it does establish is that the route works: the correction is
 the missing term, and the remaining work is the certificate.
 
+### The certificate, step by step — where it now stands
+
+`galcert2.check(planes, edges, exc=...)` now knows the rays: `raymap` turns a class's
+exceptional points into `{primitive direction: (d1, step)}`, refusing when they are not rays,
+and `D` returns `d1 + (k−1)·step` on them. `exc` is opt-in and with none of it the function is
+exactly `max_i l_i` as before.
+
+Run on A310039 as the patch grows, the certificate fails in three different places and two of
+them are now fixed:
+
+| radius | first failure |
+|---:|---|
+| — (before) | `no predecessor at class 0 (−3, 6)` — **an exceptional point**; gone once `D` knows the rays |
+| 50 | `edge raises D by more than 1 at class 0 (6, 6)` — **not** an exceptional point: the planes are fitted on d ≤ 50 and extrapolate badly past it |
+| 90, 150, 220 | `(b) fails on class 0 region 0` — stable, and this is the real remaining piece |
+
+So two separate problems were hiding behind one word, and they need different fixes. The
+extrapolation one is answered by a larger patch — R = 90 and above pass (a), where 50 does not
+— which is a measurement `galcoord.RADIUS = 50` should be revisited against, but not blindly,
+since it affects every entry.
+
+**What (b) needs.** It is checked as a pure inequality on the planes,
+`f = l_i − l'_j(· + d) + 1 ≥ 0` over region `i`, with no knowledge of the exceptional set. But
+the true `D` is larger on the rays, so the inequality to decide is a case split: `m` on a ray
+or not, `m + d` on a ray or not. Each case is still a polyhedron — a ray is `{h = 0, k ≥ 1}`
+and its complement in a cell is `{h ≥ 1} ∪ {h ≤ −1} ∪ {h = 0, k ≤ 0}` — so `galpoly.nonneg`
+decides all four, and nothing about the existing machinery has to change. **That is the next
+piece of work, and it is the last one before a certificate exists.**
+
+**The exceptional rays are genuinely infinite and perfectly regular.** Measured on A310039 at
+three radii, class 0 direction (−1,2): k = 1..4 at R = 50, 1..7 at R = 90, **1..12 at R = 150**,
+with d = 13, 25, 37, 49, 61, 73, 85, 97, 109, 121, 133, 145 — arithmetic with step 12 at every
+k the patch can see. The extrapolation `d1 + (k−1)·step` is exact as far as anything can check
+it, which is what makes the correction a candidate for a proof rather than a fit.
+
 So §A11's three parts become:
 
 1. **Detect the ray case**: group the leftovers by primitive direction and check that each

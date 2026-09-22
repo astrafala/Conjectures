@@ -67,7 +67,35 @@ def _shift(co, d, den):
     return (A, B, C + A * d[0] + B * d[1])
 
 
-def check(planes, edge_list, R=6):
+def raymap(exc):
+    """the exceptional set of one class as rays: {primitive direction: (d1, step)}, or None.
+
+    An exceptional point is one where the true distance EXCEEDS the max of the fitted planes,
+    so D is not `max_i l_i' there and the certificate below must be told. Measured on
+    22 September (IDEAS A11), those points are usually a pair of opposite rays k*v through the
+    origin with d affine in k -- A310039 at +/-(1,-2) with d = 13, 25, 37, and so on. Returns
+    None when they are not, which is a class this cannot certify and must refuse.
+    """
+    import math
+    dirs = {}
+    for m, n, d in exc:
+        g = math.gcd(abs(m), abs(n)) or 1
+        dirs.setdefault((m // g, n // g), []).append((g, int(d)))
+    out = {}
+    for v, ks in dirs.items():
+        ks.sort()
+        if len(ks) < 2 or ks[0][0] != 1:
+            return None
+        if {ks[i + 1][0] - ks[i][0] for i in range(len(ks) - 1)} != {1}:
+            return None
+        steps = {ks[i + 1][1] - ks[i][1] for i in range(len(ks) - 1)}
+        if len(steps) != 1:
+            return None
+        out[v] = (ks[0][1], steps.pop())
+    return out
+
+
+def check(planes, edge_list, exc=None, R=6):
     """(ok, reason).
 
     `planes[c]` is the max-of-affines description of class c and `edge_list` the directed
@@ -85,8 +113,33 @@ def check(planes, edge_list, R=6):
     for (c, c2, d) in edge_list:
         nbr.setdefault(c, []).append((c2, d))
 
+    # the exceptional set, per class, as rays. `exc' is opt-in: with none of it the function
+    # below is exactly `max_i l_i' and every caller behaves as before.
+    rays = []
+    if exc:
+        import math
+        for E in exc:
+            if not E:
+                rays.append({})
+                continue
+            r = raymap(E)
+            if r is None:
+                return False, 'the exceptional set of a class is not a union of rays'
+            rays.append({v: (d1 * den, st * den) for v, (d1, st) in r.items()})
+    else:
+        rays = [{} for _ in Pl]
+
     def D(c, m):
-        return max(A * m[0] + B * m[1] + C for (A, B, C) in Pl[c])
+        base = max(A * m[0] + B * m[1] + C for (A, B, C) in Pl[c])
+        if rays[c] and (m[0] or m[1]):
+            import math as _m
+            g = _m.gcd(abs(m[0]), abs(m[1])) or 1
+            hit = rays[c].get((m[0] // g, m[1] // g))
+            if hit is not None:
+                # d(k) = d1 + (k-1)*step along the ray, which is the true distance there and
+                # exceeds the max of planes by construction
+                return hit[0] + (g - 1) * hit[1]
+        return base
 
     # (a) and the exceptional box, exhaustively
     for c, P in enumerate(Pl):
