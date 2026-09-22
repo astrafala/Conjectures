@@ -43,6 +43,14 @@ engine/shard*_oom_*.json
 # uniall_tmo.json by merge_shards, then deleted. Three of them had been committed, so every
 # commit was racing a live writer for no purpose.
 engine/shard*_tmo_*.json
+# ... and the PHASE that exhausted the budget, added with defect 62 and missed the same way
+# the tmo list was missed with defect 48, one defect later. Eight of them had been committed
+# (freed, rcap, rcap2, t17c, tmo), so every commit raced a live writer for no purpose. The
+# `died' counter has never been here either, for the same reason and with the same effect.
+# A new per-shard file needs a line HERE in the same change that creates it.
+engine/shard*_tmophase_*.json
+engine/shard*_died_*.json
+engine/shard*_why_*.json
 engine/shard*_inflight_*.json
 engine/shard_*.json
 
