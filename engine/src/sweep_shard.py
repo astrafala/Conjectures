@@ -87,6 +87,7 @@ TAG = os.environ.get('TAG', '')
 HITS, DONE = f'shard{TAG}_hits_{SHARD}.json', f'shard{TAG}_done_{SHARD}.json'
 # the shard skips what the global sweep has already settled, but never writes those files
 GDONE = set(json.load(open('uniall_done.json'))) if os.path.exists('uniall_done.json') else set()
+GCAPS = json.load(open('uniall_caps.json')) if os.path.exists('uniall_caps.json') else {}
 # Entries the MACHINE has already refused, and the largest limit each was refused under.
 # `merge_shards.py' folds a shard's own `done' into `uniall_done.json' and then DELETES it, and
 # `sweep_shard' deliberately ignores the global done set whenever ANUMS is given -- so an
@@ -322,6 +323,16 @@ for a in sorted(set(CANDS) | ANUMS):
     # The rows are CPU-seconds now (see the Timeout handlers), which is a property of the
     # entry; comparing this runner's wall BUDGET against them errs towards re-asking, which
     # is the right direction for a file that had been permanently excluding work.
+    # DEFECT 69. A cap refusal is a fact about a SETTING, exactly like the budget and memory
+    # rows above, and it was the only one with no skip and no re-ask. Two things followed.
+    # A shard re-asked, every round, entries it had already refused at its own cap -- pure
+    # waste. And worse, the refusal path still marked them `done', so an entry refused by
+    # `np2run' at a cap of 2,000,000 was excluded from the MAIN sweep at 8,000,000 for ever:
+    # 396 such entries were sitting unasked, and 29 of the first 40 prove immediately at the
+    # larger cap. `done' meant "this shard is finished with it", and was read as "answered".
+    if CAP <= GCAPS.get(a, 0):
+        res['refused at this cap or more on an earlier pass'] += 1
+        continue
     if BUDGET <= GTMO.get(a, 0):
         res['out of budget on an earlier pass, at this budget or more'] += 1
         continue
@@ -360,7 +371,9 @@ for a in sorted(set(CANDS) | ANUMS):
         try:
             if (p['alpha'] + 1) ** p['fixed'] > 4 * CAP:
                 res['state space > cap'] += 1; caps[a] = max(caps.get(a, 0), CAP)
-                done.add(a); save(); continue
+                # not done, for the same reason as the other cap site: a refusal at THIS cap
+                # says nothing about a runner with a larger one (defect 69)
+                save(); continue
         except Exception:
             pass
     e = LE.get(a)
@@ -425,7 +438,10 @@ for a in sorted(set(CANDS) | ANUMS):
             res['engine returned no model (its build has no cap)'] += 1
             done.add(a); save(); continue
         res['state space > cap'] += 1; caps[a] = max(caps.get(a, 0), CAP)
-        done.add(a); save(); continue
+        # NOT marked done: the caps row is the record, and it carries the setting, so a
+        # runner with a larger cap can tell that this entry is unanswered rather than
+        # finished. The skip above stops this shard re-asking it at the same cap.
+        save(); continue
     S = uniform.size(en, p, b)
     d = [int(v) for v in e['data'].split(',') if v.strip()]
     off = int(e['offset'].split(',')[0])

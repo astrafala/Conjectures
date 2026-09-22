@@ -661,3 +661,61 @@ jobs on 4 cores**. The quantity that matters is what is already running, so that
 checked now: above `MAXJOBS` (default 24, six per core) a firing starts nothing and lets the
 machine drain. Verified: it now reports *"holding all starts: 68 python jobs already running"*
 instead of adding eight more.
+
+## 22 September 2026 — a census of the whole pool, and the two defects it found
+
+Three pool figures quoted in planning this week were wrong, so rather than correct them one at
+a time `src/poolcensus.py` classifies **every entry the unified sweep has ever considered**,
+once, from the files as they stand. **16,998 entries:**
+
+      11,110  settled
+       4,736  no conjecture to settle
+         643  refused: cap
+         396  asked, unsettled, NO refusal recorded
+          68  refused: budget
+          32  refused: shard death
+          10  no engine reads the name
+           3  refused: memory
+
+The fourth line is the one nobody had counted: an entry that carries a conjecture, has an
+engine, was asked, was not settled, and has **no refusal row anywhere explaining why**. Six of
+the first six put through the sweep's own sequence by hand returned a finite threshold —
+proofs. Following that found two defects.
+
+### defect 68 — every TAG'd runner wrote its results where nothing read them
+
+`merge_shards` globs `shard{TAG}_kind_*.json`, and with `TAG` unset the literal underscore
+matches **only the untagged files**. Every tagged runner — np, np2, cap, cap2, rcap, rcap2,
+gal, gal2, gal5, cg, oom, res, t17c, tmo — has been writing hits and refusals to disk that
+nothing ever merged, because nothing runs the merger with their tag.
+
+**468 cap rows for those 396 entries were sitting in `shardnp2_caps_*` and `shardnp_caps_*`.**
+That is why the census called them unexplained: the record existed, under a tag nobody merges.
+**Four HITS were unmerged as well** — four proved results invisible to every builder.
+
+An unset tag now means every tag. The first such merge folded in 4 hits, 796 newly processed
+entries, and retired 234 stale refusal rows.
+
+### defect 69 — a cap refusal was filed as an answer
+
+The cap was the only refusal with **no skip and no re-ask**. So a shard re-asked, every round,
+entries it had already refused at its own cap — waste — and, far worse, the refusal path
+marked them `done`. `done` is global and permanent. `np2run` asks at a cap of **2,000,000**;
+the entries it refuses were thereby excluded from **every** runner at **every** cap, for ever.
+`done` meant "this shard is finished with it" and was read everywhere as "answered".
+
+A cap row is now the record and carries its setting, so a runner with a larger cap can tell an
+unanswered entry from a finished one, and a new skip stops a shard re-asking below its own
+recorded cap.
+
+**2,265 entries freed from `done`, 1,110 of them carrying a conjecture.**
+
+And they are not hard. **21 of 25 build at the main sweep's own cap of 2,000,000**, at state
+counts of 5, 20, 40, 80, …, 2560 — the cap rows were written by engines that have since
+changed and never retracted. Of 40 put through the sweep's complete sequence by hand,
+**29 proved outright**.
+
+**The pattern, for the fourth time today:** a refusal recorded once and never re-checked, read
+back as a fact about the mathematics. Defect 61 was settled work in the cap file; 64 was the
+load in the budget file; 68 is a record nobody merged; 69 is a refusal filed as an answer. None
+of them is about conjectures at all.

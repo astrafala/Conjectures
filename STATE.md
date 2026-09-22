@@ -1916,6 +1916,48 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defects 68 and 69 — a refusal nobody merged, and a refusal filed as an answer
+
+`src/poolcensus.py` classifies every entry the unified sweep has ever considered, once, from
+the files rather than from memory. **16,998 entries:**
+
+      11,110  settled
+       4,736  no conjecture to settle
+         643  refused: cap
+         396  asked, unsettled, NO refusal recorded
+          68  refused: budget
+          32  refused: shard death
+          10  no engine reads the name
+           3  refused: memory
+
+The 396 is the bucket nobody had counted, and following it found two defects.
+
+**Defect 68 — `merge_shards` only ever merged the untagged files.** Its globs are
+`shard{TAG}_kind_*.json`, and with `TAG` unset the literal underscore matches only
+`shard_hits_*.json`. Every TAG'd runner — np, np2, cap, cap2, rcap, rcap2, gal, gal2, gal5,
+cg, oom, res, t17c, tmo — wrote its hits and refusals where nothing read them, because nothing
+runs the merger with their tag. **468 cap rows for those 396 entries were sitting in
+`shardnp2_caps_*` and `shardnp_caps_*`**, which is exactly why the census called them
+"no refusal recorded": the record existed, under a tag nobody merges. **Four HITS were
+unmerged too.** An unset tag now means every tag; merging folded in 4 hits, 796 newly
+processed entries, and retired 234 stale rows.
+
+**Defect 69 — a cap refusal marked the entry `done`.** It was the only refusal with no skip
+and no re-ask. Two consequences. A shard re-asked, every round, entries it had already refused
+at its own cap. And worse: `np2run` asks at a cap of 2,000,000 and records the refusal — then
+marks it `done`, and `done` is global and permanent, so the entry is excluded from **every**
+runner at **every** cap for ever. `done` meant "this shard is finished with it" and was read
+as "answered".
+
+A cap row is now the record, carrying its setting, so a runner with a larger cap can tell an
+unanswered entry from a finished one; and a new skip stops a shard re-asking below its own
+recorded cap.
+
+**2,265 entries freed, 1,110 of them carrying a conjecture.** They are not hard: **21 of 25
+build at the main sweep's own cap of 2,000,000**, at state counts of 5, 20, 40, …, 2560 — and
+of 40 sampled through the sweep's whole sequence, **29 proved outright**. The cap rows were
+written by engines that have since changed.
+
 ### defect 67 — capping starts is not capping what runs; and the cap pool is 645, not 2,759
 
 `restart_all` capped the runners *started* per firing at 8 (defect 66). Each spawns 2–6 shards

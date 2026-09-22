@@ -22,6 +22,23 @@ import os
 # each other. Nothing folded those back in, so a tagged run's results never reached the file
 # the builders read: the same silent gap that left gfonly's 312 results uninstalled.
 TAG = os.environ.get('TAG', '')
+# DEFECT 68. The globs below are `shard{TAG}_kind_*.json', and with TAG unset that matches
+# ONLY the untagged files -- the literal underscore sees to it. Every TAG'd runner
+# (np, np2, cap, cap2, rcap, rcap2, gal, gal2, gal5, cg, oom, res, t17c, tmo, ...) therefore
+# wrote its hits and its refusals to disk where nothing ever read them, because nothing runs
+# this with their TAG.
+#
+# Measured: 468 cap rows for 396 entries sat in `shardnp2_caps_*' and `shardnp_caps_*', which
+# is why a census of the merged files called those entries "asked, unsettled, NO refusal
+# recorded" -- the record existed, under a tag nobody merges. Four HITS were sitting unmerged
+# too. And the entries are not hard: np2run asks at a cap of 2,000,000 and the main sweep at
+# 8,000,000, and 29 of 40 of them prove immediately at the larger cap.
+#
+# So an unset TAG now means EVERY tag, which is what "merge the shards" was always taken to
+# mean. `TAG=np' still merges np alone, for when that is wanted. No tag in use contains an
+# underscore, so the wildcard cannot straddle two of them.
+PAT = TAG if TAG else '*'
+
 HITS, DONE, CAPS = 'uniall_hits.json', 'uniall_done.json', 'uniall_caps.json'
 # which PHASE exhausted the budget -- build, terms or threshold. Defect 62: all three
 # wrote the same number into TMO and the distinction that decides what to fix was lost.
@@ -59,7 +76,7 @@ try:
     dieds = json.load(open(DIED)) if os.path.exists(DIED) else {}
     have = {h['anum'] for h in hits}
     added = 0
-    for f in sorted(glob.glob(f'shard{TAG}_hits_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_hits_*.json')):
         for h in json.load(open(f)):
             if h['anum'] in have:
                 continue
@@ -67,25 +84,25 @@ try:
             hits.append(h)
             added += 1
     ndone = 0
-    for f in sorted(glob.glob(f'shard{TAG}_done_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_done_*.json')):
         s = set(json.load(open(f)))
         ndone += len(s - done)
         done |= s
-    for f in sorted(glob.glob(f'shard{TAG}_caps_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_caps_*.json')):
         for a, c in json.load(open(f)).items():
             caps[a] = max(caps.get(a, 0), c)
-    for f in sorted(glob.glob(f'shard{TAG}_oom_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_oom_*.json')):
         for a, g in json.load(open(f)).items():
             oom[a] = max(oom.get(a, 0), g)
-    for f in sorted(glob.glob(f'shard{TAG}_tmo_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_tmo_*.json')):
         for a, b in json.load(open(f)).items():
             tmo[a] = max(tmo.get(a, 0), b)
-    for f in sorted(glob.glob(f'shard{TAG}_tmophase_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_tmophase_*.json')):
         for a, ph in json.load(open(f)).items():
             tmoph[a] = ph
     # deaths ADD rather than max: the question is how many separate generations died on this
     # entry, because one death is the machine and a run of them is the entry
-    for f in sorted(glob.glob(f'shard{TAG}_died_*.json')):
+    for f in sorted(glob.glob(f'shard{PAT}_died_*.json')):
         for a, c in json.load(open(f)).items():
             dieds[a] = dieds.get(a, 0) + int(c)
     atomicjson.dump(hits, HITS, indent=1)
@@ -145,11 +162,11 @@ try:
 # and installed. Nothing reads these files but a human looking at what a vein is refusing right
 # now, which is this project's central habit, and a counter that cannot be dated is no use for
 # it. Nothing else in the codebase reads `shard*_why_*.json'.
-    for f in glob.glob(f'shard{TAG}_hits_*.json') + glob.glob(f'shard{TAG}_done_*.json') + \
-             glob.glob(f'shard{TAG}_caps_*.json') + glob.glob(f'shard{TAG}_oom_*.json') + \
-             glob.glob(f'shard{TAG}_tmo_*.json') + glob.glob(f'shard{TAG}_tmophase_*.json') + \
-             glob.glob(f'shard{TAG}_died_*.json') + \
-             glob.glob(f'shard{TAG}_why_*.json'):
+    for f in glob.glob(f'shard{PAT}_hits_*.json') + glob.glob(f'shard{PAT}_done_*.json') + \
+             glob.glob(f'shard{PAT}_caps_*.json') + glob.glob(f'shard{PAT}_oom_*.json') + \
+             glob.glob(f'shard{PAT}_tmo_*.json') + glob.glob(f'shard{PAT}_tmophase_*.json') + \
+             glob.glob(f'shard{PAT}_died_*.json') + \
+             glob.glob(f'shard{PAT}_why_*.json'):
         os.remove(f)
 finally:
     try:
