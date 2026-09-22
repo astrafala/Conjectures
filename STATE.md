@@ -1922,10 +1922,10 @@ was written first.
 column for NOT OPEN which records nothing in any refusal file):
 
       11,116  settled by this project
-       4,758  no conjecture to settle
-         582  refused: cap          <- the real remaining engine-work pool
+       4,759  no conjecture to settle
+       1,326  refused: cap          <- the real remaining engine-work pool
          153  settled on the entry (not open)
-           8  no engine reads the name
+          10  no engine reads the name
            6  refused: budget
            3  asked, unsettled, no refusal recorded
            1  refused: shard death
@@ -1935,10 +1935,20 @@ rows sitting under a tag nothing merged, 46 were settled on their own page, 1 is
 Of the three residuals, one builds and its annihilation does not vanish; two refuse at the
 build.
 
-**So the number that has been quoted in planning all week — 2,759 refused at the cap — is
-582.** Three independent corrections to the same file in one day, all downward, none of them
-mathematics. The 582 is what an on-the-fly quotient would be aimed at, and it is now a figure
-worth aiming by.
+**The capped pool is 1,326** — entries that carry a conjecture, are still open, and have an
+engine that reads them. The figure first printed here was 582, and that was this script's
+error, not a fourth shrinkage: its universe was `cands | done | hits`, and defect 69 had just
+removed 2,265 entries from `done`, so any of those not also in `uni_cands.json` fell out of
+the census entirely. The refusal files are part of the universe now.
+
+By engine: **galcoord 355**, ca2dcount 142, ca2d 142, latpoly 127, transfer17 57, transfer9
+55, transfer26 45, transfer57 42, transfer23 35, transfer35 32. And **986 of the 1,326 carry a
+cap row of only 2,000,000**, so a runner at 8,000,000 can ask them — which is what
+`freedrun.sh` is doing.
+
+So the honest arc for the day on this file: 2,759 quoted → 1,004 were finished work →
+another slice carries no conjecture or is settled on its own page → **1,326 real**. Still less
+than half the number planning was using, and now it reconciles.
 
 ### defects 68 and 69 — a refusal nobody merged, and a refusal filed as an answer
 

@@ -36,7 +36,11 @@ def main():
     oom = json.load(open('uniall_oom.json'))
     died = json.load(open('uniall_died.json'))
     cands = json.load(open('uni_cands.json'))
-    universe = set(cands) | done | hits
+    # the refusal files belong in the universe too. `done' is not a superset of everything
+    # considered: defect 69 removed 2,265 entries from it, and any of those not also in
+    # `uni_cands.json' fell out of this census entirely -- which is how it reported a capped
+    # pool of 582 when the cap file, filtered the same way, holds 1,326.
+    universe = set(cands) | done | hits | set(caps) | set(tmo) | set(oom) | set(died)
     print('entries the unified sweep has ever considered: %d' % len(universe))
 
     tally = collections.Counter()

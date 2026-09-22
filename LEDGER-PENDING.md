@@ -794,3 +794,32 @@ mathematics, and the figure is finally one worth aiming an engine at.
 Defects 68 and 69 remain right and remain fixed — a tagged runner's results should not be
 written where nothing reads them, and an entry refused at one cap should not be barred from a
 runner with a larger one. They simply unlock nothing, and saying so is the point.
+
+### Correcting the census once more: the capped pool is 1,326, not 582
+
+The 582 printed above was the census's own error, not a fourth shrinkage of the cap file. Its
+universe was `cands | done | hits` — and defect 69 had just removed 2,265 entries from `done`,
+so any of those not also in `uni_cands.json` dropped out of the census entirely. Filtering the
+cap file directly, with exactly the same tests, gives **1,326**. The refusal files are part of
+the universe now.
+
+      11,116  settled by this project
+       4,759  no conjecture to settle
+       1,326  refused: cap          <- the real remaining engine-work pool
+         153  settled on the entry (not open)
+          10  no engine reads the name
+           6  refused: budget
+           3  asked, unsettled, no refusal recorded
+           1  refused: shard death
+
+By engine: **galcoord 355**, ca2dcount 142, ca2d 142, latpoly 127, transfer17 57, transfer9 55,
+transfer26 45, transfer57 42, transfer23 35, transfer35 32. **986 of the 1,326 carry a cap row
+of only 2,000,000**, so a runner at 8,000,000 can ask them at all — which is exactly what
+`freedrun.sh` is doing, and is the reason to let it finish its pass even though its yield is
+low.
+
+The arc for this file today: 2,759 quoted in planning → 1,004 of those were finished work →
+more carry no conjecture or are settled on their own page → **1,326 real**, and the instrument
+reconciles. Four corrections, every one of them bookkeeping, none of them mathematics. That is
+worth saying plainly rather than dressing up: the single largest obstacle to this project today
+was not a hard problem but a set of files that recorded things once and were never re-read.
