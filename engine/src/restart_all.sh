@@ -32,7 +32,7 @@ start() {
   nohup /bin/sh "/tmp/$1" >/dev/null 2>&1 &
   echo "started $1"
 }
-for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh t21run.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh; do
+for f in forever.sh tails3.sh gfrun.sh readable.sh lexrun.sh lexcf.sh mfrun.sh tabrun.sh wordrun.sh cusprun.sh ecarun.sh gfdefrun.sh gdrun.sh fcfrun.sh sndrun.sh ca2drun.sh b8run.sh lrrun.sh cfpoolrun.sh galrun.sh degrun.sh precrun.sh zeilbrun.sh np2run.sh caprun.sh rcaprun.sh resrun.sh t21run.sh oomrun.sh t17run.sh t21ckrun.sh tmorun.sh p5run.sh bsweeprun.sh capgaprun.sh; do
   start "$f"
 done
 ps -eo args | grep -oE "src/[a-z_0-9]+\.py" | sort | uniq -c | sort -rn

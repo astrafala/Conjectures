@@ -2296,3 +2296,33 @@ their own rows; 116 are not memory at all** — 93 refused by the cap, 21 by the
 verdict recorded. None was left unexamined. The 116 had been excluded from every runner at
 their recorded limit or below, permanently, and 114 of them are reachable by changing a setting
 rather than by a bigger machine.
+
+### AR.4 The capped population, measured against every runner rather than any one list
+
+Section AP settled that the capped population is mostly entries with nothing to prove, and that
+stands. What it could not say is how much of the remainder anything is actually asking.
+
+`uniall_caps.json` holds 3,366 rows. 2,367 are off-roster and unsettled. Of those, **1,255
+carry no parsable recurrence at all** and 117 are already settled — so 995 are real questions,
+and 956 of those are not also blocked by the clock, memory or a run of deaths.
+
+Then the part no list could show, obtained by crossing those 956 against every runner's own
+cap, budget and memory limit:
+
+| | count |
+|---|---:|
+| a `sweep_shard` runner can ask it now | **480** |
+| on a runner's list but blocked by that runner's cap (154) or clock (11) | 165 |
+| on **no** `sweep_shard` list at all | 311 |
+
+**145 of the 311 are askable at CAP=8,000,000**, and 142 of those carry a cap row of
+**200,000** — refused at a cap forty times smaller than the one a runner would use today, and
+nothing has asked them since. `src/capgaprun.sh` reads them; `listcheck` confirms 145 of 145
+askable.
+
+This is the same fact as the five stale lists, one level up. Those were lists asked at the
+setting that had already refused them. This is a population that no list covers — invisible to
+a per-list check, and found only by asking the refusal file what the runners collectively reach.
+
+The remaining 166 of the 311, and the 154 blocked by their runner's cap, sit at 8,000,000 and
+need a larger cap rather than another list.
