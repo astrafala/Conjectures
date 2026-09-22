@@ -590,3 +590,29 @@ Worth stating plainly about how they were found: none needed a new idea. Two cam
 built in an hour (`tableorder.py`), two from `bsweep` reading b-files it has been reading for
 weeks. What changed today was that the refusal files stopped lying (defect 61) and the machine
 stopped strangling itself (defects 64–66).
+
+## 22 September 2026 — bsweep is finished: 10,632 of 10,632
+
+Every held conjecture, tested against every term of every published b-file. **2,426,440 terms**,
+median 210 per entry, up to 20,001.
+
+      10,616  holds on all b-file terms
+           5  DISPROVED
+          10  no b-file
+           1  b-file disagrees with its own DATA (A193641, already examined)
+
+Most of the last 1,250 entries went through in the hour after defects 64–66 were fixed, which
+is the clearest evidence of what the oversubscription was costing: the sweep had sat at ~9,300
+for weeks.
+
+The five DISPROVED: **A076217** and **A197230** papered earlier, **A196074** and **A222434**
+papered today, **A210247** not open (defect 63 — the entry refutes itself one line below).
+
+**Four false recurrences in 10,632 conjectures.** That is the honest yield and it is worth
+saying why it is low: Hardin's empirical lines are almost all *true*. They are fitted to enough
+terms to be trustworthy, and the ones that fail are precisely the ones fitted at an order their
+sample could not support — which is why all four share one signature, the published
+coefficients being the true recurrence's first coefficients term for term.
+
+The vein is read out at the current b-file lengths. It reopens when the OEIS publishes longer
+b-files, or when a new engine puts new entries in the pool — not before.

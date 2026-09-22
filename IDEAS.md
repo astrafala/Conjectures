@@ -28,6 +28,30 @@ counted twice.
 | A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **null**: all 41 rested on a block line; purged |
 | A8 | further conjectures on sequences already proved C-finite | 13,109 | **running**, 297 with new content |
 
+## A10. Every held conjecture against every published b-file term — DONE, read out
+
+`src/bsweep.py`. **10,632 of 10,632 checked, 2,426,440 b-file terms** (median 210 per entry,
+up to 20,001). Finished 22 September, most of it in the hour after defects 64–66 stopped the
+container strangling itself.
+
+      10,616  holds on all b-file terms
+           5  DISPROVED
+          10  no b-file
+           1  b-file disagrees with its own DATA
+
+The five: A076217 and A197230 (papered earlier), **A196074** and **A222434** (papered today),
+and A210247 — **not open**, the entry records its own refutation one line below the conjecture.
+
+**Four false recurrences in 10,632.** The yield is low because Hardin's empirical lines are
+almost all true; the ones that fail are fitted at an order their sample cannot support, and all
+four have the same signature — the published coefficients are the true recurrence's first
+coefficients, term for term. Three are pure truncations (10/13, 34/38, 37/43); A222434 (25/26)
+needs a range as well as a term, and appending the term without the range gives another false
+statement.
+
+Nothing is left in this vein at the current b-file lengths. It reopens only when the OEIS
+publishes longer b-files, or when a new engine puts new entries in the pool.
+
 ## A9. Tables that name an order their own column entries contradict — DONE, exhausted, 2 hits
 
 `src/tableorder.py`. A Hardin table prints, per column, either the full recurrence or a

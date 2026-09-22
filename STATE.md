@@ -1916,6 +1916,26 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### bsweep is COMPLETE: every held conjecture against every published b-file term
+
+**10,632 of 10,632 checked, 2,426,440 b-file terms, median 210 per entry and up to 20,001.**
+The vein is read out.
+
+      10,616  holds on all b-file terms
+           5  DISPROVED
+          10  no b-file
+           1  b-file disagrees with its own DATA (A193641, already examined)
+
+The five: **A076217** and **A197230** papered earlier, **A196074** and **A222434** papered
+today, and **A210247**, which is not open — the entry records its own refutation on the line
+below the conjecture (defect 63).
+
+**Four false recurrences in 10,632, and that is the honest yield.** It is low *because*
+Hardin's empirical lines are almost all true: they are fitted to enough terms to be
+trustworthy, and the ones that fail are the ones fitted at an order their sample could not
+support. Every one of the four has the same signature — the published coefficients are the
+true recurrence's first coefficients, term for term.
+
 ### defect 66 — the machine was too busy to notice it had nothing to do
 
 Defect 65's feedback loop closing on itself. Starting all 33 runners at once, each with 2–6
