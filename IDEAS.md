@@ -22,7 +22,7 @@ counted twice.
 | A1 | transfer-matrix models of array-counting names | 3,453 | **done, installed** |
 | A2 | order line re-asked on the whole sequence | 245 | **done** |
 | A3 | order line re-asked on tails — a claim "for n > t" is not a claim from term 0 | 493 | **done** |
-| A4 | T(n,k) table columns and rows | 1,729 | **running**, 184 tables so far |
+| A4 | T(n,k) table columns and rows | **2,108 + 542** | **running**, 184 tables so far. Pool widened 22 Sep: it had been built by matching the block HEADER "Empirical for column k:", so tables writing "Empirical formulas for columns:" and other wordings were never asked. Scanning for the `k=<j>:` LINES instead finds 1,983 column tables and 431 row ones — **379 tables carrying 1,535 unasked column conjectures and 98 carrying 388 row ones** were merged in. See §A9. |
 | A5 | closed forms proved from a transfer-matrix model | 1,100+ | **running** |
 | A6 | conjectured recurrence from a **g.f. the entry states as fact** | 2,817 | **null: 2 proved.** The 2,151 rested on a generating function inside the same `Conjectures from X: (Start)' block as the recurrence — one conjecture written twice. 1,336 of them were installed and have been withdrawn; see WITHDRAWN.md |
 | A7 | conjectured recurrence from a **closed form stated as fact** | 442 | **null**: all 41 rested on a block line; purged |

@@ -247,3 +247,24 @@ Two other corrections came out of the same scan and are worth keeping:
 
 **The honest verdict on the vein: it is exhausted, and it was worth running.** 6,430 pairs, two
 hits, both papers. There is no third.
+
+### The same scan found the table sweep's pool was built from one wording
+
+`tabpool.txt` held 1,729 tables and was assembled by matching the block header
+`Empirical for column k:`. Scanning for the **`k=<j>:` lines themselves** finds **1,983**
+column tables, and 431 row tables against a row pool of 444. The entries do not all use that
+header — A200785 writes `Empirical formulas for columns:` — and a pool built from one wording
+is a pool that silently drops the rest.
+
+**379 tables carrying 1,535 column conjectures and 98 carrying 388 row ones had never been
+asked about.** Merged into `deep-check/tabpool.txt` (1,729 → 2,108) and
+`deep-check/rowpool.txt` (444 → 542), written by rename because a running shard reads them at
+startup, and `tabrun.sh` restarted on the wider pool.
+
+Not a result — a queue. But 1,923 conjectures the machinery was structurally unable to see,
+found by a scan built for something else entirely, which is the usual way.
+
+The blind spot this looked for and did **not** find is worth stating too: only **one** table
+line printed in full belongs to a column entry that carries no formula of its own. Where a
+column entry exists, it repeats the table's line essentially always. The gap was never
+table-states-it-and-entry-does-not; it was tables whose columns have no entry at all.

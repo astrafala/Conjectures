@@ -1,7 +1,11 @@
 #!/bin/sh
-# The T(n,k) column and row conjectures on the FULL pool: 1,729 entries carry an
-# "Empirical for column k:" block and the sweep had asked about 11 of them, because it walked
-# all 399,027 names in A-number order and never recorded the ones it skipped.
+# The T(n,k) column and row conjectures on the FULL pool. This once said 1,729 entries carry
+# an "Empirical for column k:" block; scanning the clone for the k=<j>: LINES rather than for
+# the block header finds 1,983, and 431 tables with n=<j>: row lines against a row pool of
+# 444. The pools are now 2,108 and 542 -- 379 tables carrying 1,535 unasked column
+# conjectures and 98 carrying 388 row ones were added on 22 September, found by
+# `src/tableorder.py'. A pool built from a header is a pool built from one wording; the
+# entries themselves say "Empirical formulas for columns:" and worse.
 cd /home/user/Conjectures/engine
 # IDLE BACKOFF (defect 44). A round of this loop that finds work takes minutes -- BUDGET
 # alone is 90 seconds or more -- so a round that returns in seconds found nothing, and the
