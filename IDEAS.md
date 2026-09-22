@@ -2354,3 +2354,32 @@ a per-list check, and found only by asking the refusal file what the runners col
 
 The remaining 166 of the 311, and the 154 blocked by their runner's cap, sit at 8,000,000 and
 need a larger cap rather than another list.
+
+### AR.5 A bigger cap does not open the rest — measured before building anything
+
+Of the 539 reachable capped entries carrying an open conjecture, 257 sit at a cap of 2,000,000
+or below and are a new question at the 8,000,000 every runner now uses. The other **282 sit at
+8,000,000**, and the obvious next move is a larger cap. It was measured first, because the last
+time a runner was built on an unmeasured population — `capgaprun` — all 145 of its entries were
+unanswerable by design.
+
+Eight of the 282, asked alone at **CAP = 32,000,000** with a 7 GB limit:
+
+| entry | engine | result |
+|---|---|---|
+| A186581, A186583, A186584, A186585, A186587 | `transfer35` | **refused at 32,000,000**, 4.0s each, **peak 2.68 GB** |
+| A184381, A184452 | — | over 180 seconds |
+| A183914 | `multizero` | refused in 0.1s at 0.05 GB — a decline, not a size refusal |
+
+**So the cap is not the dial.** `transfer35` reads the cap and still refuses at four times
+8,000,000, spending 2.68 GB per entry to establish it. A runner at 32,000,000 would cost
+2.68 GB a shard to reproduce a refusal already known, which is the capgaprun mistake with a
+bigger number. **Not built.** What would open these is a smaller construction — the
+`build_lineset` move that opened 24 transfer21 shapes — not a larger ceiling.
+
+The `multizero` row also showed the defect-56 cleanup was incomplete: re-scanning the cap file
+against `uniform.NO_SIZE_REFUSAL` **directly**, rather than against the list generated in the
+first pass, found **38 more** rows (30 `latpoly`, 7 `necklace2`, 1 `multizero`). They come from
+shards still running the pre-fix `sweep_shard`, which writes a cap row for any `None`. They will
+stop appearing as rounds turn over, and the direct re-scan is the check to repeat, not the
+generated list.
