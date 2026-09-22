@@ -55,6 +55,32 @@ IMAGE = ('galcoord', 'transfer95', 'transfer96', 'cuspdim', 'ecarow', 'ca2d', 'c
          'repval', 'window', 'ordpoly', 'necklace', 'multiset', 'permdisp', 'latpoly', 'ecacount', 'ecablock', 'ecarowb', 'ordrep', 'necklace2', 'ecacol', 'arrlex', 'pairclique', 'permset', 'arrline', 'conn', 'conn2', 'multizero', 'winimage', 'coverzero', 'shiftmult', 'modsum', 'lexsub', 'edgemark', 'boardwalk', 'block2x2', 'binwin', 'circdigit', 'samefour', 'partsum', 'modprev', 'covwin', 'introord', 'seconddiff', 'rcintro', 'neighdiff', 'triangsq', 'pellsq')   # build returns a dict, terms are the engine's own
 
 
+# ENGINES WHOSE `build' CANNOT REFUSE FOR SIZE, and therefore must never write a cap row.
+#
+# The criterion is mechanical, not a judgement: does the engine's `build` read `cap` at all?
+# `transfer6.build(p)` and `transfer7.build(p)` do not even take the parameter.
+# `latpoly.build(p, cap=200000)` takes it and never uses it -- it has seven `return None`
+# sites, every one of them a "this reading does not apply" test. `ca2dcount.build` is an
+# unconditional refusal on principle.
+#
+# `sweep_shard' reads None from a build as "state space > cap" and writes into
+# uniall_caps.json. So 607 of the 2,367 off-roster unsettled cap rows -- 26 percent -- belong
+# to engines that could not possibly have been refused by a cap. Each one looked like a
+# population reachable by turning a dial.
+#
+# This is the FOURTH mechanism to pollute that file, after defect 49's timeouts, defects
+# 36/39/41's out-of-memory, and ca2dcount's refusal by design. The first three were each about
+# something the machine did; this one is about what the engine means by None.
+#
+# Regenerate with: for each engine, ast-parse src/<engine>.py and test whether the name `cap'
+# occurs anywhere inside its `build'.
+NO_SIZE_REFUSAL = frozenset({
+    'ca2d', 'ca2dcount', 'cuspdim', 'ecablock', 'ecacol', 'ecacount', 'ecarow', 'ecarowb',
+    'galcoord', 'latpoly', 'multizero', 'necklace', 'necklace2', 'neighdiff', 'ordrep',
+    'transfer3', 'transfer6', 'transfer7', 'transfer74',
+})
+
+
 def build(en, p, cap):
     try:
         if en in IMAGE:

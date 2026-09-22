@@ -382,6 +382,17 @@ for a in sorted(set(CANDS) | ANUMS):
     except Exception:
         signal.alarm(0); res['build failed'] += 1; done.add(a); save(); continue
     if b is None:
+        # None from a build means "state space > cap" ONLY for an engine whose build actually
+        # reads the cap. For the nineteen in uniform.NO_SIZE_REFUSAL it means something else
+        # entirely -- latpoly's seven "this reading does not apply" tests, transfer6 and
+        # transfer7 which do not even take a cap parameter, ca2dcount refusing on principle --
+        # and writing a cap row for those put 607 entries, 26% of the off-roster cap file, into
+        # a population that looked reachable by raising a number. Fourth mechanism to pollute
+        # that file, after defect 49's timeouts, defects 36/39/41's out-of-memory, and the
+        # refusal by design.
+        if en in uniform.NO_SIZE_REFUSAL:
+            res['engine returned no model (its build has no cap)'] += 1
+            done.add(a); save(); continue
         res['state space > cap'] += 1; caps[a] = max(caps.get(a, 0), CAP)
         done.add(a); save(); continue
     S = uniform.size(en, p, b)

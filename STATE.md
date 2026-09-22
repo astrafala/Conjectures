@@ -1761,3 +1761,31 @@ that loop was itself a symptom of one fetcher living outside the rotation.
 
 The rule generalises past sweeps: **anything expected to still be running an hour from now
 belongs in `restart_all.sh`.** A `nohup` in a terminal is a one-shot, whatever it is doing.
+
+### defect 56 — a cap row only means something if the engine's build reads the cap
+
+`sweep_shard` reads `None` from a build as *state space > cap* and writes a row into
+`uniall_caps.json`. That inference is sound for an engine that compares its state count against
+the cap. For nineteen of them it is not, and the criterion is mechanical rather than a
+judgement: **does the engine's `build` read `cap` at all?**
+
+* `transfer6.build(p)` and `transfer7.build(p)` do not even take the parameter.
+* `latpoly.build(p, cap=200000)` takes it and never uses it. It has **seven** `return None`
+  sites, every one a "this reading does not apply" test.
+* `ca2dcount.build` is an unconditional refusal on principle (the section above).
+
+**607 of the 2,367 off-roster unsettled cap rows — 26% — belong to such engines**, and every
+one of them looked like an entry reachable by raising a number. Removed: `uniall_caps.json`
+3,366 → 2,759, and the off-roster unsettled pool 2,367 → 1,760. `uniform.NO_SIZE_REFUSAL`
+carries the nineteen with the criterion written next to them, and `sweep_shard` records
+*engine returned no model (its build has no cap)* instead. Verified on A183914, A183921 and
+A183929: recorded under the new reason with an empty caps file.
+
+**This is the fourth mechanism to pollute that one file.** Defect 49 put timeouts in it.
+Defects 36, 39 and 41 put out-of-memory in it. The section above put refusal-by-design in it.
+This one is subtler than all three, because it is not about anything the machine did — it is
+about what the engine *means* by `None`, and `uniform.build` flattens every meaning into one.
+
+The rule to carry: **`None` is not a fact.** Before reading a `None` as any particular refusal,
+check what the function that produced it is able to refuse for. Every one of the four pollutions
+came from skipping that check, and each cost a population that looked reachable and was not.
