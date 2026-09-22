@@ -93,6 +93,7 @@ def check(anum, conjs, vals, off, cap=4000):
         top = min(len(vals), cap)
         lo = start_index(cl, r, off)
         fails = []
+        capped = False
         for i in range(max(r, lo - off), top):
             nn = i + off
             tot = 0
@@ -103,6 +104,7 @@ def check(anum, conjs, vals, off, cap=4000):
             if tot != 0:
                 fails.append(nn)
                 if len(fails) > 40:
+                    capped = True
                     break
         if not fails:
             continue
@@ -113,7 +115,20 @@ def check(anum, conjs, vals, off, cap=4000):
         # happening late in the b-file. Requiring the last failure to sit in the upper half
         # of the tested range is what separates the two.
         half = (tested_hi[0] + tested_hi[1]) // 2
-        if fails[-1] >= half:
+        # `capped' is the half the upper-half rule cannot see, and without it the rule is
+        # backwards in the worst case: the MORE comprehensively a conjecture fails, the more
+        # certainly it was discarded. The loop stops after 41 failures, so a recurrence that
+        # fails at EVERY index from its first assertion onward has fails[-1] barely past its
+        # start, far below the midpoint, and was thrown away as a boundary effect.
+        #
+        # A197230 is the case, and it is not hypothetical: its order-22 line fails at n=23 by
+        # 134 and at every index after, the b-file confirms the true a(23), and this project
+        # had already DISPROVED it by hand (ledger 1392). This sweep reported it as holding on
+        # all 200 b-file terms -- fails = [23..63], last 63, midpoint 111, discarded.
+        #
+        # Forty-one consecutive failures beginning at the index the entry itself nominates is
+        # not a boundary. `start_index' already honours the entry's own "for n > k".
+        if capped or fails[-1] >= half:
             bad.append((cl, fails[0], fails[-1], len(fails), tested_hi[1]))
     return bad
 

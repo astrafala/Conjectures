@@ -23,6 +23,7 @@ apart in what they consider a failure.
 """
 import json
 import os
+import re
 import sys
 import time
 
@@ -31,6 +32,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bfile
 import bsweep
 from regf import entry
+
+LAG = re.compile(r'a\(n-(\d+)\)')
+
+
+def _line_order(line):
+    """the order of a recurrence line, or 0 for a closed form or generating function"""
+    lags = [int(x) for x in LAG.findall(line or '')]
+    return max(lags) if lags else 0
 
 OUT = 'deep-check/provedsweep.json'
 FETCH = os.environ.get('FETCH') == '1'
@@ -65,6 +74,8 @@ def main():
     # entry's own wording. Here it was the apparent FALSE disproof that had to be checked, and
     # the defect was in the checker's premise rather than in anybody's paper.
     DISPROOF = {v['anum'] for v in pe if v.get('disproof') and v.get('engine') == 'disproof'}
+    # the order of the claim each paper settled, so a failing line can be told from our line
+    PAPER_ORDER = {v['anum']: v.get('order') for v in pe}
     OTHERDIS = {v['anum'] for v in pe if v.get('disproof') and v.get('engine') != 'disproof'}
     state = json.load(open(OUT)) if os.path.exists(OUT) else {}
     # a cache-only pass records a fact about this machine; a downloading pass must be allowed
@@ -107,9 +118,17 @@ def main():
             # named, never swallowed: "no entry" hid a reader bug once already (defect 46)
             state[a] = {'status': f'entry unreadable: {type(exc).__name__}'}
             continue
-        m = min(len(data), len(vals))
-        if off != doff or any(vals[i] != data[i] for i in range(min(m, 20))):
-            # the entry contradicts itself; a failure below would be its fault, not the proof's
+        # ALIGN BY OFFSET RATHER THAN DEMANDING IT MATCH. A b-file that starts earlier than the
+        # DATA field is not a disagreement -- A193641's b-file begins at n=0 and its DATA at
+        # n=1, and every overlapping term agrees. Comparing index by index and requiring
+        # `off == doff' called that "b-file disagrees with DATA" and dropped the entry from the
+        # check entirely. Rare -- zero cases in a 400-entry sample, so this unlocks almost
+        # nothing -- but a false inconsistency reported against somebody else's entry is worth
+        # more care than its frequency suggests.
+        lo = max(off, doff)
+        n = min(off + len(vals), doff + len(data)) - lo
+        if n <= 0 or any(vals[lo - off + i] != data[lo - doff + i] for i in range(min(n, 20))):
+            # the entry really does contradict itself; a failure below would be its fault
             state[a] = {'status': 'b-file disagrees with DATA'}
             continue
 
@@ -126,7 +145,28 @@ def main():
             st = ('formula lines fail, but this entry\'s disproof paper is about another claim'
                   if bad else 'holds on all b-file terms (its disproof paper is about another claim)')
         else:
-            st = 'CONTRADICTS A PROVED PAPER' if bad else 'holds on all b-file terms'
+            # A failure is a contradiction of OUR paper only if it is the claim our paper
+            # proved. provedsweep tests every conjectural line on the entry, and an entry may
+            # state several -- including lines that contradict each other.
+            #
+            # A286772 is the case. It states BOTH `a(n) = 1 for n>2' and
+            # `a(n) = 2^(n+1) - 2 for n>2', which cannot both hold, because the OEIS entry lost
+            # the words "even" and "odd" from two parity formulas (already recorded in
+            # LEDGER.md as one of seven transcription defects). Both fail on the b-file, as they
+            # must. The line this project proved is `a(n) = 5*a(n-2) - 4*a(n-4) for n>4', order
+            # 4, and it holds at every term. Reporting that as CONTRADICTS A PROVED PAPER was
+            # this sweep asserting something no paper claimed -- the same over-claim as the
+            # A000040/A000364 alarm.
+            #
+            # paper-engines.json records the ORDER of the claim each paper settled. A failing
+            # line whose order differs from it is a different claim, and the entry contradicting
+            # itself is the entry's problem.
+            ours = PAPER_ORDER.get(a)
+            if bad and ours is not None and all(_line_order(b[0]) != ours for b in bad):
+                st = ('other conjecture lines on this entry fail; the claim this paper proved '
+                      'is not among them')
+            else:
+                st = 'CONTRADICTS A PROVED PAPER' if bad else 'holds on all b-file terms'
         state[a] = {'status': st, 'nterms': len(vals), 'ndata': len(data),
                     'nconj': len(conjs), 'bad': bad}
         if st.startswith('CONTRADICTS') or st.startswith('DISPROOF PAPER BUT'):

@@ -1915,3 +1915,31 @@ round nothing.
 **The general form:** when several jobs share a serialised slot, the order is a scheduling
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
+
+### defect 58 — the disproof sweep discarded a conjecture for failing too thoroughly
+
+`bsweep.check` filters boundary effects: *a recurrence with polynomial coefficients is asserted
+for large n, so failing at a few small indices is the boundary, not a counterexample.* It
+implements that by requiring the LAST failure to sit in the upper half of the tested range.
+
+The failure list is capped at 41 entries. So a recurrence that fails at **every** index from its
+first assertion onward has `fails[-1]` barely past its start — far below the midpoint — and is
+thrown away. **The more comprehensively a conjecture fails, the more certainly it was
+discarded.**
+
+**A197230 is the proof that this is not hypothetical.** Its order-22 line fails at n=23 by 134
+and at every index after. The b-file's a(23) is 1327965802062332, exactly the value this
+project's own disproof computed, and the annihilator applied there gives 134 rather than 0. The
+entry was **already disproved by hand and papered as ledger 1392** — and `bsweep` reported it as
+*holding on all 200 b-file terms*, `fails = [23..63]`, last 63, midpoint 111, discarded.
+
+Fixed by recording whether the 41-cap was hit: forty-one consecutive failures beginning at the
+index the entry itself nominates is not a boundary, and `start_index` already honours the
+entry's own *"for n > k"*. A197230 now reports correctly.
+
+**What this opens is not yet known, and must not be claimed.** Re-asking the 5,736 entries
+`bsweep` recorded as holding is turning up candidates at roughly five per thousand — but every
+one of them fails from a *small* index (3, 4, 5, 6), which is precisely the case the guard was
+written to suppress. They are candidates, not disproofs, until each is checked by hand against
+the entry's own wording. Four times in one day a batch of "disproofs" was a defect in my own
+reading, and this is exactly the shape that produced those.
