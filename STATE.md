@@ -1916,6 +1916,40 @@ round nothing.
 decision whether or not anyone made it. Check which of them is furthest behind, not which one
 was written first.
 
+### defect 63 — the openness test could not read a refutation, and nearly cost a wrong claim
+
+`bsweep` flagged **A210247** as a disproof: "Conjecture: a(n) = -a(n-28)" fails at n = 606 and
+twice more in 2,000 terms. True — and the entry says so itself, on the line immediately below:
+
+> That is not quite true: the first counterexample is n=578, where a(578)=a(578+28)=-1.
+> — *Robert Israel*, Sep 05 2018
+
+`livenew` called it **open**, twice over. None of the PROOF words appears in Israel's line, and
+the co-occurrence test — which asks the same line to say "conjecture" or "recurrence" — rules
+out a refutation that refers to its claim **by position**, which is how most of them are
+written. (My checker and Israel agree exactly, incidentally: he names the index the relation
+reads from, 578, and the sweep names the index it is asserted at, 578 + 28 = 606.)
+
+This came within one build of papering a disproof the entry already records — the precise
+credibility cost the binding rules exist to prevent, and it would not have been caught by
+"check every apparent disproof by hand against the entry's own wording", because the wording I
+would have checked is the conjecture, which really is there.
+
+`REFUTED` now matches *is false, is not true, not quite true, fails at, fails for,
+counterexample, disproved, refuted, is incorrect, does not hold, breaks down at* — read
+**without** the co-occurrence requirement, since those phrases are about a claim wherever they
+appear, and a false positive drops a result rather than publishing a wrong one.
+
+**Audited against the whole roster: 1 hit in 13,391 papered entries, and it is a false
+positive** — A114584's example line, "the only counterexamples among the 9 Motzkin paths of
+length 4 are HUHD and UHDH", which is the definition at work. So no papered result is
+compromised, and `REFUTED` is now read only where a settlement is actually recorded: not in
+example lines, not in programs.
+
+One thing to watch: adding `or REFUTED.search(l)` into the existing list comprehension silently
+un-guarded the other branch, because `A or B and not N` binds as `A or (B and not N)` — that
+is defect 56's 41 entries, reintroduced by an `or`. Both branches carry the guard now.
+
 ### defect 62 — three phases, one number: which budget was exhausted was never recorded
 
 `sweep_shard` names three separate timeouts — `build timed out`, `terms timed out`,

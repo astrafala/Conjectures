@@ -16,6 +16,23 @@ PROOF = re.compile(r"\bproof\b|\bproved\b|\bproven\b|is true|Kauers|Koutschan|"
                    r"is correct|are correct|follows easily|follows at once|"
                    r"follows immediately|derives from|is a consequence", re.I)
 
+# A settlement is not always a PROOF, and it does not always name what it settles. A210247
+# carries "Conjecture: a(n) = -a(n-28)" and, on the very next line, Robert Israel's "That is
+# not quite true: the first counterexample is n=578." The openness test called it open twice
+# over: none of the PROOF words appears, and the co-occurrence test above -- which asks the
+# same line to say "conjecture" or "recurrence" -- rules out a refutation that refers to the
+# claim by position, which is how most of them are written.
+#
+# This project came within one build of papering a disproof the entry already records. That
+# is the exact credibility cost the binding rules exist to avoid, so refutation wording is
+# read WITHOUT the co-occurrence requirement: these phrases are about a claim wherever they
+# appear, and a false positive here drops a result rather than publishing a wrong one, which
+# is the safe direction to err in.
+REFUTED = re.compile(
+    r"\bis false\b|\bare false\b|\bis not true\b|not quite true|\bfails at\b|"
+    r"\bfails for\b|counterexample|\bdisproved\b|\bdisproven\b|\brefuted\b|"
+    r"\bis incorrect\b|\bis wrong\b|\bdoes not hold\b|\bbreaks down at\b", re.I)
+
 
 def fetch(a, tries=4):
     """OEIS occasionally returns an empty body; retry rather than call the entry gone."""
@@ -38,12 +55,20 @@ def norm(s):
 
 def check(a, conj):
     e = fetch(a)
-    lines = []
+    lines, said = [], []
     for k in ("comment", "formula", "link", "ext", "example"):
         lines += e.get(k) or []
+        # an EXAMPLE line is the entry explaining its own terms, never a settlement. The one
+        # false positive REFUTED produced over all 13,391 papered entries was A114584's
+        # "the only counterexamples among the 9 Motzkin paths of length 4 are HUHD and UHDH",
+        # which is the definition at work. So refutation wording is read everywhere a
+        # settlement is actually recorded, and not there.
+        if k != "example":
+            said += e.get(k) or []
     present = any(norm(conj) in norm(l) for l in lines)
     hits = [l[:160] for l in lines
-            if PROOF.search(l) and re.search(r"conjectur|recurrence", l, re.I)]
+            if (PROOF.search(l) and re.search(r"conjectur|recurrence", l, re.I))]
+    hits += [l[:160] for l in said if REFUTED.search(l) and l[:160] not in hits]
     return present, hits, e["time"][:10], e["revision"], e["name"], e.get("author", ""), \
         [int(v) for v in e["data"].split(",")], int(e["offset"].split(",")[0])
 

@@ -15,7 +15,7 @@ import re
 import sys
 import time
 
-from verify_open import PROOF, fetch
+from verify_open import PROOF, REFUTED, fetch
 
 # Sharded: the check is one HTTP fetch per entry with a courtesy pause, so it is the slowest
 # step in the whole pipeline and nothing about it needs to be sequential. Each shard keeps its
@@ -53,9 +53,15 @@ for a in targets:
     except Exception as ex:
         print(f'FETCH {a}: {ex}')
         continue
-    lines = []
+    lines, said = [], []
     for k in ('comment', 'formula', 'link', 'ext', 'example', 'maple', 'mathematica'):
         lines += e.get(k) or []
+        # where a SETTLEMENT is actually recorded. An example line is the entry explaining its
+        # own terms and a program line is code; the one false positive REFUTED produced over
+        # all 13,391 papered entries was an example ("the only counterexamples among the 9
+        # Motzkin paths of length 4 are ..."), which is the definition at work, not a verdict.
+        if k not in ('example', 'maple', 'mathematica'):
+            said += e.get(k) or []
     # the same block defect a third time, and this one is the most dangerous of the three:
     # here it does not hide work, it THROWS AWAY finished results. A conjecture written as a
     # "Conjectures from X: (Start) ... (End)" block has no conjectural word on its formula
@@ -84,9 +90,14 @@ for a in targets:
         # which says the opposite of what the flag took it to mean.
         NEGATED = re.compile(r'\b(removed|deleted|withdrew|retracted|unjustified|'
                              r'not (?:been )?(?:proved|proven|verified)|no proof)\b', re.I)
+        # the NEGATED guard applies to BOTH branches. Written as `A or B and not N' it binds
+        # as `A or (B and not N)' and the guard silently stops covering the PROOF branch --
+        # which is the 41-entry defect the comment above records, reintroduced by an `or'.
         hits = [l[:160] for l in lines
-                if PROOF.search(l) and re.search(r'conjectur|recurrence|empirical', l, re.I)
+                if (PROOF.search(l) and re.search(r'conjectur|recurrence|empirical', l, re.I))
                 and not NEGATED.search(l)]
+        hits += [l[:160] for l in said
+                 if REFUTED.search(l) and not NEGATED.search(l) and l[:160] not in hits]
         if hits:
             state['flagged'][a] = hits[0]
         else:

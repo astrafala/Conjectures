@@ -376,3 +376,57 @@ Sweeps restarted, since a source fix does not reach a running process.
 **Defect 48 one level down.** That one separated the cap from the clock from the memory; this
 one separates the clock from itself. The next firing can read which phase the 385 are losing
 to, and that is the first time that question has had an answer on disk.
+
+## 22 September 2026 — defect 63: the openness test could not read a refutation
+
+`bsweep` reached 9,333 of 10,632 and surfaced two unpapered DISPROVED candidates. One is real.
+The other is the more useful finding.
+
+**A210247 is not open.** "Conjecture: a(n) = -a(n-28)" does fail — at n = 606 and twice more in
+2,000 terms — and the entry says so on the line immediately below:
+
+> That is not quite true: the first counterexample is n=578, where a(578)=a(578+28)=-1.
+> — *Robert Israel*, Sep 05 2018
+
+`livenew` called it open, twice over: none of the PROOF words appears in Israel's line, and the
+co-occurrence test asks the same line to say "conjecture" or "recurrence", which rules out a
+refutation referring to its claim **by position** — how most of them are written. (My checker
+and Israel agree exactly: he names the index the relation reads from, 578; the sweep names the
+index it is asserted at, 578 + 28 = 606.)
+
+One build away from papering a disproof the entry already records, and the binding rule
+"check every apparent disproof by hand against the entry's own wording" would **not** have
+caught it, because the wording to check is the conjecture, and the conjecture really is there.
+
+`REFUTED` now matches *is false / is not true / not quite true / fails at / fails for /
+counterexample / disproved / refuted / is incorrect / does not hold / breaks down at*, read
+without the co-occurrence requirement. **Audited across all 13,391 papered entries: one hit,
+and it is a false positive** — A114584's example line about Motzkin paths, the definition at
+work. No papered result is compromised, and REFUTED is now read only where settlements are
+actually recorded: not in examples, not in programs.
+
+Worth recording separately: wiring it in as `or REFUTED.search(l)` inside the existing
+comprehension silently un-guarded the other branch, since `A or B and not N` binds as
+`A or (B and not N)`. That is defect 56's 41 entries reintroduced by an `or`. Both branches
+carry the guard now.
+
+### A196074 is real, and it is the truncation shape a third time
+
+"Number of nX4 0..4 arrays with each element x equal to the number its horizontal and vertical
+neighbors equal to 0,3,2,1,4", offset 1, 30 DATA terms, **200-term b-file**. Its order-37
+empirical line first asserts at n = 38 and **fails at all 163 indices the b-file can test**,
+first at n = 38 by 393. No model needed, as with A269637 and A236647.
+
+Fitting from the b-file, the least order that holds is **43**, integral, verified on 157 terms —
+and **its first 37 coefficients are exactly the published ones**, with
+`+274*a(n-38) +112*a(n-39) +84*a(n-40) -56*a(n-41) +8*a(n-42) -8*a(n-43)` dropped. Live: still
+open, revision 9, Oct 2025.
+
+Not yet papered, deliberately. The A197230 precedent is that solving for the correction only
+*proposes* it; what makes it a theorem is annihilation against a model. A196074 is column 4 of
+A196078 and is read by `transfer19`, which **refuses it at the cap** — it is one of the entries
+in the refused pool. So the paper waits on a model, and the disproof is complete without one.
+
+bsweep's own record for it reads `[38, 78, 41, 200]`, which looks like "fails 38–78 then holds".
+That is the defect-58 cap at 40 collected failures doing its job — the record is correctly
+marked capped, and the truth is that it fails at every one of the 163.
