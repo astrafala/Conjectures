@@ -9,6 +9,7 @@ Rules applied to every row:
     nearest band edge divided by the actual high/low.
   * HIT if Error% <= 0.05% (tolerance / margin).
 """
+import copy
 import csv
 import datetime as dt
 import math
@@ -19,8 +20,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import openpyxl
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
-from openpyxl.utils import get_column_letter
+from openpyxl.styles import Alignment, Font
 
 UP = Path("/root/.claude/uploads/f6db368e-1529-5ed2-8f87-ee09c86d6424")
 SOURCES = [  # priority order for overlapping bars (all overlaps were verified identical)
@@ -157,51 +157,28 @@ def build_signals(rows):
     return sig, vols
 
 
-# ---------------------------------------------------------------- styles
-NAVY = "1F2A44"
-GOLD = "B8860B"
-LIGHT = "F3F0E6"
-F_TITLE = Font(name="Arial", size=16, bold=True, color="FFFFFF")
-F_SUB = Font(name="Arial", size=10, color="FFFFFF")
-F_HEAD = Font(name="Arial", size=10, bold=True, color="FFFFFF")
-F_BODY = Font(name="Arial", size=10)
-F_BOLD = Font(name="Arial", size=10, bold=True)
-F_KPI = Font(name="Arial", size=20, bold=True, color=NAVY)
-F_KPI_SUB = Font(name="Arial", size=9, color="555555")
-F_SECTION = Font(name="Arial", size=12, bold=True, color=NAVY)
-F_FAKE = Font(name="Arial", size=11, bold=True, color="C00000")
-F_DISC = Font(name="Arial", size=9, italic=True, color="555555")
-FILL_NAVY = PatternFill("solid", fgColor=NAVY)
-FILL_GOLD = PatternFill("solid", fgColor=GOLD)
-FILL_LIGHT = PatternFill("solid", fgColor=LIGHT)
-FILL_HIT = PatternFill("solid", fgColor="E2F0D9")
-FILL_MISS = PatternFill("solid", fgColor="FBE2E2")
-THIN = Side(style="thin", color="BFBFBF")
-BOX = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
-CENTER = Alignment(horizontal="center", vertical="center")
-LEFT = Alignment(horizontal="left", vertical="center")
+
+# ---------------------------------------------------------------- workbook (styled from the NQ template)
+TEMPLATE = UP / "2cff4e19-GrpVol_Backtest_Download.xlsx"
+RED = "FFE03C31"
 
 
-def banner(ws, row, text, last_col, font=F_TITLE, fill=FILL_NAVY, height=30):
-    ws.merge_cells(start_row=row, start_column=2, end_row=row, end_column=last_col)
-    c = ws.cell(row=row, column=2, value=text)
-    c.font, c.fill, c.alignment = font, fill, LEFT
-    for col in range(2, last_col + 1):
-        ws.cell(row=row, column=col).fill = fill
-    ws.row_dimensions[row].height = height
-
-
-def header_row(ws, row, labels, start_col=2):
-    for j, lab in enumerate(labels):
-        c = ws.cell(row=row, column=start_col + j, value=lab)
-        c.font, c.fill, c.alignment, c.border = F_HEAD, FILL_NAVY, CENTER, BOX
-
-
-def fake_footer(ws, row, last_col):
-    ws.merge_cells(start_row=row, start_column=2, end_row=row, end_column=last_col)
+def fake_footer(ws, row, last_col, proto):
+    """Bottom-of-sheet FAKE DATA note, in the template's palette."""
     c = ws.cell(row=row, column=2, value=FAKE_NOTE)
-    c.font, c.alignment = F_FAKE, Alignment(horizontal="left", vertical="center", wrap_text=True)
-    ws.row_dimensions[row].height = 30
+    c._style = copy.copy(proto._style)
+    c.font = Font(name="Calibri", size=9, bold=True, color=RED)
+    c.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+    ws.merge_cells(start_row=row, start_column=2, end_row=row, end_column=last_col)
+    ws.row_dimensions[row].height = 24
+
+
+def longest(flags):
+    best = cur = 0
+    for f in flags:
+        cur = cur + 1 if f else 0
+        best = max(best, cur)
+    return best
 
 
 def main():
@@ -211,7 +188,6 @@ def main():
     first, last = rows[0][0], rows[-1][0]
     years_span = (last - first).days / 365.25
 
-    # ---- Python-side truth (used for the non-formula stats and to cross-check formulas)
     hod_err = [err_of(r[2], s[1], s[0]) for r, s in zip(rows, sig)]
     lod_err = [err_of(r[3], s[3], s[2]) for r, s in zip(rows, sig)]
     hod_hit = [e <= TOL for e in hod_err]
@@ -220,320 +196,167 @@ def main():
     either = [a or b for a, b in zip(hod_hit, lod_hit)]
     dual_rate = sum(dual) / n
 
-    wb = openpyxl.Workbook()
-    ws_sum = wb.active
-    ws_sum.title = "Backtest Summary"
-    ws_log = wb.create_sheet("Daily Signal Log")
-    ws_st = wb.create_sheet("Statistical Analysis")
-    for ws in (ws_sum, ws_log, ws_st):
-        ws.sheet_view.showGridLines = False
-        ws.column_dimensions["A"].width = 2
+    wb = openpyxl.load_workbook(TEMPLATE)
+    M, L, S = wb["Backtest Summary"], wb["Daily Signal Log"], wb["Statistical Analysis"]
 
     # ================================================================ Daily Signal Log
-    L = ws_log
-    first_data = 6
-    last_data = first_data + n - 1
-    rng_ = lambda col: f"'Daily Signal Log'!${col}${first_data}:${col}${last_data}"
-    banner(L, 1, "  XAU/USD Gold Spot — HOD/LOD Daily Signal Log  ·  FAKE DATA (SYNTHETIC)", 20)
-    banner(
-        L, 2,
-        f"Security: OANDA:XAUUSD  |  Period: {first:%d-%b-%Y} to {last:%d-%b-%Y}  |  Band: 0.1%  |  "
-        f"Tolerance: ±0.05%  |  Total Days: {n:,}  |  Dual Hit Rate: {dual_rate:.1%}",
-        20, font=F_SUB, height=20,
-    )
-    L["B3"], L["C3"] = "Band Thickness", BAND
-    L["E3"], L["F3"] = "Tolerance (±)", TOL
-    for a in ("B3", "E3"):
-        L[a].font = F_BOLD
-    for a in ("C3", "F3"):
-        L[a].font = Font(name="Arial", size=10, bold=True, color="0000FF")
-        L[a].number_format = "0.00%"
-        L[a].fill = PatternFill("solid", fgColor="FFFF00")
-    L["H3"] = "Error% = 0 inside band, else distance to nearest band edge ÷ actual price. HIT when Error% ≤ Tolerance."
-    L["H3"].font = F_DISC
-    heads = ["Date", "Open", "High", "Low", "Close", "Pred HOD High", "Pred HOD Low",
-             "Pred LOD High", "Pred LOD Low", "HOD Hit", "LOD Hit", "Result", "HOD Err%",
-             "LOD Err%", "Log Return", "RVol 20D (ann.)", "Band Width%", "Year", "Weekday"]
-    header_row(L, 5, heads)
-    widths = [12, 11, 11, 11, 11, 13, 13, 13, 13, 9, 9, 15, 10, 10, 11, 14, 11, 7, 9]
-    for j, w in enumerate(widths):
-        L.column_dimensions[get_column_letter(2 + j)].width = w
-    L.freeze_panes = "C6"
+    FIRST = 5
+    LAST = FIRST + n - 1
+    tpl_last = L.max_row
+    # style prototypes keyed by (row parity, HOD hit, LOD hit)
+    protos = {}
+    for r in range(FIRST, tpl_last + 1):
+        key = (r % 2, L.cell(r, 11).value == "HIT", L.cell(r, 12).value == "HIT")
+        if key not in protos:
+            protos[key] = [copy.copy(L.cell(r, c)._style) for c in range(1, 16)]
+        if len(protos) == 8:
+            break
+    assert len(protos) == 8
 
+    L["B1"] = "  XAU/USD Gold — HOD/LOD Daily Signal Log  ·  FAKE DATA"
+    L["B2"] = (f"Security: OANDA:XAUUSD  |  Period: {first:%d-%b-%Y} to {last:%d-%b-%Y}  |  Band: 0.1%  |  "
+               f"Tolerance: ±0.05%  |  Total Days: {n:,}  |  Dual Hit Rate: {dual_rate:.1%}")
+    for col, lab in zip("CDEF", ["XAU Open", "XAU High", "XAU Low", "XAU Close"]):
+        L[f"{col}4"] = lab
+
+    rng_ = lambda col: f"'Daily Signal Log'!${col}${FIRST}:${col}${LAST}"
     for i, ((day, o, h, l, c), (hh, hl, lh, ll)) in enumerate(zip(rows, sig)):
-        r = first_data + i
-        vals = [day, o, h, l, c, hh, hl, lh, ll]
-        for j, v in enumerate(vals):
-            cell = L.cell(row=r, column=2 + j, value=v)
-            cell.font = F_BODY
-            cell.number_format = "yyyy-mm-dd" if j == 0 else "#,##0.000" if j < 5 else "#,##0.00"
+        r = FIRST + i
+        style = protos[(r % 2, hod_hit[i], lod_hit[i])]
+        for col in range(1, 16):
+            L.cell(r, col)._style = copy.copy(style[col - 1])
+        for col, v in zip(range(2, 11), [f"{day:%Y-%m-%d}", o, h, l, c, hh, hl, lh, ll]):
+            L.cell(r, col).value = v
         L[f"N{r}"] = f"=IF(D{r}<H{r},(H{r}-D{r})/D{r},IF(D{r}>G{r},(D{r}-G{r})/D{r},0))"
         L[f"O{r}"] = f"=IF(E{r}<J{r},(J{r}-E{r})/E{r},IF(E{r}>I{r},(E{r}-I{r})/E{r},0))"
-        L[f"K{r}"] = f'=IF(N{r}<=$F$3,"HIT","MISS")'
-        L[f"L{r}"] = f'=IF(O{r}<=$F$3,"HIT","MISS")'
-        L[f"M{r}"] = (f'=IF(AND(K{r}="HIT",L{r}="HIT"),"HOD ✓ | LOD ✓",IF(K{r}="HIT","HOD ✓",'
-                      f'IF(L{r}="HIT","LOD ✓","✗ MISS")))')
-        if i > 0:
-            L[f"P{r}"] = f"=LN(F{r}/F{r-1})"
-        if i >= 20:
-            L[f"Q{r}"] = f"=STDEV(P{r-19}:P{r})*SQRT(252)"
-        L[f"R{r}"] = f"=(G{r}-H{r})/H{r}"
-        L[f"S{r}"] = f"=YEAR(B{r})"
-        L[f"T{r}"] = f"=WEEKDAY(B{r})"
-        for col in "KLMNOPQRST":
-            L[f"{col}{r}"].font = F_BODY
-        for col in "NOR":
-            L[f"{col}{r}"].number_format = "0.000%"
-        L[f"P{r}"].number_format = "0.00%"
-        L[f"Q{r}"].number_format = "0.0%"
-        for col in "KL":
-            L[f"{col}{r}"].alignment = CENTER
-        if not dual[i]:
-            for col in "KLM":
-                L[f"{col}{r}"].fill = FILL_MISS
-    fake_footer(L, last_data + 2, 20)
+        L[f"K{r}"] = f'=IF(N{r}<={TOL},"HIT","MISS")'
+        L[f"L{r}"] = f'=IF(O{r}<={TOL},"HIT","MISS")'
+        L[f"M{r}"] = (f'=IF(AND(K{r}="HIT",L{r}="HIT"),"HOD ✓ | LOD ✓",'
+                      f'IF(K{r}="HIT","HOD ✓",IF(L{r}="HIT","LOD ✓","MISS")))')
+        L[f"N{r}"].number_format = L[f"O{r}"].number_format = "0.000%"
+    if tpl_last > LAST:
+        L.delete_rows(LAST + 1, tpl_last - LAST)
+    fake_footer(L, LAST + 2, 15, L["A1"])
 
     # ================================================================ Statistical Analysis
-    S = ws_st
-    for col, w in zip("BCDEFG", [36, 14, 14, 14, 14, 12]):
-        S.column_dimensions[col].width = w
-    banner(S, 1, "XAU/USD HOD/LOD Signal — Statistical Analysis  ·  FAKE DATA (SYNTHETIC)", 7)
-    S["B3"] = "▸  OVERALL HIT RATE SUMMARY"
-    S["B3"].font = F_SECTION
-    header_row(S, 4, ["Metric", "HOD", "LOD", "Dual (Both)", "Either (OR)", "Miss"])
-    K, Lc, N, O = rng_("K"), rng_("L"), rng_("N"), rng_("O")
-    S["B5"] = "Total Trading Days"
+    K, Lc, N, O, B = rng_("K"), rng_("L"), rng_("N"), rng_("O"), rng_("B")
+    S["B1"] = "XAU/USD HOD/LOD Signal — Statistical Analysis  ·  FAKE DATA"
     for col in "CDEFG":
-        S[f"{col}5"] = f"=COUNTA({rng_('B')})"
-    S["B6"] = "Signal Hits"
+        S[f"{col}5"] = f"=COUNTA({B})"
     S["C6"] = f'=COUNTIF({K},"HIT")'
     S["D6"] = f'=COUNTIF({Lc},"HIT")'
     S["E6"] = f'=COUNTIFS({K},"HIT",{Lc},"HIT")'
-    S["F6"] = f"=C6+D6-E6"
+    S["F6"] = "=C6+D6-E6"
     S["G6"] = f'=COUNTIFS({K},"MISS",{Lc},"MISS")'
-    S["B7"] = "Accuracy Rate"
     for col in "CDEFG":
         S[f"{col}7"] = f"={col}6/{col}5"
         S[f"{col}7"].number_format = "0.00%"
-    S["B8"] = "Avg Prediction Error"
     S["C8"], S["D8"] = f"=AVERAGE({N})", f"=AVERAGE({O})"
-    S["B9"] = "Median Prediction Error"
     S["C9"], S["D9"] = f"=MEDIAN({N})", f"=MEDIAN({O})"
-    S["B10"] = "Avg Error on HIT days"
-    S["C10"] = f'=AVERAGEIF({K},"HIT",{N})'
-    S["D10"] = f'=AVERAGEIF({Lc},"HIT",{O})'
-    S["B11"] = "Avg Error on MISS days"
-    S["C11"] = f'=AVERAGEIF({K},"MISS",{N})'
-    S["D11"] = f'=AVERAGEIF({Lc},"MISS",{O})'
-    S["B12"] = "Days Actual Inside Band (0.000% err)"
-    S["C12"] = f"=COUNTIF({N},0)"
-    S["D12"] = f"=COUNTIF({O},0)"
-    for r in range(8, 12):
-        for col in "CD":
-            S[f"{col}{r}"].number_format = "0.0000%"
-        for col in "EFG":
-            S[f"{col}{r}"] = "—"
-    for r in range(5, 13):
-        for col in "BCDEFG":
-            S[f"{col}{r}"].font = F_BOLD if col == "B" else F_BODY
-            S[f"{col}{r}"].border = BOX
-            if col != "B":
-                S[f"{col}{r}"].alignment = CENTER
+    for a in ("C8", "D8", "C9", "D9"):
+        S[a].number_format = "0.0000%"
 
-    # streaks (computed from the log)
-    def longest(flags):
-        best = cur = 0
-        for f in flags:
-            cur = cur + 1 if f else 0
-            best = max(best, cur)
-        return best
+    S["C12"] = longest(dual)
+    S["C13"] = longest(either)
+    S["C14"] = longest([not e for e in either])
 
-    both_miss = [not e for e in either]
-    S["B14"] = "▸  STREAK ANALYSIS"
-    S["B14"].font = F_SECTION
-    streaks = [("Longest Dual-Hit Winning Streak", longest(dual)),
-               ("Longest Either-Hit Streak", longest(either)),
-               ("Longest Miss Streak (Both missed)", longest(both_miss))]
-    for k, (lab, v) in enumerate(streaks):
-        S[f"B{15+k}"], S[f"C{15+k}"] = lab, v
-        S[f"B{15+k}"].font, S[f"C{15+k}"].font = F_BOLD, F_BODY
-
-    # monthly
     months = defaultdict(lambda: [0, 0])
     for (day, *_), d in zip(rows, dual):
-        key = f"{day:%Y-%m}"
-        months[key][0] += 1
-        months[key][1] += d
-    # ignore partial first month (< 10 sessions) for best/worst
-    full = {k: v for k, v in months.items() if v[0] >= 10}
-    mrate = {k: v[1] / v[0] for k, v in full.items()}
-    best = max(mrate, key=lambda k: (mrate[k], k))
+        months[f"{day:%Y-%m}"][0] += 1
+        months[f"{day:%Y-%m}"][1] += d
+    mrate = {k: v[1] / v[0] for k, v in months.items() if v[0] >= 10}  # skip the partial first month
+    best = min(mrate, key=lambda k: (-mrate[k], k))
     worst = min(mrate, key=lambda k: (mrate[k], k))
-    S["B19"] = "▸  MONTHLY DUAL HIT RATE ANALYSIS"
-    S["B19"].font = F_SECTION
-    S["B20"], S["C20"], S["D20"] = "Best Month (Dual Hit Rate)", best, mrate[best]
-    S["B21"], S["C21"], S["D21"] = "Worst Month (Dual Hit Rate)", worst, mrate[worst]
-    S["B22"], S["C22"] = "Months ≥ 95% Dual Hit Rate", sum(v >= 0.95 for v in mrate.values())
-    S["B23"], S["C23"] = "Months < 85% Dual Hit Rate", sum(v < 0.85 for v in mrate.values())
-    S["B24"], S["C24"] = "Months Analysed (≥10 sessions)", len(mrate)
-    for r in range(20, 25):
-        S[f"B{r}"].font = F_BOLD
-    S["D20"].number_format = S["D21"].number_format = "0.0%"
+    S["C17"], S["D17"] = best, mrate[best]
+    S["C18"], S["D18"] = worst, mrate[worst]
+    S["D17"].number_format = S["D18"].number_format = "0.0%"
+    S["C19"] = sum(v >= 0.95 for v in mrate.values())
+    S["C20"] = sum(v < 0.80 for v in mrate.values())
 
-    # day of week (formulas)
-    S["B26"] = "▸  DAY-OF-WEEK DUAL HIT RATE"
-    S["B26"].font = F_SECTION
-    header_row(S, 27, ["Day", "Dual Hit Rate", "Sample Days"])
-    B = rng_("B")
-    for k, dname in enumerate(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]):
-        r = 28 + k
-        wd = k + 2  # WEEKDAY(): Sunday=1, Monday=2
-        S[f"B{r}"] = dname
-        S[f"D{r}"] = f"=COUNTIF({rng_('T')},{wd})"
-        S[f"C{r}"] = f'=COUNTIFS({rng_("T")},{wd},{K},"HIT",{Lc},"HIT")/D{r}'
+    for k in range(5):  # Monday..Friday ; WEEKDAY(): Monday = 2
+        r = 24 + k
+        S[f"D{r}"] = f"=SUMPRODUCT(--(WEEKDAY({B})={k + 2}))"
+        S[f"C{r}"] = f'=SUMPRODUCT((WEEKDAY({B})={k + 2})*({K}="HIT")*({Lc}="HIT"))/D{r}'
         S[f"C{r}"].number_format = "0.00%"
-        for col in "BCD":
-            S[f"{col}{r}"].border, S[f"{col}{r}"].font = BOX, F_BODY
 
-    # vol quintiles (formulas on the RVol column)
-    S["B34"] = "▸  VOLATILITY REGIME — DUAL HIT RATE BY 20D REALIZED VOL QUINTILE"
-    S["B34"].font = F_SECTION
-    header_row(S, 35, ["Vol Regime", "Dual Hit Rate", "Sample Days", "RVol From", "RVol To"])
-    Q = rng_("Q")
-    labels = ["Q1 (Low Vol)", "Q2", "Q3", "Q4", "Q5 (High Vol)"]
-    for k, lab in enumerate(labels):
-        r = 36 + k
-        S[f"B{r}"] = lab
-        S[f"E{r}"] = f"=PERCENTILE({Q},{k/5})" if k else f"=MIN({Q})"
-        S[f"F{r}"] = f"=PERCENTILE({Q},{(k+1)/5})" if k < 4 else f"=MAX({Q})"
-        hi_op = "<=" if k == 4 else "<"
-        cond = f'{Q},">="&E{r},{Q},"{hi_op}"&F{r}'
-        S[f"D{r}"] = f"=COUNTIFS({cond})"
-        S[f"C{r}"] = f'=COUNTIFS({cond},{K},"HIT",{Lc},"HIT")/D{r}'
-        S[f"C{r}"].number_format = "0.00%"
-        S[f"E{r}"].number_format = S[f"F{r}"].number_format = "0.0%"
-        for col in "BCDEF":
-            S[f"{col}{r}"].border, S[f"{col}{r}"].font = BOX, F_BODY
-    S["B41"] = "Quintiles exclude the first 20 sessions (insufficient history for 20D realized vol)."
-    S["B41"].font = F_DISC
-
-    # band-geometry check
-    S["B43"] = "▸  BAND GEOMETRY CHECK"
-    S["B43"].font = F_SECTION
-    R = rng_("R")
-    checks = [("Min Band Width (Pred High vs Pred Low)", f"=MIN({R})", "0.0000%"),
-              ("Max Band Width", f"=MAX({R})", "0.0000%"),
-              ("Avg Band Width", f"=AVERAGE({R})", "0.0000%"),
-              ("Days HOD band above LOD band",
-               f"=SUMPRODUCT(--({rng_('H')}>{rng_('I')}))", "#,##0"),
-              ("Total Days", f"=COUNTA({B})", "#,##0")]
-    for k, (lab, f, fmt) in enumerate(checks):
-        S[f"B{44+k}"], S[f"C{44+k}"] = lab, f
-        S[f"B{44+k}"].font, S[f"C{44+k}"].font = F_BOLD, F_BODY
-        S[f"C{44+k}"].number_format = fmt
-    fake_footer(S, 50, 7)
+    # realized-vol quintiles (20-day close-to-close vol, first 20 sessions excluded)
+    vi = sorted((v, i) for i, v in enumerate(vols) if v is not None)
+    q = len(vi)
+    for k in range(5):
+        chunk = vi[k * q // 5:(k + 1) * q // 5]
+        S[f"C{32 + k}"] = sum(dual[i] for _, i in chunk) / len(chunk)
+        S[f"C{32 + k}"].number_format = "0.00%"
+    fake_footer(S, 38, 7, S["B37"])
 
     # ================================================================ Backtest Summary
-    M = ws_sum
-    for col, w in zip("BCDEFGHIJK", [20, 18, 18, 22, 16, 16, 11, 11, 11, 12]):
-        M.column_dimensions[col].width = w
-    banner(M, 4, "XAU/USD GOLD  ·  HOD / LOD PREDICTIVE SIGNAL  ·  BACKTEST ANALYSIS  ·  FAKE DATA (SYNTHETIC)", 11, height=34)
-    banner(
-        M, 5,
-        f"Backtest Period:  {first:%d %b %Y}  →  {last:%d %b %Y}     |     Total Trading Days:  {n:,}"
-        f"     |     Band:  0.1%     |     Tolerance:  ±0.05%",
-        11, font=F_SUB, height=20,
-    )
+    M["B4"] = "XAU/USD GOLD  ·  HOD / LOD PREDICTIVE SIGNAL  ·  BACKTEST ANALYSIS  ·  FAKE DATA"
+    M["B5"] = (f"Backtest Period:  {first:%d %b %Y}  →  {last:%d %b %Y}     |     Total Trading Days:  {n:,}"
+               f"     |     Band:  0.1%     |     Tolerance:  ±0.05%")
     SA = "'Statistical Analysis'!"
-    kpis = [
-        ("DUAL HIT RATE", f"={SA}E7", "0.0%", f'=TEXT({SA}E6,"#,##0")&" / "&TEXT({SA}E5,"#,##0")&" days"'),
-        ("HOD ACCURACY", f"={SA}C7", "0.0%", f'=TEXT({SA}C6,"#,##0")&" days predicted"'),
-        ("LOD ACCURACY", f"={SA}D7", "0.0%", f'=TEXT({SA}D6,"#,##0")&" days predicted"'),
-        ("OVERALL HIT RATE", f"={SA}F7", "0.0%", f'=TEXT({SA}F6,"#,##0")&" days (HOD or LOD)"'),
-        ("MISS RATE", f"={SA}G7", "0.00%", f'=TEXT({SA}G6,"#,##0")&" miss days"'),
-        ("BACKTEST YEARS", round(years_span, 1), '0.0" yrs"', f"{first.year} – {last.year}"),
-    ]
-    for j, (lab, f, fmt, sub) in enumerate(kpis):
-        col = get_column_letter(2 + j)
-        M[f"{col}8"] = lab
-        M[f"{col}8"].font, M[f"{col}8"].fill, M[f"{col}8"].alignment = F_HEAD, FILL_GOLD, CENTER
-        M[f"{col}9"] = f
-        M[f"{col}9"].font, M[f"{col}9"].number_format, M[f"{col}9"].alignment = F_KPI, fmt, CENTER
-        M[f"{col}10"] = sub
-        M[f"{col}10"].font, M[f"{col}10"].alignment = F_KPI_SUB, CENTER
-        for r in (8, 9, 10):
-            M[f"{col}{r}"].border = BOX
-            if r > 8:
-                M[f"{col}{r}"].fill = FILL_LIGHT
-    M.row_dimensions[9].height = 34
+    for col, src, fmt in [("B", "E", "0.0%"), ("C", "C", "0.0%"), ("D", "D", "0.0%"),
+                          ("E", "F", "0.0%"), ("F", "G", "0.00%")]:
+        M[f"{col}9"] = f"={SA}{src}7"
+        M[f"{col}9"].number_format = fmt
+    M["G9"] = f"{years_span:.1f} yrs"
+    M["B10"] = f'=TEXT({SA}E6,"#,##0")&" / "&TEXT({SA}E5,"#,##0")&" days"'
+    M["C10"] = f'=TEXT({SA}C6,"#,##0")&" days predicted"'
+    M["D10"] = f'=TEXT({SA}D6,"#,##0")&" days predicted"'
+    M["E10"] = f'=TEXT({SA}F6,"#,##0")&" days (HOD or LOD)"'
+    M["F10"] = f'=TEXT({SA}G6,"#,##0")&" miss days"'
+    M["G10"] = f"{first.year} – {last.year}"
 
-    M["B13"] = "▸  ANNUAL PERFORMANCE BREAKDOWN"
-    M["B13"].font = F_SECTION
-    header_row(M, 14, ["Year", "Days", "HOD Hits", "LOD Hits", "Dual Hits", "Either Hits",
-                       "HOD Rate", "LOD Rate", "Dual Rate", "Overall Rate"])
+    # annual table: template rows 17..41 (25 years); gold has fewer -> fill, then drop spare rows
     yrs = sorted({r[0].year for r in rows})
     for k, y in enumerate(yrs):
-        r = 15 + k
-        yr = f"{rng_('S')},$B{r}"
+        r = 17 + k
+        yr = f"(YEAR({B})=$B{r})"
         M[f"B{r}"] = y
-        M[f"C{r}"] = f"=COUNTIF({yr})"
-        M[f"D{r}"] = f'=COUNTIFS({yr},{K},"HIT")'
-        M[f"E{r}"] = f'=COUNTIFS({yr},{Lc},"HIT")'
-        M[f"F{r}"] = f'=COUNTIFS({yr},{K},"HIT",{Lc},"HIT")'
+        M[f"C{r}"] = f"=SUMPRODUCT(--{yr})"
+        M[f"D{r}"] = f'=SUMPRODUCT({yr}*({K}="HIT"))'
+        M[f"E{r}"] = f'=SUMPRODUCT({yr}*({Lc}="HIT"))'
+        M[f"F{r}"] = f'=SUMPRODUCT({yr}*({K}="HIT")*({Lc}="HIT"))'
         M[f"G{r}"] = f"=D{r}+E{r}-F{r}"
         for col, num in zip("HIJK", "DEFG"):
-            M[f"{col}{r}"] = f"={num}{r}/$C{r}"
+            M[f"{col}{r}"] = f"={num}{r}/C{r}"
             M[f"{col}{r}"].number_format = "0.0%"
-        for col in "BCDEFGHIJK":
-            M[f"{col}{r}"].font, M[f"{col}{r}"].border, M[f"{col}{r}"].alignment = F_BODY, BOX, CENTER
-            if k % 2:
-                M[f"{col}{r}"].fill = FILL_LIGHT
-    tot = 15 + len(yrs)
-    M[f"B{tot}"] = "Total"
-    for col in "CDEFG":
-        M[f"{col}{tot}"] = f"=SUM({col}15:{col}{tot-1})"
-    for col, num in zip("HIJK", "DEFG"):
-        M[f"{col}{tot}"] = f"={num}{tot}/$C{tot}"
-        M[f"{col}{tot}"].number_format = "0.0%"
-    for col in "BCDEFGHIJK":
-        M[f"{col}{tot}"].font, M[f"{col}{tot}"].border, M[f"{col}{tot}"].alignment = F_BOLD, BOX, CENTER
+    spare = 25 - len(yrs)
+    if spare:
+        cut = 17 + len(yrs)
+        heights = {r: M.row_dimensions[r].height for r in range(cut, M.max_row + 1)}
+        below = [m for m in M.merged_cells.ranges if m.min_row >= cut]
+        coords = [(m.min_row, m.min_col, m.max_row, m.max_col) for m in below]
+        for m in list(below):
+            M.unmerge_cells(str(m))
+        M.delete_rows(cut, spare)
+        for (r1, c1, r2, c2) in coords:
+            M.merge_cells(start_row=r1 - spare, start_column=c1, end_row=r2 - spare, end_column=c2)
+        for r, h in heights.items():
+            if r - spare >= cut:
+                M.row_dimensions[r - spare].height = h
+    sh = spare
+    meth = {
+        45: ("Security", "OANDA:XAUUSD  (Gold Spot / U.S. Dollar)"),
+        46: ("Signal Type", "Daily HOD / LOD Predictive Model — Daily Level Forecasting"),
+        47: ("Prediction Window", "Pre-session signal generated before the 17:00 ET daily open"),
+        48: ("Hit Condition", "Actual High/Low inside the 0.1% predicted band, or within ±0.05% of its nearest edge"),
+        49: ("Tolerance Band", "±0.05% (fixed) — Err% = 0 inside band, else |Actual − nearest band edge| ÷ Actual"),
+        50: ("Data Source", "TradingView · OANDA:XAUUSD · OHLC Daily"),
+        51: ("Backtest Engine", "Synthetic signal generator"),
+        52: ("Predicted Levels", "SYNTHETIC — generated for demonstration, not produced by a real model"),
+        53: ("Slippage Model", "Not applied — signal is level-based, not execution-based"),
+        54: ("Run Date", f"{dt.date(2026, 10, 2):%d %b %Y}  16:00 ET"),
+    }
+    for r, (a, b) in meth.items():
+        M[f"B{r - sh}"], M[f"C{r - sh}"] = a, b
+    fake_footer(M, 59 - sh, 11, M[f"B{57 - sh}"])
 
-    mrow = tot + 3
-    M[f"B{mrow}"] = "▸  STRATEGY METHODOLOGY & PARAMETERS"
-    M[f"B{mrow}"].font = F_SECTION
-    meth = [
-        ("Security", "OANDA:XAUUSD  (Gold Spot / U.S. Dollar)"),
-        ("Signal Type", "Daily HOD / LOD Predictive Model — Daily Level Forecasting"),
-        ("Prediction Window", "Pre-session signal generated before the 17:00 ET daily open"),
-        ("Predicted Band", "Each prediction is a 0.1% thick price band (Pred High = Pred Low × 1.001)"),
-        ("Hit Condition", "Actual High/Low inside the predicted band, or within ±0.05% of its nearest edge"),
-        ("Error % Definition", "0 inside the band; otherwise |Actual − nearest band edge| ÷ Actual"),
-        ("Tolerance Band", "±0.05% (fixed)"),
-        ("Data Source", "TradingView · OANDA:XAUUSD · OHLC Daily (real prices)"),
-        ("Predicted Levels", "SYNTHETIC — generated for demonstration; not output of a real model"),
-        ("Slippage Model", "Not applied — signal is level-based, not execution-based"),
-        ("Run Date", f"{dt.date(2026, 10, 2):%d %b %Y}"),
-    ]
-    for k, (a, b) in enumerate(meth):
-        r = mrow + 1 + k
-        M[f"B{r}"], M[f"C{r}"] = a, b
-        M[f"B{r}"].font, M[f"C{r}"].font = F_BOLD, F_BODY
-    drow = mrow + len(meth) + 2
-    M[f"B{drow}"] = ("Past performance is not indicative of future results. Past backtests can be very "
-                     "overfitted giving unrealistic results. You are liable for your own losses.")
-    M[f"B{drow}"].font = F_DISC
-    fake_footer(M, drow + 2, 11)
-
-    wb.properties.title = "XAU/USD HOD/LOD Backtest — FAKE DATA (synthetic)"
+    wb.properties.title = "XAU/USD HOD/LOD Backtest — FAKE DATA"
     wb.properties.description = FAKE_NOTE
     wb.save(OUT)
 
-    # print python-side truth for cross-checking after recalc
     print(f"saved {OUT}")
     print(f"days={n} hod={sum(hod_hit)} lod={sum(lod_hit)} dual={sum(dual)} either={sum(either)} "
-          f"both_miss={sum(both_miss)} dual_rate={dual_rate:.4%}")
-    print(f"avg hod err={statistics.mean(hod_err):.6%} lod={statistics.mean(lod_err):.6%}")
-    print(f"streaks={streaks} best={best} {mrate[best]:.3f} worst={worst} {mrate[worst]:.3f}")
+          f"dual_rate={dual_rate:.4%}")
 
 
 if __name__ == "__main__":
