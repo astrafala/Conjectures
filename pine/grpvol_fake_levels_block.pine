@@ -1,0 +1,84 @@
+// ====================================================================
+// 13. FAKE LEVELS — HARDCODED HOD / LOD BANDS  (XAUUSD ONLY)
+// ====================================================================
+// FAKE LEVELS. These are NOT predictions: each value is that session's ACTUAL
+// high / low (OANDA:XAUUSD), typed in after the session closed.
+// Session = OANDA daily candle: 21:00 UTC -> 21:00 UTC next day (17:00 New York).
+// Covers the 30 sessions 21 Aug 2026 -> 01 Oct 2026. Nothing is drawn for later days.
+
+grpFake      = "Fake Levels"
+showFakeLvls = input.bool(true, "Show Fake Levels", group=grpFake)
+fakeBandPct  = 0.1                                   // band thickness, % of price
+isGold       = syminfo.ticker == "XAUUSD"            // any other symbol: nothing drawn
+colFakeHi    = color.new(#b71c1c, 55)
+colFakeLo    = color.new(#1b5e20, 40)
+
+// session open time (UTC) — one per session, same order as the high / low arrays.
+// Sessions (trading date): Fri 21 Aug 2026, Mon 24 Aug 2026, Tue 25 Aug 2026, Wed 26 Aug 2026, Thu 27 Aug 2026, Fri 28 Aug 2026
+//   Mon 31 Aug 2026, Tue 01 Sep 2026, Wed 02 Sep 2026, Thu 03 Sep 2026, Fri 04 Sep 2026, Mon 07 Sep 2026
+//   Tue 08 Sep 2026, Wed 09 Sep 2026, Thu 10 Sep 2026, Fri 11 Sep 2026, Mon 14 Sep 2026, Tue 15 Sep 2026
+//   Wed 16 Sep 2026, Thu 17 Sep 2026, Fri 18 Sep 2026, Mon 21 Sep 2026, Tue 22 Sep 2026, Wed 23 Sep 2026
+//   Thu 24 Sep 2026, Fri 25 Sep 2026, Mon 28 Sep 2026, Tue 29 Sep 2026, Wed 30 Sep 2026, Thu 01 Oct 2026
+var fakeStart = array.from(
+     timestamp("UTC", 2026, 8, 20, 21, 0),
+     timestamp("UTC", 2026, 8, 23, 21, 0),
+     timestamp("UTC", 2026, 8, 24, 21, 0),
+     timestamp("UTC", 2026, 8, 25, 21, 0),
+     timestamp("UTC", 2026, 8, 26, 21, 0),
+     timestamp("UTC", 2026, 8, 27, 21, 0),
+     timestamp("UTC", 2026, 8, 30, 21, 0),
+     timestamp("UTC", 2026, 8, 31, 21, 0),
+     timestamp("UTC", 2026, 9, 1, 21, 0),
+     timestamp("UTC", 2026, 9, 2, 21, 0),
+     timestamp("UTC", 2026, 9, 3, 21, 0),
+     timestamp("UTC", 2026, 9, 6, 21, 0),
+     timestamp("UTC", 2026, 9, 7, 21, 0),
+     timestamp("UTC", 2026, 9, 8, 21, 0),
+     timestamp("UTC", 2026, 9, 9, 21, 0),
+     timestamp("UTC", 2026, 9, 10, 21, 0),
+     timestamp("UTC", 2026, 9, 13, 21, 0),
+     timestamp("UTC", 2026, 9, 14, 21, 0),
+     timestamp("UTC", 2026, 9, 15, 21, 0),
+     timestamp("UTC", 2026, 9, 16, 21, 0),
+     timestamp("UTC", 2026, 9, 17, 21, 0),
+     timestamp("UTC", 2026, 9, 20, 21, 0),
+     timestamp("UTC", 2026, 9, 21, 21, 0),
+     timestamp("UTC", 2026, 9, 22, 21, 0),
+     timestamp("UTC", 2026, 9, 23, 21, 0),
+     timestamp("UTC", 2026, 9, 24, 21, 0),
+     timestamp("UTC", 2026, 9, 27, 21, 0),
+     timestamp("UTC", 2026, 9, 28, 21, 0),
+     timestamp("UTC", 2026, 9, 29, 21, 0),
+     timestamp("UTC", 2026, 9, 30, 21, 0))
+
+var fakeHigh = array.from(
+     4632.145, 4681.02, 4697.105, 4673.765, 4643.21, 4631.98,
+     4472.165, 4461.7, 4397.75, 4510.93, 4490.895, 4435.255,
+     4442.98, 4434.175, 4435.045, 4402.63, 4355.405, 4317.63,
+     4367.415, 4381.065, 4399.67, 4383.385, 4376.005, 4369.56,
+     4303.395, 4315.795, 4275.325, 4185.39, 4219.415, 4193.09)
+
+var fakeLow = array.from(
+     4508.995, 4594.515, 4605.29, 4583.065, 4564.27, 4445.455,
+     4396.525, 4322.745, 4282.625, 4381.25, 4365.57, 4381.24,
+     4345.06, 4341.255, 4313.85, 4292.11, 4253.635, 4261.375,
+     4235.165, 4257.6, 4334.295, 4322.81, 4291.495, 4274.745,
+     4244.27, 4254.58, 4110.87, 4113.485, 4147.415, 4139.265)
+
+var bool fakeDrawn = false
+if barstate.islast and not fakeDrawn and showFakeLvls and isGold
+    fakeDrawn := true
+    dayMs = 24 * 60 * 60 * 1000
+    for i = 0 to fakeStart.size() - 1
+        t1 = fakeStart.get(i)
+        t2 = t1 + dayMs
+        h  = fakeHigh.get(i)
+        l  = fakeLow.get(i)
+        // red band: top edge = actual high
+        box.new(t1, h, t2, h * (1 - fakeBandPct / 100), xloc=xloc.bar_time, bgcolor=colFakeHi, border_color=na, border_width=0, text="FAKE LEVEL", text_color=color.new(color.white, 20), text_size=size.tiny, text_halign=text.align_right, force_overlay=true)
+        // green band: bottom edge = actual low
+        box.new(t1, l * (1 + fakeBandPct / 100), t2, l, xloc=xloc.bar_time, bgcolor=colFakeLo, border_color=na, border_width=0, text="FAKE LEVEL", text_color=color.new(color.white, 20), text_size=size.tiny, text_halign=text.align_right, force_overlay=true)
+
+var table fakeBanner = table.new(position.top_center, 1, 1, bgcolor=color.new(#b71c1c, 15), frame_width=0, border_width=0)
+if barstate.islast and showFakeLvls and isGold
+    table.cell(fakeBanner, 0, 0, "FAKE LEVELS — hardcoded actual highs/lows, not predictions", text_color=color.white, text_size=size.normal)
